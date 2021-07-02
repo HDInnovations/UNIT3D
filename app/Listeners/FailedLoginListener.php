@@ -14,7 +14,6 @@
 namespace App\Listeners;
 
 use App\Models\FailedLoginAttempt;
-use App\Models\Group;
 use App\Notifications\FailedLogin;
 
 class FailedLoginListener

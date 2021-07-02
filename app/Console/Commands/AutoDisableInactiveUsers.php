@@ -14,7 +14,6 @@
 namespace App\Console\Commands;
 
 use App\Jobs\SendDisableUserMail;
-use App\Models\Group;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;

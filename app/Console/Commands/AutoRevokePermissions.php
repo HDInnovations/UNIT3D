@@ -13,7 +13,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Group;
 use App\Models\User;
 use App\Models\Warning;
 use Illuminate\Console\Command;

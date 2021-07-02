@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Group;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Torrent;

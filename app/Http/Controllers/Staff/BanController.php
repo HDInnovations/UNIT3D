@@ -114,7 +114,7 @@ class BanController extends Controller
         $ban->removed_at = Carbon::now();
 
         $v = \validator($request->all(), [
-            'role_id'     => 'required',
+            'role_id'      => 'required',
             'unban_reason' => 'required',
         ]);
 

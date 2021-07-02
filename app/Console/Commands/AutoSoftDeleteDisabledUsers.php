@@ -16,7 +16,6 @@ namespace App\Console\Commands;
 use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
 use App\Models\Follow;
-use App\Models\Group;
 use App\Models\Invite;
 use App\Models\Like;
 use App\Models\Message;
