@@ -1145,7 +1145,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->hasRole('moderator') || $request->user()->id == $user->id, 403);
         if ($request->has('view') && $request->input('view') == 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
@@ -1608,7 +1608,7 @@ class UserController extends Controller
     public function downloads(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
+        if (($request->user()->id == $user->id || $request->user()->hasRole('moderator'))) {
             $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
             $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
             $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
@@ -1674,7 +1674,7 @@ class UserController extends Controller
     public function requested(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
+        if (($request->user()->id == $user->id || $request->user()->hasRole('moderator'))) {
             $logger = 'user.private.requests';
 
             $torrentRequests = TorrentRequest::with(['user', 'category', 'type'])->where('user_id', '=', $user->id)->latest()->paginate(25);
@@ -1704,7 +1704,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->hasRole('moderator') || $request->user()->id == $user->id, 403);
         $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
         $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
@@ -1748,7 +1748,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->hasRole('moderator') || $request->user()->id == $user->id, 403);
         $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
         $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
@@ -1777,7 +1777,7 @@ class UserController extends Controller
     public function resurrections(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->hasRole('moderator') || $request->user()->id == $user->id, 403);
 
         $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(50);
 
@@ -1796,7 +1796,7 @@ class UserController extends Controller
     public function uploads(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        if ($request->user()->id == $user->id || $request->user()->group->is_modo) {
+        if ($request->user()->id == $user->id || $request->user()->hasRole('moderator')) {
             $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
             $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
             $hisDownl = History::where('user_id', '=', $user->id)->sum('actual_downloaded');
@@ -1835,7 +1835,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->hasRole('moderator') || $request->user()->id == $user->id, 403);
 
         $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
@@ -1868,7 +1868,7 @@ class UserController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_unless($request->user()->hasRole('moderator') || $request->user()->id == $user->id, 403);
 
         $hisUpl = History::where('user_id', '=', $user->id)->sum('actual_uploaded');
         $hisUplCre = History::where('user_id', '=', $user->id)->sum('uploaded');
@@ -1898,7 +1898,7 @@ class UserController extends Controller
      */
     public function getBans(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->hasRole('moderator'), 403);
 
         $user = User::where('username', '=', $username)->firstOrFail();
         $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();

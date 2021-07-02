@@ -35,7 +35,7 @@
             </div>
         @else
             <div class="block">
-                @if(auth()->user()->group && auth()->user()->group->is_modo == 1)
+                @if(auth()->user()->group && auth()->user()->hasRole('moderator') == 1)
                     @include('user.buttons.achievement')
                 @else
                     @include('user.buttons.public')

@@ -117,7 +117,7 @@
                                         @if ($comment->anon == 1)
                                             <a href="#" class="pull-left" style="padding-right: 10px;">
                                                 <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->hasRole('moderator'))
                                                 <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                         @else
                                             <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
@@ -132,7 +132,7 @@
                                             <strong><a
                                                         href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                         <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                        @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                        @if ($comment->user_id == auth()->id() || auth()->user()->hasRole('moderator'))
                                             <a title="@lang('common.delete-comment')"
                                                href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
                                                         class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>

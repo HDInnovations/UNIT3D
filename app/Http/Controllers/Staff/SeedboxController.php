@@ -46,7 +46,7 @@ class SeedboxController extends Controller
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);
 
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasRole('moderator'), 403);
         $seedbox->delete();
 
         return \redirect()->route('staff.seedboxes.index')

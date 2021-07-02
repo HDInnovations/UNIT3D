@@ -103,7 +103,7 @@ class CommentController extends Controller
         }
 
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasRole('moderator')) {
                 $users = \collect([]);
 
                 $collection->comments()->get()->each(function ($c, $v) use ($users) {
@@ -194,7 +194,7 @@ class CommentController extends Controller
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasRole('moderator')) {
                 $users = \collect([]);
 
                 $article->comments()->get()->each(function ($c) use ($users) {
@@ -284,7 +284,7 @@ class CommentController extends Controller
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasRole('moderator')) {
                 $users = \collect([]);
 
                 $playlist->comments()->get()->each(function ($c) use ($users) {
@@ -378,7 +378,7 @@ class CommentController extends Controller
             );
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasRole('moderator')) {
                 $users = \collect([]);
 
                 $torrent->comments()->get()->each(function ($c) use ($users) {
@@ -472,7 +472,7 @@ class CommentController extends Controller
             $tr->notifyRequester('comment', $comment);
         }
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasRole('moderator')) {
                 $users = \collect([]);
 
                 $tr->comments()->get()->each(function ($c) use ($users) {
@@ -649,7 +649,7 @@ class CommentController extends Controller
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
 
-        \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id == $comment->user_id, 403);
         $comment->content = $request->input('comment-edit');
 
         $v = \validator($comment->toArray(), [
@@ -678,7 +678,7 @@ class CommentController extends Controller
         $user = $request->user();
         $comment = Comment::findOrFail($commentId);
 
-        \abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id == $comment->user_id, 403);
         $comment->delete();
 
         return \redirect()->back()->withSuccess('Comment Has Been Deleted.');

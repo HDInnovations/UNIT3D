@@ -180,7 +180,7 @@ class Topic extends Model
      */
     public function viewable()
     {
-        if (\auth()->user()->group->is_modo) {
+        if (\auth()->user()->hasRole('moderator')) {
             return true;
         }
 

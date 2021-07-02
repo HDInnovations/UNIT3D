@@ -154,7 +154,7 @@ class SubtitleController extends Controller
         $subtitle = Subtitle::findOrFail($id);
 
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id == $subtitle->user_id, 403);
 
         $subtitle->language_id = $request->input('language_id');
         $subtitle->note = $request->input('note');
@@ -187,7 +187,7 @@ class SubtitleController extends Controller
         $subtitle = Subtitle::findOrFail($id);
 
         $user = $request->user();
-        \abort_unless($user->group->is_modo || $user->id == $subtitle->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id == $subtitle->user_id, 403);
 
         if (Storage::disk('subtitles')->exists($subtitle->file_name)) {
             Storage::disk('subtitles')->delete($subtitle->file_name);

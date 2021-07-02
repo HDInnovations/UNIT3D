@@ -31,7 +31,7 @@ class WarningController extends Controller
      */
     public function show(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->hasRole('moderator'), 403);
 
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -59,7 +59,7 @@ class WarningController extends Controller
      */
     public function deactivate(Request $request, $id)
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->hasRole('moderator'), 403);
         $staff = $request->user();
         $warning = Warning::findOrFail($id);
         $warning->expires_on = Carbon::now();
@@ -87,7 +87,7 @@ class WarningController extends Controller
      */
     public function deactivateAllWarnings(Request $request, $username)
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->hasRole('moderator'), 403);
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
 
@@ -120,7 +120,7 @@ class WarningController extends Controller
      */
     public function deleteWarning(Request $request, $id)
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->hasRole('moderator'), 403);
 
         $staff = $request->user();
         $warning = Warning::findOrFail($id);
@@ -150,7 +150,7 @@ class WarningController extends Controller
      */
     public function deleteAllWarnings(Request $request, $username)
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->hasRole('moderator'), 403);
 
         $staff = $request->user();
         $user = User::where('username', '=', $username)->firstOrFail();
@@ -182,7 +182,7 @@ class WarningController extends Controller
      */
     public function restoreWarning(Request $request, $id)
     {
-        \abort_unless($request->user()->group->is_modo, 403);
+        \abort_unless($request->user()->hasRole('moderator'), 403);
 
         $warning = Warning::withTrashed()->findOrFail($id);
         $warning->restore();

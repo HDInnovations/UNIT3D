@@ -34,7 +34,7 @@
                     <div class="media">
                         <h2 class="media-heading">@lang('common.album') @lang('common.description'):</h2>
                         <p class="text-bold">{{ $album->description }}</p>
-                        @if (auth()->user()->group->is_modo || (auth()->user()->id == $album->user_id &&
+                        @if (auth()->user()->hasRole('moderator') || (auth()->user()->id == $album->user_id &&
                             Carbon\Carbon::now()->lt($album->created_at->addDay())))
                             <form action="{{ route('albums.destroy', ['id' => $album->id]) }}" method="POST">
                                 @csrf
@@ -61,7 +61,7 @@
                                 <br>
                                 <h4 class="badge badge-user"> @lang('gallery.uploaded-by'): {{ $photo->user->username }}</h4>
                                 <br>
-                                @if (auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)
+                                @if (auth()->user()->hasRole('moderator') || auth()->user()->id === $photo->user_id)
                                     <form action="{{ route('images.destroy', ['id' => $photo->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

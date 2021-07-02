@@ -31,7 +31,7 @@ class SeedboxController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 
-        \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        \abort_unless(($request->user()->hasRole('moderator') || $request->user()->id == $user->id), 403);
 
         $seedboxes = Seedbox::where('user_id', '=', $user->id)->paginate(25);
 
@@ -82,7 +82,7 @@ class SeedboxController extends Controller
         $user = $request->user();
         $seedbox = Seedbox::findOrFail($id);
 
-        \abort_unless(($user->group->is_modo || $user->id == $seedbox->user_id), 403);
+        \abort_unless(($user->hasRole('moderator') || $user->id == $seedbox->user_id), 403);
 
         $seedbox->delete();
 

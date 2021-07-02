@@ -36,7 +36,7 @@
                     <td>
                         @if ($subtitle->anon == true)
                         <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-                            @if (auth()->user()->id == $subtitle->user_id || auth()->user()->group->is_modo)
+                            @if (auth()->user()->id == $subtitle->user_id || auth()->user()->hasRole('moderator'))
                                 <a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
                                     ({{ $subtitle->user->username }})
                                 </a>
@@ -50,7 +50,7 @@
                         </a>
                         @endif
 
-                        @if(auth()->user()->group->is_modo || auth()->user()->id == $subtitle->user->id)
+                        @if(auth()->user()->hasRole('moderator') || auth()->user()->id == $subtitle->user->id)
                             <div class="align-right" style="display: inline-block;">
                                 @include('subtitle.modals', ['subtitle' => $subtitle, 'torrent' => $torrent, 'media_languages' => App\Models\MediaLanguage::all()->sortBy('name')])
                                 <a data-toggle="modal" data-target="#modal_edit_subtitle-{{ $subtitle->id }}" title="@lang('common.edit') @lang('common.subtitle')"><i class="fa fa-edit text-green"></i></a>

@@ -70,7 +70,7 @@
                     <div class="card_footer">
                         <div style="float: left;">
                             @if ($t->anon == 1)
-                                <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if (auth()->user()->id == $t->user->id || auth()->user()->group->is_modo)
+                                <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if (auth()->user()->id == $t->user->id || auth()->user()->hasRole('moderator'))
                                         <a href="{{ route('users.show', ['username' => $t->user->username]) }}">({{ $t->user->username }}
                                                     )</a>@endif</span>
                             @else

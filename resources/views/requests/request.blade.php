@@ -48,11 +48,11 @@
                                 <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal"
                                         data-target="#vote"><i class="{{ config('other.font-awesome') }} fa-thumbs-up">
                                     </i> @lang('request.vote')</button>
-                            @endif @if ($user->group->is_modo && $torrentRequest->filled_hash != null)
+                            @endif @if ($user->hasRole('moderator') && $torrentRequest->filled_hash != null)
                                 <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#reset"><i
                                             class="{{ config('other.font-awesome') }} fa-undo">
                                     </i> @lang('request.reset-request')</button>
-                            @endif @if ($user->group->is_modo || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
+                            @endif @if ($user->hasRole('moderator') || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
                                 <a class="btn btn-warning btn-xs"
                                    href="{{ route('edit_request', ['id' => $torrentRequest->id]) }}" role="button"><i
                                             class="{{ config('other.font-awesome') }} fa-edit"
@@ -150,7 +150,7 @@
                                 </span>
                                 @else
                                 <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
+                                @if ($user->hasRole('moderator') || $torrentRequest->user->username == $user->username)
                                     <a href="{{ route('users.show', ['username' => $torrentRequest->user->username]) }}">
                                         ({{ $torrentRequest->user->username }})
                                     </a>
@@ -193,7 +193,7 @@
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                        @if ($user->hasRole('moderator') || $torrentRequestClaim->username == $user->username)
                                             ({{ $torrentRequestClaim->username }})
                                         @endif
                                     </span>
@@ -203,7 +203,7 @@
                                         <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em>
                                     </span>
 
-                                    @if ($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                    @if ($user->hasRole('moderator') || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
                                            class="btn btn-xs btn-danger" role="button" data-toggle="tooltip"
                                            data-original-title="@lang('request.unclaim')">
@@ -217,7 +217,7 @@
                                     @endif
                                 @endif
                                 @if($torrentRequest->filled_hash == null)
-                                    @if($torrentRequest->claimed == 1 && ($torrentRequestClaim->username == $user->username || $user->group->is_modo))
+                                    @if($torrentRequest->claimed == 1 && ($torrentRequestClaim->username == $user->username || $user->hasRole('moderator')))
                                         <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
                                                 data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
@@ -243,7 +243,7 @@
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                        @if ($user->hasRole('moderator') || $torrentRequest->FillUser->username == $user->username)
                                             <a href="{{ route('users.show', ['username' => $torrentRequest->FillUser->username]) }}">
                                                 ({{ $torrentRequest->FillUser->username }})
                                             </a>
@@ -265,7 +265,7 @@
                             </tr>
                         @endif
 
-                        @if (($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null) || (auth()->user()->group->is_modo && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null))
+                        @if (($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null) || (auth()->user()->hasRole('moderator') && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null))
                             <tr>
                                 <td>
                                     <strong>@lang('request.filled-by')</strong>
@@ -279,7 +279,7 @@
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if ($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                        @if ($user->hasRole('moderator') || $torrentRequest->FillUser->username == $user->username)
                                             ({{ $torrentRequest->FillUser->username }})
                                         @endif
                                     </span>
@@ -344,7 +344,7 @@
                                             </span>
                                             @else
                                             <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                                @if ($user->group->is_modo || $voter->user->username == $user->username)
+                                                @if ($user->hasRole('moderator') || $voter->user->username == $user->username)
                                                     <a href="{{ route('users.show', ['username' => $voter->user->username]) }}">
                                                         ({{ $voter->user->username }})
                                                     </a>
@@ -389,7 +389,7 @@
                                                 @if ($comment->anon == 1)
                                                     <a href="#" class="pull-left" style="padding-right: 10px;">
                                                         <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-                                                        <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                        <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->hasRole('moderator'))
                                                         <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a>
                                                     @endif
                                                 @else
@@ -407,7 +407,7 @@
                                                     <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
                                                 <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-                                                @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                                @if ($comment->user_id == auth()->id() || auth()->user()->hasRole('moderator'))
                                                     <a title="@lang('common.delete-your-comment')"
                                                        href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
                                                                 class="pull-right {{ config('other.font-awesome') }} fa-lg fa-times"

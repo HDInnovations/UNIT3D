@@ -30,7 +30,7 @@ class BackupController extends Controller
      */
     public function index(Request $request)
     {
-        \abort_unless($request->user()->hasRole('owner'), 403);
+        \abort_unless($request->user()->hasRole('coder'), 403);
 
         return \view('Staff.backup.index');
     }

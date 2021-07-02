@@ -114,11 +114,11 @@
                                     @if ($topic->state == 'open')
                                         <button id="quote" class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
                                     @endif
-                                    @if (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id)
+                                    @if (auth()->user()->hasRole('moderator') || $p->user_id == auth()->user()->id)
                                         <a href="{{ route('forum_post_edit_form', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
                                     @endif
-                                    @if (auth()->user()->group->is_modo || ($p->user_id == auth()->user()->id && $topic->state ==
+                                    @if (auth()->user()->hasRole('moderator') || ($p->user_id == auth()->user()->id && $topic->state ==
                                         'open'))
                                         <a href="{{ route('forum_post_delete', ['id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                 class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
@@ -167,7 +167,7 @@
             <br>
             <div class="block">
                 <div class="topic-new-post">
-                    @if ($topic->state == "close" && auth()->user()->group->is_modo)
+                    @if ($topic->state == "close" && auth()->user()->hasRole('moderator'))
                         <form role="form" method="POST" action="{{ route('forum_reply', ['id' => $topic->id]) }}">
                             @csrf
                             <div class="text-danger">This topic is closed, but you can still reply due to you
@@ -193,7 +193,7 @@
                     @endif
 
                     <div class="text-center">
-                        @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
+                        @if (auth()->user()->hasRole('moderator') || $topic->first_post_user_id == auth()->user()->id)
                             <h3>@lang('forum.moderation')</h3>
                             @if ($topic->state == "close")
                                 <a href="{{ route('forum_open', ['id' => $topic->id]) }}"
@@ -203,13 +203,13 @@
                                     class="btn btn-info">@lang('forum.close-topic')</a>
                             @endif
                         @endif
-                        @if (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
+                        @if (auth()->user()->hasRole('moderator') || $topic->first_post_user_id == auth()->user()->id)
                             <a href="{{ route('forum_edit_topic_form', ['id' => $topic->id]) }}"
                                 class="btn btn-warning">@lang('forum.edit-topic')</a>
                             <a href="{{ route('forum_delete_topic', ['id' => $topic->id]) }}"
                                 class="btn btn-danger">@lang('forum.delete-topic')</a>
                         @endif
-                        @if (auth()->user()->group->is_modo)
+                        @if (auth()->user()->hasRole('moderator'))
                             @if ($topic->pinned == 0)
                                 <a href="{{ route('forum_pin_topic', ['id' => $topic->id]) }}"
                                     class="btn btn-primary">@lang('forum.pin') {{ strtolower(trans('forum.topic')) }}</a>
@@ -221,7 +221,7 @@
 
                         <br>
 
-                        @if (auth()->user()->group->is_modo)
+                        @if (auth()->user()->hasRole('moderator'))
                             <h3>@lang('forum.label-system')</h3>
                             @if ($topic->approved == "0")
                                 <a href="{{ route('topics.approve', ['id' => $topic->id]) }}"

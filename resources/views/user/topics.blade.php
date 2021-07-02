@@ -33,7 +33,7 @@
             </div>
         @else
             <div class="block">
-                @if (auth()->user()->id == $user->id || auth()->user()->group->is_modo)
+                @if (auth()->user()->id == $user->id || auth()->user()->hasRole('moderator'))
                     @include('user.buttons.forum')
                 @else
                     @include('user.buttons.public')

@@ -156,7 +156,7 @@ class PlaylistController extends Controller
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
 
-        \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+        \abort_unless($user->id == $playlist->user_id || $user->hasRole('moderator'), 403);
 
         return \view('playlist.edit', ['playlist' => $playlist]);
     }
@@ -173,7 +173,7 @@ class PlaylistController extends Controller
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
 
-        \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+        \abort_unless($user->id == $playlist->user_id || $user->hasRole('moderator'), 403);
 
         $playlist->name = $request->input('name');
         $playlist->description = $request->input('description');
@@ -221,7 +221,7 @@ class PlaylistController extends Controller
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
 
-        \abort_unless($user->id == $playlist->user_id || $user->group->is_modo, 403);
+        \abort_unless($user->id == $playlist->user_id || $user->hasRole('moderator'), 403);
 
         $playlist->delete();
 

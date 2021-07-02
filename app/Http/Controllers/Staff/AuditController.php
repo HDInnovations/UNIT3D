@@ -46,7 +46,7 @@ class AuditController extends Controller
         $user = $request->user();
         $audit = Audit::findOrFail($id);
 
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasRole('moderator'), 403);
         $audit->delete();
 
         return \redirect()->route('staff.audits.index')

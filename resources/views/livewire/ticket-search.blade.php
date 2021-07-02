@@ -78,7 +78,7 @@
 						<span>
 							<a href="{{ route('tickets.show', ['id' => $ticket->id]) }}">{{ $ticket->subject }}</a>
 						</span>
-						@if (auth()->user()->group->is_modo)
+						@if (auth()->user()->hasRole('moderator'))
 							@php
 								$myTicketUnread = DB::table('tickets')
 									->where('id', '=', $ticket->id)

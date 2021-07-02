@@ -117,7 +117,7 @@ class AlbumController extends Controller
         $user = $request->user();
         $album = Album::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
+        \abort_unless($user->hasRole('moderator') || ($user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay())), 403);
         $album->delete();
 
         return \redirect()->route('albums.index')

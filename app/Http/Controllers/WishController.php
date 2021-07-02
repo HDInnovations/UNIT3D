@@ -39,7 +39,7 @@ class WishController extends Controller
     {
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
-        \abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
+        \abort_unless(($request->user()->hasRole('moderator') || $request->user()->id == $user->id), 403);
 
         $wishes = $user->wishes()->latest()->paginate(25);
 

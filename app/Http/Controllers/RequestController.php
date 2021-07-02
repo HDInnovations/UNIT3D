@@ -241,7 +241,7 @@ class RequestController extends Controller
     {
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
-        \abort_unless($user->group->is_modo || $user->id === $torrentRequest->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id === $torrentRequest->user_id, 403);
 
         // Find the right category
         $name = $request->input('name');
@@ -422,7 +422,7 @@ class RequestController extends Controller
 
         $tr = TorrentRequest::findOrFail($id);
 
-        if ($user->id == $tr->user_id || $request->user()->group->is_modo) {
+        if ($user->id == $tr->user_id || $request->user()->hasRole('moderator')) {
             if ($tr->approved_by != null) {
                 return \redirect()->route('request', ['id' => $id])
                     ->withErrors('Seems this request was already approved');
@@ -535,7 +535,7 @@ class RequestController extends Controller
         $user = $request->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
 
-        if ($user->group->is_modo || $torrentRequest->user_id == $user->id) {
+        if ($user->hasRole('moderator') || $torrentRequest->user_id == $user->id) {
             $name = $torrentRequest->name;
             $torrentRequest->delete();
 
@@ -599,7 +599,7 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
         $claimer = TorrentRequestClaim::where('request_id', '=', $id)->first();
 
-        \abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
+        \abort_unless($user->hasRole('moderator') || $user->username == $claimer->username, 403);
 
         if ($torrentRequest->claimed == 1) {
             $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
@@ -634,7 +634,7 @@ class RequestController extends Controller
     public function resetRequest(Request $request, $id)
     {
         $user = $request->user();
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasRole('moderator'), 403);
 
         $torrentRequest = TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = null;

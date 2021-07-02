@@ -53,7 +53,7 @@ class BanController extends Controller
         $staff = $request->user();
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_if($user->hasRole('moderator') || $request->user()->id == $user->id, 403);
 
         $user->group_id = $bannedGroup[0];
         $user->can_upload = 0;
@@ -97,7 +97,7 @@ class BanController extends Controller
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
 
-        \abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
+        \abort_if($user->hasRole('moderator') || $request->user()->id == $user->id, 403);
 
         $user->group_id = $request->input('group_id');
         $user->can_upload = 1;

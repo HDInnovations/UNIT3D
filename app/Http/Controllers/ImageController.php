@@ -111,7 +111,7 @@ class ImageController extends Controller
         $user = $request->user();
         $image = Image::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id === $image->user_id, 403);
         $image->delete();
 
         return \redirect()->route('albums.show', ['id' => $image->album_id])

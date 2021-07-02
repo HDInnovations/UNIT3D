@@ -124,11 +124,11 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
-        $torrent->internal = $user->group->is_modo || $user->group->is_internal ? $request->input('internal') : 0;
-        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? $request->input('featured') : 0;
-        $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? $request->input('doubleup') : 0;
-        $torrent->free = $user->group->is_modo || $user->group->is_internal ? $request->input('free') : 0;
-        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? $request->input('sticky') : 0;
+        $torrent->internal = $user->hasRole('moderator') || $user->hasRole('internal') ? $request->input('internal') : 0;
+        $torrent->featured = $user->hasRole('moderator') || $user->hasRole('internal') ? $request->input('featured') : 0;
+        $torrent->doubleup = $user->hasRole('moderator') || $user->hasRole('internal') ? $request->input('doubleup') : 0;
+        $torrent->free = $user->hasRole('moderator') || $user->hasRole('internal') ? $request->input('free') : 0;
+        $torrent->sticky = $user->hasRole('moderator') || $user->hasRole('internal') ? $request->input('sticky') : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 

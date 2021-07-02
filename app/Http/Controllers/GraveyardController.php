@@ -96,7 +96,7 @@ class GraveyardController extends Controller
         $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id === $resurrection->user_id, 403);
         $resurrection->delete();
 
         return \redirect()->route('graveyard.index')

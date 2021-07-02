@@ -43,7 +43,7 @@
                     </div>
                 </div>
         
-                @if ( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
+                @if ( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->hasRole('moderator') )
                     <div class="container">
                         <div class="jumbotron shadowed">
                             <div class="container">

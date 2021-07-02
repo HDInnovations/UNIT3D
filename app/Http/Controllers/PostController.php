@@ -58,7 +58,7 @@ class PostController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a post here?
-        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->group->is_modo)) {
+        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! $request->user()->hasRole('moderator'))) {
             return \redirect()->route('forums.index')
                 ->withErrors('You Cannot Reply To This Topic!');
         }
@@ -83,7 +83,7 @@ class PostController extends Controller
         $href = \sprintf('%s/forums/topics/%s?page=%s#post-%s', $appurl, $topic->id, $post->getPageNumber(), $post->id);
         $message = \sprintf('%s has tagged you in a forum post. You can view it [url=%s] HERE [/url]', $user->username, $href);
         if ($this->taggedUserRepository->hasTags($request->input('content'))) {
-            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->group->is_modo) {
+            if ($this->taggedUserRepository->contains($request->input('content'), '@here') && $user->hasRole('moderator')) {
                 $users = \collect([]);
 
                 $topic->posts()->get()->each(function ($p) use ($users) {
@@ -196,7 +196,7 @@ class PostController extends Controller
         $post = Post::findOrFail($postId);
         $postUrl = \sprintf('forums/topics/%s?page=%s#post-%s', $post->topic->id, $post->getPageNumber(), $postId);
 
-        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id === $post->user_id, 403);
         $post->content = $request->input('content');
         $post->save();
 
@@ -218,7 +218,7 @@ class PostController extends Controller
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);
 
-        \abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id === $post->user_id, 403);
         $post->delete();
 
         return \redirect()->route('forum_topic', ['id' => $post->topic->id])

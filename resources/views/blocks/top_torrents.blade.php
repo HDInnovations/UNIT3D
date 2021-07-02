@@ -126,7 +126,7 @@
                                             <span class="badge-extra text-bold">
                                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
                                                     data-original-title="Uploaded By"></i> @lang('common.anonymous')
-                                                @if ($user->id == $new->user->id || $user->group->is_modo)
+                                                @if ($user->id == $new->user->id || $user->hasRole('moderator'))
                                                     <a href="{{ route('users.show', ['username' => $new->user->username]) }}">
                                                         ({{ $new->user->username }})
                                                     </a>
@@ -389,7 +389,7 @@
                                             <span class="badge-extra text-bold">
                                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
                                                     data-original-title="Uploaded By"></i> @lang('common.anonymous')
-                                                @if ($user->id == $seed->user->id || $user->group->is_modo)
+                                                @if ($user->id == $seed->user->id || $user->hasRole('moderator'))
                                                     <a href="{{ route('users.show', ['username' => $seed->user->username]) }}">
                                                         ({{ $seed->user->username }})
                                                     </a>
@@ -653,7 +653,7 @@
                                             <span class="badge-extra text-bold">
                                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
                                                     data-original-title="Uploaded By"></i> @lang('common.anonymous')
-                                                @if ($user->id == $leech->user->id || $user->group->is_modo)
+                                                @if ($user->id == $leech->user->id || $user->hasRole('moderator'))
                                                     <a href="{{ route('users.show', ['username' => $leech->user->username]) }}">
                                                         ({{ $leech->user->username }})
                                                     </a>
@@ -918,7 +918,7 @@
                                             <span class="badge-extra text-bold">
                                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
                                                     data-original-title="Uploaded By"></i> @lang('common.anonymous')
-                                                @if ($user->id == $d->user->id || $user->group->is_modo)
+                                                @if ($user->id == $d->user->id || $user->hasRole('moderator'))
                                                     <a href="{{ route('users.show', ['username' => $d->user->username]) }}">
                                                         ({{ $d->user->username }})
                                                     </a>
@@ -1182,7 +1182,7 @@
                                             <span class="badge-extra text-bold">
                                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
                                                     data-original-title="Uploaded By"></i> @lang('common.anonymous')
-                                                @if ($user->id == $d->user->id || $user->group->is_modo)
+                                                @if ($user->id == $d->user->id || $user->hasRole('moderator'))
                                                     <a href="{{ route('users.show', ['username' => $d->user->username]) }}">
                                                         ({{ $d->user->username }})
                                                     </a>

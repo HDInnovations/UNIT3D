@@ -39,7 +39,7 @@
 						<div class="description">
 							<p>{{ $playlist->description }}</p>
 							<br>
-							@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+							@if(auth()->user()->id == $playlist->user_id || auth()->user()->hasRole('moderator'))
 								<button data-toggle="modal" data-target="#modal_playlist_torrent" class="btn btn-md btn-success">
 									<i class="{{ config('other.font-awesome') }} fa-search-plus"></i> @lang('playlist.add-torrent')
 								</button>
@@ -110,7 +110,7 @@
 									</a>
 								@endif
 								&nbsp;
-								@if(auth()->user()->id == $playlist->user_id || auth()->user()->group->is_modo)
+								@if(auth()->user()->id == $playlist->user_id || auth()->user()->hasRole('moderator'))
 									<form action="{{ route('playlists.detach', ['id' => $t->id]) }}" method="POST" style="float: left; margin-right: 10px;"
 									      data-toggle="tooltip" data-placement="top" data-original-title="@lang('common.delete')">
 										@csrf
@@ -185,7 +185,7 @@
 								<div style="float: left;">
 									@if ($t->torrent->anon == 1)
 										<span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-											@if (auth()->user()->id == $t->torrent->user->id || auth()->user()->group->is_modo)
+											@if (auth()->user()->id == $t->torrent->user->id || auth()->user()->hasRole('moderator'))
 												<a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
                                                             ({{ $t->torrent->user->username }})
                                                         </a>
@@ -234,7 +234,7 @@
 												@if ($comment->anon == 1)
 													<a href="#" class="pull-left" style="padding-right: 10px;">
 														<img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-														<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+														<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->hasRole('moderator'))
 														<a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
 												@else
 													<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
@@ -249,7 +249,7 @@
 													<strong><a
 																href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
 												<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-												@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+												@if ($comment->user_id == auth()->id() || auth()->user()->hasRole('moderator'))
 													<a title="@lang('common.delete-comment')"
 													   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
 																class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>

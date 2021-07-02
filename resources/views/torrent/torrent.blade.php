@@ -217,12 +217,12 @@
                             <strong>@lang('torrent.name')</strong>
                         </td>
                         <td>{{ $torrent->name }} &nbsp; &nbsp;
-                            @if (auth()->user()->group->is_modo || auth()->user()->id === $uploader->id)
+                            @if (auth()->user()->hasRole('moderator') || auth()->user()->id === $uploader->id)
                                 <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['id' => $torrent->id]) }}" role="button">
                                     <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> @lang('common.edit')
                                 </a>
                             @endif
-                            @if (auth()->user()->group->is_modo || ( auth()->user()->id === $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+                            @if (auth()->user()->hasRole('moderator') || ( auth()->user()->id === $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
                                 <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i> @lang('common.delete')
                                 </button>
@@ -230,7 +230,7 @@
                         </td>
                     </tr>
 
-                    @if (auth()->user()->group->is_modo)
+                    @if (auth()->user()->hasRole('moderator'))
                         <tr>
                             <td class="col-sm-2">
                                 <strong>@lang('common.moderation')</strong>
@@ -264,7 +264,7 @@
                     @endif
 
 
-                    @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                    @if (auth()->user()->hasRole('moderator') || auth()->user()->group->is_internal)
                         <tr>
                             <td class="col-sm-2"><strong>@lang('common.staff-tools')</strong></td>
                             <td>
@@ -330,7 +330,7 @@
                         <td>
                             @if ($torrent->anon == 1)
                                 <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }}
-                                    @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
+                                    @if (auth()->user()->id == $uploader->id || auth()->user()->hasRole('moderator'))
                                         <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
                                             ({{ $uploader->username }}
                                         )</a>
@@ -475,7 +475,7 @@
             </div>
         </div>
 
-	    @if (auth()->user()->group->is_modo)
+	    @if (auth()->user()->hasRole('moderator'))
 		    @include('torrent.partials.audits')
 	    @endif
 
@@ -739,7 +739,7 @@
 										@if ($comment->anon == 1)
 											<a href="#" class="pull-left" style="padding-right: 10px;">
 												<img src="{{ url('img/profile.png') }}" class="img-avatar-48">
-												<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+												<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->hasRole('moderator'))
 												<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
 												   style="color:{{ $comment->user->group->color }};">(<span><i
 																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
@@ -758,7 +758,7 @@
 														style="color:{{ $comment->user->group->color }};"><span><i
 																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
 										<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
-										@if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+										@if ($comment->user_id == auth()->id() || auth()->user()->hasRole('moderator'))
 											<a title="@lang('common.delete-comment')"
 											   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
 														class="pull-right {{ config('other.font-awesome') }} fa fa-times"

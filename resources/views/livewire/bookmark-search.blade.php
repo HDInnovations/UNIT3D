@@ -111,7 +111,7 @@
 							<span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip"
                                    data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
-								@if ($user->id == $bookmark->user->id || $user->group->is_modo)
+								@if ($user->id == $bookmark->user->id || $user->hasRole('moderator'))
 									<a href="{{ route('users.show', ['username' => $bookmark->user->username]) }}">
                                         ({{ $bookmark->user->username }})
                                     </a>

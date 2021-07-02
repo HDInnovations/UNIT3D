@@ -80,7 +80,7 @@
                                         </a>
                                     @endif
                                     @php $watched = App\Models\Watchlist::whereUserId($user->id)->first(); @endphp
-                                    @if ($watched && auth()->user()->group->is_modo)
+                                    @if ($watched && auth()->user()->hasRole('moderator'))
                                         <i class="{{ config('other.font-awesome') }} fa-eye fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
                                            title="" data-original-title="User is being watched!">
                                         </i>

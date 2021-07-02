@@ -320,7 +320,7 @@ class RssController extends Controller
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
-        \abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id === $rss->user_id, 403);
         $torrentRepository = $this->torrentFacetedRepository;
 
         return \view('rss.edit', [

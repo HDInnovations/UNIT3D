@@ -35,7 +35,7 @@ class InviteController extends Controller
     {
         $user = $request->user();
         $owner = User::where('username', '=', $username)->firstOrFail();
-        \abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id === $owner->id, 403);
 
         $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $owner->id)->latest()->paginate(25);
 

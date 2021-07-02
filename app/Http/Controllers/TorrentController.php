@@ -968,7 +968,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id == $torrent->user_id, 403);
 
         return \view('torrent.edit_torrent', [
             'categories'  => Category::all()->sortBy('position'),
@@ -991,7 +991,7 @@ class TorrentController extends Controller
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        \abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
+        \abort_unless($user->hasRole('moderator') || $user->id == $torrent->user_id, 403);
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
@@ -1082,7 +1082,7 @@ class TorrentController extends Controller
             $id = $request->id;
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-            if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
+            if ($user->hasRole('moderator') || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
                 foreach (History::where('info_hash', '=', $torrent->info_hash)->get() as $pm) {
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
@@ -1476,7 +1476,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasRole('moderator') || $user->hasRole('internal'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
@@ -1513,7 +1513,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasRole('moderator') || $user->hasRole('internal'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrent->sticky = $torrent->sticky == 0 ? '1' : '0';
         $torrent->save();
@@ -1533,7 +1533,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasRole('moderator') || $user->hasRole('internal'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrentUrl = \href_torrent($torrent);
 
@@ -1568,7 +1568,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasRole('moderator') || $user->hasRole('internal'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($torrent->featured == 0) {
@@ -1608,7 +1608,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo, 403);
+        \abort_unless($user->hasRole('moderator'), 403);
 
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->firstOrFail();
 
@@ -1644,7 +1644,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
 
-        \abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        \abort_unless($user->hasRole('moderator') || $user->hasRole('internal'), 403);
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $torrentUrl = \href_torrent($torrent);
 

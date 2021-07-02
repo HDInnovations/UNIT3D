@@ -31,7 +31,7 @@ class GroupController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->hasRole('admin'), 403);
 
         $groups = Group::all()->sortBy('position');
 
@@ -44,7 +44,7 @@ class GroupController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->hasRole('admin'), 403);
 
         return \view('Staff.group.create');
     }
@@ -58,7 +58,7 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->hasRole('admin'), 403);
 
         $group = new Group();
         $group->name = $request->input('name');
@@ -88,7 +88,7 @@ class GroupController extends Controller
             'icon'     => 'required',
         ]);
 
-        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
+        if (! $request->user()->hasRole('coder') && $request->input('is_owner') == 1) {
             return \redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to create a group with owner permissions!');
         }
@@ -121,7 +121,7 @@ class GroupController extends Controller
     public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->hasRole('admin'), 403);
 
         $group = Group::findOrFail($id);
 
@@ -138,7 +138,7 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
         $user = $request->user();
-        \abort_unless($user->group->is_admin, 403);
+        \abort_unless($user->hasRole('admin'), 403);
 
         $group = Group::findOrFail($id);
 
@@ -169,7 +169,7 @@ class GroupController extends Controller
             'icon'     => 'required',
         ]);
 
-        if (! $request->user()->group->is_owner && $request->input('is_owner') == 1) {
+        if (! $request->user()->hasRole('coder') && $request->input('is_owner') == 1) {
             return \redirect()->route('staff.groups.index')
                 ->withErrors('You are not permitted to give a group owner permissions!');
         }
