@@ -68,7 +68,7 @@
                                     <span class="badge-user text-bold">
                                         <a href="{{ route('users.show', ['username' => $p->user->username]) }}"
                                             class="post-info-username"
-                                            style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
+                                            style="color:{{ $p->user->primaryRole->color }}; display:inline;">{{ $p->user->username }}</a>
                                         @if ($p->user->isOnline())
                                             <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip"
                                                 data-original-title="Online"></i>
@@ -84,10 +84,10 @@
                                 </p>
 
                                 <p><span class="badge-user text-bold"
-                                        style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
-                                            class="{{ $p->user->group->icon }}" data-toggle="tooltip"
-                                            data-original-title="{{ $p->user->group->name }}"></i>
-                                        {{ $p->user->group->name }}</span>
+                                        style="color:{{ $p->user->primaryRole->color }}; background-image:{{ $p->user->primaryRole->effect }};"><i
+                                            class="{{ $p->user->primaryRole->icon }}" data-toggle="tooltip"
+                                            data-original-title="{{ $p->user->primaryRole->name }}"></i>
+                                        {{ $p->user->primaryRole->name }}</span>
                                 </p>
                                 @if (!empty($p->user->title))
                                 <p><span class="badge-user title">{{ $p->user->title }}</span></p>
@@ -171,7 +171,7 @@
                         <form role="form" method="POST" action="{{ route('forum_reply', ['id' => $topic->id]) }}">
                             @csrf
                             <div class="text-danger">This topic is closed, but you can still reply due to you
-                                being {{ auth()->user()->group->name }}.
+                                being {{ auth()->user()->primaryRole->name }}.
                             </div>
                             <div class="from-group">
                                 <label for="topic-response"></label>

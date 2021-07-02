@@ -156,9 +156,9 @@
 								@else
 									<a href="{{ route('users.show', ['username' => $subtitle->user->username]) }}">
                                         <span class="badge-user text-bold"
-                                            style="color:{{ $subtitle->user->group->color }}; background-image:{{ $subtitle->user->group->effect }};">
-                                        <i class="{{ $subtitle->user->group->icon }}" data-toggle="tooltip"
-                                            data-original-title="{{ $subtitle->user->group->name }}"></i>
+                                            style="color:{{ $subtitle->user->primaryRole->color }}; background-image:{{ $subtitle->user->primaryRole->effect }};">
+                                        <i class="{{ $subtitle->user->primaryRole->icon }}" data-toggle="tooltip"
+                                            data-original-title="{{ $subtitle->user->primaryRole->name }}"></i>
 	                                        {{ $subtitle->user->username }}
                                         </span>
 									</a>

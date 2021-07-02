@@ -26,5 +26,5 @@ return [
     'account_age'  => 90,
     'last_login'   => 90,
     'soft_delete'  => 120,
-    'group_ids'    => [3, 11, 12, 15],
+    'role_ids'     => [3, 11, 12, 15],
 ];

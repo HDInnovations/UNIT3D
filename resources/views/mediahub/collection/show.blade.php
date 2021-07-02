@@ -118,7 +118,7 @@
                                             <a href="#" class="pull-left" style="padding-right: 10px;">
                                                 <img src="{{ url('img/profile.png') }}" class="img-avatar-48">
                                                 <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->hasRole('moderator'))
-                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                                <a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->primaryRole->color }};">(<span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                         @else
                                             <a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                class="pull-left" style="padding-right: 10px;">
@@ -130,7 +130,7 @@
                                                      alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                             @endif
                                             <strong><a
-                                                        href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                                        href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->primaryRole->color }};"><span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                         <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                         @if ($comment->user_id == auth()->id() || auth()->user()->hasRole('moderator'))
                                             <a title="@lang('common.delete-comment')"

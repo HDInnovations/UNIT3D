@@ -426,7 +426,7 @@
 								<br>
 								@if ($torrent->anon === 0)
 									<span class="badge-extra">
-									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->group->icon }}"></i>
+									<i class="{{ config('other.font-awesome') }} {{ $torrent->user->primaryRole->icon }}"></i>
                                     <a href="{{ route('users.show', ['username' => $torrent->user->username]) }}">
                                         {{ $torrent->user->username }}
                                     </a>

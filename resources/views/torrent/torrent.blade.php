@@ -254,9 +254,9 @@
                                 <span>
                                     &nbsp;[ @lang('common.moderated-by')
                                     <a href="{{ route('users.show', ['username' => $torrent->moderated->username]) }}"
-                                       style="color:{{ $torrent->moderated->group->color }};">
-                                        <i class="{{ $torrent->moderated->group->icon }}" data-toggle="tooltip"
-                                           data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
+                                       style="color:{{ $torrent->moderated->primaryRole->color }};">
+                                        <i class="{{ $torrent->moderated->primaryRole->icon }}" data-toggle="tooltip"
+                                           data-original-title="{{ $torrent->moderated->primaryRole->name }}"></i> {{ $torrent->moderated->username }}
                                     </a>]
                                 </span>
                             </td>
@@ -338,8 +338,8 @@
                                 </span>
                             @else
                                 <a href="{{ route('users.show', ['username' => $uploader->username]) }}">
-                                    <span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};">
-                                        <i class="{{ $uploader->group->icon }}" data-toggle="tooltip" data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}
+                                    <span class="badge-user text-bold" style="color:{{ $uploader->primaryRole->color }}; background-image:{{ $uploader->primaryRole->effect }};">
+                                        <i class="{{ $uploader->primaryRole->icon }}" data-toggle="tooltip" data-original-title="{{ $uploader->primaryRole->name }}"></i> {{ $uploader->username }}
                                     </span>
                                 </a>
                             @endif
@@ -741,8 +741,8 @@
 												<img src="{{ url('img/profile.png') }}" class="img-avatar-48">
 												<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->hasRole('moderator'))
 												<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-												   style="color:{{ $comment->user->group->color }};">(<span><i
-																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+												   style="color:{{ $comment->user->primaryRole->color }};">(<span><i
+																class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
 										@else
 											<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
 											   class="pull-left" style="padding-right: 10px;">
@@ -755,8 +755,8 @@
 											@endif
 											<strong><a
 														href="{{ route('users.show', ['username' => $comment->user->username]) }}"
-														style="color:{{ $comment->user->group->color }};"><span><i
-																class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+														style="color:{{ $comment->user->primaryRole->color }};"><span><i
+																class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
 										<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
 										@if ($comment->user_id == auth()->id() || auth()->user()->hasRole('moderator'))
 											<a title="@lang('common.delete-comment')"

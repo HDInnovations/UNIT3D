@@ -73,7 +73,7 @@
                                     @endif
                                     <td><a href="{{ route('users.show', ['username' => $f->user->username]) }}">
                                             <span class="badge-user text-bold"
-                                                style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
+                                                style="color:{{ $f->user->primaryRole->color }};">{{ $f->user->username }}</span>
                                         </a></td>
                                     <td>{{ $f->created_at }}</td>
                                 </tr>

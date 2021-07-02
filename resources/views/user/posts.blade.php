@@ -109,7 +109,7 @@
                                                         <div class="button-left">
                                                             <a href="{{ route('users.show', ['username' => $r->user->username]) }}"
                                                                 class="post-info-username"
-                                                                style="color:{{ $r->user->group->color }}; display:inline;">{{ $r->user->username }}</a>
+                                                                style="color:{{ $r->user->primaryRole->color }}; display:inline;">{{ $r->user->username }}</a>
                                                             @ {{ date('M d Y h:i:s', $r->created_at->getTimestamp()) }}
                                                         </div>
                                                         <div class="button-right">

@@ -53,8 +53,8 @@
                                             <tr>
                                                 <td>
                                                     <a href="{{ route('users.show', ['username' => $invite->sender->username]) }}">
-                                                        <span class="text-bold" style="color:{{ $invite->sender->group->color }}; ">
-                                                            <i class="{{ $invite->sender->group->icon }}"></i>
+                                                        <span class="text-bold" style="color:{{ $invite->sender->primaryRole->color }}; ">
+                                                            <i class="{{ $invite->sender->primaryRole->icon }}"></i>
                                                             {{ $invite->sender->username }}
                                                         </span>
                                                     </a>
@@ -76,8 +76,8 @@
                                                         <a
                                                             href="{{ route('users.show', ['username' => $invite->receiver->username]) }}">
                                                             <span class="text-bold"
-                                                                style="color:{{ $invite->receiver->group->color }}; ">
-                                                                <i class="{{ $invite->receiver->group->icon }}"></i>
+                                                                style="color:{{ $invite->receiver->primaryRole->color }}; ">
+                                                                <i class="{{ $invite->receiver->primaryRole->icon }}"></i>
                                                                 {{ $invite->receiver->username }}
                                                             </span>
                                                         </a>

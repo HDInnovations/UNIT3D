@@ -52,10 +52,10 @@
                                         </td>
                                         <td>
                                             <span class="badge-user text-bold"
-                                                style="color:{{ $cheater->user->group->color }}; background-image:{{ $cheater->user->group->effect }};">
-                                                <i class="{{ $cheater->user->group->icon }}" data-toggle="tooltip"
-                                                    data-original-title="{{ $cheater->user->group->name }}"></i>
-                                                {{ $cheater->user->group->name }}
+                                                style="color:{{ $cheater->user->primaryRole->color }}; background-image:{{ $cheater->user->primaryRole->effect }};">
+                                                <i class="{{ $cheater->user->primaryRole->icon }}" data-toggle="tooltip"
+                                                    data-original-title="{{ $cheater->user->primaryRole->name }}"></i>
+                                                {{ $cheater->user->primaryRole->name }}
                                             </span>
                                         </td>
                                         <td>

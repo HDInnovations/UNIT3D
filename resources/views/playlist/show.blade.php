@@ -193,9 +193,9 @@
                                                 </span>
 									@else
 										<a href="{{ route('users.show', ['username' => $t->torrent->user->username]) }}">
-                                            <span class="badge-user text-bold" style="color:{{ $t->torrent->user->group->color }}; background-image:{{ $t->torrent->user->group->effect }};">
-                                                <i class="{{ $t->torrent->user->group->icon }}" data-toggle="tooltip" title=""
-                                                   data-original-title="{{ $t->torrent->user->group->name }}"></i> {{ $t->torrent->user->username }}
+                                            <span class="badge-user text-bold" style="color:{{ $t->torrent->user->primaryRole->color }}; background-image:{{ $t->torrent->user->primaryRole->effect }};">
+                                                <i class="{{ $t->torrent->user->primaryRole->icon }}" data-toggle="tooltip" title=""
+                                                   data-original-title="{{ $t->torrent->user->primaryRole->name }}"></i> {{ $t->torrent->user->username }}
                                             </span>
 										</a>
 									@endif
@@ -235,7 +235,7 @@
 													<a href="#" class="pull-left" style="padding-right: 10px;">
 														<img src="{{ url('img/profile.png') }}" class="img-avatar-48">
 														<strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->hasRole('moderator'))
-														<a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+														<a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->primaryRole->color }};">(<span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
 												@else
 													<a href="{{ route('users.show', ['username' => $comment->user->username]) }}"
 													   class="pull-left" style="padding-right: 10px;">
@@ -247,7 +247,7 @@
 														     alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
 													@endif
 													<strong><a
-																href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+																href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->primaryRole->color }};"><span><i class="{{ $comment->user->primaryRole->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
 												<span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
 												@if ($comment->user_id == auth()->id() || auth()->user()->hasRole('moderator'))
 													<a title="@lang('common.delete-comment')"

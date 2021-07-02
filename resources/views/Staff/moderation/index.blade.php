@@ -208,12 +208,12 @@
                             <a href="{{ route('users.show', ['username' => $post->user->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->user->username }}
-                                    ({{ $post->user->group->name }})</span></a></td>
+                                    ({{ $post->user->primaryRole->name }})</span></a></td>
                         <td>
                             <a href="{{ route('users.show', ['username' => $post->moderated->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $post->moderated->username }}
-                                    ({{ $post->moderated->group->name }})</span></a></td>
+                                    ({{ $post->moderated->primaryRole->name }})</span></a></td>
                         <td><a href="{{ route('staff.moderation.approve', ['id' => $post->id]) }}" role='button'
                                class='btn btn-labeled btn-success'>
                                 <span class="btn-label">
@@ -323,12 +323,12 @@
                                     href="{{ route('users.show', ['username' => $reject->user->username]) }}"
                                     itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                         class="l-breadcrumb-item-link-title">{{ $reject->user->username }}
-                                    ({{ $reject->user->group->name }})</span></a> @else System @endif </td>
+                                    ({{ $reject->user->primaryRole->name }})</span></a> @else System @endif </td>
                         <td>
                             <a href="{{ route('users.show', ['username' => $reject->moderated->username]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }}
-                                    ({{ $reject->moderated->group->name }})</span></a></td>
+                                    ({{ $reject->moderated->primaryRole->name }})</span></a></td>
                         <td><a href="{{ route('staff.moderation.approve', ['id' => $reject->id]) }}" role='button'
                                class='btn btn-labeled btn-success'>
                                 <span class="btn-label">
