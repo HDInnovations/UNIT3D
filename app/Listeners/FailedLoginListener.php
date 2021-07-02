@@ -30,10 +30,10 @@ class FailedLoginListener
      */
     public function handle($event)
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
 
         if (\property_exists($event, 'user') && $event->user !== null && $event->user instanceof \Illuminate\Database\Eloquent\Model
-            && $event->user->group_id !== $bannedGroup[0]) {
+            && $event->user->role_id !== $bannedGroup[0]) {
             FailedLoginAttempt::record(
                 $event->user,
                 \request()->input('username'),

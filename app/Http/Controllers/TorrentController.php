@@ -113,7 +113,7 @@ class TorrentController extends Controller
     {
         $user = $request->user();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+        $torrents = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->where('category_id', '=', $categoryId)
             ->where('tmdb', '=', $tmdb)
@@ -220,7 +220,7 @@ class TorrentController extends Controller
         }
         $totals = [];
         $counts = [];
-        $launcher = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
+        $launcher = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy(self::SORTING, self::ORDER);
         foreach ($launcher->cursor() as $lazyCollection) {
             if ($lazyCollection->imdb) {
                 $totals[$lazyCollection->imdb] = \array_key_exists($lazyCollection->imdb, $totals) ? $totals[$lazyCollection->imdb] + 1 : 1;
@@ -527,7 +527,7 @@ class TorrentController extends Controller
             if (! $history || ! \is_array($history)) {
                 $history = [];
             }
-            $torrent = $torrent->with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
+            $torrent = $torrent->with(['user:id,username,role_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereNotIn('torrents.id', $history);
         } elseif ($history == 1) {
             $torrent = History::where('history.user_id', '=', $user->id);
             $torrent->where(function ($query) use ($seedling, $downloaded, $leeching, $idling) {
@@ -556,7 +556,7 @@ class TorrentController extends Controller
                 $join->on('history.info_hash', '=', 'torrents.info_hash');
             })->groupBy('torrents.id');
         } else {
-            $torrent = $torrent->with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments']);
+            $torrent = $torrent->with(['user:id,username,role_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments']);
         }
         if ($collection != 1) {
             if ($request->has('search') && $request->input('search') != null) {
@@ -692,7 +692,7 @@ class TorrentController extends Controller
             }
             $totals = [];
             $counts = [];
-            $launcher = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
+            $launcher = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $lazyCollection) {
                 if ($lazyCollection->imdb) {
                     $totals[$lazyCollection->imdb] = \array_key_exists($lazyCollection->imdb, $totals) ? $totals[$lazyCollection->imdb] + 1 : 1;
@@ -749,7 +749,7 @@ class TorrentController extends Controller
             if (\is_array($hungry) && \array_key_exists($page - 1, $hungry)) {
                 $fed = $hungry[$page - 1];
             }
-            $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('id', $fed)->orderBy($sorting, $order)->get();
+            $torrents = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])->withCount(['thanks', 'comments'])->whereIn('id', $fed)->orderBy($sorting, $order)->get();
         } else {
             $torrents = $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order)->paginate($qty);
         }

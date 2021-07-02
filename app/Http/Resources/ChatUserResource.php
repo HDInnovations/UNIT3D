@@ -34,7 +34,7 @@ class ChatUserResource extends JsonResource
             'chatroom_id'    => $this->chatroom_id,
             'group'          => $this->whenLoaded('group'),
             'echoes'         => $this->whenLoaded('echoes'),
-            'group_id'       => $this->group_id,
+            'role_id'        => $this->role_id,
             'title'          => $this->title,
             'image'          => $this->image,
         ];

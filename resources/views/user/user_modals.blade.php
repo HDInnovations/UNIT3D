@@ -137,7 +137,7 @@
                         </div>
                         <div class="form-group">
                             <label>
-                                <select name="group_id" class="form-control">
+                                <select name="role_id" class="form-control">
                                     <option value="{{ $user->primaryRole->id }}">{{ $user->primaryRole->name }} (Default)</option>
                                     @foreach (\App\Models\Role::all() as $g)
                                         <option value="{{ $g->id }}">{{ $g->name }}</option>

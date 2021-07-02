@@ -227,13 +227,13 @@ class StatsController extends Controller
      */
     public function bankers(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
+        $validatingGroup = \cache()->rememberForever('validating_group', fn () => Role::where('slug', '=', 'validating')->pluck('id'));
+        $disabledGroup = \cache()->rememberForever('disabled_group', fn () => Role::where('slug', '=', 'disabled')->pluck('id'));
+        $prunedGroup = \cache()->rememberForever('pruned_group', fn () => Role::where('slug', '=', 'pruned')->pluck('id'));
 
         // Fetch Top Bankers
-        $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
+        $bankers = User::latest('seedbonus')->whereNotIn('role_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->take(100)->get();
 
         return \view('stats.users.bankers', ['bankers' => $bankers]);
     }

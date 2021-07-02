@@ -99,7 +99,7 @@ class ProcessBasicAnnounceRequest implements ShouldQueue
         // Modification of Upload and Download
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $this->user->id)->first();
         $freeleechToken = FreeleechToken::where('user_id', '=', $this->user->id)->where('torrent_id', '=', $this->torrent->id)->first();
-        $group = Group::whereId($this->user->group_id)->first();
+        $group = Role::whereId($this->user->role_id)->first();
 
         if (\config('other.freeleech') == true || $this->torrent->free == 1 || $personalFreeleech || $group->is_freeleech == 1 || $freeleechToken) {
             $modDownloaded = 0;

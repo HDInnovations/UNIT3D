@@ -41,7 +41,7 @@ class ForumController extends Controller
     public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
+        $groups = Role::all();
 
         return \view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
     }
@@ -54,7 +54,7 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
-        $groups = Group::all();
+        $groups = Role::all();
 
         $forum = new Forum();
         $forum->name = $request->input('title');
@@ -99,7 +99,7 @@ class ForumController extends Controller
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
-        $groups = Group::all();
+        $groups = Role::all();
 
         return \view('Staff.forum.edit', [
             'categories' => $categories,
@@ -118,7 +118,7 @@ class ForumController extends Controller
     public function update(Request $request, $id)
     {
         $forum = Forum::findOrFail($id);
-        $groups = Group::all();
+        $groups = Role::all();
 
         $forum->name = $request->input('title');
         $forum->position = $request->input('position');

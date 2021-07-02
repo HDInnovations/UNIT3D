@@ -52,7 +52,7 @@ class UserController extends Controller
     {
         $user = User::with(['privacy', 'history'])->withCount('torrents')->where('username', '=', $username)->firstOrFail();
 
-        $groups = Group::all();
+        $groups = Role::all();
         $followers = Follow::where('target_id', '=', $user->id)->latest()->limit(25)->get();
         $history = $user->history;
         $warnings = Warning::where('user_id', '=', $user->id)->whereNotNull('torrent')->where('active', '=', 1)->take(\config('hitrun.max_warnings'))->get();
@@ -543,7 +543,7 @@ class UserController extends Controller
             $privacy->user_id = $user->id;
         }
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -576,7 +576,7 @@ class UserController extends Controller
             $privacy->user_id = $user->id;
         }
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -609,7 +609,7 @@ class UserController extends Controller
             $privacy->user_id = $user->id;
         }
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -642,7 +642,7 @@ class UserController extends Controller
             $privacy->user_id = $user->id;
         }
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -676,7 +676,7 @@ class UserController extends Controller
             $privacy->user_id = $user->id;
         }
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -709,7 +709,7 @@ class UserController extends Controller
             $privacy->user_id = $user->id;
         }
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -748,7 +748,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -783,7 +783,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -817,7 +817,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -851,7 +851,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -886,7 +886,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -926,7 +926,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -962,7 +962,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -1000,7 +1000,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -1034,7 +1034,7 @@ class UserController extends Controller
         }
 
         $approved = $request->input('approved');
-        $groups = Group::all();
+        $groups = Role::all();
         $tomerge = [];
         foreach ($groups as $group) {
             $tomerge[$group->id] = \is_array($approved) && \in_array($group->id, $approved) ? 1 : 0;
@@ -1111,7 +1111,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
+        $groups = Role::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
         return \view('user.privacy', ['user' => $user, 'groups'=> $groups]);
     }
@@ -1127,7 +1127,7 @@ class UserController extends Controller
 
         \abort_unless($request->user()->id == $user->id, 403);
 
-        $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
+        $groups = Role::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
         return \view('user.notification', ['user' => $user, 'groups'=> $groups]);
     }

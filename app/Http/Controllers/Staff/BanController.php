@@ -51,11 +51,11 @@ class BanController extends Controller
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $staff = $request->user();
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
 
         \abort_if($user->hasRole('moderator') || $request->user()->id == $user->id, 403);
 
-        $user->group_id = $bannedGroup[0];
+        $user->role_id = $bannedGroup[0];
         $user->can_upload = 0;
         $user->can_download = 0;
         $user->can_comment = 0;
@@ -99,7 +99,7 @@ class BanController extends Controller
 
         \abort_if($user->hasRole('moderator') || $request->user()->id == $user->id, 403);
 
-        $user->group_id = $request->input('group_id');
+        $user->role_id = $request->input('role_id');
         $user->can_upload = 1;
         $user->can_download = 1;
         $user->can_comment = 1;
@@ -114,7 +114,7 @@ class BanController extends Controller
         $ban->removed_at = Carbon::now();
 
         $v = \validator($request->all(), [
-            'group_id'     => 'required',
+            'role_id'     => 'required',
             'unban_reason' => 'required',
         ]);
 

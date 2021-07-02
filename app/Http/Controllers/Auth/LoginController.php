@@ -81,7 +81,7 @@ class LoginController extends Controller
                 ->withErrors(\trans('auth.not-activated'));
         }
 
-        if ($user->group_id == $bannedGroup[0]) {
+        if ($user->role_id == $bannedGroup[0]) {
             $this->guard()->logout();
             $request->session()->invalidate();
 
@@ -89,8 +89,8 @@ class LoginController extends Controller
                 ->withErrors(\trans('auth.banned'));
         }
 
-        if ($user->group_id == $disabledGroup[0]) {
-            $user->group_id = $memberGroup[0];
+        if ($user->role_id == $disabledGroup[0]) {
+            $user->role_id = $memberGroup[0];
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;
@@ -104,8 +104,8 @@ class LoginController extends Controller
                 ->withSuccess(\trans('auth.welcome-restore'));
         }
 
-        if (\auth()->viaRemember() && $user->group_id == $disabledGroup[0]) {
-            $user->group_id = $memberGroup[0];
+        if (\auth()->viaRemember() && $user->role_id == $disabledGroup[0]) {
+            $user->role_id = $memberGroup[0];
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;

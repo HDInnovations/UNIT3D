@@ -48,7 +48,7 @@ class PageController extends Controller
      */
     public function staff(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
+        $staff = DB::table('users')->leftJoin('roles', 'users.role_id', '=', 'roles.id')->select(['users.id', 'users.title', 'users.username', 'roles.name', 'roles.color', 'roles.icon'])->where('roles.is_admin', 1)->orWhere('roles.is_modo', 1)->get();
 
         return \view('page.staff', ['staff' => $staff]);
     }
@@ -58,7 +58,7 @@ class PageController extends Controller
      */
     public function internal(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select(['users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon'])->where('groups.is_internal', 1)->get();
+        $internal = DB::table('users')->leftJoin('roles', 'users.role_id', '=', 'role.id')->select(['users.id', 'users.title', 'users.username', 'roles.name', 'roles.color', 'roles.icon'])->where('roles.is_internal', 1)->get();
 
         return \view('page.internal', ['internal' => $internal]);
     }

@@ -60,7 +60,7 @@ class UserController extends Controller
     public function settings($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
-        $groups = Group::all();
+        $groups = Role::all();
         $notes = Note::where('user_id', '=', $user->id)->latest()->paginate(25);
 
         return \view('Staff.user.edit', [

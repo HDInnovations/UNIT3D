@@ -309,7 +309,7 @@ class TorrentController extends BaseController
      */
     public function filter(Request $request)
     {
-        $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+        $torrent = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])
             ->withCount(['thanks', 'comments'])
             ->when($request->has('name'), function ($query) use ($request) {
                 $terms = \explode(' ', $request->input('name'));

@@ -33,7 +33,7 @@ class GroupController extends Controller
         $user = $request->user();
         \abort_unless($user->hasRole('admin'), 403);
 
-        $groups = Group::all()->sortBy('position');
+        $groups = Role::all()->sortBy('position');
 
         return \view('Staff.group.index', ['groups' => $groups]);
     }
@@ -123,7 +123,7 @@ class GroupController extends Controller
         $user = $request->user();
         \abort_unless($user->hasRole('admin'), 403);
 
-        $group = Group::findOrFail($id);
+        $group = Role::findOrFail($id);
 
         return \view('Staff.group.edit', ['group' => $group]);
     }
@@ -140,7 +140,7 @@ class GroupController extends Controller
         $user = $request->user();
         \abort_unless($user->hasRole('admin'), 403);
 
-        $group = Group::findOrFail($id);
+        $group = Role::findOrFail($id);
 
         $group->name = $request->input('name');
         $group->slug = Str::slug($request->input('name'));

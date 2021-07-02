@@ -49,14 +49,14 @@ class AutoBan extends Command
      */
     public function handle()
     {
-        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
 
         $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', \config('hitrun.max_warnings'))->get();
 
         foreach ($bans as $ban) {
-            if ($ban->warneduser->group_id != $bannedGroup[0] && ! $ban->warneduser->group->is_immune) {
+            if ($ban->warneduser->role_id != $bannedGroup[0] && ! $ban->warneduser->group->is_immune) {
                 // If User Has x or More Active Warnings Ban Set The Users Group To Banned
-                $ban->warneduser->group_id = $bannedGroup[0];
+                $ban->warneduser->role_id = $bannedGroup[0];
                 $ban->warneduser->can_upload = 0;
                 $ban->warneduser->can_download = 0;
                 $ban->warneduser->can_comment = 0;

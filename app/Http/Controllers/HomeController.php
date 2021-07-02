@@ -107,7 +107,7 @@ class HomeController extends Controller
             ->where('last_action', '>', \now()->subMinutes(5))
             ->get());
 
-        $groups = \cache()->remember('user-groups', $expiresAt, fn () => Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
+        $groups = \cache()->remember('user-groups', $expiresAt, fn () => Role::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get());
 
         // Featured Torrents Block
         $featured = \cache()->remember('latest_featured', $expiresAt, fn () => FeaturedTorrent::with('torrent')->get());
