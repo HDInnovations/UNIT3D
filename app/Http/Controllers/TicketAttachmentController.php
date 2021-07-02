@@ -20,7 +20,6 @@ class TicketAttachmentController extends Controller
     /**
      * Download a ticket attachment from storage.
      *
-     * @param \App\Models\TicketAttachment $attachment
      *
      * @return mixed
      */

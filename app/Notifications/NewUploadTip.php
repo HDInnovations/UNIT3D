@@ -25,10 +25,7 @@ class NewUploadTip extends Notification implements ShouldQueue
     /**
      * NewUploadTip Constructor.
      *
-     * @param string              $type
-     * @param string              $tipper
-     * @param                     $amount
-     * @param \App\Models\Torrent $torrent
+     * @param $amount
      */
     public function __construct(public string $type, public string $tipper, public $amount, public Torrent $torrent)
     {
@@ -55,8 +52,6 @@ class NewUploadTip extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',
             'body'  => $this->tipper.' has tipped one of your Uploaded Torrents '.$this->torrent->name,

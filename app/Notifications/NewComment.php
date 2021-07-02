@@ -23,9 +23,6 @@ class NewComment extends Notification
 
     /**
      * NewComment Constructor.
-     *
-     * @param string              $type
-     * @param \App\Models\Comment $comment
      */
     public function __construct(public string $type, public Comment $comment)
     {
@@ -52,7 +49,6 @@ class NewComment extends Notification
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
         if ($this->type == 'torrent') {
             if ($this->comment->anon == 0) {
                 return [

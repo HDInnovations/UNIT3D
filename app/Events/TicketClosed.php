@@ -25,26 +25,20 @@ class TicketClosed
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $ticket;
-
     /**
      * Create a new event instance.
      *
-     * @param Ticket $ticket
      *
      * @return mixed
      */
-    public function __construct(Ticket $ticket)
+    public function __construct(public Ticket $ticket)
     {
-        $this->ticket = $ticket;
     }
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\Channel | array
     {
         return new PrivateChannel('channel-name');
     }

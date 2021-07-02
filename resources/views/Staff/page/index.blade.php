@@ -36,7 +36,7 @@
                     @foreach ($pages as $page)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.pages.edit', ['id' => $page->id]) }}">
+                                <a href="{{ route('pages.show', ['id' => $page->id]) }}">
                                     {{ $page->name }}
                                 </a>
                             </td>

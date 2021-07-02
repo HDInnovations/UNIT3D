@@ -24,10 +24,8 @@ class CheaterController extends Controller
 {
     /**
      * Possible Ghost Leech Cheaters.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $cheaters = History::with('user')
             ->select(['*'])

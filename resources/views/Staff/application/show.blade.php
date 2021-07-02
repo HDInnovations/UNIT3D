@@ -126,7 +126,7 @@
                                         <form method="POST"
                                             action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
                                             @csrf
-                                            <div class="modal-dialog modal-dark">
+                                            <div class="modal-dialog{{ \modal_style() }}">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close"
@@ -167,7 +167,7 @@
                                         <form method="POST"
                                             action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
                                             @csrf
-                                            <div class="modal-dialog modal-dark">
+                                            <div class="modal-dialog{{ \modal_style() }}">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <button type="button" class="close"

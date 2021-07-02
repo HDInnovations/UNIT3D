@@ -206,7 +206,13 @@ URL: https://discord.gg/J8dsx7F5yT
 
 You can support my work if you are enjoying UNIT3D and my other projects under HDInnovations, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. 
 
-https://github.com/sponsors/HDVinnie
+Monthy Recurring:
+
+https://github.com/sponsors/HDVinnie?frequency=recurring&sponsor=HDVinnie
+
+One-time Custom Amount:
+
+https://github.com/sponsors/HDVinnie?frequency=one-time&sponsor=HDVinnie
 
 Some folks have asked me if it's possible to do a one-time donation via Crypto Currency or CashApp. Yes! If you would like to contribute via a crypto-currency not listed please let me know.
 
@@ -219,6 +225,8 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
+
+Monero - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
 
 ## <a name="sponsors"></a> 😍 Sponsors (Much Love!) 
 <h5>(Private Sponsors are not listed. If you would like to be please email me.)</h5>
@@ -304,18 +312,22 @@ Thanks goes to these wonderful people who have contributed alot of code:
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="100px;" alt=""/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=HDVinnie" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="100px;" alt=""/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=poppabear8883" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="100px;" alt=""/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=singularity43" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt=""/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4" width="100px;" alt=""/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://nyamori.moe"><img src="https://avatars1.githubusercontent.com/u/5460071?v=4" width="100px;" alt=""/><br /><sub><b>Gyakkun</b></sub></a><br /><a href="#translation-gyakkun" title="Translation">🌍</a></td>
-    <td align="center"><a href="https://indiehd.com"><img src="https://avatars2.githubusercontent.com/u/1236883?v=4" width="100px;" alt=""/><br /><sub><b>Ben Johnson</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Tests">⚠️</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/HDVinnie"><img src="https://avatars2.githubusercontent.com/u/12850699?v=4?s=100" width="100px;" alt=""/><br /><sub><b>HDVinnie</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=HDVinnie" title="Code">💻</a> <a href="#design-HDVinnie" title="Design">🎨</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=HDVinnie" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/poppabear8883"><img src="https://avatars1.githubusercontent.com/u/7263458?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Everett (Mike) Wiley</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=poppabear8883" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/singularity43"><img src="https://avatars1.githubusercontent.com/u/46550600?v=4?s=100" width="100px;" alt=""/><br /><sub><b>singularity43</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=singularity43" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/VerioPL"><img src="https://avatars1.githubusercontent.com/u/24521644?v=4?s=100" width="100px;" alt=""/><br /><sub><b>VerioPL</b></sub></a><br /><a href="#translation-VerioPL" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/pbodq2"><img src="https://avatars0.githubusercontent.com/u/25418300?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Morgan Wong</b></sub></a><br /><a href="#translation-pbodq2" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://nyamori.moe"><img src="https://avatars1.githubusercontent.com/u/5460071?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gyakkun</b></sub></a><br /><a href="#translation-gyakkun" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://indiehd.com"><img src="https://avatars2.githubusercontent.com/u/1236883?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben Johnson</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Tests">⚠️</a> <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=cbj4074" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Oha-you"><img src="https://avatars.githubusercontent.com/u/82098328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>おはよう</b></sub></a><br /><a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/commits?author=Oha-you" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## <a name="thanks"></a> 🎉 Special Thanks

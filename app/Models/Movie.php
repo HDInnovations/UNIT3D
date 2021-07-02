@@ -33,9 +33,7 @@ class Movie extends Model
      */
     public function cast()
     {
-        return $this->belongsToMany(Cast::class, 'cast_movie', 'cast_id', 'movie_id')
-            ->orderBy('movie_id')
-            ->take(6);
+        return $this->belongsToMany(Cast::class, 'cast_movie', 'cast_id', 'movie_id');
     }
 
     /**

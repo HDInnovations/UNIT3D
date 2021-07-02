@@ -191,6 +191,10 @@ body {
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
+#hoe-left-panel .hoe-has-menu > a {
+  cursor: pointer;
+}
+
 #hoe-left-panel .profile-box {
   border-bottom: 1px solid #efefef;
   min-height: 50px;
@@ -508,11 +512,6 @@ span.menu-text:before {
 #hoe-left-panel[hoe-position-type='fixed'] {
   position: fixed;
   top: 50px;
-}
-
-#main-content {
-  margin-left: 230px;
-  position: relative;
 }
 
 #hoe-header.hoe-minimized-lpanel > .hoe-right-header[hoe-position-type='fixed'] {

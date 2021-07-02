@@ -64,20 +64,12 @@
         </table>
     </div>
     <div class="panel-footer text-center">
-        <p>@lang('torrent.subtitle-included')</p>
-        @if ($text_crumbs !== null)
-            @foreach ($text_crumbs as $key => $s)
-                <span class="text-bold badge-extra">
-                    <em>
-                        @foreach ($s as $crumb)
-                            {{ $crumb }}
-                            @if (!$loop->last)
-                                /
-                            @endif
-                        @endforeach
-                    </em>
-                </span>
-            @endforeach
+        @if (count($torrent->subtitles) === 0)
+            <div class="text-center">
+                <h4 class="text-bold text-danger">
+                    <i class="{{ config('other.font-awesome') }} fa-frown"></i> No External Subtitles Availible
+                </h4>
+            </div>
         @endif
     </div>
 </div>

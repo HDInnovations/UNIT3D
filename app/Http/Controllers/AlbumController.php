@@ -27,10 +27,8 @@ class AlbumController extends Controller
 {
     /**
      * Display All Albums.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $albums = Album::withCount('images')->get();
 
@@ -39,10 +37,8 @@ class AlbumController extends Controller
 
     /**
      * Show Album Create Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('album.create');
     }
@@ -50,7 +46,6 @@ class AlbumController extends Controller
     /**
      * Store A New Album.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -99,10 +94,8 @@ class AlbumController extends Controller
      * Show A Album.
      *
      * @param \App\Models\Album $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $album = Album::with('images')->find($id);
         $albums = Album::with('images')->get();
@@ -113,8 +106,7 @@ class AlbumController extends Controller
     /**
      * Delete A Album.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Album        $id
+     * @param \App\Models\Album $id
      *
      * @throws \Exception
      *

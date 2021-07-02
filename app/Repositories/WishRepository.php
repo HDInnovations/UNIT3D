@@ -22,10 +22,6 @@ class WishRepository implements WishInterface
 {
     /**
      * WishRepository Constructor.
-     *
-     * @param \App\Models\Wish    $wish
-     * @param \App\Models\User    $user
-     * @param \App\Models\Torrent $torrent
      */
     public function __construct(private Wish $wish, private User $user, private Torrent $torrent)
     {
@@ -36,14 +32,12 @@ class WishRepository implements WishInterface
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function all($paginate = null)
+    public function all($paginate = null): \Illuminate\Database\Eloquent\Collection | array
     {
         return $paginate ? $this->wish->paginate($paginate) : $this->wish->all();
     }
 
     /**
-     * @param array $data
-     *
      * @return mixed
      */
     public function create(array $data)

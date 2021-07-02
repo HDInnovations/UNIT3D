@@ -26,10 +26,8 @@ class ArticleController extends Controller
 {
     /**
      * Display All Articles.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $articles = Article::latest()->paginate(25);
 
@@ -38,10 +36,8 @@ class ArticleController extends Controller
 
     /**
      * Article Add Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.article.create');
     }
@@ -49,7 +45,6 @@ class ArticleController extends Controller
     /**
      * Store A New Article.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -93,10 +88,8 @@ class ArticleController extends Controller
      * Article Edit Form.
      *
      * @param \App\Models\Article $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $article = Article::findOrFail($id);
 
@@ -106,8 +99,7 @@ class ArticleController extends Controller
     /**
      * Edit A Article.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Article      $id
+     * @param \App\Models\Article $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

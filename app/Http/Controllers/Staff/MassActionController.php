@@ -30,10 +30,8 @@ class MassActionController extends Controller
 
     /**
      * Mass PM Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.masspm.index');
     }
@@ -41,7 +39,6 @@ class MassActionController extends Controller
     /**
      * Send The Mass PM.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Exception
      *

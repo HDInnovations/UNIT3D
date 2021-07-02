@@ -20,7 +20,6 @@ class UserObserver
     /**
      * Handle the User "created" event.
      *
-     * @param \App\Models\User $user
      *
      * @return void
      */
@@ -32,7 +31,6 @@ class UserObserver
     /**
      * Handle the User "updated" event.
      *
-     * @param \App\Models\User $user
      *
      * @return void
      */
@@ -44,7 +42,6 @@ class UserObserver
     /**
      * Handle the User "retrieved" event.
      *
-     * @param \App\Models\User $user
      *
      * @return void
      */
@@ -56,7 +53,6 @@ class UserObserver
     /**
      * Handle the User "deleted" event.
      *
-     * @param \App\Models\User $user
      *
      * @return void
      */
@@ -68,7 +64,6 @@ class UserObserver
     /**
      * Handle the User "restored" event.
      *
-     * @param \App\Models\User $user
      *
      * @return void
      */

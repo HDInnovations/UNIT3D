@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="padding: 5px 0; margin: 0;">
+                    <hr style="padding: 0; margin: 0;">
                 </div>
             </div>
             <div id="facetedFilters" style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
@@ -288,9 +288,8 @@
                                         </div>
                                         <div class="card_alt">
                                             <div class="body_poster">
-                                                <img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="show-poster" alt="@lang('torrent.poster')"
-                                                         data-image='<img src="{{ $t->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('torrent.poster')"
-                                                         style="height: 1000px;">'>
+                                                <img src="{{ isset($t->meta->poster) ? \tmdb_image('poster_mid', $t->meta->poster) : 'https://via.placeholder.com/200x300' }}"
+                                                     class="show-poster" alt="@lang('torrent.poster')">
                                             </div>
                                             <div class="body_grouping" style="width: 100%;">
                                                 <h3 class="description_title">

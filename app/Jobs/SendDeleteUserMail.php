@@ -38,8 +38,6 @@ class SendDeleteUserMail implements ShouldQueue
 
     /**
      * SendDeleteUserMail Constructor.
-     *
-     * @param \App\Models\User $user
      */
     public function __construct(public User $user)
     {

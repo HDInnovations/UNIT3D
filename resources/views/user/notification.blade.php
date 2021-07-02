@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('user.buttons.settings')
             <div class="header gradient red">
@@ -31,18 +31,18 @@
             </div>
             <div class="container-fluid p-0 some-padding">
                 <ul class="nav nav-tabs" role="tablist" id="basetabs">
-                    <li class="active"><a href="#account" data-toggle="tab">Account</a></li>
-                    <li><a href="#bon" data-toggle="tab">BON</a></li>
-                    <li><a href="#following" data-toggle="tab">Followed User</a></li>
-                    <li><a href="#forum" data-toggle="tab">Forum</a></li>
-                    <li><a href="#request" data-toggle="tab">Request</a></li>
-                    <li><a href="#subscription" data-toggle="tab">Subscription</a></li>
-                    <li><a href="#torrent" data-toggle="tab">Torrent</a></li>
-                    <li><a href="#mention" data-toggle="tab">@Mention</a></li>
+                    <li class="active"><a href="#account_tab" data-toggle="tab">Account</a></li>
+                    <li><a href="#bon_tab" data-toggle="tab">BON</a></li>
+                    <li><a href="#following_tab" data-toggle="tab">Followed User</a></li>
+                    <li><a href="#forum_tab" data-toggle="tab">Forum</a></li>
+                    <li><a href="#request_tab" data-toggle="tab">Request</a></li>
+                    <li><a href="#subscription_tab" data-toggle="tab">Subscription</a></li>
+                    <li><a href="#torrent_tab" data-toggle="tab">Torrent</a></li>
+                    <li><a href="#mention_tab" data-toggle="tab">@Mention</a></li>
                 </ul>
                 <div class="tab-content">
                     <br>
-                    <div role="tabpanel" class="tab-pane active" id="account">
+                    <div role="tabpanel" class="tab-pane active" id="account_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_account', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -137,7 +137,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="following">
+                    <div role="tabpanel" class="tab-pane" id="following_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_following', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -214,7 +214,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="subscription">
+                    <div role="tabpanel" class="tab-pane" id="subscription_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_subscription', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -310,7 +310,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="forum">
+                    <div role="tabpanel" class="tab-pane" id="forum_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_forum', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -387,7 +387,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="request">
+                    <div role="tabpanel" class="tab-pane" id="request_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_request', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -572,7 +572,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="torrent">
+                    <div role="tabpanel" class="tab-pane" id="torrent_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_torrent', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -685,7 +685,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="bon">
+                    <div role="tabpanel" class="tab-pane" id="bon_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_bon', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -762,7 +762,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="mention">
+                    <div role="tabpanel" class="tab-pane" id="mention_tab">
                         <form role="form" method="POST"
                             action="{{ route('notification_mention', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -906,33 +906,33 @@
         $(window).on("load", function() {
             loadTab();
         });
-    
+
         function loadTab() {
-            if (window.location.hash && window.location.hash == "#account") {
-                $('#basetabs a[href="#account"]').tab('show');
+            if (window.location.hash && window.location.hash == "#account_tab") {
+                $('#basetabs a[href="#account_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#bon") {
-                $('#basetabs a[href="#bon"]').tab('show');
+            if (window.location.hash && window.location.hash == "#bon_tab") {
+                $('#basetabs a[href="#bon_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#following") {
-                $('#basetabs a[href="#following"]').tab('show');
+            if (window.location.hash && window.location.hash == "#following_tab") {
+                $('#basetabs a[href="#following_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#forum") {
-                $('#basetabs a[href="#forum"]').tab('show');
+            if (window.location.hash && window.location.hash == "#forum_tab") {
+                $('#basetabs a[href="#forum_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#torrent") {
-                $('#basetabs a[href="#torrent"]').tab('show');
+            if (window.location.hash && window.location.hash == "#torrent_tab") {
+                $('#basetabs a[href="#torrent_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#mention") {
-                $('#basetabs a[href="#mention"]').tab('show');
+            if (window.location.hash && window.location.hash == "#mention_tab") {
+                $('#basetabs a[href="#mention_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#subscription") {
-                $('#basetabs a[href="#subscription"]').tab('show');
+            if (window.location.hash && window.location.hash == "#subscription_tab") {
+                $('#basetabs a[href="#subscription_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#request") {
-                $('#basetabs a[href="#request"]').tab('show');
+            if (window.location.hash && window.location.hash == "#request_tab") {
+                $('#basetabs a[href="#request_tab"]').tab('show');
             }
         }
-    
+
     </script>
 @endsection

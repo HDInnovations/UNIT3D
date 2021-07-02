@@ -21,10 +21,8 @@ class CollectionController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('mediahub.collection.index');
     }
@@ -42,7 +40,6 @@ class CollectionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return void
      */
@@ -55,10 +52,8 @@ class CollectionController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $collection = Collection::with(['movie', 'comments'])->findOrFail($id);
 
@@ -82,8 +77,7 @@ class CollectionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return void
      */

@@ -89,7 +89,7 @@ class PrivateMessage extends Model
      */
     public function setMessageAttribute($value)
     {
-        $this->attributes['message'] = (new AntiXSS())->xss_clean($value);
+        $this->attributes['message'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -102,6 +102,6 @@ class PrivateMessage extends Model
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($this->message), true);
+        return $linkify->linky($bbcode->parse($this->message, true));
     }
 }

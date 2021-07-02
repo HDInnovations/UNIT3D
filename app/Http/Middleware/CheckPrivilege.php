@@ -18,11 +18,18 @@ use Illuminate\Http\Request;
 
 class CheckPrivilege
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return mixed
+     */
     public function handle(Request $request, Closure $next, $permission)
     {
         if ($request->user()->hasPrivilegeTo($permission)) {
             return $next($request);
         }
-        abort(403);
+        \abort(403);
     }
 }

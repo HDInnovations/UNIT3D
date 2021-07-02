@@ -24,10 +24,6 @@ class NewRequestClaim extends Notification implements ShouldQueue
 
     /**
      * NewRequestClaim Constructor.
-     *
-     * @param string                     $type
-     * @param string                     $sender
-     * @param \App\Models\TorrentRequest $torrentRequest
      */
     public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
     {
@@ -54,8 +50,6 @@ class NewRequestClaim extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->sender.' Has Claimed One Of Your Requested Torrents',
             'body'  => $this->sender.' has claimed your Requested Torrent '.$this->torrentRequest->name,

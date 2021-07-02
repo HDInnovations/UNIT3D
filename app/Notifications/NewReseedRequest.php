@@ -24,8 +24,6 @@ class NewReseedRequest extends Notification implements ShouldQueue
 
     /**
      * NewReseedRequest Constructor.
-     *
-     * @param \App\Models\Torrent $torrent
      */
     public function __construct(public Torrent $torrent)
     {

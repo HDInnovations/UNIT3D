@@ -11,16 +11,21 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-return [
+namespace App\Http\Middleware;
 
-    /*
-     * Use this setting to enable the cookie consent dialog.
-     */
-    'enabled' => env('COOKIE_CONSENT_ENABLED', true),
+use Illuminate\Http\Middleware\TrustHosts as Middleware;
 
-    /*
-     * The name of the cookie in which we store if the user
-     * has agreed to accept the conditions.
+class TrustHosts extends Middleware
+{
+    /**
+     * Get the host patterns that should be trusted.
+     *
+     * @return array
      */
-    'cookie_name' => 'laravel_cookie_consent',
-];
+    public function hosts()
+    {
+        return [
+            $this->allSubdomainsOfApplicationUrl(),
+        ];
+    }
+}

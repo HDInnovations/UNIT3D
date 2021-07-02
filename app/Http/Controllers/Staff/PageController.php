@@ -25,10 +25,8 @@ class PageController extends Controller
 {
     /**
      * Display All Pages.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $pages = Page::all();
 
@@ -37,10 +35,8 @@ class PageController extends Controller
 
     /**
      * Page Add Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.page.create');
     }
@@ -48,7 +44,6 @@ class PageController extends Controller
     /**
      * Store A New Page.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -79,10 +74,8 @@ class PageController extends Controller
      * Page Edit Form.
      *
      * @param \App\Models\Page $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $page = Page::findOrFail($id);
 
@@ -92,8 +85,7 @@ class PageController extends Controller
     /**
      * Edit A Page.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Page         $id
+     * @param \App\Models\Page $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -27,32 +27,28 @@
             <div class="row">
                 @foreach($playlists as $playlist)
                     <div class="col-md-2">
-                        <div class="item-playlist-container-playlist">
-                            <a href="{{ route('playlists.show', ['id' => $playlist->id]) }}">
+                        <a href="{{ route('playlists.show', ['id' => $playlist->id]) }}">
+                            <div class="item-playlist-container-playlist">
                                 @if(isset($playlist->cover_image))
                                     <img src="{{ url('files/img/' . $playlist->cover_image) }}" alt="Cover Image">
                                 @else
                                     <div class="no_image_holder w273_and_h153 playlist"></div>
                                 @endif
-                            </a>
-                            <div class="item-playlist-text-playlist">
-                                <a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
+                                <div class="item-playlist-text-playlist">
                                     @if ($playlist->user->image != null)
                                         <img src="{{ url('files/img/' . $playlist->user->image) }}"
                                             alt="{{ $playlist->user->username }}">
                                     @else
                                         <img src="{{ url('img/profile.png') }}" alt="{{ $playlist->user->username }}">
                                     @endif
-                                </a>
-                                <h3 class="text-bold" style=" margin: 0;">{{ $playlist->name }}</h3>
-                                <h5>
-                                    <a href="{{ route('users.show', ['username' => $playlist->user->username]) }}">
-                                        @lang('playlist.added-by') {{ $playlist->user->username }}
-                                    </a>
-                                </h5>
-                                <h6>{{ $playlist->torrents_count }} @lang('playlist.titles')</h6>
+                                    <h3 class="text-bold" style="margin: 0; color: #cccccc;">{{ $playlist->name }}</h3>
+                                    <h5>
+                                        @lang('playlist.added-by') <b>{{ $playlist->user->username }}</b>
+                                    </h5>
+                                    <h6>{{ $playlist->torrents_count }} @lang('playlist.titles')</h6>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>

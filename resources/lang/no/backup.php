@@ -29,7 +29,7 @@ return [
     'delete_cancel_message'          => 'Sikkerhetskopifilen er IKKE slettet.',
     'delete_cancel_title'            => 'Det er greit',
     'delete_confirm'                 => 'Er du sikker på at du vil slette denne sikkerhetskopien?',
-    'delete_confirmation_message'    => 'Sikkerhetsfilen ble slettet.',
+    'delete_confirmation_message'    => 'Sikkerhetskopifilen ble slettet.',
     'delete_confirmation_title'      => 'Ferdig',
     'delete_error_message'           => 'Sikkerhetskopifilen er IKKE slettet.',
     'delete_error_title'             => 'Feil',

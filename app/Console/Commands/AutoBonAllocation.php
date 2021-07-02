@@ -40,7 +40,6 @@ class AutoBonAllocation extends Command
     /**
      * Execute the console command.
      *
-     * @param \App\Helpers\ByteUnits $byteUnits
      *
      * @return mixed
      */

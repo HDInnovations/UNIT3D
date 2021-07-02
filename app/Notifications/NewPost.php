@@ -25,10 +25,6 @@ class NewPost extends Notification implements ShouldQueue
 
     /**
      * NewPost Constructor.
-     *
-     * @param string           $type
-     * @param \App\Models\User $user
-     * @param \App\Models\Post $post
      */
     public function __construct(public string $type, public User $user, public Post $post)
     {
@@ -55,8 +51,6 @@ class NewPost extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         if ($this->type == 'subscription') {
             return [
                 'title' => $this->user->username.' Has Posted In A Subscribed Topic',

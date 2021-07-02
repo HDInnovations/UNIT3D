@@ -20,7 +20,6 @@ class TorrentObserver
     /**
      * Handle the Torrent "created" event.
      *
-     * @param \App\Models\Torrent $torrent
      *
      * @return void
      */
@@ -32,7 +31,6 @@ class TorrentObserver
     /**
      * Handle the Torrent "updated" event.
      *
-     * @param \App\Models\Torrent $torrent
      *
      * @return void
      */
@@ -44,7 +42,6 @@ class TorrentObserver
     /**
      * Handle the Torrent "retrieved" event.
      *
-     * @param \App\Models\Torrent $torrent
      *
      * @return void
      */
@@ -56,7 +53,6 @@ class TorrentObserver
     /**
      * Handle the Torrent "deleted" event.
      *
-     * @param \App\Models\Torrent $torrent
      *
      * @return void
      */
@@ -68,7 +64,6 @@ class TorrentObserver
     /**
      * Handle the Torrent "restored" event.
      *
-     * @param \App\Models\Torrent $torrent
      *
      * @return void
      */

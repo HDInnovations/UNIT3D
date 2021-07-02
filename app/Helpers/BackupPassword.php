@@ -34,8 +34,6 @@ class BackupPassword
 
     /**
      * Read the .zip, apply password and encryption, then rewrite the file.
-     *
-     * @param string $path
      */
     public function __construct(string $path)
     {
@@ -55,10 +53,6 @@ class BackupPassword
 
     /**
      * Use native PHP ZipArchive.
-     *
-     * @param string $path
-     *
-     * @return void
      */
     protected function makeZip(string $path): void
     {

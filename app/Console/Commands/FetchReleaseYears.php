@@ -67,7 +67,7 @@ class FetchReleaseYears extends Command
             $meta = null;
             if ($torrent->category->tv_meta && $torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = Tv::where('id', '=', $torrent->tmdb)->first();
-                if (isset($meta->first_air_date) && \substr($meta->first_air_date, 0, 4) > '1900') {
+                if (\property_exists($meta, 'first_air_date') && $meta->first_air_date !== null && \substr($meta->first_air_date, 0, 4) > '1900') {
                     $torrent->release_year = \substr($meta->first_air_date, 0, 4);
                     $torrent->save();
                     $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
@@ -77,7 +77,7 @@ class FetchReleaseYears extends Command
             }
             if ($torrent->category->movie_meta && $torrent->tmdb && $torrent->tmdb != 0) {
                 $meta = Movie::where('id', '=', $torrent->tmdb)->first();
-                if (isset($meta->release_date) && \substr($meta->release_date, 0, 4) > '1900') {
+                if (\property_exists($meta, 'release_date') && $meta->release_date !== null && \substr($meta->release_date, 0, 4) > '1900') {
                     $torrent->release_year = \substr($meta->release_date, 0, 4);
                     $torrent->save();
                     $this->info(\sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));

@@ -25,10 +25,6 @@ class NewTopic extends Notification implements ShouldQueue
 
     /**
      * NewTopic Constructor.
-     *
-     * @param string            $type
-     * @param \App\Models\User  $user
-     * @param \App\Models\Topic $topic
      */
     public function __construct(public string $type, public User $user, public Topic $topic)
     {
@@ -55,8 +51,6 @@ class NewTopic extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         if ($this->type == 'staff') {
             return [
                 'title' => $this->user->username.' Has Posted In A Staff Forum',

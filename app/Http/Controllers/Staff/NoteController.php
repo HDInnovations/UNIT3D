@@ -25,10 +25,8 @@ class NoteController extends Controller
 {
     /**
      * Display All User Notes.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $notes = Note::latest()->paginate(25);
 
@@ -38,8 +36,7 @@ class NoteController extends Controller
     /**
      * Store A New User Note.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */

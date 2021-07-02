@@ -13,7 +13,7 @@
         <div class="col-md-10">
             <h2>@lang('common.edit'): {{ $torrent->name }}</h2>
             <div class="block">
-                <form role="form" method="POST" action="{{ route('edit', ['id' => $torrent->id]) }}">
+                <form role="form" method="POST" action="{{ route('edit', ['id' => $torrent->id]) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="title">@lang('torrent.title')</label>
@@ -103,6 +103,17 @@
                             </select>
                         </label>
                     </div>
+                    
+                    @if ($torrent->category->no_meta)
+                    <div class="form-group">
+                        <label for="torrent-cover">Cover @lang('torrent.file') (@lang('torrent.optional'))</label>
+                        <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-cover">
+                    </div>
+                    <div class="form-group">
+                        <label for="torrent-banner">Banner @lang('torrent.file') (@lang('torrent.optional'))</label>
+                        <input class="upload-form-file" type="file" accept=".jpg, .jpeg" name="torrent-banner">
+                    </div>
+                    @endif
 
                     @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <div class="form-group">
@@ -134,6 +145,13 @@
                         <label for="description">@lang('torrent.media-info')</label>
                         <label>
                             <textarea name="mediainfo" cols="30" rows="10" class="form-control">{{ $torrent->mediainfo }}</textarea>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">BDInfo (Quick Summary)</label>
+                        <label>
+                            <textarea name="bdinfo" cols="30" rows="10" class="form-control">{{ $torrent->bdinfo }}</textarea>
                         </label>
                     </div>
     

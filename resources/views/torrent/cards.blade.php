@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <hr style="padding: 5px 0; margin: 0;">
+                    <hr style="padding: 0; margin: 0;">
                 </div>
             </div>
             <div id="facetedFilters" style="{{ $user->torrent_filters ? '' : 'display: none;' }}">
@@ -338,16 +338,13 @@
                                     <div class="card_body">
                                         <div class="body_poster">
                                             @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-                                                <img src="{{ $torrent->meta->poster ?? 'https://via.placeholder.com/600x900' }}"
-                                                     class="show-poster"
-                                                     data-image='<img src="{{ $torrent->meta->poster ?? 'https://via.placeholder.com/600x900' }}" alt="@lang('
-                                                    torrent.poster')" style="height: 1000px;">'
-                                                     class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                                <img src="{{ isset($torrent->meta->poster) ? \tmdb_image('poster_mid', $torrent->meta->poster) : 'https://via.placeholder.com/200x300' }}"
+                                                     class="show-poster" alt="@lang('torrent.poster')">
                                             @endif
 
                                             @if ($torrent->category->game_meta && isset($torrent->meta) && $torrent->meta->cover->image_id &&
                                                 $torrent->meta->name)
-                                                <img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $torrent->meta->cover->image_id }}.jpg"
+                                                <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover->image_id }}.jpg"
                                                      class="show-poster"
                                                      data-name='<i style="color: #a5a5a5;">{{ $torrent->meta->name ?? 'N/A' }}</i>'
                                                      data-image='<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $torrent->meta->cover->image_id }}.jpg" alt="@lang('
@@ -355,12 +352,22 @@
                                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
                                             @endif
 
-                                            @if ($torrent->category->no_meta || $torrent->category->music_meta)
-                                                <img src="https://via.placeholder.com/600x900" class="show-poster"
+                                            @if ($torrent->category->music_meta)
+                                                <img src="https://via.placeholder.com/200x300" class="show-poster"
                                                      data-name='<i style="color: #a5a5a5;">N/A</i>'
-                                                     data-image='<img src="https://via.placeholder.com/600x900" alt="@lang('
+                                                     data-image='<img src="https://via.placeholder.com/200x300" alt="@lang('
                                                     torrent.poster')" style="height: 1000px;">'
                                                      class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                            @endif
+                                            
+                                            @if ($torrent->category->no_meta)
+                                                @if(file_exists(public_path().'/files/img/torrent-cover_'.$torrent->id.'.jpg')) 
+                                                    <img src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}" class="show-poster" alt="@lang('torrent.poster')">
+                                                @else
+                                                        <img src="https://via.placeholder.com/200x300" class="show-poster" data-name='<i style="color: #a5a5a5;">N/A</i>'
+                                                        data-image='<img src="https://via.placeholder.com/200x300" alt="@lang('torrent.poster')" style="height: 1000px;">'
+                                                        class="torrent-poster-img-small show-poster" alt="@lang('torrent.poster')">
+                                                @endif
                                             @endif
                                         </div>
                                         <div class="body_description">

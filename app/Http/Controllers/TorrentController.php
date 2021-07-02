@@ -13,9 +13,11 @@
 
 namespace App\Http\Controllers;
 
+use andkab\LaravelJoyPixels\LaravelJoyPixels;
 use App\Bots\IRCAnnounceBot;
 use App\Helpers\Bbcode;
 use App\Helpers\Bencode;
+use App\Helpers\Linkify;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
@@ -52,6 +54,7 @@ use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Character;
 use MarcReichel\IGDBLaravel\Models\Game;
 
@@ -87,9 +90,6 @@ class TorrentController extends Controller
 
     /**
      * TorrentController Constructor.
-     *
-     * @param \App\Repositories\TorrentFacetedRepository $torrentFacetedRepository
-     * @param \App\Repositories\ChatRepository           $chatRepository
      */
     public function __construct(private TorrentFacetedRepository $torrentFacetedRepository, private ChatRepository $chatRepository)
     {
@@ -97,46 +97,19 @@ class TorrentController extends Controller
 
     /**
      * Displays Torrent List View.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrents(Request $request)
+    public function torrents(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
-        $user = $request->user();
-        $repository = $this->torrentFacetedRepository;
-
-        $torrents = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
-            ->withCount(['thanks', 'comments'])
-            ->orderBy('sticky', 'desc')
-            ->orderBy('bumped_at', 'desc')
-            ->paginate(25);
-        $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $bookmarks = Bookmark::where('user_id', $user->id)->get();
-
-        return \view('torrent.torrents', [
-            'personal_freeleech' => $personalFreeleech,
-            'repository'         => $repository,
-            'bookmarks'          => $bookmarks,
-            'torrents'           => $torrents,
-            'user'               => $user,
-            'sorting'            => '',
-            'direction'          => 1,
-            'links'              => null,
-        ]);
+        return \view('torrent.torrents');
     }
 
     /**
      * Torrent Similar Results.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $categoryId
-     * @param                          $tmdb
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param $categoryId
+     * @param $tmdb
      */
-    public function similar(Request $request, $categoryId, $tmdb)
+    public function similar(Request $request, $categoryId, $tmdb): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $personalFreeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
@@ -161,12 +134,8 @@ class TorrentController extends Controller
 
     /**
      * Displays Torrent Cards View.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function cardLayout(Request $request)
+    public function cardLayout(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $torrents = Torrent::with(['user:id,username,role_id', 'category', 'type', 'resolution'])->latest()->paginate(33);
@@ -203,7 +172,6 @@ class TorrentController extends Controller
     /**
      * Torrent Filter Remember Setting.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return void
      */
@@ -224,13 +192,10 @@ class TorrentController extends Controller
     /**
      * Torrent Grouping.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Throwable
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function groupingLayout(Request $request)
+    public function groupingLayout(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | string
     {
         $user = $request->user();
         $repository = $this->torrentFacetedRepository;
@@ -339,8 +304,6 @@ class TorrentController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Torrent                  $torrent
      *
      * @throws \Throwable
      *
@@ -909,12 +872,9 @@ class TorrentController extends Controller
     /**
      * Display The Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\Torrent $id
      */
-    public function torrent(Request $request, $id)
+    public function torrent(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->with(['comments', 'category', 'type', 'resolution', 'subtitles'])->findOrFail($id);
         $uploader = $torrent->user;
@@ -1001,12 +961,9 @@ class TorrentController extends Controller
     /**
      * Torrent Edit Form.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\Torrent $id
      */
-    public function editForm(Request $request, $id)
+    public function editForm(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
@@ -1025,8 +982,7 @@ class TorrentController extends Controller
     /**
      * Edit A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1048,6 +1004,7 @@ class TorrentController extends Controller
         $torrent->type_id = $request->input('type_id');
         $torrent->resolution_id = $request->input('resolution_id');
         $torrent->mediainfo = $request->input('mediainfo');
+        $torrent->bdinfo = $request->input('bdinfo');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
@@ -1076,6 +1033,22 @@ class TorrentController extends Controller
         }
         $torrent->save();
 
+        // Cover Image for No-Meta Torrents
+        if ($request->hasFile('torrent-cover') == true) {
+            $image_cover = $request->file('torrent-cover');
+            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+        }
+
+        // Banner Image for No-Meta Torrents
+        if ($request->hasFile('torrent-banner') == true) {
+            $image_cover = $request->file('torrent-banner');
+            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+        }
+
         $tmdbScraper = new TMDBScraper();
         if ($torrent->category->tv_meta && ($torrent->tmdb || $torrent->tmdb != 0)) {
             $tmdbScraper->tv($torrent->tmdb);
@@ -1091,7 +1064,6 @@ class TorrentController extends Controller
     /**
      * Delete A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Exception
      *
@@ -1168,10 +1140,8 @@ class TorrentController extends Controller
      * Display Peers Of A Torrent.
      *
      * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function peers($id)
+    public function peers($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
@@ -1183,10 +1153,8 @@ class TorrentController extends Controller
      * Display History Of A Torrent.
      *
      * @param \App\Models\Torrent $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function history($id)
+    public function history($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
@@ -1197,15 +1165,12 @@ class TorrentController extends Controller
     /**
      * Torrent Upload Form.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $categoryId
-     * @param string                   $title
-     * @param int                      $imdb
-     * @param int                      $tmdb
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param int    $categoryId
+     * @param string $title
+     * @param int    $imdb
+     * @param int    $tmdb
      */
-    public function uploadForm(Request $request, $categoryId = 0, $title = '', $imdb = 0, $tmdb = 0)
+    public function uploadForm(Request $request, $categoryId = 0, $title = '', $imdb = 0, $tmdb = 0): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -1222,9 +1187,30 @@ class TorrentController extends Controller
     }
 
     /**
+     * Preview torrent description.
+     *
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function preview(Request $request)
+    {
+        // Preview The Upload
+        $joyPixel = \app()->make(LaravelJoyPixels::class);
+        $bbcode = new Bbcode();
+        $linkify = new Linkify();
+
+        $previewContent = $joyPixel->toImage(
+            $linkify->linky(
+                $bbcode->parse($request->input('description'), true)
+            )
+        );
+
+        return \response()->json($previewContent);
+    }
+
+    /**
      * Upload A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1234,17 +1220,6 @@ class TorrentController extends Controller
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
-
-        // Preview The Upload
-        $previewContent = null;
-        if ($request->get('preview') == true) {
-            $previewContent = (new Bbcode())->parse($request->input('description'), true);
-
-            return \redirect()->route('upload_form', ['category_id' => $category->id])
-                ->withInput()
-                ->with(['previewContent' => $previewContent])
-                ->withWarning('Torrent Description Preview Loaded!');
-        }
 
         $requestFile = $request->file('torrent');
         if ($request->hasFile('torrent') == false) {
@@ -1263,7 +1238,7 @@ class TorrentController extends Controller
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return \redirect()->route('upload_form', ['category_id' => $category->id])
                 ->withErrors('You Must Provide A Valid Torrent File For Upload!')->withInput();
         }
@@ -1284,6 +1259,7 @@ class TorrentController extends Controller
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
+        $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
         $torrent->num_file = $meta['count'];
@@ -1371,6 +1347,22 @@ class TorrentController extends Controller
             $tag->save();
         }
 
+        // Cover Image for No-Meta Torrents
+        if ($request->hasFile('torrent-cover') == true) {
+            $image_cover = $request->file('torrent-cover');
+            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+        }
+
+        // Banner Image for No-Meta Torrents
+        if ($request->hasFile('torrent-banner') == true) {
+            $image_cover = $request->file('torrent-banner');
+            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
+            $path_cover = \public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+        }
+
         // check for trusted user and update torrent
         if ($user->hasPrivilegeTo('torrent_can_bypass_modq')) {
             $appurl = \config('app.url');
@@ -1399,12 +1391,9 @@ class TorrentController extends Controller
     /**
      * Download Check.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\Torrent $id
      */
-    public function downloadCheck(Request $request, $id)
+    public function downloadCheck(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $user = $request->user();
@@ -1415,9 +1404,8 @@ class TorrentController extends Controller
     /**
      * Download A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
-     * @param null                     $rsskey
+     * @param \App\Models\Torrent $id
+     * @param null                $rsskey
      *
      * @return TorrentFile
      */
@@ -1480,8 +1468,7 @@ class TorrentController extends Controller
     /**
      * Bump A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1518,8 +1505,7 @@ class TorrentController extends Controller
     /**
      * Sticky A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1539,8 +1525,7 @@ class TorrentController extends Controller
     /**
      * 100% Freeleech A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1575,8 +1560,7 @@ class TorrentController extends Controller
     /**
      * Feature A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1615,8 +1599,7 @@ class TorrentController extends Controller
     /**
      * UnFeature A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      * @param \App\Models\FeaturedTorrent torrent_id
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -1653,8 +1636,7 @@ class TorrentController extends Controller
     /**
      * Double Upload A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -1687,14 +1669,12 @@ class TorrentController extends Controller
     /**
      * Reseed Request A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function reseedTorrent(Request $request, $id)
     {
-        $appurl = \config('app.url');
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);
         $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();
@@ -1723,8 +1703,7 @@ class TorrentController extends Controller
     /**
      * Use Freeleech Token On A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

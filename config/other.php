@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v5.2.0',
+    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker) v5.3.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -156,7 +156,7 @@ return [
     | 7 = Dark Teal Theme
     | 8 = Dark Yellow Theme
     */
-    'default_style' => 2,
+    'default_style' => 0,
 
     /*
     |--------------------------------------------------------------------------

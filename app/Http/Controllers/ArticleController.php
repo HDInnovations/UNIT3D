@@ -22,10 +22,8 @@ class ArticleController extends Controller
 {
     /**
      * Display All Articles.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $articles = Article::latest()->paginate(6);
 
@@ -36,10 +34,8 @@ class ArticleController extends Controller
      * Show A Article.
      *
      * @param \App\Models\Article $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 

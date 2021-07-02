@@ -50,7 +50,7 @@ class TestMailSettings extends Command
 
         try {
             Mail::to($owner)->send(new TestEmail());
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             $this->error('Failed!');
             $this->alert('Email failed to send. Please review your mail configs in the .env file.');
             exit(1);

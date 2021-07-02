@@ -25,7 +25,7 @@ class Language
      * @param string $code
      *
      * @return mixed
-     **/
+     */
     public static function flag($code = 'default')
     {
         if ($code === 'default') {
@@ -44,7 +44,7 @@ class Language
      * @param string $locale
      *
      * @return mixed
-     **/
+     */
     public static function country($locale = 'default')
     {
         if ($locale === 'default') {
@@ -62,7 +62,7 @@ class Language
      * Get all flags view.
      *
      * @return mixed
-     **/
+     */
     public static function flags()
     {
         return \view('vendor.language.flags');
@@ -73,10 +73,8 @@ class Language
      * Get all allowed languages.
      *
      * @param null $locale
-     *
-     * @return bool|array
      */
-    public static function allowed($locale = null)
+    public static function allowed($locale = null): bool | array
     {
         if ($locale) {
             return \array_key_exists($locale, self::allowed());
@@ -95,7 +93,7 @@ class Language
      * @param array $codes
      *
      * @return array
-     **/
+     */
     public static function names($codes)
     {
         // Get mode
@@ -128,7 +126,7 @@ class Language
      * @param array $langs
      *
      * @return array
-     **/
+     */
     public static function codes($langs)
     {
         // Get mode
@@ -161,7 +159,7 @@ class Language
      * @param string $code
      *
      * @return string
-     **/
+     */
     public static function back($code)
     {
         return \route('back', ['locale' => $code]);
@@ -173,7 +171,7 @@ class Language
      * @param string $code
      *
      * @return string
-     **/
+     */
     public static function home($code)
     {
         return \route('home', ['locale' => $code]);
@@ -185,7 +183,7 @@ class Language
      * @param string $name
      *
      * @return string
-     **/
+     */
     public static function getCode($name = 'default')
     {
         if ($name === 'default') {
@@ -201,7 +199,7 @@ class Language
      * @param string $short
      *
      * @return string
-     **/
+     */
     public static function getLongCode($short = 'default')
     {
         if ($short === 'default') {
@@ -228,7 +226,7 @@ class Language
      * @param string $long
      *
      * @return string
-     **/
+     */
     public static function getShortCode($long = 'default')
     {
         if ($long === 'default') {
@@ -257,7 +255,7 @@ class Language
      * @param string $code
      *
      * @return string
-     **/
+     */
     public static function getName($code = 'default')
     {
         if ($code === 'default') {

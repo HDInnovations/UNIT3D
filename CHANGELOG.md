@@ -1,6 +1,54 @@
 <!-- changelog-linker -->
 
 <!-- dumped content start -->
+## [v5.3.0] - 2021-05-29
+
+- [#1775] (Fix) Remove line breaks from BBcode, fix URLs without scheme in Linkify, add noreferrer, Thanks to [@Oha-you]
+- [#1770] (Fix) Add subtitle file validation, remove .ico, edit rules, Thanks to [@Oha-you]
+- [#1764] (Add) Use a different color for visited torrent links, Thanks to [@Oha-you]
+- [#1761] (Refactor) Polls markup and styles, don't auto-add question mark, Thanks to [@Oha-you]
+- [#1759] docs: add Oha-you as a contributor, Thanks to [@allcontributors][bot]
+- [#1726] (Add) Validate if files inside torrents have valid filenames, Thanks to [@Oha-you]
+- [#1715] (Update) About Me in Profile: don't limit to 500 chars, add wysibb, remove badge style, Thanks to [@Oha-you]
+- [#1714] (Update) Danish translations + add missing language strings ticket system, Thanks to [@Globbered]
+- [#1684] (Add) Markdown Features, Thanks to [@Roardom]
+- [#1668] (Feature) Add Staff & User Ticket Notifications, Thanks to [@Obi-Wana]
+- [#1785] prevent users to edit private RSS feed by others, Thanks to [@Obi-Wana]
+- [#1782] build(deps): bump ws from 7.4.4 to 7.4.6, Thanks to [@dependabot][bot]
+- [#1780] build(deps): bump dns-packet from 1.3.1 to 1.3.4, Thanks to [@dependabot][bot]
+- [#1772] (Refactor) Graveyard, Thanks to [@HDVinnie]
+- [#1769] (Update) Improve Linkify, escape special chars for BBcode, Thanks to [@Oha-you]
+- [#1766] (Refactor) Torrent metadata, dynamic BGs, use thumbs instead of full-sized images, Thanks to [@Oha-you]
+- [#1762] (Refactor) Homepage featured carousel/slider block, Thanks to [@Oha-you]
+- [#1720] (Update) Readme: mention demo:seed command, Thanks to [@Oha-you]
+- [#1710] build(deps): bump phpseclib/phpseclib from 2.0.30 to 2.0.31, Thanks to [@dependabot][bot]
+- [#1706] (Update) Norwegian Lang, Thanks to [@HDVinnie]
+- [#1694] (Refactor) Torrent Requests Search, Thanks to [@HDVinnie]
+- [#1690] (Improve) Ticket Tool Notifications, Thanks to [@Obi-Wana]
+- [#1676] An Option to cleanup the Menu a bit, Thanks to [@LewdNeko-chan]
+- [#1673] (Update) Similar Torrents View, Thanks to [@HDVinnie]
+- [#1672] (Refactor) Livewire Components and Views, Thanks to [@HDVinnie]
+- [#1664] (Update) German Translation improvements, Thanks to [@Alkl58]
+- [#1778] (Refactor) Modal styles and markup, center vertically, fix Light theme styles, Thanks to [@Oha-you]
+- [#1767] (Fix) A batch of front-end fixes for torrents and forum posts, Thanks to [@Oha-you]
+- [#1765] (Fix) Set Light theme as default for new users, Thanks to [@Oha-you]
+- [#1763] (Fix) Set IMDB to zero by default, don't check it in js, Thanks to [@Oha-you]
+- [#1760] (Fix) Upload page: ajax preview description, save values, don't replace, Thanks to [@Oha-you]
+- [#1758] (Fix) Allow pressing Enter in input fields, fix user's torrent search, Thanks to [@Oha-you]
+- [#1757] (Fix) Convert unix-style line breaks to <br> for BBcode, Thanks to [@Oha-you]
+- [#1756] (Fix) Torrent filter settings saving, CSRF value for jquery ajax, Thanks to [@Oha-you]
+- [#1749] (Fix) Prevent CSP error caused by inline void javascript in left menu, Thanks to [@Oha-you]
+- [#1747] Fix 500 Error due to Cookie Consent Message, Thanks to [@Alkl58]
+- [#1746] (Fix) Profile: optimize SQL query for uploads count, Thanks to [@Oha-you]
+- [#1745] (Fix) Auto pruning with artisan auto:disable_inactive_users, Thanks to [@Oha-you]
+- [#1743] (Fix) Demo data generation with demo:seed, Thanks to [@Oha-you]
+- [#1730] (Fix) Check filenames properly, use separate function without '/', Thanks to [@Oha-you]
+- [#1717] (Fix) Spoilers on Pages with markdown, Thanks to [@Oha-you]
+- [#1713] (Fix) Metadata: placeholders for actor photos, make them clickable, Thanks to [@Oha-you]
+
+
+
+<!-- dumped content start -->
 ## [v5.2.0] - 2021-03-10
 
 - [#1657] (Add) Beta Helpdesk Ticket System, Thanks to [@HDVinnie]
@@ -1622,6 +1670,7 @@
 [v5.0.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v4.0.0...v5.0.0
 [v5.1.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.0.0...v5.1.0
 [v5.2.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.1.0...v5.2.0
+[v5.3.0]: https://github.com/HDInnovations/UNIT3D-Community-Edition/compare/v5.2.0...v5.3.0
 [#1408]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1408
 [#1407]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1407
 [#1404]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1404
@@ -1718,3 +1767,49 @@
 [#1582]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1582
 [#1581]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1581
 [#1574]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1574
+[#1785]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1785
+[#1782]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1782
+[#1780]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1780
+[#1778]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1778
+[#1775]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1775
+[#1772]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1772
+[#1770]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1770
+[#1769]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1769
+[#1767]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1767
+[#1766]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1766
+[#1765]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1765
+[#1764]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1764
+[#1763]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1763
+[#1762]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1762
+[#1761]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1761
+[#1760]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1760
+[#1759]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1759
+[#1758]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1758
+[#1757]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1757
+[#1756]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1756
+[#1749]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1749
+[#1747]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1747
+[#1746]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1746
+[#1745]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1745
+[#1743]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1743
+[#1730]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1730
+[#1726]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1726
+[#1720]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1720
+[#1717]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1717
+[#1715]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1715
+[#1714]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1714
+[#1713]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1713
+[#1710]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1710
+[#1706]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1706
+[#1694]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1694
+[#1690]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1690
+[#1684]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1684
+[#1676]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1676
+[#1673]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1673
+[#1672]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1672
+[#1668]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1668
+[#1664]: https://github.com/HDInnovations/UNIT3D-Community-Edition/pull/1664
+[@Roardom]: https://github.com/Roardom
+[@Oha-you]: https://github.com/Oha-you
+[@LewdNeko-chan]: https://github.com/LewdNeko-chan
+[@Alkl58]: https://github.com/Alkl58

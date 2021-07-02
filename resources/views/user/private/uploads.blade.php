@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    
+
     <div class="container-fluid">
         <div class="block">
             @include('user.buttons.stats')
@@ -32,7 +32,7 @@
             </div>
             <div class="button-holder some-padding">
                 <div class="button-left">
-    
+
                 </div>
                 <div class="button-right">
                     <span class="badge-user"><strong>@lang('user.total-download'):</strong>
@@ -49,9 +49,7 @@
             </div>
             <hr class="some-padding">
             <div class="container well search mt-5">
-                <form role="form" method="GET" action="UserController@myFilters"
-                    class="form-horizontal form-condensed form-torrent-search form-bordered">
-                    @csrf
+                <div class="form-horizontal form-condensed form-torrent-search form-bordered">
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
                         <div class="col-sm-9 fatten-me">
@@ -86,7 +84,7 @@
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name"
                             class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.filters')</label>
-    
+
                         <div class="col-sm-10">
                             <span class="badge-user">
                                 <label class="inline">
@@ -141,7 +139,7 @@
                             </select>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
             <span id="filterHeader"></span>
             <div id="userFilter" userName="{{ $user->username }}" userId="{{ $user->id }}" view="uploads">

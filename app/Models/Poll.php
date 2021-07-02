@@ -96,7 +96,7 @@ class Poll extends Model
     }
 
     /**
-     * Set The Poll's Title, Adds A Question Mark (?) If Needed.
+     * Set The Poll's Title.
      *
      * @param $title
      *
@@ -104,10 +104,6 @@ class Poll extends Model
      */
     public function setTitleAttribute($title)
     {
-        if (\substr($title, -1) !== '?') {
-            return $this->attributes['title'] = $title.'?';
-        }
-
         return $this->attributes['title'] = $title;
     }
 

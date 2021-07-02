@@ -113,7 +113,7 @@ trait ConsoleTools
         while ($process->isRunning()) {
             try {
                 $process->checkTimeout();
-            } catch (ProcessTimedOutException $e) {
+            } catch (ProcessTimedOutException) {
                 $this->red(\sprintf("'%s' timed out.!", $command));
             }
 
@@ -153,9 +153,6 @@ trait ConsoleTools
         return $bar;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Helper\ProgressBar $progressBar
-     */
     protected function progressStop(ProgressBar $progressBar)
     {
         $progressBar->setMessage('<fg=green>Done!</>');

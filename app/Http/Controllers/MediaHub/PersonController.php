@@ -20,10 +20,8 @@ class PersonController extends Controller
 {
     /**
      * Display All Persons.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('mediahub.person.index');
     }
@@ -32,10 +30,8 @@ class PersonController extends Controller
      * Show A Person.
      *
      * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $details = Person::findOrFail($id);
         $credits = Person::with(['tv', 'season', 'episode', 'movie'])->findOrFail($id);

@@ -37,8 +37,6 @@ class SubtitleController extends Controller
 {
     /**
      * SubtitleController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -46,10 +44,8 @@ class SubtitleController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('subtitle.index');
     }
@@ -58,10 +54,8 @@ class SubtitleController extends Controller
      * Show the form for creating a new resource.
      *
      * @param \App\Models\Torrent $torrentId
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($torrentId)
+    public function create($torrentId): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $torrent = Torrent::findOrFail($torrentId);
         $mediaLanguages = MediaLanguage::all()->sortBy('name');
@@ -72,7 +66,6 @@ class SubtitleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -102,7 +95,7 @@ class SubtitleController extends Controller
             'title'       => 'required',
             'file_name'   => 'required',
             'file_size'   => 'required',
-            'extension'   => 'required',
+            'extension'   => 'required|in:.srt,.ass,.sup,.zip',
             'language_id' => 'required',
             'user_id'     => 'required',
             'torrent_id'  => 'required',
@@ -152,8 +145,7 @@ class SubtitleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Subtitle     $id
+     * @param \App\Models\Subtitle $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -184,8 +176,7 @@ class SubtitleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Subtitle     $id
+     * @param \App\Models\Subtitle $id
      *
      * @throws \Exception
      *
@@ -211,12 +202,9 @@ class SubtitleController extends Controller
     /**
      * Download the specified resource from storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Subtitle     $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @param \App\Models\Subtitle $id
      */
-    public function download(Request $request, $id)
+    public function download(Request $request, $id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse | \Symfony\Component\HttpFoundation\StreamedResponse
     {
         $subtitle = Subtitle::findOrFail($id);
         $user = $request->user();

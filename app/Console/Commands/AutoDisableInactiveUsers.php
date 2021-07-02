@@ -52,11 +52,11 @@ class AutoDisableInactiveUsers extends Command
 
             $current = Carbon::now();
 
-            $matches = User::whereIn('group_id', [\config('pruning.group_ids')])->get();
+            $matches = User::whereIn('group_id', \config('pruning.group_ids'))->get();
 
             $users = $matches->where('created_at', '<', $current->copy()->subDays(\config('pruning.account_age'))->toDateTimeString())
                 ->where('last_login', '<', $current->copy()->subDays(\config('pruning.last_login'))->toDateTimeString())
-                ->get();
+                ->all();
 
             foreach ($users as $user) {
                 if ($user->getSeeding() === 0) {

@@ -40,7 +40,7 @@ return [
     'contact-desc'         => 'Questa richiesta di contatto verrà inviata al proprietario e ti ricontatterà il prima possibile',
     'contact-header'       => 'Ciao',
     'create'               => 'Creare',
-    'created_at'           => 'Creato a',
+    'created_at'           => 'Creato il',
     'day'                  => 'Giorno',
     'delete'               => 'Elimina',
     'delete-your-comment'  => 'Elimina il tuo commento',

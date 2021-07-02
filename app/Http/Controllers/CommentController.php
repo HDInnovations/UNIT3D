@@ -47,9 +47,6 @@ class CommentController extends Controller
 
     /**
      * CommentController Constructor.
-     *
-     * @param \App\Repositories\TaggedUserRepository $taggedUserRepository
-     * @param \App\Repositories\ChatRepository       $chatRepository
      */
     public function __construct(private TaggedUserRepository $taggedUserRepository, private ChatRepository $chatRepository)
     {
@@ -58,8 +55,7 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Collection.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -121,7 +117,7 @@ class CommentController extends Controller
                         $comment
                     );
             } else {
-                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $sender = $comment->anon !== 0 ? $user->username : 'Anonymous';
                 $this->taggedUserRepository->messageTaggedCommentUsers(
                         'collection',
                         $request->input('content'),
@@ -153,8 +149,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Article.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Article      $id
+     * @param \App\Models\Article $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -213,7 +208,7 @@ class CommentController extends Controller
                     $comment
                 );
             } else {
-                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $sender = $comment->anon !== 0 ? $user->username : 'Anonymous';
                 $this->taggedUserRepository->messageTaggedCommentUsers(
                     'article',
                     $request->input('content'),
@@ -244,8 +239,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Playlist.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Playlist     $id
+     * @param \App\Models\Playlist $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -304,7 +298,7 @@ class CommentController extends Controller
                     $comment
                 );
             } else {
-                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $sender = $comment->anon !== 0 ? $user->username : 'Anonymous';
                 $this->taggedUserRepository->messageTaggedCommentUsers(
                     'playlist',
                     $request->input('content'),
@@ -335,8 +329,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -399,7 +392,7 @@ class CommentController extends Controller
                     $comment
                 );
             } else {
-                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $sender = $comment->anon !== 0 ? $user->username : 'Anonymous';
                 $this->taggedUserRepository->messageTaggedCommentUsers(
                     'torrent',
                     $request->input('content'),
@@ -430,7 +423,6 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -494,7 +486,7 @@ class CommentController extends Controller
                     $comment
                 );
             } else {
-                $sender = $comment->anon ? 'Anonymous' : $user->username;
+                $sender = $comment->anon !== 0 ? $user->username : 'Anonymous';
                 $this->taggedUserRepository->messageTaggedCommentUsers(
                     'request',
                     $request->input('content'),
@@ -525,7 +517,6 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Request.
      *
-     * @param \Illuminate\Http\Request   $request
      * @param \App\Models\TorrentRequest $id
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -569,8 +560,7 @@ class CommentController extends Controller
     /**
      * Store A New Comment To A Torrent Via Quick Thanks.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -650,8 +640,7 @@ class CommentController extends Controller
     /**
      * Edit A Comment.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $commentId
+     * @param $commentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -680,8 +669,7 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $commentId
+     * @param $commentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */

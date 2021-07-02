@@ -24,10 +24,6 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
 
     /**
      * NewRequestFillApprove Constructor.
-     *
-     * @param string                     $type
-     * @param string                     $sender
-     * @param \App\Models\TorrentRequest $torrentRequest
      */
     public function __construct(public string $type, public string $sender, public TorrentRequest $torrentRequest)
     {
@@ -54,8 +50,6 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->sender.' Has Approved Your Fill Of A Requested Torrent',
             'body'  => $this->sender.' has approved your fill of Requested Torrent '.$this->torrentRequest->name,

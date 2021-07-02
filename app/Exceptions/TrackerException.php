@@ -74,7 +74,6 @@ class TrackerException extends \Exception
     /**
      * TrackerException constructor.
      *
-     * @param int             $code
      * @param array|null      $replace
      * @param \Throwable|null $throwable
      */

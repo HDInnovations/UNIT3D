@@ -26,29 +26,20 @@ class CommentCreated
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $comment;
-    public $user;
-
     /**
      * Create a new event instance.
      *
-     * @param Comment $comment
-     * @param User    $user
      *
      * @return mixed
      */
-    public function __construct(Comment $comment, User $user)
+    public function __construct(public Comment $comment, public User $user)
     {
-        $this->comment = $comment;
-        $this->user = $user;
     }
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn(): \Illuminate\Broadcasting\Channel | array
     {
         return new PrivateChannel('channel-name');
     }

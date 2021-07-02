@@ -105,7 +105,7 @@ class User extends Authenticatable
      */
     public function bookmarks()
     {
-        return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
+        return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimestamps();
     }
 
     /**
@@ -581,8 +581,6 @@ class User extends Authenticatable
     /**
      * Get the Users accepts notification as bool.
      *
-     * @param self   $sender
-     * @param self   $target
      * @param string $group
      * @param bool   $type
      *
@@ -617,7 +615,6 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param self   $target
      * @param string $group
      * @param bool   $type
      *
@@ -653,7 +650,6 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
-     * @param self   $target
      * @param string $group
      * @param bool   $type
      *
@@ -689,8 +685,7 @@ class User extends Authenticatable
     /**
      * Does Subscription Exist.
      *
-     * @param string $type
-     * @param        $topicId
+     * @param $topicId
      *
      * @return string
      */
@@ -847,7 +842,7 @@ class User extends Authenticatable
      */
     public function setSignatureAttribute($value)
     {
-        $this->attributes['signature'] = (new AntiXSS())->xss_clean($value);
+        $this->attributes['signature'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -860,7 +855,7 @@ class User extends Authenticatable
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($this->signature), true);
+        return $linkify->linky($bbcode->parse($this->signature, true));
     }
 
     /**
@@ -872,7 +867,7 @@ class User extends Authenticatable
      */
     public function setAboutAttribute($value)
     {
-        $this->attributes['about'] = (new AntiXSS())->xss_clean($value);
+        $this->attributes['about'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -888,7 +883,7 @@ class User extends Authenticatable
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($this->about), true);
+        return $linkify->linky($bbcode->parse($this->about, true));
     }
 
     /**
@@ -900,7 +895,7 @@ class User extends Authenticatable
      */
     public function getSeedbonus()
     {
-        return \number_format($this->seedbonus, 2, '.', ' ');
+        return \number_format($this->seedbonus, 0, '.', ' ');
     }
 
     /**

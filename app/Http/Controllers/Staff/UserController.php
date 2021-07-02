@@ -46,10 +46,8 @@ class UserController extends Controller
 
     /**
      * Users List.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.user.index');
     }
@@ -58,10 +56,8 @@ class UserController extends Controller
      * User Edit Form.
      *
      * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings($username)
+    public function settings($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
         $groups = Group::all();
@@ -77,8 +73,7 @@ class UserController extends Controller
     /**
      * Edit A User.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -112,8 +107,7 @@ class UserController extends Controller
     /**
      * Edit A Users Permissions.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -142,8 +136,7 @@ class UserController extends Controller
     /**
      * Edit A Users Password.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */

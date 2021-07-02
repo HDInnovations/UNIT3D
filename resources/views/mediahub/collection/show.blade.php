@@ -28,31 +28,30 @@
 @endsection
 
 @section('content')
-<div class="torrent box container">
+<div class="torrent box container single">
     <div class="movie-wrapper">
-        <div class="movie-backdrop" style="background-image: url({{ $collection->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
+        <div class="movie-overlay"></div>
+
+        <div class="movie-poster">
+            @php $tmdb_poster = $collection->poster ? \tmdb_image('poster_big', $collection->poster) : 'https://via.placeholder.com/400x600'; @endphp
+            <img src="{{ $tmdb_poster }}" class="img-responsive" id="meta-poster">
+        </div>
+
+        <div class="meta-info">
             <div class="tags">
                 @lang('mediahub.collections')
             </div>
-        </div>
-        <div class="movie-overlay"></div>
-        <div class="container movie-container">
-            <div class="row movie-row ">
-                <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
-                    <h1 class="movie-heading">
-                        <span class="text-bold">{{ $collection->name }}</span>
-                    </h1>
-                    <br>
-                    <span class="movie-overview">
-                        {{ $collection->overview }}
-                    </span>
-                    <span class="movie-details">
 
-                    </span>
-                </div>
+            @php $tmdb_backdrop = $collection->backdrop ? \tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/960x540'; @endphp
+            <div class="movie-backdrop" style="background-image: url('{{ $tmdb_backdrop }}');"></div>
 
-                <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                    <img src="{{ $collection->poster }}" class="movie-poster img-responsive hidden-xs">
+            <div class="movie-top">
+                <h1 class="movie-heading">
+                    <span class="text-bold">{{ $collection->name }}</span>
+                </h1>
+
+                <div class="movie-overview">
+                    {{ $collection->overview }}
                 </div>
             </div>
         </div>
@@ -75,7 +74,7 @@
                                 <div class="image_content">
                                     <a href="{{ route('torrents.similar', ['category_id' => '1', 'tmdb' => $movie->id]) }}">
                                         <div>
-                                            <img class="backdrop" src="{{ $movie->poster }}">
+                                            <img class="backdrop" src="{{ \tmdb_image('poster_mid', $movie->poster) }}">
                                         </div>
                                         <div style=" margin-top: 8px;">
                                             <span class="badge-extra"><i class="fas fa-calendar text-purple"></i> @lang('common.year'): {{ substr($movie->release_date, 0, 4) }}</span>
@@ -161,9 +160,8 @@
             <form role="form" method="POST" action="{{ route('comment_collection', ['id' => $collection->id]) }}">
                 @csrf
                 <div class="form-group">
-                    <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')
-                        <strong>:</strong> @lang('common.for') emoji</span> <span
-                            class="badge-extra">BBCode @lang('common.is-allowed')</span>
+                    <label for="content">@lang('common.your-comment'):</label>
+                    <span class="badge-extra">BBCode @lang('common.is-allowed')</span>
                     <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                 </div>
                 <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
@@ -182,7 +180,6 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#content').wysibb({});
-        emoji.textcomplete()
       })
     </script>
 @endsection

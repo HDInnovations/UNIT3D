@@ -67,6 +67,20 @@
     </div>
 </div>
 
+<div class="subfooter text-center">
+    <div class="container">
+        <div class="subfooter-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="text-bold">
+                        This page took {{ \round(\microtime(true) - LARAVEL_START, 3) }} seconds to render
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
     <i class="{{ config('other.font-awesome') }} fa-arrow-square-up"></i>
 </a>

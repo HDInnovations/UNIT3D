@@ -42,7 +42,6 @@ class AutoGroup extends Command
     /**
      * Execute the console command.
      *
-     * @param ByteUnits $byteUnits
      *
      * @return mixed
      */

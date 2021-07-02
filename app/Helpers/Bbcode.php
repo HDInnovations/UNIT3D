@@ -117,26 +117,13 @@ class Bbcode
 
         'quote' => [
             'pattern' => '/\[quote\](.*?)\[\/quote\]/s',
-            'replace' => '<ul class="media-list comments-list">
-                          <li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;">
-                          <div class="media-body">    
-                          <div class="pt-5">$1</div>
-                          </div>
-                          </li>
-                          </ul>',
+            'replace' => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><div class="pt-5">$1</div></div></li></ul>',
             'content' => '$1',
         ],
 
         'namedquote' => [
             'pattern' => '/\[quote\=(.*?)\](.*)\[\/quote\]/s',
-            'replace' => '<ul class="media-list comments-list">
-                          <li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;">
-                          <div class="media-body"> 
-                          <strong><span><i class="fas fa-quote-left"></i> Quoting $1 :</span></strong>    
-                          <div class="pt-5">$2</div>
-                          </div>
-                          </li>
-                          </ul>',
+            'replace' => '<ul class="media-list comments-list"><li class="media" style="border-left-width: 5px; border-left-style: solid; border-left-color: #01bc8c;"><div class="media-body"><strong><span><i class="fas fa-quote-left"></i> Quoting $1 :</span></strong><div class="pt-5">$2</div></div></li></ul>',
             'content' => '$2',
         ],
 
@@ -250,27 +237,30 @@ class Bbcode
 
         'youtube' => [
             'pattern' => '/\[youtube\](.*?)\[\/youtube\]/s',
-            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" 
-                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             'content' => '$1',
         ],
 
         'video' => [
             'pattern' => '/\[video\](.*?)\[\/video\]/s',
-            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" 
-                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             'content' => '$1',
         ],
 
         'video-youtube' => [
             'pattern' => '/\[video="youtube"\](.*?)\[\/video\]/s',
-            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" 
-                            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            'replace' => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/$1?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
             'content' => '$1',
         ],
 
         'linebreak' => [
             'pattern' => '/\r\n/',
+            'replace' => '<br>',
+            'content' => '',
+        ],
+
+        'linebreak-nix' => [
+            'pattern' => '/\n/',
             'replace' => '<br>',
             'content' => '',
         ],

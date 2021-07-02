@@ -24,9 +24,6 @@ class NewUpload extends Notification implements ShouldQueue
 
     /**
      * NewUpload Constructor.
-     *
-     * @param string              $type
-     * @param \App\Models\Torrent $torrent
      */
     public function __construct(public string $type, public Torrent $torrent)
     {
@@ -53,8 +50,6 @@ class NewUpload extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',
             'body'  => \sprintf('%s, whom you are following has uploaded Torrent %s', $this->torrent->user->username, $this->torrent->name),

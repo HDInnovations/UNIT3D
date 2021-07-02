@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         @if (!auth()->user()->isAllowed($user,'forum','show_post'))
             <div class="container pl-0 text-center">
                 <div class="jumbotron shadowed">
@@ -45,7 +45,7 @@
                         </h1>
                     </div>
                 </div>
-        
+
                 <div class="forum-categories">
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -131,7 +131,7 @@
                 <div class="text-center col-md-12">
                     {{ $results->links() }}
                 </div>
-        
+
             </div>
         @endif
     </div>

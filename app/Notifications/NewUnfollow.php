@@ -24,10 +24,6 @@ class NewUnfollow extends Notification implements ShouldQueue
 
     /**
      * NewUnfolllow Constructor.
-     *
-     * @param string           $type
-     * @param \App\Models\User $sender
-     * @param \App\Models\User $target
      */
     public function __construct(public string $type, public User $sender, public User $target)
     {
@@ -54,8 +50,6 @@ class NewUnfollow extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->sender->username.' Has Unfollowed You!',
             'body'  => $this->sender->username.' has stopped following you so they will no longer get notifications about your activities.',

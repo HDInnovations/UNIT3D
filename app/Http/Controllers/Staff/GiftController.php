@@ -25,10 +25,8 @@ class GiftController extends Controller
 {
     /**
      * Send Gift Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.gift.index');
     }
@@ -36,7 +34,6 @@ class GiftController extends Controller
     /**
      * Send The Gift.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

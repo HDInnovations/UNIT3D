@@ -18,7 +18,9 @@ class Ticket extends Model
     {
         if ($status === 'all') {
             return $query;
-        } elseif ($status === 'closed') {
+        }
+
+        if ($status === 'closed') {
             return $query->whereNotNull('closed_at');
         } elseif ($status === 'open') {
             return $query->whereNull('closed_at');
@@ -31,7 +33,7 @@ class Ticket extends Model
             $query->orderBy('id', 'desc');
         }, 'comments.user'])
             ->has('comments')
-            ->where('reminded_at', '<', strtotime('+ 3 days'))
+            ->where('reminded_at', '<', \strtotime('+ 3 days'))
             ->orWhereNull('reminded_at');
     }
 

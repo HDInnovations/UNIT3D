@@ -25,10 +25,8 @@ class ForgotUsernameController extends Controller
 {
     /**
      * Forgot Username Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showForgotUsernameForm()
+    public function showForgotUsernameForm(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('auth.username');
     }
@@ -36,7 +34,6 @@ class ForgotUsernameController extends Controller
     /**
      * Send Username Reminder.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -22,18 +22,14 @@ class StaffCommentCreated extends Notification
 {
     use Queueable;
 
-    private $comment;
-
     /**
      * Create a new notification instance.
      *
-     * @param Comment $comment
      *
      * @return mixed
      */
-    public function __construct(Comment $comment)
+    public function __construct(private Comment $comment)
     {
-        $this->comment = $comment;
     }
 
     /**
@@ -60,7 +56,7 @@ class StaffCommentCreated extends Notification
         return (new MailMessage())
                     ->subject('A comment was added (Staff)')
                     ->line('A comment was added')
-                    ->action('View Ticket', route('tickets.show', ['id' => $this->comment->ticket->id]));
+                    ->action('View Ticket', \route('tickets.show', ['id' => $this->comment->ticket->id]));
     }
 
     /**

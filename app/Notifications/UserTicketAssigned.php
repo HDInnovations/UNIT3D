@@ -22,18 +22,14 @@ class UserTicketAssigned extends Notification
 {
     use Queueable;
 
-    private $ticket;
-
     /**
      * Create a new notification instance.
      *
-     * @param Ticket $ticket
      *
      * @return mixed
      */
-    public function __construct(Ticket $ticket)
+    public function __construct(private Ticket $ticket)
     {
-        $this->ticket = $ticket;
     }
 
     /**
@@ -60,7 +56,7 @@ class UserTicketAssigned extends Notification
         return (new MailMessage())
             ->subject('Your ticket was assigned (Ticket # '.$this->ticket->id.')')
             ->line('Your ticket was assigned to '.$this->ticket->user->username)
-            ->action('View Ticket', route('tickets.show', ['id' => $this->ticket->id]));
+            ->action('View Ticket', \route('tickets.show', ['id' => $this->ticket->id]));
     }
 
     /**

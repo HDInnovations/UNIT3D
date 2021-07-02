@@ -32,7 +32,7 @@
                 <div class="row">
 
                     <section class="col-sm-3">
-                        <img src="{{ $details->still }}" alt="{{ $details->name }}" class="img-responsive thumb">
+                        <img src="{{ isset($details->still) ? \tmdb_image('cast_big', $details->still) : 'https://via.placeholder.com/300x450' }}" alt="{{ $details->name }}" class="img-responsive thumb">
                     </section>
 
                     <section class="col-sm-9">
@@ -56,9 +56,9 @@
                             <dt><i class="fa fa-film text-green" aria-hidden="true"></i> @lang('mediahub.movie-credits') </dt>
                             <dd>{{ $credits->movie->count() ?? '0' }}</dd>
                             <dt><i class="fa fa-step-backward text-green" aria-hidden="true"></i> @lang('mediahub.first-seen') </dt>
-                            <dd>In <a href="{{ route('mediahub.shows.show', ['id' => $credits->movie->first()->id ?? '0']) }}">{{ $credits->movie->first()->title ?? 'N/A'}}</a></dd>
+                            <dd>In <a href="{{ route('mediahub.movies.show', ['id' => $credits->movie->first()->id ?? '0']) }}">{{ $credits->movie->first()->title ?? 'N/A'}}</a></dd>
                             <dt><i class="fa fa-step-forward text-green" aria-hidden="true"></i> @lang('mediahub.latest-project') </dt>
-                            <dd>Last in <a href="{{ route('mediahub.shows.show', ['id' => $credits->movie->last()->id ?? '0']) }}">{{ $credits->movie->last()->title ?? 'N/A' }} </a></dd>
+                            <dd>Last in <a href="{{ route('mediahub.movies.show', ['id' => $credits->movie->last()->id ?? '0']) }}">{{ $credits->movie->last()->title ?? 'N/A' }} </a></dd>
                             <br>
                             <dt><i class="fa fa-tv-retro text-green" aria-hidden="true"></i> @lang('mediahub.tv-credits') </dt>
                             <dd>{{ $credits->tv->count() ?? '0' }}</dd>
@@ -93,14 +93,10 @@
                     @foreach($credits->movie as $movie)
                         <tr>
                             <td class="col-sm-1">
-                                @if($movie->poster)
-                                    <img src="{{ $movie->poster }}" width="100" height="100" alt="{{ $movie->name }}" class="img-responsive">
-                                @else
-                                    <img src="/img/no-poster.png" width="100" height="100" alt="{{ $movie->name }}" class="img-responsive">
-                                @endif
+                                <img src="{{ isset($movie->poster) ? \tmdb_image('poster_small', $movie->poster) : 'https://via.placeholder.com/90x135' }}" alt="{{ $movie->name }}" class="img-responsive">
                             </td>
                             <td class="col-sm-5">
-                                <i class="fa fa-film text-purple" aria-hidden="true"></i> <strong>@lang('mediahub.movies')</strong><br>
+                                <i class="fa fa-film text-purple" aria-hidden="true"></i> <strong>@lang('mediahub.movie')</strong><br>
                                 <i class="fa fa-eye text-green" aria-hidden="true"></i> <a href="{{ route('mediahub.movies.show', ['id' => $movie->id]) }}">{{ $movie->title }}</a><br>
                                 <i class="fa fa-tags text-red" aria-hidden="true"></i>
                                 <strong>
@@ -143,11 +139,7 @@
                 @foreach($credits->tv as $show)
                 <tr>
                     <td class="col-sm-1">
-                        @if($show->poster)
-                            <img src="{{ $show->poster }}" width="100" height="100" alt="{{ $show->name }}" class="img-responsive">
-                        @else
-                            <img src="/img/no-poster.png" width="100" height="100" alt="{{ $show->name }}" class="img-responsive">
-                        @endif
+                        <img src="{{ isset($show->poster) ? \tmdb_image('poster_small', $show->poster) : 'https://via.placeholder.com/90x135' }}" alt="{{ $show->name }}" class="img-responsive">
                     </td>
                     <td class="col-sm-5">
                         <i class="fa fa-tv-retro text-purple" aria-hidden="true"></i> <strong> @lang('mediahub.show')</strong><br>

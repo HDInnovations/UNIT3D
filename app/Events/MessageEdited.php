@@ -35,8 +35,6 @@ class MessageEdited implements ShouldBroadcastNow
 
     /**
      * Create a new event instance.
-     *
-     * @param Message $message
      */
     public function __construct(Message $message)
     {

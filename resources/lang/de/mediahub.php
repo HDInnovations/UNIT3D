@@ -19,7 +19,7 @@ return [
     'episodes'              => 'Episoden',
     'first-seen'            => 'Erstmals erschienen:',
     'genres'                => 'Genres',
-    'includes:'             => 'Beinhaltet:',
+    'includes'              => 'Beinhaltet:',
     'latest-project'        => 'Letztes Projekt:',
     'networks'              => 'Netzwerke',
     'no-data'               => 'Keine Daten gefunden!',

@@ -16,7 +16,9 @@ import Vue from 'vue';
 import version from './components/Version';
 import chatbox from './components/chat/Chatbox';
 
-new Vue({
-    el: '#vue',
-    components: { version: version, chatbox: chatbox }
-});
+if (document.getElementById('vue')) {
+    new Vue({
+        el: '#vue',
+        components: { version: version, chatbox: chatbox }
+    });
+}

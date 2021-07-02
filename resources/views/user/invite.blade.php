@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         @if (config('other.invite-only') == false)
             <div class="container">
                 <div class="jumbotron shadowed">
@@ -63,7 +63,7 @@
                                 {!! trans('user.invites-rules') !!}
                             </ul>
                         </div>
-        
+
                         <h3>@lang('user.invite-friend')</h3>
                         <div class="block">
                             <form action="{{ route('invites.store') }}" method="POST">

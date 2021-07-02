@@ -17,19 +17,18 @@ return [
     'delete-confirm'              => 'Are You Sure You Want To Delete This?',
     'note'                        => 'Note',
     'note-help'                   => 'Extra Info for this subtitle',
-    'rules-title'                 => 'Subtitle Rules!',
+    'rules-title'                 => 'Subtitle Rules',
     'rules'                       => '<ul>
-                                        <li>Only proper subtitles are allowed to be uploaded (Correct frame rate. translation, spelling, timing).</li>
-                                        <li>No google translated / machine translated / incorrect subtitles allowed.</li>
-                                        <li>Subtitle must be in sync with the video.</li>
-                                        <li>.srt, .ico and .zip only allowed. <b>(.zip is only allowed when bundeling subtitles of the same language for a TV Season Pack.)</b></li>
-                                        <li>Repeated uploads of junk sub will constitute a violation and subject to disciplinary action.</li>
-                                        <li>Keep the note of the subtitle short. NO urls/links are allowed.</li>
-                                        <li>All Subtitles must be confirmed, verified, timed correctly for the specific Torrent/Video.</li>
+                                        <li>Only proper subtitles are allowed (correct frame rate, translation, spelling, timing)</li>
+                                        <li>No Google-translated, machine-translated and incorrect subtitles</li>
+                                        <li>Subtitles must be in sync with the video</li>
+                                        <li>ZIP archives are only allowed for SUB+IDX or as bundles of the same language for a TV season pack</li>
+                                        <li>Repeated uploads of junk subs will constitute a violation and subject to a disciplinary action</li>
+                                        <li>Keep the Note of the subtitle short, NO urls/links are allowed</li>
                                       </ul>',
     'size'                        => 'Size',
     'subtitle-file'               => 'Subtitle File',
-    'subtitle-file-types'         => 'Accepted files are ICO, SRT, SUP, ASS and ZIP',
+    'subtitle-file-types'         => 'Accepted files are SRT, ASS, SUP and ZIP',
     'uploaded'                    => 'Uploaded',
     'uploader'                    => 'Uploader',
 ];

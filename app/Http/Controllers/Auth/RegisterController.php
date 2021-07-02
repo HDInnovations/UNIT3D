@@ -31,8 +31,6 @@ class RegisterController extends Controller
 {
     /**
      * RegisterController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -42,10 +40,8 @@ class RegisterController extends Controller
      * Registration Form.
      *
      * @param $code
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function registrationForm($code = null)
+    public function registrationForm($code = null): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
         // Make sure open reg is off, invite code is not present and application signups enabled
         if ($code === 'null' && \config('other.invite-only') == 1 && \config('other.application_signups') == true) {

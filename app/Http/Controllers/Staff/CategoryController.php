@@ -26,10 +26,8 @@ class CategoryController extends Controller
 {
     /**
      * Display All Categories.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $categories = Category::all()->sortBy('position');
 
@@ -38,10 +36,8 @@ class CategoryController extends Controller
 
     /**
      * Show Form For Creating A New Category.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.category.create');
     }
@@ -49,7 +45,6 @@ class CategoryController extends Controller
     /**
      * Store A Category.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -102,10 +97,8 @@ class CategoryController extends Controller
      * Category Edit Form.
      *
      * @param \App\Models\Category $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $category = Category::findOrFail($id);
 
@@ -115,8 +108,7 @@ class CategoryController extends Controller
     /**
      * Update A Category.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Category     $id
+     * @param \App\Models\Category $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

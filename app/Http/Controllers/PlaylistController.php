@@ -32,8 +32,6 @@ class PlaylistController extends Controller
 {
     /**
      * PlaylistController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -41,10 +39,8 @@ class PlaylistController extends Controller
 
     /**
      * Display All Playlists.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $playlists = Playlist::with('user')->withCount('torrents')->where('is_private', '=', 0)->orderBy('name', 'ASC')->paginate(24);
 
@@ -53,10 +49,8 @@ class PlaylistController extends Controller
 
     /**
      * Show Playlist Create Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('playlist.create');
     }
@@ -64,7 +58,6 @@ class PlaylistController extends Controller
     /**
      * Store A New Playlist.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -118,10 +111,8 @@ class PlaylistController extends Controller
      * Show A Playlist.
      *
      * @param \App\Playlist $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $playlist = Playlist::findOrFail($id);
 
@@ -159,10 +150,8 @@ class PlaylistController extends Controller
      * Show Playlist Update Form.
      *
      * @param \App\Playlist $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = \auth()->user();
         $playlist = Playlist::findOrFail($id);
@@ -175,8 +164,7 @@ class PlaylistController extends Controller
     /**
      * Update A Playlist.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Playlist            $id
+     * @param \App\Playlist $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -245,10 +233,8 @@ class PlaylistController extends Controller
      * Download All Playlist Torrents.
      *
      * @param $id
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function downloadPlaylist($id)
+    public function downloadPlaylist($id): \Illuminate\Http\RedirectResponse | \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         //  Extend The Maximum Execution Time
         \set_time_limit(300);

@@ -2,7 +2,7 @@
     <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home.index') }}">
             <div class="banner">
-                <i class="fal fa-rocket" style="display: inline;"></i>
+                <i class="fal fa-tv-retro" style="display: inline;"></i>
             </div>
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
@@ -78,6 +78,9 @@
         </ul>
 
         <ul class="right-navbar">
+            <li class="dropdown hoe-rheader-submenu message-notification left-min-30 mobile-hide" style="margin-right:10px;">
+                <livewire:quick-search-dropdown />
+            </li>
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <span>

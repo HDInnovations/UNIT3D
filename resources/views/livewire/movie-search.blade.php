@@ -21,9 +21,7 @@
 					</div>
 					<div class="card_body">
 						<div class="body_poster">
-							@if($movie->poster)
-								<img src="{{ $movie->poster }}" class="show-poster">
-							@endif
+							<img src="{{ isset($movie->poster) ? \tmdb_image('poster_mid', $movie->poster) : 'https://via.placeholder.com/200x300' }}" class="show-poster">
 						</div>
 						<div class="body_description">
 							<h3 class="description_title">

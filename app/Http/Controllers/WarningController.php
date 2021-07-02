@@ -27,12 +27,9 @@ class WarningController extends Controller
     /**
      * Show A Users Warnings.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\User $username
      */
-    public function show(Request $request, $username)
+    public function show(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         \abort_unless($request->user()->group->is_modo, 403);
 
@@ -56,8 +53,7 @@ class WarningController extends Controller
     /**
      * Deactivate A Warning.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Warning      $id
+     * @param \App\Models\Warning $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -85,8 +81,7 @@ class WarningController extends Controller
     /**
      * Deactivate All Warnings.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -117,8 +112,7 @@ class WarningController extends Controller
     /**
      * Delete A Warning.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Warning      $id
+     * @param \App\Models\Warning $id
      *
      * @throws \Exception
      *
@@ -150,8 +144,7 @@ class WarningController extends Controller
     /**
      * Delete All Warnings.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -183,8 +176,7 @@ class WarningController extends Controller
     /**
      * Restore A Soft Deleted Warning.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Warning      $id
+     * @param \App\Models\Warning $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -192,7 +184,6 @@ class WarningController extends Controller
     {
         \abort_unless($request->user()->group->is_modo, 403);
 
-        $staff = $request->user();
         $warning = Warning::withTrashed()->findOrFail($id);
         $warning->restore();
 

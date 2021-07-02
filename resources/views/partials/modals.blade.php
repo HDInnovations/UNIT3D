@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-comment-edit-{{ $comment->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog{{ \modal_style() }}">
         <div class="modal-content">
             <meta charset="utf-8">
             <title>@lang('common.edit-your-comment')</title>

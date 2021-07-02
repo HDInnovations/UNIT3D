@@ -22,8 +22,6 @@ class AchievementUnlocked
 {
     /**
      * AchievementUnlocked Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -32,7 +30,6 @@ class AchievementUnlocked
     /**
      * Handle the event.
      *
-     * @param \Assada\Achievements\Event\Unlocked $unlocked
      *
      * @return void
      */

@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('bonus.buttons')
             <div class="header gradient purple">
@@ -69,11 +69,11 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-    
+
                         <div class="text-blue well well-sm text-center">
                             <h2><strong>@lang('bon.your-points'): {{ $userbon }}<br></strong></h2>
                         </div>
-    
+
                         <div class="text-orange well well-sm text-center">
                             <div>
                                 <h3>@lang('bon.you-have-received-gifts'): <strong>{{ $gifts_received }}</strong>

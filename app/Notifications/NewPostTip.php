@@ -25,10 +25,7 @@ class NewPostTip extends Notification implements ShouldQueue
     /**
      * NewPostTip Constructor.
      *
-     * @param string           $type
-     * @param string           $tipper
-     * @param                  $amount
-     * @param \App\Models\Post $post
+     * @param $amount
      */
     public function __construct(public string $type, public string $tipper, public $amount, public Post $post)
     {
@@ -55,8 +52,6 @@ class NewPostTip extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For A Forum Post',
             'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,

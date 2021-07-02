@@ -24,11 +24,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Illuminate\Validation\ValidationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        //
     ];
 
     /**
@@ -37,38 +33,20 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = [
+        'current_password',
         'password',
         'password_confirmation',
     ];
 
     /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param \Throwable $throwable
-     *
-     * @throws \Exception
+     * Register the exception handling callbacks for the application.
      *
      * @return void
      */
-    public function report(Throwable $throwable)
+    public function register()
     {
-        parent::report($throwable);
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Throwable               $throwable
-     *
-     * @throws \Throwable
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Throwable $throwable)
-    {
-        return parent::render($request, $throwable);
+        $this->reportable(function (Throwable $e) {
+            //
+        });
     }
 }

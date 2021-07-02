@@ -39,9 +39,6 @@ class ChatController extends Controller
 {
     /**
      * ChatController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository   $chatRepository
-     * @param \Illuminate\Contracts\Auth\Factory $authFactory
      */
     public function __construct(private ChatRepository $chatRepository, private Factory $authFactory)
     {

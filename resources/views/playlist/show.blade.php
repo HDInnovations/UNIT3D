@@ -16,7 +16,8 @@
 @section('content')
 	<div class="container">
 		<div class="block">
-			<section class="inner_content header" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
+			@php $tmdb_backdrop = isset($meta->backdrop) ? \tmdb_image('back_big', $meta->backdrop) : 'https://via.placeholder.com/1280x350'; @endphp
+			<section class="inner_content header" style="background-image: url('{{ $tmdb_backdrop }}')">
 				<div class="bg_filter">
 					<div class="single_column">
 						<h2>{{ $playlist->name }}</h2>
@@ -66,6 +67,12 @@
 					   class="btn btn-sm btn-labeled btn-success">
                     <span class='btn-label'>
                         <i class='{{ config('other.font-awesome') }} fa-download'></i> @lang('playlist.download-all')
+                    </span>
+					</a>
+					<a href="{{ route('torrents') }}?perPage=25&playlistId={{ $playlist->id }}" role="button"
+					   class="btn btn-sm btn-labeled btn-success">
+                    <span class='btn-label'>
+                        <i class='{{ config('other.font-awesome') }} fa-eye'></i> Playlist Torrents List
                     </span>
 					</a>
 				</div>
@@ -127,17 +134,17 @@
 							<div class="card_body">
 								<div class="body_poster">
 									@if ($t->torrent->category->movie_meta || $t->torrent->category->tv_meta)
-										<img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}"
+										<img src="{{ isset($meta->poster) ? \tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
 										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 
 									@if ($t->torrent->category->game_meta && isset($t->torrent->meta) && $meta->cover->image_id && $meta->name)
-										<img src="https://images.igdb.com/igdb/image/upload/t_original/{{ $t->torrent->meta->cover->image_id }}.jpg"
+										<img src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $t->torrent->meta->cover->image_id }}.jpg"
 										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 
 									@if ($t->torrent->category->no_meta || $t->torrent->category->music_meta)
-										<img src="https://via.placeholder.com/600x900"
+										<img src="https://via.placeholder.com/160x240"
 										     class="show-poster" alt="@lang('torrent.poster')">
 									@endif
 								</div>
@@ -268,9 +275,8 @@
 					<form role="form" method="POST" action="{{ route('comment_playlist', ['id' => $playlist->id]) }}">
 						@csrf
 						<div class="form-group">
-							<label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type-verb')
-                        <strong>":"</strong> @lang('common.for') emoji</span> <span
-									class="badge-extra">BBCode @lang('common.is-allowed')</span>
+							<label for="content">@lang('common.your-comment'):</label>
+							<span class="badge-extra">BBCode @lang('common.is-allowed')</span>
 							<textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
 						</div>
 						<button type="submit" class="btn btn-danger">@lang('common.submit')</button>
@@ -285,7 +291,7 @@
 	</div>
 
 	<div class="modal fade" id="modal_playlist_torrent" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dark">
+		<div class="modal-dialog{{ \modal_style() }}">
 			<div class="modal-content">
 				<div class="container-fluid">
 					<form role="form" method="POST" action="{{ route('playlists.attach') }}">
@@ -307,11 +313,11 @@
 								</label>
 							</div>
 							<div class="form-group">
-								<input class="btn btn-primary" type="submit" value="@lang('common.save')">
+								<input class="btn btn-success" type="submit" value="@lang('common.save')">
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
+							<button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">@lang('common.close')</button>
 						</div>
 					</form>
 				</div>

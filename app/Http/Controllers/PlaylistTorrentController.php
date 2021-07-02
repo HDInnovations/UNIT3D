@@ -25,7 +25,6 @@ class PlaylistTorrentController extends Controller
     /**
      * Attach A Torrent To A Playlist.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

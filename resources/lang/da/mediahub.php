@@ -19,7 +19,7 @@ return [
     'episodes'              => 'Episoder',
     'first-seen'            => 'Først set på:',
     'genres'                => 'Genre',
-    'includes:'             => 'Inkluderer:',
+    'includes'              => 'Inkluderer:',
     'latest-project'        => 'Seneste projekt:',
     'networks'              => 'Netværk',
     'no-data'               => 'Ingen data fundet!',

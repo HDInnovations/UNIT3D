@@ -27,8 +27,6 @@ class PollController extends Controller
 {
     /**
      * PollController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -36,10 +34,8 @@ class PollController extends Controller
 
     /**
      * Show All Polls.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $polls = Poll::latest()->paginate(15);
 
@@ -49,12 +45,9 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Poll         $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\Poll $id
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::findOrFail($id);
         $user = $request->user();
@@ -71,7 +64,6 @@ class PollController extends Controller
     /**
      * Vote On A Poll.
      *
-     * @param VoteOnPoll $voteOnPoll
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -113,10 +105,8 @@ class PollController extends Controller
      * Show A Polls Results.
      *
      * @param \App\Models\Poll $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function result($id)
+    public function result($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
         $map = [

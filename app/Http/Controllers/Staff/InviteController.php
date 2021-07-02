@@ -23,10 +23,8 @@ class InviteController extends Controller
 {
     /**
      * Invites Log.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $invites = Invite::latest()->paginate(25);
         $invitecount = Invite::count();

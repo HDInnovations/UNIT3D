@@ -21,10 +21,8 @@ class MediaLanguageController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $mediaLanguages = MediaLanguage::all()->sortBy('name');
 
@@ -33,10 +31,8 @@ class MediaLanguageController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.media_language.create');
     }
@@ -44,7 +40,6 @@ class MediaLanguageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -73,10 +68,8 @@ class MediaLanguageController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\MediaLanguage $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $mediaLanguage = MediaLanguage::findOrFail($id);
 
@@ -86,7 +79,6 @@ class MediaLanguageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request  $request
      * @param \App\Models\MediaLanguage $id
      *
      * @return \Illuminate\Http\RedirectResponse

@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal_edit_subtitle-{{ $subtitle->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-dark">
+	<div class="modal-dialog{{ \modal_style() }}">
 		<div class="modal-content">
 			<div class="container-fluid">
 				<form role="form" method="POST" action="{{ route('subtitles.update', ['id' =>$subtitle->id]) }}">
@@ -32,12 +32,12 @@
 								<span class="help-block">@lang('subtitle.note-help')</span>
 							</div>
 						</div>
-						<div class="form-group">
-							<input class="btn btn-primary" type="submit" value="@lang('common.save')">
-						</div>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
+						<div class="text-center">
+							<button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">@lang('common.close')</button>
+							<input class="btn btn-success" type="submit" value="@lang('common.save')">
+						</div>
 					</div>
 				</form>
 			</div>
@@ -46,7 +46,7 @@
 </div>
 
 <div class="modal fade" id="modal_delete_subtitle-{{ $subtitle->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-dark">
+	<div class="modal-dialog{{ \modal_style() }}">
 		<div class="modal-content">
 			<div class="container-fluid">
 				<form role="form" method="POST" action="{{ route('subtitles.destroy', ['id' => $subtitle->id]) }}">
@@ -57,15 +57,13 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')">
 							<span aria-hidden="true">×</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">@lang('subtitle.delete-confirm')</h4>
+						<h4 class="modal-title text-center" id="myModalLabel">@lang('subtitle.delete-confirm')</h4>
 					</div>
 					<div class="modal-body text-center">
-						<div class="form-group">
-							<input class="btn btn-primary" type="submit" value="@lang('common.delete') - {{ $subtitle->language->name }} @lang('common.subtitle')">
-						</div>
+						<input class="btn btn-danger" type="submit" value="@lang('common.delete') - {{ $subtitle->language->name }} @lang('common.subtitle')">
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
+						<button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">@lang('common.close')</button>
 					</div>
 				</form>
 			</div>

@@ -53,9 +53,7 @@ class Tv extends Model
      */
     public function cast()
     {
-        return $this->belongsToMany(Cast::class, 'cast_tv', 'cast_id', 'tv_id')
-            ->orderBy('tv_id')
-            ->take(6);
+        return $this->belongsToMany(Cast::class, 'cast_tv', 'cast_id', 'tv_id');
     }
 
     /**

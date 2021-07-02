@@ -25,11 +25,6 @@ class NewFollow extends Notification implements ShouldQueue
 
     /**
      * NewFollow Constructor.
-     *
-     * @param string             $type
-     * @param \App\Models\User   $sender
-     * @param \App\Models\User   $target
-     * @param \App\Models\Follow $follow
      */
     public function __construct(public string $type, public User $sender, public User $target, public Follow $follow)
     {
@@ -56,8 +51,6 @@ class NewFollow extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->sender->username.' Has Followed You!',
             'body'  => $this->sender->username.' has started to follow you so they will get notifications about your activities.',

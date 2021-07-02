@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('bonus.buttons')
             <div class="header gradient purple">
@@ -49,7 +49,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-    
+
                                     @foreach ($personalFreeleech as $p => $pf)
                                         <tr>
                                             <td>{{ $pf['description'] }}</td>
@@ -70,7 +70,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-    
+
                                     @foreach ($invite as $i => $in)
                                         <tr>
                                             <td>{{ $in['description'] }}</td>
@@ -89,11 +89,11 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-    
+
                         <div class="text-blue well well-sm text-center">
                             <h2><strong>@lang('bon.your-points'): <br></strong>{{ $userbon }}</h2>
                         </div>
-    
+
                         <div class="well well-sm mt-20">
                             <p class="lead text-orange text-center">@lang('bon.exchange-warning')
                                 <br><strong>@lang('bon.no-refund')</strong>

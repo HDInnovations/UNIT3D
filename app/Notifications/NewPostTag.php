@@ -24,10 +24,6 @@ class NewPostTag extends Notification implements ShouldQueue
 
     /**
      * NewPostTag Constructor.
-     *
-     * @param string           $type
-     * @param string           $tagger
-     * @param \App\Models\Post $post
      */
     public function __construct(public string $type, public string $tagger, public Post $post)
     {
@@ -54,8 +50,6 @@ class NewPostTag extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->tagger.' Has Tagged You In A Post',
             'body'  => $this->tagger.' has tagged you in a Post in Topic '.$this->post->topic->name,

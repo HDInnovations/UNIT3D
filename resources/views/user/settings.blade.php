@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('user.buttons.settings')
             <div class="header gradient red">
@@ -87,7 +87,7 @@
                                         @endif value="0">Compact</label>
                                 </div>
                             </div>
-    
+
                             <div class="well">
                                 <h3>Chat</h3>
                                 <hr>
@@ -112,7 +112,7 @@
                                         @endif value="0">@lang('common.no')</label>
                                 </div>
                             </div>
-    
+
                             <div class="well">
                                 <h3>Torrent</h3>
                                 <hr>

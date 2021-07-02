@@ -28,104 +28,136 @@
 
 @section('content')
     <div class="container">
-        <div class="block">
+        <div class="block single">
             <div class="movie-wrapper">
-                <div class="movie-backdrop"
-                     style="background-image: url('https://images.weserv.nl/?url={{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }}&w=1270&h=600');">
+                <div class="movie-overlay"></div>
+
+                <div class="movie-poster">
+                    @php $tmdb_poster = $movie->poster ? \tmdb_image('poster_big', $movie->poster) : 'https://via.placeholder.com/400x600'; @endphp
+                    <img src="{{ $tmdb_poster }}" class="img-responsive" id="meta-poster">
+                </div>
+
+                <div class="meta-info">
                     <div class="tags">
                         @lang('mediahub.movies')
                     </div>
-                </div>
-                <div class="movie-overlay"></div>
-                <div class="container movie-container">
-                    <div class="row movie-row ">
 
-                        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
-                            <h1 class="movie-heading">
-                                <span class="text-bold">{{ $movie->title ?? 'No Meta Found' }}</span>
-                                @if(isset($movie->release_date))
-                                    <span class="text-bold"><em> ({{ substr($movie->release_date, 0, 4) }})</em></span>
-                                @endif
-                            </h1>
-
-                            <br>
-
-                            <span class="movie-overview">
-                    {{ Str::limit($movie->overview ?? '', $limit = 350, $end = '...') }}
-                </span>
-
-                            <span class="movie-details">
-                    @if (isset($movie->genres))
-                                    @foreach ($movie->genres as $genre)
-                                        <span class="badge-user text-bold text-green">
-                                <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre->name }}
-                            </span>
-                                    @endforeach
-                                @endif
-                </span>
-
-                            <span class="movie-details">
-                    <span class="badge-user text-bold text-orange">
-                        Status: {{ $movie->status ?? 'Unknown' }}
-                    </span>
-
-                    <span class="badge-user text-bold text-orange">
-                        @lang('torrent.runtime'): {{ $movie->runtime ?? 0 }}
-                        @lang('common.minute')@lang('common.plural-suffix')
-                    </span>
-
-                    <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
-                        <span class="movie-rating-stars">
-                            <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                        </span>
-                            {{ $movie->vote_average ?? '0' }}/10 ({{ $movie->vote_count ?? '0' }} @lang('torrent.votes'))
-                    </span>
-                </span>
-
-                            <span class="movie-details">
-                    @if ($movie->imdb_id != 0 && $movie->imdb_id != null)
-                                    <span class="badge-user text-bold text-orange">
-                            <a href="https://www.imdb.com/title/tt{{ $movie->imdb_id }}" title="IMDB" target="_blank">
-                                <i class="{{ config('other.font-awesome') }} fa-film"></i> IMDB: {{ $movie->imdb_id }}
+                    <div class="movie-right">
+                        @if(isset($movie->companies) && $movie->companies->isNotEmpty())
+                        @php $company = $movie->companies->first(); @endphp
+                        <div class="badge-user">
+                            <a href="{{ route('mediahub.companies.show', ['id' => $company->id]) }}">
+                            @if(isset($company->logo))
+                                <img class="img-responsive" src="{{ \tmdb_image('logo_small', $company->logo) }}" title="{{ $company->name }}">
+                            @else
+                            {{ $company->name }}
+                            @endif
                             </a>
-                        </span>
-                                @endif
-
-                                    <span class="badge-user text-bold text-orange">
-                            <a href="https://www.themoviedb.org/movie/{{ $movie->id }}" title="TheMovieDatabase"
-                               target="_blank">
-                                <i class="{{ config('other.font-awesome') }} fa-film"></i> TMDB: {{ $movie->id }}
-                            </a>
-                        </span>
-
-                    <div class="row cast-list">
-                        @if (isset($movie->cast))
-                            @foreach ($movie->cast as $actor)
-                                <div class="col-xs-4 col-md-2 text-center">
-                                    <a href="{{ route('mediahub.persons.show', ['id' => $actor->id]) }}">
-                                        <img class="img-people" src="https://images.weserv.nl/?url={{ $actor->still ?? 'https://via.placeholder.com/95x140' }}&w=95&h=140"
-                                             alt="{{ $actor->name }}">
-                                        <span class="badge-user" style="white-space:normal;">
-                                            <strong>{{ $actor->name }}</strong>
-                                        </span>
-                                    </a>
-                                </div>
-                            @endforeach
+                        </div>
                         @endif
                     </div>
-                </span>
+
+                    @php $tmdb_backdrop = $movie->backdrop ? \tmdb_image('back_big', $movie->backdrop) : 'https://via.placeholder.com/960x540'; @endphp
+                    <div class="movie-backdrop" style="background-image: url('{{ $tmdb_backdrop }}');"></div>
+
+                    <div class="movie-top">
+                        <h1 class="movie-heading">
+                            <span class="text-bold">{{ isset($movie->title) ? $movie->title : 'No Meta Found' }}</span>
+                            @if(isset($movie->release_date))
+                            <span> ({{ substr($movie->release_date, 0, 4) ?? '' }})</span>
+                            @endif
+                        </h1>
+
+                        <div class="movie-overview">
+                            {{ isset($movie->overview) ? Str::limit($movie->overview, $limit = 350, $end = '...') : '' }}
+                        </div>
+                    </div>
+
+                    <div class="movie-bottom">
+                        <div class="movie-details">
+                            @if ($movie->imdb_id != 0 && $movie->imdb_id != null)
+                            <span class="badge-user text-bold">
+                                <a href="https://www.imdb.com/title/{{ $movie->imdb_id }}" title="IMDB" target="_blank">
+                                    <i class="{{ config('other.font-awesome') }} fa-film"></i> IMDB: {{ \str_replace('tt', '', $movie->imdb_id) }}
+                                </a>
+                            </span>
+                            @endif
+
+                            <span class="badge-user text-bold">
+                                <a href="https://www.themoviedb.org/movie/{{ $movie->id }}" title="The Movie Database"
+                                    target="_blank">
+                                    <i class="{{ config('other.font-awesome') }} fa-film"></i> TMDB: {{ $movie->id }}
+                                </a>
+                            </span>
+
+                            @if(isset($movie->crew))
+                                @php $director = $movie->crew->where('known_for_department' ,'=', 'Directing')->sortBy('order')->first(); @endphp
+                            @if($director)
+                                <span class="badge-user text-bold text-purple">
+                                    <a href="{{ route('mediahub.persons.show', ['id' => $director->id]) }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-camera-movie"></i> Dir. {{ $director->name }}
+                                    </a>
+                                </span>
+                            @endif
+                            @endif
+
+                            @if (isset($movie->genres) && $movie->genres->isNotEmpty())
+                            @foreach ($movie->genres as $genre)
+                            <span class="badge-user text-bold text-green">
+                                <a href="{{ route('mediahub.genres.show', ['id' => $genre->id]) }}">
+                                    <i class="{{ config('other.font-awesome') }} fa-tag"></i> {{ $genre->name }}
+                                </a>
+                            </span>
+                            @endforeach
+                            @endif
                         </div>
 
-                        <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                            <img src="https://images.weserv.nl/?url={{ $movie->poster ?? 'https://via.placeholder.com/600x900' }}&w=325&h=485"
-                                 class="movie-poster img-responsive hidden-xs">
+                        <div class="movie-details">
+                            @if(isset($movie) && !empty(trim($movie->homepage)))
+                            <span class="badge-user text-bold">
+                                <a href="{{ $movie->homepage }}" title="Homepage" rel="noopener noreferrer" target="_blank">
+                                    <i class="{{ config('other.font-awesome') }} fa-external-link-alt"></i> Homepage
+                                </a>
+                            </span>
+                            @endif
+
+                            <span class="badge-user text-bold text-orange">
+                                Status: {{ $movie->status ?? 'Unknown' }}
+                            </span>
+
+                            @if (isset($movie->runtime))
+                            <span class="badge-user text-bold text-orange">
+                                @lang('torrent.runtime'): {{ $movie->runtime }}
+                                @lang('common.minute')@lang('common.plural-suffix')
+                            </span>
+                            @endif
+
+                            <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
+                                <span class="movie-rating-stars">
+                                    <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                                </span>
+                                {{ $movie->vote_average ?? 0 }}/10 ({{ $movie->vote_count ?? 0 }} @lang('torrent.votes'))
+                            </span>
                         </div>
 
+                        <div class="cast-list">
+                        @if (isset($movie->cast) && $movie->cast->isNotEmpty())
+                            @foreach ($movie->cast->sortBy('order')->take(7) as $cast)
+                            <div class="cast-item">
+                                <a href="{{ route('mediahub.persons.show', ['id' => $cast->id]) }}" class="badge-user">
+                                    @php $tmdb_face = $cast->still ? \tmdb_image('cast_face', $cast->still) : 'https://via.placeholder.com/138x175'; @endphp
+                                    <img class="img-responsive" src="{{ $tmdb_face }}" alt="{{ $cast->name }}">
+                                    <div class="cast-name">{{ $cast->name }}</div>
+                                </a>
+                            </div>
+                            @endforeach
+                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="table-responsive">
+            <div class="table-responsive mt-20">
                 <table class="table table-condensed table-bordered table-striped table-hover">
                     <thead>
                     <tr>

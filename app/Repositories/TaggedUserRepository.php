@@ -38,9 +38,6 @@ class TaggedUserRepository
 
     /**
      * TaggedUserRepository Constructor.
-     *
-     * @param \App\Models\User           $user
-     * @param \App\Models\PrivateMessage $privateMessage
      */
     public function __construct(private User $user, private PrivateMessage $privateMessage)
     {
@@ -148,17 +145,11 @@ class TaggedUserRepository
         return true;
     }
 
-    /**
-     * @return bool
-     */
     public function isDebug(): bool
     {
         return $this->debug;
     }
 
-    /**
-     * @param bool $debug
-     */
     public function setDebug(bool $debug): void
     {
         $this->debug = $debug;

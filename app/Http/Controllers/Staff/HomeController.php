@@ -28,13 +28,10 @@ class HomeController extends Controller
     /**
      * Display Staff Dashboard.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // User Info
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Role::where('slug', '=', 'banned')->pluck('id'));
@@ -73,7 +70,7 @@ class HomeController extends Controller
         // SSL Info
         try {
             $certificate = $request->secure() ? SslCertificate::createForHostName(\config('app.url')) : '';
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             $certificate = '';
         }
 

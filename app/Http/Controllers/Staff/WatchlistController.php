@@ -24,8 +24,6 @@ class WatchlistController extends Controller
 {
     /**
      * Watchlist.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     final public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
@@ -34,11 +32,6 @@ class WatchlistController extends Controller
 
     /**
      * Store A New Watched User.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     final public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
@@ -69,8 +62,6 @@ class WatchlistController extends Controller
      * @param $id
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     final public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {

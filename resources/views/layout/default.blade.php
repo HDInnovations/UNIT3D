@@ -6,10 +6,10 @@
 </head>
 
 @if (auth()->user()->nav == 0)
-    
+
     <body hoe-navigation-type="vertical-compact" hoe-nav-placement="left" theme-layout="wide-layout">
     @else
-    
+
         <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
         @endif
         <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
@@ -19,7 +19,7 @@
                 <section id="main-content">
                     @include('partials.userbar')
                     @include('partials.breadcrumb')
-                    @include('cookieConsent::index')
+                    @include('cookie-consent::index')
                     @include('partials.alerts')
                     @if (Session::has('achievement'))
                         @include('partials.achievement_modal')
@@ -84,7 +84,7 @@
         @if (Session::has('achievement'))
             <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce('script') }}">
                 $('#modal-achievement').modal('show');
-    
+
             </script>
         @endif
 
@@ -97,12 +97,12 @@
                         showConfirmButton: false,
                         timer: 3000
                     });
-        
+
                     Toast.fire({
                         icon: '{{ $key }}',
                         title: '{{ Session::get($key) }}'
                     })
-        
+
                 </script>
             @endif
         @endforeach
@@ -114,8 +114,11 @@
                     icon: 'error',
                     html: jQuery("#ERROR_COPY").html(),
                     showCloseButton: true,
+                    willOpen: function(el) {
+                        $(el).find('textarea').remove();
+                    }
                 })
-    
+
             </script>
         @endif
 

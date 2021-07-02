@@ -17,7 +17,7 @@ return [
     'bots'       => 'Bots',
     'color'      => 'Farge',
     'command'    => 'Kommando',
-    'edit-bot'   => 'Rediger Bot',
+    'edit-bot'   => 'Rediger bot',
     'emoji-code' => 'Emoji-kode',
     'help'       => 'Hjelp',
     'icon'       => 'Ikon',

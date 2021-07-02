@@ -130,8 +130,7 @@ body {
     color: #999;
 }
 
-i.torrent-icon,
-.carousel-control > .glyphicon {
+i.torrent-icon {
     color: var(--color-blue);
 }
 
@@ -210,15 +209,6 @@ select option {
 
 .bbcode-quote {
     margin: 0 15px 15px 15px;
-}
-
-.movie-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: var(--movie-overlay);
 }
 
 .text-info,

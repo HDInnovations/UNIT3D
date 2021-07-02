@@ -25,10 +25,8 @@ class ReportController extends Controller
 {
     /**
      * Display All Reports.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $reports = Report::latest()->paginate(25);
 
@@ -39,10 +37,8 @@ class ReportController extends Controller
      * Show A Report.
      *
      * @param \App\Models\Report $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $report = Report::findOrFail($id);
 
@@ -54,12 +50,9 @@ class ReportController extends Controller
     /**
      * Update A Report.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Report       $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\Report $id
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $user = \auth()->user();
 

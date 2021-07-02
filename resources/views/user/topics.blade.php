@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         @if (!auth()->user()->isAllowed($user,'forum','show_topic'))
             <div class="container pl-0 text-center">
                 <div class="jumbotron shadowed">

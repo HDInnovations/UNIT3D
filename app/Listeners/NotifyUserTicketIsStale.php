@@ -31,13 +31,12 @@ class NotifyUserTicketIsStale
     /**
      * Handle the event.
      *
-     * @param TicketWentStale $event
      *
      * @return void
      */
     public function handle(TicketWentStale $event)
     {
         $event->ticket->user->notify(new UserTicketStale($event->ticket));
-        $event->ticket->update(['reminded_at' => time()]);
+        $event->ticket->update(['reminded_at' => \time()]);
     }
 }

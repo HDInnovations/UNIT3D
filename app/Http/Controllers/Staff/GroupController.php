@@ -27,12 +27,8 @@ class GroupController extends Controller
 {
     /**
      * Display All Groups.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -44,12 +40,8 @@ class GroupController extends Controller
 
     /**
      * Group Add Form.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -60,7 +52,6 @@ class GroupController extends Controller
     /**
      * Store A New Group.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -125,12 +116,9 @@ class GroupController extends Controller
     /**
      * Group Edit Form.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Group        $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\Group $id
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         \abort_unless($user->group->is_admin, 403);
@@ -143,8 +131,7 @@ class GroupController extends Controller
     /**
      * Edit A Group.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Group        $id
+     * @param \App\Models\Group $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

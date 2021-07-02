@@ -26,10 +26,8 @@ class ImageController extends Controller
      * Show Image Create Form.
      *
      * @param \App\Models\Album $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create($id)
+    public function create($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $album = Album::find($id);
 
@@ -39,7 +37,6 @@ class ImageController extends Controller
     /**
      * Store A New Image.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -103,8 +100,7 @@ class ImageController extends Controller
     /**
      * Delete A Image.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Image        $id
+     * @param \App\Models\Image $id
      *
      * @throws \Exception
      *

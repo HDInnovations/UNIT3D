@@ -26,10 +26,8 @@ class HomeController extends Controller
 {
     /**
      * Display Media Hubs.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $tv = Tv::count();
         $movies = Movie::count();

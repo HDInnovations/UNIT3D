@@ -20,10 +20,6 @@ class PasswordProtectBackup
 {
     /**
      * Handle the event.
-     *
-     * @param \Spatie\Backup\Events\BackupZipWasCreated $backupZipWasCreated
-     *
-     * @return string
      */
     public function handle(BackupZipWasCreated $backupZipWasCreated): string
     {

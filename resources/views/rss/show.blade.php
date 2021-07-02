@@ -6,7 +6,7 @@
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
      xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
-        <title>{{ config('other.title') }} @lang('rss.rss-feed') ({{ config('unit3d.powered-by') }})</title>
+        <title>{{ config('other.title') }}: {{ $rss->name }}</title>
         <link>{{ config('app.url') }}</link>
         <description>
             <![CDATA[This feed contains your secure RSS PID, please do not share with anyone.]]>

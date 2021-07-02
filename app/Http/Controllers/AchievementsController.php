@@ -23,12 +23,8 @@ class AchievementsController extends Controller
 {
     /**
      * Display All Achievements.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
 
@@ -47,10 +43,8 @@ class AchievementsController extends Controller
      * Show A Users Achievements.
      *
      * @param \App\Models\User $username
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($username)
+    public function show($username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::where('username', '=', $username)->firstOrFail();
 

@@ -247,6 +247,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'upload'], function () {
             Route::get('/{category_id}/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
             Route::post('/', 'TorrentController@upload')->name('upload');
+            Route::post('/preview', 'TorrentController@preview');
         });
 
         Route::group(['prefix' => 'torrents'], function () {
@@ -573,7 +574,7 @@ Route::group(['middleware' => 'language'], function () {
             Route::get('/{id}/close', 'TopicController@closeTopic')->name('forum_close');
             // Open Topic
             Route::get('/{id}/open', 'TopicController@openTopic')->name('forum_open');
-            //
+            // Tip Poster
             Route::post('/posts/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
 
             // Edit Topic

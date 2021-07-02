@@ -26,8 +26,6 @@ class PollController extends Controller
 {
     /**
      * PollController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -35,10 +33,8 @@ class PollController extends Controller
 
     /**
      * Display All Polls.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $polls = Poll::latest()->paginate(25);
 
@@ -49,10 +45,8 @@ class PollController extends Controller
      * Show A Poll.
      *
      * @param \App\Models\Poll $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
@@ -61,10 +55,8 @@ class PollController extends Controller
 
     /**
      * Poll Add Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.poll.create');
     }
@@ -72,7 +64,6 @@ class PollController extends Controller
     /**
      * Store A New Poll.
      *
-     * @param \App\Http\Requests\StorePoll $storePoll
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -99,10 +90,8 @@ class PollController extends Controller
      * Poll Edit Form.
      *
      * @param \App\Models\Poll $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $poll = Poll::findOrFail($id);
 
@@ -112,8 +101,7 @@ class PollController extends Controller
     /**
      * Update A New Poll.
      *
-     * @param \App\Http\Requests\StorePoll $storePoll
-     * @param                              $id
+     * @param $id
      *
      * @throws \Exception
      *

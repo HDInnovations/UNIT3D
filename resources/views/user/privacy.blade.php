@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('user.buttons.settings')
             <div class="header gradient red">
@@ -30,19 +30,19 @@
             </div>
             <div class="container-fluid p-0 some-padding">
                 <ul class="nav nav-tabs" role="tablist" id="basetabs">
-                    <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-                    <li><a href="#achievement" data-toggle="tab">Achievements</a></li>
-                    <li><a href="#follower" data-toggle="tab">Followers</a></li>
-                    <li><a href="#forum" data-toggle="tab">Forums</a></li>
-                    <li><a href="#request" data-toggle="tab">Requests</a></li>
-                    <li><a href="#torrent" data-toggle="tab">Torrents</a></li>
-                    <li><a href="#other" data-toggle="tab">Other</a></li>
+                    <li class="active"><a href="#profile_tab" data-toggle="tab">Profile</a></li>
+                    <li><a href="#achievement_tab" data-toggle="tab">Achievements</a></li>
+                    <li><a href="#follower_tab" data-toggle="tab">Followers</a></li>
+                    <li><a href="#forum_tab" data-toggle="tab">Forums</a></li>
+                    <li><a href="#request_tab" data-toggle="tab">Requests</a></li>
+                    <li><a href="#torrent_tab" data-toggle="tab">Torrents</a></li>
+                    <li><a href="#other_tab" data-toggle="tab">Other</a></li>
                 </ul>
                 <br>
                 <div class="tab-content">
-    
-    
-                    <div role="tabpanel" class="tab-pane" id="other">
+
+
+                    <div role="tabpanel" class="tab-pane" id="other_tab">
                         <form role="form" method="POST"
                             action="{{ route('privacy_other', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -119,7 +119,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="request">
+                    <div role="tabpanel" class="tab-pane" id="request_tab">
                         <form role="form" method="POST"
                             action="{{ route('privacy_request', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -196,7 +196,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="torrent">
+                    <div role="tabpanel" class="tab-pane" id="torrent_tab">
                         <form role="form" method="POST"
                             action="{{ route('privacy_torrent', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -307,7 +307,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane active" id="profile">
+                    <div role="tabpanel" class="tab-pane active" id="profile_tab">
                         <form role="form" method="POST"
                             action="{{ route('privacy_profile', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -622,7 +622,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="forum">
+                    <div role="tabpanel" class="tab-pane" id="forum_tab">
                         <form role="form" method="POST"
                             action="{{ route('privacy_forum', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -715,7 +715,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="follower">
+                    <div role="tabpanel" class="tab-pane" id="follower_tab">
                         <form role="form" method="POST"
                             action="{{ route('privacy_follower', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -791,7 +791,7 @@
                             </div>
                         </form>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="achievement">
+                    <div role="tabpanel" class="tab-pane" id="achievement_tab">
                         <form role="form" method="POST"
                             action="{{ route('privacy_achievement', ['username' => $user->username]) }}"
                             enctype="multipart/form-data">
@@ -868,7 +868,7 @@
                             </div>
                         </form>
                     </div>
-    
+
                 </div>
             </div>
         </div>
@@ -879,33 +879,33 @@
         $(window).on("load", function() {
             loadTab();
         });
-    
+
         function loadTab() {
-            if (window.location.hash && window.location.hash == "#visible") {
-                $('#basetabs a[href="#visible"]').tab('show');
+            if (window.location.hash && window.location.hash == "#visible_tab") {
+                $('#basetabs a[href="#visible_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#torrent") {
-                $('#basetabs a[href="#torrent"]').tab('show');
+            if (window.location.hash && window.location.hash == "#torrent_tab") {
+                $('#basetabs a[href="#torrent_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#forum") {
-                $('#basetabs a[href="#forum"]').tab('show');
+            if (window.location.hash && window.location.hash == "#forum_tab") {
+                $('#basetabs a[href="#forum_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#profile") {
-                $('#basetabs a[href="#profile"]').tab('show');
+            if (window.location.hash && window.location.hash == "#profile_tab") {
+                $('#basetabs a[href="#profile_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#follower") {
-                $('#basetabs a[href="#follower"]').tab('show');
+            if (window.location.hash && window.location.hash == "#follower_tab") {
+                $('#basetabs a[href="#follower_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#achievement") {
-                $('#basetabs a[href="#achievement"]').tab('show');
+            if (window.location.hash && window.location.hash == "#achievement_tab") {
+                $('#basetabs a[href="#achievement_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#request") {
-                $('#basetabs a[href="#request"]').tab('show');
+            if (window.location.hash && window.location.hash == "#request_tab") {
+                $('#basetabs a[href="#request_tab"]').tab('show');
             }
-            if (window.location.hash && window.location.hash == "#other") {
-                $('#basetabs a[href="#other"]').tab('show');
+            if (window.location.hash && window.location.hash == "#other_tab") {
+                $('#basetabs a[href="#other_tab"]').tab('show');
             }
         }
-    
+
     </script>
 @endsection

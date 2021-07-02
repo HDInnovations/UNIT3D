@@ -14,7 +14,7 @@
 
 
         <li class="hoe-has-menu">
-            <a href="javascript:void(0)">
+            <a>
                 <i class="{{ config('other.font-awesome') }} fa-download" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('torrent.torrents')</span>
                 <span class="selected"></span>
@@ -61,7 +61,7 @@
 
 
         <li class="hoe-has-menu">
-            <a href="javascript:void(0)">
+            <a>
                 <i class="{{ config('other.font-awesome') }} fa-upload" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.publish')</span>
                 <span class="selected"></span>
@@ -81,7 +81,7 @@
 
 
         <li class="hoe-has-menu">
-            <a href="javascript:void(0)">
+            <a>
                 <i class="{{ config('other.font-awesome') }} fa-user" style=" font-size: 18px; color: #ffffff;"></i>
                 <span class="menu-text">@lang('common.other')</span>
                 <span class="selected"></span>

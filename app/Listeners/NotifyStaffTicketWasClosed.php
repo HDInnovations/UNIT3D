@@ -33,7 +33,6 @@ class NotifyStaffTicketWasClosed
     /**
      * Handle the event.
      *
-     * @param TicketClosed $event
      *
      * @return void
      */

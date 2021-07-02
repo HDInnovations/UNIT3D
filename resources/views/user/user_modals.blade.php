@@ -1,6 +1,5 @@
-<div class="modal fade" id="modal_user_gift" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_user_gift" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">
@@ -42,9 +41,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_user_note" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_user_note" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">
@@ -65,7 +63,7 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <input class="btn btn-danger" type="submit" value="Save">
+                            <input class="btn btn-warning" type="submit" value="Save">
                         </div>
                     </form>
                 </div>
@@ -79,9 +77,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_user_ban" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_user_ban" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">
@@ -115,9 +112,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_user_unban" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_user_unban" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">
@@ -164,9 +160,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_user_report" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_user_report" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">
@@ -200,9 +195,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_user_delete" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_user_delete" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">
@@ -211,7 +205,7 @@
             </div>
             <div class="modal-body">
                 <div class="py-3">
-                    <div class="form-group">
+                    <div class="text-center">
                         <a href="{{ route('user_delete', ['username' => $user->username]) }}"><input
                                 class="btn btn-danger" type="submit" value="Yes, Delete"></a>
                     </div>
@@ -226,9 +220,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal_user_watch" tabindex="-1" role="dialog" aria-labelledby="modal_user_gift"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dark modal-dialog-centered" role="document">
+<div class="modal fade" id="modal_user_watch" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog{{ \modal_style() }} modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header mx-auto">
                 <div class="text-center">

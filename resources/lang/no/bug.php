@@ -21,6 +21,6 @@ return [
     'high'                   => 'Høy',
     'low'                    => 'Lav',
     'priority'               => 'Prioritet',
-    'priority-description'   => 'Velg bare veldig høyt hvis feilen egentlig er et problem for å bruke nettstedet.',
+    'priority-description'   => 'Velg bare veldig høy hvis feilen virkelig er et problem for å bruke nettstedet.',
     'very-high'              => 'Veldig høy',
 ];

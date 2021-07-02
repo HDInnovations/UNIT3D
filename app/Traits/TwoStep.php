@@ -91,9 +91,6 @@ trait TwoStep
     /**
      * Generate Authorization Code.
      *
-     * @param int    $length
-     * @param string $prefix
-     * @param string $suffix
      *
      * @throws \Exception
      *
@@ -111,13 +108,10 @@ trait TwoStep
     /**
      * Create/retreive 2step verification object.
      *
-     * @param int $userId
      *
      * @throws \Exception
-     *
-     * @return \App\Models\TwoStepAuth|\Illuminate\Database\Eloquent\Model
      */
-    private function checkTwoStepAuthStatus(int $userId)
+    private function checkTwoStepAuthStatus(int $userId): \App\Models\TwoStepAuth | \Illuminate\Database\Eloquent\Model
     {
         return TwoStepAuth::firstOrCreate(
             [
@@ -134,7 +128,6 @@ trait TwoStep
     /**
      * Retreive the Verification Status.
      *
-     * @param int $userId
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model | void
      */
@@ -166,7 +159,6 @@ trait TwoStep
     /**
      * Check if time since account lock has expired and return true if account verification can be reset.
      *
-     * @param \DateTime|\DateTimeImmutable $time
      *
      * @return bool
      */

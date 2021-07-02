@@ -1,5 +1,5 @@
 <div id="editChatStatus-{{ $chatstatus->id }}" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog{{ \modal_style() }}">
         <div class="modal-content">
 
             <div class="modal-header" style="text-align: center;">
@@ -23,8 +23,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-md btn-default" data-dismiss="modal">@lang('common.cancel')</button>
-                    <input class="btn btn-md btn-primary" type="submit">
+                    <button class="btn btn-md btn-primary" data-dismiss="modal">@lang('common.cancel')</button>
+                    <input class="btn btn-md btn-success" type="submit">
                 </div>
             </form>
         </div>
@@ -32,7 +32,7 @@
 </div>
 
 <div id="deleteChatStatus-{{ $chatstatus->id }}" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog{{ \modal_style() }}">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -44,11 +44,11 @@
                 @csrf
                 @method('DELETE')
                 <div class="modal-body">
-                    <p>Are you sure about this ?</p>
+                    <p>Are you sure about this?</p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-md btn-default"
+                    <button type="button" class="btn btn-md btn-primary"
                         data-dismiss="modal">@lang('common.cancel')</button>
                     <input class="btn btn-md btn-danger" type="submit">
                 </div>

@@ -23,10 +23,8 @@ class WarningController extends Controller
 {
     /**
      * Warnings Log.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $warnings = Warning::with(['torrenttitle', 'warneduser'])->latest()->paginate(25);
         $warningcount = Warning::count();

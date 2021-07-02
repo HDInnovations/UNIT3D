@@ -27,7 +27,7 @@
                     <h1>{{ $user->username }} @lang('user.seedboxes')</h1>
                 </div>
             </div>
-    
+
             <div class="some-padding">
                 <div class="well">
                     <p class="lead text-orange text-center"><i
@@ -38,7 +38,7 @@
                         &nbsp;<br><strong>@lang('user.disclaimer-info-bordered')</strong></p>
                 </div>
             </div>
-    
+
             <div class="table-responsive">
                 <button class="btn btn-md btn-success" data-toggle="modal" data-target="#seedbox">
                     <i class="{{ config('other.font-awesome') }} fa-plus"></i> Add New Seedbox
@@ -74,9 +74,9 @@
             </div>
         </div>
     </div>
-    
-    <div class="modal fade" id="seedbox" tabindex="-1" role="dialog" aria-labelledby="seedbox">
-        <div class="modal-dialog modal-dark" role="document">
+
+    <div class="modal fade" id="seedbox" tabindex="-1" role="dialog">
+        <div class="modal-dialog{{ \modal_style() }}" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -102,9 +102,10 @@
                                 </label>
                             </div>
                         </fieldset>
-                        <br>
-                        <div class="btns">
-                            <button type="button" class="btn btn-md btn-warning"
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-md btn-primary"
                                 data-dismiss="modal">@lang('common.cancel')</button>
                             <button type="submit" class="btn btn-md btn-success">@lang('common.submit')</button>
                         </div>

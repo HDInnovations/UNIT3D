@@ -252,8 +252,7 @@ class GitUpdater extends Command
         $this->header('Installing Composer Packages');
 
         $this->commands([
-            'composer install',
-            'composer dump-autoload -o',
+            'composer install --prefer-dist --no-dev -o',
         ]);
 
         $this->done();

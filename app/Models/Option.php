@@ -44,7 +44,7 @@ class Option extends Model
     use HasFactory;
     use Auditable;
 
-    /*** The Attributes That Are Mass Assignable.
+    /** The Attributes That Are Mass Assignable.
      *
      * @var array
      */
@@ -52,7 +52,7 @@ class Option extends Model
         'name',
     ];
 
-    /*** Belongs To A Poll.
+    /** Belongs To A Poll.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

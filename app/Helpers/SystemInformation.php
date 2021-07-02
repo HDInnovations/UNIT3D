@@ -71,7 +71,7 @@ class SystemInformation
         $pow = \floor(($bytes ? \log($bytes) : 0) / \log(1_024));
         $pow = \min($pow, (\is_countable(self::UNITS) ? \count(self::UNITS) : 0) - 1);
         // Uncomment one of the following alternatives
-        $bytes /= \pow(1_024, $pow);
+        $bytes /= 1_024 ** $pow;
         // $bytes /= (1 << (10 * $pow));
 
         return \round($bytes, $precision).' '.self::UNITS[$pow];
@@ -156,14 +156,12 @@ class SystemInformation
      * Get the file permissions for a specific path/file.
      *
      * @param $path
-     *
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
      */
-    public function getDirectoryPermission($path)
+    public function getDirectoryPermission($path): string | \Symfony\Component\Translation\TranslatorInterface
     {
         try {
             return \substr(\sprintf('%o', \fileperms(\base_path($path))), -4);
-        } catch (\Exception $ex) {
+        } catch (\Exception) {
             return \trans('site.error');
         }
     }

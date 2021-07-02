@@ -31,14 +31,6 @@ class ChatRepository
 {
     /**
      * ChatRepository Constructor.
-     *
-     * @param \App\Models\Message     $message
-     * @param \App\Models\Chatroom    $chatroom
-     * @param \App\Models\ChatStatus  $chatStatus
-     * @param \App\Models\User        $user
-     * @param \App\Models\Bot         $bot
-     * @param \App\Models\UserEcho    $userEcho
-     * @param \App\Models\UserAudible $userAudible
      */
     public function __construct(private Message $message, private Chatroom $chatroom, private ChatStatus $chatStatus, private User $user, private Bot $bot, private UserEcho $userEcho, private UserAudible $userAudible)
     {

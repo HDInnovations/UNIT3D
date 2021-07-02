@@ -46,7 +46,7 @@
                                 <path class="cls-1" d="M968.15,196A15.69,15.69,0,0,0,943,214.83h0A15.69,15.69,0,0,0,968.15,196Z"></path>
                             </svg>
                         </div>
-                        <img src="{{ $season->poster }}" style="width: 80px; border-radius: 5px; z-index: 1; position: relative; margin-right: 40px;">
+                        <img src="{{ isset($season->poster) ? \tmdb_image('poster_small', $show->poster) : 'https://via.placeholder.com/80x120' }}" style="width: 80px; border-radius: 5px; z-index: 1; position: relative; margin-right: 40px;">
                         <a href="{{ route('mediahub.shows.show', ['id' => $show->id]) }}">
                             <h2>{{ $season->name }} ({{ $season->air_date }})</h2>
                             <h3 style="z-index: 1; position: relative; font-size:20px; margin: 0; text-decoration: underline ;">
@@ -69,15 +69,14 @@
                                 </div>
                                 <div class="card_body">
                                     <div class="body_poster">
-                                            <img src="{{ $episode->still }}" class="show-poster">
+                                        <img src="{{ isset($episode->still) ? \tmdb_image('still_mid', $episode->still) : 'https://via.placeholder.com/400x225' }}" class="show-poster">
                                     </div>
                                     <div class="body_description" style=" height: 190px;">
                                         <h3 class="description_title">
-                                            <a href="#">{{ $episode->name }}
+                                            {{ $episode->name }} -
                                                 @if($episode->air_date)
                                                     <span class="text-bold text-pink"> {{ $episode->air_date }}</span>
                                                 @endif
-                                            </a>
                                         </h3>
                                         <p class="description_plot">
                                             {{ $episode->overview }}

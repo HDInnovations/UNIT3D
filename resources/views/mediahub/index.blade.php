@@ -94,7 +94,7 @@
                         <h6 style="font-size: 10px;">
                             <i>@lang('mediahub.disclaimer')</i>
                         </h6>
-                        <img src="/img/tmdb_long.svg" style="width: 200px;">
+                        <img class="mb-20" src="/img/tmdb_long.svg" style="width: 200px;">
                     </div>
                 </div>
             </div>

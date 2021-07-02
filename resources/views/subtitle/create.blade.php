@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="subtitle_file" class="col-sm-2 control-label">@lang('subtitle.subtitle-file')</label>
                     <div class="col-sm-9">
-                        <input class="form-control" name="subtitle_file" accept=".srt,.ico,.zip,.ass,.sup"  type="file" id="subtitle_file">
+                        <input class="form-control" name="subtitle_file" accept=".srt,.ass,.sup,.zip" type="file" id="subtitle_file">
                         <span class="help-block">@lang('subtitle.subtitle-file-types')</span>
                     </div>
                 </div>

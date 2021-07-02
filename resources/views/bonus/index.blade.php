@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('bonus.buttons')
             <div class="header gradient purple">
@@ -33,8 +33,6 @@
                             </div>
                             <table class="table table-condensed table-striped">
                                 <tbody>
-                                    <tr>
-                                        <td class="col-sm-8">
                                     <tr>
                                         <td>
                                             <strong>@lang('torrent.dying-torrent')</strong><br>
@@ -129,7 +127,7 @@
                                             </span>
                                         </td>
                                     </tr>
-    
+
                                     <tr>
                                         <td>
                                             <strong>@lang('torrent.legendary-seeder')</strong><br>

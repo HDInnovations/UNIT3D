@@ -38,9 +38,7 @@ class ProcessCompletedAnnounceRequest implements ShouldQueue
     /**
      * ProcessCompletedAnnounceRequest Constructor.
      *
-     * @param                     $queries
-     * @param \App\Models\User    $user
-     * @param \App\Models\Torrent $torrent
+     * @param $queries
      */
     public function __construct(protected $queries, protected User $user, protected Torrent $torrent)
     {

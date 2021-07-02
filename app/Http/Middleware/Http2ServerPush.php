@@ -39,11 +39,9 @@ class Http2ServerPush
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param null                     $limit
-     * @param null                     $sizeLimit
-     * @param null                     $excludeKeywords
+     * @param null $limit
+     * @param null $sizeLimit
+     * @param null $excludeKeywords
      *
      * @return mixed
      */
@@ -70,10 +68,9 @@ class Http2ServerPush
     }
 
     /**
-     * @param \Illuminate\Http\Response $response
-     * @param null                      $limit
-     * @param null                      $sizeLimit
-     * @param null                      $excludeKeywords
+     * @param null $limit
+     * @param null $sizeLimit
+     * @param null $excludeKeywords
      *
      * @return $this
      */
@@ -114,7 +111,6 @@ class Http2ServerPush
     /**
      * Get the DomCrawler instance.
      *
-     * @param \Illuminate\Http\Response $response
      *
      * @return \Symfony\Component\DomCrawler\Crawler
      */
@@ -162,7 +158,6 @@ class Http2ServerPush
     /**
      * Add Link Header.
      *
-     * @param \Illuminate\Http\Response $response
      * @param $link
      */
     private function addLinkHeader(Response $response, $link)

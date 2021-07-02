@@ -15,15 +15,15 @@ namespace App\Helpers;
 
 class StringHelper
 {
-    const KIB = 1_024;
+    public const KIB = 1_024;
 
-    const MIB = 1_024 * 1_024;
+    public const MIB = 1_024 * 1_024;
 
-    const GIB = 1_024 * 1_024 * 1_024;
+    public const GIB = 1_024 * 1_024 * 1_024;
 
-    const TIB = 1_024 * 1_024 * 1_024 * 1_024;
+    public const TIB = 1_024 * 1_024 * 1_024 * 1_024;
 
-    const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
+    public const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
 
     /**
      * @var string
@@ -45,9 +45,13 @@ class StringHelper
         return $string;
     }
 
-    public static function formatBytes($bytes, $precision = 2)
+    public static function formatBytes($bytes = 0, $precision = 2)
     {
-        $bytes = \max($bytes, 0);
+        $minus = false;
+        if ($bytes < 0) {
+            $minus = true;
+            $bytes *= -1;
+        }
         $suffix = 'B';
         $value = $bytes;
         if ($bytes >= self::PIB) {
@@ -67,7 +71,12 @@ class StringHelper
             $value = $bytes / self::KIB;
         }
 
-        return \round($value, $precision).' '.$suffix;
+        $result = \round($value, $precision);
+        if ($minus) {
+            $result *= -1;
+        }
+
+        return $result.' '.$suffix;
     }
 
     /**

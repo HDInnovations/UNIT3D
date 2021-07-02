@@ -218,7 +218,7 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute($value)
     {
-        $this->attributes['description'] = (new AntiXSS())->xss_clean($value);
+        $this->attributes['description'] = \htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -231,7 +231,7 @@ class TorrentRequest extends Model
         $bbcode = new Bbcode();
         $linkify = new Linkify();
 
-        return $bbcode->parse($linkify->linky($this->description), true);
+        return $linkify->linky($bbcode->parse($this->description, true));
     }
 
     /**

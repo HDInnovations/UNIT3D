@@ -33,7 +33,6 @@ class NotifyStaffTicketWasAssigned
     /**
      * Handle the event.
      *
-     * @param TicketAssigned $event
      *
      * @return void
      */

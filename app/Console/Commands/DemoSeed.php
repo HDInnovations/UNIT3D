@@ -60,6 +60,9 @@ class DemoSeed extends Command
                 'chatroom_id'    => 1,
                 'group_id'       => \rand(1, 20),
                 'chat_status_id' => 1,
+                'image'          => null,
+                'custom_css'     => null,
+                'locale'         => 'en',
             ])->id;
 
             // random boolean
@@ -70,10 +73,16 @@ class DemoSeed extends Command
                 $this->info('Creating Movie Torrents for Account ID #'.$uid);
 
                 try {
+                    $year = 2021;
+
+                    if (\array_key_exists('release_date', $movie)) {
+                        $year = (int) \substr($movie['release_date'], 0, 4);
+                    }
+
                     Torrent::factory()->create([
                         'user_id'       => $uid,
                         'tmdb'          => $id,
-                        'name'          => $movie['title'].' ('.\substr($movie['release_date'], 0, 4).')',
+                        'name'          => $movie['title'].' ('.$year.')',
                         'slug'          => Str::slug($movie['title']),
                         'description'   => $movie['overview'],
                         'category_id'   => 1,
@@ -81,7 +90,7 @@ class DemoSeed extends Command
                         'resolution_id' => \rand(1, 10),
                         'featured'      => false,
                         'sticky'        => 0,
-                        'release_year'  => \substr($movie['release_date'], 0, 4),
+                        'release_year'  => $year,
                         'mediainfo'     => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
@@ -233,8 +242,10 @@ Menu
                         'bumped_at'  => \now(),
                         'updated_at' => \now(),
                     ]);
-                } catch (Exception $e) {
+                } catch (Exception $exception) {
                     $abort = true;
+
+                    $this->warn($exception);
 
                     break;
                 }
@@ -248,6 +259,7 @@ Menu
         if ($abort) {
             $this->error('Aborted ...');
             $this->alert('Demo data was only PARTIALLY seeded! This is likely due to an API Request timeout.');
+            $this->alert('Ensure TMDB api key is set and run "php artisan config:clear"');
         } else {
             $this->alert('Demo data has been successfully seeded!');
         }

@@ -37,7 +37,7 @@
                 <span class="text-green">@lang('request.for') <i class="{{ config('other.font-awesome') }} fa-coins text-gold">
             </i> <strong>{{ $torrentRequest->bounty }}</strong> @lang('bon.bon')</span>
             </h1>
-            <div class="block">
+            <div class="block single">
                 <div class="row mb-10">
                     <div class="col-sm-12">
                         <div class="pull-right">
@@ -66,18 +66,18 @@
                 </div>
 
                 @if ($torrentRequest->category->movie_meta)
-                    @include('requests.partials.movie_meta')
+                    @include('torrent.partials.movie_meta', ['torrent' => $torrentRequest])
                 @endif
 
                 @if ($torrentRequest->category->tv_meta)
-                    @include('requests.partials.tv_meta')
+                    @include('torrent.partials.tv_meta', ['torrent' => $torrentRequest])
                 @endif
 
                 @if ($torrentRequest->category->game_meta)
-                    @include('requests.partials.game_meta')
+                    @include('torrent.partials.game_meta', ['torrent' => $torrentRequest])
                 @endif
 
-                <div class="table-responsive">
+                <div class="table-responsive mt-20">
                     <table class="table table-condensed table-bordered table-striped">
                         <tbody>
                         <tr>

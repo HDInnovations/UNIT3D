@@ -18,18 +18,21 @@
 @endsection
 
 @section('content')
-    <div class="box container">
+    <div class="container">
         <div class="page-title">
-            <h1>{{ $poll->title }}</h1>
+            <h1>@lang('poll.poll')</h1>
         </div>
-        <hr>
-        <div class="forum-categories">
-            <div class="forum-category">
-                <div class="forum-category-title col-md-12">
-                    <div class="forum-category-childs">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-chat">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">{{ $poll->title }}</h1>
+                    </div>
+                    <div class="panel-body">
                         @include('poll.forms.vote')
                         @if ($poll->multiple_choice)
-                            <span class="badge-user text-bold text-red">@lang('poll.multiple-choice')</span>
+                            <span class="badge-user text-bold text-red poll-note">@lang('poll.multiple-choice')</span>
                         @endif
                     </div>
                 </div>

@@ -25,8 +25,6 @@ class WishController extends Controller
 {
     /**
      * WishController Constructor.
-     *
-     * @param \App\Interfaces\WishInterface $wish
      */
     public function __construct(private WishInterface $wish)
     {
@@ -35,12 +33,9 @@ class WishController extends Controller
     /**
      * Get A Users Wishlist.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param \App\Models\User $username
      */
-    public function index(Request $request, $username)
+    public function index(Request $request, $username): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = User::with('wishes')->where('username', '=', $username)->firstOrFail();
 
@@ -58,7 +53,6 @@ class WishController extends Controller
     /**
      * Add New Wish.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \JsonException
      *
@@ -107,8 +101,7 @@ class WishController extends Controller
     /**
      * Delete A Wish.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Wish         $id
+     * @param \App\Models\Wish $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

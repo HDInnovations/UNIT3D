@@ -22,10 +22,8 @@ class ResolutionController extends Controller
 {
     /**
      * Display All Resolutions.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $resolutions = Resolution::all()->sortBy('position');
 
@@ -34,10 +32,8 @@ class ResolutionController extends Controller
 
     /**
      * Show Resolution Create Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.resolution.create');
     }
@@ -45,7 +41,6 @@ class ResolutionController extends Controller
     /**
      * Store A New Resolution.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -76,10 +71,8 @@ class ResolutionController extends Controller
      * Resolution Edit Form.
      *
      * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $resolution = Resolution::findOrFail($id);
 
@@ -89,8 +82,7 @@ class ResolutionController extends Controller
     /**
      * Edit A Resolution.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param                          $id
+     * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */

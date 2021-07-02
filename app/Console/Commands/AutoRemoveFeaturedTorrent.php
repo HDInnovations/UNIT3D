@@ -26,8 +26,6 @@ class AutoRemoveFeaturedTorrent extends Command
 {
     /**
      * AutoRemoveFeaturedTorrent Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {

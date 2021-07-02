@@ -35,9 +35,6 @@ class BonusController extends Controller
 {
     /**
      * BonusController Constructor.
-     *
-     * @param \App\Interfaces\ByteUnitsInterface $byteUnits
-     * @param \App\Repositories\ChatRepository   $chatRepository
      */
     public function __construct(protected \App\Interfaces\ByteUnitsInterface $byteUnits, private ChatRepository $chatRepository)
     {
@@ -45,12 +42,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Gifts System.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gifts(Request $request)
+    public function gifts(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -72,12 +65,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Tips System.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tips(Request $request)
+    public function tips(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -99,12 +88,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Store System.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -129,12 +114,8 @@ class BonusController extends Controller
 
     /**
      * Show Bonus Gift System.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gift(Request $request)
+    public function gift(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -146,12 +127,9 @@ class BonusController extends Controller
     /**
      * Show Bonus Earnings System.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param string                   $username
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param string $username
      */
-    public function bonus(Request $request, $username = '')
+    public function bonus(Request $request, $username = ''): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $userbon = $request->user()->getSeedbonus();
 
@@ -218,8 +196,7 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\BonExchange  $id
+     * @param \App\Models\BonExchange $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -316,7 +293,6 @@ class BonusController extends Controller
     /**
      * Gift Points To A User.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -406,8 +382,7 @@ class BonusController extends Controller
     /**
      * Tip Points To A Uploader.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $id
+     * @param \App\Models\Torrent $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -457,7 +432,6 @@ class BonusController extends Controller
     /**
      * Tip Points To A Poster.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -510,8 +484,6 @@ class BonusController extends Controller
     /**
      * @method getDyingCount
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return int
      */
     public function getDyingCount(Request $request)
@@ -531,8 +503,6 @@ class BonusController extends Controller
     /**
      * @method getLegendaryCount
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return int
      */
     public function getLegendaryCount(Request $request)
@@ -551,8 +521,6 @@ class BonusController extends Controller
 
     /**
      * @method getOldCount
-     *
-     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
@@ -574,8 +542,6 @@ class BonusController extends Controller
     /**
      * @method getHugeCount
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return int
      */
     public function getHugeCount(Request $request)
@@ -593,8 +559,6 @@ class BonusController extends Controller
 
     /**
      * @method getLargeCount
-     *
-     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
@@ -615,8 +579,6 @@ class BonusController extends Controller
     /**
      * @method getRegularCount
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return int
      */
     public function getRegularCount(Request $request)
@@ -635,8 +597,6 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
@@ -657,8 +617,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return int
      */
     public function getTeamPlayerSeedCount(Request $request)
@@ -677,8 +635,6 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
@@ -699,8 +655,6 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @param \Illuminate\Http\Request $request
-     *
      * @return int
      */
     public function getMVPSeedCount(Request $request)
@@ -719,8 +673,6 @@ class BonusController extends Controller
 
     /**
      * @method getParticipaintSeedCount
-     *
-     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */

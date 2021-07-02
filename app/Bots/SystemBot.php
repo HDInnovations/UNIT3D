@@ -43,8 +43,6 @@ class SystemBot
 
     /**
      * SystemBot Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -143,10 +141,9 @@ class SystemBot
     /**
      * Process Message.
      *
-     * @param                  $type
-     * @param \App\Models\User $user
-     * @param string           $message
-     * @param int              $targeted
+     * @param        $type
+     * @param string $message
+     * @param int    $targeted
      *
      * @return bool
      */

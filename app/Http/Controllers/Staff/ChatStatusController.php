@@ -25,8 +25,6 @@ class ChatStatusController extends Controller
 {
     /**
      * ChatController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -34,10 +32,8 @@ class ChatStatusController extends Controller
 
     /**
      * Chat Management.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $chatstatuses = $this->chatRepository->statuses();
 
@@ -49,7 +45,6 @@ class ChatStatusController extends Controller
     /**
      * Store A New Chat Status.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -79,8 +74,7 @@ class ChatStatusController extends Controller
     /**
      * Update A Chat Status.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\ChatStatus   $id
+     * @param \App\Models\ChatStatus $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

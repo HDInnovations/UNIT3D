@@ -22,14 +22,15 @@ use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\Keyword;
+use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -40,8 +41,6 @@ class TorrentController extends BaseController
 {
     /**
      * TorrentController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -54,19 +53,19 @@ class TorrentController extends BaseController
      */
     public function index()
     {
-        return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])->latest()->paginate());
+        return new TorrentsResource(Torrent::with(['category', 'type', 'resolution'])
+            ->orderBy('sticky', 'desc')
+            ->orderBy('bumped_at', 'desc')
+            ->paginate(25));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse | \Illuminate\Http\Response
     {
         $user = $request->user();
         $requestFile = $request->file('torrent');
@@ -84,7 +83,7 @@ class TorrentController extends BaseController
 
         try {
             $meta = Bencode::get_meta($decodedTorrent);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
@@ -106,6 +105,7 @@ class TorrentController extends BaseController
         $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
+        $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
         $torrent->num_file = $meta['count'];
@@ -216,7 +216,6 @@ class TorrentController extends BaseController
         if ($user->group->is_trusted) {
             $appurl = \config('app.url');
             $user = $torrent->user;
-            $userId = $user->id;
             $username = $user->username;
             $anon = $torrent->anon;
             $featured = $torrent->featured;
@@ -282,8 +281,7 @@ class TorrentController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return void
      */
@@ -307,181 +305,121 @@ class TorrentController extends BaseController
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Torrent      $torrent
-     *
-     * @return TorrentsResource
+     * @return \App\Http\Resources\TorrentsResource|\Illuminate\Http\JsonResponse
      */
-    public function filter(Request $request, Torrent $torrent)
+    public function filter(Request $request)
     {
-        $search = $request->input('name');
-        $description = $request->input('description');
-        $size = $request->input('size');
-        $infoHash = $request->input('info_hash');
-        $fileName = $request->input('file_name');
-        $uploader = $request->input('uploader');
-        $imdb = $request->input('imdb');
-        $tvdb = $request->input('tvdb');
-        $tmdb = $request->input('tmdb');
-        $mal = $request->input('mal');
-        $igdb = $request->input('igdb');
-        $startYear = $request->input('start_year');
-        $endYear = $request->input('end_year');
-        $categories = $request->input('categories');
-        $types = $request->input('types');
-        $resolutions = $request->input('resolutions');
-        $genres = $request->input('genres');
-        $freeleech = $request->input('freeleech');
-        $doubleupload = $request->input('doubleupload');
-        $featured = $request->input('featured');
-        $stream = $request->input('stream');
-        $highspeed = $request->input('highspeed');
-        $sd = $request->input('sd');
-        $internal = $request->input('internal');
-        $alive = $request->input('alive');
-        $dying = $request->input('dying');
-        $dead = $request->input('dead');
+        $torrent = Torrent::with(['user:id,username,group_id', 'category', 'type', 'resolution'])
+            ->withCount(['thanks', 'comments'])
+            ->when($request->has('name'), function ($query) use ($request) {
+                $terms = \explode(' ', $request->input('name'));
+                $search = '';
+                foreach ($terms as $term) {
+                    $search .= '%'.$term.'%';
+                }
+                $query->where('name', 'LIKE', $search);
+            })
+            ->when($request->has('description'), function ($query) use ($request) {
+                $query->where('description', 'LIKE', '%'.$request->input('description').'%');
+            })
+            ->when($request->has('mediainfo'), function ($query) use ($request) {
+                $query->where('mediainfo', 'LIKE', '%'.$request->input('mediainfo').'%');
+            })
+            ->when($request->has('file_name'), function ($query) use ($request) {
+                $query->whereHas('files', function ($q) use ($request) {
+                    $q->where('name', $request->input('file_name'));
+                });
+            })
+            ->when($request->has('uploader'), function ($query) use ($request) {
+                $match = User::where('username', 'LIKE', '%'.$request->input('uploader').'%')->orderBy('username', 'ASC')->first();
+                if ($match) {
+                    $query->where('user_id', '=', $match->id)->where('anon', '=', 0);
+                }
+            })
+            ->when($request->has('keywords'), function ($query) use ($request) {
+                $keywords = self::parseKeywords($request->input('keywords'));
+                $keyword = Keyword::select(['torrent_id'])->whereIn('name', $keywords)->get();
+                $query->whereIn('id', $keyword->torrent_id);
+            })
+            ->when($request->has('startYear') && $request->has('endYear'), function ($query) use ($request) {
+                $query->whereBetween('release_year', [$request->input('startYear'), $request->input('endYear')]);
+            })
+            ->when($request->has('categories'), function ($query) use ($request) {
+                $query->whereIn('category_id', $request->input('categories'));
+            })
+            ->when($request->has('types'), function ($query) use ($request) {
+                $query->whereIn('type_id', $request->input('types'));
+            })
+            ->when($request->has('resolutions'), function ($query) use ($request) {
+                $query->whereIn('resolution_id', $request->input('resolutions'));
+            })
+            ->when($request->has('genres'), function ($query) use ($request) {
+                $tvCollection = DB::table('genre_tv')->whereIn('genre_id', $request->input('genres'))->pluck('tv_id');
+                $movieCollection = DB::table('genre_movie')->whereIn('genre_id', $request->input('genres'))->pluck('movie_id');
+                $mergedCollection = $tvCollection->merge($movieCollection);
 
-        $terms = \explode(' ', $search);
-        $search = '';
-        foreach ($terms as $term) {
-            $search .= '%'.$term.'%';
-        }
-
-        $usernames = \explode(' ', $uploader);
-        $uploader = null;
-        foreach ($usernames as $username) {
-            $uploader .= $username.'%';
-        }
-
-        $keywords = \explode(' ', $description);
-        $description = '';
-        foreach ($keywords as $keyword) {
-            $description .= '%'.$keyword.'%';
-        }
-
-        $torrent = $torrent->newQuery();
-
-        if ($request->has('name') && $request->input('name') != null) {
-            $torrent->where(function ($query) use ($search) {
-                $query->where('torrents.name', 'like', $search);
-            });
-        }
-
-        if ($request->has('description') && $request->input('description') != null) {
-            $torrent->where(function ($query) use ($description) {
-                $query->where('torrents.description', 'like', $description)->orWhere('mediainfo', 'like', $description);
-            });
-        }
-
-        if ($request->has('size') && $request->input('size') != null) {
-            $torrent->where('torrents.size', '=', $size);
-        }
-
-        if ($request->has('info_hash') && $request->input('info_hash') != null) {
-            $torrent->where('torrents.info_hash', '=', $infoHash);
-        }
-
-        if ($request->has('file_name') && $request->input('file_name') != null) {
-            $torrent = $torrent->whereHas('files', function ($q) use ($fileName) {
-                $q->where('name', $fileName);
-            });
-        }
-
-        if ($request->has('uploader') && $request->input('uploader') != null) {
-            $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username', 'ASC')->first();
-            if (null === $match) {
-                return ['result' => [], 'count' => 0];
-            }
-            $torrent->where('torrents.user_id', '=', $match->id)->where('anon', '=', 0);
-        }
-
-        if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrent->where('torrents.imdb', '=', \str_replace('tt', '', $imdb));
-        }
-
-        if ($request->has('tvdb') && $request->input('tvdb') != null) {
-            $torrent->orWhere('torrents.tvdb', '=', $tvdb);
-        }
-
-        if ($request->has('tmdb') && $request->input('tmdb') != null) {
-            $torrent->orWhere('torrents.tmdb', '=', $tmdb);
-        }
-
-        if ($request->has('mal') && $request->input('mal') != null) {
-            $torrent->orWhere('torrents.mal', '=', $mal);
-        }
-
-        if ($request->has('igdb') && $request->input('igdb') != null) {
-            $torrent->orWhere('torrents.igdb', '=', $igdb);
-        }
-
-        if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
-            $torrent->whereBetween('torrents.release_year', [$startYear, $endYear]);
-        }
-
-        if ($request->has('categories') && $request->input('categories') != null) {
-            $torrent->whereIn('torrents.category_id', $categories);
-        }
-
-        if ($request->has('types') && $request->input('types') != null) {
-            $torrent->whereIn('torrents.type_id', $types);
-        }
-
-        if ($request->has('resolutions') && $request->input('resolutions') != null) {
-            $torrent->whereIn('torrents.resolution_id', $resolutions);
-        }
-
-        if ($request->has('genres') && $request->input('genres') != null) {
-            // TODO
-        }
-
-        if ($request->has('freeleech') && $request->input('freeleech') != null) {
-            $torrent->where('torrents.free', '=', $freeleech);
-        }
-
-        if ($request->has('doubleupload') && $request->input('doubleupload') != null) {
-            $torrent->where('torrents.doubleup', '=', $doubleupload);
-        }
-
-        if ($request->has('featured') && $request->input('featured') != null) {
-            $torrent->where('torrents.featured', '=', $featured);
-        }
-
-        if ($request->has('stream') && $request->input('stream') != null) {
-            $torrent->where('torrents.stream', '=', $stream);
-        }
-
-        if ($request->has('highspeed') && $request->input('highspeed') != null) {
-            $torrent->where('torrents.highspeed', '=', $highspeed);
-        }
-
-        if ($request->has('sd') && $request->input('sd') != null) {
-            $torrent->where('torrents.sd', '=', $sd);
-        }
-
-        if ($request->has('internal') && $request->input('internal') != null) {
-            $torrent->where('torrents.internal', '=', $internal);
-        }
-
-        if ($request->has('alive') && $request->input('alive') != null) {
-            $torrent->where('torrents.seeders', '>=', $alive);
-        }
-
-        if ($request->has('dying') && $request->input('dying') != null) {
-            $torrent->where('torrents.seeders', '=', $dying)->where('times_completed', '>=', 3);
-        }
-
-        if ($request->has('dead') && $request->input('dead') != null) {
-            $torrent->where('torrents.seeders', '=', $dead);
-        }
-
-        if ($request->has('reseed') && $request->input('reseed') != null) {
-            $torrent->where('torrents.seeders', '=', 0)->where('torrents.leechers', '>=', 1);
-        }
+                $query->whereIn('tmdb', $mergedCollection);
+            })
+            ->when($request->has('tmdbId'), function ($query) use ($request) {
+                $query->where('tmdb', '=', $request->input('tmdbId'));
+            })
+            ->when($request->has('imdbId'), function ($query) use ($request) {
+                $query->where('imdb', '=', $request->input('imdbId'));
+            })
+            ->when($request->has('tvdbId'), function ($query) use ($request) {
+                $query->where('tvdb', '=', $request->input('tvdbId'));
+            })
+            ->when($request->has('malId'), function ($query) use ($request) {
+                $query->where('mal', '=', $request->input('malId'));
+            })
+            ->when($request->has('playlistId'), function ($query) use ($request) {
+                $playlist = PlaylistTorrent::where('playlist_id', '=', $request->input('playlistId'))->pluck('torrent_id');
+                $query->whereIn('id', $playlist);
+            })
+            ->when($request->has('collectionId'), function ($query) use ($request) {
+                $categories = Category::where('movie_meta', '=', 1)->pluck('id');
+                $collection = DB::table('collection_movie')->where('collection_id', '=', $request->input('collectionId'))->pluck('movie_id');
+                $query->whereIn('category_id', $categories)->whereIn('tmdb', $collection);
+            })
+            ->when($request->has('free'), function ($query) {
+                $query->where('free', '=', 1);
+            })
+            ->when($request->has('doubleup'), function ($query) {
+                $query->where('doubleup', '=', 1);
+            })
+            ->when($request->has('featured'), function ($query) {
+                $query->where('featured', '=', 1);
+            })
+            ->when($request->has('stream'), function ($query) {
+                $query->where('stream', '=', 1);
+            })
+            ->when($request->has('sd'), function ($query) {
+                $query->where('sd', '=', 1);
+            })
+            ->when($request->has('highspeed'), function ($query) {
+                $query->where('highspeed', '=', 1);
+            })
+            ->when($request->has('internal'), function ($query) {
+                $query->where('internal', '=', 1);
+            })
+            ->when($request->has('personalRelease'), function ($query) {
+                $query->where('personal_release', '=', 1);
+            })
+            ->when($request->has('alive'), function ($query) {
+                $query->orWhere('seeders', '>=', 1);
+            })
+            ->when($request->has('dying'), function ($query) {
+                $query->orWhere('seeders', '=', 1)->where('times_completed', '>=', 3);
+            })
+            ->when($request->has('dead'), function ($query) {
+                $query->orWhere('seeders', '=', 0);
+            })
+            ->orderBy('sticky', 'desc')
+            ->orderBy('bumped_at', 'desc')
+            ->paginate(25);
 
         if ($torrent !== null) {
-            return new TorrentsResource($torrent->paginate(25));
+            return new TorrentsResource($torrent);
         }
 
         return $this->sendResponse('404', 'No Torrents Found');

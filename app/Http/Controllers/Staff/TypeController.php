@@ -25,10 +25,8 @@ class TypeController extends Controller
 {
     /**
      * Display All Types.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $types = Type::all()->sortBy('position');
 
@@ -37,10 +35,8 @@ class TypeController extends Controller
 
     /**
      * Show Type Create Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('Staff.type.create');
     }
@@ -48,7 +44,6 @@ class TypeController extends Controller
     /**
      * Store A New Type.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -79,10 +74,8 @@ class TypeController extends Controller
      * Type Edit Form.
      *
      * @param \App\Models\Type $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $type = Type::findOrFail($id);
 
@@ -92,8 +85,7 @@ class TypeController extends Controller
     /**
      * Edit A Type.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Type         $id
+     * @param \App\Models\Type $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

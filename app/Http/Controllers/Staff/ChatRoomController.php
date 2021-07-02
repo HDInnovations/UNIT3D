@@ -26,8 +26,6 @@ class ChatRoomController extends Controller
 {
     /**
      * ChatController Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -35,10 +33,8 @@ class ChatRoomController extends Controller
 
     /**
      * Display All Chat Rooms.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $chatrooms = $this->chatRepository->rooms();
 
@@ -50,7 +46,6 @@ class ChatRoomController extends Controller
     /**
      * Store A New Chatroom.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -76,8 +71,7 @@ class ChatRoomController extends Controller
     /**
      * Update A Chatroom.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Chatroom     $id
+     * @param \App\Models\Chatroom $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -26,10 +26,8 @@ class ApplicationController extends Controller
 {
     /**
      * Application Add Form.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         return \view('auth.application.create');
     }
@@ -37,7 +35,6 @@ class ApplicationController extends Controller
     /**
      * Store A New Application.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

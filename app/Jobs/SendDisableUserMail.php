@@ -38,8 +38,6 @@ class SendDisableUserMail implements ShouldQueue
 
     /**
      * SendDisableUserMail Constructor.
-     *
-     * @param \App\Models\User $user
      */
     public function __construct(public User $user)
     {

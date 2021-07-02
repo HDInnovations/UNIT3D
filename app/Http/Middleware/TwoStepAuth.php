@@ -24,8 +24,6 @@ class TwoStepAuth
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param Closure                  $next
      *
      * @throws \Exception
      *

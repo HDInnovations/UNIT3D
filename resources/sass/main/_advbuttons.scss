@@ -72,9 +72,7 @@ fieldset[disabled] a.btn {
     box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
     border-width: 0 0 3px !important;
     border-color: #2d3a5c;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-default.active,
@@ -86,9 +84,7 @@ fieldset[disabled] a.btn {
     box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
     border-width: 0 0 3px !important;
     border-color: #2d3a5c;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-default.active.focus,
@@ -105,9 +101,7 @@ fieldset[disabled] a.btn {
     box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
     border-width: 0 0 3px !important;
     border-color: #2d3a5c;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-default.active,
@@ -136,7 +130,8 @@ fieldset[disabled] .btn-default:hover {
 
 .btn-default:active {
     border-bottom-width: 0 !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
+    border: 0 !important;
 }
 
 .btn-default.disabled:active,
@@ -160,9 +155,7 @@ fieldset[disabled] .btn-default:hover {
     box-shadow: 2px 4px 12px rgba(88, 114, 181, 0.45);
     border-width: 0 0 3px !important;
     border-color: #5872b5;
-    -webkit-transition: border-bottom-color 0.3s ease-out;
-    -o-transition: border-bottom-color 0.3s ease-out;
-    transition: border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-primary.active,
@@ -173,9 +166,7 @@ fieldset[disabled] .btn-default:hover {
     background: #405c90 linear-gradient(185deg, #638fba, #404e90);
     border-width: 0 0 3px !important;
     border-color: #5872b5;
-    -webkit-transition: border-bottom-color 0.3s ease-out;
-    -o-transition: border-bottom-color 0.3s ease-out;
-    transition: border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-primary.active.focus,
@@ -192,9 +183,7 @@ fieldset[disabled] .btn-default:hover {
     box-shadow: 2px 4px 12px rgba(88, 114, 181, 0.45);
     border-width: 0 0 3px !important;
     border-color: #5872b5;
-    -webkit-transition: border-bottom-color 0.3s ease-out;
-    -o-transition: border-bottom-color 0.3s ease-out;
-    transition: border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-primary.active,
@@ -223,7 +212,8 @@ fieldset[disabled] .btn-primary:hover {
 
 .btn-primary:active {
     border-bottom-width: 0 !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
+    border: 0 !important;
 }
 
 .btn-primary.disabled:active,
@@ -247,9 +237,7 @@ fieldset[disabled] .btn-primary:hover {
     box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
     border-width: 0 0 3px !important;
     border-color: #5cb579;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-success.active,
@@ -261,9 +249,7 @@ fieldset[disabled] .btn-primary:hover {
     box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
     border-width: 0 0 3px !important;
     border-color: #5cb579;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-success.active.focus,
@@ -280,9 +266,7 @@ fieldset[disabled] .btn-primary:hover {
     box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
     border-width: 0 0 3px !important;
     border-color: #5cb579;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-success.active,
@@ -311,7 +295,8 @@ fieldset[disabled] .btn-success:hover {
 
 .btn-success:active {
     border-bottom-width: 0 !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
+    border: 0 !important;
 }
 
 .btn-success.disabled:active,
@@ -335,9 +320,7 @@ fieldset[disabled] .btn-success:hover {
     box-shadow: 0 4px 15px 0 rgba(132, 190, 233, 1);
     border-width: 0 0 3px !important;
     border-color: #76bad7;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-info.active,
@@ -349,9 +332,7 @@ fieldset[disabled] .btn-success:hover {
     box-shadow: 0 4px 15px 0 rgba(132, 190, 233, 1);
     border-width: 0 0 3px !important;
     border-color: #76bad7;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-info.active.focus,
@@ -368,9 +349,7 @@ fieldset[disabled] .btn-success:hover {
     box-shadow: 0 4px 15px 0 rgba(132, 190, 233, 1);
     border-width: 0 0 3px !important;
     border-color: #76bad7;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-info.active,
@@ -399,7 +378,8 @@ fieldset[disabled] .btn-info:hover {
 
 .btn-info:active {
     border-bottom-width: 0 !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
+    border: 0 !important;
 }
 
 .btn-info.disabled:active,
@@ -423,9 +403,7 @@ fieldset[disabled] .btn-info:hover {
     box-shadow: 0 4px 15px 0 rgba(229, 153, 56, 0.75);
     border-width: 0 0 3px !important;
     border-color: #e3a739;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-warning.active,
@@ -437,9 +415,7 @@ fieldset[disabled] .btn-info:hover {
     box-shadow: 0 4px 15px 0 rgba(229, 153, 56, 0.75);
     border-width: 0 0 3px !important;
     border-color: #e3a739;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-warning.active.focus,
@@ -456,9 +432,7 @@ fieldset[disabled] .btn-info:hover {
     box-shadow: 0 4px 15px 0 rgba(229, 153, 56, 0.75);
     border-width: 0 0 3px !important;
     border-color: #e3a739;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-warning.active,
@@ -487,7 +461,8 @@ fieldset[disabled] .btn-warning:hover {
 
 .btn-warning:active {
     border-bottom-width: 0 !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
+    border: 0 !important;
 }
 
 .btn-warning.disabled:active,
@@ -511,9 +486,7 @@ fieldset[disabled] .btn-warning:hover {
     box-shadow: 0 5px 15px rgba(242, 97, 103, 0.4);
     border-width: 0 0 3px !important;
     border-color: #fb3a37;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-danger.active,
@@ -525,9 +498,7 @@ fieldset[disabled] .btn-warning:hover {
     box-shadow: 0 5px 15px rgba(242, 97, 103, 0.4);
     border-width: 0 0 3px !important;
     border-color: #fb3a37;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-danger.active.focus,
@@ -544,9 +515,7 @@ fieldset[disabled] .btn-warning:hover {
     box-shadow: 0 5px 15px rgba(242, 97, 103, 0.4);
     border-width: 0 0 3px !important;
     border-color: #fb3a37;
-    -webkit-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    -o-transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
-    transition: background 0.3s ease-out, border-bottom-color 0.3s ease-out;
+    transition: none;
 }
 
 .btn-danger.active,
@@ -575,7 +544,8 @@ fieldset[disabled] .btn-danger:hover {
 
 .btn-danger:active {
     border-bottom-width: 0 !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
+    border: 0 !important;
 }
 
 .btn-danger.disabled:active,
@@ -687,13 +657,6 @@ input[type='submit'].btn-block {
     width: 1em;
     text-align: center;
     display: inline-block !important;
-}
-
-[class*='btn-turn-'],
-[class*='btn-turn-']:hover {
-    -webkit-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
 }
 
 .btn-turn-primary:hover .badge {

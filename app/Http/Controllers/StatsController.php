@@ -66,10 +66,8 @@ class StatsController extends Controller
      * Show Extra-Stats Index.
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Total Members Count (All Groups)
         $allUser = \cache()->remember('all_user', $this->carbon, fn () => User::withTrashed()->count());
@@ -169,10 +167,8 @@ class StatsController extends Controller
      * Show Extra-Stats Users.
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploaded()
+    public function uploaded(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $uploaded = User::latest('uploaded')->whereIn('id', $this->ActiveUserList)->take(100)->get();
 
@@ -183,10 +179,8 @@ class StatsController extends Controller
      * Show Extra-Stats Users.
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function downloaded()
+    public function downloaded(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $downloaded = User::latest('downloaded')->whereIn('id', $this->ActiveUserList)->take(100)->get();
 
@@ -195,10 +189,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Users.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function seeders()
+    public function seeders(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Seeders
         $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
@@ -208,10 +200,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Users.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function leechers()
+    public function leechers(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Leechers
         $leechers = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 0)->groupBy('user_id')->latest('value')->take(100)->get();
@@ -221,10 +211,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Users.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploaders()
+    public function uploaders(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Uploaders
         $uploaders = Torrent::with('user')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->get();
@@ -236,10 +224,8 @@ class StatsController extends Controller
      * Show Extra-Stats Users.
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bankers()
+    public function bankers(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $bannedGroup = \cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
         $validatingGroup = \cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
@@ -254,10 +240,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Users.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function seedtime()
+    public function seedtime(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Total Seedtime
         $seedtime = User::with('history')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('seedtime');
@@ -267,10 +251,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Users.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function seedsize()
+    public function seedsize(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Total Seedsize Users
         $seedsize = User::with(['peers', 'torrents'])->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
@@ -280,10 +262,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Torrents.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function seeded()
+    public function seeded(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Seeded
         $seeded = Torrent::latest('seeders')->take(100)->get();
@@ -293,10 +273,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Torrents.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function leeched()
+    public function leeched(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Leeched
         $leeched = Torrent::latest('leechers')->take(100)->get();
@@ -306,10 +284,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Torrents.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function completed()
+    public function completed(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Completed
         $completed = Torrent::latest('times_completed')->take(100)->get();
@@ -319,10 +295,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Torrents.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function dying()
+    public function dying(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Dying
         $dying = Torrent::where('seeders', '=', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
@@ -332,10 +306,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Torrents.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function dead()
+    public function dead(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Dead
         $dead = Torrent::where('seeders', '=', 0)->latest('leechers')->take(100)->get();
@@ -345,10 +317,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Torrent Requests.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bountied()
+    public function bountied(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Top Bountied
         $bountied = TorrentRequest::latest('bounty')->take(100)->get();
@@ -358,10 +328,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Groups.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function roles()
+    public function roles(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Groups User Counts
         $groups = Role::OrderBy('position')->get();
@@ -373,10 +341,8 @@ class StatsController extends Controller
      * Show Extra-Stats Groups.
      *
      * @param \App\Models\Group $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function role($id)
+    public function role($id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch Users In Group
         $group = Role::findOrFail($id);
@@ -387,10 +353,8 @@ class StatsController extends Controller
 
     /**
      * Show Extra-Stats Languages.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function languages()
+    public function languages(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // Fetch All Languages
         $languages = Language::allowed();

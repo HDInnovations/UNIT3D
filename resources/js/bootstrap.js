@@ -15,7 +15,7 @@ try {
 
 $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]'),
+        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
     },
 });
 
@@ -67,3 +67,9 @@ require('./wysibb/jquery.wysibb');
 
 //alerts
 window.Swal = require('sweetalert2');
+
+//carousel
+window.KeenSlider = require('keen-slider/keen-slider');
+
+//vibrant
+window.Vibrant = require('node-vibrant');

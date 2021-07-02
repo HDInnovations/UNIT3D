@@ -30,10 +30,8 @@ class BanController extends Controller
 {
     /**
      * Display All Bans.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         $bans = Ban::latest()->paginate(25);
 
@@ -43,8 +41,7 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned).
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @throws \Exception
      *
@@ -91,8 +88,7 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User         $username
+     * @param \App\Models\User $username
      *
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -23,9 +23,6 @@ class NewThank extends Notification
 
     /**
      * NewThank Constructor.
-     *
-     * @param string            $type
-     * @param \App\Models\Thank $thank
      */
     public function __construct(public string $type, public Thank $thank)
     {
@@ -52,8 +49,6 @@ class NewThank extends Notification
      */
     public function toArray($notifiable)
     {
-        $appurl = \config('app.url');
-
         return [
             'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',
             'body'  => $this->thank->user->username.' has left you a thanks on Uploaded Torrent '.$this->thank->torrent->name,

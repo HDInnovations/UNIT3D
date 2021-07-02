@@ -25,8 +25,6 @@ class InviteUser extends Mailable
 
     /**
      * InviteUser Constructor.
-     *
-     * @param \App\Models\Invite $invite
      */
     public function __construct(public Invite $invite)
     {

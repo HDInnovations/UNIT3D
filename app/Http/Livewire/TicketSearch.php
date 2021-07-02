@@ -52,16 +52,16 @@ class TicketSearch extends Component
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage);
-        } else {
-            return Ticket::query()
-                ->with(['user', 'category', 'priority'])
-                ->where('user_id', '=', $this->user->id)
-                ->when($this->search, function ($query) {
-                    return $query->where('subject', 'LIKE', '%'.$this->search.'%');
-                })
-                ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage);
         }
+
+        return Ticket::query()
+            ->with(['user', 'category', 'priority'])
+            ->where('user_id', '=', $this->user->id)
+            ->when($this->search, function ($query) {
+                return $query->where('subject', 'LIKE', '%'.$this->search.'%');
+            })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
     }
 
     final public function sortBy($field): void

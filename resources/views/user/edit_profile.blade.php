@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="block">
             @include('user.buttons.edit')
             <div class="header gradient blue">

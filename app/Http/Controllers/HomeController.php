@@ -37,13 +37,10 @@ class HomeController extends Controller
     /**
      * Display Home Page.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @throws \Exception
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View
     {
         // For Cache
         $current = Carbon::now();

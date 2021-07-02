@@ -1,5 +1,5 @@
-<div class="modal fade" id="vote" tabindex="-1" role="dialog" aria-labelledby="vote">
-    <div class="modal-dialog modal-dark" role="document">
+<div class="modal fade" id="vote" tabindex="-1" role="dialog">
+    <div class="modal-dialog{{ \modal_style() }}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -23,12 +23,13 @@
                             <label><input type="radio" name="anon" value="0" checked>@lang('common.no')</label>
                         </div>
                     </fieldset>
-                    <br>
-                    <div class="btns">
-                        <button type="button" class="btn btn-default"
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
-                        <button type="submit" @if ($user->seedbonus < 100) disabled title='@lang('
-                                request.dont-have-bps')' @endif class="btn btn-success">@lang('request.vote')</button>
+                        <button type="submit" @if ($user->seedbonus < 100) disabled title="@lang('request.dont-have-bps')"
+                            @endif class="btn btn-success">@lang('request.vote')</button>
                     </div>
                 </div>
             </form>
@@ -36,8 +37,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="fill" tabindex="-1" role="dialog" aria-labelledby="fill">
-    <div class="modal-dialog modal-dark" role="document">
+<div class="modal fade" id="fill" tabindex="-1" role="dialog">
+    <div class="modal-dialog{{ \modal_style() }}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -62,9 +63,10 @@
                             <label><input type="radio" name="filled_anon" value="0" checked>@lang('common.no')</label>
                         </div>
                     </fieldset>
-                    <br>
-                    <div class="btns">
-                        <button type="button" class="btn btn-default"
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
                         <button type="submit" class="btn btn-success">@lang('request.fill')</button>
                     </div>
@@ -74,8 +76,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="reset" tabindex="-1" role="dialog" aria-labelledby="reset">
-    <div class="modal-dialog modal-dark" role="document">
+<div class="modal fade" id="reset" tabindex="-1" role="dialog">
+    <div class="modal-dialog{{ \modal_style() }}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -86,11 +88,12 @@
                 @csrf
                 <div class="modal-body">
                     <p class="text-center">@lang('request.reset-confirmation')?</p>
-                    <div class="btns">
-                        <button type="button" class="btn btn-default"
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
-                        <button type="submit" @if (!$user->group->is_modo || $torrentRequest->filled_hash == null)
-                                disabled
+                        <button type="submit" @if (!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled
                             @endif class="btn btn-warning">@lang('request.reset')</button>
                     </div>
                 </div>
@@ -99,8 +102,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete">
-    <div class="modal-dialog modal-dark" role="document">
+<div class="modal fade" id="delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog{{ \modal_style() }}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -109,16 +112,16 @@
             </div>
             <form role="form" method="POST" action="{{ route('deleteRequest', ['id' => $torrentRequest->id]) }}">
                 @csrf
-                <div class="modal-body">
-                    <p class="text-center">@lang('request.delete-confirmation')?</p>
-                    <fieldset>
-                        <p>@lang('request.delete-filled').</p>
-                    </fieldset>
-                    <div class="btns">
-                        <button type="button" class="btn btn-default"
+                <div class="modal-body text-center">
+                    <p>@lang('request.delete-confirmation')?</p>
+                    <p>@lang('request.delete-filled').</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary"
                             data-dismiss="modal">@lang('common.cancel')</button>
                         <button type="submit" @if ($torrentRequest->filled_hash != null) disabled
-                            @endif class="btn btn-warning">@lang('common.delete')</button>
+                            @endif class="btn btn-danger">@lang('common.delete')</button>
                     </div>
                 </div>
             </form>
@@ -126,8 +129,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="claim" tabindex="-1" role="dialog" aria-labelledby="claim">
-    <div class="modal-dialog modal-dark" role="document">
+<div class="modal fade" id="claim" tabindex="-1" role="dialog">
+    <div class="modal-dialog{{ \modal_style() }}" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
@@ -137,7 +140,7 @@
             <form role="form" method="POST" action="{{ route('claimRequest', ['id' => $torrentRequest->id]) }}">
                 @csrf
                 <div class="modal-body text-center">
-                    <p>@lang('request.claim-as-anon')?</p>
+                    <p>@lang('request.claim-as-anon')</p>
                     <br>
                     <fieldset>
                         <p>@lang('request.claim-anon-choose')</p>
@@ -148,13 +151,12 @@
                             <label><input type="radio" name="anon" value="0" checked>@lang('common.no')</label>
                         </div>
                     </fieldset>
-                    <br>
+                </div>
+                <div class="modal-footer">
                     <div class="text-center">
-                        <div class="btns">
-                            <button type="submit" class="btn btn-success">@lang('request.claim-now')!</button>
-                            <button type="button" class="btn btn-default"
-                                data-dismiss="modal">@lang('common.cancel')</button>
-                        </div>
+                        <button type="button" class="btn btn-primary"
+                            data-dismiss="modal">@lang('common.cancel')</button>
+                        <button type="submit" class="btn btn-success">@lang('request.claim-now')</button>
                     </div>
                 </div>
             </form>
@@ -163,7 +165,7 @@
 </div>
 
 <div class="modal fade" id="modal_request_report" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dark">
+    <div class="modal-dialog{{ \modal_style() }}">
         <div class="modal-content">
             <meta charset="utf-8">
             <title>@lang('request.report'): {{ $torrentRequest->name }}</title>
@@ -199,7 +201,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">@lang('common.close')</button>
+                <button class="btn btn-sm btn-primary" type="button" data-dismiss="modal">@lang('common.close')</button>
             </div>
         </div>
     </div>

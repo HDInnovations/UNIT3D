@@ -69,7 +69,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-dark">
+                                    <div class="modal-dialog{{ \modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -101,7 +101,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-sm btn-default"
+                                                <button class="btn btn-sm btn-primary"
                                                         data-dismiss="modal">@lang('common.close')</button>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                             <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                 <form method="POST" action="{{ route("staff.moderation.reject") }}">
                                     @csrf
-                                    <div class="modal-dialog modal-dark">
+                                    <div class="modal-dialog{{ \modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -137,8 +137,7 @@
                                                     <input id="slug" type="hidden" name="slug" value="{{ $p->slug }}">
                                                     <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                                                     <div class="col-sm-10">
-                                                        <label id="title" name="title" type="hidden">{{ $p->name }}</label>
-                                                        <p class="form-control-static">{{ $p->name }}</p>
+                                                        <p id="title" name="title" class="form-control-static">{{ $p->name }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -158,7 +157,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-sm btn-default"
+                                                <button class="btn btn-sm btn-primary"
                                                         data-dismiss="modal">@lang('common.close')</button>
                                             </div>
                                         </div>
@@ -235,7 +234,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('delete') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-dark">
+                                    <div class="modal-dialog{{ \modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -254,8 +253,7 @@
                                                     <label for="file_name"
                                                            class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                                                     <div class="col-sm-10">
-                                                        <label id="title" name="title" type="hidden">{{ $post->name }}</label>
-                                                        <p class="form-control-static">{{ $post->name }}</p>
+                                                        <p id="title" name="title" class="form-control-static">{{ $post->name }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -273,7 +271,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-sm btn-default"
+                                                <button class="btn btn-sm btn-primary"
                                                         data-dismiss="modal">@lang('common.close')</button>
                                             </div>
                                         </div>
@@ -348,7 +346,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action="{{ route('staff.moderation.postpone') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-dark">
+                                    <div class="modal-dialog{{ \modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -380,7 +378,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-sm btn-default" type="button"
+                                                <button class="btn btn-sm btn-primary" type="button"
                                                         data-dismiss="modal">@lang('common.close')</button>
                                             </div>
                                         </div>
@@ -401,7 +399,7 @@
                                  aria-hidden="true">
                                 <form method="POST" action=" {{ route('delete') }}">
                                     @csrf
-                                    <div class="modal-dialog modal-dark">
+                                    <div class="modal-dialog{{ \modal_style() }}">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal"
@@ -421,8 +419,7 @@
                                                     <label for="file_name"
                                                            class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                                                     <div class="col-sm-10">
-                                                        <label id="title" name="title" type="hidden">{{ $reject->name }}</label>
-                                                        <p class="form-control-static">{{ $reject->name }}</p>
+                                                        <p id="title" name="title" class="form-control-static">{{ $reject->name }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -440,7 +437,7 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn btn-sm btn-default" type="button"
+                                                <button class="btn btn-sm btn-primary" type="button"
                                                         data-dismiss="modal">@lang('common.close')</button>
                                             </div>
                                         </div>

@@ -50,8 +50,6 @@ class NerdBot
 
     /**
      * NerdBot Constructor.
-     *
-     * @param \App\Repositories\ChatRepository $chatRepository
      */
     public function __construct(private ChatRepository $chatRepository)
     {
@@ -412,10 +410,9 @@ class NerdBot
     /**
      * Process Message.
      *
-     * @param                  $type
-     * @param \App\Models\User $user
-     * @param string           $message
-     * @param int              $targeted
+     * @param        $type
+     * @param string $message
+     * @param int    $targeted
      *
      * @throws \Exception
      *

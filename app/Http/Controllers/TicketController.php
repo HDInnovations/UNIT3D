@@ -24,10 +24,6 @@ class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     final public function index(Request $request): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
@@ -36,15 +32,13 @@ class TicketController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     final public function create(): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
         $categories = TicketCategory::all()->sortBy('position');
         $priorities = TicketPriority::all()->sortBy('position');
 
-        return view('ticket.create', [
+        return \view('ticket.create', [
             'categories' => $categories,
             'priorities' => $priorities,
         ]);
@@ -52,10 +46,6 @@ class TicketController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     final public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -90,11 +80,6 @@ class TicketController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     final public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Contracts\Foundation\Application
     {
@@ -111,7 +96,7 @@ class TicketController extends Controller
             $ticket->save();
         }
 
-        return view('ticket.show', [
+        return \view('ticket.show', [
             'user'   => $user,
             'ticket' => $ticket,
         ]);
@@ -119,10 +104,6 @@ class TicketController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
      */
     final public function edit(int $id): \Illuminate\Http\Response
     {
@@ -131,11 +112,6 @@ class TicketController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     final public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
@@ -170,11 +146,6 @@ class TicketController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     final public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
@@ -190,12 +161,6 @@ class TicketController extends Controller
             ->withSuccess('Your Helpdesk Ticket Was Deleted Successfully!');
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     final public function assign(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
@@ -220,12 +185,6 @@ class TicketController extends Controller
             ->withSuccess('Helpdesk Ticket Was Assigned Successfully!');
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     final public function unassign(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
@@ -239,12 +198,6 @@ class TicketController extends Controller
             ->withSuccess('Helpdesk Ticket Was Unassigned Successfully!');
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     final public function close(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $ticket = Ticket::findOrFail($id);
