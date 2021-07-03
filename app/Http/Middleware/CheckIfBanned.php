@@ -31,7 +31,7 @@ class CheckIfBanned
     {
         $user = $request->user();
 
-        if (!$user->hasPrivilegeTo('can_login')) {
+        if (! $user->hasPrivilegeTo('can_login')) {
             \auth()->logout();
             $request->session()->flush();
 
