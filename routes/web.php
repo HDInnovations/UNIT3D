@@ -22,6 +22,10 @@
 |
 */
 
+if (config('unit3d.proxy_scheme')) {
+    URL::forceScheme(config('unit3d.proxy_scheme'));
+}
+
 Route::group(['middleware' => 'language'], function () {
     /*
     |---------------------------------------------------------------------------------

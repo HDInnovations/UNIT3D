@@ -59,4 +59,7 @@ return [
     'default-owner-email'    => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
     'default-owner-password' => env('DEFAULT_OWNER_PASSWORD', 'UNIT3D'),
 
+    //If using a Reverse Proxy for HTTPS set the 'PROXY_SCHEME' value in your .env file to `https` or adjust the below value
+    'proxy_scheme' => env('PROXY_SCHEME', ''),
+
 ];
