@@ -31,15 +31,6 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/';
 
     /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $namespace = 'App\Http\Controllers';
-
-    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
@@ -51,16 +42,13 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::prefix('api')
                 ->middleware(['web', 'auth'])
-                ->namespace($this->namespace)
                 ->group(\base_path('routes/vue.php'));
 
             Route::middleware('web')
-                ->namespace($this->namespace)
                 ->group(\base_path('routes/web.php'));
 
             Route::prefix('api')
                 ->middleware('api')
-                ->namespace($this->namespace)
                 ->group(\base_path('routes/api.php'));
         });
     }

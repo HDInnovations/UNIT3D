@@ -1,4 +1,8 @@
 <?php
+
+use App\Http\Controllers\TorrentController;
+use Illuminate\Support\Facades\Route;
+
 /*
  * NOTICE OF LICENSE
  *
@@ -22,9 +26,9 @@
 */
 
 // Torrents System
-Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents', 'namespace' => 'API'], function () {
-    Route::get('/', 'TorrentController@index')->name('torrents.index');
-    Route::get('/filter', 'TorrentController@filter');
-    Route::get('/{id}', 'TorrentController@show')->where('id', '[0-9]+');
-    Route::post('/upload', 'TorrentController@store');
+Route::group(['middleware' => 'auth:api', 'prefix' => 'torrents'], function () {
+    Route::get('/', [TorrentController::class, 'index'])->name('torrents.index');
+    Route::get('/filter', [TorrentController::class, 'filter']);
+    Route::get('/{id}', [TorrentController::class, 'show'])->where('id', '[0-9]+');
+    Route::post('/upload', [TorrentController::class, 'store']);
 });
