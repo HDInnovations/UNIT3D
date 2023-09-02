@@ -15,7 +15,7 @@ return [
     'application'             => '入站申请',
     'applications'            => '入站申请',
     'application-type'        => '申请类型',
-    'application-image-proofs'=> '图片证明',
+    'application-image-proofs' => '图片证明',
     'application-referrer'    => '申请书',
     'articles'                => '公告',
     'article-content'         => '公告内容',

@@ -30,7 +30,7 @@ return [
     'request-bounties'  => 'Request Bounties',
     'request-claims'    => 'Request Claim',
     'request-fills'     => 'Request Fills',
-    'request-rejections'=> 'Request Rejections',
+    'request-rejections' => 'Request Rejections',
     'request-unclaims'  => 'Request Unclaims',
     'reseed-requests'   => 'Reseed Request',
     'title'             => 'Název',

@@ -17,7 +17,7 @@ return [
     'application'             => 'Søknad',
     'applications'            => 'Søknader',
     'application-type'        => 'Type',
-    'application-image-proofs'=> 'Bildebevis',
+    'application-image-proofs' => 'Bildebevis',
     'application-referrer'    => 'Referanse',
     'article-content'         => 'Innhold',
     'bans-log'                => 'Bans Logg',

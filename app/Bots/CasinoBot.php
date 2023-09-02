@@ -83,7 +83,7 @@ class CasinoBot
     public function putDonate(int $amount = 0, string $note = ''): string
     {
         $output = \implode($note, ' ');
-        $v = \validator(['bot_id' => $this->bot->id, 'amount'=> $amount, 'note'=> $output], [
+        $v = \validator(['bot_id' => $this->bot->id, 'amount' => $amount, 'note' => $output], [
             'bot_id'   => 'required|exists:bots,id|max:999',
             'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'     => 'required|string',

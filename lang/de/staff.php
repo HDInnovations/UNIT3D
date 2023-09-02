@@ -17,7 +17,7 @@ return [
     'application'             => 'Bewerbung',
     'applications'            => 'Bewerbungen',
     'application-type'        => 'Typ',
-    'application-image-proofs'=> 'Foto Proofs',
+    'application-image-proofs' => 'Foto Proofs',
     'application-referrer'    => 'Referent',
     'article-content'         => 'Inhalt',
     'bans-log'                => 'Ban Log',

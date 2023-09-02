@@ -1048,7 +1048,7 @@ class UserController extends Controller
 
         $groups = Group::where('level', '>', 0)->latest('level')->get();
 
-        return \view('user.privacy', ['user' => $user, 'groups'=> $groups]);
+        return \view('user.privacy', ['user' => $user, 'groups' => $groups]);
     }
 
     /**
@@ -1062,7 +1062,7 @@ class UserController extends Controller
 
         $groups = Group::where('level', '>', 0)->latest('level')->get();
 
-        return \view('user.notification', ['user' => $user, 'groups'=> $groups]);
+        return \view('user.notification', ['user' => $user, 'groups' => $groups]);
     }
 
     /**

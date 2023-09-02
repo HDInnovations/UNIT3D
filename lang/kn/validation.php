@@ -92,7 +92,7 @@ return [
         'array'   => 'ಈ  :attribute ನಲ್ಲಿ  :max ಐಟಂಗಳಿಗಿಂತ  ಹೆಚ್ಚು ಇರಬಾರದು .',
     ],
     'mimes'    => 'ಈ  :attribute ನಲ್ಲಿ  :values ಬಗೆಯ ಫೈಲ್ ಆಗಿರಬೇಕು.',
-    'mimetypes'=> 'ಈ  :attribute ನಲ್ಲಿ :values ಬಗೆಯ ಫೈಲ್ ಆಗಿರಬೇಕು.',
+    'mimetypes' => 'ಈ  :attribute ನಲ್ಲಿ :values ಬಗೆಯ ಫೈಲ್ ಆಗಿರಬೇಕು.',
     'min'      => [
         'numeric' => 'ಈ  :attribute ಕನಿಷ್ಠ  :min  ಇರಬೇಕು.',
         'file'    => 'ಈ  :attribute ಕನಿಷ್ಠ :min ಕಿಲೋಬೈಟ್ಗಳಿರಬೇಕು.  ',

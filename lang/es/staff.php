@@ -17,7 +17,7 @@ return [
     'application'             => 'Solicitud',
     'applications'            => 'Solicitudes',
     'application-type'        => 'Tipo',
-    'application-image-proofs'=> 'Referencias',
+    'application-image-proofs' => 'Referencias',
     'application-referrer'    => 'Invitado por',
     'bans-log'                => 'Registro de prohibiciones',
     'blocks'                  => 'Bloques',
