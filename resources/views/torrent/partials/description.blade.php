@@ -24,12 +24,7 @@
             Alpine.data('description', () => ({
                 copy() {
                     text = document.createElement('textarea');
-                    text.innerHTML = decodeURIComponent(
-                        atob('{{ base64_encode($torrent->description) }}')
-                            .split('')
-                            .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                            .join(''),
-                    );
+                    text.innerHTML = decodeURIComponent(escape(atob('{{ base64_encode($torrent->description) }}')));
                     navigator.clipboard.writeText(text.value);
                     Swal.fire({
                         toast: true,

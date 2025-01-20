@@ -110,16 +110,7 @@
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
                             input.value += '[quote={{ \htmlspecialchars('@' . $post->user->username) }}]';
-                            input.value += (() => {
-                                var text = document.createElement('textarea');
-                                text.innerHTML = decodeURIComponent(
-                                    atob($refs.content.dataset.base64Bbcode)
-                                        .split('')
-                                        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                                        .join('')
-                                );
-                                return text.value;
-                            })();
+                            input.value += decodeURIComponent(escape(atob('{{ base64_encode($post->content) }}')));
                             input.value += '[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
