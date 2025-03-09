@@ -74,6 +74,7 @@ class ReportSearch extends Component
     final public function reports(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Report::orderBy('solved')
+            ->withCount(['comments'])
             ->with('reported.group', 'reporter.group', 'staff.group')
             ->when($this->type !== null, fn ($query) => $query->where('type', '=', $this->type))
             ->when($this->reporter !== null, fn ($query) => $query->whereIn('reporter_id', User::withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->reporter.'%')))

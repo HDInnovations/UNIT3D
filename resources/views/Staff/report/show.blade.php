@@ -68,6 +68,8 @@
         </section>
     @endif
 
+    <livewire:comments :model="$report" />
+
     @if ($report->solved)
         <section class="panelV2">
             <h2 class="panel__heading">Verdict</h2>
@@ -122,6 +124,7 @@
             @endif
         </div>
     </section>
+
     <section class="panelV2">
         <h2 class="panel__heading">Snooze</h2>
         @if ($report->snoozed_until !== null)

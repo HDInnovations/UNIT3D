@@ -20,6 +20,7 @@ use App\Models\Article;
 use App\Models\Collection;
 use App\Models\Comment;
 use App\Models\Playlist;
+use App\Models\Report;
 use App\Models\Ticket;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -35,7 +36,7 @@ class NewCommentTag extends Notification implements ShouldQueue
     /**
      * NewCommentTag Constructor.
      */
-    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|Collection|Article $model, public Comment $comment)
+    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|Report|Collection|Article $model, public Comment $comment)
     {
     }
 
@@ -131,6 +132,11 @@ class NewCommentTag extends Notification implements ShouldQueue
                 'title' => $title,
                 'body'  => $username.' has tagged you in an comment on Ticket '.$this->model->subject,
                 'url'   => '/tickets/'.$this->model->id,
+            ],
+            $this->model instanceof Report => [
+                'title' => $title,
+                'body'  => $username.' has tagged you in an comment on Report '.$this->model->title,
+                'url'   => '/dashboard/reports/'.$this->model->id,
             ],
             $this->model instanceof Playlist => [
                 'title' => $title,

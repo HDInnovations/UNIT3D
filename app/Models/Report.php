@@ -123,4 +123,12 @@ class Report extends Model
             'id'       => User::SYSTEM_USER_ID,
         ]);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
+     */
+    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

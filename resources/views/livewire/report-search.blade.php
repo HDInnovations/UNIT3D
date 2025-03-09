@@ -162,6 +162,9 @@
                             {{ __('common.reporter') }}
                             @include('livewire.includes._sort-icon', ['field' => 'reporter_id'])
                         </th>
+                        <th>
+                            <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i>
+                        </th>
                         <th wire:click="sortBy('created_at')" role="columnheader button">
                             {{ __('user.created-on') }}
                             @include('livewire.includes._sort-icon', ['field' => 'created_at'])
@@ -191,6 +194,9 @@
                             </td>
                             <td>
                                 <x-user_tag :anon="false" :user="$report->reporter" />
+                            </td>
+                            <td>
+                                {{ $report->comments_count }}
                             </td>
                             <td>
                                 <time
