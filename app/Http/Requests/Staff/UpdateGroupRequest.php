@@ -195,6 +195,13 @@ class UpdateGroupRequest extends FormRequest
                     'min:0',
                 ], 'nullable'),
             ],
+            'group.min_avg_seedsize' => [
+                Rule::when($request->boolean('group.autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
             'group.min_uploads' => [
                 Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',

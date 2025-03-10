@@ -29,6 +29,7 @@ use App\Console\Commands\AutoGroup;
 use App\Console\Commands\AutoHighspeedTag;
 use App\Console\Commands\AutoNerdStat;
 use App\Console\Commands\AutoPreWarning;
+use App\Console\Commands\AutoRecordUserSeedSizeHistory;
 use App\Console\Commands\AutoRecycleAudits;
 use App\Console\Commands\AutoRecycleClaimedTorrentRequests;
 use App\Console\Commands\AutoRecycleFailedLogins;
@@ -84,6 +85,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoUpdateUserLastActions::class)->everyFiveSeconds();
         $schedule->command(AutoDeleteStoppedPeers::class)->everyTwoMinutes();
         $schedule->command(AutoUnbookmarkCompletedTorrents::class)->everyFifteenMinutes();
+        $schedule->command(AutoRecordUserSeedSizeHistory::class)->daily();
         $schedule->command(AutoGroup::class)->daily();
         $schedule->command(AutoNerdStat::class)->hourly();
         $schedule->command(AutoCacheRandomMediaIds::class)->hourly();

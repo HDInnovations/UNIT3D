@@ -404,6 +404,18 @@
                 </p>
                 <p class="form__group" x-show="autogroup" x-cloak>
                     <input
+                        id="min_avg_seedsize"
+                        class="form__text"
+                        type="text"
+                        name="group[min_avg_seedsize]"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_avg_seedsize">
+                        Minimum 15-day average seedsize required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
                         id="min_uploads"
                         class="form__text"
                         type="text"

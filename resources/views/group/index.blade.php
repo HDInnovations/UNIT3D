@@ -163,6 +163,25 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>Min. 15-day Avg. Seedsize</td>
+                                                <td>
+                                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_avg_seedsize ?? 0) }}
+                                                </td>
+                                                <td>
+                                                    @if ($group->min_avg_seedsize <= $user_avg_seed_size)
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                                        ></i>
+                                                    @else
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-x text-red"
+                                                        ></i>
+                                                        |
+                                                        {{ \App\Helpers\StringHelper::formatBytes($group->min_avg_seedsize - $user_avg_seed_size) }}
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>Min. Uploads</td>
                                                 <td>
                                                     {{ $group->min_uploads ?? 0 }}
