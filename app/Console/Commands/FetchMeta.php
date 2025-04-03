@@ -58,6 +58,7 @@ class FetchMeta extends Command
             ->whereRelation('category', 'movie_meta', '=', true)
             ->select('tmdb_movie_id')
             ->distinct()
+            ->whereNotNull('tmdb_movie_id')
             ->pluck('tmdb_movie_id');
 
         $this->info('Queueing all tmdb movie metadata fetching');
@@ -74,6 +75,7 @@ class FetchMeta extends Command
             ->whereRelation('category', 'tv_meta', '=', true)
             ->select('tmdb_tv_id')
             ->distinct()
+            ->whereNotNull('tmdb_tv_id')
             ->pluck('tmdb_tv_id');
 
         $this->info('Queueing all tmdb tv metadata fetching');
@@ -90,6 +92,7 @@ class FetchMeta extends Command
             ->whereRelation('category', 'game_meta', '=', true)
             ->select('igdb')
             ->distinct()
+            ->whereNotNull('igdb')
             ->pluck('igdb');
 
         $this->info('Queueing all igdb game metadata fetching');
