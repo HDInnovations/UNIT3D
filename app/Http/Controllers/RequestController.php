@@ -71,7 +71,6 @@ class RequestController extends Controller
                     'genres',
                     'credits' => ['person', 'occupation'],
                     'networks',
-                    'seasons'
                 ])
                     ->find($torrentRequest->tmdb_tv_id),
                 ($torrentRequest->category->movie_meta && $torrentRequest->tmdb_movie_id) => TmdbMovie::with([

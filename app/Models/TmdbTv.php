@@ -89,15 +89,6 @@ class TmdbTv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TmdbSeason, $this>
-     */
-    public function seasons(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(TmdbSeason::class)
-            ->oldest('season_number');
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbPerson, $this>
      */
     public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -54,7 +54,7 @@
                     @php
                         $meta = match (true) {
                             $feature->torrent->category->tv_meta => App\Models\TmdbTv::query()
-                                ->with('genres', 'networks', 'seasons')
+                                ->with('genres', 'networks')
                                 ->find($feature->torrent->tmdb_tv_id ?? 0),
                             $feature->torrent->category->movie_meta => App\Models\TmdbMovie::query()
                                 ->with('genres', 'companies')

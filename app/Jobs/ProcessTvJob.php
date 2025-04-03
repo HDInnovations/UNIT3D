@@ -18,12 +18,10 @@ namespace App\Jobs;
 
 use App\Models\TmdbCompany;
 use App\Models\TmdbCredit;
-use App\Models\TmdbEpisode;
 use App\Models\TmdbGenre;
 use App\Models\TmdbNetwork;
 use App\Models\TmdbPerson;
 use App\Models\TmdbRecommendation;
-use App\Models\TmdbSeason;
 use App\Models\Torrent;
 use App\Models\TmdbTv;
 use App\Services\Tmdb\Client;
@@ -109,21 +107,6 @@ class ProcessTvJob implements ShouldQueue
         TmdbPerson::upsert($people, 'id');
         TmdbCredit::where('tmdb_tv_id', '=', $this->id)->delete();
         TmdbCredit::upsert($credits, ['tmdb_person_id', 'tmdb_movie_id', 'tmdb_tv_id', 'occupation_id', 'character']);
-
-        // Seasons and episodes
-
-        $seasons = [];
-        $episodes = [];
-
-        foreach ($tvScraper->getSeasons() as $season) {
-            $seasonScraper = new Client\Season($this->id, $season['season_number']);
-
-            $seasons[] = $seasonScraper->getSeason();
-            array_push($episodes, ...$seasonScraper->getEpisodes());
-        }
-
-        TmdbSeason::upsert($seasons, 'id');
-        TmdbEpisode::upsert($episodes, 'id');
 
         // Recommendations
 

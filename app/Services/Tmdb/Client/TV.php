@@ -455,31 +455,6 @@ class TV
      * @return array<
      *     int<0, max>,
      *     array{
-     *         id: ?int,
-     *         season_number: int,
-     *     },
-     * >
-     */
-    public function getSeasons(): array
-    {
-        $seasons = [];
-
-        foreach ($this->data['seasons'] ?? [] as $season) {
-            if ($season['season_number'] !== null) {
-                $seasons[] = [
-                    'id'            => $season['id'],
-                    'season_number' => $season['season_number'],
-                ];
-            }
-        }
-
-        return $seasons;
-    }
-
-    /**
-     * @return array<
-     *     int<0, max>,
-     *     array{
      *         recommended_tmdb_tv_id: ?int,
      *         tmdb_tv_id: ?int,
      *         title: ?string,

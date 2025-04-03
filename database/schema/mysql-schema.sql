@@ -1786,33 +1786,6 @@ CREATE TABLE `tmdb_credits` (
   CONSTRAINT `credits_tv_id_foreign` FOREIGN KEY (`tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `tmdb_episodes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tmdb_episodes` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `overview` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `production_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `season_number` int NOT NULL,
-  `tmdb_season_id` int unsigned NOT NULL,
-  `still` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tmdb_tv_id` int unsigned NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vote_average` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vote_count` int DEFAULT NULL,
-  `air_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `episode_number` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `episodes_name_index` (`name`),
-  KEY `episodes_season_id_index` (`tmdb_season_id`),
-  KEY `episodes_tv_id_foreign` (`tmdb_tv_id`),
-  CONSTRAINT `episodes_season_id_foreign` FOREIGN KEY (`tmdb_season_id`) REFERENCES `tmdb_seasons` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `episodes_tv_id_foreign` FOREIGN KEY (`tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `tmdb_genre_tmdb_movie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1954,25 +1927,6 @@ CREATE TABLE `tmdb_recommendations` (
   CONSTRAINT `recommendations_recommendation_movie_id_foreign` FOREIGN KEY (`recommended_tmdb_movie_id`) REFERENCES `tmdb_movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `recommendations_recommendation_tv_id_foreign` FOREIGN KEY (`recommended_tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `recommendations_tv_id_foreign` FOREIGN KEY (`tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `tmdb_seasons`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tmdb_seasons` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `tmdb_tv_id` int unsigned NOT NULL,
-  `season_number` int NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `overview` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `air_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `seasons_name_index` (`name`),
-  KEY `seasons_tv_id_foreign` (`tmdb_tv_id`),
-  CONSTRAINT `seasons_tv_id_foreign` FOREIGN KEY (`tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `tmdb_tv`;
@@ -2987,3 +2941,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (341,'2025_03_17_12
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (342,'2025_03_23_203227_add_automatically_unbookmark_torrents_user_setting',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (343,'2025_03_25_093436_update_metadata_id_default_to_null',5);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (344,'2025_03_29_215845_create_playlist_categories',6);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (345,'2025_04_03_085022_drop_season_and_episodes',7);
