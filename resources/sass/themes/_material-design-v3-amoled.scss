@@ -73,6 +73,7 @@
     --comparison-divider-fg: #000;
     --comparison-button-fg: #000;
 
+    --data-table-border-radius: 22px;
     --data-table-fg: #ccc;
     --data-table-th-bg: #000;
     --data-table-thead-border: 2px solid #333;
@@ -124,6 +125,7 @@
     --input-text-padding-active: 11px;
     --input-text-padding-hover: 11px;
 
+    --key-value-border-radius: 0;
     --key-value-even-bg: transparent;
     --key-value-fg: inherit;
     --key-value-odd-bg: transparent;
@@ -181,6 +183,7 @@
     --paginate-bg: #000;
     --paginate-bg-hover: #111;
     --paginate-bg-current: #161616;
+    --paginate-border-radius: 22px;
     --paginate-fg: #ddd;
     --paginate-fg-disabled: #999;
     --paginate-divider: #888;
@@ -189,11 +192,13 @@
     --panel-border: 1px solid #262626;
     --panel-bg: #000;
     --panel-fg: #bbb;
+    --panel-body-border-radius: 22px;
     --panel-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
         0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
     --panel-border-radius: 22px;
     --panel-head-bg: #000;
     --panel-head-fg: #fff;
+    --panel-head-border-radius: 22px;
     --panel-group-fg: #fff;
 
     --playlist-card-bg: #000;
@@ -368,76 +373,10 @@
         0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 }
 
-.panel__body {
-    border-bottom-left-radius: var(--panel-border-radius);
-    border-bottom-right-radius: var(--panel-border-radius);
-}
-
-.panel__header {
-    border-top-left-radius: var(--panel-border-radius);
-    border-top-right-radius: var(--panel-border-radius);
-}
-
-.panel__header:has(+ [style='display: none;']),
-.panel__header:has(+ [style='display: none;']) > .panel__heading,
-.panel__header:has(+ [style='display: none;']) > .panel__actions,
-.panel__header:has(+ [style='display: none;'])
-    > .panel__actions
-    > .panel__action,
-.panel__heading:has(+ [style='display: none;']),
-.panel__heading:has(+ .data-table-wrapper):not(:has(+ .data-table-wrapper tr)) {
-    border-bottom-left-radius: var(--panel-border-radius);
-    border-bottom-right-radius: var(--panel-border-radius);
-}
-
 .panel__heading {
-    border-top-left-radius: var(--panel-border-radius);
-    border-top-right-radius: var(--panel-border-radius);
     font-size: 19px;
     font-weight: bold;
     padding: 12px 15px;
-}
-
-.panel__actions,
-.panel__actions > .panel__action:last-child,
-.panel__actions > .panel__action:last-child > .form__group {
-    border-top-right-radius: var(--panel-border-radius);
-}
-
-.featured-carousel__previous {
-    border-bottom-left-radius: var(--panel-border-radius);
-}
-
-.featured-carousel__next {
-    border-bottom-right-radius: var(--panel-border-radius);
-}
-
-/* Bottom-left-most table header which doesn't have a following tbody, tfoot nor pagination */
-.data-table-wrapper:not(:has(+ .pagination)) >.data-table
-    > thead:not(:has(+ tbody > tr)):not(:has(~ tfoot > tr))
-    > tr:last-of-type
-    > th:first-of-type,
-/* Bottom-left-most tbody table row cell which doesn't have a following tfoot nor pagination */
-.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type td:first-of-type,
-/* Bottom-left-most tfoot table row cell which doesn't have a following pagination */
-.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tfoot > tr:last-of-type > td:first-of-type {
-    border-bottom-left-radius: var(--panel-border-radius);
-}
-
-/* Unhidden bottom-right-most table cell on bon earning calculation page */
-.data-table-wrapper:not(:has(+ .pagination)) >.data-table
-    tr:last-of-type
-    td:not([style='display: none;']):has(+ td[style='display: none;']),
-/* Bottom-right-most table header which doesn't have a following tbody, tfoot nor pagination */
-.data-table-wrapper:not(:has(+ .pagination)) >.data-table
-    > thead:not(:has(+ tbody > tr)):not(:has(~ tfoot > tr))
-    > tr:last-of-type
-    > th:last-of-type,
-/* Bottom-right-most tbody table row cell which doesn't have a following tfoot nor pagination */
-.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type td:last-of-type,
-/* Bottom-right-most tfoot table row cell which doesn't have a following pagination */
-.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tfoot > tr:last-of-type > td:last-of-type {
-    border-bottom-right-radius: var(--panel-border-radius);
 }
 
 /* Bottom-most table header cells which don't have a following tbody nor tfoot */
@@ -561,11 +500,6 @@ a:hover {
 
 hr {
     border-top: 1px solid #444;
-}
-
-.pagination:last-child {
-    border-bottom-left-radius: var(--panel-border-radius);
-    border-bottom-right-radius: var(--panel-border-radius);
 }
 
 li.pagination__next,

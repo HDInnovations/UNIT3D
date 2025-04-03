@@ -2,6 +2,7 @@
     width: 100%;
     margin: 0;
     color: var(--panel-fg);
+    border-radius: var(--key-value-border-radius);
 }
 
 .key-value dt,
@@ -46,4 +47,10 @@
 
 .key-value__group:last-child {
     padding-bottom: var(--key-value-padding);
+}
+
+.key-value__group:last-child,
+.key-value__group:last-child dt,
+.key-value__group:last-child dd {
+    border-radius: var(--key-value-border-radius);
 }

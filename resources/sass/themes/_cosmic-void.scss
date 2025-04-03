@@ -72,6 +72,7 @@
     --comparison-divider-fg: #fff;
     --comparison-button-fg: #fff;
 
+    --data-table-border-radius: 0;
     --data-table-fg: inherit;
     --data-table-th-bg: #19191b;
     --data-table-thead-border: none;
@@ -116,6 +117,7 @@
     --input-text-padding-active: 11px;
     --input-text-padding-hover: 11px;
 
+    --key-value-border-radius: 0;
     --key-value-even-bg: #222;
     --key-value-fg: inherit;
     --key-value-odd-bg: #222;
@@ -173,6 +175,7 @@
     --paginate-bg: #19191b;
     --paginate-bg-hover: #222;
     --paginate-bg-current: #202020;
+    --paginate-border-radius: 0;
     --paginate-fg: #888;
     --paginate-fg-disabled: #555;
     --paginate-divider: #303030;
@@ -181,10 +184,12 @@
     --panel-border: 3px solid rgba(14, 21, 34, 0.25);
     --panel-bg: #222;
     --panel-fg: inherit;
+    --panel-body-border-radius: 0;
     --panel-box-shadow: none;
     --panel-border-radius: 0;
     --panel-head-bg: #19191b;
     --panel-head-fg: #fff;
+    --panel-head-border-radius: 0;
     --panel-group-fg: #fff;
 
     --playlist-card-bg: #111;

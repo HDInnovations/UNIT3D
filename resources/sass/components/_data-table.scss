@@ -81,3 +81,31 @@
         visibility: visible;
     }
 }
+
+/* Bottom-left-most table header which doesn't have a following tbody, tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table
+    > thead:not(:has(+ tbody > tr)):not(:has(~ tfoot > tr))
+    > tr:last-of-type
+    > th:first-of-type,
+/* Bottom-left-most tbody table row cell which doesn't have a following tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type td:first-of-type,
+/* Bottom-left-most tfoot table row cell which doesn't have a following pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tfoot > tr:last-of-type > td:first-of-type {
+    border-bottom-left-radius: var(--data-table-border-radius);
+}
+
+/* Unhidden bottom-right-most table cell on bon earning calculation page */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table
+    tr:last-of-type
+    td:not([style='display: none;']):has(+ td[style='display: none;']),
+/* Bottom-right-most table header which doesn't have a following tbody, tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table
+    > thead:not(:has(+ tbody > tr)):not(:has(~ tfoot > tr))
+    > tr:last-of-type
+    > th:last-of-type,
+/* Bottom-right-most tbody table row cell which doesn't have a following tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type td:last-of-type,
+/* Bottom-right-most tfoot table row cell which doesn't have a following pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tfoot > tr:last-of-type > td:last-of-type {
+    border-bottom-right-radius: var(--data-table-border-radius);
+}
