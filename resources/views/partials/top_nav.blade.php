@@ -484,7 +484,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('torrents.index', ['bookmarked' => 1]) }}">
+                        <a href="{{ route('users.bookmarks.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i>
                             {{ __('user.my-bookmarks') }}
                         </a>

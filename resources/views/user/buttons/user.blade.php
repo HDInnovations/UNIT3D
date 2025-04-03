@@ -270,15 +270,18 @@
                 </li>
             @endif
 
-            @if ($isProfileOwner)
+            @if ($isProfileOwner || $isModo)
                 <li class="nav-tabV2">
                     <a
                         class="nav-tab__link"
-                        href="{{ route('torrents.index', ['bookmarked' => '1']) }}"
+                        href="{{ route('users.bookmarks.index', ['user' => $user]) }}"
                     >
                         {{ __('user.bookmarks') }}
                     </a>
                 </li>
+            @endif
+
+            @if ($isProfileOwner)
                 @if (! config('announce.external_tracker.is_enabled'))
                     <form
                         action="{{ route('users.peers.mass_destroy', ['user' => $user]) }}"
