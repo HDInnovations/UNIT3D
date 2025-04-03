@@ -30,7 +30,7 @@
             imdb_title_exists: {{ Js::from(old('title_exists_on_imdb', $torrent->imdb) !== null) }},
             tvdb_tv_exists: {{ Js::from(old('tv_exists_on_tvdb', $torrent->tvdb) !== null) }},
             mal_anime_exists: {{ Js::from(old('anime_exists_on_mal', $torrent->mal) !== null) }},
-            igdb_game_exists: {{ Js::from(old('game_exists_on_igdb', $torrent->igdb_game_id) !== null) }},
+            igdb_game_exists: {{ Js::from(old('game_exists_on_igdb', $torrent->igdb) !== null) }},
         }"
     >
         <h2 class="panel__heading">{{ __('common.edit') }}: {{ $torrent->name }}</h2>

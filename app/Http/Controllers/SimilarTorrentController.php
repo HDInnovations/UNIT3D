@@ -76,7 +76,8 @@ class SimilarTorrentController extends Controller
                     'genres',
                     'companies',
                     'platforms',
-                ]);
+                ])
+                    ->findOrFail($tmdbId);
 
                 $igdb = $tmdbId;
 

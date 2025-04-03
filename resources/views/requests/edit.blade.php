@@ -38,8 +38,7 @@
                 imdb_title_exists: {{ Js::from(old('title_exists_on_imdb', $torrentRequest->imdb) !== null) }},
                 tvdb_tv_exists: {{ Js::from(old('tv_exists_on_tvdb', $torrentRequest->tvdb) !== null) }},
                 mal_anime_exists: {{ Js::from(old('anime_exists_on_mal', $torrentRequest->mal) !== null) }},
-                igdb_game_exists:
-                    {{ Js::from(old('game_exists_on_igdb', $torrentRequest->igdb_game_id) !== null) }},
+                igdb_game_exists: {{ Js::from(old('game_exists_on_igdb', $torrentRequest->igdb) !== null) }},
             }"
         >
             <h2 class="panel__heading">{{ __('request.edit-request') }}</h2>

@@ -37,7 +37,6 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
-use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
@@ -46,7 +45,7 @@ class SimilarTorrent extends Component
 
     public Category $category;
 
-    public TmdbMovie|TmdbTv|Game $work;
+    public TmdbMovie|TmdbTv|IgdbGame $work;
 
     public ?int $tmdbId;
 
@@ -282,7 +281,7 @@ class SimilarTorrent extends Component
             )
             ->when($this->category->tv_meta, fn ($query) => $query->where('tmdb_tv_id', '=', $this->tmdbId))
             ->when($this->category->movie_meta, fn ($query) => $query->where('tmdb_movie_id', '=', $this->tmdbId))
-            ->when($this->category->game_meta, fn ($query) => $query->where('igdb', '=', $this->tmdbId))
+            ->when($this->category->game_meta, fn ($query) => $query->where('igdb', '=', $this->igdbId))
             ->where((new TorrentSearchFiltersDTO(
                 name: $this->name,
                 description: $this->description,
