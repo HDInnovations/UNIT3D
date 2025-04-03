@@ -1,15 +1,5 @@
 <td class="torrent-search--grouped__overview">
     <div>
-        @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
-            <a
-                href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
-                title="{{ __('common.edit') }}"
-                class="torrent-search--grouped__edit"
-            >
-                <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
-            </a>
-        @endif
-
         <h3 class="torrent-search--grouped__name">
             <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                 @switch($media->meta)
@@ -43,6 +33,26 @@
         @include('components.partials._torrent-icons')
     </div>
 </td>
+
+@if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && ($torrent->status !== \App\Enums\ModerationStatus::APPROVED || now()->isBefore($torrent->created_at->addDay()))))
+    <td class="torrent-search--grouped__edit">
+        <a
+            href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
+            title="{{ __('common.edit') }}"
+        >
+            <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
+        </a>
+    </td>
+@endif
+
+<td class="torrent-search--grouped__bookmark">
+    <button
+        x-data="bookmark({{ $torrent->id }}, {{ Js::from($torrent->bookmarks_exists) }})"
+        x-bind="button"
+    >
+        <i class="{{ config('other.font-awesome') }}" x-bind="icon"></i>
+    </button>
+</td>
 <td class="torrent-search--grouped__download">
     @if (config('torrent.download_check_page') == 1)
         <a
@@ -67,15 +77,6 @@
             <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
         </a>
     @endif
-</td>
-<td class="torrent-search--grouped__bookmark">
-    <button
-        class="form__standard-icon-button"
-        x-data="bookmark({{ $torrent->id }}, {{ Js::from($torrent->bookmarks_exists) }})"
-        x-bind="button"
-    >
-        <i class="{{ config('other.font-awesome') }}" x-bind="icon"></i>
-    </button>
 </td>
 <td class="torrent-search--grouped__size">
     <span title="{{ $torrent->size }} B">

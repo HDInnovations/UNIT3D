@@ -608,18 +608,20 @@
 /* Buttons in table */
 .torrent-search--grouped__download a,
 .torrent-search--grouped__bookmark button,
-a.torrent-search--grouped__edit {
+.torrent-search--grouped__edit a {
     padding: 4px;
     font-size: 12px;
     background: initial;
     display: inline-block;
     width: 100%;
     color: var(--icon-button-fg);
+    border: var(--icon-button-border);
+    cursor: pointer;
 }
 
 .torrent-search--grouped__download a:hover,
 .torrent-search--grouped__bookmark button:hover,
-a.torrent-search--grouped__edit:hover {
+.torrent-search--grouped__edit a:hover {
     color: inherit;
     filter: brightness(
         calc(1 / var(--torrent-group-hover-brightness-emphasis))
@@ -631,6 +633,7 @@ th.torrent-search--grouped__type,
 td.torrent-search--grouped__overview,
 td.torrent-search--grouped__download,
 td.torrent-search--grouped__bookmark,
+td.torrent-search--grouped__edit,
 td.torrent-search--grouped__size,
 td.torrent-search--grouped__seeders,
 td.torrent-search--grouped__leechers,
@@ -672,19 +675,16 @@ td.torrent-search--grouped__overview {
     grid-area: overview;
     padding-right: 8px;
     display: grid;
-    grid-template-columns: auto auto 1fr auto;
+    grid-template-columns: auto 1fr auto;
     grid-column-gap: 6px;
     align-items: center;
-    grid-template-areas: 'edit name legend icons';
+    grid-template-areas: 'name . icons';
 }
 
 td.torrent-search--grouped__overview > div {
     display: contents;
 }
 
-.torrent-search--grouped__edit {
-    grid-area: edit;
-}
 
 h3.torrent-search--grouped__name {
     grid-area: name;
@@ -703,11 +703,6 @@ h3.torrent-search--grouped__name a {
     align-items: center;
 }
 
-.torrent-search--grouped__legend {
-    grid-area: legend;
-    text-align: left;
-}
-
 td.torrent-search--grouped__download {
     grid-area: download;
     width: 2.5%;
@@ -715,6 +710,11 @@ td.torrent-search--grouped__download {
 
 td.torrent-search--grouped__bookmark {
     grid-area: bookmark;
+    width: 2.5%;
+}
+
+td.torrent-search--grouped__edit {
+    grid-area: edit;
     width: 2.5%;
 }
 
@@ -786,21 +786,21 @@ td.torrent-search--grouped__age time {
     .torrent-search--grouped__torrents > tbody > tr {
         display: grid;
         grid-template-areas:
-            'type overview overview overview overview overview overview overview'
-            'type size age seeders leechers completed download bookmark';
-        grid-template-columns: 13% 1.5fr 1.5fr 1fr 1fr 1fr 7.5% 7.5%;
+            'type overview overview overview overview overview overview overview overview'
+            'type size age seeders leechers completed edit bookmark download';
+        grid-template-columns: 13% 1.5fr 1.5fr 1fr 1fr 1fr 7.5% 7.5% 7.5%;
     }
 
     /* Buttons in table */
     .torrent-search--grouped__download a,
     .torrent-search--grouped__bookmark button,
-    a.torrent-search--grouped__edit {
+    .torrent-search--grouped__edit a {
         display: inline-grid;
         place-items: center;
     }
 
     th.torrent-search--grouped__type,
-    .torrent-search--grouped__edit,
+    td.torrent-search--grouped__edit,
     td.torrent-search--grouped__download,
     td.torrent-search--grouped__bookmark,
     td.torrent-search--grouped__size,
@@ -840,10 +840,12 @@ td.torrent-search--grouped__age time {
     /* Title's torrents */
     .torrent-search--grouped__torrents > tbody > tr {
         grid-template-areas:
-            'edit name name name name name name name'
-            'type legend legend legend icons icons icons icons'
-            'type size size size age age age download'
-            'type . seeders leechers leechers completed . bookmark';
+            '. name name name name name name name'
+            'type icons icons icons icons icons icons icons'
+            'type size size size age age age edit'
+            'type size size size age age age bookmark'
+            'type . seeders leechers leechers completed . bookmark'
+            'type . seeders leechers leechers completed . download';
         grid-template-columns: 13% 0.5fr 1fr 0.5fr 0.5fr 1fr 0.5fr 1fr;
     }
 
@@ -852,23 +854,9 @@ td.torrent-search--grouped__age time {
         display: contents;
     }
 
-    .torrent-search--grouped__edit:not(
-            tr:first-child .torrent-search--grouped__edit
-        ),
-    .torrent-search--grouped__name:not(
-            tr:first-child .torrent-search--grouped__name
-        ) {
-        border-top: 1px solid var(--torrent-group-header-bg);
-    }
-
     .torrent-search--grouped__name a {
         padding: 12px 0;
         display: inline-block;
-    }
-
-    .torrent-icons {
-        float: right;
-        text-align: right;
     }
 
     .torrent-search--grouped__size,
@@ -1001,15 +989,16 @@ th.similar-torrents__type {
     grid-area: checkbox;
     min-width: 24px;
     text-align: center;
+    align-self: center;
 }
 
 @media screen and (max-width: 900px) {
     .similar-torrents__torrents > tbody > tr {
         display: grid;
         grid-template-areas:
-            'type checkbox overview overview overview overview overview overview overview'
-            'type . size age seeders leechers completed download bookmark';
-        grid-template-columns: 13% 28px 1.5fr 1.5fr 1fr 1fr 1fr 7.5% 7.5%;
+            'type checkbox overview overview overview overview overview overview overview overview'
+            'type . size age seeders leechers completed edit bookmark download';
+        grid-template-columns: 13% 28px 1.5fr 1.5fr 1fr 1fr 1fr 7.5% 7.5% 7.5%;
     }
 
     .similar-torrents__headers {
@@ -1045,10 +1034,10 @@ th.similar-torrents__type {
 @media screen and (max-width: 600px) {
     .similar-torrents__torrents > tbody > tr {
         grid-template-areas:
-            'edit name name name name name name name'
-            'type legend legend legend icons icons icons icons'
-            'type size size size age age age download'
-            'checkbox . seeders leechers leechers completed . bookmark';
+            'checkbox name name name name name name name'
+            'type icons icons icons icons icons icons edit'
+            'type size size size age age age bookmark'
+            'type . seeders leechers leechers completed . download';
         grid-template-columns: 13% 0.5fr 1fr 0.5fr 0.5fr 1fr 0.5fr 1fr;
     }
 }
