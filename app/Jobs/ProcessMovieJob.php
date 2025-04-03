@@ -62,6 +62,10 @@ class ProcessMovieJob implements ShouldQueue
 
         $movieScraper = new Client\Movie($this->id);
 
+        if ($movieScraper->getMovie() === null) {
+            return;
+        }
+
         $movie = TmdbMovie::updateOrCreate(['id' => $this->id], $movieScraper->getMovie());
 
         // Genres

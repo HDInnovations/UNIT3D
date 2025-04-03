@@ -64,6 +64,10 @@ class ProcessTvJob implements ShouldQueue
 
         $tvScraper = new Client\TV($this->id);
 
+        if ($tvScraper->getTv() === null) {
+            return;
+        }
+
         $tv = TmdbTv::updateOrCreate(['id' => $this->id], $tvScraper->getTv());
 
         // Companies
