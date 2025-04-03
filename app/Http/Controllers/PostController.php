@@ -206,7 +206,8 @@ class PostController extends Controller
         abort_unless($post->topic()->authorized(canReplyTopic: true)->exists(), 403);
 
         $post->update([
-            'content' => $request->input('content'),
+            'content'    => $request->input('content'),
+            'updated_by' => $user->id,
         ]);
 
         return redirect()->to($postUrl)

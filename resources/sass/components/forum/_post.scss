@@ -26,6 +26,7 @@
     grid-template-areas:
         'aside header'
         'aside content'
+        'aside timestamps'
         'aside footer';
     grid-template-columns: minmax(153px, min-content) minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
@@ -38,18 +39,14 @@
 .post__header {
     grid-area: header;
     display: grid;
-    grid-template-areas: 'datetime topic . tip-stats toolbar';
-    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-areas: 'topic . tip-stats toolbar';
+    grid-template-columns: auto 1fr auto auto;
     align-items: center;
     gap: 9px;
     font-size: 13px;
     color: var(--post-head-fg);
     background-color: var(--post-head-bg);
     padding-left: 9px;
-}
-
-.post__datetime {
-    grid-area: datetime;
 }
 
 .post__topic {
@@ -158,6 +155,7 @@
     background-color: transparent;
     color: var(--post-like-fg);
 }
+
 .votes__dislike {
     background-color: transparent;
     color: var(--post-dislike-fg);
@@ -254,6 +252,43 @@
     line-height: 1.5;
 }
 
+.post__timestamps {
+    grid-area: timestamps;
+    display: grid;
+    grid-template-areas: '. datetime updated';
+    grid-template-columns: 1fr auto auto;
+    border-top: 2px solid var(--post-aside-bg);
+    padding: 4px;
+    font-size: 13px;
+}
+
+.post__datetime {
+    grid-area: datetime;
+}
+
+.post__updated {
+    grid-area: updated;
+    cursor: pointer;
+    margin-left: 4px;
+}
+
+.post__updated-dropdown {
+    display: none;
+    background-color: var(--post-toolbar-bg);
+    color: var(--post-toolbar-fg);
+    position: absolute;
+    padding: 5px;
+    box-shadow: var(--post-shadow);
+    border-radius: 5px;
+    box-shadow: var(--post-shadow);
+    z-index: 1;
+}
+
+/* Show dropdown menu when the dropdown is focused */
+.post__updated:hover .post__updated-dropdown {
+    display: block;
+}
+
 .post__footer {
     grid-area: footer;
     border-top: 2px solid var(--post-aside-bg);
@@ -282,15 +317,15 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 1358px) {
     .post {
-        grid-template-areas: 'aside' 'header' 'content' 'footer';
+        grid-template-areas: 'aside' 'header' 'content' 'timestamps' 'footer';
         grid-template-columns: 100%;
     }
 
     .post__header {
-        grid-template-areas: 'datetime topic . tip-stats overflow' '. . . . toolbar';
-        grid-template-columns: auto auto 1fr auto auto;
+        grid-template-areas: '. overflow' '. toolbar';
+        grid-template-columns: 1fr auto;
         gap: 0 6px;
     }
 
@@ -353,15 +388,27 @@
     }
 }
 
+@media screen and (max-width: 867px) {
+    .post__timestamps {
+        display: grid;
+        grid-template-areas: '. datetime updated .';
+        grid-template-columns: 1fr auto auto 1fr;
+        border-top: 2px solid var(--post-aside-bg);
+        padding: 4px;
+    }
+}
+
 @-webkit-keyframes post__like-animation {
     0% {
         -webkit-transform: scale(1);
         transform: scale(1);
     }
+
     50% {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
     }
+
     100% {
         -webkit-transform: scale(1);
         transform: scale(1);
@@ -373,10 +420,12 @@
         -webkit-transform: scale(1);
         transform: scale(1);
     }
+
     50% {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
     }
+
     100% {
         -webkit-transform: scale(1);
         transform: scale(1);

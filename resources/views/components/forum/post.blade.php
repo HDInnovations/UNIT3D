@@ -4,13 +4,6 @@
 
 <article class="post" id="post-{{ $post->id }}" x-data>
     <header class="post__header">
-        <time
-            class="post__datetime"
-            datetime="{{ $post->created_at }}"
-            title="{{ $post->created_at }}"
-        >
-            {{ $post->created_at?->diffForHumans() }}
-        </time>
         @if (! Route::is('topics.show'))
             <span class="post__topic">
                 {{ __('forum.in') }}
@@ -234,6 +227,41 @@
     >
         @bbcode($post->content)
     </div>
+    <span class="post__timestamps">
+        <time
+            class="post__datetime"
+            datetime="{{ $post->created_at }}"
+            title="{{ $post->created_at }}"
+        >
+            {{ $post->created_at?->diffForHumans() }}
+        </time>
+        @if ($post->updated_at > $post->created_at)
+            <div class="post__updated">
+                &bull; edited
+                <i class="{{ config('other.font-awesome') }} fa-caret-down"></i>
+                <div class="post__updated-dropdown">
+                    <time
+                        class="post__datetime"
+                        datetime="{{ $post->updated_at }}"
+                        title="{{ $post->updated_at }}"
+                    >
+                        {{ $post->updated_at?->diffForHumans() }}
+                    </time>
+                    by
+                    <a
+                        class="user-tag__link {{ $post->updatedBy->group->icon ?? $post->user->group->icon }}"
+                        href="{{ route('users.show', ['user' => $post->updatedBy ?? $post->user]) }}"
+                        style="
+                            color: {{ $post->updatedBy->group->color ?? $post->user->group->color }};
+                        "
+                        title="{{ $post->updatedBy->group->name ?? $post->user->group->name }}"
+                    >
+                        {{ $post->updatedBy?->username ?? $post->user->username }}
+                    </a>
+                </div>
+            </div>
+        @endif
+    </span>
     @if (! empty($post->user->signature))
         <footer class="post__footer" x-init>
             <p class="post__signature">

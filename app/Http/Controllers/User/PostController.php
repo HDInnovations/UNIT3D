@@ -29,7 +29,7 @@ class PostController extends Controller
         return view('user.post.index', [
             'user'  => $user,
             'posts' => $user->posts()
-                ->with('user', 'user.group', 'topic:id,name,state')
+                ->with('user', 'user.group', 'topic:id,name,state', 'updatedBy.group')
                 ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
                 ->withSum('tips', 'bon')
                 ->authorized(canReadTopic: true)
