@@ -1,5 +1,5 @@
 name: Translation Coverage Check
-on: [ push, pull_request ]
+on: [ pull_request ]
 jobs:
     translation-check:
         strategy:
@@ -91,16 +91,6 @@ jobs:
                     | Change | <span style="color:$CHANGE_COLOR">$CHANGE_ICON $DIFF%</span> |
                     | Hardcoded Strings | $HARDCODED |
 
-                    <details>
-                    <summary>See detailed reports</summary>
-
-                    ### Translation Coverage by Language
-                    $(cat docs/translation-report-*.md | sed -n '/^## Summary/,/^##/p' | grep -v '^##')
-
-                    ### Top 10 Files with Hardcoded Strings
-                    $(cat docs/hardcoded-strings-report.md | sed -n '/^## Top 10 files/,/^##/p' | grep -v '^##')
-
-                    </details>
                     EOF
             -   name: Comment PR
                 uses: actions/github-script@v7
@@ -110,6 +100,7 @@ jobs:
                         const fs = require('fs');
                         const commentBody = fs.readFileSync('comment.md', 'utf8');
                         const { owner, repo, number } = context.issue;
+                        const number = github.context.payload.pull_request.number;
 
                         // First check if the bot already commented
                         const comments = await github.rest.issues.listComments({
