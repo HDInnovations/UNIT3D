@@ -73,9 +73,19 @@ class DonationController extends Controller
         $donation = Donation::with(['user', 'package'])->findOrFail($id);
         $donation->status = ModerationStatus::APPROVED;
         $donation->starts_at = $now;
+        $active_donation = Donation::where('status', '=', Donation::APPROVED)->where('user_id', '=', $donation->user->id)->latest()->first();
 
         if ($donation->package->donor_value > 0) {
-            $donation->ends_at = $now->addDays($donation->package->donor_value);
+            if ($donation->user->is_lifetime) {
+                $donation->ends_at = null;
+            } else {
+                if (!is_null($active_donation->ends_at) && $donation->user->is_donor) {
+                    $active_donation_expiry = Carbon::parse($active_donation->ends_at);
+                    $donation->ends_at = $active_donation_expiry->addDays($donation->package->donor_value);
+                } else {
+                    $donation->ends_at = $now->addDays($donation->package->donor_value);
+                }
+            }
         } else {
             $donation->ends_at = null;
         }
