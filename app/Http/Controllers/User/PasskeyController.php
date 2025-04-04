@@ -51,13 +51,15 @@ class PasskeyController extends Controller
 
         cache()->forget('user:'.$user->passkey);
 
-        Unit3dAnnounce::removeUser($user);
+        $newPasskey = md5(random_bytes(60).$user->password);
 
-        DB::transaction(static function () use ($user, $changedByStaff): void {
+        Unit3dAnnounce::addUser($user, $newPasskey);
+
+        DB::transaction(static function () use ($user, $changedByStaff, $newPasskey): void {
             $user->passkeys()->latest()->first()?->update(['deleted_at' => now()]);
 
             $user->update([
-                'passkey' => md5(random_bytes(60).$user->password)
+                'passkey' => $newPasskey,
             ]);
 
             $user->passkeys()->create(['content' => $user->passkey]);
@@ -65,9 +67,7 @@ class PasskeyController extends Controller
             if ($changedByStaff) {
                 $user->notify(new PasskeyReset());
             }
-        });
-
-        Unit3dAnnounce::addUser($user);
+        }, 5);
 
         return to_route('users.passkeys.index', ['user' => $user])
             ->with('success', 'Your passkey was changed successfully.');

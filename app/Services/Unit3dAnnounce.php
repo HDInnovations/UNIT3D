@@ -170,7 +170,7 @@ class Unit3dAnnounce
         return $torrent;
     }
 
-    public static function addUser(User $user): bool
+    public static function addUser(User $user, ?string $newPasskey = null): bool
     {
         if ($user->deleted_at !== null) {
             return true;
@@ -185,6 +185,7 @@ class Unit3dAnnounce
             'id'           => (int) $user->id,
             'group_id'     => (int) $user->group_id,
             'passkey'      => $user->passkey,
+            'new_passkey'  => $newPasskey,
             'can_download' => (bool) $user->can_download,
             'is_donor'     => (bool) $user->is_donor,
             'is_lifetime'  => (bool) $user->is_lifetime,
