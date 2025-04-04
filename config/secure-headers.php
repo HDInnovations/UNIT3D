@@ -503,12 +503,11 @@ return [
             'self' => true,
 
             'schemes' => [
-                'data:',
-                'https:'
+                // 'data:',
+                // 'https:'
             ],
 
             'allow' => [
-                'fonts.gstatic.com',
             ],
         ],
 
@@ -531,13 +530,11 @@ return [
             'self' => true,
 
             'schemes' => [
-                'data:',
+                // 'data:',
                 'https:',
             ],
 
             'allow' => [
-                'image.tmdb.org',
-                'via.placeholder.com/400x600',
             ],
         ],
 
@@ -550,8 +547,8 @@ return [
             'self' => true,
 
             'schemes' => [
-                'data:',
-                'https:',
+                // 'data:',
+                // 'https:',
             ],
 
             'allow' => [
@@ -673,14 +670,13 @@ return [
             'unsafe-inline' => true,
 
             'schemes' => [
-                'https:',
+                // 'https:',
             ],
 
             'allow' => [
                 'gitcdn.xyz',
                 'github.io',
                 "*.github.io",
-                'raw.githubusercontent.com',
                 'github.com'
             ],
         ],
