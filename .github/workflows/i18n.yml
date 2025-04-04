@@ -1,12 +1,5 @@
 name: Translation Coverage Check
-
-on:
-    pull_request:
-        paths:
-            - 'resources/views/**/*.blade.php'
-            - 'lang/**/*.php'
-            - 'app/**/*.php'
-
+on: [ push, pull_request ]
 jobs:
     translation-check:
         matrix:
