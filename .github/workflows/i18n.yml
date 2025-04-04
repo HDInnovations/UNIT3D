@@ -97,14 +97,6 @@ jobs:
                     </details>
                     EOF
 
-            -   name: Upload report artifacts
-                uses: actions/upload-artifact@v3
-                with:
-                    name: translation-reports
-                    path: |
-                        docs/translation-report-*.md
-                        docs/hardcoded-strings-report.md
-
             -   name: Comment PR
                 uses: actions/github-script@v7
                 with:
