@@ -54,7 +54,10 @@ jobs:
 
                     # Checkout the base branch to run the coverage check
                     git checkout $BASE_BRANCH
-                    composer install --no-interaction --prefer-dist --no-progress
+                    cp .env.example .env
+                    composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+                    php artisan key:generate
+                    php artisan clear:all_cache
                     php artisan translations:manage report --markdown > /dev/null
 
                     # Get the previous coverage
