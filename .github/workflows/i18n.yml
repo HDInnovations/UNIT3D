@@ -1,0 +1,163 @@
+name: Translation Coverage Check
+
+on:
+    pull_request:
+        paths:
+            - 'resources/views/**/*.blade.php'
+            - 'lang/**/*.php'
+            - 'app/**/*.php'
+
+jobs:
+    translation-check:
+        matrix:
+            operating-system:
+                - ubuntu-22.04
+            php-version:
+                - '8.4'
+        name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
+        runs-on: ${{ matrix.operating-system }}
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0  # Fetch all history for comparing with base branch
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-version }}
+                    extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
+                    coverage: none
+
+            -   name: Install dependencies
+                run: composer install --no-interaction --prefer-dist --no-progress
+
+            -   name: Get current translation coverage
+                id: current-coverage
+                run: |
+                    php artisan translations:manage report --show-extra --markdown > /dev/null
+                    echo "current_coverage=$(grep -oP '(?<=Coverage \| )[0-9.]+(?=%)' docs/translation-report-*.md | awk '{sum+=$1; count+=1} END {print sum/count}')" >> $GITHUB_OUTPUT
+
+            -   name: Detect hardcoded strings
+                id: hardcoded
+                run: |
+                    php artisan translations:manage report-hardcoded --markdown
+                    echo "hardcoded_count=$(grep -oP '(?<=Total hardcoded strings found \| )[0-9]+' docs/hardcoded-strings-report.md)" >> $GITHUB_OUTPUT
+
+            -   name: Check translation coverage history
+                id: coverage-history
+                run: |
+                    # Get the base branch of the PR
+                    BASE_BRANCH=${{ github.base_ref }}
+
+                    # Checkout the base branch to run the coverage check
+                    git checkout $BASE_BRANCH
+                    composer install --no-interaction --prefer-dist --no-progress
+                    php artisan translations:manage report --markdown > /dev/null
+
+                    # Get the previous coverage
+                    PREV_COVERAGE=$(grep -oP '(?<=Coverage \| )[0-9.]+(?=%)' docs/translation-report-*.md | awk '{sum+=$1; count+=1} END {print sum/count}')
+                    echo "previous_coverage=$PREV_COVERAGE" >> $GITHUB_OUTPUT
+
+                    # Go back to the PR branch
+                    git checkout FETCH_HEAD
+
+            -   name: Generate PR comment
+                id: generate-comment
+                run: |
+                    CURRENT=$(echo "${{ steps.current-coverage.outputs.current_coverage }}" | xargs printf "%.2f")
+                    PREVIOUS=$(echo "${{ steps.coverage-history.outputs.previous_coverage }}" | xargs printf "%.2f")
+                    HARDCODED=${{ steps.hardcoded.outputs.hardcoded_count }}
+
+                    # Calculate difference
+                    DIFF=$(echo "$CURRENT - $PREVIOUS" | bc)
+
+                    if (( $(echo "$DIFF >= 0" | bc -l) )); then
+                      CHANGE_ICON="🔼"
+                      CHANGE_COLOR="green"
+                    else
+                      CHANGE_ICON="🔽"
+                      CHANGE_COLOR="red"
+                    fi
+
+                    cat > comment.md << EOF
+                    ## Translation Coverage Report
+
+                    | Metric | Value |
+                    | --- | --- |
+                    | Current Coverage | $CURRENT% |
+                    | Previous Coverage | $PREVIOUS% |
+                    | Change | <span style="color:$CHANGE_COLOR">$CHANGE_ICON $DIFF%</span> |
+                    | Hardcoded Strings | $HARDCODED |
+
+                    <details>
+                    <summary>See detailed reports</summary>
+
+                    ### Translation Coverage by Language
+                    $(cat docs/translation-report-*.md | sed -n '/^## Summary/,/^##/p' | grep -v '^##')
+
+                    ### Top 10 Files with Hardcoded Strings
+                    $(cat docs/hardcoded-strings-report.md | sed -n '/^## Top 10 files/,/^##/p' | grep -v '^##')
+
+                    </details>
+                    EOF
+
+            -   name: Upload report artifacts
+                uses: actions/upload-artifact@v3
+                with:
+                    name: translation-reports
+                    path: |
+                        docs/translation-report-*.md
+                        docs/hardcoded-strings-report.md
+
+            -   name: Comment PR
+                uses: actions/github-script@v7
+                with:
+                    github-token: ${{ secrets.UNIT3D_BOT_TOKEN }}
+                    script: |
+                        const fs = require('fs');
+                        const commentBody = fs.readFileSync('comment.md', 'utf8');
+                        const { owner, repo, number } = context.issue;
+
+                        // First check if the bot already commented
+                        const comments = await github.rest.issues.listComments({
+                          owner,
+                          repo,
+                          issue_number: number
+                        });
+
+                        const botComment = comments.data.find(comment =>
+                          comment.user.login === 'unit3d-bot' &&
+                          comment.body.includes('Translation Coverage Report')
+                        );
+
+                        if (botComment) {
+                          // Update existing comment
+                          await github.rest.issues.updateComment({
+                            owner,
+                            repo,
+                            comment_id: botComment.id,
+                            body: commentBody
+                          });
+                        } else {
+                          // Create new comment
+                          await github.rest.issues.createComment({
+                            owner,
+                            repo,
+                            issue_number: number,
+                            body: commentBody
+                          });
+                        }
+
+            -   name: Check if coverage is decreasing
+                if: ${{ steps.current-coverage.outputs.current_coverage < steps.coverage-history.outputs.previous_coverage }}
+                run: |
+                    echo "🚨 Translation coverage is decreasing from ${{ steps.coverage-history.outputs.previous_coverage }}% to ${{ steps.current-coverage.outputs.current_coverage }}%"
+                    exit 1
+
+            -   name: Check if full coverage with hardcoded strings
+                if: ${{ steps.current-coverage.outputs.current_coverage >= 100 && steps.hardcoded.outputs.hardcoded_count > 0 }}
+                run: |
+                    echo "🚨 You have achieved 100% translation coverage but still have ${{ steps.hardcoded.outputs.hardcoded_count }} hardcoded strings"
+                    exit 1
