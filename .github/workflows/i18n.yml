@@ -24,8 +24,19 @@ jobs:
                     extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
                     coverage: none
 
-            -   name: Install dependencies
-                run: composer install --no-interaction --prefer-dist --no-progress
+            -   name: Prepare The Laravel Environment
+                run: cp .env.example .env
+
+            -   name: Generate Application Key
+                run: php artisan key:generate
+
+            -   name: Install Composer Dependencies
+                env:
+                    COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+                run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+
+            -   name: Clear Application Cache
+                run: php artisan optimize:clear
 
             -   name: Get current translation coverage
                 id: current-coverage
