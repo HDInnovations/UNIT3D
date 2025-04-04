@@ -94,6 +94,7 @@
     --comparison-divider-fg: #fff;
     --comparison-button-fg: #fff;
 
+    --data-table-border-radius: 0;
     --data-table-fg: var(--text-color);
     --data-table-th-bg: #3b4252;
     --data-table-thead-border: none;
@@ -143,6 +144,7 @@
     --input-text-padding-active: 11px;
     --input-text-padding-hover: 11px;
 
+    --key-value-border-radius: 0;
     --key-value-even-bg: #3b4252;
     --key-value-fg: var(--text-color);
     --key-value-odd-bg: #3b4252;
@@ -200,6 +202,7 @@
     --paginate-bg: #3b4252;
     --paginate-bg-hover: #434c5e;
     --paginate-bg-current: #4c566a;
+    --paginate-border-radius: 0;
     --paginate-fg: #d8dee9;
     --paginate-fg-disabled: #d8dee9;
     --paginate-divider: #d8dee9;
@@ -208,10 +211,12 @@
     --panel-border: none;
     --panel-bg: #272727;
     --panel-fg: var(--text-color);
+    --panel-body-border-radius: 0;
     --panel-box-shadow: none;
     --panel-border-radius: 0;
     --panel-head-bg: transparent;
     --panel-head-fg: #fff;
+    --panel-head-border-radius: 0;
 
     --playlist-card-bg: #434c5e;
     --playlist-card-border: none;

@@ -1,6 +1,6 @@
 /**
  * Usage
- * 
+ *
  * <section class="panel2">
  *     <h2 class="panel__heading">Heading</h2>
  *     <div class="panel__body">Body</div>
@@ -23,6 +23,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: var(--panel-head-border-radius);
 }
 
 .panel__heading {
@@ -34,6 +35,18 @@
     font-size: 16px;
     flex-grow: 1;
     font-weight: normal;
+    border-radius: var(--panel-head-border-radius);
+}
+
+.panel__header:has(+ [style='display: none;']),
+.panel__header:has(+ [style='display: none;']) > .panel__heading,
+.panel__header:has(+ [style='display: none;']) > .panel__actions,
+.panel__header:has(+ [style='display: none;'])
+    > .panel__actions
+    > .panel__action,
+.panel__heading:has(+ [style='display: none;']),
+.panel__heading:has(+ .data-table-wrapper):not(:has(+ .data-table-wrapper tr)) {
+    border-radius: var(--panel-head-border-radius);
 }
 
 .panel__heading--centered {
@@ -57,6 +70,12 @@
     padding: 4px 4px 4px 12px;
     color: var(--panel-action-fg);
     background-color: var(--panel-head-bg);
+}
+
+.panel__actions,
+.panel__actions > .panel__action:last-child,
+.panel__actions > .panel__action:last-child > .form__group {
+    border-radius: var(--panel-head-border-radius);
 }
 
 .panel__action {
@@ -144,6 +163,7 @@
     color: var(--panel-fg);
     background-color: var(--panel-bg);
     overflow-wrap: break-word;
+    border-radius: var(--panel-body-border-radius);
 }
 
 .panel--grid-item {
