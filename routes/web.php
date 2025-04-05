@@ -200,7 +200,6 @@ Route::middleware('language')->group(function (): void {
             Route::get('/torrent/dead', [App\Http\Controllers\StatsController::class, 'dead'])->name('dead');
             Route::get('/request/bountied', [App\Http\Controllers\StatsController::class, 'bountied'])->name('bountied');
             Route::get('/groups', [App\Http\Controllers\StatsController::class, 'groups'])->name('groups');
-            Route::get('/groups/group/{id}', [App\Http\Controllers\StatsController::class, 'group'])->name('group')->whereNumber('id');
             Route::get('/groups/requirements', [App\Http\Controllers\StatsController::class, 'groupsRequirements'])->name('groups_requirements');
             Route::get('/languages', [App\Http\Controllers\StatsController::class, 'languages'])->name('languages');
             Route::get('/themes', [App\Http\Controllers\StatsController::class, 'themes'])->name('themes');

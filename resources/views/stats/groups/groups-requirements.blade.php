@@ -40,8 +40,7 @@
                     @foreach ($groups as $group)
                         <tr>
                             <td style="min-width: 20%">
-                                <a
-                                    href="{{ route('group', ['id' => $group->id]) }}"
+                                <span
                                     style="
                                         color: {{ $group->color }};
                                         background-image: {{ $group->effect }};
@@ -49,7 +48,7 @@
                                 >
                                     <i class="{{ $group->icon }}"></i>
                                     {{ $group->name }}
-                                </a>
+                                </span>
                             </td>
                             <td>
                                 @if ($group->autogroup)

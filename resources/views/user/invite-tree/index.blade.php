@@ -309,14 +309,13 @@
                         <tr>
                             <td>
                                 <span class="user-tag">
-                                    <a
+                                    <span
                                         class="user-tag__link {{ $groups->first()->icon }}"
-                                        href="{{ route('group', ['id' => $groups->first()->id]) }}"
                                         style="color: {{ $groups->first()->color }}"
                                         title="{{ $groups->first()->name }}"
                                     >
                                         {{ $groups->first()->name }}
-                                    </a>
+                                    </span>
                                 </span>
                             </td>
                             <td style="text-align: right">{{ $groups->count() }}</td>

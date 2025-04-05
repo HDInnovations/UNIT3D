@@ -262,17 +262,6 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Groups.
-     */
-    public function group(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('stats.groups.group', [
-            'group' => Group::findOrFail($id),
-            'users' => User::with(['group'])->withTrashed()->where('group_id', '=', $id)->latest()->paginate(100),
-        ]);
-    }
-
-    /**
      * Show Group Requirements.
      */
     public function groupsRequirements(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View

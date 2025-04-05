@@ -36,13 +36,10 @@
                     @foreach ($groups as $group)
                         <tr>
                             <td>
-                                <a
-                                    href="{{ route('group', ['id' => $group->id]) }}"
-                                    style="color: {{ $group->color }}"
-                                >
+                                <span style="color: {{ $group->color }}">
                                     <i class="{{ $group->icon }}"></i>
                                     {{ $group->name }}
-                                </a>
+                                </span>
                             </td>
                             <td>{{ $group->users_count }}</td>
                         </tr>

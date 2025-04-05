@@ -905,14 +905,13 @@
                             <dd>
                                 @if (null !== ($group = \App\Models\Group::find($externalUser['group_id'])))
                                     <span class="user-tag">
-                                        <a
+                                        <span
                                             class="user-tag__link {{ $group->icon }}"
-                                            href="{{ route('group', ['id' => $group->id]) }}"
                                             style="color: {{ $group->color }}"
                                             title="{{ $group->name }}"
                                         >
                                             {{ $group->name }}
-                                        </a>
+                                        </span>
                                     </span>
                                 @else
                                     Unrecognized group_id: {{ $externalUser['group_id'] }}

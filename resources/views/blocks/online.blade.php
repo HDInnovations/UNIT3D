@@ -27,14 +27,13 @@
         <ul style="column-width: 200px; column-gap: 1rem; list-style-type: none; padding: 0">
             @foreach ($groups as $group)
                 <span class="user-tag" style="padding: 4px 8px; display: block">
-                    <a
+                    <span
                         class="user-tag__link {{ $group->icon }}"
-                        href="{{ route('group', ['id' => $group->id]) }}"
                         style="color: {{ $group->color }}"
                         title="{{ $group->name }}"
                     >
                         {{ $group->name }}
-                    </a>
+                    </span>
                 </span>
             @endforeach
         </ul>
