@@ -107,7 +107,7 @@
           </menu>
           <section
             v-if="message.user && message.user.id > 1"
-            class="chatbox-message__content"
+            class="chatbox-message__content bbcode-rendered"
             v-html="message.message"
           ></section>
         </article>
