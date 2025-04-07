@@ -1,5 +1,5 @@
 <div class="panel__body">
-    <section class="recommendations" style="max-height: 330px !important">
+    <section class="recommendations" style="max-height: 330px !important" x-ref="posters">
         @switch(true)
             @case($torrent->category->movie_meta)
                 @forelse ($meta->recommendedMovies ?? [] as $movie)
