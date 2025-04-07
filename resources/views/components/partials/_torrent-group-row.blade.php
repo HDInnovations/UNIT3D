@@ -34,16 +34,16 @@
     </div>
 </td>
 
-@if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && ($torrent->status !== \App\Enums\ModerationStatus::APPROVED || now()->isBefore($torrent->created_at->addDay()))))
-    <td class="torrent-search--grouped__edit">
+<td class="torrent-search--grouped__edit">
+    @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && ($torrent->status !== \App\Enums\ModerationStatus::APPROVED || now()->isBefore($torrent->created_at->addDay()))))
         <a
             href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
             title="{{ __('common.edit') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
         </a>
-    </td>
-@endif
+    @endif
+</td>
 
 <td class="torrent-search--grouped__bookmark">
     <button
