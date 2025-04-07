@@ -187,26 +187,12 @@
                     </div>
                 </div>
             </header>
-            <div x-bind="dialogForm" x-data="{ tab: 'hierarchy' }">
+            <div x-bind="dialogForm" x-data="tabs" data-default-tab="hierarchy">
                 <menu class="panel__tabs">
-                    <li
-                        class="panel__tab"
-                        role="tab"
-                        x-bind:class="tab === 'hierarchy' && 'panel__tab--active'"
-                        x-on:click="tab = 'hierarchy'"
-                    >
-                        Hierarchy
-                    </li>
-                    <li
-                        class="panel__tab"
-                        role="tab"
-                        x-bind:class="tab === 'list' && 'panel__tab--active'"
-                        x-on:click="tab = 'list'"
-                    >
-                        List
-                    </li>
+                    <li x-bind="tabButton" data-tab="hierarchy">Hierarchy</li>
+                    <li x-bind="tabButton" data-tab="list">List</li>
                 </menu>
-                <div class="dialog__form" x-show="tab === 'hierarchy'" style="gap: 0">
+                <div class="dialog__form" x-bind="tabPanel" data-tab="hierarchy" style="gap: 0">
                     @if ($torrent->folder !== null)
                         <span
                             style="
@@ -329,7 +315,7 @@
                         @endforeach
                     @endforeach
                 </div>
-                <div class="data-table-wrapper" x-show="tab === 'list'">
+                <div class="data-table-wrapper" x-bind="tabPanel" data-tab="list">
                     <table class="data-table">
                         <thead>
                             <tr>
