@@ -452,17 +452,10 @@ class TV
     }
 
     /**
-     * @return array<
-     *     int<0, max>,
-     *     array{
-     *         recommended_tmdb_tv_id: ?int,
-     *         tmdb_tv_id: ?int,
-     *         title: ?string,
-     *         vote_average: ?float,
-     *         poster: ?string,
-     *         first_air_date: ?string,
-     *     }
-     * >
+     * @return list<array{
+     *     tmdb_tv_id: ?int,
+     *     recommended_tmdb_tv_id: ?int,
+     * }>
      */
     public function getRecommendations(): array
     {
@@ -474,18 +467,14 @@ class TV
         $recommendations = [];
 
         foreach ($this->data['recommendations']['results'] ?? [] as $recommendation) {
-            if ($recommendation === null || $recommendation['id'] === null) {
+            if ($recommendation === null || $recommendation['id'] === null || $this->data['id'] === null) {
                 continue;
             }
 
             if ($tv_ids->contains($recommendation['id'])) {
                 $recommendations[] = [
-                    'recommended_tmdb_tv_id' => $recommendation['id'],
                     'tmdb_tv_id'             => $this->data['id'],
-                    'title'                  => $recommendation['name'],
-                    'vote_average'           => $recommendation['vote_average'],
-                    'poster'                 => $this->tmdb->image('poster', $recommendation),
-                    'first_air_date'         => $recommendation['first_air_date'],
+                    'recommended_tmdb_tv_id' => $recommendation['id'],
                 ];
             }
         }

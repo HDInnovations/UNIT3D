@@ -138,19 +138,11 @@ class TmdbTv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TmdbRecommendation, $this>
-     */
-    public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(TmdbRecommendation::class, 'tmdb_tv_id', 'id');
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbTv, $this>
      */
     public function recommendedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(__CLASS__, TmdbRecommendation::class, 'tmdb_tv_id', 'recommended_tmdb_tv_id', 'id', 'id');
+        return $this->belongsToMany(__CLASS__, 'tmdb_recommended_tv', 'tmdb_tv_id', 'recommended_tmdb_tv_id', 'id', 'id');
     }
 
     /**

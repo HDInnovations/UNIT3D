@@ -21,7 +21,6 @@ use App\Models\TmdbCredit;
 use App\Models\TmdbGenre;
 use App\Models\TmdbNetwork;
 use App\Models\TmdbPerson;
-use App\Models\TmdbRecommendation;
 use App\Models\Torrent;
 use App\Models\TmdbTv;
 use App\Services\Tmdb\Client;
@@ -110,7 +109,7 @@ class ProcessTvJob implements ShouldQueue
 
         // Recommendations
 
-        TmdbRecommendation::upsert($tvScraper->getRecommendations(), ['recommended_tmdb_tv_id', 'tmdb_tv_id']);
+        $tv->recommendedTv()->sync(array_unique(array_column($tvScraper->getRecommendations(), 'recommended_tmdb_tv_id')));
 
         Torrent::query()
             ->where('tmdb_tv_id', '=', $this->id)

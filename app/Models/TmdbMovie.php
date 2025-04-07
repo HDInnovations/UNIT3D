@@ -117,19 +117,11 @@ class TmdbMovie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TmdbRecommendation, $this>
-     */
-    public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(TmdbRecommendation::class, 'tmdb_movie_id', 'id');
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbMovie, $this>
      */
     public function recommendedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(__CLASS__, TmdbRecommendation::class, 'tmdb_movie_id', 'recommended_tmdb_movie_id', 'id', 'id');
+        return $this->belongsToMany(__CLASS__, 'tmdb_recommended_movies', 'tmdb_movie_id', 'recommended_tmdb_movie_id', 'id', 'id');
     }
 
     /**

@@ -390,17 +390,10 @@ class Movie
     }
 
     /**
-     * @return array<
-     *     int<0, max>,
-     *     array{
-     *         recommended_tmdb_movie_id: ?int,
-     *         tmdb_movie_id: ?int,
-     *         title: ?string,
-     *         vote_average: ?float,
-     *         poster: ?string,
-     *         release_date: ?string,
-     *     }
-     * >
+     * @return list<array{
+     *     tmdb_movie_id: ?int,
+     *     recommended_tmdb_movie_id: ?int,
+     * }>
      */
     public function getRecommendations(): array
     {
@@ -412,18 +405,14 @@ class Movie
         $recommendations = [];
 
         foreach ($this->data['recommendations']['results'] ?? [] as $recommendation) {
-            if ($recommendation === null || $recommendation['id'] === null) {
+            if ($recommendation === null || $recommendation['id'] === null || $this->data['id'] === null) {
                 continue;
             }
 
             if ($movie_ids->contains($recommendation['id'])) {
                 $recommendations[] = [
+                    'tmdb_movie_id'             => $this->data['id'],
                     'recommended_tmdb_movie_id' => $recommendation['id'],
-                    'tmdb_movie_id'             => $this->data['id'] ?? null,
-                    'title'                     => $recommendation['title'] ?? null,
-                    'vote_average'              => $recommendation['vote_average'] ?? null,
-                    'poster'                    => $this->tmdb->image('poster', $recommendation),
-                    'release_date'              => $recommendation['release_date'] ?? null,
                 ];
             }
         }

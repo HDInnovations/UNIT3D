@@ -1902,31 +1902,28 @@ CREATE TABLE `tmdb_people` (
   KEY `person_name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `tmdb_recommendations`;
+DROP TABLE IF EXISTS `tmdb_recommended_movies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tmdb_recommendations` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vote_average` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `release_date` date DEFAULT NULL,
-  `first_air_date` date DEFAULT NULL,
-  `tmdb_movie_id` int unsigned DEFAULT NULL,
-  `recommended_tmdb_movie_id` int unsigned DEFAULT NULL,
-  `tmdb_tv_id` int unsigned DEFAULT NULL,
-  `recommended_tmdb_tv_id` int unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `recommendations_movie_id_recommendation_movie_id_unique` (`tmdb_movie_id`,`recommended_tmdb_movie_id`),
-  UNIQUE KEY `recommendations_tv_id_recommendation_tv_id_unique` (`tmdb_tv_id`,`recommended_tmdb_tv_id`),
-  KEY `recommendations_movie_id_index` (`tmdb_movie_id`),
-  KEY `recommendations_recommendation_movie_id_index` (`recommended_tmdb_movie_id`),
-  KEY `recommendations_tv_id_index` (`tmdb_tv_id`),
-  KEY `recommendations_recommendation_tv_id_index` (`recommended_tmdb_tv_id`),
-  CONSTRAINT `recommendations_movie_id_foreign` FOREIGN KEY (`tmdb_movie_id`) REFERENCES `tmdb_movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `recommendations_recommendation_movie_id_foreign` FOREIGN KEY (`recommended_tmdb_movie_id`) REFERENCES `tmdb_movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `recommendations_recommendation_tv_id_foreign` FOREIGN KEY (`recommended_tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `recommendations_tv_id_foreign` FOREIGN KEY (`tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+CREATE TABLE `tmdb_recommended_movies` (
+  `tmdb_movie_id` int unsigned NOT NULL,
+  `recommended_tmdb_movie_id` int unsigned NOT NULL,
+  PRIMARY KEY (`tmdb_movie_id`,`recommended_tmdb_movie_id`),
+  KEY `tmdb_recommended_movies_recommended_tmdb_movie_id_foreign` (`recommended_tmdb_movie_id`),
+  CONSTRAINT `tmdb_recommended_movies_recommended_tmdb_movie_id_foreign` FOREIGN KEY (`recommended_tmdb_movie_id`) REFERENCES `tmdb_movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tmdb_recommended_movies_tmdb_movie_id_foreign` FOREIGN KEY (`tmdb_movie_id`) REFERENCES `tmdb_movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `tmdb_recommended_tv`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tmdb_recommended_tv` (
+  `tmdb_tv_id` int unsigned NOT NULL,
+  `recommended_tmdb_tv_id` int unsigned NOT NULL,
+  PRIMARY KEY (`tmdb_tv_id`,`recommended_tmdb_tv_id`),
+  KEY `tmdb_recommended_tv_recommended_tmdb_tv_id_foreign` (`recommended_tmdb_tv_id`),
+  CONSTRAINT `tmdb_recommended_tv_recommended_tmdb_tv_id_foreign` FOREIGN KEY (`recommended_tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tmdb_recommended_tv_tmdb_tv_id_foreign` FOREIGN KEY (`tmdb_tv_id`) REFERENCES `tmdb_tv` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `tmdb_tv`;
@@ -2942,3 +2939,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (342,'2025_03_23_20
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (343,'2025_03_25_093436_update_metadata_id_default_to_null',5);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (344,'2025_03_29_215845_create_playlist_categories',6);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (345,'2025_04_03_085022_drop_season_and_episodes',7);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (346,'2025_04_07_152108_split_recommendations_into_movie_and_tv',8);
