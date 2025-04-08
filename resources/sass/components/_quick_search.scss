@@ -99,6 +99,7 @@
 .quick-search__result-link:hover,
 .quick-search__result-link:focus {
     background-color: var(--quick-search-result-hover-bg);
+    color: var(--quick-search-result-hover-fg);
 }
 
 .quick-search__image {
