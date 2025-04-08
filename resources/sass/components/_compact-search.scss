@@ -1,0 +1,15 @@
+.compact-search {
+    color: var(--compact-search-fg);
+    background-color: var(--compact-search-bg);
+    padding: var(--compact-search-padding);
+    border-radius: var(--compact-search-border-radius);
+    box-shadow: var(--compact-search-box-shadow);
+    overflow: hidden;
+}
+
+.compact-search__visible-default {
+    background-color: inherit;
+    color: inherit;
+    display: flex;
+    border-radius: var(--compact-search-border-radius);
+}
