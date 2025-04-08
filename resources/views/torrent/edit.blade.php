@@ -501,21 +501,6 @@
                         </p>
                     </div>
                 </div>
-                <p class="form__group">
-                    <input
-                        id="keywords"
-                        class="form__text"
-                        name="keywords"
-                        type="text"
-                        placeholder=" "
-                        value="{{ old('keywords') ?? $keywords->implode(', ') }}"
-                    />
-                    <label class="form__label form__label--floating" for="keywords">
-                        {{ __('torrent.keywords') }} (
-                        <i>{{ __('torrent.keywords-example') }}</i>
-                        )
-                    </label>
-                </p>
                 @livewire('bbcode-input', [
                     'name'     => 'description',
                     'label'    => __('common.description'),

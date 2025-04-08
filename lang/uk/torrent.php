@@ -102,8 +102,6 @@ return [
     'info-hash'                => 'Інфо Хеш',
     'internal'                 => 'Внутрішній',
     'internal-release'         => 'Внутрішній реліз',
-    'keywords'                 => 'Ключові слова',
-    'keywords-example'         => 'Наприклад: superhero, dc comics, marvel',
     'last-seed-activity'       => 'Останній раз сідувався',
     'last-seeder'              => 'Ви - Останній Сідер! (завантажено принаймні 3 рази)',
     'last-update'              => 'Останнє оновлення',

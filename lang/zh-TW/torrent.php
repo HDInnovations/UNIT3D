@@ -102,8 +102,6 @@ return [
     'info-hash'                => '校驗碼',
     'internal'                 => '內部組',
     'internal-release'         => '内部組發佈',
-    'keywords'                 => '關鍵字',
-    'keywords-example'         => '舉例: superhero, dc comics, marvel',
     'last-seed-activity'       => '最後活動',
     'last-seeder'              => '你是碩果僅存的種子! (必須完成播種3次)',
     'last-update'              => '最後更新',

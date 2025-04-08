@@ -465,12 +465,7 @@ class Torrent extends Model
                 )), JSON_ARRAY())
                 FROM files
                 WHERE torrents.id = files.torrent_id
-            ) AS json_files,
-            (
-                SELECT COALESCE(JSON_ARRAYAGG(keywords.name), JSON_ARRAY())
-                FROM keywords
-                WHERE torrents.id = keywords.torrent_id
-            ) AS json_keywords
+            ) AS json_files
     SQL;
 
     protected static function booted(): void
@@ -582,16 +577,6 @@ class Torrent extends Model
             'username' => 'System',
             'id'       => User::SYSTEM_USER_ID,
         ]);
-    }
-
-    /**
-     * Has Many Keywords.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Keyword, $this>
-     */
-    public function keywords(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Keyword::class);
     }
 
     /**
@@ -873,7 +858,6 @@ class Torrent extends Model
             'json_freeleech_tokens',
             'json_bookmarks',
             'json_files',
-            'json_keywords',
             'json_history_seeders',
             'json_history_leechers',
             'json_history_active',
@@ -944,7 +928,6 @@ class Torrent extends Model
             'freeleech_tokens'   => json_decode($torrent->json_freeleech_tokens ?? '[]'),
             'bookmarks'          => json_decode($torrent->json_bookmarks ?? '[]'),
             'files'              => json_decode($torrent->json_files ?? '[]'),
-            'keywords'           => json_decode($torrent->json_keywords ?? '[]'),
             'history_seeders'    => json_decode($torrent->json_history_seeders ?? '[]'),
             'history_leechers'   => json_decode($torrent->json_history_leechers ?? '[]'),
             'history_active'     => json_decode($torrent->json_history_active ?? '[]'),

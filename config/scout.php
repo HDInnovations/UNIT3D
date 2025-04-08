@@ -212,7 +212,6 @@ return [
                     'bookmarks.user_id',
                     'freeleech_tokens.user_id',
                     'files.name',
-                    'keywords',
                     'distributor_id',
                     'region_id',
                 ],

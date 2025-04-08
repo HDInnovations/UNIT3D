@@ -504,21 +504,6 @@
                         </p>
                     </div>
                 </div>
-                <p class="form__group">
-                    <input
-                        type="text"
-                        name="keywords"
-                        id="autokeywords"
-                        class="form__text"
-                        value="{{ old('keywords') }}"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="autokeywords">
-                        {{ __('torrent.keywords') }} (
-                        <i>{{ __('torrent.keywords-example') }}</i>
-                        )
-                    </label>
-                </p>
                 @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                 <p
                     class="form__group"

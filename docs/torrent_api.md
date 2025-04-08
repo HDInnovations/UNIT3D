@@ -128,7 +128,6 @@ Optional Parameters:
 | `mediainfo`        | string | Filter by the torrent's MediaInfo
 | `bdinfo`           | string | Filter by the torrent's BDInfo
 | `uploader`         | string | Filter by the torrent uploader's username
-| `keywords`         | string | Filter by any of the torrent's keywords (Multiple keywords can be comma-separated)
 | `startYear`        | int    | Return only torrents whose content was released after or in the given year
 | `endYear`          | int    | Return only torrents whose content was released before or in the given year
 | `categories`       | int[]  | Filter by the torrent's category

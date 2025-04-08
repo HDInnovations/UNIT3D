@@ -205,21 +205,4 @@ class TorrentTools
 
         return $mediainfo;
     }
-
-    /**
-     * Parse Torrent Keywords.
-     *
-     * @return array<string>
-     */
-    public static function parseKeywords(string|Stringable $text): array
-    {
-        if ($text instanceof Stringable) {
-            $text = $text->toString();
-        }
-
-        $keywords = array_filter(array_map('trim', explode(',', $text)));
-
-        // unique keywords only (case insensitive)
-        return array_values(array_intersect_key($keywords, array_unique(array_map('strtolower', $keywords))));
-    }
 }

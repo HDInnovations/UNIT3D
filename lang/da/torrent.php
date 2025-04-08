@@ -100,8 +100,6 @@ return [
     'info-hash'                => 'Info Hash',
     'internal'                 => 'Intern',
     'internal-release'         => 'Intern udgivelse',
-    'keywords'                 => 'Nøgleord',
-    'keywords-example'         => 'Eksempel: superhero, dc comics, marvel',
     'last-seed-activity'       => 'Sidste seedaktivitet',
     'last-seeder'              => 'Du er den sidste resterende seeder! (er downloadet mindst 3 gange)',
     'last-update'              => 'Seneste ændring',
