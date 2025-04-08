@@ -25,7 +25,6 @@ use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
 use App\Models\IgdbGame;
-use App\Models\Keyword;
 use App\Models\TmdbMovie;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
@@ -406,17 +405,6 @@ class TorrentController extends BaseController
             default                                              => null,
         };
 
-        // Torrent Keywords System
-        $keywords = [];
-
-        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
-            $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
-        }
-
-        foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
-        }
-
         // check for trusted user and update torrent
         if ($user->group->is_trusted) {
             $appurl = config('app.url');
@@ -585,7 +573,6 @@ class TorrentController extends BaseController
                 description: $request->filled('description') ? $request->string('description')->toString() : '',
                 mediainfo: $request->filled('mediainfo') ? $request->string('mediainfo')->toString() : '',
                 uploader: $request->filled('uploader') ? $request->string('uploader')->toString() : '',
-                keywords: $request->filled('keywords') ? array_map('trim', explode(',', $request->string('keywords')->toString())) : [],
                 startYear: $request->filled('startYear') ? $request->integer('startYear') : null,
                 endYear: $request->filled('endYear') ? $request->integer('endYear') : null,
                 categoryIds: $request->filled('categories') ? array_map('intval', $request->categories) : [],

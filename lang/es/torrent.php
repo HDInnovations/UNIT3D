@@ -103,8 +103,6 @@ return [
     'info-hash'                => 'Hash del archivo',
     'internal'                 => 'Interno',
     'internal-release'         => 'Lanzamiento interno',
-    'keywords'                 => 'Palabras clave',
-    'keywords-example'         => 'Ejemplo: superhéroe, dc comics, marvel',
     'last-seed-activity'       => 'Última actividad de alguien',
     'last-seeder'              => 'Usted es la última persona compartiendo! (ha sido descargado al menos 3 veces)',
     'last-update'              => 'Última actualización',

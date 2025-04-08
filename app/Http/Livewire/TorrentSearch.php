@@ -60,9 +60,6 @@ class TorrentSearch extends Component
     public string $uploader = '';
 
     #[Url(history: true)]
-    public string $keywords = '';
-
-    #[Url(history: true)]
     public ?int $startYear = null;
 
     #[Url(history: true)]
@@ -341,7 +338,6 @@ class TorrentSearch extends Component
             description: $this->description,
             mediainfo: $this->mediainfo,
             uploader: $this->uploader,
-            keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
             startYear: $this->startYear,
             endYear: $this->endYear,
             minSize: $this->minSize === null ? null : $this->minSize * $this->minSizeMultiplier,

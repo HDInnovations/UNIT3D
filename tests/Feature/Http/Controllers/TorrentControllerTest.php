@@ -109,7 +109,6 @@ test('edit returns an ok response', function (): void {
     $response->assertViewHas('resolutions', $resolutions);
     $response->assertViewHas('regions', $regions);
     $response->assertViewHas('distributors', $distributors);
-    $response->assertViewHas('keywords');
     $response->assertViewHas('torrent', $torrent);
     $response->assertViewHas('user', $user);
 

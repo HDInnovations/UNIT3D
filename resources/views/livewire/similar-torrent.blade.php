@@ -66,19 +66,6 @@
                         </p>
                         <p class="form__group">
                             <input
-                                id="keywords"
-                                wire:model.live="keywords"
-                                class="form__text"
-                                type="search"
-                                autocomplete="off"
-                                placeholder=" "
-                            />
-                            <label class="form__label form__label--floating" for="keywords">
-                                {{ __('torrent.keywords') }}
-                            </label>
-                        </p>
-                        <p class="form__group">
-                            <input
                                 id="uploader"
                                 wire:model.live="uploader"
                                 class="form__text"

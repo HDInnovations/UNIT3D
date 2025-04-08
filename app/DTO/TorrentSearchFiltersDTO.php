@@ -34,8 +34,6 @@ readonly class TorrentSearchFiltersDTO
         private string $description = '',
         private string $mediainfo = '',
         private string $uploader = '',
-        /** @var array<mixed> */
-        private array $keywords = [],
         private ?int $startYear = null,
         private ?int $endYear = null,
         private ?int $minSize = null,
@@ -148,10 +146,6 @@ readonly class TorrentSearchFiltersDTO
                                     )
                             )
                     )
-            )
-            ->when(
-                $this->keywords !== [],
-                fn ($query) => $query->whereHas('keywords', fn ($query) => $query->whereIn('name', $this->keywords))
             )
             ->when(
                 $this->startYear !== null,
@@ -452,10 +446,6 @@ readonly class TorrentSearchFiltersDTO
             if (!$group->is_modo) {
                 $filters[] = 'anon = false';
             }
-        }
-
-        if ($this->keywords !== []) {
-            $filters[] = 'keywords IN '.json_encode($this->keywords);
         }
 
         if ($this->startYear !== null) {

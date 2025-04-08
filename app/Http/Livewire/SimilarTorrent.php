@@ -66,9 +66,6 @@ class SimilarTorrent extends Component
     public string $uploader = '';
 
     #[Url(history: true)]
-    public string $keywords = '';
-
-    #[Url(history: true)]
     public ?int $minSize = null;
 
     #[Url(history: true)]
@@ -286,7 +283,6 @@ class SimilarTorrent extends Component
                 name: $this->name,
                 description: $this->description,
                 mediainfo: $this->mediainfo,
-                keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
                 uploader: $this->uploader,
                 episodeNumber: $this->episodeNumber,
                 seasonNumber: $this->seasonNumber,

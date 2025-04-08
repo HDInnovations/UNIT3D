@@ -345,21 +345,6 @@
                     </a>
                 </article>
             @endforeach
-
-            @if (isset($torrent) && $torrent->keywords?->isNotEmpty())
-                <article class="meta__keywords">
-                    <a
-                        class="meta-chip"
-                        href="{{ route('torrents.index', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
-                        <h2 class="meta-chip__name">Keywords</h2>
-                        <h3 class="meta-chip__value">
-                            {{ $torrent->keywords->pluck('name')->join(', ') }}
-                        </h3>
-                    </a>
-                </article>
-            @endif
         </section>
     </div>
 </section>

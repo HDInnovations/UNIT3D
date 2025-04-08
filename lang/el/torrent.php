@@ -100,8 +100,6 @@ return [
     'info-hash'                => 'Πληροφορίες Hash',
     'internal'                 => 'Εσωτερικό',
     'internal-release'         => 'Εσωτερικό release',
-    'keywords'                 => 'Λέξεις Κλειδιά',
-    'keywords-example'         => 'Παράδειγμα: superhero, dc comics, marvel, κωμωδία, ρομαντικό κτλ',
     'last-seed-activity'       => 'Τελευταία δραστηριότητα σπόρου',
     'last-seeder'              => 'Είστε ο τελευταίος εναπομείναν διαμοιραστής! (έχει κατεβεί τουλάχιστον 3 φορές)',
     'last-update'              => 'Τελευταία ενημέρωση',

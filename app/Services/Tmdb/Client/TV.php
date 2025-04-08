@@ -244,16 +244,6 @@ class TV
      *         instagram_id: ?string,
      *         twitter_id: ?string,
      *     },
-     *     keywords: ?array{
-     *         id: ?int,
-     *         results: ?array<
-     *             int<0, max>,
-     *             ?array{
-     *                 id: ?int,
-     *                 name: ?string,
-     *             },
-     *         >,
-     *     },
      *     recommendations: ?array{
      *         page: ?int,
      *         results: ?array<
@@ -306,7 +296,7 @@ class TV
             ->get('https://api.TheMovieDB.org/3/tv/{id}', [
                 'api_key'            => config('api-keys.tmdb'),
                 'language'           => config('app.meta_locale'),
-                'append_to_response' => 'videos,images,aggregate_credits,external_ids,keywords,recommendations,alternative_titles',
+                'append_to_response' => 'videos,images,aggregate_credits,external_ids,recommendations,alternative_titles',
             ])
             ->json();
 

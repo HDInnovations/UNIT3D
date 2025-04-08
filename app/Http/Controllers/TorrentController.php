@@ -28,7 +28,6 @@ use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\History;
 use App\Models\IgdbGame;
-use App\Models\Keyword;
 use App\Models\TmdbMovie;
 use App\Models\Region;
 use App\Models\Resolution;
@@ -194,7 +193,6 @@ class TorrentController extends Controller
             'resolutions'  => Resolution::orderBy('position')->get(),
             'regions'      => Region::orderBy('position')->get(),
             'distributors' => Distributor::orderBy('name')->get(),
-            'keywords'     => Keyword::where('torrent_id', '=', $torrent->id)->pluck('name'),
             'torrent'      => $torrent,
             'user'         => $user,
         ]);
@@ -244,21 +242,6 @@ class TorrentController extends Controller
             $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
-
-        // Torrent Keywords System
-        Keyword::where('torrent_id', '=', $torrent->id)->delete();
-
-        $keywords = [];
-
-        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
-            $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
-        }
-
-        foreach (collect($keywords)->chunk(65_000 / 2) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
-        }
-
-        $category = $torrent->category;
 
         // Meta
 
@@ -457,17 +440,6 @@ class TorrentController extends Controller
             $torrent->igdb !== null          => new IgdbScraper()->game($torrent->igdb),
             default                          => null,
         };
-
-        // Torrent Keywords System
-        $keywords = [];
-
-        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
-            $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
-        }
-
-        foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
-        }
 
         // check for trusted user and update torrent
         if ($user->group->is_trusted && !$request->boolean('mod_queue_opt_in')) {

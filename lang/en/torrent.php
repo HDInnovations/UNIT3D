@@ -103,8 +103,6 @@ return [
     'info-hash'                => 'Info Hash',
     'internal'                 => 'Internal',
     'internal-release'         => 'Internal Release',
-    'keywords'                 => 'Keywords',
-    'keywords-example'         => 'Example: superhero, dc comics, marvel',
     'last-seed-activity'       => 'Last Seed Activity',
     'last-seeder'              => 'You are the Last Remaining Seeder! (has been downloaded at least 3 times)',
     'last-update'              => 'Last Update',

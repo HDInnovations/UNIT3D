@@ -102,8 +102,6 @@ return [
     'info-hash'                => '校验码',
     'internal'                 => '内部组',
     'internal-release'         => '内部组发布',
-    'keywords'                 => '关键词',
-    'keywords-example'         => '例如：超级英雄, DC漫画, 漫威',
     'last-seed-activity'       => '最后做种活动',
     'last-seeder'              => '你是仅存的最后一位做种者！（必须被完整下载3次）',
     'last-update'              => '最后更新',

@@ -300,13 +300,6 @@ class uploadExtensionBuilder {
                             ' (' +
                             data.results[0].release_date +
                             ')';
-                        theMovieDb.movies.getKeywords(
-                            {
-                                id: data.results[0].id,
-                            },
-                            success,
-                            error,
-                        );
                         theMovieDb.movies.getExternalIds(
                             {
                                 id: data.results[0].id,
@@ -324,13 +317,6 @@ class uploadExtensionBuilder {
                             ' (' +
                             data.results[0].first_air_date +
                             ')';
-                        theMovieDb.tv.getKeywords(
-                            {
-                                id: data.results[0].id,
-                            },
-                            success,
-                            error,
-                        );
                         theMovieDb.tv.getExternalIds(
                             {
                                 id: data.results[0].id,
@@ -344,18 +330,6 @@ class uploadExtensionBuilder {
 
             function errorCB(data) {
                 console.log('Error callback: ' + data);
-            }
-
-            //Torrent Keywords
-            function success(data) {
-                data = JSON.parse(data);
-                if (release.type === 'Movie') {
-                    let tags = data.keywords.map(({ name }) => name).join(', ');
-                    document.getElementById('autokeywords').value = tags;
-                } else if (release.type === 'TV Show' && data?.results.length > 0) {
-                    let tags = data.results.map(({ name }) => name).join(', ');
-                    document.getElementById('autokeywords').value = tags;
-                }
             }
 
             function error(data) {
