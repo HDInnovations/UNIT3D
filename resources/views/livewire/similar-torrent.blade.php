@@ -831,7 +831,7 @@
                                 <th class="similar-torrents__name-header">
                                     {{ __('torrent.name') }}
                                 </th>
-                                <th class="similar-torrents__actions-header" colspan="2">
+                                <th class="similar-torrents__actions-header" colspan="3">
                                     {{ __('common.actions') }}
                                 </th>
                                 <th class="similar-torrents__size-header">
