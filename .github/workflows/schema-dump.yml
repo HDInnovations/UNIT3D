@@ -54,7 +54,7 @@ jobs:
             -   name: Clear Application Cache
                 run: php artisan optimize:clear
             -   name: Run Migrations
-                run: php artisan migrate --force
+                run: php artisan migrate --force --schema-path=database/schema/mysql-schema-new.sql
                 env:
                     DB_CONNECTION: mysql
                     DB_HOST: 127.0.0.1
