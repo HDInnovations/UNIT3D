@@ -470,6 +470,11 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\AchievementsController::class, 'index'])->name('index');
         });
 
+        // Bookmarks
+        Route::prefix('bookmarks')->name('bookmarks.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\BookmarkController::class, 'index'])->name('index');
+        });
+
         // Earnings
         Route::prefix('earnings')->name('earnings.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\EarningController::class, 'index'])->name('index');
