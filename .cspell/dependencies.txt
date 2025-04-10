@@ -4,6 +4,7 @@ axios
 axllent
 beanstalkd
 commonmark
+dedoc
 gabrielelana
 getmeili
 imagick

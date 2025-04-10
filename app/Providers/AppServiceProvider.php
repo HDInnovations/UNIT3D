@@ -23,6 +23,10 @@ use App\Models\User;
 use App\Observers\UserObserver;
 use App\View\Composers\FooterComposer;
 use App\View\Composers\TopNavComposer;
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
+use Dedoc\Scramble\Support\Generator\SecurityRequirement;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
@@ -90,5 +94,17 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('partials.footer', FooterComposer::class);
         View::composer('partials.top_nav', TopNavComposer::class);
+
+        // Scramble API docs configuration
+        Scramble::configure()
+            ->withDocumentTransformers(function (OpenApi $openApi): void {
+                $openApi->components->securitySchemes['apikey'] = SecurityScheme::apiKey('query', 'api_token');
+                $openApi->components->securitySchemes['bearer'] = SecurityScheme::http('bearer');
+
+                $openApi->security[] = new SecurityRequirement([
+                    'apikey' => [],
+                    'bearer' => [],
+                ]);
+            });
     }
 }

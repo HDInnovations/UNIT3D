@@ -17,7 +17,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Models\Torrent;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
 
+#[ExcludeAllRoutesFromDocs]
 class BookmarkController extends BaseController
 {
     final public function store(int $torrentId): bool
