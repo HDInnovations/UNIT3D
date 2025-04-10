@@ -1095,7 +1095,11 @@ a:hover {
 
 .post {
     border-radius: 0;
-    grid-template-areas: 'header header' 'aside content' 'aside footer';
+    grid-template-areas: 'header header' 'aside content' 'aside footer' 'aside timestamps';
+}
+
+.post__header {
+    padding-left: 0;
 }
 
 .post__aside {

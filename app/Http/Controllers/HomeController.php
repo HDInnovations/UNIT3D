@@ -93,7 +93,7 @@ class HomeController extends Controller
                 'latest_posts:by-group:'.auth()->user()->group_id,
                 $expiresAt,
                 fn () => Post::query()
-                    ->with('user', 'user.group', 'topic:id,name')
+                    ->with('user', 'user.group', 'topic:id,name', 'updatedBy.group')
                     ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
                     ->withSum('tips', 'bon')
                     ->withExists([

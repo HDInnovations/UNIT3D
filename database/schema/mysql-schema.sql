@@ -1277,13 +1277,16 @@ CREATE TABLE `posts` (
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int unsigned DEFAULT NULL,
   `user_id` int unsigned NOT NULL,
   `topic_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_posts_topics1_idx` (`topic_id`),
   KEY `posts_created_at_index` (`created_at`),
   KEY `posts_user_id_foreign` (`user_id`),
+  KEY `posts_updated_by_foreign` (`updated_by`),
   CONSTRAINT `posts_topic_id_foreign` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `posts_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2940,3 +2943,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (343,'2025_03_25_09
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (344,'2025_03_29_215845_create_playlist_categories',6);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (345,'2025_04_03_085022_drop_season_and_episodes',7);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (346,'2025_04_07_152108_split_recommendations_into_movie_and_tv',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (347,'2024_10_28_164054_add_edited_by_to_posts_table',8);

@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $updated_by
  * @property int                             $user_id
  * @property int                             $topic_id
  */
@@ -46,6 +47,7 @@ class Post extends Model
         'content',
         'topic_id',
         'user_id',
+        'updated_by',
     ];
 
     /**
@@ -69,6 +71,16 @@ class Post extends Model
             'username' => 'System',
             'id'       => User::SYSTEM_USER_ID,
         ]);
+    }
+
+    /**
+     * Belongs To An Updated User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
+    public function updatedBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class, 'updated_by', 'id')->withTrashed();
     }
 
     /**
