@@ -236,4 +236,3 @@ return [
     'your' => 'Your',
     'your-comment' => 'Your comment',
 ];
-$test = 'test';
