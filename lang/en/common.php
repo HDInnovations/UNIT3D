@@ -235,4 +235,5 @@ return [
     'yes' => 'Yes',
     'your' => 'Your',
     'your-comment' => 'Your comment',
+    'test' => 'test',
 ];
