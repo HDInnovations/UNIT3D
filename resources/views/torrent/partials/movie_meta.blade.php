@@ -99,6 +99,44 @@
             @endif
         </ul>
     </div>
+    <ul class="work__tags">
+        <li class="work__media-type">
+            <a
+                class="work__media-type-link"
+                href="{{ route('torrents.index', ['categoryIds' => [$category->id]]) }}"
+            >
+                {{ __('mediahub.movie') }}
+            </a>
+        </li>
+        <li class="work__language">
+            <a
+                class="work__language-link"
+                href="{{ $meta?->original_language === null ? '#' : route('torrents.index', ['primaryLanguageNames' => [$meta->original_language]]) }}"
+            >
+                {{ $meta->original_language ?? __('common.unknown') }}
+            </a>
+        </li>
+        <li class="work__runtime">
+            <span class="work__runtime-text">
+                {{ \Carbon\CarbonInterval::minutes($meta->runtime ?? 0)->cascade()->forHumans(null, true) }}
+            </span>
+        </li>
+        <li class="work__rating">
+            <span
+                class="work__rating-text"
+                title="{{ $meta->vote_count ?? 0 }} {{ __('torrent.votes') }}"
+            >
+                {{ round(($meta->vote_average ?? 0) * 10) }}%
+            </span>
+        </li>
+        @if ($meta?->trailer)
+            <li class="work__trailer show-trailer">
+                <a class="work__trailer-link" href="#">
+                    {{ __('torrent.view-trailer') }}
+                </a>
+            </li>
+        @endif
+    </ul>
     <ul class="meta__ids">
         @foreach (array_unique(array_filter([$meta->id ?? 0, $torrent->tmdb_movie_id ?? 0])) as $tmdbId)
             <li class="meta__tmdb">
@@ -243,33 +281,6 @@
         </section>
         <section class="meta__chip-container">
             <h2 class="meta__heading">Extra Information</h2>
-            <article class="meta-chip-wrapper meta-chip">
-                <i class="{{ config('other.font-awesome') }} fa-star meta-chip__icon"></i>
-                <h2 class="meta-chip__name">{{ __('torrent.rating') }}</h2>
-                <h3 class="meta-chip__value">
-                    {{ ($meta->vote_average ?? 0) * 10 }}% / {{ $meta->vote_count ?? 0 }}
-                    {{ __('torrent.votes') }}
-                </h3>
-            </article>
-            @if ($meta?->trailer)
-                <article class="meta__trailer show-trailer">
-                    <a class="meta-chip" href="#">
-                        <i
-                            class="{{ config('other.font-awesome') }} fa-external-link meta-chip__icon"
-                        ></i>
-                        <h2 class="meta-chip__name">Trailer</h2>
-                        <h3 class="meta-chip__value">View</h3>
-                    </a>
-                </article>
-            @endif
-
-            <article class="meta__runtime">
-                <a class="meta-chip" href="#">
-                    <i class="{{ config('other.font-awesome') }} fa-clock meta-chip__icon"></i>
-                    <h2 class="meta-chip__name">Runtime</h2>
-                    <h3 class="meta-chip__value">{{ $meta->runtime ?? 0 }} Minutes</h3>
-                </a>
-            </article>
             @if ($meta?->genres?->isNotEmpty())
                 <article class="meta__genres">
                     <a
@@ -286,19 +297,6 @@
                     </a>
                 </article>
             @endif
-
-            <article class="meta__language">
-                <a
-                    class="meta-chip"
-                    href="{{ $meta?->original_language === null ? '#' : route('torrents.index', ['primaryLanguageNames' => [$meta->original_language]]) }}"
-                >
-                    <i class="{{ config('other.font-awesome') }} fa-language meta-chip__icon"></i>
-                    <h2 class="meta-chip__name">Primary Language</h2>
-                    <h3 class="meta-chip__value">
-                        {{ $meta->original_language ?? __('common.unknown') }}
-                    </h3>
-                </a>
-            </article>
 
             @if ($meta?->collections?->isNotEmpty())
                 <article class="meta__collection">
