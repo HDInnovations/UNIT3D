@@ -72,6 +72,22 @@ class QuickSearchController extends Controller
                 ->setIndexUid(config('scout.prefix').'torrents')
                 ->setQuery($searchById ? '' : $query)
                 ->setFilter($filters)
+                ->setAttributesToRetrieve([
+                    'id',
+                    'name',
+                    'tmdb_movie_id',
+                    'tmdb_tv_id',
+                    'category.id',
+                    'category.name',
+                    'category.movie_meta',
+                    'category.tv_meta',
+                    'tmdb_movie.name',
+                    'tmdb_movie.year',
+                    'tmdb_movie.poster',
+                    'tmdb_tv.name',
+                    'tmdb_tv.year',
+                    'tmdb_tv.poster',
+                ])
                 ->setDistinct('imdb')
         ];
 
@@ -79,12 +95,24 @@ class QuickSearchController extends Controller
         if (!$searchById) {
             $searchQueries[] = (new SearchQuery())
                 ->setIndexUid(config('scout.prefix').'people')
-                ->setQuery($query);
-            //->setFederationOptions((new FederationOptions())->setWeight(0.9));
+                ->setQuery($query)
+                ->setAttributesToRetrieve([
+                    'id',
+                    'name',
+                    'birthday',
+                    'still',
+                ]);
         }
 
         // Perform multi-search with MultiSearchFederation
-        $multiSearchResults = $client->multiSearch($searchQueries, ((new MultiSearchFederation()))->setLimit(20));
+
+        $searchQuery = fn () => $client->multiSearch($searchQueries, ((new MultiSearchFederation()))->setLimit(20));
+
+        if (preg_match("/^[a-zA-Z0-9-_ .'@:\\[\\]+&\\/,!#()?\"]{1,2}$/", $query)) {
+            $multiSearchResults = cache()->remember('quick-search:'.strtolower($query), 3600 * 24, $searchQuery);
+        } else {
+            $multiSearchResults = $searchQuery();
+        }
 
         $results = [];
 
