@@ -1023,6 +1023,35 @@
                 </table>
             </div>
         </section>
+        @if ($collectionMovies?->isNotEmpty())
+            <section class="panelV2">
+                <header class="panel__header">
+                    <h2 class="panel__heading">{{ __('mediahub.collection') }}</h2>
+                    <div class="panel__actions" x-data="posterRow">
+                        <div class="panel__action">
+                            <button class="form__standard-icon-button" x-bind="scrollLeft">
+                                <i class="{{ \config('other.font-awesome') }} fa-angle-left"></i>
+                            </button>
+                        </div>
+                        <div class="panel__action">
+                            <button class="form__standard-icon-button" x-bind="scrollRight">
+                                <i class="{{ \config('other.font-awesome') }} fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <div
+                    class="panel__body collection-posters"
+                    x-ref="posters"
+                    style="max-height: 330px !important"
+                >
+                    @foreach ($collectionMovies as $collectionMovie)
+                        <x-movie.poster :movie="$collectionMovie" :categoryId="$category->id" />
+                    @endforeach
+                </div>
+            </section>
+        @endif
+
         @if ($playlists->isNotEmpty())
             <section class="panelV2">
                 <header class="panel__header">

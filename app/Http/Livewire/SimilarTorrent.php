@@ -416,6 +416,19 @@ class SimilarTorrent extends Component
             ->get();
     }
 
+    /**
+     * @return ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie>
+     */
+    #[Computed]
+    final public function collectionMovies(): ?\Illuminate\Database\Eloquent\Collection
+    {
+        if (!$this->work instanceof TmdbMovie) {
+            return null;
+        }
+
+        return $this->work->collections->first()?->movies;
+    }
+
     final public function alertConfirm(): void
     {
         if (!auth()->user()->group->is_modo) {
@@ -563,6 +576,7 @@ class SimilarTorrent extends Component
             'regions'           => $this->regions,
             'distributors'      => $this->distributors,
             'playlists'         => $this->playlists,
+            'collectionMovies'  => $this->collectionMovies,
         ]);
     }
 }

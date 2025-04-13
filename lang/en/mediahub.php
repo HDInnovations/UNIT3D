@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 return [
     'born'            => 'Born:',
+    'collection'      => 'Collection',
     'collections'     => 'Collections',
     'companies'       => 'Companies',
     'disclaimer'      => 'This product uses the TMDb API but is not endorsed or certified by TMDb.',
