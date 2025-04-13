@@ -918,7 +918,6 @@
                 @endif
             </div>
         </section>
-
         <section class="panelV2">
             <header style="cursor: pointer" class="panel__header">
                 <h2 class="panel__heading">
@@ -1024,6 +1023,47 @@
                 </table>
             </div>
         </section>
+        @if ($playlists->isNotEmpty())
+            <section class="panelV2">
+                <header class="panel__header">
+                    <h2 class="panel__heading">{{ __('playlist.playlists') }}</h2>
+                    <div class="panel__actions" x-data="posterRow">
+                        <div class="panel__action">
+                            <button class="form__standard-icon-button" x-bind="scrollLeft">
+                                <i class="{{ \config('other.font-awesome') }} fa-angle-left"></i>
+                            </button>
+                        </div>
+                        <div class="panel__action">
+                            <button class="form__standard-icon-button" x-bind="scrollRight">
+                                <i class="{{ \config('other.font-awesome') }} fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <div class="panel__body playlists" x-ref="posters">
+                    @switch(true)
+                        @case($category->movie_meta)
+                            @forelse ($playlists as $playlist)
+                                <x-playlist.card :$playlist />
+                            @empty
+                                No playlists found
+                            @endforelse
+
+                            @break
+                        @case($category->tv_meta)
+                            @forelse ($playlists as $tv)
+                                <x-playlist.card :$playlist />
+                            @empty
+                                No playlists found
+                            @endforelse
+
+                            @break
+                        @default
+                            No playlists Found!
+                    @endswitch
+                </div>
+            </section>
+        @endif
     </div>
 </div>
 
