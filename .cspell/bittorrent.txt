@@ -1,0 +1,12 @@
+announce
+bdecode
+bencode
+btih
+infohash
+leecher
+leechers
+numwant
+peerlist
+seedbox
+seedboxes
+seeders

@@ -1,0 +1,6 @@
+joinchannel
+nickserv
+nickservpass
+privmsg
+realname
+servername
