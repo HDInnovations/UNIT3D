@@ -21,19 +21,10 @@
     background: #0008;
     backdrop-filter: blur(5px);
     display: grid;
-    grid-template: 'avatar author' 'description description' / auto 1fr;
+    grid-template: 'author' 'description' / 1fr;
     align-items: center;
     gap: 1.5rem;
     color: #fff;
-}
-
-.playlist__author-link {
-    grid-area: avatar;
-}
-
-.playlist__author-avatar {
-    width: 50px;
-    border-radius: 50%;
 }
 
 .playlist__author {
@@ -87,11 +78,6 @@
     text-align: center;
     color: var(--playlist-card-missing-image-fg);
     content: '\f03e';
-}
-
-.playlists__playlist-avatar {
-    width: 28px;
-    border-radius: 50%;
 }
 
 .playlists__playlist-author {
