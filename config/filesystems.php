@@ -151,6 +151,10 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app/files/torrents/files'),
         ],
+        'collectible-icons' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/collectibles/icons'),
+        ],
     ],
 
     /*
