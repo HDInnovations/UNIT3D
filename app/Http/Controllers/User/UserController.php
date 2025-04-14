@@ -18,6 +18,7 @@ namespace App\Http\Controllers\User;
 
 use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
+use App\Models\Collectible;
 use App\Models\BonTransactions;
 use App\Models\Donation;
 use App\Models\Invite;
@@ -110,6 +111,11 @@ class UserController extends Controller
             'achievements' => AchievementProgress::with('details')
                 ->where('achiever_id', '=', $user->id)
                 ->whereNotNull('unlocked_at')
+                ->get(),
+            'collectibles' => Collectible::whereHas('items', function ($query) use ($user): void {
+                $query->where('user_id', '=', $user->id);
+            })
+                ->with('category')
                 ->get(),
             'peers' => Peer::query()
                 ->selectRaw('SUM(seeder = FALSE AND active = TRUE) as leeching')
