@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Tertutup',
     'create-new-topic'          => 'Buat Topik Baru',
     'created'                   => 'Dibuat',
+    'created-at'                => 'Created At',
     'current'                   => 'Semasa',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Padamkan Topik ini',
     'denied'                    => 'Ditolak',
     'dislike-post'              => 'Tidak suka Post ini',
     'display-forum'             => 'Tunjukkan topik dalam',
     'edit-post'                 => 'Edit Pos',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Edit Topik',
     'forum'                     => 'Forum',
     'forums'                    => 'Forum',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Dilaksanakan',
     'in'                        => 'In',
     'invalid'                   => 'Tidak sah',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Quote',
     'read-topic'                => 'Baca Topik ini',
     'replies'                   => 'Balasan',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Simpan Topik ini',
     'solved'                    => 'Diselesaikan',
     'state'                     => 'Negeri',
     'stats'                     => 'Statistik',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Dilanggan',
     'subscription-quick-search' => 'Carian pantas topik topik (dalam langganan)',
     'suggestion'                => 'Cadangan',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Topik',
     'topic-closed'              => 'Topik ini ditutup',
     'topic-name'                => 'Nama topik',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Tajuk Topik ini',
     'topics'                    => 'Topik',
     'unpin'                     => 'Nyahpasang',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Lihat Semua Topik',
-    'views'                     => 'Pandangan',
+    'views'                     => 'Pandangan'
 ];

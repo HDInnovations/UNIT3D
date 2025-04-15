@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Aktivní naposledy',
     'chatbox'                 => 'Chat Box',
+    'check-news'              => 'Novinky (denně kontrolujte)',
     'click'                   => 'Klikněte na',
-    'to-enable-editor'        => 'pro povolení editoru',
     'featured-by'             => 'Doporučil',
     'featured-torrents'       => 'Doporučené torrenty',
     'featured-torrents-intro' => 'Získejte je, zatímco vy můžete!',
     'featured-until'          => 'To je uváděn torrent až do',
-    'top-torrents'            => 'Top Torrenty',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Nejnovější příspěvky',
     'latest-topics'           => 'Poslední témata',
-    'active-in-last'          => 'Aktivní naposledy',
-    'users-online'            => 'Uživatelé online',
-    'check-news'              => 'Novinky (denně kontrolujte)',
     'new-news'                => 'Nové zprávy',
     'new-torrents'            => 'Nové torrenty',
+    'to-enable-editor'        => 'pro povolení editoru',
+    'top-torrents'            => 'Top Torrenty',
+    'users-online'            => 'Uživatelé online'
 ];

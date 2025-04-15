@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Počet',
     'by-data'                 => 'Podľa údajov',
     'by-volume'               => 'Podľa objemu',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'skupina',
     'groups'                  => 'skupiny',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd štatistiky',
     'nerd-stats-desc'         => 'Všetci milujeme štatistiky. Tu je niekoľko, ktoré považujeme za dôležité',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Dátum registrácie',
     'request-fulfilled'       => 'Žiadosť bola splnená',
     'request-not-fulfilled'   => 'Žiadosť nie je splnená',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Top Seeding',
     'top-seeders'             => 'Top Seeders',
+    'top-seeding'             => 'Top Seeding',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Začiatok semien',
     'top-uploaders'           => 'Top Uploaders',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Celkový počet torrentov',
     'total-traffic'           => 'Celková návštevnosť',
     'total-upload'            => 'Celkový počet odovzdaní',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Používatelia v skupine',
-    'users-per-group'         => 'Používatelia na skupinu',
+    'users-per-group'         => 'Používatelia na skupinu'
 ];

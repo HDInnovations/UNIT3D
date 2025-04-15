@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Av greve',
     'by-data'                 => 'Av Data',
     'by-volume'               => 'Av volym',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Grupp',
     'groups'                  => 'grupper',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statistik',
     'nerd-stats-desc'         => 'Vi älskar alla statistik. Här är några som vi tycker är viktiga',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Registrerings datum',
     'request-fulfilled'       => 'Förfrågan uppfylld',
     'request-not-fulfilled'   => 'Förfrågan är inte uppfylld',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Toppsåning',
     'top-seeders'             => 'Toppsåmaskiner',
+    'top-seeding'             => 'Toppsåning',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Topp uppladdare',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Totalt torrenter',
     'total-traffic'           => 'Total trafik',
     'total-upload'            => 'Total uppladdning',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Användare i gruppen',
-    'users-per-group'         => 'Användare per grupp',
+    'users-per-group'         => 'Användare per grupp'
 ];

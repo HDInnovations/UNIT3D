@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Добавяне на опция',
-    'create-poll'     => 'Създайте анкета',
-    'current'         => 'Текущи анкети',
-    'delete-option'   => 'Изтриване на опцията',
-    'multiple-choice' => 'Това е анкета с множествен избор. Изберете колкото искате отговори.',
-    'option'          => 'опция',
-    'poll'            => 'гласуване',
-    'polls'           => 'Анкети',
-    'results'         => 'Резултати от анкетата',
-    'title'           => 'Заглавие',
-    'total'           => 'Общо гласове',
-    'vote'            => 'гласуване',
-    'vote-now'        => 'Вземете своя глас сега!',
-    'votes'           => 'Гласове',
+    'add-option'           => 'Добавяне на опция',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Създайте анкета',
+    'current'              => 'Текущи анкети',
+    'delete-option'        => 'Изтриване на опцията',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Това е анкета с множествен избор. Изберете колкото искате отговори.',
+    'option'               => 'опция',
+    'poll'                 => 'гласуване',
+    'polls'                => 'Анкети',
+    'results'              => 'Резултати от анкетата',
+    'title'                => 'Заглавие',
+    'total'                => 'Общо гласове',
+    'vote'                 => 'гласуване',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Вземете своя глас сега!',
+    'votes'                => 'Гласове'
 ];

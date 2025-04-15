@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Legg til alternativ',
-    'create-poll'     => 'Lag avstemning',
-    'current'         => 'Nåværende avstemning (er)',
-    'delete-option'   => 'Slett Alternativ',
-    'edit-poll'       => 'Rediger Avstemmning',
-    'multiple-choice' => 'Dette er en fleralternativ avstemmning. Velg så mange svar som du vil.',
-    'option'          => 'Alternativ',
-    'poll'            => 'Avstemming',
-    'polls'           => 'Avstemninger',
-    'results'         => 'Avstemningsresultater',
-    'title'           => 'Tittel',
-    'total'           => 'Totalt antall stemmer noensinne',
-    'vote'            => 'Stemme',
-    'vote-now'        => 'Avgi din stemme nå!',
-    'votes'           => 'Stemmer',
+    'add-option'           => 'Legg til alternativ',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Lag avstemning',
+    'current'              => 'Nåværende avstemning (er)',
+    'delete-option'        => 'Slett Alternativ',
+    'edit-poll'            => 'Rediger Avstemmning',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Dette er en fleralternativ avstemmning. Velg så mange svar som du vil.',
+    'option'               => 'Alternativ',
+    'poll'                 => 'Avstemming',
+    'polls'                => 'Avstemninger',
+    'results'              => 'Avstemningsresultater',
+    'title'                => 'Tittel',
+    'total'                => 'Totalt antall stemmer noensinne',
+    'vote'                 => 'Stemme',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Avgi din stemme nå!',
+    'votes'                => 'Stemmer'
 ];

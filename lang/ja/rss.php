@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => '作成する',
     'create-private-feed' => 'プライベートRSSフィードを作成する',
     'create-public-feed'  => '公開RSSフィードを作成する',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => '削除する',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => '編集する',
     'edit-private-feed'   => 'プライベートRSSフィードを編集する',
     'edit-public-feed'    => '公開RSSフィードを編集',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'フィード',
     'feeds'               => 'フィード',
     'name'                => '名',
-    'public'              => 'パブリック',
     'private'             => '非公開',
+    'public'              => 'パブリック',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSSフィード',
     'type'                => 'タイプ',
+    'updated'             => 'Private RSS Feed Updated'
 ];

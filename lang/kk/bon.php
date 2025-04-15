@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Айырбастау',
     'exchange-warning'        => 'Алмастар түпкілікті, айырбастаудан бұрын таңдауларыңызды екі рет тексеріңіз.',
     'extended-stats'          => 'Кеңейтілген статистика',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Сыйлық',
     'gift-bonus'              => 'Сыйлық бонус ұпайлары',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Сыйлық бонус ұпайлары',
     'gifts'                   => 'Сыйлықтар',
     'item'                    => 'Элемент',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Екінші секунд',
     'per-week'                => 'Апта бойынша ұпайлар',
     'per-year'                => 'Жылына бір рет',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Ұпайлар',
     'receiver'                => 'Қабылдағыш',
     'review-seeds'            => 'Барлық тұқымдық торренттерді шолыңыз',
     'send-gift'               => 'Сыйлық жіберу',
     'sender'                  => 'Жіберуші',
     'store'                   => 'Дүкен',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Кеңестер',
     'total'                   => 'Жалпы пайда',
     'total-gifts'             => 'Total BON сыйлықтарында',
     'total-tips'              => 'Барлығы BON кеңестерінде',
     'you-have-received-gifts' => 'Сіз алдық',
-    'you-have-sent-gifts'     => 'Сіз жібердіңіз',
     'you-have-received-tips'  => 'Сіз алдық',
+    'you-have-sent-gifts'     => 'Сіз жібердіңіз',
     'you-have-sent-tips'      => 'Сіз жібердіңіз',
-    'your-points'             => 'Сіздің ұпайларыңыз',
+    'your-points'             => 'Сіздің ұпайларыңыз'
 ];

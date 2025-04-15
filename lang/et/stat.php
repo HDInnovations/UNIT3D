@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Krahvide järgi',
     'by-data'                 => 'Andmete järgi',
     'by-volume'               => 'Mahtude järgi',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Grupp',
     'groups'                  => 'Grupid',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statistika',
     'nerd-stats-desc'         => 'Me kõik armastame statistikat. Siin on mõned, mida me peame oluliseks',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Registreerimiskuupäev',
     'request-fulfilled'       => 'Taotlus on täidetud',
     'request-not-fulfilled'   => 'Taotlus ei ole täidetud',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Üles Leeched',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Top külvamine',
     'top-seeders'             => 'Top külvikud',
+    'top-seeding'             => 'Top külvamine',
     'top-seedsize'            => 'Üles Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Üles Üleslaadijad',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Kokku torrente',
     'total-traffic'           => 'Kogu liiklus',
     'total-upload'            => 'Üleslaadimine kokku',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Kasutajad grupis',
-    'users-per-group'         => 'Kasutajad grupi kohta',
+    'users-per-group'         => 'Kasutajad grupi kohta'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,26 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'about'             => 'Hier findest du von Nutzern erstelle Playlists!',
-    'attached-success'  => 'Torrent wurde erfolgreich zur Playlist hinzugefügt.',
-    'add-to-playlist'   => 'Torrent zur Playlist hinzufügen',
-    'add-torrent'       => 'Torrent hinzufügen',
-    'added-by'          => 'Von:',
-    'cover'             => 'Ein Titelbild auswählen',
-    'create'            => 'Neue Playlist erstellen',
-    'delete-playlist'   => 'Playlist löschen',
-    'deleted'           => 'Playlist gelöscht!',
-    'detached-success'  => 'Torrent wurde erfolgreich von der Playslist entfernt.',
-    'desc'              => 'Playlist Beschreibung',
-    'download-all'      => 'Alle Playlist Torrents herunterladen',
-    'edit-playlist'     => 'Playlist bearbeiten',
-    'list-by'           => 'Eine Liste erstellt von:',
-    'list-about'        => 'Eine Liste über:',
-    'is-private'        => 'Private Playlist?',
-    'playlists'         => 'Playlists',
-    'private-error'     => 'Dies ist eine Private Playlist!',
-    'published-success' => 'Deine Playlist wurde erfolgreich erstellt!',
-    'title'             => 'Titel',
-    'titles'            => 'Titel',
-    'update-success'    => 'Deine Playlist wurde erfolgreich aktualisiert!',
+    'about'                          => 'Hier findest du von Nutzern erstelle Playlists!',
+    'add-to-playlist'                => 'Torrent zur Playlist hinzufügen',
+    'add-torrent'                    => 'Torrent hinzufügen',
+    'added-by'                       => 'Von:',
+    'attached-success'               => 'Torrent wurde erfolgreich zur Playlist hinzugefügt.',
+    'cover'                          => 'Ein Titelbild auswählen',
+    'create'                         => 'Neue Playlist erstellen',
+    'delete-playlist'                => 'Playlist löschen',
+    'deleted'                        => 'Playlist gelöscht!',
+    'desc'                           => 'Playlist Beschreibung',
+    'detached-success'               => 'Torrent wurde erfolgreich von der Playslist entfernt.',
+    'download-all'                   => 'Alle Playlist Torrents herunterladen',
+    'edit-playlist'                  => 'Playlist bearbeiten',
+    'is-private'                     => 'Private Playlist?',
+    'last-addition-at'               => 'Last addition at',
+    'list-about'                     => 'Eine Liste über:',
+    'list-by'                        => 'Eine Liste erstellt von:',
+    'playlist-suggestion-rejections' => 'Playlist Suggestion Rejections',
+    'playlist-suggestions'           => 'Playlist Suggestions',
+    'playlists'                      => 'Playlists',
+    'private-error'                  => 'Dies ist eine Private Playlist!',
+    'published-success'              => 'Deine Playlist wurde erfolgreich erstellt!',
+    'suggest-torrent'                => 'Suggest Torrent',
+    'suggestion-approved'            => 'Playlist suggestion approved',
+    'suggestion-rejected'            => 'Playlist suggestion rejected',
+    'suggestion-review'              => 'Your suggestion has been sent to the playlist creator for moderation',
+    'title'                          => 'Titel',
+    'titles'                         => 'Titel',
+    'update-success'                 => 'Deine Playlist wurde erfolgreich aktualisiert!'
 ];

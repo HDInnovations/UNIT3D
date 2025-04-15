@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Zamknięte',
     'create-new-topic'          => 'Utwórz nowy temat',
     'created'                   => 'Stworzony',
+    'created-at'                => 'Created At',
     'current'                   => 'obecny',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Usuń ten temat',
     'denied'                    => 'Odmówiono',
     'dislike-post'              => 'Nie lubię tego posta',
     'display-forum'             => 'Pokaż tematy w',
     'edit-post'                 => 'Edytuj post',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Edytuj temat',
     'forum'                     => 'Forum',
     'forums'                    => 'Fora',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Wdrożone',
     'in'                        => 'W',
     'invalid'                   => 'Nieważny',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Zacytować',
     'read-topic'                => 'Przeczytaj temat',
     'replies'                   => 'Odpowiedzi',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Zapisz ten temat',
     'solved'                    => 'Rozwiązany',
     'state'                     => 'Stan',
     'stats'                     => 'Statystyki',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Subskrybowane',
     'subscription-quick-search' => 'Szybkie wyszukiwanie nazwy tematu (w ramach subskrypcji)',
     'suggestion'                => 'Sugestia',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Temat',
     'topic-closed'              => 'Ten temat jest zamknięty',
     'topic-name'                => 'Nazwa tematu',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Tytuł tego tematu',
     'topics'                    => 'Tematy',
     'unpin'                     => 'Odpiąć',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Wyświetl wszystkie tematy',
-    'views'                     => 'Widoki',
+    'views'                     => 'Widoki'
 ];

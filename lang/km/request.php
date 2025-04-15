@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'បន្ថែមសំណើ',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'អាយុ',
     'all-requests'        => 'សំណើទាំងអស់',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'យល់ព្រម',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'ប្រាក់រង្វាន់',
     'bounty-claimed'      => 'Bounty បានអះអាង',
     'bounty-unclaimed'    => 'Bounty មិនបានអះអាង',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'តើអ្នកចង់អះអាងនេះជាភាពមិនអនុលោមទេ',
     'claim-now'           => 'ទាមទារពេលនេះ',
     'claimed'             => 'បានទាមទារ',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'នា​ពេល​បច្ចុប្បន្ន',
     'delete'              => 'លុបសំណើនេះ',
     'delete-confirmation' => 'តើអ្នកប្រាកដជាចង់លុបសំណើនេះ',
     'delete-filled'       => 'សំណើនេះអាចត្រូវបានលុបបើវាមិនត្រូវបានបំពេញ',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'ការពិពណ៌នា',
     'dont-have-bps'       => 'អ្នកមិនមានប្រាក់រង្វាន់គ្រប់គ្រាន់',
     'edit-request'        => 'កែសំណើ',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'បញ្ចូលពិន្ទុប្រាក់រង្វាន់ (តិចបំផុត 100)',
     'enter-hash'          => 'បញ្ចូលព័ត៌មានសម្រាំងនៃ Torrent ដែលបានផ្ទុកឡើង',
     'fill'                => 'បំពេញ',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'សម្រាប់',
     'fulfill'             => 'បំពេញ',
     'last-vote'           => 'ការបោះឆ្នោតចុងក្រោយ',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'សំណើរបស់ខ្ញុំ',
+    'my-voted'            => 'My voted',
     'no'                  => 'ទេ,',
     'no-imdb-id'          => 'រាល់សំណើទាំងអស់ត្រូវមានលេខ IMDB',
     'no-privileges'       => 'កំហុស: សិទ្ធិស្នើសុំរបស់អ្នកត្រូវបានបិទ',
     'no-privileges-desc'  => 'ប្រសិនបើអ្នកគិតថាវាមានកំហុសសូមទាក់ទងបុគ្គលិក',
     'no-refunds'          => 'BON ការផ្លាស់ប្តូរនៅលើការបង្កើតការបំពេញនិងរង្វាន់គឺជាចុងក្រោយ! <br> <strong>គ្មានប្រាក់កក់ទេ!</strong>',
     'pending'             => 'កំពុងរង់ចាំ',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'មូលហេតុ',
     'reject'              => 'បដិសេធ',
     'report'              => 'ស្នើសុំរបាយការណ៍',
     'request'             => 'សំណើ',
     'request-details'     => 'ស្នើសុំពត៌មានលំអិត',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'សំណូមពរ​ដោយ',
     'requests'            => 'សំណូមពរ',
     'required'            => 'ទាមទារ',
     'reset'               => 'កំណត់ឡើងវិញ',
     'reset-confirmation'  => 'តើអ្នកប្រាកដថាអ្នកចង់កំណត់សំណើនេះទេ',
     'reset-request'       => 'កំណត់ការស្នើសុំនេះឡើងវិញ',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'រង្វាន់',
     'reward-desc'         => 'តើអ្នកចង់បានពិន្ទុបន្ថែមប៉ុន្មាន? អប្បរមា 100 ប៊ីប',
     'reward-from'         => 'ពី',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'ប្រាក់រង្វាន់សរុប',
     'type'                => 'វាយ',
     'unclaim'             => 'មិនទាមទារសំណើនេះ',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'មិនបានបំពេញ',
     'view-filled'         => 'មើលពេញ',
     'view-unfilled'       => 'មើលមិនគ្រប់គ្រាន់',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'បោះឆ្នោតសំណើនេះ',
     'voters'              => 'អ្នកបោះឆ្នោត',
     'votes'               => 'ការបោះឆ្នោត',
-    'yes'                 => 'បាទ',
+    'yes'                 => 'បាទ'
 ];

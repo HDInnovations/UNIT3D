@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'ಕ್ರಿಯೆಗಳು',
     'backup'                         => 'ಬ್ಯಾಕಪ್',
     'backup_doesnt_exist'            => 'ಬ್ಯಾಕ್ಅಪ್ ಫೈಲ್ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'ಪೂರ್ಣ ಬ್ಯಾಕಪ್ ಅನ್ನು ರಚಿಸಿ',
-    'create_a_new_files_backup'      => 'ಫೈಲ್ಗಳನ್ನು ಬ್ಯಾಕ್ಅಪ್ ರಚಿಸಿ',
     'create_a_new_db_backup'         => 'ಡೇಟಾಬೇಸ್ ಬ್ಯಾಕ್ಅಪ್ ರಚಿಸಿ',
+    'create_a_new_files_backup'      => 'ಫೈಲ್ಗಳನ್ನು ಬ್ಯಾಕ್ಅಪ್ ರಚಿಸಿ',
     'create_confirmation_message'    => '3 ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಪುಟವನ್ನು ಮರುಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ.',
     'create_confirmation_title'      => 'ಬ್ಯಾಕಪ್ ಪೂರ್ಣಗೊಂಡಿದೆ',
     'create_error_message'           => 'ಬ್ಯಾಕ್ಅಪ್ ಫೈಲ್ ಅನ್ನು ರಚಿಸಲಾಗುವುದಿಲ್ಲ.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'ಸ್ಥಳ',
     'manager'                        => 'ವ್ಯವಸ್ಥಾಪಕ',
     'no_disks_configured'            => 'ಬ್ಯಾಕ್ಅಪ್ ಡಿಸ್ಕ್ಗಳು ಸಂರಚನಾ / ಬ್ಯಾಕ್ಅಪ್ನಲ್ಲಿ ಕಾನ್ಫಿಗರ್ ಮಾಡಲಾಗಿಲ್ಲ',
-    'only_local_downloads_supported' => 'ಸ್ಥಳೀಯ ಫೈಲ್ಸಿಸ್ಟಮ್ನಿಂದ ಮಾತ್ರ ಡೌನ್ಲೋಡ್ಗಳನ್ನು ಬೆಂಬಲಿಸಲಾಗುತ್ತದೆ.',
+    'only_local_downloads_supported' => 'ಸ್ಥಳೀಯ ಫೈಲ್ಸಿಸ್ಟಮ್ನಿಂದ ಮಾತ್ರ ಡೌನ್ಲೋಡ್ಗಳನ್ನು ಬೆಂಬಲಿಸಲಾಗುತ್ತದೆ.'
 ];

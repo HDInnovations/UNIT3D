@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Pagal skaičių',
     'by-data'                 => 'Pagal duomenis',
     'by-volume'               => 'Pagal tūrį',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Grupė',
     'groups'                  => 'Grupės',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statistika',
     'nerd-stats-desc'         => 'Mes visi mėgstame statistiką. Štai keletas svarbių dalykų',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Registracijos data',
     'request-fulfilled'       => 'Prašymas įvykdytas',
     'request-not-fulfilled'   => 'Prašymas neįvykdytas',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Į viršų Leeched',
     'top-leechers'            => 'Į viršų Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Į viršų Sėjamoji',
     'top-seeders'             => 'Į viršų Sėjamosios',
+    'top-seeding'             => 'Į viršų Sėjamoji',
     'top-seedsize'            => 'Į viršų Seedsize',
     'top-seedtime'            => 'Į viršų Seedtime',
     'top-uploaders'           => 'Populiariausi įkėlėjai',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Iš viso torrent',
     'total-traffic'           => 'Bendras srautas',
     'total-upload'            => 'Bendras įkėlimas',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Vartotojai grupėje',
-    'users-per-group'         => 'Vartotojai per grupę',
+    'users-per-group'         => 'Vartotojai per grupę'
 ];

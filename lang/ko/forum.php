@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => '닫음',
     'create-new-topic'          => '새 주제 만들기',
     'created'                   => '만들어짐',
+    'created-at'                => 'Created At',
     'current'                   => '최근',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => '이 주제 삭제',
     'denied'                    => '거부 됨',
     'dislike-post'              => '이 포스트 싫어함',
     'display-forum'             => '주제 표시',
     'edit-post'                 => '소식 수정',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => '주제 편집',
     'forum'                     => '포럼',
     'forums'                    => '포럼들',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => '구현 됨',
     'in'                        => '에서',
     'invalid'                   => '무효',
@@ -57,13 +63,19 @@ return [
     'quote'                     => '인용문',
     'read-topic'                => '주제 읽기',
     'replies'                   => '회신',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => '이 주제 저장',
     'solved'                    => '해결 된',
     'state'                     => '상태',
     'stats'                     => '통계',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => '구독 됨',
     'subscription-quick-search' => '주제 이름 빠른 검색 (구독 내)',
     'suggestion'                => '암시',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => '이야기',
     'topic-closed'              => '이 주제는 닫힙니다.',
     'topic-name'                => '주제 이름',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => '이 주제의 제목',
     'topics'                    => '토픽',
     'unpin'                     => '고정 해제',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => '모든 토픽보기',
-    'views'                     => '조회수',
+    'views'                     => '조회수'
 ];

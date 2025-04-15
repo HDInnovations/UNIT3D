@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'ගණන් කිරීම',
     'by-data'                 => 'දත්ත මගින්',
     'by-volume'               => 'වෙළුමෙන්',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'සමූහය',
     'groups'                  => 'කණ්ඩායම්',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'අපි සියලු දෙනාටම ආදරෙයි. මෙන්න වැදගත් කාරණා කිහිපයක් අපි සොයා ගන්නෙමු',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'ලියාපදිංචි දිනය',
     'request-fulfilled'       => 'සම්පූර්ණ කරන ලද ඉල්ලීම',
     'request-not-fulfilled'   => 'ඉල්ලීම ඉටු නොකෙරේ',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'ඉහළට',
     'top-leechers'            => 'ඉහළ බැසිලිකරුවන්',
     'top-seeded'              => 'ඉහළට',
-    'top-seeding'             => 'ඉහළ ශ්රේණිගත කිරීම',
     'top-seeders'             => 'ඉහළ පැළෑටි බීජ',
+    'top-seeding'             => 'ඉහළ ශ්රේණිගත කිරීම',
     'top-seedsize'            => 'ඉහළට බීජීකරණය කරන්න',
     'top-seedtime'            => 'ඉහළට බීජිං',
     'top-uploaders'           => 'ඉහළට හුවමාරු කරන්නන්',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'මුළු ගමනාගමනය',
     'total-upload'            => 'සම්පූර්ණ උඩුගත කිරීම',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'පරිශීලකයින් සමූහය',
-    'users-per-group'         => 'පරිශීලකයින් සඳහා කණ්ඩායම',
+    'users-per-group'         => 'පරිශීලකයින් සඳහා කණ්ඩායම'
 ];

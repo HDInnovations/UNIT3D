@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'فعال در آخرین',
     'chatbox'                 => 'جعبه گفتگو',
+    'check-news'              => 'اخبار (بررسی روزانه)',
     'click'                   => 'کلیک',
-    'to-enable-editor'        => 'برای فعال کردن ویرایشگر',
     'featured-by'             => 'ویژه توسط',
     'featured-torrents'       => 'تورنت های ویژه',
     'featured-torrents-intro' => 'آنها را در حالی که می توانید!',
     'featured-until'          => 'این تاپیک برجسته تا',
-    'top-torrents'            => 'تورنت بالا',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'آخرین پست ها',
     'latest-topics'           => 'آخرین موضوعات',
-    'active-in-last'          => 'فعال در آخرین',
-    'users-online'            => 'کاربران آنلاین',
-    'check-news'              => 'اخبار (بررسی روزانه)',
     'new-news'                => 'اخبار جدید',
     'new-torrents'            => 'تورنتهای جدید',
+    'to-enable-editor'        => 'برای فعال کردن ویرایشگر',
+    'top-torrents'            => 'تورنت بالا',
+    'users-online'            => 'کاربران آنلاین'
 ];

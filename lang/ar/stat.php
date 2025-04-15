@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'بواسطة العد',
     'by-data'                 => 'حسب البيانات',
     'by-volume'               => 'بالصوت',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'مجموعة',
     'groups'                  => 'المجموعات',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'احصائيات الطالب الذي يذاكر كثيرا',
     'nerd-stats-desc'         => 'نحن جميعا نحب احصائيات. إليك بعض منها التي نجدها مهمة',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'تاريخ التسجيل',
     'request-fulfilled'       => 'طلب الوفاء',
     'request-not-fulfilled'   => 'طلب لم يتحقق',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'أعلى علقت',
     'top-leechers'            => 'كبار Leechers',
     'top-seeded'              => 'أعلى البذور',
-    'top-seeding'             => 'قمة البذر',
     'top-seeders'             => 'كبار البذور',
+    'top-seeding'             => 'قمة البذر',
     'top-seedsize'            => 'أعلى البذور',
     'top-seedtime'            => 'أعلى البذور',
     'top-uploaders'           => 'أعلى رافعون',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'مجموع السيول',
     'total-traffic'           => 'إجمالي حركة المرور',
     'total-upload'            => 'مجموع التحميل',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'المستخدمين في المجموعة',
-    'users-per-group'         => 'المستخدمين لكل مجموعة',
+    'users-per-group'         => 'المستخدمين لكل مجموعة'
 ];

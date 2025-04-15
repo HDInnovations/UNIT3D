@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Креирај',
-    'delete'        => 'Избриши',
-    'enter-subject' => 'Внесете предмет',
-    'from'          => 'Од',
-    'inbox'         => 'Влезно сандаче',
-    'mark-all-read' => 'Означете ги сите пораки како прочитани',
-    'message'       => 'Порака',
-    'messages'      => 'Пораки',
-    'new'           => 'Нова порака',
-    'outbox'        => 'Појдовно сандаче',
-    'private'       => 'Приватен',
-    'read'          => 'Прочитајте',
-    'received-at'   => 'Примена во',
-    'refresh'       => 'Освежи',
-    'reply'         => 'Одговори',
-    'search'        => 'Барај по предмет',
-    'select'        => 'Изберете го корисникот',
-    'send'          => 'Испрати ПМ',
-    'send-to'       => 'Испрати ПМ до',
-    'sent'          => 'Испратено',
-    'sent-at'       => 'Испрати на',
-    'subject'       => 'Предмет',
-    'to'            => 'До',
-    'unread'        => 'Непрочитано',
-    'empty-inbox'   => 'Испразните сандаче',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Креирај',
+    'delete'          => 'Избриши',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Испразните сандаче',
+    'enter-subject'   => 'Внесете предмет',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Од',
+    'inbox'           => 'Влезно сандаче',
+    'mark-all-read'   => 'Означете ги сите пораки како прочитани',
+    'message'         => 'Порака',
+    'messages'        => 'Пораки',
+    'new'             => 'Нова порака',
+    'outbox'          => 'Појдовно сандаче',
+    'private'         => 'Приватен',
+    'read'            => 'Прочитајте',
+    'received-at'     => 'Примена во',
+    'refresh'         => 'Освежи',
+    'reply'           => 'Одговори',
+    'search'          => 'Барај по предмет',
+    'select'          => 'Изберете го корисникот',
+    'send'            => 'Испрати ПМ',
+    'send-to'         => 'Испрати ПМ до',
+    'sent'            => 'Испратено',
+    'sent-at'         => 'Испрати на',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Предмет',
+    'to'              => 'До',
+    'unread'          => 'Непрочитано'
 ];

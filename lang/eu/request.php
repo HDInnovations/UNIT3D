@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Gehitu eskaera',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Adina',
     'all-requests'        => 'Eskaera guztiak',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Onartu',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty-ek aldarrikatu zuen',
     'bounty-unclaimed'    => 'Bounty ez da aldarrikatu',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Nahi al duzu hori aldarrikatu nahi izanez gero',
     'claim-now'           => 'Erreklamatu orain',
     'claimed'             => 'erreklamatu',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Oraingo',
     'delete'              => 'Ezabatu eskaera hau',
     'delete-confirmation' => 'Ziur al zaude eskaera hau ezabatu nahi duzula',
     'delete-filled'       => 'Eskaera bete ezean bakarrik ezabatu daiteke',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'deskribapena',
     'dont-have-bps'       => 'Ez duzu nahikoa bonus',
     'edit-request'        => 'Editatu eskaera',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Sartu bonus puntuak (gutxienez 100)',
     'enter-hash'          => 'Sartu kargatutako Torrent ID',
     'fill'                => 'Bete',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'egiteko',
     'fulfill'             => 'betetzeko',
     'last-vote'           => 'Azken botoa',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Nire eskaerak',
+    'my-voted'            => 'My voted',
     'no'                  => 'Ez,',
     'no-imdb-id'          => 'Eskaera guztiak IMDB zenbakia eduki behar ditu',
     'no-privileges'       => 'Errorea: zure eskaera eskubideak desgaitu egin dira',
     'no-privileges-desc'  => 'Errore bat dela uste baduzu, jarri harremanetan Langileak',
     'no-refunds'          => 'Sortze, betetze eta oparien BON trukeak behin betikoak dira! <br> <strong>Ez da itzulketarik!</strong>',
     'pending'             => 'Zain',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Arrazoia',
     'reject'              => 'Ukatu',
     'report'              => 'Salatu txostena',
     'request'             => 'Eskaera',
     'request-details'     => 'Eskatu xehetasunak',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Eskatutakoa',
     'requests'            => 'eskaerak',
     'required'            => 'Beharrezko',
     'reset'               => 'Berrezarri',
     'reset-confirmation'  => 'Ziur al zaude eskaera hau berrezarri nahi duzula',
     'reset-request'       => 'Berrezarri eskaera hau',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Saria',
     'reward-desc'         => 'Zenbat bonus puntu saritu nahi duzu? Gutxieneko 100 BP',
     'reward-from'         => 'aurrera',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Bounty guztira',
     'type'                => 'Mota',
     'unclaim'             => 'Erreklamatu eskaera hau',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'unfilled',
     'view-filled'         => 'Ikusi bete',
     'view-unfilled'       => 'Ez da hutsik ikusi',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Bozkatu eskaera hau',
     'voters'              => 'Boto-emaileen',
     'votes'               => 'Botoak',
-    'yes'                 => 'Bai',
+    'yes'                 => 'Bai'
 ];

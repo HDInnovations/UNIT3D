@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,58 +15,61 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages.
-    |
-    */
-
-    'accepted'        => 'Kenttä :attribute tulee hyväksyä.',
-    'active_url'      => 'Kentän :attribute tulee olla validi URL-osoite.',
-    'after'           => 'Kentän :attribute päiväyksen tulee olla jälkeen :date.',
-    'after_or_equal'  => 'Kentän :attribute päiväyksen tulee olla sama ja jälkeen :date',
-    'alpha'           => 'Kenttä :attribute voi sisältää vain kirjaimia.',
-    'alpha_dash'      => 'Kenttä :attribute voi sisältää vain kirjaimia, numeroita ja viivoja.',
-    'alpha_num'       => 'Kenttä :attribute voi sisältää vain kirjaimia ja numeroita.',
-    'array'           => 'Kenttä :attribute tulee olla taulukko.',
+    'accepted'       => 'Kenttä :attribute tulee hyväksyä.',
+    'accepted_if'    => 'The :attribute must be accepted when :other is :value.',
+    'active_url'     => 'Kentän :attribute tulee olla validi URL-osoite.',
+    'after'          => 'Kentän :attribute päiväyksen tulee olla jälkeen :date.',
+    'after_or_equal' => 'Kentän :attribute päiväyksen tulee olla sama ja jälkeen :date',
+    'alpha'          => 'Kenttä :attribute voi sisältää vain kirjaimia.',
+    'alpha_dash'     => 'Kenttä :attribute voi sisältää vain kirjaimia, numeroita ja viivoja.',
+    'alpha_num'      => 'Kenttä :attribute voi sisältää vain kirjaimia ja numeroita.',
+    'array'          => 'Kenttä :attribute tulee olla taulukko.',
+    'attributes'     => [
+    ],
     'before'          => 'Kentän :attribute päiväyksen tulee olla ennen :date.',
     'before_or_equal' => 'Kentän :attribute päiväyksen tulee olla sama tai ennen kuin :date.',
     'between'         => [
-        'numeric' => 'Kentän :attribute tulee olla välillä :min - :max.',
-        'file'    => 'Tiedoston :attribute tulee olla :min - :max kilotavua.',
-        'string'  => 'Kentän :attribute tulee olla :min - :max merkkiä pitkä.',
         'array'   => 'Kentän :attribute tulee sisältää välillä :min - :max arvoa.',
+        'file'    => 'Tiedoston :attribute tulee olla :min - :max kilotavua.',
+        'numeric' => 'Kentän :attribute tulee olla välillä :min - :max.',
+        'string'  => 'Kentän :attribute tulee olla :min - :max merkkiä pitkä.'
     ],
-    'boolean'        => 'Kentän :attribute arvon tulee olla tosi tai epätosi.',
-    'confirmed'      => 'Kentän :attribute vahvistus ei täsmää.',
+    'boolean'          => 'Kentän :attribute arvon tulee olla tosi tai epätosi.',
+    'confirmed'        => 'Kentän :attribute vahvistus ei täsmää.',
+    'current_password' => 'The password is incorrect.',
+    'custom'           => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message'
+        ]
+    ],
     'date'           => 'Kentän :attribute arvo ei ole kelvollinen päivämäärä.',
     'date_equals'    => 'The :attribute must be a date equal to :date.',
     'date_format'    => 'Kentän :attribute arvo ei vastaa muotoa :format.',
+    'declined'       => 'The :attribute must be declined.',
+    'declined_if'    => 'The :attribute must be declined when :other is :value.',
     'different'      => 'Kenttien :attribute ja :other tulee olla eriarvoisia.',
     'digits'         => 'Kentän :attribute arvon on oltava :digits numeroa.',
     'digits_between' => 'Kentän :attribute arvon tulee olla :min - :max numeroa.',
     'dimensions'     => 'Kentän :attribute kuvalla on virheelliset mitat.',
     'distinct'       => 'Kentän :attribute arvo ei ole uniikki.',
     'email'          => 'Kentän :attribute arvo ei ole validi sähköpostiosoite.',
+    'email_list'     => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
+    'ends_with'      => 'The :attribute must end with one of the following: :values.',
+    'enum'           => 'The selected :attribute is invalid.',
     'exists'         => 'Kentän :attribute valittu arvo on virheellinen.',
     'file'           => 'Kentän :attribute arvon tulee olla tiedosto.',
     'filled'         => 'Kenttä :attribute on pakollinen.',
     'gt'             => [
-        'numeric' => 'Kentän :attribute arvo tulee olla suurempi kuin :value.',
-        'file'    => 'Tiedoston :attribute tulee olla suurempi kuin :value kilotavua.',
-        'string'  => 'Kentän :attribute arvo tulee olla pidempi kuin :value merkkiä.',
         'array'   => 'Kentän :attribute tulee sisältää enemmän kuin :value arvoa.',
+        'file'    => 'Tiedoston :attribute tulee olla suurempi kuin :value kilotavua.',
+        'numeric' => 'Kentän :attribute arvo tulee olla suurempi kuin :value.',
+        'string'  => 'Kentän :attribute arvo tulee olla pidempi kuin :value merkkiä.'
     ],
     'gte' => [
-        'numeric' => 'Kentän :attribute arvo tulee olla suurempi tai yhtäsuuri kuin :value.',
-        'file'    => 'Tiedoston :attribute tulee olla suurempi tai yhtäsuuri kuin :value kilotavua.',
-        'string'  => 'Kentän :attribute arvo tulee olla pidempi tai yhtä pitkä kuin :value merkkiä.',
         'array'   => 'Kentän :attribute tulee sisältää :value arvoa tai enemmän.',
+        'file'    => 'Tiedoston :attribute tulee olla suurempi tai yhtäsuuri kuin :value kilotavua.',
+        'numeric' => 'Kentän :attribute arvo tulee olla suurempi tai yhtäsuuri kuin :value.',
+        'string'  => 'Kentän :attribute arvo tulee olla pidempi tai yhtä pitkä kuin :value merkkiä.'
     ],
     'image'    => 'Kentän :attribute arvon tulee olla kuva.',
     'in'       => 'Kentän :attribute arvo on virheellinen.',
@@ -76,35 +80,49 @@ return [
     'ipv6'     => 'Kentän :attribute arvon tulee olla validi IPv6-osoite.',
     'json'     => 'Kentän :attribute arvon tulee olla validia JSON:ia.',
     'lt'       => [
-        'numeric' => 'Kentän :attribute arvo tulee olla pienempi kuin :value.',
-        'file'    => 'Tiedoston :attribute tulee olla pienempi kuin :value kilotavua.',
-        'string'  => 'Kentän :attribute arvo tulee olla lyhyempi kuin :value merkkiä.',
         'array'   => 'Kentän :attribute tulee sisältää vähemmän kuin :value arvoa.',
+        'file'    => 'Tiedoston :attribute tulee olla pienempi kuin :value kilotavua.',
+        'numeric' => 'Kentän :attribute arvo tulee olla pienempi kuin :value.',
+        'string'  => 'Kentän :attribute arvo tulee olla lyhyempi kuin :value merkkiä.'
     ],
     'lte' => [
-        'numeric' => 'Kentän :attribute arvo tulee olla pienempi tai yhtäsuuri kuin :value.',
-        'file'    => 'Tiedoston :attribute tulee olla pienempi tai yhtäsuuri kuin :value kilotavua.',
-        'string'  => 'Kentän :attribute arvo tulee olla lyhyempi tai yhtä pitkä kuin :value merkkiä.',
         'array'   => 'Kentän :attribute tulee sisältää :value arvoa tai vähemmän.',
+        'file'    => 'Tiedoston :attribute tulee olla pienempi tai yhtäsuuri kuin :value kilotavua.',
+        'numeric' => 'Kentän :attribute arvo tulee olla pienempi tai yhtäsuuri kuin :value.',
+        'string'  => 'Kentän :attribute arvo tulee olla lyhyempi tai yhtä pitkä kuin :value merkkiä.'
     ],
-    'max' => [
-        'numeric' => 'Kentän arvon :attribute tulee olla enintään :max.',
-        'file'    => 'Tiedoston :attribute tulee olla enintään :max kilobittiä.',
-        'string'  => 'Kentän :attribute arvon tulee olla enintään :max merkkiä pitkä.',
+    'mac_address' => 'The :attribute must be a valid MAC address.',
+    'max'         => [
         'array'   => 'Kentän :attribute ei tule sisältää enempää kuin :max arvoa.',
+        'file'    => 'Tiedoston :attribute tulee olla enintään :max kilobittiä.',
+        'numeric' => 'Kentän arvon :attribute tulee olla enintään :max.',
+        'string'  => 'Kentän :attribute arvon tulee olla enintään :max merkkiä pitkä.'
     ],
     'mimes'     => 'Kentän :attribute arvon tulee olla tiedostotyyppiä: :values.',
     'mimetypes' => 'Kentän :attribute arvon tulee olla tiedostotyyppiä: :values.',
     'min'       => [
-        'numeric' => 'Kentän :attribute arvon tulee olla vähintään :min.',
-        'file'    => 'Tiedoston :attribute tulee olla vähintään :min kilobittiä.',
-        'string'  => 'Kentän :attribute arvon tulee olla vähintään :min merkkiä.',
         'array'   => 'Kentän :attribute tulee sisältää vähintään :min arvoa.',
+        'file'    => 'Tiedoston :attribute tulee olla vähintään :min kilobittiä.',
+        'numeric' => 'Kentän :attribute arvon tulee olla vähintään :min.',
+        'string'  => 'Kentän :attribute arvon tulee olla vähintään :min merkkiä.'
     ],
-    'not_in'               => 'Kentän :attribute arvo on virheellinen.',
-    'not_regex'            => 'Kentän :attribute formaatti on virheellinen.',
-    'numeric'              => 'Kentän :attribute arvon tulee olla numero.',
+    'multiple_of' => 'The :attribute must be a multiple of :value.',
+    'not_in'      => 'Kentän :attribute arvo on virheellinen.',
+    'not_regex'   => 'Kentän :attribute formaatti on virheellinen.',
+    'numeric'     => 'Kentän :attribute arvon tulee olla numero.',
+    'password'    => [
+        'letters'       => 'The :attribute must contain at least one letter.',
+        'mixed'         => 'The :attribute must contain at least one uppercase and one lowercase letter.',
+        'numbers'       => 'The :attribute must contain at least one number.',
+        'symbols'       => 'The :attribute must contain at least one symbol.',
+        'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.'
+    ],
     'present'              => 'Kenttä :attribute vaaditaan.',
+    'prohibited'           => 'The :attribute field is prohibited.',
+    'prohibited_if'        => 'The :attribute field is prohibited when :other is :value.',
+    'prohibited_unless'    => 'The :attribute field is prohibited unless :other is in :values.',
+    'prohibits'            => 'The :attribute field prohibits :other from being present.',
+    'recaptcha'            => 'Please Complete The ReCaptcha.',
     'regex'                => 'Kentän :attribute arvo on väärää muotoa.',
     'required'             => 'Kenttä :attribute vaaditaan.',
     'required_if'          => 'Kenttä :attribute vaaditaan kun :other on :value.',
@@ -115,10 +133,10 @@ return [
     'required_without_all' => 'Kenttä :attribute vaaditaan kun mitään arvoista :values ei ole annettu.',
     'same'                 => 'Kenttien :attribute ja :other on oltava samanarvoiset.',
     'size'                 => [
-        'numeric' => 'Kentän :attribute arvon tulee olla kokoa :size.',
-        'file'    => 'Tiedoston :attribute tulee olla kokoa :size kilobittiä.',
-        'string'  => 'Kentän :attribute arvon tulee olla kokoa :size merkkiä.',
         'array'   => 'Kentän :attribute tulee sisältää :size arvoa.',
+        'file'    => 'Tiedoston :attribute tulee olla kokoa :size kilobittiä.',
+        'numeric' => 'Kentän :attribute arvon tulee olla kokoa :size.',
+        'string'  => 'Kentän :attribute arvon tulee olla kokoa :size merkkiä.'
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values',
     'string'      => 'Kentän :attribute arvon tulee olla tekstiä.',
@@ -126,36 +144,5 @@ return [
     'unique'      => 'Kentän :attribute arvo ei ole uniikki.',
     'uploaded'    => 'Tiedoston :attribute lataus epäonnistui.',
     'url'         => 'Kentän :attribute arvon tulee olla validi URL-osoite.',
-    'uuid'        => 'The :attribute must be a valid UUID.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
-    |
-    */
-
-    'attributes' => [
-    ],
+    'uuid'        => 'The :attribute must be a valid UUID.'
 ];

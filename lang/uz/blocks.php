@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Oxirgi marta faol',
     'chatbox'                 => 'Chat qutisi',
+    'check-news'              => 'Yangiliklar (har kuni tekshirish)',
     'click'                   => 'Tugmasini bosing',
-    'to-enable-editor'        => 'muharririni yoqish uchun',
     'featured-by'             => 'Tanlangan',
     'featured-torrents'       => 'Tanlangan torrentlar',
     'featured-torrents-intro' => 'Qo lingizdan kelganicha harakat qiling!',
     'featured-until'          => 'Bu qadar torrent bo ldi',
-    'top-torrents'            => 'Top torrentlar',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Oxirgi xabarlar',
     'latest-topics'           => 'Oxirgi mavzular',
-    'active-in-last'          => 'Oxirgi marta faol',
-    'users-online'            => 'Onlayn foydalanuvchilar',
-    'check-news'              => 'Yangiliklar (har kuni tekshirish)',
     'new-news'                => 'Yangi yangiliklar',
     'new-torrents'            => 'Yangi torrentlar',
+    'to-enable-editor'        => 'muharririni yoqish uchun',
+    'top-torrents'            => 'Top torrentlar',
+    'users-online'            => 'Onlayn foydalanuvchilar'
 ];

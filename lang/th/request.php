@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'เพิ่มคำขอ',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'อายุ',
     'all-requests'        => 'คำขอทั้งหมด',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'อนุมัติ',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'เงินรางวัล',
     'bounty-claimed'      => 'อ้างสิทธิ์',
     'bounty-unclaimed'    => 'เงินรางวัลไม่มีเหตุสมควร',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'คุณต้องการอ้างสิทธิ์แบบนี้ด้วยตนเองหรือไม่',
     'claim-now'           => 'รับสิทธิ์ทันที',
     'claimed'             => 'อ้างว่า',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'ปัจจุบัน',
     'delete'              => 'ลบคำขอนี้',
     'delete-confirmation' => 'คุณแน่ใจหรือว่าต้องการลบคำขอนี้',
     'delete-filled'       => 'คำขอนี้สามารถลบได้หากยังไม่ได้กรอก',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'ลักษณะ',
     'dont-have-bps'       => 'คุณไม่มีโบนัสเพียงพอ',
     'edit-request'        => 'แก้ไขคำขอ',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'ป้อนคะแนนโบนัส (ขั้นต่ำ 100)',
     'enter-hash'          => 'ป้อนข้อมูลแฮชของ ID ที่อัปโหลด',
     'fill'                => 'ใส่',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'สำหรับ',
     'fulfill'             => 'เติมเต็ม',
     'last-vote'           => 'โหวตครั้งล่าสุด',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'คำขอของฉัน',
+    'my-voted'            => 'My voted',
     'no'                  => 'ไม่มี',
     'no-imdb-id'          => 'คำขอทั้งหมดจะต้องมีหมายเลข IMDB',
     'no-privileges'       => 'ข้อผิดพลาด: สิทธิ์การร้องขอของคุณถูกปิดใช้งาน',
     'no-privileges-desc'  => 'หากคุณคิดว่านี่เป็นข้อผิดพลาดโปรดติดต่อเจ้าหน้าที่',
     'no-refunds'          => 'การแลกเปลี่ยนของ BON ในการสร้างการบรรจุและการรับรางวัลถือเป็นที่สิ้นสุด <br> <strong>ไม่มีการคืนเงิน!</strong>',
     'pending'             => 'รอดำเนินการ',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'เหตุผล',
     'reject'              => 'ปฏิเสธ',
     'report'              => 'ขอรายงาน',
     'request'             => 'ขอร้อง',
     'request-details'     => 'ขอรายละเอียด',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'การร้องขอจาก',
     'requests'            => 'การร้องขอ',
     'required'            => 'จำเป็นต้องใช้',
     'reset'               => 'รีเซ็ต',
     'reset-confirmation'  => 'คุณแน่ใจหรือว่าต้องการรีเซ็ตคำขอนี้',
     'reset-request'       => 'รีเซ็ตคำขอนี้',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'รางวัล',
     'reward-desc'         => 'คุณต้องการให้คะแนนโบนัสเท่าไหร่ ขั้นต่ำ 100 BP',
     'reward-from'         => 'จาก',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'รวมเงินรางวัล',
     'type'                => 'ชนิด',
     'unclaim'             => 'ยกเลิกการอ้างสิทธิ์นี้',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'ที่ไม่สำเร็จ',
     'view-filled'         => 'ดูเต็มแล้ว',
     'view-unfilled'       => 'ดูไม่สำเร็จ',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'โหวตคำขอนี้',
     'voters'              => 'ผู้มีสิทธิเลือกตั้ง',
     'votes'               => 'โหวต',
-    'yes'                 => 'ใช่',
+    'yes'                 => 'ใช่'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'การปฏิบัติ',
     'backup'                         => 'การสำรองข้อมูล',
     'backup_doesnt_exist'            => 'ไม่มีไฟล์สำรอง',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'สร้างการสำรองข้อมูลเต็มรูปแบบ',
-    'create_a_new_files_backup'      => 'สร้างการสำรองไฟล์',
     'create_a_new_db_backup'         => 'สร้างการสำรองฐานข้อมูล',
+    'create_a_new_files_backup'      => 'สร้างการสำรองไฟล์',
     'create_confirmation_message'    => 'โหลดหน้านี้อีกครั้งใน 3 วินาที',
     'create_confirmation_title'      => 'การสำรองข้อมูลเสร็จสมบูรณ์',
     'create_error_message'           => 'ไม่สามารถสร้างไฟล์สำรอง',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'ที่ตั้ง',
     'manager'                        => 'ผู้จัดการ',
     'no_disks_configured'            => 'ไม่มีดิสก์สำรองที่กำหนดค่าไว้ใน config / backup.php',
-    'only_local_downloads_supported' => 'รองรับเฉพาะการดาวน์โหลดจากระบบไฟล์โลคอลเท่านั้น',
+    'only_local_downloads_supported' => 'รองรับเฉพาะการดาวน์โหลดจากระบบไฟล์โลคอลเท่านั้น'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Zavřeno',
     'create-new-topic'          => 'Vytvořit nové téma',
     'created'                   => 'Vytvořeno',
+    'created-at'                => 'Created At',
     'current'                   => 'Proud',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Smazat toto téma',
     'denied'                    => 'Odepřen',
     'dislike-post'              => 'Nelíbí tento příspěvek',
     'display-forum'             => 'Zobrazit témata v',
     'edit-post'                 => 'Upravit příspěvek',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Upravit téma',
     'forum'                     => 'Forum',
     'forums'                    => 'Fóra',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Realizováno',
     'in'                        => 'v',
     'invalid'                   => 'Neplatný',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Citát',
     'read-topic'                => 'Přečtěte si téma',
     'replies'                   => 'Odpovědi',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Uložit toto téma',
     'solved'                    => 'Vyřešeno',
     'state'                     => 'Stát',
     'stats'                     => 'Statistiky',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Přihlásit se',
     'subscription-quick-search' => 'Název tématu rychlé vyhledávání (v rámci odběrů)',
     'suggestion'                => 'Návrh',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Téma',
     'topic-closed'              => 'Toto téma je uzavřeno',
     'topic-name'                => 'Název tématu',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Název tohoto tématu',
     'topics'                    => 'Témata',
     'unpin'                     => 'Uvolnit',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Zobrazit všechna témata',
-    'views'                     => 'Zobrazení',
+    'views'                     => 'Zobrazení'
 ];

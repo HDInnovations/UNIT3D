@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Stvoriti',
     'create-private-feed' => 'Kreirajte privatni RSS kanal',
     'create-public-feed'  => 'Kreirajte javni RSS kanal',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Izbriši',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Uredi',
     'edit-private-feed'   => 'Uredi Privatni RSS kanal',
     'edit-public-feed'    => 'Uredi javni RSS kanal',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Feed',
     'feeds'               => 'Feeds',
     'name'                => 'Ime',
-    'public'              => 'Public',
     'private'             => 'Privatno',
+    'public'              => 'Public',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Feed',
     'type'                => 'Tip',
+    'updated'             => 'Private RSS Feed Updated'
 ];

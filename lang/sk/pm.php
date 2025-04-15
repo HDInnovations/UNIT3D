@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'vytvoriť',
-    'delete'        => 'vymazať',
-    'enter-subject' => 'Zadajte predmet',
-    'from'          => 'z',
-    'inbox'         => 'Doručená pošta',
-    'mark-all-read' => 'Označte všetky správy ako prečítané',
-    'message'       => 'správa',
-    'messages'      => 'správy',
-    'new'           => 'Nová správa',
-    'outbox'        => 'Na odoslanie',
-    'private'       => 'Súkromné',
-    'read'          => 'prečítať',
-    'received-at'   => 'Prijaté dňa',
-    'refresh'       => 'Obnoviť',
-    'reply'         => 'odpoveď',
-    'search'        => 'Vyhľadávanie podľa predmetu',
-    'select'        => 'Vyberte položku A User',
-    'send'          => 'Odoslať PM',
-    'send-to'       => 'Odoslať PM To',
-    'sent'          => 'odoslané',
-    'sent-at'       => 'Odoslané dňa',
-    'subject'       => 'predmet',
-    'to'            => 'na',
-    'unread'        => 'neprečítaný',
-    'empty-inbox'   => 'Prázdna poštová schránka',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'vytvoriť',
+    'delete'          => 'vymazať',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Prázdna poštová schránka',
+    'enter-subject'   => 'Zadajte predmet',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'z',
+    'inbox'           => 'Doručená pošta',
+    'mark-all-read'   => 'Označte všetky správy ako prečítané',
+    'message'         => 'správa',
+    'messages'        => 'správy',
+    'new'             => 'Nová správa',
+    'outbox'          => 'Na odoslanie',
+    'private'         => 'Súkromné',
+    'read'            => 'prečítať',
+    'received-at'     => 'Prijaté dňa',
+    'refresh'         => 'Obnoviť',
+    'reply'           => 'odpoveď',
+    'search'          => 'Vyhľadávanie podľa predmetu',
+    'select'          => 'Vyberte položku A User',
+    'send'            => 'Odoslať PM',
+    'send-to'         => 'Odoslať PM To',
+    'sent'            => 'odoslané',
+    'sent-at'         => 'Odoslané dňa',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'predmet',
+    'to'              => 'na',
+    'unread'          => 'neprečítaný'
 ];

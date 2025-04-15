@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'गणना द्वारा',
     'by-data'                 => 'डेटा द्वारा',
     'by-volume'               => 'मात्रा से',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'समूह',
     'groups'                  => 'समूह',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'बेवकूफ आँकड़े',
     'nerd-stats-desc'         => 'हम सभी आँकड़े प्यार करते हैं। यहाँ कुछ हैं जो हमें महत्वपूर्ण लगते हैं',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'पंजीकरण की तारीख',
     'request-fulfilled'       => 'अनुरोध पूरा हुआ',
     'request-not-fulfilled'   => 'अनुरोध पूरा नहीं हुआ',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'शीर्ष लीकेज',
     'top-leechers'            => 'शीर्ष लेकर्स',
     'top-seeded'              => 'टॉप सीडेड',
-    'top-seeding'             => 'टॉप सीडिंग',
     'top-seeders'             => 'शीर्ष सीडर्स',
+    'top-seeding'             => 'टॉप सीडिंग',
     'top-seedsize'            => 'टॉप सीडाइज़',
     'top-seedtime'            => 'शीर्ष बीजपत्र',
     'top-uploaders'           => 'शीर्ष अपलोडर',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'कुल टोरेंट',
     'total-traffic'           => 'कुल आवागमन',
     'total-upload'            => 'कुल अपलोड',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'उपयोगकर्ता समूह में',
-    'users-per-group'         => 'उपयोगकर्ता प्रति समूह',
+    'users-per-group'         => 'उपयोगकर्ता प्रति समूह'
 ];

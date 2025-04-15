@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,17 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
     'all-time'                => 'Όλος ο Χρόνος',
+    'banned'                  => 'Banned',
     'by-count'                => 'Ανά καταμέτρηση',
     'by-data'                 => 'Ανά Δεδομένα',
     'by-volume'               => 'Ανά όγκο',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Ομάδα',
     'groups'                  => 'Ομάδες',
+    'languages'               => 'Γλώσσες',
     'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Στατιστικά για καμμένους..',
     'nerd-stats-desc'         => 'Όλοι αγαπάμε τα στατιστικά. Εδώ είναι μερικά που θεωρούμε σημαντικά',
-    'languages'               => 'Γλώσσες',
     'place'                   => 'τόπος',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Ημερομηνία Εγγραφής',
     'request-fulfilled'       => 'Εκπληρωμένες Αιτήσεις',
     'request-not-fulfilled'   => 'Αιτήσεις που δεν εκπληρώθηκαν',
@@ -43,8 +52,8 @@ return [
     'top-leeched'             => 'Κορυφή',
     'top-leechers'            => 'Κορυφαίοι Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Κορυφαία σπορά',
     'top-seeders'             => 'Κορυφαίοι διαμοιραστες',
+    'top-seeding'             => 'Κορυφαία σπορά',
     'top-seedsize'            => 'Κορυφαίος διαμοιρασμός',
     'top-seedtime'            => 'Κορυφαία ώρα διαμοιρασμού',
     'top-uploaders'           => 'Κορυφαίοι  Uploaders',
@@ -52,6 +61,7 @@ return [
     'total-torrents'          => 'Σύνολο Torrents',
     'total-traffic'           => 'Συνολική κίνηση',
     'total-upload'            => 'Συνολικα Upload',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Χρήστες στην ομάδα',
-    'users-per-group'         => 'Χρήστες ανά ομάδα',
+    'users-per-group'         => 'Χρήστες ανά ομάδα'
 ];

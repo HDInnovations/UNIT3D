@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,10 +26,11 @@ return [
     'disabled'                => 'Deaktivert',
     'group'                   => 'Gruppe',
     'groups'                  => 'Grupper',
+    'languages'               => 'Språk',
     'last30days'              => 'Siste 30 Dager',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statistikk',
     'nerd-stats-desc'         => 'Vi alle elsker statistikk. Her er noen som vi finner viktige',
-    'languages'               => 'Språk',
     'place'                   => 'Plass',
     'pruned'                  => 'Fjernet',
     'real'                    => 'Ekte',
@@ -50,8 +52,8 @@ return [
     'top-leeched'             => 'Topp Snylter',
     'top-leechers'            => 'Topp Snyltere',
     'top-seeded'              => 'Toppseedet',
-    'top-seeding'             => 'Toppseeding',
     'top-seeders'             => 'Toppseedere',
+    'top-seeding'             => 'Toppseeding',
     'top-seedsize'            => 'Toppseedmengde',
     'top-seedtime'            => 'Toppseedetid',
     'top-uploaders'           => 'Toppopplastere',
@@ -61,5 +63,5 @@ return [
     'total-upload'            => 'Total Opplasting',
     'updated'                 => '(Oppdatert Hvert 10. Minutt!)',
     'users-in-group'          => 'Brukere I Gruppen',
-    'users-per-group'         => 'Brukere Pr. Gruppe',
+    'users-per-group'         => 'Brukere Pr. Gruppe'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Veiksmai',
     'backup'                         => 'Atsarginė kopija',
     'backup_doesnt_exist'            => 'Nėra atsarginio failo.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Sukurti pilną atsarginę kopiją',
-    'create_a_new_files_backup'      => 'Sukurti failų atsarginę kopiją',
     'create_a_new_db_backup'         => 'Sukurti duomenų bazės atsarginę kopiją',
+    'create_a_new_files_backup'      => 'Sukurti failų atsarginę kopiją',
     'create_confirmation_message'    => 'Perkrauti puslapį per 3 sekundes.',
     'create_confirmation_title'      => 'Baigta atsarginė kopija',
     'create_error_message'           => 'Negalima sukurti atsarginės kopijos failo.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Vieta',
     'manager'                        => 'Vadybininkas',
     'no_disks_configured'            => '„Config / backup.php“ nėra sukonfigūruoti atsarginių diskų',
-    'only_local_downloads_supported' => 'Palaikomos tik vietinio failų sistemos atsisiuntimai.',
+    'only_local_downloads_supported' => 'Palaikomos tik vietinio failų sistemos atsisiuntimai.'
 ];

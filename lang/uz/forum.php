@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Yopiq',
     'create-new-topic'          => 'Yangi mavzu yaratish',
     'created'                   => 'Yaratildi',
+    'created-at'                => 'Created At',
     'current'                   => 'Joriy',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Ushbu mavzuni o chirish',
     'denied'                    => 'Rad etildi',
     'dislike-post'              => 'Ushbu xabarni yoqtirmaslik',
     'display-forum'             => 'Mavzularni ko rsatish',
     'edit-post'                 => 'Xabarni tahrirlash',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Mavzuni tahrirlash',
     'forum'                     => 'Forum',
     'forums'                    => 'Forumlar',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Amalga oshirildi',
     'in'                        => 'In',
     'invalid'                   => 'Noto g ri',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Iqtibos',
     'read-topic'                => 'Mavzuni o qing',
     'replies'                   => 'Javoblar',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Ushbu mavzuni saqlash',
     'solved'                    => 'Yechildi',
     'state'                     => 'Davlat',
     'stats'                     => 'Statistikalar',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Obuna qilingan',
     'subscription-quick-search' => 'Mavzu nomi tezkor qidiruv (obuna bo yicha)',
     'suggestion'                => 'Taklif',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Mavzu',
     'topic-closed'              => 'Ushbu mavzu yopiq',
     'topic-name'                => 'Mavzu nomi',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Ushbu mavzuning nomi',
     'topics'                    => 'Mavzular',
     'unpin'                     => 'Yoqing',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Barcha mavzularni ko rish',
-    'views'                     => 'Ko rishlar',
+    'views'                     => 'Ko rishlar'
 ];

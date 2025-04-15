@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,17 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Slaptažodžio priminimo kalbos eilutės
-    |--------------------------------------------------------------------------
-    |
-    | Sekančios kalbos eilutės yra numatytos elutės, atitinkančios priežastims,
-    | pateikiamoms slatažodžių tarpininko, kai nepavyksta slaptažodžio atnaujinimo
-    | bandymas, tokioms kaip negaliojanti žymė ar neteisingas naujas slaptažodis..
-    |
-    */
-
     'password' => 'Slaptažodis turi būti bent šešių simbolių ir sutapti su patvirtinimu.',
     'reset'    => 'Nustatytas naujas slaptažodis!',
     'sent'     => 'Naujo slaptažodžio nustatymo nuoroda išsiųsta',

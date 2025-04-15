@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Κλειστό',
     'create-new-topic'          => 'Δημιουργία νέου θέματος',
     'created'                   => 'Δημιουργήθηκε',
+    'created-at'                => 'Created At',
     'current'                   => 'Τρέχων',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Διαγραφή αυτού του θέματος',
     'denied'                    => 'Αρνήθηκε',
     'dislike-post'              => 'Αυτή η ανάρτηση δεν μου αρέσει',
     'display-forum'             => 'Εμφάνιση θεμάτων σε',
     'edit-post'                 => 'Επεξεργασία ανάρτησης',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Επεξεργασία θέματος',
     'forum'                     => 'Δημόσια Συζήτηση',
     'forums'                    => 'Δημόσιες Συζητήσεις',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Εφαρμογή',
     'in'                        => 'Σε',
     'invalid'                   => 'Μη έγκυρο',
@@ -57,10 +63,14 @@ return [
     'quote'                     => 'Παραθέτω, αναφορά',
     'read-topic'                => 'Διαβάστε το θέμα',
     'replies'                   => 'Απαντήσεις',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Αποθήκευση αυτού του θέματος',
     'solved'                    => 'Εχει Επιλυθεί',
     'state'                     => 'κατάσταση',
     'stats'                     => 'Στατιστικά στοιχεία',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Εγγεγραμμένος',
     'subscription-quick-search' => 'Όνομα σύντομης αναζήτησης (εντός συνδρομών)',
     'suggestion'                => 'Πρόταση',
@@ -73,6 +83,8 @@ return [
     'topic-title'               => 'Τίτλος αυτού του θέματος',
     'topics'                    => 'Θέματα',
     'unpin'                     => 'Ξεκαρφίτσωσε',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Προβολή όλων των θεμάτων',
-    'views'                     => 'Προβολές',
+    'views'                     => 'Προβολές'
 ];

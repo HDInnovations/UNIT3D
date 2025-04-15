@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Ongeza ombi',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Umri',
     'all-requests'        => 'Maombi yote',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Thibitisha',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Fadhila',
     'bounty-claimed'      => 'Fadhila ilidai',
     'bounty-unclaimed'    => 'Fadhila haijatakiwa',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Ungependa Kudai Hii Hasila',
     'claim-now'           => 'Dai sasa',
     'claimed'             => 'Alidai',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Sasa',
     'delete'              => 'Futa Ombi hili',
     'delete-confirmation' => 'Una uhakika unataka kufuta Ombi hili',
     'delete-filled'       => 'Ombi hili linaweza tu kufutwa kama halijajazwa',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Maelezo',
     'dont-have-bps'       => 'Huna Bonus ya kutosha',
     'edit-request'        => 'Badilisha ombi',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Ingiza pointi za ziada (chini ya 100)',
     'enter-hash'          => 'Ingiza ID ya Torrent iliyopakiwa',
     'fill'                => 'Jaza',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'kwa',
     'fulfill'             => 'Jaza',
     'last-vote'           => 'Kupiga kura ya mwisho',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Maombi yangu',
+    'my-voted'            => 'My voted',
     'no'                  => 'Hapana,',
     'no-imdb-id'          => 'Maombi yote yanahitajika kuwa na idadi ya IMDB',
     'no-privileges'       => 'Hitilafu: Haki zako za ombi zimezimwa',
     'no-privileges-desc'  => 'Ikiwa unasikia kuwa hii ni kosa, tafadhali wasiliana na Wafanyakazi',
     'no-refunds'          => 'BON kubadilishana katika kujenga, kujaza na bounties ni ya mwisho! <br> <strong>NO REFUNDS!</strong>',
     'pending'             => 'Inasubiri',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Sababu',
     'reject'              => 'Kataa',
     'report'              => 'Omba ripoti',
     'request'             => 'Omba',
     'request-details'     => 'Maelezo ya ombi',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Ombi kwa',
     'requests'            => 'Maombi',
     'required'            => 'Inahitajika',
     'reset'               => 'Weka upya',
     'reset-confirmation'  => 'Una uhakika unataka kurejesha ombi hili',
     'reset-request'       => 'Weka upya ombi hili',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Zawadi',
     'reward-desc'         => 'Je! Ungependa kulipa kiasi gani cha bonus? Kima cha chini cha 100 BP',
     'reward-from'         => 'Kutoka',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Fadhila ya jumla',
     'type'                => 'Weka',
     'unclaim'             => 'Usihi ombi hili',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Haijajazwa',
     'view-filled'         => 'Angalia imejazwa',
     'view-unfilled'       => 'Tazama haujajazwa',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Piga ombi hili',
     'voters'              => 'Wapiga kura',
     'votes'               => 'Votes',
-    'yes'                 => 'Ndiyo',
+    'yes'                 => 'Ndiyo'
 ];

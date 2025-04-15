@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,10 +26,11 @@ return [
     'disabled'                => '禁用',
     'group'                   => '等級',
     'groups'                  => '等級',
+    'languages'               => '語言',
     'last30days'              => '最近30天',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => '數據廚',
     'nerd-stats-desc'         => '我們都喜歡統計數據。這裡有一些我們認為重要的',
-    'languages'               => '語言',
     'place'                   => '名次',
     'pruned'                  => 'Pruned',
     'real'                    => '真實',
@@ -50,8 +52,8 @@ return [
     'top-leeched'             => '吸血排名',
     'top-leechers'            => '頂級吸血鬼',
     'top-seeded'              => '最健康',
-    'top-seeding'             => 'Top Seeding',
     'top-seeders'             => '頂級保種者',
+    'top-seeding'             => 'Top Seeding',
     'top-seedsize'            => '頂級資源體積',
     'top-seedtime'            => '頂級做種時間',
     'top-uploaders'           => '頂級上傳者',
@@ -61,5 +63,5 @@ return [
     'total-upload'            => '總上傳',
     'updated'                 => '(十分鐘更新一次!)',
     'users-in-group'          => '組內的用戶',
-    'users-per-group'         => '每組的用戶數量',
+    'users-per-group'         => '每組的用戶數量'
 ];
