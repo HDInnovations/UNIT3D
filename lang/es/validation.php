@@ -141,47 +141,10 @@ return [
     'recaptcha'  => 'Verifica que no eres un robot rellenando el Captcha.',
 
     'custom' => [
-        'password' => [
-            'min' => 'La :attribute debe contener más de :min caracteres',
-        ],
-        'email' => [
-            'unique' => 'El :attribute ya existe en nuestra base de datos.',
-        ],
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
 
-    'attributes' => [
-        'name'                  => 'nombre',
-        'username'              => 'usuario',
-        'email'                 => 'correo electrónico',
-        'first_name'            => 'nombre',
-        'last_name'             => 'apellido',
-        'password'              => 'contraseña',
-        'password_confirmation' => 'confirmación de la contraseña',
-        'city'                  => 'ciudad',
-        'country'               => 'país',
-        'address'               => 'dirección',
-        'phone'                 => 'teléfono',
-        'mobile'                => 'móvil',
-        'age'                   => 'edad',
-        'sex'                   => 'sexo',
-        'gender'                => 'género',
-        'year'                  => 'año',
-        'month'                 => 'mes',
-        'day'                   => 'día',
-        'hour'                  => 'hora',
-        'minute'                => 'minuto',
-        'second'                => 'segundo',
-        'title'                 => 'título',
-        'content'               => 'contenido',
-        'body'                  => 'contenido',
-        'description'           => 'descripción',
-        'excerpt'               => 'extracto',
-        'date'                  => 'fecha',
-        'time'                  => 'hora',
-        'subject'               => 'asunto',
-        'message'               => 'mensaje',
-    ],
+    'attributes' => [],
 ];

@@ -32,7 +32,6 @@ return [
     'size'                => 'Størrelse',
     'subtitle-file'       => 'Undertekst fil',
     'subtitle-file-types' => 'Accepterede filer er ICO, SRT and ZIP',
-    'search'              => 'Søg efter torrent',
     'uploaded'            => 'Uploaded',
     'uploader'            => 'Uploader',
 ];

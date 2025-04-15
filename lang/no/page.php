@@ -31,7 +31,6 @@ return [
     'blacklist-btclient'    => 'BitTorrent Client',
     'blacklist-clients'     => 'Klienter',
     'blacklist-desc'        => 'Følgende nettlesere og Bittorrent-klienter er svartelistet / forbudt fra å annonsere til :title ',
-    'blacklist-webbrowser'  => 'Nettleser',
     'blacklist-emaildomain' => 'Blokkert domene',
     'email-blacklist-desc'  => 'De følgende e-postdomenene er blokkert fra å bli brukt. Du kan ikke registrere eller sende en invitasjon til følgende.',
     'email-whitelist-desc'  => 'De følgende e-postdomenene er de eneste e-postdomenene som skal brukes. Du må kun registrere eller sende en invitasjon ved hjelp av følgende.',

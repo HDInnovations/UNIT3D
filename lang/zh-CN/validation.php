@@ -106,10 +106,17 @@ return [
         'numeric' => '该 :attribute 必须至少 :min。',
         'string'  => '该 :attribute 必须至少 :min 字符。'
     ],
-    'multiple_of'          => '该 :attribute 必须是 :value 的倍数。',
-    'not_in'               => '所选 :attribute 无效。',
-    'not_regex'            => ' :attribute 的格式无效。',
-    'numeric'              => '该 :attribute 必须是一个数字。',
+    'multiple_of' => '该 :attribute 必须是 :value 的倍数。',
+    'not_in'      => '所选 :attribute 无效。',
+    'not_regex'   => ' :attribute 的格式无效。',
+    'numeric'     => '该 :attribute 必须是一个数字。',
+    'password'    => [
+        'letters'       => 'The :attribute must contain at least one letter.',
+        'mixed'         => 'The :attribute must contain at least one uppercase and one lowercase letter.',
+        'numbers'       => 'The :attribute must contain at least one number.',
+        'symbols'       => 'The :attribute must contain at least one symbol.',
+        'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.'
+    ],
     'present'              => '该 :attribute 必须存在。',
     'prohibited'           => '该 :attribute 字段禁止使用。',
     'prohibited_if'        => '该 :attribute 字段禁止使用，当 :other 是 :value。',
