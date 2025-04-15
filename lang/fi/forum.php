@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Suljettu',
     'create-new-topic'          => 'Luo uusi aihe',
     'created'                   => 'Luotu',
+    'created-at'                => 'Created At',
     'current'                   => 'nykyinen',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Poista tämä aihe',
     'denied'                    => 'Denied',
     'dislike-post'              => 'Ei pidä tästä viestistä',
     'display-forum'             => 'Näytä aiheet',
     'edit-post'                 => 'Muokkaa viestiä',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Muokkaa aihe',
     'forum'                     => 'foorumi',
     'forums'                    => 'foorumit',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'täytäntöön',
     'in'                        => 'Sisään',
     'invalid'                   => 'pätemätön',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Lainata',
     'read-topic'                => 'Lue aihe',
     'replies'                   => 'vastaukset',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Tallenna tämä aihe',
     'solved'                    => 'ratkaistu',
     'state'                     => 'Osavaltio',
     'stats'                     => 'tilastot',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Tilatut',
     'subscription-quick-search' => 'Aiheen pikahaku (tilausten sisällä)',
     'suggestion'                => 'Ehdotus',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Aihe',
     'topic-closed'              => 'Tämä aihe on suljettu',
     'topic-name'                => 'Aiheen nimi',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Tämän aiheen nimi',
     'topics'                    => 'aiheista',
     'unpin'                     => 'Irrota',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Näytä kaikki aiheet',
-    'views'                     => 'Luettu',
+    'views'                     => 'Luettu'
 ];

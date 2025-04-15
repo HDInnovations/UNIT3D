@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Размена',
     'exchange-warning'        => 'Размените се конечни, Ве молиме двојно проверете ги вашите избори пред да направите размена.',
     'extended-stats'          => 'Проширена статистика',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Подарок',
     'gift-bonus'              => 'Бонус поени за подароци',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Поени за бонус за подароци',
     'gifts'                   => 'Подароци',
     'item'                    => 'Точка',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Поени во секунда',
     'per-week'                => 'Поени за една недела',
     'per-year'                => 'Поени годишно',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Поени',
     'receiver'                => 'Приемник',
     'review-seeds'            => 'Прегледајте ги сите семенски ротации',
     'send-gift'               => 'Испрати подарок',
     'sender'                  => 'Испраќач',
     'store'                   => 'Продавница',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Совети',
     'total'                   => 'Вкупни приходи',
     'total-gifts'             => 'Во Вкупно БОН Подароци',
     'total-tips'              => 'Во Вкупно БОН Совети',
     'you-have-received-gifts' => 'Сте примиле',
-    'you-have-sent-gifts'     => 'Сте пратиле',
     'you-have-received-tips'  => 'Сте примиле',
+    'you-have-sent-gifts'     => 'Сте пратиле',
     'you-have-sent-tips'      => 'Сте пратиле',
-    'your-points'             => 'Ваши поени',
+    'your-points'             => 'Ваши поени'
 ];

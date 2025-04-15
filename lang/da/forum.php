@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,11 +27,13 @@ return [
     'created'                   => 'lavet',
     'created-at'                => 'Oprettelsestidspunkt',
     'current'                   => 'Nuværende',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Slet emne',
     'denied'                    => 'Nægtet',
     'dislike-post'              => 'Syntes ikke om dette indlæg',
     'display-forum'             => 'Vis emner i',
     'edit-post'                 => 'Rediger indlæg',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Rediger emne',
     'forum'                     => 'Forum',
     'forums'                    => 'Fora',
@@ -60,11 +63,13 @@ return [
     'quote'                     => 'Citér',
     'read-topic'                => 'Læs emnet',
     'replies'                   => 'Svar',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'Hele forum',
     'send-new-topic'            => 'Gem dette emne',
     'solved'                    => 'Løst',
     'state'                     => 'Tilstand',
     'stats'                     => 'Antal',
-    'select-all-forum'          => 'Hele forum',
     'subscribe'                 => 'Abonnér',
     'subscribed'                => 'Abonneret',
     'subscription-quick-search' => 'Hurtig abonnementsøgning',
@@ -78,8 +83,8 @@ return [
     'topic-title'               => 'Titel på dette emne',
     'topics'                    => 'Emner',
     'unpin'                     => 'Frigør',
-    'updated-at'                => 'Opdateringstidspunkt',
     'unsubscribe'               => 'Afmeld',
+    'updated-at'                => 'Opdateringstidspunkt',
     'view-all'                  => 'Se alle emner',
-    'views'                     => 'Visninger',
+    'views'                     => 'Visninger'
 ];

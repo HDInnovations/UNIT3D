@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Tambah pilihan',
-    'create-poll'     => 'Buat pengundian',
-    'current'         => 'Pungutan Semasa',
-    'delete-option'   => 'Padam pilihan',
-    'multiple-choice' => 'Ini adalah pilihan pelbagai pilihan. Pilih seberapa banyak jawapan yang anda suka.',
-    'option'          => 'Pilihan',
-    'poll'            => 'Undian',
-    'polls'           => 'Undian',
-    'results'         => 'Keputusan Undian',
-    'title'           => 'Tajuk',
-    'total'           => 'Jumlah Undian Pernah',
-    'vote'            => 'Undi',
-    'vote-now'        => 'Dapatkan Undian Anda Sekarang!',
-    'votes'           => 'Undian',
+    'add-option'           => 'Tambah pilihan',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Buat pengundian',
+    'current'              => 'Pungutan Semasa',
+    'delete-option'        => 'Padam pilihan',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Ini adalah pilihan pelbagai pilihan. Pilih seberapa banyak jawapan yang anda suka.',
+    'option'               => 'Pilihan',
+    'poll'                 => 'Undian',
+    'polls'                => 'Undian',
+    'results'              => 'Keputusan Undian',
+    'title'                => 'Tajuk',
+    'total'                => 'Jumlah Undian Pernah',
+    'vote'                 => 'Undi',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Dapatkan Undian Anda Sekarang!',
+    'votes'                => 'Undian'
 ];

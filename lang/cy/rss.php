@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Creu',
     'create-private-feed' => 'Creu Preifat RSS Feed',
     'create-public-feed'  => 'Creu Porth RSS RSS',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Dileu',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Golygu',
     'edit-private-feed'   => 'Golygu Porthiant RSS Preifat',
     'edit-public-feed'    => 'Golygu Porthiant RSS RSS',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Porthiant',
     'feeds'               => 'Bwydydd',
     'name'                => 'Enw',
-    'public'              => 'Cyhoeddus',
     'private'             => 'Preifat',
+    'public'              => 'Cyhoeddus',
     'rss'                 => 'RSS',
     'rss-feed'            => 'Porthiant RSS',
     'type'                => 'Math',
+    'updated'             => 'Private RSS Feed Updated'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Po Countu',
     'by-data'                 => 'Po podacima',
     'by-volume'               => 'Po volumenu',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Skupina',
     'groups'                  => 'grupe',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statistika',
     'nerd-stats-desc'         => 'Svi volimo statistiku. Evo nekoliko koje smatramo važnima',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Datum registracije',
     'request-fulfilled'       => 'Zahtjev je ispunjen',
     'request-not-fulfilled'   => 'Zahtjev nije ispunjen',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Vrhunski',
     'top-leechers'            => 'Vrhunski Leechers',
     'top-seeded'              => 'Najviše sjeme',
-    'top-seeding'             => 'Vrh sjetve',
     'top-seeders'             => 'Vrhunske sijačice',
+    'top-seeding'             => 'Vrh sjetve',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Najpopularniji korisnici',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Ukupno torente',
     'total-traffic'           => 'Ukupni promet',
     'total-upload'            => 'Ukupni prijenos',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Korisnici u grupi',
-    'users-per-group'         => 'Korisnici po grupi',
+    'users-per-group'         => 'Korisnici po grupi'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Добавить запрос',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Возраст',
     'all-requests'        => 'Все запросы',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Утвердить',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'премия',
     'bounty-claimed'      => 'Баунти требовал',
     'bounty-unclaimed'    => 'Баунти невостребованный',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Хотели бы вы заявить это анонимно',
     'claim-now'           => 'Подать заявку сейчас',
     'claimed'             => 'Заявленное',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Текущий',
     'delete'              => 'Удалить этот запрос',
     'delete-confirmation' => 'Вы уверены, что хотите удалить этот запрос?',
     'delete-filled'       => 'Этот запрос может быть удален, только если он не был заполнен',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Описание',
     'dont-have-bps'       => 'Вам не хватает бонуса',
     'edit-request'        => 'Редактировать запрос',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Введите бонусные баллы (минимум 100)',
     'enter-hash'          => 'Введите хэш информации загруженного торрента',
     'fill'                => 'заполнить',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'за',
     'fulfill'             => 'выполнять',
     'last-vote'           => 'Последнее голосование',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Мои запросы',
+    'my-voted'            => 'My voted',
     'no'                  => 'Нет,',
     'no-imdb-id'          => 'Все запросы должны содержать номер IMDB',
     'no-privileges'       => 'Ошибка: ваши права запроса были отключены',
     'no-privileges-desc'  => 'Если вы чувствуете, что это ошибка, пожалуйста, свяжитесь с персоналом',
     'no-refunds'          => 'Обмен BON на создание, наполнение и наград окончен! <br> <strong>БЕЗ ВОЗВРАТОВ!</strong>',
     'pending'             => 'в ожидании',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'причина',
     'reject'              => 'отклонять',
     'report'              => 'Запросить отчет',
     'request'             => 'Запрос',
     'request-details'     => 'Детали запроса',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Запрошенный',
     'requests'            => 'Запросы',
     'required'            => 'необходимые',
     'reset'               => 'Сброс',
     'reset-confirmation'  => 'Вы уверены, что хотите сбросить этот запрос?',
     'reset-request'       => 'Сбросить этот запрос',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Вознаграждение',
     'reward-desc'         => 'Сколько бонусных баллов вы хотели бы получить? Минимум 100 п.н.',
     'reward-from'         => 'От',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Общая награда',
     'type'                => 'Тип',
     'unclaim'             => 'Отменить запрос',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Незаполненные',
     'view-filled'         => 'Просмотр заполнен',
     'view-unfilled'       => 'Посмотреть незаполненный',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Проголосовать за этот запрос',
     'voters'              => 'Голосовавшие',
     'votes'               => 'Голосов',
-    'yes'                 => 'да',
+    'yes'                 => 'да'
 ];

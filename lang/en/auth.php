@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,11 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Default Authentication Language Lines
-    |--------------------------------------------------------------------------
-    */
     'activation-error'        => 'Banned or Invalid Token Or Account Already Confirmed!',
     'activation-success'      => 'Account Confirmed! You May Now Login!',
     'add-image'               => 'Add Another Image Link',

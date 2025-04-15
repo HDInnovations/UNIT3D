@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Truke',
     'exchange-warning'        => 'Trukeak behin betikoak dira, mesedez egiaztatu bikoitzak zure aukerak truke bat egin aurretik.',
     'extended-stats'          => 'Estatistika hedatuak',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Opari',
     'gift-bonus'              => 'Opari Bonus Puntuak',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Opari Bonus Puntuak',
     'gifts'                   => 'Opariak',
     'item'                    => 'Item',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Bigarren puntuak',
     'per-week'                => 'Asteko puntuak',
     'per-year'                => 'Urteko puntuak',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Puntuak',
     'receiver'                => 'hargailuen',
     'review-seeds'            => 'Berrikusi Seeded Torrents guztiak',
     'send-gift'               => 'Oparia bidali',
     'sender'                  => 'Sender',
     'store'                   => 'denda',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Aholkuak',
     'total'                   => 'Guztira irabaziak',
     'total-gifts'             => 'Guztira BON opariak',
     'total-tips'              => 'BON Guztira aholkuak',
     'you-have-received-gifts' => 'Jaso duzu',
-    'you-have-sent-gifts'     => 'Bidali duzu',
     'you-have-received-tips'  => 'Jaso duzu',
+    'you-have-sent-gifts'     => 'Bidali duzu',
     'you-have-sent-tips'      => 'Bidali duzu',
-    'your-points'             => 'Zure puntuak',
+    'your-points'             => 'Zure puntuak'
 ];

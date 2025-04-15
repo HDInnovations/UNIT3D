@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Tambahkan permintaan',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Usia',
     'all-requests'        => 'Semua permintaan',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Menyetujui',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Karunia',
     'bounty-claimed'      => 'Bounty mengklaim',
     'bounty-unclaimed'    => 'Karunia tidak diklaim',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Anda Ingin Mengklaim Ini Secara Anonom',
     'claim-now'           => 'Klaim sekarang',
     'claimed'             => 'Diklaim',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Arus',
     'delete'              => 'Hapus Permintaan ini',
     'delete-confirmation' => 'Anda yakin ingin menghapus Permintaan ini',
     'delete-filled'       => 'Permintaan ini hanya dapat dihapus jika belum diisi',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Deskripsi',
     'dont-have-bps'       => 'Anda tidak memiliki Bonus yang cukup',
     'edit-request'        => 'Edit permintaan',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Masukkan poin bonus (minimal 100)',
     'enter-hash'          => 'Masukkan ID dari Torrent yang diunggah',
     'fill'                => 'Mengisi',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'untuk',
     'fulfill'             => 'Memenuhi',
     'last-vote'           => 'Pilihan terakhir',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Permintaan saya',
+    'my-voted'            => 'My voted',
     'no'                  => 'Tidak,',
     'no-imdb-id'          => 'Semua Permintaan Harus Berisi Nomor IMDB',
     'no-privileges'       => 'Kesalahan: Hak permintaan Anda telah dinonaktifkan',
     'no-privileges-desc'  => 'Jika Anda merasa ini salah, harap hubungi Staf',
     'no-refunds'          => 'Pertukaran BON untuk membuat, mengisi, dan hadiah adalah final! <br> <strong>TIDAK ADA PENGEMBALIAN UANG!</strong>',
     'pending'             => 'Tertunda',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Alasan',
     'reject'              => 'Menolak',
     'report'              => 'Laporkan permintaan',
     'request'             => 'Permintaan',
     'request-details'     => 'Detail permintaan',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Diminta oleh',
     'requests'            => 'Permintaan',
     'required'            => 'Wajib',
     'reset'               => 'Setel ulang',
     'reset-confirmation'  => 'Anda yakin ingin mengatur ulang Permintaan ini',
     'reset-request'       => 'Setel Ulang Permintaan ini',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Penghargaan',
     'reward-desc'         => 'Berapa banyak poin bonus yang ingin Anda hadiahi? Minimal 100 BP',
     'reward-from'         => 'Dari',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Total hadiah',
     'type'                => 'Mengetik',
     'unclaim'             => 'Batalkan klaim permintaan ini',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Tidak terisi',
     'view-filled'         => 'Lihat diisi',
     'view-unfilled'       => 'Lihat tidak terisi',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Pilih Permintaan ini',
     'voters'              => 'Pemilih',
     'votes'               => 'Voting',
-    'yes'                 => 'iya nih',
+    'yes'                 => 'iya nih'
 ];

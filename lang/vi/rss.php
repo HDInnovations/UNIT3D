@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Tạo nên',
     'create-private-feed' => 'Tạo nguồn cấp dữ liệu RSS riêng',
     'create-public-feed'  => 'Tạo nguồn cấp dữ liệu RSS công cộng',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Xóa bỏ',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Chỉnh sửa',
     'edit-private-feed'   => 'Chỉnh sửa nguồn cấp dữ liệu RSS riêng',
     'edit-public-feed'    => 'Chỉnh sửa nguồn cấp dữ liệu RSS công cộng',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Nuôi',
     'feeds'               => 'Thức ăn',
     'name'                => 'Tên',
-    'public'              => 'Công cộng',
     'private'             => 'Riêng tư',
+    'public'              => 'Công cộng',
     'rss'                 => 'RSS',
     'rss-feed'            => 'Nguồn cấp dữ liệu RSS',
     'type'                => 'Kiểu',
+    'updated'             => 'Private RSS Feed Updated'
 ];

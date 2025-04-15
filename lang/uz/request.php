@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'So rov qo shish',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Yoshi',
     'all-requests'        => 'Barcha so rovlar',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Tasdiqlang',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty da vo qildi',
     'bounty-unclaimed'    => 'Bounty talab qilinmagan',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Buni xaqiqiy talab qilishni xohlaysizmi',
     'claim-now'           => 'Hozir talab qiling',
     'claimed'             => 'Da vo qilingan',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Joriy',
     'delete'              => 'Ushbu so rovni o chirib tashlang',
     'delete-confirmation' => 'Haqiqatan ham bu so rovni o chirib tashlamoqchimisiz?',
     'delete-filled'       => 'Bu so rov faqat to ldirilmasa o chirilishi mumkin',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Ta rif',
     'dont-have-bps'       => 'Sizda yetarlicha bonus yo q',
     'edit-request'        => 'So rovni tahrirlash',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Bonus ballarini kiritish (minimal 100)',
     'enter-hash'          => 'Yuklangan torrentning Info-xash-ni kiriting',
     'fill'                => 'To ldiring',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'uchun',
     'fulfill'             => 'Tugatish',
     'last-vote'           => 'So nggi ovoz berish',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Mening so rovlarim',
+    'my-voted'            => 'My voted',
     'no'                  => 'Yo q,',
     'no-imdb-id'          => 'Barcha so rovlar IMDB raqami bo lishi kerak',
     'no-privileges'       => 'Xato: Sizning so rovlaringiz huquqlari bekor qilindi',
     'no-privileges-desc'  => 'Agar bu xato deb hisoblasangiz, Xodimlarga murojaat qiling',
     'no-refunds'          => 'Yaratish, to ldirish va sovg alar bo yicha BON almashinuvi yakuniy! <br> <strong>NO REFUNDS!</strong>',
     'pending'             => 'Kutilmoqda',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Sababi',
     'reject'              => 'Rad etish',
     'report'              => 'Hisobot so rovi',
     'request'             => 'So rov',
     'request-details'     => 'Tafsilotlarni so rang',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Talab qilingan',
     'requests'            => 'Talabalar',
     'required'            => 'Majburiy',
     'reset'               => 'Qayta o rnatish',
     'reset-confirmation'  => 'Haqiqatan ham bu so rovni qayta tiklashni xohlaysizmi?',
     'reset-request'       => 'Ushbu so rovni qayta tiklash',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Sovrin',
     'reward-desc'         => 'Qancha bonusli nuqtani mukofotlashni istaysiz? Minimal 100 BP',
     'reward-from'         => 'From',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Umumiy sovg a',
     'type'                => 'Turi',
     'unclaim'             => 'Ushbu so rovni talab qiling',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'To ldirilmagan',
     'view-filled'         => 'Ko rinish to lgan',
     'view-unfilled'       => 'To ldirilmagan ko rinishi',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Ushbu so rovni ovozlang',
     'voters'              => 'Saylovchilar',
     'votes'               => 'Ovozlar',
-    'yes'                 => 'Ha',
+    'yes'                 => 'Ha'
 ];

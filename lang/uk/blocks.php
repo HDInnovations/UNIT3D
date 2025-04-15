@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Активна в останній',
     'chatbox'                 => 'Вікно чату',
+    'check-news'              => 'Новини',
     'click'                   => 'Натисніть',
-    'to-enable-editor'        => ', щоб включити редактор',
     'featured-by'             => 'Рекомендовано користувачем',
     'featured-torrents'       => 'Рекомендовані Торренти',
     'featured-torrents-intro' => 'Завантажуйте їх, поки є можливість!',
     'featured-until'          => 'Рекомендовано до',
-    'top-torrents'            => 'Найпопулярніші Торренти',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Останні повідомлення',
     'latest-topics'           => 'Останні теми',
-    'active-in-last'          => 'Активна в останній',
-    'users-online'            => 'Користувачі онлайн',
-    'check-news'              => 'Новини',
     'new-news'                => 'Нові новини',
     'new-torrents'            => 'Нові торренти',
+    'to-enable-editor'        => ', щоб включити редактор',
+    'top-torrents'            => 'Найпопулярніші Торренти',
+    'users-online'            => 'Користувачі онлайн'
 ];

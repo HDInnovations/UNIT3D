@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Sukurti',
     'create-private-feed' => 'Sukurkite privatų RSS kanalą',
     'create-public-feed'  => 'Sukurti viešą RSS kanalą',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Ištrinti',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Redaguoti',
     'edit-private-feed'   => 'Redaguoti privatų RSS kanalą',
     'edit-public-feed'    => 'Redaguoti viešąjį RSS kanalą',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Maitinti',
     'feeds'               => 'Kanalai',
     'name'                => 'vardas',
-    'public'              => 'Vieša',
     'private'             => 'Privatus',
+    'public'              => 'Vieša',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS kanalas',
     'type'                => 'Tipas',
+    'updated'             => 'Private RSS Feed Updated'
 ];

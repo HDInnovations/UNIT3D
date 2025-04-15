@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Activ în ultimul rând',
     'chatbox'                 => 'Casetă de chat',
+    'check-news'              => 'Știri (verificați zilnic)',
     'click'                   => 'Clic',
-    'to-enable-editor'        => 'pentru a activa editorul',
     'featured-by'             => 'Recomandate de',
     'featured-torrents'       => 'Recomandate Torrents',
     'featured-torrents-intro' => 'Ia-le în timp ce poți!',
     'featured-until'          => 'Acest lucru este prezentat torrent până la',
-    'top-torrents'            => 'Top Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Ultimele postări',
     'latest-topics'           => 'Ultimele subiecte',
-    'active-in-last'          => 'Activ în ultimul rând',
-    'users-online'            => 'Utilizatori online',
-    'check-news'              => 'Știri (verificați zilnic)',
     'new-news'                => 'Stiri noi',
     'new-torrents'            => 'Noi torente',
+    'to-enable-editor'        => 'pentru a activa editorul',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'Utilizatori online'
 ];

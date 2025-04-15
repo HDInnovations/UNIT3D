@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Crea',
-    'delete'        => 'Șterge',
-    'enter-subject' => 'Introduceți subiectul',
-    'from'          => 'Din',
-    'inbox'         => 'Inbox',
-    'mark-all-read' => 'Marcați toate mesajele ca citite',
-    'message'       => 'Mesaj',
-    'messages'      => 'Mesaje',
-    'new'           => 'Mesaj nou',
-    'outbox'        => 'De trimis',
-    'private'       => 'Privat',
-    'read'          => 'Citit',
-    'received-at'   => 'A primit la',
-    'refresh'       => 'Reîmprospăta',
-    'reply'         => 'Răspuns',
-    'search'        => 'Căutați după subiect',
-    'select'        => 'Selectați un utilizator',
-    'send'          => 'Trimiteți PM',
-    'send-to'       => 'Trimiteți PM la',
-    'sent'          => 'Trimis',
-    'sent-at'       => 'Trimis la',
-    'subject'       => 'Subiect',
-    'to'            => 'La',
-    'unread'        => 'necitită',
-    'empty-inbox'   => 'Cutie poștală goală',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Crea',
+    'delete'          => 'Șterge',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Cutie poștală goală',
+    'enter-subject'   => 'Introduceți subiectul',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Din',
+    'inbox'           => 'Inbox',
+    'mark-all-read'   => 'Marcați toate mesajele ca citite',
+    'message'         => 'Mesaj',
+    'messages'        => 'Mesaje',
+    'new'             => 'Mesaj nou',
+    'outbox'          => 'De trimis',
+    'private'         => 'Privat',
+    'read'            => 'Citit',
+    'received-at'     => 'A primit la',
+    'refresh'         => 'Reîmprospăta',
+    'reply'           => 'Răspuns',
+    'search'          => 'Căutați după subiect',
+    'select'          => 'Selectați un utilizator',
+    'send'            => 'Trimiteți PM',
+    'send-to'         => 'Trimiteți PM la',
+    'sent'            => 'Trimis',
+    'sent-at'         => 'Trimis la',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Subiect',
+    'to'              => 'La',
+    'unread'          => 'necitită'
 ];

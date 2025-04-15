@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Aggiungi richiesta',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Età',
     'all-requests'        => 'Tutte le richieste',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Approvare',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'generosità',
     'bounty-claimed'      => 'Bounty ha sostenuto',
     'bounty-unclaimed'    => 'La taglia non reclamata',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Vorresti rivendicare questo in modo anonimo',
     'claim-now'           => 'Richiedi ora',
     'claimed'             => 'Ha sostenuto',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'attuale',
     'delete'              => 'Elimina questa richiesta',
     'delete-confirmation' => 'Sei sicuro di voler eliminare questa richiesta',
     'delete-filled'       => 'Questa richiesta può essere cancellata solo se non è stata compilata',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Descrizione',
     'dont-have-bps'       => 'Non hai abbastanza bonus',
     'edit-request'        => 'Modifica richiesta',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Inserisci punti bonus (minimo 100)',
     'enter-hash'          => 'Inserisci l\'ID di informazioni del torrente caricato',
     'fill'                => 'Riempire',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'per',
     'fulfill'             => 'Adempiere',
     'last-vote'           => 'Ultimo voto',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Le mie richieste',
+    'my-voted'            => 'My voted',
     'no'                  => 'No,',
     'no-imdb-id'          => 'Tutte le richieste devono contenere un numero IMDB',
     'no-privileges'       => 'Errore: i tuoi diritti di richiesta sono stati disabilitati',
     'no-privileges-desc'  => 'Se ritieni che ciò sia dovuto a errori, contatta il personale',
     'no-refunds'          => 'Gli scambi BON su creazione, riempimento e taglie sono definitivi! <br> <strong>NESSUN RIMBORSO!</strong>',
     'pending'             => 'in attesa di',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Ragionare',
     'reject'              => 'Rifiutare',
     'report'              => 'Segnala richiesta',
     'request'             => 'Richiesta',
     'request-details'     => 'Richiedi dettagli',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Richiesto da',
     'requests'            => 'richieste',
     'required'            => 'necessario',
     'reset'               => 'Reset',
     'reset-confirmation'  => 'Sei sicuro di voler resettare questa richiesta',
     'reset-request'       => 'Resetta questa richiesta',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Ricompensa',
     'reward-desc'         => 'Quanto bonus ti piacerebbe premiare? Minimo 100 BP',
     'reward-from'         => 'A partire dal',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Taglia totale',
     'type'                => 'genere',
     'unclaim'             => 'Annulla la richiesta',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'unfilled',
     'view-filled'         => 'Visualizza pieno',
     'view-unfilled'       => 'Visualizza vuoto',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Vota questa richiesta',
     'voters'              => 'Gli elettori',
     'votes'               => 'voti',
-    'yes'                 => 'sì',
+    'yes'                 => 'sì'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Vahetus',
     'exchange-warning'        => 'Vahetused on lõplikud, kontrollige oma valikuid enne vahetust.',
     'extended-stats'          => 'Laiendatud statistika',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Kingitus',
     'gift-bonus'              => 'Kingitusboonuspunktid',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Kingitusboonuspunktid',
     'gifts'                   => 'Kingitused',
     'item'                    => 'Üksus',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Punktid sekundis',
     'per-week'                => 'Punktid nädalas',
     'per-year'                => 'Punktid aastas',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Punktid',
     'receiver'                => 'Vastuvõtja',
     'review-seeds'            => 'Vaadake üle kõik seemned',
     'send-gift'               => 'Saada kingitus',
     'sender'                  => 'Saatja',
     'store'                   => 'Hoida',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Nõuanded',
     'total'                   => 'kogutulu',
     'total-gifts'             => 'Kokku BON kingitustes',
     'total-tips'              => 'Kokku BON nõuanded',
     'you-have-received-gifts' => 'Te olete saanud',
-    'you-have-sent-gifts'     => 'Sul on saadetud',
     'you-have-received-tips'  => 'Te olete saanud',
+    'you-have-sent-gifts'     => 'Sul on saadetud',
     'you-have-sent-tips'      => 'Sul on saadetud',
-    'your-points'             => 'Teie punktid',
+    'your-points'             => 'Teie punktid'
 ];

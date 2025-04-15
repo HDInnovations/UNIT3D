@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Хаалттай байна',
     'create-new-topic'          => 'Шинэ сэдэв үүсгэх',
     'created'                   => 'Үүсгэсэн',
+    'created-at'                => 'Created At',
     'current'                   => 'Одоогийн',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Энэ сэдвийг устгах',
     'denied'                    => 'Батлагдсан',
     'dislike-post'              => 'Энэ бичлэгийг дургүй',
     'display-forum'             => 'Сэдвүүдийг харуулах',
     'edit-post'                 => 'Бичлэгийн засвар',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Сэдвийг засварлах',
     'forum'                     => 'Форум',
     'forums'                    => 'Форум',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Хэрэгжүүлсэн',
     'in'                        => 'Дотор нь',
     'invalid'                   => 'Буруу байна',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Иш татах',
     'read-topic'                => 'Сэдэв уншина уу',
     'replies'                   => 'Хариултууд',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Энэ сэдвийг хадгалах',
     'solved'                    => 'Шийдэг',
     'state'                     => 'Улс',
     'stats'                     => 'Статус',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Захиалсан',
     'subscription-quick-search' => 'Сэдвийн нэр хурдан хайлт (захиалга дотор)',
     'suggestion'                => 'Санал',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Сэдэв',
     'topic-closed'              => 'Энэ сэдэв нь хаалттай байна',
     'topic-name'                => 'Сэдвийн нэр',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Энэ Сэдвийн нэр',
     'topics'                    => 'Сэдэвүүд',
     'unpin'                     => 'Unpin',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Бүх сэдвийг харах',
-    'views'                     => 'Харах',
+    'views'                     => 'Харах'
 ];

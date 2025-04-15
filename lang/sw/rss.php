@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Unda',
     'create-private-feed' => 'Unda Chakula cha RSS cha Kibinafsi',
     'create-public-feed'  => 'Unda Feed RSS ya Umma',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Futa',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Badilisha',
     'edit-private-feed'   => 'Hariri Machapisho ya RSS ya Binafsi',
     'edit-public-feed'    => 'Badilisha Machapisho ya RSS ya Umma',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Chakula',
     'feeds'               => 'Fidia',
     'name'                => 'Jina',
-    'public'              => 'Umma',
     'private'             => 'Privat',
+    'public'              => 'Umma',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Feed',
     'type'                => 'Weka',
+    'updated'             => 'Private RSS Feed Updated'
 ];

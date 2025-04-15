@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Эҷод кунед',
     'create-private-feed' => 'Эҷоди RSS Feed хусусӣ',
     'create-public-feed'  => 'Эҷоди RSS Feed',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Тоза кардан',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Таҳрири',
     'edit-private-feed'   => 'Тафсири RSS хондани шахс',
     'edit-public-feed'    => 'Таҳрири RSS Feed',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Озуқаворӣ',
     'feeds'               => 'Рӯйхати',
     'name'                => 'Ном',
-    'public'              => 'Ҷамъият',
     'private'             => 'Private',
+    'public'              => 'Ҷамъият',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Feed',
     'type'                => 'Намуди',
+    'updated'             => 'Private RSS Feed Updated'
 ];

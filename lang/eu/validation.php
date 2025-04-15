@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,58 +15,61 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
-    'accepted'        => ':attribute onartu beharra dago.',
-    'active_url'      => ':attribute ez da baliozko URL bat.',
-    'after'           => ':attribute :date osteko data izan behar da.',
-    'after_or_equal'  => ':attribute :date osteko data edo data bera izan behar da.',
-    'alpha'           => ':attribute hizkiak besterik ezin ditu izan.',
-    'alpha_dash'      => ':attribute hizkiak, zenbakiak eta marrak besterik ezin ditu izan.',
-    'alpha_num'       => ':attribute hizkiak eta zenbakiak besterik ezin ditu izan.',
-    'array'           => ':attribute bilduma izan behar da.',
+    'accepted'       => ':attribute onartu beharra dago.',
+    'accepted_if'    => 'The :attribute must be accepted when :other is :value.',
+    'active_url'     => ':attribute ez da baliozko URL bat.',
+    'after'          => ':attribute :date osteko data izan behar da.',
+    'after_or_equal' => ':attribute :date osteko data edo data bera izan behar da.',
+    'alpha'          => ':attribute hizkiak besterik ezin ditu izan.',
+    'alpha_dash'     => ':attribute hizkiak, zenbakiak eta marrak besterik ezin ditu izan.',
+    'alpha_num'      => ':attribute hizkiak eta zenbakiak besterik ezin ditu izan.',
+    'array'          => ':attribute bilduma izan behar da.',
+    'attributes'     => [
+    ],
     'before'          => ':attribute :date aurreko data izan behar da.',
     'before_or_equal' => ':attribute :date aurreko data edo data bera izan behar da.',
     'between'         => [
-        'numeric' => ':attribute :min eta :max artean egon behar da.',
-        'file'    => ':attribute-(e)k :min eta :max kilobyte arteko pisua izan behar du.',
-        'string'  => ':attribute-(e)k :min eta :max karaktere artean izan behar ditu.',
         'array'   => ':attribute-(e)k :min eta :max arteko elementu kopurua izan behar du.',
+        'file'    => ':attribute-(e)k :min eta :max kilobyte arteko pisua izan behar du.',
+        'numeric' => ':attribute :min eta :max artean egon behar da.',
+        'string'  => ':attribute-(e)k :min eta :max karaktere artean izan behar ditu.'
     ],
-    'boolean'        => ':attribute-(r)en balioa egia edo gezurra izan behar da.',
-    'confirmed'      => ':attribute-(r)en berrespena ez dator bat.',
+    'boolean'          => ':attribute-(r)en balioa egia edo gezurra izan behar da.',
+    'confirmed'        => ':attribute-(r)en berrespena ez dator bat.',
+    'current_password' => 'The password is incorrect.',
+    'custom'           => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message'
+        ]
+    ],
     'date'           => ':attribute ez da baliozko data.',
     'date_equals'    => 'The :attribute must be a date equal to :date.',
     'date_format'    => ':attribute datak ez du :format formatua.',
+    'declined'       => 'The :attribute must be declined.',
+    'declined_if'    => 'The :attribute must be declined when :other is :value.',
     'different'      => ':attribute eta :other ezberdinak izan behar dira.',
     'digits'         => ':attribute-(e)k :digits digitu eduki behar ditu.',
     'digits_between' => ':attribute-(e)k :min eta :max arteko digitu kopurua eduki behar du.',
     'dimensions'     => ':attribute irudiaren neurriak baliogabeak dira.',
     'distinct'       => ':attribute-(e)k bikoiztutako balioa dauka.',
     'email'          => ':attribute baliozko helbide elektronikoa izan behar da.',
+    'email_list'     => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
+    'ends_with'      => 'The :attribute must end with one of the following: :values.',
+    'enum'           => 'The selected :attribute is invalid.',
     'exists'         => ':attribute baliogabea da.',
     'file'           => ':attribute fitxategi bat izan behar da.',
     'filled'         => ':attribute derrigorrezkoa da.',
     'gt'             => [
-        'numeric' => ':attribute-(e)k :value baino handiagoa izan behar du.',
-        'file'    => ':attribute-(e)k :value kilobyte baino handiagoa izan behar du.',
-        'string'  => ':attribute-(e)k :value karaktere baino gehiago izan behar ditu.',
         'array'   => ':attribute-(e)k :value elementu baino gehiago izan behar ditu.',
+        'file'    => ':attribute-(e)k :value kilobyte baino handiagoa izan behar du.',
+        'numeric' => ':attribute-(e)k :value baino handiagoa izan behar du.',
+        'string'  => ':attribute-(e)k :value karaktere baino gehiago izan behar ditu.'
     ],
     'gte' => [
-        'numeric' => ':attribute-(e)k :value baino handiagoa edo berdina izan behar du.',
-        'file'    => ':attribute-(e)k :value kilobyte edo gehiago izan behar ditu.',
-        'string'  => ':attribute-(e)k :value karaktere edo gehiago izan behar ditu.',
         'array'   => ':attribute-(e)k :value elementu edo gehiago izan behar ditu.',
+        'file'    => ':attribute-(e)k :value kilobyte edo gehiago izan behar ditu.',
+        'numeric' => ':attribute-(e)k :value baino handiagoa edo berdina izan behar du.',
+        'string'  => ':attribute-(e)k :value karaktere edo gehiago izan behar ditu.'
     ],
     'image'    => ':attribute irudi bat izan behar da.',
     'in'       => ':attribute baliogabea da.',
@@ -76,35 +80,49 @@ return [
     'ipv6'     => ':attribute baliozko IPv6 helbidea izan behar da.',
     'json'     => ':attribute baliozko JSON karaktere-katea izan behar da.',
     'lt'       => [
-        'numeric' => ':attribute-(e)k :value baino txikiagoa izan behar du.',
-        'file'    => ':attribute-(e)k :value kilobyte baino txikiagoa izan behar du.',
-        'string'  => ':attribute-(e)k :value karaktere baino gutxiago izan behar ditu.',
         'array'   => ':attribute-(e)k :value elementu baino gutxiago izan behar ditu.',
+        'file'    => ':attribute-(e)k :value kilobyte baino txikiagoa izan behar du.',
+        'numeric' => ':attribute-(e)k :value baino txikiagoa izan behar du.',
+        'string'  => ':attribute-(e)k :value karaktere baino gutxiago izan behar ditu.'
     ],
     'lte' => [
-        'numeric' => ':attribute-(e)k :value baino txikiagoa edo berdina izan behar du.',
-        'file'    => ':attribute-(e)k :value kilobyte edo gutxiago izan behar ditu.',
-        'string'  => ':attribute-(e)k :value karaktere edo gutxiago izan behar ditu.',
         'array'   => ':attribute-(e)k :value elementu edo gutxiago izan behar ditu.',
+        'file'    => ':attribute-(e)k :value kilobyte edo gutxiago izan behar ditu.',
+        'numeric' => ':attribute-(e)k :value baino txikiagoa edo berdina izan behar du.',
+        'string'  => ':attribute-(e)k :value karaktere edo gutxiago izan behar ditu.'
     ],
-    'max' => [
-        'numeric' => ':attribute ezin da :max baino handiagoa izan.',
-        'file'    => ':attribute ezin da :max kilobyte baino handiagoa izan.',
-        'string'  => ':attribute-(e)k ezin du :max karaktere baino gehiago eduki.',
+    'mac_address' => 'The :attribute must be a valid MAC address.',
+    'max'         => [
         'array'   => ':attribute-(e)k ezin du :max elementu baino gehiago eduki.',
+        'file'    => ':attribute ezin da :max kilobyte baino handiagoa izan.',
+        'numeric' => ':attribute ezin da :max baino handiagoa izan.',
+        'string'  => ':attribute-(e)k ezin du :max karaktere baino gehiago eduki.'
     ],
     'mimes'     => ':attribute :values motako fitxategia izan behar da.',
     'mimetypes' => ':attribute :values motako fitxategia izan behar da.',
     'min'       => [
-        'numeric' => ':attribute-(e)k gutxienez :min-(e)ko tamaina izan behar du.',
-        'file'    => ':attribute-(e)k gutxienez :min kilobyte izan behar ditu.',
-        'string'  => ':attribute-(e)k gutxienez :min karaktere izan behar ditu.',
         'array'   => ':attribute-(e)k gutxienez :min elementu izan behar ditu.',
+        'file'    => ':attribute-(e)k gutxienez :min kilobyte izan behar ditu.',
+        'numeric' => ':attribute-(e)k gutxienez :min-(e)ko tamaina izan behar du.',
+        'string'  => ':attribute-(e)k gutxienez :min karaktere izan behar ditu.'
     ],
-    'not_in'               => ':attribute baliogabea da.',
-    'not_regex'            => ':attribute formatua baliogabea da.',
-    'numeric'              => ':attribute zenbakizkoa izan behar da.',
+    'multiple_of' => 'The :attribute must be a multiple of :value.',
+    'not_in'      => ':attribute baliogabea da.',
+    'not_regex'   => ':attribute formatua baliogabea da.',
+    'numeric'     => ':attribute zenbakizkoa izan behar da.',
+    'password'    => [
+        'letters'       => 'The :attribute must contain at least one letter.',
+        'mixed'         => 'The :attribute must contain at least one uppercase and one lowercase letter.',
+        'numbers'       => 'The :attribute must contain at least one number.',
+        'symbols'       => 'The :attribute must contain at least one symbol.',
+        'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.'
+    ],
     'present'              => ':attribute ezin da hutsik egon.',
+    'prohibited'           => 'The :attribute field is prohibited.',
+    'prohibited_if'        => 'The :attribute field is prohibited when :other is :value.',
+    'prohibited_unless'    => 'The :attribute field is prohibited unless :other is in :values.',
+    'prohibits'            => 'The :attribute field prohibits :other from being present.',
+    'recaptcha'            => 'Please Complete The ReCaptcha.',
     'regex'                => ':attribute baliogabea da.',
     'required'             => ':attribute derrigorrezkoa da.',
     'required_if'          => ':attribute derrigorrezkoa da :other :value denean.',
@@ -115,10 +133,10 @@ return [
     'required_without_all' => ':attribute derrigorrezkoa da :values ez daudenean.',
     'same'                 => ':attribute eta :other bat etorri behar dira.',
     'size'                 => [
-        'numeric' => ':attribute-(e)k :size tamaina izan behar du.',
-        'file'    => ':attribute-(e)k :size kilobyte izan behar behar ditu.',
-        'string'  => ':attribute-(e)k :size karaktere izan behar ditu.',
         'array'   => ':attribute-(e)k :size elementu izan behar ditu.',
+        'file'    => ':attribute-(e)k :size kilobyte izan behar behar ditu.',
+        'numeric' => ':attribute-(e)k :size tamaina izan behar du.',
+        'string'  => ':attribute-(e)k :size karaktere izan behar ditu.'
     ],
     'starts_with' => 'The :attribute must start with one of the following: :values',
     'string'      => ':attribute karaktere-katea izan behar da.',
@@ -126,68 +144,5 @@ return [
     'unique'      => ':attribute jadanik erregistratua izan da.',
     'uploaded'    => ':attribute kargatzerakoan huts egin du.',
     'url'         => ':attribute-(r)en formatua baliogabea da.',
-    'uuid'        => ':attribute-(e)k baliozko UUIDa izan behar du.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
-    |
-    */
-
-    'attributes' => [
-        'name'                  => 'izena',
-        'username'              => 'erabiltzailea',
-        'email'                 => 'posta elektronikoa',
-        'first_name'            => 'izena',
-        'last_name'             => 'abizena',
-        'password'              => 'pasahitza',
-        'password_confirmation' => 'pasahitzaren berrespena',
-        'city'                  => 'hiria',
-        'country'               => 'herrialdea',
-        'address'               => 'helbidea',
-        'phone'                 => 'telefonoa',
-        'mobile'                => 'mugikorra',
-        'age'                   => 'adina',
-        'sex'                   => 'sexua',
-        'gender'                => 'generoa',
-        'year'                  => 'urtea',
-        'month'                 => 'hilabetea',
-        'day'                   => 'eguna',
-        'hour'                  => 'ordua',
-        'minute'                => 'minutua',
-        'second'                => 'segundoa',
-        'title'                 => 'izenburua',
-        'content'               => 'edukia',
-        'body'                  => 'gorputza',
-        'description'           => 'deskribapena',
-        'excerpt'               => 'pasartea',
-        'date'                  => 'data',
-        'time'                  => 'denbora',
-        'subject'               => 'gaia',
-        'message'               => 'mezua',
-        'available'             => 'erabilgarria',
-        'size'                  => 'neurria',
-    ],
+    'uuid'        => ':attribute-(e)k baliozko UUIDa izan behar du.'
 ];

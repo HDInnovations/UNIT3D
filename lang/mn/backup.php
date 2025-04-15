@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Үйл ажиллагаа',
     'backup'                         => 'Нөөцлөх',
     'backup_doesnt_exist'            => 'Нөөц файл байхгүй байна.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Бүтэн нөөцлөлт үүсгээрэй',
-    'create_a_new_files_backup'      => 'Файлуудыг нөөцөлж авах',
     'create_a_new_db_backup'         => 'Өгөгдлийн санг үүсгэх',
+    'create_a_new_files_backup'      => 'Файлуудыг нөөцөлж авах',
     'create_confirmation_message'    => '3 секундын дотор хуудсыг дахин ачаална уу.',
     'create_confirmation_title'      => 'Нөөц дууссан',
     'create_error_message'           => 'Нөөц файл үүсгэх боломжгүй.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Байршил',
     'manager'                        => 'Менежер',
     'no_disks_configured'            => 'Config / backup.php-д нөөцлөлтийн дискнүүд байхгүй байна',
-    'only_local_downloads_supported' => 'Зөвхөн Локал файлын системээс татаж авдаг.',
+    'only_local_downloads_supported' => 'Зөвхөн Локал файлын системээс татаж авдаг.'
 ];

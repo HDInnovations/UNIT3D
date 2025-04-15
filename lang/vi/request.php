@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Thêm yêu cầu',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Tuổi tác',
     'all-requests'        => 'Tất cả các yêu cầu',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Phê duyệt',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Tiền thưởng',
     'bounty-claimed'      => 'Bounty tuyên bố',
     'bounty-unclaimed'    => 'Tiền thưởng không được yêu cầu',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Bạn có muốn yêu cầu điều này một cách tự nhiên',
     'claim-now'           => 'Yêu cầu ngay bây giờ',
     'claimed'             => 'Yêu cầu bồi thường',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Hiện hành',
     'delete'              => 'Xóa yêu cầu này',
     'delete-confirmation' => 'Bạn có chắc chắn muốn xóa Yêu cầu này',
     'delete-filled'       => 'Yêu cầu này chỉ có thể bị xóa nếu nó chưa được điền',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Sự miêu tả',
     'dont-have-bps'       => 'Bạn không có đủ tiền thưởng',
     'edit-request'        => 'Chỉnh sửa yêu cầu',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Nhập điểm thưởng (tối thiểu 100)',
     'enter-hash'          => 'Nhập thông tin ID của Torrent đã tải lên',
     'fill'                => 'Lấp đầy',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'cho',
     'fulfill'             => 'Hoàn thành',
     'last-vote'           => 'Phiếu bầu cuối cùng',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Yêu cầu của tôi',
+    'my-voted'            => 'My voted',
     'no'                  => 'Không,',
     'no-imdb-id'          => 'Tất cả các yêu cầu phải chứa số IMDB',
     'no-privileges'       => 'Lỗi: Quyền yêu cầu của bạn đã bị vô hiệu hóa',
     'no-privileges-desc'  => 'Nếu bạn cảm thấy lỗi này, vui lòng liên hệ với Nhân viên',
     'no-refunds'          => 'BON trao đổi về việc tạo, điền và tiền thưởng là cuối cùng! <br> <strong>KHÔNG HOÀN LẠI TIỀN!</strong>',
     'pending'             => 'Đang chờ xử lý',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Lý do',
     'reject'              => 'Từ chối',
     'report'              => 'Yêu cầu báo cáo',
     'request'             => 'Yêu cầu',
     'request-details'     => 'Yêu cầu chi tiết',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Được yêu cầu bởi',
     'requests'            => 'Yêu cầu',
     'required'            => 'Cần thiết',
     'reset'               => 'Cài lại',
     'reset-confirmation'  => 'Bạn có chắc chắn muốn đặt lại Yêu cầu này',
     'reset-request'       => 'Đặt lại yêu cầu này',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Phần thưởng',
     'reward-desc'         => 'Bạn muốn thưởng bao nhiêu điểm thưởng? Tối thiểu 100 HA',
     'reward-from'         => 'Từ',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Tổng tiền thưởng',
     'type'                => 'Kiểu',
     'unclaim'             => 'Yêu cầu này',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Chưa hoàn thành',
     'view-filled'         => 'Xem đầy',
     'view-unfilled'       => 'Xem chưa hoàn thành',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Bình chọn yêu cầu này',
     'voters'              => 'Cử tri',
     'votes'               => 'Phiếu bầu',
-    'yes'                 => 'Vâng',
+    'yes'                 => 'Vâng'
 ];

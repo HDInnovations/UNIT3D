@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Keitimasis',
     'exchange-warning'        => 'Mainai yra galutiniai, prieš keisdami patikrinkite savo pasirinkimus.',
     'extended-stats'          => 'Išplėstinė statistika',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Dovana',
     'gift-bonus'              => 'Dovanų premijos taškai',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Dovanų premijos taškai',
     'gifts'                   => 'Dovanos',
     'item'                    => 'Elementas',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Taškai per sekundę',
     'per-week'                => 'Taškai per savaitę',
     'per-year'                => 'Taškai per metus',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Taškai',
     'receiver'                => 'Gavėjas',
     'review-seeds'            => 'Peržiūrėkite visus sėklų turtus',
     'send-gift'               => 'Siųsti dovaną',
     'sender'                  => 'Siuntėjas',
     'store'                   => 'Laikyti',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Patarimai',
     'total'                   => 'Iš viso pajamų',
     'total-gifts'             => 'Iš viso BON dovanų',
     'total-tips'              => 'Iš viso BON patarimų',
     'you-have-received-gifts' => 'Tu gavai',
-    'you-have-sent-gifts'     => 'Jūs išsiuntėte',
     'you-have-received-tips'  => 'Tu gavai',
+    'you-have-sent-gifts'     => 'Jūs išsiuntėte',
     'you-have-sent-tips'      => 'Jūs išsiuntėte',
-    'your-points'             => 'Jūsų taškai',
+    'your-points'             => 'Jūsų taškai'
 ];

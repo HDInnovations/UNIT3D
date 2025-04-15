@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Амалиётҳо',
     'backup'                         => 'Таъмири',
     'backup_doesnt_exist'            => 'Нусхаи эҳтиётӣ вуҷуд надорад.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Таъмири пурра',
-    'create_a_new_files_backup'      => 'Феҳристи файлҳо эҷод кунед',
     'create_a_new_db_backup'         => 'Таъмин кардани пойгоҳи додаҳо',
+    'create_a_new_files_backup'      => 'Феҳристи файлҳо эҷод кунед',
     'create_confirmation_message'    => 'Бозгашт ба саҳифа дар 3 сония.',
     'create_confirmation_title'      => 'Барқарорсозии хотимавӣ',
     'create_error_message'           => 'Нусхаи эҳтиётии файл сохта намешавад.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Ҷойгиршавӣ',
     'manager'                        => 'Менеҷер',
     'no_disks_configured'            => 'Ҳеҷ як нусхаи эҳтиётӣ дар танзим / backup.php тасвир карда нашудааст',
-    'only_local_downloads_supported' => 'Танҳо downloads аз файли файлҳои маҳаллӣ дастгирӣ карда мешавад.',
+    'only_local_downloads_supported' => 'Танҳо downloads аз файли файлҳои маҳаллӣ дастгирӣ карда мешавад.'
 ];

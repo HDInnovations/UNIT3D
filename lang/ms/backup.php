@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Tindakan',
     'backup'                         => 'Sandaran',
     'backup_doesnt_exist'            => 'Fail sandaran tidak wujud.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Buat Backup Penuh',
-    'create_a_new_files_backup'      => 'Buat Backup Fail',
     'create_a_new_db_backup'         => 'Buat Backup Pangkalan Data',
+    'create_a_new_files_backup'      => 'Buat Backup Fail',
     'create_confirmation_message'    => 'Memuat semula halaman dalam 3 saat.',
     'create_confirmation_title'      => 'Backup selesai',
     'create_error_message'           => 'Fail sandaran TIDAK boleh dibuat.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Lokasi',
     'manager'                        => 'Pengurus',
     'no_disks_configured'            => 'Tiada cakera sandaran yang dikonfigurasikan dalam config / backup.php',
-    'only_local_downloads_supported' => 'Hanya muat turun dari sistem fail Tempatan disokong.',
+    'only_local_downloads_supported' => 'Hanya muat turun dari sistem fail Tempatan disokong.'
 ];

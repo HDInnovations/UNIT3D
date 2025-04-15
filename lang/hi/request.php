@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'अनुरोध जोड़ें',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'आयु',
     'all-requests'        => 'सभी अनुरोध',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'मंजूर',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'इनाम',
     'bounty-claimed'      => 'बाउंटी ने दावा किया',
     'bounty-unclaimed'    => 'बाउंटी लावारिस मिले',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'क्या आप इस तरह से दावा करना चाहेंगे',
     'claim-now'           => 'अब दावा करो',
     'claimed'             => 'दावा किया',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'वर्तमान',
     'delete'              => 'इस अनुरोध को हटाएं',
     'delete-confirmation' => 'क्या आप वाकई इस अनुरोध को हटाना चाहते हैं?',
     'delete-filled'       => 'यह अनुरोध केवल तभी हटाया जा सकता है जब इसे भरा नहीं गया हो',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'विवरण',
     'dont-have-bps'       => 'आपके पास पर्याप्त बोनस नहीं है',
     'edit-request'        => 'अनुरोध संपादित करें',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'बोनस अंक दर्ज करें (न्यूनतम 100)',
     'enter-hash'          => 'अपलोड की गई टोरेंट की जानकारी हैश दर्ज करें',
     'fill'                => 'भरना',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'के लिये',
     'fulfill'             => 'पूरा',
     'last-vote'           => 'आखिरी वोट',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'मेरा अनुभव',
+    'my-voted'            => 'My voted',
     'no'                  => 'नहीं,',
     'no-imdb-id'          => 'सभी अनुरोधों में एक IMDB नंबर होना चाहिए',
     'no-privileges'       => 'त्रुटि: आपके अनुरोध अधिकार अक्षम कर दिए गए हैं',
     'no-privileges-desc'  => 'यदि आपको लगता है कि यह त्रुटि है, तो कृपया कर्मचारियों से संपर्क करें',
     'no-refunds'          => 'बीओएन एक्सचेंज बनाने, भरने और इनामों पर अंतिम हैं! <br> <strong>कोई रिफंड नहीं!</strong>',
     'pending'             => 'अपूर्ण',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'कारण',
     'reject'              => 'अस्वीकार',
     'report'              => 'रिपोर्ट का अनुरोध',
     'request'             => 'निवेदन',
     'request-details'     => 'अनुरोध विवरण',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'द्वारा अनुरोध किया गया',
     'requests'            => 'अनुरोध',
     'required'            => 'अपेक्षित',
     'reset'               => 'रीसेट',
     'reset-confirmation'  => 'क्या आप वाकई इस अनुरोध को रीसेट करना चाहते हैं',
     'reset-request'       => 'इस अनुरोध को रीसेट करें',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'इनाम',
     'reward-desc'         => 'आप कितना बोनस पॉइंट देना चाहेंगे? न्यूनतम 100 बी.पी.',
     'reward-from'         => 'से',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'कुल इनाम',
     'type'                => 'प्रकार',
     'unclaim'             => 'इस अनुरोध को अस्वीकार करें',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'न भरे गए',
     'view-filled'         => 'भरा हुआ देखें',
     'view-unfilled'       => 'अधूरा देखें',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'इस अनुरोध को वोट करें',
     'voters'              => 'मतदाता',
     'votes'               => 'वोट',
-    'yes'                 => 'हाँ',
+    'yes'                 => 'हाँ'
 ];

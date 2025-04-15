@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Stängd',
     'create-new-topic'          => 'Skapa nytt ämne',
     'created'                   => 'Skapad',
+    'created-at'                => 'Created At',
     'current'                   => 'Nuvarande',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Ta bort denna ämne',
     'denied'                    => 'Nekad',
     'dislike-post'              => 'Ogillar detta inlägg',
     'display-forum'             => 'Visa ämnen i',
     'edit-post'                 => 'Redigera inlägg',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Redigera ämne',
     'forum'                     => 'Forum',
     'forums'                    => 'forum',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Genomförda',
     'in'                        => 'I',
     'invalid'                   => 'Ogiltig',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Citat',
     'read-topic'                => 'Läs ämnet',
     'replies'                   => 'svar',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Spara det här ämnet',
     'solved'                    => 'Löst',
     'state'                     => 'stat',
     'stats'                     => 'stats',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'prenumererar',
     'subscription-quick-search' => 'Ämnesnamn snabb sökning (inom abonnemang)',
     'suggestion'                => 'Förslag',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Ämne',
     'topic-closed'              => 'Denna ämne är stängd',
     'topic-name'                => 'Ämne namn',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Titel på detta ämne',
     'topics'                    => 'ämnen',
     'unpin'                     => 'Lossa',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Visa alla ämnen',
-    'views'                     => 'Visningar',
+    'views'                     => 'Visningar'
 ];

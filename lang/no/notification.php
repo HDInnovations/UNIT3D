@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,27 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'bon-gifts'          => 'Bon Gave',
-    'comment-tags'       => 'Kommentartagger',
-    'date'               => 'Dato',
-    'delete'             => 'Slett',
-    'delete-all'         => 'Slett Alle Varsler',
-    'filter-by-type'     => 'Filtrer På Varseltype',
-    'mark-all-read'      => 'Marker alle som lest',
-    'mark-read'          => 'Merk som lest',
-    'message'            => 'Melding',
-    'no-notifications'   => 'Det er ingen meldinger funnet',
-    'notifications'      => 'Varsler',
-    'post-tags'          => 'Innlegg Taggs',
-    'post-tips'          => 'Innlegg Tips',
-    'read'               => 'Lese',
-    'request-approvals'  => 'Ønsk Godkjenning',
-    'request-bounties'   => 'Ønsk Dusør',
-    'request-claims'     => 'Ønsk Krav',
-    'request-fills'      => 'Ønsk Utfyll',
-    'request-rejections' => 'Ønsk Avvisning',
-    'request-unclaims'   => 'Ønsk Ukrevd',
-    'reseed-requests'    => 'Ønsk Reseed',
-    'title'              => 'Tittel',
-    'unfollows'          => 'Avfølg',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gave',
+    'comment-tags'        => 'Kommentartagger',
+    'date'                => 'Dato',
+    'delete'              => 'Slett',
+    'delete-all'          => 'Slett Alle Varsler',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filtrer På Varseltype',
+    'mark-all-read'       => 'Marker alle som lest',
+    'mark-read'           => 'Merk som lest',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'Melding',
+    'no-notifications'    => 'Det er ingen meldinger funnet',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'Varsler',
+    'post-tags'           => 'Innlegg Taggs',
+    'post-tips'           => 'Innlegg Tips',
+    'read'                => 'Lese',
+    'request-approvals'   => 'Ønsk Godkjenning',
+    'request-bounties'    => 'Ønsk Dusør',
+    'request-claims'      => 'Ønsk Krav',
+    'request-fills'       => 'Ønsk Utfyll',
+    'request-rejections'  => 'Ønsk Avvisning',
+    'request-unclaims'    => 'Ønsk Ukrevd',
+    'reseed-requests'     => 'Ønsk Reseed',
+    'title'               => 'Tittel',
+    'unfollows'           => 'Avfølg'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'सर्जन करना',
-    'delete'        => 'हटाना',
-    'enter-subject' => 'विषय दर्ज करें',
-    'from'          => 'से',
-    'inbox'         => 'इनबॉक्स',
-    'mark-all-read' => 'पढ़े हुए सभी संदेशों को चिह्नित करें',
-    'message'       => 'संदेश',
-    'messages'      => 'संदेश',
-    'new'           => 'नया संदेश',
-    'outbox'        => 'आउटबॉक्स',
-    'private'       => 'निजी',
-    'read'          => 'पढ़ना',
-    'received-at'   => 'पर प्राप्त किया',
-    'refresh'       => 'ताज़ा करना',
-    'reply'         => 'जवाब दे दो',
-    'search'        => 'विषय द्वारा खोजें',
-    'select'        => 'एक उपयोगकर्ता का चयन करें',
-    'send'          => 'पीएम को भेजें',
-    'send-to'       => 'पीएम को भेजें',
-    'sent'          => 'भेज दिया',
-    'sent-at'       => 'पर भेजा गया',
-    'subject'       => 'विषय',
-    'to'            => 'सेवा मेरे',
-    'unread'        => 'अपठित ग',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'सर्जन करना',
+    'delete'          => 'हटाना',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'विषय दर्ज करें',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'से',
+    'inbox'           => 'इनबॉक्स',
+    'mark-all-read'   => 'पढ़े हुए सभी संदेशों को चिह्नित करें',
+    'message'         => 'संदेश',
+    'messages'        => 'संदेश',
+    'new'             => 'नया संदेश',
+    'outbox'          => 'आउटबॉक्स',
+    'private'         => 'निजी',
+    'read'            => 'पढ़ना',
+    'received-at'     => 'पर प्राप्त किया',
+    'refresh'         => 'ताज़ा करना',
+    'reply'           => 'जवाब दे दो',
+    'search'          => 'विषय द्वारा खोजें',
+    'select'          => 'एक उपयोगकर्ता का चयन करें',
+    'send'            => 'पीएम को भेजें',
+    'send-to'         => 'पीएम को भेजें',
+    'sent'            => 'भेज दिया',
+    'sent-at'         => 'पर भेजा गया',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'विषय',
+    'to'              => 'सेवा मेरे',
+    'unread'          => 'अपठित ग'
 ];

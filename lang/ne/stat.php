@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'गणना द्वारा',
     'by-data'                 => 'डेटाद्वारा',
     'by-volume'               => 'भोल्युम द्वारा',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'समूह',
     'groups'                  => 'समूहहरू',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'बेवकूफ तथ्याङ्कहरू',
     'nerd-stats-desc'         => 'हामी सबै आँकडा मनपर्छौं। यहाँ केहि छ कि हामीले महत्त्वपूर्ण भेट्ट्यौं',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'दर्ता मिति',
     'request-fulfilled'       => 'अनुरोध पूरा भयो',
     'request-not-fulfilled'   => 'अनुरोध पूरा हुँदैन',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'शीर्ष पक्का भयो',
     'top-leechers'            => 'शीर्ष लिभर्सहरू',
     'top-seeded'              => 'शीर्ष बीज',
-    'top-seeding'             => 'शीर्ष बीजिंग',
     'top-seeders'             => 'शीर्ष सीजनहरू',
+    'top-seeding'             => 'शीर्ष बीजिंग',
     'top-seedsize'            => 'शीर्ष बीजिजाइज',
     'top-seedtime'            => 'शीर्ष बीज समय',
     'top-uploaders'           => 'शीर्ष अपलोडरहरू',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'कुल ट्राटर',
     'total-traffic'           => 'कुल यातायात',
     'total-upload'            => 'कुल अपलोड',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'प्रयोगकर्ता समूहमा',
-    'users-per-group'         => 'प्रति समूह प्रयोगकर्ताहरू',
+    'users-per-group'         => 'प्रति समूह प्रयोगकर्ताहरू'
 ];

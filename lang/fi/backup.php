@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Toimet',
     'backup'                         => 'Varmuuskopioida',
     'backup_doesnt_exist'            => 'Varmuuskopiointitiedostoa ei ole.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Luo täysi varmuuskopio',
-    'create_a_new_files_backup'      => 'Luo tiedostojen varmuuskopio',
     'create_a_new_db_backup'         => 'Luo tietokannan varmuuskopio',
+    'create_a_new_files_backup'      => 'Luo tiedostojen varmuuskopio',
     'create_confirmation_message'    => 'Lisää sivu uudelleen 3 sekunnin kuluessa.',
     'create_confirmation_title'      => 'Varmuuskopiointi suoritettu',
     'create_error_message'           => 'Varmuuskopiointitiedostoa ei voitu luoda.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Sijainti',
     'manager'                        => 'johtaja',
     'no_disks_configured'            => 'Konfiguroinnissa / backup.php ei ole määritetty varmuuskopioita',
-    'only_local_downloads_supported' => 'Vain paikallisten tiedostojärjestelmien lataukset tuetaan.',
+    'only_local_downloads_supported' => 'Vain paikallisten tiedostojärjestelmien lataukset tuetaan.'
 ];

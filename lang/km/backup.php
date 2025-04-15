@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'សកម្មភាព',
     'backup'                         => 'បម្រុងទុក',
     'backup_doesnt_exist'            => 'ឯកសារបម្រុងទុកមិនមានទេ។',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'បង្កើតការបម្រុងទុកពេញ',
-    'create_a_new_files_backup'      => 'បង្កើតការបម្រុងទុកឯកសារ',
     'create_a_new_db_backup'         => 'បង្កើតការបម្រុងទុកមូលដ្ឋានទិន្នន័យ',
+    'create_a_new_files_backup'      => 'បង្កើតការបម្រុងទុកឯកសារ',
     'create_confirmation_message'    => 'ផ្ទុកទំព័រឡើងវិញក្នុងរយៈពេល 3 វិនាទី។',
     'create_confirmation_title'      => 'ការបម្រុងទុកបានបញ្ចប់',
     'create_error_message'           => 'មិនអាចបង្កើតឯកសារបម្រុងទុកបានទេ។',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'ទីកន្លែង',
     'manager'                        => 'អ្នកគ្រប់គ្រង',
     'no_disks_configured'            => 'គ្មានថាសបម្រុងទុកដែលបានកំណត់រចនាសម្ព័ន្ធក្នុង config / backup.php ទេ',
-    'only_local_downloads_supported' => 'មានតែការទាញយកពីប្រព័ន្ធឯកសារមូលដ្ឋានតែប៉ុណ្ណោះ។',
+    'only_local_downloads_supported' => 'មានតែការទាញយកពីប្រព័ន្ធឯកសារមូលដ្ឋានតែប៉ុណ្ណោះ។'
 ];

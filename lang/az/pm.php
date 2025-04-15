@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Yaradın',
-    'delete'        => 'Sil',
-    'enter-subject' => 'Mövzu daxil edin',
-    'from'          => 'From',
-    'inbox'         => 'Gələnlər qutusu',
-    'mark-all-read' => 'Bütün mesajları oxunduğu kimi qeyd edin',
-    'message'       => 'Mesaj',
-    'messages'      => 'Mesajlar',
-    'new'           => 'Yeni mesaj',
-    'outbox'        => 'Gedənlər',
-    'private'       => 'Şəxsi',
-    'read'          => 'Oxuyun',
-    'received-at'   => 'Alındı',
-    'refresh'       => 'təzələmək',
-    'reply'         => 'Cavab ver',
-    'search'        => 'Mövzu ilə axtarış',
-    'select'        => 'İstifadəçi seçin',
-    'send'          => 'PM göndər',
-    'send-to'       => 'Baş nazirinə göndər',
-    'sent'          => 'Göndərildi',
-    'sent-at'       => 'Atəşə verildi',
-    'subject'       => 'Mövzu',
-    'to'            => 'Kənar',
-    'unread'        => 'Oxunmamışdır',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Yaradın',
+    'delete'          => 'Sil',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'Mövzu daxil edin',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'From',
+    'inbox'           => 'Gələnlər qutusu',
+    'mark-all-read'   => 'Bütün mesajları oxunduğu kimi qeyd edin',
+    'message'         => 'Mesaj',
+    'messages'        => 'Mesajlar',
+    'new'             => 'Yeni mesaj',
+    'outbox'          => 'Gedənlər',
+    'private'         => 'Şəxsi',
+    'read'            => 'Oxuyun',
+    'received-at'     => 'Alındı',
+    'refresh'         => 'təzələmək',
+    'reply'           => 'Cavab ver',
+    'search'          => 'Mövzu ilə axtarış',
+    'select'          => 'İstifadəçi seçin',
+    'send'            => 'PM göndər',
+    'send-to'         => 'Baş nazirinə göndər',
+    'sent'            => 'Göndərildi',
+    'sent-at'         => 'Atəşə verildi',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Mövzu',
+    'to'              => 'Kənar',
+    'unread'          => 'Oxunmamışdır'
 ];

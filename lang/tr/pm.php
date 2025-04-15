@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'yaratmak',
-    'delete'        => 'silmek',
-    'enter-subject' => 'Konu girin',
-    'from'          => 'itibaren',
-    'inbox'         => 'Gelen kutusu',
-    'mark-all-read' => 'Tüm mesajları okundu olarak işaretle',
-    'message'       => 'Mesaj',
-    'messages'      => 'Mesajlar',
-    'new'           => 'Yeni Mesaj',
-    'outbox'        => 'üstün gelmek',
-    'private'       => 'Özel',
-    'read'          => 'okumak',
-    'received-at'   => 'Alınan',
-    'refresh'       => 'Yenile',
-    'reply'         => 'cevap',
-    'search'        => 'Konuya Göre Ara',
-    'select'        => 'Bir kullanıcı seçin',
-    'send'          => 'PM gönder',
-    'send-to'       => 'PM gönder',
-    'sent'          => 'Gönderilen',
-    'sent-at'       => 'Gönderildi',
-    'subject'       => 'konu',
-    'to'            => 'için',
-    'unread'        => 'Okunmamış',
-    'empty-inbox'   => 'Boş gelen kutusu',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'yaratmak',
+    'delete'          => 'silmek',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Boş gelen kutusu',
+    'enter-subject'   => 'Konu girin',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'itibaren',
+    'inbox'           => 'Gelen kutusu',
+    'mark-all-read'   => 'Tüm mesajları okundu olarak işaretle',
+    'message'         => 'Mesaj',
+    'messages'        => 'Mesajlar',
+    'new'             => 'Yeni Mesaj',
+    'outbox'          => 'üstün gelmek',
+    'private'         => 'Özel',
+    'read'            => 'okumak',
+    'received-at'     => 'Alınan',
+    'refresh'         => 'Yenile',
+    'reply'           => 'cevap',
+    'search'          => 'Konuya Göre Ara',
+    'select'          => 'Bir kullanıcı seçin',
+    'send'            => 'PM gönder',
+    'send-to'         => 'PM gönder',
+    'sent'            => 'Gönderilen',
+    'sent-at'         => 'Gönderildi',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'konu',
+    'to'              => 'için',
+    'unread'          => 'Okunmamış'
 ];

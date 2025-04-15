@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Dengan Hitungan',
     'by-data'                 => 'Dengan Data',
     'by-volume'               => 'Berdasarkan volume',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Kelompok',
     'groups'                  => 'Grup',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Statistik aneh',
     'nerd-stats-desc'         => 'Kita semua menyukai statistik. Berikut adalah beberapa yang kami anggap penting',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Tanggal registrasi',
     'request-fulfilled'       => 'Permintaan terpenuhi',
     'request-not-fulfilled'   => 'Permintaan tidak terpenuhi',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Lintah Teratas',
     'top-leechers'            => 'Leechers teratas',
     'top-seeded'              => 'Unggulan teratas',
-    'top-seeding'             => 'Pembibitan Teratas',
     'top-seeders'             => 'Unggulan Teratas',
+    'top-seeding'             => 'Pembibitan Teratas',
     'top-seedsize'            => 'Seedsize Teratas',
     'top-seedtime'            => 'Seedtime Top',
     'top-uploaders'           => 'Pengunggah Teratas',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'Total Lalu Lintas',
     'total-upload'            => 'Total Upload',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Pengguna dalam Grup',
-    'users-per-group'         => 'Pengguna Per Grup',
+    'users-per-group'         => 'Pengguna Per Grup'
 ];

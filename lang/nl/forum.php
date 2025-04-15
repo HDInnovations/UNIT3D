@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Gesloten',
     'create-new-topic'          => 'Maak nieuw onderwerp',
     'created'                   => 'gemaakt',
+    'created-at'                => 'Created At',
     'current'                   => 'Stroom',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Dit onderwerp verwijderen',
     'denied'                    => 'Denied',
     'dislike-post'              => 'Houd niet van deze post',
     'display-forum'             => 'Toon onderwerpen in',
     'edit-post'                 => 'Bericht bewerken',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Onderwerp bewerken',
     'forum'                     => 'Forum',
     'forums'                    => 'Forums',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Geïmplementeerd',
     'in'                        => 'In',
     'invalid'                   => 'Ongeldig',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Citaat',
     'read-topic'                => 'Lees het onderwerp',
     'replies'                   => 'Antwoorden',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Bewaar dit onderwerp',
     'solved'                    => 'opgelost',
     'state'                     => 'Staat',
     'stats'                     => 'Stats',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'geabonneerd',
     'subscription-quick-search' => 'Onderwerpnaam snel zoeken (binnen abonnementen)',
     'suggestion'                => 'Suggestie',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Onderwerp',
     'topic-closed'              => 'Dit onderwerp is gesloten',
     'topic-name'                => 'Onderwerp naam',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Titel van dit onderwerp',
     'topics'                    => 'Onderwerpen',
     'unpin'                     => 'losmaken',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Bekijk alle onderwerpen',
-    'views'                     => 'Keer bekeken',
+    'views'                     => 'Keer bekeken'
 ];

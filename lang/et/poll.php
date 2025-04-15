@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Lisa valik',
-    'create-poll'     => 'Loo küsitlus',
-    'current'         => 'Praegune küsitlus',
-    'delete-option'   => 'Kustuta valik',
-    'multiple-choice' => 'See on mitme valiku küsitlus. Valige nii palju vastuseid kui soovite.',
-    'option'          => 'Võimalus',
-    'poll'            => 'Küsitlus',
-    'polls'           => 'Küsitlused',
-    'results'         => 'Küsitluse tulemused',
-    'title'           => 'Pealkiri',
-    'total'           => 'Hääle kokku',
-    'vote'            => 'Hääleta',
-    'vote-now'        => 'Hangi oma hääl nüüd!',
-    'votes'           => 'Hääled',
+    'add-option'           => 'Lisa valik',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Loo küsitlus',
+    'current'              => 'Praegune küsitlus',
+    'delete-option'        => 'Kustuta valik',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'See on mitme valiku küsitlus. Valige nii palju vastuseid kui soovite.',
+    'option'               => 'Võimalus',
+    'poll'                 => 'Küsitlus',
+    'polls'                => 'Küsitlused',
+    'results'              => 'Küsitluse tulemused',
+    'title'                => 'Pealkiri',
+    'total'                => 'Hääle kokku',
+    'vote'                 => 'Hääleta',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Hangi oma hääl nüüd!',
+    'votes'                => 'Hääled'
 ];

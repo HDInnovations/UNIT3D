@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,15 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'dead'               => 'মৃত',
-    'graveyard'          => 'কবরখানা',
-    'guidelines'         => 'নির্দেশিকা',
-    'guidelines-content' => '1) আপনি নিজের আপলোড পুনরুত্থান করতে পারবেন না। <br> 2) আপনি কিছু করতে পারবেন না এমন কিছু পুনরুজ্জীবিত করবেন না।',
-    'howto'              => 'তিনি নিয়ম',
-    'howto-desc1'        => 'আপনাকে অবশ্যই বীজ বানাতে হবে: সফল সফলতার জন্য <span class="text-red text-bold">30 দিনের</span> <span class=\\"text-green\\"><em>নাম</em></span> । কোন ক্ষেত্রে আপনার বর্তমান বীজ সময়',
-    'howto-desc2'        => 'আপনি পুরস্কৃত করা হবে',
-    'howto-hits'         => 'আঘাত',
-    'pending'            => 'মুলতুবী',
-    'resurrect'          => 'পুনরূজ্জীবিত করা',
-    'reward'             => 'ফ্রিলিচ টোকেন',
+    'current-seedtime'         => 'Current Seedtime',
+    'dead'                     => 'মৃত',
+    'graveyard'                => 'কবরখানা',
+    'guidelines'               => 'নির্দেশিকা',
+    'guidelines-content'       => '1) আপনি নিজের আপলোড পুনরুত্থান করতে পারবেন না। <br> 2) আপনি কিছু করতে পারবেন না এমন কিছু পুনরুজ্জীবিত করবেন না।',
+    'howto'                    => 'তিনি নিয়ম',
+    'howto-desc1'              => 'আপনাকে অবশ্যই বীজ বানাতে হবে: সফল সফলতার জন্য <span class="text-red text-bold">30 দিনের</span> <span class=\\"text-green\\"><em>নাম</em></span> । কোন ক্ষেত্রে আপনার বর্তমান বীজ সময়',
+    'howto-desc2'              => 'আপনি পুরস্কৃত করা হবে',
+    'howto-hits'               => 'আঘাত',
+    'not-rewarded'             => 'Not Rewarded',
+    'pending'                  => 'মুলতুবী',
+    'resurrect'                => 'পুনরূজ্জীবিত করা',
+    'resurrect-canceled'       => 'Resurrection Successfully Canceled!',
+    'resurrect-complete'       => 'Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.',
+    'resurrect-date'           => 'Resurrect Date',
+    'resurrect-failed-own'     => 'Torrent Resurrection Failed! You cannot resurrect your own uploads.',
+    'resurrect-failed-pending' => 'Torrent Resurrection Failed! This torrent is already pending a resurrection.',
+    'reward'                   => 'ফ্রিলিচ টোকেন',
+    'rewarded'                 => 'Rewarded',
+    'seedtime-goal'            => 'Seedtime Goal'
 ];

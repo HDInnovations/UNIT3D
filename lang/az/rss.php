@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Yaradın',
     'create-private-feed' => 'Xüsusi RSS Feed yaradın',
     'create-public-feed'  => 'Rəqəmsal RSS Feed yaradın',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Sil',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Düzəliş edin',
     'edit-private-feed'   => 'Şəxsi RSS rəyini redaktə edin',
     'edit-public-feed'    => 'İctimaiyyətin RSS rəyini redaktə edin',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Yemək',
     'feeds'               => 'Yemləri',
     'name'                => 'Adı',
-    'public'              => 'İctimai',
     'private'             => 'Şəxsi',
+    'public'              => 'İctimai',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Feed',
     'type'                => 'Tipi',
+    'updated'             => 'Private RSS Feed Updated'
 ];

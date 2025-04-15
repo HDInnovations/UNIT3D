@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Prin conte',
     'by-data'                 => 'Prin Data',
     'by-volume'               => 'Volum',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'grup',
     'groups'                  => 'Grupuri',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Statistici Nerd',
     'nerd-stats-desc'         => 'Ne place toate statisticile. Iată câteva dintre ele pe care le considerăm importante',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Data Înregistrării',
     'request-fulfilled'       => 'Cerere îndeplinită',
     'request-not-fulfilled'   => 'Solicitarea nu a fost îndeplinită',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'În vârf',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Semințe superioare',
     'top-seeders'             => 'Semănători de vârf',
+    'top-seeding'             => 'Semințe superioare',
     'top-seedsize'            => 'Semințe de vârf',
     'top-seedtime'            => 'Timpul maxim al sesiunii',
     'top-uploaders'           => 'Top încărcătoare',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'Trafic total',
     'total-upload'            => 'Încărcare totală',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Utilizatorii din grup',
-    'users-per-group'         => 'Utilizatori pe grup',
+    'users-per-group'         => 'Utilizatori pe grup'
 ];

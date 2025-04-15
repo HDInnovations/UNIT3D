@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'ಕೊನೆಯಲ್ಲಿ ಸಕ್ರಿಯವಾಗಿದೆ',
     'chatbox'                 => 'ಚಾಟ್ ಬಾಕ್ಸ್',
+    'check-news'              => 'ಸುದ್ದಿಗಳು (ದೈನಂದಿನ ಪರಿಶೀಲಿಸಿ)',
     'click'                   => 'ಕ್ಲಿಕ್',
-    'to-enable-editor'        => 'ಸಂಪಾದಕವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು',
     'featured-by'             => 'ವೈಶಿಷ್ಟ್ಯಗೊಳಿಸಿದ',
     'featured-torrents'       => 'ವಿಶಿಷ್ಟ ಟೊರೆಂಟುಗಳು',
     'featured-torrents-intro' => 'ನೀವು ಸಾಧ್ಯವಾದಾಗ ಅವರನ್ನು ಪಡೆಯಿರಿ!',
     'featured-until'          => 'ಇದು ಟೊರೆಂಟ್ ಅನ್ನು ವೈಶಿಷ್ಟ್ಯಗೊಳಿಸುತ್ತದೆ',
-    'top-torrents'            => 'ಟಾಪ್ ಟೊರೆಂಟುಗಳು',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'ಇತ್ತೀಚಿನ ಪೋಸ್ಟ್ಗಳು',
     'latest-topics'           => 'ಇತ್ತೀಚಿನ ವಿಷಯಗಳು',
-    'active-in-last'          => 'ಕೊನೆಯಲ್ಲಿ ಸಕ್ರಿಯವಾಗಿದೆ',
-    'users-online'            => 'ಬಳಕೆದಾರರು ಆನ್ಲೈನ್',
-    'check-news'              => 'ಸುದ್ದಿಗಳು (ದೈನಂದಿನ ಪರಿಶೀಲಿಸಿ)',
     'new-news'                => 'ಹೊಸ ಸುದ್ದಿ',
     'new-torrents'            => 'ಹೊಸ ಟೊರೆಂಟುಗಳು',
+    'to-enable-editor'        => 'ಸಂಪಾದಕವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು',
+    'top-torrents'            => 'ಟಾಪ್ ಟೊರೆಂಟುಗಳು',
+    'users-online'            => 'ಬಳಕೆದಾರರು ಆನ್ಲೈನ್'
 ];

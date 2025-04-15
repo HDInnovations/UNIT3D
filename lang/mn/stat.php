@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Count тоо',
     'by-data'                 => 'Мэдээллийн дагуу',
     'by-volume'               => 'Эзлэхүүнээр',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Групп',
     'groups'                  => 'Бүлгүүд',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd статистик',
     'nerd-stats-desc'         => 'Бид бүгд статистикт дуртай. Бидний олж мэдсэн цөөн хэдэн чухал зүйл байна',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Бүртгэлийн өдөр',
     'request-fulfilled'       => 'Хүсэлт биелсэн',
     'request-not-fulfilled'   => 'Хүсэлт биелүүлэхгүй байх',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Топ Leeched',
     'top-leechers'            => 'Топ Leechers',
     'top-seeded'              => 'Топ үсэнд',
-    'top-seeding'             => 'Топ үртэс',
     'top-seeders'             => 'Топ үхэрчид',
+    'top-seeding'             => 'Топ үртэс',
     'top-seedsize'            => 'Топ үрслэл',
     'top-seedtime'            => 'Топ Үрийн цаг',
     'top-uploaders'           => 'Топ байршуулагчид',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Нийт дүн',
     'total-traffic'           => 'Нийт урсгал',
     'total-upload'            => 'Нийт байршуулалт',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Группын хэрэглэгчид',
-    'users-per-group'         => 'Групп бүрт хэрэглэгчид',
+    'users-per-group'         => 'Групп бүрт хэрэглэгчид'
 ];

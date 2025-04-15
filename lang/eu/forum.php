@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'itxita',
     'create-new-topic'          => 'Sortu gai berria',
     'created'                   => 'Sortu',
+    'created-at'                => 'Created At',
     'current'                   => 'Oraingo',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Ezabatu gai hau',
     'denied'                    => 'Ukatu',
     'dislike-post'              => 'Ez zaio mezu hau',
     'display-forum'             => 'Erakutsi gaiak',
     'edit-post'                 => 'Editatu mezua',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Editatu gaia',
     'forum'                     => 'Foroa',
     'forums'                    => 'Foroak',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'ezarri',
     'in'                        => 'in',
     'invalid'                   => 'baliogabea',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Zita',
     'read-topic'                => 'Irakurri Topic',
     'replies'                   => 'Erantzunak',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Gorde gai hau',
     'solved'                    => 'konpondu',
     'state'                     => 'Estatu',
     'stats'                     => 'estatistikak',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'harpidetutako',
     'subscription-quick-search' => 'Gaiaren izena bilaketa bizkorra (harpidetzak barruan)',
     'suggestion'                => 'Iradokizun',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Gai',
     'topic-closed'              => 'Gaia hau itxita dago',
     'topic-name'                => 'Gaiaren izena',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Gai honen izenburua',
     'topics'                    => 'Gaiak',
     'unpin'                     => 'Unpin',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Ikusi Gaiak guztiak',
-    'views'                     => 'Views',
+    'views'                     => 'Views'
 ];

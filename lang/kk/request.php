@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Сұрау қосу',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Жасы',
     'all-requests'        => 'Барлық сұраулар',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Бекіту',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty мәлімдеді',
     'bounty-unclaimed'    => 'Bounty талап етілмеді',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Сіз бұл туралы мүлдем талап етпекпіз',
     'claim-now'           => 'Шағым қазір',
     'claimed'             => 'Талап етілді',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Ағымдағы',
     'delete'              => 'Осы сұрауды жою',
     'delete-confirmation' => 'Осы Сұранымды жойғыңыз келгеніне сенімдісіз бе?',
     'delete-filled'       => 'Бұл сұрау толтырылмаған жағдайда ғана жойылуы мүмкін',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Сипаттама',
     'dont-have-bps'       => 'Бонус жеткіліксіз',
     'edit-request'        => 'Сұрауды өңдеу',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Бонустық ұпайларды енгізу (кемінде 100)',
     'enter-hash'          => 'Жүктеп салынған торренің ID енгізіңіз',
     'fill'                => 'Толтырыңыз',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'үшін',
     'fulfill'             => 'Орындалады',
     'last-vote'           => 'Соңғы дауыс',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Менің сұрауларым',
+    'my-voted'            => 'My voted',
     'no'                  => 'Жоқ,',
     'no-imdb-id'          => 'Барлық сұраулар IMDB нөмірін қамтуы керек',
     'no-privileges'       => 'Қате: сұрауыңыздың құқықтары өшірілді',
     'no-privileges-desc'  => 'Егер сіз қателесіп жатсаңыз, қызметкерлерге хабарласыңыз',
     'no-refunds'          => 'Жасау, толтыру және жеңілдіктерге арналған BON биржалары соңғы болып табылады! <br> <strong>ЖОҚҚАН ҚАЙТАРУСЫЗ!</strong>',
     'pending'             => 'Күтілуде',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Себеп',
     'reject'              => 'Қабылдамау',
     'report'              => 'Есеп беру туралы сұрау',
     'request'             => 'Сұрау',
     'request-details'     => 'Мәліметтерді сұрау',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Сұратылған',
     'requests'            => 'Сұраулар',
     'required'            => 'Міндетті',
     'reset'               => 'Қалпына келтіру',
     'reset-confirmation'  => 'Осы сұранымды қалпына келтіргіңіз келгеніне сенімдісіз бе?',
     'reset-request'       => 'Осы сұранымды қалпына келтіріңіз',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Сыйақы',
     'reward-desc'         => 'Сыйлықтың қанша бонусы бар? Ең аз 100 БП',
     'reward-from'         => 'Қайдан',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Жалпы сыйақы',
     'type'                => 'Түрі',
     'unclaim'             => 'Бұл сұранысты талап ету',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Толтырылмаған',
     'view-filled'         => 'Толтырылған көрініс',
     'view-unfilled'       => 'Толтырылмаған көрініс',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Осы сұранымға дауыс беріңіз',
     'voters'              => 'Сайлаушылар',
     'votes'               => 'Дауыстар',
-    'yes'                 => 'Иә',
+    'yes'                 => 'Иә'
 ];

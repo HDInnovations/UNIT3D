@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Handlinger',
     'backup'                         => 'Sikkerhetskopi',
     'backup_doesnt_exist'            => 'Sikkerhetskopi finnes ikke.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Opprett fullstendig sikkerhetskopi',
-    'create_a_new_files_backup'      => 'Opprett sikkerhetskopiering for fil',
     'create_a_new_db_backup'         => 'Opprett sikkerhetskopi for database',
+    'create_a_new_files_backup'      => 'Opprett sikkerhetskopiering for fil',
     'create_confirmation_message'    => 'Laster inn siden på nytt om 3 sekunder.',
     'create_confirmation_title'      => 'Sikkerhetskopiering fullført',
     'create_error_message'           => 'Sikkerhetsfilen kunne IKKE opprettes.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Plassering',
     'manager'                        => 'Leder',
     'no_disks_configured'            => 'Ingen sikkerhetskopidisker konfigurert i config / backup.php',
-    'only_local_downloads_supported' => 'Bare nedlastinger fra det lokale filsystemet støttes.',
+    'only_local_downloads_supported' => 'Bare nedlastinger fra det lokale filsystemet støttes.'
 ];

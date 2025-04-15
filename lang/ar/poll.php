@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'إضافة خيار',
-    'create-poll'     => 'إنشاء استطلاع',
-    'current'         => 'الاستطلاع الحالي',
-    'delete-option'   => 'حذف الخيار',
-    'multiple-choice' => 'هذا استطلاع متعدد الاختيارات. حدد العديد من الإجابات التي تريدها.',
-    'option'          => 'اختيار',
-    'poll'            => 'تصويت',
-    'polls'           => 'استطلاعات الرأي',
-    'results'         => 'نتائج الاستطلاع',
-    'title'           => 'عنوان',
-    'total'           => 'مجموع الأصوات من أي وقت مضى',
-    'vote'            => 'تصويت',
-    'vote-now'        => 'احصل على صوتك الآن!',
-    'votes'           => 'الأصوات',
+    'add-option'           => 'إضافة خيار',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'إنشاء استطلاع',
+    'current'              => 'الاستطلاع الحالي',
+    'delete-option'        => 'حذف الخيار',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'هذا استطلاع متعدد الاختيارات. حدد العديد من الإجابات التي تريدها.',
+    'option'               => 'اختيار',
+    'poll'                 => 'تصويت',
+    'polls'                => 'استطلاعات الرأي',
+    'results'              => 'نتائج الاستطلاع',
+    'title'                => 'عنوان',
+    'total'                => 'مجموع الأصوات من أي وقت مضى',
+    'vote'                 => 'تصويت',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'احصل على صوتك الآن!',
+    'votes'                => 'الأصوات'
 ];

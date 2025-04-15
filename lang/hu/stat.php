@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Gróf szerint',
     'by-data'                 => 'Adatok szerint',
     'by-volume'               => 'Térfogat szerint',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Csoport',
     'groups'                  => 'csoportok',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statisztika',
     'nerd-stats-desc'         => 'Mindannyian szeretjük a statisztikákat. Íme néhány, amit fontosnak tartunk',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Regisztráció dátuma',
     'request-fulfilled'       => 'A kérelem teljesült',
     'request-not-fulfilled'   => 'A kérés nem teljesült',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Felső vetés',
     'top-seeders'             => 'Legjobb vetőgépek',
+    'top-seeding'             => 'Felső vetés',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Legjobb feltöltők',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Összes torrent',
     'total-traffic'           => 'Teljes forgalom',
     'total-upload'            => 'Teljes feltöltés',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Felhasználók csoportban',
-    'users-per-group'         => 'Felhasználók csoportonként',
+    'users-per-group'         => 'Felhasználók csoportonként'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Sayımla',
     'by-data'                 => 'Verilere Göre',
     'by-volume'               => 'Hacime Göre',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'grup',
     'groups'                  => 'Gruplar',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'İnek istatistikleri',
     'nerd-stats-desc'         => 'Hepimiz istatistikleri severiz. İşte önemli bulduğumuz birkaç şey',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Kayıt Tarihi',
     'request-fulfilled'       => 'İstek yerine getirildi',
     'request-not-fulfilled'   => 'İstek yerine getirilmedi',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'En Leeched',
     'top-leechers'            => 'En İyi Sülükler',
     'top-seeded'              => 'Top Tohum',
-    'top-seeding'             => 'En İyi Tohumlama',
     'top-seeders'             => 'En Çok Tohumlananlar',
+    'top-seeding'             => 'En İyi Tohumlama',
     'top-seedsize'            => 'Top Tohumsiz',
     'top-seedtime'            => 'En İyi Tohum Zamanı',
     'top-uploaders'           => 'En Çok Yüklenenler',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Toplam Sel',
     'total-traffic'           => 'Toplam Trafik',
     'total-upload'            => 'Toplam yükleme',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Gruptaki Kullanıcılar',
-    'users-per-group'         => 'Grup Başına Kullanıcı',
+    'users-per-group'         => 'Grup Başına Kullanıcı'
 ];

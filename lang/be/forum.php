@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'закрыта',
     'create-new-topic'          => 'Стварыць новую тэму',
     'created'                   => 'створаны',
+    'created-at'                => 'Created At',
     'current'                   => 'ток',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Выдаліць гэтую тэму',
     'denied'                    => 'адмоўлена',
     'dislike-post'              => 'Паведамленне не спадабалася',
     'display-forum'             => 'Паказаць тэмы ў',
     'edit-post'                 => 'рэдагаваць паведамленне',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'рэдагаваць тэму',
     'forum'                     => 'форум',
     'forums'                    => 'форумы',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'рэалізаваны',
     'in'                        => 'у',
     'invalid'                   => 'несапраўдны',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'каціроўка',
     'read-topic'                => 'чытайце тэму',
     'replies'                   => 'адказы',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Захаваць гэтую тэму',
     'solved'                    => 'вырашальная',
     'state'                     => 'стан',
     'stats'                     => 'статыстыка',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'падпісны',
     'subscription-quick-search' => 'Тэма назву хуткі пошук (у межах падпісак)',
     'suggestion'                => 'выкліканне',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'тэма',
     'topic-closed'              => 'Гэтая тэма зачынена',
     'topic-name'                => 'назва тэмы',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Назва гэтай тэмы',
     'topics'                    => 'тэмы',
     'unpin'                     => 'распушчае мацаваньне',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Прагледзець усе тэмы',
-    'views'                     => 'думкі',
+    'views'                     => 'думкі'
 ];

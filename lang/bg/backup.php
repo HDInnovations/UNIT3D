@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'мерки',
     'backup'                         => 'резервно копие',
     'backup_doesnt_exist'            => 'Резервният файл не съществува.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Създайте пълно архивиране',
-    'create_a_new_files_backup'      => 'Създаване на архивиране на файлове',
     'create_a_new_db_backup'         => 'Създайте резервно копие на базата данни',
+    'create_a_new_files_backup'      => 'Създаване на архивиране на файлове',
     'create_confirmation_message'    => 'Презареждане на страницата за 3 секунди.',
     'create_confirmation_title'      => 'Архивирането е завършено',
     'create_error_message'           => 'Резервният файл не може да бъде създаден.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'местоположение',
     'manager'                        => 'мениджър',
     'no_disks_configured'            => 'Няма конфигурирани резервни дискове в config / backup.php',
-    'only_local_downloads_supported' => 'Поддържат се само изтегляния от локалната файлова система.',
+    'only_local_downloads_supported' => 'Поддържат се само изтегляния от локалната файлова система.'
 ];

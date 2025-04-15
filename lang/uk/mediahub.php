@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -9,12 +10,13 @@ declare(strict_types=1);
  *
  * @project    UNIT3D Community Edition
  *
- * @author     Howard Lau <howardlau1999@hotmail.com>
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
 return [
     'born'            => 'Дата нар.:',
+    'collection'      => 'Collection',
     'collections'     => 'Колекції',
     'companies'       => 'Компанії',
     'disclaimer'      => 'Цей продукт використовує API TMDb, але не схвалений і не сертифікований TMDb.',
@@ -23,11 +25,11 @@ return [
     'genres'          => 'Жанри',
     'includes'        => 'Включає:',
     'latest-project'  => 'Останній проект:',
+    'movie'           => 'Фільм',
+    'movie-credits'   => 'В титрах фільму:',
+    'movies'          => 'Фільми',
     'networks'        => 'Мережі',
     'no-data'         => 'Немає даних!',
-    'movie'           => 'Фільм',
-    'movies'          => 'Фільми',
-    'movie-credits'   => 'В титрах фільму:',
     'persons'         => 'Персони',
     'plot'            => 'Сюжет:',
     'release-date'    => 'Дата виходу:',
@@ -38,5 +40,5 @@ return [
     'title'           => 'MediaHub',
     'tv-credits'      => 'В титрах серіалу:',
     'view-collection' => 'Переглянути колекцію',
-    'wiki-read'       => 'Прочитати біографію на Wikipedia:',
+    'wiki-read'       => 'Прочитати біографію на Wikipedia:'
 ];

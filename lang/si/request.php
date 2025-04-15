@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'ඉල්ලීම එකතු කරන්න',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'වයස',
     'all-requests'        => 'සියලු ඉල්ලීම්',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'අනුමත කරන්න',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'බන්ටි',
     'bounty-claimed'      => 'බන්ටි ප්රකාශ කලේය',
     'bounty-unclaimed'    => 'සල්ලි ඉල්ලලා',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'මෙම ආන්දෝලනාත්මක ලෙස ප්රකාශ කිරීමට ඔබ කැමතිද?',
     'claim-now'           => 'දැන් ඉල්ලන්න',
     'claimed'             => 'හිමිකම් කියන ලදී',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'දැනට',
     'delete'              => 'මෙම ඉල්ලීම මකන්න',
     'delete-confirmation' => 'මෙම ඉල්ලීම මකා දැමීමට අවශ්ය බව ඔබට විශ්වාසද?',
     'delete-filled'       => 'මෙම ඉල්ලීම සම්පූර්ණ කළ නොහැකි වුවහොත් පමණක් එය මැකිය හැකිය',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'විස්තර',
     'dont-have-bps'       => 'ඔබට ප්රමාණවත් බෝනස් නොමැත',
     'edit-request'        => 'ඉල්ලීම සංස්කරණය කරන්න',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'ප්රසාද ලකුණු කරන්න (අවම වශයෙන් 100)',
     'enter-hash'          => 'උඩුගත කළ ටොරන්ට් හි ID ඇතුල් කරන්න',
     'fill'                => 'පුරවන්න',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'සඳහා',
     'fulfill'             => 'ඉටු වේ',
     'last-vote'           => 'අවසාන ඡන්දය',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'මගේ ඉල්ලීම්',
+    'my-voted'            => 'My voted',
     'no'                  => 'නොමැත,',
     'no-imdb-id'          => 'සියලුම ඉල්ලීම් IMDB අංකය අඩංගු විය යුතුය',
     'no-privileges'       => 'දෝෂයක්: ඔබගේ ඉල්ලීම් හිමිකම් අක්රිය කර ඇත',
     'no-privileges-desc'  => 'ඔබ මෙය දෝෂ සහිත බව හැඟෙන්නේ නම්, කරුණාකර මාණ්ඩලික නිලධාරීන් අමතන්න',
     'no-refunds'          => 'මැවීම, පිරවීම සහ වරප්රසාද පිළිබඳ BON හුවමාරු අවසන් වේ! <br> <strong>නොගෙවූ</strong>',
     'pending'             => 'නො වේ',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'හේතුව',
     'reject'              => 'ප්රතික්ෂේප කරන්න',
     'report'              => 'ඉල්ලීම වාර්තා කරන්න',
     'request'             => 'ඉල්ලීම',
     'request-details'     => 'ඉල්ලීම් විස්තර',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'විසින් ඉල්ලා සිටිනු ලැබේ',
     'requests'            => 'ඉල්ලීම්',
     'required'            => 'අවශ්යයි',
     'reset'               => 'නැවත පිහිටුවන්න',
     'reset-confirmation'  => 'මෙම ඉල්ලීම නැවත සකස් කිරීමට අවශ්ය බව ඔබට විශ්වාසද?',
     'reset-request'       => 'මෙම ඉල්ලීම නැවත සකසන්න',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'ත්යාගය',
     'reward-desc'         => 'ඔබට ප්රසාද දීමනා සඳහා කොපමණ ප්රසාද ලකුණක් තිබේද? අවම 100 BP',
     'reward-from'         => 'සිට',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'සම්පූර්ණ මුදල',
     'type'                => 'වර්ගය',
     'unclaim'             => 'මෙම ඉල්ලීම අමතක කරන්න එපා',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'අසම්පූර්ණයි',
     'view-filled'         => 'පිරී ඇත',
     'view-unfilled'       => 'නිරපේක්ෂ බලන්න',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'මෙම ඉල්ලීම ඡන්දය ප්රකාශ කරන්න',
     'voters'              => 'ඡන්දදායකයෝ',
     'votes'               => 'ඡන්දය',
-    'yes'                 => 'ඔව්',
+    'yes'                 => 'ඔව්'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'বন্ধ',
     'create-new-topic'          => 'নতুন বিষয় তৈরি করুন',
     'created'                   => 'নির্মিত',
+    'created-at'                => 'Created At',
     'current'                   => 'বর্তমান',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'এই বিষয় মুছে দিন',
     'denied'                    => 'অস্বীকৃত',
     'dislike-post'              => 'এই পোস্ট অপছন্দ',
     'display-forum'             => 'বিষয় প্রদর্শন করুন',
     'edit-post'                 => 'পোস্ট সম্পাদনা করুন',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'বিষয় সম্পাদনা করুন',
     'forum'                     => 'ফোরাম',
     'forums'                    => 'ফোরাম',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'বাস্তবায়িত',
     'in'                        => 'মধ্যে',
     'invalid'                   => 'অকার্যকর',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'উদ্ধৃতি',
     'read-topic'                => 'বিষয় পড়ুন',
     'replies'                   => 'জবাব',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'এই বিষয় সংরক্ষণ করুন',
     'solved'                    => 'মীমাংসিত',
     'state'                     => 'রাষ্ট্র',
     'stats'                     => 'পরিসংখ্যান',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'সাবস্ক্রাইব',
     'subscription-quick-search' => 'বিষয় নাম দ্রুত অনুসন্ধান (সাবস্ক্রিপশন মধ্যে)',
     'suggestion'                => 'প্রস্তাবনা',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'বিষয়',
     'topic-closed'              => 'এই বিষয় বন্ধ করা হয়',
     'topic-name'                => 'বিষয় নাম',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'এই বিষয় শিরোনাম',
     'topics'                    => 'টপিক',
     'unpin'                     => 'আনপিন',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'সব বিষয় দেখুন',
-    'views'                     => 'দেখেছে',
+    'views'                     => 'দেখেছে'
 ];

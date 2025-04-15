@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Ar gau',
     'create-new-topic'          => 'Creu Pwnc Newydd',
     'created'                   => 'Crëwyd',
+    'created-at'                => 'Created At',
     'current'                   => 'Cyfredol',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Dileu Y Pwnc hwn',
     'denied'                    => 'Wedi i wrthod',
     'dislike-post'              => 'Ddim yn hoffi Y Swydd hon',
     'display-forum'             => 'Dangoswch bynciau yn',
     'edit-post'                 => 'Golygu Post',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Golygu Pwnc',
     'forum'                     => 'Fforwm',
     'forums'                    => 'Fforymau',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Wedi i weithredu',
     'in'                        => 'Yn',
     'invalid'                   => 'Annilys',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Dyfyniad',
     'read-topic'                => 'Darllenwch y Pwnc',
     'replies'                   => 'Atebion',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Arbedwch y Pwnc hwn',
     'solved'                    => 'Datryswyd',
     'state'                     => 'Nodwch',
     'stats'                     => 'Ystadegau',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Tanysgrifio',
     'subscription-quick-search' => 'Chwiliad cyflym o r enw pwnc (o fewn tanysgrifiadau)',
     'suggestion'                => 'Awgrym',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Pwnc',
     'topic-closed'              => 'Mae r Pwnc hwn ar Gau',
     'topic-name'                => 'Enw pwnc',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Teitl y Pwnc hwn',
     'topics'                    => 'Pynciau',
     'unpin'                     => 'Unpin',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Gweld pob pwnc',
-    'views'                     => 'Barn',
+    'views'                     => 'Barn'
 ];

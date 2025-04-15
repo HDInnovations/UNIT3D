@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Verzoek toevoegen',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Leeftijd',
     'all-requests'        => 'Alle verzoeken',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Goedkeuren',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'gave',
     'bounty-claimed'      => 'Bounty beweerde',
     'bounty-unclaimed'    => 'Bounty niet opgeëist',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Zou je dit op een anonieme manier willen claimen',
     'claim-now'           => 'Claim nu',
     'claimed'             => 'beweerde',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Stroom',
     'delete'              => 'Verwijder dit verzoek',
     'delete-confirmation' => 'Weet je zeker dat je deze aanvraag wilt verwijderen?',
     'delete-filled'       => 'Dit verzoek kan alleen worden verwijderd als het niet is ingevuld',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Omschrijving',
     'dont-have-bps'       => 'Je hebt niet genoeg bonus',
     'edit-request'        => 'Verzoek bewerken',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Voer bonuspunten in (minimaal 100)',
     'enter-hash'          => 'Voer de ID van de geüploade Torrent in',
     'fill'                => 'Vullen',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'voor',
     'fulfill'             => 'vervullen',
     'last-vote'           => 'Laatste stem',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Mijn aanvragen',
+    'my-voted'            => 'My voted',
     'no'                  => 'Nee,',
     'no-imdb-id'          => 'Alle aanvragen moeten een IMDB-nummer bevatten',
     'no-privileges'       => 'Fout: uw verzoekrechten zijn uitgeschakeld',
     'no-privileges-desc'  => 'Als u denkt dat dit niet klopt, neemt u contact op met Staff',
     'no-refunds'          => 'BON-uitwisselingen over creëren, vullen en premies zijn definitief! <br> <strong>GEEN GELD TERUG!</strong>',
     'pending'             => 'In afwachting',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Reden',
     'reject'              => 'afwijzen',
     'report'              => 'Rapportaanvraag',
     'request'             => 'Verzoek',
     'request-details'     => 'Vraag details aan',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Aangevraagd door',
     'requests'            => 'verzoeken',
     'required'            => 'Verplicht',
     'reset'               => 'Reset',
     'reset-confirmation'  => 'Weet je zeker dat je dit verzoek wilt resetten?',
     'reset-request'       => 'Reset dit verzoek',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Beloning',
     'reward-desc'         => 'Hoeveel bonuspunt zou u willen belonen? Minimaal 100 BP',
     'reward-from'         => 'Van',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Totale premie',
     'type'                => 'Type',
     'unclaim'             => 'Open dit verzoek',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'ongevuld',
     'view-filled'         => 'Bekijk gevuld',
     'view-unfilled'       => 'Bekijk ongevuld',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Stem op dit verzoek',
     'voters'              => 'kiezers',
     'votes'               => 'stemmen',
-    'yes'                 => 'Ja',
+    'yes'                 => 'Ja'
 ];

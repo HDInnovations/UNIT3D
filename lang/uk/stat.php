@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,10 +26,11 @@ return [
     'disabled'                => 'Неактивні',
     'group'                   => 'Група',
     'groups'                  => 'Групи',
+    'languages'               => 'Мови',
     'last30days'              => 'Останні 30 Днів',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Статистика',
     'nerd-stats-desc'         => 'Ми всі любимо цікаву статистику. Ось статистика, яку ми вважаємо цікавою',
-    'languages'               => 'Мови',
     'place'                   => 'Місце',
     'pruned'                  => 'Обмежені',
     'real'                    => 'Реальний',
@@ -50,8 +52,8 @@ return [
     'top-leeched'             => 'Топ Торрентів По Кількості Лічерів',
     'top-leechers'            => 'Топ Лічерів',
     'top-seeded'              => 'Топ Торрентів По Кількості Сідерів',
-    'top-seeding'             => 'Топ Сідуючих',
     'top-seeders'             => 'Топ Сідерів',
+    'top-seeding'             => 'Топ Сідуючих',
     'top-seedsize'            => 'Топ По Розміру Сідування',
     'top-seedtime'            => 'Топ По Часу Сідування',
     'top-uploaders'           => 'Топ Релізерів',
@@ -61,5 +63,5 @@ return [
     'total-upload'            => 'Всього віддано',
     'updated'                 => '(Оновлюється кожні 10 хвилин!)',
     'users-in-group'          => 'Користувачів в групі',
-    'users-per-group'         => 'Користувачів на групу',
+    'users-per-group'         => 'Користувачів на групу'
 ];

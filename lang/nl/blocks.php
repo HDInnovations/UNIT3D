@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Actief in de laatste',
     'chatbox'                 => 'Chatbox',
+    'check-news'              => 'Nieuws (dagelijks controleren)',
     'click'                   => 'Klik',
-    'to-enable-editor'        => 'om editor in te schakelen',
     'featured-by'             => 'Gekenmerkt door',
     'featured-torrents'       => 'Aanbevolen Torrents',
     'featured-torrents-intro' => 'Haal ze terwijl je kunt!',
     'featured-until'          => 'Dit wordt gekenmerkt door torrent tot',
-    'top-torrents'            => 'Top Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Laatste berichten',
     'latest-topics'           => 'Laatste onderwerpen',
-    'active-in-last'          => 'Actief in de laatste',
-    'users-online'            => 'Gebruikers online',
-    'check-news'              => 'Nieuws (dagelijks controleren)',
     'new-news'                => 'Nieuw nieuws',
     'new-torrents'            => 'Nieuwe torrents',
+    'to-enable-editor'        => 'om editor in te schakelen',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'Gebruikers online'
 ];

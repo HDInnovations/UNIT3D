@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'działania',
     'backup'                         => 'Utworzyć kopię zapasową',
     'backup_doesnt_exist'            => 'Plik kopii zapasowej nie istnieje.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Utwórz pełną kopię zapasową',
-    'create_a_new_files_backup'      => 'Utwórz kopię zapasową plików',
     'create_a_new_db_backup'         => 'Utwórz kopię zapasową bazy danych',
+    'create_a_new_files_backup'      => 'Utwórz kopię zapasową plików',
     'create_confirmation_message'    => 'Ponowne ładowanie strony w 3 sekundy.',
     'create_confirmation_title'      => 'Zakończono tworzenie kopii zapasowej',
     'create_error_message'           => 'Plik kopii zapasowej NIE mógł zostać utworzony.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Lokalizacja',
     'manager'                        => 'Menedżer',
     'no_disks_configured'            => 'Nie skonfigurowano dysków zapasowych w config / backup.php',
-    'only_local_downloads_supported' => 'Obsługiwane są tylko pliki do pobrania z lokalnego systemu plików.',
+    'only_local_downloads_supported' => 'Obsługiwane są tylko pliki do pobrania z lokalnego systemu plików.'
 ];

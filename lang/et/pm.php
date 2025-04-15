@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Loo',
-    'delete'        => 'Kustuta',
-    'enter-subject' => 'Sisestage teema',
-    'from'          => 'Alates',
-    'inbox'         => 'Saabunud',
-    'mark-all-read' => 'Märkige kõik sõnumid loetuks',
-    'message'       => 'Sõnum',
-    'messages'      => 'Sõnumid',
-    'new'           => 'Uus sõnum',
-    'outbox'        => 'Saatmiseks',
-    'private'       => 'Eraldi',
-    'read'          => 'Loe',
-    'received-at'   => 'Saadud At',
-    'refresh'       => 'Värskenda',
-    'reply'         => 'Vastus',
-    'search'        => 'Otsi teema järgi',
-    'select'        => 'Valige kasutaja',
-    'send'          => 'Saada PM',
-    'send-to'       => 'Saada PM',
-    'sent'          => 'Saadetud',
-    'sent-at'       => 'Saadetud',
-    'subject'       => 'Teema',
-    'to'            => 'Et',
-    'unread'        => 'Lugemata',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Loo',
+    'delete'          => 'Kustuta',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'Sisestage teema',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Alates',
+    'inbox'           => 'Saabunud',
+    'mark-all-read'   => 'Märkige kõik sõnumid loetuks',
+    'message'         => 'Sõnum',
+    'messages'        => 'Sõnumid',
+    'new'             => 'Uus sõnum',
+    'outbox'          => 'Saatmiseks',
+    'private'         => 'Eraldi',
+    'read'            => 'Loe',
+    'received-at'     => 'Saadud At',
+    'refresh'         => 'Värskenda',
+    'reply'           => 'Vastus',
+    'search'          => 'Otsi teema järgi',
+    'select'          => 'Valige kasutaja',
+    'send'            => 'Saada PM',
+    'send-to'         => 'Saada PM',
+    'sent'            => 'Saadetud',
+    'sent-at'         => 'Saadetud',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Teema',
+    'to'              => 'Et',
+    'unread'          => 'Lugemata'
 ];

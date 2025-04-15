@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Lukumäärä',
     'by-data'                 => 'Tiedot',
     'by-volume'               => 'Äänenvoimakkuuden mukaan',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Ryhmä',
     'groups'                  => 'ryhmät',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd-tilastot',
     'nerd-stats-desc'         => 'Me kaikki rakastamme tilastoja. Tässä muutamia tärkeitä',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Rekisteröinti päivämäärä',
     'request-fulfilled'       => 'Pyyntö täytetty',
     'request-not-fulfilled'   => 'Pyyntö ei täyty',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Suosituin kylvö',
     'top-seeders'             => 'Suosituimmat kylvökoneet',
+    'top-seeding'             => 'Suosituin kylvö',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Suosituimmat lähettäjät',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Torrentit yhteensä',
     'total-traffic'           => 'Yhteensä liikenne',
     'total-upload'            => 'Lataus yhteensä',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Käyttäjät ryhmässä',
-    'users-per-group'         => 'Käyttäjät per ryhmä',
+    'users-per-group'         => 'Käyttäjät per ryhmä'
 ];

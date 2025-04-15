@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => '행위',
     'backup'                         => '지원',
     'backup_doesnt_exist'            => '백업 파일이 존재하지 않습니다.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => '전체 백업 만들기',
-    'create_a_new_files_backup'      => '파일 백업 생성',
     'create_a_new_db_backup'         => '데이터베이스 백업 만들기',
+    'create_a_new_files_backup'      => '파일 백업 생성',
     'create_confirmation_message'    => '3 초 후에 페이지를 다시로드합니다.',
     'create_confirmation_title'      => '백업 완료',
     'create_error_message'           => '백업 파일을 만들 수 없습니다.',
@@ -41,5 +43,5 @@ return [
     'location'                       => '위치',
     'manager'                        => '매니저',
     'no_disks_configured'            => 'config/backup.php 에 백업 디스크가 구성되어 있지 않습니다.',
-    'only_local_downloads_supported' => '로컬 파일 시스템에서만 다운로드가 지원됩니다.',
+    'only_local_downloads_supported' => '로컬 파일 시스템에서만 다운로드가 지원됩니다.'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,34 +15,20 @@ declare(strict_types=1);
  */
 
 return [
-    // Chat
-    'chatbox'          => 'Ventana de chat',
-    'click'            => 'Hacer clic',
-    'to-enable-editor' => 'Habilitar editor',
-
-    // Featured Torrents
+    'active-in-last'          => 'Activo en el último',
+    'chatbox'                 => 'Ventana de chat',
+    'check-news'              => 'Noticias (Click para leer)',
+    'click'                   => 'Hacer clic',
     'featured-by'             => 'Destacado por',
     'featured-torrents'       => 'Torrents destacados',
     'featured-torrents-intro' => '¡Consíguelos mientras puedas!',
     'featured-until'          => 'Torrent destacado hasta el',
-
-    // Latest Torrents
-    'top-torrents' => 'Mejores torrents',
-
-    // Latest Posts
-    'latest-posts' => 'Últimas publicaciones',
-
-    // Latest Topics
-    'latest-topics' => 'Temas más recientes',
-
-    // Users Online
-    'active-in-last' => 'Activo en el último',
-    'users-online'   => 'Usuarios en línea',
-
-    // News/Articles
-    'check-news' => 'Noticias (Click para leer)',
-    'new-news'   => 'Nuevas noticias',
-
-    // Top Torrents
-    'new-torrents' => 'Nuevos torrents',
+    'latest-comments'         => 'Latest Comments',
+    'latest-posts'            => 'Últimas publicaciones',
+    'latest-topics'           => 'Temas más recientes',
+    'new-news'                => 'Nuevas noticias',
+    'new-torrents'            => 'Nuevos torrents',
+    'to-enable-editor'        => 'Habilitar editor',
+    'top-torrents'            => 'Mejores torrents',
+    'users-online'            => 'Usuarios en línea'
 ];

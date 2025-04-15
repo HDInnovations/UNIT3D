@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Accións',
     'backup'                         => 'Copia de seguridade',
     'backup_doesnt_exist'            => 'O ficheiro de copia de seguridade non existe.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Crear copia de seguridade completa',
-    'create_a_new_files_backup'      => 'Crear copia de seguridade de ficheiros',
     'create_a_new_db_backup'         => 'Crear unha copia de seguridade da base de datos',
+    'create_a_new_files_backup'      => 'Crear copia de seguridade de ficheiros',
     'create_confirmation_message'    => 'Cargar de novo a páxina en 3 segundos.',
     'create_confirmation_title'      => 'Completouse a copia de seguridade',
     'create_error_message'           => 'Non se puido crear o ficheiro de copia de seguridade.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Localización',
     'manager'                        => 'Xestor',
     'no_disks_configured'            => 'Non se configuraron discos de copia de seguridade en config / backup.php',
-    'only_local_downloads_supported' => 'Só se admiten descargas do sistema de ficheiros local.',
+    'only_local_downloads_supported' => 'Só se admiten descargas do sistema de ficheiros local.'
 ];

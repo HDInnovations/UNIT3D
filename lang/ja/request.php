@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'リクエストを追加',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => '年齢',
     'all-requests'        => 'すべてのリクエスト',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => '承認する',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => '賞金',
     'bounty-claimed'      => 'バウンティが主張',
     'bounty-unclaimed'    => 'バウンティ未請求',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'これを匿名で申し立てますか',
     'claim-now'           => '今すぐ申し込む',
     'claimed'             => '申し立て済み',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => '現在',
     'delete'              => 'このリクエストを削除',
     'delete-confirmation' => 'このリクエストを削除してもよろしいですか',
     'delete-filled'       => 'このリクエストは、入力されていない場合にのみ削除できます',
+    'deleted'             => 'You have deleted %s',
     'description'         => '説明',
     'dont-have-bps'       => 'あなたは十分なボーナスを持っていません',
     'edit-request'        => 'リクエストを編集',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'ボーナスポイントを入力してください（最低100）',
     'enter-hash'          => 'アップロードしたTorrentの情報ハッシュを入力してください',
     'fill'                => '塗りつぶし',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'にとって',
     'fulfill'             => '満たす',
     'last-vote'           => '最後の投票',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => '私の要求',
+    'my-voted'            => 'My voted',
     'no'                  => 'いいえ、',
     'no-imdb-id'          => 'すべての要求にはIMDB番号を含める必要があります',
     'no-privileges'       => 'エラー：あなたの要求権は無効にされています',
     'no-privileges-desc'  => 'これが誤っていると思われる場合は、スタッフに連絡してください。',
     'no-refunds'          => '創作、充てん、賞金に関するBON交換は最終的なものです。 <br> <strong>返金なし！</strong>',
     'pending'             => '保留中',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => '理由',
     'reject'              => '拒否する',
     'report'              => '報告依頼',
     'request'             => '要求',
     'request-details'     => '詳細をリクエストする',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'に要求された',
     'requests'            => 'リクエスト',
     'required'            => '必須',
     'reset'               => 'リセット',
     'reset-confirmation'  => 'このリクエストをリセットしてよろしいですか？',
     'reset-request'       => 'このリクエストをリセット',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => '褒賞',
     'reward-desc'         => 'あなたはどのくらいのボーナスポイントをもらえますか最低100 BP',
     'reward-from'         => 'から',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => '合計賞金',
     'type'                => 'タイプ',
     'unclaim'             => 'このリクエストの申し立てを取り消す',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => '未記入',
     'view-filled'         => 'いっぱい表示',
     'view-unfilled'       => '未入力を表示',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'このリクエストに投票する',
     'voters'              => '有権者',
     'votes'               => '投票',
-    'yes'                 => 'はい',
+    'yes'                 => 'はい'
 ];

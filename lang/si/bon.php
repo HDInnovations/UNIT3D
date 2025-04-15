@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'හුවමාරුව',
     'exchange-warning'        => 'විනිමය හුවමාරු අවසන්, කරුණාකර හුවමාරු කිරීමට පෙර ඔබේ තේරීම් පරීක්ෂා කරන්න.',
     'extended-stats'          => 'ව්යාප්ත සංඛ්යා',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'තෑග්ගක්',
     'gift-bonus'              => 'තෑගි බෝනස් ලකුණු',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'තෑගි බෝනස් ලක්ෂ්ය',
     'gifts'                   => 'තෑගි',
     'item'                    => 'අයිතමය',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'තත්පරයට',
     'per-week'                => 'සතියකට ලකුණු',
     'per-year'                => 'වසරකට ලකුණු',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'ලකුණු',
     'receiver'                => 'ග්රාහකයා',
     'review-seeds'            => 'සියළුම බීජ පිටුපස වගු සමාලෝචනය කරන්න',
     'send-gift'               => 'තෑග්ග යවන්න',
     'sender'                  => 'Sender',
     'store'                   => 'ගබඩාව',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'ඉඟි',
     'total'                   => 'සමස්ත ඉපැයීම්',
     'total-gifts'             => 'සමස්ත බෝොන් තෑගි',
     'total-tips'              => 'Total BON ඉඟි',
     'you-have-received-gifts' => 'ඔබ ලබා ඇති',
-    'you-have-sent-gifts'     => 'ඔබ එවූ සේක',
     'you-have-received-tips'  => 'ඔබ ලබා ඇති',
+    'you-have-sent-gifts'     => 'ඔබ එවූ සේක',
     'you-have-sent-tips'      => 'ඔබ එවූ සේක',
-    'your-points'             => 'ඔබේ ලකුණු',
+    'your-points'             => 'ඔබේ ලකුණු'
 ];

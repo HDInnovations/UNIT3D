@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,14 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'date'             => 'Dyddiad',
-    'delete'           => 'Dileu',
-    'delete-all'       => 'Dileu pob hysbysiad',
-    'mark-all-read'    => 'Marciwch y cyfan fel y i darllenwyd',
-    'mark-read'        => 'Marc fel y i darllenwyd',
-    'message'          => 'Neges',
-    'no-notifications' => 'Ni ddarganfuwyd unrhyw hysbysiadau',
-    'notifications'    => 'Hysbysiadau',
-    'read'             => 'Darllenwch',
-    'title'            => 'Teitl',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gifts',
+    'comment-tags'        => 'Comment Tags',
+    'date'                => 'Dyddiad',
+    'delete'              => 'Dileu',
+    'delete-all'          => 'Dileu pob hysbysiad',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filter By Notification Type',
+    'mark-all-read'       => 'Marciwch y cyfan fel y i darllenwyd',
+    'mark-read'           => 'Marc fel y i darllenwyd',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'Neges',
+    'no-notifications'    => 'Ni ddarganfuwyd unrhyw hysbysiadau',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'Hysbysiadau',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'Darllenwch',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'Teitl',
+    'unfollows'           => 'Unfollows'
 ];

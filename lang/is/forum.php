@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Lokað',
     'create-new-topic'          => 'Búðu til nýtt efni',
     'created'                   => 'Búið til',
+    'created-at'                => 'Created At',
     'current'                   => 'Núverandi',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Eyða þessu efni',
     'denied'                    => 'Neitað',
     'dislike-post'              => 'Mislíkar þetta innlegg',
     'display-forum'             => 'Sýna efni í',
     'edit-post'                 => 'Breyta færslu',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Breyta efni',
     'forum'                     => 'Forum',
     'forums'                    => 'Málþing',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Framkvæmdar',
     'in'                        => 'Í',
     'invalid'                   => 'Ógilt',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Tilvitnun',
     'read-topic'                => 'Lesa efni',
     'replies'                   => 'Svar',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Vista þetta efni',
     'solved'                    => 'Leyst',
     'state'                     => 'Ríki',
     'stats'                     => 'Tölfræði',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Áskrifandi',
     'subscription-quick-search' => 'Efnisheiti fljótleg leit (innan áskriftar)',
     'suggestion'                => 'Tillaga',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Topic',
     'topic-closed'              => 'Þetta efni er lokað',
     'topic-name'                => 'Nafn efnis',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Titill þessa máls',
     'topics'                    => 'Topics',
     'unpin'                     => 'Unpin',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Skoða öll efni',
-    'views'                     => 'Skoðanir',
+    'views'                     => 'Skoðanir'
 ];

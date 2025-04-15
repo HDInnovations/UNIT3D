@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Meetmed',
     'backup'                         => 'Varundamine',
     'backup_doesnt_exist'            => 'Varukoopiafaili ei ole.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Loo täielik varukoopia',
-    'create_a_new_files_backup'      => 'Loo failide varundamine',
     'create_a_new_db_backup'         => 'Loo andmebaasi varundus',
+    'create_a_new_files_backup'      => 'Loo failide varundamine',
     'create_confirmation_message'    => 'Lehe uuesti laadimine 3 sekundi pärast.',
     'create_confirmation_title'      => 'Varundamine on lõpetatud',
     'create_error_message'           => 'Varukoopiat ei õnnestunud luua.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Asukoht',
     'manager'                        => 'Manager',
     'no_disks_configured'            => 'Konfiguratsioonis config / backup.php pole konfigureeritud varukoopiaid',
-    'only_local_downloads_supported' => 'Toetatakse ainult kohaliku failisüsteemi allalaadimisi.',
+    'only_local_downloads_supported' => 'Toetatakse ainult kohaliku failisüsteemi allalaadimisi.'
 ];

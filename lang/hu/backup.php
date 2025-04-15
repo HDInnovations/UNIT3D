@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Hozzászólások',
     'backup'                         => 'biztonsági mentés',
     'backup_doesnt_exist'            => 'A mentési fájl nem létezik.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Teljes biztonsági mentés létrehozása',
-    'create_a_new_files_backup'      => 'Fájlok biztonsági mentése',
     'create_a_new_db_backup'         => 'Adatbázis-biztonsági mentés létrehozása',
+    'create_a_new_files_backup'      => 'Fájlok biztonsági mentése',
     'create_confirmation_message'    => 'Az oldal újratöltése 3 másodperc múlva.',
     'create_confirmation_title'      => 'A biztonsági mentés befejeződött',
     'create_error_message'           => 'A biztonsági mentés fájl nem hozható létre.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Elhelyezkedés',
     'manager'                        => 'Menedzser',
     'no_disks_configured'            => 'A config / backup.php fájlban nincsenek biztonsági másolatok',
-    'only_local_downloads_supported' => 'Csak a helyi fájlrendszerről érkező letöltések támogatottak.',
+    'only_local_downloads_supported' => 'Csak a helyi fájlrendszerről érkező letöltések támogatottak.'
 ];

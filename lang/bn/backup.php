@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'ক্রিয়াকলাপ',
     'backup'                         => 'ব্যাকআপ',
     'backup_doesnt_exist'            => 'ব্যাকআপ ফাইল বিদ্যমান নেই।',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'সম্পূর্ণ ব্যাকআপ তৈরি করুন',
-    'create_a_new_files_backup'      => 'ফাইল ব্যাকআপ তৈরি করুন',
     'create_a_new_db_backup'         => 'ডাটাবেস ব্যাকআপ তৈরি করুন',
+    'create_a_new_files_backup'      => 'ফাইল ব্যাকআপ তৈরি করুন',
     'create_confirmation_message'    => '3 সেকেন্ডের মধ্যে পৃষ্ঠা পুনরায় লোড হচ্ছে।',
     'create_confirmation_title'      => 'ব্যাকআপ সম্পন্ন',
     'create_error_message'           => 'ব্যাকআপ ফাইল তৈরি করা যায়নি।',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'অবস্থান',
     'manager'                        => 'ম্যানেজার',
     'no_disks_configured'            => 'কনফিগার / backup.php কনফিগার করা কোন ব্যাকআপ ডিস্ক',
-    'only_local_downloads_supported' => 'শুধুমাত্র স্থানীয় ফাইল সিস্টেম থেকে ডাউনলোড সমর্থিত হয়।',
+    'only_local_downloads_supported' => 'শুধুমাত্র স্থানীয় ফাইল সিস্টেম থেকে ডাউনলোড সমর্থিত হয়।'
 ];

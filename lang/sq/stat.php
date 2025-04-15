@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Nga Pika',
     'by-data'                 => 'Nga të dhënat',
     'by-volume'               => 'Nga Vëllimi',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'grup',
     'groups'                  => 'Grupet',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Statistikat e pleqve',
     'nerd-stats-desc'         => 'Ne të gjithë e duam statistikat. Këtu janë disa që i gjejmë të rëndësishme',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Data e regjistrimit',
     'request-fulfilled'       => 'Kërkesa plotësohet',
     'request-not-fulfilled'   => 'Kërkesa nuk është plotësuar',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Leechers Top',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Mbjellja e lartë',
     'top-seeders'             => 'Mbjellësit kryesorë',
+    'top-seeding'             => 'Mbjellja e lartë',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Orari më i mirë i farave',
     'top-uploaders'           => 'Top Uploaders',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Gjithsej Torrents',
     'total-traffic'           => 'Trafiku total',
     'total-upload'            => 'Ngarko gjithsej',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Përdoruesit në grup',
-    'users-per-group'         => 'Përdoruesit sipas grupit',
+    'users-per-group'         => 'Përdoruesit sipas grupit'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Akcia',
     'backup'                         => 'zálohovanie',
     'backup_doesnt_exist'            => 'Záložný súbor neexistuje.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Vytvorte plnú zálohu',
-    'create_a_new_files_backup'      => 'Vytvorenie zálohy súborov',
     'create_a_new_db_backup'         => 'Vytvorenie zálohy databázy',
+    'create_a_new_files_backup'      => 'Vytvorenie zálohy súborov',
     'create_confirmation_message'    => 'Obnovenie stránky za 3 sekundy.',
     'create_confirmation_title'      => 'Zálohovanie bolo dokončené',
     'create_error_message'           => 'Záložný súbor nemohol byť vytvorený.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'umiestnenia',
     'manager'                        => 'manažér',
     'no_disks_configured'            => 'V konfigurácii config / backup.php nie sú nakonfigurované žiadne záložné disky',
-    'only_local_downloads_supported' => 'Podporované sú iba prevzaté súbory z lokálneho súborového systému.',
+    'only_local_downloads_supported' => 'Podporované sú iba prevzaté súbory z lokálneho súborového systému.'
 ];

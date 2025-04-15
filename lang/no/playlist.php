@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,20 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'about'           => 'Her finner du brukernes spillelister over det de liker!',
-    'add-to-playlist' => 'Legg Til Torrent Til Spillelisten',
-    'add-torrent'     => 'Legg Til Torrent',
-    'added-by'        => 'Av:',
-    'cover'           => 'Velg et Coverbilde',
-    'create'          => 'La ny Spilleliste',
-    'delete-playlist' => 'Slett Spillelisten',
-    'desc'            => 'Beskrivelse av Spillelisten',
-    'download-all'    => 'Last Ned Alle Torrenter I spillelisten',
-    'edit-playlist'   => 'rediger Spillelisten',
-    'list-by'         => 'En Liste Laget Av:',
-    'list-about'      => 'En Liste Om:',
-    'is-private'      => 'Privat Spilleliste?',
-    'playlists'       => 'Spillelister',
-    'title'           => 'Tittel',
-    'titles'          => 'Tittler',
+    'about'                          => 'Her finner du brukernes spillelister over det de liker!',
+    'add-to-playlist'                => 'Legg Til Torrent Til Spillelisten',
+    'add-torrent'                    => 'Legg Til Torrent',
+    'added-by'                       => 'Av:',
+    'attached-success'               => 'Torrent Has Successfully Been Attached To Your Playlist.',
+    'cover'                          => 'Velg et Coverbilde',
+    'create'                         => 'La ny Spilleliste',
+    'delete-playlist'                => 'Slett Spillelisten',
+    'deleted'                        => 'Playlist Deleted!',
+    'desc'                           => 'Beskrivelse av Spillelisten',
+    'detached-success'               => 'Torrent Has Successfully Been Detached From Your Playlist.',
+    'download-all'                   => 'Last Ned Alle Torrenter I spillelisten',
+    'edit-playlist'                  => 'rediger Spillelisten',
+    'is-private'                     => 'Privat Spilleliste?',
+    'last-addition-at'               => 'Last addition at',
+    'list-about'                     => 'En Liste Om:',
+    'list-by'                        => 'En Liste Laget Av:',
+    'playlist-suggestion-rejections' => 'Playlist Suggestion Rejections',
+    'playlist-suggestions'           => 'Playlist Suggestions',
+    'playlists'                      => 'Spillelister',
+    'private-error'                  => 'This is a private playlist! You do not have access to other users\' private playlists!',
+    'published-success'              => 'Your Playlist Was Created Successfully!',
+    'suggest-torrent'                => 'Suggest Torrent',
+    'suggestion-approved'            => 'Playlist suggestion approved',
+    'suggestion-rejected'            => 'Playlist suggestion rejected',
+    'suggestion-review'              => 'Your suggestion has been sent to the playlist creator for moderation',
+    'title'                          => 'Tittel',
+    'titles'                         => 'Tittler',
+    'update-success'                 => 'Your Playlist Has Successfully Been Updated!'
 ];

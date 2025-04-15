@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Lisää pyyntö',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Ikä',
     'all-requests'        => 'Kaikki pyynnöt',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Hyväksyä',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'anteliaisuus',
     'bounty-claimed'      => 'Bounty väitti',
     'bounty-unclaimed'    => 'Bounty ei pyytänyt',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Haluatko vaatia tätä anonomisesti',
     'claim-now'           => 'Vaatimus nyt',
     'claimed'             => 'väitti',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'nykyinen',
     'delete'              => 'Poista tämä pyyntö',
     'delete-confirmation' => 'Haluatko varmasti poistaa tämän pyynnön',
     'delete-filled'       => 'Tämä pyyntö voidaan poistaa vain, jos sitä ei ole täytetty',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Kuvaus',
     'dont-have-bps'       => 'Sinulla ei ole tarpeeksi bonusta',
     'edit-request'        => 'Muokkaa pyyntöä',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Anna bonuspisteet (vähintään 100)',
     'enter-hash'          => 'Anna ladatun Torrentin ID',
     'fill'                => 'Täyttää',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'varten',
     'fulfill'             => 'täyttää',
     'last-vote'           => 'Viimeinen äänestys',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Pyyntöjäni',
+    'my-voted'            => 'My voted',
     'no'                  => 'Ei,',
     'no-imdb-id'          => 'Kaikkien pyyntöjen on sisällettävä IMDB-numero',
     'no-privileges'       => 'Virhe: Pyyntöoikeutesi on poistettu käytöstä',
     'no-privileges-desc'  => 'Jos sinusta tuntuu, että tämä on virhe, ota yhteyttä henkilöstöön',
     'no-refunds'          => 'BON-pörssien luominen, täyttäminen ja palkkiot ovat lopullisia! <br> <strong>EI TAKAISIA!</strong>',
     'pending'             => 'odotettaessa',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Syy',
     'reject'              => 'Hylätä',
     'report'              => 'Ilmoita pyyntö',
     'request'             => 'Pyyntö',
     'request-details'     => 'Pyydä yksityiskohtia',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Pyydetty',
     'requests'            => 'Pyynnöt',
     'required'            => 'Vaaditaan',
     'reset'               => 'asettaa uudelleen',
     'reset-confirmation'  => 'Haluatko varmasti nollata tämän pyynnön',
     'reset-request'       => 'Palauta tämä pyyntö',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Palkinto',
     'reward-desc'         => 'Kuinka paljon bonuspistettä haluat palkita? Vähintään 100 BP',
     'reward-from'         => 'alkaen',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Yhteensä palkkio',
     'type'                => 'Tyyppi',
     'unclaim'             => 'Peruuta pyyntö',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'täyttämättömät',
     'view-filled'         => 'Näytä täytetty',
     'view-unfilled'       => 'Näytä tyhjä',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Äänestä tätä pyyntöä',
     'voters'              => 'Äänestäjät',
     'votes'               => 'ääntä',
-    'yes'                 => 'Joo',
+    'yes'                 => 'Joo'
 ];

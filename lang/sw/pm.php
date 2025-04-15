@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Unda',
-    'delete'        => 'Futa',
-    'enter-subject' => 'Ingiza somo',
-    'from'          => 'Kutoka',
-    'inbox'         => 'Kikasha',
-    'mark-all-read' => 'Weka ujumbe wote kama usomaji',
-    'message'       => 'Ujumbe',
-    'messages'      => 'Ujumbe',
-    'new'           => 'Ujumbe mpya',
-    'outbox'        => 'Bodi ya Kikasha',
-    'private'       => 'Privat',
-    'read'          => 'Soma',
-    'received-at'   => 'Imepokea',
-    'refresh'       => 'Furahisha',
-    'reply'         => 'Jibu',
-    'search'        => 'Utafute kwa Somo',
-    'select'        => 'Chagua Mtumiaji',
-    'send'          => 'Tuma PM',
-    'send-to'       => 'Tuma PM kwenda',
-    'sent'          => 'Imepelekwa',
-    'sent-at'       => 'Imepelekwa',
-    'subject'       => 'Somo',
-    'to'            => 'Kwa',
-    'unread'        => 'Haijasomwa',
-    'empty-inbox'   => 'Toa kikasha',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Unda',
+    'delete'          => 'Futa',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Toa kikasha',
+    'enter-subject'   => 'Ingiza somo',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Kutoka',
+    'inbox'           => 'Kikasha',
+    'mark-all-read'   => 'Weka ujumbe wote kama usomaji',
+    'message'         => 'Ujumbe',
+    'messages'        => 'Ujumbe',
+    'new'             => 'Ujumbe mpya',
+    'outbox'          => 'Bodi ya Kikasha',
+    'private'         => 'Privat',
+    'read'            => 'Soma',
+    'received-at'     => 'Imepokea',
+    'refresh'         => 'Furahisha',
+    'reply'           => 'Jibu',
+    'search'          => 'Utafute kwa Somo',
+    'select'          => 'Chagua Mtumiaji',
+    'send'            => 'Tuma PM',
+    'send-to'         => 'Tuma PM kwenda',
+    'sent'            => 'Imepelekwa',
+    'sent-at'         => 'Imepelekwa',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Somo',
+    'to'              => 'Kwa',
+    'unread'          => 'Haijasomwa'
 ];

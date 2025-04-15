@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Сандар бойынша',
     'by-data'                 => 'Деректер бойынша',
     'by-volume'               => 'Көлемі бойынша',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Топ',
     'groups'                  => 'Топтар',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd статистикасы',
     'nerd-stats-desc'         => 'Біз барлық статистиканы жақсы көреміз. Міне, біз маңызды нәрселерді таба аламыз',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Тіркеу күні',
     'request-fulfilled'       => 'Өтініш орындалды',
     'request-not-fulfilled'   => 'Сұраныс орындалмады',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Жоғарғы Leeched',
     'top-leechers'            => 'Үздік лейгерлер',
     'top-seeded'              => 'Жоғарғы сығылған',
-    'top-seeding'             => 'Жоғарғы егіс',
     'top-seeders'             => 'Жоғарғы сепкіштер',
+    'top-seeding'             => 'Жоғарғы егіс',
     'top-seedsize'            => 'Жоғарғы тұқымдық',
     'top-seedtime'            => 'Үздік сүт дәмі',
     'top-uploaders'           => 'Жоғарғы жүктеушілер',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'Жалпы трафик',
     'total-upload'            => 'Жалпы жүктеу',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Топтағы пайдаланушылар',
-    'users-per-group'         => 'Топтар бойынша пайдаланушылар',
+    'users-per-group'         => 'Топтар бойынша пайдаланушылар'
 ];

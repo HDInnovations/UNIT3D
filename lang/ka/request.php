@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'მოთხოვნის დამატება',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'ასაკი',
     'all-requests'        => 'ყველა მოთხოვნა',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'დამტკიცება',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty მტკიცებით',
     'bounty-unclaimed'    => 'Bounty unclaimed',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'გსურთ, რომ მოითხოვოთ ეს უკანასკნელად',
     'claim-now'           => 'პრეტენზია ახლა',
     'claimed'             => 'აცხადებდნენ',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'მიმდინარე',
     'delete'              => 'ამ მოთხოვნის წაშლა',
     'delete-confirmation' => 'დარწმუნებული ხართ, რომ გსურთ ამ მოთხოვნის წაშლა',
     'delete-filled'       => 'ეს მოთხოვნა შეიძლება წაიშალოს თუ ის არ არის შევსებული',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'აღწერა',
     'dont-have-bps'       => 'თქვენ არ გაქვთ საკმარისი ბონუსი',
     'edit-request'        => 'მოთხოვნის რედაქტირება',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'შეიყვანეთ ბონუს ქულა (მინიმუმ 100)',
     'enter-hash'          => 'შეიყვანეთ ატვირთული ტორენტის ID',
     'fill'                => 'შეავსეთ',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'ამისთვის',
     'fulfill'             => 'შეასრულოს',
     'last-vote'           => 'ბოლო ხმა',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'ჩემი მოთხოვნები',
+    'my-voted'            => 'My voted',
     'no'                  => 'არა,',
     'no-imdb-id'          => 'ყველა მოთხოვნა უნდა შეიცავდეს IMDB ნომერს',
     'no-privileges'       => 'შეცდომა: თქვენი მოთხოვნის უფლებები გამორთულია',
     'no-privileges-desc'  => 'თუ ფიქრობთ, რომ ეს შეცდომაა, გთხოვთ დაუკავშირდეთ თანამშრომლებს',
     'no-refunds'          => 'BON ბირჟებზე შექმნის, შევსების და Bounties საბოლოო! <br> <strong>არ არის რეფლუნდები!</strong>',
     'pending'             => 'მიმდინარეობს',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'მიზეზი',
     'reject'              => 'Უარყოს',
     'report'              => 'მოთხოვნის დაკითხვა',
     'request'             => 'მოთხოვნა',
     'request-details'     => 'დეტალების მოთხოვნა',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Მიერ მოთხოვნილი',
     'requests'            => 'მოთხოვნები',
     'required'            => 'საჭიროა',
     'reset'               => 'გადატვირთვა',
     'reset-confirmation'  => 'დარწმუნებული ხართ, რომ გსურთ ეს მოთხოვნა გადატვირთოთ',
     'reset-request'       => 'აღადგინეთ ეს მოთხოვნა',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Ჯილდო',
     'reward-desc'         => 'რამდენი ბონუს პუნქტი გისურვებთ? მინიმუმ 100 BP',
     'reward-from'         => 'მდებარეობა',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'მთლიანი Bounty',
     'type'                => 'ტიპი',
     'unclaim'             => 'ამ მოთხოვნის დაკმაყოფილება',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'შეუსრულებელი',
     'view-filled'         => 'ნახვა შევსებულია',
     'view-unfilled'       => 'იხილეთ unfilled',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'ეს მოთხოვნა',
     'voters'              => 'ამომრჩეველი',
     'votes'               => 'ხმების რაოდენობა',
-    'yes'                 => 'დიახ',
+    'yes'                 => 'დიახ'
 ];

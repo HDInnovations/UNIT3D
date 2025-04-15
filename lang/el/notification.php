@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,27 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'bon-gifts'          => 'Δώρα Πονταλάκια',
-    'comment-tags'       => 'Σχόλια Tags',
-    'date'               => 'Ημερομηνία',
-    'delete'             => 'Διαγραφή',
-    'delete-all'         => 'Διαγράψτε όλες τις ειδοποιήσεις',
-    'filter-by-type'     => 'Φιλτρο ανα τύπο ειδοποίησης',
-    'mark-all-read'      => 'Σημειώστε όλα αυτά ως αναγνωσμένα',
-    'mark-read'          => 'Σημείωσε ως διαβασμένο',
-    'message'            => 'Μήνυμα',
-    'no-notifications'   => 'Δεν υπάρχουν ανακοινώσεις',
-    'notifications'      => 'Ειδοποιήσεις',
-    'post-tags'          => 'Post Tags',
-    'post-tips'          => 'Post Tips',
-    'read'               => 'Ανάγνωση',
-    'request-approvals'  => 'Request Approvals',
-    'request-bounties'   => 'Request Bounties',
-    'request-claims'     => 'Request Claim',
-    'request-fills'      => 'Request Fills',
-    'request-rejections' => 'Request Rejections',
-    'request-unclaims'   => 'Request Unclaims',
-    'reseed-requests'    => 'Reseed Request',
-    'title'              => 'Τίτλος',
-    'unfollows'          => 'Ξε- ακολούθησε',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Δώρα Πονταλάκια',
+    'comment-tags'        => 'Σχόλια Tags',
+    'date'                => 'Ημερομηνία',
+    'delete'              => 'Διαγραφή',
+    'delete-all'          => 'Διαγράψτε όλες τις ειδοποιήσεις',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Φιλτρο ανα τύπο ειδοποίησης',
+    'mark-all-read'       => 'Σημειώστε όλα αυτά ως αναγνωσμένα',
+    'mark-read'           => 'Σημείωσε ως διαβασμένο',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'Μήνυμα',
+    'no-notifications'    => 'Δεν υπάρχουν ανακοινώσεις',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'Ειδοποιήσεις',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'Ανάγνωση',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'Τίτλος',
+    'unfollows'           => 'Ξε- ακολούθησε'
 ];

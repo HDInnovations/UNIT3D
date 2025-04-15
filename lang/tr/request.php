@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'İstek ekle',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Yaş',
     'all-requests'        => 'Tüm istekler',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'onaylamak',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'cömertlik',
     'bounty-claimed'      => 'Ödül talep edildi',
     'bounty-unclaimed'    => 'Sahipsiz ödül',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Bunu Anonim Olarak Talep Etmek İster misiniz?',
     'claim-now'           => 'Şimdi talep et',
     'claimed'             => 'İddia Edilen',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'şimdiki',
     'delete'              => 'Bu İsteği Sil',
     'delete-confirmation' => 'Bu İsteği silmek istediğinize emin misiniz?',
     'delete-filled'       => 'Bu istek yalnızca doldurulmamışsa silinebilir',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Açıklama',
     'dont-have-bps'       => 'Yeterli Bonusunuz yok',
     'edit-request'        => 'İsteği düzenle',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Bonus puanları girin (en az 100)',
     'enter-hash'          => 'Yüklenen Torrent in Bilgi Karmasını girin',
     'fill'                => 'doldurmak',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'için',
     'fulfill'             => 'yerine getirmek',
     'last-vote'           => 'Son oy',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Benim isteklerim',
+    'my-voted'            => 'My voted',
     'no'                  => 'Yok hayır,',
     'no-imdb-id'          => 'Tüm İstekler IMDB Numarası İçermelidir',
     'no-privileges'       => 'Hata: İstek haklarınız devre dışı bırakıldı',
     'no-privileges-desc'  => 'Bunun hatalı olduğunu düşünüyorsanız, lütfen Çalışanlar ile iletişim kurun.',
     'no-refunds'          => 'Bono borsaları yaratma, doldurma ve ödüller kazanma konusunda son! <br> <strong>İADE YOK!</strong>',
     'pending'             => 'kadar',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'neden',
     'reject'              => 'reddetmek',
     'report'              => 'İsteği bildir',
     'request'             => 'İstek',
     'request-details'     => 'İstek detayları',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Tarafından talep edildi',
     'requests'            => 'İstekler',
     'required'            => 'gereklidir',
     'reset'               => 'Reset',
     'reset-confirmation'  => 'Bu İsteği sıfırlamak istediğinize emin misiniz?',
     'reset-request'       => 'Bu İsteği Sıfırla',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Ödül',
     'reward-desc'         => 'Ne kadar bonus puan ödüllendirmek istersiniz? Minimum 100 BP',
     'reward-from'         => 'itibaren',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Toplam ödül',
     'type'                => 'tip',
     'unclaim'             => 'Bu isteği kabul etmeme',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Doldurulmamış',
     'view-filled'         => 'Görünüm dolgulu',
     'view-unfilled'       => 'Dolgusuz görüntüleme',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Bu İsteği Oyla',
     'voters'              => 'seçmenler',
     'votes'               => 'oy',
-    'yes'                 => 'Evet',
+    'yes'                 => 'Evet'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Ychwanegu cais',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Oedran',
     'all-requests'        => 'Pob cais',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Cymeradwyo',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Haelioni',
     'bounty-claimed'      => 'Honnodd Bounty',
     'bounty-unclaimed'    => 'Bounty heb ei hawlio',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'A fyddech chi n hoffi hawlio hyn yn anomaidd',
     'claim-now'           => 'Hawliwch nawr',
     'claimed'             => 'Hawliwyd',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Cyfredol',
     'delete'              => 'Dileu r Cais hwn',
     'delete-confirmation' => 'Ydych chi n siŵr eich bod am ddileu r Cais hwn',
     'delete-filled'       => 'Dim ond os nad yw wedi i llenwi y gellir dileu r cais hwn',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Disgrifiad',
     'dont-have-bps'       => 'Nid oes gennych ddigon o fonws',
     'edit-request'        => 'Golygu r cais',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Rhowch bwyntiau bonws (o leiaf 100)',
     'enter-hash'          => 'Rhowch yr ID o r Torrent wedi i lwytho i fyny',
     'fill'                => 'Llenwch',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'ar gyfer',
     'fulfill'             => 'Cyflawnwch',
     'last-vote'           => 'Y bleidlais olaf',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Fy nghais',
+    'my-voted'            => 'My voted',
     'no'                  => 'Na,',
     'no-imdb-id'          => 'Rhaid i bob cais gynnwys rhif IMDB',
     'no-privileges'       => 'Gwall: Mae eich hawliau cais wedi eu hanalluogi',
     'no-privileges-desc'  => 'Os ydych chi n teimlo bod hyn yn wallus, cysylltwch â Staff',
     'no-refunds'          => 'Mae cyfnewidiadau BON ar greu, llenwi a rhoi arian yn derfynol! <br> <strong>DIM AD-DALIADAU!</strong>',
     'pending'             => 'Yn aros',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Rheswm',
     'reject'              => 'Gwrthod',
     'report'              => 'Cais am adroddiad',
     'request'             => 'Cais',
     'request-details'     => 'Gofyn am fanylion',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Wedi i geisio gan',
     'requests'            => 'Ceisiadau',
     'required'            => 'Angenrheidiol',
     'reset'               => 'Ail gychwyn',
     'reset-confirmation'  => 'Ydych chi n siŵr eich bod am ailosod y Cais hwn',
     'reset-request'       => 'Ailosod y Cais hwn',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Gwobr',
     'reward-desc'         => 'Faint o bwynt bonws hoffech chi ei wobrwyo? Lleiafswm o 100 BP',
     'reward-from'         => 'O',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Cyfanswm y bounty',
     'type'                => 'Math',
     'unclaim'             => 'Dileu r cais hwn',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Heb ei lenwi',
     'view-filled'         => 'Golygfa wedi i llenwi',
     'view-unfilled'       => 'Yr olygfa heb ei llenwi',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Pleidleisiwch y Cais hwn',
     'voters'              => 'Pleidleiswyr',
     'votes'               => 'Pleidleisiau',
-    'yes'                 => 'Ydw',
+    'yes'                 => 'Ydw'
 ];

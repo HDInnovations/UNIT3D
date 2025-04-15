@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Izveidot',
     'create-private-feed' => 'Izveidot privātu RSS plūsmu',
     'create-public-feed'  => 'Izveidot publisku RSS plūsmu',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Dzēst',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Rediģēt',
     'edit-private-feed'   => 'Rediģēt privāto RSS plūsmu',
     'edit-public-feed'    => 'Rediģēt publisko RSS plūsmu',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Plūsma',
     'feeds'               => 'Plūsmas',
     'name'                => 'Nosaukums',
-    'public'              => 'Publiska',
     'private'             => 'Privāts',
+    'public'              => 'Publiska',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS plūsma',
     'type'                => 'Tips',
+    'updated'             => 'Private RSS Feed Updated'
 ];

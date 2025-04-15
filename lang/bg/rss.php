@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'създавам',
     'create-private-feed' => 'Създаване на личен RSS канал',
     'create-public-feed'  => 'Създаване на обществен RSS канал',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Изтрий',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'редактиране',
     'edit-private-feed'   => 'Редактиране на частен RSS канал',
     'edit-public-feed'    => 'Редактиране на обществен RSS канал',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'фураж',
     'feeds'               => 'емисии',
     'name'                => 'име',
-    'public'              => 'обществен',
     'private'             => 'частен',
+    'public'              => 'обществен',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS емисия',
     'type'                => 'Тип',
+    'updated'             => 'Private RSS Feed Updated'
 ];

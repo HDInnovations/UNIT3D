@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,11 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-   |--------------------------------------------------------------------------
-   | Default Authentication Language Lines
-   |--------------------------------------------------------------------------
-   */
     'activation-error'        => '¡Token inválido o prohibido o la cuenta ya está confirmada!',
     'activation-success'      => '¡Cuenta confirmada! ¡Ahora puedes iniciar sesión!',
     'add-image'               => 'Agregar otro enlace de imagen',

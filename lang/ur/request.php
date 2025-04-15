@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'درخواست شامل کریں',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'عمر',
     'all-requests'        => 'تمام درخواستیں',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'منظور کرو',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'فضل',
     'bounty-claimed'      => 'فضل نے دعوی کیا',
     'bounty-unclaimed'    => 'بے شمار فضل',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'کیا آپ اس معاہدے کا دعوی کرنا چاہتے ہیں',
     'claim-now'           => 'ابھی اس کا دعوی کریں',
     'claimed'             => 'دعوی کیا',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'موجودہ',
     'delete'              => 'اس درخواست کو حذف کریں',
     'delete-confirmation' => 'کیا آپ واقعی یہ درخواست حذف کرنا چاہتے ہیں',
     'delete-filled'       => 'اگر یہ نہیں ہوا ہے تو یہ درخواست حذف کردی جا سکتی ہے',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'تفصیل',
     'dont-have-bps'       => 'آپ کے پاس کافی بونس نہیں ہے',
     'edit-request'        => 'درخواست میں ترمیم کریں',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'بونس پوائنٹس درج کریں (کم از کم 100)',
     'enter-hash'          => 'اپ لوڈ شدہ ٹارٹ کی معلومات ہش درج کریں',
     'fill'                => 'بھریں',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'کے لئے',
     'fulfill'             => 'مکمل کریں',
     'last-vote'           => 'آخری ووٹ',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'میری درخواستیں',
+    'my-voted'            => 'My voted',
     'no'                  => 'نہیں،',
     'no-imdb-id'          => 'تمام درخواستوں میں ایک آئی ایم ڈی بی نمبر شامل ہونا ضروری ہے',
     'no-privileges'       => 'خرابی: آپ کے درخواستوں کو غیر فعال کردیا گیا ہے',
     'no-privileges-desc'  => 'اگر آپ محسوس کرتے ہیں کہ یہ غلطی میں ہے، تو براہ کرم اسٹاف سے رابطہ کریں',
     'no-refunds'          => 'بنانا، بھرنے اور انعامات پر بون ایکسچینج حتمی ہیں! <br> <strong>ناقابل واپسی!</strong>',
     'pending'             => 'منتقلی',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'وجہ',
     'reject'              => 'رد کرو',
     'report'              => 'رپورٹ کی درخواست',
     'request'             => 'درخواست',
     'request-details'     => 'درخواست کی تفصیلات',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'کی طرف سے درخواست',
     'requests'            => 'درخواستیں',
     'required'            => 'ضرورت ہے',
     'reset'               => 'ری سیٹ کریں',
     'reset-confirmation'  => 'کیا آپ واقعی یہ درخواست ری سیٹ کرنا چاہتے ہیں',
     'reset-request'       => 'اس درخواست کو دوبارہ ترتیب دیں',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'انعام',
     'reward-desc'         => 'آپ کو کتنا بونس نقطہ انعام ملے گا؟ کم سے کم 100 بی پی',
     'reward-from'         => 'سے',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'کل فضل',
     'type'                => 'ٹائپ کریں',
     'unclaim'             => 'اس درخواست کا اعلان کریں',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Unfilled',
     'view-filled'         => 'بھرا ہوا دیکھیں',
     'view-unfilled'       => 'دستخط دیکھیں',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'اس درخواست کو ووٹ دیں',
     'voters'              => 'ووٹرز',
     'votes'               => 'ووٹ',
-    'yes'                 => 'جی ہاں',
+    'yes'                 => 'جی ہاں'
 ];

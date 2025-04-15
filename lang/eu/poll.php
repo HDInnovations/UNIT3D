@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Gehitu aukera',
-    'create-poll'     => 'Sortu inkesta',
-    'current'         => 'Oraingo inkesta (k)',
-    'delete-option'   => 'Ezabatu aukera',
-    'multiple-choice' => 'Aukera anitzeko inkesta da. Hautatu nahi dituzun erantzunak.',
-    'option'          => 'aukera',
-    'poll'            => 'inkesta',
-    'polls'           => 'Inkestak',
-    'results'         => 'Inkesta emaitzak',
-    'title'           => 'Izenburua',
-    'total'           => 'Boto kopurua guztira',
-    'vote'            => 'Bozkatu',
-    'vote-now'        => 'Lortu botoa orain!',
-    'votes'           => 'Botoak',
+    'add-option'           => 'Gehitu aukera',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Sortu inkesta',
+    'current'              => 'Oraingo inkesta (k)',
+    'delete-option'        => 'Ezabatu aukera',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Aukera anitzeko inkesta da. Hautatu nahi dituzun erantzunak.',
+    'option'               => 'aukera',
+    'poll'                 => 'inkesta',
+    'polls'                => 'Inkestak',
+    'results'              => 'Inkesta emaitzak',
+    'title'                => 'Izenburua',
+    'total'                => 'Boto kopurua guztira',
+    'vote'                 => 'Bozkatu',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Lortu botoa orain!',
+    'votes'                => 'Botoak'
 ];

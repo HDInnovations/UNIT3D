@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Zárva',
     'create-new-topic'          => 'Új téma létrehozása',
     'created'                   => 'Alkotó',
+    'created-at'                => 'Created At',
     'current'                   => 'Jelenlegi',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'A téma törlése',
     'denied'                    => 'Tiltott',
     'dislike-post'              => 'Nem tetszik ez a hozzászólás',
     'display-forum'             => 'Témakörök megjelenítése',
     'edit-post'                 => 'Bejegyzés szerkesztése',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Téma szerkesztése',
     'forum'                     => 'Fórum',
     'forums'                    => 'Fórumok',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Megvalósult',
     'in'                        => 'Ban ben',
     'invalid'                   => 'Érvénytelen',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Idézet',
     'read-topic'                => 'Olvassa el a témát',
     'replies'                   => 'Válaszok',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'A téma mentése',
     'solved'                    => 'Megoldva',
     'state'                     => 'Állapot',
     'stats'                     => 'statisztikák',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Jegyzett',
     'subscription-quick-search' => 'Téma neve gyorskeresés (az előfizetéseken belül)',
     'suggestion'                => 'Javaslat',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Téma',
     'topic-closed'              => 'Ez a téma zárva van',
     'topic-name'                => 'Téma neve',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'A téma címe',
     'topics'                    => 'Témakörök',
     'unpin'                     => 'Kibont',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Az összes téma megtekintése',
-    'views'                     => 'Nézetek',
+    'views'                     => 'Nézetek'
 ];

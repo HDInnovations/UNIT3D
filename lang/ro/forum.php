@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Închis',
     'create-new-topic'          => 'Creați o temă nouă',
     'created'                   => 'Creată',
+    'created-at'                => 'Created At',
     'current'                   => 'Actual',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Șterge această temă',
     'denied'                    => 'Denied',
     'dislike-post'              => 'Nu place această postare',
     'display-forum'             => 'Afișați subiecte în',
     'edit-post'                 => 'Editează postarea',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Editați subiectul',
     'forum'                     => 'forum',
     'forums'                    => 'Forum',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Pus în aplicare',
     'in'                        => 'În',
     'invalid'                   => 'Invalid',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Citat',
     'read-topic'                => 'Citiți tema',
     'replies'                   => 'Răspunsuri',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Salvați această temă',
     'solved'                    => 'Rezolvat',
     'state'                     => 'Stat',
     'stats'                     => 'Statistici',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'subscrisă',
     'subscription-quick-search' => 'Nume de căutare rapidă (în cadrul abonamentelor)',
     'suggestion'                => 'Sugestie',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Subiect',
     'topic-closed'              => 'Această temă este închisă',
     'topic-name'                => 'Nume topic',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Titlul acestui subiect',
     'topics'                    => 'Subiecte',
     'unpin'                     => 'Anulați fixarea',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Vezi toate subiectele',
-    'views'                     => 'Vizualizări',
+    'views'                     => 'Vizualizări'
 ];

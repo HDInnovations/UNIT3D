@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Por contagem',
     'by-data'                 => 'Por dados',
     'by-volume'               => 'Por volume',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Grupo',
     'groups'                  => 'Grupos',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'Nós todos amamos estatísticas. Aqui estão alguns que achamos importantes',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Data de registro',
     'request-fulfilled'       => 'Pedido cumprido',
     'request-not-fulfilled'   => 'Pedido não cumprido',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Top Derramado',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top semeado',
-    'top-seeding'             => 'Top Sementeira',
     'top-seeders'             => 'Top Seeders',
+    'top-seeding'             => 'Top Sementeira',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Uploaders principais',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'Tráfego total',
     'total-upload'            => 'Upload total',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Usuários no grupo',
-    'users-per-group'         => 'Usuários por grupo',
+    'users-per-group'         => 'Usuários por grupo'
 ];

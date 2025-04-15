@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Aðgerðir',
     'backup'                         => 'Öryggisafrit',
     'backup_doesnt_exist'            => 'Varabúnaðurinn er ekki til.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Búðu til Full Backup',
-    'create_a_new_files_backup'      => 'Búðu til skrár öryggisafrit',
     'create_a_new_db_backup'         => 'Búðu til gagnagrunni afritun',
+    'create_a_new_files_backup'      => 'Búðu til skrár öryggisafrit',
     'create_confirmation_message'    => 'Endurhleðsla blaðsins á 3 sekúndum.',
     'create_confirmation_title'      => 'Afritun lokið',
     'create_error_message'           => 'Varabúnaðurinn gæti EKKI verið búinn til.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Staðsetning',
     'manager'                        => 'Framkvæmdastjóri',
     'no_disks_configured'            => 'Engin afrit diskur stillt í config / backup.php',
-    'only_local_downloads_supported' => 'Aðeins niðurhal frá staðbundnum skráarkerfinu er studd.',
+    'only_local_downloads_supported' => 'Aðeins niðurhal frá staðbundnum skráarkerfinu er studd.'
 ];

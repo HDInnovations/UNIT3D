@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Tindakan',
     'backup'                         => 'Cadangkan',
     'backup_doesnt_exist'            => 'File cadangan tidak ada.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Buat Cadangan Penuh',
-    'create_a_new_files_backup'      => 'Buat File Cadangan',
     'create_a_new_db_backup'         => 'Buat Backup Database',
+    'create_a_new_files_backup'      => 'Buat File Cadangan',
     'create_confirmation_message'    => 'Memuat ulang halaman dalam 3 detik.',
     'create_confirmation_title'      => 'Pencadangan selesai',
     'create_error_message'           => 'File cadangan TIDAK dapat dibuat.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Lokasi',
     'manager'                        => 'Manajer',
     'no_disks_configured'            => 'Tidak ada disk cadangan yang dikonfigurasi di config / backup.php',
-    'only_local_downloads_supported' => 'Hanya unduhan dari sistem file lokal yang didukung.',
+    'only_local_downloads_supported' => 'Hanya unduhan dari sistem file lokal yang didukung.'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Adăugați o solicitare',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Vârstă',
     'all-requests'        => 'Toate cererile',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Aproba',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'milostivire',
     'bounty-claimed'      => 'Bounty a pretins',
     'bounty-unclaimed'    => 'Bounty nerevendicat',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Ați dori să revendicați acest lucru anonim',
     'claim-now'           => 'Revendicați acum',
     'claimed'             => 'revendicat',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Actual',
     'delete'              => 'Șterge această solicitare',
     'delete-confirmation' => 'Sigur doriți să ștergeți această Solicitare',
     'delete-filled'       => 'Această solicitare poate fi ștearsă numai dacă nu a fost completă',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Descriere',
     'dont-have-bps'       => 'Nu aveți suficient Bonus',
     'edit-request'        => 'Editați solicitarea',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Introduceți puncte bonus (minim 100)',
     'enter-hash'          => 'Introduceți ID a încărcat Torrent',
     'fill'                => 'Completati',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'pentru',
     'fulfill'             => 'Îndeplini',
     'last-vote'           => 'Ultimul vot',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Cererile mele',
+    'my-voted'            => 'My voted',
     'no'                  => 'Nu,',
     'no-imdb-id'          => 'Toate cererile trebuie să conțină un număr IMDB',
     'no-privileges'       => 'Eroare: drepturile dvs. de solicitare au fost dezactivate',
     'no-privileges-desc'  => 'Dacă credeți că acest lucru este din greșeală, contactați personalul',
     'no-refunds'          => 'Schimburile BON cu privire la crearea, umplerea și recompensele sunt finale! <br> <strong>NICI REFUNDS!</strong>',
     'pending'             => 'In asteptarea',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Motiv',
     'reject'              => 'Respinge',
     'report'              => 'Solicitați raportul',
     'request'             => 'Cerere',
     'request-details'     => 'Cere detalii',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Solicitat de',
     'requests'            => 'Cereri',
     'required'            => 'Necesar',
     'reset'               => 'restabili',
     'reset-confirmation'  => 'Sigur doriți să resetați această Solicitare',
     'reset-request'       => 'Resetați această solicitare',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Recompensă',
     'reward-desc'         => 'Cât de mult bonus ați dori să recompensezi? Minim 100 BP',
     'reward-from'         => 'Din',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Total recompensă',
     'type'                => 'Tip',
     'unclaim'             => 'Nu solicitați această solicitare',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Unfilled',
     'view-filled'         => 'Vizualizare completă',
     'view-unfilled'       => 'Vizualizați nealimentat',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Votează această solicitare',
     'voters'              => 'Alegătorii',
     'votes'               => 'voturi',
-    'yes'                 => 'da',
+    'yes'                 => 'da'
 ];

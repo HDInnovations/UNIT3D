@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'па графу',
     'by-data'                 => 'па дадзеных',
     'by-volume'               => 'па ёме',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'група',
     'groups'                  => 'групы',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'статыстыка Nerd',
     'nerd-stats-desc'         => 'Мы ўсе характарыстыкі любові. Вось некалькі, якія мы знаходзім важнае',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'дата рэгістрацыі',
     'request-fulfilled'       => 'запыт выконваецца',
     'request-not-fulfilled'   => 'Запыт не выконваецца',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'топ прысмактаўся',
     'top-leechers'            => 'лепшыя Личеры',
     'top-seeded'              => 'топ сеяных',
-    'top-seeding'             => 'лепшыя Пасевы',
     'top-seeders'             => 'лепшая сеялка',
+    'top-seeding'             => 'лепшыя Пасевы',
     'top-seedsize'            => 'топ Seedsize',
     'top-seedtime'            => 'топ сеяння',
     'top-uploaders'           => 'топ загрузнікамі',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Усяго Torrents',
     'total-traffic'           => 'Агульны ём трафіку',
     'total-upload'            => 'Total Upload',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Карыстальнікі У групе',
-    'users-per-group'         => 'Карыстальнікі ў групе',
+    'users-per-group'         => 'Карыстальнікі ў групе'
 ];

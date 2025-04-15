@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'สร้าง',
     'create-private-feed' => 'สร้างฟีด RSS ส่วนตัว',
     'create-public-feed'  => 'สร้างฟีด RSS สาธารณะ',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'ลบ',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'แก้ไข',
     'edit-private-feed'   => 'แก้ไขฟีด RSS ส่วนตัว',
     'edit-public-feed'    => 'แก้ไขฟีด RSS สาธารณะ',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'อาหาร',
     'feeds'               => 'ฟีด',
     'name'                => 'ชื่อ',
-    'public'              => 'สาธารณะ',
     'private'             => 'เอกชน',
+    'public'              => 'สาธารณะ',
     'rss'                 => 'RSS',
     'rss-feed'            => 'ฟีด RSS',
     'type'                => 'ชนิด',
+    'updated'             => 'Private RSS Feed Updated'
 ];

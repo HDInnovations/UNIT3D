@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'درخواست را اضافه کنید',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'سن',
     'all-requests'        => 'تمام درخواستها',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'تایید',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'فضل',
     'bounty-claimed'      => 'فواد ادعا کرد',
     'bounty-unclaimed'    => 'فریب بی خوابی',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'آیا می خواهید این ادعا را به صورت Anonomously انجام دهید',
     'claim-now'           => 'ادعا کن',
     'claimed'             => 'ادعا شده',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'جاری',
     'delete'              => 'حذف این درخواست',
     'delete-confirmation' => 'آیا مطمئن هستید که می خواهید این درخواست را حذف کنید',
     'delete-filled'       => 'این درخواست تنها می تواند حذف شود، اگر آن را پر نکرده باشید',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'شرح',
     'dont-have-bps'       => 'شما پاداش کافی ندارید',
     'edit-request'        => 'ویرایش درخواست',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'امتیاز جایزه (حداقل 100) را وارد کنید',
     'enter-hash'          => 'اطلاعات ID Torrent آپلود را وارد کنید',
     'fill'                => 'پر کنید',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'برای',
     'fulfill'             => 'تکمیل',
     'last-vote'           => 'رای آخر',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'درخواست های من',
+    'my-voted'            => 'My voted',
     'no'                  => 'نه',
     'no-imdb-id'          => 'تمام درخواستها باید شامل یک شماره IMDB باشد',
     'no-privileges'       => 'خطا: حقوق درخواست شما غیرفعال شده است',
     'no-privileges-desc'  => 'اگر احساس می کنید این خطا است، لطفا با کارکنان تماس بگیرید',
     'no-refunds'          => 'مبادلات BON در ایجاد، پر کردن و سرقت کردن نهایی است! <br> <strong>بدون بازپرداخت!</strong>',
     'pending'             => 'در انتظار',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'دلیل',
     'reject'              => 'رد کنید',
     'report'              => 'درخواست گزارش',
     'request'             => 'درخواست',
     'request-details'     => 'جزئیات درخواست',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'درخواست شده توسط',
     'requests'            => 'درخواست ها',
     'required'            => 'ضروری',
     'reset'               => 'تنظیم مجدد',
     'reset-confirmation'  => 'آیا مطمئن هستید که میخواهید این درخواست را بازنشانی کنید',
     'reset-request'       => 'این درخواست را بازنشانی کنید',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'جایزه',
     'reward-desc'         => 'چقدر پاداش می خواهید پاداش بدهید؟ حداقل 100 BP',
     'reward-from'         => 'از جانب',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'مجموع فضل',
     'type'                => 'تایپ کنید',
     'unclaim'             => 'این درخواست را بیخود دریافت کنید',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'تکمیل نشده',
     'view-filled'         => 'نمایش پر شده',
     'view-unfilled'       => 'مشاهده نکردن',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'رای این درخواست',
     'voters'              => 'رأی دهندگان',
     'votes'               => 'رای',
-    'yes'                 => 'بله',
+    'yes'                 => 'بله'
 ];

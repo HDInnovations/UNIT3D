@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,58 +15,61 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |---------------------------------------------------------------------------------------
-    | Baris Bahasa untuk Validasi
-    |---------------------------------------------------------------------------------------
-    |
-    | Baris bahasa berikut ini berisi standar pesan kesalahan yang digunakan oleh
-    | kelas validasi. Beberapa aturan mempunyai multi versi seperti aturan 'size'.
-    | Jangan ragu untuk mengoptimalkan setiap pesan yang ada di sini.
-    |
-    */
-
-    'accepted'        => 'Isian :attribute harus diterima.',
-    'active_url'      => 'Isian :attribute bukan URL yang valid.',
-    'after'           => 'Isian :attribute harus tanggal setelah :date.',
-    'after_or_equal'  => 'Isian :attribute harus berupa tanggal setelah atau sama dengan tanggal :date.',
-    'alpha'           => 'Isian :attribute hanya boleh berisi huruf.',
-    'alpha_dash'      => 'Isian :attribute hanya boleh berisi huruf, angka, dan strip.',
-    'alpha_num'       => 'Isian :attribute hanya boleh berisi huruf dan angka.',
-    'array'           => 'Isian :attribute harus berupa sebuah array.',
+    'accepted'       => 'Isian :attribute harus diterima.',
+    'accepted_if'    => 'The :attribute must be accepted when :other is :value.',
+    'active_url'     => 'Isian :attribute bukan URL yang valid.',
+    'after'          => 'Isian :attribute harus tanggal setelah :date.',
+    'after_or_equal' => 'Isian :attribute harus berupa tanggal setelah atau sama dengan tanggal :date.',
+    'alpha'          => 'Isian :attribute hanya boleh berisi huruf.',
+    'alpha_dash'     => 'Isian :attribute hanya boleh berisi huruf, angka, dan strip.',
+    'alpha_num'      => 'Isian :attribute hanya boleh berisi huruf dan angka.',
+    'array'          => 'Isian :attribute harus berupa sebuah array.',
+    'attributes'     => [
+    ],
     'before'          => 'Isian :attribute harus tanggal sebelum :date.',
     'before_or_equal' => 'Isian :attribute harus berupa tanggal sebelum atau sama dengan tanggal :date.',
     'between'         => [
-        'numeric' => 'Isian :attribute harus antara :min dan :max.',
-        'file'    => 'Bidang :attribute harus antara :min dan :max kilobyte.',
-        'string'  => 'Isian :attribute harus antara :min dan :max karakter.',
         'array'   => 'Isian :attribute harus antara :min dan :max item.',
+        'file'    => 'Bidang :attribute harus antara :min dan :max kilobyte.',
+        'numeric' => 'Isian :attribute harus antara :min dan :max.',
+        'string'  => 'Isian :attribute harus antara :min dan :max karakter.'
     ],
-    'boolean'        => 'Isian :attribute harus berupa true atau false',
-    'confirmed'      => 'Konfirmasi :attribute tidak cocok.',
+    'boolean'          => 'Isian :attribute harus berupa true atau false',
+    'confirmed'        => 'Konfirmasi :attribute tidak cocok.',
+    'current_password' => 'The password is incorrect.',
+    'custom'           => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message'
+        ]
+    ],
     'date'           => 'Isian :attribute bukan tanggal yang valid.',
     'date_equals'    => ':attribute harus berupa tanggal yang sama dengan :date.',
     'date_format'    => 'Isian :attribute tidak cocok dengan format :format.',
+    'declined'       => 'The :attribute must be declined.',
+    'declined_if'    => 'The :attribute must be declined when :other is :value.',
     'different'      => 'Isian :attribute dan :other harus berbeda.',
     'digits'         => 'Isian :attribute harus berupa angka :digits.',
     'digits_between' => 'Isian :attribute harus antara angka :min dan :max.',
     'dimensions'     => 'Bidang :attribute tidak memiliki dimensi gambar yang valid.',
     'distinct'       => 'Bidang isian :attribute memiliki nilai yang duplikat.',
     'email'          => 'Isian :attribute harus berupa alamat surel yang valid.',
+    'email_list'     => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
+    'ends_with'      => 'The :attribute must end with one of the following: :values.',
+    'enum'           => 'The selected :attribute is invalid.',
     'exists'         => 'Isian :attribute yang dipilih tidak valid.',
     'file'           => 'Bidang :attribute harus berupa sebuah berkas.',
     'filled'         => 'Isian :attribute harus memiliki nilai.',
     'gt'             => [
-        'numeric' => 'Isian :attribute harus lebih besar dari :value.',
-        'file'    => 'Bidang :attribute harus lebih besar dari :value kilobyte.',
-        'string'  => 'Isian :attribute harus lebih besar dari :value karakter.',
         'array'   => 'Isian :attribute harus lebih dari :value item.',
+        'file'    => 'Bidang :attribute harus lebih besar dari :value kilobyte.',
+        'numeric' => 'Isian :attribute harus lebih besar dari :value.',
+        'string'  => 'Isian :attribute harus lebih besar dari :value karakter.'
     ],
     'gte' => [
-        'numeric' => 'Isian :attribute harus lebih besar dari atau sama dengan :value.',
-        'file'    => 'Bidang :attribute harus lebih besar dari atau sama dengan :value kilobyte.',
-        'string'  => 'Isian :attribute harus lebih besar dari atau sama dengan :value karakter.',
         'array'   => 'Isian :attribute harus mempunyai :value item atau lebih.',
+        'file'    => 'Bidang :attribute harus lebih besar dari atau sama dengan :value kilobyte.',
+        'numeric' => 'Isian :attribute harus lebih besar dari atau sama dengan :value.',
+        'string'  => 'Isian :attribute harus lebih besar dari atau sama dengan :value karakter.'
     ],
     'image'    => 'Isian :attribute harus berupa gambar.',
     'in'       => 'Isian :attribute yang dipilih tidak valid.',
@@ -76,35 +80,49 @@ return [
     'ipv6'     => 'Isian :attribute harus berupa alamat IPv6 yang valid.',
     'json'     => 'Isian :attribute harus berupa JSON string yang valid.',
     'lt'       => [
-        'numeric' => 'Isian :attribute harus kurang dari :value.',
-        'file'    => 'Bidang :attribute harus kurang dari :value kilobyte.',
-        'string'  => 'Isian :attribute harus kurang dari :value karakter.',
         'array'   => 'Isian :attribute harus kurang dari :value item.',
+        'file'    => 'Bidang :attribute harus kurang dari :value kilobyte.',
+        'numeric' => 'Isian :attribute harus kurang dari :value.',
+        'string'  => 'Isian :attribute harus kurang dari :value karakter.'
     ],
     'lte' => [
-        'numeric' => 'Isian :attribute harus kurang dari atau sama dengan :value.',
-        'file'    => 'Bidang :attribute harus kurang dari atau sama dengan :value kilobyte.',
-        'string'  => 'Isian :attribute harus kurang dari atau sama dengan :value karakter.',
         'array'   => 'Isian :attribute harus tidak lebih dari :value item.',
+        'file'    => 'Bidang :attribute harus kurang dari atau sama dengan :value kilobyte.',
+        'numeric' => 'Isian :attribute harus kurang dari atau sama dengan :value.',
+        'string'  => 'Isian :attribute harus kurang dari atau sama dengan :value karakter.'
     ],
-    'max' => [
-        'numeric' => 'Isian :attribute seharusnya tidak lebih dari :max.',
-        'file'    => 'Bidang :attribute seharusnya tidak lebih dari :max kilobyte.',
-        'string'  => 'Isian :attribute seharusnya tidak lebih dari :max karakter.',
+    'mac_address' => 'The :attribute must be a valid MAC address.',
+    'max'         => [
         'array'   => 'Isian :attribute seharusnya tidak lebih dari :max item.',
+        'file'    => 'Bidang :attribute seharusnya tidak lebih dari :max kilobyte.',
+        'numeric' => 'Isian :attribute seharusnya tidak lebih dari :max.',
+        'string'  => 'Isian :attribute seharusnya tidak lebih dari :max karakter.'
     ],
     'mimes'     => 'Isian :attribute harus dokumen berjenis : :values.',
     'mimetypes' => 'Isian :attribute harus dokumen berjenis : :values.',
     'min'       => [
-        'numeric' => 'Isian :attribute harus minimal :min.',
-        'file'    => 'Bidang :attribute harus minimal :min kilobyte.',
-        'string'  => 'Isian :attribute harus minimal :min karakter.',
         'array'   => 'Isian :attribute harus minimal :min item.',
+        'file'    => 'Bidang :attribute harus minimal :min kilobyte.',
+        'numeric' => 'Isian :attribute harus minimal :min.',
+        'string'  => 'Isian :attribute harus minimal :min karakter.'
     ],
-    'not_in'               => 'Isian :attribute yang dipilih tidak valid.',
-    'not_regex'            => 'Format isian :attribute tidak valid.',
-    'numeric'              => 'Isian :attribute harus berupa angka.',
+    'multiple_of' => 'The :attribute must be a multiple of :value.',
+    'not_in'      => 'Isian :attribute yang dipilih tidak valid.',
+    'not_regex'   => 'Format isian :attribute tidak valid.',
+    'numeric'     => 'Isian :attribute harus berupa angka.',
+    'password'    => [
+        'letters'       => 'The :attribute must contain at least one letter.',
+        'mixed'         => 'The :attribute must contain at least one uppercase and one lowercase letter.',
+        'numbers'       => 'The :attribute must contain at least one number.',
+        'symbols'       => 'The :attribute must contain at least one symbol.',
+        'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.'
+    ],
     'present'              => 'Bidang isian :attribute wajib ada.',
+    'prohibited'           => 'The :attribute field is prohibited.',
+    'prohibited_if'        => 'The :attribute field is prohibited when :other is :value.',
+    'prohibited_unless'    => 'The :attribute field is prohibited unless :other is in :values.',
+    'prohibits'            => 'The :attribute field prohibits :other from being present.',
+    'recaptcha'            => 'Please Complete The ReCaptcha.',
     'regex'                => 'Format isian :attribute tidak valid.',
     'required'             => 'Bidang isian :attribute wajib diisi.',
     'required_if'          => 'Bidang isian :attribute wajib diisi bila :other adalah :value.',
@@ -115,10 +133,10 @@ return [
     'required_without_all' => 'Bidang isian :attribute wajib diisi bila tidak terdapat ada :values.',
     'same'                 => 'Isian :attribute dan :other harus sama.',
     'size'                 => [
-        'numeric' => 'Isian :attribute harus berukuran :size.',
-        'file'    => 'Bidang :attribute harus berukuran :size kilobyte.',
-        'string'  => 'Isian :attribute harus berukuran :size karakter.',
         'array'   => 'Isian :attribute harus mengandung :size item.',
+        'file'    => 'Bidang :attribute harus berukuran :size kilobyte.',
+        'numeric' => 'Isian :attribute harus berukuran :size.',
+        'string'  => 'Isian :attribute harus berukuran :size karakter.'
     ],
     'starts_with' => ':attribute harus dimulai dengan salah satu dari berikut ini: :values',
     'string'      => 'Isian :attribute harus berupa string.',
@@ -126,36 +144,5 @@ return [
     'unique'      => 'Isian :attribute sudah ada sebelumnya.',
     'uploaded'    => 'Isian :attribute gagal diunggah.',
     'url'         => 'Format isian :attribute tidak valid.',
-    'uuid'        => ':attribute harus UUID yang valid.',
-
-    /*
-    |---------------------------------------------------------------------------------------
-    | Baris Bahasa untuk Validasi Kustom
-    |---------------------------------------------------------------------------------------
-    |
-    | Di sini Anda dapat menentukan pesan validasi kustom untuk atribut dengan menggunakan
-    | konvensi "attribute.rule" dalam penamaan baris. Hal ini membuat cepat dalam
-    | menentukan spesifik baris bahasa kustom untuk aturan atribut yang diberikan.
-    |
-    */
-
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
-
-    /*
-    |---------------------------------------------------------------------------------------
-    | Kustom Validasi Atribut
-    |---------------------------------------------------------------------------------------
-    |
-    | Baris bahasa berikut digunakan untuk menukar atribut 'place-holders'
-    | dengan sesuatu yang lebih bersahabat dengan pembaca seperti Alamat Surel daripada
-    | "surel" saja. Ini benar-benar membantu kita membuat pesan sedikit bersih.
-    |
-    */
-
-    'attributes' => [
-    ],
+    'uuid'        => ':attribute harus UUID yang valid.'
 ];

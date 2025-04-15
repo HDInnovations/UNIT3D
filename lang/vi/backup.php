@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Hành động',
     'backup'                         => 'Sao lưu',
     'backup_doesnt_exist'            => 'Các tập tin sao lưu không tồn tại.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Tạo sao lưu đầy đủ',
-    'create_a_new_files_backup'      => 'Tạo tập tin sao lưu',
     'create_a_new_db_backup'         => 'Tạo sao lưu cơ sở dữ liệu',
+    'create_a_new_files_backup'      => 'Tạo tập tin sao lưu',
     'create_confirmation_message'    => 'Tải lại trang trong 3 giây.',
     'create_confirmation_title'      => 'Hoàn thành sao lưu',
     'create_error_message'           => 'Tệp sao lưu KHÔNG thể được tạo.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Vị trí',
     'manager'                        => 'Giám đốc',
     'no_disks_configured'            => 'Không có đĩa sao lưu được cấu hình trong config / backup.php',
-    'only_local_downloads_supported' => 'Chỉ tải xuống từ hệ thống tập tin cục bộ được hỗ trợ.',
+    'only_local_downloads_supported' => 'Chỉ tải xuống từ hệ thống tập tin cục bộ được hỗ trợ.'
 ];

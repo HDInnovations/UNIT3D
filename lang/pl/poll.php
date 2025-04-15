@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Dodaj opcję',
-    'create-poll'     => 'Utwórz ankietę',
-    'current'         => 'Bieżące ankiety',
-    'delete-option'   => 'Usuń opcję',
-    'multiple-choice' => 'To sonda wielokrotnego wyboru. Wybierz tyle odpowiedzi, ile chcesz.',
-    'option'          => 'Opcja',
-    'poll'            => 'Głosowanie',
-    'polls'           => 'Ankiety',
-    'results'         => 'Wyniki ankiety',
-    'title'           => 'Tytuł',
-    'total'           => 'Razem głosów',
-    'vote'            => 'Głosować',
-    'vote-now'        => 'Uzyskaj głos teraz!',
-    'votes'           => 'Głosy',
+    'add-option'           => 'Dodaj opcję',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Utwórz ankietę',
+    'current'              => 'Bieżące ankiety',
+    'delete-option'        => 'Usuń opcję',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'To sonda wielokrotnego wyboru. Wybierz tyle odpowiedzi, ile chcesz.',
+    'option'               => 'Opcja',
+    'poll'                 => 'Głosowanie',
+    'polls'                => 'Ankiety',
+    'results'              => 'Wyniki ankiety',
+    'title'                => 'Tytuł',
+    'total'                => 'Razem głosów',
+    'vote'                 => 'Głosować',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Uzyskaj głos teraz!',
+    'votes'                => 'Głosy'
 ];

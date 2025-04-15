@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Pridėti parinktį',
-    'create-poll'     => 'Sukurti apklausą',
-    'current'         => 'Dabartinis apklausa',
-    'delete-option'   => 'Ištrinti parinktį',
-    'multiple-choice' => 'Tai yra daugkartinio pasirinkimo apklausa. Pasirinkite kuo daugiau atsakymų.',
-    'option'          => 'Galimybė',
-    'poll'            => 'Apklausa',
-    'polls'           => 'Apklausos',
-    'results'         => 'Apklausos rezultatai',
-    'title'           => 'Pavadinimas',
-    'total'           => 'Iš viso balsų',
-    'vote'            => 'Balsas',
-    'vote-now'        => 'Gaukite savo balsą dabar!',
-    'votes'           => 'Balsavimas',
+    'add-option'           => 'Pridėti parinktį',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Sukurti apklausą',
+    'current'              => 'Dabartinis apklausa',
+    'delete-option'        => 'Ištrinti parinktį',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Tai yra daugkartinio pasirinkimo apklausa. Pasirinkite kuo daugiau atsakymų.',
+    'option'               => 'Galimybė',
+    'poll'                 => 'Apklausa',
+    'polls'                => 'Apklausos',
+    'results'              => 'Apklausos rezultatai',
+    'title'                => 'Pavadinimas',
+    'total'                => 'Iš viso balsų',
+    'vote'                 => 'Balsas',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Gaukite savo balsą dabar!',
+    'votes'                => 'Balsavimas'
 ];

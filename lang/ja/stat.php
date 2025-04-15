@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'カウントで',
     'by-data'                 => 'データ別',
     'by-volume'               => 'ボリューム別',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'グループ',
     'groups'                  => 'グループ',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'オタク統計',
     'nerd-stats-desc'         => '私たちはみんな統計が大好きです。これが私たちが重要だと思ういくつかです',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => '登録日',
     'request-fulfilled'       => '満たされた要求',
     'request-not-fulfilled'   => '要求が満たされなかった',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'トップリーチ',
     'top-leechers'            => 'トップLeechers',
     'top-seeded'              => '上シード',
-    'top-seeding'             => 'トップシーディング',
     'top-seeders'             => 'トップシーダー',
+    'top-seeding'             => 'トップシーディング',
     'top-seedsize'            => 'トップシードサイズ',
     'top-seedtime'            => 'トップシードタイム',
     'top-uploaders'           => 'トップアップローダー',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => '総急流',
     'total-traffic'           => '総トラフィック',
     'total-upload'            => '合計アップロード',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'グループ内のユーザー',
-    'users-per-group'         => 'グループごとのユーザー',
+    'users-per-group'         => 'グループごとのユーザー'
 ];

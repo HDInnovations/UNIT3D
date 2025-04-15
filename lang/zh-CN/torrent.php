@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,11 +37,12 @@ return [
     'categories'               => '类别',
     'category'                 => '类别',
     'client'                   => '客户端',
+    'comments-left'            => 'Comments Left',
     'commited'                 => '已提交',
     'completed'                => '完成',
-    'completed_at'             => '完成于',
     'completed-not-seeding'    => '撤种',
     'completed-times'          => '完成数',
+    'completed_at'             => '完成于',
     'created_at'               => '新建于',
     'credited'                 => '加成',
     'current'                  => '目前',
@@ -84,10 +86,10 @@ return [
     'grant'                    => '授予',
     'greater-than'             => '大于',
     'grouping'                 => '分组',
-    'groupings'                => '分组形式',
     'grouping-categories'      => '分组类别',
     'grouping-categories-desc' => '你想根据什么类别分组？',
     'grouping-results'         => '分组结果',
+    'groupings'                => '分组形式',
     'groupings-view'           => '以分组形式展示',
     'have-completed'           => '已完成',
     'have-downloaded'          => '已下载',
@@ -95,8 +97,8 @@ return [
     'have-not-downloaded'      => '未下载',
     'health'                   => '活跃度',
     'history'                  => '记录',
-    'hitrun'                   => 'H&R',
     'hit-and-runs'             => 'H&R次数',
+    'hitrun'                   => 'H&R',
     'immune'                   => '豁免',
     'info'                     => '信息',
     'info-hash'                => '校验码',
@@ -130,9 +132,9 @@ return [
     'no-meta'                  => '找不到元数据',
     'no-privileges'            => '您无法下载此文件 - 请在下面查看更多信息',
     'no-privileges-desc'       => '请解决上述错误中描述的问题，下载按钮才会出现',
-    'not-personal-release'     => '非个人发布',
     'not-completed'            => '未完成',
     'not-downloaded'           => '没有下载',
+    'not-personal-release'     => '非个人发布',
     'not-seeding'              => '没做种',
     'old-torrent'              => '旧资源',
     'optional'                 => '选择性',
@@ -146,6 +148,7 @@ return [
     'poster'                   => '海报',
     'poster-view'              => '海报视图',
     'posters'                  => '海报',
+    'postponed'                => 'Postponed',
     'postponed-torrents'       => '待修改',
     'prewarn'                  => '预警',
     'progress'                 => '进度',
@@ -159,8 +162,8 @@ return [
     'recommendations'          => '相关推荐',
     'refundable'               => '可退还的',
     'refunded'                 => '已退款',
-    'rejected'                 => '拒绝',
     'region'                   => '地区',
+    'rejected'                 => '拒绝',
     'released'                 => '发布',
     'remaining'                => '剩余',
     'request-reseed'           => '要求续种',
@@ -178,6 +181,7 @@ return [
     'say-thanks'               => '别忘记说<b>谢谢</b> 及 <b>保种</b>',
     'search'                   => '搜索',
     'search-by-name'           => '按名称搜索',
+    'season'                   => 'Season',
     'season-number'            => '季号',
     'seed-time'                => '发布时间',
     'seeder'                   => '做种',
@@ -197,9 +201,9 @@ return [
     'staff-tools'              => '站务人员工具',
     'start-year'               => '开始年份',
     'started'                  => '已开始',
-    'status'                   => '状态',
     'statistics'               => '统计',
     'stats'                    => '统计数据',
+    'status'                   => '状态',
     'sticky'                   => '置顶',
     'subtitle'                 => '字幕',
     'subtitle-included'        => '这个种子已经包括了以下混合的字幕：',
@@ -239,5 +243,5 @@ return [
     'view-more'                => '详情',
     'view-trailer'             => '观看预告片',
     'votes'                    => '评分',
-    'year-range'               => '年份范围',
+    'year-range'               => '年份范围'
 ];

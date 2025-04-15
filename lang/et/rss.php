@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Loo',
     'create-private-feed' => 'Loo privaatne RSS-voog',
     'create-public-feed'  => 'Loo avalik RSS-kanal',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Kustuta',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Muuda',
     'edit-private-feed'   => 'Muuda privaatset RSS-voogu',
     'edit-public-feed'    => 'Avaliku RSS-voo redigeerimine',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Sööt',
     'feeds'               => 'Söödad',
     'name'                => 'Nimi',
-    'public'              => 'Avalik',
     'private'             => 'Eraldi',
+    'public'              => 'Avalik',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS-voog',
     'type'                => 'Tüüp',
+    'updated'             => 'Private RSS Feed Updated'
 ];

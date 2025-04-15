@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Kwa Hesabu',
     'by-data'                 => 'Kwa Data',
     'by-volume'               => 'Kwa Volume',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Kundi',
     'groups'                  => 'Vikundi',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Takwimu za Nerd',
     'nerd-stats-desc'         => 'Sisi sote tunapenda stats. Hapa kuna wachache tuliyopata muhimu',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Tarehe ya usajili',
     'request-fulfilled'       => 'Ombi imekamilika',
     'request-not-fulfilled'   => 'Ombi halijatimizwa',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Mchuzi wa Juu',
     'top-leechers'            => 'Leechers juu',
     'top-seeded'              => 'Mbegu za Juu',
-    'top-seeding'             => 'Mbegu za Juu',
     'top-seeders'             => 'Mbegu za Juu',
+    'top-seeding'             => 'Mbegu za Juu',
     'top-seedsize'            => 'Mbegu ya juu',
     'top-seedtime'            => 'Wakati wa Mbegu',
     'top-uploaders'           => 'Wapakiaji wa Juu',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Torrents Jumla',
     'total-traffic'           => 'Jumla ya Trafiki',
     'total-upload'            => 'Upakiaji wa Jumla',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Watumiaji Katika Kikundi',
-    'users-per-group'         => 'Watumiaji Kwa Kikundi',
+    'users-per-group'         => 'Watumiaji Kwa Kikundi'
 ];

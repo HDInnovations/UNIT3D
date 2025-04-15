@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Par nombre',
     'by-data'                 => 'Par données',
     'by-volume'               => 'Par volume',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Groupe',
     'groups'                  => 'Groupes',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Stats Nerd',
     'nerd-stats-desc'         => 'Nous apprécions toutes les statistiques. En voici quelques-unes que nous trouvons importantes',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Date d inscription',
     'request-fulfilled'       => 'Demande remplie',
     'request-not-fulfilled'   => 'Demande non remplie',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Torrents les plus leeched',
     'top-leechers'            => 'Membres les plus leechers',
     'top-seeded'              => 'Torrents les plus partagés au total',
-    'top-seeding'             => 'Torrents les plus partagés actuellement',
     'top-seeders'             => 'Membres seedant le plus',
+    'top-seeding'             => 'Torrents les plus partagés actuellement',
     'top-seedsize'            => 'Torrents les plus gros en seed',
     'top-seedtime'            => 'Torrents en seed depuis longtemps',
     'top-uploaders'           => 'Top  des membres uploadant le plus',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total des Torrents',
     'total-traffic'           => 'Trafic total',
     'total-upload'            => 'Total des uploads',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Utilisateurs du groupe',
-    'users-per-group'         => 'Utilisateurs par groupe',
+    'users-per-group'         => 'Utilisateurs par groupe'
 ];

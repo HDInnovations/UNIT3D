@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'ایکشنز',
     'backup'                         => 'بیک اپ',
     'backup_doesnt_exist'            => 'بیک اپ فائل موجود نہیں ہے.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'مکمل بیک اپ بنائیں',
-    'create_a_new_files_backup'      => 'فائلیں بیک اپ بنائیں',
     'create_a_new_db_backup'         => 'ڈیٹا بیس بیک اپ بنائیں',
+    'create_a_new_files_backup'      => 'فائلیں بیک اپ بنائیں',
     'create_confirmation_message'    => 'صفحے کو 3 سیکنڈ میں دوبارہ لوڈ کرنا.',
     'create_confirmation_title'      => 'بیک اپ مکمل ہوگیا',
     'create_error_message'           => 'بیک اپ فائل نہیں بن سکی.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'مقام',
     'manager'                        => 'مینیجر',
     'no_disks_configured'            => 'config / backup.php میں ترتیب نہیں ہے بیک اپ ڈسک',
-    'only_local_downloads_supported' => 'مقامی فائل سسٹم سے صرف ڈاؤن لوڈز کی حمایت کی جاتی ہے.',
+    'only_local_downloads_supported' => 'مقامی فائل سسٹم سے صرف ڈاؤن لوڈز کی حمایت کی جاتی ہے.'
 ];

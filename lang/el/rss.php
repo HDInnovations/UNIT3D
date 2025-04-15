@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Δημιουργία',
     'create-private-feed' => 'Δημιουργία ιδιωτικής ροής RSS',
     'create-public-feed'  => 'Δημιουργία κοινής ροής RSS',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Διαγραφή',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Επεξεργασία',
     'edit-private-feed'   => 'Επεξεργασία ιδιωτικής ροής RSS',
     'edit-public-feed'    => 'Επεξεργασία δημόσιας ροής RSS',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Δίνω',
     'feeds'               => 'Τροφοδοσίες',
     'name'                => 'Ονομα',
-    'public'              => 'Δημόσια',
     'private'             => 'Ιδιωτική',
+    'public'              => 'Δημόσια',
     'rss'                 => 'RSS',
     'rss-feed'            => 'Ροή RSS',
     'type'                => 'Τύπος',
+    'updated'             => 'Private RSS Feed Updated'
 ];

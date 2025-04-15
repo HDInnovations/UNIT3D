@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Активный в прошлом',
     'chatbox'                 => 'Окно чата',
+    'check-news'              => 'Новости (проверяйте ежедневно)',
     'click'                   => 'Нажмите',
-    'to-enable-editor'        => 'включить редактор',
     'featured-by'             => 'Показанный',
     'featured-torrents'       => 'Популярные торренты',
     'featured-torrents-intro' => 'Получите их, пока можете!',
     'featured-until'          => 'Это показанный торрент до',
-    'top-torrents'            => 'Лучшие торренты',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'последние сообщения',
     'latest-topics'           => 'Последние темы',
-    'active-in-last'          => 'Активный в прошлом',
-    'users-online'            => 'Пользователи онлайн',
-    'check-news'              => 'Новости (проверяйте ежедневно)',
     'new-news'                => 'Новые новости',
     'new-torrents'            => 'Новые торренты',
+    'to-enable-editor'        => 'включить редактор',
+    'top-torrents'            => 'Лучшие торренты',
+    'users-online'            => 'Пользователи онлайн'
 ];

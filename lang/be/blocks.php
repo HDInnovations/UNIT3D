@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Актыўны ў мінулым',
     'chatbox'                 => 'Chat Box',
+    'check-news'              => 'Навіны (штодня правяраць)',
     'click'                   => 'націсніце',
-    'to-enable-editor'        => 'каб уключыць рэдактар',
     'featured-by'             => 'Рэкамендаваны',
     'featured-torrents'       => 'папулярныя торэнты',
     'featured-torrents-intro' => 'Атрымаць іх, пакуль вы можаце!',
     'featured-until'          => 'Гэта прыкметы торэнта да',
-    'top-torrents'            => 'лепшыя Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'апошнія паведамленні',
     'latest-topics'           => 'апошнія тэмы',
-    'active-in-last'          => 'Актыўны ў мінулым',
-    'users-online'            => 'карыстальнікі онлайн',
-    'check-news'              => 'Навіны (штодня правяраць)',
     'new-news'                => 'новыя навіны',
     'new-torrents'            => 'новыя торэнты',
+    'to-enable-editor'        => 'каб уключыць рэдактар',
+    'top-torrents'            => 'лепшыя Torrents',
+    'users-online'            => 'карыстальнікі онлайн'
 ];

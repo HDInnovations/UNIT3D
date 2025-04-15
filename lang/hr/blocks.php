@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Aktivan u posljednjem',
     'chatbox'                 => 'Okvir za chat',
+    'check-news'              => 'Vijesti (provjerite dnevno)',
     'click'                   => 'Klik',
-    'to-enable-editor'        => 'da biste omogućili uređivanje',
     'featured-by'             => 'Predstavlja korisnik',
     'featured-torrents'       => 'Istaknuti torenti',
     'featured-torrents-intro' => 'Uzmite ih dok možete!',
     'featured-until'          => 'Ovo je značajka torrent do',
-    'top-torrents'            => 'Najpopularniji torenti',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Najnoviji postovi',
     'latest-topics'           => 'Najnovije teme',
-    'active-in-last'          => 'Aktivan u posljednjem',
-    'users-online'            => 'Korisnici na mreži',
-    'check-news'              => 'Vijesti (provjerite dnevno)',
     'new-news'                => 'Nove vijesti',
     'new-torrents'            => 'Novi bujici',
+    'to-enable-editor'        => 'da biste omogućili uređivanje',
+    'top-torrents'            => 'Najpopularniji torenti',
+    'users-online'            => 'Korisnici na mreži'
 ];

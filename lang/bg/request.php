@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Добавете заявка',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'възраст',
     'all-requests'        => 'Всички заявки',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'одобрявам',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'дар',
     'bounty-claimed'      => 'Bounty твърди',
     'bounty-unclaimed'    => 'Неподписан Bounty',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Бихте ли искали да заявите това самостоятелно',
     'claim-now'           => 'Протвърди сега, потвърждавам',
     'claimed'             => 'Твърдеше',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Текущ',
     'delete'              => 'Изтрийте тази заявка',
     'delete-confirmation' => 'Наистина ли искате да изтриете тази Заявка',
     'delete-filled'       => 'Тази заявка може да бъде изтрита само ако не е попълнена',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'описание',
     'dont-have-bps'       => 'Нямате достатъчно бонус',
     'edit-request'        => 'Редактиране на заявката',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Въведете бонус точки (минимум 100)',
     'enter-hash'          => 'Въведете Информационния хеш на качения Torrent',
     'fill'                => 'Напълнете',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'за',
     'fulfill'             => 'Изпълнете',
     'last-vote'           => 'Последно гласуване',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Моите искания',
+    'my-voted'            => 'My voted',
     'no'                  => 'Не,',
     'no-imdb-id'          => 'Всички заявки трябва да съдържат IMDB номер',
     'no-privileges'       => 'Грешка: Вашите права за заявка бяха деактивирани',
     'no-privileges-desc'  => 'Ако смятате, че това е грешка, моля, свържете се с персонала',
     'no-refunds'          => 'BON борсите за създаване, запълване и награди са окончателни! <br> <strong>НЯМА ВЪЗСТАНОВЯВАНИЯ!</strong>',
     'pending'             => 'в очакване на',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'причина',
     'reject'              => 'Отхвърляне',
     'report'              => 'Отчет за заявка',
     'request'             => 'поискване',
     'request-details'     => 'Заявете подробности',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Поискано от',
     'requests'            => 'Исканията',
     'required'            => 'длъжен',
     'reset'               => 'Нулиране',
     'reset-confirmation'  => 'Наистина ли искате да нулирате тази Заявка',
     'reset-request'       => 'Нулирайте тази заявка',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Награда',
     'reward-desc'         => 'Колко бонус точка бихте искали да наградите? Минимум 100 BP',
     'reward-from'         => 'от',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Общо награда',
     'type'                => 'Тип',
     'unclaim'             => 'Оттеглете тази молба',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Unfilled',
     'view-filled'         => 'Изглед попълнен',
     'view-unfilled'       => 'Изглед незапълнен',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Гласувайте за тази заявка',
     'voters'              => 'Гласоподавателите',
     'votes'               => 'Гласове',
-    'yes'                 => 'да',
+    'yes'                 => 'да'
 ];

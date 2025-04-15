@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'ಮುಚ್ಚಲಾಗಿದೆ',
     'create-new-topic'          => 'ಹೊಸ ವಿಷಯ ರಚಿಸಿ',
     'created'                   => 'ರಚಿಸಲಾಗಿದೆ',
+    'created-at'                => 'Created At',
     'current'                   => 'ಪ್ರಸ್ತುತ',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'ಈ ವಿಷಯವನ್ನು ಅಳಿಸಿ',
     'denied'                    => 'ನಿರಾಕರಿಸಲಾಗಿದೆ',
     'dislike-post'              => 'ಈ ಪೋಸ್ಟ್ ಅನ್ನು ಇಷ್ಟಪಡದಿರಿ',
     'display-forum'             => 'ರಲ್ಲಿ ವಿಷಯಗಳನ್ನು ತೋರಿಸಿ',
     'edit-post'                 => 'ಪೋಸ್ಟ್ ಸಂಪಾದಿಸಿ',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'ವಿಷಯ ಸಂಪಾದಿಸಿ',
     'forum'                     => 'ವೇದಿಕೆ',
     'forums'                    => 'ವೇದಿಕೆಗಳು',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'ಅಳವಡಿಸಲಾಗಿದೆ',
     'in'                        => 'ಇನ್',
     'invalid'                   => 'ಅಮಾನ್ಯವಾಗಿದೆ',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'ಉದ್ಧರಣ',
     'read-topic'                => 'ವಿಷಯ ಓದಿ',
     'replies'                   => 'ಪ್ರತ್ಯುತ್ತರಗಳು',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'ಈ ವಿಷಯವನ್ನು ಉಳಿಸಿ',
     'solved'                    => 'ಪರಿಹಾರ',
     'state'                     => 'ರಾಜ್ಯ',
     'stats'                     => 'ಅಂಕಿಅಂಶಗಳು',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'ಚಂದಾದಾರರಾಗಿದ್ದಾರೆ',
     'subscription-quick-search' => 'ವಿಷಯದ ಹೆಸರು ತ್ವರಿತ ಶೋಧ (ಚಂದಾದಾರಿಕೆಗಳಲ್ಲಿ)',
     'suggestion'                => 'ಸಲಹೆ',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'ವಿಷಯ',
     'topic-closed'              => 'ಈ ವಿಷಯ ಮುಚ್ಚಲಾಗಿದೆ',
     'topic-name'                => 'ವಿಷಯದ ಹೆಸರು',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'ಈ ವಿಷಯದ ಶೀರ್ಷಿಕೆ',
     'topics'                    => 'ವಿಷಯಗಳು',
     'unpin'                     => 'ಅನ್ಪಿನ್ ಮಾಡಿ',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'ಎಲ್ಲ ವಿಷಯಗಳನ್ನೂ ವೀಕ್ಷಿಸಿ',
-    'views'                     => 'ವೀಕ್ಷಣೆಗಳು',
+    'views'                     => 'ವೀಕ್ಷಣೆಗಳು'
 ];

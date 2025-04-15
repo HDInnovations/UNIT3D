@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,10 +26,11 @@ return [
     'disabled'                => 'Zakazáno',
     'group'                   => 'Skupina',
     'groups'                  => 'Skupiny',
+    'languages'               => 'Jazyky',
     'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Statistiky nerdů',
     'nerd-stats-desc'         => 'Všichni milujeme statistiky. Zde je několik, které považujeme za důležité',
-    'languages'               => 'Jazyky',
     'place'                   => 'Místo',
     'pruned'                  => 'Pruned',
     'real'                    => 'Skutečné',
@@ -50,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top seedů',
-    'top-seeding'             => 'Top seedování',
     'top-seeders'             => 'Top Seeders',
+    'top-seeding'             => 'Top seedování',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Top Uploaders',
@@ -61,5 +63,5 @@ return [
     'total-upload'            => 'Celkový počet nahrávek',
     'updated'                 => '(Aktualizováno každých 10 minut!)',
     'users-in-group'          => 'Uživatelé ve skupině',
-    'users-per-group'         => 'Uživatelé na skupinu',
+    'users-per-group'         => 'Uživatelé na skupinu'
 ];

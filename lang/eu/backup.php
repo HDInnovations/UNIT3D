@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Ekintzak',
     'backup'                         => 'Backup',
     'backup_doesnt_exist'            => 'Babeskopia fitxategia ez da existitzen.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Sortu Babeskopia osoa',
-    'create_a_new_files_backup'      => 'Sortu fitxategien babeskopia',
     'create_a_new_db_backup'         => 'Sortu datu-basearen babeskopia',
+    'create_a_new_files_backup'      => 'Sortu fitxategien babeskopia',
     'create_confirmation_message'    => 'Orria 3 segundotan berriro kargatzen.',
     'create_confirmation_title'      => 'Babeskopia osatu da',
     'create_error_message'           => 'Babeskopia fitxategia EZ da sortu.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Kokalekua',
     'manager'                        => 'Kudeatzailea',
     'no_disks_configured'            => 'Ez da konfigurazio / backup.php konfigurazioan konfiguratutako babeskopiarik',
-    'only_local_downloads_supported' => 'Tokiko fitxategi-sistemako deskargak bakarrik onartzen dira.',
+    'only_local_downloads_supported' => 'Tokiko fitxategi-sistemako deskargak bakarrik onartzen dira.'
 ];

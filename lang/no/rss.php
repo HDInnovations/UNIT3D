@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Lag',
     'create-private-feed' => 'Lag privat RSS-feed',
     'create-public-feed'  => 'Lag offentlig RSS-feed',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Slett',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Redigere',
     'edit-private-feed'   => 'Rediger Privat RSS-feed',
     'edit-public-feed'    => 'Rediger Offentlig RSS-feed',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Strøm',
     'feeds'               => 'Strømmer',
     'name'                => 'Navn',
-    'public'              => 'Offentlig',
     'private'             => 'Privat',
+    'public'              => 'Offentlig',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Strøm',
     'type'                => 'Type',
+    'updated'             => 'Private RSS Feed Updated'
 ];
