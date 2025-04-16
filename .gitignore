@@ -53,3 +53,4 @@ frankenphp-worker.php
 /data
 config/caddy/autosave.json
 /data/
+docs/api.json
