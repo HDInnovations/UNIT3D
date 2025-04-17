@@ -9,3 +9,4 @@
 - [Sharing Source Code](sharing_source_code.md)
 - [Torrent API](torrent_api.md)
 - [Upgrading PHP Version](upgrading_php_version.md)
+- [Translations](translations.md)
