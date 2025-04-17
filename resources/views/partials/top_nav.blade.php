@@ -270,12 +270,21 @@
                     {{ $peerCount - $leechCount }}
                 </a>
             </li>
-            <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
+            <li
+                class="ratio-bar__leeching"
+                title="{{ $leechCount >= ($user->group->download_slots ?? PHP_INT_MAX) ? 'Download slots are full!' : __('torrent.leeching') }}"
+            >
                 <a
                     href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}"
                 >
-                    <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ $leechCount }}
+                    @if ($leechCount >= ($user->group->download_slots ?? PHP_INT_MAX))
+                        <i
+                            class="ratio-bar__slots-full {{ config('other.font-awesome') }} fa-triangle-exclamation"
+                        ></i>
+                    @else
+                        <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                    @endif
+                    {{-- format-ignore-start --}}{{ $leechCount }}/<span title="Download Slots">{{ $user->group->download_slots ?? '∞' }}</span>{{-- format-ignore-end --}}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
