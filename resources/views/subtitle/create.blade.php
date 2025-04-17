@@ -54,7 +54,7 @@
                                 value="{{ $media_language->id }}"
                                 @selected(old('media_language') == $media_language->id)
                             >
-                                {{ $media_language->code }}
+                                {{ $media_language->name }}
                             </option>
                         @endforeach
                     </select>
