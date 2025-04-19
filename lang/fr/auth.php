@@ -24,7 +24,7 @@ return [
     'failed' => 'Ces identifiants ne correspondent pas à nos enregistrements',
     'throttle' => 'Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans :seconds secondes.',
     'password' => 'Mot de passe',
-    'activation-error' => 'Jeton ou compte banni ou invalide déjà confirmé!',
+    'activation-error' => 'Jeton ou compte banni ou invalide déjà confirmé !',
     'allow-invite-appl' => 'Les inscriptions ouvertes sont closes! Doit être invité à s/\'inscrire! Cependant, les inscriptions aux candidatures sont ouvertes. Vous avez été redirigé vers la page de candidature!',
     'appl-reason' => 'Comment avez-vous entendu parler de ":sitename" et pourquoi souhaitez-vous y participer? ',
     'lost-username' => 'Vous avez oublié votre nom d\'utilisateur?',
