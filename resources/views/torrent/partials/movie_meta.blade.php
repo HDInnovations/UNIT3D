@@ -77,19 +77,16 @@
                         </button>
                     </form>
                 </li>
-            @endif
-
-            @if ($meta?->id || $torrent?->tmdb_movie_id ?? null)
                 <li>
                     <form
-                        action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta?->id ?? $torrent->tmdb_movie_id]) }}"
+                        action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta->id]) }}"
                         method="post"
                     >
                         @csrf
                         @method('PATCH')
 
                         <button
-                            @if (cache()->has('tmdb-movie-scraper:' . ($meta?->id ?? $torrent->tmdb_movie_id)) && ! auth()->user()->group->is_modo)
+                            @if (cache()->has('tmdb-movie-scraper:' . $meta->id) && ! auth()->user()->group->is_modo)
                                 disabled
                                 title="This item was recently updated. Try again tomorrow."
                             @endif
@@ -119,6 +116,13 @@
                 {{ $meta->original_language ?? __('common.unknown') }}
             </a>
         </li>
+        @if ($meta?->certification)
+            <li class="work__certification">
+                <span class="work__certification-text">
+                    {{ $meta->certification }}
+                </span>
+            </li>
+        @endif
         <li class="work__runtime">
             <span class="work__runtime-text">
                 {{ \Carbon\CarbonInterval::minutes($meta->runtime ?? 0)->cascade()->forHumans(null, true) }}
