@@ -368,8 +368,10 @@ class TV
                 foreach ($this->ratings['results'] as $countryData) {
                     if (!empty($countryData['iso_3166_1']) && !empty($countryData['rating'])) {
                         $contentRatings[$countryData['iso_3166_1']] = $countryData['rating'];
+
                         if ($countryData['iso_3166_1'] === 'US') {
                             $certification = $countryData['rating'];
+
                             break;
                         }
                     }

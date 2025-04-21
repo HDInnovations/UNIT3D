@@ -65,7 +65,7 @@ class TmdbMovie extends Model
     protected function casts(): array
     {
         return [
-            'release_date' => 'datetime',
+            'release_date'    => 'datetime',
             'content_ratings' => 'array',
         ];
     }

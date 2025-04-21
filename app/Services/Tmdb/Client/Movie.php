@@ -305,10 +305,11 @@ class Movie
 
             if (isset($this->data['release_dates']['results'])) {
                 foreach ($this->data['release_dates']['results'] as $countryData) {
-                    if (isset($countryData['iso_3166_1']) && isset($countryData['release_dates'])) {
+                    if (isset($countryData['iso_3166_1'], $countryData['release_dates'])) {
                         foreach ($countryData['release_dates'] as $releaseDate) {
                             if (!empty($releaseDate['certification'])) {
                                 $contentRatings[$countryData['iso_3166_1']] = $releaseDate['certification'];
+
                                 if ($countryData['iso_3166_1'] === 'US') {
                                     $certification = $releaseDate['certification'];
                                 }
