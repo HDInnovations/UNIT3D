@@ -1852,6 +1852,8 @@ CREATE TABLE `tmdb_movies` (
   `title_sort` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `original_language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `adult` tinyint(1) DEFAULT NULL,
+  `certification` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content_ratings` json DEFAULT NULL,
   `backdrop` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `budget` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1968,6 +1970,7 @@ CREATE TABLE `tmdb_tv` (
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `in_production` tinyint(1) DEFAULT NULL,
+  `certification` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_air_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `next_episode_to_air` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `origin_country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2963,3 +2966,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (345,'2025_04_03_08
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (346,'2025_04_07_152108_split_recommendations_into_movie_and_tv',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (347,'2025_04_15_075631_add_description_to_playlist_categories',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (348,'2025_04_15_090705_create_playlist_suggestions',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (349,'2025_04_21_164330_add_certification_to_tmdb_metadata',1);
