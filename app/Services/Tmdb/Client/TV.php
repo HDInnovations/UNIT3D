@@ -335,6 +335,7 @@ class TV
 
     /**
      * @return ?array{
+     *     certification: ?string,
      *     backdrop: ?string,
      *     episode_run_time: mixed,
      *     first_air_date: mixed,
