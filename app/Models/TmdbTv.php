@@ -53,9 +53,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $trailer
- * @property int|null                        $adult
  * @property string|null                     $certification
- * @property array|null                      $content_ratings
  */
 class TmdbTv extends Model
 {
@@ -76,8 +74,8 @@ class TmdbTv extends Model
     protected function casts(): array
     {
         return [
-            'first_air_date' => 'datetime',
-            'last_air_date'  => 'datetime',
+            'first_air_date'  => 'datetime',
+            'last_air_date'   => 'datetime',
             'content_ratings' => 'array',
         ];
     }
