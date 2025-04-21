@@ -122,6 +122,7 @@
                 </span>
             </li>
         @endif
+
         <li class="work__runtime">
             <span class="work__runtime-text">
                 {{ \Carbon\CarbonInterval::minutes($meta->episode_run_time ?? 0)->cascade()->forHumans(null, true) }}
