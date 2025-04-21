@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $title_sort
  * @property string|null                     $original_language
  * @property int|null                        $adult
+ * @property string|null                     $certification
+ * @property array|null                      $content_ratings
  * @property string|null                     $backdrop
  * @property string|null                     $budget
  * @property string|null                     $homepage
@@ -58,12 +60,13 @@ class TmdbMovie extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{release_date: 'datetime'}
+     * @return array{release_date: 'datetime', content_ratings: 'array'}
      */
     protected function casts(): array
     {
         return [
             'release_date' => 'datetime',
+            'content_ratings' => 'array',
         ];
     }
 
