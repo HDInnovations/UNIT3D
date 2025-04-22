@@ -74,16 +74,30 @@ class DonationController extends Controller
         $donation->status = ModerationStatus::APPROVED;
         $donation->starts_at = $now;
 
-        if ($donation->package->donor_value > 0) {
-            $donation->ends_at = $now->addDays($donation->package->donor_value);
-        } else {
+        if ($donation->package->donor_value === null) {
             $donation->ends_at = null;
+        } else {
+            $activeDonations = Donation::where('user_id', $donation->user_id)
+                ->where('status', ModerationStatus::APPROVED)
+                ->where('ends_at', '>', $now)
+                ->get();
+
+            if ($activeDonations->isNotEmpty()) {
+                if ($donation->user->is_lifetime) {
+                    $donation->ends_at = null;
+                } else {
+                    $furthestExpiry = $activeDonations->max('ends_at');
+                    $donation->ends_at = $furthestExpiry->addDays($donation->package->donor_value);
+                }
+            } else {
+                $donation->ends_at = $now->addDays($donation->package->donor_value);
+            }
         }
 
         $donation->user->invites += $donation->package->invite_value ?? 0;
         $donation->user->uploaded += $donation->package->upload_value ?? 0;
         $donation->user->is_donor = true;
-        $donation->user->is_lifetime = $donation->package->donor_value === null;
+        $donation->user->is_lifetime = $donation->ends_at === null;
         $donation->user->seedbonus += $donation->package->bonus_value ?? 0;
         $donation->user->save();
 
