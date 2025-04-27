@@ -347,7 +347,12 @@
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input class="form__checkbox" type="checkbox" value="topics" />
+                                <input
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    wire:model.live.prefetch="topics"
+                                    value="1"
+                                />
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-comment-alt-check text-success"
                                 ></i>
