@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $original_language
  * @property int|null                        $adult
  * @property string|null                     $certification
- * @property array|null                      $content_ratings
+ * @property array<string, mixed>|null       $content_ratings
  * @property string|null                     $backdrop
  * @property string|null                     $budget
  * @property string|null                     $homepage
