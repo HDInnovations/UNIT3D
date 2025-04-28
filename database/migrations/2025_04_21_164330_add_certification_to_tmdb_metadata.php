@@ -19,9 +19,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('tmdb_movies', function (Blueprint $table): void {
@@ -31,21 +28,6 @@ return new class () extends Migration {
 
         Schema::table('tmdb_tv', function (Blueprint $table): void {
             $table->string('certification')->nullable()->after('in_production');
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('tmdb_movies', function (Blueprint $table): void {
-            $table->dropColumn('certification');
-            $table->dropColumn('content_ratings');
-        });
-
-        Schema::table('tmdb_tv', function (Blueprint $table): void {
-            $table->dropColumn('certification');
         });
     }
 };
