@@ -20,7 +20,7 @@ use App\Enums\ModerationStatus;
 use App\Helpers\StringHelper;
 use App\Models\Conversation;
 use App\Services\Unit3dAnnounce;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
