@@ -18,6 +18,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\ModerationStatus;
 use App\Helpers\Bencode;
+use App\Helpers\ImageHelper;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
@@ -45,10 +46,13 @@ use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\Facades\Image;
 use Exception;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use ReflectionException;
 use JsonException;
 
@@ -201,6 +205,42 @@ class TorrentController extends Controller
     }
 
     /**
+     * Helper for Cover/Banner Handling.
+     */
+    private function handleTorrentImage(Request $request, Torrent $torrent, string $inputName, string $urlField, string $type, bool $store = false): void
+    {
+        if ($request->hasFile($inputName) || $request->filled($urlField)) {
+            $source = $request->hasFile($inputName)
+                ? $request->file($inputName)
+                : (string) $request->string($urlField);
+
+            /** @var \Illuminate\Http\UploadedFile|string $source */
+            $result = ImageHelper::processTorrentImage($source, (string) $torrent->id, $type);
+
+            if ($result) {
+                $newUrl = $result['url'];
+
+                // Clean up unused file if External URL
+                if (!$store && !Str::contains($newUrl, "authenticated-images/torrent-{$type}s")) {
+                    ImageHelper::deleteUnusedTorrentImage((string) $torrent->id, $type);
+                }
+
+                // Save the new URL
+                $torrent->{$urlField} = $newUrl;
+                $torrent->save();
+            } else {
+                Log::error("Failed to process {$type} image for torrent {$torrent->id}", [
+                    'source' => $source,
+                ]);
+
+                throw ValidationException::withMessages([
+                    $urlField => "Failed to process the {$type} image.",
+                ]);
+            }
+        }
+    }
+
+    /**
      * Update the specified Torrent resource in storage.
      */
     public function update(UpdateTorrentRequest $request, int $id): \Illuminate\Http\RedirectResponse
@@ -221,29 +261,14 @@ class TorrentController extends Controller
             403
         );
 
-        $torrent->update($request->validated());
+        $torrent->update(
+            collect($request->validated())
+                ->except(['torrent-cover', 'cover_url', 'torrent-banner', 'banner_url'])
+                ->toArray()
+        );
 
-        // Cover Image for No-Meta Torrents
-        if ($request->hasFile('torrent-cover')) {
-            $image_cover = $request->file('torrent-cover');
-
-            abort_if(\is_array($image_cover), 400);
-
-            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
-        }
-
-        // Banner Image for No-Meta Torrents
-        if ($request->hasFile('torrent-banner')) {
-            $image_cover = $request->file('torrent-banner');
-
-            abort_if(\is_array($image_cover), 400);
-
-            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
-        }
+        $this->handleTorrentImage($request, $torrent, 'torrent-cover', 'cover_url', 'cover');
+        $this->handleTorrentImage($request, $torrent, 'torrent-banner', 'banner_url', 'banner');
 
         // Torrent Keywords System
         Keyword::where('torrent_id', '=', $torrent->id)->delete();
@@ -325,6 +350,9 @@ class TorrentController extends Controller
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
+        ImageHelper::deleteUnusedTorrentImage((string) $torrent->id, 'cover');
+        ImageHelper::deleteUnusedTorrentImage((string) $torrent->id, 'banner');
+
         Unit3dAnnounce::removeTorrent($torrent);
 
         $torrent->delete();
@@ -402,7 +430,7 @@ class TorrentController extends Controller
             'user_id'      => $user->id,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except(['torrent']));
+        ] + $request->safe()->except(['torrent', 'torrent-cover', 'torrent-banner']));
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
@@ -422,27 +450,9 @@ class TorrentController extends Controller
             TorrentFile::insert($files->toArray());
         }
 
-        // Cover Image for No-Meta Torrents
-        if ($request->hasFile('torrent-cover')) {
-            $image_cover = $request->file('torrent-cover');
-
-            abort_if(\is_array($image_cover), 400);
-
-            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
-        }
-
-        // Banner Image for No-Meta Torrents
-        if ($request->hasFile('torrent-banner')) {
-            $image_cover = $request->file('torrent-banner');
-
-            abort_if(\is_array($image_cover), 400);
-
-            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
-        }
+        // Cover/Banner Image for No-Meta or Music-Meta Torrents
+        $this->handleTorrentImage($request, $torrent, 'torrent-cover', 'cover_url', 'cover', true);
+        $this->handleTorrentImage($request, $torrent, 'torrent-banner', 'banner_url', 'banner', true);
 
         // Tracker updates come after initial database updates in case tracker's offline
 

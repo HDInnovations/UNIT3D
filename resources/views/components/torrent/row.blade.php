@@ -54,29 +54,20 @@
 
                 @if ($torrent->category->music_meta)
                     <img
-                        src="https://via.placeholder.com/90x135"
-                        class="torrent-search--list__poster-img"
+                        src="{{ $torrent->cover ?? ($torrent->cover_image ?? 'https://via.placeholder.com/90x90') }}"
+                        class="torrent-search--list__music-img"
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"
                     />
                 @endif
 
                 @if ($torrent->category->no_meta)
-                    @if (Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))
-                        <img
-                            src="{{ route('authenticated_images.torrent_cover', ['torrent' => $torrent]) }}"
-                            class="torrent-search--list__poster-img"
-                            loading="lazy"
-                            alt="{{ __('torrent.similar') }}"
-                        />
-                    @else
-                        <img
-                            src="https://via.placeholder.com/400x600"
-                            class="torrent-search--list__poster-img"
-                            loading="lazy"
-                            alt="{{ __('torrent.similar') }}"
-                        />
-                    @endif
+                    <img
+                        src="{{ $torrent->cover ?? ($torrent->cover_image ?? 'https://via.placeholder.com/90x135') }}"
+                        class="torrent-search--list__poster-img"
+                        loading="lazy"
+                        alt="{{ __('torrent.similar') }}"
+                    />
                 @endif
             </a>
         </td>
@@ -94,7 +85,8 @@
                         @style([
                             'height: 32px',
                             'padding-top: 1px' => $torrent->category->movie_meta || $torrent->category->tv_meta,
-                            'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta),
+                            'padding-top: 6px' => $torrent->category->music_meta,
+                            'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta || $torrent->category->music_meta),
                         ])
                     />
                 @else
@@ -103,7 +95,8 @@
                         @style([
                             'font-size: 24px',
                             'padding-top: 1px' => $torrent->category->movie_meta || $torrent->category->tv_meta,
-                            'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta),
+                            'padding-top: 6px' => $torrent->category->music_meta,
+                            'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta || $torrent->category->music_meta),
                         ])
                     ></i>
                 @endif

@@ -63,6 +63,14 @@ class UpdateTorrentRequest extends FormRequest
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->find($torrentId);
         $user = $request->user()->load('group')->loadExists('internals');
 
+        $exclusiveImageSource = function (string $attribute, mixed $value, callable $fail) use ($request): void {
+            $field = str_replace('torrent-', '', $attribute);
+
+            if ($request->filled("{$field}_url") && $request->hasFile($attribute)) {
+                $fail("Only (1) {$field} may be submitted, either by URL or file.");
+            }
+        };
+
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {
             if ($value !== null) {
                 $fail("The {$attribute} must be null.");
@@ -74,6 +82,34 @@ class UpdateTorrentRequest extends FormRequest
                 'required',
                 Rule::unique('torrents')->whereNot('id', $torrentId)->whereNull('deleted_at'),
                 'max:255',
+            ],
+            'cover_url' => [
+                Rule::when($category->music_meta || $category->no_meta, 'nullable', 'url'),
+                Rule::when(!($category->music_meta || $category->no_meta), [$mustBeNull])
+            ],
+            'banner_url' => [
+                Rule::when($category->music_meta || $category->no_meta, 'nullable', 'url'),
+                Rule::when(!($category->music_meta || $category->no_meta), [$mustBeNull])
+            ],
+            'torrent-cover' => [
+                Rule::when($category->music_meta || $category->no_meta, [
+                    'nullable',
+                    'file',
+                    'mimes:jpg,jpeg,png,webp',
+                    'max:10240',
+                    $exclusiveImageSource
+                ]),
+                Rule::when(!($category->music_meta || $category->no_meta), [$mustBeNull]),
+            ],
+            'torrent-banner' => [
+                Rule::when($category->music_meta || $category->no_meta, [
+                    'nullable',
+                    'file',
+                    'mimes:jpg,jpeg,png,webp',
+                    'max:10240',
+                    $exclusiveImageSource
+                ]),
+                Rule::when(!($category->music_meta || $category->no_meta), [$mustBeNull]),
             ],
             'description' => [
                 'required',

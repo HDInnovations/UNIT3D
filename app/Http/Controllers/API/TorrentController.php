@@ -18,6 +18,7 @@ namespace App\Http\Controllers\API;
 
 use App\DTO\TorrentSearchFiltersDTO;
 use App\Helpers\Bencode;
+use App\Helpers\ImageHelper;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Http\Resources\TorrentResource;
@@ -354,6 +355,15 @@ class TorrentController extends BaseController
             ],
         ]);
 
+        // Validate cover and banner images
+        if ($request->hasFile('torrent-cover') && $request->filled('cover_url')) {
+            return $this->sendError('Validation Error.', 'You can only provide either a cover image or a cover URL, not both.');
+        }
+
+        if ($request->hasFile('torrent-banner') && $request->filled('banner_url')) {
+            return $this->sendError('Validation Error.', 'You can only provide either a cover image or a cover URL, not both.');
+        }
+
         if ($v->fails()) {
             if (Storage::disk('torrent-files')->exists($fileName)) {
                 Storage::disk('torrent-files')->delete($fileName);
@@ -364,6 +374,40 @@ class TorrentController extends BaseController
 
         // Save The Torrent
         $torrent->save();
+
+        // Cover Image for no_meta or music-meta Torrents
+        if ($request->hasFile('torrent-cover') || $request->filled('cover_url')) {
+            $source = $request->hasFile('torrent-cover') ? $request->file('torrent-cover') : (string) $request->string('cover_url');
+
+            if (\is_array($source)) {
+                $source = $source[0];
+            }
+
+            $result = ImageHelper::processTorrentImage($source, (string) $torrent->id, 'cover');
+
+            if ($result) {
+                $torrent->update([
+                    'cover_url' => $result['url'],
+                ]);
+            }
+        }
+
+        // Banner Image for no_meta or music-meta Torrents
+        if ($request->hasFile('torrent-banner') || $request->filled('banner_url')) {
+            $source = $request->hasFile('torrent-banner') ? $request->file('torrent-banner') : (string) $request->string('banner_url');
+
+            if (\is_array($source)) {
+                $source = $source[0];
+            }
+
+            $result = ImageHelper::processTorrentImage($source, (string) $torrent->id, 'banner');
+
+            if ($result) {
+                $torrent->update([
+                    'banner_url' => $result['url'],
+                ]);
+            }
+        }
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
@@ -663,6 +707,8 @@ class TorrentController extends BaseController
                                 'genres' => \array_key_exists('genres', $meta) ? implode(', ', array_column($meta['genres'], 'name')) : '',
                             ],
                             'name'             => $hit['name'],
+                            'cover_url'        => $hit['cover_url'] ?? null,
+                            'banner_url'       => $hit['banner_url'] ?? null,
                             'release_year'     => $meta['year'] ?? null,
                             'category'         => $hit['category']['name'] ?? null,
                             'type'             => $hit['type']['name'] ?? null,

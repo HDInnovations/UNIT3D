@@ -39,4 +39,18 @@ return [
     */
 
     'max_upload_size' => '2000000',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Remote Image Handling (Torrent Uploads: no_meta or music_meta)
+    |--------------------------------------------------------------------------
+    |
+    | Determines whether to save remote images to the server or use the provided URL.
+    | Options: 'save_to_server', 'use_url', 'whitelist_or_save'
+    | - 'save_to_server': Always save images to server.
+    | - 'use_url': Always use the provided URL.
+    | - 'whitelist_or_save': Use URL if it matches a whitelisted pattern in WhitelistedImageUrl, otherwise save to server.
+    |
+    */
+    'remote_image_handling' => 'whitelist_or_save',
 ];

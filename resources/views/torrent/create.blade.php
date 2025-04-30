@@ -92,7 +92,29 @@
                         name="nfo"
                     />
                 </p>
-                <p class="form__group" x-show="cats[cat].type === 'no'">
+                <p
+                    class="form__group"
+                    x-show="cats[cat].type === 'no' || cats[cat].type === 'music'"
+                >
+                    <label for="cover_url" class="form__label">
+                        Cover Image URL ({{ __('torrent.optional') }})
+                    </label>
+                    <input
+                        id="cover_url"
+                        class="form__text"
+                        type="url"
+                        name="cover_url"
+                        placeholder="https://example.com/cover.jpg"
+                        value="{{ old('cover_url') }}"
+                    />
+                    <span class="form__hint">
+                        Provide a URL to an image or upload a file below.
+                    </span>
+                </p>
+                <p
+                    class="form__group"
+                    x-show="cats[cat].type === 'no' || cats[cat].type === 'music'"
+                >
                     <label for="torrent-cover" class="form__label">
                         Cover {{ __('torrent.file') }} ({{ __('torrent.optional') }})
                     </label>
@@ -100,11 +122,33 @@
                         id="torrent-cover"
                         class="upload-form-file form__file"
                         type="file"
-                        accept=".jpg, .jpeg"
+                        accept=".jpg,.jpeg,.png,.webp"
                         name="torrent-cover"
                     />
                 </p>
-                <p class="form__group" x-show="cats[cat].type === 'no'">
+                <p
+                    class="form__group"
+                    x-show="cats[cat].type === 'no' || cats[cat].type === 'music'"
+                >
+                    <label for="banner_url" class="form__label">
+                        Banner Image URL ({{ __('torrent.optional') }})
+                    </label>
+                    <input
+                        id="banner_url"
+                        class="form__text"
+                        type="url"
+                        name="banner_url"
+                        placeholder="https://example.com/banner.jpg"
+                        value="{{ old('banner_url') }}"
+                    />
+                    <span class="form__hint">
+                        Provide a URL to an image or upload a file below.
+                    </span>
+                </p>
+                <p
+                    class="form__group"
+                    x-show="cats[cat].type === 'no' || cats[cat].type === 'music'"
+                >
                     <label for="torrent-banner" class="form__label">
                         Banner {{ __('torrent.file') }} ({{ __('torrent.optional') }})
                     </label>
@@ -112,7 +156,7 @@
                         id="torrent-banner"
                         class="upload-form-file form__file"
                         type="file"
-                        accept=".jpg, .jpeg"
+                        accept=".jpg,.jpeg,.png,.webp"
                         name="torrent-banner"
                     />
                 </p>

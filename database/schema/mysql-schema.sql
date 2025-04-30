@@ -2100,6 +2100,8 @@ DROP TABLE IF EXISTS `torrents`;
 CREATE TABLE `torrents` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `mediainfo` longtext COLLATE utf8mb4_unicode_ci,
   `bdinfo` longtext COLLATE utf8mb4_unicode_ci,
@@ -2967,3 +2969,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (346,'2025_04_07_15
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (347,'2025_04_15_075631_add_description_to_playlist_categories',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (348,'2025_04_15_090705_create_playlist_suggestions',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (349,'2025_04_21_164330_add_certification_to_tmdb_metadata',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (350,'2025_04_23_add_cover_and_banner_urls_to_torrents_table',1);

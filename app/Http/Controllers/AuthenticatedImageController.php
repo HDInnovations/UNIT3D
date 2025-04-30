@@ -60,20 +60,32 @@ class AuthenticatedImageController extends Controller
 
     public function torrentBanner(Torrent $torrent): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $path = Storage::disk('torrent-banners')->path("torrent-banner_{$torrent->id}.jpg");
+        $baseName = "torrent-banner_{$torrent->id}";
+        $pathWebp = Storage::disk('torrent-banners')->path("{$baseName}.webp");
+        $pathJpg = Storage::disk('torrent-banners')->path("{$baseName}.jpg");
 
-        abort_unless(file_exists($path), 404);
+        if (file_exists($pathWebp)) {
+            return response()->file($pathWebp, self::HEADERS);
+        }
 
-        return response()->file($path, self::HEADERS);
+        abort_unless(file_exists($pathJpg), 404);
+
+        return response()->file($pathJpg, self::HEADERS);
     }
 
     public function torrentCover(Torrent $torrent): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $path = Storage::disk('torrent-covers')->path("torrent-cover_{$torrent->id}.jpg");
+        $baseName = "torrent-cover_{$torrent->id}";
+        $pathWebp = Storage::disk('torrent-covers')->path("{$baseName}.webp");
+        $pathJpg = Storage::disk('torrent-covers')->path("{$baseName}.jpg");
 
-        abort_unless(file_exists($path), 404);
+        if (file_exists($pathWebp)) {
+            return response()->file($pathWebp, self::HEADERS);
+        }
 
-        return response()->file($path, self::HEADERS);
+        abort_unless(file_exists($pathJpg), 404);
+
+        return response()->file($pathJpg, self::HEADERS);
     }
 
     public function userAvatar(User $user): \Symfony\Component\HttpFoundation\BinaryFileResponse

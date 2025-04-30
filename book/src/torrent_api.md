@@ -63,7 +63,11 @@ Parameters:
 |--------------------|--------|-------------
 | `torrent`          | file   | .torrent file
 | `nfo`              | file   | .nfo file
+| `torrent-cover`    | file   | cover image file
+| `torrent-banner`   | file   | banner image file
 | `name`             | string | Torrent name
+| `cover_url`        | string | Url to image (MIME: .jpg, .jpeg, .png, .webp)
+| `banner_url`       | string | Url to image (MIME: .jpg, .jpeg, .png, .webp)
 | `description`      | string | Torrent description
 | `mediainfo`        | string | MediaInfo text output
 | `bdinfo`           | string | BDInfo quick summary output

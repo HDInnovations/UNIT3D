@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 
 /**
@@ -35,6 +36,8 @@ use Laravel\Scout\Searchable;
  * @property string                          $info_hash
  * @property int                             $id
  * @property string                          $name
+ * @property string|null                     $cover_url
+ * @property string|null                     $banner_url
  * @property string                          $description
  * @property string|null                     $mediainfo
  * @property string|null                     $bdinfo
@@ -138,6 +141,50 @@ class Torrent extends Model
     protected $discarded = [
         'info_hash',
     ];
+
+    /**
+     * Get the cover image (URL or stored file).
+     */
+    public function getCoverImageAttribute(): ?string
+    {
+        if ($this->cover_url) {
+            return $this->cover_url;
+        }
+
+        $coverFile = "torrent-cover_{$this->id}";
+
+        if (Storage::disk('torrent-covers')->exists("{$coverFile}.webp")) {
+            return route('authenticated_images.torrent_cover', ['torrent' => $this->id]).'.webp';
+        }
+
+        if (Storage::disk('torrent-covers')->exists("{$coverFile}.jpg")) {
+            return route('authenticated_images.torrent_cover', ['torrent' => $this->id]).'.jpg';
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the banner image (URL or stored file).
+     */
+    public function getBannerImageAttribute(): ?string
+    {
+        if ($this->banner_url) {
+            return $this->banner_url;
+        }
+
+        $bannerFile = "torrent-banner_{$this->id}";
+
+        if (Storage::disk('torrent-banners')->exists("{$bannerFile}.webp")) {
+            return route('authenticated_images.torrent_banner', ['torrent' => $this->id]).'.webp';
+        }
+
+        if (Storage::disk('torrent-banners')->exists("{$bannerFile}.jpg")) {
+            return route('authenticated_images.torrent_banner', ['torrent' => $this->id]).'.jpg';
+        }
+
+        return null;
+    }
 
     /**
      * This query is to be added to a raw select from the torrents table.
