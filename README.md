@@ -12,6 +12,9 @@
     <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/prettier-blade.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/prettier-blade.yml/badge.svg?branch=master" /></a>
+    <a href="https://hosted.weblate.org/engage/unit3d/">
+    <img src="https://hosted.weblate.org/widget/unit3d/svg-badge.svg" alt="Translation status" />
+    </a>
 </p>
 
 <p align="center">
@@ -24,6 +27,7 @@
 2. [Installation](#installation)
 3. [Updating](#updating)
 4. [Contributing](#contributing)
+4. [Translations](#translations)
 5. [License](#license)
 6. [Services](#services)
 7. [Discord](#discord)
@@ -48,6 +52,14 @@ To update your installation to the latest version, run the following command. Th
 ## <a name="contributing"></a> 🤝 Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## <a name="translations"></a> 🌎 Translations
+
+We use Weblate for translations. You can easily contribute to translations at https://hosted.weblate.org/engage/unit3d/. Use the following graphic to see if your native language could use some work.
+
+<a href="https://hosted.weblate.org/engage/unit3d/">
+<img src="https://hosted.weblate.org/widget/unit3d/horizontal-auto.svg" alt="Translation status" />
+</a>
 
 ## <a name="license"></a> 📜 License
 
@@ -94,8 +106,3 @@ We would like to extend our heartfelt thanks to the following companies, sites a
 ### 🏢 Companies
 <a href="https://scoutapm.com/?utm_source=github&utm_medium=referral&utm_campaign=opensource_referral"><img src="https://i.postimg.cc/g29XCJDh/Logo-rounded-square-495x495-1.png" height="30px;"></a>&nbsp;
 <a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="30px;"></a>&nbsp;
-
-
-
-
-
