@@ -53,9 +53,9 @@ test('staff can send mass private messages', function (): void {
 
     $response = $this->actingAs($this->staffUser)
         ->post(route('staff.mass_private_message.store'), [
-            'group_ids'  => [$this->group1->id, $this->group2->id],
-            'subject' => 'Test Mass PM Subject',
-            'message' => 'Test Mass PM Message Content'
+            'group_ids' => [$this->group1->id, $this->group2->id],
+            'subject'   => 'Test Mass PM Subject',
+            'message'   => 'Test Mass PM Message Content'
         ]);
 
     $response->assertRedirect(route('staff.dashboard.index'))
@@ -71,9 +71,9 @@ test('non-staff cannot access mass private message pages', function (): void {
 
     $this->actingAs($regularUser)
         ->post(route('staff.mass_private_message.store'), [
-            'group_ids'  => [$this->group1->id, $this->group2->id],
-            'subject' => 'Test Mass PM Subject',
-            'message' => 'Test Mass PM Message Content'
+            'group_ids' => [$this->group1->id, $this->group2->id],
+            'subject'   => 'Test Mass PM Subject',
+            'message'   => 'Test Mass PM Message Content'
         ])
         ->assertForbidden();
 });
@@ -81,9 +81,9 @@ test('non-staff cannot access mass private message pages', function (): void {
 test('validation rules are enforced when sending mass private messages', function (): void {
     $response = $this->actingAs($this->staffUser)
         ->post(route('staff.mass_private_message.store'), [
-            'group_ids'  => [],
-            'subject' => '',
-            'message' => ''
+            'group_ids' => [],
+            'subject'   => '',
+            'message'   => ''
         ]);
 
     $response->assertSessionHasErrors(['groups', 'subject', 'message']);
