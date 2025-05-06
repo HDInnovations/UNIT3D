@@ -48,8 +48,8 @@
                                         <input
                                             class="form__checkbox"
                                             type="checkbox"
-                                            id="group{{ $group->id }}"
-                                            name="groups[]"
+                                            id="group_id{{ $group->id }}"
+                                            name="group_ids[]"
                                             value="{{ $group->id }}"
                                         />
                                         {{ $group->name }}

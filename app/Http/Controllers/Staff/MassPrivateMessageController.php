@@ -26,16 +26,18 @@ class MassPrivateMessageController extends Controller
 {
     public function create(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('Staff.mass_private_message.create', ['groups' => Group::orderBy('position')->get()]);
+        return view('Staff.mass_private_message.create', [
+            'groups' => Group::orderBy('position')->get()
+        ]);
     }
 
     public function store(StoreMassPrivateMessageRequest $request): \Illuminate\Http\RedirectResponse
     {
         $request->validated();
 
-        $users = User::whereIntegerInRaw('group_id', $request->groups)->pluck('id');
+        $userIds = User::whereIntegerInRaw('group_id', $request->group_ids)->pluck('id');
 
-        foreach ($users as $userId) {
+        foreach ($userIds as $userId) {
             dispatch(new ProcessMassPM(User::SYSTEM_USER_ID, $userId, $request->subject, $request->message));
         }
 

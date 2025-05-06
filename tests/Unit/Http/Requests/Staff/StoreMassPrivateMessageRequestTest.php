@@ -29,9 +29,23 @@ test('authorize', function (): void {
 test('rules', function (): void {
     $actual = $this->subject->rules();
 
-    expect($actual)->toHaveKeys(['groups', 'groups.*', 'subject', 'message'])
-        ->and($actual['groups'])->toBe(['required', 'array'])
-        ->and($actual['groups.*'])->toBe(['exists:groups,id'])
-        ->and($actual['subject'])->toBe(['required', 'string', 'max:255'])
-        ->and($actual['message'])->toBe(['required', 'string', 'max:65536']);
+    $this->assertValidationRules([
+        'group_ids' => [
+            'required',
+            'array',
+        ],
+        'group_ids.*' => [
+            'exists:groups,id',
+        ],
+        'subject' => [
+            'required',
+            'string',
+            'max:255',
+        ],
+        'message' => [
+            'required',
+            'string',
+            'max:65536',
+        ],
+    ], $actual);
 });

@@ -36,11 +36,11 @@ class StoreMassPrivateMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'groups' => [
+            'group_ids' => [
                 'required',
                 'array'
             ],
-            'groups.*' => [
+            'group_ids.*' => [
                 'exists:groups,id'
             ],
             'subject' => [
