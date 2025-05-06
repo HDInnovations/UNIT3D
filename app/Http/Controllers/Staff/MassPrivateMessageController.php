@@ -24,7 +24,7 @@ use App\Models\User;
 
 class MassPrivateMessageController extends Controller
 {
-    public function create(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.mass_private_message.create', [
             'groups' => Group::orderBy('position')->get()
