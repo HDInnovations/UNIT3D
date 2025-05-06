@@ -30,35 +30,6 @@ use Exception;
 class MassActionController extends Controller
 {
     /**
-     * Mass PM Form.
-     */
-    public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        return view('Staff.masspm.index');
-    }
-
-    /**
-     * Send The Mass PM.
-     *
-     * @throws Exception
-     */
-    public function store(StoreMassActionRequest $request): \Illuminate\Http\RedirectResponse
-    {
-        $users = User::whereNotIn(
-            'group_id',
-            Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
-        )
-            ->pluck('id');
-
-        foreach ($users as $userId) {
-            ProcessMassPM::dispatch(User::SYSTEM_USER_ID, $userId, $request->subject, $request->message);
-        }
-
-        return to_route('staff.mass-pm.create')
-            ->with('success', 'MassPM Sent');
-    }
-
-    /**
      * Mass Validate Unvalidated Users.
      *
      * @throws Exception

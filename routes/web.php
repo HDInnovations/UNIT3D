@@ -1011,8 +1011,6 @@ Route::middleware('language')->group(function (): void {
         // Mass Actions
         Route::prefix('mass-actions')->group(function (): void {
             Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('mass-actions.validate');
-            Route::get('/mass-pm', [App\Http\Controllers\Staff\MassActionController::class, 'create'])->name('mass-pm.create');
-            Route::post('/mass-pm/store', [App\Http\Controllers\Staff\MassActionController::class, 'store'])->name('mass-pm.store');
         });
 
         // Mass Email
@@ -1020,6 +1018,14 @@ Route::middleware('language')->group(function (): void {
             Route::name('mass_email.')->group(function (): void {
                 Route::get('/create', [App\Http\Controllers\Staff\MassEmailController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\MassEmailController::class, 'store'])->name('store');
+            });
+        });
+
+        // Mass Private Message
+        Route::prefix('mass-private-message')->group(function (): void {
+            Route::name('mass_private_message.')->group(function (): void {
+                Route::get('/create', [App\Http\Controllers\Staff\MassPrivateMessageController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\MassPrivateMessageController::class, 'store'])->name('store');
             });
         });
 

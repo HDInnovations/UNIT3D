@@ -33,11 +33,32 @@
         <div class="panel__body">
             <form
                 class="form"
-                action="{{ route('staff.mass-pm.store') }}"
+                action="{{ route('staff.mass_private_message.store') }}"
                 method="POST"
                 x-data="confirmation"
             >
                 @csrf
+                <div class="form__group">
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Groups</legend>
+                        <div class="form__fieldset-checkbox-container">
+                            @foreach ($groups as $group)
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            id="group{{ $group->id }}"
+                                            name="groups[]"
+                                            value="{{ $group->id }}"
+                                        />
+                                        {{ $group->name }}
+                                    </label>
+                                </p>
+                            @endforeach
+                        </div>
+                    </fieldset>
+                </div>
                 <p class="form__group">
                     <input
                         id="subject"
@@ -56,7 +77,7 @@
                     <button
                         x-on:click.prevent="confirmAction"
                         class="form__button form__button--filled"
-                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to send this private message to every user on the site?') }}"
+                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to send this private message?') }}"
                     >
                         {{ __('pm.send') }}
                     </button>
