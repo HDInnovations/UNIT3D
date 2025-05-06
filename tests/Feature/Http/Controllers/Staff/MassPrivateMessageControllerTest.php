@@ -86,5 +86,5 @@ test('validation rules are enforced when sending mass private messages', functio
             'message'   => ''
         ]);
 
-    $response->assertSessionHasErrors(['groups', 'subject', 'message']);
+    $response->assertSessionHasErrors(['group_ids', 'subject', 'message']);
 });
