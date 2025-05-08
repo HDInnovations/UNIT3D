@@ -86,10 +86,77 @@ class StoreTorrentRequest extends FormRequest
                         $fail('BitTorrent v2 (BEP 52) is not supported!');
                     }
 
+                    $meta = null;
+
                     try {
                         $meta = Bencode::get_meta($decodedTorrent);
                     } catch (Exception) {
                         $fail('You Must Provide A Valid Torrent File For Upload!');
+                    }
+
+                    if ($meta === null || ($meta['piece_length'] ?? null) <= 0 || ($meta['size'] ?? 0) <= 0) {
+                        $fail('You Must Provide A Valid Torrent File For Upload!');
+                    }
+
+                    $pieceLength = $meta['piece_length'];
+                    $totalSize = $meta['size'];
+                    $pieceCount = (int) ceil($totalSize / $pieceLength);
+                    $pieceSizeRules = [
+                        // Small piece sizes (16 KiB - 64 KiB)
+                        2 ** 14 => ['min' => 1, 'max' => 1500],
+                        2 ** 15 => ['min' => 1, 'max' => 1500],
+                        2 ** 16 => ['min' => 1, 'max' => 1500],
+
+                        // Medium piece sizes (128 KiB - 8 MiB)
+                        2 ** 17 => ['min' => 500, 'max' => 3000],
+                        2 ** 18 => ['min' => 500, 'max' => 3000],
+                        2 ** 19 => ['min' => 500, 'max' => 3000],
+                        2 ** 20 => ['min' => 500, 'max' => 3000],
+                        2 ** 21 => ['min' => 500, 'max' => 3000],
+                        2 ** 22 => ['min' => 500, 'max' => 3000],
+                        2 ** 23 => ['min' => 500, 'max' => 3000],
+
+                        // Large piece size (16 MiB)
+                        2 ** 24 => ['min' => 500, 'max' => 5000],
+
+                        // Very large piece sizes (32 MiB - 256 MiB)
+                        2 ** 25 => ['min' => 10000, 'max' => 20000],
+                        2 ** 26 => ['min' => 10000, 'max' => 20000],
+                        2 ** 27 => ['min' => 10000, 'max' => 20000],
+                        2 ** 28 => ['min' => 10000, 'max' => 20000],
+                    ];
+
+                    if (!isset($pieceSizeRules[$pieceLength])) {
+                        $fail(\sprintf(
+                            'Invalid piece size: %s. Must be one of: %s.',
+                            TorrentTools::formatBytes($pieceLength),
+                            implode(', ', array_map([TorrentTools::class, 'formatBytes'], array_keys($pieceSizeRules)))
+                        ));
+
+                        return;
+                    }
+
+                    // Validate piece count and provide actionable feedback
+                    $rule = $pieceSizeRules[$pieceLength];
+
+                    if ($pieceCount < $rule['min'] || $pieceCount > $rule['max']) {
+                        $recommendedPieceSize = TorrentTools::getRecommendedPieceSize($totalSize, $pieceSizeRules);
+
+                        $message = $pieceCount < $rule['min']
+                            ? \sprintf(
+                                'The piece size of %s is too large, resulting in only %d pieces. Try a piece size of %s.',
+                                TorrentTools::formatBytes((int) $pieceLength),
+                                $pieceCount,
+                                TorrentTools::formatBytes((int) $recommendedPieceSize),
+                            )
+                            : \sprintf(
+                                'The piece size of %s is too small, resulting in %d pieces. Try a piece size of %s',
+                                TorrentTools::formatBytes((int) $pieceLength),
+                                $pieceCount,
+                                TorrentTools::formatBytes((int) $recommendedPieceSize)
+                            );
+
+                        $fail($message);
                     }
 
                     foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {

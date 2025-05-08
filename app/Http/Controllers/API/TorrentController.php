@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Meilisearch\Endpoints\Indexes;
 
@@ -123,17 +124,45 @@ class TorrentController extends BaseController
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
 
+        $v2 = Bencode::is_v2_or_hybrid($decodedTorrent);
+
+        if ($v2) {
+            return $this->sendError('BitTorrent v2 (BEP 52) is not supported!');
+        }
+
         try {
             $meta = Bencode::get_meta($decodedTorrent);
         } catch (Exception) {
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        foreach (TorrentTools::getFilenameArray($decodedTorrent) as $name) {
-            if (!TorrentTools::isValidFilename($name)) {
-                return $this->sendError('Validation Error.', 'Invalid Filenames In Torrent Files!');
-            }
-        }
+        $pieceLength = $meta['piece_length'] ?? null;
+        $totalSize = $meta['size'] ?? 0;
+        $pieceCount = $pieceLength > 0 ? (int) ceil($totalSize / $pieceLength) : 0;
+        $pieceSizeRules = [
+            // Small piece sizes (16 KiB - 64 KiB)
+            2 ** 14 => ['min' => 1, 'max' => 1500],
+            2 ** 15 => ['min' => 1, 'max' => 1500],
+            2 ** 16 => ['min' => 1, 'max' => 1500],
+
+            // Medium piece sizes (128 KiB - 8 MiB)
+            2 ** 17 => ['min' => 500, 'max' => 3000],
+            2 ** 18 => ['min' => 500, 'max' => 3000],
+            2 ** 19 => ['min' => 500, 'max' => 3000],
+            2 ** 20 => ['min' => 500, 'max' => 3000],
+            2 ** 21 => ['min' => 500, 'max' => 3000],
+            2 ** 22 => ['min' => 500, 'max' => 3000],
+            2 ** 23 => ['min' => 500, 'max' => 3000],
+
+            // Large piece size (16 MiB)
+            2 ** 24 => ['min' => 500, 'max' => 5000],
+
+            // Very large piece sizes (32 MiB - 256 MiB)
+            2 ** 25 => ['min' => 10000, 'max' => 20000],
+            2 ** 26 => ['min' => 10000, 'max' => 20000],
+            2 ** 27 => ['min' => 10000, 'max' => 20000],
+            2 ** 28 => ['min' => 10000, 'max' => 20000],
+        ];
 
         $fileName = \sprintf('%s.torrent', uniqid('', true)); // Generate a unique name
         Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
@@ -205,8 +234,13 @@ class TorrentController extends BaseController
             }
         };
 
+        $validationData = $torrent->toArray() + [
+            'piece_length' => $pieceLength,
+            'piece_count'  => $pieceCount,
+        ];
+
         // Validation
-        $v = validator($torrent->toArray(), [
+        $v = Validator::make($validationData, [
             'name' => [
                 'required',
                 Rule::unique('torrents')->whereNull('deleted_at'),
@@ -351,6 +385,48 @@ class TorrentController extends BaseController
             ],
             'sticky' => [
                 'required',
+            ],
+            'piece_length' => [
+                'required',
+                'numeric',
+                'gt:0',
+                function ($attribute, $value, $fail) use ($pieceSizeRules): void {
+                    if (!isset($pieceSizeRules[$value])) {
+                        $fail(\sprintf(
+                            'Invalid piece size: %s. Must be one of: %s.',
+                            TorrentTools::formatBytes((int) $value),
+                            implode(', ', array_map([TorrentTools::class, 'formatBytes'], array_keys($pieceSizeRules)))
+                        ));
+                    }
+                },
+            ],
+            'piece_count' => [
+                'required',
+                'numeric',
+                function ($attribute, $value, $fail) use ($pieceLength, $totalSize, $pieceSizeRules): void {
+                    if (!isset($pieceSizeRules[$pieceLength])) {
+                        return; // Piece length validation will handle this
+                    }
+                    $rule = $pieceSizeRules[$pieceLength];
+
+                    if ($value < $rule['min'] || $value > $rule['max']) {
+                        $recommendedPieceSize = TorrentTools::getRecommendedPieceSize($totalSize, $pieceSizeRules);
+                        $message = $value < $rule['min']
+                            ? \sprintf(
+                                'The piece size of %s is too large, resulting in only %d pieces. Try a piece size of %s.',
+                                TorrentTools::formatBytes((int) $pieceLength),
+                                $value,
+                                TorrentTools::formatBytes((int) $recommendedPieceSize)
+                            )
+                            : \sprintf(
+                                'The piece size of %s is too small, resulting in %d pieces. Try a piece size of %s.',
+                                TorrentTools::formatBytes((int) $pieceLength),
+                                $value,
+                                TorrentTools::formatBytes((int) $recommendedPieceSize)
+                            );
+                        $fail($message);
+                    }
+                },
             ],
         ]);
 

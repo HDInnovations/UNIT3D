@@ -239,6 +239,10 @@ class Bencode
         $result['count'] = $count;
         $result['size'] = $size;
 
+        if (isset($t['info']['piece length'])) {
+            $result['piece_length'] = $t['info']['piece length'];
+        }
+
         return $result;
     }
 
