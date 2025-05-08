@@ -17,7 +17,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Resources\UserResource;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
 
+#[ExcludeAllRoutesFromDocs]
 class UserController extends BaseController
 {
     final public function show(): UserResource

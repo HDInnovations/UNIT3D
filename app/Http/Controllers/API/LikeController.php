@@ -19,7 +19,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Like;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
 
+#[ExcludeAllRoutesFromDocs]
 class LikeController extends Controller
 {
     public function store(int $postId): \Illuminate\Http\JsonResponse

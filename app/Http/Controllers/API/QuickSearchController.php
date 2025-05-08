@@ -18,11 +18,13 @@ namespace App\Http\Controllers\API;
 
 use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
+use Dedoc\Scramble\Attributes\ExcludeAllRoutesFromDocs;
 use Illuminate\Http\Request;
 use Meilisearch\Client;
 use Meilisearch\Contracts\MultiSearchFederation;
 use Meilisearch\Contracts\SearchQuery;
 
+#[ExcludeAllRoutesFromDocs]
 class QuickSearchController extends Controller
 {
     public function index(Request $request): \Illuminate\Http\JsonResponse

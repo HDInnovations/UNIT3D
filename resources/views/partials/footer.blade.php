@@ -80,11 +80,7 @@
                     <a href="{{ route('about') }}">{{ __('common.about') }}</a>
                 </li>
                 <li>
-                    <a
-                        href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v8.x.x)"
-                    >
-                        API Documentation
-                    </a>
+                    <a href="{{ route('scramble.docs.ui') }}" target="_blank">API Documentation</a>
                 </li>
             </ul>
         </section>

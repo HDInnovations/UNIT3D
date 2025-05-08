@@ -16,6 +16,7 @@
         "ext-zip": "*",
         "assada/laravel-achievements": "^2.7",
         "bjeavons/zxcvbn-php": "^1.4.2",
+        "dedoc/scramble": "^0.12.17",
         "doctrine/dbal": "^3.9.4",
         "gabrielelana/byte-units": "^0.5.0",
         "graham-campbell/markdown": "^15.3",
