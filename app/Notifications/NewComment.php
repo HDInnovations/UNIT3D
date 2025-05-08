@@ -110,27 +110,27 @@ class NewComment extends Notification
         return match (true) {
             $this->model instanceof Torrent => [
                 'title' => 'New Torrent Comment Received',
-                'body'  => $username.' has left you a comment on Torrent '.$this->model->name,
+                'body'  => $username.' has left a comment on torrent '.$this->model->name,
                 'url'   => '/torrents/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof TorrentRequest => [
                 'title' => 'New Request Comment Received',
-                'body'  => $username.' has left you a comment on Torrent Request '.$this->model->name,
+                'body'  => $username.' has left a comment on torrent request '.$this->model->name,
                 'url'   => '/requests/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Ticket => [
                 'title' => 'New Ticket Comment Received',
-                'body'  => $username.' has left you a comment on Ticket '.$this->model->subject,
+                'body'  => $username.' has left a comment on ticket '.$this->model->subject,
                 'url'   => '/tickets/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Playlist => [
                 'title' => 'New Playlist Comment Received',
-                'body'  => $username.' has left you a comment on Playlist '.$this->model->name,
+                'body'  => $username.' has left a comment on playlist '.$this->model->name,
                 'url'   => '/playlists/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Article => [
                 'title' => 'New Article Comment Received',
-                'body'  => $username.' has left you a comment on Article '.$this->model->title,
+                'body'  => $username.' has left a comment on article '.$this->model->title,
                 'url'   => '/articles/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
         };
