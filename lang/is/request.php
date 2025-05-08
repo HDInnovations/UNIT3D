@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Bættu við beiðni',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Aldur',
     'all-requests'        => 'Allar beiðnir',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Samþykkja',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty krafa',
     'bounty-unclaimed'    => 'Bounty óinnheimt',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Viltu halda því fram að þetta sé ósjálfrátt',
     'claim-now'           => 'Krafa núna',
     'claimed'             => 'Krafist',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Núverandi',
     'delete'              => 'Eyða þessari beiðni',
     'delete-confirmation' => 'Ertu viss um að þú viljir eyða þessari beiðni',
     'delete-filled'       => 'Þessi beiðni er aðeins hægt að eyða ef það hefur ekki verið fyllt',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Lýsing',
     'dont-have-bps'       => 'Þú hefur ekki nóg bónus',
     'edit-request'        => 'Breyta beiðni',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Sláðu inn bónus stig (að lágmarki 100)',
     'enter-hash'          => 'Sláðu inn upplýsingar ID af hlaðið Torrent',
     'fill'                => 'Fylla',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'fyrir',
     'fulfill'             => 'Uppfylla',
     'last-vote'           => 'Síðasta atkvæði',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Beiðnir mínir',
+    'my-voted'            => 'My voted',
     'no'                  => 'Nei,',
     'no-imdb-id'          => 'Allar beiðnir verða að innihalda IMDB númer',
     'no-privileges'       => 'Villa: Beiðnin þín hefur verið óvirk',
     'no-privileges-desc'  => 'Ef þú telur að þetta sé í villu skaltu hafa samband við starfsfólk',
     'no-refunds'          => 'BON ungmennaskipti um að búa til, fylla og bounties eru endanleg! <br> <strong>Engar endurgreiðslur!</strong>',
     'pending'             => 'Í bið',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Ástæða',
     'reject'              => 'Hafna',
     'report'              => 'Skýrslubeiðni',
     'request'             => 'Beiðni',
     'request-details'     => 'Beiðni upplýsingar',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Beðið eftir af',
     'requests'            => 'Beiðnir',
     'required'            => 'Nauðsynlegt',
     'reset'               => 'Endurstilla',
     'reset-confirmation'  => 'Ertu viss um að þú viljir endurstilla þessa beiðni',
     'reset-request'       => 'Endurstilla þessa beiðni',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Verðlaun',
     'reward-desc'         => 'Hversu mikið bónus stig viltu umbuna? Lágmark 100 BP',
     'reward-from'         => 'Frá',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Heildarfjárhæð',
     'type'                => 'Tegund',
     'unclaim'             => 'Afturkalla þessa beiðni',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Ófyllt',
     'view-filled'         => 'Skoða fyllt',
     'view-unfilled'       => 'Skoða ófyllt',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Kjósa þessa beiðni',
     'voters'              => 'Kjósendur',
     'votes'               => 'Atkvæði',
-    'yes'                 => 'Já',
+    'yes'                 => 'Já'
 ];

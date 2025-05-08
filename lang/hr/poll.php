@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Dodaj opciju',
-    'create-poll'     => 'Izradite anketu',
-    'current'         => 'Trenutna anketa',
-    'delete-option'   => 'Izbriši opciju',
-    'multiple-choice' => 'Ovo je anketa s višestrukim izborom. Odaberite onoliko odgovora koliko želite.',
-    'option'          => 'Opcija',
-    'poll'            => 'Anketa',
-    'polls'           => 'Ankete',
-    'results'         => 'Rezultati ankete',
-    'title'           => 'Titula',
-    'total'           => 'Ukupno glasova ikad',
-    'vote'            => 'Glas',
-    'vote-now'        => 'Uzmite svoj glas odmah!',
-    'votes'           => 'glasova',
+    'add-option'           => 'Dodaj opciju',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Izradite anketu',
+    'current'              => 'Trenutna anketa',
+    'delete-option'        => 'Izbriši opciju',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Ovo je anketa s višestrukim izborom. Odaberite onoliko odgovora koliko želite.',
+    'option'               => 'Opcija',
+    'poll'                 => 'Anketa',
+    'polls'                => 'Ankete',
+    'results'              => 'Rezultati ankete',
+    'title'                => 'Titula',
+    'total'                => 'Ukupno glasova ikad',
+    'vote'                 => 'Glas',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Uzmite svoj glas odmah!',
+    'votes'                => 'glasova'
 ];

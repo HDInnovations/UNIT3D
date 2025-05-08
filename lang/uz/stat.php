@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Grafika bo yicha',
     'by-data'                 => 'Ma lumotlar bo yicha',
     'by-volume'               => 'Hajmi bo yicha',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Guruh',
     'groups'                  => 'Guruhlar',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statistikasi',
     'nerd-stats-desc'         => 'Biz hammamiz statistikani yaxshi ko ramiz. Bu erda muhim ahamiyatga ega bo lgan bir nechta narsa bor',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Ro yxatdan o tish sanasi',
     'request-fulfilled'       => 'So rov bajarildi',
     'request-not-fulfilled'   => 'So rov bajarilmadi',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Yuqori Leeched',
     'top-leechers'            => 'Yuqori Leechers',
     'top-seeded'              => 'Yuqori urug langan',
-    'top-seeding'             => 'Eng yaxshi urug lik',
     'top-seeders'             => 'Top urug lar',
+    'top-seeding'             => 'Eng yaxshi urug lik',
     'top-seedsize'            => 'Eng yaxshi urug lik',
     'top-seedtime'            => 'Yuqori urug lik davri',
     'top-uploaders'           => 'Top yuklovchilar',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total Torrentlar',
     'total-traffic'           => 'Jami trafik',
     'total-upload'            => 'Jami yuklash',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Guruhdagi foydalanuvchilar',
-    'users-per-group'         => 'Guruh bo yicha foydalanuvchilar',
+    'users-per-group'         => 'Guruh bo yicha foydalanuvchilar'
 ];

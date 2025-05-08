@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,14 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'date'             => 'Petsa',
-    'delete'           => 'Tanggalin',
-    'delete-all'       => 'Tanggalin ang lahat ng mga notification',
-    'mark-all-read'    => 'Markahan ang lahat bilang nabasa',
-    'mark-read'        => 'Markahan bilang nabasa',
-    'message'          => 'Mensahe',
-    'no-notifications' => 'Walang nakita na mga notification',
-    'notifications'    => 'Mga Abiso',
-    'read'             => 'Basahin',
-    'title'            => 'Pamagat',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gifts',
+    'comment-tags'        => 'Comment Tags',
+    'date'                => 'Petsa',
+    'delete'              => 'Tanggalin',
+    'delete-all'          => 'Tanggalin ang lahat ng mga notification',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filter By Notification Type',
+    'mark-all-read'       => 'Markahan ang lahat bilang nabasa',
+    'mark-read'           => 'Markahan bilang nabasa',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'Mensahe',
+    'no-notifications'    => 'Walang nakita na mga notification',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'Mga Abiso',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'Basahin',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'Pamagat',
+    'unfollows'           => 'Unfollows'
 ];

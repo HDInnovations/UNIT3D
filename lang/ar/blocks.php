@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'نشط في الماضي',
     'chatbox'                 => 'صندوق الدردشه',
+    'check-news'              => 'الأخبار (تحقق يوميًا)',
     'click'                   => 'انقر',
-    'to-enable-editor'        => 'لتمكين المحرر',
     'featured-by'             => 'مقدم من',
     'featured-torrents'       => 'ظهرت السيول',
     'featured-torrents-intro' => 'الحصول عليها في حين يمكنك!',
     'featured-until'          => 'هذا هو المميز سيل حتى',
-    'top-torrents'            => 'السيول الأعلى',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'آخر المشاركات',
     'latest-topics'           => 'أحدث المواضيع',
-    'active-in-last'          => 'نشط في الماضي',
-    'users-online'            => 'المستخدمين على الانترنت',
-    'check-news'              => 'الأخبار (تحقق يوميًا)',
     'new-news'                => 'اخبار جديدة',
     'new-torrents'            => 'السيول الجديدة',
+    'to-enable-editor'        => 'لتمكين المحرر',
+    'top-torrents'            => 'السيول الأعلى',
+    'users-online'            => 'المستخدمين على الانترنت'
 ];

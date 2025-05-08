@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'إضافة طلب',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'عمر',
     'all-requests'        => 'جميع الطلبات',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'يوافق',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'هبة',
     'bounty-claimed'      => 'ادعى باونتي',
     'bounty-unclaimed'    => 'فضله لم يطالب بها أحد',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'هل ترغب في المطالبة بهذا بشكل شاذ',
     'claim-now'           => 'يدعون الآن',
     'claimed'             => 'ادعى',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'تيار',
     'delete'              => 'حذف هذا الطلب',
     'delete-confirmation' => 'هل أنت متأكد أنك تريد حذف هذا الطلب؟',
     'delete-filled'       => 'لا يمكن حذف هذا الطلب إلا في حالة عدم ملؤه',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'وصف',
     'dont-have-bps'       => 'ليس لديك ما يكفي من المكافآت',
     'edit-request'        => 'تحرير الطلب',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'أدخل نقاط المكافأة (الحد الأدنى 100)',
     'enter-hash'          => 'أدخل معلومات التجزئة من السيل المحملة',
     'fill'                => 'ملء',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'إلى عن على',
     'fulfill'             => 'تحقيق',
     'last-vote'           => 'التصويت الأخير',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'طلباتي',
+    'my-voted'            => 'My voted',
     'no'                  => 'لا،',
     'no-imdb-id'          => 'يجب أن تحتوي جميع الطلبات على رقم IMDB',
     'no-privileges'       => 'خطأ: تم تعطيل حقوق طلبك',
     'no-privileges-desc'  => 'إذا كنت تشعر أن هذا خطأ ، يرجى الاتصال بفريق العمل',
     'no-refunds'          => 'التبادلات BON على إنشاء وملء والمكافآت نهائية! <br> <strong>لا المستردة!</strong>',
     'pending'             => 'قيد الانتظار',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'السبب',
     'reject'              => 'رفض',
     'report'              => 'طلب تقرير',
     'request'             => 'طلب',
     'request-details'     => 'طلب تفاصيل',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'بتوصية من',
     'requests'            => 'طلبات',
     'required'            => 'مطلوب',
     'reset'               => 'إعادة تعيين',
     'reset-confirmation'  => 'هل تريد بالتأكيد إعادة تعيين هذا الطلب؟',
     'reset-request'       => 'إعادة ضبط هذا الطلب',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'مكافأة',
     'reward-desc'         => 'كم نقطة المكافأة التي ترغب في مكافأة؟ الحد الأدنى 100 BP',
     'reward-from'         => 'من عند',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'مجموع المكافأة',
     'type'                => 'نوع',
     'unclaim'             => 'إلغاء المطالبة بهذا الطلب',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'شاغرة',
     'view-filled'         => 'عرض شغلها',
     'view-unfilled'       => 'عرض شاغرة',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'صوت هذا الطلب',
     'voters'              => 'المصوتون',
     'votes'               => 'الأصوات',
-    'yes'                 => 'نعم فعلا',
+    'yes'                 => 'نعم فعلا'
 ];

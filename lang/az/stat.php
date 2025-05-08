@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Count ilə',
     'by-data'                 => 'Data ilə',
     'by-volume'               => 'Səs ilə',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Qrup',
     'groups'                  => 'Qruplar',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'Biz hamımız stats sevirik. Burada əhəmiyyətli olan bir neçə adam var',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Qeydiyyat tarixi',
     'request-fulfilled'       => 'İstək yerinə yetirildi',
     'request-not-fulfilled'   => 'İstək yerinə yetirilməmişdir',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Yuxarı Leeched',
     'top-leechers'            => 'Ən yaxşı Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Top toxum',
     'top-seeders'             => 'Top Seeders',
+    'top-seeding'             => 'Top toxum',
     'top-seedsize'            => 'Top toxum',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Ən yükləyicilər',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'Ümumi trafik',
     'total-upload'            => 'Ümumi yükləmə',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Qrupda İstifadəçilər',
-    'users-per-group'         => 'Qruplar üzrə istifadəçilər',
+    'users-per-group'         => 'Qruplar üzrə istifadəçilər'
 ];

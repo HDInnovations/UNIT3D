@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Sonunda aktif',
     'chatbox'                 => 'Sohbet kutusu',
+    'check-news'              => 'Haberler (günlük kontrol)',
     'click'                   => 'Click',
-    'to-enable-editor'        => 'editörü etkinleştirmek için',
     'featured-by'             => 'Tarafından sunulan',
     'featured-torrents'       => 'Öne Çıkan Torrentler',
     'featured-torrents-intro' => 'Onları Yapabiliyorken Alın!',
     'featured-until'          => 'Bu kadar sel torrent özellikli',
-    'top-torrents'            => 'En İyi Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Son Gönderiler',
     'latest-topics'           => 'Son Konular',
-    'active-in-last'          => 'Sonunda aktif',
-    'users-online'            => 'Kullanıcılar çevrimiçi',
-    'check-news'              => 'Haberler (günlük kontrol)',
     'new-news'                => 'Yeni haberler',
     'new-torrents'            => 'Yeni seller',
+    'to-enable-editor'        => 'editörü etkinleştirmek için',
+    'top-torrents'            => 'En İyi Torrents',
+    'users-online'            => 'Kullanıcılar çevrimiçi'
 ];

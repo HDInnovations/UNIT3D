@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Pievienot opciju',
-    'create-poll'     => 'Izveidot aptauju',
-    'current'         => 'Pašreizējā aptauja',
-    'delete-option'   => 'Dzēst opciju',
-    'multiple-choice' => 'Tā ir aptaujāta izvēle. Izvēlieties tik daudz atbilžu, cik vēlaties.',
-    'option'          => 'Iespēja',
-    'poll'            => 'Aptauja',
-    'polls'           => 'Aptaujas',
-    'results'         => 'Aptaujas rezultāti',
-    'title'           => 'Nosaukums',
-    'total'           => 'Kopā balsis',
-    'vote'            => 'Balsojums',
-    'vote-now'        => 'Iegūstiet savu balsojumu tagad!',
-    'votes'           => 'Balsis',
+    'add-option'           => 'Pievienot opciju',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Izveidot aptauju',
+    'current'              => 'Pašreizējā aptauja',
+    'delete-option'        => 'Dzēst opciju',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Tā ir aptaujāta izvēle. Izvēlieties tik daudz atbilžu, cik vēlaties.',
+    'option'               => 'Iespēja',
+    'poll'                 => 'Aptauja',
+    'polls'                => 'Aptaujas',
+    'results'              => 'Aptaujas rezultāti',
+    'title'                => 'Nosaukums',
+    'total'                => 'Kopā balsis',
+    'vote'                 => 'Balsojums',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Iegūstiet savu balsojumu tagad!',
+    'votes'                => 'Balsis'
 ];

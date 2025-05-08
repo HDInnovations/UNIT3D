@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'ใช้งานล่าสุด',
     'chatbox'                 => 'กล่องแชท',
+    'check-news'              => 'ข่าว (ตรวจสอบรายวัน)',
     'click'                   => 'คลิก',
-    'to-enable-editor'        => 'เพื่อเปิดใช้งานเครื่องมือแก้ไข',
     'featured-by'             => 'แนะนำโดย',
     'featured-torrents'       => 'เพลงเด่น',
     'featured-torrents-intro' => 'รับในขณะที่คุณสามารถ!',
     'featured-until'          => 'นี่คือคุณลักษณะฝนตกหนักจนถึง',
-    'top-torrents'            => 'เพลงยอดนิยม',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'โพสต์ล่าสุด',
     'latest-topics'           => 'หัวข้อล่าสุด',
-    'active-in-last'          => 'ใช้งานล่าสุด',
-    'users-online'            => 'ผู้ใช้งานออนไลน์',
-    'check-news'              => 'ข่าว (ตรวจสอบรายวัน)',
     'new-news'                => 'ข่าวใหม่',
     'new-torrents'            => 'เพลงใหม่',
+    'to-enable-editor'        => 'เพื่อเปิดใช้งานเครื่องมือแก้ไข',
+    'top-torrents'            => 'เพลงยอดนิยม',
+    'users-online'            => 'ผู้ใช้งานออนไลน์'
 ];

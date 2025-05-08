@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Dodaj zahtjev',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Dob',
     'all-requests'        => 'Svi zahtjevi',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Odobriti',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Nagrada',
     'bounty-claimed'      => 'Bounty je tvrdio',
     'bounty-unclaimed'    => 'Bounty nije zatražen',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Želite li ovo tvrditi samostalno',
     'claim-now'           => 'Zatražite odmah',
     'claimed'             => 'tvrdio',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Trenutno',
     'delete'              => 'Izbrišite ovaj zahtjev',
     'delete-confirmation' => 'Jeste li sigurni da želite izbrisati ovaj zahtjev',
     'delete-filled'       => 'Ovaj se zahtjev može izbrisati samo ako nije ispunjen',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Opis',
     'dont-have-bps'       => 'Nemate dovoljno bonusa',
     'edit-request'        => 'Uređivanje zahtjeva',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Unesite bonus bodove (najmanje 100)',
     'enter-hash'          => 'Unesite ID za učitani Torrent',
     'fill'                => 'ispuniti',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'za',
     'fulfill'             => 'Ispuniti',
     'last-vote'           => 'Zadnje glasovanje',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Moji zahtjevi',
+    'my-voted'            => 'My voted',
     'no'                  => 'Ne,',
     'no-imdb-id'          => 'Svi zahtjevi moraju sadržavati IMDB broj',
     'no-privileges'       => 'Pogreška: Vaša su prava za zahtjev onemogućena',
     'no-privileges-desc'  => 'Ako smatrate da je to pogreška, obratite se osoblju',
     'no-refunds'          => 'BON razmjene o stvaranju, punjenju i nagradama su konačne! <br> <strong>NEMA POVRATA!</strong>',
     'pending'             => 'U tijeku',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Razlog',
     'reject'              => 'Odbiti',
     'report'              => 'Prijavi zahtjev',
     'request'             => 'Zahtjev',
     'request-details'     => 'Zatražite pojedinosti',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Traženo od',
     'requests'            => 'Zahtjevi',
     'required'            => 'Potreban',
     'reset'               => 'Reset',
     'reset-confirmation'  => 'Jeste li sigurni da želite poništiti ovaj zahtjev',
     'reset-request'       => 'Poništite ovaj zahtjev',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Nagrada',
     'reward-desc'         => 'Koliko bonus bodova želite nagraditi? Najmanje 100 BP',
     'reward-from'         => 'Iz',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Ukupna nagrada',
     'type'                => 'Tip',
     'unclaim'             => 'Odustani od ovog zahtjeva',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Neispunjen',
     'view-filled'         => 'Prikaz ispunjen',
     'view-unfilled'       => 'Pogled nije ispunjen',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Glasajte za ovaj zahtjev',
     'voters'              => 'glasači',
     'votes'               => 'glasova',
-    'yes'                 => 'Da',
+    'yes'                 => 'Da'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Aktīvs pēdējo reizi',
     'chatbox'                 => 'Tērzēšanas lodziņš',
+    'check-news'              => 'Jaunumi (pārbaudiet katru dienu)',
     'click'                   => 'Klikšķis',
-    'to-enable-editor'        => 'lai iespējotu redaktoru',
     'featured-by'             => 'Piedāvā',
     'featured-torrents'       => 'Featured torrents',
     'featured-torrents-intro' => 'Get Them, kamēr jūs varat!',
     'featured-until'          => 'Tas ir redzams torrent līdz',
-    'top-torrents'            => 'Populārākie torrenti',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Jaunākās ziņas',
     'latest-topics'           => 'Jaunākās tēmas',
-    'active-in-last'          => 'Aktīvs pēdējo reizi',
-    'users-online'            => 'Lietotāji tiešsaistē',
-    'check-news'              => 'Jaunumi (pārbaudiet katru dienu)',
     'new-news'                => 'Jaunas ziņas',
     'new-torrents'            => 'Jaunas straumēm',
+    'to-enable-editor'        => 'lai iespējotu redaktoru',
+    'top-torrents'            => 'Populārākie torrenti',
+    'users-online'            => 'Lietotāji tiešsaistē'
 ];

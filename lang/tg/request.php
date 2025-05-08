@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Иловаи дархост',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Синну сол',
     'all-requests'        => 'Ҳамаи дархостҳо',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Тасдиқ кунед',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Фармоиш',
     'bounty-claimed'      => 'Муфассалтар ...',
     'bounty-unclaimed'    => 'Пурбинанда нагуфт',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Оё шумо мехоҳед, ки ин амрро дархост кунед?',
     'claim-now'           => 'Садо Ояндасоз',
     'claimed'             => 'Ҷавоб доданд',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Акнун',
     'delete'              => 'Ин дархостро нест кунед',
     'delete-confirmation' => 'Оё боварӣ доред, ки мехоҳед ин дархостро нест кунед',
     'delete-filled'       => 'Ин дархост танҳо агар нест, ин нест карда мешавад',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Тавсифи',
     'dont-have-bps'       => 'Шумо каме бонус доред',
     'edit-request'        => 'Таҳрири дархост',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Нуқтаҳои бонусро ворид кунед (ҳадди аксар 100)',
     'enter-hash'          => 'Хабари иттилооти воридшударо ворид кунед',
     'fill'                => 'Пур кунед',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'барои',
     'fulfill'             => 'Иҷро кардан',
     'last-vote'           => 'Нашрияи охирин',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Дархостҳои ман',
+    'my-voted'            => 'My voted',
     'no'                  => 'Не,',
     'no-imdb-id'          => 'Ҳамаи дархостҳо бояд дорои рақами IMDB дошта бошанд',
     'no-privileges'       => 'Хато: Ҳуқуқи дархости шумо бекор карда шудааст',
     'no-privileges-desc'  => 'Агар шумо фикр кунед, ки ин хато аст, лутфан бо кормандони коре муроҷиат кунед',
     'no-refunds'          => 'Мубодилаи BON оид ба эҷод, пур кардан ва бахшоишҳо ниҳоӣанд! <br> <strong>НОҲИЯИ БОХТАР</strong>',
     'pending'             => 'Хабари фаври',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Сабаб',
     'reject'              => 'Рад кардан',
     'report'              => 'Дархости ҳисобот',
     'request'             => 'Дархост',
     'request-details'     => 'Маълумоти дархост',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Бо дархости',
     'requests'            => 'Дархостҳо',
     'required'            => 'Талабот',
     'reset'               => 'Бозсозӣ',
     'reset-confirmation'  => 'Оё боварӣ доред, ки мехоҳед ин дархостро барқарор кунед',
     'reset-request'       => 'Ин дархостро барқарор кунед',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Мукофот',
     'reward-desc'         => 'Ба фикри шумо шумо чӣ қадар бонус ба шумо мукофот медиҳед? Ҳадди 100 BP',
     'reward-from'         => 'Аз',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Бақияи умумии',
     'type'                => 'Намуди',
     'unclaim'             => 'Ин дархостро инкор кунед',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Партофтани',
     'view-filled'         => 'Нашр шуд',
     'view-unfilled'       => 'Намоиши тамошобин',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Ин дархостро интихоб кунед',
     'voters'              => 'Интихобкунандагон',
     'votes'               => 'Votes',
-    'yes'                 => 'Бале',
+    'yes'                 => 'Бале'
 ];

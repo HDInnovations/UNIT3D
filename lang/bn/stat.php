@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'গণনা দ্বারা',
     'by-data'                 => 'তথ্য দ্বারা',
     'by-volume'               => 'খন্ড আকারে',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'গ্রুপ',
     'groups'                  => 'গ্রুপ',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd পরিসংখ্যান',
     'nerd-stats-desc'         => 'আমরা সব পরিসংখ্যান ভালবাসা। এখানে কয়েকটি গুরুত্বপূর্ণ যা আমরা খুঁজে পেয়েছি',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'নিবন্ধনের তারিখ',
     'request-fulfilled'       => 'অনুরোধ পূর্ণ',
     'request-not-fulfilled'   => 'অনুরোধ পূরণ করা হয় না',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'শীর্ষ leched',
     'top-leechers'            => 'শীর্ষ Leechers',
     'top-seeded'              => 'শীর্ষ বীজ',
-    'top-seeding'             => 'শীর্ষ Seeding',
     'top-seeders'             => 'শীর্ষ seeders',
+    'top-seeding'             => 'শীর্ষ Seeding',
     'top-seedsize'            => 'শীর্ষ seediesize',
     'top-seedtime'            => 'শীর্ষ বীজতলা',
     'top-uploaders'           => 'শীর্ষ আপলোডার',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'মোট Torrents',
     'total-traffic'           => 'মোট ট্রাফিক',
     'total-upload'            => 'মোট আপলোড',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'গ্রুপ ব্যবহারকারীদের',
-    'users-per-group'         => 'গ্রুপ প্রতি ব্যবহারকারী',
+    'users-per-group'         => 'গ্রুপ প্রতি ব্যবহারকারী'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Затворено',
     'create-new-topic'          => 'Направите нову тему',
     'created'                   => 'Цреатед',
+    'created-at'                => 'Created At',
     'current'                   => 'Тренутни',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Избриши ову тему',
     'denied'                    => 'Дениед',
     'dislike-post'              => 'Не свиђа ми се овај пост',
     'display-forum'             => 'Прикажи теме у',
     'edit-post'                 => 'Едит Пост',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Измени тему',
     'forum'                     => 'Форум',
     'forums'                    => 'Форуми',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Имплементирано',
     'in'                        => 'Ин',
     'invalid'                   => 'Неважеће',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Куоте',
     'read-topic'                => 'Прочитајте тему',
     'replies'                   => 'Реплиес',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Сачувај ову тему',
     'solved'                    => 'Солвед',
     'state'                     => 'Држава',
     'stats'                     => 'Статс',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Претплаћено',
     'subscription-quick-search' => 'Брза претрага назива теме (у оквиру претплата)',
     'suggestion'                => 'Сугестија',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Топиц',
     'topic-closed'              => 'Ова тема је затворена',
     'topic-name'                => 'Назив теме',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Наслов ове теме',
     'topics'                    => 'Теме',
     'unpin'                     => 'Унпин',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Прикажи све теме',
-    'views'                     => 'Виевс',
+    'views'                     => 'Виевс'
 ];

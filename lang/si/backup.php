@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'ක්රියා',
     'backup'                         => 'බැකප්',
     'backup_doesnt_exist'            => 'බැකප් ගොනුව පවතියි.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'සම්පූර්ණ බැකප් එකක් නිර්මාණය කරන්න',
-    'create_a_new_files_backup'      => 'ගොනු බැකප් කරන්න',
     'create_a_new_db_backup'         => 'දත්ත සමුදාය සුරක්ෂිත කිරීම',
+    'create_a_new_files_backup'      => 'ගොනු බැකප් කරන්න',
     'create_confirmation_message'    => 'තත්පර 3 කින් පිටු Reloading කරන්න.',
     'create_confirmation_title'      => 'බැකප් සම්පූර්ණයි',
     'create_error_message'           => 'බැකප් ගොනුව නිර්මාණය කළ නොහැක.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'ස්ථානය',
     'manager'                        => 'කළමනාකරු',
     'no_disks_configured'            => 'Config / backup.php හි බැකෝ ඩයික්ස් සකසා නොමැත',
-    'only_local_downloads_supported' => 'දේශීය ගොනු පද්ධතියෙන් ලද බාගැනීම් සඳහා පමණක් සහාය වේ.',
+    'only_local_downloads_supported' => 'දේශීය ගොනු පද්ධතියෙන් ලද බාගැනීම් සඳහා පමණක් සහාය වේ.'
 ];

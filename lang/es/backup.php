@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,16 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Backup Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by the backup system.
-    | You are free to change them to anything you want to customize your views to better match your application.
-    |
-    */
-
     'backup'                         => 'Copia de seguridad',
     'backup_process_started'         => 'Proceso de copia de seguridad iniciado',
     'create_a_new_backup'            => 'Crear copia de seguridad completa',

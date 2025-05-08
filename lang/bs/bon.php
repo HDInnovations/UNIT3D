@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Exchange',
     'exchange-warning'        => 'Razmene su konačne, Molimo Vas da pre izbora razmotrite svoj izbor.',
     'extended-stats'          => 'Extended Stats',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Poklon',
     'gift-bonus'              => 'Poklon bonovi',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Poklon bon za bodove',
     'gifts'                   => 'Pokloni',
     'item'                    => 'Stavka',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Poeni po sekundi',
     'per-week'                => 'Poeni za sedmicu',
     'per-year'                => 'Poeni godišnje',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Bodovi',
     'receiver'                => 'Prijemnik',
     'review-seeds'            => 'Pregledaj sve Seeded Torrents',
     'send-gift'               => 'Poslati poklon',
     'sender'                  => 'Sender',
     'store'                   => 'Store',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Saveti',
     'total'                   => 'Ukupna zarada',
     'total-gifts'             => 'In Total BON Pokloni',
     'total-tips'              => 'In Total BON Tips',
     'you-have-received-gifts' => 'Primili ste',
-    'you-have-sent-gifts'     => 'Poslali ste',
     'you-have-received-tips'  => 'Primili ste',
+    'you-have-sent-gifts'     => 'Poslali ste',
     'you-have-sent-tips'      => 'Poslali ste',
-    'your-points'             => 'Your Points',
+    'your-points'             => 'Your Points'
 ];

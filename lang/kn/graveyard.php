@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,15 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'dead'               => 'ಡೆಡ್',
-    'graveyard'          => 'ಗ್ರೇವ್ಯಾರ್ಡ್',
-    'guidelines'         => 'ಮಾರ್ಗಸೂಚಿಗಳು',
-    'guidelines-content' => '1) ನಿಮ್ಮ ಸ್ವಂತ ಅಪ್ಲೋಡ್ಗಳನ್ನು ಪುನರುತ್ಥಾನಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ. <br> 2) ನೀವು ತುಂಬಾ ಮಾಡಬಾರದು ಏನನ್ನಾದರೂ ಪುನರುತ್ಥಾನ ಮಾಡಬೇಡಿ.',
-    'howto'              => 'ಇಲ್ಲಿ ರೂಲ್',
-    'howto-desc1'        => 'ನೀವು ಬೀಜ ಮಾಡಬೇಕು <span class=\\"text-green\\"><em>:</em></span> ಒಂದು ಯಶಸ್ವಿ ಮರುಸಂಗ್ರಹಕ್ಕಾಗಿ <span class="text-red text-bold">30 ದಿನಗಳ</span> ಕಾಲ. ಈ ಸಂದರ್ಭದಲ್ಲಿ ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಬೀಜ ಸಮಯ',
-    'howto-desc2'        => 'ನಿಮಗೆ ಪುರಸ್ಕಾರ ನೀಡಲಾಗುವುದು',
-    'howto-hits'         => 'ಹಿಟ್ಸ್',
-    'pending'            => 'ಬಾಕಿ ಉಳಿದಿದೆ',
-    'resurrect'          => 'ಪುನರುತ್ಥಾನ',
-    'reward'             => 'ಫ್ರೀಲೀಕ್ ಟೋಕನ್ಗಳು',
+    'current-seedtime'         => 'Current Seedtime',
+    'dead'                     => 'ಡೆಡ್',
+    'graveyard'                => 'ಗ್ರೇವ್ಯಾರ್ಡ್',
+    'guidelines'               => 'ಮಾರ್ಗಸೂಚಿಗಳು',
+    'guidelines-content'       => '1) ನಿಮ್ಮ ಸ್ವಂತ ಅಪ್ಲೋಡ್ಗಳನ್ನು ಪುನರುತ್ಥಾನಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ. <br> 2) ನೀವು ತುಂಬಾ ಮಾಡಬಾರದು ಏನನ್ನಾದರೂ ಪುನರುತ್ಥಾನ ಮಾಡಬೇಡಿ.',
+    'howto'                    => 'ಇಲ್ಲಿ ರೂಲ್',
+    'howto-desc1'              => 'ನೀವು ಬೀಜ ಮಾಡಬೇಕು <span class=\\"text-green\\"><em>:</em></span> ಒಂದು ಯಶಸ್ವಿ ಮರುಸಂಗ್ರಹಕ್ಕಾಗಿ <span class="text-red text-bold">30 ದಿನಗಳ</span> ಕಾಲ. ಈ ಸಂದರ್ಭದಲ್ಲಿ ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಬೀಜ ಸಮಯ',
+    'howto-desc2'              => 'ನಿಮಗೆ ಪುರಸ್ಕಾರ ನೀಡಲಾಗುವುದು',
+    'howto-hits'               => 'ಹಿಟ್ಸ್',
+    'not-rewarded'             => 'Not Rewarded',
+    'pending'                  => 'ಬಾಕಿ ಉಳಿದಿದೆ',
+    'resurrect'                => 'ಪುನರುತ್ಥಾನ',
+    'resurrect-canceled'       => 'Resurrection Successfully Canceled!',
+    'resurrect-complete'       => 'Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.',
+    'resurrect-date'           => 'Resurrect Date',
+    'resurrect-failed-own'     => 'Torrent Resurrection Failed! You cannot resurrect your own uploads.',
+    'resurrect-failed-pending' => 'Torrent Resurrection Failed! This torrent is already pending a resurrection.',
+    'reward'                   => 'ಫ್ರೀಲೀಕ್ ಟೋಕನ್ಗಳು',
+    'rewarded'                 => 'Rewarded',
+    'seedtime-goal'            => 'Seedtime Goal'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Crear',
-    'delete'        => 'Eliminar',
-    'enter-subject' => 'Introduza o asunto',
-    'from'          => 'De',
-    'inbox'         => 'Caixa de entrada',
-    'mark-all-read' => 'Marcar todas as mensaxes como lidas',
-    'message'       => 'Mensaxe',
-    'messages'      => 'Mensaxes',
-    'new'           => 'Nova mensaxe',
-    'outbox'        => 'Caixa de saída',
-    'private'       => 'Privado',
-    'read'          => 'Ler',
-    'received-at'   => 'Recibido en',
-    'refresh'       => 'Actualizar',
-    'reply'         => 'Responder',
-    'search'        => 'Busca por asunto',
-    'select'        => 'Seleccione un usuario',
-    'send'          => 'Enviar PM',
-    'send-to'       => 'Enviar PM To',
-    'sent'          => 'Enviado',
-    'sent-at'       => 'Enviado',
-    'subject'       => 'Asunto',
-    'to'            => 'Para',
-    'unread'        => 'Sen ler',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Crear',
+    'delete'          => 'Eliminar',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'Introduza o asunto',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'De',
+    'inbox'           => 'Caixa de entrada',
+    'mark-all-read'   => 'Marcar todas as mensaxes como lidas',
+    'message'         => 'Mensaxe',
+    'messages'        => 'Mensaxes',
+    'new'             => 'Nova mensaxe',
+    'outbox'          => 'Caixa de saída',
+    'private'         => 'Privado',
+    'read'            => 'Ler',
+    'received-at'     => 'Recibido en',
+    'refresh'         => 'Actualizar',
+    'reply'           => 'Responder',
+    'search'          => 'Busca por asunto',
+    'select'          => 'Seleccione un usuario',
+    'send'            => 'Enviar PM',
+    'send-to'         => 'Enviar PM To',
+    'sent'            => 'Enviado',
+    'sent-at'         => 'Enviado',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Asunto',
+    'to'              => 'Para',
+    'unread'          => 'Sen ler'
 ];

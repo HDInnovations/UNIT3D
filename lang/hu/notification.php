@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,14 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'date'             => 'Dátum',
-    'delete'           => 'Töröl',
-    'delete-all'       => 'Az összes értesítés törlése',
-    'mark-all-read'    => 'összes megjelölése olvasottként',
-    'mark-read'        => 'Jelöld olvasottként',
-    'message'          => 'Üzenet',
-    'no-notifications' => 'Nincsenek értesítések',
-    'notifications'    => 'értesítések',
-    'read'             => 'Olvas',
-    'title'            => 'Cím',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gifts',
+    'comment-tags'        => 'Comment Tags',
+    'date'                => 'Dátum',
+    'delete'              => 'Töröl',
+    'delete-all'          => 'Az összes értesítés törlése',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filter By Notification Type',
+    'mark-all-read'       => 'összes megjelölése olvasottként',
+    'mark-read'           => 'Jelöld olvasottként',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'Üzenet',
+    'no-notifications'    => 'Nincsenek értesítések',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'értesítések',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'Olvas',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'Cím',
+    'unfollows'           => 'Unfollows'
 ];

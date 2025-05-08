@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Đã đóng',
     'create-new-topic'          => 'Tạo chủ đề mới',
     'created'                   => 'Tạo',
+    'created-at'                => 'Created At',
     'current'                   => 'Hiện hành',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Xóa chủ đề này',
     'denied'                    => 'Từ chối',
     'dislike-post'              => 'Không thích bài này',
     'display-forum'             => 'Hiển thị chủ đề trong',
     'edit-post'                 => 'Chỉnh sửa bài',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Chỉnh sửa chủ đề',
     'forum'                     => 'Diễn đàn',
     'forums'                    => 'Diễn đàn',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Đã thực hiện',
     'in'                        => 'Trong',
     'invalid'                   => 'không hợp lệ',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Trích dẫn',
     'read-topic'                => 'Đọc chủ đề',
     'replies'                   => 'Trả lời',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Lưu chủ đề này',
     'solved'                    => 'Đã giải quyết',
     'state'                     => 'Tiểu bang',
     'stats'                     => 'Số liệu thống kê',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Đã đăng ký',
     'subscription-quick-search' => 'Tên chủ đề tìm kiếm nhanh (trong đăng ký)',
     'suggestion'                => 'Gợi ý',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Đề tài',
     'topic-closed'              => 'Chủ đề này đã bị đóng',
     'topic-name'                => 'Tên chủ đề',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Tiêu đề của chủ đề này',
     'topics'                    => 'Chủ đề',
     'unpin'                     => 'Bỏ ghim',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Xem tất cả các chủ đề',
-    'views'                     => 'Lượt xem',
+    'views'                     => 'Lượt xem'
 ];

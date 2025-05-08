@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'обмен',
     'exchange-warning'        => 'Обмены являются окончательными, пожалуйста, проверьте ваш выбор перед совершением обмена.',
     'extended-stats'          => 'Расширенная статистика',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Подарок',
     'gift-bonus'              => 'Подарочные бонусные баллы',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Подарочные бонусные баллы',
     'gifts'                   => 'Дары',
     'item'                    => 'Вещь',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Очки в секунду',
     'per-week'                => 'Очки в неделю',
     'per-year'                => 'Очков в год',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Точки',
     'receiver'                => 'Получатель',
     'review-seeds'            => 'Просмотрите все отобранные торренты',
     'send-gift'               => 'Послать подарок',
     'sender'                  => 'отправитель',
     'store'                   => 'хранить',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'подсказки',
     'total'                   => 'Общий доход',
     'total-gifts'             => 'Всего BON подарков',
     'total-tips'              => 'Всего BON Tips',
     'you-have-received-gifts' => 'Ты получила',
-    'you-have-sent-gifts'     => 'Ты послал',
     'you-have-received-tips'  => 'Ты получила',
+    'you-have-sent-gifts'     => 'Ты послал',
     'you-have-sent-tips'      => 'Ты послал',
-    'your-points'             => 'Ваши очки',
+    'your-points'             => 'Ваши очки'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Isinara',
     'create-new-topic'          => 'Lumikha ng Bagong Paksa',
     'created'                   => 'Nilikha',
+    'created-at'                => 'Created At',
     'current'                   => 'Kasalukuyang',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Tanggalin ang Paksa na ito',
     'denied'                    => 'Tinanggihan',
     'dislike-post'              => 'Hindi Nagustuhan ang Post na ito',
     'display-forum'             => 'Ipakita ang mga paksa',
     'edit-post'                 => 'I-edit ang Post',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'I-edit ang Paksa',
     'forum'                     => 'Forum',
     'forums'                    => 'Mga Forum',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Ipinatupad',
     'in'                        => 'Sa',
     'invalid'                   => 'Di-wasto',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Quote',
     'read-topic'                => 'Basahin ang Paksa',
     'replies'                   => 'Tugon',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'I-save ang Paksa na ito',
     'solved'                    => 'Nalutas',
     'state'                     => 'Estado',
     'stats'                     => 'Stats',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Nag-subscribe',
     'subscription-quick-search' => 'Mabilis na paghahanap sa paksa ng paksa (sa loob ng mga subscription)',
     'suggestion'                => 'Mungkahi',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Paksa',
     'topic-closed'              => 'Isinara ang Paksa na ito',
     'topic-name'                => 'Pangalan ng paksa',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Pamagat ng Paksa na ito',
     'topics'                    => 'Mga Paksa',
     'unpin'                     => 'I-unpin',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Tingnan ang Lahat ng Mga Paksa',
-    'views'                     => 'Mga Pananaw',
+    'views'                     => 'Mga Pananaw'
 ];

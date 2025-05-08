@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Ενέργειες',
     'backup'                         => 'Αντίγραφα ασφαλείας',
     'backup_doesnt_exist'            => 'Το αρχείο αντιγράφου ασφαλείας δεν υπάρχει.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Δημιουργία πλήρους αντιγράφου ασφαλείας',
-    'create_a_new_files_backup'      => 'Δημιουργία αντιγράφων ασφαλείας αρχείων',
     'create_a_new_db_backup'         => 'Δημιουργία αντιγράφων ασφαλείας βάσεων δεδομένων',
+    'create_a_new_files_backup'      => 'Δημιουργία αντιγράφων ασφαλείας αρχείων',
     'create_confirmation_message'    => 'Επαναφορτώστε τη σελίδα σε 3 δευτερόλεπτα.',
     'create_confirmation_title'      => 'Η δημιουργία αντιγράφων ασφαλείας ολοκληρώθηκε',
     'create_error_message'           => 'Το αρχείο αντιγράφου ασφαλείας ΔΕΝ μπορεί να δημιουργηθεί.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Τοποθεσία',
     'manager'                        => 'Κέντρο Ελέγχου',
     'no_disks_configured'            => 'Δεν υπάρχουν διαμορφωμένοι δίσκοι δημιουργίας αντιγράφων στο config / backup.php',
-    'only_local_downloads_supported' => 'Λαμβάνονται μόνο λήψεις από το Τοπικό σύστημα αρχείων.',
+    'only_local_downloads_supported' => 'Λαμβάνονται μόνο λήψεις από το Τοπικό σύστημα αρχείων.'
 ];

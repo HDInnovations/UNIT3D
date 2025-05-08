@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Po grofu',
     'by-data'                 => 'Po podatkih',
     'by-volume'               => 'Po količini',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Skupina',
     'groups'                  => 'Skupine',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd statistika',
     'nerd-stats-desc'         => 'Vsi imamo radi statistiko. Tukaj je nekaj, za katere menimo, da so pomembne',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Datum registracije',
     'request-fulfilled'       => 'Zahtevek je izpolnjen',
     'request-not-fulfilled'   => 'Zahteva ni izpolnjena',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Najbolj priljubljeni',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'V zgornjem delu',
-    'top-seeding'             => 'Top Seeding',
     'top-seeders'             => 'Top sejalnice',
+    'top-seeding'             => 'Top Seeding',
     'top-seedsize'            => 'Na vrh Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Najbolj priljubljeni uporabniki',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Skupaj torentov',
     'total-traffic'           => 'Skupni promet',
     'total-upload'            => 'Skupni prenos',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Uporabniki v skupini',
-    'users-per-group'         => 'Uporabniki na skupino',
+    'users-per-group'         => 'Uporabniki na skupino'
 ];

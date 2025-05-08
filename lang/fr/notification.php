@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,9 +15,9 @@ declare(strict_types=1);
  */
 
 return [
-    'already-marked-read' => 'Notification déjà marquée lue!',
     'all-deleted'         => 'Toutes les notifications ont été supprimées!',
     'all-marked-read'     => 'Toutes les notifications marquées lues!',
+    'already-marked-read' => 'Notification déjà marquée lue!',
     'bon-gifts'           => 'Bon Cadeaux',
     'comment-tags'        => 'Commentaire Mentions',
     'date'                => 'Date',
@@ -36,7 +37,11 @@ return [
     'read'                => 'Déjà lu',
     'request-approvals'   => 'Request Autorisé',
     'request-bounties'    => 'Request Récompense',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
     'request-rejections'  => 'Request Rejets',
+    'request-unclaims'    => 'Request Unclaims',
     'reseed-requests'     => 'Reseed Demande',
     'title'               => 'Titre',
+    'unfollows'           => 'Unfollows'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'krijoj',
-    'delete'        => 'fshij',
-    'enter-subject' => 'Shkruani subjektin',
-    'from'          => 'nga',
-    'inbox'         => 'Inbox',
-    'mark-all-read' => 'Shënoni të gjitha mesazhet si të lexuara',
-    'message'       => 'mesazh',
-    'messages'      => 'mesazhet',
-    'new'           => 'Mesazh i ri',
-    'outbox'        => 'Dalje',
-    'private'       => 'privat',
-    'read'          => 'lexoj',
-    'received-at'   => 'Marrë në',
-    'refresh'       => 'freskoj',
-    'reply'         => 'përgjigje',
-    'search'        => 'Kërko sipas subjektit',
-    'select'        => 'Zgjidh një përdorues',
-    'send'          => 'Dërgo PM',
-    'send-to'       => 'Dërgo PM Për',
-    'sent'          => 'Sent',
-    'sent-at'       => 'Dërguar në',
-    'subject'       => 'subjekt',
-    'to'            => 'në',
-    'unread'        => 'i palexuar',
-    'empty-inbox'   => 'Inbox bosh',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'krijoj',
+    'delete'          => 'fshij',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Inbox bosh',
+    'enter-subject'   => 'Shkruani subjektin',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'nga',
+    'inbox'           => 'Inbox',
+    'mark-all-read'   => 'Shënoni të gjitha mesazhet si të lexuara',
+    'message'         => 'mesazh',
+    'messages'        => 'mesazhet',
+    'new'             => 'Mesazh i ri',
+    'outbox'          => 'Dalje',
+    'private'         => 'privat',
+    'read'            => 'lexoj',
+    'received-at'     => 'Marrë në',
+    'refresh'         => 'freskoj',
+    'reply'           => 'përgjigje',
+    'search'          => 'Kërko sipas subjektit',
+    'select'          => 'Zgjidh një përdorues',
+    'send'            => 'Dërgo PM',
+    'send-to'         => 'Dërgo PM Për',
+    'sent'            => 'Sent',
+    'sent-at'         => 'Dërguar në',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'subjekt',
+    'to'              => 'në',
+    'unread'          => 'i palexuar'
 ];
