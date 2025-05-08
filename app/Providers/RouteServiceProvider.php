@@ -86,6 +86,7 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('rss', fn (Request $request) => Limit::perMinute(30)->by('rss'.$request->ip()));
         RateLimiter::for('authenticated-images', fn (Request $request): Limit => Limit::perMinute(200)->by('authenticated-images:'.$request->user()->id));
         RateLimiter::for('search', fn (Request $request): Limit => Limit::perMinute(100)->by('search:'.$request->user()->id));
+        RateLimiter::for('tmdb', fn (): Limit => Limit::perSecond(2));
     }
 
     protected function removeIndexPhpFromUrl(): void
