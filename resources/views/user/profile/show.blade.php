@@ -172,6 +172,22 @@
                 </article>
             </div>
         </section>
+        <section class="panelV2">
+            <h2 class="panel__heading">Badges</h2>
+            <div class="panel__body">
+                @forelse ($collectibles as $collectible)
+                    <a href="{{ route('collectibles.show', ['collectible' => $collectible]) }}">
+                        <img
+                            src="{{ $collectible->icon === null ? '' : route('authenticated_images.collectible_icon', ['collectible' => $collectible]) }}"
+                            height="50"
+                            title="{{ $collectible->name }}"
+                        />
+                    </a>
+                @empty
+                    No collectibles.
+                @endforelse
+            </div>
+        </section>
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_achievement'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.recent-achievements') }}</h2>
