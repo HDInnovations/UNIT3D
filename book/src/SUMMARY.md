@@ -11,3 +11,4 @@
 - [Torrent API](torrent_api.md)
 - [Updating Unit3d Version](updating_unit3d_version.md)
 - [Upgrading PHP Version](upgrading_php_version.md)
+- [UNIT3D-Announce](unit3d_announce_setup.md)
