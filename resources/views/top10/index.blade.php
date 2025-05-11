@@ -16,7 +16,7 @@
 @endsection
 
 @section('nav-tabs')
-    @include('partials.nav-bar')
+    @include('partials._nav-tabs')
 @endsection
 
 @section('page', 'page__top10--index')
