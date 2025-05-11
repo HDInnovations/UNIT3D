@@ -15,26 +15,7 @@
 @endsection
 
 @section('nav-tabs')
-    <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('torrents.index') }}">
-            {{ __('torrent.search') }}
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('top10.index') }}">
-            {{ __('common.top-10') }}
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}">
-            {{ __('rss.rss') }}
-        </a>
-    </li>
-    <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents.create') }}">
-            {{ __('common.upload') }}
-        </a>
-    </li>
+    @include('partials.nav-bar')
 @endsection
 
 @section('page', 'page__torrent--index')
