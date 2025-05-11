@@ -45,7 +45,7 @@ class DonationExpired extends Notification implements ShouldQueue, SystemNotific
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'status'  => 'Your Donor Status Has Expired',
+            'subject' => 'Your Donor Status Has Expired',
             'message' => 'Your donor status has expired. Feel free to donate again to regain your donor status. Thank you for your support!'
         ];
     }
