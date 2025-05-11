@@ -104,7 +104,7 @@
     padding: 0 8px 8px 8px;
     font-size: 16px;
 
-    img:not(.comparison img) {
+    img:not(.comparison__image) {
         max-width: 400px !important;
         max-height: 400px !important;
     }
