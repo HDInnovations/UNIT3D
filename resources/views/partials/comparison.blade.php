@@ -27,8 +27,20 @@
         x-show="show"
         x-cloak
         x-on:click="show = false"
-        x-on:keydown.down.window="if (show) { $event.preventDefault(); $event.stopPropagation(); $el.scrollBy(0, $el.getElementsByTagName('li')[0].offsetHeight) }"
-        x-on:keydown.up.window="if (show) { $event.preventDefault(); $event.stopPropagation(); $el.scrollBy(0, -1 * $el.getElementsByTagName('li')[0].offsetHeight) }"
+        x-on:keydown.down.window="
+            if (show) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                $el.scrollBy(0, $el.getElementsByTagName('li')[0].offsetHeight);
+            }
+        "
+        x-on:keydown.up.window="
+            if (show) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                $el.scrollBy(0, -1 * $el.getElementsByTagName('li')[0].offsetHeight);
+            }
+        "
     >
         @foreach ($urls as $row)
             <li>
@@ -40,8 +52,20 @@
                             screen = $event.key;
                         }
                     "
-                    x-on:keydown.left.window="if (show) { $event.preventDefault(); $event.stopPropagation(); screen = screen == 1 ? {{ \count($comparates) }} : screen - 1 }"
-                    x-on:keydown.right.window="if (show) { $event.preventDefault(); $event.stopPropagation(); screen = screen == {{ \count($comparates) }} ? 1 : screen + 1 }"
+                    x-on:keydown.left.window="
+                        if (show) {
+                            $event.preventDefault();
+                            $event.stopPropagation();
+                            screen = screen == 1 ? {{ \count($comparates) }} : screen - 1;
+                        }
+                    "
+                    x-on:keydown.right.window="
+                        if (show) {
+                            $event.preventDefault();
+                            $event.stopPropagation();
+                            screen = screen == {{ \count($comparates) }} ? 1 : screen + 1;
+                        }
+                    "
                     x-on:mousemove.window="screen = Math.ceil(($event.clientX * {{ \count($comparates) }}) / window.innerWidth)"
                 >
                     @foreach ($row as $url)
