@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 /**
  * NOTICE OF LICENSE.
  *
@@ -10,35 +9,35 @@ declare(strict_types=1);
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Howard Lau <howardlau1999@hotmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
 return [
-    'born'            => 'Nacimiento:',
-    'collection'      => 'Collection',
+    'born'            => 'Nacido:',
+    'collection'      => 'Colección',
     'collections'     => 'Colecciones',
     'companies'       => 'Compañías',
-    'disclaimer'      => 'Este producto utiliza la API de TMDb pero no está respaldado ni certificado por TMDb.',
+    'disclaimer'      => 'Este producto utiliza la API de TMDb, pero no está avalado ni certificado por TMDb.',
     'episodes'        => 'Episodios',
     'first-seen'      => 'Primera aparición:',
     'genres'          => 'Géneros',
     'includes'        => 'Incluye:',
-    'latest-project'  => 'Último Proyecto:',
-    'movie'           => 'Película',
-    'movie-credits'   => 'Créditos de la película:',
-    'movies'          => 'Películas',
+    'latest-project'  => 'Último proyecto:',
     'networks'        => 'Redes',
     'no-data'         => '¡No se encontraron datos!',
+    'movie'           => 'Película',
+    'movies'          => 'Películas',
+    'movie-credits'   => 'Créditos de películas:',
     'persons'         => 'Personas',
-    'plot'            => 'Trama:',
+    'plot'            => 'Sinopsis:',
     'release-date'    => 'Fecha de lanzamiento:',
     'seasons'         => 'Temporadas',
-    'select-hub'      => 'Por favor seleccione un centro',
+    'select-hub'      => 'Por favor, selecciona un centro',
     'show'            => 'Serie de TV',
     'shows'           => 'Series de TV',
     'title'           => 'MediaHub',
     'tv-credits'      => 'Créditos de TV:',
     'view-collection' => 'Ver la colección',
-    'wiki-read'       => 'Leer biografía completa en Wikipedia:'
+    'wiki-read'       => 'Leer biografía completa en Wikipedia:',
 ];
