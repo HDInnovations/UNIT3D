@@ -197,6 +197,18 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Belongs to many Blocked Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
+     */
+    public function blockedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(BlockedUsers::class, 'user_id', 'blocked_user_id')
+            ->as('blocked')
+            ->withTimestamps();
+    }
+
+    /**
      * Belongs To Many Bookmarks.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
