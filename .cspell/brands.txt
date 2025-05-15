@@ -1,0 +1,17 @@
+authy
+bdinfo
+bitwarden
+gnutella
+igdb
+imdb
+jackett
+kazaa
+limewire
+mal
+mediainfo
+phpstorm
+shareaza
+tmdb
+tvdb
+tvrage
+weblate

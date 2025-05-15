@@ -1,0 +1,47 @@
+{
+  "plugins": [
+    "prettier-plugin-blade"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.blade.php"
+      ],
+      "options": {
+        "parser": "blade",
+        "printWidth": 100,
+        "semi": true,
+        "singleQuote": true
+      }
+    },
+    {
+      "files": [
+        "*.js"
+      ],
+      "options": {
+        "printWidth": 100,
+        "semi": true,
+        "singleQuote": true
+      }
+    },
+    {
+      "files": [
+        "*.vue"
+      ],
+      "options": {
+        "printWidth": 100,
+        "semi": true,
+        "singleQuote": true
+      }
+    },
+    {
+      "files": [
+        "*.scss"
+      ],
+      "options": {
+        "semi": true,
+        "singleQuote": true
+      }
+    }
+  ]
+}

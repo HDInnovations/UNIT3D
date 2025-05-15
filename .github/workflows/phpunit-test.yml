@@ -1,0 +1,80 @@
+name: PHPUnit Test (Pest)
+on: [ push, pull_request ]
+jobs:
+    tests:
+        strategy:
+            fail-fast: true
+            matrix:
+                operating-system:
+                    - ubuntu-22.04
+                php-version:
+                    - '8.4'
+        name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
+        runs-on: ${{ matrix.operating-system }}
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
+                    MYSQL_DATABASE: unit3d
+                ports:
+                    - 3306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+            redis:
+                image: redis:7.2.1
+                ports:
+                    - 6379:6379
+                options: >-
+                    --health-cmd "redis-cli ping"
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+            -   name: Setup PHP 8.4
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-version }}
+                    extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis-phpredis/phpredis@6.0.1
+                    ini-values: error_reporting=E_ALL
+                    coverage: pcov
+                    tools: composer:v2
+                env:
+                    REDIS_CONFIGURE_OPTS: --enable-redis
+            -   name: Prepare The Laravel Environment
+                run: cp .env.example .env
+            -   name: Configure Bun
+                uses: oven-sh/setup-bun@v1
+                with:
+                    bun-version: latest
+            -   name: Install Composer Dependencies
+                env:
+                    COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+                run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+            -   name: Install JS Dependencies
+                run: bun install
+            -   name: Compile Assets (Vite)
+                run: bun run build
+            -   name: Generate Application Key
+                run: php artisan key:generate
+            -   name: Clear Application Cache
+                run: php artisan clear:all_cache
+            -   name: Run PHPUnit Tests
+                run: COLUMNS=200 ./vendor/bin/pest --compact --coverage --parallel --processes=4 --bail
+                env:
+                    DB_CONNECTION: mysql
+                    DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+                    DB_USERNAME: root
+                    DB_DATABASE: unit3d
+                    DB_PASSWORD: null
+                    CACHE_STORE: array
+            -   name: Cache phpunit cache directory
+                uses: actions/cache@v4
+                with:
+                    path: .phpunit.cache
+                    key: "phpunit-cache-${{ github.run_id }}"
+                    restore-keys: |
+                        phpunit-cache-

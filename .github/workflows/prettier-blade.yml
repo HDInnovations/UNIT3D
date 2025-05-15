@@ -1,0 +1,31 @@
+name: Format Blade Files (Prettier)
+on: [ push, pull_request ]
+jobs:
+    format-blade-files:
+        strategy:
+            matrix:
+                operating-system:
+                    - ubuntu-22.04
+        name: ${{ matrix.operating-system }}
+        runs-on: ${{ matrix.operating-system }}
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+            -   name: Configure Bun
+                uses: oven-sh/setup-bun@v1
+                with:
+                    bun-version: latest
+            -   name: Install JS Dependencies
+                run: bun install
+            -   name: Run Prettier
+                run: bunx prettier -w *
+            -   name: Commit Changes
+                uses: stefanzweifel/git-auto-commit-action@v5
+                with:
+                    commit_message: "automation: prettier blade ci"
+                    commit_user_name: unit3d-bot
+                    commit_user_email: unit3d_gh_bot@protonmail.com
+                    commit_author: unit3d-bot <unit3d_gh_bot@protonmail.com>
+
