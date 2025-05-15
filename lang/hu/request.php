@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Kérelem hozzáadása',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Kor',
     'all-requests'        => 'Minden kérés',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Jóváhagy',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Nagylelkűség',
     'bounty-claimed'      => 'Bounty azt állította',
     'bounty-unclaimed'    => 'Bounty nem kérte',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Szeretné ezt az anonim módon követelni',
     'claim-now'           => 'Kérje most',
     'claimed'             => 'azt állította,',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Jelenlegi',
     'delete'              => 'Törölje ezt a kérést',
     'delete-confirmation' => 'Biztosan törli ezt a kérést',
     'delete-filled'       => 'Ezt a kérést csak akkor lehet törölni, ha nem töltötték be',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Leírás',
     'dont-have-bps'       => 'Nincs elég bónuszod',
     'edit-request'        => 'Kérés szerkesztése',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Bónuszpontok megadása (minimum 100)',
     'enter-hash'          => 'Adja meg a feltöltött Torrent ID-ját',
     'fill'                => 'Tölt',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'mert',
     'fulfill'             => 'eleget tesz',
     'last-vote'           => 'Utolsó szavazás',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Kéréseim',
+    'my-voted'            => 'My voted',
     'no'                  => 'Nem,',
     'no-imdb-id'          => 'Minden kérésnek tartalmaznia kell egy IMDB számot',
     'no-privileges'       => 'Hiba: A kérés jogai le vannak tiltva',
     'no-privileges-desc'  => 'Ha úgy érzi, ez hibás, forduljon a személyzethez',
     'no-refunds'          => 'A BON csere a készítésről, a kitöltésről és a bónuszokról végleges! <br> <strong>NINCS VISSZATÉRÍTÉS!</strong>',
     'pending'             => 'Függőben levő',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Ok',
     'reject'              => 'Elutasít',
     'report'              => 'Jelentés kérése',
     'request'             => 'Kérés',
     'request-details'     => 'Részletek kérése',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Által kért',
     'requests'            => 'kéri',
     'required'            => 'Kívánt',
     'reset'               => 'Visszaállítás',
     'reset-confirmation'  => 'Biztosan vissza szeretné állítani ezt a kérést',
     'reset-request'       => 'A kérés visszaállítása',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Jutalom',
     'reward-desc'         => 'Mennyi bónuszpontot szeretne jutalmazni? Minimum 100 BP',
     'reward-from'         => 'Tól től',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Teljes bounty',
     'type'                => 'típus',
     'unclaim'             => 'A kérelem elutasítása',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Kitöltetlen',
     'view-filled'         => 'Megtekintve töltött',
     'view-unfilled'       => 'Nézet ki nem töltött',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Szavazz erre a kérésre',
     'voters'              => 'Választók',
     'votes'               => 'szavazatok',
-    'yes'                 => 'Igen',
+    'yes'                 => 'Igen'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,34 +15,20 @@ declare(strict_types=1);
  */
 
 return [
-    // Chat
-    'chatbox'          => 'Chat Box',
-    'click'            => 'Klick',
-    'to-enable-editor' => 'Editor aktivieren',
-
-    // Featured Torrents
+    'active-in-last'          => 'Zuletzt aktiv',
+    'chatbox'                 => 'Chat Box',
+    'check-news'              => 'Neuste News',
+    'click'                   => 'Klick',
     'featured-by'             => 'Vorgestellt durch',
     'featured-torrents'       => 'Vorgestellte Torrents',
     'featured-torrents-intro' => 'Hole es dir, solange du kannst!',
     'featured-until'          => 'Vorgestellt bis',
-
-    // Latest Torrents
-    'top-torrents' => 'Top Torrents',
-
-    // Latest Posts
-    'latest-posts' => 'Neueste Beiträge',
-
-    // Latest Topics
-    'latest-topics' => 'Neueste Themen',
-
-    // Users Online
-    'active-in-last' => 'Zuletzt aktiv',
-    'users-online'   => 'Nutzer online',
-
-    // News/Articles
-    'check-news' => 'Neuste News',
-    'new-news'   => 'Neue News',
-
-    // Top Torrents
-    'new-torrents' => 'Neue Torrents',
+    'latest-comments'         => 'Latest Comments',
+    'latest-posts'            => 'Neueste Beiträge',
+    'latest-topics'           => 'Neueste Themen',
+    'new-news'                => 'Neue News',
+    'new-torrents'            => 'Neue Torrents',
+    'to-enable-editor'        => 'Editor aktivieren',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'Nutzer online'
 ];

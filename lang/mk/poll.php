@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Додај опција',
-    'create-poll'     => 'Креирај анкета',
-    'current'         => 'Тековни Анкета (и)',
-    'delete-option'   => 'Избриши ја опцијата',
-    'multiple-choice' => 'Ова е анкета за повеќекратен избор. Изберете што повеќе одговори колку што сакате.',
-    'option'          => 'Опција',
-    'poll'            => 'Анкета',
-    'polls'           => 'Анкети',
-    'results'         => 'Резултати од анкетата',
-    'title'           => 'Наслов',
-    'total'           => 'Вкупно гласања некогаш',
-    'vote'            => 'Гласај',
-    'vote-now'        => 'Заврши си го гласот сега!',
-    'votes'           => 'Гласови',
+    'add-option'           => 'Додај опција',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Креирај анкета',
+    'current'              => 'Тековни Анкета (и)',
+    'delete-option'        => 'Избриши ја опцијата',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Ова е анкета за повеќекратен избор. Изберете што повеќе одговори колку што сакате.',
+    'option'               => 'Опција',
+    'poll'                 => 'Анкета',
+    'polls'                => 'Анкети',
+    'results'              => 'Резултати од анкетата',
+    'title'                => 'Наслов',
+    'total'                => 'Вкупно гласања некогаш',
+    'vote'                 => 'Гласај',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Заврши си го гласот сега!',
+    'votes'                => 'Гласови'
 ];

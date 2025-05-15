@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Mübadilə',
     'exchange-warning'        => 'Birjalar yekundır, mübadilə etməzdən əvvəl seçiminizi ikiqat birləşdirin.',
     'extended-stats'          => 'Genişləndirilmiş Statistikalar',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Hədiyyə',
     'gift-bonus'              => 'Hədiyyə bonus xalları',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Hədiyyə bonus xalları',
     'gifts'                   => 'Hədiyyələr',
     'item'                    => 'Maddə',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'İkinci dəfə xallar',
     'per-week'                => 'Həftədə nöqtələr',
     'per-year'                => 'Yıllara görə ballar',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Xallar',
     'receiver'                => 'Alıcı',
     'review-seeds'            => 'Bütün Seeded torrentləri nəzərdən keçirin',
     'send-gift'               => 'Hədiyyə göndər',
     'sender'                  => 'Göndərən',
     'store'                   => 'Mağaza',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'İpuçları',
     'total'                   => 'Ümumi mənfəət',
     'total-gifts'             => 'Total BON hədiyyələrində',
     'total-tips'              => 'Ümumi BON Tipsində',
     'you-have-received-gifts' => 'Siz aldınız',
-    'you-have-sent-gifts'     => 'Sən göndərdin',
     'you-have-received-tips'  => 'Siz aldınız',
+    'you-have-sent-gifts'     => 'Sən göndərdin',
     'you-have-sent-tips'      => 'Sən göndərdin',
-    'your-points'             => 'Sizin nöqtələriniz',
+    'your-points'             => 'Sizin nöqtələriniz'
 ];

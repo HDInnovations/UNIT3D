@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Жабық',
     'create-new-topic'          => 'Жаңа тақырып жасау',
     'created'                   => 'Құрылды',
+    'created-at'                => 'Created At',
     'current'                   => 'Ағымдағы',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Бұл тақырыпты жою',
     'denied'                    => 'Бас тартылды',
     'dislike-post'              => 'Бұл хабарды ұнатпау',
     'display-forum'             => 'Тақырыптарды көрсету',
     'edit-post'                 => 'Постты өңдеу',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Тақырыпты өңдеу',
     'forum'                     => 'Форум',
     'forums'                    => 'Форумдар',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Орындалды',
     'in'                        => 'Ин',
     'invalid'                   => 'Жарамсыз',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Дәйексөз',
     'read-topic'                => 'Тақырыпты оқыңыз',
     'replies'                   => 'Жауаптар',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Бұл тақырыпты сақтау',
     'solved'                    => 'Шешілді',
     'state'                     => 'Мемлекет',
     'stats'                     => 'Статистика',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Жазылды',
     'subscription-quick-search' => 'Тақырып атауы жылдам іздеу (жазылымдар ішінде)',
     'suggestion'                => 'Ұсыныс',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Тақырып',
     'topic-closed'              => 'Бұл тақырып жабық',
     'topic-name'                => 'Тақырып атауы',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Тақырыптың тақырыбы',
     'topics'                    => 'Тақырыптар',
     'unpin'                     => 'Босату',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Барлық тақырыптарды қарау',
-    'views'                     => 'Көріністер',
+    'views'                     => 'Көріністер'
 ];

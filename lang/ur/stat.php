@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'شمار کی طرف سے',
     'by-data'                 => 'ڈیٹا کی طرف سے',
     'by-volume'               => 'حجم کی طرف سے',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'گروپ',
     'groups'                  => 'گروپ',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'بیوقوف اعداد و شمار',
     'nerd-stats-desc'         => 'ہم سب کو اعداد و شمار سے محبت ہے. یہاں کچھ ایسے ہیں جو ہم اہم ہیں',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'داخلے کی تاریخ',
     'request-fulfilled'       => 'درخواست مکمل',
     'request-not-fulfilled'   => 'درخواست مکمل نہیں',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'اوپر لے لیا',
     'top-leechers'            => 'اوپر لیڈرز',
     'top-seeded'              => 'اوپر بیج',
-    'top-seeding'             => 'اوپر بیجنگ',
     'top-seeders'             => 'اوپر سیڈرز',
+    'top-seeding'             => 'اوپر بیجنگ',
     'top-seedsize'            => 'اوپر بیج',
     'top-seedtime'            => 'اوپر بیج ٹائم',
     'top-uploaders'           => 'اوپر اپ لوڈرز',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'کل تراشے',
     'total-traffic'           => 'کل ٹریفک',
     'total-upload'            => 'کل اپ لوڈ',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'صارفین میں گروپ',
-    'users-per-group'         => 'گروپ فی صارفین',
+    'users-per-group'         => 'گروپ فی صارفین'
 ];

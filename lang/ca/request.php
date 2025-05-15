@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Afegiu una sol·licitud',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Edat',
     'all-requests'        => 'Totes les peticions',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Aprova',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Generositat',
     'bounty-claimed'      => 'Bounty va reclamar',
     'bounty-unclaimed'    => 'Bounty no reclamat',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Voleu reclamar-ho d’una manera anònima',
     'claim-now'           => 'Reclama ara',
     'claimed'             => 'Reclamat',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Actual',
     'delete'              => 'Suprimeix aquesta sol·licitud',
     'delete-confirmation' => 'Esteu segur que voleu suprimir aquesta sol·licitud',
     'delete-filled'       => 'Aquesta sol·licitud només es pot suprimir si no s’ha omplert',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Descripció',
     'dont-have-bps'       => 'No teniu prou bons',
     'edit-request'        => 'Edició de la sol·licitud',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Introduïu punts de bonificació (mínim 100)',
     'enter-hash'          => 'Introduïu ID del Torrent penjat',
     'fill'                => 'Ompliu',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'per',
     'fulfill'             => 'Complir',
     'last-vote'           => 'Darrera votació',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Les meves sol·licituds',
+    'my-voted'            => 'My voted',
     'no'                  => 'No,',
     'no-imdb-id'          => 'Totes les sol·licituds han de contenir un número IMDB',
     'no-privileges'       => 'Error: els vostres drets de petició s han desactivat',
     'no-privileges-desc'  => 'Si creieu que això és un error, poseu-vos en contacte amb el personal',
     'no-refunds'          => 'Els intercanvis BON per crear, omplir i recompenses són definitius! <br> <strong>Sense reemborsaments!</strong>',
     'pending'             => 'Pendents',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Raó',
     'reject'              => 'Rebutjar',
     'report'              => 'Sol·licitud d informe',
     'request'             => 'Sol·licitud',
     'request-details'     => 'Sol·licitar detalls',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Sol · licitada per',
     'requests'            => 'Sol·licituds',
     'required'            => 'Obligatori',
     'reset'               => 'Restableix',
     'reset-confirmation'  => 'Esteu segur que voleu restablir aquesta sol·licitud',
     'reset-request'       => 'Restableix aquesta sol·licitud',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Recompensa',
     'reward-desc'         => 'Quin punt de bonificació us agradaria recompensar? Mínim 100 BP',
     'reward-from'         => 'Des de',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Recompensa total',
     'type'                => 'Escriviu',
     'unclaim'             => 'Reclamar aquesta sol·licitud',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Sense emplenar',
     'view-filled'         => 'Visualització completa',
     'view-unfilled'       => 'Visualització completa',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Vota aquesta sol·licitud',
     'voters'              => 'Votants',
     'votes'               => 'Vots',
-    'yes'                 => 'Sí',
+    'yes'                 => 'Sí'
 ];

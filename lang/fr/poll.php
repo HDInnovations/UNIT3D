@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,10 +18,12 @@ return [
     'add-option'           => 'Ajouter une option',
     'already-voted-error'  => 'Tu as déjà voté sur ce sondage. Ton vote n\'a pas été compté.',
     'already-voted-result' => 'Tu as déjà voté sur ce sondage. Voici les résultats.',
+    'close-date'           => 'Close Poll after',
     'create-poll'          => 'Créer un sondage',
     'current'              => 'Sondage (s) actuel (s)',
     'delete-option'        => 'Supprimer l option',
     'edit-poll'            => 'Editer le sondage',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
     'multiple-choice'      => 'Ceci est un sondage à choix multiples. Sélectionnez autant de réponses que vous le souhaitez.',
     'option'               => 'Option',
     'poll'                 => 'Sondage',
@@ -31,5 +34,5 @@ return [
     'vote'                 => 'Vote',
     'vote-counted'         => 'Ton vote a été compté.',
     'vote-now'             => 'Votez maintenant!',
-    'votes'                => 'Votes',
+    'votes'                => 'Votes'
 ];

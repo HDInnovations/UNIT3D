@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Suletud',
     'create-new-topic'          => 'Loo uus teema',
     'created'                   => 'Loodud',
+    'created-at'                => 'Created At',
     'current'                   => 'Praegune',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Kustuta see teema',
     'denied'                    => 'Keeldunud',
     'dislike-post'              => 'Ei meeldi see postitus',
     'display-forum'             => 'Kuva teemasid',
     'edit-post'                 => 'Redigeeri postitust',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Teema muutmine',
     'forum'                     => 'Foorum',
     'forums'                    => 'Foorumid',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Rakendatud',
     'in'                        => 'Sisse',
     'invalid'                   => 'Kehtetu',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Tsitaat',
     'read-topic'                => 'Loe teema',
     'replies'                   => 'Vastused',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Salvesta see teema',
     'solved'                    => 'Lahendatud',
     'state'                     => 'Riik',
     'stats'                     => 'Statistika',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Tellitud',
     'subscription-quick-search' => 'Teema nime kiire otsing (tellimustes)',
     'suggestion'                => 'Ettepanek',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Teema',
     'topic-closed'              => 'See teema on suletud',
     'topic-name'                => 'Teema nimi',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Selle teema pealkiri',
     'topics'                    => 'Teemad',
     'unpin'                     => 'Katkesta',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Vaata kõiki teemasid',
-    'views'                     => 'Vaated',
+    'views'                     => 'Vaated'
 ];

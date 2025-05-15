@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'მოქმედებები',
     'backup'                         => 'სარეზერვო',
     'backup_doesnt_exist'            => 'სარეზერვო ფაილი არ არსებობს.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'სრული სარეზერვო შექმნა',
-    'create_a_new_files_backup'      => 'ფაილების შექმნა Backup',
     'create_a_new_db_backup'         => 'მონაცემთა ბაზა სარეზერვო შექმნა',
+    'create_a_new_files_backup'      => 'ფაილების შექმნა Backup',
     'create_confirmation_message'    => 'გვერდის გადატვირთვა 3 წამში.',
     'create_confirmation_title'      => 'სარეზერვო დასრულდა',
     'create_error_message'           => 'სარეზერვო ფაილი ვერ შეიქმნა.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'მდებარეობა',
     'manager'                        => 'მენეჯერი',
     'no_disks_configured'            => 'არ არის სარეზერვო დისკის კონფიგურაცია config / backup.php',
-    'only_local_downloads_supported' => 'მხარდაჭერილია ლოკალური ფაილური სისტემისგან მხოლოდ ჩამოტვირთვები.',
+    'only_local_downloads_supported' => 'მხარდაჭერილია ლოკალური ფაილური სისტემისგან მხოლოდ ჩამოტვირთვები.'
 ];

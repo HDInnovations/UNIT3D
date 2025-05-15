@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'اختیار شامل کریں',
-    'create-poll'     => 'سروے بنائیں',
-    'current'         => 'موجودہ پولز',
-    'delete-option'   => 'اختیار حذف کریں',
-    'multiple-choice' => 'یہ ایک سے زیادہ انتخاب سروے ہے. آپ جیسے پسند کے طور پر بہت سے جوابات منتخب کریں.',
-    'option'          => 'اختیار',
-    'poll'            => 'پول',
-    'polls'           => 'پولز',
-    'results'         => 'پول کے نتائج',
-    'title'           => 'عنوان',
-    'total'           => 'کل ووٹ کبھی',
-    'vote'            => 'ووٹ',
-    'vote-now'        => 'اب آپ اپنا ووٹ حاصل کریں!',
-    'votes'           => 'ووٹ',
+    'add-option'           => 'اختیار شامل کریں',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'سروے بنائیں',
+    'current'              => 'موجودہ پولز',
+    'delete-option'        => 'اختیار حذف کریں',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'یہ ایک سے زیادہ انتخاب سروے ہے. آپ جیسے پسند کے طور پر بہت سے جوابات منتخب کریں.',
+    'option'               => 'اختیار',
+    'poll'                 => 'پول',
+    'polls'                => 'پولز',
+    'results'              => 'پول کے نتائج',
+    'title'                => 'عنوان',
+    'total'                => 'کل ووٹ کبھی',
+    'vote'                 => 'ووٹ',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'اب آپ اپنا ووٹ حاصل کریں!',
+    'votes'                => 'ووٹ'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'වසා ඇත',
     'create-new-topic'          => 'නව මාතෘකාවක් සාදන්න',
     'created'                   => 'නිර්මාණය කර ඇත',
+    'created-at'                => 'Created At',
     'current'                   => 'දැනට',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'මෙම මාතෘකාව මකන්න',
     'denied'                    => 'ප්රතික්ෂේප කළා',
     'dislike-post'              => 'මෙම පෝස්ටයට අකමැති',
     'display-forum'             => 'මාතෘකා පෙන්වන්න',
     'edit-post'                 => 'පෝස්ටය සංස්කරණය කරන්න',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'මාතෘකාව සංස්කරණය කරන්න',
     'forum'                     => 'මණ්ඩපය',
     'forums'                    => 'සංසද',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'ක්රියාත්මක කරනු ලැබේ',
     'in'                        => 'තුළ',
     'invalid'                   => 'අවලංගුයි',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Quote',
     'read-topic'                => 'මාතෘකාව කියවන්න',
     'replies'                   => 'පිළිතුරු',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'මෙම මාතෘකාව සුරකින්න',
     'solved'                    => 'විසදුමක්',
     'state'                     => 'රජයේ',
     'stats'                     => 'සංඛ්යාලේඛන',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'දායකත්වය',
     'subscription-quick-search' => 'මාතෘකාමීය නම ඉක්මන් සෙවුම් (දායකත්වයන් ඇතුළුව)',
     'suggestion'                => 'යෝජනාව',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'මාතෘකාව',
     'topic-closed'              => 'මෙම මාතෘකාව වසා ඇත',
     'topic-name'                => 'මාතෘකාව නම්',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'මෙම මාතෘකාව පිළිබඳ මාතෘකාව',
     'topics'                    => 'මාතෘකා',
     'unpin'                     => 'නොකියයි',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'සියලු මාතෘකා බලන්න',
-    'views'                     => 'දැක්ම',
+    'views'                     => 'දැක්ම'
 ];

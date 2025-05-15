@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Åtgärder',
     'backup'                         => 'Säkerhetskopiering',
     'backup_doesnt_exist'            => 'Säkerhetsfilen existerar inte.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Skapa fullständig säkerhetskopiering',
-    'create_a_new_files_backup'      => 'Skapa filer Backup',
     'create_a_new_db_backup'         => 'Skapa databas säkerhetskopiering',
+    'create_a_new_files_backup'      => 'Skapa filer Backup',
     'create_confirmation_message'    => 'Ladda om sidan på 3 sekunder.',
     'create_confirmation_title'      => 'Backup klar',
     'create_error_message'           => 'Säkerhetsfilen kunde inte skapas.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Plats',
     'manager'                        => 'Chef',
     'no_disks_configured'            => 'Inga säkerhetskopior har konfigurerats i config / backup.php',
-    'only_local_downloads_supported' => 'Endast nedladdningar från det lokala filsystemet stöds.',
+    'only_local_downloads_supported' => 'Endast nedladdningar från det lokala filsystemet stöds.'
 ];

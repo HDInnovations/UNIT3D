@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Lag',
-    'delete'        => 'Slett',
-    'enter-subject' => 'Skriv Emne',
-    'from'          => 'Fra',
-    'inbox'         => 'Innboks',
-    'mark-all-read' => 'Merk alle meldinger som lest',
-    'message'       => 'Melding',
-    'messages'      => 'Meldinger',
-    'new'           => 'Ny Melding',
-    'outbox'        => 'Utboks',
-    'private'       => 'Privat',
-    'read'          => 'Les',
-    'received-at'   => 'Mottatt Ved',
-    'refresh'       => 'Oppfrisk',
-    'reply'         => 'Svare',
-    'search'        => 'Søk Etter Emne',
-    'select'        => 'Velg En Bruker',
-    'send'          => 'Send PM',
-    'send-to'       => 'Send PM Til',
-    'sent'          => 'Sendt',
-    'sent-at'       => 'Sendt Ved',
-    'subject'       => 'Emne',
-    'to'            => 'Til',
-    'unread'        => 'Ulest',
-    'empty-inbox'   => 'Tom Innboks',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Lag',
+    'delete'          => 'Slett',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Tom Innboks',
+    'enter-subject'   => 'Skriv Emne',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Fra',
+    'inbox'           => 'Innboks',
+    'mark-all-read'   => 'Merk alle meldinger som lest',
+    'message'         => 'Melding',
+    'messages'        => 'Meldinger',
+    'new'             => 'Ny Melding',
+    'outbox'          => 'Utboks',
+    'private'         => 'Privat',
+    'read'            => 'Les',
+    'received-at'     => 'Mottatt Ved',
+    'refresh'         => 'Oppfrisk',
+    'reply'           => 'Svare',
+    'search'          => 'Søk Etter Emne',
+    'select'          => 'Velg En Bruker',
+    'send'            => 'Send PM',
+    'send-to'         => 'Send PM Til',
+    'sent'            => 'Sendt',
+    'sent-at'         => 'Sendt Ved',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Emne',
+    'to'              => 'Til',
+    'unread'          => 'Ulest'
 ];

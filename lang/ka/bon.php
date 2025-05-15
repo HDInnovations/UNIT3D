@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Გაცვლა',
     'exchange-warning'        => 'ბირჟები საბოლოოა, გთხოვთ გაორმაგოთ თქვენი არჩევანი გაცვლის დაწყებამდე.',
     'extended-stats'          => 'გაფართოებული სტატისტიკა',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'საჩუქარი',
     'gift-bonus'              => 'საჩუქარი ბონუს ქულები',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'საჩუქარი ბონუს ქულა',
     'gifts'                   => 'საჩუქრები',
     'item'                    => 'საქონელი',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'პუნქტები წამში',
     'per-week'                => 'ქულები კვირაში',
     'per-year'                => 'ქულები წელიწადში',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'ქულები',
     'receiver'                => 'მიმღები',
     'review-seeds'            => 'განიხილეთ ყველა სელექციური ტორენტი',
     'send-gift'               => 'Საჩუქრის გაგზავნა',
     'sender'                  => 'გამგზავნი',
     'store'                   => 'მაღაზია',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Რჩევები',
     'total'                   => 'სრული გამომუშავება',
     'total-gifts'             => 'სულ BON საჩუქრები',
     'total-tips'              => 'სულ BON რჩევები',
     'you-have-received-gifts' => 'Თქვენ მიიღეთ',
-    'you-have-sent-gifts'     => 'თქვენ გაიგზავნა',
     'you-have-received-tips'  => 'Თქვენ მიიღეთ',
+    'you-have-sent-gifts'     => 'თქვენ გაიგზავნა',
     'you-have-sent-tips'      => 'თქვენ გაიგზავნა',
-    'your-points'             => 'შენი ქულები',
+    'your-points'             => 'შენი ქულები'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'අවසාන වශයෙන් ක්රියාකාරී වේ',
     'chatbox'                 => 'චැට් කොටුව',
+    'check-news'              => 'පුවත් (දිනපතා පරීක්ෂා කරන්න)',
     'click'                   => 'ක්ලික් කරන්න',
-    'to-enable-editor'        => 'සංස්කාරකය සක්රීය කිරීමට',
     'featured-by'             => 'විශේෂාංග',
     'featured-torrents'       => 'විශේෂාංග පිටු',
     'featured-torrents-intro' => 'ඔබට හැකි අතරේදී ඔවුන් ලබා ගන්න!',
     'featured-until'          => 'තෙක් මෙය ටොරන්ට් එකකි',
-    'top-torrents'            => 'Top Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'නවතම තැපැල්',
     'latest-topics'           => 'අලුත් මාතෘකා',
-    'active-in-last'          => 'අවසාන වශයෙන් ක්රියාකාරී වේ',
-    'users-online'            => 'පරිශීලකයන් මාර්ගගතව',
-    'check-news'              => 'පුවත් (දිනපතා පරීක්ෂා කරන්න)',
     'new-news'                => 'නව නිව්ස්',
     'new-torrents'            => 'නව ටොරන්ට්',
+    'to-enable-editor'        => 'සංස්කාරකය සක්රීය කිරීමට',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'පරිශීලකයන් මාර්ගගතව'
 ];

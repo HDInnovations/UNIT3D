@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Sortu',
     'create-private-feed' => 'Sortu RSS iturri pribatua',
     'create-public-feed'  => 'Sortu RSS iturri publikoa',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'ezabatu',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Editatu',
     'edit-private-feed'   => 'Editatu RSS iturri pribatua',
     'edit-public-feed'    => 'Editatu RSS iturri publikoa',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'feed',
     'feeds'               => 'jarioak',
     'name'                => 'izena',
-    'public'              => 'Publiko',
     'private'             => 'Pribatua',
+    'public'              => 'Publiko',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS jarioa',
     'type'                => 'Mota',
+    'updated'             => 'Private RSS Feed Updated'
 ];

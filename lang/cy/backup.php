@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Camau gweithredu',
     'backup'                         => 'Wrth gefn',
     'backup_doesnt_exist'            => 'Nid yw r ffeil wrth gefn yn bodoli.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Creu copi wrth gefn llawn',
-    'create_a_new_files_backup'      => 'Creu Ffeiliau wrth gefn',
     'create_a_new_db_backup'         => 'Creu copi wrth gefn o r gronfa ddata',
+    'create_a_new_files_backup'      => 'Creu Ffeiliau wrth gefn',
     'create_confirmation_message'    => 'Ail-lwytho r dudalen mewn 3 eiliad.',
     'create_confirmation_title'      => 'Cwblhawyd copi wrth gefn',
     'create_error_message'           => 'NI ellir creu r ffeil wrth gefn.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Lleoliad',
     'manager'                        => 'Rheolwr',
     'no_disks_configured'            => 'Dim disgiau wrth gefn wedi u ffurfweddu yn config / backup.php',
-    'only_local_downloads_supported' => 'Dim ond lawrlwythiadau o r system ffeiliau leol sy n cael eu cefnogi.',
+    'only_local_downloads_supported' => 'Dim ond lawrlwythiadau o r system ffeiliau leol sy n cael eu cefnogi.'
 ];

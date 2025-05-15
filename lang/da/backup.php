@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Handlinger',
     'backup'                         => 'Backup',
     'backup_doesnt_exist'            => 'Backupfilen findes ikke.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Opret fuld backup',
-    'create_a_new_files_backup'      => 'Opret filer backup',
     'create_a_new_db_backup'         => 'Opret database backup',
+    'create_a_new_files_backup'      => 'Opret filer backup',
     'create_confirmation_message'    => 'Genindlæser siden om 3 sekunder.',
     'create_confirmation_title'      => 'Backup afsluttet',
     'create_error_message'           => 'Backupfilen kunne IKKE oprettes.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Beliggenhed',
     'manager'                        => 'Manager',
     'no_disks_configured'            => 'Ingen backup diske konfigureret i config / backup.php',
-    'only_local_downloads_supported' => 'Kun downloads fra det lokale filsystem understøttes.',
+    'only_local_downloads_supported' => 'Kun downloads fra det lokale filsystem understøttes.'
 ];

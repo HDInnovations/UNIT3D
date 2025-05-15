@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Ενεργός τελευταίος',
     'chatbox'                 => 'Κουτί συνομιλίας',
+    'check-news'              => 'Νέα (ελέγξτε καθημερινά)',
     'click'                   => 'Κάντε κλικ',
-    'to-enable-editor'        => 'για να ενεργοποιήσετε τon επεξεργαστή κειμένου',
     'featured-by'             => 'Προτεινόμενα από',
     'featured-torrents'       => 'Προτεινόμενα Torrents',
     'featured-torrents-intro' => 'Κατεβάστε τα, όσο προλαβαίνετε!',
     'featured-until'          => 'Αυτό το torrent εμφανίζεται προτεινόμενο μέχρι',
-    'top-torrents'            => 'Κορυφάια Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Tελευταίες δημοσιεύσεις',
     'latest-topics'           => 'Τελευταία θέματα',
-    'active-in-last'          => 'Ενεργός τελευταίος',
-    'users-online'            => 'Χρήστες Online',
-    'check-news'              => 'Νέα (ελέγξτε καθημερινά)',
     'new-news'                => 'Καινούρια νέα',
     'new-torrents'            => 'Νέα torrents',
+    'to-enable-editor'        => 'για να ενεργοποιήσετε τon επεξεργαστή κειμένου',
+    'top-torrents'            => 'Κορυφάια Torrents',
+    'users-online'            => 'Χρήστες Online'
 ];

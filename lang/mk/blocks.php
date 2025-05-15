@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Активен во минатата година',
     'chatbox'                 => 'Chat Box',
+    'check-news'              => 'Вести (проверете дневно)',
     'click'                   => 'Кликни',
-    'to-enable-editor'        => 'за да овозможите уредник',
     'featured-by'             => 'Избрана од',
     'featured-torrents'       => 'Избрана акција',
     'featured-torrents-intro' => 'Добијте ги додека можете!',
     'featured-until'          => 'Ова е прикажан торен до',
-    'top-torrents'            => 'Најсодржајниот добар',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Најнови пораки',
     'latest-topics'           => 'Најнови Теми',
-    'active-in-last'          => 'Активен во минатата година',
-    'users-online'            => 'Корисници онлајн',
-    'check-news'              => 'Вести (проверете дневно)',
     'new-news'                => 'Нови вести',
     'new-torrents'            => 'Нови торенти',
+    'to-enable-editor'        => 'за да овозможите уредник',
+    'top-torrents'            => 'Најсодржајниот добар',
+    'users-online'            => 'Корисници онлајн'
 ];

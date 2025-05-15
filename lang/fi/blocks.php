@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Viimeksi aktiivinen',
     'chatbox'                 => 'Chat-ruutu',
+    'check-news'              => 'Uutiset (tarkista päivittäin)',
     'click'                   => 'Klikkaus',
-    'to-enable-editor'        => 'sallia editori',
     'featured-by'             => 'Mukaan',
     'featured-torrents'       => 'Esitetyt torrentit',
     'featured-torrents-intro' => 'Hanki ne, kun voit!',
     'featured-until'          => 'Tämä näkyy torrentilla kunnes',
-    'top-torrents'            => 'Suosituimmat torrentit',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Uusimmat viestit',
     'latest-topics'           => 'Viimeisimmät aiheet',
-    'active-in-last'          => 'Viimeksi aktiivinen',
-    'users-online'            => 'Käyttäjät Online',
-    'check-news'              => 'Uutiset (tarkista päivittäin)',
     'new-news'                => 'Uusia uutisia',
     'new-torrents'            => 'Uudet torrentit',
+    'to-enable-editor'        => 'sallia editori',
+    'top-torrents'            => 'Suosituimmat torrentit',
+    'users-online'            => 'Käyttäjät Online'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'ปิด',
     'create-new-topic'          => 'สร้างหัวข้อใหม่',
     'created'                   => 'ที่สร้างไว้',
+    'created-at'                => 'Created At',
     'current'                   => 'ปัจจุบัน',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'ลบหัวข้อนี้',
     'denied'                    => 'ปฏิเสธ',
     'dislike-post'              => 'ไม่ชอบโพสต์นี้',
     'display-forum'             => 'แสดงหัวข้อใน',
     'edit-post'                 => 'แก้ไขโพสต์',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'แก้ไขหัวข้อ',
     'forum'                     => 'ฟอรั่ม',
     'forums'                    => 'ฟอรั่ม',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'การดำเนินการ',
     'in'                        => 'ใน',
     'invalid'                   => 'โมฆะ',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'อ้างอิง',
     'read-topic'                => 'อ่านหัวข้อ',
     'replies'                   => 'ตอบกลับ',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'บันทึกหัวข้อนี้',
     'solved'                    => 'แก้ไข',
     'state'                     => 'สถานะ',
     'stats'                     => 'สถิติ',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'สมัครเป็นสมาชิก',
     'subscription-quick-search' => 'การค้นหาชื่อหัวข้อด่วน (ภายในการสมัคร)',
     'suggestion'                => 'ข้อเสนอแนะ',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'หัวข้อเรื่อง',
     'topic-closed'              => 'หัวข้อนี้ปิด',
     'topic-name'                => 'ชื่อหัวข้อ',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'หัวข้อของหัวข้อนี้',
     'topics'                    => 'หัวข้อ',
     'unpin'                     => 'เลิกตรึง',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'ดูหัวข้อทั้งหมด',
-    'views'                     => 'เข้าชม',
+    'views'                     => 'เข้าชม'
 ];

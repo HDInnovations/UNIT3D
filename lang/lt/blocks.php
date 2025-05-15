@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Aktyvus paskutinis',
     'chatbox'                 => 'Pokalbių laukelis',
+    'check-news'              => 'Naujienos (kasdien patikrinkite)',
     'click'                   => 'Spustelėkite',
-    'to-enable-editor'        => 'įjungti redaktorių',
     'featured-by'             => '„',
     'featured-torrents'       => 'Teminiai torrentai',
     'featured-torrents-intro' => 'Gauti juos, kol galite!',
     'featured-until'          => 'Tai rodoma torrent iki',
-    'top-torrents'            => 'Populiariausi turnyrai',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Paskutiniai pranešimai',
     'latest-topics'           => 'Naujausios temos',
-    'active-in-last'          => 'Aktyvus paskutinis',
-    'users-online'            => 'Vartotojai internete',
-    'check-news'              => 'Naujienos (kasdien patikrinkite)',
     'new-news'                => 'Naujos naujienos',
     'new-torrents'            => 'Nauji torrentai',
+    'to-enable-editor'        => 'įjungti redaktorių',
+    'top-torrents'            => 'Populiariausi turnyrai',
+    'users-online'            => 'Vartotojai internete'
 ];

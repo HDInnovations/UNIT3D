@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Затворено',
     'create-new-topic'          => 'Креирај нова тема',
     'created'                   => 'Создаден',
+    'created-at'                => 'Created At',
     'current'                   => 'Тековна',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Избриши ја оваа тема',
     'denied'                    => 'Одбиен',
     'dislike-post'              => 'Не ми се допаѓа оваа порака',
     'display-forum'             => 'Прикажи теми во',
     'edit-post'                 => 'Уредете ја објавата',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Уредете ја темата',
     'forum'                     => 'Форум',
     'forums'                    => 'Форуми',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Имплементиран',
     'in'                        => 'Во',
     'invalid'                   => 'Невалиден',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Цитат',
     'read-topic'                => 'Прочитајте ја темата',
     'replies'                   => 'Одговори',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Зачувај ја оваа тема',
     'solved'                    => 'Решено',
     'state'                     => 'Држава',
     'stats'                     => 'Статистика',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Претплатени',
     'subscription-quick-search' => 'Брзо пребарување на името на темата (во претплатата)',
     'suggestion'                => 'Предлог',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Тема',
     'topic-closed'              => 'Оваа тема е затворена',
     'topic-name'                => 'Име на темата',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Наслов на оваа тема',
     'topics'                    => 'Теми',
     'unpin'                     => 'Откажи',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Прикажи ги сите теми',
-    'views'                     => 'Прегледи',
+    'views'                     => 'Прегледи'
 ];

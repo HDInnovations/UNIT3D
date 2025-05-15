@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Lisää vaihtoehto',
-    'create-poll'     => 'Luo kysely',
-    'current'         => 'Nykyinen kysely (t)',
-    'delete-option'   => 'Poista vaihtoehto',
-    'multiple-choice' => 'Tämä on monivalintakysely. Valitse niin monta vastausta kuin haluat.',
-    'option'          => 'Vaihtoehto',
-    'poll'            => 'äänestys',
-    'polls'           => 'Kyselyt',
-    'results'         => 'Kyselyn tulokset',
-    'title'           => 'otsikko',
-    'total'           => 'Äänet yhteensä',
-    'vote'            => 'Äänestys',
-    'vote-now'        => 'Hanki äänesi nyt!',
-    'votes'           => 'ääntä',
+    'add-option'           => 'Lisää vaihtoehto',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Luo kysely',
+    'current'              => 'Nykyinen kysely (t)',
+    'delete-option'        => 'Poista vaihtoehto',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Tämä on monivalintakysely. Valitse niin monta vastausta kuin haluat.',
+    'option'               => 'Vaihtoehto',
+    'poll'                 => 'äänestys',
+    'polls'                => 'Kyselyt',
+    'results'              => 'Kyselyn tulokset',
+    'title'                => 'otsikko',
+    'total'                => 'Äänet yhteensä',
+    'vote'                 => 'Äänestys',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Hanki äänesi nyt!',
+    'votes'                => 'ääntä'
 ];

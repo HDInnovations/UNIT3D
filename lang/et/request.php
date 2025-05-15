@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Lisa taotlus',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Vanus',
     'all-requests'        => 'Kõik taotlused',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Kinnita',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty väitis',
     'bounty-unclaimed'    => 'Bounty ei palunud',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Kas soovite seda anonüümselt nõuda',
     'claim-now'           => 'Nõue nüüd',
     'claimed'             => 'Nõutud',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Praegune',
     'delete'              => 'Kustuta see päring',
     'delete-confirmation' => 'Kas soovite kindlasti selle taotluse kustutada',
     'delete-filled'       => 'Seda taotlust saab kustutada ainult siis, kui seda pole täidetud',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Kirjeldus',
     'dont-have-bps'       => 'Sul ei ole piisavalt boonust',
     'edit-request'        => 'Muuda taotlust',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Sisestage boonuspunktid (vähemalt 100)',
     'enter-hash'          => 'Sisestage üleslaaditud Torrenti ID',
     'fill'                => 'Täitke',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'jaoks',
     'fulfill'             => 'Täida',
     'last-vote'           => 'Viimane hääletus',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Minu taotlused',
+    'my-voted'            => 'My voted',
     'no'                  => 'Ei,',
     'no-imdb-id'          => 'Kõik taotlused peavad sisaldama IMDB numbrit',
     'no-privileges'       => 'Viga: teie päringu õigused on keelatud',
     'no-privileges-desc'  => 'Kui arvate, et see on viga, võtke palun ühendust personaliga',
     'no-refunds'          => 'BONi vahetused loomise, täitmise ja boonuste kohta on lõplikud! <br> <strong>MITTE TAGASIMAKSED!</strong>',
     'pending'             => 'Ootel',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Põhjus',
     'reject'              => 'Keeldu',
     'report'              => 'Aruande taotlus',
     'request'             => 'Taotlus',
     'request-details'     => 'Küsi üksikasju',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Nõutud',
     'requests'            => 'Taotlused',
     'required'            => 'Nõutud',
     'reset'               => 'Lähtesta',
     'reset-confirmation'  => 'Kas olete kindel, et soovite selle päringu taastada',
     'reset-request'       => 'Taotluse lähtestamine',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Auhind',
     'reward-desc'         => 'Kui palju boonuspunkti soovid premeerida? Vähemalt 100 BP',
     'reward-from'         => 'Alates',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Summaarne summa',
     'type'                => 'Tüüp',
     'unclaim'             => 'Taotluse rahuldamata jätmine',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Täitmata',
     'view-filled'         => 'Kuva täidetud',
     'view-unfilled'       => 'Vaade on täitmata',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Hääleta see taotlus',
     'voters'              => 'Valijad',
     'votes'               => 'Hääled',
-    'yes'                 => 'Jah',
+    'yes'                 => 'Jah'
 ];

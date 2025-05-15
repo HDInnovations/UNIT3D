@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Zatvoreno',
     'create-new-topic'          => 'Napravite novu temu',
     'created'                   => 'Created',
+    'created-at'                => 'Created At',
     'current'                   => 'Current',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Izbriši ovu temu',
     'denied'                    => 'Denied',
     'dislike-post'              => 'Ne sviđa mi se ovaj post',
     'display-forum'             => 'Prikaži teme u',
     'edit-post'                 => 'Edit Post',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Uredi temu',
     'forum'                     => 'Forum',
     'forums'                    => 'Forumi',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Implementirano',
     'in'                        => 'In',
     'invalid'                   => 'Nevažeće',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Quote',
     'read-topic'                => 'Pročitajte temu',
     'replies'                   => 'Odgovori',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Sačuvaj ovu temu',
     'solved'                    => 'Solved',
     'state'                     => 'State',
     'stats'                     => 'Stats',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Pretplaćeno',
     'subscription-quick-search' => 'Naziv teme brzo pretraživanje (unutar pretplata)',
     'suggestion'                => 'Sugestija',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Tema',
     'topic-closed'              => 'Ova tema je zatvorena',
     'topic-name'                => 'Naziv teme',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Naslov ove teme',
     'topics'                    => 'Teme',
     'unpin'                     => 'Unpin',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Prikaži sve teme',
-    'views'                     => 'Pregledi',
+    'views'                     => 'Pregledi'
 ];

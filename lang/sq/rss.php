@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'krijoj',
     'create-private-feed' => 'Krijo RSS Feed Privat',
     'create-public-feed'  => 'Krijo public RSS Feed',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'fshij',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'redaktoj',
     'edit-private-feed'   => 'Ndrysho RSS Feed Privat',
     'edit-public-feed'    => 'Ndrysho RSS Feed Publik',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'ushqim',
     'feeds'               => 'Feeds',
     'name'                => 'emër',
-    'public'              => 'publik',
     'private'             => 'privat',
+    'public'              => 'publik',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Feed',
     'type'                => 'lloj',
+    'updated'             => 'Private RSS Feed Updated'
 ];

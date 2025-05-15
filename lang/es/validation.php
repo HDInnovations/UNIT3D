@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,17 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
     'accepted'        => ':attribute debe ser aceptado.',
     'accepted_if'     => ':attribute debe ser aceptado cuando :other sea :value.',
     'active_url'      => ':attribute no es una URL válida.',
@@ -147,73 +137,14 @@ return [
     'url'         => 'El formato :attribute es inválido.',
     'uuid'        => 'El campo :attribute debe ser un UUID válido.',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
     'email_list' => 'Lo sentimos, no aceptamos ese dominio de correos eléctronicos. Aceptamos los que publicamos en nuestra lista blanca.',
     'recaptcha'  => 'Verifica que no eres un robot rellenando el Captcha.',
 
     'custom' => [
-        'password' => [
-            'min' => 'La :attribute debe contener más de :min caracteres',
-        ],
-        'email' => [
-            'unique' => 'El :attribute ya existe en nuestra base de datos.',
-        ],
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
-    */
-
-    'attributes' => [
-        'name'                  => 'nombre',
-        'username'              => 'usuario',
-        'email'                 => 'correo electrónico',
-        'first_name'            => 'nombre',
-        'last_name'             => 'apellido',
-        'password'              => 'contraseña',
-        'password_confirmation' => 'confirmación de la contraseña',
-        'city'                  => 'ciudad',
-        'country'               => 'país',
-        'address'               => 'dirección',
-        'phone'                 => 'teléfono',
-        'mobile'                => 'móvil',
-        'age'                   => 'edad',
-        'sex'                   => 'sexo',
-        'gender'                => 'género',
-        'year'                  => 'año',
-        'month'                 => 'mes',
-        'day'                   => 'día',
-        'hour'                  => 'hora',
-        'minute'                => 'minuto',
-        'second'                => 'segundo',
-        'title'                 => 'título',
-        'content'               => 'contenido',
-        'body'                  => 'contenido',
-        'description'           => 'descripción',
-        'excerpt'               => 'extracto',
-        'date'                  => 'fecha',
-        'time'                  => 'hora',
-        'subject'               => 'asunto',
-        'message'               => 'mensaje',
-    ],
+    'attributes' => [],
 ];

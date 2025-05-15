@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'विकल्प जोड़ें',
-    'create-poll'     => 'जनमत बनाएं',
-    'current'         => 'वर्तमान पोल',
-    'delete-option'   => 'हटाने का विकल्प',
-    'multiple-choice' => 'यह बहुविकल्पी चुनाव है। जितने चाहे उतने जवाब चुनिए',
-    'option'          => 'विकल्प',
-    'poll'            => 'मतदान',
-    'polls'           => 'पोल',
-    'results'         => 'मतदान के परिणाम',
-    'title'           => 'शीर्षक',
-    'total'           => 'कुल वोट कभी',
-    'vote'            => 'वोट',
-    'vote-now'        => 'अब में अपना वोट प्राप्त करें!',
-    'votes'           => 'वोट',
+    'add-option'           => 'विकल्प जोड़ें',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'जनमत बनाएं',
+    'current'              => 'वर्तमान पोल',
+    'delete-option'        => 'हटाने का विकल्प',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'यह बहुविकल्पी चुनाव है। जितने चाहे उतने जवाब चुनिए',
+    'option'               => 'विकल्प',
+    'poll'                 => 'मतदान',
+    'polls'                => 'पोल',
+    'results'              => 'मतदान के परिणाम',
+    'title'                => 'शीर्षक',
+    'total'                => 'कुल वोट कभी',
+    'vote'                 => 'वोट',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'अब में अपना वोट प्राप्त करें!',
+    'votes'                => 'वोट'
 ];

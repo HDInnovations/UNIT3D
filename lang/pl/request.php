@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Dodaj żądanie',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Wiek',
     'all-requests'        => 'Wszystkie prośby',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Zatwierdzać',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Hojność',
     'bounty-claimed'      => 'Bounty twierdził',
     'bounty-unclaimed'    => 'Bounty nieodebrane',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Chciałbyś to zgłosić Anonomicznie',
     'claim-now'           => 'Odbierz teraz',
     'claimed'             => 'Twierdził',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'obecny',
     'delete'              => 'Usuń to żądanie',
     'delete-confirmation' => 'Czy na pewno chcesz usunąć to żądanie',
     'delete-filled'       => 'To żądanie można usunąć tylko wtedy, gdy nie zostało wypełnione',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Opis',
     'dont-have-bps'       => 'Nie masz wystarczającej premii',
     'edit-request'        => 'Edytuj prośbę',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Wpisz punkty bonusowe (minimum 100)',
     'enter-hash'          => 'Wprowadź skrót informacyjny przesłanego Torrenta',
     'fill'                => 'Napełnić',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'dla',
     'fulfill'             => 'Spełnić',
     'last-vote'           => 'Ostatnie głosowanie',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Moje prośby',
+    'my-voted'            => 'My voted',
     'no'                  => 'Nie,',
     'no-imdb-id'          => 'Wszystkie żądania muszą zawierać numer IMDB',
     'no-privileges'       => 'Błąd: Twoje uprawnienia do żądania zostały wyłączone',
     'no-privileges-desc'  => 'Jeśli uważasz, że to błąd, skontaktuj się z personelem',
     'no-refunds'          => 'Wymiany BON na tworzenie, wypełnianie i nagrody są ostateczne! <br> <strong>BEZ ZWROTÓW!</strong>',
     'pending'             => 'W oczekiwaniu',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Powód',
     'reject'              => 'Odrzucać',
     'report'              => 'Zgłoś żądanie',
     'request'             => 'Żądanie',
     'request-details'     => 'Poproś o szczegóły',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Na wniosek',
     'requests'            => 'Upraszanie',
     'required'            => 'wymagany',
     'reset'               => 'Nastawić',
     'reset-confirmation'  => 'Czy na pewno chcesz zresetować to żądanie',
     'reset-request'       => 'Zresetuj to żądanie',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Nagroda',
     'reward-desc'         => 'Ile punktów bonusowych chciałbyś nagrodzić? Minimum 100 BP',
     'reward-from'         => 'Z',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Całkowita nagroda',
     'type'                => 'Rodzaj',
     'unclaim'             => 'Odwołaj to żądanie',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Niewypełnione',
     'view-filled'         => 'Zobacz wypełnione',
     'view-unfilled'       => 'Zobacz niewypełnione',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Głosuj na to żądanie',
     'voters'              => 'Głosujący',
     'votes'               => 'Głosy',
-    'yes'                 => 'tak',
+    'yes'                 => 'tak'
 ];

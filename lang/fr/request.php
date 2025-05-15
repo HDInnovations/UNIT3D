@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,8 +15,8 @@ declare(strict_types=1);
  */
 
 return [
-    'access-error'        => 'Tu n\'as pas le droit d\'approuver cette demande.',
     'access-delete-error' => 'Tu n\'as pas le droit de supprimer cette demande.',
+    'access-error'        => 'Tu n\'as pas le droit d\'approuver cette demande.',
     'add-request'         => 'Ajouter une demande',
     'added-bonus'         => 'Ton bonus a été ajouté avec succès.',
     'added-request'       => 'Demande ajoutée.',
@@ -55,7 +56,10 @@ return [
     'for'                 => 'Pour',
     'fulfill'             => 'Remplir',
     'last-vote'           => 'Dernier vote',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Mes demandes',
+    'my-voted'            => 'My voted',
     'no'                  => 'Non,',
     'no-imdb-id'          => 'Toutes les demandes doivent contenir un numéro IMDB',
     'no-privileges'       => 'Erreur: vos privilèges ont été désactivés',
@@ -76,6 +80,8 @@ return [
     'reset'               => 'Réinitialiser',
     'reset-confirmation'  => 'Êtes-vous sûr de vouloir réinitialiser cette demande?',
     'reset-request'       => 'Réinitialiser cette demande',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Récompense',
     'reward-desc'         => 'Combien de points bonus souhaitez-vous récompenser? Minimum 100 BP',
     'reward-from'         => 'De',
@@ -93,5 +99,5 @@ return [
     'vote-that'           => 'Votez pour cette demande',
     'voters'              => 'Electeurs',
     'votes'               => 'Votes',
-    'yes'                 => 'Oui',
+    'yes'                 => 'Oui'
 ];

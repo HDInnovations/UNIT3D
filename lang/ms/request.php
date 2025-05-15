@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Tambah permintaan',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Umur',
     'all-requests'        => 'Semua permintaan',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Terima',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty mendakwa',
     'bounty-unclaimed'    => 'Bounty tidak dituntut',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Adakah Anda Suka Tuntut Ini Secara Maju',
     'claim-now'           => 'Tuntut sekarang',
     'claimed'             => 'Dikenakan',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Semasa',
     'delete'              => 'Padamkan Permintaan ini',
     'delete-confirmation' => 'Adakah anda pasti mahu memadamkan Permintaan ini',
     'delete-filled'       => 'Permintaan ini hanya boleh dihapuskan jika ia belum diisi',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Penerangan',
     'dont-have-bps'       => 'Anda tidak mempunyai Bonus yang mencukupi',
     'edit-request'        => 'Edit permintaan',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Masukkan mata bonus (minimum 100)',
     'enter-hash'          => 'Masukkan ID daripada Torrent yang dimuat naik',
     'fill'                => 'Isi',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'untuk',
     'fulfill'             => 'Memenuhi',
     'last-vote'           => 'Undian terakhir',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Permintaan saya',
+    'my-voted'            => 'My voted',
     'no'                  => 'Tidak,',
     'no-imdb-id'          => 'Semua Permintaan Mesti Mengemukakan Nombor IMDB',
     'no-privileges'       => 'Ralat: Hak permintaan anda telah dilumpuhkan',
     'no-privileges-desc'  => 'Jika anda merasakan ini salah, sila hubungi Kakitangan',
     'no-refunds'          => 'BON pertukaran pada penciptaan, pengisian dan nikmat adalah muktamad! <br> <strong>NO REFUNDS!</strong>',
     'pending'             => 'Yang belum selesai',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Sebab',
     'reject'              => 'Tolak',
     'report'              => 'Permintaan laporan',
     'request'             => 'Permintaan',
     'request-details'     => 'Meminta butiran',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Diminta oleh',
     'requests'            => 'Permintaan',
     'required'            => 'Dikehendaki',
     'reset'               => 'Tetapkan semula',
     'reset-confirmation'  => 'Adakah anda pasti mahu menetapkan semula Permintaan ini',
     'reset-request'       => 'Tetapkan semula Permintaan ini',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Ganjaran',
     'reward-desc'         => 'Berapa banyak titik bonus yang anda ingin ganjaran? Minimum 100 BP',
     'reward-from'         => 'Dari',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Jumlah hadiah',
     'type'                => 'Taipkan',
     'unclaim'             => 'Tidak dapat menuntut permintaan ini',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Belum selesai',
     'view-filled'         => 'Lihat diisi',
     'view-unfilled'       => 'Lihat tidak diisi',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Undian Permintaan ini',
     'voters'              => 'Pengundi',
     'votes'               => 'Undian',
-    'yes'                 => 'Ya',
+    'yes'                 => 'Ya'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,14 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'date'             => 'Datum',
-    'delete'           => 'Radera',
-    'delete-all'       => 'Ta bort alla meddelanden',
-    'mark-all-read'    => 'Markera allt som läst',
-    'mark-read'        => 'Markera som läst',
-    'message'          => 'Meddelande',
-    'no-notifications' => 'Inga meddelanden hittades',
-    'notifications'    => 'Notiser',
-    'read'             => 'Läs',
-    'title'            => 'Titel',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gifts',
+    'comment-tags'        => 'Comment Tags',
+    'date'                => 'Datum',
+    'delete'              => 'Radera',
+    'delete-all'          => 'Ta bort alla meddelanden',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filter By Notification Type',
+    'mark-all-read'       => 'Markera allt som läst',
+    'mark-read'           => 'Markera som läst',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'Meddelande',
+    'no-notifications'    => 'Inga meddelanden hittades',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'Notiser',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'Läs',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'Titel',
+    'unfollows'           => 'Unfollows'
 ];

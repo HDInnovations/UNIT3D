@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => '만들기',
     'create-private-feed' => '비공개 RSS 피드 만들기',
     'create-public-feed'  => '공개 RSS 피드 만들기',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => '지우기',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => '편집하',
     'edit-private-feed'   => '비공개 RSS 피드 편집',
     'edit-public-feed'    => '공개 RSS 피드 수정',
+    'error'               => 'Unable To Process Request',
     'feed'                => '피드',
     'feeds'               => '피드들',
     'name'                => '이름',
-    'public'              => '공개',
     'private'             => '개인적인',
+    'public'              => '공개',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS 피드',
     'type'                => '유형',
+    'updated'             => 'Private RSS Feed Updated'
 ];

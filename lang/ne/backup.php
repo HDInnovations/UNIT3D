@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'कार्यहरू',
     'backup'                         => 'जगेडा',
     'backup_doesnt_exist'            => 'ब्याकअप फाइल अवस्थित छैन।',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'पूर्ण जगेडा सिर्जना गर्नुहोस्',
-    'create_a_new_files_backup'      => 'फाईल ब्याकअप सिर्जना गर्नुहोस्',
     'create_a_new_db_backup'         => 'डेटाबेस ब्याकअप सिर्जना गर्नुहोस्',
+    'create_a_new_files_backup'      => 'फाईल ब्याकअप सिर्जना गर्नुहोस्',
     'create_confirmation_message'    => '3 सेकेन्डमा पृष्ठ पुन: लोड गर्दै।',
     'create_confirmation_title'      => 'जगेडा पूरा भयो',
     'create_error_message'           => 'ब्याकअप फाइल सिर्जना गर्न सकिएन।',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'स्थान',
     'manager'                        => 'प्रबन्धक',
     'no_disks_configured'            => 'कुनै जगेडा डिस्क कन्फिगर / कन्फिगर.php मा कन्फिगर गरिएको छैन',
-    'only_local_downloads_supported' => 'स्थानीय फाइल प्रणालीबाट मात्र डाउनलोडहरू समर्थित छन्।',
+    'only_local_downloads_supported' => 'स्थानीय फाइल प्रणालीबाट मात्र डाउनलोडहरू समर्थित छन्।'
 ];
