@@ -35,7 +35,7 @@ use Throwable;
  * @property Collection<int, Torrent> $works
  * @property array<string, string>    $metaTypes
  */
-class Top10 extends Component
+class Trending extends Component
 {
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
@@ -87,7 +87,7 @@ class Top10 extends Component
         };
 
         return cache()->remember(
-            'top10-'.$this->interval.'-'.($this->from ?? '').'-'.($this->until ?? '').'-'.$this->metaType,
+            'trending-'.$this->interval.'-'.($this->from ?? '').'-'.($this->until ?? '').'-'.$this->metaType,
             0, //3600,
             fn () => Torrent::query()
                 ->with('movie', 'tv')
@@ -224,7 +224,7 @@ class Top10 extends Component
         };
 
         return cache()->remember(
-            'top10-by-release-year:'.$this->metaType,
+            'trending-by-release-year:'.$this->metaType,
             24 * 3600,
             fn () => Torrent::query()
                 ->withoutGlobalScopes()
@@ -296,7 +296,7 @@ class Top10 extends Component
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.top10', [
+        return view('livewire.trending', [
             'user'  => auth()->user(),
             'works' => match ($this->interval) {
                 'weekly'       => $this->weekly,
