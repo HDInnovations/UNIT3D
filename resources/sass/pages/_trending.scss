@@ -1,21 +1,21 @@
-.top10--weekly {
+.trending--weekly {
     margin: 0 calc(-1 * max(0px, 10vw - 60px, 25vw - 300px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
     width: max-content;
     max-width: 100vw;
     align-self: center;
 }
 
-.top10-poster {
+.trending-poster {
     display: grid;
     grid-template-rows: auto 1fr;
     grid-template-columns: 1fr auto;
 }
 
-.top10-poster > .torrent-search--poster__result {
+.trending-poster > .torrent-search--poster__result {
     grid-area: 1 / 1 / 3 / 3;
 }
 
-.top10-poster__download-count {
+.trending-poster__download-count {
     grid-area: 2 / 3 / 1 / 2;
     border-radius: 9999px;
     margin: 6px;
@@ -32,7 +32,7 @@
     text-align: center;
 }
 
-.top10-weekly__row {
+.trending-weekly__row {
     display: grid;
     grid-template-columns: repeat(10, minmax(120px, 1fr));
     gap: 0.75rem;
