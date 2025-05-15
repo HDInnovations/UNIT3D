@@ -1,3 +1,27 @@
+/**
+ * Usage:
+ *
+ * <dl class="key-value">
+ *     <div class="key-value__group">
+ *         <dt></dt>
+ *         <dd></dd>
+ *         <dd></dd>
+ *     </div>
+ *     <div class="key-value__group--nested">
+ *         <dt></dt>
+ *         <dd>
+ *             <dl class="key-value">
+ *                 <div class="key-value__group">
+ *                     <dt></dt>
+ *                     <dd></dd>
+ *                     <dd></dd>
+ *                 </div>
+ *             </dl>
+ *         </dd>
+ *     </div>
+ * </dl>
+ */
+
 .key-value {
     width: 100%;
     margin: 0;
@@ -21,11 +45,17 @@
     margin: 0;
 }
 
-.key-value__group:nth-child(odd) {
+.key-value__group:nth-child(odd):not(
+        .key-value__group--nested .key-value__group
+    ),
+.key-value__group--nested:nth-child(odd) {
     background-color: var(--key-value-odd-bg) !important;
 }
 
-.key-value__group:nth-child(even) {
+.key-value__group:nth-child(even):not(
+        .key-value__group--nested .key-value__group
+    ),
+.key-value__group--nested:nth-child(even) {
     background-color: var(--key-value-even-bg) !important;
 }
 
@@ -53,4 +83,16 @@
 .key-value__group:last-child dt,
 .key-value__group:last-child dd {
     border-radius: var(--key-value-border-radius);
+}
+
+.key-value__group--nested {
+    padding: calc(var(--key-value-padding) / 2) 0 0 var(--key-value-padding);
+}
+
+.key-value__group--nested:first-child {
+    padding-top: var(--key-value-padding);
+}
+
+.key-value__group--nested:last-child {
+    padding-bottom: calc(var(--key-value-padding) / 2);
 }
