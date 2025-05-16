@@ -16,13 +16,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-class Top10Controller extends Controller
+class TrendingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('top10.index');
+        return view('trending.index');
     }
 }

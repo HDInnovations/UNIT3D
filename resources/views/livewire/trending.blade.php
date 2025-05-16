@@ -1,8 +1,8 @@
 <section
     @class([
         'panelV2',
-        'top10',
-        'top10--weekly' => in_array($this->interval, ['weekly', 'monthly']),
+        'trending',
+        'trending--weekly' => in_array($this->interval, ['weekly', 'monthly']),
     ])
 >
     <header class="panel__header">
@@ -91,9 +91,9 @@
                             <th>
                                 {{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}
                             </th>
-                            <td class="panel__body top10-weekly__row">
+                            <td class="panel__body trending-weekly__row">
                                 @foreach ($weeklyRankings as $ranking)
-                                    <figure class="top10-poster">
+                                    <figure class="trending-poster">
                                         @switch($this->metaType)
                                             @case('movie_meta')
                                                 <x-movie.poster
@@ -113,7 +113,7 @@
                                                 @break
                                         @endswitch
                                         <figcaption
-                                            class="top10-poster__download-count"
+                                            class="trending-poster__download-count"
                                             title="{{ __('torrent.completed-times') }}"
                                         >
                                             {{ $ranking->download_count }}
@@ -143,9 +143,9 @@
                             <th>
                                 {{ substr($monthlyRankings->first()?->the_year_month, 0, 4) }}-{{ substr($monthlyRankings->first()?->the_year_month, 4) }}
                             </th>
-                            <td class="panel__body top10-weekly__row">
+                            <td class="panel__body trending-weekly__row">
                                 @foreach ($monthlyRankings as $ranking)
-                                    <figure class="top10-poster">
+                                    <figure class="trending-poster">
                                         @switch($this->metaType)
                                             @case('movie_meta')
                                                 <x-movie.poster
@@ -165,7 +165,7 @@
                                                 @break
                                         @endswitch
                                         <figcaption
-                                            class="top10-poster__download-count"
+                                            class="trending-poster__download-count"
                                             title="{{ __('torrent.completed-times') }}"
                                         >
                                             {{ $ranking->download_count }}
@@ -193,9 +193,9 @@
                     @foreach ($works as $releaseYearRankings)
                         <tr>
                             <th>{{ $releaseYearRankings->first()?->the_year }}</th>
-                            <td class="panel__body top10-weekly__row">
+                            <td class="panel__body trending-weekly__row">
                                 @foreach ($releaseYearRankings as $ranking)
-                                    <figure class="top10-poster">
+                                    <figure class="trending-poster">
                                         @switch($this->metaType)
                                             @case('movie_meta')
                                                 <x-movie.poster
@@ -215,7 +215,7 @@
                                                 @break
                                         @endswitch
                                         <figcaption
-                                            class="top10-poster__download-count"
+                                            class="trending-poster__download-count"
                                             title="{{ __('torrent.completed-times') }}"
                                         >
                                             {{ $ranking->download_count }}
@@ -235,14 +235,14 @@
             @switch($this->metaType)
                 @case('movie_meta')
                     @foreach ($works as $work)
-                        <figure class="top10-poster">
+                        <figure class="trending-poster">
                             <x-movie.poster
                                 :movie="$work->movie"
                                 :categoryId="$work->category_id"
                                 :tmdb="$work->tmdb_movie_id"
                             />
                             <figcaption
-                                class="top10-poster__download-count"
+                                class="trending-poster__download-count"
                                 title="{{ __('torrent.completed-times') }}"
                             >
                                 {{ $work->download_count }}
@@ -253,14 +253,14 @@
                     @break
                 @case('tv_meta')
                     @foreach ($works as $work)
-                        <figure class="top10-poster">
+                        <figure class="trending-poster">
                             <x-tv.poster
                                 :tv="$work->tv"
                                 :categoryId="$work->category_id"
                                 :tmdb="$work->tmdb_tv_id"
                             />
                             <figcaption
-                                class="top10-poster__download-count"
+                                class="trending-poster__download-count"
                                 title="{{ __('torrent.completed-times') }}"
                             >
                                 {{ $work->download_count }}
