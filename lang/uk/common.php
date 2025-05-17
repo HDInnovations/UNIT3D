@@ -212,7 +212,7 @@ return [
     'action' => 'Дія',
     'actions' => 'Дії',
     'unknown' => 'Невідомо',
-    'unlocked-achievement' => 'Ви розблокували: досягнення досягнення',
+    'unlocked-achievement' => 'Ви розблокували: achievement досягнення',
     'upload' => 'Відвантажено',
     'upload-guide' => 'Додати посібник',
     'user' => 'Користувач',
@@ -225,4 +225,5 @@ return [
     'yes' => 'Так',
     'your' => 'Ваш',
     'your-comment' => 'Ваш коментар',
+    'subject' => 'Тема',
 ];
