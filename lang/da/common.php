@@ -202,7 +202,7 @@ return [
     'this' => 'dette',
     'times' => 'Gange',
     'title' => 'Titel',
-    'top-bountied' => 'Top Dusør',
+    'top-bountied' => 'Top Belønnet',
     'topics' => 'Emner',
     'tracker-codes' => 'Tracker Koder',
     'type' => 'Type',
