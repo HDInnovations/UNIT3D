@@ -11,8 +11,6 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'articles' => 'Makaleler',
-    'meta-articles' => 'Torrent Takipçi ve topluluk hakkında makaleler ve haberler',
-    'published-at' => 'Yayınlanma Tarihi ',
-    'read-more' => 'Daha fazlasını oku',
+    'message' => 'Ваш досвід роботи на цьому сайті буде покращено, якщо ви дозволите використовувати файли cookie.',
+    'agree' => 'Дозволити файли cookie',
 ];
