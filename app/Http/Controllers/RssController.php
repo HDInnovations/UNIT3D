@@ -78,7 +78,7 @@ class RssController extends Controller
             'resolutions'   => 'sometimes|array|max:999',
             'resolutions.*' => 'sometimes|exists:resolutions,id',
             'genres'        => 'sometimes|array|max:999',
-            'genres.*'      => 'sometimes|exists:genres,id',
+            'genres.*'      => 'sometimes|exists:tmdb_genres,id',
             'position'      => 'sometimes|integer|max:9999',
         ]);
 
@@ -248,7 +248,7 @@ class RssController extends Controller
             'resolutions'   => 'sometimes|array|max:999',
             'resolutions.*' => 'sometimes|exists:resolutions,id',
             'genres'        => 'sometimes|array|max:999',
-            'genres.*'      => 'sometimes|exists:genres,id',
+            'genres.*'      => 'sometimes|exists:tmdb_genres,id',
             'position'      => 'sometimes|integer|max:9999',
         ]);
 
