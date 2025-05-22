@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,4 +20,5 @@ return [
     'edited'         => 'Le commentaire a été modifié.',
     'rights-revoked' => 'Ton droit de commenter a été révoqué!',
     'slow-down'      => 'Ralentissez - Trop de commentaires!',
+    'torrent-status' => 'Torrent needs to be moderated before you can comment on it.'
 ];

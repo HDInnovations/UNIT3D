@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,11 +27,13 @@ return [
     'created'                   => 'Laget',
     'created-at'                => 'Opprettet av',
     'current'                   => 'Nåværende',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Slett emnet',
     'denied'                    => 'Nektet',
     'dislike-post'              => 'Misliker dette innlegget',
     'display-forum'             => 'Vis emner i',
     'edit-post'                 => 'Rediger innlegg',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Rediger emne',
     'forum'                     => 'Forum',
     'forums'                    => 'Fora',
@@ -60,10 +63,14 @@ return [
     'quote'                     => 'Sitat',
     'read-topic'                => 'Les emnet',
     'replies'                   => 'Svar',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Lagre dette emnet',
     'solved'                    => 'Løst',
     'state'                     => 'Tilstand',
     'stats'                     => 'Statistikk',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Abonnerer',
     'subscription-quick-search' => 'Hurtigsøk emnenavn (innenfor abonnementer)',
     'suggestion'                => 'Forslag',
@@ -76,6 +83,8 @@ return [
     'topic-title'               => 'Tittel på dette emnet',
     'topics'                    => 'Emner',
     'unpin'                     => 'Løsne',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Se alle emner',
-    'views'                     => 'Visninger',
+    'views'                     => 'Visninger'
 ];

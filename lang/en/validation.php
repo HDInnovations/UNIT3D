@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,17 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
     'accepted'        => 'The :attribute must be accepted.',
     'accepted_if'     => 'The :attribute must be accepted when :other is :value.',
     'active_url'      => 'The :attribute is not a valid URL.',
@@ -147,17 +137,6 @@ return [
     'url'         => 'The :attribute must be a valid URL.',
     'uuid'        => 'The :attribute must be a valid UUID.',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
     'email_list' => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
     'recaptcha'  => 'Please Complete The ReCaptcha.',
 
@@ -166,17 +145,6 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap our attribute placeholder
-    | with something more reader friendly such as "E-Mail Address" instead
-    | of "email". This simply helps us make our message more expressive.
-    |
-    */
 
     'attributes' => [],
 ];

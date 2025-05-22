@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,15 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'dead'               => 'mŕtvi',
-    'graveyard'          => 'cintorín',
-    'guidelines'         => 'pokyny',
-    'guidelines-content' => '1) Nemôžete obnoviť svoje vlastné obrázky. <br> 2) Dont vzkriesiť niečo, čo nemôžete spáchať taky.',
-    'howto'              => 'Heres Pravidlo',
-    'howto-desc1'        => 'Musíte osivo <span class=\\"text-green\\"><em>: meno</em></span> na <span class="text-red text-bold">30 dní</span> pre úspešnú rekonštrukciu. V takom prípade, keď je aktuálny čas osiva',
-    'howto-desc2'        => 'Budete odmenení',
-    'howto-hits'         => 'hity',
-    'pending'            => 'nevykonaného',
-    'resurrect'          => 'vzkriesiť',
-    'reward'             => 'Freeleech tokeny',
+    'current-seedtime'         => 'Current Seedtime',
+    'dead'                     => 'mŕtvi',
+    'graveyard'                => 'cintorín',
+    'guidelines'               => 'pokyny',
+    'guidelines-content'       => '1) Nemôžete obnoviť svoje vlastné obrázky. <br> 2) Dont vzkriesiť niečo, čo nemôžete spáchať taky.',
+    'howto'                    => 'Heres Pravidlo',
+    'howto-desc1'              => 'Musíte osivo <span class=\\"text-green\\"><em>: meno</em></span> na <span class="text-red text-bold">30 dní</span> pre úspešnú rekonštrukciu. V takom prípade, keď je aktuálny čas osiva',
+    'howto-desc2'              => 'Budete odmenení',
+    'howto-hits'               => 'hity',
+    'not-rewarded'             => 'Not Rewarded',
+    'pending'                  => 'nevykonaného',
+    'resurrect'                => 'vzkriesiť',
+    'resurrect-canceled'       => 'Resurrection Successfully Canceled!',
+    'resurrect-complete'       => 'Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.',
+    'resurrect-date'           => 'Resurrect Date',
+    'resurrect-failed-own'     => 'Torrent Resurrection Failed! You cannot resurrect your own uploads.',
+    'resurrect-failed-pending' => 'Torrent Resurrection Failed! This torrent is already pending a resurrection.',
+    'reward'                   => 'Freeleech tokeny',
+    'rewarded'                 => 'Rewarded',
+    'seedtime-goal'            => 'Seedtime Goal'
 ];

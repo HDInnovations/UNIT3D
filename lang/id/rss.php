@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Membuat',
     'create-private-feed' => 'Buat Umpan RSS Pribadi',
     'create-public-feed'  => 'Buat Umpan RSS Publik',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Menghapus',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Edit',
     'edit-private-feed'   => 'Edit Umpan RSS Pribadi',
     'edit-public-feed'    => 'Edit Umpan RSS Publik',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Makan',
     'feeds'               => 'Feed',
     'name'                => 'Nama',
-    'public'              => 'Publik',
     'private'             => 'Pribadi',
+    'public'              => 'Publik',
     'rss'                 => 'RSS',
     'rss-feed'            => 'Umpan RSS',
     'type'                => 'Mengetik',
+    'updated'             => 'Private RSS Feed Updated'
 ];

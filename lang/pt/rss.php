@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Crio',
     'create-private-feed' => 'Criar feed RSS privado',
     'create-public-feed'  => 'Criar feed RSS público',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Excluir',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Editar',
     'edit-private-feed'   => 'Editar feed RSS privado',
     'edit-public-feed'    => 'Editar feed RSS público',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Alimentação',
     'feeds'               => 'Feeds',
     'name'                => 'Nome',
-    'public'              => 'Público',
     'private'             => 'Privado',
+    'public'              => 'Público',
     'rss'                 => 'RSS',
     'rss-feed'            => 'Feed RSS',
     'type'                => 'Tipo',
+    'updated'             => 'Private RSS Feed Updated'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Magdagdag ng kahilingan',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Edad',
     'all-requests'        => 'Lahat ng mga kahilingan',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Aprubahan',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Sinabi ng kalooban',
     'bounty-unclaimed'    => 'Hindi pinabayaan ang kapagbigayan',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Gusto Mo Bang Mag-claim Ito Anonomously',
     'claim-now'           => 'Mag-claim ngayon',
     'claimed'             => 'Inaangkin',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Kasalukuyang',
     'delete'              => 'Tanggalin ang Kahilingan na ito',
     'delete-confirmation' => 'Sigurado ka bang gusto mong tanggalin ang Kahilingan na ito',
     'delete-filled'       => 'Ang kahilingan na ito ay maaari lamang matanggal kung hindi ito napuno',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Paglalarawan',
     'dont-have-bps'       => 'Wala kang sapat na Bonus',
     'edit-request'        => 'Mag-edit ng kahilingan',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Ipasok ang mga puntos ng bonus (minimum na 100)',
     'enter-hash'          => 'Ipasok ang ID ng na-upload na torrent',
     'fill'                => 'Punan',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'para sa',
     'fulfill'             => 'Tuparin',
     'last-vote'           => 'Huling boto',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Aking mga kahilingan',
+    'my-voted'            => 'My voted',
     'no'                  => 'Hindi,',
     'no-imdb-id'          => 'Lahat ng Kahilingan ay Dapat Maglaman ng Isang IMDB Number',
     'no-privileges'       => 'Error: Hindi pinagana ang iyong mga karapatan sa kahilingan',
     'no-privileges-desc'  => 'Kung sa tingin mo ito ay mali, mangyaring makipag-ugnay sa Staff',
     'no-refunds'          => 'BON palitan sa paglikha, pagpuno at bounties ay pangwakas! <br> <strong>WALANG MGA REFUNDS!</strong>',
     'pending'             => 'Nakabinbin',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Dahilan',
     'reject'              => 'Tanggihan',
     'report'              => 'Hiling ng ulat',
     'request'             => 'Kahilingan',
     'request-details'     => 'Mga detalye ng kahilingan',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Hiniling ng',
     'requests'            => 'Mga Hiling',
     'required'            => 'Kailangan',
     'reset'               => 'I-reset',
     'reset-confirmation'  => 'Sigurado ka bang gusto mong i-reset ang Kahilingan na ito',
     'reset-request'       => 'I-reset ang Kahilingan na ito',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Gantimpala',
     'reward-desc'         => 'Gaano karaming bonus point ang nais mong gantimpalaan? Minimum 100 BP',
     'reward-from'         => 'Mula sa',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Kabuuang biyaya',
     'type'                => 'Uri',
     'unclaim'             => 'I-declare ang kahilingan na ito',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Hindi pa natapos',
     'view-filled'         => 'Tingnan ang puno',
     'view-unfilled'       => 'Tingnan ang unfilled',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Bumoto ng Kahilingan na ito',
     'voters'              => 'Mga Botante',
     'votes'               => 'Boto',
-    'yes'                 => 'Oo',
+    'yes'                 => 'Oo'
 ];

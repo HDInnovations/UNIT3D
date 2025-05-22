@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Tədbirlər',
     'backup'                         => 'Backup',
     'backup_doesnt_exist'            => 'Yedek fayl yoxdur.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Tam Yedəklənmə yaradın',
-    'create_a_new_files_backup'      => 'Faylların Yaddaşını yaradın',
     'create_a_new_db_backup'         => 'Verilənlər bazasının saxlanması yaradın',
+    'create_a_new_files_backup'      => 'Faylların Yaddaşını yaradın',
     'create_confirmation_message'    => 'Səhifəni 3 saniyə geri yüklə.',
     'create_confirmation_title'      => 'Backup tamamlandı',
     'create_error_message'           => 'Yedek fayl yaradıla bilməzdi.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Yer',
     'manager'                        => 'Menecer',
     'no_disks_configured'            => 'Config / backup.php ünvanında yapılandırılmış yedekleme diskləri yoxdur',
-    'only_local_downloads_supported' => 'Yerli fayl sistemindən yalnız downloads dəstəklənir.',
+    'only_local_downloads_supported' => 'Yerli fayl sistemindən yalnız downloads dəstəklənir.'
 ];

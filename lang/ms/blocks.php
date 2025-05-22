@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Aktif dalam terakhir',
     'chatbox'                 => 'Peti Sembang',
+    'check-news'              => 'Berita (periksa setiap hari)',
     'click'                   => 'Klik',
-    'to-enable-editor'        => 'untuk membolehkan editor',
     'featured-by'             => 'Disediakan oleh',
     'featured-torrents'       => 'Torrents yang ditonjolkan',
     'featured-torrents-intro' => 'Dapatkan Mereka Walaupun Anda Boleh!',
     'featured-until'          => 'Ini adalah tajuk utama sehingga',
-    'top-torrents'            => 'Torrents Teratas',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Catatan Terkini',
     'latest-topics'           => 'Topik Terkini',
-    'active-in-last'          => 'Aktif dalam terakhir',
-    'users-online'            => 'Pengguna dalam talian',
-    'check-news'              => 'Berita (periksa setiap hari)',
     'new-news'                => 'Berita baru',
     'new-torrents'            => 'Torrents baru',
+    'to-enable-editor'        => 'untuk membolehkan editor',
+    'top-torrents'            => 'Torrents Teratas',
+    'users-online'            => 'Pengguna dalam talian'
 ];

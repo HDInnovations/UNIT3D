@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Жасаңыз',
-    'delete'        => 'Жою',
-    'enter-subject' => 'Тақырыпты енгізіңіз',
-    'from'          => 'Қайдан',
-    'inbox'         => 'Кіріс жәшігі',
-    'mark-all-read' => 'Барлық хабарламаларды оқылған деп белгілеңіз',
-    'message'       => 'Хабар',
-    'messages'      => 'Хабарламалар',
-    'new'           => 'Жаңа хабарлама',
-    'outbox'        => 'Шығыс жәшігі',
-    'private'       => 'Жеке',
-    'read'          => 'Оқылды',
-    'received-at'   => 'Алынған',
-    'refresh'       => 'Жаңарту',
-    'reply'         => 'Жауап беру',
-    'search'        => 'Тақырып бойынша іздеу',
-    'select'        => 'Пайдаланушыны таңдаңыз',
-    'send'          => 'PM жіберіңіз',
-    'send-to'       => 'Жіберу PM To',
-    'sent'          => 'Жіберілді',
-    'sent-at'       => 'Жіберілген',
-    'subject'       => 'Тақырып',
-    'to'            => 'Кімге',
-    'unread'        => 'Оқылмаған',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Жасаңыз',
+    'delete'          => 'Жою',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'Тақырыпты енгізіңіз',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Қайдан',
+    'inbox'           => 'Кіріс жәшігі',
+    'mark-all-read'   => 'Барлық хабарламаларды оқылған деп белгілеңіз',
+    'message'         => 'Хабар',
+    'messages'        => 'Хабарламалар',
+    'new'             => 'Жаңа хабарлама',
+    'outbox'          => 'Шығыс жәшігі',
+    'private'         => 'Жеке',
+    'read'            => 'Оқылды',
+    'received-at'     => 'Алынған',
+    'refresh'         => 'Жаңарту',
+    'reply'           => 'Жауап беру',
+    'search'          => 'Тақырып бойынша іздеу',
+    'select'          => 'Пайдаланушыны таңдаңыз',
+    'send'            => 'PM жіберіңіз',
+    'send-to'         => 'Жіберу PM To',
+    'sent'            => 'Жіберілді',
+    'sent-at'         => 'Жіберілген',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Тақырып',
+    'to'              => 'Кімге',
+    'unread'          => 'Оқылмаған'
 ];

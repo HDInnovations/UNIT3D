@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'بسته شده',
     'create-new-topic'          => 'ایجاد موضوع جدید',
     'created'                   => 'ایجاد شده',
+    'created-at'                => 'Created At',
     'current'                   => 'جاری',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'حذف این موضوع',
     'denied'                    => 'تکذیب کرد',
     'dislike-post'              => 'دوست نداشتن این پست',
     'display-forum'             => 'نمایش موضوعات در',
     'edit-post'                 => 'ویرایش پست',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'ویرایش موضوع',
     'forum'                     => 'انجمن',
     'forums'                    => 'انجمن ها',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'پیاده سازی شده',
     'in'                        => 'که در',
     'invalid'                   => 'بی اعتبار',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'نقل قول',
     'read-topic'                => 'خوانده شده موضوع',
     'replies'                   => 'پاسخ ها',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'ذخیره این موضوع',
     'solved'                    => 'حل شد',
     'state'                     => 'دولت',
     'stats'                     => 'آمار',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'مشترک شده',
     'subscription-quick-search' => 'نام موضوع جستجوی سریع (در اشتراک)',
     'suggestion'                => 'پیشنهادی',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'موضوع',
     'topic-closed'              => 'این موضوع بسته شده است',
     'topic-name'                => 'نام موضوع',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'عنوان این موضوع',
     'topics'                    => 'موضوعات',
     'unpin'                     => 'باز کردن',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'مشاهده تمام موضوعات',
-    'views'                     => 'نمایش ها',
+    'views'                     => 'نمایش ها'
 ];

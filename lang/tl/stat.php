@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Sa pamamagitan ng Count',
     'by-data'                 => 'Sa pamamagitan ng Data',
     'by-volume'               => 'Ayon sa Dami',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Grupo',
     'groups'                  => 'Mga Grupo',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'Namin ang lahat ng pag-ibig stats. Narito ang ilang napakahalaga',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Petsa ng pagpaparehistro',
     'request-fulfilled'       => 'Ang kahilingan ay natupad',
     'request-not-fulfilled'   => 'Hindi hiniling ang kahilingan',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Nangungunang Leeched',
     'top-leechers'            => 'Nangungunang mga Leecher',
     'top-seeded'              => 'Nangunguna',
-    'top-seeding'             => 'Top Seeding',
     'top-seeders'             => 'Mga Nangungunang Seeders',
+    'top-seeding'             => 'Top Seeding',
     'top-seedsize'            => 'Nangungunang Seedsize',
     'top-seedtime'            => 'Nangungunang Tagal ng Buto',
     'top-uploaders'           => 'Nangungunang Mga Uploader',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Kabuuang Torrents',
     'total-traffic'           => 'Kabuuang Trapiko',
     'total-upload'            => 'Kabuuang Pag-upload',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Mga User Sa Grupo',
-    'users-per-group'         => 'Mga User Per Group',
+    'users-per-group'         => 'Mga User Per Group'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Pievienot pieprasījumu',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Vecums',
     'all-requests'        => 'Visi pieprasījumi',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Apstiprināt',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty apgalvoja',
     'bounty-unclaimed'    => 'Bounty nepieprasīja',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Vai jūs vēlētos pieprasīt šo anonīmi',
     'claim-now'           => 'Pieprasiet tagad',
     'claimed'             => 'Apgalvots',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Pašreizējais',
     'delete'              => 'Dzēst šo pieprasījumu',
     'delete-confirmation' => 'Vai tiešām vēlaties dzēst šo pieprasījumu',
     'delete-filled'       => 'Šo pieprasījumu var dzēst tikai tad, ja tas nav aizpildīts',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Apraksts',
     'dont-have-bps'       => 'Jums nav pietiekami daudz bonusa',
     'edit-request'        => 'Rediģēt pieprasījumu',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Ievadiet bonusa punktus (vismaz 100)',
     'enter-hash'          => 'Ievadiet augšupielādētās Torrent ID',
     'fill'                => 'Aizpildiet',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'par',
     'fulfill'             => 'Izpildiet',
     'last-vote'           => 'Pēdējā balsojums',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Mani pieprasījumi',
+    'my-voted'            => 'My voted',
     'no'                  => 'Nē,',
     'no-imdb-id'          => 'Visiem pieprasījumiem jāietver IMDB numurs',
     'no-privileges'       => 'Kļūda: jūsu pieprasījuma tiesības ir atspējotas',
     'no-privileges-desc'  => 'Ja uzskatāt, ka tas ir kļūdains, lūdzu, sazinieties ar personālu',
     'no-refunds'          => 'BON apmaiņa par izveidošanu, aizpildīšanu un bounties ir galīga! <br> <strong>NĒ ATMAKSU!</strong>',
     'pending'             => 'Gaida',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Iemesls',
     'reject'              => 'Noraidīt',
     'report'              => 'Ziņojuma pieprasījums',
     'request'             => 'Pieprasījums',
     'request-details'     => 'Pieprasīt informāciju',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Pieprasīts no',
     'requests'            => 'Pieprasījumi',
     'required'            => 'Nepieciešams',
     'reset'               => 'Atiestatīt',
     'reset-confirmation'  => 'Vai tiešām vēlaties atiestatīt šo pieprasījumu',
     'reset-request'       => 'Atiestatīt šo pieprasījumu',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Atlīdzība',
     'reward-desc'         => 'Cik lielu bonusa punktu jūs vēlētos apbalvot? Vismaz 100 BP',
     'reward-from'         => 'No',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Kopējais devums',
     'type'                => 'Tips',
     'unclaim'             => 'Nepieprasiet šo pieprasījumu',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Neizpildīts',
     'view-filled'         => 'Skatīt aizpildītu',
     'view-unfilled'       => 'Skatīt nepildītu',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Balsojiet par šo pieprasījumu',
     'voters'              => 'Vēlētāji',
     'votes'               => 'Balsis',
-    'yes'                 => 'Jā',
+    'yes'                 => 'Jā'
 ];

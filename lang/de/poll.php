@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,10 +18,12 @@ return [
     'add-option'           => 'Option hinzufügen',
     'already-voted-error'  => 'Du hast bereits an dieser Umfrage teilgenommen. Deine Stimme wurde nicht gezählt.',
     'already-voted-result' => 'Du hast bereits an dieser Umfrage teilgenommen. Hier sind die Ergebnisse.',
+    'close-date'           => 'Close Poll after',
     'create-poll'          => 'Umfrage erstellen',
     'current'              => 'Aktuelle Umfragen',
     'delete-option'        => 'Option löschen',
     'edit-poll'            => 'Umfrage bearbeiten',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
     'multiple-choice'      => 'Dies ist eine Multiple-Choice-Umfrage. Wähle so viele Antworten aus, wie du willst.',
     'option'               => 'Möglichkeit',
     'poll'                 => 'Umfrage',
@@ -31,5 +34,5 @@ return [
     'vote'                 => 'Abstimmung',
     'vote-counted'         => 'Deine Stimme wurde gezählt.',
     'vote-now'             => 'Stimme jetzt ab!',
-    'votes'                => 'Abstimmungen',
+    'votes'                => 'Abstimmungen'
 ];

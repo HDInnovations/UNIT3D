@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,58 +15,61 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
-    'accepted'        => 'يجب قبول :attribute.',
-    'active_url'      => ':attribute لا يُمثّل رابطًا صحيحًا.',
-    'after'           => 'يجب على :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.',
-    'after_or_equal'  => ':attribute يجب أن يكون تاريخاً لاحقاً أو مطابقاً للتاريخ :date.',
-    'alpha'           => 'يجب أن لا يحتوي :attribute سوى على حروف.',
-    'alpha_dash'      => 'يجب أن لا يحتوي :attribute سوى على حروف، أرقام ومطّات.',
-    'alpha_num'       => 'يجب أن يحتوي :attribute على حروفٍ وأرقامٍ فقط.',
-    'array'           => 'يجب أن يكون :attribute ًمصفوفة.',
+    'accepted'       => 'يجب قبول :attribute.',
+    'accepted_if'    => 'The :attribute must be accepted when :other is :value.',
+    'active_url'     => ':attribute لا يُمثّل رابطًا صحيحًا.',
+    'after'          => 'يجب على :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.',
+    'after_or_equal' => ':attribute يجب أن يكون تاريخاً لاحقاً أو مطابقاً للتاريخ :date.',
+    'alpha'          => 'يجب أن لا يحتوي :attribute سوى على حروف.',
+    'alpha_dash'     => 'يجب أن لا يحتوي :attribute سوى على حروف، أرقام ومطّات.',
+    'alpha_num'      => 'يجب أن يحتوي :attribute على حروفٍ وأرقامٍ فقط.',
+    'array'          => 'يجب أن يكون :attribute ًمصفوفة.',
+    'attributes'     => [
+    ],
     'before'          => 'يجب على :attribute أن يكون تاريخًا سابقًا للتاريخ :date.',
     'before_or_equal' => ':attribute يجب أن يكون تاريخا سابقا أو مطابقا للتاريخ :date.',
     'between'         => [
-        'numeric' => 'يجب أن تكون قيمة :attribute بين :min و :max.',
-        'file'    => 'يجب أن يكون حجم الملف :attribute بين :min و :max كيلوبايت.',
-        'string'  => 'يجب أن يكون عدد حروف النّص :attribute بين :min و :max.',
         'array'   => 'يجب أن يحتوي :attribute على عدد من العناصر بين :min و :max.',
+        'file'    => 'يجب أن يكون حجم الملف :attribute بين :min و :max كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute بين :min و :max.',
+        'string'  => 'يجب أن يكون عدد حروف النّص :attribute بين :min و :max.'
     ],
-    'boolean'        => 'يجب أن تكون قيمة :attribute إما true أو false .',
-    'confirmed'      => 'حقل التأكيد غير مُطابق للحقل :attribute.',
+    'boolean'          => 'يجب أن تكون قيمة :attribute إما true أو false .',
+    'confirmed'        => 'حقل التأكيد غير مُطابق للحقل :attribute.',
+    'current_password' => 'The password is incorrect.',
+    'custom'           => [
+        'attribute-name' => [
+            'rule-name' => 'custom-message'
+        ]
+    ],
     'date'           => ':attribute ليس تاريخًا صحيحًا.',
     'date_equals'    => 'يجب أن يكون :attribute مطابقاً للتاريخ :date.',
     'date_format'    => 'لا يتوافق :attribute مع الشكل :format.',
+    'declined'       => 'The :attribute must be declined.',
+    'declined_if'    => 'The :attribute must be declined when :other is :value.',
     'different'      => 'يجب أن يكون الحقلان :attribute و :other مُختلفين.',
     'digits'         => 'يجب أن يحتوي :attribute على :digits رقمًا/أرقام.',
     'digits_between' => 'يجب أن يحتوي :attribute بين :min و :max رقمًا/أرقام .',
     'dimensions'     => 'الـ :attribute يحتوي على أبعاد صورة غير صالحة.',
     'distinct'       => 'للحقل :attribute قيمة مُكرّرة.',
     'email'          => 'يجب أن يكون :attribute عنوان بريد إلكتروني صحيح البُنية.',
+    'email_list'     => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
+    'ends_with'      => 'The :attribute must end with one of the following: :values.',
+    'enum'           => 'The selected :attribute is invalid.',
     'exists'         => 'القيمة المحددة :attribute غير موجودة.',
     'file'           => 'الـ :attribute يجب أن يكون ملفا.',
     'filled'         => ':attribute إجباري.',
     'gt'             => [
-        'numeric' => 'يجب أن تكون قيمة :attribute أكبر من :value.',
-        'file'    => 'يجب أن يكون حجم الملف :attribute أكبر من :value كيلوبايت.',
-        'string'  => 'يجب أن يكون طول النّص :attribute أكثر من :value حروفٍ/حرفًا.',
         'array'   => 'يجب أن يحتوي :attribute على أكثر من :value عناصر/عنصر.',
+        'file'    => 'يجب أن يكون حجم الملف :attribute أكبر من :value كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute أكبر من :value.',
+        'string'  => 'يجب أن يكون طول النّص :attribute أكثر من :value حروفٍ/حرفًا.'
     ],
     'gte' => [
-        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أكبر من :value.',
-        'file'    => 'يجب أن يكون حجم الملف :attribute على الأقل :value كيلوبايت.',
-        'string'  => 'يجب أن يكون طول النص :attribute على الأقل :value حروفٍ/حرفًا.',
         'array'   => 'يجب أن يحتوي :attribute على الأقل على :value عُنصرًا/عناصر.',
+        'file'    => 'يجب أن يكون حجم الملف :attribute على الأقل :value كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أكبر من :value.',
+        'string'  => 'يجب أن يكون طول النص :attribute على الأقل :value حروفٍ/حرفًا.'
     ],
     'image'    => 'يجب أن يكون :attribute صورةً.',
     'in'       => ':attribute غير موجود.',
@@ -76,35 +80,49 @@ return [
     'ipv6'     => 'يجب أن يكون :attribute عنوان IPv6 صحيحًا.',
     'json'     => 'يجب أن يكون :attribute نصآ من نوع JSON.',
     'lt'       => [
-        'numeric' => 'يجب أن تكون قيمة :attribute أصغر من :value.',
-        'file'    => 'يجب أن يكون حجم الملف :attribute أصغر من :value كيلوبايت.',
-        'string'  => 'يجب أن يكون طول النّص :attribute أقل من :value حروفٍ/حرفًا.',
         'array'   => 'يجب أن يحتوي :attribute على أقل من :value عناصر/عنصر.',
+        'file'    => 'يجب أن يكون حجم الملف :attribute أصغر من :value كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute أصغر من :value.',
+        'string'  => 'يجب أن يكون طول النّص :attribute أقل من :value حروفٍ/حرفًا.'
     ],
     'lte' => [
-        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أصغر من :value.',
-        'file'    => 'يجب أن لا يتجاوز حجم الملف :attribute :value كيلوبايت.',
-        'string'  => 'يجب أن لا يتجاوز طول النّص :attribute :value حروفٍ/حرفًا.',
         'array'   => 'يجب أن لا يحتوي :attribute على أكثر من :value عناصر/عنصر.',
+        'file'    => 'يجب أن لا يتجاوز حجم الملف :attribute :value كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أصغر من :value.',
+        'string'  => 'يجب أن لا يتجاوز طول النّص :attribute :value حروفٍ/حرفًا.'
     ],
-    'max' => [
-        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أصغر من :max.',
-        'file'    => 'يجب أن لا يتجاوز حجم الملف :attribute :max كيلوبايت.',
-        'string'  => 'يجب أن لا يتجاوز طول النّص :attribute :max حروفٍ/حرفًا.',
+    'mac_address' => 'The :attribute must be a valid MAC address.',
+    'max'         => [
         'array'   => 'يجب أن لا يحتوي :attribute على أكثر من :max عناصر/عنصر.',
+        'file'    => 'يجب أن لا يتجاوز حجم الملف :attribute :max كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أصغر من :max.',
+        'string'  => 'يجب أن لا يتجاوز طول النّص :attribute :max حروفٍ/حرفًا.'
     ],
     'mimes'     => 'يجب أن يكون ملفًا من نوع : :values.',
     'mimetypes' => 'يجب أن يكون ملفًا من نوع : :values.',
     'min'       => [
-        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أكبر من :min.',
-        'file'    => 'يجب أن يكون حجم الملف :attribute على الأقل :min كيلوبايت.',
-        'string'  => 'يجب أن يكون طول النص :attribute على الأقل :min حروفٍ/حرفًا.',
         'array'   => 'يجب أن يحتوي :attribute على الأقل على :min عُنصرًا/عناصر.',
+        'file'    => 'يجب أن يكون حجم الملف :attribute على الأقل :min كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute مساوية أو أكبر من :min.',
+        'string'  => 'يجب أن يكون طول النص :attribute على الأقل :min حروفٍ/حرفًا.'
     ],
-    'not_in'               => ':attribute موجود.',
-    'not_regex'            => 'صيغة :attribute غير صحيحة.',
-    'numeric'              => 'يجب على :attribute أن يكون رقمًا.',
+    'multiple_of' => 'The :attribute must be a multiple of :value.',
+    'not_in'      => ':attribute موجود.',
+    'not_regex'   => 'صيغة :attribute غير صحيحة.',
+    'numeric'     => 'يجب على :attribute أن يكون رقمًا.',
+    'password'    => [
+        'letters'       => 'The :attribute must contain at least one letter.',
+        'mixed'         => 'The :attribute must contain at least one uppercase and one lowercase letter.',
+        'numbers'       => 'The :attribute must contain at least one number.',
+        'symbols'       => 'The :attribute must contain at least one symbol.',
+        'uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.'
+    ],
     'present'              => 'يجب تقديم :attribute.',
+    'prohibited'           => 'The :attribute field is prohibited.',
+    'prohibited_if'        => 'The :attribute field is prohibited when :other is :value.',
+    'prohibited_unless'    => 'The :attribute field is prohibited unless :other is in :values.',
+    'prohibits'            => 'The :attribute field prohibits :other from being present.',
+    'recaptcha'            => 'Please Complete The ReCaptcha.',
     'regex'                => 'صيغة :attribute .غير صحيحة.',
     'required'             => ':attribute مطلوب.',
     'required_if'          => ':attribute مطلوب في حال ما إذا كان :other يساوي :value.',
@@ -115,10 +133,10 @@ return [
     'required_without_all' => ':attribute مطلوب إذا لم يتوفّر :values.',
     'same'                 => 'يجب أن يتطابق :attribute مع :other.',
     'size'                 => [
-        'numeric' => 'يجب أن تكون قيمة :attribute مساوية لـ :size.',
-        'file'    => 'يجب أن يكون حجم الملف :attribute :size كيلوبايت.',
-        'string'  => 'يجب أن يحتوي النص :attribute على :size حروفٍ/حرفًا بالضبط.',
         'array'   => 'يجب أن يحتوي :attribute على :size عنصرٍ/عناصر بالضبط.',
+        'file'    => 'يجب أن يكون حجم الملف :attribute :size كيلوبايت.',
+        'numeric' => 'يجب أن تكون قيمة :attribute مساوية لـ :size.',
+        'string'  => 'يجب أن يحتوي النص :attribute على :size حروفٍ/حرفًا بالضبط.'
     ],
     'starts_with' => 'يجب أن يبدأ :attribute بأحد القيم التالية: :values',
     'string'      => 'يجب أن يكون :attribute نصًا.',
@@ -126,65 +144,5 @@ return [
     'unique'      => 'قيمة :attribute مُستخدمة من قبل.',
     'uploaded'    => 'فشل في تحميل الـ :attribute.',
     'url'         => 'صيغة الرابط :attribute غير صحيحة.',
-    'uuid'        => ':attribute يجب أن يكون بصيغة UUID سليمة.',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
-    | specify a specific custom language line for a given attribute rule.
-    |
-    */
-
-    'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Custom Validation Attributes
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used to swap attribute place-holders
-    | with something more reader friendly such as E-Mail Address instead
-    | of "email". This simply helps us make messages a little cleaner.
-    |
-    */
-
-    'attributes' => [
-        'name'                  => 'الاسم',
-        'username'              => 'اسم المُستخدم',
-        'email'                 => 'البريد الالكتروني',
-        'first_name'            => 'الاسم الأول',
-        'last_name'             => 'اسم العائلة',
-        'password'              => 'كلمة المرور',
-        'password_confirmation' => 'تأكيد كلمة المرور',
-        'city'                  => 'المدينة',
-        'country'               => 'الدولة',
-        'address'               => 'عنوان السكن',
-        'phone'                 => 'الهاتف',
-        'mobile'                => 'الجوال',
-        'age'                   => 'العمر',
-        'sex'                   => 'الجنس',
-        'gender'                => 'النوع',
-        'day'                   => 'اليوم',
-        'month'                 => 'الشهر',
-        'year'                  => 'السنة',
-        'hour'                  => 'ساعة',
-        'minute'                => 'دقيقة',
-        'second'                => 'ثانية',
-        'title'                 => 'العنوان',
-        'content'               => 'المُحتوى',
-        'description'           => 'الوصف',
-        'excerpt'               => 'المُلخص',
-        'date'                  => 'التاريخ',
-        'time'                  => 'الوقت',
-        'available'             => 'مُتاح',
-        'size'                  => 'الحجم',
-    ],
+    'uuid'        => ':attribute يجب أن يكون بصيغة UUID سليمة.'
 ];

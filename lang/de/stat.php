@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +26,9 @@ return [
     'disabled'                => 'Deaktivierte',
     'group'                   => 'Gruppe',
     'groups'                  => 'Gruppen',
+    'languages'               => 'Languages',
     'last30days'              => 'Letzte 30 Tage',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd-Statistiken',
     'nerd-stats-desc'         => 'Wir alle lieben Statistiken. Hier einige, die wir wichtig finden',
     'place'                   => 'Ort',
@@ -49,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leecher',
     'top-leechers'            => 'Top Leecher',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Top Seeding',
     'top-seeders'             => 'Top Seeder',
+    'top-seeding'             => 'Top Seeding',
     'top-seedsize'            => 'Top Seedgröße',
     'top-seedtime'            => 'Top Seedzeit',
     'top-uploaders'           => 'Top Uploader',
@@ -60,5 +63,5 @@ return [
     'total-upload'            => 'Total Upload',
     'updated'                 => '(Wird alle 10 Minuten aktualisiert!)',
     'users-in-group'          => 'Nutzer in der Gruppe',
-    'users-per-group'         => 'Nutzer pro Gruppe',
+    'users-per-group'         => 'Nutzer pro Gruppe'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Pagkilos',
     'backup'                         => 'Backup',
     'backup_doesnt_exist'            => 'Ang backup na file ay hindi umiiral.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Lumikha ng Buong Backup',
-    'create_a_new_files_backup'      => 'Lumikha ng Mga Backup ng Mga File',
     'create_a_new_db_backup'         => 'Lumikha ng Backup ng Database',
+    'create_a_new_files_backup'      => 'Lumikha ng Mga Backup ng Mga File',
     'create_confirmation_message'    => 'I-reload ang pahina sa loob ng 3 segundo.',
     'create_confirmation_title'      => 'Kumpleto na ang backup',
     'create_error_message'           => 'HINDI nalikha ang backup na file.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Lokasyon',
     'manager'                        => 'Manager',
     'no_disks_configured'            => 'Walang naka-configure na backup disk sa config / backup.php',
-    'only_local_downloads_supported' => 'Ang mga pag-download lamang mula sa Lokal na mga filesystem ay suportado.',
+    'only_local_downloads_supported' => 'Ang mga pag-download lamang mula sa Lokal na mga filesystem ay suportado.'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Yaratmoq',
     'create-private-feed' => 'Maxsus RSS Feed yaratish',
     'create-public-feed'  => 'Ommaviy RSSlar yaratish',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'O chir',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Tahrirlash',
     'edit-private-feed'   => 'Maxsus RSS Feedni tahrirlash',
     'edit-public-feed'    => 'Jamoatchilik RSS-ni tahrirlash',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Oziqlantirish',
     'feeds'               => 'Yaylovlar',
     'name'                => 'Ism',
-    'public'              => 'Ommaviy',
     'private'             => 'Xususiy',
+    'public'              => 'Ommaviy',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Feed',
     'type'                => 'Turi',
+    'updated'             => 'Private RSS Feed Updated'
 ];

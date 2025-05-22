@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Shto kërkesë',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'moshë',
     'all-requests'        => 'Të gjitha kërkesat',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'miratoj',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'bujari',
     'bounty-claimed'      => 'U desh Bujati',
     'bounty-unclaimed'    => 'Shpërblimi nuk kërkohet',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Do të dëshironit ta pohonit këtë në mënyrë anonime',
     'claim-now'           => 'Kërkoni tani',
     'claimed'             => 'pretenduar',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'aktual',
     'delete'              => 'Fshini këtë kërkesë',
     'delete-confirmation' => 'Je i sigurt që dëshiron ta fshish këtë kërkesë',
     'delete-filled'       => 'Kjo kërkesë mund të fshihet vetëm nëse nuk është plotësuar',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Përshkrim',
     'dont-have-bps'       => 'Ju nuk keni Bonus të mjaftueshëm',
     'edit-request'        => 'Ndrysho kërkesën',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Futni pikë bonus (minimumi 100)',
     'enter-hash'          => 'Shkruani ID të Torrent-it të ngarkuar',
     'fill'                => 'mbush',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'për',
     'fulfill'             => 'përmbush',
     'last-vote'           => 'Votimi i fundit',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Kërkesat e mia',
+    'my-voted'            => 'My voted',
     'no'                  => 'Jo,',
     'no-imdb-id'          => 'Të gjitha kërkesat duhet të përmbajnë një numër IMDB',
     'no-privileges'       => 'Gabim: Të drejtat tuaja të kërkesës janë çaktivizuar',
     'no-privileges-desc'  => 'Nëse e ndjeni se kjo është gabim, ju lutemi kontaktoni Stafin',
     'no-refunds'          => 'BON shkëmbimet për krijimin, mbushjen dhe dhuratat janë përfundimtare! <br> <strong>JO RIMFONDET!</strong>',
     'pending'             => 'në pritje të',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'arsye',
     'reject'              => 'hedh poshtë',
     'report'              => 'Kërkesë për raport',
     'request'             => 'Kërkesë',
     'request-details'     => 'Detajet e kerkimit',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Kërkuar nga',
     'requests'            => 'kërkesat',
     'required'            => 'i nevojshëm',
     'reset'               => 'Reset',
     'reset-confirmation'  => 'Jeni i sigurt që doni të rivendosni këtë Kërkesë',
     'reset-request'       => 'Rivendoseni këtë Kërkesë',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Shperblim',
     'reward-desc'         => 'Sa pikë bonus do të donit të shpërbleni? Minimumi 100 BP',
     'reward-from'         => 'nga',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Shuma totale',
     'type'                => 'lloj',
     'unclaim'             => 'Hiqni këtë kërkesë',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'paplotësuar',
     'view-filled'         => 'Shiko mbushur',
     'view-unfilled'       => 'Shiko paplotësuar',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Voto këtë Kërkesë',
     'voters'              => 'votuesit',
     'votes'               => 'vota',
-    'yes'                 => 'po',
+    'yes'                 => 'po'
 ];

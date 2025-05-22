@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Ukrepi',
     'backup'                         => 'Rezerva',
     'backup_doesnt_exist'            => 'Varnostna datoteka ne obstaja.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Ustvarite celotno varnostno kopijo',
-    'create_a_new_files_backup'      => 'Ustvari varnostno kopiranje datotek',
     'create_a_new_db_backup'         => 'Ustvari varnostno kopijo baze podatkov',
+    'create_a_new_files_backup'      => 'Ustvari varnostno kopiranje datotek',
     'create_confirmation_message'    => 'Ponovno nalaganje strani v 3 sekundah.',
     'create_confirmation_title'      => 'Varnostno kopiranje je končano',
     'create_error_message'           => 'Varnostne datoteke ni bilo mogoče ustvariti.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Lokacija',
     'manager'                        => 'Manager',
     'no_disks_configured'            => 'V config / backup.php ni konfiguriranih diskov za varnostno kopiranje',
-    'only_local_downloads_supported' => 'Podprti so samo prenosi iz lokalnega datotečnega sistema.',
+    'only_local_downloads_supported' => 'Podprti so samo prenosi iz lokalnega datotečnega sistema.'
 ];

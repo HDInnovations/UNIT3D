@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,10 +18,12 @@ return [
     'add-option'           => '添加選項',
     'already-voted-error'  => '你已經投票過了，此次投票不被計算',
     'already-voted-result' => '你已經投票過了，結果如下',
+    'close-date'           => 'Close Poll after',
     'create-poll'          => '建立投票',
     'current'              => '目前投票',
     'delete-option'        => '刪除選項',
     'edit-poll'            => '編輯投票',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
     'multiple-choice'      => '這是一項多項選擇投票。可多選。',
     'option'               => '選項',
     'poll'                 => '投票',
@@ -29,6 +32,7 @@ return [
     'title'                => '標題',
     'total'                => '目前總投票數',
     'vote'                 => '投票',
+    'vote-counted'         => 'Your vote has been counted.',
     'vote-now'             => '馬上投票吧！',
-    'votes'                => '投票',
+    'votes'                => '投票'
 ];

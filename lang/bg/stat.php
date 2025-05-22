@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'По граф',
     'by-data'                 => 'По данни',
     'by-volume'               => 'По обем',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'група',
     'groups'                  => 'Групи',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Статистика за ботаника',
     'nerd-stats-desc'         => 'Ние всички обичаме статистиката. Ето няколко важни неща',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Дата на Регистрация',
     'request-fulfilled'       => 'Заявката е изпълнена',
     'request-not-fulfilled'   => 'Заявката не е изпълнена',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Най-добре',
     'top-leechers'            => 'Топ Leechers',
     'top-seeded'              => 'Най-добре разсеяно',
-    'top-seeding'             => 'Топ сеитба',
     'top-seeders'             => 'Топ сеялки',
+    'top-seeding'             => 'Топ сеитба',
     'top-seedsize'            => 'Нагоре Seedsize',
     'top-seedtime'            => 'Най-семето',
     'top-uploaders'           => 'Най-големи кадри',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Общо торенти',
     'total-traffic'           => 'Общо движение',
     'total-upload'            => 'Общо качване',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Потребители в група',
-    'users-per-group'         => 'Потребители на група',
+    'users-per-group'         => 'Потребители на група'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,17 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reminder Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are the default lines which match reasons
-    | that are given by the password broker for a password update attempt
-    | has failed, such as for an invalid token or invalid new password.
-    |
-    */
-
     'password' => '비밀번호는 최소한 6자 이상이어야 하며 확인 항목과 일치해야 합니다.',
     'reset'    => '비밀번호가 변경되었습니다!',
     'sent'     => '비밀번호 재설정 링크를 이메일로 전송했습니다!',

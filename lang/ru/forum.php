@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Закрыто',
     'create-new-topic'          => 'Создать новую тему',
     'created'                   => 'созданный',
+    'created-at'                => 'Created At',
     'current'                   => 'Текущий',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Удалить эту тему',
     'denied'                    => 'Отказано',
     'dislike-post'              => 'Не нравится этот пост',
     'display-forum'             => 'Показать темы в',
     'edit-post'                 => 'Редактировать сообщение',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Редактировать тему',
     'forum'                     => 'Форум',
     'forums'                    => 'Форумы',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Реализован',
     'in'                        => 'В',
     'invalid'                   => 'Недействительным',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'котировка',
     'read-topic'                => 'Читать тему',
     'replies'                   => 'Ответы',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Сохранить эту тему',
     'solved'                    => 'решаемая',
     'state'                     => 'государственный',
     'stats'                     => 'Статистика',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'подписной',
     'subscription-quick-search' => 'Быстрый поиск по названию темы (по подписке)',
     'suggestion'                => 'Предложение',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Тема',
     'topic-closed'              => 'Эта тема закрыта',
     'topic-name'                => 'Название темы',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Название этой темы',
     'topics'                    => 'темы',
     'unpin'                     => 'открепить',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Просмотреть все темы',
-    'views'                     => 'Просмотры',
+    'views'                     => 'Просмотры'
 ];

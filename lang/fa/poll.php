@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'اضافه کردن گزینه',
-    'create-poll'     => 'ایجاد نظرسنجی',
-    'current'         => 'نظرسنجی فعلی',
-    'delete-option'   => 'گزینه را حذف کنید',
-    'multiple-choice' => 'این نظرسنجی چند گزینه ای است. به عنوان بسیاری از پاسخ را انتخاب کنید که دوست دارید.',
-    'option'          => 'گزینه',
-    'poll'            => 'نظرسنجی',
-    'polls'           => 'نظرسنجی ها',
-    'results'         => 'نتایج نظرسنجی',
-    'title'           => 'عنوان',
-    'total'           => 'مجموع آراء همیشه',
-    'vote'            => 'رای',
-    'vote-now'        => 'رای خود را در حال حاضر دریافت کنید',
-    'votes'           => 'رای',
+    'add-option'           => 'اضافه کردن گزینه',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'ایجاد نظرسنجی',
+    'current'              => 'نظرسنجی فعلی',
+    'delete-option'        => 'گزینه را حذف کنید',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'این نظرسنجی چند گزینه ای است. به عنوان بسیاری از پاسخ را انتخاب کنید که دوست دارید.',
+    'option'               => 'گزینه',
+    'poll'                 => 'نظرسنجی',
+    'polls'                => 'نظرسنجی ها',
+    'results'              => 'نتایج نظرسنجی',
+    'title'                => 'عنوان',
+    'total'                => 'مجموع آراء همیشه',
+    'vote'                 => 'رای',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'رای خود را در حال حاضر دریافت کنید',
+    'votes'                => 'رای'
 ];

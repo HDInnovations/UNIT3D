@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Darbības',
     'backup'                         => 'Dublēšana',
     'backup_doesnt_exist'            => 'Dublējuma fails neeksistē.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Izveidot pilnu dublējumu',
-    'create_a_new_files_backup'      => 'Izveidojiet failu dublējumu',
     'create_a_new_db_backup'         => 'Izveidot datu bāzes dublējumu',
+    'create_a_new_files_backup'      => 'Izveidojiet failu dublējumu',
     'create_confirmation_message'    => 'Lapas atkārtota ielāde 3 sekunžu laikā.',
     'create_confirmation_title'      => 'Dublējums pabeigts',
     'create_error_message'           => 'Backup failu nevarēja izveidot.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Atrašanās vieta',
     'manager'                        => 'Vadītājs',
     'no_disks_configured'            => 'Konfigurācijā config / backup.php nav konfigurēti diski',
-    'only_local_downloads_supported' => 'Tiek atbalstītas tikai lejupielādes no lokālās failu sistēmas.',
+    'only_local_downloads_supported' => 'Tiek atbalstītas tikai lejupielādes no lokālās failu sistēmas.'
 ];

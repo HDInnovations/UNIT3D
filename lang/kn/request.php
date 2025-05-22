@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'ವಿನಂತಿಯನ್ನು ಸೇರಿಸಿ',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'ವಯಸ್ಸು',
     'all-requests'        => 'ಎಲ್ಲಾ ವಿನಂತಿಗಳು',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'ಅನುಮೋದಿಸಿ',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'ಬೌಂಟಿ',
     'bounty-claimed'      => 'ಬೌಂಟಿ ಹೇಳಿದ್ದಾರೆ',
     'bounty-unclaimed'    => 'ಬೌಂಟಿ ಹಕ್ಕು ನಿರಾಕರಿಸಲಾಗಿದೆ',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'ನೀವು ಈ ಪರಮಾಧಿಕಾರವನ್ನು ಪಡೆಯಲು ಬಯಸುತ್ತೀರಾ',
     'claim-now'           => 'ಇದೀಗ ಹಕ್ಕು ಪಡೆಯಿರಿ',
     'claimed'             => 'ಹಕ್ಕು ಪಡೆಯಲಾಗಿದೆ',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'ಪ್ರಸ್ತುತ',
     'delete'              => 'ಈ ವಿನಂತಿ ಅಳಿಸಿ',
     'delete-confirmation' => 'ಈ ವಿನಂತಿ ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ',
     'delete-filled'       => 'ಈ ವಿನಂತಿಯನ್ನು ಅದು ಭರ್ತಿ ಮಾಡದಿದ್ದರೆ ಮಾತ್ರ ಅಳಿಸಬಹುದು',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'ವಿವರಣೆ',
     'dont-have-bps'       => 'ನಿಮಗೆ ಸಾಕಷ್ಟು ಬೋನಸ್ ಇರುವುದಿಲ್ಲ',
     'edit-request'        => 'ವಿನಂತಿಯನ್ನು ಸಂಪಾದಿಸಿ',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'ಬೋನಸ್ ಅಂಕಗಳನ್ನು ನಮೂದಿಸಿ (ಕನಿಷ್ಠ 100)',
     'enter-hash'          => 'ಅಪ್ಲೋಡ್ ಮಾಡಿದ ಟೊರೆಂಟ್ನ ಇನ್ಫೋ ಹ್ಯಾಶ್ ಅನ್ನು ನಮೂದಿಸಿ',
     'fill'                => 'ತುಂಬಿರಿ',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'ಫಾರ್',
     'fulfill'             => 'ಪೂರೈಸು',
     'last-vote'           => 'ಕೊನೆಯ ಮತ',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'ನನ್ನ ವಿನಂತಿಗಳು',
+    'my-voted'            => 'My voted',
     'no'                  => 'ಇಲ್ಲ,',
     'no-imdb-id'          => 'ಎಲ್ಲಾ ವಿನಂತಿಗಳು ಐಎಮ್ಡಿಬಿ ಸಂಖ್ಯೆಯನ್ನು ಒಳಗೊಂಡಿರಬೇಕು',
     'no-privileges'       => 'ದೋಷ: ನಿಮ್ಮ ವಿನಂತಿಯ ಹಕ್ಕುಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ',
     'no-privileges-desc'  => 'ಇದು ದೋಷವೆಂದು ನೀವು ಭಾವಿಸಿದರೆ, ದಯವಿಟ್ಟು ಸಿಬ್ಬಂದಿಗೆ ಸಂಪರ್ಕಿಸಿ',
     'no-refunds'          => 'ರಚಿಸುವುದು, ಭರ್ತಿ ಮಾಡುವುದು ಮತ್ತು ಬಂಟಿಗಳು ಅಂತಿಮವಾಗುವುದರ ಮೇಲೆ BON ವಿನಿಮಯಗಳು! <br> <strong>ಯಾವುದೇ ಮರುಪಾವತಿ ಇಲ್ಲ!</strong>',
     'pending'             => 'ಬಾಕಿ ಉಳಿದಿದೆ',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'ಕಾರಣ',
     'reject'              => 'ತಿರಸ್ಕರಿಸಿ',
     'report'              => 'ವರದಿ ಕೋರಿಕೆ',
     'request'             => 'ವಿನಂತಿ',
     'request-details'     => 'ವಿನಂತಿ ವಿವರಗಳು',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'ಅದಕ್ಕೆ ವಿನಂತಿಸಲಾಗಿದೆ',
     'requests'            => 'ವಿನಂತಿಗಳು',
     'required'            => 'ಅಗತ್ಯವಿದೆ',
     'reset'               => 'ಮರುಹೊಂದಿಸಿ',
     'reset-confirmation'  => 'ಈ ವಿನಂತಿ ಮರುಹೊಂದಿಸಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ',
     'reset-request'       => 'ಈ ವಿನಂತಿ ಮರುಹೊಂದಿಸಿ',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'ಬಹುಮಾನ',
     'reward-desc'         => 'ಎಷ್ಟು ಬೋನಸ್ ಪಾಯಿಂಟ್ ನೀವು ಬಹುಮಾನವನ್ನು ನೀಡಲು ಬಯಸುತ್ತೀರಿ? ಕನಿಷ್ಠ 100 ಬಿಪಿ',
     'reward-from'         => 'ನಿಂದ',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'ಒಟ್ಟು ಔದಾರ್ಯ',
     'type'                => 'ಮಾದರಿ',
     'unclaim'             => 'ಈ ವಿನಂತಿಯನ್ನು ಅನ್ಕ್ಲೈಮ್ ಮಾಡಿ',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'ತುಂಬದ',
     'view-filled'         => 'ವೀಕ್ಷಿಸಿ ತುಂಬಿದೆ',
     'view-unfilled'       => 'ತುಂಬಿದ ವೀಕ್ಷಿಸಿ',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'ಈ ವಿನಂತಿಗೆ ಮತ ಚಲಾಯಿಸಿ',
     'voters'              => 'ಮತದಾರರು',
     'votes'               => 'ಮತಗಳು',
-    'yes'                 => 'ಹೌದು',
+    'yes'                 => 'ಹೌದು'
 ];

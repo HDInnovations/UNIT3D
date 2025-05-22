@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Προσθήκη αιτήματος',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Ηλικία',
     'all-requests'        => 'Όλα τα αιτήματα',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Εγκρίνω',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Αμοιβή',
     'bounty-claimed'      => 'η Αμοιβή έχει ληφθεί',
     'bounty-unclaimed'    => 'Η αμοιβή δεν αποδόθηκε',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Θα θέλατε να το διεκδικήσετε αυτό ανωνύμως',
     'claim-now'           => 'Διεκδικήστε τώρα',
     'claimed'             => 'Διεκδικήθηκε',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'τρέχων',
     'delete'              => 'Διαγράψτε αυτό το αίτημα',
     'delete-confirmation' => 'Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτό το αίτημα',
     'delete-filled'       => 'Αυτό το αίτημα μπορεί να διαγραφεί μόνο αν δεν έχει πληρωθεί',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Περιγραφή',
     'dont-have-bps'       => 'Δεν έχετε αρκετά πονταλάκια',
     'edit-request'        => 'Επεξεργασία αιτήματος',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Πληκτρολογήστε πόσα πονταλάκια προσφέρετε (τουλάχιστον 100)',
     'enter-hash'          => 'Εισαγάγετε το Πληροφοριακό Σημείωμα - ID - του φορτωμένου Torrent',
     'fill'                => 'Εκπληρωση',
@@ -43,9 +56,9 @@ return [
     'for'                 => 'Για',
     'fulfill'             => 'Εκπληρώ',
     'last-vote'           => 'Τελευταία ψηφος',
-    'my-requests'         => 'Τα αιτήματά μου',
-    'my-filled'           => 'Τα εκπληρωμένα μου',
     'my-claims'           => 'Έχω διεκδικήσει',
+    'my-filled'           => 'Τα εκπληρωμένα μου',
+    'my-requests'         => 'Τα αιτήματά μου',
     'my-voted'            => 'Εχω ψηφίσει ',
     'no'                  => 'Οχι,',
     'no-imdb-id'          => 'Όλα τα αιτήματα πρέπει να περιέχουν έναν αριθμό IMDB ή TMDB',
@@ -53,11 +66,14 @@ return [
     'no-privileges-desc'  => 'Εάν θεωρείτε ότι υπάρχει λάθος, επικοινωνήστε με το προσωπικό',
     'no-refunds'          => 'Οι ανταλλαγές πόντων σχετικά με τη δημιουργία, την εκπλήρωση και τα χρηματικά ποσά είναι τελικά! <br> <strong>ΔΕΝ ΓΙΝΟΝΤΑΙ ΕΠΙΣΤΡΟΦΕΣ!</strong>',
     'pending'             => 'Eκκρεμής',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Λόγος',
     'reject'              => 'Απορρίπτω',
     'report'              => 'Αναφορά αίτησης',
     'request'             => 'Αίτηση',
     'request-details'     => 'Λεπτομέρειες αιτήματος',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Ζητήθηκε από',
     'requests'            => 'Αιτήσεις',
     'required'            => 'Απαιτείται',
@@ -74,6 +90,8 @@ return [
     'total-bounty'        => 'Συνολική αμοιβή',
     'type'                => 'Τύπος',
     'unclaim'             => 'Ακύρωση αυτού του αιτήματος',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Ανεπλήρωτο',
     'view-filled'         => 'Ππροβολή εκπληρωμένων',
     'view-unfilled'       => 'Προβολή ανεκπλήρωτων',
@@ -81,5 +99,5 @@ return [
     'vote-that'           => 'Ψηφίστε αυτό το αίτημα',
     'voters'              => 'Οι ψηφοφόροι',
     'votes'               => 'Ψηφοφορίες',
-    'yes'                 => 'Ναί',
+    'yes'                 => 'Ναί'
 ];

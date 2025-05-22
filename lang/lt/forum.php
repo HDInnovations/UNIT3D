@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Uždaryta',
     'create-new-topic'          => 'Sukurti naują temą',
     'created'                   => 'Sukurta',
+    'created-at'                => 'Created At',
     'current'                   => 'Dabartinis',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Ištrinti šią temą',
     'denied'                    => 'Neleidžiama',
     'dislike-post'              => 'Nepatinka šis pranešimas',
     'display-forum'             => 'Rodyti temas',
     'edit-post'                 => 'Redaguoti įrašą',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Redaguoti temą',
     'forum'                     => 'Forumas',
     'forums'                    => 'Forumai',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Įgyvendinta',
     'in'                        => 'Į',
     'invalid'                   => 'Neteisingas',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Citata',
     'read-topic'                => 'Skaitykite temą',
     'replies'                   => 'Atsakymai',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Išsaugoti šią temą',
     'solved'                    => 'Išspręsta',
     'state'                     => 'Valstybė',
     'stats'                     => 'Statistika',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Prenumeruota',
     'subscription-quick-search' => 'Temos pavadinimo greitoji paieška (per prenumeratą)',
     'suggestion'                => 'Pasiūlymas',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Tema',
     'topic-closed'              => 'Ši tema uždaryta',
     'topic-name'                => 'Temos pavadinimas',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Šios temos pavadinimas',
     'topics'                    => 'Temos',
     'unpin'                     => 'Atjunkite',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Peržiūrėti visas temas',
-    'views'                     => 'Peržiūrėjo',
+    'views'                     => 'Peržiūrėjo'
 ];

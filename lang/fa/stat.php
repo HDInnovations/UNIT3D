@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'توسط شمارنده',
     'by-data'                 => 'توسط داده ها',
     'by-volume'               => 'حجم',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'گروه',
     'groups'                  => 'گروه ها',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'آمار Nerd',
     'nerd-stats-desc'         => 'همه ما عاشق آمار است در اینجا چند نفر هستند که مهم هستند',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'تاریخ ثبت نام',
     'request-fulfilled'       => 'درخواست انجام شد',
     'request-not-fulfilled'   => 'درخواست انجام نشده است',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'بالا پایین',
     'top-leechers'            => 'بالا لچر',
     'top-seeded'              => 'بالا بذر',
-    'top-seeding'             => 'بالا رفتن بذر',
     'top-seeders'             => 'کارشناسان برتر',
+    'top-seeding'             => 'بالا رفتن بذر',
     'top-seedsize'            => 'بالا برود',
     'top-seedtime'            => 'بالا بیدم',
     'top-uploaders'           => 'آپلود بالا',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'کل تورنت ها',
     'total-traffic'           => 'مجموع ترافیک',
     'total-upload'            => 'مجموع آپلود',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'کاربران در گروه',
-    'users-per-group'         => 'کاربران در هر گروه',
+    'users-per-group'         => 'کاربران در هر گروه'
 ];

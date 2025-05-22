@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,14 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'date'             => 'data',
-    'delete'           => 'ezabatu',
-    'delete-all'       => 'Ezabatu jakinarazpen guztiak',
-    'mark-all-read'    => 'Markatu guztiak irakurri gisa',
-    'mark-read'        => 'Markatu irakurri gisa',
-    'message'          => 'Mezua',
-    'no-notifications' => 'Ez da jakinarazpenik aurkitu',
-    'notifications'    => 'jakinarazpenak',
-    'read'             => 'irakurri',
-    'title'            => 'Izenburua',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gifts',
+    'comment-tags'        => 'Comment Tags',
+    'date'                => 'data',
+    'delete'              => 'ezabatu',
+    'delete-all'          => 'Ezabatu jakinarazpen guztiak',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filter By Notification Type',
+    'mark-all-read'       => 'Markatu guztiak irakurri gisa',
+    'mark-read'           => 'Markatu irakurri gisa',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'Mezua',
+    'no-notifications'    => 'Ez da jakinarazpenik aurkitu',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'jakinarazpenak',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'irakurri',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'Izenburua',
+    'unfollows'           => 'Unfollows'
 ];

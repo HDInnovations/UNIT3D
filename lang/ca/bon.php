@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Intercanvi',
     'exchange-warning'        => 'Els canvis són definitius. Comproveu les vostres opcions abans de fer un canvi.',
     'extended-stats'          => 'Estadístiques esteses',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Regal',
     'gift-bonus'              => 'Punts de bonificació de regal',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Punts de bonificació de regal a',
     'gifts'                   => 'Regals',
     'item'                    => 'Article',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Punts per segon',
     'per-week'                => 'Punts per setmana',
     'per-year'                => 'Punts per any',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Punts',
     'receiver'                => 'Receptor',
     'review-seeds'            => 'Reviseu tots els Torrents sembrats',
     'send-gift'               => 'Enviar un regal',
     'sender'                  => 'Remitent',
     'store'                   => 'Botiga',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Consells',
     'total'                   => 'Guanys totals',
     'total-gifts'             => 'En regals BON Total',
     'total-tips'              => 'A Total BON Tips',
     'you-have-received-gifts' => 'Heu rebut',
-    'you-have-sent-gifts'     => 'Heu enviat',
     'you-have-received-tips'  => 'Heu rebut',
+    'you-have-sent-gifts'     => 'Heu enviat',
     'you-have-sent-tips'      => 'Heu enviat',
-    'your-points'             => 'Els vostres punts',
+    'your-points'             => 'Els vostres punts'
 ];

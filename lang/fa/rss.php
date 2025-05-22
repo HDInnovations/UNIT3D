@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'ايجاد كردن',
     'create-private-feed' => 'ایجاد RSS خوراک خصوصی',
     'create-public-feed'  => 'ایجاد RSS خوراک عمومی',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'حذف',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'ویرایش کنید',
     'edit-private-feed'   => 'ویرایش RSS خصوصی شخصی',
     'edit-public-feed'    => 'ویرایش خوراک RSS عمومی',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'خوراک',
     'feeds'               => 'خوردها',
     'name'                => 'نام',
-    'public'              => 'عمومی',
     'private'             => 'خصوصی',
+    'public'              => 'عمومی',
     'rss'                 => 'RSS',
     'rss-feed'            => 'خوراک RSS',
     'type'                => 'تایپ کنید',
+    'updated'             => 'Private RSS Feed Updated'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,15 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'dead'               => 'ស្លាប់',
-    'graveyard'          => 'កប់ខ្មោច',
-    'guidelines'         => 'គោលការណ៍ណែនាំ',
-    'guidelines-content' => '1) អ្នកមិនអាចបង្កើតការផ្ទុកឡើងរបស់អ្នកឡើងវិញបានទេ។ <br> 2) មិនត្រូវធ្វើអ្វីដែលអ្នកមិនអាចធ្វើបានទេ។',
-    'howto'              => 'Heres Rule',
-    'howto-desc1'        => 'អ្នកត្រូវមានពូជ <span class=\\"text-green\\"><em>: ដាក់ឈ្មោះ</em></span> រយៈពេល <span class="text-red text-bold">30 ថ្ងៃ</span> ដើម្បីទទួលបានភាពជោគជ័យ។ នៅក្នុងករណីដែលពេល seedtime បច្ចុប្បន្នរបស់អ្នក',
-    'howto-desc2'        => 'អ្នកនឹងទទួលបានរង្វាន់',
-    'howto-hits'         => 'ចុច',
-    'pending'            => 'កំពុងរង់ចាំ',
-    'resurrect'          => 'រស់ឡើងវិញ',
-    'reward'             => 'និមិត្តសញ្ញា Freeleech',
+    'current-seedtime'         => 'Current Seedtime',
+    'dead'                     => 'ស្លាប់',
+    'graveyard'                => 'កប់ខ្មោច',
+    'guidelines'               => 'គោលការណ៍ណែនាំ',
+    'guidelines-content'       => '1) អ្នកមិនអាចបង្កើតការផ្ទុកឡើងរបស់អ្នកឡើងវិញបានទេ។ <br> 2) មិនត្រូវធ្វើអ្វីដែលអ្នកមិនអាចធ្វើបានទេ។',
+    'howto'                    => 'Heres Rule',
+    'howto-desc1'              => 'អ្នកត្រូវមានពូជ <span class=\\"text-green\\"><em>: ដាក់ឈ្មោះ</em></span> រយៈពេល <span class="text-red text-bold">30 ថ្ងៃ</span> ដើម្បីទទួលបានភាពជោគជ័យ។ នៅក្នុងករណីដែលពេល seedtime បច្ចុប្បន្នរបស់អ្នក',
+    'howto-desc2'              => 'អ្នកនឹងទទួលបានរង្វាន់',
+    'howto-hits'               => 'ចុច',
+    'not-rewarded'             => 'Not Rewarded',
+    'pending'                  => 'កំពុងរង់ចាំ',
+    'resurrect'                => 'រស់ឡើងវិញ',
+    'resurrect-canceled'       => 'Resurrection Successfully Canceled!',
+    'resurrect-complete'       => 'Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.',
+    'resurrect-date'           => 'Resurrect Date',
+    'resurrect-failed-own'     => 'Torrent Resurrection Failed! You cannot resurrect your own uploads.',
+    'resurrect-failed-pending' => 'Torrent Resurrection Failed! This torrent is already pending a resurrection.',
+    'reward'                   => 'និមិត្តសញ្ញា Freeleech',
+    'rewarded'                 => 'Rewarded',
+    'seedtime-goal'            => 'Seedtime Goal'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'დათვლა',
     'by-data'                 => 'მონაცემთა მიხედვით',
     'by-volume'               => 'მოცულობით',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'ჯგუფი',
     'groups'                  => 'ჯგუფები',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd სტატისტიკა',
     'nerd-stats-desc'         => 'ჩვენ ყველას გვიყვარს სტატისტიკა. აქ არის რამდენიმე, რომ ჩვენ მნიშვნელოვანია',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Რეგისტრაციის თარიღი',
     'request-fulfilled'       => 'მოთხოვნა შესრულდა',
     'request-not-fulfilled'   => 'მოთხოვნა არ შესრულდა',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'ყველაზე ლიკვიდაცია',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'ყველაზე Seeded',
-    'top-seeding'             => 'ყველაზე სელექტი',
     'top-seeders'             => 'ყველაზე სელექტორები',
+    'top-seeding'             => 'ყველაზე სელექტი',
     'top-seedsize'            => 'ყველაზე Seedsize',
     'top-seedtime'            => 'ყველაზე თესლი',
     'top-uploaders'           => 'ყველაზე ატვირთული მოთამაშეები',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'სულ ტორენტები',
     'total-traffic'           => 'სულ მოძრაობა',
     'total-upload'            => 'სულ ატვირთვა',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'მომხმარებელი ჯგუფში',
-    'users-per-group'         => 'მომხმარებელი Per ჯგუფი',
+    'users-per-group'         => 'მომხმარებელი Per ჯგუფი'
 ];

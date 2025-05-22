@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Kapalı',
     'create-new-topic'          => 'Yeni Konu Oluştur',
     'created'                   => 'düzenlendi',
+    'created-at'                => 'Created At',
     'current'                   => 'şimdiki',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Bu Konuyu Sil',
     'denied'                    => 'Reddedildi',
     'dislike-post'              => 'Bu Gönderi Sevme',
     'display-forum'             => 'İçindeki konuları göster',
     'edit-post'                 => 'Gönderiyi düzenle',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Konuyu Düzenle',
     'forum'                     => 'forum',
     'forums'                    => 'Forum',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Uygulanan',
     'in'                        => 'İçinde',
     'invalid'                   => 'Geçersiz',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Alıntı',
     'read-topic'                => 'Konuyu Oku',
     'replies'                   => 'Cevaplar',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Bu Konuyu Kaydet',
     'solved'                    => 'çözülmüş',
     'state'                     => 'Belirtmek, bildirmek',
     'stats'                     => 'İstatistikleri',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Abone',
     'subscription-quick-search' => 'Konu adı hızlı arama (abonelikler içinde)',
     'suggestion'                => 'Öneri',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'konu',
     'topic-closed'              => 'Bu Konu Kapalı',
     'topic-name'                => 'Konu adı',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Bu Konunun Başlığı',
     'topics'                    => 'Başlıklar',
     'unpin'                     => 'sabitlemesini',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Tüm Konuları Göster',
-    'views'                     => 'Görünümler',
+    'views'                     => 'Görünümler'
 ];

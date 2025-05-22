@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Pridať možnosť',
-    'create-poll'     => 'Vytvorte anketu',
-    'current'         => 'Aktuálne ankety',
-    'delete-option'   => 'Vymazať možnosť',
-    'multiple-choice' => 'Toto je anketa s viacerými možnosťami. Vyberte čo najviac odpovedí.',
-    'option'          => 'voľba',
-    'poll'            => 'hlasovanie',
-    'polls'           => 'Ankety',
-    'results'         => 'Výsledky prieskumu',
-    'title'           => 'nadpis',
-    'total'           => 'Celkom hlasov',
-    'vote'            => 'hlasovanie',
-    'vote-now'        => 'Získajte svoj hlas teraz!',
-    'votes'           => 'hlasy',
+    'add-option'           => 'Pridať možnosť',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Vytvorte anketu',
+    'current'              => 'Aktuálne ankety',
+    'delete-option'        => 'Vymazať možnosť',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Toto je anketa s viacerými možnosťami. Vyberte čo najviac odpovedí.',
+    'option'               => 'voľba',
+    'poll'                 => 'hlasovanie',
+    'polls'                => 'Ankety',
+    'results'              => 'Výsledky prieskumu',
+    'title'                => 'nadpis',
+    'total'                => 'Celkom hlasov',
+    'vote'                 => 'hlasovanie',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Získajte svoj hlas teraz!',
+    'votes'                => 'hlasy'
 ];

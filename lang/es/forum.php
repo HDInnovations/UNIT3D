@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,13 +27,14 @@ return [
     'created'                   => 'Creado',
     'created-at'                => 'Creado en',
     'current'                   => 'Actual',
-    'delete-topic'              => 'Eliminar este hilo',
     'delete-post-success'       => '¡Este mensaje ha sido eliminado correctamente!',
+    'delete-topic'              => 'Eliminar este hilo',
     'denied'                    => 'Denegado',
     'dislike-post'              => 'No me gusta esta publicación',
     'display-forum'             => 'Mostrar hilos en',
     'edit-post'                 => 'Editar mensaje',
     'edit-post-success'         => '¡Mensaje editado correctamente!',
+    'edit-topic'                => 'Edit Topic',
     'forum'                     => 'Foro',
     'forums'                    => 'Foros',
     'forums-post-search'        => 'Búsqueda de mensajes',
@@ -63,11 +65,11 @@ return [
     'replies'                   => 'Respuestas',
     'reply-topic-error'         => '¡No puedes responder a este tema!',
     'reply-topic-success'       => 'Mensaje publicado correctamente',
+    'select-all-forum'          => 'Todas las categorías/foros',
     'send-new-topic'            => 'Publicar este hilo',
     'solved'                    => 'Resuelto',
     'state'                     => 'Estado',
     'stats'                     => 'Estadísticas',
-    'select-all-forum'          => 'Todas las categorías/foros',
     'subscribe'                 => 'Suscribirse',
     'subscribed'                => 'Suscrito',
     'subscription-quick-search' => 'Búsqueda rápida del nombre del hilo (dentro de las suscripciones)',
@@ -81,8 +83,8 @@ return [
     'topic-title'               => 'Título de este hilo',
     'topics'                    => 'Hilos',
     'unpin'                     => 'Desmarcar',
-    'updated-at'                => 'Actualizado en',
     'unsubscribe'               => 'Cancelar suscripción',
+    'updated-at'                => 'Actualizado en',
     'view-all'                  => 'Ver todos los hilos',
-    'views'                     => 'Vistas',
+    'views'                     => 'Vistas'
 ];

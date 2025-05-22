@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'teremt',
-    'delete'        => 'Töröl',
-    'enter-subject' => 'Adja meg a témát',
-    'from'          => 'Tól től',
-    'inbox'         => 'Bejövő',
-    'mark-all-read' => 'Jelölje be az összes üzenetet olvasottként',
-    'message'       => 'Üzenet',
-    'messages'      => 'üzenetek',
-    'new'           => 'Új üzenet',
-    'outbox'        => 'Kimenő üzenetek',
-    'private'       => 'Magán',
-    'read'          => 'Olvas',
-    'received-at'   => 'Kapott At',
-    'refresh'       => 'Frissítés',
-    'reply'         => 'Válasz',
-    'search'        => 'Keresés tárgy szerint',
-    'select'        => 'Válassza a Felhasználó lehetőséget',
-    'send'          => 'Küldés PM',
-    'send-to'       => 'Küldés PM-re',
-    'sent'          => 'Küldött',
-    'sent-at'       => 'Elküldött',
-    'subject'       => 'Tantárgy',
-    'to'            => 'Nak nek',
-    'unread'        => 'Nem olvasott',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'teremt',
+    'delete'          => 'Töröl',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'Adja meg a témát',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Tól től',
+    'inbox'           => 'Bejövő',
+    'mark-all-read'   => 'Jelölje be az összes üzenetet olvasottként',
+    'message'         => 'Üzenet',
+    'messages'        => 'üzenetek',
+    'new'             => 'Új üzenet',
+    'outbox'          => 'Kimenő üzenetek',
+    'private'         => 'Magán',
+    'read'            => 'Olvas',
+    'received-at'     => 'Kapott At',
+    'refresh'         => 'Frissítés',
+    'reply'           => 'Válasz',
+    'search'          => 'Keresés tárgy szerint',
+    'select'          => 'Válassza a Felhasználó lehetőséget',
+    'send'            => 'Küldés PM',
+    'send-to'         => 'Küldés PM-re',
+    'sent'            => 'Küldött',
+    'sent-at'         => 'Elküldött',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Tantárgy',
+    'to'              => 'Nak nek',
+    'unread'          => 'Nem olvasott'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Mbyllur',
     'create-new-topic'          => 'Krijo një temë të re',
     'created'                   => 'krijuar',
+    'created-at'                => 'Created At',
     'current'                   => 'aktual',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Fshije këtë temë',
     'denied'                    => 'mohuar',
     'dislike-post'              => 'Nuk e pëlqejnë këtë post',
     'display-forum'             => 'Trego temat në',
     'edit-post'                 => 'Ndrysho postimin',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Ndrysho temën',
     'forum'                     => 'Forum',
     'forums'                    => 'Forumet',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'zbatuar',
     'in'                        => 'Në',
     'invalid'                   => 'invalid',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'citat',
     'read-topic'                => 'Lexo temën',
     'replies'                   => 'Përgjigje',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Ruaj këtë temë',
     'solved'                    => 'zgjidhur',
     'state'                     => 'shtet',
     'stats'                     => 'Stats',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'regjistruar',
     'subscription-quick-search' => 'Kërkimi i shpejtë i emrit të temës (brenda abonimeve)',
     'suggestion'                => 'sugjerim',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'temë',
     'topic-closed'              => 'Ky Temë është Mbyllur',
     'topic-name'                => 'Emri i temës',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Titulli i kësaj teme',
     'topics'                    => 'Temat',
     'unpin'                     => 'Zhgozhdo',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Shiko të gjitha temat',
-    'views'                     => 'Views',
+    'views'                     => 'Views'
 ];

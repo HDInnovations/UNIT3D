@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Luoda',
     'create-private-feed' => 'Luo yksityinen RSS-syöte',
     'create-public-feed'  => 'Luo julkinen RSS-syöte',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Poistaa',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Muokata',
     'edit-private-feed'   => 'Muokkaa yksityistä RSS-syötettä',
     'edit-public-feed'    => 'Muokkaa julkista RSS-syötettä',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'rehu',
     'feeds'               => 'syötteet',
     'name'                => 'Nimi',
-    'public'              => 'Julkinen',
     'private'             => 'yksityinen',
+    'public'              => 'Julkinen',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS-syöte',
     'type'                => 'Tyyppi',
+    'updated'             => 'Private RSS Feed Updated'
 ];

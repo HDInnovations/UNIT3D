@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Tilføj request',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Alder',
     'all-requests'        => 'Alle requests',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Godkende',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Dusør',
     'bounty-claimed'      => 'Dusør opkrævet',
     'bounty-unclaimed'    => 'Dusør uopkrævet',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Vil du gerne opkræve dette anonymt',
     'claim-now'           => 'Opkræv nu',
     'claimed'             => 'Opkrævet',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Nuværende',
     'delete'              => 'Slet denne request',
     'delete-confirmation' => 'Er du sikker på, at du vil slette denne request',
     'delete-filled'       => 'Denne request kan kun slettes, hvis den ikke er blevet opfyldt',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Beskrivelse',
     'dont-have-bps'       => 'Du har ikke nok Bonus',
     'edit-request'        => 'Rediger request',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Indtast bonuspoint (minimum 100)',
     'enter-hash'          => 'Indtast ID af den uploadede Torrent',
     'fill'                => 'Opfyld',
@@ -43,21 +56,24 @@ return [
     'for'                 => 'til',
     'fulfill'             => 'Opfyld',
     'last-vote'           => 'Senest stemt på for',
-    'my-requests'         => 'Mine requests',
     'my-claims'           => 'Mine opkrævede',
-    'my-voted'            => 'Mine stemte',
     'my-filled'           => 'Mine opfyldte',
+    'my-requests'         => 'Mine requests',
+    'my-voted'            => 'Mine stemte',
     'no'                  => 'Nej,',
     'no-imdb-id'          => 'Alle requests skal indeholde et IMDB-nummer',
     'no-privileges'       => 'Fejl: Dine requestrettigheder er blevet deaktiveret',
     'no-privileges-desc'  => 'Hvis du mener, at dette er i fejl, bedes du kontakte staff',
     'no-refunds'          => 'BON-udvekslinger i forbindelse med oprettelse, opfyldning og dusør er endelige! <br> <strong>Ingen tilbagebetalinger!</strong>',
     'pending'             => 'Afventende',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Årsag',
     'reject'              => 'Afvis',
     'report'              => 'Anmeld request',
     'request'             => 'Request',
     'request-details'     => 'Request-detaljer',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Efterspurgt af',
     'requests'            => 'Request',
     'required'            => 'Nødvendig',
@@ -65,6 +81,7 @@ return [
     'reset-confirmation'  => 'Er du sikker på, at du vil nulstille denne request',
     'reset-request'       => 'Nulstil denne request',
     'resolution'          => 'Opløsning',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Belønning',
     'reward-desc'         => 'Hvor mange bonuspoint vil du gerne belønne requesten med? Minimum 100 BP',
     'reward-from'         => 'Fra',
@@ -73,6 +90,8 @@ return [
     'total-bounty'        => 'Samlet dusør',
     'type'                => 'Type',
     'unclaim'             => 'Afkræv denne anmodning',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Ikke opfyldt',
     'view-filled'         => 'Vis opfylte',
     'view-unfilled'       => 'Vis ikke opfyldte',
@@ -80,5 +99,5 @@ return [
     'vote-that'           => 'Stem på denne',
     'voters'              => 'Bruger(re) har stemt på dette request!',
     'votes'               => 'Stemmer',
-    'yes'                 => 'Ja',
+    'yes'                 => 'Ja'
 ];

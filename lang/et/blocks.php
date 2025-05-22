@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Viimati aktiivne',
     'chatbox'                 => 'Vestluskast',
+    'check-news'              => 'Uudised (kontrollige iga päev)',
     'click'                   => 'Klõpsake nuppu',
-    'to-enable-editor'        => 'redaktori lubamiseks',
     'featured-by'             => 'Esile tõstetud',
     'featured-torrents'       => 'Soovitatavad torrentid',
     'featured-torrents-intro' => 'Hangi neid, kui saate!',
     'featured-until'          => 'Tegemist on torrentiga kuni',
-    'top-torrents'            => 'Top Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Viimased postitused',
     'latest-topics'           => 'Viimased teemad',
-    'active-in-last'          => 'Viimati aktiivne',
-    'users-online'            => 'Kasutajad võrgus',
-    'check-news'              => 'Uudised (kontrollige iga päev)',
     'new-news'                => 'Uued uudised',
     'new-torrents'            => 'Uued torrentid',
+    'to-enable-editor'        => 'redaktori lubamiseks',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'Kasutajad võrgus'
 ];

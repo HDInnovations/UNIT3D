@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -9,12 +10,13 @@ declare(strict_types=1);
  *
  * @project    UNIT3D Community Edition
  *
- * @author     Howard Lau <howardlau1999@hotmail.com>
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
 return [
     'born'            => 'Født',
+    'collection'      => 'Collection',
     'collections'     => 'Samlinger',
     'companies'       => 'Selskap',
     'disclaimer'      => 'Dette produktet bruker TMDb API, men er ikke godkjent eller sertifisert av TMDb.',
@@ -23,12 +25,11 @@ return [
     'genres'          => 'Sjangere',
     'includes'        => 'Inkluderer:',
     'latest-project'  => 'Siste Prosjekt',
+    'movie'           => 'Movie',
+    'movie-credits'   => 'Film Opptredning',
+    'movies'          => 'Filmer',
     'networks'        => 'Netselskap',
     'no-data'         => 'Ingen Data Funnet!',
-    'movies'          => 'Filmer',
-    'movie-credits'   => 'Film Opptredning',
-    'rewarded'        => 'Belønninger',
-    'seedtime-goal'   => 'Seedtid Mål',
     'persons'         => 'Personer',
     'plot'            => 'Handling',
     'release-date'    => 'Lanseringsdato',
@@ -39,5 +40,5 @@ return [
     'title'           => 'MediaHub',
     'tv-credits'      => 'TV Opptredner:',
     'view-collection' => 'Se Samlingen',
-    'wiki-read'       => 'Les Full Bio På Wikipedia',
+    'wiki-read'       => 'Les Full Bio På Wikipedia'
 ];

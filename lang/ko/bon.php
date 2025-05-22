@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => '교환',
     'exchange-warning'        => '교환은 되돌릴수 없습니다. 교환하기 전에 선택 사항을 다시 확인하십시오.',
     'extended-stats'          => '확장 통계',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => '선물',
     'gift-bonus'              => '선물 보너스 포인트',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => '선물 보너스 포인트',
     'gifts'                   => '선물',
     'item'                    => '아이템',
@@ -39,19 +48,23 @@ return [
     'per-second'              => '초당 포인트',
     'per-week'                => '주당 포인트',
     'per-year'                => '연간 포인트',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => '포인트',
     'receiver'                => '리시버',
     'review-seeds'            => '모든 시드 토렌트 검토',
     'send-gift'               => '선물을 보내기',
     'sender'                  => '센더',
     'store'                   => '스토어',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => '팁',
     'total'                   => '전체 수익',
     'total-gifts'             => '총 보너스 선물',
     'total-tips'              => '총 보너스 팁',
     'you-have-received-gifts' => '선물을 받았습니다.',
-    'you-have-sent-gifts'     => '선물을 보냈습니다.',
     'you-have-received-tips'  => '팁을 보냈습니다.',
+    'you-have-sent-gifts'     => '선물을 보냈습니다.',
     'you-have-sent-tips'      => '팁을 보냈습니다.',
-    'your-points'             => '귀하의 포인트',
+    'your-points'             => '귀하의 포인트'
 ];

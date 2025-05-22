@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Ustvari',
     'create-private-feed' => 'Ustvarite zasebni vir RSS',
     'create-public-feed'  => 'Ustvari javni RSS vir',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Izbriši',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Uredi',
     'edit-private-feed'   => 'Uredi zasebni vir RSS',
     'edit-public-feed'    => 'Uredi javni RSS vir',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Krma',
     'feeds'               => 'Viri',
     'name'                => 'Ime',
-    'public'              => 'Javno',
     'private'             => 'Zasebno',
+    'public'              => 'Javno',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS vir',
     'type'                => 'Vrsta',
+    'updated'             => 'Private RSS Feed Updated'
 ];

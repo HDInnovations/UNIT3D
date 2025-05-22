@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Konden arabera',
     'by-data'                 => 'Datuen arabera',
     'by-volume'               => 'Bolumenaren arabera',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Group',
     'groups'                  => 'Taldeak',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd estatistikak',
     'nerd-stats-desc'         => 'Estatistikak maite ditugu. Hemen aurkituko ditugu garrantzitsuak',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Izena emateko data',
     'request-fulfilled'       => 'Eskaera bete da',
     'request-not-fulfilled'   => 'Eskaera ez da bete',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Gehien leeched',
     'top-leechers'            => 'Top Leechers',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Goi bilketa',
     'top-seeders'             => 'Gehien Seeders',
+    'top-seeding'             => 'Goi bilketa',
     'top-seedsize'            => 'Gehien Seedsize',
     'top-seedtime'            => 'Gehien haziak',
     'top-uploaders'           => 'Gehien kargatzaileak',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Guztira Torrents',
     'total-traffic'           => 'Trafikoa guztira',
     'total-upload'            => 'Guztira kargatzea',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Taldeko erabiltzaileak',
-    'users-per-group'         => 'Talde bakoitzeko erabiltzaileak',
+    'users-per-group'         => 'Talde bakoitzeko erabiltzaileak'
 ];

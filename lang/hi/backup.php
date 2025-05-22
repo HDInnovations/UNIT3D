@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'क्रिया',
     'backup'                         => 'बैकअप',
     'backup_doesnt_exist'            => 'बैकअप फ़ाइल मौजूद नहीं है।',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'पूर्ण बैकअप बनाएँ',
-    'create_a_new_files_backup'      => 'फ़ाइलें बैकअप बनाएँ',
     'create_a_new_db_backup'         => 'डेटाबेस बैकअप बनाएँ',
+    'create_a_new_files_backup'      => 'फ़ाइलें बैकअप बनाएँ',
     'create_confirmation_message'    => 'पृष्ठ को 3 सेकंड में पुनः लोड कर रहा है।',
     'create_confirmation_title'      => 'बैकअप पूर्ण',
     'create_error_message'           => 'बैकअप फ़ाइल नहीं बनाई जा सकी।',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'स्थान',
     'manager'                        => 'मैनेजर',
     'no_disks_configured'            => 'कोई बैकअप डिस्क config / backup.php में कॉन्फ़िगर नहीं किया गया है',
-    'only_local_downloads_supported' => 'केवल स्थानीय फ़ाइल सिस्टम से डाउनलोड समर्थित हैं।',
+    'only_local_downloads_supported' => 'केवल स्थानीय फ़ाइल सिस्टम से डाउनलोड समर्थित हैं।'
 ];

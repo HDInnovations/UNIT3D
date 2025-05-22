@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'creëren',
     'create-private-feed' => 'Maak een privé RSS-feed',
     'create-public-feed'  => 'Maak openbare RSS-feed',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Verwijder',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Bewerk',
     'edit-private-feed'   => 'Bewerk privé RSS-feed',
     'edit-public-feed'    => 'Bewerk openbare RSS-feed',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Voeden',
     'feeds'               => 'feeds',
     'name'                => 'Naam',
-    'public'              => 'Openbaar',
     'private'             => 'Privaat',
+    'public'              => 'Openbaar',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS-feed',
     'type'                => 'Type',
+    'updated'             => 'Private RSS Feed Updated'
 ];

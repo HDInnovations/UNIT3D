@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'veprimet',
     'backup'                         => 'rezervë',
     'backup_doesnt_exist'            => 'Dosja e kopjimit nuk ekziston.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Krijo backup të plotë',
-    'create_a_new_files_backup'      => 'Krijo kopjime të skedarëve',
     'create_a_new_db_backup'         => 'Krijo backup të bazës së të dhënave',
+    'create_a_new_files_backup'      => 'Krijo kopjime të skedarëve',
     'create_confirmation_message'    => 'Rikthimi i faqes në 3 sekonda.',
     'create_confirmation_title'      => 'Rikthimi përfundoi',
     'create_error_message'           => 'Dosja e rezervës NUK mund të krijohej.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'vend',
     'manager'                        => 'menaxher',
     'no_disks_configured'            => 'Asnjë disk rezervë nuk është konfiguruar në config / backup.php',
-    'only_local_downloads_supported' => 'Mbështeten vetëm shkarkimet nga skedari i sistemit Lokal.',
+    'only_local_downloads_supported' => 'Mbështeten vetëm shkarkimet nga skedari i sistemit Lokal.'
 ];

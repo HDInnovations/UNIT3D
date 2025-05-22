@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'خلق',
     'create-private-feed' => 'إنشاء تغذية RSS خاصة',
     'create-public-feed'  => 'إنشاء تغذية RSS العامة',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'حذف',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'تصحيح',
     'edit-private-feed'   => 'تحرير تغذية RSS الخاصة',
     'edit-public-feed'    => 'تحرير آر إس إس العامة',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'تغذية',
     'feeds'               => 'يغذي',
     'name'                => 'اسم',
-    'public'              => 'عامة',
     'private'             => 'نشر',
+    'public'              => 'عامة',
     'rss'                 => 'RSS',
     'rss-feed'            => 'تغذية ار اس اس',
     'type'                => 'نوع',
+    'updated'             => 'Private RSS Feed Updated'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Аз ҳисоби',
     'by-data'                 => 'Аз рӯи маълумот',
     'by-volume'               => 'Бо ҳаҷми',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Гурӯҳ',
     'groups'                  => 'Гурӯҳҳо',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'Мо ҳама чизро омӯхтем. Дар ин ҷо чанде, ки мо муҳим мешавем',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Санаи бақайдгирӣ',
     'request-fulfilled'       => 'Талабот',
     'request-not-fulfilled'   => 'Дархост нашудааст',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Пуршунавандаҳо',
     'top-leechers'            => 'Беҳтарин лотереяҳо',
     'top-seeded'              => 'Насли калон',
-    'top-seeding'             => 'Кишти такрорӣ',
     'top-seeders'             => 'Насли калон',
+    'top-seeding'             => 'Кишти такрорӣ',
     'top-seedsize'            => 'Бештар',
     'top-seedtime'            => 'Вақти оромии баланд',
     'top-uploaders'           => 'Таҷҳизоти Top',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Тамоми зулматҳо',
     'total-traffic'           => 'Тамоми трафик',
     'total-upload'            => 'Боргирии умумии',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Истифодабарандагон дар гурӯҳи',
-    'users-per-group'         => 'Истифодабарандагони як гурӯҳ',
+    'users-per-group'         => 'Истифодабарандагони як гурӯҳ'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Accions',
     'backup'                         => 'Còpia de seguretat',
     'backup_doesnt_exist'            => 'El fitxer de còpia de seguretat no existeix.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Crea una còpia de seguretat completa',
-    'create_a_new_files_backup'      => 'Crea còpia de seguretat de fitxers',
     'create_a_new_db_backup'         => 'Crea una còpia de seguretat de la base de dades',
+    'create_a_new_files_backup'      => 'Crea còpia de seguretat de fitxers',
     'create_confirmation_message'    => 'S està tornant a carregar la pàgina en 3 segons.',
     'create_confirmation_title'      => 'S ha completat la còpia de seguretat',
     'create_error_message'           => 'No es pot crear el fitxer de còpia de seguretat.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Ubicació',
     'manager'                        => 'Gestor',
     'no_disks_configured'            => 'No s’ha configurat cap disc de còpia de seguretat a config / backup.php',
-    'only_local_downloads_supported' => 'Només són compatibles les baixades del sistema de fitxers local.',
+    'only_local_downloads_supported' => 'Només són compatibles les baixades del sistema de fitxers local.'
 ];

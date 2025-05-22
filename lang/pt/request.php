@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Adicionar pedido',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Idade',
     'all-requests'        => 'Todos os pedidos',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Aprovar',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Recompensa',
     'bounty-claimed'      => 'Recompensa reivindicada',
     'bounty-unclaimed'    => 'Recompensa não reivindicada',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Você gostaria de reivindicar isso anonimamente',
     'claim-now'           => 'Reivindicar agora',
     'claimed'             => 'Reivindicado',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Atual',
     'delete'              => 'Excluir este pedido',
     'delete-confirmation' => 'Tem certeza de que deseja excluir esta solicitação?',
     'delete-filled'       => 'Esta solicitação só pode ser excluída se não tiver sido preenchida',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Descrição',
     'dont-have-bps'       => 'Você não tem bônus suficiente',
     'edit-request'        => 'Editar pedido',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Insira pontos de bônus (mínimo de 100)',
     'enter-hash'          => 'Digite o ID do Torrent enviado',
     'fill'                => 'Preencher',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'para',
     'fulfill'             => 'Preencha',
     'last-vote'           => 'Último voto',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Minhas solicitações',
+    'my-voted'            => 'My voted',
     'no'                  => 'Não,',
     'no-imdb-id'          => 'Todas as solicitações devem conter um número IMDB',
     'no-privileges'       => 'Erro: os seus direitos de pedido foram desativados',
     'no-privileges-desc'  => 'Se você acha que isso é um erro, entre em contato com a equipe',
     'no-refunds'          => 'Trocas de BON em criação, preenchimento e recompensas são finais! <br> <strong>NENHUM REEMBOLSO!</strong>',
     'pending'             => 'Pendente',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Razão',
     'reject'              => 'Rejeitar',
     'report'              => 'Denunciar',
     'request'             => 'Pedido',
     'request-details'     => 'Pedir detalhes',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Pedido por',
     'requests'            => 'Pedidos',
     'required'            => 'Requeridos',
     'reset'               => 'Redefinir',
     'reset-confirmation'  => 'Tem certeza de que deseja redefinir este pedido?',
     'reset-request'       => 'Redefina este pedido',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Recompensa',
     'reward-desc'         => 'Quanto ponto de bônus você gostaria de recompensar? Mínimo 100 BP',
     'reward-from'         => 'De',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Recompensa total',
     'type'                => 'Tipo',
     'unclaim'             => 'Não reivindique este pedido',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Não preenchido',
     'view-filled'         => 'Vista preenchida',
     'view-unfilled'       => 'Visualizar sem preenchimento',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Vote neste pedido',
     'voters'              => 'Eleitores',
     'votes'               => 'Votos',
-    'yes'                 => 'sim',
+    'yes'                 => 'sim'
 ];

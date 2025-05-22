@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Activo no último',
     'chatbox'                 => 'Caixa de chat',
+    'check-news'              => 'Novas (verifique a diario)',
     'click'                   => 'Fai clic',
-    'to-enable-editor'        => 'para activar o editor',
     'featured-by'             => 'Destacado por',
     'featured-torrents'       => 'Torrents destacados',
     'featured-torrents-intro' => '¡Obteña-los mentres poidas!',
     'featured-until'          => 'Este é un torrent ata o momento',
-    'top-torrents'            => 'Top Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Últimos artigos',
     'latest-topics'           => 'Últimos temas',
-    'active-in-last'          => 'Activo no último',
-    'users-online'            => 'Usuarios en liña',
-    'check-news'              => 'Novas (verifique a diario)',
     'new-news'                => 'Novas novas',
     'new-torrents'            => 'Novos torrentes',
+    'to-enable-editor'        => 'para activar o editor',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'Usuarios en liña'
 ];

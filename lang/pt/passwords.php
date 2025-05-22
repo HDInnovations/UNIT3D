@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,17 +15,6 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reminder Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are the default lines which match reasons
-    | that are given by the password broker for a password update attempt
-    | has failed, such as for an invalid token or invalid new password.
-    |
-    */
-
     'password' => 'As senhas devem ter pelo menos seis caracteres e coincidir com a confirmação.',
     'reset'    => 'A sua senha foi redefinida!',
     'sent'     => 'Enviamos por e-mail o link para redefinir a sua senha!',

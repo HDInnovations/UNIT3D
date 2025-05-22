@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Хомӯш',
     'create-new-topic'          => 'Мавзӯи нави созед',
     'created'                   => 'Офариниш',
+    'created-at'                => 'Created At',
     'current'                   => 'Акнун',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Ин мавзӯъро нест кунед',
     'denied'                    => 'Рад карда шудааст',
     'dislike-post'              => 'Садо Ояндасоз',
     'display-forum'             => 'Намоиши мавзӯъҳо',
     'edit-post'                 => 'Таҳрири Post',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Тоза кардани мавзӯъ',
     'forum'                     => 'Форум',
     'forums'                    => 'Forums',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Амалишуда',
     'in'                        => 'Дар',
     'invalid'                   => 'Invalid',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Саволҳо',
     'read-topic'                => 'Мавзӯъ хонед',
     'replies'                   => 'Садо Ояндасоз',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Ин мавзӯъро захира кунед',
     'solved'                    => 'Ҳал карда шуд',
     'state'                     => 'Давлат',
     'stats'                     => 'Stats',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Нусхабардорӣ',
     'subscription-quick-search' => 'Номи мундариҷаи фаврӣ (дар дохили обуна)',
     'suggestion'                => 'Пешниҳод',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Мавзӯъ',
     'topic-closed'              => 'Ин мавзӯъ пӯшида аст',
     'topic-name'                => 'Номи мавзӯъ',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Номи ин мавзӯъ',
     'topics'                    => 'Мавзӯъҳо',
     'unpin'                     => 'Бештар',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Дидани ҳамаи мавзӯъҳо',
-    'views'                     => 'Дида шуд',
+    'views'                     => 'Дида шуд'
 ];

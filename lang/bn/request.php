@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'অনুরোধ যোগ করুন',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'বয়স',
     'all-requests'        => 'সমস্ত অনুরোধ',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'অনুমোদন করা',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'খয়রাত',
     'bounty-claimed'      => 'পুরস্কার দাবি',
     'bounty-unclaimed'    => 'অনুদান দাবী',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'আপনি এই একনায়কতন্ত্র দাবি করতে চান',
     'claim-now'           => 'এখন দাবি',
     'claimed'             => 'দাবি করা',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'বর্তমান',
     'delete'              => 'এই অনুরোধ মুছে দিন',
     'delete-confirmation' => 'আপনি এই অনুরোধ মুছে ফেলতে চান আপনি কি নিশ্চিত',
     'delete-filled'       => 'এটি পূরণ না করা হলে এই অনুরোধটি কেবল মুছে ফেলা যেতে পারে',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'বিবরণ',
     'dont-have-bps'       => 'আপনি যথেষ্ট বোনাস না',
     'edit-request'        => 'অনুরোধ সম্পাদনা করুন',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'বোনাস পয়েন্ট লিখুন (সর্বনিম্ন 100)',
     'enter-hash'          => 'আপলোড টরেন্ট এর তথ্য হ্যাশ লিখুন',
     'fill'                => 'পূরণ করা',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'জন্য',
     'fulfill'             => 'মেটান',
     'last-vote'           => 'শেষ ভোট',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'আমার অনুরোধ',
+    'my-voted'            => 'My voted',
     'no'                  => 'না,',
     'no-imdb-id'          => 'সমস্ত অনুরোধ একটি আইএমডিবি নম্বর থাকতে হবে',
     'no-privileges'       => 'ত্রুটি: আপনার অনুরোধের অধিকার নিষ্ক্রিয় করা হয়েছে',
     'no-privileges-desc'  => 'যদি আপনি ভুল মনে করেন তবে স্টাফের সাথে যোগাযোগ করুন',
     'no-refunds'          => 'বন এক্সচেঞ্জ তৈরি, ভর্তি এবং বন্টন চূড়ান্ত! <br> <strong>কোন রিফান্ড!</strong>',
     'pending'             => 'মুলতুবী',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'কারণ',
     'reject'              => 'প্রত্যাখ্যান',
     'report'              => 'অনুরোধ রিপোর্ট',
     'request'             => 'অনুরোধ',
     'request-details'     => 'বিস্তারিত অনুরোধ',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'দ্বারা অনুরোধ করা',
     'requests'            => 'অনুরোধ',
     'required'            => 'প্রয়োজনীয়',
     'reset'               => 'রিসেট',
     'reset-confirmation'  => 'আপনি এই অনুরোধটি রিসেট করতে চান আপনি কি নিশ্চিত',
     'reset-request'       => 'এই অনুরোধ রিসেট করুন',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'পুরস্কার',
     'reward-desc'         => 'আপনি কতটা বোনাস পয়েন্ট পুরস্কার দিতে চান? নূন্যতম 100 বিপি',
     'reward-from'         => 'থেকে',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'মোট অনুদান',
     'type'                => 'আদর্শ',
     'unclaim'             => 'এই অনুরোধটি অস্বীকার করুন',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'ভরাট নয়',
     'view-filled'         => 'ভরা দেখুন',
     'view-unfilled'       => 'অফলাইন দেখুন',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'এই অনুরোধ ভোট দিন',
     'voters'              => 'ভোটাররা',
     'votes'               => 'ভোট',
-    'yes'                 => 'হাঁ',
+    'yes'                 => 'হাঁ'
 ];

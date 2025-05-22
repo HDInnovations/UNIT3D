@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Vitendo',
     'backup'                         => 'Backup',
     'backup_doesnt_exist'            => 'Faili ya salama haipo.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Unda Backup Kamili',
-    'create_a_new_files_backup'      => 'Unda Backup ya Files',
     'create_a_new_db_backup'         => 'Unda Backup Database',
+    'create_a_new_files_backup'      => 'Unda Backup ya Files',
     'create_confirmation_message'    => 'Rejesha upya ukurasa katika sekunde 3.',
     'create_confirmation_title'      => 'Backup imekamilika',
     'create_error_message'           => 'Faili ya salama haiwezi kuundwa.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Eneo',
     'manager'                        => 'Meneja',
     'no_disks_configured'            => 'Hakuna diski za salama zilizosanidiwa katika config / backup.php',
-    'only_local_downloads_supported' => 'Upakuaji tu kutoka kwa mfumo wa faili wa Mitaa unasaidiwa.',
+    'only_local_downloads_supported' => 'Upakuaji tu kutoka kwa mfumo wa faili wa Mitaa unasaidiwa.'
 ];

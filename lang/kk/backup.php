@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Әрекеттер',
     'backup'                         => 'Сақтық көшірме жасау',
     'backup_doesnt_exist'            => 'Сақтық көшірме файлы жоқ.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Толық сақтық көшірме жасау',
-    'create_a_new_files_backup'      => 'Файлдар сақтық көшірмесін жасау',
     'create_a_new_db_backup'         => 'Дерекқорды сақтық көшірмесін жасау',
+    'create_a_new_files_backup'      => 'Файлдар сақтық көшірмесін жасау',
     'create_confirmation_message'    => 'Бетті 3 секундта қайта жүктеу.',
     'create_confirmation_title'      => 'Сақтық көшірмесі аяқталды',
     'create_error_message'           => 'Сақтық көшірме файлы жасалмады.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Орналасуы',
     'manager'                        => 'Менеджер',
     'no_disks_configured'            => 'Config / backup.php ішіне конфигурацияланбаған резервтік дискілер жоқ',
-    'only_local_downloads_supported' => 'Жергілікті файлдық жүйеден тек қана жүктеледі.',
+    'only_local_downloads_supported' => 'Жергілікті файлдық жүйеден тек қана жүктеледі.'
 ];

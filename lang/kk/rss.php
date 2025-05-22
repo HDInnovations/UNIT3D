@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Жасаңыз',
     'create-private-feed' => 'Жеке RSS арнасын жасау',
     'create-public-feed'  => 'Жалпыға қолжетімді RSS арнасын жасау',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Жою',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Өңдеу',
     'edit-private-feed'   => 'Жеке RSS арнасын өзгерту',
     'edit-public-feed'    => 'Жалпыға қолжетімді RSS арнасын өңдеу',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Feed',
     'feeds'               => 'Арна',
     'name'                => 'Атауы',
-    'public'              => 'Қоғамдық',
     'private'             => 'Жеке',
+    'public'              => 'Қоғамдық',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS арнасы',
     'type'                => 'Түрі',
+    'updated'             => 'Private RSS Feed Updated'
 ];

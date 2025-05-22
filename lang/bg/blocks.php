@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Активен в последния',
     'chatbox'                 => 'Поле за чат',
+    'check-news'              => 'Новини (чек ежедневно)',
     'click'                   => 'Кликнете',
-    'to-enable-editor'        => ', за да разрешите редактора',
     'featured-by'             => 'Представено от',
     'featured-torrents'       => 'Препоръчани торенти',
     'featured-torrents-intro' => 'Вземи ги, докато можеш!',
     'featured-until'          => 'Това е представен поток до',
-    'top-torrents'            => 'Топ торове',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Последни публикации',
     'latest-topics'           => 'Последни теми',
-    'active-in-last'          => 'Активен в последния',
-    'users-online'            => 'Потребители онлайн',
-    'check-news'              => 'Новини (чек ежедневно)',
     'new-news'                => 'Нови новини',
     'new-torrents'            => 'Нови торенти',
+    'to-enable-editor'        => ', за да разрешите редактора',
+    'top-torrents'            => 'Топ торове',
+    'users-online'            => 'Потребители онлайн'
 ];

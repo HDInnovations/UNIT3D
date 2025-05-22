@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,8 +15,8 @@ declare(strict_types=1);
  */
 
 return [
-    'all'                     => 'Alle',
     'active'                  => 'Aktive',
+    'all'                     => 'Alle',
     'all-time'                => 'Totalt',
     'banned'                  => 'Udelukkede',
     'by-count'                => 'Efter Antal',
@@ -25,10 +26,11 @@ return [
     'disabled'                => 'Deaktiverede',
     'group'                   => 'Gruppe',
     'groups'                  => 'Grupper',
+    'languages'               => 'Sprog',
     'last30days'              => 'Seneste 30 dage',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd stats',
     'nerd-stats-desc'         => 'Vi elsker statistik. Her er nogle af dem',
-    'languages'               => 'Sprog',
     'place'                   => 'Sted',
     'pruned'                  => 'Forældede',
     'real'                    => 'Reel',
@@ -50,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Top Leechere',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Top Seeder',
     'top-seeders'             => 'Top Seeders',
+    'top-seeding'             => 'Top Seeder',
     'top-seedsize'            => 'Top Seedstørrelse',
     'top-seedtime'            => 'Top Seedtid',
     'top-uploaders'           => 'Top Uploadere',
@@ -59,7 +61,7 @@ return [
     'total-torrents'          => 'Total Torrents',
     'total-traffic'           => 'Total Trafik',
     'total-upload'            => 'Total Upload',
-    'users-in-group'          => 'Brugere i gruppe',
-    'users-per-group'         => 'Brugere pr. Gruppe',
     'updated'                 => '(Opdateres hvert 10. minut!)',
+    'users-in-group'          => 'Brugere i gruppe',
+    'users-per-group'         => 'Brugere pr. Gruppe'
 ];

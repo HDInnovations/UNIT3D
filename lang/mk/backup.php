@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Акции',
     'backup'                         => 'Резервна копија',
     'backup_doesnt_exist'            => 'Резервната датотека не постои.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Креирај целосна резервна копија',
-    'create_a_new_files_backup'      => 'Креирај резервни копии на датотеки',
     'create_a_new_db_backup'         => 'Креирај резервна копија на базата',
+    'create_a_new_files_backup'      => 'Креирај резервни копии на датотеки',
     'create_confirmation_message'    => 'Превртување на страницата за 3 секунди.',
     'create_confirmation_title'      => 'Резервната е завршена',
     'create_error_message'           => 'Датотеката за резервни копии не може да се создаде.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Локација',
     'manager'                        => 'Менаџер',
     'no_disks_configured'            => 'Нема резервни дискови конфигурирани во config / backup.php',
-    'only_local_downloads_supported' => 'Поддржани се само преземања од Local Filesystem.',
+    'only_local_downloads_supported' => 'Поддржани се само преземања од Local Filesystem.'
 ];

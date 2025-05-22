@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Přidat požadavek',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Stáří',
     'all-requests'        => 'Všechny požadavky',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Schvalovat',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Odměna',
     'bounty-claimed'      => 'Nárokovat odměnu',
     'bounty-unclaimed'    => 'Nenáročná odměna',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Chtěl bys to Anonymně žádat',
     'claim-now'           => 'Nyní tvrdí',
     'claimed'             => 'Tvrdil',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Proud',
     'delete'              => 'Smazat tuto žádost',
     'delete-confirmation' => 'Opravdu chcete tuto žádost smazat',
     'delete-filled'       => 'Tento požadavek lze smazat pouze tehdy, pokud nebyl vyplněn',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Popis',
     'dont-have-bps'       => 'Nemáte dostatek bodů',
     'edit-request'        => 'Upravit požadavek',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Zadejte bonusové body (minimálně 100)',
     'enter-hash'          => 'Zadejte ID nahraného Torrentu',
     'fill'                => 'Vyplnit',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'pro',
     'fulfill'             => 'Splnit',
     'last-vote'           => 'Poslední hlasování',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Moje požadavky',
+    'my-voted'            => 'My voted',
     'no'                  => 'Ne,',
     'no-imdb-id'          => 'Všechny požadavky musí obsahovat číslo IMDB',
     'no-privileges'       => 'Chyba: Vaše práva byla zakázána',
     'no-privileges-desc'  => 'Pokud se domníváte, že se jedná o chybu, kontaktujte prosím zaměstnance',
     'no-refunds'          => 'BON výměny na vytváření, plnění a odměny jsou konečné! <br> <strong>ŽÁDNÉ NÁHRADY!</strong>',
     'pending'             => 'čekající',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Důvod',
     'reject'              => 'Odmítnout',
     'report'              => 'Žádost o zprávu',
     'request'             => 'Žádost',
     'request-details'     => 'Požadovat detaily',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Požadováno',
     'requests'            => 'Žádosti',
     'required'            => 'Povinný',
     'reset'               => 'Reset',
     'reset-confirmation'  => 'Opravdu chcete tento požadavek obnovit',
     'reset-request'       => 'Obnovit tuto žádost',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Odměna',
     'reward-desc'         => 'Kolik bonusových bodů byste chtěli odměnit? Minimálně 100 BP',
     'reward-from'         => 'Z',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Celková odměna',
     'type'                => 'Typ',
     'unclaim'             => 'Odvolejte tento požadavek',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Nevyplněno',
     'view-filled'         => 'Zobrazit vyplněné',
     'view-unfilled'       => 'Zobrazit nevyplněné',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Hlasujte pro tuto žádost',
     'voters'              => 'Voliči',
     'votes'               => 'Hlasy',
-    'yes'                 => 'Ano',
+    'yes'                 => 'Ano'
 ];

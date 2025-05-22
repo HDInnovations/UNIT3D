@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -9,12 +10,13 @@ declare(strict_types=1);
  *
  * @project    UNIT3D Community Edition
  *
- * @author     Howard Lau <howardlau1999@hotmail.com>
+ * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
 return [
     'born'            => 'Nacimiento:',
+    'collection'      => 'Collection',
     'collections'     => 'Colecciones',
     'companies'       => 'Compañías',
     'disclaimer'      => 'Este producto utiliza la API de TMDb pero no está respaldado ni certificado por TMDb.',
@@ -23,11 +25,11 @@ return [
     'genres'          => 'Géneros',
     'includes'        => 'Incluye:',
     'latest-project'  => 'Último Proyecto:',
+    'movie'           => 'Película',
+    'movie-credits'   => 'Créditos de la película:',
+    'movies'          => 'Películas',
     'networks'        => 'Redes',
     'no-data'         => '¡No se encontraron datos!',
-    'movie'           => 'Película',
-    'movies'          => 'Películas',
-    'movie-credits'   => 'Créditos de la película:',
     'persons'         => 'Personas',
     'plot'            => 'Trama:',
     'release-date'    => 'Fecha de lanzamiento:',
@@ -38,5 +40,5 @@ return [
     'title'           => 'MediaHub',
     'tv-credits'      => 'Créditos de TV:',
     'view-collection' => 'Ver la colección',
-    'wiki-read'       => 'Leer biografía completa en Wikipedia:',
+    'wiki-read'       => 'Leer biografía completa en Wikipedia:'
 ];

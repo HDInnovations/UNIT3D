@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'стварыць',
     'create-private-feed' => 'Стварэнне прыватнага RSS паток',
     'create-public-feed'  => 'Стварыць Грамадскі RSS паток',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'выдаляць',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'рэдагаваць',
     'edit-private-feed'   => 'Рэдагаваць Private RSS паток',
     'edit-public-feed'    => 'Рэдагаваць Адкрыты RSS паток',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'падача',
     'feeds'               => 'стужкі',
     'name'                => 'імя',
-    'public'              => 'грамадскага',
     'private'             => 'прыватны',
+    'public'              => 'грамадскага',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS Падача',
     'type'                => 'тып',
+    'updated'             => 'Private RSS Feed Updated'
 ];

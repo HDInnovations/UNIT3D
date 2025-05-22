@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'बन्द गरियो',
     'create-new-topic'          => 'नयाँ विषय बनाउनुहोस्',
     'created'                   => 'सिर्जना गरियो',
+    'created-at'                => 'Created At',
     'current'                   => 'वर्तमान',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'यो विषय मेटाउनुहोस्',
     'denied'                    => 'अस्वीकृत',
     'dislike-post'              => 'यस पोष्ट मन नपराउनुहोस्',
     'display-forum'             => 'शीर्षकहरू देखाउनुहोस्',
     'edit-post'                 => 'पोस्ट सम्पादन गर्नुहोस्',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'विषय सम्पादन गर्नुहोस्',
     'forum'                     => 'फोरम',
     'forums'                    => 'फोरम',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'लागू भयो',
     'in'                        => 'मा',
     'invalid'                   => 'अमान्य',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'उद्धरण',
     'read-topic'                => 'विषय पढ्नुहोस्',
     'replies'                   => 'जवाफहरू',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'यो विषय सुरक्षित गर्नुहोस्',
     'solved'                    => 'हल भयो',
     'state'                     => 'राज्य',
     'stats'                     => 'आँकडा',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'सब्सक्राइब गरिएको',
     'subscription-quick-search' => 'विषय नाम द्रुत खोज (सदस्यता भित्र)',
     'suggestion'                => 'सुझाव',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'विषय',
     'topic-closed'              => 'यो विषय बन्द छ',
     'topic-name'                => 'विषय नाम',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'यस विषयको शीर्षक',
     'topics'                    => 'विषयहरू',
     'unpin'                     => 'अनपिन',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'सबै विषयहरू हेर्नुहोस्',
-    'views'                     => 'दृश्यहरू',
+    'views'                     => 'दृश्यहरू'
 ];

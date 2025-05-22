@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Pertukaran',
     'exchange-warning'        => 'Pertukaran adalah muktamad, Sila semak semula pilihan anda sebelum membuat pertukaran.',
     'extended-stats'          => 'Statistik Lanjutan',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Hadiah',
     'gift-bonus'              => 'Mata Bonus Hadiah',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Mata Bonus Hadiah Kepada',
     'gifts'                   => 'Hadiah',
     'item'                    => 'Perkara',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Mata Per Kedua',
     'per-week'                => 'Mata Setiap Minggu',
     'per-year'                => 'Mata Per Tahun',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Mata',
     'receiver'                => 'Penerima',
     'review-seeds'            => 'Tinjau Semua Torrents Beranak',
     'send-gift'               => 'Hantar hadiah',
     'sender'                  => 'Pengirim',
     'store'                   => 'Kedai',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Petua',
     'total'                   => 'jumlah pendapatan',
     'total-gifts'             => 'Dalam Hadiah BON Jumlah',
     'total-tips'              => 'Dalam Jumlah BON Tips',
     'you-have-received-gifts' => 'Anda telah menerima',
-    'you-have-sent-gifts'     => 'Anda telah hantar',
     'you-have-received-tips'  => 'Anda telah menerima',
+    'you-have-sent-gifts'     => 'Anda telah hantar',
     'you-have-sent-tips'      => 'Anda telah hantar',
-    'your-points'             => 'Mata Anda',
+    'your-points'             => 'Mata Anda'
 ];

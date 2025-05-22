@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Luoda',
-    'delete'        => 'Poistaa',
-    'enter-subject' => 'Anna aihe',
-    'from'          => 'alkaen',
-    'inbox'         => 'Saapuneet',
-    'mark-all-read' => 'Merkitse kaikki viestit luetuiksi',
-    'message'       => 'Viesti',
-    'messages'      => 'viestien',
-    'new'           => 'Uusi viesti',
-    'outbox'        => 'Lähtevät',
-    'private'       => 'yksityinen',
-    'read'          => 'Lukea',
-    'received-at'   => 'Vastaanotettu',
-    'refresh'       => 'virkistää',
-    'reply'         => 'Vastaa',
-    'search'        => 'Hae aiheen mukaan',
-    'select'        => 'Valitse käyttäjä',
-    'send'          => 'Lähetä PM',
-    'send-to'       => 'Lähetä PM To',
-    'sent'          => 'Lähetetyt',
-    'sent-at'       => 'Lähetetty',
-    'subject'       => 'aihe',
-    'to'            => 'jotta',
-    'unread'        => 'Lukemattomat',
-    'empty-inbox'   => 'Tyhjä postilaatikko',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Luoda',
+    'delete'          => 'Poistaa',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Tyhjä postilaatikko',
+    'enter-subject'   => 'Anna aihe',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'alkaen',
+    'inbox'           => 'Saapuneet',
+    'mark-all-read'   => 'Merkitse kaikki viestit luetuiksi',
+    'message'         => 'Viesti',
+    'messages'        => 'viestien',
+    'new'             => 'Uusi viesti',
+    'outbox'          => 'Lähtevät',
+    'private'         => 'yksityinen',
+    'read'            => 'Lukea',
+    'received-at'     => 'Vastaanotettu',
+    'refresh'         => 'virkistää',
+    'reply'           => 'Vastaa',
+    'search'          => 'Hae aiheen mukaan',
+    'select'          => 'Valitse käyttäjä',
+    'send'            => 'Lähetä PM',
+    'send-to'         => 'Lähetä PM To',
+    'sent'            => 'Lähetetyt',
+    'sent-at'         => 'Lähetetty',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'aihe',
+    'to'              => 'jotta',
+    'unread'          => 'Lukemattomat'
 ];

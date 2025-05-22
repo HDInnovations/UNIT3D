@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Pridėti užklausą',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Amžius',
     'all-requests'        => 'Visi prašymai',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Patvirtinti',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Bounty',
     'bounty-claimed'      => 'Bounty teigė',
     'bounty-unclaimed'    => 'Bounty neprašė',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Ar norėtumėte pareikalauti šio anoniminio',
     'claim-now'           => 'Prašymas dabar',
     'claimed'             => 'Teigiama',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Dabartinis',
     'delete'              => 'Ištrinti šį prašymą',
     'delete-confirmation' => 'Ar tikrai norite ištrinti šį prašymą',
     'delete-filled'       => 'Šis prašymas gali būti ištrintas tik jei jis nebuvo užpildytas',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'apibūdinimas',
     'dont-have-bps'       => 'Jūs neturite pakankamai premijos',
     'edit-request'        => 'Redaguoti užklausą',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Įveskite premijos taškus (mažiausiai 100)',
     'enter-hash'          => 'Įveskite įkeltos „Torrent“ ID',
     'fill'                => 'Užpildykite',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'dėl',
     'fulfill'             => 'Užpildykite',
     'last-vote'           => 'Paskutinis balsavimas',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Mano prašymai',
+    'my-voted'            => 'My voted',
     'no'                  => 'Ne,',
     'no-imdb-id'          => 'Visi prašymai turi apimti IMDB numerį',
     'no-privileges'       => 'Klaida: jūsų užklausos teisės buvo išjungtos',
     'no-privileges-desc'  => 'Jei manote, kad tai klaidinga, prašome kreiptis į „Staff“',
     'no-refunds'          => 'BON mainai apie kūrimą, užpildymą ir premijas yra galutiniai! <br> <strong>NĖRA GRĄŽINIMO!</strong>',
     'pending'             => 'Kol',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Priežastis',
     'reject'              => 'Atmesti',
     'report'              => 'Pranešti apie užklausą',
     'request'             => 'Prašymas',
     'request-details'     => 'Prašyti informacijos',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Prašoma',
     'requests'            => 'Prašymai',
     'required'            => 'Būtina',
     'reset'               => 'Atstatyti',
     'reset-confirmation'  => 'Ar tikrai norite atstatyti šį prašymą',
     'reset-request'       => 'Atstatyti šį prašymą',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Atlygis',
     'reward-desc'         => 'Kiek premijos taško norėtumėte apdovanoti? Mažiausiai 100 BP',
     'reward-from'         => 'Nuo',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Iš viso pinigų',
     'type'                => 'Tipas',
     'unclaim'             => 'Nepriimkite šio prašymo',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Neužpildyta',
     'view-filled'         => 'Žiūrėti užpildytą',
     'view-unfilled'       => 'Žiūrėti nepildytą',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Balsuokite šį prašymą',
     'voters'              => 'Rinkėjai',
     'votes'               => 'Balsavimas',
-    'yes'                 => 'Taip',
+    'yes'                 => 'Taip'
 ];

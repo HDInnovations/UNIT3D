@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Activa per última vegada',
     'chatbox'                 => 'Xat de xat',
+    'check-news'              => 'Notícies (consultar diàriament)',
     'click'                   => 'Feu clic a',
-    'to-enable-editor'        => 'per habilitar l’editor',
     'featured-by'             => 'Destacat per',
     'featured-torrents'       => 'Torrents destacats',
     'featured-torrents-intro' => 'Aconsegueix-los mentre puguis!',
     'featured-until'          => 'Aquest és el torrent fins a',
-    'top-torrents'            => 'Top Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Últims missatges',
     'latest-topics'           => 'Últims temes',
-    'active-in-last'          => 'Activa per última vegada',
-    'users-online'            => 'Usuaris en línia',
-    'check-news'              => 'Notícies (consultar diàriament)',
     'new-news'                => 'Notícies noves',
     'new-torrents'            => 'Nous torrents',
+    'to-enable-editor'        => 'per habilitar l’editor',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'Usuaris en línia'
 ];

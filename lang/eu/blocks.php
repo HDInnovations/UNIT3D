@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Aktibatuta azkenean',
     'chatbox'                 => 'Txat kutxa',
+    'check-news'              => 'Albisteak (egunero egiaztatu)',
     'click'                   => 'klik',
-    'to-enable-editor'        => 'editorea gaitzeko',
     'featured-by'             => 'Nabarmenduak',
     'featured-torrents'       => 'Nabarmendutako Torrents',
     'featured-torrents-intro' => 'Lortu ahal duzun bitartean!',
     'featured-until'          => 'Hau torrent da orain arte',
-    'top-torrents'            => 'Gehien Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Azken mezuak',
     'latest-topics'           => 'Azken Gaiak',
-    'active-in-last'          => 'Aktibatuta azkenean',
-    'users-online'            => 'Erabiltzaileak linean',
-    'check-news'              => 'Albisteak (egunero egiaztatu)',
     'new-news'                => 'Albiste berriak',
     'new-torrents'            => 'Torrent berriak',
+    'to-enable-editor'        => 'editorea gaitzeko',
+    'top-torrents'            => 'Gehien Torrents',
+    'users-online'            => 'Erabiltzaileak linean'
 ];

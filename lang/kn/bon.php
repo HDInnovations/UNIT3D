@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'ಎಕ್ಸ್ಚೇಂಜ್',
     'exchange-warning'        => 'ಎಕ್ಸ್ಚೇಂಜ್ಗಳು ಅಂತಿಮವಾಗಿದ್ದು, ವಿನಿಮಯ ಮಾಡಿಕೊಳ್ಳುವ ಮೊದಲು ನಿಮ್ಮ ಆಯ್ಕೆಗಳನ್ನು ಎರಡು ಬಾರಿ ಪರಿಶೀಲಿಸಿ.',
     'extended-stats'          => 'ವಿಸ್ತೃತ ಅಂಕಿಅಂಶಗಳು',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'ಗಿಫ್ಟ್',
     'gift-bonus'              => 'ಗಿಫ್ಟ್ ಬೋನಸ್ ಪಾಯಿಂಟುಗಳು',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'ಗಿಫ್ಟ್ ಬೋನಸ್ ಪಾಯಿಂಟುಗಳು',
     'gifts'                   => 'ಉಡುಗೊರೆಗಳು',
     'item'                    => 'ಐಟಂ',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'ಪಾಯಿಂಟುಗಳು ಪರ್ ಸೆಕೆಂಡ್',
     'per-week'                => 'ವಾರಕ್ಕೆ ಪಾಯಿಂಟುಗಳು',
     'per-year'                => 'ಪ್ರತಿ ವರ್ಷ ಪಾಯಿಂಟುಗಳು',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'ಪಾಯಿಂಟುಗಳು',
     'receiver'                => 'ಸ್ವೀಕರಿಸುವವರು',
     'review-seeds'            => 'ಎಲ್ಲಾ ಬೀಜದ ಟೊರೆಂಟುಗಳನ್ನು ಪರಿಶೀಲಿಸಿ',
     'send-gift'               => 'ಉಡುಗೊರೆ ಕಳುಹಿಸಿ',
     'sender'                  => 'ಕಳುಹಿಸುವವರು',
     'store'                   => 'ಸಂಗ್ರಹಿಸಿ',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'ಸಲಹೆಗಳು',
     'total'                   => 'ಒಟ್ಟು ಅರ್ನಿಂಗ್ಸ್',
     'total-gifts'             => 'ಒಟ್ಟು ಬೊನ್ ಉಡುಗೊರೆಗಳಲ್ಲಿ',
     'total-tips'              => 'ಒಟ್ಟು BON ಸಲಹೆಗಳು',
     'you-have-received-gifts' => 'ನೀವು ಸ್ವೀಕರಿಸಿದ್ದೀರಿ',
-    'you-have-sent-gifts'     => 'ನೀವು ಕಳುಹಿಸಿದ್ದೀರಿ',
     'you-have-received-tips'  => 'ನೀವು ಸ್ವೀಕರಿಸಿದ್ದೀರಿ',
+    'you-have-sent-gifts'     => 'ನೀವು ಕಳುಹಿಸಿದ್ದೀರಿ',
     'you-have-sent-tips'      => 'ನೀವು ಕಳುಹಿಸಿದ್ದೀರಿ',
-    'your-points'             => 'ನಿಮ್ಮ ಪಾಯಿಂಟುಗಳು',
+    'your-points'             => 'ನಿಮ್ಮ ಪಾಯಿಂಟುಗಳು'
 ];

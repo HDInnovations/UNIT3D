@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'дзеянні',
     'backup'                         => 'рэзервовая копія',
     'backup_doesnt_exist'            => 'Файл рэзервовай копіі не існуе.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'Стварыць поўную рэзервовую копію',
-    'create_a_new_files_backup'      => 'Стварэнне файлаў рэзервовага капіявання',
     'create_a_new_db_backup'         => 'Стварыць рэзервовую копію базы дадзеных',
+    'create_a_new_files_backup'      => 'Стварэнне файлаў рэзервовага капіявання',
     'create_confirmation_message'    => 'Перазагрузка старонкі на працягу 3 секунд.',
     'create_confirmation_title'      => 'Рэзервовае капіраванне завершана',
     'create_error_message'           => 'Файл рэзервовай копіі не можа быць створаны.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'размяшчэнне',
     'manager'                        => 'менеджэр',
     'no_disks_configured'            => 'Няма рэзервовых дыскаў, настроеныя ў канфігурацыі / backup.php',
-    'only_local_downloads_supported' => 'Толькі загрузка з лакальнай файлавай сістэмы падтрымліваецца.',
+    'only_local_downloads_supported' => 'Толькі загрузка з лакальнай файлавай сістэмы падтрымліваецца.'
 ];

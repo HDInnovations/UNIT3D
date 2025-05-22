@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Შექმნა',
-    'delete'        => 'წაშლა',
-    'enter-subject' => 'შეიტანეთ სათაური',
-    'from'          => 'მდებარეობა',
-    'inbox'         => 'Შემომავალი',
-    'mark-all-read' => 'წაიკითხეთ ყველა წერილი',
-    'message'       => 'შეტყობინება',
-    'messages'      => 'შეტყობინებები',
-    'new'           => 'Ახალი შეტყობინება',
-    'outbox'        => 'Outbox',
-    'private'       => 'პირადი',
-    'read'          => 'წაიკითხეთ',
-    'received-at'   => 'მიღებულ იქნა',
-    'refresh'       => 'განახლება',
-    'reply'         => 'პასუხი',
-    'search'        => 'თემატიკის ძიება',
-    'select'        => 'აირჩიეთ მომხმარებელი',
-    'send'          => 'PM გაგზავნა',
-    'send-to'       => 'პირადი PM',
-    'sent'          => 'Გაგზავნილი',
-    'sent-at'       => 'გაგზავნილი At',
-    'subject'       => 'თემატიკა',
-    'to'            => 'დან',
-    'unread'        => 'წაუკითხავი',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Შექმნა',
+    'delete'          => 'წაშლა',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'შეიტანეთ სათაური',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'მდებარეობა',
+    'inbox'           => 'Შემომავალი',
+    'mark-all-read'   => 'წაიკითხეთ ყველა წერილი',
+    'message'         => 'შეტყობინება',
+    'messages'        => 'შეტყობინებები',
+    'new'             => 'Ახალი შეტყობინება',
+    'outbox'          => 'Outbox',
+    'private'         => 'პირადი',
+    'read'            => 'წაიკითხეთ',
+    'received-at'     => 'მიღებულ იქნა',
+    'refresh'         => 'განახლება',
+    'reply'           => 'პასუხი',
+    'search'          => 'თემატიკის ძიება',
+    'select'          => 'აირჩიეთ მომხმარებელი',
+    'send'            => 'PM გაგზავნა',
+    'send-to'         => 'პირადი PM',
+    'sent'            => 'Გაგზავნილი',
+    'sent-at'         => 'გაგზავნილი At',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'თემატიკა',
+    'to'              => 'დან',
+    'unread'          => 'წაუკითხავი'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'تبادل',
     'exchange-warning'        => 'التبادلات نهائية ، يرجى التحقق من اختياراتك قبل إجراء عملية تبادل.',
     'extended-stats'          => 'إحصائيات الموسعة',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'هدية مجانية',
     'gift-bonus'              => 'الهدايا مكافأة نقاط',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'الهدايا مكافأة نقاط ل',
     'gifts'                   => 'الهدايا',
     'item'                    => 'بند',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'نقاط في الثانية الواحدة',
     'per-week'                => 'نقاط في الأسبوع',
     'per-year'                => 'نقاط في السنة',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'نقاط',
     'receiver'                => 'المتلقي',
     'review-seeds'            => 'مراجعة جميع السيول المصنفة',
     'send-gift'               => 'أرسل هدية',
     'sender'                  => 'مرسل',
     'store'                   => 'متجر',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'نصائح',
     'total'                   => 'الأرباح الكلية',
     'total-gifts'             => 'في مجموع الهدايا بون',
     'total-tips'              => 'في مجموع نصائح بون',
     'you-have-received-gifts' => 'لقد تلقيت',
-    'you-have-sent-gifts'     => 'لقد أرسلت',
     'you-have-received-tips'  => 'لقد تلقيت',
+    'you-have-sent-gifts'     => 'لقد أرسلت',
     'you-have-sent-tips'      => 'لقد أرسلت',
-    'your-points'             => 'نقاطك',
+    'your-points'             => 'نقاطك'
 ];

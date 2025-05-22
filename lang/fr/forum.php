@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,9 +25,10 @@ return [
     'closed'                    => 'Fermé',
     'create-new-topic'          => 'Créer un nouveau sujet',
     'created'                   => 'Créé',
+    'created-at'                => 'Created At',
     'current'                   => 'Actuel',
-    'delete-topic'              => 'Supprimer ce sujet',
     'delete-post-success'       => 'Ce message est maintenant supprimé!',
+    'delete-topic'              => 'Supprimer ce sujet',
     'denied'                    => 'Refusé',
     'dislike-post'              => 'Post non apprécié',
     'display-forum'             => 'Afficher les sujets dans',
@@ -35,6 +37,8 @@ return [
     'edit-topic'                => 'Modifier le sujet',
     'forum'                     => 'Forum',
     'forums'                    => 'Forums',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Mis en œuvre',
     'in'                        => 'Dans',
     'invalid'                   => 'Invalide',
@@ -61,13 +65,17 @@ return [
     'replies'                   => 'réponses',
     'reply-topic-error'         => 'Tu ne peux pas répondre à ce sujet!',
     'reply-topic-success'       => 'Posté avec succès',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Enregistrer ce sujet',
     'solved'                    => 'Résolu',
     'state'                     => 'Etat',
     'stats'                     => 'Statistiques',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Abonné',
     'subscription-quick-search' => 'Recherche rapide du nom du sujet (dans les abonnements)',
     'suggestion'                => 'Suggestion',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Sujet',
     'topic-closed'              => 'Ce sujet est fermé',
     'topic-name'                => 'Nom du sujet',
@@ -75,6 +83,8 @@ return [
     'topic-title'               => 'Titre de ce sujet',
     'topics'                    => 'Les sujets',
     'unpin'                     => 'Détacher',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Voir tous les sujets',
-    'views'                     => 'Vues',
+    'views'                     => 'Vues'
 ];

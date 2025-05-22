@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'Slēgts',
     'create-new-topic'          => 'Izveidot jaunu tēmu',
     'created'                   => 'Izveidots',
+    'created-at'                => 'Created At',
     'current'                   => 'Pašreizējais',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Dzēst šo tēmu',
     'denied'                    => 'Atteikts',
     'dislike-post'              => 'Nepatīk šis pasts',
     'display-forum'             => 'Rādīt tēmas',
     'edit-post'                 => 'Rediģēt pastu',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Rediģēt tēmu',
     'forum'                     => 'Forums',
     'forums'                    => 'Forums',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Īstenots',
     'in'                        => 'In',
     'invalid'                   => 'Nederīgs',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'Citāts',
     'read-topic'                => 'Lasīt tēmu',
     'replies'                   => 'Atbildes',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Saglabāt šo tēmu',
     'solved'                    => 'Atrisināts',
     'state'                     => 'Valsts',
     'stats'                     => 'Statistika',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Abonēts',
     'subscription-quick-search' => 'Tēmas nosaukuma ātra meklēšana (abonementos)',
     'suggestion'                => 'Ieteikums',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Temats',
     'topic-closed'              => 'Šī tēma ir slēgta',
     'topic-name'                => 'Tēmas nosaukums',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Šīs tēmas nosaukums',
     'topics'                    => 'Tēmas',
     'unpin'                     => 'Atvienojiet',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Skatīt visas tēmas',
-    'views'                     => 'Skatījumi',
+    'views'                     => 'Skatījumi'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,14 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'date'             => 'දිනය',
-    'delete'           => 'මකන්න',
-    'delete-all'       => 'සියලුම දැනුම්දීම් මකන්න',
-    'mark-all-read'    => 'කියවූ ලෙස සලකුණු කරන්න',
-    'mark-read'        => 'කියවූ බවට සලකුණු කරන්න',
-    'message'          => 'පණිවුඩය',
-    'no-notifications' => 'දැනුම්දීම් කිසිවක් සොයාගත නොහැක',
-    'notifications'    => 'දැනුම්දීම්',
-    'read'             => 'කියවන්න',
-    'title'            => 'ශීර්ෂය',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gifts',
+    'comment-tags'        => 'Comment Tags',
+    'date'                => 'දිනය',
+    'delete'              => 'මකන්න',
+    'delete-all'          => 'සියලුම දැනුම්දීම් මකන්න',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filter By Notification Type',
+    'mark-all-read'       => 'කියවූ ලෙස සලකුණු කරන්න',
+    'mark-read'           => 'කියවූ බවට සලකුණු කරන්න',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'පණිවුඩය',
+    'no-notifications'    => 'දැනුම්දීම් කිසිවක් සොයාගත නොහැක',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'දැනුම්දීම්',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'කියවන්න',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'ශීර්ෂය',
+    'unfollows'           => 'Unfollows'
 ];

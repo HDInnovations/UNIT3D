@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'Aktiv i sista',
     'chatbox'                 => 'Chat Box',
+    'check-news'              => 'Nyheter (kontrollera dagligen)',
     'click'                   => 'Klick',
-    'to-enable-editor'        => 'för att aktivera redigeraren',
     'featured-by'             => 'Utvalda av',
     'featured-torrents'       => 'Utvalda torrenter',
     'featured-torrents-intro' => 'Plocka dem medan du kan!',
     'featured-until'          => 'Detta presenteras torrent till',
-    'top-torrents'            => 'Top Torrents',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'Senaste inläggen',
     'latest-topics'           => 'Senaste ämnena',
-    'active-in-last'          => 'Aktiv i sista',
-    'users-online'            => 'Användare Online',
-    'check-news'              => 'Nyheter (kontrollera dagligen)',
     'new-news'                => 'Senaste nyheterna',
     'new-torrents'            => 'Nya torrents',
+    'to-enable-editor'        => 'för att aktivera redigeraren',
+    'top-torrents'            => 'Top Torrents',
+    'users-online'            => 'Användare Online'
 ];

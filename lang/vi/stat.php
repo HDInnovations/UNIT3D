@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Theo số lượng',
     'by-data'                 => 'Theo dữ liệu',
     'by-volume'               => 'Bởi âm lượng',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Nhóm',
     'groups'                  => 'Các nhóm',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Chỉ số Nerd',
     'nerd-stats-desc'         => 'Chúng tôi đều yêu thống kê. Dưới đây là một vài điều mà chúng tôi thấy quan trọng',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Ngày đăng kí',
     'request-fulfilled'       => 'Yêu cầu hoàn thành',
     'request-not-fulfilled'   => 'Yêu cầu không được thực hiện',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Đỉa hàng đầu',
     'top-leechers'            => 'Đỉa hàng đầu',
     'top-seeded'              => 'Hạt giống hàng đầu',
-    'top-seeding'             => 'Hạt giống hàng đầu',
     'top-seeders'             => 'Hạt giống hàng đầu',
+    'top-seeding'             => 'Hạt giống hàng đầu',
     'top-seedsize'            => 'Hạt giống hàng đầu',
     'top-seedtime'            => 'Thời gian hạt giống hàng đầu',
     'top-uploaders'           => 'Trình tải lên hàng đầu',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Tổng số torrent',
     'total-traffic'           => 'Tổng lưu lượng',
     'total-upload'            => 'Tổng số tải lên',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Người dùng trong nhóm',
-    'users-per-group'         => 'Người dùng mỗi nhóm',
+    'users-per-group'         => 'Người dùng mỗi nhóm'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'Apmaiņa',
     'exchange-warning'        => 'Apmaiņas ir galīgas, pirms apmaiņas veikšanas pārbaudiet savas izvēles.',
     'extended-stats'          => 'Paplašinātā statistika',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'Dāvana',
     'gift-bonus'              => 'Dāvanu bonusa punkti',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'Dāvanu bonusa punkti',
     'gifts'                   => 'Dāvanas',
     'item'                    => 'Vienums',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'Punkti sekundē',
     'per-week'                => 'Punkti nedēļā',
     'per-year'                => 'Punkti gadā',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'Punkti',
     'receiver'                => 'Uztvērējs',
     'review-seeds'            => 'Pārskatiet visas sēklas',
     'send-gift'               => 'Sūtīt dāvanu',
     'sender'                  => 'Sūtītājs',
     'store'                   => 'Veikals',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'Padomi',
     'total'                   => 'Kopējie ienākumi',
     'total-gifts'             => 'Kopā BON dāvanas',
     'total-tips'              => 'Kopā BON padomi',
     'you-have-received-gifts' => 'Jūs esat saņēmis',
-    'you-have-sent-gifts'     => 'Jums ir nosūtīti',
     'you-have-received-tips'  => 'Jūs esat saņēmis',
+    'you-have-sent-gifts'     => 'Jums ir nosūtīti',
     'you-have-sent-tips'      => 'Jums ir nosūtīti',
-    'your-points'             => 'Jūsu punkti',
+    'your-points'             => 'Jūsu punkti'
 ];

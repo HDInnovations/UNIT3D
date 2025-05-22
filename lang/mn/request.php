@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Хүсэлт нэмэх',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Нас',
     'all-requests'        => 'Бүх хүсэлт',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Зөвшөөрөх',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Баян',
     'bounty-claimed'      => 'Баффей өгүүлэв',
     'bounty-unclaimed'    => 'Баян нь үгүй',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Энэ нь танд таалагдах болно',
     'claim-now'           => 'Одоо нэхэмжил',
     'claimed'             => 'Нэхэмжлэл гаргасан',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Одоогийн',
     'delete'              => 'Энэ хүсэлтийг устгах',
     'delete-confirmation' => 'Та энэ хүсэлтийг устгахыг хүсч байгаадаа итгэлтэй байна уу',
     'delete-filled'       => 'Энэ хүсэлтийг зөвхөн бөглөөгүй тохиолдолд устгах боломжтой',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Тодорхойлолт',
     'dont-have-bps'       => 'Та хангалттай Bonus байхгүй байна',
     'edit-request'        => 'Хүсэлтийг засах',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Бондын оноо (хамгийн багадаа 100)',
     'enter-hash'          => 'Байршуулсан Torrent-ын Мэдээлэл Хашыг оруулна уу',
     'fill'                => 'Дуусга',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'for',
     'fulfill'             => 'Дуусга',
     'last-vote'           => 'Сүүлийн санал',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Миний хүсэлт',
+    'my-voted'            => 'My voted',
     'no'                  => 'Үгүй,',
     'no-imdb-id'          => 'Бүх хүсэлтүүд нь IMDB дугаартай байх ёстой',
     'no-privileges'       => 'Алдаа: Таны хүсэлтийг хүчингүй болгосон',
     'no-privileges-desc'  => 'Хэрэв та энэ алдаа гэж үзэж байгаа бол ажилтнуудад хандана уу',
     'no-refunds'          => 'Бон солилцох, дүүргэх, үр өгөөжийг эцэс болгох! <br> <strong>Үгүй</strong>',
     'pending'             => 'Хүлээгдэж байна',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Шалтгаан',
     'reject'              => 'Татгалзах',
     'report'              => 'Хүсэлтийг мэдээлэх',
     'request'             => 'Хүсэлт гаргах',
     'request-details'     => 'Хүсэлт гарга',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Хүсэлтээр',
     'requests'            => 'Хүсэлт',
     'required'            => 'Шаардлагатай',
     'reset'               => 'Дахин тохируулах',
     'reset-confirmation'  => 'Та энэ хүсэлтийг дахин шинэчлэхийг хүсэж байна уу?',
     'reset-request'       => 'Энэ хүсэлтийг дахин тохируулна уу',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Шагнал',
     'reward-desc'         => 'Шагналын шагналыг хэр их хүсч байна вэ? Хамгийн багадаа 100 ВП',
     'reward-from'         => 'Эхлээд',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Нийт өгөөж',
     'type'                => 'Төрөл',
     'unclaim'             => 'Энэ хүсэлтийг хүчингүй болгох',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'Дуусаагүй',
     'view-filled'         => 'Дууг үзэх',
     'view-unfilled'       => 'Үл үзэгдэх байдлыг харах',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Энэ хүсэлтийг санал болгов',
     'voters'              => 'Сонгогчид',
     'votes'               => 'Үнэн',
-    'yes'                 => 'Тиймээ',
+    'yes'                 => 'Тиймээ'
 ];

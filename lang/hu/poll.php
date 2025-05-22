@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,18 +15,24 @@ declare(strict_types=1);
  */
 
 return [
-    'add-option'      => 'Add opció',
-    'create-poll'     => 'Szavazás létrehozása',
-    'current'         => 'Aktuális szavazás (ok)',
-    'delete-option'   => 'Törlés opció',
-    'multiple-choice' => 'Ez egy többszörös választás. Válassza ki a kívánt számú választ.',
-    'option'          => 'választási lehetőség',
-    'poll'            => 'Közvélemény kutatás',
-    'polls'           => 'Szavazás',
-    'results'         => 'Poll eredmények',
-    'title'           => 'Cím',
-    'total'           => 'Összes szavazat',
-    'vote'            => 'Szavazás',
-    'vote-now'        => 'Szerezd meg a szavazást most!',
-    'votes'           => 'szavazatok',
+    'add-option'           => 'Add opció',
+    'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
+    'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'close-date'           => 'Close Poll after',
+    'create-poll'          => 'Szavazás létrehozása',
+    'current'              => 'Aktuális szavazás (ok)',
+    'delete-option'        => 'Törlés opció',
+    'edit-poll'            => 'Edit Poll',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
+    'multiple-choice'      => 'Ez egy többszörös választás. Válassza ki a kívánt számú választ.',
+    'option'               => 'választási lehetőség',
+    'poll'                 => 'Közvélemény kutatás',
+    'polls'                => 'Szavazás',
+    'results'              => 'Poll eredmények',
+    'title'                => 'Cím',
+    'total'                => 'Összes szavazat',
+    'vote'                 => 'Szavazás',
+    'vote-counted'         => 'Your vote has been counted.',
+    'vote-now'             => 'Szerezd meg a szavazást most!',
+    'votes'                => 'szavazatok'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +15,19 @@ declare(strict_types=1);
  */
 
 return [
+    'access-delete-error' => 'You don\'t have access to delete this request.',
+    'access-error'        => 'You don\'t have access to approve this request.',
     'add-request'         => 'Lägg till förfrågan',
+    'added-bonus'         => 'Your bonus has been successfully added.',
+    'added-request'       => 'Request Added.',
     'age'                 => 'Ålder',
     'all-requests'        => 'Alla förfrågningar',
+    'already-approved'    => 'Seems this request was already approved',
+    'already-claimed'     => 'Someone else has already claimed this request buddy.',
+    'already-rejected'    => 'Seems this request was already rejected',
     'approve'             => 'Godkänna',
+    'approved-anon'       => 'You have approved %s and the bounty has been awarded to a anonymous user',
+    'approved-user'       => 'You have approved %s and the bounty has been awarded to %s',
     'bounty'              => 'Frikostighet',
     'bounty-claimed'      => 'Bounty hävdade',
     'bounty-unclaimed'    => 'Bounty uppkallad',
@@ -27,13 +37,16 @@ return [
     'claim-as-anon'       => 'Skulle du vilja hävda detta anonomiskt',
     'claim-now'           => 'Ansök nu',
     'claimed'             => 'hävdade',
+    'claimed-success'     => 'Request Successfully Claimed',
     'current'             => 'Nuvarande',
     'delete'              => 'Ta bort denna förfrågan',
     'delete-confirmation' => 'Är du säker på att du vill radera denna förfrågan',
     'delete-filled'       => 'Den här förfrågan kan bara raderas om den inte har fyllts i',
+    'deleted'             => 'You have deleted %s',
     'description'         => 'Beskrivning',
     'dont-have-bps'       => 'Du har inte tillräckligt med bonus',
     'edit-request'        => 'Redigera förfrågan',
+    'edited-request'      => 'Request Edited Successfully.',
     'enter-bp'            => 'Ange bonuspoäng (minst 100)',
     'enter-hash'          => 'Ange ID för den uppladdade Torrent',
     'fill'                => 'Fylla',
@@ -43,24 +56,32 @@ return [
     'for'                 => 'för',
     'fulfill'             => 'Uppfylla',
     'last-vote'           => 'Senaste omröstningen',
+    'my-claims'           => 'My claims',
+    'my-filled'           => 'My filled',
     'my-requests'         => 'Mina önskemål',
+    'my-voted'            => 'My voted',
     'no'                  => 'Nej,',
     'no-imdb-id'          => 'Alla förfrågningar måste innehålla ett IMDB-nummer',
     'no-privileges'       => 'Fel: Din begäran om rättigheter har inaktiverats',
     'no-privileges-desc'  => 'Om du tycker att det här är fel, vänligen kontakta personalen',
     'no-refunds'          => 'BON utbyten på skapande, fyllning och bounties är slutliga! <br> <strong>INGET ÅTERKÖP!</strong>',
     'pending'             => 'Avvaktan',
+    'pending-approval'    => 'Your request fill is pending approval by the Requester.',
+    'pending-moderation'  => 'The torrent id you are trying to use is valid in our database but is still pending moderation. Please wait for your torrent to be approved and then try again.',
     'reason'              => 'Anledning',
     'reject'              => 'Avvisa',
     'report'              => 'Rapportförfrågan',
     'request'             => 'Begäran',
     'request-details'     => 'Begär detaljer',
+    'request-reset'       => 'This request has been reset.',
     'requested-by'        => 'Efterfrågad av',
     'requests'            => 'Begäran',
     'required'            => 'Nödvändig',
     'reset'               => 'Återställa',
     'reset-confirmation'  => 'Är du säker på att du vill återställa denna förfrågan',
     'reset-request'       => 'Återställ denna förfrågan',
+    'resolution'          => 'Resolution',
+    'resolutions'         => 'Resolutions',
     'reward'              => 'Pris',
     'reward-desc'         => 'Hur mycket bonuspoäng skulle du vilja belöna? Minsta 100 BP',
     'reward-from'         => 'Från',
@@ -69,6 +90,8 @@ return [
     'total-bounty'        => 'Summa bounty',
     'type'                => 'Typ',
     'unclaim'             => 'Avstå denna begäran',
+    'unclaim-error'       => 'Nothing To Unclaim.',
+    'unclaimed-success'   => 'Request Successfully Un-Claimed',
     'unfilled'            => 'ofylld',
     'view-filled'         => 'Visa fylld',
     'view-unfilled'       => 'Visa ofylld',
@@ -76,5 +99,5 @@ return [
     'vote-that'           => 'Rösta denna begäran',
     'voters'              => 'väljarna',
     'votes'               => 'röster',
-    'yes'                 => 'Ja',
+    'yes'                 => 'Ja'
 ];

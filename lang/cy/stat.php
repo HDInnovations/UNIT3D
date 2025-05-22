@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'Trwy Gyfrif',
     'by-data'                 => 'Yn ôl Data',
     'by-volume'               => 'Yn ôl Cyfrol',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'Grŵp',
     'groups'                  => 'Grwpiau',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Ystadegau Nerd',
     'nerd-stats-desc'         => 'Rydym i gyd yn caru ystadegau. Dyma rai sy n bwysig i ni',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'Dyddiad cofrestru',
     'request-fulfilled'       => 'Cais wedi i gyflawni',
     'request-not-fulfilled'   => 'Cais heb ei gyflawni',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'Top Leeched',
     'top-leechers'            => 'Top Cigyddion',
     'top-seeded'              => 'Top Seeded',
-    'top-seeding'             => 'Hadau Uchaf',
     'top-seeders'             => 'Prif Seeders',
+    'top-seeding'             => 'Hadau Uchaf',
     'top-seedsize'            => 'Top Seedsize',
     'top-seedtime'            => 'Top Seedtime',
     'top-uploaders'           => 'Top Uploaders',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'Cyfanswm Torrents',
     'total-traffic'           => 'Cyfanswm Traffig',
     'total-upload'            => 'Cyfanswm llwytho',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'Defnyddwyr Mewn Grŵp',
-    'users-per-group'         => 'Defnyddwyr Per Grŵp',
+    'users-per-group'         => 'Defnyddwyr Per Grŵp'
 ];

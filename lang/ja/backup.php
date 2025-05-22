@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => '行動',
     'backup'                         => 'バックアップ',
     'backup_doesnt_exist'            => 'バックアップファイルが存在しません。',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'フルバックアップを作成する',
-    'create_a_new_files_backup'      => 'ファイルの作成バックアップ',
     'create_a_new_db_backup'         => 'データベースバックアップを作成する',
+    'create_a_new_files_backup'      => 'ファイルの作成バックアップ',
     'create_confirmation_message'    => '3秒でページをリロードします。',
     'create_confirmation_title'      => 'バックアップが完了しました',
     'create_error_message'           => 'バックアップファイルを作成できませんでした。',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'ロケーション',
     'manager'                        => '部長',
     'no_disks_configured'            => 'config / backup.phpにバックアップディスクが設定されていません',
-    'only_local_downloads_supported' => 'ローカルファイルシステムからのダウンロードのみがサポートされています。',
+    'only_local_downloads_supported' => 'ローカルファイルシステムからのダウンロードのみがサポートされています。'
 ];

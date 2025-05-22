@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +15,20 @@ declare(strict_types=1);
  */
 
 return [
+    'active-in-last'          => 'აქტიური ბოლო',
     'chatbox'                 => 'ჩატი ყუთი',
+    'check-news'              => 'სიახლეები (ყოველდღიურად შემოწმება)',
     'click'                   => 'დაწკაპეთ',
-    'to-enable-editor'        => 'რედაქტორის ჩართვა',
     'featured-by'             => 'მიერ გამორჩეული',
     'featured-torrents'       => 'მთავარი ტორენტები',
     'featured-torrents-intro' => 'მიიღეთ დრო, როცა შენ შეგიძლია!',
     'featured-until'          => 'ეს არის გამორჩეული ტორენტი სანამ',
-    'top-torrents'            => 'ყველაზე ტორენტები',
+    'latest-comments'         => 'Latest Comments',
     'latest-posts'            => 'უახლესი პოსტები',
     'latest-topics'           => 'უახლესი თემები',
-    'active-in-last'          => 'აქტიური ბოლო',
-    'users-online'            => 'მომხმარებელი ონლაინი',
-    'check-news'              => 'სიახლეები (ყოველდღიურად შემოწმება)',
     'new-news'                => 'Ახალი ამბები',
     'new-torrents'            => 'ახალი ტორენტები',
+    'to-enable-editor'        => 'რედაქტორის ჩართვა',
+    'top-torrents'            => 'ყველაზე ტორენტები',
+    'users-online'            => 'მომხმარებელი ონლაინი'
 ];

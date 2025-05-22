@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,14 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'date'             => 'Дата',
-    'delete'           => 'Изтрий',
-    'delete-all'       => 'Изтрийте всички известия',
-    'mark-all-read'    => 'маркирай всички като прочетени',
-    'mark-read'        => 'Маркирай като прочетено',
-    'message'          => 'съобщение',
-    'no-notifications' => 'Няма намерени уведомления',
-    'notifications'    => 'Известия',
-    'read'             => 'Прочети',
-    'title'            => 'Заглавие',
+    'all-deleted'         => 'All Notifications Deleted!',
+    'all-marked-read'     => 'All Notifications Marked As Read!',
+    'already-marked-read' => 'Notification Already Marked As Read!',
+    'bon-gifts'           => 'Bon Gifts',
+    'comment-tags'        => 'Comment Tags',
+    'date'                => 'Дата',
+    'delete'              => 'Изтрий',
+    'delete-all'          => 'Изтрийте всички известия',
+    'deleted'             => 'Notification Deleted!',
+    'filter-by-type'      => 'Filter By Notification Type',
+    'mark-all-read'       => 'маркирай всички като прочетени',
+    'mark-read'           => 'Маркирай като прочетено',
+    'marked-read'         => 'Notification Marked As Read!',
+    'message'             => 'съобщение',
+    'no-notifications'    => 'Няма намерени уведомления',
+    'not-existent'        => 'Notification Does Not Exist!',
+    'notifications'       => 'Известия',
+    'post-tags'           => 'Post Tags',
+    'post-tips'           => 'Post Tips',
+    'read'                => 'Прочети',
+    'request-approvals'   => 'Request Approvals',
+    'request-bounties'    => 'Request Bounties',
+    'request-claims'      => 'Request Claim',
+    'request-fills'       => 'Request Fills',
+    'request-rejections'  => 'Request Rejections',
+    'request-unclaims'    => 'Request Unclaims',
+    'reseed-requests'     => 'Reseed Request',
+    'title'               => 'Заглавие',
+    'unfollows'           => 'Unfollows'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,41 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Backup Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by the backup system.
-    | You are free to change them to anything you want to customize your views to better match your application.
-    |
-    */
-
-    'backup'                         => 'پشتیبان',
-    'create_a_new_backup'            => 'ایجاد پشتیبان جدید',
-    'create_a_new_files_backup'      => 'ایجاد فایل پشتیبان',
-    'create_a_new_db_backup'         => 'ایجاد پشتیبان پایگاه داده',
-    'existing_backups'               => 'پشتیبان‌های موجود',
-    'date'                           => 'تاریخ',
-    'file_size'                      => 'سایز پرونده',
     'actions'                        => 'عملیات',
-    'download'                       => 'بارگیری',
-    'delete'                         => 'حذف',
-    'delete_confirm'                 => 'آیا شما از حذف این پرونده پشتیبان اطمینان دارید؟',
-    'delete_confirmation_title'      => 'انجام شد',
-    'delete_confirmation_message'    => 'پرونده پشتیبان با موفقیت حذف شد.',
-    'delete_error_title'             => 'خطا',
-    'delete_error_message'           => 'پرونده پشتیبان حذف نشده است.',
-    'delete_cancel_title'            => 'مشکلی نیست',
-    'delete_cancel_message'          => 'پرونده پشتیبان حذف نشده است.',
-    'create_confirmation_title'      => 'فرآیند پشتیبان‌گیری شروع شد.',
-    'create_confirmation_message'    => 'لطفا چند دقیقه صبر کنید تا کامل شود ، سپس صفحه را تازه کنید.',
-    'create_error_title'             => 'خطا پشتیبان',
-    'create_error_message'           => 'فایل پشتیبان نمی‌تواند ساخته شود.',
-    'create_warning_title'           => 'خطای نا مشخص',
-    'create_warning_message'         => 'نسخه پشتیبان شما ممکن است ایجاد نشده باشد. لطفاً پرونده ها را برای جزئیات بیشتر بررسی کنید.',
-    'location'                       => 'محل',
-    'no_disks_configured'            => 'دیسک پشتیبانی در config/backup.php تنظیم نشده است.',
+    'backup'                         => 'پشتیبان',
     'backup_doesnt_exist'            => 'پرونده پشتیبان وجود ندارد.',
-    'only_local_downloads_supported' => 'تنها دانلود از سیستم‌فایل محلی پشتیبانی می‌شود',
+    'backup_process_started'         => 'New Backup Process Started',
+    'create_a_new_backup'            => 'ایجاد پشتیبان جدید',
+    'create_a_new_db_backup'         => 'ایجاد پشتیبان پایگاه داده',
+    'create_a_new_files_backup'      => 'ایجاد فایل پشتیبان',
+    'create_confirmation_message'    => 'لطفا چند دقیقه صبر کنید تا کامل شود ، سپس صفحه را تازه کنید.',
+    'create_confirmation_title'      => 'فرآیند پشتیبان‌گیری شروع شد.',
+    'create_error_message'           => 'فایل پشتیبان نمی‌تواند ساخته شود.',
+    'create_error_title'             => 'خطا پشتیبان',
+    'create_warning_message'         => 'نسخه پشتیبان شما ممکن است ایجاد نشده باشد. لطفاً پرونده ها را برای جزئیات بیشتر بررسی کنید.',
+    'create_warning_title'           => 'خطای نا مشخص',
+    'date'                           => 'تاریخ',
+    'delete'                         => 'حذف',
+    'delete_cancel_message'          => 'پرونده پشتیبان حذف نشده است.',
+    'delete_cancel_title'            => 'مشکلی نیست',
+    'delete_confirm'                 => 'آیا شما از حذف این پرونده پشتیبان اطمینان دارید؟',
+    'delete_confirmation_message'    => 'پرونده پشتیبان با موفقیت حذف شد.',
+    'delete_confirmation_title'      => 'انجام شد',
+    'delete_error_message'           => 'پرونده پشتیبان حذف نشده است.',
+    'delete_error_title'             => 'خطا',
+    'download'                       => 'بارگیری',
+    'existing_backups'               => 'پشتیبان‌های موجود',
+    'file_size'                      => 'سایز پرونده',
+    'location'                       => 'محل',
+    'manager'                        => 'Manager',
+    'no_disks_configured'            => 'دیسک پشتیبانی در config/backup.php تنظیم نشده است.',
+    'only_local_downloads_supported' => 'تنها دانلود از سیستم‌فایل محلی پشتیبانی می‌شود'
 ];

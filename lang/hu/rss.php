@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'teremt',
     'create-private-feed' => 'Privát RSS-hírcsatorna létrehozása',
     'create-public-feed'  => 'Nyilvános RSS-hírcsatorna létrehozása',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Töröl',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'szerkesztése',
     'edit-private-feed'   => 'Privát RSS-hírcsatorna szerkesztése',
     'edit-public-feed'    => 'Nyilvános RSS-hírcsatorna szerkesztése',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'takarmány',
     'feeds'               => 'Takarmány',
     'name'                => 'Név',
-    'public'              => 'Nyilvános',
     'private'             => 'Magán',
+    'public'              => 'Nyilvános',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS-hírcsatorna',
     'type'                => 'típus',
+    'updated'             => 'Private RSS Feed Updated'
 ];

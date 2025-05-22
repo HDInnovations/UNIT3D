@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'затворен',
     'create-new-topic'          => 'Създаване на нова тема',
     'created'                   => 'Създаден',
+    'created-at'                => 'Created At',
     'current'                   => 'Текущ',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'Изтриване на тази тема',
     'denied'                    => 'Отказан',
     'dislike-post'              => 'Не харесвам тази публикация',
     'display-forum'             => 'Показване на теми в',
     'edit-post'                 => 'Редактиране на публикация',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'Редактиране на тема',
     'forum'                     => 'форум',
     'forums'                    => 'Форуми',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'Изпълнено',
     'in'                        => 'в',
     'invalid'                   => 'невалиден',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'цитат',
     'read-topic'                => 'Прочетете темата',
     'replies'                   => 'Отговори',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'Запазване на тази тема',
     'solved'                    => 'Решен',
     'state'                     => 'състояние',
     'stats'                     => 'Статистика',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'Записан',
     'subscription-quick-search' => 'Бързо търсене на име на тема (в рамките на абонаментите)',
     'suggestion'                => 'Внушение',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'тема',
     'topic-closed'              => 'Тази тема е затворена',
     'topic-name'                => 'Име на тема',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'Заглавие на тази тема',
     'topics'                    => 'Теми',
     'unpin'                     => 'Освобождаване',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'Преглед на всички теми',
-    'views'                     => 'Прегледи',
+    'views'                     => 'Прегледи'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,28 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'Stvoriti',
-    'delete'        => 'Izbrisati',
-    'enter-subject' => 'Unesite predmet',
-    'from'          => 'Iz',
-    'inbox'         => 'Ulazni spremnik',
-    'mark-all-read' => 'Označite sve poruke kao pročitane',
-    'message'       => 'Poruka',
-    'messages'      => 'poruke',
-    'new'           => 'Nova poruka',
-    'outbox'        => 'nadmašiti u boksu',
-    'private'       => 'Privatna',
-    'read'          => 'Čitati',
-    'received-at'   => 'Primljeno na',
-    'refresh'       => 'Osvježiti',
-    'reply'         => 'Odgovor',
-    'search'        => 'Traži po predmetu',
-    'select'        => 'Odaberite korisnika',
-    'send'          => 'Pošalji PM',
-    'send-to'       => 'Pošalji PM',
-    'sent'          => 'Poslano',
-    'sent-at'       => 'Poslano u',
-    'subject'       => 'predmet',
-    'to'            => 'Do',
-    'unread'        => 'nepročitan',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'Stvoriti',
+    'delete'          => 'Izbrisati',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Empty Inbox',
+    'enter-subject'   => 'Unesite predmet',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Iz',
+    'inbox'           => 'Ulazni spremnik',
+    'mark-all-read'   => 'Označite sve poruke kao pročitane',
+    'message'         => 'Poruka',
+    'messages'        => 'poruke',
+    'new'             => 'Nova poruka',
+    'outbox'          => 'nadmašiti u boksu',
+    'private'         => 'Privatna',
+    'read'            => 'Čitati',
+    'received-at'     => 'Primljeno na',
+    'refresh'         => 'Osvježiti',
+    'reply'           => 'Odgovor',
+    'search'          => 'Traži po predmetu',
+    'select'          => 'Odaberite korisnika',
+    'send'            => 'Pošalji PM',
+    'send-to'         => 'Pošalji PM',
+    'sent'            => 'Poslano',
+    'sent-at'         => 'Poslano u',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'predmet',
+    'to'              => 'Do',
+    'unread'          => 'nepročitan'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => '閉まっている',
     'create-new-topic'          => '新しいトピックを作成',
     'created'                   => '作成した',
+    'created-at'                => 'Created At',
     'current'                   => '現在',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'このトピックを削除',
     'denied'                    => '拒否されました',
     'dislike-post'              => 'この投稿を嫌う',
     'display-forum'             => 'にトピックを表示',
     'edit-post'                 => '投稿を編集',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'トピックを編集',
     'forum'                     => 'フォーラム',
     'forums'                    => 'フォーラム',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => '実装済み',
     'in'                        => 'に',
     'invalid'                   => '無効',
@@ -57,13 +63,19 @@ return [
     'quote'                     => '見積もり',
     'read-topic'                => 'トピックを読む',
     'replies'                   => '返信',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'このトピックを保存',
     'solved'                    => '解決しました',
     'state'                     => '状態',
     'stats'                     => '統計',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => '購読しています',
     'subscription-quick-search' => 'トピック名クイック検索（購読内）',
     'suggestion'                => '提案',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'トピック',
     'topic-closed'              => 'このトピックは終了しました',
     'topic-name'                => 'トピック名',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'このトピックのタイトル',
     'topics'                    => 'トピック',
     'unpin'                     => '固定解除',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'すべてのトピックを見る',
-    'views'                     => 'ビュー',
+    'views'                     => 'ビュー'
 ];

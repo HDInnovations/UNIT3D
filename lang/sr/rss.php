@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'Цреате',
     'create-private-feed' => 'Цреате Привате РСС Феед',
     'create-public-feed'  => 'Цреате Публиц РСС Феед',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'Обриши',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'Уредити',
     'edit-private-feed'   => 'Уреди приватни РСС канал',
     'edit-public-feed'    => 'Уреди јавни РСС канал',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'Напајање',
     'feeds'               => 'Феедс',
     'name'                => 'Име',
-    'public'              => 'Публиц',
     'private'             => 'Приватни',
+    'public'              => 'Публиц',
     'rss'                 => 'РСС',
     'rss-feed'            => 'РСС Феед',
     'type'                => 'Тип',
+    'updated'             => 'Private RSS Feed Updated'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,9 +18,10 @@ return [
     'actions'                        => 'Amallar',
     'backup'                         => 'Zaxiralash',
     'backup_doesnt_exist'            => 'Zaxira fayl mavjud emas.',
+    'backup_process_started'         => 'New Backup Process Started',
     'create_a_new_backup'            => 'To liq zaxirani yaratish',
-    'create_a_new_files_backup'      => 'Fayllarni zaxiralash yaratish',
     'create_a_new_db_backup'         => 'Ma lumotlar bazasini zahiralash yaratish',
+    'create_a_new_files_backup'      => 'Fayllarni zaxiralash yaratish',
     'create_confirmation_message'    => 'Sahifani 3 sekundda qayta tiklash.',
     'create_confirmation_title'      => 'Zaxiralash tugadi',
     'create_error_message'           => 'Zaxira faylini yaratish mumkin emas edi.',
@@ -41,5 +43,5 @@ return [
     'location'                       => 'Manzil',
     'manager'                        => 'Menejeri',
     'no_disks_configured'            => 'Config / backup.php-da konfiguratsiya qilingan zaxira disk yo q',
-    'only_local_downloads_supported' => 'Mahalliy fayl tizimidan faqat yuklab olinadi.',
+    'only_local_downloads_supported' => 'Mahalliy fayl tizimidan faqat yuklab olinadi.'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,8 +27,16 @@ return [
     'exchange'                => 'अदला बदली',
     'exchange-warning'        => 'एक्सचेंज अंतिम हैं, विनिमय करने से पहले कृपया अपनी पसंद की दोबारा जांच करें।',
     'extended-stats'          => 'विस्तारित आँकड़े',
+    'failed'                  => 'Bonus Exchange Failed!',
+    'failed-amount-message'   => 'You Must Enter An Amount And Message!',
+    'failed-funds-poster'     => 'You Are To Broke To Tip The Poster!',
+    'failed-funds-uploader'   => 'Your To Broke To Tip The Uploader!',
+    'failed-negative'         => 'You Cannot Tip A Negative Amount!',
+    'failed-user-not-found'   => 'Unable to find specified user',
+    'failed-yourself'         => 'You Cannot Tip Yourself!',
     'gift'                    => 'उपहार',
     'gift-bonus'              => 'उपहार बोनस अंक',
+    'gift-sent'               => 'Gift Sent',
     'gift-to'                 => 'उपहार बोनस अंक',
     'gifts'                   => 'उपहार',
     'item'                    => 'मद',
@@ -39,19 +48,23 @@ return [
     'per-second'              => 'अंक प्रति सेकंड',
     'per-week'                => 'प्रति सप्ताह अंक',
     'per-year'                => 'प्रति वर्ष अंक',
+    'pm-message'              => 'Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]',
+    'pm-subject'              => 'Personal 24 Hour Freeleech Activated',
     'points'                  => 'अंक',
     'receiver'                => 'रिसीवर',
     'review-seeds'            => 'सभी बीज टॉरेंट्स की समीक्षा करें',
     'send-gift'               => 'उपहार भेजें',
     'sender'                  => 'प्रेषक',
     'store'                   => 'दुकान',
+    'success'                 => 'Bonus Exchange Successful',
+    'success-tip'             => 'Your Tip Was Successfully Applied!',
     'tips'                    => 'टिप्स',
     'total'                   => 'कुल आय',
     'total-gifts'             => 'कुल बॉन उपहार में',
     'total-tips'              => 'टोटल बोन टिप्स में',
     'you-have-received-gifts' => 'आपको प्राप्त हुआ है',
-    'you-have-sent-gifts'     => 'तुमने भेज दिया',
     'you-have-received-tips'  => 'आपको प्राप्त हुआ है',
+    'you-have-sent-gifts'     => 'तुमने भेज दिया',
     'you-have-sent-tips'      => 'तुमने भेज दिया',
-    'your-points'             => 'आपके अंक',
+    'your-points'             => 'आपके अंक'
 ];

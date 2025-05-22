@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,34 +15,20 @@ declare(strict_types=1);
  */
 
 return [
-    // Chat
-    'chatbox'          => '聊天室',
-    'click'            => '点击',
-    'to-enable-editor' => '启用编辑器',
-
-    // Featured Torrents
+    'active-in-last'          => '最近活跃于',
+    'chatbox'                 => '聊天室',
+    'check-news'              => '公告（每日必看）',
+    'click'                   => '点击',
     'featured-by'             => '精选',
     'featured-torrents'       => '精选资源',
     'featured-torrents-intro' => '欢迎下载！',
     'featured-until'          => '精选资源有效至',
-
-    // Latest Torrents
-    'top-torrents' => '资源排名',
-
-    // Latest Posts
-    'latest-posts' => '最近的帖子',
-
-    // Latest Topics
-    'latest-topics' => '最近的主题',
-
-    // Users Online
-    'active-in-last' => '最近活跃于',
-    'users-online'   => '在线用户',
-
-    // News/Articles
-    'check-news' => '公告（每日必看）',
-    'new-news'   => '最新消息',
-
-    // Top Torrents
-    'new-torrents' => '最新资源',
+    'latest-comments'         => 'Latest Comments',
+    'latest-posts'            => '最近的帖子',
+    'latest-topics'           => '最近的主题',
+    'new-news'                => '最新消息',
+    'new-torrents'            => '最新资源',
+    'to-enable-editor'        => '启用编辑器',
+    'top-torrents'            => '资源排名',
+    'users-online'            => '在线用户'
 ];

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'დახურულია',
     'create-new-topic'          => 'ახალი თემის შექმნა',
     'created'                   => 'შექმნილია',
+    'created-at'                => 'Created At',
     'current'                   => 'მიმდინარე',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'წაშალე ეს თემა',
     'denied'                    => 'Უარყოფილი',
     'dislike-post'              => 'ამ პოსტისგან განსხვავებით',
     'display-forum'             => 'თემების ჩვენება',
     'edit-post'                 => 'პოსტის რედაქტირება',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'თემის რედაქტირება',
     'forum'                     => 'ფორუმი',
     'forums'                    => 'ფორუმები',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'განხორციელებული',
     'in'                        => 'შემოსული',
     'invalid'                   => 'არასწორია',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'ციტატა',
     'read-topic'                => 'წაიკითხეთ თემა',
     'replies'                   => 'პასუხები',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'შეინახეთ ეს თემა',
     'solved'                    => 'გადაწყდა',
     'state'                     => 'სახელმწიფო',
     'stats'                     => 'სტატისტიკა',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'გამოწერილია',
     'subscription-quick-search' => 'თემის სწრაფი ძიება (გამოწერების ფარგლებში)',
     'suggestion'                => 'შემოთავაზება',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'Თემა',
     'topic-closed'              => 'ეს თემა დახურულია',
     'topic-name'                => 'თემის სახელი',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'ამ თემის სათაური',
     'topics'                    => 'თემები',
     'unpin'                     => 'გაუქმება',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'ყველა თემის ნახვა',
-    'views'                     => 'Დათვალიერება',
+    'views'                     => 'Დათვალიერება'
 ];

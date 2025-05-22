@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,15 +25,20 @@ return [
     'closed'                    => 'مغلق',
     'create-new-topic'          => 'إنشاء موضوع جديد',
     'created'                   => 'خلقت',
+    'created-at'                => 'Created At',
     'current'                   => 'تيار',
+    'delete-post-success'       => 'This Post Is Now Deleted!',
     'delete-topic'              => 'حذف هذا الموضوع',
     'denied'                    => 'رفض',
     'dislike-post'              => 'كره هذا المنصب',
     'display-forum'             => 'عرض المواضيع في',
     'edit-post'                 => 'تعديل المنشور',
+    'edit-post-success'         => 'Post Successfully Edited!',
     'edit-topic'                => 'تحرير الموضوع',
     'forum'                     => 'المنتدى',
     'forums'                    => 'المنتديات',
+    'forums-post-search'        => 'Post Search',
+    'forums-topic-search'       => 'Topic Search',
     'implemented'               => 'نفذت',
     'in'                        => 'في',
     'invalid'                   => 'غير صالحة',
@@ -57,13 +63,19 @@ return [
     'quote'                     => 'اقتبس',
     'read-topic'                => 'قراءة الموضوع',
     'replies'                   => 'الردود',
+    'reply-topic-error'         => 'You Cannot Reply To This Topic!',
+    'reply-topic-success'       => 'Post Successfully Posted',
+    'select-all-forum'          => 'All Categories/Forums',
     'send-new-topic'            => 'احفظ هذا الموضوع',
     'solved'                    => 'تم حلها',
     'state'                     => 'حالة',
     'stats'                     => 'احصائيات',
+    'subscribe'                 => 'Subscribe',
     'subscribed'                => 'المشترك',
     'subscription-quick-search' => 'موضوع البحث بحث سريع (ضمن الاشتراكات)',
     'suggestion'                => 'اقتراح',
+    'tip-post-total'            => 'This Post Has Been Tipped A Total Of',
+    'tip-this-post'             => 'Tip This Poster',
     'topic'                     => 'موضوع',
     'topic-closed'              => 'هذا الموضوع مغلق',
     'topic-name'                => 'اسم الموضوع',
@@ -71,6 +83,8 @@ return [
     'topic-title'               => 'عنوان هذا الموضوع',
     'topics'                    => 'المواضيع',
     'unpin'                     => 'إزالة التثبيت',
+    'unsubscribe'               => 'Unsubscribe',
+    'updated-at'                => 'Updated At',
     'view-all'                  => 'عرض جميع المواضيع',
-    'views'                     => 'الآراء',
+    'views'                     => 'الآراء'
 ];

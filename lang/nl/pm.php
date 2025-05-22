@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,29 +15,33 @@ declare(strict_types=1);
  */
 
 return [
-    'create'        => 'creëren',
-    'delete'        => 'Verwijder',
-    'enter-subject' => 'Voer onderwerp in',
-    'from'          => 'Van',
-    'inbox'         => 'Postvak IN',
-    'mark-all-read' => 'Markeer alle berichten als gelezen',
-    'message'       => 'Bericht',
-    'messages'      => 'berichten',
-    'new'           => 'Nieuw bericht',
-    'outbox'        => 'Outbox',
-    'private'       => 'Privaat',
-    'read'          => 'Lezen',
-    'received-at'   => 'Ontvangen om',
-    'refresh'       => 'verversen',
-    'reply'         => 'Antwoord',
-    'search'        => 'Zoeken op onderwerp',
-    'select'        => 'Selecteer een gebruiker',
-    'send'          => 'Verstuur PM',
-    'send-to'       => 'Stuur PM naar',
-    'sent'          => 'Verzonden',
-    'sent-at'       => 'Verzonden bij',
-    'subject'       => 'Onderwerpen',
-    'to'            => 'Naar',
-    'unread'        => 'Ongelezen',
-    'empty-inbox'   => 'Lege brievenbus',
+    'all-marked-read' => 'Your Messages Have All Been Marked As Read!',
+    'create'          => 'creëren',
+    'delete'          => 'Verwijder',
+    'delete-success'  => 'PM Was Deleted Successfully!',
+    'empty-inbox'     => 'Lege brievenbus',
+    'enter-subject'   => 'Voer onderwerp in',
+    'error'           => 'What Are You Trying To Do Here!',
+    'from'            => 'Van',
+    'inbox'           => 'Postvak IN',
+    'mark-all-read'   => 'Markeer alle berichten als gelezen',
+    'message'         => 'Bericht',
+    'messages'        => 'berichten',
+    'new'             => 'Nieuw bericht',
+    'outbox'          => 'Outbox',
+    'private'         => 'Privaat',
+    'read'            => 'Lezen',
+    'received-at'     => 'Ontvangen om',
+    'refresh'         => 'verversen',
+    'reply'           => 'Antwoord',
+    'search'          => 'Zoeken op onderwerp',
+    'select'          => 'Selecteer een gebruiker',
+    'send'            => 'Verstuur PM',
+    'send-to'         => 'Stuur PM naar',
+    'sent'            => 'Verzonden',
+    'sent-at'         => 'Verzonden bij',
+    'sent-success'    => 'Your PM Was Sent Successfully!',
+    'subject'         => 'Onderwerpen',
+    'to'              => 'Naar',
+    'unread'          => 'Ongelezen'
 ];

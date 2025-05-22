@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,16 +18,20 @@ return [
     'create'              => 'ರಚಿಸಿ',
     'create-private-feed' => 'ಖಾಸಗಿ RSS ಫೀಡ್ ರಚಿಸಿ',
     'create-public-feed'  => 'ಸಾರ್ವಜನಿಕ RSS ಫೀಡ್ ರಚಿಸಿ',
+    'created'             => 'Private RSS Feed Created',
     'delete'              => 'ಅಳಿಸಿ',
+    'deleted'             => 'RSS Feed Deleted!',
     'edit'                => 'ಸಂಪಾದಿಸಿ',
     'edit-private-feed'   => 'ಖಾಸಗಿ RSS ಫೀಡ್ ಅನ್ನು ಸಂಪಾದಿಸಿ',
     'edit-public-feed'    => 'ಸಾರ್ವಜನಿಕ RSS ಫೀಡ್ ಸಂಪಾದಿಸಿ',
+    'error'               => 'Unable To Process Request',
     'feed'                => 'ಫೀಡ್',
     'feeds'               => 'ಫೀಡ್ಗಳು',
     'name'                => 'ಹೆಸರು',
-    'public'              => 'ಸಾರ್ವಜನಿಕ',
     'private'             => 'ಖಾಸಗಿ',
+    'public'              => 'ಸಾರ್ವಜನಿಕ',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS ಫೀಡ್',
     'type'                => 'ಮಾದರಿ',
+    'updated'             => 'Private RSS Feed Updated'
 ];

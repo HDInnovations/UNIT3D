@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,13 +15,25 @@ declare(strict_types=1);
  */
 
 return [
+    'active'                  => 'Active',
+    'all'                     => 'All',
+    'all-time'                => 'All Time',
+    'banned'                  => 'Banned',
     'by-count'                => 'ಕೌಂಟ್ ಮೂಲಕ',
     'by-data'                 => 'ಡೇಟಾದಿಂದ',
     'by-volume'               => 'ಸಂಪುಟದಿಂದ',
+    'credited'                => 'Credited',
+    'disabled'                => 'Disabled',
     'group'                   => 'ಗುಂಪು',
     'groups'                  => 'ಗುಂಪುಗಳು',
+    'languages'               => 'Languages',
+    'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'ನೆರ್ಡ್ ಅಂಕಿಅಂಶಗಳು',
     'nerd-stats-desc'         => 'ನಾವೆಲ್ಲರೂ ಅಂಕಿಅಂಶಗಳನ್ನು ಪ್ರೀತಿಸುತ್ತೇವೆ. ನಾವು ಮುಖ್ಯವಾಗಿ ಕಂಡುಕೊಂಡ ಕೆಲವು ಅಂಶಗಳು ಇಲ್ಲಿವೆ',
+    'place'                   => 'Place',
+    'pruned'                  => 'Pruned',
+    'real'                    => 'Real',
     'registration-date'       => 'ನೋಂದಣಿ ದಿನಾಂಕ',
     'request-fulfilled'       => 'ವಿನಂತಿ ಪೂರ್ಣಗೊಂಡಿದೆ',
     'request-not-fulfilled'   => 'ವಿನಂತಿ ಪೂರ್ಣಗೊಂಡಿಲ್ಲ',
@@ -39,8 +52,8 @@ return [
     'top-leeched'             => 'ಟಾಪ್ ಲೆಕ್ಹೆಡ್',
     'top-leechers'            => 'ಟಾಪ್ ಲೀಕರ್ಸ್',
     'top-seeded'              => 'ಟಾಪ್ ಬೀಜ',
-    'top-seeding'             => 'ಉನ್ನತ ಬೀಜ',
     'top-seeders'             => 'ಟಾಪ್ ಬೀಜಗಳು',
+    'top-seeding'             => 'ಉನ್ನತ ಬೀಜ',
     'top-seedsize'            => 'ಟಾಪ್ ಸೀಡ್ಸ್ಜೀಕರಿಸು',
     'top-seedtime'            => 'ಟಾಪ್ ಬೀಜ ಸಮಯ',
     'top-uploaders'           => 'ಟಾಪ್ ಅಪ್ಲೋಡರ್ಗಳು',
@@ -48,6 +61,7 @@ return [
     'total-torrents'          => 'ಒಟ್ಟು ಟೊರೆಂಟುಗಳು',
     'total-traffic'           => 'ಒಟ್ಟು ಸಂಚಾರ',
     'total-upload'            => 'ಒಟ್ಟು ಅಪ್ಲೋಡ್',
+    'updated'                 => '(Updated Every 10 Minutes!)',
     'users-in-group'          => 'ಗುಂಪುಗಳಲ್ಲಿ ಬಳಕೆದಾರರು',
-    'users-per-group'         => 'ಬಳಕೆದಾರರ ಗುಂಪು',
+    'users-per-group'         => 'ಬಳಕೆದಾರರ ಗುಂಪು'
 ];
