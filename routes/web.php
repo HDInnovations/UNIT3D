@@ -237,9 +237,9 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Top 10 System
-        Route::prefix('top10')->group(function (): void {
-            Route::name('top10.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Top10Controller::class, 'index'])->name('index');
+        Route::prefix('trending')->group(function (): void {
+            Route::name('trending.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\TrendingController::class, 'index'])->name('index');
             });
         });
 
