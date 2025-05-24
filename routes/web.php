@@ -193,6 +193,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/user/seedtime', [App\Http\Controllers\StatsController::class, 'seedtime'])->name('seedtime');
             Route::get('/user/seedsize', [App\Http\Controllers\StatsController::class, 'seedsize'])->name('seedsize');
             Route::get('/user/upload-snatches', [App\Http\Controllers\StatsController::class, 'uploadSnatches'])->name('upload_snatches');
+            Route::get('/user/messages', [App\Http\Controllers\StatsController::class, 'messages'])->name('messages');
             Route::get('/torrent/seeded', [App\Http\Controllers\StatsController::class, 'seeded'])->name('seeded');
             Route::get('/torrent/leeched', [App\Http\Controllers\StatsController::class, 'leeched'])->name('leeched');
             Route::get('/torrent/completed', [App\Http\Controllers\StatsController::class, 'completed'])->name('completed');

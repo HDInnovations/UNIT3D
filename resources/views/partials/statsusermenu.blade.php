@@ -70,3 +70,11 @@
         Most Upload Snatches
     </a>
 </li>
+<li class="{{ Route::is('messages') ? 'nav-tab--active' : 'nav-tabV2' }}">
+    <a
+        class="{{ Route::is('messages') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        href="{{ route('messages') }}"
+    >
+        Most Messages
+    </a>
+</li>
