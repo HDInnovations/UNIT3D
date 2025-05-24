@@ -189,8 +189,9 @@ class SubtitleController extends Controller
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
 
-        // Define the filename for the download
-        $tempFilename = '['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.$subtitle->extension;
+        // Define the filename for the download, replacing illegal characters
+        $sanitizedTorrentName = str_replace(['/', '\\'], '-', $subtitle->torrent->name);
+        $tempFilename = '['.$subtitle->language->name.' Subtitle]'.$sanitizedTorrentName.$subtitle->extension;
 
         // Increment downloads count
         $subtitle->increment('downloads');
