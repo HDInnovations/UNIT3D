@@ -52,14 +52,14 @@
         <h2 class="panel__heading">Top 10 Movies (Based on downloads count)</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($topMovies as $work)
-                <figure class="top10-poster overview__poster">
+                <figure class="trending-poster overview__poster">
                     <x-movie.poster
                         :movie="$work->movie"
                         :categoryId="$work->category_id"
                         :tmdb="$work->tmdb_movie_id"
                     />
                     <figcaption
-                        class="top10-poster__download-count"
+                        class="trending-poster__download-count"
                         title="{{ __('torrent.completed-times') }}"
                     >
                         {{ $work->download_count }}
@@ -72,14 +72,14 @@
         <h2 class="panel__heading">5 Worst Movies (Based on downloads count)</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($bottomMovies as $work)
-                <figure class="top10-poster overview__poster">
+                <figure class="trending-poster overview__poster">
                     <x-movie.poster
                         :movie="$work->movie"
                         :categoryId="$work->category_id"
                         :tmdb="$work->tmdb_movie_id"
                     />
                     <figcaption
-                        class="top10-poster__download-count"
+                        class="trending-poster__download-count"
                         title="{{ __('torrent.completed-times') }}"
                     >
                         {{ $work->download_count }}
@@ -92,14 +92,14 @@
         <h2 class="panel__heading">Top 10 TV Shows (Based on downloads count)</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($topTv as $work)
-                <figure class="top10-poster overview__poster">
+                <figure class="trending-poster overview__poster">
                     <x-tv.poster
                         :tv="$work->tv"
                         :categoryId="$work->category_id"
                         :tmdb="$work->tmdb_tv_id"
                     />
                     <figcaption
-                        class="top10-poster__download-count"
+                        class="trending-poster__download-count"
                         title="{{ __('torrent.completed-times') }}"
                     >
                         {{ $work->download_count }}
@@ -112,14 +112,14 @@
         <h2 class="panel__heading">5 Worst TV Shows (Based on downloads count)</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($bottomTv as $work)
-                <figure class="top10-poster overview__poster">
+                <figure class="trending-poster overview__poster">
                     <x-tv.poster
                         :tv="$work->tv"
                         :categoryId="$work->category_id"
                         :tmdb="$work->tmdb_tv_id"
                     />
                     <figcaption
-                        class="top10-poster__download-count"
+                        class="trending-poster__download-count"
                         title="{{ __('torrent.completed-times') }}"
                     >
                         {{ $work->download_count }}
