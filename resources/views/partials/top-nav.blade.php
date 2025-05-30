@@ -225,7 +225,7 @@
                                 "
                                 aria-valuenow="{{ $donationPercentage }}"
                                 aria-valuemin="0"
-                                aria-valuemax="{{ config('donation.monthly_goal') }}"
+                                aria-valuemax="100"
                             ></div>
                         </div>
                     </div>
