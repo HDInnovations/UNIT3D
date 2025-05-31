@@ -25,15 +25,15 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property int                             $user_id
- * @property int                             $gifted_user_id
+ * @property int|null                        $gifted_user_id
  * @property ModerationStatus                $status
  * @property int                             $package_id
  * @property string                          $transaction
  * @property bool                            $is_gifted
- * @property \Illuminate\Support\Carbon      $starts_at
+ * @property \Illuminate\Support\Carbon|null $starts_at
  * @property \Illuminate\Support\Carbon|null $ends_at
- * @property \Illuminate\Support\Carbon      $created_at
- * @property \Illuminate\Support\Carbon      $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  */
 class Donation extends Model
 {
