@@ -87,6 +87,7 @@ class DonationController extends Controller
                     $donation->ends_at = null;
                 } else {
                     $furthestExpiry = $activeDonations->max('ends_at');
+                    $donation->starts_at = $furthestExpiry;
                     $donation->ends_at = $furthestExpiry->addDays($donation->package->donor_value);
                 }
             } else {
