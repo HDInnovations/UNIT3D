@@ -403,24 +403,6 @@ parameters:
 			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: '#^Property App\\Models\\Donation\:\:\$ends_at \(Illuminate\\Support\\Carbon\) does not accept Carbon\\Carbon\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Property App\\Models\\Donation\:\:\$ends_at \(Illuminate\\Support\\Carbon\) does not accept null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Property App\\Models\\Donation\:\:\$starts_at \(Illuminate\\Support\\Carbon\) does not accept Carbon\\Carbon\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
 			message: '#^Method App\\Http\\Controllers\\Staff\\DonationGatewayController\:\:destroy\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
