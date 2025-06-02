@@ -478,7 +478,8 @@ return [
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/child-src
         'child-src' => [
             'allow' => [
-                'https://www.youtube-nocookie.com/embed/'
+                'https://www.youtube-nocookie.com/embed/',
+                'https://challenges.cloudflare.com/'
             ],
         ],
 
@@ -489,7 +490,8 @@ return [
             'allow' => [
                 'https://'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
                 'wss://'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
-                'https://api.themoviedb.org/',
+                'https://api.themoviedb.org/', 
+                'https://challenges.cloudflare.com/',
             ],
         ],
 
@@ -523,6 +525,11 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-src
         'frame-src' => [
+            'self' => true,
+            'allow' => [
+                'https://challenges.cloudflare.com',
+                'https://www.youtube-nocookie.com/embed/'
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/img-src
