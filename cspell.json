@@ -3,6 +3,7 @@
     "language": "en",
     "words": [
 		"amoled",
+		"apexcharts",
 		"apikey",
 		"bbcode",
 		"chatbox",
@@ -15,6 +16,7 @@
 		"dcma",
 		"downloaders",
         "EACCES",
+		"easeinout",
 		"fa-crosshairs",
 		"fa-wpforms",
 		"fbclid",
@@ -74,6 +76,10 @@
         "webroot",
 		"winzip",
 		"woot",
+		"zoomin",
+		"zoomout",
+		"xaxis",
+		"yaxis",
     ],
     "ignoreWords": [
 		"abcdef0123456789",
