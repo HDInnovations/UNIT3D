@@ -77,19 +77,20 @@ class DonationController extends Controller
             $donation->starts_at = $now;
             $donation->ends_at = null;
         } else {
-            $activeDonations = Donation::where('user_id', $donation->user_id)
+            $activeDonation = Donation::where('user_id', $donation->user_id)
                 ->where('status', ModerationStatus::APPROVED)
                 ->where('ends_at', '>', $now)
-                ->get();
+                ->orderBy('ends_at', 'desc')
+                ->first();
 
-            if ($activeDonations->isNotEmpty()) {
+            if ($activeDonation->isNotEmpty()) {
                 if ($donation->user->is_lifetime) {
                     $donation->starts_at = $now;
                     $donation->ends_at = null;
                 } else {
-                    $furthestExpiry = $activeDonations->max('ends_at');
-                    $donation->starts_at = $furthestExpiry;
-                    $donation->ends_at = $furthestExpiry->addDays($donation->package->donor_value);
+                    $currentExpiry = $activeDonation->ends_at;
+                    $donation->starts_at = $currentExpiry;
+                    $donation->ends_at = $currentExpiry->addDays($donation->package->donor_value;
                 }
             } else {
                 $donation->starts_at = $now;
