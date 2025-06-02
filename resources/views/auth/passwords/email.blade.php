@@ -68,7 +68,7 @@
                         />
                     </p>
                     @if (config('captcha.enabled'))
-                        @hiddencaptcha
+                        @captcha
                     @endif
 
                     <button class="auth-form__primary-button">

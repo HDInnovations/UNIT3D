@@ -59,7 +59,7 @@
                         @endif
                     </ul>
                     @if (config('captcha.enabled'))
-                        @hiddencaptcha
+                        @captcha
                     @endif
 
                     <details class="auth-form__dropdown">

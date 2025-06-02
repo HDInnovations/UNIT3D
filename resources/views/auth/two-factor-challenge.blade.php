@@ -113,7 +113,7 @@
                         />
                     </p>
                     @if (config('captcha.enabled'))
-                        @hiddencaptcha
+                        @captcha
                     @endif
 
                     <button
