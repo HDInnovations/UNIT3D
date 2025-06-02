@@ -1,2 +1,2 @@
-mport ApexCharts from 'apexcharts';
+import ApexCharts from 'apexcharts';
 window.ApexCharts = ApexCharts; 
