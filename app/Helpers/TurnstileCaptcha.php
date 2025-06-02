@@ -6,6 +6,7 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 class TurnstileCaptcha
 {
@@ -32,11 +33,11 @@ class TurnstileCaptcha
             return false;
         }
 
-        if (!is_string($token)) {
+        if (!\is_string($token)) {
             return false;
         }
 
-        if (strlen($token) < 100 || strlen($token) > 3000) {
+        if (\strlen($token) < 100 || \strlen($token) > 3000) {
             return false;
         }
 
@@ -44,7 +45,7 @@ class TurnstileCaptcha
             $response = Http::asForm()
                 ->timeout(5)
                 ->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-                    'secret' => config('captcha.turnstile.secret_key'),
+                    'secret'   => config('captcha.turnstile.secret_key'),
                     'response' => $token,
                     'remoteip' => request()->ip(),
                 ]);
@@ -54,18 +55,15 @@ class TurnstileCaptcha
             }
 
             $result = $response->json();
-            
-            if (!$result['success']) {
-                return false;
-            }
 
-            return true;
-
-        } catch (\Exception $e) {
+            return ! (!$result['success'])
+            ;
+        } catch (Exception $e) {
             Log::error('Turnstile: Exception during verification', [
                 'error' => $e->getMessage()
             ]);
+
             return false;
         }
     }
-} 
+}
