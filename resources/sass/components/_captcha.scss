@@ -1,0 +1,19 @@
+.turnstile-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1.5rem 0;
+    background: transparent;
+
+    .cf-turnstile {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        
+        iframe {
+            margin: 0 auto;
+            background: transparent;
+        }
+    }
+} 
