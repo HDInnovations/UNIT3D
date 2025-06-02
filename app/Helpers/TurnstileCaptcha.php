@@ -19,6 +19,10 @@ class TurnstileCaptcha
 
     /**
      * Validate the Turnstile response.
+     *
+     * @param array<string, string> $formData The form data containing the turnstile response
+     *
+     * @throws \Exception
      */
     public static function check(array $formData): bool
     {
