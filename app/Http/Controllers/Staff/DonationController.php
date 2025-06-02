@@ -72,9 +72,9 @@ class DonationController extends Controller
 
         $donation = Donation::with(['user', 'package'])->findOrFail($id);
         $donation->status = ModerationStatus::APPROVED;
-        $donation->starts_at = $now;
 
         if ($donation->package->donor_value === null) {
+            $donation->starts_at = $now;
             $donation->ends_at = null;
         } else {
             $activeDonations = Donation::where('user_id', $donation->user_id)
@@ -84,6 +84,7 @@ class DonationController extends Controller
 
             if ($activeDonations->isNotEmpty()) {
                 if ($donation->user->is_lifetime) {
+                    $donation->starts_at = $now;
                     $donation->ends_at = null;
                 } else {
                     $furthestExpiry = $activeDonations->max('ends_at');
@@ -91,6 +92,7 @@ class DonationController extends Controller
                     $donation->ends_at = $furthestExpiry->addDays($donation->package->donor_value);
                 }
             } else {
+                $donation->starts_at = $now;
                 $donation->ends_at = $now->addDays($donation->package->donor_value);
             }
         }
