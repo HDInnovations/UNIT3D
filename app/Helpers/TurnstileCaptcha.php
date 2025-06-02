@@ -33,10 +33,6 @@ class TurnstileCaptcha
             return false;
         }
 
-        if (!\is_string($token)) {
-            return false;
-        }
-
         if (\strlen($token) < 100 || \strlen($token) > 3000) {
             return false;
         }
