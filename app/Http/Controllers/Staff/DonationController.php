@@ -83,14 +83,14 @@ class DonationController extends Controller
                 ->orderBy('ends_at', 'desc')
                 ->first();
 
-            if ($activeDonation->isNotEmpty()) {
+            if ($activeDonation) {
                 if ($donation->user->is_lifetime) {
                     $donation->starts_at = $now;
                     $donation->ends_at = null;
                 } else {
                     $currentExpiry = $activeDonation->ends_at;
                     $donation->starts_at = $currentExpiry;
-                    $donation->ends_at = $currentExpiry->addDays($donation->package->donor_value;
+                    $donation->ends_at = $currentExpiry->addDays($donation->package->donor_value);
                 }
             } else {
                 $donation->starts_at = $now;
