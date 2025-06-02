@@ -52,7 +52,8 @@ class AutoRemoveExpiredDonors extends Command
             ->where('is_lifetime', '=', false)
             ->whereHas('donations')
             ->whereDoesntHave('donations', function ($query): void {
-                $query->where('ends_at', '>', Carbon::now());
+                $query->where('starts_at', '<=', Carbon::now())
+                    ->where('ends_at', '>=', Carbon::now());
             })->get();
 
         Notification::send($expiredDonors, new DonationExpired());
