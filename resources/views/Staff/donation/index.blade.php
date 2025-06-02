@@ -26,11 +26,8 @@
             </div>
         </header>
         <div class="panel__body">
-            <div id="donationChart" style="width: 100%; height: 400px"></div>
-            <div
-                class="stats-summary"
-                style="margin-top: 20px; display: flex; justify-content: space-around"
-            >
+            <div id="donationChart"></div>
+            <div class="stats-summary">
                 <div class="stat-card">
                     <h4>Total Donations</h4>
                     <p id="totalDonations">$0</p>
@@ -167,63 +164,6 @@
         </div>
         {{ $donations->links('partials.pagination') }}
     </section>
-@endsection
-
-@section('styles')
-    <style>
-        .stat-card {
-            background: var(--panel-bg);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .stat-card h4 {
-            margin: 0 0 10px 0;
-            color: var(--text-color);
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        .stat-card p {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--link-color);
-        }
-        #donationChart {
-            background: var(--panel-bg);
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .chart-container {
-            position: relative;
-            margin-top: 1rem;
-        }
-        .stats-summary {
-            margin-top: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            padding: 0 1rem;
-        }
-        #chartTimeframe {
-            background: var(--panel-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
-            padding: 0.5rem;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        #chartTimeframe option {
-            background: var(--panel-bg);
-            color: var(--text-color);
-        }
-    </style>
 @endsection
 
 @section('scripts')
