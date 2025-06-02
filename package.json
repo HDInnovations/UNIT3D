@@ -8,7 +8,6 @@
     "ajv": "^8.17.1",
     "alpinejs": "^3.14.8",
     "axios": "^1.7.9",
-    "chart.js": "^4.4.7",
     "chartjs-adapter-date-fns": "^3.0.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
@@ -25,7 +24,8 @@
     "virtual-select-plugin": "^1.0.46",
     "vue": "^2.6.14",
     "vue-loader": "^15.9.8",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.6.14",
+    "apexcharts": "^3.48.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.3.3",

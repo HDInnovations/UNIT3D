@@ -27,7 +27,7 @@ export default defineConfig({
         'resources/sass/themes/_revel.scss',
         'resources/js/app.js',
         'resources/js/unit3d/chat.js',
-        'resources/js/vendor/chart.js',
+        'resources/js/vendor/apexcharts.js',
       ],
       refresh: true,
     }),
