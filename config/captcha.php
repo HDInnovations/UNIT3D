@@ -19,9 +19,30 @@ return [
     | Enabled
     |--------------------------------------------------------------------------
     |
-    | Hidden Captcha On/Off
+    | Captcha On/Off
     |
     */
 
     'enabled' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Type
+    |--------------------------------------------------------------------------
+    |
+    | Captcha system to use: 'hidden' or 'turnstile'
+    |     - hidden is a basic captcha that relies on randomly generated strings
+    |       and submission timing.
+    |
+    |     - turnstile is a highly secure captcha that uses Cloudflare Turnstile
+    |       bot detection but it requires a site key and secret key to use
+    |       https://developers.cloudflare.com/turnstile/get-started/#new-sites
+    */
+
+    'type' => env('CAPTCHA_TYPE', 'hidden'),
+
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY', ''),
+        'secret_key' => env('TURNSTILE_SECRET_KEY', ''),
+    ],
 ];

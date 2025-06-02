@@ -58,7 +58,7 @@ class CreateNewUser implements CreatesNewUsers
             ],
             'captcha' => [
                 Rule::excludeIf(config('captcha.enabled') === false),
-                Rule::when(config('captcha.enabled') === true, 'hiddencaptcha'),
+                Rule::when(config('captcha.enabled') === true, 'captcha'),
             ],
             'code' => [
                 Rule::when(config('other.invite-only') === true, [
