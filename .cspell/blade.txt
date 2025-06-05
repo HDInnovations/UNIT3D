@@ -3,6 +3,7 @@ enderror
 endfor
 endforeach
 endforelse
+endfragment
 endisset
 endphp
 endsection
