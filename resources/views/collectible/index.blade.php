@@ -57,6 +57,31 @@
                                 <h4 class="collectible-card__subheading">
                                     {{ $collectible->description }}
                                 </h4>
+                                @if ($collectible->items()->count() -
+                                    $collectible
+                                        ->items()
+                                        ->whereNotNull('user_id')
+                                        ->count() <
+                                    5 &&
+                                    $collectible->items()->count() -
+                                        $collectible
+                                            ->items()
+                                            ->whereNotNull('user_id')
+                                            ->count() >
+                                        0)
+                                    <h4
+                                        class="collectible-card__subheading collectible-card__banner--last"
+                                        title="Last chance!"
+                                    >
+                                        Last
+                                    </h4>
+                                @elseif ($collectible->items()->whereNull('user_id')->count() > 0)
+                                    <h4
+                                        class="collectible-card__subheading collectible-card__banner--available"
+                                    >
+                                        In Stock
+                                    </h4>
+                                @endif
                             </a>
                         </li>
                     @empty

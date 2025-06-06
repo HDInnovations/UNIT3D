@@ -13,6 +13,7 @@
 }
 
 .collectible-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -60,4 +61,46 @@
 .collectible__icon--centered {
     display: block;
     margin: 20px auto 20px auto;
+}
+
+.collectible-card__banner--available {
+    width: 117px;
+    position: absolute;
+    top: 60px;
+    right: -24px;
+    transform: rotate(45deg);
+    transform-origin: top right;
+    padding: 4px 30px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    background-color: var(--collectible-card-banner-available);
+    clip-path: polygon(
+        30px 0%,
+        calc(100% - 30px) 0%,
+        100% 30px,
+        100% 100%,
+        0% 100%
+    );
+}
+
+.collectible-card__banner--last {
+    width: 117px;
+    position: absolute;
+    top: 60px;
+    right: -24px;
+    transform: rotate(45deg);
+    transform-origin: top right;
+    padding: 4px 30px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    background-color: var(--collectible-card-banner-last);
+    clip-path: polygon(
+        30px 0%,
+        calc(100% - 30px) 0%,
+        100% 30px,
+        100% 100%,
+        0% 100%
+    );
 }
