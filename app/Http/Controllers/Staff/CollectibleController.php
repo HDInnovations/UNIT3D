@@ -45,6 +45,8 @@ class CollectibleController extends Controller
      */
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        abort_unless($request->user()->group->is_owner, 403);
+
         return view('Staff.collectible.create', [
             'collectibleCategoryId' => $request->integer('collectibleCategoryId'),
             'collectibleCategories' => CollectibleCategory::orderBy('name')->get(),
@@ -56,6 +58,8 @@ class CollectibleController extends Controller
      */
     public function store(StoreCollectibleRequest $request): \Illuminate\Http\RedirectResponse
     {
+        abort_unless($request->user()->group->is_owner, 403);
+
         // Add the icon
         if ($request->hasFile('collectible.icon')) {
             $icon = $request->file('collectible.icon');
@@ -95,8 +99,10 @@ class CollectibleController extends Controller
     /**
      * Collectible Edit Form.
      */
-    public function edit(Collectible $collectible): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function edit(Request $request, Collectible $collectible): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        abort_unless($request->user()->group->is_admin, 403);
+
         return view('Staff.collectible.edit', [
             'collectible'           => $collectible,
             'requirements'          => $collectible->requirements,
@@ -110,6 +116,8 @@ class CollectibleController extends Controller
      */
     public function update(UpdateCollectibleRequest $request, Collectible $collectible): \Illuminate\Http\RedirectResponse
     {
+        abort_unless($request->user()->group->is_admin, 403);
+
         // Update the collectible items based on max_amount, which is the diff between
         // the existing CollectibleItems and the new max_amount.
         $diff = $request->collectible['max_amount'] - $collectible->items->count();
@@ -169,8 +177,10 @@ class CollectibleController extends Controller
     /**
      * Delete A Collectible.
      */
-    public function destroy(Collectible $collectible): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Collectible $collectible): \Illuminate\Http\RedirectResponse
     {
+        abort_unless($request->user()->group->is_owner, 403);
+
         // Finally, delete the collectible itself
         // including all related entries (items, transactions, offers, requirements)
         $collectible->delete();
