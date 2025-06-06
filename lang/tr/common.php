@@ -174,4 +174,5 @@ return [
     'yes' => 'Evet',
     'your' => 'Sizin',
     'your-comment' => 'Senin yorumun',
+    'a-an-art' => 'bir|bir',
 ];

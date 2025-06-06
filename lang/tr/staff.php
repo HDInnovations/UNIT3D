@@ -56,4 +56,9 @@ return [
     'flush-chat' => 'Chatbox ı temizle',
     'seedboxes' => 'Kayıtlı Tohum Kutuları',
     'application' => 'Başvuru',
+    'application-type' => 'Tip',
+    'application-referrer' => 'Refere eden',
+    'article-content' => 'İçerik',
+    'blocked-ips' => 'Bloklanmış, engellenmiş IP\'ler',
+    'bon-exchange' => 'BON (bonus) Takası',
 ];
