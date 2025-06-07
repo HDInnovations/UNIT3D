@@ -25,7 +25,6 @@ use App\Models\TmdbTv;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class SimilarTorrentController extends Controller
 {
@@ -125,25 +124,6 @@ class SimilarTorrentController extends Controller
             return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $metaId])
                 ->withErrors('There exists no torrent with this tmdb.');
         }
-
-        /** @phpstan-ignore match.unhandled (The first line of this method ensures that at least one of these are true) */
-        $cacheKey = match (true) {
-            $category->movie_meta => "tmdb-movie-scraper:{$metaId}",
-            $category->tv_meta    => "tmdb-tv-scraper:{$metaId}",
-            $category->game_meta  => "igdb-game-scraper:{$metaId}",
-        };
-
-        /** @var ?Carbon $lastUpdated */
-        $lastUpdated = cache()->get($cacheKey);
-
-        abort_if(
-            $lastUpdated !== null
-            && $lastUpdated->addDay()->isFuture()
-            && !($request->user()->group->is_modo || $request->user()->group->is_torrent_modo || $request->user()->group->is_editor),
-            403
-        );
-
-        cache()->put($cacheKey, now(), now()->addDay());
 
         /** @phpstan-ignore match.unhandled (The first line of this method ensures that at least one of these are true) */
         match (true) {

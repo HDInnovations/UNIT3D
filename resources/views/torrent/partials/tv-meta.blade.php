@@ -88,7 +88,7 @@
                         @csrf
                         @method('PATCH')
                         <button
-                            @if (cache()->has('tmdb-tv-scraper:' . ($meta?->id ?? $torrent->tmdb_tv_id)) && ! auth()->user()->group->is_modo)
+                            @if (cache()->has('tmdb-tv-scraper:' . ($meta?->id ?? $torrent->tmdb_tv_id)))
                                 disabled
                                 title="This item was recently updated. Try again tomorrow."
                             @endif

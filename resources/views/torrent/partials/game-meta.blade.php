@@ -76,7 +76,7 @@
                         @method('PATCH')
 
                         <button
-                            @if (cache()->has('igdb-game-scraper:' . ($meta?->id ?? $torrent->igdb)) && ! auth()->user()->group->is_modo)
+                            @if (cache()->has('igdb-game-scraper:' . ($meta?->id ?? $torrent->igdb)))
                                 disabled
                                 title="This item was recently updated. Try again tomorrow."
                             @endif
