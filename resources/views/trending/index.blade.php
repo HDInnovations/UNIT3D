@@ -17,7 +17,7 @@
         </a>
     </li>
     <li class="nav-tabV2--active">
-        <a class="nav-tab--active__link" href="{{ route('top10.index') }}">Top 10</a>
+        <a class="nav-tab--active__link" href="{{ route('trending.index') }}">Top 10</a>
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('rss.index') }}">
@@ -31,8 +31,8 @@
     </li>
 @endsection
 
-@section('page', 'page__top10--index')
+@section('page', 'page__trending--index')
 
 @section('main')
-    <livewire:top-10 lazy />
+    <livewire:trending lazy />
 @endsection
