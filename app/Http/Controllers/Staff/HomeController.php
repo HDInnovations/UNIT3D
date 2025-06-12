@@ -38,10 +38,6 @@ class HomeController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        // User Info
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-
         // SSL Info
         try {
             $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
@@ -55,8 +51,8 @@ class HomeController extends Controller
         return view('Staff.dashboard.index', [
             'users' => cache()->remember('dashboard_users', 300, fn () => DB::table('users')
                 ->selectRaw('COUNT(*) AS total')
-                ->selectRaw('SUM(group_id = ?) AS banned', [$bannedGroup[0]])
-                ->selectRaw('SUM(group_id = ?) AS validating', [$validatingGroup[0]])
+                ->selectRaw('SUM(group_id = ?) AS banned', [Group::where('slug', '=', 'banned')->soleValue('id')])
+                ->selectRaw('SUM(group_id = ?) AS validating', [Group::where('slug', '=', 'validating')->soleValue('id')])
                 ->first()),
             'torrents' => cache()->remember('dashboard_torrents', 300, fn () => DB::table('torrents')
                 ->whereNull('deleted_at')

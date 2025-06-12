@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Group;
 use App\Models\User;
 
 /**
@@ -30,8 +29,6 @@ class CheaterController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-
         return view('Staff.cheater.index', [
             'cheaters' => User::query()
                 ->whereHas('history', function ($query): void {
@@ -42,7 +39,7 @@ class CheaterController extends Controller
                     $query->where('actual_uploaded', '=', 0);
                     $query->whereNull('completed_at');
                 })
-                ->where('group_id', '!=', $bannedGroup[0]) // Banned Users
+                ->whereRelation('group', 'slug', '!=', 'banned')
                 ->where('id', '!=', 1) // System
                 ->latest()
                 ->paginate(25),
