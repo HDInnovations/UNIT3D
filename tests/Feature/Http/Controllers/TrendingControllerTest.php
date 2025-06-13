@@ -21,10 +21,10 @@ test('index returns an ok response', function (): void {
 
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->get(route('top10.index'));
+    $response = $this->actingAs($user)->get(route('trending.index'));
 
     $response->assertOk();
-    $response->assertViewIs('top10.index');
+    $response->assertViewIs('trending.index');
 
     // TODO: perform additional assertions
 });
