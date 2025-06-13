@@ -65,7 +65,11 @@ class TorrentController extends BaseController
     }
 
     /**
-     * Display a listing of the resource.
+     * List torrents.
+     *
+     * This API endpoint provides a list of torrents available in the system.
+     *
+     * The response includes pagination.
      */
     public function index(): TorrentsResource
     {
@@ -102,7 +106,12 @@ class TorrentController extends BaseController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create torrent.
+     *
+     * This endpoint allows users to upload a torrent file, which is then processed and saved to the database.
+     * The user must have the necessary permissions to upload torrents.
+     *
+     * The response includes a download URL for the uploaded torrent.
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
@@ -491,7 +500,11 @@ class TorrentController extends BaseController
     }
 
     /**
-     * Display the specified resource.
+     * Show torrent.
+     *
+     * This endpoint fetches the details of a specific torrent identified by its unique ID.
+     * The response includes a comprehensive resource with information about the torrent itself,
+     * its associated user, category, type, resolution, region, distributor, and files.
      */
     public function show(int $id): TorrentResource
     {
@@ -528,7 +541,11 @@ class TorrentController extends BaseController
     }
 
     /**
-     * Uses Input's To Put Together A Search.
+     * Search torrents.
+     *
+     * This endpoint allows users to filter and retrieve a list of torrents based on various criteria.
+     *
+     * The response includes pagination.
      */
     public function filter(Request $request): TorrentsResource|\Illuminate\Http\JsonResponse
     {

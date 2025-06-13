@@ -662,6 +662,12 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src-elem
         'script-src-elem' => [
+            'self'          => true,
+            'unsafe-inline' => true,
+
+            'allow' => [
+                'https://unpkg.com/@stoplight/elements@8.3.4/web-components.min.js',
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src
@@ -687,6 +693,12 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/style-src-elem
         'style-src-elem' => [
+            'self'          => true,
+            'unsafe-inline' => true,
+
+            'allow' => [
+                'https://unpkg.com/@stoplight/elements@8.3.4/styles.min.css,'
+            ],
         ],
 
         // https://w3c.github.io/webappsec-trusted-types/dist/spec/#trusted-types-csp-directive
