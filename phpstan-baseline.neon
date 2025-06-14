@@ -631,12 +631,6 @@ parameters:
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
-			message: '#^Call to function is_countable\(\) with Illuminate\\Support\\Collection\<\(int\|string\), mixed\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: app/Http/Middleware/CheckIfBanned.php
-
-		-
 			message: '#^Method App\\Http\\Middleware\\SetLanguage\:\:setSystemLocale\(\) has parameter \$request with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
