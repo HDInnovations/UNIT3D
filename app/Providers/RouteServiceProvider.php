@@ -43,26 +43,6 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->removeIndexPhpFromUrl();
 
-        $this->routes(function (): void {
-            Route::prefix('api')
-                ->middleware(['chat'])
-                ->group(base_path('routes/vue.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
-
-            Route::prefix('api')
-                ->middleware('api')
-                ->group(base_path('routes/api.php'));
-
-            Route::prefix('announce')
-                ->middleware('announce')
-                ->group(base_path('routes/announce.php'));
-
-            Route::middleware('rss')
-                ->group(base_path('routes/rss.php'));
-        });
-
         RedirectIfAuthenticated::redirectUsing(fn () => self::HOME);
     }
 

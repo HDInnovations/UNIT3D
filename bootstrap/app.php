@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Route;
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,56 +19,111 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-/*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new Laravel application instance
-| which serves as the "glue" for all the components of Laravel, and is
-| the IoC container for the system binding all of the various parts.
-|
-*/
+return Application::configure(basePath: \dirname(__DIR__))
+    ->withRouting(
+        using: function (): void {
+            Route::prefix('api')
+                ->middleware(['chat'])
+                ->group(base_path('routes/vue.php'));
 
-$app = new Illuminate\Foundation\Application(
-    \dirname(__DIR__)
-);
+            Route::middleware('web')
+                ->group(base_path('routes/web.php'));
 
-/*
-|--------------------------------------------------------------------------
-| Bind Important Interfaces
-|--------------------------------------------------------------------------
-|
-| Next, we need to bind some important interfaces into the container so
-| we will be able to resolve them when needed. The kernels serve the
-| incoming requests to this application from both the web and CLI.
-|
-*/
+            Route::prefix('api')
+                ->middleware('api')
+                ->group(base_path('routes/api.php'));
 
-$app->singleton(
-    'Illuminate\Contracts\Http\Kernel',
-    App\Http\Kernel::class
-);
+            Route::prefix('announce')
+                ->middleware('announce')
+                ->group(base_path('routes/announce.php'));
 
-$app->singleton(
-    'Illuminate\Contracts\Console\Kernel',
-    App\Console\Kernel::class
-);
+            Route::middleware('rss')
+                ->group(base_path('routes/rss.php'));
+        },
+    )
+    ->withCommands([base_path('routes/console.php')])
+    ->withBroadcasting(base_path('routes/channels.php'), [
+        'middleware' => ['auth', 'verified', 'banned']
+    ])
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->use([
+            // Default Laravel
+            Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
+            Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+            Illuminate\Foundation\Http\Middleware\TrimStrings::class,
+            Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+            //\App\Http\Middleware\TrustProxies::class,
+            Illuminate\Http\Middleware\HandleCors::class,
+            App\Http\Middleware\BlockIpAddress::class,
+        ]);
 
-$app->singleton(
-    'Illuminate\Contracts\Debug\ExceptionHandler',
-    App\Exceptions\Handler::class
-);
+        $middleware->group('web', [
+            Illuminate\Cookie\Middleware\EncryptCookies::class,
+            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            Illuminate\Session\Middleware\StartSession::class,
+            Illuminate\Session\Middleware\AuthenticateSession::class,
+            Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            App\Http\Middleware\UpdateLastAction::class,
+            HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
+            'throttle:web',
+        ]);
 
-/*
-|--------------------------------------------------------------------------
-| Return The Application
-|--------------------------------------------------------------------------
-|
-| This script returns the application instance. The instance is given to
-| the calling script so we can separate the building of the instances
-| from the actual running of the application and sending responses.
-|
-*/
+        $middleware->group('chat', [
+            Illuminate\Cookie\Middleware\EncryptCookies::class,
+            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            Illuminate\Session\Middleware\StartSession::class,
+            Illuminate\Session\Middleware\AuthenticateSession::class,
+            Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            App\Http\Middleware\UpdateLastAction::class,
+            HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
+            'throttle:chat',
+        ]);
 
-return $app;
+        $middleware->group('api', [
+            'throttle:api',
+        ]);
+
+        $middleware->group('announce', [
+            'throttle:announce',
+        ]);
+
+        $middleware->group('rss', [
+            'throttle:rss',
+        ]);
+
+        $middleware->alias([
+            'admin'            => App\Http\Middleware\CheckForAdmin::class,
+            'auth'             => Illuminate\Auth\Middleware\Authenticate::class,
+            'auth.basic'       => Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+            'banned'           => App\Http\Middleware\CheckIfBanned::class,
+            'bindings'         => Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'cache.headers'    => Illuminate\Http\Middleware\SetCacheHeaders::class,
+            'can'              => Illuminate\Auth\Middleware\Authorize::class,
+            'csrf'             => Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            'guest'            => Illuminate\Auth\Middleware\RedirectIfAuthenticated::class,
+            'language'         => App\Http\Middleware\SetLanguage::class,
+            'modo'             => App\Http\Middleware\CheckForModo::class,
+            'owner'            => App\Http\Middleware\CheckForOwner::class,
+            'throttle'         => Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
+            'signed'           => Illuminate\Routing\Middleware\ValidateSignature::class,
+            'verified'         => Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+            'password.confirm' => Illuminate\Auth\Middleware\RequirePassword::class,
+        ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        $exceptions->dontReport([
+            Illuminate\Queue\MaxAttemptsExceededException::class,
+            App\Exceptions\MetaFetchNotFoundException::class,
+        ]);
+
+        $exceptions->dontFlash([
+            'current_password',
+            'password',
+            'password_confirmation',
+        ]);
+    })
+    ->create();
