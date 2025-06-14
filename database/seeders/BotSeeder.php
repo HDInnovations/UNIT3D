@@ -20,7 +20,7 @@ use App\Models\Bot;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BotsTableSeeder extends Seeder
+class BotSeeder extends Seeder
 {
     public function run(): void
     {
@@ -37,7 +37,7 @@ class BotsTableSeeder extends Seeder
 All [b]echo[/b] commands begin with / and echo output to current tab.
 All [b]room[/b] commands begin with ! and echo output for all in current room.
 All [b]private[/b] commands begin with @ or are sent via the @{me} tab. If sent via @{me} tab, no (! | / | @){command} prefix is needed.
-        
+
 Echo & Private commands:
 /msg [username] [message] - Send a quick private shoutbox message.
 /gift [username] [amount] [message] - Send a quick gift of [amount] to [username] with attached [message].
@@ -60,7 +60,7 @@ Available Bots:
 All [b]echo[/b] commands begin with / and echo output to current tab.
 All [b]room[/b] commands begin with ! and echo output for all in current room.
 All [b]private[/b] commands begin with @ or are sent via the @{me} tab. If sent via @{me} tab, no (! | / | @){command} prefix is needed.
-        
+
 Public, Echo & Private commands:
 
 (! | / | @)nerdbot help - Displays this help file.

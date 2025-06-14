@@ -20,7 +20,7 @@ use Assada\Achievements\Model\AchievementDetails as AchievementDetail;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AchievementDetailsTableSeeder extends Seeder
+class AchievementDetailSeeder extends Seeder
 {
     public function run(): void
     {

@@ -19,7 +19,7 @@ namespace Database\Seeders;
 use App\Models\BonEarningCondition;
 use Illuminate\Database\Seeder;
 
-class BonEarningConditionTableSeeder extends Seeder
+class BonEarningConditionSeeder extends Seeder
 {
     public function run(): void
     {

@@ -17,7 +17,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Staff\BanController;
 use App\Http\Requests\Staff\StoreBanRequest;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 use Illuminate\Support\Facades\Auth;
 
 test('index returns an ok response', function (): void {
@@ -36,7 +36,7 @@ test('store validates with a form request', function (): void {
 });
 
 test('store returns an ok response', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $user = User::factory()->create();
 
@@ -49,7 +49,7 @@ test('store returns an ok response', function (): void {
 });
 
 test('store aborts with a 403', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $user = User::factory()->create();
 

@@ -44,7 +44,6 @@ class UserFactory extends Factory
             'password'          => Hash::make('password'),
             'passkey'           => md5(random_bytes(60)),
             'group_id'          => Group::factory(),
-            'active'            => true,
             'uploaded'          => $this->faker->randomNumber(),
             'downloaded'        => $this->faker->randomNumber(),
             'image'             => null,

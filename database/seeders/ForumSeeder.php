@@ -21,7 +21,7 @@ use App\Models\ForumCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ForumsTableSeeder extends Seeder
+class ForumSeeder extends Seeder
 {
     public function run(): void
     {

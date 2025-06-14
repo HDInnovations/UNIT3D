@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 use App\Enums\UserGroup;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 use Illuminate\Support\Str;
 
 test('edit returns an ok response', function (): void {
@@ -30,7 +30,7 @@ test('edit returns an ok response', function (): void {
 });
 
 test('edit aborts with a 403', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $staffUser = User::factory()->create([
         'group_id' => UserGroup::MODERATOR->value,
@@ -57,7 +57,7 @@ test('update returns an ok response', function (): void {
 });
 
 test('update aborts with a 403', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $staffUser = User::factory()->create([
         'group_id' => UserGroup::MODERATOR->value,

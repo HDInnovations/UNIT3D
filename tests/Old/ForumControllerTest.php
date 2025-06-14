@@ -22,8 +22,8 @@ use App\Http\Livewire\TopicSearch;
 use App\Models\Forum;
 use App\Models\ForumPermission;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\GroupSeeder;
+use Database\Seeders\UserSeeder;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -35,8 +35,8 @@ final class ForumControllerTest extends TestCase
     #[Test]
     public function index_returns_an_ok_response(): void
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(UserSeeder::class);
+        $this->seed(GroupSeeder::class);
 
         $user = User::factory()->create();
 
@@ -52,8 +52,8 @@ final class ForumControllerTest extends TestCase
     #[Test]
     public function latest_posts_returns_an_ok_response(): void
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(UserSeeder::class);
+        $this->seed(GroupSeeder::class);
 
         $user = User::factory()->create();
 
@@ -66,8 +66,8 @@ final class ForumControllerTest extends TestCase
     #[Test]
     public function latest_topics_returns_an_ok_response(): void
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(UserSeeder::class);
+        $this->seed(GroupSeeder::class);
 
         $user = User::factory()->create();
 
@@ -80,8 +80,8 @@ final class ForumControllerTest extends TestCase
     #[Test]
     public function show_forum_returns_an_ok_response(): void
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(UserSeeder::class);
+        $this->seed(GroupSeeder::class);
 
         $user = User::factory()->create();
 
@@ -100,8 +100,8 @@ final class ForumControllerTest extends TestCase
     #[Test]
     public function subscriptions_returns_an_ok_response(): void
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(GroupsTableSeeder::class);
+        $this->seed(UserSeeder::class);
+        $this->seed(GroupSeeder::class);
 
         $user = User::factory()->create();
 

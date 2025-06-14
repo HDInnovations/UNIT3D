@@ -16,27 +16,18 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\TicketPriority;
+use App\Models\Chatroom;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TicketPrioritiesTableSeeder extends Seeder
+class ChatroomSeeder extends Seeder
 {
-    final public function run(): void
+    public function run(): void
     {
-        TicketPriority::upsert([
+        Chatroom::upsert([
             [
-                'name'     => 'Low',
-                'position' => 0,
+                'name' => 'General',
             ],
-            [
-                'name'     => 'Medium',
-                'position' => 1,
-            ],
-            [
-                'name'     => 'High',
-                'position' => 2,
-            ],
-        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
+        ], ['name'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

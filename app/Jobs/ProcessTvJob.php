@@ -145,7 +145,9 @@ class ProcessTvJob implements ShouldQueue
             $cache[$cacheKey] = now();
         }
 
-        TmdbPerson::upsert($people, 'id');
+        foreach (collect($people)->chunk(intdiv(65_000, 13)) as $people) {
+            TmdbPerson::upsert($people->toArray(), 'id');
+        }
 
         if ($cache !== []) {
             cache()->put($cache, 8 * 3600);

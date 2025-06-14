@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 use App\Models\Group;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 
 test('update returns an ok response', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
     User::factory()->times(3)->create([
         'email_verified_at' => null,
         'group_id'          => Group::firstWhere('slug', 'validating')

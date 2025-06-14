@@ -19,7 +19,7 @@ namespace Database\Seeders;
 use App\Models\BonEarning;
 use Illuminate\Database\Seeder;
 
-class BonEarningTableSeeder extends Seeder
+class BonEarningSeeder extends Seeder
 {
     public function run(): void
     {

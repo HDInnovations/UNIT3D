@@ -20,7 +20,7 @@ use App\Http\Requests\Staff\UpdateChatBotRequest;
 use App\Models\Bot;
 use App\Models\Group;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 
 beforeEach(function (): void {
     $this->staffUser = User::factory()->create([
@@ -44,7 +44,7 @@ test('destroy returns an ok response', function (): void {
 });
 
 test('destroy aborts with a 403', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $user = User::factory()->create([
         'group_id' => UserGroup::USER->value,

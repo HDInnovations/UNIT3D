@@ -20,7 +20,7 @@ use App\Models\Article;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ArticlesTableSeeder extends Seeder
+class ArticleSeeder extends Seeder
 {
     public function run(): void
     {

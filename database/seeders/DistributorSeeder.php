@@ -19,7 +19,7 @@ namespace Database\Seeders;
 use App\Models\Distributor;
 use Illuminate\Database\Seeder;
 
-class DistributorsTableSeeder extends Seeder
+class DistributorSeeder extends Seeder
 {
     public function run(): void
     {

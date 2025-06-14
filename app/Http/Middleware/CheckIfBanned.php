@@ -30,9 +30,9 @@ class CheckIfBanned
     public function handle(\Illuminate\Http\Request $request, Closure $next, ?string $guard = null): mixed
     {
         $user = $request->user();
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $bannedGroupId = cache()->rememberForever('group:slug-to-id:banned', fn () => Group::where('slug', '=', 'banned')->soleValue('id'));
 
-        if ($user && (is_countable($bannedGroup) ? \count($bannedGroup) : 0) > 0 && $user->group_id === $bannedGroup[0]) {
+        if ($user && $user->group_id === $bannedGroupId) {
             if ($request->is('api/*')) {
                 return response()->json([
                     'message' => __('auth.banned'),

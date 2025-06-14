@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 use App\Models\Group;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 
 beforeEach(function (): void {
     $this->staffUser = User::factory()->create([
@@ -29,7 +29,7 @@ beforeEach(function (): void {
 });
 
 test('index returns an ok response', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $response = $this->actingAs($this->staffUser)->get(route('staff.cheaters.index'));
     $response->assertOk();

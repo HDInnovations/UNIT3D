@@ -34,7 +34,7 @@ test('fill a request creates a notification for the request creator', function (
     Notification::fake();
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -95,7 +95,7 @@ test('fill a request creates a notification for the request creator when request
     Notification::fake();
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -158,7 +158,7 @@ test('fill a request does not create a notification for the request creator when
     Notification::fake();
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -215,7 +215,7 @@ test('fill a request does not create a notification for the request creator when
     Notification::fake();
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -272,7 +272,7 @@ test('fill a request does not create a notification for the request creator when
     Notification::fake();
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',

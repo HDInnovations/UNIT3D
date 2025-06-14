@@ -36,6 +36,7 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         \Illuminate\Queue\MaxAttemptsExceededException::class,
+        MetaFetchNotFoundException::class,
     ];
 
     /**

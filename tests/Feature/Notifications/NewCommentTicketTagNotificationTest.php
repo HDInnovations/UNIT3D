@@ -33,7 +33,7 @@ test('user tags user on ticket creates a notification for tagged user', function
     Notification::fake();
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -89,7 +89,7 @@ test('user tags user on ticket does not create a notification for tagged user wh
     Notification::fake();
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',

@@ -19,7 +19,7 @@ namespace Database\Seeders;
 use App\Models\Region;
 use Illuminate\Database\Seeder;
 
-class RegionsTableSeeder extends Seeder
+class RegionSeeder extends Seeder
 {
     public function run(): void
     {

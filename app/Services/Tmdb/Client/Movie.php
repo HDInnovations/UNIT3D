@@ -17,11 +17,14 @@ declare(strict_types=1);
 namespace App\Services\Tmdb\Client;
 
 use App\Enums\Occupation;
+use App\Exceptions\MetaFetchNotFoundException;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use DateTime;
 use Exception;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\Response;
 
 class Movie
 {
@@ -241,15 +244,32 @@ class Movie
      */
     public function __construct(int $id)
     {
-        $this->data = Http::acceptJson()
-            ->retry([1000, 5000, 15000])
+        // Adds extra logic for when a tmdb isn't found because it's a common
+        // error that admins don't want to deal with. Hides 404s from logs via
+        // App\Exceptions\Handler.php::dontReport, but still throws an exception
+        // when the job is dispatched in sync for the FetchMeta.php command.
+        $response = Http::acceptJson()
+            ->retry(
+                [1000, 5000, 15000],
+                when: fn (Exception $exception) => !($exception instanceof RequestException && $exception->response->notFound()),
+                throw: false
+            )
             ->withUrlParameters(['id' => $id])
             ->get('https://api.TheMovieDB.org/3/movie/{id}', [
                 'api_key'            => config('api-keys.tmdb'),
                 'language'           => config('app.meta_locale'),
                 'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
             ])
-            ->json();
+            ->throwIf(fn (Response $response) => !$response->notFound());
+
+        if ($response->notFound()) {
+            throw new MetaFetchNotFoundException(
+                $response->toException()->getMessage(),
+                $response->toException()->getCode()
+            );
+        }
+
+        $this->data = $response->json();
 
         $this->tmdb = new TMDB();
     }

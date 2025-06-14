@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\DB;
 
 // cspell:ignore orwill
 
-class PagesTableSeeder extends Seeder
+class PageSeeder extends Seeder
 {
     public function run(): void
     {

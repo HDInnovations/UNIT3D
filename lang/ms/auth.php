@@ -26,4 +26,6 @@ return [
     'username' => '"Username"',
     'password' => 'Kata Laluan',
     'logout' => 'Log Keluar',
+    'activation-error' => 'Token Dilarang atau Tidak Sah Atau Akaun Sudah Disahkan!',
+    'activation-success' => 'Akaun Sudah Disahkan. Anda boleh log masuk sekarang!',
 ];

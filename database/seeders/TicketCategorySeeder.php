@@ -20,7 +20,7 @@ use App\Models\TicketCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TicketCategoriesTableSeeder extends Seeder
+class TicketCategorySeeder extends Seeder
 {
     final public function run(): void
     {

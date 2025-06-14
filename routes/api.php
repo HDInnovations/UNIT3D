@@ -48,16 +48,16 @@ Route::middleware(['auth:api', 'banned'])->group(function (): void {
 });
 
 // Internal front-end web API routes
-Route::middleware(['web', 'auth', 'banned', 'verified'])->group(function (): void {
-    Route::prefix('bookmarks')->group(function (): void {
-        Route::post('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'store'])->name('api.bookmarks.store');
-        Route::delete('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'destroy'])->name('api.bookmarks.destroy');
+Route::name('api.')->middleware(['web', 'auth', 'banned', 'verified'])->group(function (): void {
+    Route::prefix('bookmarks')->name('bookmarks.')->group(function (): void {
+        Route::post('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'store'])->name('store');
+        Route::delete('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('posts')->group(function (): void {
-        Route::post('/{postId}/like', [App\Http\Controllers\API\LikeController::class, 'store'])->name('api.posts.like.store');
-        Route::post('/{postId}/dislike', [App\Http\Controllers\API\DislikeController::class, 'store'])->name('api.posts.dislike.store');
+    Route::prefix('posts')->name('posts.')->group(function (): void {
+        Route::post('/{postId}/like', [App\Http\Controllers\API\LikeController::class, 'store'])->name('like.store');
+        Route::post('/{postId}/dislike', [App\Http\Controllers\API\DislikeController::class, 'store'])->name('dislike.store');
     });
 
-    Route::get('/quicksearch', [App\Http\Controllers\API\QuickSearchController::class, 'index'])->name('api.quicksearch')->middleware('throttle:search')->withoutMiddleware('throttle:web');
+    Route::get('/quicksearch', [App\Http\Controllers\API\QuickSearchController::class, 'index'])->name('quicksearch')->middleware('throttle:search')->withoutMiddleware('throttle:web');
 });

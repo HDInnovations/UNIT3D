@@ -19,7 +19,7 @@ namespace Database\Seeders;
 use App\Models\ForumPermission;
 use Illuminate\Database\Seeder;
 
-class ForumPermissionsTableSeeder extends Seeder
+class ForumPermissionSeeder extends Seeder
 {
     public function run(): void
     {

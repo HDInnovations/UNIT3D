@@ -39,7 +39,6 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string|null                     $two_factor_confirmed_at
  * @property string                          $passkey
  * @property int                             $group_id
- * @property bool                            $active
  * @property int                             $uploaded
  * @property int                             $downloaded
  * @property string|null                     $image
@@ -112,7 +111,20 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{last_login: 'datetime', last_action: 'datetime', disabled_at: 'datetime', can_comment: 'bool', can_download: 'bool', can_request: 'bool', can_invite: 'bool', can_upload: 'bool', can_chat: 'bool', seedbonus: 'decimal:2', active: 'bool', is_donor: 'bool', is_lifetime: 'bool'}
+     * @return array{
+     *     last_login: 'datetime',
+     *     last_action: 'datetime',
+     *     disabled_at: 'datetime',
+     *     can_comment: 'bool',
+     *     can_download: 'bool',
+     *     can_request: 'bool',
+     *     can_invite: 'bool',
+     *     can_upload: 'bool',
+     *     can_chat: 'bool',
+     *     seedbonus: 'decimal:2',
+     *     is_donor: 'bool',
+     *     is_lifetime: 'bool'
+     * }
      */
     protected function casts(): array
     {
@@ -127,7 +139,6 @@ class User extends Authenticatable implements MustVerifyEmail
             'can_invite'   => 'bool',
             'can_upload'   => 'bool',
             'can_chat'     => 'bool',
-            'active'       => 'bool',
             'is_donor'     => 'bool',
             'is_lifetime'  => 'bool',
         ];

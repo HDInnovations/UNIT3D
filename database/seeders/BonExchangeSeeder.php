@@ -20,7 +20,7 @@ use App\Helpers\ByteUnits;
 use App\Models\BonExchange;
 use Illuminate\Database\Seeder;
 
-class BonExchangeTableSeeder extends Seeder
+class BonExchangeSeeder extends Seeder
 {
     public function run(ByteUnits $byteUnits): void
     {

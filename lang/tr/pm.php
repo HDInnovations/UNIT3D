@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,31 +11,33 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'create'        => 'yaratmak',
-    'delete'        => 'silmek',
+    'create' => 'Mesaj oluştur',
+    'delete' => 'Sil',
     'enter-subject' => 'Konu girin',
-    'from'          => 'itibaren',
-    'inbox'         => 'Gelen kutusu',
+    'from' => 'Kimden',
+    'inbox' => 'Gelen kutusu',
     'mark-all-read' => 'Tüm mesajları okundu olarak işaretle',
-    'message'       => 'Mesaj',
-    'messages'      => 'Mesajlar',
-    'new'           => 'Yeni Mesaj',
-    'outbox'        => 'üstün gelmek',
-    'private'       => 'Özel',
-    'read'          => 'okumak',
-    'received-at'   => 'Alınan',
-    'refresh'       => 'Yenile',
-    'reply'         => 'cevap',
-    'search'        => 'Konuya Göre Ara',
-    'select'        => 'Bir kullanıcı seçin',
-    'send'          => 'PM gönder',
-    'send-to'       => 'PM gönder',
-    'sent'          => 'Gönderilen',
-    'sent-at'       => 'Gönderildi',
-    'subject'       => 'konu',
-    'to'            => 'için',
-    'unread'        => 'Okunmamış',
-    'empty-inbox'   => 'Boş gelen kutusu',
+    'message' => 'Mesaj',
+    'messages' => 'Mesajlar',
+    'new' => 'Yeni Mesaj',
+    'outbox' => 'Gönderilen mesajlar',
+    'private' => 'Özel',
+    'read' => 'Oku',
+    'received-at' => 'Alındı tarihi',
+    'refresh' => 'Yenile',
+    'reply' => 'cevapla',
+    'search' => 'Konuya Göre Ara',
+    'select' => 'Bir kullanıcı seç',
+    'send' => 'PM (özel mesaj) gönder',
+    'send-to' => 'PM(özel mesaj) gönder',
+    'sent' => 'Gönderildi',
+    'sent-at' => 'Gönderildiği tarih',
+    'subject' => 'Konu',
+    'to' => 'Kime',
+    'unread' => 'Okunmamış',
+    'empty-inbox' => 'Gelen kutusunu boşalt',
+    'delete-success' => 'Kişisel mesaj başarıyla silindi!',
+    'error' => 'Burda ne denemeye çalışıyorsun!',
+    'all-marked-read' => 'Tüm mesajların okundu olarak işaretlendi!',
+    'sent-success' => 'Özel mesajın başarıyla gönderildi!',
 ];

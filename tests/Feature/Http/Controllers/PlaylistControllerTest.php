@@ -20,9 +20,9 @@ use App\Http\Requests\UpdatePlaylistRequest;
 use App\Models\Playlist;
 use App\Models\PlaylistCategory;
 use App\Models\User;
-use Database\Seeders\BotsTableSeeder;
-use Database\Seeders\ChatroomTableSeeder;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\BotSeeder;
+use Database\Seeders\ChatroomSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Http\UploadedFile;
 
 test('create returns an ok response', function (): void {
@@ -121,9 +121,9 @@ test('store validates with a form request', function (): void {
 });
 
 test('store returns an ok response', function (): void {
-    $this->seed(UsersTableSeeder::class);
-    $this->seed(ChatroomTableSeeder::class);
-    $this->seed(BotsTableSeeder::class);
+    $this->seed(UserSeeder::class);
+    $this->seed(ChatroomSeeder::class);
+    $this->seed(BotSeeder::class);
 
     $user = User::factory()->create();
     $playlist = Playlist::factory()->make();

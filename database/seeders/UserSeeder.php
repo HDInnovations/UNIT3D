@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UsersTableSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     public function run(): void
     {
@@ -37,7 +37,6 @@ class UsersTableSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
-                'active'            => true,
             ],
             [
                 'id'                => 2,
@@ -49,7 +48,6 @@ class UsersTableSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
-                'active'            => true,
             ],
             [
                 'id'                => 3,
@@ -61,7 +59,6 @@ class UsersTableSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
-                'active'            => true,
             ],
         ], ['username'], ['updated_at' => DB::raw('updated_at')]);
     }

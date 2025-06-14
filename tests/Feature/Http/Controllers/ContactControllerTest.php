@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 use App\Mail\Contact;
 use App\Models\User;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Support\Facades\Mail;
 
 test('index returns an ok response', function (): void {
@@ -28,7 +28,7 @@ test('index returns an ok response', function (): void {
 });
 
 test('store returns an ok response', function (): void {
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     Mail::fake();
 

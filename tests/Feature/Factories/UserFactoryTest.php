@@ -37,7 +37,6 @@ test('user factory returns correct values when created', function (): void {
             'password',
             'passkey',
             'group_id',
-            'active',
             'uploaded',
             'downloaded',
             'image',

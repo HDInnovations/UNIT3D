@@ -22,10 +22,10 @@ use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\Poll;
 use App\Models\User;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\UserSeeder;
 
 test('create a poll returns an ok response', function (): void {
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
     // Poll chat announcements needs a system user, a bot and a chatroom
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -39,7 +39,6 @@ test('create a poll returns an ok response', function (): void {
     ]);
     $staff = User::factory()->create([
         'group_id' => $group->id,
-        'active'   => 1,
     ]);
 
     $pollTitle = 'Test Poll Title';
@@ -70,7 +69,7 @@ test('create a poll returns an ok response', function (): void {
 });
 
 test('create a poll with expiration date returns an ok response', function (): void {
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
     // Poll chat announcements needs a system user, a bot and a chatroom
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -84,7 +83,6 @@ test('create a poll with expiration date returns an ok response', function (): v
     ]);
     $staff = User::factory()->create([
         'group_id' => $group->id,
-        'active'   => 1,
     ]);
 
     $pollTitle = 'Test Poll Title';
@@ -157,7 +155,6 @@ test('index returns an ok response', function (): void {
     ]);
     $staff = User::factory()->create([
         'group_id' => $group->id,
-        'active'   => 1,
     ]);
 
     $response = $this->actingAs($staff)->get(route('staff.polls.index'));

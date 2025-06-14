@@ -22,9 +22,9 @@ use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
-use Database\Seeders\BotsTableSeeder;
-use Database\Seeders\ChatroomTableSeeder;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\BotSeeder;
+use Database\Seeders\ChatroomSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Http\UploadedFile;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -111,9 +111,9 @@ final class TorrentControllerTest extends TestCase
     #[Test]
     public function store_returns_an_ok_response(): void
     {
-        $this->seed(UsersTableSeeder::class);
-        $this->seed(ChatroomTableSeeder::class);
-        $this->seed(BotsTableSeeder::class);
+        $this->seed(UserSeeder::class);
+        $this->seed(ChatroomSeeder::class);
+        $this->seed(BotSeeder::class);
 
         $user = User::factory()->create();
 

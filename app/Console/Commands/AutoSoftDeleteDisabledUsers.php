@@ -21,7 +21,6 @@ use App\Jobs\SendDeleteUserMail;
 use App\Models\Comment;
 use App\Models\FailedLoginAttempt;
 use App\Models\FreeleechToken;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Like;
 use App\Models\Message;
@@ -66,9 +65,7 @@ class AutoSoftDeleteDisabledUsers extends Command
             return;
         }
 
-        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-
-        $users = User::where('group_id', '=', $disabledGroup[0])
+        $users = User::whereRelation('group', 'slug', '=', 'disabled')
             ->where('disabled_at', '<', now()->copy()->subDays(config('pruning.soft_delete')))
             ->get();
 

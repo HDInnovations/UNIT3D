@@ -18,12 +18,12 @@ use App\Http\Controllers\Staff\PageController;
 use App\Http\Requests\Staff\StorePageRequest;
 use App\Http\Requests\Staff\UpdatePageRequest;
 use App\Models\Page;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 
 use function Pest\Laravel\assertDatabaseHas;
 
 test('create returns an ok response', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $this->get(route('staff.pages.create'))
         ->assertOk()

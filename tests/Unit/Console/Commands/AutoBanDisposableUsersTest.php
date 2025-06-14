@@ -17,10 +17,10 @@ declare(strict_types=1);
  * @see App\Console\Commands\AutoBanDisposableUsers
  */
 
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 
 it('runs successfully', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $this->artisan('auto:ban_disposable_users')
         ->assertExitCode(0)

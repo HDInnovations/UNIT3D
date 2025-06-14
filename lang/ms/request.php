@@ -76,4 +76,5 @@ return [
     'yes' => 'Ya',
     'resolutions' => 'Resoluti-resolusi',
     'resolution' => 'Resolusi',
+    'access-error' => 'Anda tiada akses untuk luluskan permintaan ini.',
 ];

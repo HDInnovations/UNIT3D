@@ -24,7 +24,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Notifications\NewUpload;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
@@ -36,7 +36,7 @@ test('upload a torrent creates a notification for followers', function (): void 
         file_put_contents(/home/runner/work/UNIT3D-Community-Edition/UNIT3D-Community-Edition/files/torrents/676034f8afd077.09743623.torrent): Failed to open stream: No such file or directory');
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -120,7 +120,7 @@ test('upload a torrent does not create a notification for followers when all not
         file_put_contents(/home/runner/work/UNIT3D-Community-Edition/UNIT3D-Community-Edition/files/torrents/676034f8afd077.09743623.torrent): Failed to open stream: No such file or directory');
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -200,7 +200,7 @@ test('upload a torrent does not create a notification for followers when followi
         file_put_contents(/home/runner/work/UNIT3D-Community-Edition/UNIT3D-Community-Edition/files/torrents/676034f8afd077.09743623.torrent): Failed to open stream: No such file or directory');
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -280,7 +280,7 @@ test('upload a torrent does not create a notification for followers when followi
         file_put_contents(/home/runner/work/UNIT3D-Community-Edition/UNIT3D-Community-Edition/files/torrents/676034f8afd077.09743623.torrent): Failed to open stream: No such file or directory');
 
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',

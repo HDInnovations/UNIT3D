@@ -20,7 +20,7 @@ use App\Models\MediaLanguage;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class MediaLanguagesSeeder extends Seeder
+class MediaLanguageSeeder extends Seeder
 {
     public function run(): void
     {

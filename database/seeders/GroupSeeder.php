@@ -19,7 +19,7 @@ namespace Database\Seeders;
 use App\Models\Group;
 use Illuminate\Database\Seeder;
 
-class GroupsTableSeeder extends Seeder
+class GroupSeeder extends Seeder
 {
     public function run(): void
     {

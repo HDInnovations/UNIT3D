@@ -15,10 +15,10 @@ declare(strict_types=1);
  */
 
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\GroupSeeder;
 
 test('index returns an ok response', function (): void {
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $response = $this->get('/dashboard');
 

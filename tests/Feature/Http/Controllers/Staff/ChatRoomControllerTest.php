@@ -20,7 +20,7 @@ use App\Http\Requests\Staff\UpdateChatRoomRequest;
 use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
-use Database\Seeders\ChatroomTableSeeder;
+use Database\Seeders\ChatroomSeeder;
 
 beforeEach(function (): void {
     $this->staffUser = User::factory()->create([
@@ -39,7 +39,7 @@ test('create returns an ok response', function (): void {
 });
 
 test('destroy returns an ok response', function (): void {
-    $this->seed(ChatroomTableSeeder::class);
+    $this->seed(ChatroomSeeder::class);
 
     $chatroom = Chatroom::factory()->create();
 

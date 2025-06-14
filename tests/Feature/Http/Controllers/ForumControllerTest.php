@@ -17,8 +17,8 @@ declare(strict_types=1);
 use App\Models\Forum;
 use App\Models\ForumPermission;
 use App\Models\User;
-use Database\Seeders\GroupsTableSeeder;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\GroupSeeder;
+use Database\Seeders\UserSeeder;
 
 test('index returns an ok response', function (): void {
     $user = User::factory()->create();
@@ -33,8 +33,8 @@ test('index returns an ok response', function (): void {
 });
 
 test('show returns an ok response', function (): void {
-    $this->seed(UsersTableSeeder::class);
-    $this->seed(GroupsTableSeeder::class);
+    $this->seed(UserSeeder::class);
+    $this->seed(GroupSeeder::class);
 
     $user = User::factory()->create();
 

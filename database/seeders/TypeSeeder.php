@@ -16,63 +16,43 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Resolution;
+use App\Models\Type;
 use Illuminate\Database\Seeder;
 
-class ResolutionsTableSeeder extends Seeder
+class TypeSeeder extends Seeder
 {
     public function run(): void
     {
-        Resolution::upsert([
+        Type::upsert([
             [
                 'id'       => 1,
-                'name'     => '4320p',
+                'name'     => 'Full Disc',
                 'position' => 0,
             ],
             [
                 'id'       => 2,
-                'name'     => '2160p',
+                'name'     => 'Remux',
                 'position' => 1,
             ],
             [
                 'id'       => 3,
-                'name'     => '1080p',
+                'name'     => 'Encode',
                 'position' => 2,
             ],
             [
                 'id'       => 4,
-                'name'     => '1080i',
+                'name'     => 'WEB-DL',
                 'position' => 4,
             ],
             [
                 'id'       => 5,
-                'name'     => '720p',
+                'name'     => 'WEBRip',
                 'position' => 5,
             ],
             [
                 'id'       => 6,
-                'name'     => '576p',
+                'name'     => 'HDTV',
                 'position' => 6,
-            ],
-            [
-                'id'       => 7,
-                'name'     => '576i',
-                'position' => 7,
-            ],
-            [
-                'id'       => 8,
-                'name'     => '480p',
-                'position' => 8,
-            ],
-            [
-                'id'       => 9,
-                'name'     => '480i',
-                'position' => 9,
-            ],
-            [
-                'id'       => 10,
-                'name'     => 'Other',
-                'position' => 10,
             ],
         ], ['id'], []);
     }

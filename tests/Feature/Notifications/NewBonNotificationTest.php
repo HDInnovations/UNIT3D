@@ -20,7 +20,7 @@ use App\Models\Group;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Notifications\NewBon;
-use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 
@@ -28,7 +28,7 @@ uses(RefreshDatabase::class);
 
 test('gift a user creates a notification for the gifted user', function (): void {
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -73,7 +73,7 @@ test('gift a user creates a notification for the gifted user', function (): void
 
 test('gift a user creates a notification for the gifted user when gift notifications are not disabled for specific group', function (): void {
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -125,7 +125,7 @@ test('gift a user creates a notification for the gifted user when gift notificat
 
 test('staff gifts a user creates a notification for the gifted user even when gift notifications are disabled', function (): void {
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -177,7 +177,7 @@ test('staff gifts a user creates a notification for the gifted user even when gi
 
 test('gift a user does not create a notification for the gifted user when all notifications disabled', function (): void {
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -218,7 +218,7 @@ test('gift a user does not create a notification for the gifted user when all no
 
 test('gift a user does not create a notification for the gifted user when gift notifications are disabled', function (): void {
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
@@ -259,7 +259,7 @@ test('gift a user does not create a notification for the gifted user when gift n
 
 test('gift a user does not create a notification for the gifted user when gift notifications are disabled for specific group', function (): void {
     // Required for ChatRepository()
-    $this->seed(UsersTableSeeder::class);
+    $this->seed(UserSeeder::class);
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',

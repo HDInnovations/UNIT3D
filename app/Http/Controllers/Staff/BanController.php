@@ -49,12 +49,11 @@ class BanController extends Controller
     {
         $user = User::findOrFail($request->string('owned_by'));
         $staff = $request->user();
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
         abort_if($user->group->is_modo || $staff->is($user), 403);
 
         $user->update([
-            'group_id'     => $bannedGroup[0],
+            'group_id'     => Group::where('slug', '=', 'banned')->soleValue('id'),
             'can_download' => 0,
         ]);
 
