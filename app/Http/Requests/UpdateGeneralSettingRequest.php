@@ -22,7 +22,47 @@ class UpdateGeneralSettingRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'news_hidden' => [
+                'required',
+                'boolean',
+            ],
             'chat_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'featured_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'random_media_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'poll_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'top_torrents_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'top_users_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'latest_topics_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'latest_posts_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'latest_comments_hidden' => [
+                'required',
+                'boolean',
+            ],
+            'online_hidden' => [
                 'required',
                 'boolean',
             ],

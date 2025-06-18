@@ -25,7 +25,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $id
  * @property int                             $user_id
  * @property bool                            $censor
+ * @property bool                            $news_hidden
  * @property bool                            $chat_hidden
+ * @property bool                            $featured_hidden
+ * @property bool                            $random_media_hidden
+ * @property bool                            $poll_hidden
+ * @property bool                            $top_torrents_hidden
+ * @property bool                            $top_users_hidden
+ * @property bool                            $latest_topics_hidden
+ * @property bool                            $latest_posts_hidden
+ * @property bool                            $latest_comments_hidden
+ * @property bool                            $online_hidden
  * @property string                          $locale
  * @property int                             $style
  * @property int                             $torrent_layout
@@ -47,7 +57,17 @@ class UserSetting extends Model
      *
      * @return array{
      *     censor: 'bool',
+     *     news_hidden: 'bool',
      *     chat_hidden: 'bool',
+     *     featured_hidden: 'bool',
+     *     random_media_hidden: 'bool',
+     *     poll_hidden: 'bool',
+     *     top_torrents_hidden: 'bool',
+     *     top_users_hidden: 'bool',
+     *     latest_topics_hidden: 'bool',
+     *     latest_posts_hidden: 'bool',
+     *     latest_comments_hidden: 'bool',
+     *     online_hidden: 'bool',
      *     torrent_filters: 'bool',
      *     show_poster: 'bool',
      *     unbookmark_torrents_on_completion: 'bool',
@@ -57,7 +77,17 @@ class UserSetting extends Model
     {
         return [
             'censor'                            => 'bool',
+            'news_hidden'                       => 'bool',
             'chat_hidden'                       => 'bool',
+            'featured_hidden'                   => 'bool',
+            'random_media_hidden'               => 'bool',
+            'poll_hidden'                       => 'bool',
+            'top_torrents_hidden'               => 'bool',
+            'top_users_hidden'                  => 'bool',
+            'latest_topics_hidden'              => 'bool',
+            'latest_posts_hidden'               => 'bool',
+            'latest_comments_hidden'            => 'bool',
+            'online_hidden'                     => 'bool',
             'torrent_filters'                   => 'bool',
             'show_poster'                       => 'bool',
             'unbookmark_torrents_on_completion' => 'bool',

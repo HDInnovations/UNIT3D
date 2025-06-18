@@ -212,6 +212,22 @@
                             Language Censor Chat
                         </label>
                     </p>
+                </fieldset>
+                <fieldset class="form form__fieldset">
+                    <legend class="form__legend">{{ __('user.homepage-blocks') }}</legend>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="news_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="news_hidden"
+                                value="1"
+                                @checked($user->settings?->news_hidden)
+                            />
+                            {{ __('user.homepage-block-news-hidden') }}
+                        </label>
+                    </p>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="chat_hidden" value="0" />
@@ -222,7 +238,124 @@
                                 value="1"
                                 @checked($user->settings?->chat_hidden)
                             />
-                            Hide Chat
+                            {{ __('user.homepage-block-chat-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="featured_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="featured_hidden"
+                                value="1"
+                                @checked($user->settings?->featured_hidden)
+                            />
+                            {{ __('user.homepage-block-featured-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="random_media_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="random_media_hidden"
+                                value="1"
+                                @checked($user->settings?->random_media_hidden)
+                            />
+                            {{ __('user.homepage-block-random-media-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="poll_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="poll_hidden"
+                                value="1"
+                                @checked($user->settings?->poll_hidden)
+                            />
+                            {{ __('user.homepage-block-poll-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="top_torrents_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="top_torrents_hidden"
+                                value="1"
+                                @checked($user->settings?->top_torrents_hidden)
+                            />
+                            {{ __('user.homepage-block-top-torrents-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="top_users_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="top_users_hidden"
+                                value="1"
+                                @checked($user->settings?->top_users_hidden)
+                            />
+                            {{ __('user.homepage-block-top-users-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="latest_topics_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="latest_topics_hidden"
+                                value="1"
+                                @checked($user->settings?->latest_topics_hidden)
+                            />
+                            {{ __('user.homepage-block-latest-topics-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="latest_posts_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="latest_posts_hidden"
+                                value="1"
+                                @checked($user->settings?->latest_posts_hidden)
+                            />
+                            {{ __('user.homepage-block-latest-posts-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="latest_comments_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="latest_comments_hidden"
+                                value="1"
+                                @checked($user->settings?->latest_comments_hidden)
+                            />
+                            {{ __('user.homepage-block-latest-comments-hidden') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="online_hidden" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="online_hidden"
+                                value="1"
+                                @checked($user->settings?->online_hidden)
+                            />
+                            {{ __('user.homepage-block-online-hidden') }}
                         </label>
                     </p>
                 </fieldset>
