@@ -25,16 +25,20 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('user_settings', function (Blueprint $table): void {
-            $table->boolean('news_hidden')->default(false)->after('censor');
-            $table->boolean('featured_hidden')->default(false)->after('chat_hidden');
-            $table->boolean('random_media_hidden')->default(false)->after('featured_hidden');
-            $table->boolean('poll_hidden')->default(false)->after('random_media_hidden');
-            $table->boolean('top_torrents_hidden')->default(false)->after('poll_hidden');
-            $table->boolean('top_users_hidden')->default(false)->after('top_torrents_hidden');
-            $table->boolean('latest_topics_hidden')->default(false)->after('top_users_hidden');
-            $table->boolean('latest_posts_hidden')->default(false)->after('latest_topics_hidden');
-            $table->boolean('latest_comments_hidden')->default(false)->after('latest_posts_hidden');
-            $table->boolean('online_hidden')->default(false)->after('latest_comments_hidden');
+            // Rename chat_hidden to chat_visible and set default to true
+            $table->renameColumn('chat_hidden', 'chat_visible');
+            $table->boolean('chat_visible')->default(true)->change();
+
+            $table->boolean('news_visible')->default(true)->after('censor');
+            $table->boolean('featured_visible')->default(true)->after('chat_visible');
+            $table->boolean('random_media_visible')->default(true)->after('featured_visible');
+            $table->boolean('poll_visible')->default(true)->after('random_media_visible');
+            $table->boolean('top_torrents_visible')->default(true)->after('poll_visible');
+            $table->boolean('top_users_visible')->default(true)->after('top_torrents_visible');
+            $table->boolean('latest_topics_visible')->default(true)->after('top_users_visible');
+            $table->boolean('latest_posts_visible')->default(true)->after('latest_topics_visible');
+            $table->boolean('latest_comments_visible')->default(true)->after('latest_posts_visible');
+            $table->boolean('online_visible')->default(true)->after('latest_comments_visible');
         });
     }
 };

@@ -217,145 +217,145 @@
                     <legend class="form__legend">{{ __('user.homepage-blocks') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="news_hidden" value="0" />
+                            <input type="hidden" name="news_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="news_hidden"
+                                name="news_visible"
                                 value="1"
-                                @checked($user->settings?->news_hidden)
+                                @checked($user->settings?->news_visible)
                             />
-                            {{ __('user.homepage-block-news-hidden') }}
+                            {{ __('user.homepage-block-news-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="chat_hidden" value="0" />
+                            <input type="hidden" name="chat_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="chat_hidden"
+                                name="chat_visible"
                                 value="1"
-                                @checked($user->settings?->chat_hidden)
+                                @checked($user->settings?->chat_visible)
                             />
-                            {{ __('user.homepage-block-chat-hidden') }}
+                            {{ __('user.homepage-block-chat-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="featured_hidden" value="0" />
+                            <input type="hidden" name="featured_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="featured_hidden"
+                                name="featured_visible"
                                 value="1"
-                                @checked($user->settings?->featured_hidden)
+                                @checked($user->settings?->featured_visible)
                             />
-                            {{ __('user.homepage-block-featured-hidden') }}
+                            {{ __('user.homepage-block-featured-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="random_media_hidden" value="0" />
+                            <input type="hidden" name="random_media_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="random_media_hidden"
+                                name="random_media_visible"
                                 value="1"
-                                @checked($user->settings?->random_media_hidden)
+                                @checked($user->settings?->random_media_visible)
                             />
-                            {{ __('user.homepage-block-random-media-hidden') }}
+                            {{ __('user.homepage-block-random-media-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="poll_hidden" value="0" />
+                            <input type="hidden" name="poll_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="poll_hidden"
+                                name="poll_visible"
                                 value="1"
-                                @checked($user->settings?->poll_hidden)
+                                @checked($user->settings?->poll_visible)
                             />
-                            {{ __('user.homepage-block-poll-hidden') }}
+                            {{ __('user.homepage-block-poll-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="top_torrents_hidden" value="0" />
+                            <input type="hidden" name="top_torrents_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="top_torrents_hidden"
+                                name="top_torrents_visible"
                                 value="1"
-                                @checked($user->settings?->top_torrents_hidden)
+                                @checked($user->settings?->top_torrents_visible)
                             />
-                            {{ __('user.homepage-block-top-torrents-hidden') }}
+                            {{ __('user.homepage-block-top-torrents-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="top_users_hidden" value="0" />
+                            <input type="hidden" name="top_users_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="top_users_hidden"
+                                name="top_users_visible"
                                 value="1"
-                                @checked($user->settings?->top_users_hidden)
+                                @checked($user->settings?->top_users_visible)
                             />
-                            {{ __('user.homepage-block-top-users-hidden') }}
+                            {{ __('user.homepage-block-top-users-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="latest_topics_hidden" value="0" />
+                            <input type="hidden" name="latest_topics_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="latest_topics_hidden"
+                                name="latest_topics_visible"
                                 value="1"
-                                @checked($user->settings?->latest_topics_hidden)
+                                @checked($user->settings?->latest_topics_visible)
                             />
-                            {{ __('user.homepage-block-latest-topics-hidden') }}
+                            {{ __('user.homepage-block-latest-topics-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="latest_posts_hidden" value="0" />
+                            <input type="hidden" name="latest_posts_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="latest_posts_hidden"
+                                name="latest_posts_visible"
                                 value="1"
-                                @checked($user->settings?->latest_posts_hidden)
+                                @checked($user->settings?->latest_posts_visible)
                             />
-                            {{ __('user.homepage-block-latest-posts-hidden') }}
+                            {{ __('user.homepage-block-latest-posts-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="latest_comments_hidden" value="0" />
+                            <input type="hidden" name="latest_comments_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="latest_comments_hidden"
+                                name="latest_comments_visible"
                                 value="1"
-                                @checked($user->settings?->latest_comments_hidden)
+                                @checked($user->settings?->latest_comments_visible)
                             />
-                            {{ __('user.homepage-block-latest-comments-hidden') }}
+                            {{ __('user.homepage-block-latest-comments-visible') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <label class="form__label">
-                            <input type="hidden" name="online_hidden" value="0" />
+                            <input type="hidden" name="online_visible" value="0" />
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
-                                name="online_hidden"
+                                name="online_visible"
                                 value="1"
-                                @checked($user->settings?->online_hidden)
+                                @checked($user->settings?->online_visible)
                             />
-                            {{ __('user.homepage-block-online-hidden') }}
+                            {{ __('user.homepage-block-online-visible') }}
                         </label>
                     </p>
                 </fieldset>
