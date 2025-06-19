@@ -1,3 +1,9 @@
+.article-preview-wrapper.article-preview-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
 .article-preview {
     padding: 18px;
     border-radius: 5px;
@@ -30,6 +36,10 @@
     margin: 0;
     grid-area: title;
     font-size: 22px;
+}
+
+.article-preview__title svg {
+    max-height: 15px;
 }
 
 .article-preview__link {

@@ -46,13 +46,6 @@ class HomeController extends Controller
         // Authorized User
         $user = $request->user();
 
-        // Latest Articles/News Block
-        $articles = cache()->remember('latest_article', $expiresAt, fn () => Article::latest()->take(1)->get());
-
-        foreach ($articles as $article) {
-            $article->newNews = ($user->last_login->subDays(3)->getTimestamp() < $article->created_at->getTimestamp()) ? 1 : 0;
-        }
-
         return view('home.index', [
             'user'  => $user,
             'users' => cache()->remember(
@@ -82,8 +75,12 @@ class HomeController extends Controller
                     ->oldest('position')
                     ->get()
             ),
-            'articles' => $articles,
-            'topics'   => Topic::query()
+            'articles' => Article::query()
+                ->latest()
+                ->limit(3)
+                ->withExists(['unreads' => fn ($query) => $query->whereBelongsTo($user)])
+                ->get(),
+            'topics' => Topic::query()
                 ->with(['user', 'user.group', 'latestPoster', 'reads' => fn ($query) => $query->whereBelongsTo($user)])
                 ->authorized(canReadTopic: true)
                 ->latest()

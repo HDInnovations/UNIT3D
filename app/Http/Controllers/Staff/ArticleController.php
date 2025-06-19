@@ -20,6 +20,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreArticleRequest;
 use App\Http\Requests\Staff\UpdateArticleRequest;
 use App\Models\Article;
+use App\Models\UnreadArticle;
+use App\Models\User;
 use Intervention\Image\Facades\Image;
 use Exception;
 use Illuminate\Support\Facades\Storage;
@@ -65,7 +67,15 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
         }
 
-        Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
+        $article = Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
+
+        UnreadArticle::query()->insertUsing(
+            ['article_id', 'user_id'],
+            User::query()
+                ->selectRaw('?', [$article->id])
+                ->addSelect('id')
+                ->whereHas('group', fn ($query) => $query->whereNotIn('slug', ['validating', 'pruned', 'banned', 'disabled']))
+        );
 
         return to_route('staff.articles.index')
             ->with('success', 'Your article has successfully published!');

@@ -1073,7 +1073,13 @@
                                             </td>
                                         @endif
 
-                                        <td>{{ $playlist->name }}</td>
+                                        <td>
+                                            <a
+                                                href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
+                                            >
+                                                {{ $playlist->name }}
+                                            </a>
+                                        </td>
                                         <td>{{ $playlist->torrents_count }}</td>
                                         <td>
                                             <x-user-tag :user="$playlist->user" :anon="false" />

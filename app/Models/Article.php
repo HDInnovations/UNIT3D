@@ -65,4 +65,12 @@ class Article extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UnreadArticle, $this>
+     */
+    public function unreads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->HasMany(UnreadArticle::class);
+    }
 }

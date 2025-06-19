@@ -1,30 +1,38 @@
-@foreach ($articles as $article)
-    <section class="panelV2 blocks__news" x-data="{ show: {{ $article->newNews }} }">
-        <header class="panel__header" x-on:click="show = !show" style="cursor: pointer">
-            <h2 class="panel__heading panel__heading--centered">
-                @if ($article->newNews)
-                    @joypixels(':rotating_light:')
-                    {{ __('blocks.new-news') }} {{ $article->created_at->diffForHumans() }}
-                    @joypixels(':rotating_light:')
-                @else
-                    {{ __('blocks.check-news') }} {{ $article->created_at->diffForHumans() }}
-                @endif
-            </h2>
-            <div class="panel__actions">
-                <div class="panel__action">
-                    <a
-                        href="{{ route('articles.index') }}"
-                        class="form__button form__button--text"
-                    >
-                        {{ __('common.view-all') }}
-                    </a>
-                </div>
+<section
+    class="panelV2 blocks__news"
+    x-data="{
+        show: {{ Js::from($articles->contains(fn ($article) => $article->unread_news_exists)) }},
+    }"
+>
+    <header class="panel__header" x-on:click="show = !show" style="cursor: pointer">
+        <h2 class="panel__heading panel__heading--centered">
+            @if ($articles->first()?->unread_news_exists)
+                @joypixels(':rotating_light:')
+                {{ __('blocks.new-news') }}
+                {{ $articles->first()?->created_at?->diffForHumans() }}
+                @joypixels(':rotating_light:')
+            @else
+                {{ __('blocks.check-news') }}
+                {{ $articles->first()?->created_at?->diffForHumans() }}
+            @endif
+        </h2>
+        <div class="panel__actions">
+            <div class="panel__action">
+                <a href="{{ route('articles.index') }}" class="form__button form__button--text">
+                    {{ __('common.view-all') }}
+                </a>
             </div>
-        </header>
-        <div class="panel__body" x-cloak x-show="show">
+        </div>
+    </header>
+    <div class="panel__body article-preview-wrapper" x-cloak x-show="show">
+        @foreach ($articles as $article)
             <article class="article-preview">
                 <header class="article-preview__header">
                     <h2 class="article-preview__title">
+                        @if ($article->unread_news_exists)
+                            <x-animation.notification />
+                        @endif
+
                         <a
                             class="article-preview__link"
                             href="{{ route('articles.show', ['article' => $article]) }}"
@@ -55,6 +63,6 @@
                     {{ __('articles.read-more') }}
                 </a>
             </article>
-        </div>
-    </section>
-@endforeach
+        @endforeach
+    </div>
+</section>

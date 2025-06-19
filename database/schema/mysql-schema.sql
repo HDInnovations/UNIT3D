@@ -127,7 +127,7 @@ DROP TABLE IF EXISTS `articles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `articles` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2194,6 +2194,20 @@ CREATE TABLE `types` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `unread_articles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `unread_articles` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `article_id` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `unread_articles_article_id_foreign` (`article_id`),
+  KEY `unread_articles_user_id_foreign` (`user_id`),
+  CONSTRAINT `unread_articles_article_id_foreign` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `unread_articles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `unregistered_info_hashes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2977,4 +2991,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (349,'2025_05_28_08
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (350,'2025_06_11_053944_alter_users_drop_active',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (351,'2025_06_11_064742_rename_password_resets_to_password_reset_tokens',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (352,'2025_06_17_084333_alter_requests_nullable_type_id',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (353,'2025_06_18_000000_add_homepage_block_settings_to_user_settings_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (353,'2025_06_17_092951_create_unread_articles_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_18_000000_add_homepage_block_settings_to_user_settings_table',1);
+

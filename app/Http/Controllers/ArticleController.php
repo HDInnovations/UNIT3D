@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\ArticleControllerTest
@@ -36,8 +37,10 @@ class ArticleController extends Controller
     /**
      * Show A Article.
      */
-    public function show(Article $article): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, Article $article): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $article->unreads()->whereBelongsTo($request->user())->delete();
+
         return view('article.show', [
             'article' => $article->load(['user', 'comments']),
         ]);
