@@ -2993,4 +2993,3 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (351,'2025_06_11_06
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (352,'2025_06_17_084333_alter_requests_nullable_type_id',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (353,'2025_06_17_092951_create_unread_articles_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_18_000000_add_homepage_block_settings_to_user_settings_table',1);
-
