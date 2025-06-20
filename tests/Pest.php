@@ -1,6 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
+use Database\Seeders\GroupSeeder;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -16,6 +19,7 @@ pest()->extend(
     Tests\TestCase::class,
 )->beforeEach(function (): void {
     config(['email-blacklist.enabled' => false]);
+    $this->seed(GroupSeeder::class);
 })->in('Feature', 'Unit');
 
 pest()->beforeEach(function (): void {

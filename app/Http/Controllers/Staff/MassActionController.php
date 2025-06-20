@@ -34,12 +34,12 @@ class MassActionController extends Controller
      */
     public function update(): \Illuminate\Http\RedirectResponse
     {
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $memberGroup = cache()->rememberForever('member_group', fn () => Group::where('slug', '=', 'user')->pluck('id'));
+        $validatingGroupId = Group::where('slug', '=', 'validating')->soleValue('id');
+        $memberGroupId = Group::where('slug', '=', 'user')->soleValue('id');
 
-        foreach (User::where('group_id', '=', $validatingGroup[0])->get() as $user) {
+        foreach (User::where('group_id', '=', $validatingGroupId)->get() as $user) {
             $user->update([
-                'group_id'          => $memberGroup[0],
+                'group_id'          => $memberGroupId,
                 'can_download'      => 1,
                 'email_verified_at' => now(),
             ]);

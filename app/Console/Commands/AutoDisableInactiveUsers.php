@@ -52,7 +52,7 @@ class AutoDisableInactiveUsers extends Command
             return;
         }
 
-        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $disabledGroupId = Group::where('slug', '=', 'disabled')->soleValue('id');
 
         $current = Carbon::now();
 
@@ -61,10 +61,10 @@ class AutoDisableInactiveUsers extends Command
             ->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
             ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login')))
             ->whereDoesntHave('seedingTorrents')
-            ->chunk(100, function ($users) use ($disabledGroup): void {
+            ->chunk(100, function ($users) use ($disabledGroupId): void {
                 foreach ($users as $user) {
                     $user->update([
-                        'group_id'     => $disabledGroup[0],
+                        'group_id'     => $disabledGroupId,
                         'can_download' => false,
                         'disabled_at'  => Carbon::now(),
                     ]);

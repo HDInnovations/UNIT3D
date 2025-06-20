@@ -54,11 +54,11 @@ class FortifyServiceProvider extends ServiceProvider
                 $user = $request->user();
 
                 // Check if user is disabled
-                $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::query()->where('slug', '=', 'disabled')->pluck('id'));
-                $memberGroup = cache()->rememberForever('member_group', fn () => Group::query()->where('slug', '=', 'user')->pluck('id'));
+                $disabledGroupId = cache()->rememberForever('group:slug-to-id:disabled', fn () => Group::query()->where('slug', '=', 'disabled')->soleValue('id'));
+                $memberGroupId = cache()->rememberForever('group:slug-to-id:user', fn () => Group::query()->where('slug', '=', 'user')->soleValue('id'));
 
-                if ($user->group_id == $disabledGroup[0]) {
-                    $user->group_id = $memberGroup[0];
+                if ($user->group_id == $disabledGroupId) {
+                    $user->group_id = $memberGroupId;
                     $user->can_download = 1;
                     $user->disabled_at = null;
                     $user->save();
@@ -110,16 +110,16 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(VerifyEmailResponse::class, new class () implements VerifyEmailResponse {
             public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
             {
-                $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
-                $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
-                $memberGroup = cache()->rememberForever('member_group', fn () => Group::query()->where('slug', '=', 'user')->pluck('id'));
+                $bannedGroupId = cache()->rememberForever('group:slug-to-id:banned', fn () => Group::query()->where('slug', '=', 'banned')->soleValue('id'));
+                $validatingGroupId = cache()->rememberForever('group:slug-to-id:validating', fn () => Group::query()->where('slug', '=', 'validating')->soleValue('id'));
+                $memberGroupId = cache()->rememberForever('group:slug-to-id:user', fn () => Group::query()->where('slug', '=', 'user')->soleValue('id'));
 
                 $user = $request->user();
 
-                if ($user->group_id !== $bannedGroup[0]) {
-                    if ($user->group_id === $validatingGroup[0]) {
+                if ($user->group_id !== $bannedGroupId) {
+                    if ($user->group_id === $validatingGroupId) {
                         $user->can_download = 1;
-                        $user->group_id = $memberGroup[0];
+                        $user->group_id = $memberGroupId;
                         $user->save();
 
                         cache()->forget('user:'.$user->passkey);
@@ -208,9 +208,9 @@ class FortifyServiceProvider extends ServiceProvider
 
             if ($password === true) {
                 // Check if user is activated
-                $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
+                $validatingGroupId = cache()->rememberForever('group:slug-to-id:validating', fn () => Group::query()->where('slug', '=', 'validating')->soleValue('id'));
 
-                if ($user->email_verified_at === null || $user->group_id === $validatingGroup[0]) {
+                if ($user->email_verified_at === null || $user->group_id === $validatingGroupId) {
                     $request->session()->invalidate();
 
                     throw ValidationException::withMessages([
@@ -219,9 +219,9 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 // Check if user is banned
-                $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::query()->where('slug', '=', 'banned')->pluck('id'));
+                $bannedGroupId = cache()->rememberForever('group:slug-to-id:banned', fn () => Group::query()->where('slug', '=', 'banned')->soleValue('id'));
 
-                if ($user->group_id === $bannedGroup[0]) {
+                if ($user->group_id === $bannedGroupId) {
                     $request->session()->invalidate();
 
                     throw ValidationException::withMessages([
