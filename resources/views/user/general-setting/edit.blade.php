@@ -223,7 +223,7 @@
                                 type="checkbox"
                                 name="news_visible"
                                 value="1"
-                                @checked($user->settings?->news_visible)
+                                @checked($user->settings?->news_visible ?? config('other.default_news_visible'))
                             />
                             {{ __('user.homepage-block-news-visible') }}
                         </label>
@@ -236,7 +236,7 @@
                                 type="checkbox"
                                 name="chat_visible"
                                 value="1"
-                                @checked($user->settings?->chat_visible)
+                                @checked($user->settings?->chat_visible ?? config('other.default_chat_visible'))
                             />
                             {{ __('user.homepage-block-chat-visible') }}
                         </label>
@@ -249,7 +249,7 @@
                                 type="checkbox"
                                 name="featured_visible"
                                 value="1"
-                                @checked($user->settings?->featured_visible)
+                                @checked($user->settings?->featured_visible ?? config('other.default_featured_visible'))
                             />
                             {{ __('user.homepage-block-featured-visible') }}
                         </label>
@@ -262,7 +262,7 @@
                                 type="checkbox"
                                 name="random_media_visible"
                                 value="1"
-                                @checked($user->settings?->random_media_visible)
+                                @checked($user->settings?->random_media_visible ?? config('other.default_random_media_visible'))
                             />
                             {{ __('user.homepage-block-random-media-visible') }}
                         </label>
@@ -275,7 +275,7 @@
                                 type="checkbox"
                                 name="poll_visible"
                                 value="1"
-                                @checked($user->settings?->poll_visible)
+                                @checked($user->settings?->poll_visible ?? config('other.default_poll_visible'))
                             />
                             {{ __('user.homepage-block-poll-visible') }}
                         </label>
@@ -288,7 +288,7 @@
                                 type="checkbox"
                                 name="top_torrents_visible"
                                 value="1"
-                                @checked($user->settings?->top_torrents_visible)
+                                @checked($user->settings?->top_torrents_visible ?? config('other.default_top_torrents_visible'))
                             />
                             {{ __('user.homepage-block-top-torrents-visible') }}
                         </label>
@@ -301,7 +301,7 @@
                                 type="checkbox"
                                 name="top_users_visible"
                                 value="1"
-                                @checked($user->settings?->top_users_visible)
+                                @checked($user->settings?->top_users_visible ?? config('other.default_top_users_visible'))
                             />
                             {{ __('user.homepage-block-top-users-visible') }}
                         </label>
@@ -314,7 +314,7 @@
                                 type="checkbox"
                                 name="latest_topics_visible"
                                 value="1"
-                                @checked($user->settings?->latest_topics_visible)
+                                @checked($user->settings?->latest_topics_visible ?? config('other.default_latest_topics_visible'))
                             />
                             {{ __('user.homepage-block-latest-topics-visible') }}
                         </label>
@@ -327,7 +327,7 @@
                                 type="checkbox"
                                 name="latest_posts_visible"
                                 value="1"
-                                @checked($user->settings?->latest_posts_visible)
+                                @checked($user->settings?->latest_posts_visible ?? config('other.default_latest_posts_visible'))
                             />
                             {{ __('user.homepage-block-latest-posts-visible') }}
                         </label>
@@ -340,7 +340,7 @@
                                 type="checkbox"
                                 name="latest_comments_visible"
                                 value="1"
-                                @checked($user->settings?->latest_comments_visible)
+                                @checked($user->settings?->latest_comments_visible ?? config('other.default_latest_comments_visible'))
                             />
                             {{ __('user.homepage-block-latest-comments-visible') }}
                         </label>
@@ -353,7 +353,7 @@
                                 type="checkbox"
                                 name="online_visible"
                                 value="1"
-                                @checked($user->settings?->online_visible)
+                                @checked($user->settings?->online_visible ?? config('other.default_online_visible'))
                             />
                             {{ __('user.homepage-block-online-visible') }}
                         </label>

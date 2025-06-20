@@ -165,6 +165,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default visible homepage blocks
+    |--------------------------------------------------------------------------
+    */
+    'default_news_visible'            => true,
+    'default_chat_visible'            => true,
+    'default_featured_visible'        => true,
+    'default_random_media_visible'    => true,
+    'default_poll_visible'            => true,
+    'default_top_torrents_visible'    => true,
+    'default_top_users_visible'       => true,
+    'default_latest_topics_visible'   => true,
+    'default_latest_posts_visible'    => true,
+    'default_latest_comments_visible' => true,
+    'default_online_visible'          => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Default Font Awesome Style
     |--------------------------------------------------------------------------
     | fas = Solid
