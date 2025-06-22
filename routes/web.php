@@ -17,8 +17,6 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\Http\Controllers\NewPasswordController;
-use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\RoutePath;
 
@@ -58,22 +56,6 @@ Route::middleware('language')->group(function (): void {
 
         Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
             ->middleware(['throttle:'.config('fortify.limiters.fortify-register-post')]);
-
-        Route::get(RoutePath::for('password.request', '/forgot-password'), [PasswordResetLinkController::class, 'create'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-forgot-password-get')])
-            ->name('password.request');
-
-        Route::get(RoutePath::for('password.reset', '/reset-password/{token}'), [NewPasswordController::class, 'create'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-reset-password-get')])
-            ->name('password.reset');
-
-        Route::post(RoutePath::for('password.email', '/forgot-password'), [PasswordResetLinkController::class, 'store'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-forgot-password-post')])
-            ->name('password.email');
-
-        Route::post(RoutePath::for('password.update', '/reset-password'), [NewPasswordController::class, 'store'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-reset-password-post')])
-            ->name('password.update');
     });
 
     /*
@@ -85,6 +67,12 @@ Route::middleware('language')->group(function (): void {
         // Application Signup
         Route::get('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'create'])->name('application.create');
         Route::post('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'store'])->name('application.store');
+
+        // Password resets
+        Route::get('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'create'])->middleware('throttle:forgot-password')->name('password.request');
+        Route::post('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'store'])->middleware(['throttle:forgot-password'])->name('password.email');
+        Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->middleware('throttle:reset-password')->name('password.reset');
+        Route::post('/reset-password', [App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->middleware('throttle:reset-password')->name('password.update');
 
         // This redirect must be kept until all invite emails that use the old syntax have expired
         // Hack so that Fortify can be used (allows query parameters but not route parameters)
