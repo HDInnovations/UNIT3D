@@ -36,6 +36,7 @@
         "paragonie/constant_time_encoding": "^2.7.0",
         "spatie/laravel-backup": "^9.3.4",
         "spatie/laravel-cookie-consent": "^3.3.3",
+        "spatie/laravel-data": "^4.17",
         "spatie/laravel-image-optimizer": "^1.8.2",
         "spatie/ssl-certificate": "^2.6.10",
         "symfony/dom-crawler": "^6.4.25",
