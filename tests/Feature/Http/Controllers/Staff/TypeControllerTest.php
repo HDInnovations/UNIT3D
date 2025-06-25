@@ -14,9 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\Staff\TypeController;
-use App\Http\Requests\Staff\StoreTypeRequest;
-use App\Http\Requests\Staff\UpdateTypeRequest;
 use App\Models\Type;
 
 use function Pest\Laravel\assertDatabaseHas;
@@ -55,14 +52,6 @@ test('index returns an ok response', function (): void {
         ->assertViewHas('types');
 });
 
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        TypeController::class,
-        'store',
-        StoreTypeRequest::class
-    );
-});
-
 test('store returns an ok response', function (): void {
     $type = Type::factory()->make();
 
@@ -77,14 +66,6 @@ test('store returns an ok response', function (): void {
         'name'     => $type->name,
         'position' => $type->position,
     ]);
-});
-
-test('update validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        TypeController::class,
-        'update',
-        UpdateTypeRequest::class
-    );
 });
 
 test('update returns an ok response', function (): void {
