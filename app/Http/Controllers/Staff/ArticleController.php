@@ -16,9 +16,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Staff;
 
+use App\Data\Staff\ArticleData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Staff\StoreArticleRequest;
-use App\Http\Requests\Staff\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\UnreadArticle;
 use App\Models\User;
@@ -55,19 +54,15 @@ class ArticleController extends Controller
     /**
      * Store A New Article.
      */
-    public function store(StoreArticleRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(ArticleData $data): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-
-            abort_if(\is_array($image), 400);
-
-            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($data->image !== null) {
+            $filename = 'article-'.uniqid('', true).'.'.$data->image->getClientOriginalExtension();
             $path = Storage::disk('article-images')->path($filename);
-            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            Image::make($data->image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
         }
 
-        $article = Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
+        $article = Article::create(['image' => $filename ?? null] + $data->toArray());
 
         UnreadArticle::query()->insertUsing(
             ['article_id', 'user_id'],
@@ -94,23 +89,19 @@ class ArticleController extends Controller
     /**
      * Edit A Article.
      */
-    public function update(UpdateArticleRequest $request, Article $article): \Illuminate\Http\RedirectResponse
+    public function update(ArticleData $data, Article $article): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-
-            abort_if(\is_array($image), 400);
-
-            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($data->image !== null) {
+            $filename = 'article-'.uniqid('', true).'.'.$data->image->getClientOriginalExtension();
             $path = Storage::disk('article-images')->path($filename);
-            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            Image::make($data->image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
 
             if ($article->image !== null) {
                 Storage::disk('article-images')->delete($article->image);
             }
         }
 
-        $article->update(['image' => $filename ?? null,] + $request->validated());
+        $article->update(['image' => $filename ?? null,] + $data->toArray());
 
         return to_route('staff.articles.index')
             ->with('success', 'Your article changes have successfully published!');
