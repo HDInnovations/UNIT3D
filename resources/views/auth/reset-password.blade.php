@@ -31,7 +31,7 @@
                     action="{{ route('password.update') }}"
                 >
                     @csrf
-                    <input type="hidden" name="token" value="{{ request()->route('token') }}" />
+                    <input type="hidden" name="token" value="{{ $token }}" />
                     <a class="auth-form__branding" href="{{ route('home.index') }}">
                         <i class="fal fa-tv-retro"></i>
                         <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
