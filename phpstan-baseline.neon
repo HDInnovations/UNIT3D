@@ -553,18 +553,6 @@ parameters:
 			path: app/Http/Middleware/SetLanguage.php
 
 		-
-			message: '#^Method App\\Http\\Requests\\Staff\\UpdateAutomaticTorrentFreeleechRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Requests/Staff/UpdateAutomaticTorrentFreeleechRequest.php
-
-		-
-			message: '#^PHPDoc tag @return has invalid value \(array\<string, array\<int, \(Closure\)\|string\>\>\.\)\: Unexpected token "\.", expected TOKEN_HORIZONTAL_WS at offset 128 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/Http/Requests/Staff/UpdateAutomaticTorrentFreeleechRequest.php
-
-		-
 			message: '#^Method App\\Http\\Requests\\StoreRequestFillRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1

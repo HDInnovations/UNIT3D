@@ -16,9 +16,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Staff;
 
+use App\Data\Staff\AutomaticTorrentFreeleechData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Staff\StoreAutomaticTorrentFreeleechRequest;
-use App\Http\Requests\Staff\UpdateAutomaticTorrentFreeleechRequest;
 use App\Models\AutomaticTorrentFreeleech;
 use App\Models\Category;
 use App\Models\Resolution;
@@ -42,9 +41,9 @@ class AutomaticTorrentFreeleechController extends Controller
         ]);
     }
 
-    public function store(StoreAutomaticTorrentFreeleechRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(AutomaticTorrentFreeleechData $data): \Illuminate\Http\RedirectResponse
     {
-        AutomaticTorrentFreeleech::create($request->validated());
+        AutomaticTorrentFreeleech::create($data->toArray());
 
         return to_route('staff.automatic_torrent_freeleeches.index')
             ->with('success', 'Resolution Successfully Added');
@@ -60,9 +59,9 @@ class AutomaticTorrentFreeleechController extends Controller
         ]);
     }
 
-    public function update(UpdateAutomaticTorrentFreeleechRequest $request, AutomaticTorrentFreeleech $automaticTorrentFreeleech): \Illuminate\Http\RedirectResponse
+    public function update(AutomaticTorrentFreeleechData $data, AutomaticTorrentFreeleech $automaticTorrentFreeleech): \Illuminate\Http\RedirectResponse
     {
-        $automaticTorrentFreeleech->update($request->validated());
+        $automaticTorrentFreeleech->update($data->toArray());
 
         return to_route('staff.automatic_torrent_freeleeches.index')
             ->with('success', 'Resolution Successfully Modified');
