@@ -1,0 +1,55 @@
+# NodeJS
+/node_modules
+
+# Laravel
+# Ignore everything in the public/files directory EXCEPT the .gitkeep
+/public/vendor/livewire/livewire.js
+/public/vendor/livewire/manifest.json
+/public/files
+!.gitkeep
+/public/sounds
+/public/storage
+/public/vendor
+/storage/app
+/storage/backups
+/storage/debugbar
+/storage/gitupdate
+/storage/*.key
+.env
+laravel-echo-server.json
+laravel-echo-server.lock
+
+# Composer
+/vendor
+
+# Vite
+/public/build
+
+# OS X
+.DS_store
+
+# IDEs
+/.idea
+/.vscode
+/nbproject
+/.phpunit.cache
+.ftpconfig
+
+# Vim
+.*.swp
+
+# Miscellaneous
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+_ide_helper.php
+supervisor.ini
+/.phpunit.cache/
+/.phpstan.cache/
+/caddy
+frankenphp
+frankenphp-worker.php
+/data
+config/caddy/autosave.json
+/data/
