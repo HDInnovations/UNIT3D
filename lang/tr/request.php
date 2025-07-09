@@ -64,7 +64,7 @@ return [
     'title' => 'Başlık',
     'torrent-hash' => 'Torrent Hash',
     'total-bounty' => 'Toplam ödül',
-    'type' => 'tip',
+    'type' => 'Tip',
     'unclaim' => 'Bu isteği kabul etmeme',
     'unfilled' => 'Doldurulmamış',
     'view-filled' => 'Görünüm dolgulu',
@@ -83,4 +83,7 @@ return [
     'already-rejected' => 'Bu istek zaten önceden reddedildi',
     'approved-anon' => '%s onayladın ve ödül isimsiz kişiye verildi',
     'approved-user' => '%s onayladın ve ödülendirdin',
+    'resolution' => 'Çözünürlük',
+    'resolutions' => 'Çözünürlükler',
+    'claimed-success' => 'İstek başarıyla yapıldı',
 ];

@@ -11,7 +11,7 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'dead' => 'ölü',
+    'dead' => 'Ölü',
     'graveyard' => 'mezarlık',
     'guidelines' => 'Kuralları',
     'guidelines-content' => '1) Kendi yüklemelerini diriltemezsin. <br> 2) Siz de işleyemediğiniz bir şeyi diriltmeyin.',
@@ -27,4 +27,8 @@ return [
     'resurrect-complete' => 'Torrent yeniden yükleme Tamamlandı! Tohum zamanı gereksinimleri karşılandığında otomatik olarak ödüllendirileceksiniz.',
     'resurrect-date' => 'Yenileme tarihi',
     'resurrect-failed-own' => 'Torrent yenileme Başarısız! Kendi yüklemelerinizi yenileyemezsiniz.',
+    'resurrect-canceled' => 'Kurtararma başarıyla iptal edildi!',
+    'resurrect-failed-pending' => 'Torrent kurtarma başarısız!Bu torrent hala kurtarma bekliyor.',
+    'rewarded' => 'Ödüllendirildi',
+    'seedtime-goal' => 'Seed zamanı hedefi',
 ];

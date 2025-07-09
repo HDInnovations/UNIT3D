@@ -72,4 +72,6 @@ return [
     'views' => 'Görünümler',
     'created-at' => 'Oluşturulma tarihi',
     'delete-post-success' => 'Bu Gönderi Artık Silinmiştir!',
+    'edit-post-success' => 'İleti başarıyla düzenlendi!',
+    'forums-post-search' => 'İleti arama',
 ];

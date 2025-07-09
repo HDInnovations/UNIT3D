@@ -29,4 +29,6 @@ return [
     'already-voted-result' => 'Bu ankete zaten oy kullandın. İşte sonuçlar.',
     'expired-voted-result' => 'Anket süresi doldu. İşte sonuçlar.',
     'edit-poll' => 'Anketi düzenle',
+    'vote-counted' => 'Oyun eklendi.',
+    'close-date' => 'Anketi kapat (...den sonra)',
 ];

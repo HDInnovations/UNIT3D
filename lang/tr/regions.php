@@ -16,4 +16,11 @@ return [
     'AUS' => 'Avustralya',
     'AUT' => 'Avusturya',
     'AZE' => 'Azerbaycan',
+    'BAH' => 'Bahamalar',
+    'BAN' => 'Bangledeş',
+    'BDI' => 'Burundi',
+    'BEL' => 'Belçika',
+    'BEN' => 'Benin',
+    'BER' => 'Bermuda',
+    'BES' => 'Karayipler Hollandası: Bonaire, Aziz Euatatius ve Saba',
 ];
