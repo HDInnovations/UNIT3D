@@ -27,7 +27,7 @@ return [
     'existing_backups' => 'Yedekleme mevcut',
     'date' => 'Tarih',
     'file_size' => 'Dosya Boyutu',
-    'actions' => 'Olaylar',
+    'actions' => 'Eylemler',
     'download' => 'İndir',
     'delete' => 'Sil',
     'delete_confirm' => 'Bu yedek dosyasını silmek istediğinize emin misiniz?',

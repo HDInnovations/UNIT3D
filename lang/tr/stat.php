@@ -56,4 +56,7 @@ return [
     'last60days' => 'Son 60 gün',
     'credited' => 'Kredilendirildi',
     'languages' => 'Diller',
+    'place' => 'Yer',
+    'pruned' => 'PasifHesap',
+    'real' => 'Gerçek',
 ];

@@ -17,4 +17,10 @@ return [
     'created' => 'Oluşturuldu',
     'subject' => 'Konu',
     'created-success' => 'Yardım destek Biletiniz Başarıyla Oluşturuldu!',
+    'deleted-success' => 'Yardım masası başvurun başarıyla silindi!',
+    'description' => 'Açıklama',
+    'download' => 'İndir',
+    'fix-errors' => 'Lütfen aşağıdaki hataları düzelt ve yeniden dene:',
+    'helpdesk' => 'YardımMasası',
+    'no-attach' => 'Ek bulunamadı',
 ];

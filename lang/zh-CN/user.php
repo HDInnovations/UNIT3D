@@ -423,6 +423,8 @@ return [
         'upon-enabling' => '启用后，您将需要输入有效的二次验证码',
         'complete-setup' => '要完成启用动态身份验证，请使用身份验证应用程序（Google Authenticator、Authy、BitWarden等）扫描下面的条形码，并在以下表格中输入动态验证码。',
         'confirm-code' => '确认动态验证码',
+        'recovery-code' => '基于时间的一次性密码（动态密钥）恢复代码',
+        'recovery-code-description' => '单击“显示”按钮以显示您帐户的恢复代码。离线安全地保存这些代码，以防您无法访问动态密钥设备。如果您认为这些代码可能已被泄露，请点击“重置”以生成一组新的代码。',
     ],
     'apikey' => 'API密钥',
     'apikeys' => 'API密钥',

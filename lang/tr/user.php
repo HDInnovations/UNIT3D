@@ -63,7 +63,7 @@ return [
     'change-password' => 'Şifre değiştir',
     'change-password-help' => 'Şifrenizi değiştirdikten sonra tekrar giriş yapmanız gerekecek',
     'client-ip-address' => 'Müşteri IP Adresi',
-    'code' => 'kod',
+    'code' => 'Kod',
     'comments' => 'Yorumlar',
     'created-on' => 'Tarihinde düzenlendi',
     'credited-download' => 'Kredili indirme',
@@ -115,7 +115,7 @@ return [
     'hit-n-runs' => 'Vur ve Koş',
     'hit-n-runs-count' => 'Hit ve Run Sayısı (Tüm Zamanlar)',
     'hit-n-runs-history' => 'Torrent Hit ve Tarihini Çalıştırdı',
-    'image' => 'görüntü',
+    'image' => 'resim',
     'important' => 'Önemli',
     'important-info' => 'Önemli bilgi',
     'information' => 'Bilgi',
@@ -380,4 +380,5 @@ return [
         'email' => 'Email yetki',
         'totp-is-enabled' => 'Zaman sınırlı tek kerelik şifre yetki şu an aktif edildi.İptal için \'disable\' butonuna basın.',
     ],
+    'warnings' => 'Uyarılar',
 ];

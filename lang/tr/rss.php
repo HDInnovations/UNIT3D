@@ -25,8 +25,9 @@ return [
     'private' => 'Özel',
     'rss' => 'RSS',
     'rss-feed' => 'RSS Yayını',
-    'type' => 'tip',
+    'type' => 'Tip',
     'deleted' => 'RSS silindi!',
     'error' => 'Bu istek gerçekleştirilemiyor',
     'created' => 'Kişisel rss kaynağı oluşturuldu',
+    'updated' => 'Özel RSS beslemesi güncellendi',
 ];
