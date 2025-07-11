@@ -149,10 +149,7 @@
             </div>
         </header>
         <menu id="chatbox_tabs" class="panel__tabs" role="tablist" x-show="boot == 1">
-            <template
-                x-for="(echo, idx) in echoes"
-                :key="echo.room && echo.room.id ? echo.room.id : 'room-' + idx"
-            >
+            <template x-for="echo in echoes" :key="echo.id">
                 <li
                     x-show="echo.room && echo.room.name && echo.room.name.length > 0"
                     class="panel__tab chatbox__tab"
@@ -174,10 +171,7 @@
                     </button>
                 </li>
             </template>
-            <template
-                x-for="(echo, idx) in echoes"
-                :key="echo.target && echo.target.id ? echo.target.id : 'target-' + idx"
-            >
+            <template x-for="echo in echoes" :key="echo.id">
                 <li
                     x-show="echo.target && echo.target.id >= 3 && echo.target.username && echo.target.username.length > 0"
                     class="panel__tab chatbox__tab"
@@ -202,10 +196,7 @@
                     </button>
                 </li>
             </template>
-            <template
-                x-for="(echo, idx) in echoes"
-                :key="echo.bot && echo.bot.id ? echo.bot.id : 'bot-' + idx"
-            >
+            <template x-for="echo in echoes" :key="echo.id">
                 <li
                     x-show="echo.bot && echo.bot.id >= 1 && echo.bot.name && echo.bot.name.length > 0"
                     class="panel__tab chatbox__tab"
