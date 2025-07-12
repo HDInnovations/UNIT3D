@@ -1,3 +1,25 @@
+/**
+ * Usage
+ *
+ * <fieldset class="form__fieldset">
+ *     <legend class="form__legend">Group</legend>
+ *     <p class="form__group">
+ *         <label class="form__label">
+ *             <input type="hidden" name="name" value="0" />
+ *             <input class="form__checkbox" type="checkbox" name="name" value="1" />
+ *             Label
+ *         </label>
+ *     </p>
+ *     <p class="form__group">
+ *         <label class="form__label">
+ *             <input type="hidden" name="name" value="0" />
+ *             <input class="form__checkbox" type="checkbox" name="name" value="1"/>
+ *             Label
+ *         </label>
+ *     </p>
+ * </fieldset>
+ */
+
 .form__fieldset {
     background-color: var(--fieldset-bg);
     border: var(--fieldset-border);
