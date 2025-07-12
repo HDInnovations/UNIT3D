@@ -306,10 +306,9 @@
                             action="{{ route('users.torrent_zip.show', ['user' => $user]) }}"
                             x-bind="dialogForm"
                         >
-                            <fieldset>
-                                <legend>Select download type:</legend>
-
-                                <div>
+                            <fieldset class="form__fieldset">
+                                <legend class="form__legend">Select download type:</legend>
+                                <div class="form__group">
                                     <input
                                         class="form__radio"
                                         type="radio"
@@ -318,10 +317,9 @@
                                         value="false"
                                         checked
                                     />
-                                    <label for="history">All History</label>
+                                    <label for="history" class="form__label">All History</label>
                                 </div>
-
-                                <div>
+                                <div class="form__group">
                                     <input
                                         class="form__radio"
                                         type="radio"
@@ -329,7 +327,7 @@
                                         name="type"
                                         value="true"
                                     />
-                                    <label for="peer">Active Peers</label>
+                                    <label for="peer" class="form__label">Active Peers</label>
                                 </div>
                             </fieldset>
                             <p class="form__group">
