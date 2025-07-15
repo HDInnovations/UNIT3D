@@ -213,7 +213,7 @@
                         </label>
                     </p>
                 </fieldset>
-                <fieldset class="form form__fieldset">
+                <fieldset class="form__fieldset">
                     <legend class="form__legend">{{ __('user.homepage-blocks') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
