@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Auditable;
-use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -34,21 +33,25 @@ use Illuminate\Database\Eloquent\Model;
 class Seedbox extends Model
 {
     use Auditable;
-    use Encryptable;
 
     /** @use HasFactory<\Database\Factories\SeedboxFactory> */
     use HasFactory;
 
-    /**
-     * The Attributes That Are Encrypted.
-     *
-     * @var string[]
-     */
-    protected array $encryptable = [
-        'ip',
-    ];
-
     protected $guarded = [];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{
+     *     ip: 'encrypted',
+     * }
+     */
+    protected function casts(): array
+    {
+        return [
+            'ip' => 'encrypted',
+        ];
+    }
 
     /**
      * Belongs To A User.

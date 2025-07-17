@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\ModerationStatus;
-use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -37,8 +36,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Donation extends Model
 {
-    use Encryptable;
-
     final public const int PENDING = 0;
     final public const int APPROVED = 1;
     final public const int REJECTED = 2;
@@ -46,7 +43,18 @@ class Donation extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{user_id: 'int', gifted_user_id: 'int', status: class-string<ModerationStatus>, package_id: 'int', transaction: 'string', is_gifted: 'bool', starts_at: 'datetime', ends_at: 'datetime', created_at: 'datetime', updated_at: 'datetime'}
+     * @return array{
+     *     user_id: 'int',
+     *     gifted_user_id: 'int',
+     *     status: class-string<ModerationStatus>,
+     *     package_id: 'int',
+     *     transaction: 'encrypted',
+     *     is_gifted: 'bool',
+     *     starts_at: 'datetime',
+     *     ends_at: 'datetime',
+     *     created_at: 'datetime',
+     *     updated_at: 'datetime'
+     * }
      */
     protected function casts(): array
     {
@@ -55,7 +63,7 @@ class Donation extends Model
             'gifted_user_id' => 'int',
             'status'         => ModerationStatus::class,
             'package_id'     => 'int',
-            'transaction'    => 'string',
+            'transaction'    => 'encrypted',
             'is_gifted'      => 'bool',
             'starts_at'      => 'datetime',
             'ends_at'        => 'datetime',
@@ -70,15 +78,6 @@ class Donation extends Model
      * @var string[]
      */
     protected $guarded = ['id'];
-
-    /**
-     * The Attributes That Are Encrypted.
-     *
-     * @var string[]
-     */
-    protected array $encryptable = [
-        'transaction',
-    ];
 
     /**
      * Belongs To A User.
