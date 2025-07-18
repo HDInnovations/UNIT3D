@@ -48,7 +48,8 @@
 }
 
 #chatbox__messages-create:focus ~ .form__label--floating,
-#chatbox__messages-create:valid:not(:placeholder-shown) ~ .form__label--floating {
+#chatbox__messages-create:valid:not(:placeholder-shown)
+    ~ .form__label--floating {
     background-color: var(--panel-bg);
 }
 
