@@ -47,6 +47,11 @@
     max-height: 60vh;
 }
 
+#chatbox__messages-create:focus ~ .form__label--floating,
+#chatbox__messages-create:valid:not(:placeholder-shown) ~ .form__label--floating {
+    background-color: var(--panel-bg);
+}
+
 .chatbox-message {
     display: grid;
     grid-template-areas: 'aside header . menu' 'aside content content content';
