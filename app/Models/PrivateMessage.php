@@ -42,6 +42,20 @@ class PrivateMessage extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{
+     *     message: 'encrypted',
+     * }
+     */
+    protected function casts(): array
+    {
+        return [
+            'message' => 'encrypted',
+        ];
+    }
+
+    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>

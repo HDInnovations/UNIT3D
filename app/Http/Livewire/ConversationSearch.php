@@ -18,6 +18,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Conversation;
 use App\Traits\LivewireSort;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Url;
@@ -80,7 +81,18 @@ class ConversationSearch extends Component
             )
             ->when(
                 $this->message !== null && $this->message !== '',
-                fn ($query) => $query->whereRelation('messages', 'message', 'LIKE', '%'.str_replace(' ', '%', $this->message).'%')
+                fn ($query) => $query->whereHas('messages', function ($query): void {
+                    DB::statement("SET block_encryption_mode = 'aes-256-cbc'");
+                    $query
+                        ->selectRaw(<<<SQL
+                            AES_DECRYPT(
+                                FROM_BASE64(JSON_UNQUOTE(JSON_EXTRACT(CONVERT(FROM_BASE64(message) USING utf8), '$.value'))),
+                                ?,
+                                FROM_BASE64(JSON_UNQUOTE(JSON_EXTRACT(CONVERT(FROM_BASE64(message) USING utf8), '$.iv')))
+                            ) AS decrypted_message
+                        SQL, [base64_decode(substr(config('app.key'), 7))])
+                        ->having('decrypted_message', 'LIKE', '%'.str_replace(' ', '%', $this->message).'%');
+                })
             )
             ->when(
                 $this->tab === 'inbox' || $this->tab === 'unread',
