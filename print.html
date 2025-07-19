@@ -1,0 +1,1773 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>UNIT3D Documentation</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">UNIT3D Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="wiki"><a class="header" href="#wiki">Wiki</a></h1>
+<p>This wiki serves as the central resource for setting up, managing, and optimizing your UNIT3D installation. Whether you're working on local development, managing a production server, or contributing to the open-source community, you'll find a number of useful guides here.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="backups"><a class="header" href="#backups">Backups</a></h1>
+<p>UNIT3D offers built in backup tools, available through the web dashboard or via Artisan commands, allowing you to create, manage, and restore your application snapshots.</p>
+<h2 id="1-configuration"><a class="header" href="#1-configuration">1. Configuration</a></h2>
+<p><strong>Customize</strong> <code>config/backup.php</code> in your editor and adjust settings as needed; inline notes outline the available configuration parameters.</p>
+<p><strong>Key structure</strong>:</p>
+<ul>
+<li>
+<p><strong><code>backup</code></strong></p>
+<ul>
+<li>
+<p><strong><code>name</code></strong></p>
+</li>
+<li>
+<p><strong><code>source</code></strong></p>
+<ul>
+<li>
+<p><strong><code>files</code></strong></p>
+<p>Specifies which directories and files to <code>include</code> and which to <code>exclude</code> in the backup.</p>
+<pre><code class="language-php">    'include' =&gt; [
+        base_path(),
+     ],
+
+    'exclude' =&gt; [
+        base_path(),
+        base_path('vendor'),
+        base_path('node_modules'),
+        base_path('storage'),
+        base_path('public/vendor/joypixels'),
+     ],
+</code></pre>
+<ul>
+<li>
+<p><strong><code>follow_links</code></strong></p>
+</li>
+<li>
+<p><strong><code>ignore_unreadable_directories</code></strong></p>
+</li>
+<li>
+<p><strong><code>relative_path</code></strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>databases</code></strong></p>
+<p>Specifies the database connections to back up.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>database_dump_compressor</code></strong></p>
+<p>Compressor class (e.g. <code>Spatie\DbDumper\Compressors\GzipCompressor::class</code>) or <code>null</code> to disable.</p>
+</li>
+<li>
+<p><strong><code>destination</code></strong></p>
+<p>Defines the storage location for backup files.​</p>
+</li>
+<li>
+<p><strong><code>temporary_directory</code></strong></p>
+</li>
+</ul>
+<p>Staging directory for temporary files.</p>
+</li>
+<li>
+<p><strong><code>notifications</code></strong></p>
+<p>Define when and how backup events trigger alerts via mail, Slack, or custom channels.</p>
+</li>
+<li>
+<p><strong><code>monitor_backups</code></strong></p>
+<p>Detect backup issues; triggers <code>UnhealthyBackupWasFound</code> when needed.</p>
+</li>
+<li>
+<p><strong><code>cleanup</code></strong></p>
+<p>Define how long to keep backups and when to purge old archives.</p>
+<ul>
+<li>
+<p><strong><code>strategy</code></strong></p>
+</li>
+<li>
+<p><strong><code>default_strategy</code></strong></p>
+<p>Keeps all backups for 7 days; then retains daily backups for 16 days, weekly for 8 weeks, monthly for 4 months, and yearly for 2 years. Deletes old backups exceeding 5000 MB.</p>
+<pre><code class="language-php">    'keep_all_backups_for_days'                =&gt; 7,
+    'keep_daily_backups_for_days'              =&gt; 16,
+    'keep_weekly_backups_for_weeks'            =&gt; 8,
+    'keep_monthly_backups_for_months'          =&gt; 4,
+    'keep_yearly_backups_for_years'            =&gt; 2,
+    'delete_oldest_backups_when_using_more_megabytes_than' =&gt; 5000,
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>security</code></strong></p>
+<p>Ensure that only someone with your <code>APP_KEY</code> can decrypt and restore snapshots.</p>
+</li>
+</ul>
+<h2 id="2-create-a-backup"><a class="header" href="#2-create-a-backup">2. Create a backup</a></h2>
+<p>You can access the built-in Backups dashboard from the Staff menu. It shows each backup’s status, health, size, and count, and lets administrators launch unscheduled full, database, or files-only backups instantly. Another approach is to use the command line.</p>
+<blockquote>
+<p>[!IMPORTANT]
+Backups initiated via the Staff Dashboard buttons may timeout on very large installations.</p>
+</blockquote>
+<ul>
+<li>
+<p>The following artisan commands are available:</p>
+<pre><code class="language-sh">php artisan backup:run
+</code></pre>
+<p>Creates a timestamped ZIP of application files and database.</p>
+<pre><code class="language-sh">php artisan backup:run --only-db
+</code></pre>
+<p>Creates a timestamped ZIP containing only the database.</p>
+<pre><code class="language-sh">php artisan backup:run --only-files
+</code></pre>
+<p>Creates a timestamped ZIP containing only application files.</p>
+</li>
+</ul>
+<h2 id="3-viewing-backup-list"><a class="header" href="#3-viewing-backup-list">3. Viewing backup list</a></h2>
+<ul>
+<li>
+<p><strong>List</strong> existing backups:</p>
+<pre><code class="language-sh">php artisan backup:list
+</code></pre>
+</li>
+</ul>
+<h2 id="4-restoring-a-backup"><a class="header" href="#4-restoring-a-backup">4. Restoring a backup</a></h2>
+<blockquote>
+<p>[!WARNING]
+<strong>Always test backup restoration procedures on a non‑critical environment before applying to production.</strong>
+Incorrect restoration can lead to data loss or service disruption.</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>Install prerequisites</strong> (Debian/Ubuntu):</p>
+<pre><code class="language-sh">sudo apt update &amp;&amp; sudo apt install p7zip-full -y
+</code></pre>
+</li>
+<li>
+<p><strong>Retrieve</strong> your application key:</p>
+<pre><code class="language-sh">grep '^APP_KEY=' /var/www/html/.env
+</code></pre>
+</li>
+<li>
+<p><strong>Extract</strong> the outer archive (enter APP_KEY when prompted):</p>
+<pre><code class="language-sh">7z x [UNIT3D]YYYY-MM-DD-HH-MM-SS.zip
+</code></pre>
+</li>
+<li>
+<p><strong>Unzip</strong> inner archive, if generated:</p>
+<pre><code class="language-sh">7z x backup.zip
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+<strong>Full backups will contain two parts; the files backup and a database backup or dump file.</strong></p>
+</blockquote>
+<h3 id="restoring-the-files-backup"><a class="header" href="#restoring-the-files-backup"><strong>Restoring the files backup:</strong></a></h3>
+<ol>
+<li>
+<p><strong>Copy</strong> restored files to webroot:</p>
+<pre><code class="language-sh">sudo cp -a ~/tempBackup/var/www/html/. /var/www/html/
+</code></pre>
+</li>
+<li>
+<p><strong>Fix</strong> file permissions:</p>
+<pre><code class="language-sh">sudo chown -R www-data:www-data /var/www/html
+sudo find /var/www/html -type f -exec chmod 664 {} \;
+sudo find /var/www/html -type d -exec chmod 775 {} \;
+</code></pre>
+</li>
+</ol>
+<h3 id="restoring-the-database-backup"><a class="header" href="#restoring-the-database-backup"><strong>Restoring the database backup:</strong></a></h3>
+<ol>
+<li>
+<p><strong>Retrieve</strong> your database credentials:</p>
+<pre><code class="language-sh">grep '^DB_' /var/www/html/.env
+</code></pre>
+</li>
+<li>
+<p><strong>Restore</strong> your database:</p>
+<pre><code class="language-sh">mysql -u unit3d -p unit3d &lt; ~/tempBackup/db-dumps/mysql-unit3d.sql
+</code></pre>
+</li>
+</ol>
+<h2 id="5-reset--cleanup"><a class="header" href="#5-reset--cleanup">5. Reset &amp; Cleanup</a></h2>
+<blockquote>
+<p>After restoring backups, ensure to reset configurations and clean up temporary files to maintain system integrity.</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>Fix</strong> permissions:</p>
+<pre><code class="language-sh">sudo chown -R www-data:www-data /var/www/html
+sudo find /var/www/html -type f -exec chmod 664 {} \;
+sudo find /var/www/html -type d -exec chmod 775 {} \;
+</code></pre>
+</li>
+<li>
+<p><strong>Reinstall</strong> Node dependencies &amp; rebuild (if assets need it):</p>
+<pre><code class="language-sh">sudo rm -rf node_modules &amp;&amp; sudo bun install &amp;&amp; sudo bun run build
+</code></pre>
+</li>
+<li>
+<p><strong>Clear</strong> caches &amp; restart services:</p>
+<pre><code class="language-sh">cd /var/www/html
+sudo php artisan set:all_cache
+sudo systemctl restart php8.4-fpm
+sudo php artisan queue:restart
+</code></pre>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="basic-tuning"><a class="header" href="#basic-tuning">Basic tuning</a></h1>
+<!-- cspell:ignore unixsocket,unixsocketperm,usermod,ondemand,curlopt,cainfo -->
+<blockquote>
+<p>[!IMPORTANT]
+These guides are intended for UNIT3D v8.0.0 + instances. While these are better than defaults be careful blindly following them. Proper tuning requires understanding your server, running tests and monitoring the results.</p>
+</blockquote>
+<h2 id="redis-single-server"><a class="header" href="#redis-single-server">Redis single server</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">30 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction"><a class="header" href="#introduction">Introduction</a></h3>
+<p>If your Redis service is running on your web server, it is highly recommended that you use <strong>Unix sockets</strong> instead of <strong>TCP ports</strong> to communicate with your web server.</p>
+<p>Based on the Redis official benchmark, you can <strong>improve performance by up to 50%</strong> using unix sockets (versus TCP ports) on Redis.</p>
+<p>Of course, unix sockets can only be used if both your Laravel application and Redis are running on the same server.</p>
+<h3 id="how-to-enable-unix-sockets"><a class="header" href="#how-to-enable-unix-sockets">How to enable unix sockets</a></h3>
+<p>First, create the redis folder that the unix socket will be in and set appropriate permissions:</p>
+<pre><code class="language-bash">sudo mkdir -p /var/run/redis/
+sudo chown -R redis:www-data /var/run/redis
+sudo usermod -aG redis www-data
+</code></pre>
+<p>Next, add the unix socket path and permissions in your Redis configuration file (typically at <code>/etc/redis/redis.conf</code>):</p>
+<pre><code class="language-ini">unixsocket /var/run/redis/redis.sock
+unixsocketperm 770
+</code></pre>
+<p>Finally, set your corresponding env variables to the socket path as above:</p>
+<pre><code class="language-bash">REDIS_HOST=/var/run/redis/redis.sock
+REDIS_PORT=-1
+REDIS_SCHEME=unix
+</code></pre>
+<p>Ensure that you have your <code>config/database.php</code> file refer to the above variables (notice the <code>scheme</code> addition below):</p>
+<pre><code class="language-php{7}">'redis' =&gt; [
+    'client' =&gt; env('REDIS_CLIENT', 'phpredis'),
+
+    'options' =&gt; [
+        'scheme' =&gt; env('REDIS_SCHEME', 'tcp'),
+    ],
+
+    'default' =&gt; [
+        'url' =&gt; env('REDIS_URL'),
+        'host' =&gt; env('REDIS_HOST', '127.0.0.1'),
+        'password' =&gt; env('REDIS_PASSWORD', null),
+        'port' =&gt; env('REDIS_PORT', '6379'),
+        'database' =&gt; env('REDIS_DB', '0'),
+    ],
+
+    'cache' =&gt; [
+        'url' =&gt; env('REDIS_URL'),
+        'host' =&gt; env('REDIS_HOST', '127.0.0.1'),
+        'password' =&gt; env('REDIS_PASSWORD', null),
+        'port' =&gt; env('REDIS_PORT', '6379'),
+        'database' =&gt; env('REDIS_CACHE_DB', '1'),
+    ],
+],
+</code></pre>
+<p>Once that's all done simply restart redis.</p>
+<pre><code class="language-bash">sudo systemctl restart redis
+</code></pre>
+<h3 id="references"><a class="header" href="#references">References</a></h3>
+<ul>
+<li><a href="https://redis.io/topics/benchmarks">Redis Official Benchmark on Socket vs TCP</a></li>
+<li><a href="https://laravel.com/docs/redis">Laravel Documentation on Redis</a></li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+Keep in mind that when using unix socket you will now connect to redis-cli in terminal like so: <code>redis-cli -s /var/run/redis/redis.sock</code></p>
+</blockquote>
+<h2 id="mysql-single-server"><a class="header" href="#mysql-single-server">MySQL single server</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">10 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h3>
+<p>If your MySQL database is running on your web server, it is highly recommended that you use <strong>Unix sockets</strong> instead of <strong>TCP ports</strong> to communicate with your web server.</p>
+<p>Based on Percona's benchmark, you can <strong>improve performance by up to 50%</strong> using unix sockets (versus TCP ports on MySQL).</p>
+<p>Of course, unix sockets can only be used if both your UNIT3D application and database are running on the same server which is by default.</p>
+<h3 id="how-to-enable-unix-sockets-1"><a class="header" href="#how-to-enable-unix-sockets-1">How to enable unix sockets</a></h3>
+<p>First, open your MySQL configuration file.</p>
+<pre><code class="language-bash">nano /etc/mysql/my.cnf
+</code></pre>
+<p>Then, uncomment and change (if needed) the socket parameter in the <code>[mysqld]</code> section of one of the above configuration files:</p>
+<pre><code class="language-ini">[mysqld]
+user            = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+</code></pre>
+<p>Close this file, then ensure that the mysqld.sock file exists by running an ls command on the directory where MySQL expects to find it:</p>
+<p><code>ls -a /var/run/mysqld/</code></p>
+<p>If the socket file exists, you will see it in this command’s output:</p>
+<p>Output
+<code>.  ..  mysqld.pid  mysqld.sock  mysqld.sock.lock</code>
+If the file does not exist, the reason may be that MySQL is trying to create it, but does not have adequate permissions to do so. You can ensure that the correct permissions are in place by changing the directory’s ownership to the mysql user and group:</p>
+<p><code>sudo chown mysql:mysql /var/run/mysqld/</code></p>
+<p>Then ensure that the mysql user has the appropriate permissions over the directory. Setting these to 775 will work in most cases:</p>
+<p><code>sudo chmod -R 755 /var/run/mysqld/</code></p>
+<p>Finally, set your <code>database.connections.mysql.unix_socket</code> configuration variable or the corresponding env variable to the socket path as above:</p>
+<pre><code class="language-bash">DB_SOCKET=/var/run/mysqld/mysqld.sock
+</code></pre>
+<p>Once that's all done simply refresh your cache and then restart the services.</p>
+<pre><code class="language-bash">php artisan set:all_cache
+</code></pre>
+<pre><code class="language-bash">sudo systemctl restart mysql &amp;&amp; sudo systemctl restart php8.3-fpm &amp;&amp; sudo systemctl restart nginx
+</code></pre>
+<h3 id="references-1"><a class="header" href="#references-1">References</a></h3>
+<ul>
+<li><a href="https://www.percona.com/blog/2020/04/13/need-to-connect-to-a-local-mysql-server-use-unix-domain-socket/">Percona Benchmark (Unix vs TCP)</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-troubleshoot-socket-errors-in-mysql">MySQL Unix Socket Setup</a></li>
+<li><a href="https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-connection-socket.html">MySQL Shell Connections Guide</a></li>
+</ul>
+<h2 id="composer-autoloader-optimization"><a class="header" href="#composer-autoloader-optimization">Composer autoloader optimization</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Moderate</td><td style="text-align: right">5 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-2"><a class="header" href="#introduction-2">Introduction</a></h3>
+<p>Due to the way PSR-0/4 autoloading rules are defined, the Composer autoloader checks the filesystem before resolving a classname conclusively.</p>
+<p>In production, Composer allows for optimization to convert the PSR-0 and PSR-4 autoloading rules into classmap rules, making autoloading quite a bit faster. In production we also don't need all the require-dev dependencies loaded up!</p>
+<h3 id="how-to-optimize"><a class="header" href="#how-to-optimize">How to optimize?</a></h3>
+<p>It's really simple. SSH to your server and run the following commands.</p>
+<pre><code class="language-bash">composer install --prefer-dist --no-dev
+</code></pre>
+<pre><code class="language-bash">composer dump-autoload --optimize
+</code></pre>
+<h3 id="references-2"><a class="header" href="#references-2">References</a></h3>
+<ul>
+<li>https://getcomposer.org/doc/articles/autoloader-optimization.md</li>
+</ul>
+<h2 id="php8-opcache"><a class="header" href="#php8-opcache">PHP8 OPCache</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">10 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-3"><a class="header" href="#introduction-3">Introduction</a></h3>
+<p>Opcache provides massive performance gains. One of the benchmarks suggest it can provide a 5.5X performance gain in a Laravel application!</p>
+<p><code>What is OPcache?</code>
+Every time you execute a PHP script, the script needs to be compiled to byte code. OPCache leverages a cache for this bytecode, so the next time the same script is requested, it doesn’t have to recompile it. This can save some precious execution time, and thus make UNIT3D faster.</p>
+<p><code>Sounds awesome, so how can you use it?</code>
+Easy. SSH to your server and run the following command. <code>sudo nano /etc/php/8.3/fpm/php.ini</code> This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for <code>opcache</code>.</p>
+<p>Now you can change some values, I will walk you through the most important ones.</p>
+<p><code>opcache.enable=1</code>
+This of course, enables OPcache for php-fpm. Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.enable_cli=1</code>
+This of course, enables OPcache for php-cli. Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.memory_consumption=256M</code>
+How many Megabyte you want to assign to OPCache. Choose anything higher than 64 (default value) depending on your needs. 2GB is sufficient but if have more RAM then make use of it! Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.interned_strings_buffer=64</code>
+How many Megabyte you want to assign to interned strings. Choose anything higher than 16 (default value). 1GB is sufficient but if have more RAM then make use of it! Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.validate_timestamps=0</code>
+This will revalidate the script. If you set this to 0 (best performance), you need to manually clear the OPcache every time your PHP code changes. So if you update UNIT3D using <code>php artisan git:update</code> or manually make changes yourself you need to run <code>sudo systemctl restart php8.2-fpm</code> afterwords for your changes to take effect and show. Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.save_comments=1</code>
+This will preserve comments in your script, I recommend to keep this enabled, as some libraries depend on it, and I couldn’t find any benefits from disabling it (except from saving a few bytes RAM). Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p>And there you have it folks. Experiment with these values, depending on the resources of your server. Save the file and exit and restart PHP <code>sudo systemctl restart php8.3-fpm</code>.</p>
+<p>Enjoy! 🖖</p>
+<h2 id="php-8-preloading"><a class="header" href="#php-8-preloading">PHP 8 preloading</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">5 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-4"><a class="header" href="#introduction-4">Introduction</a></h3>
+<p>This is chaining off <code>Want More Performance? Lets talk about OPCache!</code> guide. You must have OPCache enabled to use preloading.</p>
+<p>PHP preloading for PHP &gt;=7.4. Preloading is a feature of php that will pre-compile php functions and classes to opcache. Thus, this becomes available in your programs with out needing to require the files, which improves speed. To read more on php preloading you can see the <a href="https://www.php.net/manual/en/opcache.preloading.php">opcache.preloading documentation</a>.</p>
+<h3 id="enabling-preloading"><a class="header" href="#enabling-preloading">Enabling preloading</a></h3>
+<p>SSH to your server and run the following command. <code>sudo nano /etc/php/8.3/fpm/php.ini</code> This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for <code>preload</code>.</p>
+<p>Now you can change some values.</p>
+<pre><code>; Specifies a PHP script that is going to be compiled and executed at server
+; start-up.
+; https://php.net/opcache.preload
+opcache.preload = '/var/www/html/preload.php';
+
+; Preloading code as root is not allowed for security reasons. This directive
+; facilitates to let the preloading to be run as another user.
+; https://php.net/opcache.preload_user
+opcache.preload_user=ubuntu
+</code></pre>
+<p>As you can see we are calling the preload file included in UNIT3D located in <code>/var/www/html/preload.php</code>.
+<code>opcache.preload_user=ubuntu</code> you should changed to your server user. Not root!!!!</p>
+<p>And there you have it folks. Save the file and exit and restart PHP <code>sudo systemctl restart php8.3-fpm</code>. You are now preloading Laravel thus making UNIT3D faster.</p>
+<h2 id="php8-jit"><a class="header" href="#php8-jit">PHP8 JIT</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Moderate</td><td style="text-align: right">5 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-5"><a class="header" href="#introduction-5">Introduction</a></h3>
+<p>PHP 8 adds a JIT compiler to PHP's core which has the potential to speed up performance dramatically.</p>
+<p>First of all, the JIT will only work if opcache is enabled, this is the default for most PHP installations, but you should make sure that <code>opcache.enable</code> is set to <code>1</code> in your php.ini file. Enabling the JIT itself is done by specifying <code>opcache.jit_buffer_size</code> in php.ini. <strong><em>So I recommend checking the OPcache guide I made first then coming back here.</em></strong></p>
+<h3 id="how-to-enable-jit"><a class="header" href="#how-to-enable-jit">How to enable JIT</a></h3>
+<p>SSH to your server and run the following command. <code>sudo nano /etc/php/8.3/fpm/php.ini</code> This is assuming your on PHP 8.2. If not then adjust the command. Once you have the config open search for <code>opcache.jit</code>.</p>
+<p>If you do not get any results then search for <code>[curl]</code> you should see the following.</p>
+<pre><code>[curl]
+; A default value for the CURLOPT_CAINFO option. This is required to be an
+; absolute path.
+;curl.cainfo =
+</code></pre>
+<p>Right above it add:</p>
+<pre><code>opcache.jit_buffer_size=256M
+</code></pre>
+<p>Its as simple as that. Save and exit and restart PHP. <code>sudo systemctl restart php8.2-fpm</code></p>
+<h2 id="pm-static"><a class="header" href="#pm-static">PM static</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">10 minutes</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>[!IMPORTANT]
+This guide is intended for high traffic sites.</p>
+</blockquote>
+<h3 id="introduction-6"><a class="header" href="#introduction-6">Introduction</a></h3>
+<p>Lets give a basic description on what these options are:</p>
+<p><code>pm = dynamic</code> – the number of child processes is set dynamically based on the following directives: pm.max_children, pm.start_servers,pm.min_spare_servers, pm.max_spare_servers.</p>
+<p><code>pm = ondemand</code> – the processes spawn on demand (when requested, as opposed to dynamic, where pm.start_servers are started when the service is started.</p>
+<p><code>pm = static</code> – the number of child processes is fixed by pm.max_children.</p>
+<p>The PHP-FPM pm static setting depends heavily on how much free memory your server has. Basically if you are suffering from low server memory, then pm ondemand or dynamic maybe be better options. On the other hand, if you have the memory available you can avoid much of the PHP process manager (PM) overhead by setting pm static to the max capacity of your server. In other words, when you do the math, pm.static should be set to the max amount of PHP-FPM processes that can run without creating memory availability or cache pressure issues. Also, not so high as to overwhelm CPU(s) and have a pile of pending PHP-FPM operations.</p>
+<h3 id="enabling-static"><a class="header" href="#enabling-static">Enabling static</a></h3>
+<p>Lets open up our PHP configuration file. <code>sudo nano /etc/php/8.3/fpm/pool.d/www.conf</code></p>
+<p>Set <code>pm = static</code>
+Set <code>pm.max_children = 25</code></p>
+<p>Save, Exit and Restart <code>sudo systemctl restart php8.3-fpm</code></p>
+<h3 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h3>
+<p>When it comes to PHP-FPM, once you start to serve serious traffic, ondemand and dynamic process managers for PHP-FPM can limit throughput because of the inherent overhead. Know your system and set your PHP-FPM processes to match your server’s max capacity.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="unit3d-v8xx-on-arch-linux-with-laravel-sail"><a class="header" href="#unit3d-v8xx-on-arch-linux-with-laravel-sail">UNIT3D v8.x.x on Arch Linux with Laravel Sail</a></h1>
+<!-- cspell:ignore dockerized,pacman -->
+<p><em>A guide by EkoNesLeg</em></p>
+<p>This guide outlines the steps to set up UNIT3D using Laravel Sail on Arch Linux. While the guide highlights the use of Arch Linux, the instructions can be adapted to other environments.</p>
+<blockquote>
+<p>[!IMPORTANT]
+This guide is intended for local development environments only and is not suitable for production deployment.</p>
+</blockquote>
+<h2 id="modifying-env-and-secure-headers-for-non-https-instances"><a class="header" href="#modifying-env-and-secure-headers-for-non-https-instances">Modifying <code>.env</code> and secure headers for non-HTTPS instances</a></h2>
+<p>For local development, HTTP is commonly used instead of HTTPS. To prevent mixed content issues, adjust your <code>.env</code> file as follows:</p>
+<ol>
+<li><strong>Modify the <code>.env</code> Config:</strong>
+<ul>
+<li>
+<p>Open your <code>.env</code> file in the root directory of your UNIT3D project.</p>
+</li>
+<li>
+<p>Add or modify the following environment variables:</p>
+<pre><code class="language-dotenv">DB_HOST=mysql               # Match the container name in the compose file
+DB_USERNAME=unit3d          # The username can be anything except `root`
+SESSION_SECURE_COOKIE=false # Disables secure cookies
+REDIS_HOST=redis            # Match the container name in the compose file
+CSP_ENABLED=false           # Disables Content Security Policy
+HSTS_ENABLED=false          # Disables Strict Transport Security
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<p>Ensure Docker and Docker Compose are installed, as they are required for managing the Dockerized development environment provided by Laravel Sail.</p>
+<h3 id="installing-docker-and-docker-compose"><a class="header" href="#installing-docker-and-docker-compose">Installing Docker and Docker Compose</a></h3>
+<p>Refer to the <a href="https://wiki.archlinux.org/title/Docker">Arch Linux Docker documentation</a> and install the necessary packages:</p>
+<pre><code class="language-sh">sudo pacman -S docker docker-compose
+</code></pre>
+<h2 id="step-1-clone-the-repository"><a class="header" href="#step-1-clone-the-repository">Step 1: clone the repository</a></h2>
+<p>Clone the UNIT3D repository to your local environment:</p>
+<ol>
+<li>
+<p>Navigate to your chosen workspace directory:</p>
+<pre><code class="language-sh">cd ~/PhpstormProjects
+</code></pre>
+</li>
+<li>
+<p>Clone the repository:</p>
+<pre><code class="language-sh">git clone git@github.com:HDInnovations/UNIT3D-Community-Edition.git
+</code></pre>
+</li>
+</ol>
+<h2 id="step-2-composer-dependency-installation"><a class="header" href="#step-2-composer-dependency-installation">Step 2: Composer dependency installation</a></h2>
+<ol>
+<li>
+<p><strong>Change to the project’s root directory:</strong></p>
+<pre><code class="language-sh">cd ~/PhpstormProjects/UNIT3D-Community-Edition
+</code></pre>
+</li>
+<li>
+<p><strong>Install Composer dependencies:</strong></p>
+<p>Run the following command to install the PHP dependencies:</p>
+<pre><code class="language-sh">composer install
+</code></pre>
+</li>
+</ol>
+<h2 id="step-3-docker-environment-initialization"><a class="header" href="#step-3-docker-environment-initialization">Step 3: Docker environment initialization</a></h2>
+<ol>
+<li>
+<p><strong>Switch to branch 8.x.x:</strong></p>
+<p>Before starting Docker, switch to the <code>8.x.x</code> branch:</p>
+<pre><code class="language-sh">git checkout 8.x.x
+</code></pre>
+</li>
+<li>
+<p><strong>Start the Docker environment using Laravel Sail:</strong></p>
+<pre><code class="language-sh">./vendor/bin/sail up -d
+</code></pre>
+</li>
+</ol>
+<h2 id="step-4-app-key-generation"><a class="header" href="#step-4-app-key-generation">Step 4: app key generation</a></h2>
+<p>Generate a new <code>APP_KEY</code> in the <code>.env</code> file for encryption:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan key:generate
+</code></pre>
+<p><strong>Note</strong>: If you are importing a database backup, make sure to set the <code>APP_KEY</code> in the <code>.env</code> file to match the key used when the backup was created.</p>
+<h2 id="step-5-database-migrations-and-seeders"><a class="header" href="#step-5-database-migrations-and-seeders">Step 5: database migrations and seeders</a></h2>
+<p>Initialize your database with sample data by running migrations and seeders:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate:fresh --seed
+</code></pre>
+<blockquote>
+<p>[!IMPORTANT]
+This operation resets your database and seeds it with default data. Avoid running this in a production environment.</p>
+</blockquote>
+<h2 id="step-6-database-preparation"><a class="header" href="#step-6-database-preparation">Step 6: database preparation</a></h2>
+<h3 id="initial-database-loading"><a class="header" href="#initial-database-loading">Initial database loading</a></h3>
+<p>Prepare your database with the initial schema and data. Make sure you have a database dump file, such as <code>prod-site-backup.sql</code>.</p>
+<h3 id="mysql-data-importation"><a class="header" href="#mysql-data-importation">MySQL data importation</a></h3>
+<p>Import your database dump into MySQL within the Docker environment:</p>
+<pre><code class="language-bash">./vendor/bin/sail mysql -u root -p unit3d &lt; prod-site-backup.sql
+</code></pre>
+<p><strong>Note</strong>: Ensure that the <code>APP_KEY</code> in the <code>.env</code> file matches the key used in your deployment environment for compatibility.</p>
+<h2 id="step-7-npm-dependency-management"><a class="header" href="#step-7-npm-dependency-management">Step 7: NPM dependency management</a></h2>
+<p>Manage Node.js dependencies and compile assets within the Docker environment:</p>
+<pre><code class="language-bash">./vendor/bin/sail bun install
+./vendor/bin/sail bun run build
+</code></pre>
+<p>If needed, refresh the Node.js environment:</p>
+<pre><code class="language-bash">./vendor/bin/sail rm -rf node_modules &amp;&amp; bun pm cache rm &amp;&amp; bun install &amp;&amp; bun run build
+</code></pre>
+<h2 id="step-8-application-cache-configuration"><a class="header" href="#step-8-application-cache-configuration">Step 8: application cache configuration</a></h2>
+<p>Optimize the application's performance by setting up the cache:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan set:all_cache
+</code></pre>
+<h2 id="step-9-environment-restart"><a class="header" href="#step-9-environment-restart">Step 9: environment restart</a></h2>
+<p>Apply new configurations or restart the environment by toggling the Docker environment:</p>
+<pre><code class="language-bash">./vendor/bin/sail restart &amp;&amp; ./vendor/bin/sail artisan queue:restart
+</code></pre>
+<h2 id="additional-notes"><a class="header" href="#additional-notes">Additional notes</a></h2>
+<ul>
+<li><strong>Permissions</strong>: Use <code>sudo</code> cautiously to avoid permission conflicts, particularly with Docker commands that require elevated access.</li>
+</ul>
+<h3 id="appendix-sail-commands-for-unit3d"><a class="header" href="#appendix-sail-commands-for-unit3d">Appendix: Sail commands for UNIT3D</a></h3>
+<p>This section provides a reference for managing and interacting with UNIT3D using Laravel Sail.</p>
+<h4 id="docker-management"><a class="header" href="#docker-management">Docker management</a></h4>
+<ul>
+<li>
+<p><strong>Start environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail up -d
+</code></pre>
+<p>Starts Docker containers in detached mode.</p>
+</li>
+<li>
+<p><strong>Stop environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail down
+</code></pre>
+<p>Stops and removes Docker containers.</p>
+</li>
+<li>
+<p><strong>Restart environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail restart
+</code></pre>
+<p>Applies changes by restarting the Docker environment.</p>
+</li>
+</ul>
+<h4 id="dependency-management"><a class="header" href="#dependency-management">Dependency management</a></h4>
+<ul>
+<li>
+<p><strong>Install Composer dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail composer install
+</code></pre>
+<p>Installs PHP dependencies defined in <code>composer.json</code>.</p>
+</li>
+<li>
+<p><strong>Update Composer dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail composer update
+</code></pre>
+<p>Updates PHP dependencies defined in <code>composer.json</code>.</p>
+</li>
+</ul>
+<h4 id="laravel-artisan"><a class="header" href="#laravel-artisan">Laravel Artisan</a></h4>
+<ul>
+<li>
+<p><strong>Run migrations</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate
+</code></pre>
+<p>Executes database migrations.</p>
+</li>
+<li>
+<p><strong>Seed database</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan db:seed
+</code></pre>
+<p>Seeds the database with predefined data.</p>
+</li>
+<li>
+<p><strong>Refresh database</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate:fresh --seed
+</code></pre>
+<p>Resets and seeds the database.</p>
+</li>
+<li>
+<p><strong>Cache configurations</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan set:all_cache
+</code></pre>
+<p>Clears and caches configurations for performance.</p>
+</li>
+</ul>
+<h4 id="npm-and-assets"><a class="header" href="#npm-and-assets">NPM and assets</a></h4>
+<ul>
+<li>
+<p><strong>Install NPM dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail bun install
+</code></pre>
+<p>Installs Node.js dependencies.</p>
+</li>
+<li>
+<p><strong>Compile assets</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail bun run build
+</code></pre>
+<p>Compiles CSS and JavaScript assets.</p>
+</li>
+</ul>
+<h4 id="database-operations"><a class="header" href="#database-operations">Database operations</a></h4>
+<ul>
+<li><strong>MySQL interaction</strong>:
+<pre><code class="language-bash">./vendor/bin/sail mysql -u root -p
+</code></pre>
+Opens MySQL CLI for database interaction.</li>
+</ul>
+<h4 id="queue-management"><a class="header" href="#queue-management">Queue management</a></h4>
+<ul>
+<li><strong>Restart queue workers</strong>:
+<pre><code class="language-bash">./vendor/bin/sail artisan queue:restart
+</code></pre>
+Restarts queue workers after changes.</li>
+</ul>
+<h4 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h4>
+<ul>
+<li>
+<p><strong>View logs</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail logs
+</code></pre>
+<p>Displays Docker container logs.</p>
+</li>
+<li>
+<p><strong>Run PHPUnit (PEST) tests</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan test
+</code></pre>
+<p>Runs PEST tests for the application.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="unit3d-v8xx-on-macos-with-laravel-sail-and-phpstorm"><a class="header" href="#unit3d-v8xx-on-macos-with-laravel-sail-and-phpstorm">UNIT3D v8.x.x on MacOS with Laravel Sail and PhpStorm</a></h1>
+<p><em>A guide by HDVinnie</em></p>
+<p>This guide is designed for setting up UNIT3D, a Laravel application, leveraging Laravel Sail on MacOS.</p>
+<p><strong>Warning</strong>: This setup guide is intended for local development environments only and is not suitable for production
+deployment.</p>
+<h2 id="modifying-env-and-secure-headers-for-non-https-instances-1"><a class="header" href="#modifying-env-and-secure-headers-for-non-https-instances-1">Modifying .env and secure headers for non-HTTPS instances</a></h2>
+<p>For local development, it's common to use HTTP instead of HTTPS. To prevent mixed content issues, follow these steps:</p>
+<ol>
+<li>
+<p><strong>Modify the <code>.env</code> config:</strong></p>
+<ul>
+<li>Open your <code>.env</code> file located in the root directory of your UNIT3D project.</li>
+<li>Find the <code>SESSION_SECURE_COOKIE</code> setting and change its value to <code>false</code>. This action disables secure cookies,
+which are otherwise required for HTTPS.</li>
+</ul>
+<pre><code class="language-dotenv">SESSION_SECURE_COOKIE=false
+</code></pre>
+</li>
+<li>
+<p><strong>Adjust the secure headers in <code>config/secure-headers.php</code>:</strong></p>
+<ul>
+<li>Navigate to the <code>config</code> directory and open the <code>secure-headers.php</code> file.</li>
+<li>To disable the <code>Strict-Transport-Security</code> header, locate the <code>hsts</code> setting and change its value to <code>false</code>.</li>
+</ul>
+<pre><code class="language-php">'hsts' =&gt; false,
+</code></pre>
+<ul>
+<li>Next, locate the Content Security Policy (CSP) configuration to adjust it for HTTP. Disable the CSP to prevent it
+from blocking content that doesn't meet the HTTPS security requirements.</li>
+</ul>
+<pre><code class="language-php">'enable' =&gt; env('CSP_ENABLED', false),
+</code></pre>
+</li>
+</ol>
+<h2 id="prerequisites-1"><a class="header" href="#prerequisites-1">Prerequisites</a></h2>
+<h3 id="installing-docker-desktop"><a class="header" href="#installing-docker-desktop">Installing Docker Desktop</a></h3>
+<p><a href="https://docs.docker.com/desktop/install/mac-install/">Install Docker Desktop</a></p>
+<p>Once installed, launch Docker Desktop</p>
+<h3 id="installing-github-desktop"><a class="header" href="#installing-github-desktop">Installing GitHub Desktop</a></h3>
+<p><a href="https://desktop.github.com">Install GitHub Desktop</a></p>
+<p>Once installed, launch GitHub Desktop</p>
+<h3 id="installing-phpstorm"><a class="header" href="#installing-phpstorm">Installing PHPStorm</a></h3>
+<p><a href="https://www.jetbrains.com/phpstorm/">Install PHPStorm</a></p>
+<p>Once installed, launch PHPStorm</p>
+<h2 id="step-1-clone-the-repository-1"><a class="header" href="#step-1-clone-the-repository-1">Step 1: clone the repository</a></h2>
+<p>Firstly, clone the UNIT3D repository to your local environment by visiting <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition">UNIT3D-Community-Edition Repo</a>. Then click the blue colored code button and select <code>Open with Github Desktop</code>. Once Github Desktop is open set you local path to clone to like <code>/Users/HDVinnie/Documents/Personal/UNIT3D-Community-Edition</code></p>
+<h2 id="step-2-open-the-project-in-phpstorm"><a class="header" href="#step-2-open-the-project-in-phpstorm">Step 2: open the project in PHPStorm</a></h2>
+<p>Within PHPStorm goto <code>File</code> and then click <code>Open</code>. Select the local path you just did like <code>/Users/HDVinnie/Documents/Personal/UNIT3D-Community-Edition</code>.</p>
+<h3 id="the-following-commands-are-run-in-phpstorm-can-do-so-by-clicking-tools-run-command"><a class="header" href="#the-following-commands-are-run-in-phpstorm-can-do-so-by-clicking-tools-run-command">The following commands are run in PHPStorm. Can do so by clicking <code>Tools-&gt;Run Command</code>.</a></h3>
+<h2 id="step-3-start-sail"><a class="header" href="#step-3-start-sail">Step 3: start Sail</a></h2>
+<p>Initialize the Docker environment using Laravel Sail:</p>
+<pre><code class="language-bash">./vendor/bin/sail up -d
+</code></pre>
+<h2 id="step-4-composer-dependency-installation"><a class="header" href="#step-4-composer-dependency-installation">Step 4: Composer dependency installation</a></h2>
+<pre><code class="language-bash">./vendor/bin/sail composer install
+</code></pre>
+<h2 id="step-5-bun-dependency-install-and-compile-assets"><a class="header" href="#step-5-bun-dependency-install-and-compile-assets">Step 5: Bun dependency install and compile assets</a></h2>
+<pre><code class="language-bash">./vendor/bin/sail bun install
+</code></pre>
+<pre><code class="language-bash">./vendor/bin/sail bun run build
+</code></pre>
+<h2 id="step-6-database-migrations-and-seeders"><a class="header" href="#step-6-database-migrations-and-seeders">Step 6: database migrations and seeders</a></h2>
+<p>For database initialization with sample data, apply migrations and seeders:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate:fresh --seed
+</code></pre>
+<p><strong>Caution</strong>: This operation will reset your database and seed it with default data. Exercise caution in production
+settings.</p>
+<h2 id="step-7-database-preparation-if-want-to-use-a-production-database-backup-locally"><a class="header" href="#step-7-database-preparation-if-want-to-use-a-production-database-backup-locally">Step 7: database preparation (if want to use a production database backup locally)</a></h2>
+<h3 id="initial-database-loading-1"><a class="header" href="#initial-database-loading-1">Initial database loading</a></h3>
+<p>Prepare your database with the initial schema and data. Ensure you have a database dump file,
+e.g., <code>prod-site-backup.sql</code>.</p>
+<h3 id="mysql-data-importation-1"><a class="header" href="#mysql-data-importation-1">MySQL data importation</a></h3>
+<p>To import your database dump into MySQL within the local environment, use:</p>
+<pre><code class="language-bash">./vendor/bin/sail mysql -u root -p unit3d &lt; prod-site-backup.sql
+</code></pre>
+<p><strong>Note</strong>: For this to work properly you must set the APP_KEY value in your local <code>.env</code> file to match you prod APP_KEY value.</p>
+<h2 id="step-8-application-cache-configuration-1"><a class="header" href="#step-8-application-cache-configuration-1">Step 8: application cache configuration</a></h2>
+<p>Optimize the application's performance by setting up the cache:</p>
+<pre><code class="language-bash">sail artisan set:all_cache
+</code></pre>
+<h2 id="step-9-visit-local-instance"><a class="header" href="#step-9-visit-local-instance">Step 9: visit local instance</a></h2>
+<p>Open your browser and visit <code>localhost</code>. Enjoy!</p>
+<h2 id="additional-notes-1"><a class="header" href="#additional-notes-1">Additional notes</a></h2>
+<ul>
+<li><strong>Permissions</strong>: Exercise caution with <code>sudo</code> to avoid permission conflicts, particularly for Docker commands
+requiring elevated access.</li>
+</ul>
+<h3 id="appendix-sail-commands-for-unit3d-1"><a class="header" href="#appendix-sail-commands-for-unit3d-1">Appendix: Sail commands for UNIT3D</a></h3>
+<p>This section outlines commands for managing and interacting with UNIT3D using Laravel Sail.</p>
+<h4 id="sail-management"><a class="header" href="#sail-management">Sail management</a></h4>
+<ul>
+<li>
+<p><strong>Start environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail up -d
+</code></pre>
+<p>Starts Docker containers in detached mode.</p>
+</li>
+<li>
+<p><strong>Stop environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail down -v
+</code></pre>
+<p>Stops and removes Docker containers.</p>
+</li>
+<li>
+<p><strong>Restart environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail restart
+</code></pre>
+<p>Applies changes by restarting Docker environment.</p>
+</li>
+</ul>
+<h4 id="dependency-management-1"><a class="header" href="#dependency-management-1">Dependency management</a></h4>
+<ul>
+<li>
+<p><strong>Install Composer dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail composer install
+</code></pre>
+<p>Installs PHP dependencies defined in <code>composer.json</code>.</p>
+</li>
+<li>
+<p><strong>Update Composer dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail composer update
+</code></pre>
+<p>Updates PHP dependencies defined in <code>composer.json</code>.</p>
+</li>
+</ul>
+<h4 id="laravel-artisan-1"><a class="header" href="#laravel-artisan-1">Laravel Artisan</a></h4>
+<ul>
+<li>
+<p><strong>Run migrations</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate
+</code></pre>
+<p>Executes database migrations.</p>
+</li>
+<li>
+<p><strong>Seed database</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan db:seed
+</code></pre>
+<p>Seeds database with predefined data.</p>
+</li>
+<li>
+<p><strong>Refresh database</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate:fresh --seed
+</code></pre>
+<p>Resets and seeds database.</p>
+</li>
+<li>
+<p><strong>Cache configurations</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan set:all_cache
+</code></pre>
+<p>Clears and caches configurations for performance.</p>
+</li>
+</ul>
+<h4 id="npm-and-assets-1"><a class="header" href="#npm-and-assets-1">NPM and assets</a></h4>
+<ul>
+<li>
+<p><strong>Install Bun dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail bun install
+</code></pre>
+<p>Installs Node.js dependencies.</p>
+</li>
+<li>
+<p><strong>Compile assets</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail bun run build
+</code></pre>
+<p>Compiles CSS and JavaScript assets.</p>
+</li>
+</ul>
+<h4 id="database-operations-1"><a class="header" href="#database-operations-1">Database operations</a></h4>
+<ul>
+<li><strong>MySQL interaction</strong>:
+<pre><code class="language-bash">./vendor/bin/sail mysql -u root -p
+</code></pre>
+Opens MySQL CLI for database interaction.</li>
+</ul>
+<h4 id="queue-management-1"><a class="header" href="#queue-management-1">Queue management</a></h4>
+<ul>
+<li><strong>Restart queue workers</strong>:
+<pre><code class="language-bash">./vendor/bin/sail artisan queue:restart
+</code></pre>
+Restarts queue workers after changes.</li>
+</ul>
+<h4 id="troubleshooting-1"><a class="header" href="#troubleshooting-1">Troubleshooting</a></h4>
+<ul>
+<li>
+<p><strong>View logs</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail logs
+</code></pre>
+<p>Displays Docker container logs.</p>
+</li>
+<li>
+<p><strong>PHPUnit (PEST) tests</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan test
+</code></pre>
+<p>Runs PEST tests for application.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="meilisearch-setup-for-unit3d"><a class="header" href="#meilisearch-setup-for-unit3d">Meilisearch setup for UNIT3D</a></h1>
+<p><strong>Note:</strong> This guide assumes you are using a <code>sudo</code> user named <code>ubuntu</code>.</p>
+<h2 id="1-install-and-configure-meilisearch"><a class="header" href="#1-install-and-configure-meilisearch">1. Install and configure Meilisearch</a></h2>
+<ol>
+<li>
+<p><strong>Install Meilisearch:</strong></p>
+<pre><code class="language-sh">sudo curl -L https://install.meilisearch.com | sudo sh
+sudo mv ./meilisearch /usr/local/bin/
+sudo chmod +x /usr/local/bin/meilisearch
+</code></pre>
+</li>
+<li>
+<p><strong>Set up directories:</strong></p>
+<pre><code class="language-sh">sudo mkdir -p /var/lib/meilisearch/data /var/lib/meilisearch/dumps /var/lib/meilisearch/snapshots
+sudo chown -R ubuntu:ubuntu /var/lib/meilisearch
+sudo chmod -R 750 /var/lib/meilisearch
+</code></pre>
+</li>
+<li>
+<p><strong>Generate and record a master key:</strong></p>
+<p>Generate a 16-byte master key:</p>
+<pre><code class="language-sh">openssl rand -hex 16
+</code></pre>
+<p>Record this key, as it will be used in the configuration file.</p>
+</li>
+<li>
+<p><strong>Configure Meilisearch:</strong></p>
+<pre><code class="language-sh">sudo curl https://raw.githubusercontent.com/meilisearch/meilisearch/latest/config.toml -o /etc/meilisearch.toml
+sudo nano /etc/meilisearch.toml
+</code></pre>
+<p>Update the following in <code>/etc/meilisearch.toml</code>:</p>
+<pre><code class="language-toml">env = "production"
+master_key = "your_16_byte_master_key"
+db_path = "/var/lib/meilisearch/data"
+dump_dir = "/var/lib/meilisearch/dumps"
+snapshot_dir = "/var/lib/meilisearch/snapshots"
+</code></pre>
+</li>
+<li>
+<p><strong>Create and enable service:</strong></p>
+<pre><code class="language-sh">sudo nano /etc/systemd/system/meilisearch.service
+</code></pre>
+<p>Add the following:</p>
+<pre><code class="language-ini">[Unit]
+Description=Meilisearch
+After=systemd-user-sessions.service
+
+[Service]
+Type=simple
+WorkingDirectory=/var/lib/meilisearch
+ExecStart=/usr/local/bin/meilisearch --config-file-path /etc/meilisearch.toml
+User=ubuntu
+Group=ubuntu
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>Enable and start the service:</p>
+<pre><code class="language-sh">sudo systemctl enable meilisearch
+sudo systemctl start meilisearch
+sudo systemctl status meilisearch
+</code></pre>
+</li>
+</ol>
+<h2 id="2-configure-unit3d-for-meilisearch"><a class="header" href="#2-configure-unit3d-for-meilisearch">2. Configure UNIT3D for Meilisearch</a></h2>
+<ol>
+<li>
+<p><strong>Update <code>.env</code>:</strong></p>
+<pre><code class="language-sh">sudo nano /var/www/html/.env
+</code></pre>
+<p>Add the following:</p>
+<pre><code class="language-env">SCOUT_DRIVER=meilisearch
+MEILISEARCH_HOST=http://127.0.0.1:7700
+MEILISEARCH_KEY=your_16_byte_master_key
+</code></pre>
+</li>
+<li>
+<p><strong>Clear configuration and restart services:</strong></p>
+<pre><code class="language-sh">sudo php artisan set:all_cache
+sudo systemctl restart php8.3-fpm
+sudo php artisan queue:restart
+</code></pre>
+</li>
+</ol>
+<h2 id="3-maintenance"><a class="header" href="#3-maintenance">3. Maintenance</a></h2>
+<ol>
+<li>
+<p><strong>Reload data and sync indexes:</strong></p>
+<ul>
+<li>
+<p><strong>Sync index settings:</strong></p>
+<p>After UNIT3D updates, sync the index settings to ensure they are up to date:</p>
+<pre><code class="language-sh">sudo php artisan scout:sync-index-settings
+</code></pre>
+</li>
+<li>
+<p><strong>Reload data:</strong></p>
+<p>Whenever Meilisearch is upgraded or during the initial setup, the database must be reloaded:</p>
+<pre><code class="language-sh">sudo php artisan auto:sync_torrents_to_meilisearch --wipe &amp;&amp; sudo php artisan auto:sync_people_to_meilisearch
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="see-also"><a class="header" href="#see-also">See also</a></h2>
+<p>For further details, refer to the <a href="https://www.meilisearch.com/docs/guides/deployment/running_production">official Meilisearch documentation</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="server-management"><a class="header" href="#server-management">Server management</a></h1>
+<!-- cspell:ignore certbot,chgrp,usermod -->
+<blockquote>
+<p>[!IMPORTANT]
+The following assumptions are made:</p>
+<ul>
+<li>You have one <code>root</code> user and one regular user with sudo privileges on the dedicated server.</li>
+<li>The regular user with sudo privileges is assumed to have the username <code>ubuntu</code>.</li>
+<li>The project root directory is located at <code>/var/www/html</code>.</li>
+<li>All commands are run from the project root directory.</li>
+</ul>
+</blockquote>
+<h2 id="1-elevated-shell"><a class="header" href="#1-elevated-shell">1. Elevated shell</a></h2>
+<p>All SSH and SFTP operations should be conducted using the non-root user. Use <code>sudo</code> for any commands that require elevated privileges. Do not use the <code>root</code> user directly.</p>
+<h2 id="2-file-permissions"><a class="header" href="#2-file-permissions">2. File permissions</a></h2>
+<p>Ensure that everything in <code>/var/www/html</code> is owned by <code>www-data:www-data</code>, except for <code>node_modules</code>, which should be owned by <code>root:root</code>.</p>
+<p>Set up these permissions with the following commands:</p>
+<pre><code class="language-sh">sudo usermod -a -G www-data ubuntu
+sudo chown -R www-data:www-data /var/www/html
+sudo find /var/www/html -type f -exec chmod 664 {} \;
+sudo find /var/www/html -type d -exec chmod 775 {} \;
+sudo chgrp -R www-data storage bootstrap/cache
+sudo chmod -R ug+rwx storage bootstrap/cache
+sudo rm -rf node_modules &amp;&amp; sudo bun install &amp;&amp; sudo bun run build
+</code></pre>
+<h2 id="3-handling-code-changes"><a class="header" href="#3-handling-code-changes">3. Handling code changes</a></h2>
+<h3 id="php-changes"><a class="header" href="#php-changes">PHP changes</a></h3>
+<p>If any PHP files are modified, run the following commands to clear the cache, restart the PHP-FPM service, and restart the Laravel queues:</p>
+<pre><code class="language-sh">sudo php artisan set:all_cache &amp;&amp; sudo systemctl restart php8.3-fpm &amp;&amp; sudo php artisan queue:restart
+</code></pre>
+<h3 id="static-assets-scss-js"><a class="header" href="#static-assets-scss-js">Static assets (SCSS, JS)</a></h3>
+<p>If you make changes to SCSS or JavaScript files, rebuild the static assets using:</p>
+<pre><code class="language-sh">bun run build
+</code></pre>
+<h2 id="4-changing-the-domain"><a class="header" href="#4-changing-the-domain">4. Changing the domain</a></h2>
+<ol>
+<li>
+<p><strong>Update the environment variables:</strong></p>
+<p>Modify the domain in the <code>APP_URL</code> and <code>MIX_ECHO_ADDRESS</code> variables within the <code>.env</code> file:</p>
+<pre><code class="language-sh">sudo nano ./.env
+</code></pre>
+</li>
+<li>
+<p><strong>Refresh the TLS certificate:</strong></p>
+<p>Use <code>certbot</code> to refresh the TLS certificate:</p>
+<pre><code class="language-sh">certbot --redirect --nginx -n --agree-tos --email=sysop@your_domain.tld -d your_domain.tld -d www.your_domain.tld --rsa-key-size 2048
+</code></pre>
+</li>
+<li>
+<p><strong>Update the WebSocket configuration:</strong></p>
+<p>Update all domains listed in the WebSocket configuration to reflect the new domain:</p>
+<pre><code class="language-sh">sudo nano ./laravel-echo-server.json
+</code></pre>
+</li>
+<li>
+<p><strong>Restart the chatbox server:</strong></p>
+<p>Reload the Supervisor configuration to apply changes:</p>
+<pre><code class="language-sh">sudo supervisorctl reload
+</code></pre>
+</li>
+<li>
+<p><strong>Compile static assets:</strong></p>
+<p>Rebuild the static assets:</p>
+<pre><code class="language-sh">bun run build
+</code></pre>
+</li>
+</ol>
+<h2 id="5-meilisearch-maintenance"><a class="header" href="#5-meilisearch-maintenance">5. Meilisearch maintenance</a></h2>
+<p>Refer <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Meilisearch-Setup-for-UNIT3D">Meilisearch setup for UNIT3D</a>, specifically the <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Meilisearch-Setup-for-UNIT3D#3-maintenance">maintenance</a> section, for managing upgrades and syncing indexes.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="unit3d-open-source-how-to-share-your-source-code"><a class="header" href="#unit3d-open-source-how-to-share-your-source-code">UNIT3D open source: how to share your source code</a></h1>
+<p><em>A guide by EkoNesLeg</em></p>
+<h2 id="1-introduction"><a class="header" href="#1-introduction">1. Introduction</a></h2>
+<p>As part of complying with the <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/LICENSE">GNU Affero General Public License (AGPL)</a>, sites that modify and distribute UNIT3D are required to share their source code. This guide provides an easy process for creating a sanitized tarball of your modified source code and encourages you to create and update an "Open Source" page on your site to make this code available.</p>
+<h2 id="2-setting-up-tarball-creation"><a class="header" href="#2-setting-up-tarball-creation">2. Setting up tarball creation</a></h2>
+<h3 id="21-exclude-sensitive-files"><a class="header" href="#21-exclude-sensitive-files">2.1 Exclude sensitive files</a></h3>
+<p>To create a tarball that includes only the modified source code and excludes sensitive files like configuration data, you can take advantage of the existing <code>.gitignore</code> file in your UNIT3D deployment. Here’s how:</p>
+<ol>
+<li>
+<p><strong>Reference <code>.gitignore</code> for exclusions:</strong></p>
+<p>If your production environment has the original <code>.gitignore</code> file that already lists the files and directories you don’t want to include in version control, you can use it to exclude those same items from your tarball:</p>
+<pre><code class="language-sh">ln -s /var/www/html/.gitignore /var/www/html/.tarball_exclude
+</code></pre>
+</li>
+<li>
+<p><strong>Additional exclusions (if needed):</strong></p>
+<p>If additional exclusions are needed, or if you've removed the git environment from your production environment, you should manually add the exclusions to the <code>.tarball_exclude</code> file:</p>
+<pre><code class="language-sh">nano /var/www/html/.tarball_exclude
+</code></pre>
+<p>Add the following to the file:</p>
+</li>
+</ol>
+<!-- cspell:disable -->
+<pre><code class="language-plaintext">.env
+node_modules
+storage
+vendor
+public
+*.gz
+*.lock
+UNIT3D-Announce
+unit3d-announce
+laravel-echo-server.json
+config
+.DS_Store
+.idea
+.vscode
+nbproject
+.phpunit.cache
+.ftpconfig
+storage/backups
+storage/debugbar
+storage/gitupdate
+storage/*.key
+laravel-echo-server.lock
+.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+_ide_helper.php
+supervisor.ini
+.phpunit.cache/
+.phpstan.cache/
+caddy
+frankenphp
+frankenphp-worker.php
+data
+config/caddy/autosave.json
+build
+bootstrap
+*.sql
+*.DS_Storecomposer.lock
+*.swp
+coverage.xml
+cghooks.lock
+*.pyc
+emojipy-*
+emojipy.egg-info/
+lib/js/tests.html
+lib/js/tests/npm-debug.log
+</code></pre>
+<!-- cspell:enable -->
+<h3 id="22-create-the-tarball"><a class="header" href="#22-create-the-tarball">2.2 Create the tarball</a></h3>
+<ol>
+<li>
+<p><strong>Create a script to generate the tarball:</strong></p>
+<pre><code class="language-sh">nano /var/www/html/create_tarball.sh
+</code></pre>
+</li>
+<li>
+<p><strong>Add the following content to the script:</strong></p>
+<pre><code class="language-sh">#!/bin/bash
+
+TARBALL_NAME="UNIT3D_Source_$(date +%Y%m%d_%H%M%S).tar.gz"
+TAR_EXCLUDES="--exclude-from=/var/www/html/.tarball_exclude"
+
+tar $TAR_EXCLUDES -czf /var/www/html/public/$TARBALL_NAME -C /var/www html
+
+# Create a symlink to the latest tarball
+ln -sf "/var/www/html/public/$TARBALL_NAME" "/var/www/html/public/UNIT3D_Source_LATEST.tar.gz"
+</code></pre>
+</li>
+<li>
+<p><strong>Make the script executable:</strong></p>
+<pre><code class="language-sh">chmod +x /var/www/html/create_tarball.sh
+</code></pre>
+</li>
+<li>
+<p><strong>Run the script manually whenever you update your site:</strong></p>
+<pre><code class="language-sh">/var/www/html/create_tarball.sh
+</code></pre>
+</li>
+</ol>
+<h2 id="3-creating-and-updating-the-open-source-page"><a class="header" href="#3-creating-and-updating-the-open-source-page">3. Creating and updating the "Open source" Page</a></h2>
+<ol>
+<li>
+<p><strong>Create an "Open source" page:</strong></p>
+<p>Go to your site's <code>/dashboard/pages</code> section and create a new page called "Open source."</p>
+</li>
+<li>
+<p><strong>Add the following Markdown content to the page:</strong></p>
+<pre><code class="language-markdown">## Open source
+
+We comply with the UNIT3D's GNU Affero General Public License (AGPL) by sharing our modified source code. You can download the latest version of our source code below.
+
+- **[Download Latest Source Code](/UNIT3D_Source_LATEST.tar.gz)**
+
+### License information
+
+Our site runs on a modified version of [UNIT3D](https://github.com/HDInnovations/UNIT3D-Community-Edition). For more details on the license, visit the [GNU AGPL License](https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/LICENSE).
+</code></pre>
+</li>
+<li>
+<p><strong>Manually update this page whenever you update your site:</strong></p>
+<p>After running the tarball creation script, update the page content if necessary to reflect any changes or additional notes about the modifications made.</p>
+</li>
+</ol>
+<h2 id="4-encouraging-compliance-and-contributions"><a class="header" href="#4-encouraging-compliance-and-contributions">4. Encouraging compliance and contributions</a></h2>
+<p>By publicly sharing your modified source code, you not only comply with the AGPL but also contribute to the open-source community. We encourage sites to contribute their changes back to the upstream repository by submitting pull requests, which helps improve UNIT3D for everyone.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="torrent-api"><a class="header" href="#torrent-api">Torrent API</a></h1>
+<h2 id="introduction-7"><a class="header" href="#introduction-7">Introduction</a></h2>
+<p>UNIT3D is offering a new <code>{JSON:API}</code>. If you haven't already head over to your profile. Hover Settings nav and click API Key. From there you can generate or reset your API Key.</p>
+<h2 id="ecosystem"><a class="header" href="#ecosystem">Ecosystem</a></h2>
+<h3 id="torrent-auto-uploaders"><a class="header" href="#torrent-auto-uploaders">Torrent auto uploaders</a></h3>
+<ul>
+<li><a href="https://github.com/Audionut/Upload-Assistant">L4G's Upload Assistant</a> — a simple tool to take the work out of uploading</li>
+<li><a href="https://gitlab.com/NoobMaster669/gg-bot-upload-assistant">GG Bot Upload Assistant</a> — a torrent auto uploader to take the manual work out of uploading</li>
+</ul>
+<h2 id="api-authentication"><a class="header" href="#api-authentication">API authentication</a></h2>
+<p>There are several ways of passing the API token to UNIT3D. We'll discuss each of these approaches while using the Guzzle HTTP library to demonstrate their usage. You may choose any of these approaches based on your needs to communicate with our API.</p>
+<ul>
+<li>
+<p><strong>Query string</strong></p>
+<p>UNIT3D's API consumers may specify their token as an <code>api_token</code> query string value:</p>
+<pre><code class="language-php">$response = $client-&gt;request('GET', '/api/torrents?api_token=YOUR_TOKEN_HERE);
+</code></pre>
+</li>
+<li>
+<p><strong>Request payload</strong></p>
+<p>UNIT3D's API consumers may include their API token in the request's form parameters as an <code>api_token</code>:</p>
+<pre><code class="language-php">$response = $client-&gt;request('POST', '/api/torrents', [
+    'headers' =&gt; [
+        'Accept' =&gt; 'application/json',
+    ],
+    'form_params' =&gt; [
+        'api_token' =&gt; 'YOUR_TOKEN_HERE',
+    ],
+]);
+</code></pre>
+</li>
+<li>
+<p><strong>Bearer token</strong></p>
+<p>UNIT3D's API consumers may provide their API token as a <code>Bearer</code> token in the <code>Authorization</code> header of the request:</p>
+<pre><code class="language-php">$response = $client-&gt;request('POST', '/api/torrents', [
+    'headers' =&gt; [
+        'Authorization' =&gt; 'Bearer YOUR_TOKEN_HERE',
+        'Accept' =&gt; 'application/json',
+    ],
+]);
+</code></pre>
+</li>
+</ul>
+<h2 id="api-endpoints"><a class="header" href="#api-endpoints">API endpoints</a></h2>
+<h3 id="upload-a-torrent"><a class="header" href="#upload-a-torrent">Upload a torrent</a></h3>
+<p>Endpoint: POST <code>/api/torrents/upload</code></p>
+<p>Parameters:</p>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>torrent</code></td><td>file</td><td>.torrent file</td></tr>
+<tr><td><code>nfo</code></td><td>file</td><td>.nfo file</td></tr>
+<tr><td><code>name</code></td><td>string</td><td>Torrent name</td></tr>
+<tr><td><code>description</code></td><td>string</td><td>Torrent description</td></tr>
+<tr><td><code>mediainfo</code></td><td>string</td><td>MediaInfo text output</td></tr>
+<tr><td><code>bdinfo</code></td><td>string</td><td>BDInfo quick summary output</td></tr>
+<tr><td><code>category_id</code></td><td>int</td><td>Category ID</td></tr>
+<tr><td><code>type_id</code></td><td>int</td><td>Type ID</td></tr>
+<tr><td><code>resolution_id</code></td><td>int</td><td>Resolution ID</td></tr>
+<tr><td><code>region_id</code></td><td>int</td><td>Region ID</td></tr>
+<tr><td><code>distributor_id</code></td><td>int</td><td>Distributor ID</td></tr>
+<tr><td><code>season_number</code></td><td>int</td><td>Season number (TV only)</td></tr>
+<tr><td><code>episode_number</code></td><td>int</td><td>Episode number (TV only)</td></tr>
+<tr><td><code>tmdb</code></td><td>int</td><td>TMDB ID</td></tr>
+<tr><td><code>imdb</code></td><td>int</td><td>IMDB ID</td></tr>
+<tr><td><code>tvdb</code></td><td>int</td><td>TVDB ID</td></tr>
+<tr><td><code>mal</code></td><td>int</td><td>MAL ID</td></tr>
+<tr><td><code>igdb</code></td><td>int</td><td>IGDB ID (Games only)</td></tr>
+<tr><td><code>anonymous</code></td><td>bool</td><td>Should the uploader's username be hidden?</td></tr>
+<tr><td><code>personal_release</code></td><td>bool</td><td>Is the torrent's content created by the uploader?</td></tr>
+<tr><td><code>internal</code>*</td><td>bool</td><td>Is the torrent an internal release?</td></tr>
+<tr><td><code>refundable</code>*</td><td>bool</td><td>Is the torrent refundable?</td></tr>
+<tr><td><code>featured</code>*</td><td>bool</td><td>Should the torrent be featured on the front page?</td></tr>
+<tr><td><code>free</code>*</td><td>int</td><td>Percentage (0-100) of the torrent's size that is free to leech</td></tr>
+<tr><td><code>fl_until</code>*</td><td>int</td><td>Number of days the torrent should offer freeleech</td></tr>
+<tr><td><code>doubleup</code>*</td><td>bool</td><td>Should the torrent offer double upload?</td></tr>
+<tr><td><code>du_until</code>*</td><td>int</td><td>Number of days the torrent should offer double upload</td></tr>
+<tr><td><code>sticky</code>*</td><td>bool</td><td>Should the torrent be stickied on the torrent index?</td></tr>
+<tr><td><code>mod_queue_opt_in</code>*</td><td>bool</td><td>Should the torrent be sent to moderation queue?</td></tr>
+</tbody></table>
+</div>
+<p>*Only available to staff and internal users.</p>
+<h3 id="fetch-a-torrent"><a class="header" href="#fetch-a-torrent">Fetch a torrent</a></h3>
+<p>Endpoint: GET <code>/api/torrents/:id</code></p>
+<p>Example:</p>
+<pre><code>https://unit3d.site/api/torrents/39765?api_token=YOURTOKENHERE
+</code></pre>
+<h3 id="fetch-torrents-index-latest-25-torrents"><a class="header" href="#fetch-torrents-index-latest-25-torrents">Fetch torrents index (latest 25 torrents)</a></h3>
+<p>Endpoint: GET <code>/api/torrents</code></p>
+<p>Example:</p>
+<pre><code>https://unit3d.site/api/torrents?api_token=YOURTOKENHERE
+</code></pre>
+<h3 id="filter-torrents"><a class="header" href="#filter-torrents">Filter torrents</a></h3>
+<p>Endpoint: GET <code>/api/torrents/filter</code></p>
+<p>Optional Parameters:</p>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>perPage</code></td><td>int</td><td>Amount of results to return per page (default: 25)</td></tr>
+<tr><td><code>sortField</code></td><td>string</td><td>Field to sort by</td></tr>
+<tr><td><code>sortDirection</code></td><td>string</td><td>Direction to sort the results. One of: <code>asc</code> (Ascending), <code>desc</code> (Descending) (default: <code>asc</code>)</td></tr>
+<tr><td><code>name</code></td><td>string</td><td>Filter by the torrent's name</td></tr>
+<tr><td><code>description</code></td><td>string</td><td>Filter by the torrent's description</td></tr>
+<tr><td><code>mediainfo</code></td><td>string</td><td>Filter by the torrent's MediaInfo</td></tr>
+<tr><td><code>bdinfo</code></td><td>string</td><td>Filter by the torrent's BDInfo</td></tr>
+<tr><td><code>uploader</code></td><td>string</td><td>Filter by the torrent uploader's username</td></tr>
+<tr><td><code>keywords</code></td><td>string</td><td>Filter by any of the torrent's keywords (Multiple keywords can be comma-separated)</td></tr>
+<tr><td><code>startYear</code></td><td>int</td><td>Return only torrents whose content was released after or in the given year</td></tr>
+<tr><td><code>endYear</code></td><td>int</td><td>Return only torrents whose content was released before or in the given year</td></tr>
+<tr><td><code>categories</code></td><td>int[]</td><td>Filter by the torrent's category</td></tr>
+<tr><td><code>types</code></td><td>int[]</td><td>Filter by the torrent's type</td></tr>
+<tr><td><code>resolutions</code></td><td>int[]</td><td>Filter by the torrent's resolution</td></tr>
+<tr><td><code>genres</code></td><td>int[]</td><td>Filter by the torrent's genre</td></tr>
+<tr><td><code>tmdbId</code></td><td>int</td><td>Filter by the torrent's TMDB ID</td></tr>
+<tr><td><code>imdbId</code></td><td>int</td><td>Filter by the torrent's IMDB ID</td></tr>
+<tr><td><code>tvdbId</code></td><td>int</td><td>Filter by the torrent's TVDB ID</td></tr>
+<tr><td><code>malId</code></td><td>int</td><td>Filter by the torrent's MAL ID</td></tr>
+<tr><td><code>playlistId</code></td><td>int</td><td>Return only torrents within the playlist of the given ID</td></tr>
+<tr><td><code>collectionId</code></td><td>int</td><td>Return only torrents within the collection of the given ID</td></tr>
+<tr><td><code>free</code></td><td>int</td><td>Filter by the torrent's freeleech discount (0-100)</td></tr>
+<tr><td><code>doubleup</code></td><td>bool</td><td>Filter by if the torrent offers double upload</td></tr>
+<tr><td><code>featured</code></td><td>bool</td><td>Filter by if the torrent is featured on the front page</td></tr>
+<tr><td><code>refundable</code></td><td>bool</td><td>Filter by if the torrent is refundable</td></tr>
+<tr><td><code>highspeed</code></td><td>bool</td><td>Filter by if the torrent has seeders whose IP address has been registered as a seedbox</td></tr>
+<tr><td><code>internal</code></td><td>bool</td><td>Filter by if the torrent is an internal release</td></tr>
+<tr><td><code>personalRelease</code></td><td>bool</td><td>Filter by if the torrent's content is created by the uploader</td></tr>
+<tr><td><code>alive</code></td><td>bool</td><td>Filter by if the torrent has 1 or more seeders</td></tr>
+<tr><td><code>dying</code></td><td>bool</td><td>Filter by if the torrent has 1 seeder and has been downloaded more than 3 times</td></tr>
+<tr><td><code>dead</code></td><td>bool</td><td>Filter by if the torrent has 0 seeders</td></tr>
+<tr><td><code>file_name</code></td><td>string</td><td>Filter by the name of a file within a torrent</td></tr>
+<tr><td><code>seasonNumber</code></td><td>int</td><td>Filter by the torrent's season number</td></tr>
+<tr><td><code>episodeNumber</code></td><td>int</td><td>Filter by the torrent's episode number</td></tr>
+</tbody></table>
+</div>
+<p>Example:</p>
+<pre><code>https://unit3d.site/api/torrents/filter?tmdbId=475557&amp;categories[]=1&amp;api_token=YOURTOKENHERE
+</code></pre>
+<h3 id="personal-account-info"><a class="header" href="#personal-account-info">Personal account info</a></h3>
+<p>Endpoint: GET <code>/api/user</code></p>
+<p>Response:</p>
+<pre><code class="language-json">{"username":"UNIT3D","group":"Owner","uploaded":"50 GiB","downloaded":"1 GiB","ratio":"50","buffer":"124 GiB","seeding":0,"leeching":0,"seedbonus":"0.00","hit_and_runs":0}
+</code></pre>
+<p>Example:</p>
+<pre><code>https://unit3d.site/api/user?api_token=YOURTOKENHERE
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="translations"><a class="header" href="#translations">Translations</a></h1>
+<p>UNIT3D uses weblate for translations. You can easily contribute to translations at https://hosted.weblate.org/engage/unit3d/. Use the following graphic to see if your native language could use some work.</p>
+<a href="https://hosted.weblate.org/engage/unit3d/">
+<img src="https://hosted.weblate.org/widget/unit3d/horizontal-auto.svg" alt="Translation status" />
+</a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="updating-unit3d"><a class="header" href="#updating-unit3d">Updating UNIT3D</a></h1>
+<p>Update UNIT3D to the latest version by reviewing the release notes and following the steps below:</p>
+<h2 id="1-create-backup"><a class="header" href="#1-create-backup">1. Create backup</a></h2>
+<p>UNIT3D offers built-in backups. Refer to the <a href="/book/src/backups.html">Backups documentation</a> for usage.</p>
+<blockquote>
+<p>[!IMPORTANT]
+Ensure there is a complete backup before proceeding.</p>
+</blockquote>
+<h2 id="2-enter-maintenance-mode"><a class="header" href="#2-enter-maintenance-mode">2. Enter maintenance mode</a></h2>
+<pre><code class="language-bash">cd /var/www/html
+php artisan down
+</code></pre>
+<h2 id="3-update-unit3d"><a class="header" href="#3-update-unit3d">3. Update UNIT3D</a></h2>
+<video controls width="640" height="360">
+  <source src="/book/assets/update_unit3d.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
+<blockquote>
+<p>[!NOTE]
+Before running the update, review the new release’s minimum requirements to ensure the environment meets them.</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>Proceed to update:</strong></p>
+<p>The updater will fetch the latest commits from the upstream repository and stage them for installation.</p>
+<pre><code class="language-bash">cd /var/www/html
+php artisan git:update
+</code></pre>
+<p>There will be a prompt to confirm each step; choose <code>yes</code> to overwrite with the new version.</p>
+<pre><code class="language-bash">Start the update process (yes/no) [yes]:
+&gt; yes
+</code></pre>
+</li>
+<li>
+<p><strong>Accept upstream files:</strong></p>
+<p>When prompted for each changed file, type <code>yes</code> to overwrite the local copy or press <code>Enter</code> to accept the default shown in brackets.</p>
+<pre><code class="language-bash">Update config/unit3d.php (yes/no) [yes]:
+&gt; yes
+
+git checkout origin/master -- config/unit3d.php
+[============================] (Done!)
+</code></pre>
+</li>
+<li>
+<p><strong>Run new migrations:</strong></p>
+<pre><code class="language-bash">Run new migrations (php artisan migrate) (yes/no) [yes]:
+&gt; yes
+</code></pre>
+</li>
+<li>
+<p><strong>Install new packages:</strong></p>
+<pre><code class="language-bash">Install new packages (composer install) (yes/no) [yes]:
+&gt; yes
+</code></pre>
+</li>
+<li>
+<p><strong>Compile assets:</strong></p>
+<pre><code class="language-bash">Compile assets (bun run build) (yes/no) [yes]:
+&gt; yes
+</code></pre>
+</li>
+</ol>
+<h2 id="troubleshooting-clean-up"><a class="header" href="#troubleshooting-clean-up">Troubleshooting clean-up</a></h2>
+<p>The following commands are <strong>optional</strong> and should be run only as needed to resolve specific errors:</p>
+<ul>
+<li>
+<p><strong>Finish any migrations not completed:</strong></p>
+<pre><code class="language-sh">sudo php artisan migrate
+</code></pre>
+</li>
+<li>
+<p><strong>Reinstall dependencies:</strong></p>
+<pre><code class="language-sh">composer install --prefer-dist --no-dev -o
+</code></pre>
+</li>
+<li>
+<p><strong>Clear caches:</strong></p>
+<pre><code class="language-sh">sudo php artisan cache:clear &amp;&amp; \
+sudo php artisan queue:clear &amp;&amp; \
+sudo php artisan auto:email-blacklist-update &amp;&amp; \
+sudo php artisan auto:cache_random_media &amp;&amp; \
+sudo php artisan set:all_cache
+</code></pre>
+</li>
+<li>
+<p><strong>Rebuild static assets:</strong></p>
+<pre><code class="language-sh">sudo bun install &amp;&amp; sudo bun run build
+</code></pre>
+</li>
+<li>
+<p><strong>Restart services:</strong></p>
+<pre><code class="language-sh">sudo systemctl restart php8.4-fpm &amp;&amp; \
+sudo php artisan queue:restart &amp;&amp; \
+sudo php artisan up
+</code></pre>
+</li>
+<li>
+<p><strong>If running external UNIT3D-Announce, restart the supervisor services:</strong></p>
+<pre><code class="language-sh">sudo supervisorctl reread &amp;&amp; \
+sudo supervisorctl update &amp;&amp; \
+sudo supervisorctl reload
+</code></pre>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="upgrading-php-version"><a class="header" href="#upgrading-php-version">Upgrading PHP version</a></h1>
+<!-- cspell:ignore ondrej,autoremove,debconf-utils,dpkg -->
+<h2 id="upgrade-to-php-8"><a class="header" href="#upgrade-to-php-8">Upgrade to PHP 8</a></h2>
+<p><code>sudo apt update</code>
+<code>sudo apt -y upgrade</code></p>
+<p>A reboot is important after any upgrade.</p>
+<p><code>sudo systemctl reboot</code></p>
+<p>After a few minutes SSH back into your server</p>
+<p><code>sudo apt update</code>
+<code>sudo apt install lsb-release ca-certificates apt-transport-https software-properties-common -y</code>
+<code>sudo add-apt-repository ppa:ondrej/php</code></p>
+<p>Hit enter key when prompted to add the repository</p>
+<p><code>sudo apt update</code>
+<code>sudo apt install php8.0</code>
+<code>sudo apt-get install -qq curl debconf-utils php-pear php8.0-curl php8.0-dev php8.0-gd php8.0-mbstring php8.0-zip php8.0-mysql php8.0-xml php8.0-fpm php8.0-intl php8.0-bcmath php8.0-cli php8.0-opcache</code>
+<code>sudo service apache2 stop</code></p>
+<p>Next lets edit NGINX to use new PHP8</p>
+<p><code>sudo nano /etc/nginx/sites-available/default</code></p>
+<p>Find <code>fastcgi_pass unix:/var/run/php/***.sock;</code></p>
+<p><code>***</code> will be your site name, unit3d or php7.4 for the most part</p>
+<p>Replace <code>fastcgi_pass unix:/var/run/php/***.sock;</code> with <code>fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;</code>.</p>
+<p>Save and exit.</p>
+<p>Test config <code>sudo nginx -t</code></p>
+<p>*If you didn't mess up you will see</p>
+<pre><code>nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+<p><code>sudo systemctl reload nginx</code>
+<code>sudo systemctl reload php8.0-fpm</code>
+<code>sudo apt purge '^php7.4.*'</code></p>
+<p>You should now be running PHP8 and can confirm by checking your staff dashboard.</p>
+<p><img src="https://i.postimg.cc/7LF8CQyM/Screen-Shot-2020-12-17-at-9-08-33-AM.png" alt="IMAGE" /></p>
+<h2 id="upgrade-to-php-81"><a class="header" href="#upgrade-to-php-81">Upgrade to PHP 8.1</a></h2>
+<p><code>sudo apt update</code>
+<code>sudo apt -y upgrade</code></p>
+<p>A reboot is important after any upgrade.</p>
+<p><code>sudo systemctl reboot</code></p>
+<p>After a few minutes SSH back into your server</p>
+<p><code>sudo apt update</code>
+<code>sudo apt install lsb-release ca-certificates apt-transport-https software-properties-common -y</code>
+<code>sudo add-apt-repository ppa:ondrej/php</code></p>
+<p>Hit enter key when prompted to add the repository</p>
+<p><code>sudo apt update</code>
+<code>sudo apt install php8.1</code>
+<code>sudo apt-get install -qq curl debconf-utils php-pear php8.1-curl php8.1-dev php8.1-gd php8.1-mbstring php8.1-zip php8.1-mysql php8.1-xml php8.1-fpm php8.1-intl php8.1-bcmath php8.1-cli php8.1-opcache</code>
+<code>sudo service apache2 stop</code></p>
+<p>Next lets edit NGINX to use new PHP 8.1</p>
+<p><code>sudo nano /etc/nginx/sites-available/default</code></p>
+<p>Find <code>fastcgi_pass unix:/var/run/php/***.sock;</code></p>
+<p><code>***</code> will be your site name, unit3d or php8.0 for the most part</p>
+<p>Replace <code>fastcgi_pass unix:/var/run/php/***.sock;</code> with <code>fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;</code>.</p>
+<p>Save and exit.</p>
+<p>Test config <code>sudo nginx -t</code></p>
+<p>*If you didn't mess up you will see</p>
+<pre><code>nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+<p><code>sudo systemctl reload nginx</code>
+<code>sudo systemctl reload php8.1-fpm</code>
+<code>sudo apt purge '^php7.4.*'</code></p>
+<p>You should now be running PHP8.1 and can confirm by checking your staff dashboard.</p>
+<p><a href="https://postimg.cc/kRc3ZMsJ"><img src="https://i.postimg.cc/6TsW8yGv/Screen-Shot-2021-11-25-at-10-47-00-PM.png" alt="IMAGE" /></a></p>
+<h2 id="upgrade-to-php-82"><a class="header" href="#upgrade-to-php-82">Upgrade to PHP 8.2</a></h2>
+<p><code>sudo apt update</code>
+<code>sudo apt -y upgrade</code></p>
+<p>A reboot is important after any upgrade.</p>
+<p><code>sudo systemctl reboot</code></p>
+<p>After a few minutes SSH back into your server</p>
+<p><code>sudo apt update</code>
+<code>sudo apt install lsb-release ca-certificates apt-transport-https software-properties-common -y</code>
+<code>sudo add-apt-repository ppa:ondrej/php</code></p>
+<p>Hit enter key when prompted to add the repository</p>
+<p><code>sudo apt update</code>
+<code>sudo apt install php8.2</code>
+<code>sudo apt-get install -qq curl debconf-utils php-pear php8.2-curl php8.2-dev php8.2-gd php8.2-mbstring php8.2-zip php8.2-mysql php8.2-xml php8.2-fpm php8.2-intl php8.2-bcmath php8.2-cli php8.2-opcache</code>
+<code>sudo service apache2 stop</code>
+<code>sudo apt remove apache2</code></p>
+<p>Next lets edit NGINX to use new PHP 8.2</p>
+<p><code>sudo nano /etc/nginx/sites-available/default</code></p>
+<p>Find <code>fastcgi_pass unix:/var/run/php/***.sock;</code></p>
+<p><code>***</code> will be your site name, unit3d or php8.1 for the most part</p>
+<p>Replace <code>fastcgi_pass unix:/var/run/php/***.sock;</code> with <code>fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;</code>.</p>
+<p>Save and exit.</p>
+<p>Test config <code>sudo nginx -t</code></p>
+<p>*If you didn't mess up you will see</p>
+<pre><code>nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+<p><code>sudo systemctl restart nginx</code>
+<code>sudo systemctl restart php8.2-fpm</code>
+<code>sudo systemctl stop php8.1-fpm</code>
+<code>sudo apt purge '^php8.1.*'</code>
+<code>sudo apt autoremove</code></p>
+<p>You should now be running PHP8.2 and can confirm by checking your staff dashboard.</p>
+<p>NOTE: If you had tuning done on PHP 8.1 you will need to reapply them to new PHP 8.2 configs.
+<code>sudo nano /etc/php/8.2/fpm/pool.d/www.conf</code>
+<code>sudo nano /etc/php/8.2/fpm/php.ini</code></p>
+<h2 id="upgrade-to-php-83"><a class="header" href="#upgrade-to-php-83">Upgrade to PHP 8.3</a></h2>
+<p>Save existing php package list to packages.txt file in case you have some additional ones not noted in this guide.</p>
+<p><code>sudo dpkg -l | grep php | tee packages.txt</code></p>
+<p>Add Ondrej's PPA</p>
+<p><code>sudo add-apt-repository ppa:ondrej/php</code> # Press enter when prompted.
+<code>sudo apt update</code></p>
+<p>Install new PHP 8.3 packages</p>
+<p><code>sudo apt install php8.3-common php8.3-cli php8.3-fpm php8.3-{redis,bcmath,curl,dev,gd,igbinary,intl,mbstring,mysql,opcache,readline,xml,zip}</code></p>
+<p>Next lets edit NGINX to use new PHP 8.3</p>
+<p><code>sudo nano /etc/nginx/sites-available/default</code></p>
+<p>Find <code>fastcgi_pass unix:/var/run/php/***.sock;</code></p>
+<p><code>***</code> will be your site name, unit3d or php8.2 for the most part</p>
+<p>Replace <code>fastcgi_pass unix:/var/run/php/***.sock;</code> with <code>fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;</code>.</p>
+<p>Save and exit.</p>
+<p>Test config <code>sudo nginx -t</code></p>
+<p>*If you didn't mess up you will see</p>
+<pre><code>nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+<p><code>sudo systemctl restart nginx</code>
+<code>sudo systemctl restart php8.3-fpm</code>
+<code>sudo systemctl stop php8.2-fpm</code></p>
+<p>Remove old packages</p>
+<p><code>sudo apt purge '^php8.2.*'</code></p>
+<p>You should now be running PHP8.3 and can confirm by checking your staff dashboard.</p>
+<p>NOTE: If you had tuning done on PHP 8.2 you will need to reapply them to new PHP 8.3 configs.
+<code>sudo nano /etc/php/8.3/fpm/pool.d/www.conf</code>
+<code>sudo nano /etc/php/8.3/fpm/php.ini</code></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="unit3d-announce"><a class="header" href="#unit3d-announce">UNIT3D-Announce</a></h1>
+<p>UNIT3D-Announce is an optional external announce service written in rust that is designed to reduce CPU usage on high-volume trackers managing over 1 million peers.</p>
+<blockquote>
+<p>[!TIP]
+Enable only when extra performance is needed. The default announce suffices otherwise.</p>
+</blockquote>
+<p>Refer to the upstream documentation for configuration and usage details.</p>
+<ul>
+<li>
+<p><strong>Consult</strong> the <a href="https://github.com/HDInnovations/UNIT3D-Announce/blob/main/README.md">README</a> for installation and usage instructions.</p>
+</li>
+<li>
+<p><strong>Review</strong> the <a href="https://github.com/HDInnovations/UNIT3D-Announce/blob/main/.env.example"><code>.env.example</code></a> to configure required variables.</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

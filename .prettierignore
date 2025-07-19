@@ -1,0 +1,23 @@
+# ignore all files
+/*
+
+# except /resources/views/**/*.blade.php
+!/resources/
+/resources/*
+!/resources/views/
+/resources/views/**/*.*
+!/resources/views/**/*.blade.php
+
+# except resources/js, but ignore resources/js/vendor
+!/resources/js/
+/resources/js/vendor
+
+# except resources/scss, but ignores resoruces/scss/vendor
+!/resources/sass/
+/resources/sass/vendor
+
+# ignored
+resources/views/emails
+resources/views/rss/show.blade.php
+resources/views/vendor
+resources/views/components/user_tag.blade.php

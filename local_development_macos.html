@@ -1,0 +1,426 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Local Development MacOS - UNIT3D Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">UNIT3D Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="unit3d-v8xx-on-macos-with-laravel-sail-and-phpstorm"><a class="header" href="#unit3d-v8xx-on-macos-with-laravel-sail-and-phpstorm">UNIT3D v8.x.x on MacOS with Laravel Sail and PhpStorm</a></h1>
+<p><em>A guide by HDVinnie</em></p>
+<p>This guide is designed for setting up UNIT3D, a Laravel application, leveraging Laravel Sail on MacOS.</p>
+<p><strong>Warning</strong>: This setup guide is intended for local development environments only and is not suitable for production
+deployment.</p>
+<h2 id="modifying-env-and-secure-headers-for-non-https-instances"><a class="header" href="#modifying-env-and-secure-headers-for-non-https-instances">Modifying .env and secure headers for non-HTTPS instances</a></h2>
+<p>For local development, it's common to use HTTP instead of HTTPS. To prevent mixed content issues, follow these steps:</p>
+<ol>
+<li>
+<p><strong>Modify the <code>.env</code> config:</strong></p>
+<ul>
+<li>Open your <code>.env</code> file located in the root directory of your UNIT3D project.</li>
+<li>Find the <code>SESSION_SECURE_COOKIE</code> setting and change its value to <code>false</code>. This action disables secure cookies,
+which are otherwise required for HTTPS.</li>
+</ul>
+<pre><code class="language-dotenv">SESSION_SECURE_COOKIE=false
+</code></pre>
+</li>
+<li>
+<p><strong>Adjust the secure headers in <code>config/secure-headers.php</code>:</strong></p>
+<ul>
+<li>Navigate to the <code>config</code> directory and open the <code>secure-headers.php</code> file.</li>
+<li>To disable the <code>Strict-Transport-Security</code> header, locate the <code>hsts</code> setting and change its value to <code>false</code>.</li>
+</ul>
+<pre><code class="language-php">'hsts' =&gt; false,
+</code></pre>
+<ul>
+<li>Next, locate the Content Security Policy (CSP) configuration to adjust it for HTTP. Disable the CSP to prevent it
+from blocking content that doesn't meet the HTTPS security requirements.</li>
+</ul>
+<pre><code class="language-php">'enable' =&gt; env('CSP_ENABLED', false),
+</code></pre>
+</li>
+</ol>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<h3 id="installing-docker-desktop"><a class="header" href="#installing-docker-desktop">Installing Docker Desktop</a></h3>
+<p><a href="https://docs.docker.com/desktop/install/mac-install/">Install Docker Desktop</a></p>
+<p>Once installed, launch Docker Desktop</p>
+<h3 id="installing-github-desktop"><a class="header" href="#installing-github-desktop">Installing GitHub Desktop</a></h3>
+<p><a href="https://desktop.github.com">Install GitHub Desktop</a></p>
+<p>Once installed, launch GitHub Desktop</p>
+<h3 id="installing-phpstorm"><a class="header" href="#installing-phpstorm">Installing PHPStorm</a></h3>
+<p><a href="https://www.jetbrains.com/phpstorm/">Install PHPStorm</a></p>
+<p>Once installed, launch PHPStorm</p>
+<h2 id="step-1-clone-the-repository"><a class="header" href="#step-1-clone-the-repository">Step 1: clone the repository</a></h2>
+<p>Firstly, clone the UNIT3D repository to your local environment by visiting <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition">UNIT3D-Community-Edition Repo</a>. Then click the blue colored code button and select <code>Open with Github Desktop</code>. Once Github Desktop is open set you local path to clone to like <code>/Users/HDVinnie/Documents/Personal/UNIT3D-Community-Edition</code></p>
+<h2 id="step-2-open-the-project-in-phpstorm"><a class="header" href="#step-2-open-the-project-in-phpstorm">Step 2: open the project in PHPStorm</a></h2>
+<p>Within PHPStorm goto <code>File</code> and then click <code>Open</code>. Select the local path you just did like <code>/Users/HDVinnie/Documents/Personal/UNIT3D-Community-Edition</code>.</p>
+<h3 id="the-following-commands-are-run-in-phpstorm-can-do-so-by-clicking-tools-run-command"><a class="header" href="#the-following-commands-are-run-in-phpstorm-can-do-so-by-clicking-tools-run-command">The following commands are run in PHPStorm. Can do so by clicking <code>Tools-&gt;Run Command</code>.</a></h3>
+<h2 id="step-3-start-sail"><a class="header" href="#step-3-start-sail">Step 3: start Sail</a></h2>
+<p>Initialize the Docker environment using Laravel Sail:</p>
+<pre><code class="language-bash">./vendor/bin/sail up -d
+</code></pre>
+<h2 id="step-4-composer-dependency-installation"><a class="header" href="#step-4-composer-dependency-installation">Step 4: Composer dependency installation</a></h2>
+<pre><code class="language-bash">./vendor/bin/sail composer install
+</code></pre>
+<h2 id="step-5-bun-dependency-install-and-compile-assets"><a class="header" href="#step-5-bun-dependency-install-and-compile-assets">Step 5: Bun dependency install and compile assets</a></h2>
+<pre><code class="language-bash">./vendor/bin/sail bun install
+</code></pre>
+<pre><code class="language-bash">./vendor/bin/sail bun run build
+</code></pre>
+<h2 id="step-6-database-migrations-and-seeders"><a class="header" href="#step-6-database-migrations-and-seeders">Step 6: database migrations and seeders</a></h2>
+<p>For database initialization with sample data, apply migrations and seeders:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate:fresh --seed
+</code></pre>
+<p><strong>Caution</strong>: This operation will reset your database and seed it with default data. Exercise caution in production
+settings.</p>
+<h2 id="step-7-database-preparation-if-want-to-use-a-production-database-backup-locally"><a class="header" href="#step-7-database-preparation-if-want-to-use-a-production-database-backup-locally">Step 7: database preparation (if want to use a production database backup locally)</a></h2>
+<h3 id="initial-database-loading"><a class="header" href="#initial-database-loading">Initial database loading</a></h3>
+<p>Prepare your database with the initial schema and data. Ensure you have a database dump file,
+e.g., <code>prod-site-backup.sql</code>.</p>
+<h3 id="mysql-data-importation"><a class="header" href="#mysql-data-importation">MySQL data importation</a></h3>
+<p>To import your database dump into MySQL within the local environment, use:</p>
+<pre><code class="language-bash">./vendor/bin/sail mysql -u root -p unit3d &lt; prod-site-backup.sql
+</code></pre>
+<p><strong>Note</strong>: For this to work properly you must set the APP_KEY value in your local <code>.env</code> file to match you prod APP_KEY value.</p>
+<h2 id="step-8-application-cache-configuration"><a class="header" href="#step-8-application-cache-configuration">Step 8: application cache configuration</a></h2>
+<p>Optimize the application's performance by setting up the cache:</p>
+<pre><code class="language-bash">sail artisan set:all_cache
+</code></pre>
+<h2 id="step-9-visit-local-instance"><a class="header" href="#step-9-visit-local-instance">Step 9: visit local instance</a></h2>
+<p>Open your browser and visit <code>localhost</code>. Enjoy!</p>
+<h2 id="additional-notes"><a class="header" href="#additional-notes">Additional notes</a></h2>
+<ul>
+<li><strong>Permissions</strong>: Exercise caution with <code>sudo</code> to avoid permission conflicts, particularly for Docker commands
+requiring elevated access.</li>
+</ul>
+<h3 id="appendix-sail-commands-for-unit3d"><a class="header" href="#appendix-sail-commands-for-unit3d">Appendix: Sail commands for UNIT3D</a></h3>
+<p>This section outlines commands for managing and interacting with UNIT3D using Laravel Sail.</p>
+<h4 id="sail-management"><a class="header" href="#sail-management">Sail management</a></h4>
+<ul>
+<li>
+<p><strong>Start environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail up -d
+</code></pre>
+<p>Starts Docker containers in detached mode.</p>
+</li>
+<li>
+<p><strong>Stop environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail down -v
+</code></pre>
+<p>Stops and removes Docker containers.</p>
+</li>
+<li>
+<p><strong>Restart environment</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail restart
+</code></pre>
+<p>Applies changes by restarting Docker environment.</p>
+</li>
+</ul>
+<h4 id="dependency-management"><a class="header" href="#dependency-management">Dependency management</a></h4>
+<ul>
+<li>
+<p><strong>Install Composer dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail composer install
+</code></pre>
+<p>Installs PHP dependencies defined in <code>composer.json</code>.</p>
+</li>
+<li>
+<p><strong>Update Composer dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail composer update
+</code></pre>
+<p>Updates PHP dependencies defined in <code>composer.json</code>.</p>
+</li>
+</ul>
+<h4 id="laravel-artisan"><a class="header" href="#laravel-artisan">Laravel Artisan</a></h4>
+<ul>
+<li>
+<p><strong>Run migrations</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate
+</code></pre>
+<p>Executes database migrations.</p>
+</li>
+<li>
+<p><strong>Seed database</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan db:seed
+</code></pre>
+<p>Seeds database with predefined data.</p>
+</li>
+<li>
+<p><strong>Refresh database</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan migrate:fresh --seed
+</code></pre>
+<p>Resets and seeds database.</p>
+</li>
+<li>
+<p><strong>Cache configurations</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan set:all_cache
+</code></pre>
+<p>Clears and caches configurations for performance.</p>
+</li>
+</ul>
+<h4 id="npm-and-assets"><a class="header" href="#npm-and-assets">NPM and assets</a></h4>
+<ul>
+<li>
+<p><strong>Install Bun dependencies</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail bun install
+</code></pre>
+<p>Installs Node.js dependencies.</p>
+</li>
+<li>
+<p><strong>Compile assets</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail bun run build
+</code></pre>
+<p>Compiles CSS and JavaScript assets.</p>
+</li>
+</ul>
+<h4 id="database-operations"><a class="header" href="#database-operations">Database operations</a></h4>
+<ul>
+<li><strong>MySQL interaction</strong>:
+<pre><code class="language-bash">./vendor/bin/sail mysql -u root -p
+</code></pre>
+Opens MySQL CLI for database interaction.</li>
+</ul>
+<h4 id="queue-management"><a class="header" href="#queue-management">Queue management</a></h4>
+<ul>
+<li><strong>Restart queue workers</strong>:
+<pre><code class="language-bash">./vendor/bin/sail artisan queue:restart
+</code></pre>
+Restarts queue workers after changes.</li>
+</ul>
+<h4 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h4>
+<ul>
+<li>
+<p><strong>View logs</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail logs
+</code></pre>
+<p>Displays Docker container logs.</p>
+</li>
+<li>
+<p><strong>PHPUnit (PEST) tests</strong>:</p>
+<pre><code class="language-bash">./vendor/bin/sail artisan test
+</code></pre>
+<p>Runs PEST tests for application.</p>
+</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="local_development_arch_linux.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="meilisearch_setup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="local_development_arch_linux.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="meilisearch_setup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

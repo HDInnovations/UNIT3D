@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Basic Tuning - UNIT3D Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">UNIT3D Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="basic-tuning"><a class="header" href="#basic-tuning">Basic tuning</a></h1>
+<!-- cspell:ignore unixsocket,unixsocketperm,usermod,ondemand,curlopt,cainfo -->
+<blockquote>
+<p>[!IMPORTANT]
+These guides are intended for UNIT3D v8.0.0 + instances. While these are better than defaults be careful blindly following them. Proper tuning requires understanding your server, running tests and monitoring the results.</p>
+</blockquote>
+<h2 id="redis-single-server"><a class="header" href="#redis-single-server">Redis single server</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">30 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction"><a class="header" href="#introduction">Introduction</a></h3>
+<p>If your Redis service is running on your web server, it is highly recommended that you use <strong>Unix sockets</strong> instead of <strong>TCP ports</strong> to communicate with your web server.</p>
+<p>Based on the Redis official benchmark, you can <strong>improve performance by up to 50%</strong> using unix sockets (versus TCP ports) on Redis.</p>
+<p>Of course, unix sockets can only be used if both your Laravel application and Redis are running on the same server.</p>
+<h3 id="how-to-enable-unix-sockets"><a class="header" href="#how-to-enable-unix-sockets">How to enable unix sockets</a></h3>
+<p>First, create the redis folder that the unix socket will be in and set appropriate permissions:</p>
+<pre><code class="language-bash">sudo mkdir -p /var/run/redis/
+sudo chown -R redis:www-data /var/run/redis
+sudo usermod -aG redis www-data
+</code></pre>
+<p>Next, add the unix socket path and permissions in your Redis configuration file (typically at <code>/etc/redis/redis.conf</code>):</p>
+<pre><code class="language-ini">unixsocket /var/run/redis/redis.sock
+unixsocketperm 770
+</code></pre>
+<p>Finally, set your corresponding env variables to the socket path as above:</p>
+<pre><code class="language-bash">REDIS_HOST=/var/run/redis/redis.sock
+REDIS_PORT=-1
+REDIS_SCHEME=unix
+</code></pre>
+<p>Ensure that you have your <code>config/database.php</code> file refer to the above variables (notice the <code>scheme</code> addition below):</p>
+<pre><code class="language-php{7}">'redis' =&gt; [
+    'client' =&gt; env('REDIS_CLIENT', 'phpredis'),
+
+    'options' =&gt; [
+        'scheme' =&gt; env('REDIS_SCHEME', 'tcp'),
+    ],
+
+    'default' =&gt; [
+        'url' =&gt; env('REDIS_URL'),
+        'host' =&gt; env('REDIS_HOST', '127.0.0.1'),
+        'password' =&gt; env('REDIS_PASSWORD', null),
+        'port' =&gt; env('REDIS_PORT', '6379'),
+        'database' =&gt; env('REDIS_DB', '0'),
+    ],
+
+    'cache' =&gt; [
+        'url' =&gt; env('REDIS_URL'),
+        'host' =&gt; env('REDIS_HOST', '127.0.0.1'),
+        'password' =&gt; env('REDIS_PASSWORD', null),
+        'port' =&gt; env('REDIS_PORT', '6379'),
+        'database' =&gt; env('REDIS_CACHE_DB', '1'),
+    ],
+],
+</code></pre>
+<p>Once that's all done simply restart redis.</p>
+<pre><code class="language-bash">sudo systemctl restart redis
+</code></pre>
+<h3 id="references"><a class="header" href="#references">References</a></h3>
+<ul>
+<li><a href="https://redis.io/topics/benchmarks">Redis Official Benchmark on Socket vs TCP</a></li>
+<li><a href="https://laravel.com/docs/redis">Laravel Documentation on Redis</a></li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+Keep in mind that when using unix socket you will now connect to redis-cli in terminal like so: <code>redis-cli -s /var/run/redis/redis.sock</code></p>
+</blockquote>
+<h2 id="mysql-single-server"><a class="header" href="#mysql-single-server">MySQL single server</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">10 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h3>
+<p>If your MySQL database is running on your web server, it is highly recommended that you use <strong>Unix sockets</strong> instead of <strong>TCP ports</strong> to communicate with your web server.</p>
+<p>Based on Percona's benchmark, you can <strong>improve performance by up to 50%</strong> using unix sockets (versus TCP ports on MySQL).</p>
+<p>Of course, unix sockets can only be used if both your UNIT3D application and database are running on the same server which is by default.</p>
+<h3 id="how-to-enable-unix-sockets-1"><a class="header" href="#how-to-enable-unix-sockets-1">How to enable unix sockets</a></h3>
+<p>First, open your MySQL configuration file.</p>
+<pre><code class="language-bash">nano /etc/mysql/my.cnf
+</code></pre>
+<p>Then, uncomment and change (if needed) the socket parameter in the <code>[mysqld]</code> section of one of the above configuration files:</p>
+<pre><code class="language-ini">[mysqld]
+user            = mysql
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+port            = 3306
+</code></pre>
+<p>Close this file, then ensure that the mysqld.sock file exists by running an ls command on the directory where MySQL expects to find it:</p>
+<p><code>ls -a /var/run/mysqld/</code></p>
+<p>If the socket file exists, you will see it in this command’s output:</p>
+<p>Output
+<code>.  ..  mysqld.pid  mysqld.sock  mysqld.sock.lock</code>
+If the file does not exist, the reason may be that MySQL is trying to create it, but does not have adequate permissions to do so. You can ensure that the correct permissions are in place by changing the directory’s ownership to the mysql user and group:</p>
+<p><code>sudo chown mysql:mysql /var/run/mysqld/</code></p>
+<p>Then ensure that the mysql user has the appropriate permissions over the directory. Setting these to 775 will work in most cases:</p>
+<p><code>sudo chmod -R 755 /var/run/mysqld/</code></p>
+<p>Finally, set your <code>database.connections.mysql.unix_socket</code> configuration variable or the corresponding env variable to the socket path as above:</p>
+<pre><code class="language-bash">DB_SOCKET=/var/run/mysqld/mysqld.sock
+</code></pre>
+<p>Once that's all done simply refresh your cache and then restart the services.</p>
+<pre><code class="language-bash">php artisan set:all_cache
+</code></pre>
+<pre><code class="language-bash">sudo systemctl restart mysql &amp;&amp; sudo systemctl restart php8.3-fpm &amp;&amp; sudo systemctl restart nginx
+</code></pre>
+<h3 id="references-1"><a class="header" href="#references-1">References</a></h3>
+<ul>
+<li><a href="https://www.percona.com/blog/2020/04/13/need-to-connect-to-a-local-mysql-server-use-unix-domain-socket/">Percona Benchmark (Unix vs TCP)</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-troubleshoot-socket-errors-in-mysql">MySQL Unix Socket Setup</a></li>
+<li><a href="https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-connection-socket.html">MySQL Shell Connections Guide</a></li>
+</ul>
+<h2 id="composer-autoloader-optimization"><a class="header" href="#composer-autoloader-optimization">Composer autoloader optimization</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Moderate</td><td style="text-align: right">5 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-2"><a class="header" href="#introduction-2">Introduction</a></h3>
+<p>Due to the way PSR-0/4 autoloading rules are defined, the Composer autoloader checks the filesystem before resolving a classname conclusively.</p>
+<p>In production, Composer allows for optimization to convert the PSR-0 and PSR-4 autoloading rules into classmap rules, making autoloading quite a bit faster. In production we also don't need all the require-dev dependencies loaded up!</p>
+<h3 id="how-to-optimize"><a class="header" href="#how-to-optimize">How to optimize?</a></h3>
+<p>It's really simple. SSH to your server and run the following commands.</p>
+<pre><code class="language-bash">composer install --prefer-dist --no-dev
+</code></pre>
+<pre><code class="language-bash">composer dump-autoload --optimize
+</code></pre>
+<h3 id="references-2"><a class="header" href="#references-2">References</a></h3>
+<ul>
+<li>https://getcomposer.org/doc/articles/autoloader-optimization.md</li>
+</ul>
+<h2 id="php8-opcache"><a class="header" href="#php8-opcache">PHP8 OPCache</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">10 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-3"><a class="header" href="#introduction-3">Introduction</a></h3>
+<p>Opcache provides massive performance gains. One of the benchmarks suggest it can provide a 5.5X performance gain in a Laravel application!</p>
+<p><code>What is OPcache?</code>
+Every time you execute a PHP script, the script needs to be compiled to byte code. OPCache leverages a cache for this bytecode, so the next time the same script is requested, it doesn’t have to recompile it. This can save some precious execution time, and thus make UNIT3D faster.</p>
+<p><code>Sounds awesome, so how can you use it?</code>
+Easy. SSH to your server and run the following command. <code>sudo nano /etc/php/8.3/fpm/php.ini</code> This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for <code>opcache</code>.</p>
+<p>Now you can change some values, I will walk you through the most important ones.</p>
+<p><code>opcache.enable=1</code>
+This of course, enables OPcache for php-fpm. Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.enable_cli=1</code>
+This of course, enables OPcache for php-cli. Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.memory_consumption=256M</code>
+How many Megabyte you want to assign to OPCache. Choose anything higher than 64 (default value) depending on your needs. 2GB is sufficient but if have more RAM then make use of it! Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.interned_strings_buffer=64</code>
+How many Megabyte you want to assign to interned strings. Choose anything higher than 16 (default value). 1GB is sufficient but if have more RAM then make use of it! Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.validate_timestamps=0</code>
+This will revalidate the script. If you set this to 0 (best performance), you need to manually clear the OPcache every time your PHP code changes. So if you update UNIT3D using <code>php artisan git:update</code> or manually make changes yourself you need to run <code>sudo systemctl restart php8.2-fpm</code> afterwords for your changes to take effect and show. Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p><code>opcache.save_comments=1</code>
+This will preserve comments in your script, I recommend to keep this enabled, as some libraries depend on it, and I couldn’t find any benefits from disabling it (except from saving a few bytes RAM). Make sure it is uncommented. AKA remove the<code>;</code></p>
+<p>And there you have it folks. Experiment with these values, depending on the resources of your server. Save the file and exit and restart PHP <code>sudo systemctl restart php8.3-fpm</code>.</p>
+<p>Enjoy! 🖖</p>
+<h2 id="php-8-preloading"><a class="header" href="#php-8-preloading">PHP 8 preloading</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">5 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-4"><a class="header" href="#introduction-4">Introduction</a></h3>
+<p>This is chaining off <code>Want More Performance? Lets talk about OPCache!</code> guide. You must have OPCache enabled to use preloading.</p>
+<p>PHP preloading for PHP &gt;=7.4. Preloading is a feature of php that will pre-compile php functions and classes to opcache. Thus, this becomes available in your programs with out needing to require the files, which improves speed. To read more on php preloading you can see the <a href="https://www.php.net/manual/en/opcache.preloading.php">opcache.preloading documentation</a>.</p>
+<h3 id="enabling-preloading"><a class="header" href="#enabling-preloading">Enabling preloading</a></h3>
+<p>SSH to your server and run the following command. <code>sudo nano /etc/php/8.3/fpm/php.ini</code> This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for <code>preload</code>.</p>
+<p>Now you can change some values.</p>
+<pre><code>; Specifies a PHP script that is going to be compiled and executed at server
+; start-up.
+; https://php.net/opcache.preload
+opcache.preload = '/var/www/html/preload.php';
+
+; Preloading code as root is not allowed for security reasons. This directive
+; facilitates to let the preloading to be run as another user.
+; https://php.net/opcache.preload_user
+opcache.preload_user=ubuntu
+</code></pre>
+<p>As you can see we are calling the preload file included in UNIT3D located in <code>/var/www/html/preload.php</code>.
+<code>opcache.preload_user=ubuntu</code> you should changed to your server user. Not root!!!!</p>
+<p>And there you have it folks. Save the file and exit and restart PHP <code>sudo systemctl restart php8.3-fpm</code>. You are now preloading Laravel thus making UNIT3D faster.</p>
+<h2 id="php8-jit"><a class="header" href="#php8-jit">PHP8 JIT</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Moderate</td><td style="text-align: right">5 minutes</td></tr>
+</tbody></table>
+</div>
+<h3 id="introduction-5"><a class="header" href="#introduction-5">Introduction</a></h3>
+<p>PHP 8 adds a JIT compiler to PHP's core which has the potential to speed up performance dramatically.</p>
+<p>First of all, the JIT will only work if opcache is enabled, this is the default for most PHP installations, but you should make sure that <code>opcache.enable</code> is set to <code>1</code> in your php.ini file. Enabling the JIT itself is done by specifying <code>opcache.jit_buffer_size</code> in php.ini. <strong><em>So I recommend checking the OPcache guide I made first then coming back here.</em></strong></p>
+<h3 id="how-to-enable-jit"><a class="header" href="#how-to-enable-jit">How to enable JIT</a></h3>
+<p>SSH to your server and run the following command. <code>sudo nano /etc/php/8.3/fpm/php.ini</code> This is assuming your on PHP 8.2. If not then adjust the command. Once you have the config open search for <code>opcache.jit</code>.</p>
+<p>If you do not get any results then search for <code>[curl]</code> you should see the following.</p>
+<pre><code>[curl]
+; A default value for the CURLOPT_CAINFO option. This is required to be an
+; absolute path.
+;curl.cainfo =
+</code></pre>
+<p>Right above it add:</p>
+<pre><code>opcache.jit_buffer_size=256M
+</code></pre>
+<p>Its as simple as that. Save and exit and restart PHP. <code>sudo systemctl restart php8.2-fpm</code></p>
+<h2 id="pm-static"><a class="header" href="#pm-static">PM static</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Category</th><th style="text-align: center">Severity</th><th style="text-align: right">Time To Fix</th></tr></thead><tbody>
+<tr><td>:rocket: Performance</td><td style="text-align: center">Major</td><td style="text-align: right">10 minutes</td></tr>
+</tbody></table>
+</div>
+<blockquote>
+<p>[!IMPORTANT]
+This guide is intended for high traffic sites.</p>
+</blockquote>
+<h3 id="introduction-6"><a class="header" href="#introduction-6">Introduction</a></h3>
+<p>Lets give a basic description on what these options are:</p>
+<p><code>pm = dynamic</code> – the number of child processes is set dynamically based on the following directives: pm.max_children, pm.start_servers,pm.min_spare_servers, pm.max_spare_servers.</p>
+<p><code>pm = ondemand</code> – the processes spawn on demand (when requested, as opposed to dynamic, where pm.start_servers are started when the service is started.</p>
+<p><code>pm = static</code> – the number of child processes is fixed by pm.max_children.</p>
+<p>The PHP-FPM pm static setting depends heavily on how much free memory your server has. Basically if you are suffering from low server memory, then pm ondemand or dynamic maybe be better options. On the other hand, if you have the memory available you can avoid much of the PHP process manager (PM) overhead by setting pm static to the max capacity of your server. In other words, when you do the math, pm.static should be set to the max amount of PHP-FPM processes that can run without creating memory availability or cache pressure issues. Also, not so high as to overwhelm CPU(s) and have a pile of pending PHP-FPM operations.</p>
+<h3 id="enabling-static"><a class="header" href="#enabling-static">Enabling static</a></h3>
+<p>Lets open up our PHP configuration file. <code>sudo nano /etc/php/8.3/fpm/pool.d/www.conf</code></p>
+<p>Set <code>pm = static</code>
+Set <code>pm.max_children = 25</code></p>
+<p>Save, Exit and Restart <code>sudo systemctl restart php8.3-fpm</code></p>
+<h3 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h3>
+<p>When it comes to PHP-FPM, once you start to serve serious traffic, ondemand and dynamic process managers for PHP-FPM can limit throughput because of the inherent overhead. Know your system and set your PHP-FPM processes to match your server’s max capacity.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="backups.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="local_development_arch_linux.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="backups.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="local_development_arch_linux.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
