@@ -21,257 +21,434 @@ use App\Models\WhitelistedImageUrl;
 class Bbcode
 {
     /**
-     * @var array<
+     * @return array<
      *     string,
      *     array{
      *         openBbcode: string,
-     *         closeBbcode: string,
+     *         closeBbcode: ?string,
      *         openHtml: string,
      *         closeHtml: string,
-     *         block: boolean
+     *         block: boolean,
+     *         parseWithin: boolean,
+     *     }|array{
+     *         openBbcode: string,
+     *         closeBbcode: ?string,
+     *         'callback': \Closure(string $source): string,
+     *         block: boolean,
+     *         parseWithin: boolean,
      *     }
      * > $parsers.
      */
-    private array $parsers = [
-        'h1' => [
-            'openBbcode'  => '/^\[h1\]/i',
-            'closeBbcode' => '[/h1]',
-            'openHtml'    => '<h1>',
-            'closeHtml'   => '</h1>',
-            'block'       => true,
-        ],
-        'h2' => [
-            'openBbcode'  => '/^\[h2\]/i',
-            'closeBbcode' => '[/h2]',
-            'openHtml'    => '<h2>',
-            'closeHtml'   => '</h2>',
-            'block'       => true,
-        ],
-        'h3' => [
-            'openBbcode'  => '/^\[h3\]/i',
-            'closeBbcode' => '[/h3]',
-            'openHtml'    => '<h3>',
-            'closeHtml'   => '</h3>',
-            'block'       => true,
-        ],
-        'h4' => [
-            'openBbcode'  => '/^\[h4\]/i',
-            'closeBbcode' => '[/h4]',
-            'openHtml'    => '<h4>',
-            'closeHtml'   => '</h4>',
-            'block'       => true,
-        ],
-        'h5' => [
-            'openBbcode'  => '/^\[h5\]/i',
-            'closeBbcode' => '[/h5]',
-            'openHtml'    => '<h5>',
-            'closeHtml'   => '</h5>',
-            'block'       => true,
-        ],
-        'h6' => [
-            'openBbcode'  => '/^\[h6\]/i',
-            'closeBbcode' => '[/h6]',
-            'openHtml'    => '<h6>',
-            'closeHtml'   => '</h6>',
-            'block'       => true,
-        ],
-        'bold' => [
-            'openBbcode'  => '/^\[b\]/i',
-            'closeBbcode' => '[/b]',
-            'openHtml'    => '<b>',
-            'closeHtml'   => '</b>',
-            'block'       => false,
-        ],
-        'italic' => [
-            'openBbcode'  => '/^\[i\]/i',
-            'closeBbcode' => '[/i]',
-            'openHtml'    => '<i>',
-            'closeHtml'   => '</i>',
-            'block'       => false,
-        ],
-        'underline' => [
-            'openBbcode'  => '/^\[u\]/i',
-            'closeBbcode' => '[/u]',
-            'openHtml'    => '<u>',
-            'closeHtml'   => '</u>',
-            'block'       => false,
-        ],
-        'linethrough' => [
-            'openBbcode'  => '/^\[s\]/i',
-            'closeBbcode' => '[/s]',
-            'openHtml'    => '<s>',
-            'closeHtml'   => '</s>',
-            'block'       => false,
-        ],
-        'size' => [
-            'openBbcode'  => '/^\[size=(\d+)\]/i',
-            'closeBbcode' => '[/size]',
-            'openHtml'    => '<span style="font-size: clamp(10px, $1px, 100px);">',
-            'closeHtml'   => '</span>',
-            'block'       => false,
-        ],
-        'font' => [
-            'openBbcode'  => '/^\[font=([a-z0-9 ]+)\]/i',
-            'closeBbcode' => '[/font]',
-            'openHtml'    => '<span style="font-family: $1;">',
-            'closeHtml'   => '</span>',
-            'block'       => false,
-        ],
-        'color' => [
-            'openBbcode'  => '/^\[color=(\#[a-f0-9]{3,4}|\#[a-f0-9]{6}|\#[a-f0-9]{8}|[a-z]+)\]/i',
-            'closeBbcode' => '[/color]',
-            'openHtml'    => '<span style="color: $1;">',
-            'closeHtml'   => '</span>',
-            'block'       => false,
-        ],
-        'center' => [
-            'openBbcode'  => '/^\[center\]/i',
-            'closeBbcode' => '[/center]',
-            'openHtml'    => '<div class="bbcode-rendered__center" style="text-align: center;">',
-            'closeHtml'   => '</div>',
-            'block'       => true,
-        ],
-        'left' => [
-            'openBbcode'  => '/^\[left\]/i',
-            'closeBbcode' => '[/left]',
-            'openHtml'    => '<div class="bbcode-rendered__left" style="text-align: left;">',
-            'closeHtml'   => '</div>',
-            'block'       => true,
-        ],
-        'right' => [
-            'openBbcode'  => '/^\[right\]/i',
-            'closeBbcode' => '[/right]',
-            'openHtml'    => '<div class="bbcode-rendered__right" style="text-align: right;">',
-            'closeHtml'   => '</div>',
-            'block'       => true,
-        ],
-        'quote' => [
-            'openBbcode'  => '/^\[quote\]/i',
-            'closeBbcode' => '[/quote]',
-            'openHtml'    => '<blockquote>',
-            'closeHtml'   => '</blockquote>',
-            'block'       => true,
-        ],
-        'namedquote' => [
-            'openBbcode'  => '/^\[quote=(.*?)\]/i',
-            'closeBbcode' => '[/quote]',
-            'openHtml'    => '<blockquote><i class="fas fa-quote-left"></i> <cite>Quoting $1:</cite><p>',
-            'closeHtml'   => '</p></blockquote>',
-            'block'       => true,
-        ],
-        'orderedlistnumerical' => [
-            'openBbcode'  => '/^\[list=1\]/i',
-            'closeBbcode' => '[/list]',
-            'openHtml'    => '<ol>',
-            'closeHtml'   => '</ol>',
-            'block'       => true,
-        ],
-        'orderedlistalpha' => [
-            'openBbcode'  => '/^\[list=a\]/i',
-            'closeBbcode' => '[/list]',
-            'openHtml'    => '<ol type="a">',
-            'closeHtml'   => '</ol>',
-            'block'       => true,
-        ],
-        'unorderedlist' => [
-            'openBbcode'  => '/^\[list\]/i',
-            'closeBbcode' => '[/list]',
-            'openHtml'    => '<ul>',
-            'closeHtml'   => '</ul>',
-            'block'       => true,
-        ],
-        'code' => [
-            'openBbcode'  => '/^\[code\]/i',
-            'closeBbcode' => '[/code]',
-            'openHtml'    => '<pre>',
-            'closeHtml'   => '</pre>',
-            'block'       => true,
-        ],
-        'pre' => [
-            'openBbcode'  => '/^\[pre\]/i',
-            'closeBbcode' => '[/pre]',
-            'openHtml'    => '<code>',
-            'closeHtml'   => '</code>',
-            'block'       => false,
-        ],
-        'alert' => [
-            'openBbcode'  => '/^\[alert\]/i',
-            'closeBbcode' => '[/alert]',
-            'openHtml'    => '<div class="bbcode-rendered__alert">',
-            'closeHtml'   => '</div>',
-            'block'       => true,
-        ],
-        'note' => [
-            'openBbcode'  => '/^\[note\]/i',
-            'closeBbcode' => '[/note]',
-            'openHtml'    => '<div class="bbcode-rendered__note">',
-            'closeHtml'   => '</div>',
-            'block'       => true,
-        ],
-        'sub' => [
-            'openBbcode'  => '/^\[sub\]/i',
-            'closeBbcode' => '[/sub]',
-            'openHtml'    => '<sub>',
-            'closeHtml'   => '</sub>',
-            'block'       => false,
-        ],
-        'sup' => [
-            'openBbcode'  => '/^\[sup\]/i',
-            'closeBbcode' => '[/sup]',
-            'openHtml'    => '<sup>',
-            'closeHtml'   => '</sup>',
-            'block'       => false,
-        ],
-        'small' => [
-            'openBbcode'  => '/^\[small\]/i',
-            'closeBbcode' => '[/small]',
-            'openHtml'    => '<small>',
-            'closeHtml'   => '</small>',
-            'block'       => false,
-        ],
-        'table' => [
-            'openBbcode'  => '/^\[table\]/i',
-            'closeBbcode' => '[/table]',
-            'openHtml'    => '<table>',
-            'closeHtml'   => '</table>',
-            'block'       => true,
-        ],
-        'table-row' => [
-            'openBbcode'  => '/^\[tr\]/i',
-            'closeBbcode' => '[/tr]',
-            'openHtml'    => '<tr>',
-            'closeHtml'   => '</tr>',
-            'block'       => true,
-        ],
-        'table-header' => [
-            'openBbcode'  => '/^\[th\]/i',
-            'closeBbcode' => '[/th]',
-            'openHtml'    => '<th>',
-            'closeHtml'   => '</th>',
-            'block'       => true,
-        ],
-        'table-data' => [
-            'openBbcode'  => '/^\[td\]/i',
-            'closeBbcode' => '[/td]',
-            'openHtml'    => '<td>',
-            'closeHtml'   => '</td>',
-            'block'       => true,
-        ],
-        'spoiler' => [
-            'openBbcode'  => '/^\[spoiler\]/i',
-            'closeBbcode' => '[/spoiler]',
-            'openHtml'    => '<details><summary>Spoiler</summary><div style="text-align:left;">',
-            'closeHtml'   => '</div></details>',
-            'block'       => false,
-        ],
-        'named-spoiler' => [
-            'openBbcode'  => '/^\[spoiler=(.*?)\]/i',
-            'closeBbcode' => '[/spoiler]',
-            'openHtml'    => '<details><summary>$1</summary><div style="text-align:left;">',
-            'closeHtml'   => '</div></details>',
-            'block'       => false,
-        ],
-    ];
+    private static function parsers(): array
+    {
+        return [
+            'h1' => [
+                'openBbcode'  => '/^\[h1\]/i',
+                'closeBbcode' => '[/h1]',
+                'openHtml'    => '<h1>',
+                'closeHtml'   => '</h1>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'h2' => [
+                'openBbcode'  => '/^\[h2\]/i',
+                'closeBbcode' => '[/h2]',
+                'openHtml'    => '<h2>',
+                'closeHtml'   => '</h2>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'h3' => [
+                'openBbcode'  => '/^\[h3\]/i',
+                'closeBbcode' => '[/h3]',
+                'openHtml'    => '<h3>',
+                'closeHtml'   => '</h3>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'h4' => [
+                'openBbcode'  => '/^\[h4\]/i',
+                'closeBbcode' => '[/h4]',
+                'openHtml'    => '<h4>',
+                'closeHtml'   => '</h4>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'h5' => [
+                'openBbcode'  => '/^\[h5\]/i',
+                'closeBbcode' => '[/h5]',
+                'openHtml'    => '<h5>',
+                'closeHtml'   => '</h5>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'h6' => [
+                'openBbcode'  => '/^\[h6\]/i',
+                'closeBbcode' => '[/h6]',
+                'openHtml'    => '<h6>',
+                'closeHtml'   => '</h6>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'bold' => [
+                'openBbcode'  => '/^\[b\]/i',
+                'closeBbcode' => '[/b]',
+                'openHtml'    => '<b>',
+                'closeHtml'   => '</b>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'italic' => [
+                'openBbcode'  => '/^\[i\]/i',
+                'closeBbcode' => '[/i]',
+                'openHtml'    => '<i>',
+                'closeHtml'   => '</i>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'underline' => [
+                'openBbcode'  => '/^\[u\]/i',
+                'closeBbcode' => '[/u]',
+                'openHtml'    => '<u>',
+                'closeHtml'   => '</u>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'linethrough' => [
+                'openBbcode'  => '/^\[s\]/i',
+                'closeBbcode' => '[/s]',
+                'openHtml'    => '<s>',
+                'closeHtml'   => '</s>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'size' => [
+                'openBbcode'  => '/^\[size=(\d+)\]/i',
+                'closeBbcode' => '[/size]',
+                'openHtml'    => '<span style="font-size: clamp(10px, $1px, 100px);">',
+                'closeHtml'   => '</span>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'font' => [
+                'openBbcode'  => '/^\[font=([a-z0-9 ]+)\]/i',
+                'closeBbcode' => '[/font]',
+                'openHtml'    => '<span style="font-family: $1;">',
+                'closeHtml'   => '</span>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'color' => [
+                'openBbcode'  => '/^\[color=(\#[a-f0-9]{3,4}|\#[a-f0-9]{6}|\#[a-f0-9]{8}|[a-z]+)\]/i',
+                'closeBbcode' => '[/color]',
+                'openHtml'    => '<span style="color: $1;">',
+                'closeHtml'   => '</span>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'center' => [
+                'openBbcode'  => '/^\[center\]/i',
+                'closeBbcode' => '[/center]',
+                'openHtml'    => '<div class="bbcode-rendered__center" style="text-align: center;">',
+                'closeHtml'   => '</div>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'left' => [
+                'openBbcode'  => '/^\[left\]/i',
+                'closeBbcode' => '[/left]',
+                'openHtml'    => '<div class="bbcode-rendered__left" style="text-align: left;">',
+                'closeHtml'   => '</div>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'right' => [
+                'openBbcode'  => '/^\[right\]/i',
+                'closeBbcode' => '[/right]',
+                'openHtml'    => '<div class="bbcode-rendered__right" style="text-align: right;">',
+                'closeHtml'   => '</div>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'quote' => [
+                'openBbcode'  => '/^\[quote\]/i',
+                'closeBbcode' => '[/quote]',
+                'openHtml'    => '<blockquote>',
+                'closeHtml'   => '</blockquote>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'namedquote' => [
+                'openBbcode'  => '/^\[quote=(.*?)\]/i',
+                'closeBbcode' => '[/quote]',
+                'openHtml'    => '<blockquote><i class="fas fa-quote-left"></i> <cite>Quoting $1:</cite><p>',
+                'closeHtml'   => '</p></blockquote>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'orderedlistnumerical' => [
+                'openBbcode'  => '/^\[list=1\]/i',
+                'closeBbcode' => '[/list]',
+                'openHtml'    => '<ol>',
+                'closeHtml'   => '</ol>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'orderedlistalpha' => [
+                'openBbcode'  => '/^\[list=a\]/i',
+                'closeBbcode' => '[/list]',
+                'openHtml'    => '<ol type="a">',
+                'closeHtml'   => '</ol>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'unorderedlist' => [
+                'openBbcode'  => '/^\[list\]/i',
+                'closeBbcode' => '[/list]',
+                'openHtml'    => '<ul>',
+                'closeHtml'   => '</ul>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'list-item' => [
+                'openBbcode'  => '/^\[\*\]/i',
+                'closeBbcode' => null,
+                'openHtml'    => '<li>',
+                'closeHtml'   => '',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'code' => [
+                'openBbcode'  => '/^\[code\]/i',
+                'closeBbcode' => '[/code]',
+                'openHtml'    => '<pre>',
+                'closeHtml'   => '</pre>',
+                'block'       => true,
+                'parseWithin' => false,
+            ],
+            'pre' => [
+                'openBbcode'  => '/^\[pre\]/i',
+                'closeBbcode' => '[/pre]',
+                'openHtml'    => '<code>',
+                'closeHtml'   => '</code>',
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+            'alert' => [
+                'openBbcode'  => '/^\[alert\]/i',
+                'closeBbcode' => '[/alert]',
+                'openHtml'    => '<div class="bbcode-rendered__alert">',
+                'closeHtml'   => '</div>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'note' => [
+                'openBbcode'  => '/^\[note\]/i',
+                'closeBbcode' => '[/note]',
+                'openHtml'    => '<div class="bbcode-rendered__note">',
+                'closeHtml'   => '</div>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'sub' => [
+                'openBbcode'  => '/^\[sub\]/i',
+                'closeBbcode' => '[/sub]',
+                'openHtml'    => '<sub>',
+                'closeHtml'   => '</sub>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'sup' => [
+                'openBbcode'  => '/^\[sup\]/i',
+                'closeBbcode' => '[/sup]',
+                'openHtml'    => '<sup>',
+                'closeHtml'   => '</sup>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'small' => [
+                'openBbcode'  => '/^\[small\]/i',
+                'closeBbcode' => '[/small]',
+                'openHtml'    => '<small>',
+                'closeHtml'   => '</small>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'table' => [
+                'openBbcode'  => '/^\[table\]/i',
+                'closeBbcode' => '[/table]',
+                'openHtml'    => '<table>',
+                'closeHtml'   => '</table>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'table-row' => [
+                'openBbcode'  => '/^\[tr\]/i',
+                'closeBbcode' => '[/tr]',
+                'openHtml'    => '<tr>',
+                'closeHtml'   => '</tr>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'table-header' => [
+                'openBbcode'  => '/^\[th\]/i',
+                'closeBbcode' => '[/th]',
+                'openHtml'    => '<th>',
+                'closeHtml'   => '</th>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'table-data' => [
+                'openBbcode'  => '/^\[td\]/i',
+                'closeBbcode' => '[/td]',
+                'openHtml'    => '<td>',
+                'closeHtml'   => '</td>',
+                'block'       => true,
+                'parseWithin' => true,
+            ],
+            'spoiler' => [
+                'openBbcode'  => '/^\[spoiler\]/i',
+                'closeBbcode' => '[/spoiler]',
+                'openHtml'    => '<details><summary>Spoiler</summary><div style="text-align:left;">',
+                'closeHtml'   => '</div></details>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'named-spoiler' => [
+                'openBbcode'  => '/^\[spoiler=(.*?)\]/i',
+                'closeBbcode' => '[/spoiler]',
+                'openHtml'    => '<details><summary>$1</summary><div style="text-align:left;">',
+                'closeHtml'   => '</div></details>',
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'horizontal-rule' => [
+                'openBbcode'  => '/^\[hr\]/i',
+                'closeBbcode' => null,
+                'openHtml'    => '<hr>',
+                'closeHtml'   => '',
+                'block'       => true,
+                'parseWithin' => false,
+            ],
+            'link' => [
+                'openBbcode'  => '/^\[url\]/i',
+                'closeBbcode' => '[/url]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[url](.*?)\[\/url]/i',
+                    fn ($matches) => '<a href="'.self::sanitizeUrl($matches[1]).'">'.self::sanitizeUrl($matches[1]).'</a>',
+                    $source
+                ),
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'named-link' => [
+                'openBbcode'  => '/^\[url=(.*?)]/i',
+                'closeBbcode' => '[/url]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[url=(.*?)](.*?)\[\/url]/i',
+                    fn ($matches) => '<a href="'.self::sanitizeUrl($matches[1]).'">'.$matches[2].'</a>',
+                    $source
+                ),
+                'block'       => false,
+                'parseWithin' => true,
+            ],
+            'image' => [
+                'openBbcode'  => '/^\[img]/i',
+                'closeBbcode' => '[/img]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[img](.*?)\[\/img]/i',
+                    fn ($matches) => '<img src="'.self::sanitizeUrl($matches[1], isImage: true).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+                    $source ?? ''
+                ),
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+            'image-with-width-1' => [
+                'openBbcode'  => '/^\[img width=(\d+)/i',
+                'closeBbcode' => '[/img]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[img width=(\d+)](.*?)\[\/img]/i',
+                    fn ($matches) => '<img src="'.self::sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
+                    $source ?? ''
+                ),
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+            'image-with-width-2' => [
+                'openBbcode'  => '/^\[img=(\d+)(?:x\d+)?]/i',
+                'closeBbcode' => '[/img]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
+                    fn ($matches) => '<img src="'.self::sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
+                    $source ?? ''
+                ),
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+            'youtube-1' => [
+                'openBbcode'  => '/^\[youtube]/i',
+                'closeBbcode' => '[/youtube]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[youtube]([a-z0-9_-]{11})\[\/youtube]/i',
+                    static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                    $source ?? ''
+                ),
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+            'youtube-2' => [
+                'openBbcode'  => '/^\[video]/i',
+                'closeBbcode' => '[/video]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[video]([a-z0-9_-]{11})\[\/video]/i',
+                    static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                    $source ?? ''
+                ),
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+            'youtube-3' => [
+                'openBbcode'  => '/^\[video=&quot;youtube&quot;]/i',
+                'closeBbcode' => '[/video]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[video=&quot;youtube&quot;]([a-z0-9_-]{11})\[\/video]/i',
+                    static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                    $source ?? ''
+                ),
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+            'comparison' => [
+                'openBbcode'  => '/^\[comparison=(.*?)]/i',
+                'closeBbcode' => '[/comparison]',
+                'callback'    => fn ($source) => preg_replace_callback(
+                    '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
+                    function ($matches) {
+                        $comparates = preg_split('/\s*,\s*/', $matches[1]);
+                        $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
+
+                        if ($comparates === false || $urls === false) {
+                            return 'Broken comparison';
+                        }
+
+                        $validatedUrls = collect($urls)->map(fn ($url) => self::sanitizeUrl($url, isImage: true));
+                        $chunkedUrls = $validatedUrls->chunk(\count($comparates));
+                        $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
+                        $html = preg_replace('/\s+/', ' ', $html);
+
+                        if (!\is_string($html)) {
+                            return 'Broken html';
+                        }
+
+                        return $html;
+                    },
+                    $source ?? ''
+                ),
+                'block'       => false,
+                'parseWithin' => false,
+            ],
+        ];
+    }
 
     /**
      * Parses the BBCode string.
@@ -281,79 +458,6 @@ class Bbcode
         $source ??= '';
         $source = htmlspecialchars($source, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
 
-        // Replace all void elements since they don't have closing tags
-        $source = str_replace('[*]', '<li>', (string) $source);
-        $source = str_replace('[hr]', '<hr>', $source);
-        $source = preg_replace_callback(
-            '/\[url](.*?)\[\/url]/i',
-            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.$this->sanitizeUrl($matches[1]).'</a>',
-            $source
-        );
-        $source = preg_replace_callback(
-            '/\[url=(.*?)](.*?)\[\/url]/i',
-            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.$matches[2].'</a>',
-            $source ?? ''
-        );
-        $source = preg_replace_callback(
-            '/\[img](.*?)\[\/img]/i',
-            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[1], isImage: true).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
-            $source ?? ''
-        );
-        $source = preg_replace_callback(
-            '/\[img width=(\d+)](.*?)\[\/img]/i',
-            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
-            $source ?? ''
-        );
-        $source = preg_replace_callback(
-            '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
-            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
-            $source ?? ''
-        );
-
-        // YouTube video elements need to be replaced like this because the content inside the two tags
-        // has to be moved into an HTML attribute
-        $source = preg_replace_callback(
-            '/\[youtube]([a-z0-9_-]{11})\[\/youtube]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source ?? ''
-        );
-        $source = preg_replace_callback(
-            '/\[video]([a-z0-9_-]{11})\[\/video]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source ?? ''
-        );
-        $source = preg_replace_callback(
-            '/\[video=&quot;youtube&quot;]([a-z0-9_-]{11})\[\/video]/i',
-            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source ?? ''
-        );
-
-        // Common comparison syntax used in other torrent management systems is quite specific,
-        // so it must be done here instead
-        $source = preg_replace_callback(
-            '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
-            function ($matches) {
-                $comparates = preg_split('/\s*,\s*/', $matches[1]);
-                $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
-
-                if ($comparates === false || $urls === false) {
-                    return 'Broken comparison';
-                }
-
-                $validatedUrls = collect($urls)->map(fn ($url) => $this->sanitizeUrl($url, isImage: true));
-                $chunkedUrls = $validatedUrls->chunk(\count($comparates));
-                $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
-                $html = preg_replace('/\s+/', ' ', $html);
-
-                if (!\is_string($html)) {
-                    return 'Broken html';
-                }
-
-                return $html;
-            },
-            $source ?? ''
-        );
-
         // Stack of unclosed elements
         $openedElements = [];
 
@@ -362,8 +466,28 @@ class Bbcode
 
         // Don't loop more than the length of the source
         while ($index < \strlen((string) $source)) {
+            $prevIndex = $index;
+
             // Get the next occurrence of `[`
             $index = strpos((string) $source, '[', $index);
+
+            // Close implicit list if reached doubled newline
+            if (
+                $openedElements !== []
+                && end($openedElements)['name'] === 'implicit-list'
+                && preg_match('/(\r\n|\n|\r)\h*(\r\n|\n|\r)/', $source, $nextDoubleLineBreak, PREG_OFFSET_CAPTURE, $prevIndex)
+                && $nextDoubleLineBreak[0][1] < ($index ?: \strlen($source))
+            ) {
+                $index = $nextDoubleLineBreak[0][1];
+                $source = substr_replace($source, '</ul>', $index, 0);
+                array_pop($openedElements);
+
+                if ($replaceLineBreaks) {
+                    self::handleBlockElementSpacing($source, $index, $index, $index + \strlen('</ul>') - 1);
+                }
+
+                continue;
+            }
 
             // Break if there are no more occurrences of `[`
             if ($index === false) {
@@ -377,37 +501,87 @@ class Bbcode
 
             // Is the potential tag opening or closing?
             if ($source[$index + 1] === '/' && !empty($openedElements)) {
-                $name = array_pop($openedElements);
-                $el = $this->parsers[$name];
+                $expectedEl = array_pop($openedElements);
+
+                if ($expectedEl['name'] === 'implicit-list') {
+                    $source = substr_replace($source, '</ul>', $index, 0);
+                    $expectedEl = array_pop($openedElements);
+                }
+
+                $el = self::parsers()[$expectedEl['name']];
                 $tag = substr((string) $source, $index, \strlen((string) $el['closeBbcode']));
 
                 // Replace bbcode tag with html tag if found tag matches expected tag,
                 // otherwise return the expected element's to the stack
                 if (strcasecmp($tag, (string) $el['closeBbcode']) === 0) {
-                    $source = substr_replace((string) $source, (string) $el['closeHtml'], $index, \strlen((string) $el['closeBbcode']));
+                    if (\array_key_exists('callback', $el)) {
+                        // Pass the bbcode tag including its contents to the callback
+                        $length = $index - $expectedEl['tagStart'] + \strlen($el['closeBbcode']);
+                        $replacement = $el['callback'](substr($source, $expectedEl['tagStart'], $length));
+                        $source = substr_replace((string) $source, $replacement, $expectedEl['tagStart'], $length);
+                        $index = $expectedEl['tagStart'] + \strlen($replacement) - 1;
+                    } else {
+                        $source = substr_replace((string) $source, (string) $el['closeHtml'], $index, \strlen((string) $el['closeBbcode']));
+                    }
 
                     if ($replaceLineBreaks === true && $el['block'] === true) {
-                        $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen((string) $el['closeHtml']) - 1);
+                        self::handleBlockElementSpacing($source, $index, $index, $index + \strlen($el['closeHtml'] ?? '') - 1);
                     }
                 } else {
-                    $openedElements[] = $name;
+                    $openedElements[] = $expectedEl;
                 }
             } else {
                 $remainingText = substr((string) $source, $index);
 
                 // Find match between found bbcode tag and valid elements
-                foreach ($this->parsers as $name => $el) {
+                foreach (self::parsers() as $name => $el) {
                     // The opening bbcode tag uses the regex `^` character to make
                     // sure only the beginning of $remainingText is matched
                     if (preg_match($el['openBbcode'], $remainingText, $matches) === 1) {
-                        $replacement = (string) preg_replace($el['openBbcode'], (string) $el['openHtml'], $matches[0]);
-                        $source = substr_replace((string) $source, $replacement, $index, \strlen($matches[0]));
+                        // Wrap list items in lists when users forget
+                        if (
+                            $name === 'list-item'
+                            && (
+                                $openedElements === []
+                                || !\in_array(end($openedElements)['name'], ['implicit-list', 'unorderedlist', 'orderedlistalpha', 'orderedlistnumerical'])
+                            )
+                        ) {
+                            $source = substr_replace($source, '<ul>', $index, 0);
+                            $openedElements[] = [
+                                'name'     => 'implicit-list',
+                                'tagStart' => $index,
+                            ];
 
-                        if ($replaceLineBreaks === true && $el['block'] === true) {
-                            $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen($replacement) - 1);
+                            if ($replaceLineBreaks === true && $el['block'] === true) {
+                                self::handleBlockElementSpacing($source, $index, $index, $index + \strlen('<ul>') - 1);
+                            }
+
+                            break;
                         }
 
-                        $openedElements[] = $name;
+                        // Replace opening tag
+                        if (
+                            $openedElements === []
+                            || end($openedElements)['name'] === 'implicit-list'
+                            || self::parsers()[end($openedElements)['name']]['parseWithin']
+                        ) {
+                            if (!\array_key_exists('callback', $el)) {
+                                $replacement = (string) preg_replace($el['openBbcode'], (string) $el['openHtml'], $matches[0]);
+                                $source = substr_replace((string) $source, $replacement, $index, \strlen($matches[0]));
+
+                                if ($replaceLineBreaks === true && $el['block'] === true) {
+                                    self::handleBlockElementSpacing($source, $index, $index, $index + \strlen($replacement) - 1);
+                                }
+                            }
+
+                            if ($el['closeBbcode'] !== null) {
+                                // Keep track of which tags need closing
+                                $openedElements[] = [
+                                    'name'     => $name,
+                                    'tagStart' => $index,
+                                ];
+                            }
+                        }
 
                         break;
                     }
@@ -417,8 +591,25 @@ class Bbcode
             $index++;
         }
 
+        // Close remaining open elements
         while (!empty($openedElements)) {
-            $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
+            $expectedEl = array_pop($openedElements);
+
+            if ($expectedEl['name'] === 'implicit-list') {
+                $source .= '</ul>';
+
+                continue;
+            }
+
+            $el = self::parsers()[$expectedEl['name']];
+
+            if (\array_key_exists('callback', $el)) {
+                // Pass the bbcode tag including its contents to the callback
+                $replacement = $el['callback'](substr($source, $expectedEl['tagStart']));
+                $source = substr_replace($source, $replacement, $expectedEl['tagStart']);
+            } else {
+                $source .= $el['closeHtml'];
+            }
         }
 
         if ($replaceLineBreaks) {
@@ -446,7 +637,7 @@ class Bbcode
      * @param int    $tagStartIndex The index of the first character of the tag being parsed inside `$source`. Should be the `[` character.
      * @param int    $tagStopIndex  The index of the last character of the tag being parsed inside `$source`. Should be the `]` character.
      */
-    private function handleBlockElementSpacing(string &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
+    private static function handleBlockElementSpacing(string &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
     {
         // Remove two line breaks (if they exist) instead of one, since a
         // line break after a block element is positioned on the line after
@@ -479,7 +670,7 @@ class Bbcode
         }
     }
 
-    private function sanitizeUrl(string $url, ?bool $isImage = null): string
+    private static function sanitizeUrl(string $url, ?bool $isImage = null): string
     {
         // Do NOT add `javascript`, `data` or `vbscript` here
         // or else you will allow an XSS vulnerability!
