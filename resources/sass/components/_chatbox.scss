@@ -2,7 +2,7 @@
     display: grid;
     grid-template-areas: 'messages users' 'whispers users' 'new-message users';
     grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr 18px auto;
+    grid-template-rows: 1fr auto auto;
     height: 700px;
     max-height: 90vh;
     background-color: inherit;
@@ -19,7 +19,7 @@
     flex-direction: column;
     list-style-type: none;
     gap: 8px;
-    padding: 0 10px;
+    padding: 0 10px 5px;
     margin: 0;
     align-items: flex-start;
 }
@@ -28,12 +28,14 @@
     grid-area: users;
     width: auto;
     overflow-y: auto;
+    background-color: var(--chatbox-users-bg);
 }
 
 .chatroom__whispers {
     grid-area: whispers;
     font-size: 12px;
     padding: 2px 4px;
+    height: 18px;
 }
 
 .chatroom__new-message {
@@ -43,6 +45,7 @@
 
 #chatbox__messages-create {
     max-height: 60vh;
+    resize: vertical;
 }
 
 .chatbox-message {
@@ -143,37 +146,6 @@
     border-radius: 10%;
     border-width: 2px;
     border-style: solid;
-}
-
-.chatbox-message__fallback-avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 17px;
-}
-
-.chatbox-message__delete-button {
-    padding: 4px 12px;
-    margin: 0;
-    background-color: transparent;
-    text-align: center;
-    border: none;
-    color: transparent;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.chatbox-message:hover .chatbox-message__delete-button {
-    color: var(--chatbox-button-fg);
-    width: auto;
-
-    &:hover {
-        color: var(--chatbox-button-hover-fg);
-        width: auto;
-    }
-}
-
-.chatroom__users {
-    background-color: var(--chatbox-users-bg);
 }
 
 .chatroom-users__heading {
