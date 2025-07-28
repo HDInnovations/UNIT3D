@@ -129,4 +129,14 @@ return [
     */
 
     'log_announces' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Healthcheck Badge
+    |--------------------------------------------------------------------------
+    |
+    | URL for a tracker health check badge displayed in the footer; e.g. from https://shields.io
+    |
+    */
+    'announce_healthcheck_badge_url' => env('ANNOUNCE_HEALTHCHECK_BADGE_URL'),
 ];

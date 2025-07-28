@@ -14,6 +14,11 @@
                     </a>
                 @endif
             </p>
+            @if (config('announce.announce_healthcheck_badge_url'))
+                <p>
+                    <img src="{{ config('announce.announce_healthcheck_badge_url') }}">
+                </p>
+            @endif
         </section>
         <section class="footer__section">
             <h2 class="footer__section-title">{{ __('common.account') }}</h2>
