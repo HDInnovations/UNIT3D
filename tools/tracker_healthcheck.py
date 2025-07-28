@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys, re, binascii, socket
+import os, sys, re, binascii, socket, argparse
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse   import quote_from_bytes
@@ -7,6 +7,14 @@ from urllib.parse   import quote_from_bytes
 def ts():
     from datetime import datetime
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--verbose', action='store_true', help='Enable verbose output')
+args = parser.parse_args()
+
+def verbose(msg):
+    if args.verbose:
+        print(f"{ts()} VERBOSE: {msg}")
 
 here = Path(__file__).parent
 envf = here / ".env"
@@ -30,7 +38,6 @@ for k in REQ:
 
 PING_URL = env.get("PING_URL","").rstrip("/")
 NUMWANT = env.get("NUMWANT","50")
-KEY = env.get("KEY","testkey")
 
 def pct(h):
     try:
@@ -41,6 +48,7 @@ def pct(h):
 
 ih = pct(env["INFO_HASH"])
 pid = pct(env["PEER_ID"])
+verbose(f"INFO_HASH={ih}, PEER_ID={pid}")
 if ih is None or pid is None:
     message = f"{ts()} TRACKER DOWN: Invalid hex in INFO_HASH or PEER_ID"
     print(message)
@@ -51,13 +59,16 @@ else:
         f"{base}/{env['PASSKEY']}?"
         f"info_hash={ih}&peer_id={pid}&port={env['PORT']}"
         f"&uploaded={env['UPLOADED']}&downloaded={env['DOWNLOADED']}"
-        f"&left={env['LEFT']}&numwant={NUMWANT}&key={KEY}"
+        f"&left={env['LEFT']}&numwant={NUMWANT}"
     )
+    verbose(f"Announce URL: {url}")
     try:
         req = Request(url, headers={"User-Agent":"HealthCheck/1.0"})
         with urlopen(req, timeout=10) as r:
             body = r.read()
             code = r.getcode()
+            verbose(f"HTTP code: {code}")
+            verbose(f"Response body: {body}")
     except Exception as e:
         message = f"{ts()} TRACKER DOWN: transport error ({e})"
         print(message)
@@ -86,6 +97,7 @@ else:
 
 if PING_URL:
     target = PING_URL if exit_code == 0 else f"{PING_URL}/fail"
+    verbose(f"Pinging: {target}")
     try:
         req = Request(target, data=message.encode("utf-8"), method="POST")
         urlopen(req, timeout=10)
