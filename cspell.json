@@ -160,6 +160,11 @@
 		"warneduser",
 		"watchlist",
 		"welcomepm",
+        "Healthchecks",
+        "HEALTHCHECKS",
+        "envf",
+        "testkey",
+        "unhexlify"
     ],
 	"ignoreRegExpList": [
 		"bitcoin-address",
