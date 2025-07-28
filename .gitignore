@@ -16,6 +16,7 @@
 /storage/gitupdate
 /storage/*.key
 .env
+/scripts/.env
 laravel-echo-server.json
 laravel-echo-server.lock
 
