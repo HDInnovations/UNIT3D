@@ -17,7 +17,7 @@ The `tools/` directory in your UNIT3D project contains:
    cp tools/.env.example tools/.env
    ```
 
-2. Open `tools/.env` and replace each placeholder accord
+2. Open `tools/.env` and replace each placeholder accordingly.
 
 
 
