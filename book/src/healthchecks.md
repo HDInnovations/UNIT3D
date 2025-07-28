@@ -17,22 +17,8 @@ The `tools/` directory in your UNIT3D project contains:
    cp tools/.env.example tools/.env
    ```
 
-2. Open `tools/.env` and replace each placeholder:
-```dotenv
-TRACKER_BASE_URL="https://your-tracker.example/announce"
-PASSKEY="your_bot_account_PID"
-INFO_HASH="info_hash_of_a_working_torrent"
-PEER_ID="0123456789012345678901234567890123456789"
-PORT=10000
-UPLOADED=0
-DOWNLOADED=0
-LEFT=0
+2. Open `tools/.env` and replace each placeholder accordingly.
 
-# Create an account at https://healthchecks.io (or self-host Healthchecks).
-PING_URL="<YOUR_HEALTHCHECKS_PING_URL>"
-
-NUMWANT=50
-```
 
 
 ---
