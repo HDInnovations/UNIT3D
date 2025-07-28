@@ -14,9 +14,9 @@
                     </a>
                 @endif
             </p>
-            @if (config('announce.announce_healthcheck_badge_url'))
+            @if (config('announce.healthcheck_badge_url'))
                 <p>
-                    <img src="{{ config('announce.announce_healthcheck_badge_url') }}" />
+                    <img src="{{ config('announce.healthcheck_badge_url') }}" />
                 </p>
             @endif
         </section>
