@@ -101,6 +101,13 @@
                     >
                         {{ __('Regenerate Recovery Codes') }}
                     </button>
+                    <button
+                        class="form__button form__button--filled"
+                        x-data="recovery-codes"
+                        x-on:click.stop="copy"
+                    >
+                        {{ __('Copy Recovery Codes') }}
+                    </button>
                     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
                         Alpine.data('recovery-codes', () => ({
                             copy() {
@@ -118,13 +125,6 @@
                             },
                         }));
                     </script>
-                    <button
-                        class="form__button form__button--filled"
-                        x-data="recovery-codes"
-                        x-on:click.stop="copy"
-                    >
-                        {{ __('Copy Recovery Codes') }}
-                    </button>
                 @elseif ($showingConfirmation)
                     <button
                         class="form__button form__button--filled"
