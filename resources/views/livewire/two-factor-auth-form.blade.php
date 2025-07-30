@@ -101,30 +101,27 @@
                     >
                         {{ __('Regenerate Recovery Codes') }}
                     </button>
-                    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-                        Alpine.data('recovery-codes', () => ({
-                            copy() {
-                                let text = document.createElement('textarea');
-                                text.innerHTML = JSON.parse(atob('{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}')).join("\n");
-                                navigator.clipboard.writeText(text.value);
-                                Swal.fire({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 3000,
-                                    icon: 'success',
-                                    title: 'Copied to clipboard!',
-                                });
-                            },
-                        }));
-                    </script>
                     <button
                         class="form__button form__button--filled"
-                        x-data="recovery-codes"
-                        x-on:click.stop="copy"
+                        x-on:click.stop="copyRecoveryCodes"
                     >
                         {{ __('Copy Recovery Codes') }}
                     </button>
+                    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+                        function copyRecoveryCodes() {
+                            let text = document.createElement('textarea');
+                            text.innerHTML = JSON.parse(atob('{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}')).join("\n");
+                            navigator.clipboard.writeText(text.value);
+                            Swal.fire({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                icon: 'success',
+                                title: 'Copied to clipboard!',
+                            });
+                        }
+                    </script>
                 @elseif ($showingConfirmation)
                     <button
                         class="form__button form__button--filled"
