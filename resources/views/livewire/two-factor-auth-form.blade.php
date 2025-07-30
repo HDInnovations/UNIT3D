@@ -103,14 +103,14 @@
                     </button>
                     <button
                         class="form__button form__button--filled"
-                        x-data="recovery-codes"
+                        x-data="recoverycodes"
                         x-on:click.stop="copy"
                     >
                         {{ __('Copy Recovery Codes') }}
                     </button>
                     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
                         document.addEventListener('alpine:init', () => {
-                            Alpine.data('recovery-codes', () => ({
+                            Alpine.data('recoverycodes', () => ({
                                 copy() {
                                     let text = document.createElement('textarea');
                                     text.innerHTML = JSON.parse(atob('{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}')).join("\n");
