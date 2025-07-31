@@ -203,7 +203,10 @@ document.addEventListener('alpine:init', () => {
                     this.state.ui.loading = false;
                 });
 
-            this.$watch('auth.chat_status_id', (status) => this.syncStatus());
+            this.$watch('auth.chat_status_id', (status, oldStatus) => {
+                if (status === oldStatus) return; // Closing a chatbox tab triggers this (alpinejs bug)
+                this.syncStatus();
+            });
 
             this.$cleanup = () => {
                 if (this.channel) {
