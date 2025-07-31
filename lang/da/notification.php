@@ -17,7 +17,7 @@ return [
     'delete' => 'Slet',
     'delete-all' => 'Slet alle notifikationer',
     'filter-by-type' => 'Filtrer via Notifikationstype',
-    'mark-all-read' => 'Markér alt som læst',
+    'mark-all-read' => 'Markér alt som Læst',
     'mark-read' => 'Markér som læst',
     'message' => 'Besked',
     'no-notifications' => 'Der er ingen notifikationer fundet',

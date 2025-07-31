@@ -16,7 +16,7 @@ return [
     'enter-subject' => 'Indtast emne',
     'from' => 'Fra',
     'inbox' => 'Indbakke',
-    'mark-all-read' => 'Markér alle meddelelser som læst',
+    'mark-all-read' => 'Markér alle meddelelser som Læst',
     'message' => 'Besked',
     'messages' => 'Beskeder',
     'new' => 'Ny meddelelse',

@@ -44,7 +44,7 @@ const messageHandler = {
                     context.state.chat.activeTab.startsWith('bot') ||
                     context.state.chat.activeTab.startsWith('target')
                 ) {
-                    context.messages.push(response.data.data);
+                    context.messages.set(response.data.data.id, response.data.data);
                 }
                 if (context.$refs && context.$refs.message) {
                     context.$refs.message.value = '';
@@ -58,10 +58,7 @@ const messageHandler = {
         return axios
             .post(`/api/chat/message/${id}/delete`)
             .then(() => {
-                const index = context.messages.findIndex((msg) => msg.id === id);
-                if (index !== -1) {
-                    context.messages.splice(index, 1);
-                }
+                context.messages.delete(id);
             })
             .catch((error) => {
                 console.error('Error deleting message:', error);
@@ -97,15 +94,14 @@ const channelHandler = {
             .listen('.new.message', (e) => {
                 if (!context.state.chat.activeTab.startsWith('room')) return;
                 const message = context.processMessageCanMod(e.message);
-                context.messages.push(message);
+                context.messages.set(message.id, message);
             })
             .listen('.new.ping', (e) => {
                 context.handlePing('room', e.ping.id);
             })
             .listen('.delete.message', (e) => {
                 if (context.state.chat.target > 0 || context.state.chat.bot > 0) return;
-                let index = context.messages.findIndex((msg) => msg.id === e.message.id);
-                if (index !== -1) context.messages.splice(index, 1);
+                context.messages.delete(e.message.id);
             })
             .listenForWhisper('typing', (e) => {
                 if (context.state.chat.target > 0 || context.state.chat.bot > 0) return;
@@ -158,10 +154,9 @@ document.addEventListener('alpine:init', () => {
 
         auth: user,
         statuses: [],
-        status: 0,
         echoes: [],
         chatrooms: [],
-        messages: [],
+        messages: new Map(),
         users: new Map(),
         pings: [],
         audibles: [],
@@ -207,6 +202,8 @@ document.addEventListener('alpine:init', () => {
                     this.state.ui.error = 'Error loading chat. Please try again.';
                     this.state.ui.loading = false;
                 });
+
+            this.$watch('auth.chat_status_id', (status) => this.syncStatus());
 
             this.$cleanup = () => {
                 if (this.channel) {
@@ -290,9 +287,11 @@ document.addEventListener('alpine:init', () => {
             try {
                 const response = await axios.get(`/api/chat/bot/${id}`);
                 // Process messages to add canMod property for each message and sanitize content
-                this.messages = response.data.data
-                    .map((message) => this.processMessageCanMod(message))
-                    .reverse();
+                this.messages = new Map(
+                    response.data.data
+                        .map((message) => [message.id, this.processMessageCanMod(message)])
+                        .reverse(),
+                );
             } catch (error) {
                 console.error('Error fetching bot messages:', error);
                 throw error;
@@ -305,9 +304,11 @@ document.addEventListener('alpine:init', () => {
                     `/api/chat/private/messages/${this.state.chat.target}`,
                 );
                 // Process messages to add canMod property for each message and sanitize content
-                this.messages = response.data.data
-                    .map((message) => this.processMessageCanMod(message))
-                    .reverse();
+                this.messages = new Map(
+                    response.data.data
+                        .map((message) => [message.id, this.processMessageCanMod(message)])
+                        .reverse(),
+                );
             } catch (error) {
                 console.error('Error fetching private messages:', error);
                 throw error;
@@ -318,9 +319,11 @@ document.addEventListener('alpine:init', () => {
             try {
                 const response = await axios.get(`/api/chat/messages/${this.state.chat.room}`);
                 // Process messages to add canMod property for each message and sanitize content
-                this.messages = response.data.data
-                    .map((message) => this.processMessageCanMod(message))
-                    .reverse();
+                this.messages = new Map(
+                    response.data.data
+                        .map((message) => [message.id, this.processMessageCanMod(message)])
+                        .reverse(),
+                );
             } catch (error) {
                 console.error('Error fetching messages:', error);
                 throw error;
@@ -595,11 +598,11 @@ document.addEventListener('alpine:init', () => {
 
                     // Process and sanitize new message
                     const message = this.processMessageCanMod(e.message);
-                    this.messages.push(message);
+                    this.messages.set(message.id, message);
                 } else if (e.type == 'new.bot') {
                     // Process and sanitize new bot message
                     const message = this.processMessageCanMod(e.message);
-                    this.messages.push(message);
+                    this.messages.set(message.id, message);
                 } else if (e.type == 'new.ping') {
                     if (e.ping.type == 'bot') {
                         this.handlePing('bot', e.ping.id);
@@ -608,8 +611,7 @@ document.addEventListener('alpine:init', () => {
                     }
                 } else if (e.type == 'delete.message') {
                     if (this.state.chat.target < 1 && this.state.chat.bot < 1) return;
-                    let index = this.messages.findIndex((msg) => msg.id === e.message.id);
-                    if (index !== -1) this.messages.splice(index, 1);
+                    this.messages.delete(e.message.id);
                 } else if (e.type == 'typing') {
                     if (this.state.chat.target < 1) return;
                     const username = e.username;
@@ -676,18 +678,12 @@ document.addEventListener('alpine:init', () => {
             this.state.chat.showWhispers = !this.state.chat.showWhispers;
         },
 
-        changeStatus(status_id) {
-            this.status = status_id;
-            if (this.auth.chat_status.id !== status_id) {
-                axios
-                    .post(`/api/chat/user/status`, { status_id })
-                    .then((response) => {
-                        this.auth = response.data;
-                    })
-                    .catch((error) => {
-                        console.error('Error changing status:', error);
-                    });
-            }
+        syncStatus() {
+            axios
+                .post(`/api/chat/user/status`, { status_id: this.auth.chat_status_id })
+                .catch((error) => {
+                    console.error('Error changing status:', error);
+                });
         },
 
         startBot() {

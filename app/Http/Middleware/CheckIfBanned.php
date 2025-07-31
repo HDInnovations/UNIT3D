@@ -39,6 +39,28 @@ class CheckIfBanned
                     'message' => __('auth.banned'),
                 ]);
             }
+
+            if ($request->is('rss/*')) {
+                $message = __('auth.banned');
+                $now = now()->toRssString();
+                $url = config('app.url');
+
+                return response(
+                    <<<XML
+                    <?xml version="1.0" encoding="UTF-8" ?>
+                    <rss version="2.0">
+                        <channel>
+                            <title>{$message}</title>
+                            <link>{$url}</link>
+                            <description>{$message}</description>
+                            <pubDate>{$now}</pubDate>
+                        </channel>
+                    </rss>
+                    XML,
+                    403
+                )->header('Content-Type', 'text/xml');
+            }
+
             auth()->logout();
             $request->session()->flush();
 

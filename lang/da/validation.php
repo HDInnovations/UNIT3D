@@ -121,7 +121,7 @@ return [
     'timezone' => ':attribute skal være en gyldig tidszone.',
     'unique' => ':attribute er allerede taget.',
     'uploaded' => ':attribute fejlene i uploaden.',
-    'url' => ':attribute formatet er ugyldigt.',
+    'url' => ':attribute skal være en gyldig URL.',
     'uuid' => ':attribute skal være en gyldig UUID.',
     'custom' => [
         'attribute-name' => [

@@ -560,52 +560,7 @@ class TorrentSearch extends Component
             ->latest('sticky')
             ->orderBy($this->sortField, $this->sortDirection);
 
-        if ($isSqlAllowed) {
-            $groups = $groupQuery
-                ->where($this->filters()->toSqlQueryBuilder())
-                ->paginate(min($this->perPage, 100));
-        } else {
-            $results = (new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key')))
-                ->index(config('scout.prefix').'torrents')
-                ->search($this->name, [
-                    'sort'                 => ['sticky:desc', $this->sortField.':'.$this->sortDirection,],
-                    'filter'               => [...$this->filters()->toMeilisearchFilter(), 'imdb IS NOT NULL', ['tmdb_movie_id IS NOT NULL', 'tmdb_tv_id IS NOT NULL']],
-                    'matchingStrategy'     => 'all',
-                    'page'                 => (int) $this->getPage(),
-                    'hitsPerPage'          => min($this->perPage, 100),
-                    'attributesToRetrieve' => ['tmdb_movie_id', 'tmdb_tv_id'],
-                    'distinct'             => 'imdb',
-                ]);
-
-            $ids = [];
-
-            foreach ($results->getHits() as $result) {
-                if ($result['tmdb_movie_id']) {
-                    $ids[] = "tmdb-movie:{$result['tmdb_movie_id']}";
-                } elseif ($result['tmdb_tv_id']) {
-                    $ids[] = "tmdb-tv:{$result['tmdb_tv_id']}";
-                }
-            }
-
-            $groups = $groupQuery
-                ->where(
-                    fn ($query) => $query
-                        ->whereIntegerInRaw('tmdb_movie_id', array_filter(array_column($results->getHits(), 'tmdb_movie_id')))
-                        ->orWhereIntegerInRaw('tmdb_tv_id', array_filter(array_column($results->getHits(), 'tmdb_tv_id')))
-                )
-                ->get()
-                ->sortBy(fn ($group) => array_search($group->tmdb_movie_id ? "tmdb-movie:{$group->tmdb_movie_id}" : "tmdb-tv:{$group->tmdb_tv_id}", $ids));
-
-            $groups = new LengthAwarePaginator($groups, $results->getTotalHits(), $this->perPage, $this->getPage());
-        }
-
-        $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb_movie_id');
-        $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb_tv_id');
-
-        $movies = TmdbMovie::with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-        $tv = TmdbTv::with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-
-        $torrents = Torrent::query()
+        $eagerLoads = fn (Builder $query) => $query
             ->with(['type:id,name,position', 'resolution:id,name,position'])
             ->select([
                 'id',
@@ -675,22 +630,98 @@ class TorrentSearch extends Component
                             ->orWhereNotNull('completed_at')
                     ),
                 'trump',
-            ])
-            ->where(
-                fn ($query) => $query
-                    ->where(
-                        fn ($query) => $query
-                            ->whereRelation('category', 'movie_meta', '=', true)
-                            ->whereIntegerInRaw('tmdb_movie_id', $movieIds)
-                    )
-                    ->orWhere(
-                        fn ($query) => $query
-                            ->whereRelation('category', 'tv_meta', '=', true)
-                            ->whereIntegerInRaw('tmdb_tv_id', $tvIds)
-                    )
-            )
-            ->when($isSqlAllowed, fn ($query) => $query->where($this->filters()->toSqlQueryBuilder()))
-            ->get();
+            ]);
+
+        if ($isSqlAllowed) {
+            $groups = $groupQuery
+                ->where($this->filters()->toSqlQueryBuilder())
+                ->paginate(min($this->perPage, 100));
+        } else {
+            $results = (new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key')))
+                ->index(config('scout.prefix').'torrents')
+                ->search($this->name, [
+                    'sort'                 => ['sticky:desc', $this->sortField.':'.$this->sortDirection,],
+                    'filter'               => [...$this->filters()->toMeilisearchFilter(), 'imdb IS NOT NULL', ['tmdb_movie_id IS NOT NULL', 'tmdb_tv_id IS NOT NULL']],
+                    'matchingStrategy'     => 'all',
+                    'page'                 => (int) $this->getPage(),
+                    'hitsPerPage'          => min($this->perPage, 100),
+                    'attributesToRetrieve' => ['tmdb_movie_id', 'tmdb_tv_id'],
+                    'distinct'             => 'imdb',
+                ]);
+
+            $ids = [];
+
+            foreach ($results->getHits() as $result) {
+                if ($result['tmdb_movie_id']) {
+                    $ids[] = "tmdb-movie:{$result['tmdb_movie_id']}";
+                } elseif ($result['tmdb_tv_id']) {
+                    $ids[] = "tmdb-tv:{$result['tmdb_tv_id']}";
+                }
+            }
+
+            $groups = $groupQuery
+                ->where(
+                    fn ($query) => $query
+                        ->whereIntegerInRaw('tmdb_movie_id', array_filter(array_column($results->getHits(), 'tmdb_movie_id')))
+                        ->orWhereIntegerInRaw('tmdb_tv_id', array_filter(array_column($results->getHits(), 'tmdb_tv_id')))
+                )
+                ->get()
+                ->sortBy(fn ($group) => array_search($group->tmdb_movie_id ? "tmdb-movie:{$group->tmdb_movie_id}" : "tmdb-tv:{$group->tmdb_tv_id}", $ids));
+
+            $groups = new LengthAwarePaginator($groups, $results->getTotalHits(), $this->perPage, $this->getPage());
+        }
+
+        $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb_movie_id');
+        $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb_tv_id');
+
+        $movies = TmdbMovie::with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+        $tv = TmdbTv::with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+
+        if ($isSqlAllowed) {
+            $torrents = Torrent::query()
+                ->where(
+                    fn ($query) => $query
+                        ->where(
+                            fn ($query) => $query
+                                ->whereRelation('category', 'movie_meta', '=', true)
+                                ->whereIntegerInRaw('tmdb_movie_id', $movieIds)
+                        )
+                        ->orWhere(
+                            fn ($query) => $query
+                                ->whereRelation('category', 'tv_meta', '=', true)
+                                ->whereIntegerInRaw('tmdb_tv_id', $tvIds)
+                        )
+                )
+                ->where($this->filters()->toSqlQueryBuilder());
+
+            $eagerLoads($torrents);
+
+            $torrents = $torrents->get();
+        } else {
+            $results = (new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key')))
+                ->index(config('scout.prefix').'torrents')
+                ->search($this->name, [
+                    'sort'   => ['sticky:desc', $this->sortField.':'.$this->sortDirection,],
+                    'filter' => [
+                        ...$this->filters()->toMeilisearchFilter(),
+                        [
+                            'tmdb_movie_id IN '.json_encode($movieIds->values()),
+                            'tmdb_tv_id IN '.json_encode($tvIds->values())
+                        ]
+                    ],
+                    'matchingStrategy'     => 'all',
+                    'hitsPerPage'          => 10_000,
+                    'attributesToRetrieve' => ['id'],
+                ]);
+
+            $torrentIds = array_column($results->getHits(), 'id');
+
+            $torrents = Torrent::query()->whereIntegerInRaw('id', $torrentIds);
+
+            $eagerLoads($torrents);
+
+            $torrents = $torrents->get();
+        }
 
         $groupedTorrents = [];
 

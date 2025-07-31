@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'current-seedtime' => 'Nuværende Seedtid',
-    'dead' => 'Døde',
+    'dead' => 'Død',
     'graveyard' => 'Kirkegård',
     'guidelines' => 'Retningslinier',
     'guidelines-content' => '1) Du kan ikke genoplive dine egne uploads.<br>2) Genopliv ikke noget, du ikke kan forpligtige dig til.',

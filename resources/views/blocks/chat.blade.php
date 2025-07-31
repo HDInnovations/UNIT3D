@@ -1,5 +1,5 @@
 @php
-    $user = App\Models\User::with(['chatStatus', 'chatroom', 'group'])->find(auth()->id());
+    $user = App\Models\User::with(['chatroom', 'group'])->find(auth()->id());
 @endphp
 
 <section
@@ -99,7 +99,6 @@
                             id="currentChatroom"
                             class="form__select"
                             x-model.number="state.chat.room"
-                            @change="changeRoom(state.chat.room)"
                         >
                             <template x-for="chatroom in chatrooms" :key="chatroom.id">
                                 <option :value="chatroom.id" x-text="chatroom.name"></option>
@@ -115,11 +114,14 @@
                         <select
                             id="currentChatstatus"
                             class="form__select"
-                            x-model.number="status"
-                            @change="changeStatus(status)"
+                            x-model.number="auth.chat_status_id"
                         >
                             <template x-for="chatstatus in statuses" :key="chatstatus.id">
-                                <option :value="chatstatus.id" x-text="chatstatus.name"></option>
+                                <option
+                                    :value="chatstatus.id"
+                                    :selected="chatstatus.id === auth.chat_status_id"
+                                    x-text="chatstatus.name"
+                                ></option>
                             </template>
                         </select>
                         <label class="form__label form__label--floating" for="currentChatstatus">
@@ -215,7 +217,7 @@
             <template x-if="state.chat.tab !== ''">
                 <div class="chatroom__messages--wrapper" x-ref="messagesWrapper">
                     <ul class="chatroom__messages">
-                        <template x-for="message in messages" :key="message.id">
+                        <template x-for="message in [...messages.values()]" :key="message.id">
                             <li>
                                 <article class="chatbox-message">
                                     <header class="chatbox-message__header">
@@ -341,7 +343,7 @@
                                 </article>
                             </li>
                         </template>
-                        <li x-show="messages.length === 0">
+                        <li x-show="messages.size === 0">
                             There is no chat history here. Send a message!
                         </li>
                     </ul>
@@ -413,7 +415,7 @@
                         name="message"
                         placeholder=" "
                         x-ref="message"
-                        @keydown.enter.prevent="createMessage($refs.message.value, true, auth.id, state.message.receiver_id, state.message.bot_id); $refs.message.value = ''"
+                        @keydown.enter="!$event.shiftKey && ($event.preventDefault(), createMessage($refs.message.value, true, auth.id, state.message.receiver_id, state.message.bot_id), $refs.message.value = '')"
                         @keyup="isTyping(auth)"
                     ></textarea>
                     <label class="form__label form__label--floating" for="chatbox__messages-create">

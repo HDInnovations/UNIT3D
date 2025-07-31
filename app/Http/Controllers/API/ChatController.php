@@ -420,7 +420,7 @@ class ChatController extends Controller
     }
 
     /* USERS */
-    public function updateUserChatStatus(Request $request): \Illuminate\Http\JsonResponse
+    public function updateUserChatStatus(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $user = $request->user();
         $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
@@ -432,7 +432,7 @@ class ChatController extends Controller
         $user->chatStatus()->associate($status);
         $user->save();
 
-        return response()->json($user);
+        return response('success');
     }
 
     public function updateUserRoom(Request $request): \Illuminate\Http\JsonResponse

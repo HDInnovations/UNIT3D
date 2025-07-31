@@ -216,7 +216,7 @@ return [
     'unsticky' => 'Fjern Sticky',
     'updated' => 'Opdateret',
     'updated_at' => 'Opdateret kl',
-    'uploaded' => 'Uploaded',
+    'uploaded' => 'Uploadet',
     'uploaded-by' => 'Uploadet af',
     'uploader' => 'Uploader',
     'use-fl-token' => 'Brug en Freeleech Token',

@@ -29,6 +29,6 @@ return [
     'subtitle-file' => 'Undertekst fil',
     'subtitle-file-types' => 'Accepterede filer er ICO, SRT and ZIP',
     'search' => 'Søg efter torrent',
-    'uploaded' => 'Uploaded',
+    'uploaded' => 'Uploadet',
     'uploader' => 'Uploader',
 ];

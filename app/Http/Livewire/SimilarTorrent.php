@@ -475,9 +475,9 @@ class SimilarTorrent extends Component
         $torrents = Torrent::whereKey($this->checked)->get();
         $users = [];
         $title = match (true) {
-            $this->category->movie_meta => ($movie = TmdbMovie::find($this->tmdbId))->title.' ('.$movie->release_date->format('Y').')',
-            $this->category->tv_meta    => ($tv = TmdbTv::find($this->tmdbId))->name.' ('.$tv->first_air_date->format('Y').')',
-            $this->category->game_meta  => ($game = IgdbGame::find($this->igdbId))->name.' ('.$game->first_release_date->format('Y').')',
+            $this->category->movie_meta => ($movie = TmdbMovie::find($this->tmdbId))->title.($movie->release_date === null ? '' : ' ('.$movie->release_date->format('Y').')'),
+            $this->category->tv_meta    => ($tv = TmdbTv::find($this->tmdbId))->name.($tv->first_air_date === null ? '' : ' ('.$tv->first_air_date->format('Y').')'),
+            $this->category->game_meta  => ($game = IgdbGame::find($this->igdbId))->name.($game->first_release_date === null ? '' : ' ('.$game->first_release_date->format('Y').')'),
             default                     => $torrents->pluck('name')->join(', '),
         };
 
