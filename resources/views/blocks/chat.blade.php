@@ -223,7 +223,7 @@
                                     <header class="chatbox-message__header">
                                         <address
                                             class="chatbox-message__address user-tag"
-                                            :style="(message.user?.is_lifetime ? 'background-image: url(/img/sparkels.gif);' : (message.user?.group?.effect ? 'background-image:' + message.user.group.effect + ';' : ''))"
+                                            :style="(message.user?.is_donor ? 'background-image: url(/img/sparkels.gif);' : (message.user?.group?.effect ? 'background-image:' + message.user.group.effect + ';' : ''))"
                                         >
                                             <a
                                                 class="user-tag__link"
