@@ -241,7 +241,7 @@ return [
     'and' => 'og',
     'test' => 'test',
     'alive' => 'I live',
-    'dead' => 'Død',
+    'dead' => 'Døde',
     'total' => 'Total',
     'trending' => 'Trender',
 ];

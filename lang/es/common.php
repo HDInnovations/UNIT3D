@@ -34,7 +34,7 @@ return [
     'ascending' => 'Ascendente',
     'author' => 'Autor',
     'balance' => 'Saldo',
-    'blacklist' => 'Lista negra',
+    'blacklist' => 'Lista negra de clientes',
     'bookmarked' => 'Marcado',
     'buffer' => 'Buffer',
     'bug' => 'Reportar un error',
@@ -236,4 +236,8 @@ return [
     'your' => 'Tu',
     'your-comment' => 'Tu comentario',
     'test' => 'prueba',
+    'alive' => 'Vivo',
+    'dead' => 'Muerto',
+    'total' => 'Total',
+    'trending' => 'Tendencia',
 ];
