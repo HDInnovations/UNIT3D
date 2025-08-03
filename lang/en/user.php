@@ -75,6 +75,7 @@ return [
     'client-list'               => 'Clients and IP-addresses',
     'client-ip-address'         => 'Client IP address',
     'code'                      => 'Code',
+    'collectibles-new-added'    => 'Receive a notification when a new collectible item is added',
     'comments'                  => 'Comments',
     'created'                   => 'Created',
     'created-on'                => 'Created on',

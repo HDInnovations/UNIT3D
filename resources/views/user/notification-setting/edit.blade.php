@@ -341,6 +341,22 @@
                         </label>
                     </p>
                 </fieldset>
+                <fieldset class="form__fieldset">
+                    <legend class="form__legend">{{ __('event.events') }}</legend>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="show_collectible_new_item" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="show_collectible_new_item"
+                                value="1"
+                                @checked($user->notification === null || $user->notification?->show_collectible_new_item)
+                            />
+                            {{ __('user.collectibles-new-added') }}
+                        </label>
+                    </p>
+                </fieldset>
                 <h3>Block all notifications from the selected groups.</h3>
                 <div class="form__group">
                     <div class="data-table-wrapper">

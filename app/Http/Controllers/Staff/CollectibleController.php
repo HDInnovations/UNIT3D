@@ -22,6 +22,8 @@ use App\Http\Requests\Staff\UpdateCollectibleRequest;
 use App\Models\Collectible;
 use App\Models\CollectibleCategory;
 use App\Models\CollectibleItem;
+use App\Models\User;
+use App\Notifications\NewCollectibleItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
@@ -91,6 +93,15 @@ class CollectibleController extends Controller
         ], array_fill(0, (int) $request->input('collectible.max_amount'), null));
 
         CollectibleItem::insert($collectibleItemsData);
+
+        // Notify users about new item
+        $subscribers = User::whereRelation('notification', 'show_collectible_new_item', '=', true)
+            ->orDoesntHave('notification')
+            ->get();
+
+        foreach ($subscribers as $subscriber) {
+            $subscriber->notify(new NewCollectibleItem($collectible));
+        }
 
         return to_route('staff.collectibles.index')
             ->with('success', 'Item has been created successfully.');
