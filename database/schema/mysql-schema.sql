@@ -2130,6 +2130,7 @@ CREATE TABLE `torrents` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `bumped_at` datetime DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `deletion_reason` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fl_until` datetime DEFAULT NULL,
   `du_until` datetime DEFAULT NULL,
   `type_id` smallint unsigned DEFAULT NULL,
@@ -3005,3 +3006,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_18_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (355,'2025_06_18_040627_alter_requests_drop_claimed',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (356,'2025_06_21_234021_alter_requests_drop_votes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_07_15_061844_add_block_order_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_04_070714_add_deletion_reason_to_torrents_table',1);

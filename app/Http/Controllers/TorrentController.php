@@ -284,6 +284,7 @@ class TorrentController extends Controller
             'message' => [
                 'required',
                 'min:1',
+                'max:255',
             ],
         ]);
 
@@ -327,6 +328,9 @@ class TorrentController extends Controller
 
         Unit3dAnnounce::removeTorrent($torrent);
 
+        $torrent->update([
+            'deletion_message' => $request->message,
+        ]);
         $torrent->delete();
 
         return to_route('torrents.index')
