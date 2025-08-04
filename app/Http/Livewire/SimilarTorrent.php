@@ -35,6 +35,7 @@ use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -449,6 +450,22 @@ class SimilarTorrent extends Component
             return;
         }
 
+        $validator = Validator::make([
+            'reason' => $this->reason,
+        ], [
+            'reason' => [
+                'required',
+                'min:1',
+                'max:255',
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            $this->dispatch('error', type: 'error', message: $validator->messages()->get('reason'));
+
+            return;
+        }
+
         $torrents = Torrent::whereKey($this->checked)->get();
         $users = [];
         $title = match (true) {
@@ -495,6 +512,9 @@ class SimilarTorrent extends Component
 
             Unit3dAnnounce::removeTorrent($torrent);
 
+            $torrent->update([
+                'deletion_message' => $this->reason,
+            ]);
             $torrent->delete();
         }
 

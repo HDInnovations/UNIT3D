@@ -2156,6 +2156,7 @@ CREATE TABLE `torrents` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `bumped_at` datetime DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `deletion_reason` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fl_until` datetime DEFAULT NULL,
   `du_until` datetime DEFAULT NULL,
   `type_id` smallint unsigned DEFAULT NULL,
@@ -3039,3 +3040,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_09_02_14
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_07_235939_add_adult_content_setting_to_user_settings',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (363,'2025_09_07_235945_add_adult_column_to_tmdb_tv',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (364,'2025_09_08_000029_make_audits_morphable',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (365,'2025_09_27_070714_add_deletion_reason_to_torrents_table',1);
