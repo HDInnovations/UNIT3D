@@ -65,6 +65,7 @@ return [
     'dead' => 'Dead',
     'delete' => 'Delete',
     'delete-your-comment' => 'Delete your Comment',
+    'deleted_at' => 'Deleted at',
     'description' => 'Description',
     'descending' => 'Descending',
     'direction' => 'Direction',

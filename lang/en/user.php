@@ -419,6 +419,7 @@ return [
     'upload-true'                 => 'True Upload',
     'uploads'                     => 'Uploads',
     'uploads-table'               => 'Uploads Table',
+    'unregistered-info-hashes'    => 'Unregistered Info Hashes',
     'personal-releases'           => 'Personal Releases',
     'user'                        => 'User',
     'user-id'                     => 'User ID',

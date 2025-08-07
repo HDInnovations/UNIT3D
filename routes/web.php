@@ -617,6 +617,11 @@ Route::middleware('language')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\User\TransactionController::class, 'store'])->name('store');
             });
 
+            // Unregistered Info Hashes
+            Route::prefix('unregistered-info-hashes')->name('unregistered_info_hashes.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\User\UnregisteredInfoHashController::class, 'index'])->name('index');
+            });
+
             // Warnings
             Route::prefix('warnings')->name('warnings.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\User\WarningController::class, 'store'])->name('store');

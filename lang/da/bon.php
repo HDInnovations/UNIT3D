@@ -20,7 +20,7 @@ return [
     'earning' => 'Optjening',
     'earning-rate' => 'Med denne indtjeningsrate vil du tjene følgende pr. tidsramme..',
     'earnings' => 'Indtjening',
-    'exchange' => 'Udveksle',
+    'exchange' => 'Udveksling',
     'exchange-warning' => 'Udvekslinger er endelige. Tjek venligst dine valg, inden du foretager en udveksling.',
     'extended-stats' => 'Udvidet statestik',
     'gift' => 'Send BON',

@@ -183,8 +183,8 @@ class Bbcode
         'code' => [
             'openBbcode'  => '/^\[code\]/i',
             'closeBbcode' => '[/code]',
-            'openHtml'    => '<pre>',
-            'closeHtml'   => '</pre>',
+            'openHtml'    => '<div class="bbcode-rendered__clipboard" x-data="clipboardButton"><pre><code>',
+            'closeHtml'   => '</code></pre><div class="bbcode-rendered__clipboard-container"><button class="bbcode-rendered__clipboard-button" x-bind="button"><i class="fa fa-clone"></i></button></div></div>',
             'block'       => true,
         ],
         'pre' => [

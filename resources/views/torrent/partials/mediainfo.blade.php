@@ -22,7 +22,7 @@
         </div>
     </header>
     <div class="panel__body">
-        <div class="torrent-mediainfo-dump bbcode-rendered" x-cloak x-show="isExpanded">
+        <div class="torrent-mediainfo-dump" x-cloak x-show="isExpanded">
             <pre><code x-ref="mediainfo">{{ $torrent->mediainfo }}</code></pre>
         </div>
         <section class="mediainfo">
@@ -151,9 +151,7 @@
                             @isset($videoElement['encoding_settings'])
                                 <article>
                                     <h4>#{{ $key }}</h4>
-                                    <div class="bbcode-rendered">
-                                        <pre><code>{{ $videoElement['encoding_settings'] ?? __('common.unknown') }}</code></pre>
-                                    </div>
+                                    <pre><code>{{ $videoElement['encoding_settings'] ?? __('common.unknown') }}</code></pre>
                                 </article>
                             @endisset
                         @endforeach

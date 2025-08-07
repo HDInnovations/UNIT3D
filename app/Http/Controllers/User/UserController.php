@@ -231,7 +231,7 @@ class UserController extends Controller
         // Define data
         $request->validate([
             'title'     => 'nullable|max:255',
-            'about'     => 'nullable|max:1000',
+            'about'     => 'nullable|max:20000',
             'signature' => 'nullable|max:1000'
         ]);
         $user->title = $request->input('title');

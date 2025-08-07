@@ -69,8 +69,8 @@
                         {{ __('user.custom-title') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about], key('about'))
-                @livewire('bbcode-input', ['name' => 'signature', 'label' => __('user.forum-signature'), 'required' => false, 'content' => $user->signature], key('signature'))
+                @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => old('about', $user->about)], key('about'))
+                @livewire('bbcode-input', ['name' => 'signature', 'label' => __('user.forum-signature'), 'required' => false, 'content' => old('signature', $user->signature)], key('signature'))
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}

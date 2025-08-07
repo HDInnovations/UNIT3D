@@ -41,6 +41,7 @@ import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.e
 // Custom AlpineJS Components
 import './components/alpine/chatbox';
 import './components/alpine/checkboxGrid';
+import './components/alpine/clipboardButton';
 import './components/alpine/dialog';
 import './components/alpine/dislikeButton';
 import './components/alpine/likeButton';

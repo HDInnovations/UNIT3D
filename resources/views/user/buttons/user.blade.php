@@ -279,6 +279,16 @@
                         {{ __('user.bookmarks') }}
                     </a>
                 </li>
+                <li
+                    class="{{ Route::is('users.unregistered_info_hashes.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
+                    <a
+                        class="{{ Route::is('users.unregistered_info_hashes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.unregistered_info_hashes.index', ['user' => $user]) }}"
+                    >
+                        {{ __('user.unregistered-info-hashes') }}
+                    </a>
+                </li>
             @endif
 
             @if ($isProfileOwner)

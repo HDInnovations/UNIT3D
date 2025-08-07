@@ -195,7 +195,7 @@
         border-left: 0.25em solid var(--bbcode-rendered-quote-border);
         font-size: 15px;
         background-color: var(--bbcode-rendered-quote-bg);
-        border-radius: 6px;
+        border-radius: 3px 6px 6px 3px / 8px 6px 6px 8px;
 
         > cite {
             font-size: 12px;
@@ -229,12 +229,12 @@
     ol,
     dl,
     table,
-    pre,
     .bbcode-rendered__center,
     .bbcode-rendered__left,
     .bbcode-rendered__right,
     .bbcode-rendered__alert,
-    .bbcode-rendered__note {
+    .bbcode-rendered__note,
+    .bbcode-rendered__clipboard {
         margin-top: 12px;
         margin-bottom: 12px;
     }
@@ -383,17 +383,15 @@
     }
 
     pre {
-        background-color: var(--bbcode-rendered-neutral-muted);
-        color: var(--bbcode-rendered-fg-default);
         border: revert;
-        border-radius: 6px;
         font-size: 12px;
         word-wrap: normal;
-        overflow: visible;
+        overflow: auto;
         line-height: inherit;
         word-break: break-word;
         overflow-wrap: anywhere;
         white-space: pre-wrap;
+        margin: 0;
         padding: 12px;
     }
 
@@ -402,7 +400,7 @@
         margin: 0;
         word-break: normal;
         overflow-wrap: anywhere;
-        white-space: normal;
+        white-space: break-spaces;
         font-size: 13px;
         background-color: var(--bbcode-rendered-neutral-muted);
         border-radius: 6px;
@@ -421,7 +419,9 @@
     }
 
     pre > code {
-        white-space: pre-wrap;
+        word-break: normal;
+        white-space: pre;
+        background-color: transparent;
     }
 
     pre code {
@@ -429,9 +429,34 @@
         padding: 0;
         overflow: visible;
         line-height: inherit;
+        word-wrap: normal;
         overflow-wrap: anywhere;
         background-color: transparent;
         border: 0;
+    }
+
+    .bbcode-rendered__clipboard {
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--bbcode-rendered-neutral-muted);
+        color: var(--bbcode-rendered-fg-default);
+        border-radius: 6px;
+        position: relative;
+        overflow: auto;
+    }
+
+    .bbcode-rendered__clipboard-button {
+        display: block;
+        background: transparent;
+        border: none;
+        margin: 6px;
+        color: var(--bbcode-rendered-fg-muted);
+        cursor: pointer;
+    }
+
+    .bbcode-rendered__clipboard-button:hover,
+    .bbcode-rendered__clipboard-button:focus {
+        color: var(--bbcode-rendered-fg-default);
     }
 
     /* Markdown Extra footnotes */

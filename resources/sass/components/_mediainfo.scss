@@ -79,3 +79,15 @@
 .mediainfo__encode-settings {
     flex-basis: 100%;
 }
+
+.mediainfo__encode-settings pre,
+.torrent-mediainfo-dump pre {
+    padding: 12px;
+    background-color: var(--bbcode-rendered-neutral-muted);
+    color: var(--bbcode-rendered-fg-default);
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}

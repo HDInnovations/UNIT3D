@@ -25,7 +25,13 @@ a {
 
 code,
 pre {
-    font-family: 'Roboto Mono', Menlo, Monaco, Consolas, 'Courier New',
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        SF Mono,
+        Menlo,
+        Consolas,
+        Liberation Mono,
         monospace;
     font-size: 12px;
     line-height: 1.46666667;
