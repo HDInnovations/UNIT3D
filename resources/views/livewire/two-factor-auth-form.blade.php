@@ -103,7 +103,7 @@
                     </button>
                     @script
                     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-                        Alpine.data('recoverycodes', () => ({
+                        Alpine.data('recovery_codes', () => ({
                             copy() {
                                 let text = document.createElement('textarea');
                                 navigator.clipboard.writeText(
@@ -123,7 +123,7 @@
                     @endscript
                     <button
                         class="form__button form__button--filled"
-                        x-data="recoverycodes"
+                        x-data="recovery_codes"
                         x-on:click.stop="copy"
                     >
                         {{ __('Copy Recovery Codes') }}
