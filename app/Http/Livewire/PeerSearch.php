@@ -101,9 +101,8 @@ class PeerSearch extends Component
      */
     final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $peers {
         get => Peer::query()
-            ->when(
-                $this->groupBy === 'none',
-                fn ($query) => $query
+            ->when(fn ($query) => match ($this->groupBy) {
+                'none' => $query
                     ->select([
                         'peers.torrent_id',
                         'peers.user_id',
@@ -119,11 +118,8 @@ class PeerSearch extends Component
                         'peers.connectable',
                     ])
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
-                    ->with(['user', 'user.group', 'torrent:id,name,size'])
-            )
-            ->when(
-                $this->groupBy === 'user_session',
-                fn ($query) => $query
+                    ->with(['user', 'user.group', 'torrent:id,name,size']),
+                'user_session' => $query
                     ->select(['peers.user_id', 'peers.port', 'peers.agent'])
                     ->selectRaw('COUNT(DISTINCT peers.torrent_id) as torrent_id')
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
@@ -139,11 +135,8 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.active = FALSE) as inactive_count')
                     ->selectRaw('ROUND(COALESCE(SUM(peers.active = FALSE) / SUM(peers.active = TRUE), 0), 2) as inactive_ratio')
                     ->groupBy(['peers.user_id', 'peers.agent', 'peers.ip', 'peers.port'])
-                    ->with(['user', 'user.group'])
-            )
-            ->when(
-                $this->groupBy === 'user_ip',
-                fn ($query) => $query
+                    ->with(['user', 'user.group']),
+                'user_ip' => $query
                     ->select(['peers.user_id'])
                     ->selectRaw('COUNT(DISTINCT peers.torrent_id) as torrent_id')
                     ->selectRaw('COUNT(DISTINCT peers.agent) as agent')
@@ -161,11 +154,8 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.active = FALSE) as inactive_count')
                     ->selectRaw('ROUND(COALESCE(SUM(peers.active = FALSE) / SUM(peers.active = TRUE), 0), 2) as inactive_ratio')
                     ->groupBy(['peers.user_id', 'peers.ip'])
-                    ->with(['user', 'user.group'])
-            )
-            ->when(
-                $this->groupBy === 'user',
-                fn ($query) => $query
+                    ->with(['user', 'user.group']),
+                'user' => $query
                     ->select(['peers.user_id'])
                     ->selectRaw('COUNT(DISTINCT peers.torrent_id) as torrent_id')
                     ->selectRaw('COUNT(DISTINCT peers.agent) as agent')
@@ -183,8 +173,9 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.active = FALSE) as inactive_count')
                     ->selectRaw('ROUND(COALESCE(SUM(peers.active = FALSE) / SUM(peers.active = TRUE), 0), 2) as inactive_ratio')
                     ->groupBy(['peers.user_id'])
-                    ->with(['user', 'user.group'])
-            )
+                    ->with(['user', 'user.group']),
+                default => $query,
+            })
             ->when(
                 $this->sharedIpsOnly,
                 fn ($query) => $query
@@ -213,17 +204,16 @@ class PeerSearch extends Component
                 $this->includeSeedsize,
                 fn ($query) => $query
                     ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
-                    ->when(
-                        $this->groupBy === 'none',
-                        fn ($query) => $query
+                    ->when(fn ($query) => match ($this->groupBy) {
+                        'none' => $query
                             ->selectRaw('torrents.size as size')
                             ->selectRaw('CASE WHEN peers.connectable = TRUE THEN torrents.size ELSE 0 END as connectable_size')
                             ->selectRaw('CASE WHEN peers.connectable = FALSE THEN torrents.size ELSE 0 END as unconnectable_size'),
-                        fn ($query) => $query
+                        default => $query
                             ->selectRaw('SUM(torrents.size) as size')
                             ->selectRaw('SUM(CASE WHEN peers.connectable = TRUE THEN torrents.size ELSE 0 END) as connectable_size')
-                            ->selectRaw('SUM(CASE WHEN peers.connectable = FALSE THEN torrents.size ELSE 0 END) as unconnectable_size')
-                    )
+                            ->selectRaw('SUM(CASE WHEN peers.connectable = FALSE THEN torrents.size ELSE 0 END) as unconnectable_size'),
+                    })
             )
             ->when($this->ip !== '', fn ($query) => $query->where(DB::raw('INET6_NTOA(ip)'), 'LIKE', $this->ip.'%'))
             ->when($this->port !== '', fn ($query) => $query->where('peers.port', 'LIKE', $this->port))

@@ -79,14 +79,11 @@ class ConversationSearch extends Component
                 $this->message !== null && $this->message !== '',
                 fn ($query) => $query->whereRelation('messages', 'message', 'LIKE', '%'.str_replace(' ', '%', $this->message).'%')
             )
-            ->when(
-                $this->tab === 'inbox' || $this->tab === 'unread',
-                fn ($query) => $query->whereRelation('messages', 'sender_id', '!=', auth()->id())
-            )
-            ->when(
-                $this->tab === 'outbox',
-                fn ($query) => $query->whereRelation('messages', 'sender_id', '=', auth()->id())
-            )
+            ->when(fn ($query) => match ($this->tab) {
+                'inbox', 'unread' => $query->whereRelation('messages', 'sender_id', '!=', auth()->id()),
+                'outbox' => $query->whereRelation('messages', 'sender_id', '=', auth()->id()),
+                default  => $query,
+            })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);
     }

@@ -73,22 +73,14 @@ class TopTorrents extends Component
                     END AS meta
                 SQL)
                 ->withCount(['thanks', 'comments'])
-                ->when($this->tab === 'newest', fn ($query) => $query->orderByDesc('id'))
-                ->when($this->tab === 'seeded', fn ($query) => $query->orderByDesc('seeders'))
-                ->when(
-                    $this->tab === 'dying',
-                    fn ($query) => $query
-                        ->where('seeders', '=', 1)
-                        ->where('times_completed', '>=', 1)
-                        ->orderByDesc('leechers')
-                )
-                ->when($this->tab === 'leeched', fn ($query) => $query->orderByDesc('leechers'))
-                ->when(
-                    $this->tab === 'dead',
-                    fn ($query) => $query
-                        ->where('seeders', '=', 0)
-                        ->orderByDesc('leechers')
-                )
+                ->when(fn ($query) => match ($this->tab) {
+                    'newest'  => $query->orderByDesc('id'),
+                    'seeded'  => $query->orderByDesc('seeders'),
+                    'dying'   => $query->where('seeders', '=', 1)->where('times_completed', '>=', 1)->orderByDesc('leechers'),
+                    'leeched' => $query->orderByDesc('leechers'),
+                    'dead'    => $query->where('seeders', '=', 0)->orderByDesc('leechers'),
+                    default   => $query,
+                })
                 ->take(5)
                 ->get();
 

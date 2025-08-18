@@ -88,31 +88,25 @@ class ForumCategoryTopicSearch extends Component
                 fn ($query) => $query
                     ->whereDoesntHave('subscribedUsers', fn ($query) => $query->where('users.id', '=', auth()->id()))
             )
-            ->when(
-                $this->read === 'some',
-                fn ($query) => $query
+            ->when(fn ($query) => match ($this->read) {
+                'some' => $query
                     ->whereHas(
                         'reads',
                         fn ($query) => $query
                             ->whereBelongsTo(auth()->user())
                             ->whereColumn('last_post_id', '>', 'last_read_post_id')
-                    )
-            )
-            ->when(
-                $this->read === 'all',
-                fn ($query) => $query
+                    ),
+                'all' => $query
                     ->whereHas(
                         'reads',
                         fn ($query) => $query
                             ->whereBelongsTo(auth()->user())
                             ->whereColumn('last_post_id', '=', 'last_read_post_id')
-                    )
-            )
-            ->when(
-                $this->read === 'none',
-                fn ($query) => $query
-                    ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user()))
-            )
+                    ),
+                'none' => $query
+                    ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user())),
+                default => $query,
+            })
             ->orderByDesc('priority')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);

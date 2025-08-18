@@ -67,9 +67,12 @@ class UserWarnings extends Component
                 fn ($query) => $query->with('warneduser', 'staffuser', 'torrenttitle'),
                 fn ($query) => $query->with('warneduser', 'torrenttitle'),
             )
-            ->when($this->warningTab === 'automated', fn ($query) => $query->whereNotNull('torrent'))
-            ->when($this->warningTab === 'manual', fn ($query) => $query->whereNull('torrent'))
-            ->when($this->warningTab === 'deleted', fn ($query) => $query->onlyTrashed())
+            ->when(fn ($query) => match ($this->warningTab) {
+                'automated' => $query->whereNotNull('torrent'),
+                'manual'    => $query->whereNull('torrent'),
+                'deleted'   => $query->onlyTrashed(),
+                default     => $query,
+            })
             ->when(
                 $this->sortField === null,
                 fn ($query) => $query->orderByDesc('active')->orderByDesc('created_at'),

@@ -92,12 +92,15 @@ class Trending extends Component
                     ])
                     ->join('history', 'history.torrent_id', '=', 'torrents.id')
                     ->where($metaIdColumn, '!=', 0)
-                    ->when($this->interval === 'day', fn ($query) => $query->whereBetween('history.completed_at', [now()->subDay(), now()]))
-                    ->when($this->interval === 'week', fn ($query) => $query->whereBetween('history.completed_at', [now()->subWeek(), now()]))
-                    ->when($this->interval === 'month', fn ($query) => $query->whereBetween('history.completed_at', [now()->subMonth(), now()]))
-                    ->when($this->interval === 'year', fn ($query) => $query->whereBetween('history.completed_at', [now()->subYear(), now()]))
-                    ->when($this->interval === 'all', fn ($query) => $query->whereNotNull('history.completed_at'))
-                    ->when($this->interval === 'custom', fn ($query) => $query->whereBetween('history.completed_at', [$this->from ?: now(), $this->until ?: now()]))
+                    ->when(fn ($query) => match ($this->interval) {
+                        'day'    => $query->whereBetween('history.completed_at', [now()->subDay(), now()]),
+                        'week'   => $query->whereBetween('history.completed_at', [now()->subWeek(), now()]),
+                        'month'  => $query->whereBetween('history.completed_at', [now()->subMonth(), now()]),
+                        'year'   => $query->whereBetween('history.completed_at', [now()->subYear(), now()]),
+                        'all'    => $query->whereNotNull('history.completed_at'),
+                        'custom' => $query->whereBetween('history.completed_at', [$this->from ?: now(), $this->until ?: now()]),
+                        default  => $query,
+                    })
                     ->whereRelation('category', $this->metaType, '=', true)
                     // Small torrents screw the stats since users download them only to farm bon.
                     ->where('torrents.size', '>', 1024 * 1024 * 1024)

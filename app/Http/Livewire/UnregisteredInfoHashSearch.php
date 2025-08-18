@@ -63,16 +63,16 @@ class UnregisteredInfoHashSearch extends Component
         get => UnregisteredInfoHash::query()
             ->with('user')
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', '%'.$this->username.'%'))
-            ->when(
-                $this->groupBy === 'info_hash',
-                fn ($query) => $query->groupBy('info_hash')
+            ->when(fn ($query) => match ($this->groupBy) {
+                'info_hash' => $query->groupBy('info_hash')
                     ->select([
                         'info_hash',
                         DB::raw('MIN(created_at) as created_at'),
                         DB::raw('MAX(updated_at) as updated_at'),
                         DB::raw('COUNT(*) as amount'),
-                    ])
-            )
+                    ]),
+                default => $query,
+            })
             ->when(
                 $this->excludeSoftDeletedTorrents,
                 fn ($query) => $query->whereDoesntHave('torrent', fn ($query) => $query->onlyTrashed()->withoutGlobalScope(ApprovedScope::class))

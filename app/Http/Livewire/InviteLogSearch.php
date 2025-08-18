@@ -125,9 +125,8 @@ class InviteLogSearch extends Component
                 )
             )
             ->when($this->custom, fn ($query) => $query->where('custom', 'LIKE', '%'.$this->custom.'%'))
-            ->when(
-                $this->groupBy === 'user_id',
-                fn ($query) => $query->groupBy('user_id')
+            ->when(fn ($query) => match ($this->groupBy) {
+                'user_id' => $query->groupBy('user_id')
                     ->select([
                         'user_id',
                         DB::raw('MIN(created_at) as created_at_min'),
@@ -162,8 +161,9 @@ class InviteLogSearch extends Component
                         'created_at_min' => 'datetime',
                         'created_at_avg' => 'datetime',
                         'created_at_max' => 'datetime',
-                    ])
-            )
+                    ]),
+                default => $query,
+            })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

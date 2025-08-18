@@ -73,11 +73,10 @@ class TicketSearch extends Component
         get => Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])
             ->when(!$this->user->group->is_modo, fn ($query) => $query->where('user_id', '=', $this->user->id))
-            ->when(
-                $this->tab === 'open',
-                fn ($query) => $query->whereNull('closed_at'),
-                fn ($query) => $query->whereNotNull('closed_at')
-            )
+            ->when(fn ($query) => match ($this->tab) {
+                'open'  => $query->whereNull('closed_at'),
+                default => $query->whereNotNull('closed_at')
+            })
             ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
             ->when($this->show === true, fn ($query) => $query->where('staff_id', '=', auth()->user()->id))
             ->orderBy($this->sortField, $this->sortDirection)

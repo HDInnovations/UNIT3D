@@ -34,7 +34,7 @@ class ApplicationSearch extends Component
     public string $email = '';
 
     #[Url(history: true)]
-    public string $status = '';
+    public ?ModerationStatus $status = null;
 
     #[Url(history: true)]
     public string $sortField = 'created_at';
@@ -58,9 +58,7 @@ class ApplicationSearch extends Component
                 'urlProofs'
             ])
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
-            ->when($this->status === '1', fn ($query) => $query->where('status', '=', ModerationStatus::APPROVED))
-            ->when($this->status === '0', fn ($query) => $query->where('status', '=', ModerationStatus::PENDING))
-            ->when($this->status === '2', fn ($query) => $query->where('status', '=', ModerationStatus::REJECTED))
+            ->when($this->status !== null, fn ($query) => $query->where('status', '=', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

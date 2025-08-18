@@ -101,9 +101,8 @@ class TorrentDownloadSearch extends Component
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
             ->when($this->from !== '', fn ($query) => $query->where('created_at', '>=', $this->from))
             ->when($this->until !== '', fn ($query) => $query->where('created_at', '<=', $this->until))
-            ->when(
-                $this->groupBy === 'user_id',
-                fn ($query) => $query->groupBy('user_id')
+            ->when(fn ($query) => match ($this->groupBy) {
+                'user_id' => $query->groupBy('user_id')
                     ->select([
                         'user_id',
                         DB::raw('COUNT(*) as download_count'),
@@ -114,8 +113,9 @@ class TorrentDownloadSearch extends Component
                     ->withCasts([
                         'created_at_min' => 'datetime',
                         'created_at_max' => 'datetime',
-                    ])
-            )
+                    ]),
+                default => $query,
+            })
             ->paginate($this->perPage);
     }
 

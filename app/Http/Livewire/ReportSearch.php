@@ -76,10 +76,13 @@ class ReportSearch extends Component
             ->when($this->title !== null, fn ($query) => $query->where('title', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->title.'%')))
             ->when($this->message !== null, fn ($query) => $query->where('message', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->message.'%')))
             ->when($this->verdict !== null, fn ($query) => $query->where('verdict', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->verdict.'%')))
-            ->when($this->status === 'open', fn ($query) => $query->where('solved', '=', false)->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now())))
-            ->when($this->status === 'snoozed', fn ($query) => $query->where('solved', '=', false)->where('snoozed_until', '>', now()))
-            ->when($this->status === 'closed', fn ($query) => $query->where('solved', '=', true))
-            ->when($this->status === 'all_open', fn ($query) => $query->where('solved', '=', false))
+            ->when(fn ($query) => match ($this->status) {
+                'open'     => $query->where('solved', '=', false)->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now())),
+                'snoozed'  => $query->where('solved', '=', false)->where('snoozed_until', '>', now()),
+                'closed'   => $query->where('solved', '=', true),
+                'all_open' => $query->where('solved', '=', false),
+                default    => $query,
+            })
             ->orderBy('solved')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
