@@ -8,7 +8,6 @@ dontflash
 dontrelease
 dontreport
 ehlo
-encryptable
 encrypter
 mimetypes
 mysql
