@@ -19,14 +19,10 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Report> $reports
- */
 class ReportSearch extends Component
 {
     use LivewireSort;
@@ -68,12 +64,10 @@ class ReportSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Report>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Report>
      */
-    #[Computed]
-    final public function reports(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Report::orderBy('solved')
+    final protected \Illuminate\Pagination\LengthAwarePaginator $reports {
+        get => Report::query()
             ->with('reported.group', 'reporter.group', 'staff.group')
             ->when($this->type !== null, fn ($query) => $query->where('type', '=', $this->type))
             ->when($this->reporter !== null, fn ($query) => $query->whereIn('reporter_id', User::withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->reporter.'%')))
@@ -86,6 +80,7 @@ class ReportSearch extends Component
             ->when($this->status === 'snoozed', fn ($query) => $query->where('solved', '=', false)->where('snoozed_until', '>', now()))
             ->when($this->status === 'closed', fn ($query) => $query->where('solved', '=', true))
             ->when($this->status === 'all_open', fn ($query) => $query->where('solved', '=', false))
+            ->orderBy('solved')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

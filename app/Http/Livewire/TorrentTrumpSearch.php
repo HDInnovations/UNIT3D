@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\TorrentTrump;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -46,12 +45,10 @@ class TorrentTrumpSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TorrentTrump>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TorrentTrump>
      */
-    #[Computed]
-    final public function torrentTrumps(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return TorrentTrump::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $torrentTrumps {
+        get => TorrentTrump::query()
             ->with([
                 'user:id,username,group_id,deleted_at',
                 'torrent:id,name,deleted_at',

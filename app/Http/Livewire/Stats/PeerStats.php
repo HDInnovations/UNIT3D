@@ -18,34 +18,39 @@ namespace App\Http\Livewire\Stats;
 
 use App\Models\History;
 use App\Models\Peer;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
 #[Lazy(isolate: true)]
 class PeerStats extends Component
 {
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function leecherCount(): int
-    {
-        // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute leechers and total instead of seeders and leechers.
-        return Peer::query()->where('seeder', '=', false)->where('active', '=', true)->count();
+    final protected int $leecherCount {
+        get => (int) cache()->remember(
+            'peer-stats:leecher-count',
+            10 * 60,
+            // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute leechers and total instead of seeders and leechers.
+            fn () => Peer::query()->where('seeder', '=', false)->where('active', '=', true)->count()
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function peerCount(): int
-    {
-        return Peer::query()->where('active', '=', true)->count();
+    final protected int $peerCount {
+        get => (int) cache()->remember(
+            'peer-stats:peer-count',
+            10 * 60,
+            fn () => Peer::query()->where('active', '=', true)->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function totalSeeded(): int
-    {
-        return (int) History::query()
-            ->join('torrents', 'history.torrent_id', '=', 'torrents.id')
-            ->where('history.active', '=', true)
-            ->where('history.seeder', '=', true)
-            ->sum('size');
+    final protected int $totalSeeded {
+        get => (int) cache()->remember(
+            'peer-stats:total-seeded',
+            10 * 60,
+            fn () => History::query()
+                ->join('torrents', 'history.torrent_id', '=', 'torrents.id')
+                ->where('history.active', '=', true)
+                ->where('history.seeder', '=', true)
+                ->sum('size'),
+        );
     }
 
     final public function placeholder(): string

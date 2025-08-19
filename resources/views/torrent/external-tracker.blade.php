@@ -107,7 +107,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    {{ implode('', array_map(fn ($char) => ctype_print($char) ? $char : '\x' . bin2hex($char), str_split(hex2bin(explode('-', $peerId)[1])))) }}
+                                    {{ implode('', array_map(fn ($char) => ctype_print($char) ? $char : '\x' . bin2hex($char), str_split($peer['peer_id']))) }}
                                 </td>
                                 <td>
                                     @if ($torrent === null)

@@ -25,18 +25,11 @@ use App\Notifications\WarningsDeleted;
 use App\Notifications\WarningTorrentDeleted;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Warning> $warnings
- * @property int                                                       $automatedWarningsCount
- * @property int                                                       $manualWarningsCount
- * @property int                                                       $deletedWarningsCount
- */
 class UserWarnings extends Component
 {
     use LivewireSort;
@@ -64,12 +57,10 @@ class UserWarnings extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
      */
-    #[Computed]
-    final public function warnings(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return $this->user
+    final protected \Illuminate\Pagination\LengthAwarePaginator $warnings {
+        get => $this->user
             ->userwarning()
             ->when(
                 auth()->user()->group->is_modo,
@@ -87,22 +78,16 @@ class UserWarnings extends Component
             ->paginate($this->perPage);
     }
 
-    #[Computed]
-    final public function automatedWarningsCount(): int
-    {
-        return $this->user->userwarning()->whereNotNull('torrent')->count();
+    final protected int $automatedWarningsCount {
+        get => $this->user->userwarning()->whereNotNull('torrent')->count();
     }
 
-    #[Computed]
-    final public function manualWarningsCount(): int
-    {
-        return $this->user->userwarning()->whereNull('torrent')->count();
+    final protected int $manualWarningsCount {
+        get => $this->user->userwarning()->whereNull('torrent')->count();
     }
 
-    #[Computed]
-    final public function deletedWarningsCount(): int
-    {
-        return $this->user->userwarning()->onlyTrashed()->count();
+    final protected int $deletedWarningsCount {
+        get => $this->user->userwarning()->onlyTrashed()->count();
     }
 
     /**

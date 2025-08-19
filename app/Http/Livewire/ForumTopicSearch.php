@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Forum;
 use App\Models\Subscription;
 use App\Models\Topic;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -68,12 +67,10 @@ class ForumTopicSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Topic>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Topic>
      */
-    #[Computed]
-    final public function topics(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Topic::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $topics {
+        get => Topic::query()
             ->select('topics.*')
             ->with([
                 'user.group',

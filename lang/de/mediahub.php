@@ -36,4 +36,5 @@ return [
     'show' => 'Serie',
     'shows' => 'Serien',
     'title' => 'MediaHub',
+    'tv-credits' => 'Serien Credits:',
 ];

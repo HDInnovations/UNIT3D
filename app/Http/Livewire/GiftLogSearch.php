@@ -18,14 +18,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Gift;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Gift> $gifts
- */
 class GiftLogSearch extends Component
 {
     use LivewireSort;
@@ -52,15 +48,14 @@ class GiftLogSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Gift>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Gift>
      */
-    #[Computed]
-    final public function gifts(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Gift::with([
-            'sender'    => fn ($query) => $query->withTrashed()->with('group'),
-            'recipient' => fn ($query) => $query->withTrashed()->with('group'),
-        ])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $gifts {
+        get => Gift::query()
+            ->with([
+                'sender'    => fn ($query) => $query->withTrashed()->with('group'),
+                'recipient' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
             ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
             ->when($this->receiver, fn ($query) => $query->whereRelation('recipient', 'username', '=', $this->receiver))
             ->when($this->comment, fn ($query) => $query->where('comment', 'LIKE', '%'.$this->comment.'%'))

@@ -17,35 +17,42 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Stats;
 
 use App\Models\History;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
 #[Lazy(isolate: true)]
 class TrafficStats extends Component
 {
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function actualUpload(): int
-    {
-        return (int) History::query()->sum('actual_uploaded');
+    final protected int $actualUpload {
+        get => (int) cache()->remember(
+            'traffic-stats:actual-upload',
+            10 * 60,
+            fn () => History::query()->sum('actual_uploaded'),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function creditedUpload(): int
-    {
-        return (int) History::query()->sum('uploaded');
+    final protected int $creditedUpload {
+        get => (int) cache()->remember(
+            'traffic-stats:credited-upload',
+            10 * 60,
+            fn () => History::query()->sum('uploaded'),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function actualDownload(): int
-    {
-        return (int) History::query()->sum('actual_downloaded');
+    final protected int $actualDownload {
+        get => (int) cache()->remember(
+            'traffic-stats:actual-download',
+            10 * 60,
+            fn () => History::query()->sum('actual_downloaded'),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function creditedDownload(): int
-    {
-        return (int) History::query()->sum('downloaded');
+    final protected int $creditedDownload {
+        get => (int) cache()->remember(
+            'traffic-stats:credited-download',
+            10 * 60,
+            fn () => History::query()->sum('downloaded'),
+        );
     }
 
     final public function placeholder(): string

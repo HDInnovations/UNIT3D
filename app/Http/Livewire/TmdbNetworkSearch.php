@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\TmdbNetwork;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,12 +36,10 @@ class TmdbNetworkSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TmdbNetwork>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbNetwork>
      */
-    #[Computed]
-    final public function networks(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return TmdbNetwork::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $networks {
+        get => TmdbNetwork::query()
             ->withCount([
                 'tv' => fn ($query) => $query->has('torrents'),
             ])

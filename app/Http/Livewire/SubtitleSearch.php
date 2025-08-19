@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Subtitle;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -60,12 +59,11 @@ class SubtitleSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Subtitle>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Subtitle>
      */
-    #[Computed]
-    final public function subtitles(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Subtitle::with(['user.group', 'torrent.category', 'language'])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $subtitles {
+        get => Subtitle::query()
+            ->with(['user.group', 'torrent.category', 'language'])
             ->whereHas('torrent')
             ->when($this->search, fn ($query) => $query->where('title', 'like', '%'.$this->search.'%'))
             ->when($this->categories, fn ($query) => $query->whereHas('torrent', fn ($query) => $query->whereIn('category_id', $this->categories)))

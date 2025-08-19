@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Invite;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -87,12 +86,10 @@ class InviteLogSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Invite>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Invite>
      */
-    #[Computed]
-    final public function invites(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Invite::withTrashed()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $invites {
+        get => Invite::withTrashed()
             ->with([
                 'sender'   => fn ($query) => $query->withTrashed()->with('group'),
                 'receiver' => fn ($query) => $query->withTrashed()->with('group'),

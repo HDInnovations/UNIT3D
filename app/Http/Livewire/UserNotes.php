@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Note;
 use App\Models\User;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -70,12 +69,10 @@ class UserNotes extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Note>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Note>
      */
-    #[Computed]
-    final public function notes(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Note::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $notes {
+        get => Note::query()
             ->with('staffuser', 'staffuser.group')
             ->where('user_id', '=', $this->user->id)
             ->paginate($this->perPage);

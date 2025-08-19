@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Playlist;
 use App\Models\PlaylistCategory;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -55,14 +54,13 @@ class PlaylistSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Playlist>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Playlist>
      */
-    #[Computed]
-    final public function playlists()
-    {
-        return Playlist::with([
-            'user:id,username,group_id,image' => ['group'],
-        ])
+    final protected $playlists {
+        get => Playlist::query()
+            ->with([
+                'user:id,username,group_id,image' => ['group'],
+            ])
             ->withCount('torrents')
             ->when(
                 ! auth()->user()->group->is_modo,
@@ -81,12 +79,14 @@ class PlaylistSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
+     * @var \Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function playlistCategories(): \Illuminate\Database\Eloquent\Collection
-    {
-        return PlaylistCategory::query()->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $playlistCategories {
+        get => cache()->remember(
+            'playlist-categories',
+            3600,
+            fn () => PlaylistCategory::query()->orderBy('position')->get()
+        );
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

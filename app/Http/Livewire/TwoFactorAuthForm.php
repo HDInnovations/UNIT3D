@@ -21,7 +21,6 @@ use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
 use Laravel\Fortify\Features;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class TwoFactorAuthForm extends Component
@@ -126,19 +125,15 @@ class TwoFactorAuthForm extends Component
     /**
      * Get the current user of the application.
      */
-    #[Computed]
-    final public function user(): ?\Illuminate\Contracts\Auth\Authenticatable
-    {
-        return auth()->user();
+    final protected ?\Illuminate\Contracts\Auth\Authenticatable $user {
+        get => auth()->user();
     }
 
     /**
      * Determine if two-factor authentication is enabled.
      */
-    #[Computed]
-    final public function enabled(): bool
-    {
-        return !empty($this->user->two_factor_secret);
+    final protected bool $enabled {
+        get => !empty($this->user->two_factor_secret);
     }
 
     /**

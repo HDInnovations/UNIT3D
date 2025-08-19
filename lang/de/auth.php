@@ -77,4 +77,6 @@ return [
     'verify' => 'Verifizieren',
     'verify-email' => 'Email Verifizieren',
     'verifying' => 'Verifizierung läuft...',
+    'code' => '2FA Code',
+    'totp-code' => 'TOTP code',
 ];

@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\TmdbMovie;
 use App\Models\Type;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -50,12 +49,11 @@ class MissingMediaSearch extends Component
     public int $perPage = 50;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TmdbMovie>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbMovie>
      */
-    #[Computed]
-    final public function medias(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return TmdbMovie::with(['torrents:tmdb_movie_id,tmdb_tv_id,resolution_id,type_id' => ['resolution:id,position,name']])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $medias {
+        get => TmdbMovie::query()
+            ->with(['torrents:tmdb_movie_id,tmdb_tv_id,resolution_id,type_id' => ['resolution:id,position,name']])
             ->when($this->name, fn ($query) => $query->where('title', 'LIKE', '%'.$this->name.'%'))
             ->when($this->year, fn ($query) => $query->where('release_date', 'LIKE', '%'.$this->year.'%'))
             ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereDoesntHave('claim')])
@@ -65,12 +63,13 @@ class MissingMediaSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    #[Computed]
-    final public function types(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Type::select(['id', 'position', 'name'])->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $types {
+        get => Type::query()
+            ->select(['id', 'position', 'name'])
+            ->orderBy('position')
+            ->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

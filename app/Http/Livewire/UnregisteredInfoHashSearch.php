@@ -21,7 +21,6 @@ use App\Models\UnregisteredInfoHash;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -58,12 +57,10 @@ class UnregisteredInfoHashSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, UnregisteredInfoHash>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, UnregisteredInfoHash>
      */
-    #[Computed]
-    final public function unregisteredInfoHashes(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return UnregisteredInfoHash::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $unregisteredInfoHashes {
+        get => UnregisteredInfoHash::query()
             ->with('user')
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', '%'.$this->username.'%'))
             ->when(

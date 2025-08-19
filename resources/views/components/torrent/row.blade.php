@@ -22,7 +22,12 @@
     wire:key="torrent-search-row-{{ $torrent->id }}"
 >
     @if (auth()->user()->settings->show_poster)
-        <td class="torrent-search--list__poster">
+        <td
+            class="torrent-search--list__poster"
+            x-data="{ metaPopup: false }"
+            @mouseenter="metaPopup = true"
+            @mouseleave="metaPopup = false"
+        >
             <a
                 href="{{
                     match (true) {
@@ -40,6 +45,7 @@
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"
                     />
+                    @include('torrent.partials.meta-popup', ['meta' => $meta])
                 @endif
 
                 @if ($torrent->category->game_meta)

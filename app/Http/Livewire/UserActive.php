@@ -19,14 +19,10 @@ namespace App\Http\Livewire;
 use App\Models\Peer;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Peer> $actives
- */
 class UserActive extends Component
 {
     use LivewireSort;
@@ -80,12 +76,10 @@ class UserActive extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Peer>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Peer>
      */
-    #[Computed]
-    final public function actives(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Peer::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $actives {
+        get => Peer::query()
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
             ->select(
                 'peers.port',

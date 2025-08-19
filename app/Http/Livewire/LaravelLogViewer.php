@@ -19,16 +19,11 @@ namespace App\Http\Livewire;
 use App\Traits\CastLivewireProperties;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use SplFileInfo;
 
-/**
- * @property \Illuminate\Support\Collection $logFiles
- * @property LengthAwarePaginator           $entries
- */
 class LaravelLogViewer extends Component
 {
     use CastLivewireProperties;
@@ -54,64 +49,64 @@ class LaravelLogViewer extends Component
         $this->perPage += 5;
     }
 
-    #[Computed]
-    final public function logFiles()
-    {
-        $directory = storage_path('logs');
-
-        return collect(File::allFiles($directory))
-            ->sortByDesc(fn (SplFileInfo $file) => $file->getMTime())->values();
+    /**
+     * @var \Illuminate\Support\Collection<int, \Symfony\Component\Finder\SplFileInfo>
+     */
+    final protected \Illuminate\Support\Collection $logFiles {
+        get => collect(File::allFiles(storage_path('logs')))
+            ->sortByDesc(fn (SplFileInfo $file) => $file->getMTime())
+            ->values();
     }
 
     /**
-     * @return LengthAwarePaginator<\Illuminate\Support\Collection<string|int, mixed>>
+     * @var LengthAwarePaginator<string, \Illuminate\Support\Collection<int, mixed>>
      */
-    #[Computed]
-    final public function entries(): LengthAwarePaginator
-    {
-        $files = $this->logFiles;
-        $logString = '';
+    final protected LengthAwarePaginator $entries {
+        get {
+            $files = $this->logFiles;
+            $logString = '';
 
-        foreach ($this->logs as $log) {
-            if ($files[$log] ?? []) {
-                $logString .= file_get_contents($files[$log]->getPathname());
+            foreach ($this->logs as $log) {
+                if ($files[$log] ?? []) {
+                    $logString .= file_get_contents($files[$log]->getPathname());
+                }
             }
-        }
 
-        $entryPattern = '/^\[(?<date>.*)\]\s(?<env>\w+)\.(?<level>\w+)\:\s/m';
-        $contextPattern = '/^(?<message>[^\{]*)?(?:\{"exception"\:"\[object\]\s\((?<exception>[^\s\(]+))?.*\s(?:in|at)\s(?<in>.*)\:(?<line>\d+)\)?/ms';
+            $entryPattern = '/^\[(?<date>.*)\]\s(?<env>\w+)\.(?<level>\w+)\:\s/m';
+            $contextPattern = '/^(?<message>[^\{]*)?(?:\{"exception"\:"\[object\]\s\((?<exception>[^\s\(]+))?.*\s(?:in|at)\s(?<in>.*)\:(?<line>\d+)\)?/ms';
 
-        $entries = collect();
+            $entries = collect();
 
-        if (preg_match_all($entryPattern, $logString, $entryMatches, PREG_SET_ORDER) !== false) {
-            $stacktraces = preg_split($entryPattern, $logString);
-            // Delete the empty first entry
-            array_shift($stacktraces);
-            $numEntries = \count($entryMatches);
+            if (preg_match_all($entryPattern, $logString, $entryMatches, PREG_SET_ORDER) !== false) {
+                $stacktraces = preg_split($entryPattern, $logString);
+                // Delete the empty first entry
+                array_shift($stacktraces);
+                $numEntries = \count($entryMatches);
 
-            for ($i = 0; $i < $numEntries; $i++) {
-                // The context is the portion before the first stack trace
-                $context = preg_split('/^\[stacktrace\]|Stack trace\:/ms', (string) $stacktraces[$i])[0];
-                // The `context` consists of a message, an exception, a filename, and a line count
-                preg_match($contextPattern, $context, $contextMatches);
+                for ($i = 0; $i < $numEntries; $i++) {
+                    // The context is the portion before the first stack trace
+                    $context = preg_split('/^\[stacktrace\]|Stack trace\:/ms', (string) $stacktraces[$i])[0];
+                    // The `context` consists of a message, an exception, a filename, and a line count
+                    preg_match($contextPattern, $context, $contextMatches);
 
-                $entries->push([
-                    'date'       => $entryMatches[$i]['date'],
-                    'env'        => $entryMatches[$i]['env'],
-                    'level'      => $entryMatches[$i]['level'],
-                    'message'    => $contextMatches['message'] ?? '',
-                    'exception'  => $contextMatches['exception'] ?? '',
-                    'in'         => $contextMatches['in'] ?? '',
-                    'line'       => $contextMatches['line'] ?? '',
-                    'stacktrace' => $stacktraces[$i],
-                ]);
+                    $entries->push([
+                        'date'       => $entryMatches[$i]['date'],
+                        'env'        => $entryMatches[$i]['env'],
+                        'level'      => $entryMatches[$i]['level'],
+                        'message'    => $contextMatches['message'] ?? '',
+                        'exception'  => $contextMatches['exception'] ?? '',
+                        'in'         => $contextMatches['in'] ?? '',
+                        'line'       => $contextMatches['line'] ?? '',
+                        'stacktrace' => $stacktraces[$i],
+                    ]);
+                }
             }
+
+            $groupedEntries = $entries->groupBy(fn ($entry) => $entry['message'].'-'.$entry['exception'].'-'.$entry['in'].'-'.$entry['line']);
+            $currentEntries = $groupedEntries->forPage($this->page, $this->perPage);
+
+            return new LengthAwarePaginator($currentEntries, $groupedEntries->count(), $this->perPage, $this->page);
         }
-
-        $groupedEntries = $entries->groupBy(fn ($entry) => $entry['message'].'-'.$entry['exception'].'-'.$entry['in'].'-'.$entry['line']);
-        $currentEntries = $groupedEntries->forPage($this->page, $this->perPage);
-
-        return new LengthAwarePaginator($currentEntries, $groupedEntries->count(), $this->perPage, $this->page);
     }
 
     final public function clearLatestLog(): void

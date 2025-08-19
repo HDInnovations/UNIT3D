@@ -182,4 +182,5 @@ return [
         'size' => 'Größe',
     ],
     'current_password' => 'Das Passwort ist nicht korrekt.',
+    'declined' => ':attribute muss abgelehnt werden.',
 ];

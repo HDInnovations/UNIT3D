@@ -19,14 +19,10 @@ namespace App\Http\Livewire;
 use App\Models\PasswordResetHistory;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, PasswordResetHistory> $passwordResetHistories
- */
 class PasswordResetHistorySearch extends Component
 {
     use LivewireSort;
@@ -47,14 +43,13 @@ class PasswordResetHistorySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, PasswordResetHistory>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, PasswordResetHistory>
      */
-    #[Computed]
-    final public function passwordResetHistories(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return PasswordResetHistory::with([
-            'user' => fn ($query) => $query->withTrashed()->with('group'),
-        ])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $passwordResetHistories {
+        get => PasswordResetHistory::query()
+            ->with([
+                'user' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
             ->when($this->username, fn ($query) => $query->whereIn('user_id', User::withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->username.'%')))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

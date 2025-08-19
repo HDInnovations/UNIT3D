@@ -20,7 +20,6 @@ use App\Models\History;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -52,12 +51,10 @@ class LeakerSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, History>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, History>
      */
-    #[Computed]
-    final public function leakers(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return History::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $leakers {
+        get => History::query()
             ->select([
                 'history.user_id',
                 DB::raw('count(*) as leak_count'),
@@ -81,10 +78,8 @@ class LeakerSearch extends Component
             ->paginate($this->perPage);
     }
 
-    #[Computed]
-    final public function torrentIdCount(): int
-    {
-        return \count(array_filter(array_map('trim', explode(',', $this->torrentIds))));
+    final protected int $torrentIdCount {
+        get => \count(array_filter(array_map('trim', explode(',', $this->torrentIds))));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

@@ -69,4 +69,10 @@ return [
     'blocked-ips' => 'Gesperrte IP Adressen',
     'bon-exchange' => 'BON Tauschbörse',
     'bon-earnings' => 'BON Verdienst',
+    'gifts-log' => 'Geschenk-Log',
+    'mass-email' => 'Massen-Mail',
+    'notes' => 'Anmerkungen',
+    'status' => 'Status',
+    'statuses' => 'Status',
+    'passkeys' => 'Passkeys',
 ];

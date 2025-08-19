@@ -20,7 +20,6 @@ use App\Models\Group;
 use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -75,12 +74,10 @@ class UserSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, User>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, User>
      */
-    #[Computed]
-    final public function users(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return User::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $users {
+        get => User::query()
             ->with('group')
             ->when($this->username !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->username.'%'))
             ->when(
@@ -106,12 +103,10 @@ class UserSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int, Group>
+     * @var \Illuminate\Support\Collection<int, Group>
      */
-    #[Computed]
-    final public function groups()
-    {
-        return Group::orderBy('position')->get();
+    final protected $groups {
+        get => Group::orderBy('position')->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

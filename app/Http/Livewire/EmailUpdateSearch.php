@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\EmailUpdate;
 use App\Models\User;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -44,14 +43,13 @@ class EmailUpdateSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, EmailUpdate>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, EmailUpdate>
      */
-    #[Computed]
-    final public function emailUpdates(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return EmailUpdate::with([
-            'user' => fn ($query) => $query->withTrashed()->with('group'),
-        ])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $emailUpdates {
+        get => EmailUpdate::query()
+            ->with([
+                'user' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
             ->when($this->username, fn ($query) => $query->whereIn('user_id', User::withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->username.'%')))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

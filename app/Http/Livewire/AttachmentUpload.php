@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
 use App\Models\User;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -67,16 +66,16 @@ class AttachmentUpload extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, TicketAttachment>
+     * @var \Illuminate\Database\Eloquent\Collection<int, TicketAttachment>
      */
-    #[Computed]
-    final public function attachments(): \Illuminate\Database\Eloquent\Collection
-    {
-        $ticket = Ticket::find($this->ticket);
+    protected \Illuminate\Database\Eloquent\Collection $attachments {
+        get {
+            $ticket = Ticket::find($this->ticket);
 
-        abort_unless($ticket->user_id === $this->user->id || $this->user->group->is_modo, 403);
+            abort_unless($ticket->user_id === $this->user->id || $this->user->group->is_modo, 403);
 
-        return $ticket->attachments;
+            return $ticket->attachments;
+        }
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

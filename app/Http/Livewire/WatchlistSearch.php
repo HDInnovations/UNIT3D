@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Watchlist;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -55,12 +54,10 @@ class WatchlistSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Watchlist>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Watchlist>
      */
-    #[Computed]
-    final public function users(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Watchlist::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $users {
+        get => Watchlist::query()
             ->with(['user.group', 'author.group'])
             ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->orderBy($this->sortField, $this->sortDirection)

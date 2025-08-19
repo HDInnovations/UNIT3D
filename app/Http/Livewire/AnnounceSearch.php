@@ -18,14 +18,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Announce;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Announce> $announces
- */
 class AnnounceSearch extends Component
 {
     use LivewireSort;
@@ -59,12 +55,10 @@ class AnnounceSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\Paginator<int, Announce>
+     * @var \Illuminate\Pagination\Paginator<int, Announce>
      */
-    #[Computed]
-    final public function announces(): \Illuminate\Pagination\Paginator
-    {
-        return Announce::query()
+    protected \Illuminate\Pagination\Paginator $announces {
+        get => Announce::query()
             ->when($this->torrentId !== '', fn ($query) => $query->where('torrent_id', '=', $this->torrentId))
             ->when($this->userId !== '', fn ($query) => $query->where('user_id', '=', $this->userId))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))

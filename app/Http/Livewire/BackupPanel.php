@@ -22,10 +22,10 @@ use App\Rules\PathToZip;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\BackupDestination\BackupDestination;
+use Spatie\Backup\Config\MonitoredBackupsConfig;
 use Spatie\Backup\Helpers\Format;
 use Spatie\Backup\Tasks\Monitor\BackupDestinationStatus;
 use Spatie\Backup\Tasks\Monitor\BackupDestinationStatusFactory;
@@ -40,14 +40,10 @@ class BackupPanel extends Component
     protected $listeners = ['refreshBackups' => '$refresh'];
 
     /**
-     * @return array<mixed>
+     * @var array<mixed>
      */
-    #[Computed]
-    final public function backupStatuses(): array
-    {
-        $monitorConfig = \Spatie\Backup\Config\MonitoredBackupsConfig::fromArray(config('backup.monitor_backups'));
-
-        return BackupDestinationStatusFactory::createForMonitorConfig($monitorConfig)
+    final protected array $backupStatuses {
+        get => BackupDestinationStatusFactory::createForMonitorConfig(MonitoredBackupsConfig::fromArray(config('backup.monitor_backups')))
             ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
                 'name'      => $backupDestinationStatus->backupDestination()->backupName(),
                 'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
@@ -63,46 +59,37 @@ class BackupPanel extends Component
             ->toArray();
     }
 
-    #[Computed]
-    final public function activeDisk(): ?string
-    {
-        if (\count($this->backupStatuses)) {
-            return $this->backupStatuses[0]['disk'];
-        }
-
-        return null;
+    final protected ?string $activeDisk {
+        get => $this->backupStatuses[0]['disk'] ?? null;
     }
 
     /**
-     * @return array<mixed>
+     * @var array<mixed>
      */
-    #[Computed]
-    final public function disks(): array
-    {
-        return collect($this->backupStatuses)
+    final protected array $disks {
+        get => collect($this->backupStatuses)
             ->map(fn ($backupStatus): mixed => $backupStatus['disk'])
             ->values()
             ->all();
     }
 
     /**
+     * @var    array<mixed>
      * @throws ValidationException
      */
-    #[Computed]
-    final public function backups(): array
-    {
-        $this->validateActiveDisk();
+    final protected array $backups {
+        get {
+            $this->validateActiveDisk();
 
-        $backupDestination = BackupDestination::create($this->activeDisk, config('backup.backup.name'));
-
-        return $backupDestination
-            ->backups()
-            ->map(fn (Backup $backup) => [
-                'path' => $backup->path(),
-                'date' => $backup->date()->format('Y-m-d H:i:s'),
-                'size' => Format::humanReadableSize($backup->sizeInBytes()),
-            ])
-            ->toArray();
+            return BackupDestination::create($this->activeDisk, config('backup.backup.name'))
+                ->backups()
+                ->map(fn (Backup $backup) => [
+                    'path' => $backup->path(),
+                    'date' => $backup->date()->format('Y-m-d H:i:s'),
+                    'size' => Format::humanReadableSize($backup->sizeInBytes()),
+                ])
+                ->toArray();
+        }
     }
 
     final public function deleteBackup(int $fileIndex): void

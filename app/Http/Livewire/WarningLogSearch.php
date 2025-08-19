@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Warning;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -55,12 +54,10 @@ class WarningLogSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
      */
-    #[Computed]
-    final public function warnings(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Warning::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $warnings {
+        get => Warning::query()
             ->with(['warneduser.group', 'staffuser.group', 'torrenttitle'])
             ->when($this->sender, fn ($query) => $query->whereRelation('staffuser', 'username', '=', $this->sender))
             ->when($this->receiver, fn ($query) => $query->whereRelation('warneduser', 'username', '=', $this->receiver))

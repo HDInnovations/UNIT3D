@@ -77,7 +77,6 @@ class FollowController extends Controller
 
         $user->notify(new NewUnfollow('user', $request->user()));
 
-        return to_route('users.show', ['user' => $user])
-            ->with('success', \sprintf(trans('user.follow-revoked'), $user->username));
+        return back()->with('success', \sprintf(trans('user.follow-revoked'), $user->username));
     }
 }

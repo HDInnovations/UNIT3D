@@ -487,12 +487,6 @@ parameters:
 			path: app/Http/Livewire/AttachmentUpload.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\BackupPanel\:\:backups\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
 			message: '#^Property App\\Http\\Livewire\\BbcodeInput\:\:\$contentBbcode \(string\) does not accept array\|string\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -537,36 +531,6 @@ parameters:
 		-
 			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\LaravelLogViewer\:\:entries\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\LaravelLogViewer\:\:entries\(\) should return Illuminate\\Pagination\\LengthAwarePaginator&iterable\<Illuminate\\Support\\Collection\<int\|string, mixed\>\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<string, Illuminate\\Support\\Collection\<int, mixed\>\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\LaravelLogViewer\:\:logFiles\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\LaravelLogViewer\:\:\$entries contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\LaravelLogViewer\:\:\$logFiles contains generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 

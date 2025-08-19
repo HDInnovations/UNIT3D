@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Bookmark;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -45,12 +44,10 @@ class UserBookmarks extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Bookmark>
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Bookmark>
      */
-    #[Computed]
-    final public function bookmarks(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
-    {
-        return Bookmark::query()
+    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $bookmarks {
+        get => Bookmark::query()
             ->select([
                 'bookmarks.torrent_id',
                 'bookmarks.created_at as bookmark_created_at',

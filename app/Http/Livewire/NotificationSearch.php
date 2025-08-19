@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -103,12 +102,10 @@ class NotificationSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, \Illuminate\Notifications\DatabaseNotification>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, \Illuminate\Notifications\DatabaseNotification>
      */
-    #[Computed]
-    final public function notifications(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return auth()->user()->notifications()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $notifications {
+        get => auth()->user()->notifications()
             ->select('*')
             ->selectRaw("CASE WHEN read_at IS NULL THEN 'FALSE' ELSE 'TRUE' END as is_read")
             ->where(function ($query): void {

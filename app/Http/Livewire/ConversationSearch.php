@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Conversation;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -49,12 +48,10 @@ class ConversationSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Conversation>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Conversation>
      */
-    #[Computed]
-    final public function conversations(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Conversation::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $conversations {
+        get => Conversation::query()
             ->with([
                 'users'        => fn ($query) => $query->with('group')->where('users.id', '!=', auth()->id()),
                 'participants' => fn ($query) => $query->where('user_id', auth()->id()),

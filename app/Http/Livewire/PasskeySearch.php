@@ -19,14 +19,10 @@ namespace App\Http\Livewire;
 use App\Models\Passkey;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Passkey> $passkeys
- */
 class PasskeySearch extends Component
 {
     use LivewireSort;
@@ -50,14 +46,13 @@ class PasskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Passkey>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Passkey>
      */
-    #[Computed]
-    final public function passkeys(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Passkey::with([
-            'user' => fn ($query) => $query->withTrashed()->with('group'),
-        ])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $passkeys {
+        get => Passkey::query()
+            ->with([
+                'user' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
             ->when($this->username, fn ($query) => $query->whereIn('user_id', User::withTrashed()->select('id')->where('username', '=', $this->username)))
             ->when($this->passkey, fn ($query) => $query->where('content', 'LIKE', '%'.$this->passkey.'%'))
             ->orderBy($this->sortField, $this->sortDirection)

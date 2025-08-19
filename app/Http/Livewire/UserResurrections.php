@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Resurrection;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -59,12 +58,10 @@ class UserResurrections extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Resurrection>
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Resurrection>
      */
-    #[Computed]
-    final public function resurrections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
-    {
-        return Resurrection::query()
+    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $resurrections {
+        get => Resurrection::query()
             ->select([
                 'resurrections.id',
                 'resurrections.created_at',

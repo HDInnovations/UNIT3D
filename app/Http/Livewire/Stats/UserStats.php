@@ -17,59 +17,74 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Stats;
 
 use App\Models\User;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
 #[Lazy(isolate: true)]
 class UserStats extends Component
 {
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function allUsers(): int
-    {
-        return User::query()->withTrashed()->count();
+    final protected int $allUsers {
+        get => (int) cache()->remember(
+            'user-stats:all-users',
+            10 * 60,
+            fn () => User::query()->withTrashed()->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function activeUsers(): int
-    {
-        return User::query()->whereHas('group', fn ($query) => $query->whereNotIn('slug', ['banned', 'validating', 'disabled', 'pruned']))->count();
+    final protected int $activeUsers {
+        get => (int) cache()->remember(
+            'user-stats:active-users',
+            10 * 60,
+            fn () => User::query()->whereHas('group', fn ($query) => $query->whereNotIn('slug', ['banned', 'validating', 'disabled', 'pruned']))->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function disableUsers(): int
-    {
-        return User::query()->whereRelation('group', 'slug', '=', 'disabled')->count();
+    final protected int $disableUsers {
+        get => (int) cache()->remember(
+            'user-stats:disable-users',
+            10 * 60,
+            fn () => User::query()->whereRelation('group', 'slug', '=', 'disabled')->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function prunedUsers(): int
-    {
-        return User::query()->onlyTrashed()->whereRelation('group', 'slug', '=', 'pruned')->count();
+    final protected int $prunedUsers {
+        get => (int) cache()->remember(
+            'user-stats:pruned-users',
+            10 * 60,
+            fn () => User::query()->onlyTrashed()->whereRelation('group', 'slug', '=', 'pruned')->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function bannedUsers(): int
-    {
-        return User::query()->whereRelation('group', 'slug', '=', 'banned')->count();
+    final protected int $bannedUsers {
+        get => (int) cache()->remember(
+            'user-stats:banned-users',
+            10 * 60,
+            fn () => User::query()->whereRelation('group', 'slug', '=', 'banned')->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function usersActiveToday(): int
-    {
-        return User::query()->where('last_action', '>', now()->subDay())->count();
+    final protected int $usersActiveToday {
+        get => (int) cache()->remember(
+            'user-stats:users-active-today',
+            10 * 60,
+            fn () => User::query()->where('last_action', '>', now()->subDay())->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function usersActiveThisWeek(): int
-    {
-        return User::query()->where('last_action', '>', now()->subWeek())->count();
+    final protected int $usersActiveThisWeek {
+        get => (int) cache()->remember(
+            'user-stats:users-active-this-week',
+            10 * 60,
+            fn () => User::query()->where('last_action', '>', now()->subWeek())->count(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function usersActiveThisMonth(): int
-    {
-        return User::query()->where('last_action', '>', now()->subMonth())->count();
+    final protected int $usersActiveThisMonth {
+        get => (int) cache()->remember(
+            'user-stats:users-active-this-month',
+            10 * 60,
+            fn () => User::query()->where('last_action', '>', now()->subMonth())->count(),
+        );
     }
 
     final public function placeholder(): string

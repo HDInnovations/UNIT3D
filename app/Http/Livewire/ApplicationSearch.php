@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Enums\ModerationStatus;
 use App\Models\Application;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -47,17 +46,17 @@ class ApplicationSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Application>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Application>
      */
-    #[Computed]
-    final public function applications(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Application::withoutGlobalScopes()->with([
-            'user.group',
-            'moderated.group',
-            'imageProofs',
-            'urlProofs'
-        ])
+    protected \Illuminate\Pagination\LengthAwarePaginator $applications {
+        get => Application::query()
+            ->withoutGlobalScopes()
+            ->with([
+                'user.group',
+                'moderated.group',
+                'imageProofs',
+                'urlProofs'
+            ])
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->status === '1', fn ($query) => $query->where('status', '=', ModerationStatus::APPROVED))
             ->when($this->status === '0', fn ($query) => $query->where('status', '=', ModerationStatus::PENDING))

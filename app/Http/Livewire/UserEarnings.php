@@ -21,14 +21,10 @@ use App\Models\User;
 use App\Models\Peer;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, BonEarning> $bonEarnings
- */
 class UserEarnings extends Component
 {
     use LivewireSort;
@@ -64,75 +60,89 @@ class UserEarnings extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, BonEarning>
+     * @var \Illuminate\Database\Eloquent\Collection<int, BonEarning>
      */
-    #[Computed]
-    final public function bonEarnings(): \Illuminate\Support\Collection
-    {
-        $outerQuery = DB::query()->select(DB::raw(1));
-        $innerQuery = Peer::query()
-            ->select(DB::raw(1))
-            ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
-            ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
-            ->where('peers.seeder', '=', true)
-            ->where('peers.active', '=', true)
-            ->where('peers.user_id', '=', $this->user->id)
-            ->where('peers.created_at', '<', now()->subMinutes(30))
-            ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
-            ->groupBy('peers.torrent_id');
+    final protected \Illuminate\Support\Collection $bonEarnings {
+        get {
+            $outerQuery = DB::query()->select(DB::raw(1));
+            $innerQuery = Peer::query()
+                ->select(DB::raw(1))
+                ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
+                ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+                ->where('peers.seeder', '=', true)
+                ->where('peers.active', '=', true)
+                ->where('peers.user_id', '=', $this->user->id)
+                ->where('peers.created_at', '<', now()->subMinutes(30))
+                ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
+                ->groupBy('peers.torrent_id');
 
-        foreach (BonEarning::with('conditions')->orderBy('position')->get() as $bonEarning) {
-            // Raw bindings are fine since all database values are either enums or numeric
-            $conditionQuery = '1=1';
+            foreach (BonEarning::with('conditions')->orderBy('position')->get() as $bonEarning) {
+                // Raw bindings are fine since all database values are either enums or numeric
+                $conditionQuery = '1=1';
 
-            foreach ($bonEarning->conditions as $condition) {
-                $conditionQuery .= ' AND '.match ($condition->operand1) {
-                    '1'                => '1',
-                    'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
-                    'size'             => 'torrents.size',
-                    'seeders'          => 'torrents.seeders',
-                    'leechers'         => 'torrents.leechers',
-                    'times_completed'  => 'torrents.times_completed',
-                    'internal'         => 'torrents.internal',
-                    'personal_release' => 'torrents.personal_release',
-                    'type_id'          => 'torrents.type_id',
-                    'seedtime'         => 'history.seedtime',
-                    'connectable'      => 'peers.connectable',
-                }.' '.$condition->operator.' '.$condition->operand2;
+                foreach ($bonEarning->conditions as $condition) {
+                    $conditionQuery .= ' AND '.match ($condition->operand1) {
+                        '1'                => '1',
+                        'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
+                        'size'             => 'torrents.size',
+                        'seeders'          => 'torrents.seeders',
+                        'leechers'         => 'torrents.leechers',
+                        'times_completed'  => 'torrents.times_completed',
+                        'internal'         => 'torrents.internal',
+                        'personal_release' => 'torrents.personal_release',
+                        'type_id'          => 'torrents.type_id',
+                        'seedtime'         => 'history.seedtime',
+                        'connectable'      => 'peers.connectable',
+                    }.' '.$condition->operator.' '.$condition->operand2;
+                }
+
+                $innerQuery->selectRaw("MAX({$conditionQuery}) AS bon_earning_{$bonEarning->id}");
+                $outerQuery->selectRaw("SUM(bon_earning_{$bonEarning->id}) AS bon_earning_{$bonEarning->id}");
             }
 
-            $innerQuery->selectRaw("MAX({$conditionQuery}) AS bon_earning_{$bonEarning->id}");
-            $outerQuery->selectRaw("SUM(bon_earning_{$bonEarning->id}) AS bon_earning_{$bonEarning->id}");
+            $torrentCounts = $outerQuery->fromSub($innerQuery, 'peers_per_torrent')->first();
+
+            return BonEarning::query()
+                ->orderBy('position')
+                ->get()
+                ->map(function ($bonEarning) use ($torrentCounts) {
+                    $bonEarning->setAttribute('torrents_count', $torrentCounts->{"bon_earning_{$bonEarning->id}"});
+
+                    return $bonEarning;
+                });
         }
-
-        $torrentCounts = $outerQuery->fromSub($innerQuery, 'peers_per_torrent')->first();
-
-        return BonEarning::query()
-            ->orderBy('position')
-            ->get()
-            ->map(function ($bonEarning) use ($torrentCounts) {
-                $bonEarning->setAttribute('torrents_count', $torrentCounts->{"bon_earning_{$bonEarning->id}"});
-
-                return $bonEarning;
-            });
     }
 
     /**
-     * @return \Illuminate\Database\Query\Builder
+     * @var \Illuminate\Database\Query\Builder
      */
-    #[Computed]
-    final public function query(): \Illuminate\Database\Query\Builder
-    {
-        $bonEarnings = BonEarning::with('conditions')->orderBy('position')->get();
+    final protected \Illuminate\Database\Query\Builder $query {
+        get {
+            $bonEarnings = BonEarning::with('conditions')->orderBy('position')->get();
 
-        $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
+            $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
 
-        foreach ($bonEarnings as $bonEarning) {
-            // Raw bindings are fine since all database values are either enums or numeric
-            $conditionQuery = '1=1';
+            foreach ($bonEarnings as $bonEarning) {
+                // Raw bindings are fine since all database values are either enums or numeric
+                $conditionQuery = '1=1';
 
-            foreach ($bonEarning->conditions as $condition) {
-                $conditionQuery .= ' AND '.match ($condition->operand1) {
+                foreach ($bonEarning->conditions as $condition) {
+                    $conditionQuery .= ' AND '.match ($condition->operand1) {
+                        '1'                => '1',
+                        'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
+                        'size'             => 'torrents.size',
+                        'seeders'          => 'torrents.seeders',
+                        'leechers'         => 'torrents.leechers',
+                        'times_completed'  => 'torrents.times_completed',
+                        'internal'         => 'torrents.internal',
+                        'personal_release' => 'torrents.personal_release',
+                        'type_id'          => 'torrents.type_id',
+                        'seedtime'         => 'history.seedtime',
+                        'connectable'      => 'MAX(peers.connectable)',
+                    }.' '.$condition->operator.' '.$condition->operand2;
+                }
+
+                $variable = match ($bonEarning->variable) {
                     '1'                => '1',
                     'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
                     'size'             => 'torrents.size',
@@ -141,68 +151,52 @@ class UserEarnings extends Component
                     'times_completed'  => 'torrents.times_completed',
                     'internal'         => 'torrents.internal',
                     'personal_release' => 'torrents.personal_release',
-                    'type_id'          => 'torrents.type_id',
                     'seedtime'         => 'history.seedtime',
                     'connectable'      => 'MAX(peers.connectable)',
-                }.' '.$condition->operator.' '.$condition->operand2;
+                };
+
+                $earningsQuery .= match ($bonEarning->operation) {
+                    'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END)",
+                    'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END)",
+                };
             }
 
-            $variable = match ($bonEarning->variable) {
-                '1'                => '1',
-                'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
-                'size'             => 'torrents.size',
-                'seeders'          => 'torrents.seeders',
-                'leechers'         => 'torrents.leechers',
-                'times_completed'  => 'torrents.times_completed',
-                'internal'         => 'torrents.internal',
-                'personal_release' => 'torrents.personal_release',
-                'seedtime'         => 'history.seedtime',
-                'connectable'      => 'MAX(peers.connectable)',
-            };
+            $query = DB::table('peers')
+                ->select([
+                    DB::raw('1 as "1"'),
+                    'torrents.name',
+                    DB::raw('TIMESTAMPDIFF(SECOND, torrents.created_at, NOW()) as age'),
+                    'torrents.type_id',
+                    'torrents.size',
+                    'torrents.seeders',
+                    'torrents.leechers',
+                    'torrents.times_completed',
+                    'history.seedtime',
+                    'torrents.personal_release',
+                    'torrents.internal',
+                    DB::raw('MAX(peers.connectable) as connectable'),
+                    'peers.torrent_id',
+                    'peers.user_id',
+                    DB::raw("({$earningsQuery}) AS hourly_earnings"),
+                ])
+                ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
+                ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+                ->where('peers.seeder', '=', true)
+                ->where('peers.active', '=', true)
+                ->where('peers.user_id', '=', $this->user->id)
+                ->where('peers.created_at', '<', now()->subMinutes(30))
+                ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
+                ->groupBy(['peers.torrent_id', 'peers.user_id']);
 
-            $earningsQuery .= match ($bonEarning->operation) {
-                'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END)",
-                'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END)",
-            };
+            return $query;
         }
-
-        $query = DB::table('peers')
-            ->select([
-                DB::raw('1 as "1"'),
-                'torrents.name',
-                DB::raw('TIMESTAMPDIFF(SECOND, torrents.created_at, NOW()) as age'),
-                'torrents.type_id',
-                'torrents.size',
-                'torrents.seeders',
-                'torrents.leechers',
-                'torrents.times_completed',
-                'history.seedtime',
-                'torrents.personal_release',
-                'torrents.internal',
-                DB::raw('MAX(peers.connectable) as connectable'),
-                'peers.torrent_id',
-                'peers.user_id',
-                DB::raw("({$earningsQuery}) AS hourly_earnings"),
-            ])
-            ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
-            ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
-            ->where('peers.seeder', '=', true)
-            ->where('peers.active', '=', true)
-            ->where('peers.user_id', '=', $this->user->id)
-            ->where('peers.created_at', '<', now()->subMinutes(30))
-            ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
-            ->groupBy(['peers.torrent_id', 'peers.user_id']);
-
-        return $query;
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
      */
-    #[Computed]
-    final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
-    {
-        return $this
+    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents {
+        get => $this
             ->query
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);
@@ -211,10 +205,8 @@ class UserEarnings extends Component
     /**
      * @return float|numeric-string
      */
-    #[Computed]
-    final public function total(): float|string
-    {
-        return DB::query()->fromSub($this->query, 'earnings_per_torrent')->sum('hourly_earnings');
+    final protected float|string $total {
+        get => DB::query()->fromSub($this->query, 'earnings_per_torrent')->sum('hourly_earnings');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

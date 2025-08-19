@@ -111,7 +111,7 @@ class Unit3dAnnounce
      *             array{
      *                 ip_address: string,
      *                 user_id: int,
-     *                 torrent_id: int,
+     *                 peer_id: string,
      *                 port: int,
      *                 is_seeder: bool,
      *                 is_active: bool,
@@ -150,11 +150,9 @@ class Unit3dAnnounce
             return [];
         }
 
-        foreach ($torrent['peers'] as $peer) {
+        foreach ($torrent['peers'] as $userIdAndPeerId => &$peer) {
             if (
                 !\array_key_exists('ip_address', $peer) || !\is_string($peer['ip_address'])
-                || !\array_key_exists('user_id', $peer) || !\is_int($peer['user_id'])
-                || !\array_key_exists('torrent_id', $peer) || !\is_int($peer['torrent_id'])
                 || !\array_key_exists('port', $peer) || !\is_int($peer['port'])
                 || !\array_key_exists('is_seeder', $peer) || !\is_bool($peer['is_seeder'])
                 || !\array_key_exists('is_active', $peer) || !\is_bool($peer['is_active'])
@@ -163,6 +161,13 @@ class Unit3dAnnounce
                 || !\array_key_exists('uploaded', $peer) || !\is_int($peer['uploaded'])
                 || !\array_key_exists('downloaded', $peer) || !\is_int($peer['downloaded'])
             ) {
+                return [];
+            }
+
+            if (preg_match('/^(\d+)\-([0-9a-fA-F]{40})$/', $userIdAndPeerId, $matches)) {
+                $peer['user_id'] = $matches[1];
+                $peer['peer_id'] = hex2bin($matches[2]);
+            } else {
                 return [];
             }
         }

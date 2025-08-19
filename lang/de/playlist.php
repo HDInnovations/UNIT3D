@@ -39,4 +39,5 @@ return [
     'suggestion-review' => 'Dein Vorschlag wurde zur Prüfung an den Playlistersteller geschickt',
     'suggestion-approved' => 'Playlist Vorschlag angenommen',
     'suggestion-rejected' => 'Playlist Vorschlag abgelehnt',
+    'last-addition-at' => 'Zuletzt hinzugefügt am',
 ];

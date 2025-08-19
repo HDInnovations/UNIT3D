@@ -30,7 +30,7 @@ test('destroy returns an ok response', function (): void {
         ->assertSessionHas('success', \sprintf('You are now following %s', $userToFollow->username));
 
     $response = $this->actingAs($user)->delete(route('users.followers.destroy', ['user' => $userToFollow]));
-    $response->assertRedirect(route('users.show', ['user' => $userToFollow]))
+    $response->assertRedirectBack()
         ->assertSessionHas('success', \sprintf('You are no longer following %s', $userToFollow->username));
 
     $this->assertDatabaseMissing('follows', [

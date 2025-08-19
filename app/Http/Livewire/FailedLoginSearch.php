@@ -20,7 +20,6 @@ use App\Models\FailedLoginAttempt;
 use App\Traits\LivewireSort;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -51,12 +50,10 @@ class FailedLoginSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
+     * @var \Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
      */
-    #[Computed]
-    final public function failedLoginsTop10Ip(): \Illuminate\Database\Eloquent\Collection
-    {
-        return FailedLoginAttempt::query()
+    final protected \Illuminate\Database\Eloquent\Collection $failedLoginsTop10Ip {
+        get => FailedLoginAttempt::query()
             ->select(['ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at')])
             ->groupBy('ip_address')
             ->having('login_attempts', '>', 3)
@@ -67,12 +64,10 @@ class FailedLoginSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, FailedLoginAttempt>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, FailedLoginAttempt>
      */
-    #[Computed]
-    final public function failedLogins(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return FailedLoginAttempt::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $failedLogins {
+        get => FailedLoginAttempt::query()
             ->with('user.group')
             ->when($this->username, fn ($query) => $query->where('username', 'LIKE', $this->username.'%'))
             ->when($this->userId, fn ($query) => $query->where('user_id', '=', $this->userId))

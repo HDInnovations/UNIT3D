@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\TmdbPerson;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -46,12 +45,11 @@ class TmdbPersonSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TmdbPerson>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbPerson>
      */
-    #[Computed]
-    final public function persons(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return TmdbPerson::select(['id', 'still', 'name'])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $persons {
+        get => TmdbPerson::query()
+            ->select(['id', 'still', 'name'])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->occupationIds !== [], fn ($query) => $query->whereHas('credits', fn ($query) => $query->whereIn('occupation_id', $this->occupationIds)))
             ->when($this->firstCharacter !== '', fn ($query) => $query->where('name', 'LIKE', $this->firstCharacter.'%'))
@@ -60,12 +58,11 @@ class TmdbPersonSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, TmdbPerson>
+     * @var \Illuminate\Database\Eloquent\Collection<int, TmdbPerson>
      */
-    #[Computed]
-    final public function firstCharacters(): \Illuminate\Database\Eloquent\Collection
-    {
-        return TmdbPerson::selectRaw('substr(name, 1, 1) as alpha, count(*) as count')
+    final protected \Illuminate\Database\Eloquent\Collection $firstCharacters {
+        get => TmdbPerson::query()
+            ->selectRaw('substr(name, 1, 1) as alpha, count(*) as count')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->occupationIds !== [], fn ($query) => $query->whereHas('credits', fn ($query) => $query->whereIn('occupation_id', $this->occupationIds)))
             ->groupBy('alpha')

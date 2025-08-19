@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\History;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -89,12 +88,10 @@ class UserTorrents extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, History>
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, History>
      */
-    #[Computed]
-    final public function history(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
-    {
-        return History::query()
+    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $history {
+        get => History::query()
             ->join(
                 'torrents',
                 fn ($join) => $join

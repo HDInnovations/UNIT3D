@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Peer;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -98,12 +97,10 @@ class PeerSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
      */
-    #[Computed]
-    final public function peers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
-    {
-        return Peer::query()
+    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $peers {
+        get => Peer::query()
             ->when(
                 $this->groupBy === 'none',
                 fn ($query) => $query

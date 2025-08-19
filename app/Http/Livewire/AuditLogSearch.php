@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Audit;
 use App\Traits\Auditable;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -56,12 +55,10 @@ class AuditLogSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return string[]
+     * @var string[]
      */
-    #[Computed]
-    final public function modelNames(): array
-    {
-        return collect(scandir(app_path('Models')) ?: [])
+    final protected array $modelNames {
+        get => collect(scandir(app_path('Models')) ?: [])
             ->filter(fn ($path) => str_ends_with($path, '.php'))
             ->map(fn ($path) => 'App\\Models\\'.basename($path, '.php'))
             ->filter(fn ($class) => class_exists($class))
@@ -73,25 +70,23 @@ class AuditLogSearch extends Component
 
     /**
      * @throws JsonException
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Audit>
+     * @var    \Illuminate\Pagination\LengthAwarePaginator<int, Audit>
      */
-    #[Computed]
-    final public function audits(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        $audits = Audit::with('user')
+    final protected \Illuminate\Pagination\LengthAwarePaginator $audits {
+        get => Audit::query()
+            ->with('user')
             ->when($this->username, fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))
             ->when($this->modelName, fn ($query) => $query->where('model_name', '=', $this->modelName))
             ->when($this->modelId, fn ($query) => $query->where('model_entry_id', '=', $this->modelId))
             ->when($this->action, fn ($query) => $query->where('action', '=', $this->action))
             ->when($this->record, fn ($query) => $query->where('record', 'LIKE', '%'.$this->record.'%'))
             ->latest()
-            ->paginate($this->perPage);
+            ->paginate($this->perPage)
+            ->through(function ($audit) {
+                $audit->values = json_decode((string) $audit->record, true, 512, JSON_THROW_ON_ERROR);
 
-        foreach ($audits as $audit) {
-            $audit->values = json_decode((string) $audit->record, true, 512, JSON_THROW_ON_ERROR);
-        }
-
-        return $audits;
+                return $audit;
+            });
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

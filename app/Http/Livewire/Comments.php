@@ -41,7 +41,6 @@ use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
 use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -199,12 +198,10 @@ class Comments extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Comment>
+     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Comment>
      */
-    #[Computed]
-    final public function comments(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
-    {
-        return $this->model
+    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $comments {
+        get => $this->model
             ->comments()
             ->with(['user:id,username,group_id,image,title', 'user.group', 'children.user:id,username,group_id,image,title', 'children.user.group'])
             ->parent()

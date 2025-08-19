@@ -19,14 +19,10 @@ namespace App\Http\Livewire;
 use App\Models\Apikey;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Apikey> $apikeys
- */
 class ApikeySearch extends Component
 {
     use LivewireSort;
@@ -50,14 +46,13 @@ class ApikeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Apikey>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Apikey>
      */
-    #[Computed]
-    final public function apikeys(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Apikey::with([
-            'user' => fn ($query) => $query->withTrashed()->with('group'),
-        ])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $apikeys {
+        get => Apikey::query()
+            ->with([
+                'user' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
             ->when($this->username, fn ($query) => $query->whereIn('user_id', User::withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->username.'%')))
             ->when($this->apikey, fn ($query) => $query->where('content', 'LIKE', '%'.$this->apikey.'%'))
             ->orderBy($this->sortField, $this->sortDirection)

@@ -20,7 +20,6 @@ use App\Models\UnregisteredInfoHash;
 use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -55,12 +54,10 @@ class UserUnregisteredInfoHashSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, UnregisteredInfoHash>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, UnregisteredInfoHash>
      */
-    #[Computed]
-    final public function unregisteredInfoHashes(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return UnregisteredInfoHash::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $unregisteredInfoHashes {
+        get => UnregisteredInfoHash::query()
             ->select([
                 'unregistered_info_hashes.info_hash',
                 'unregistered_info_hashes.updated_at',

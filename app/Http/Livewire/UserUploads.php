@@ -20,7 +20,6 @@ use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -69,12 +68,10 @@ class UserUploads extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Torrent>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Torrent>
      */
-    #[Computed]
-    final public function uploads(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Torrent::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $uploads {
+        get => Torrent::query()
             ->withCount('thanks', 'comments')
             ->withSum('tips', 'bon')
             ->withoutGlobalScope(ApprovedScope::class)

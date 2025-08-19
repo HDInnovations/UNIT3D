@@ -20,7 +20,6 @@ use App\Models\Post;
 use App\Models\Topic;
 use App\Models\TopicRead;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -47,35 +46,35 @@ class TopicPostSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Post>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Post>
      */
-    #[Computed]
-    final public function posts(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        $posts = Post::query()
-            ->with('user', 'user.group')
-            ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
-            ->withSum('tips', 'bon')
-            ->where('topic_id', '=', $this->topic->id)
-            ->authorized(canReadTopic: true)
-            ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
-            ->orderBy('created_at')
-            ->paginate(25);
+    final protected \Illuminate\Pagination\LengthAwarePaginator $posts {
+        get {
+            $posts = Post::query()
+                ->with('user', 'user.group')
+                ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+                ->withSum('tips', 'bon')
+                ->where('topic_id', '=', $this->topic->id)
+                ->authorized(canReadTopic: true)
+                ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
+                ->orderBy('created_at')
+                ->paginate(25);
 
-        if ($lastPost = $posts->getCollection()->last()) {
-            TopicRead::upsert([[
-                'topic_id'          => $this->topic->id,
-                'user_id'           => auth()->id(),
-                'last_read_post_id' => $lastPost->id,
-            ]], [
-                'topic_id',
-                'user_id'
-            ], [
-                'last_read_post_id' => DB::raw('GREATEST(last_read_post_id, VALUES(last_read_post_id))')
-            ]);
+            if ($lastPost = $posts->getCollection()->last()) {
+                TopicRead::upsert([[
+                    'topic_id'          => $this->topic->id,
+                    'user_id'           => auth()->id(),
+                    'last_read_post_id' => $lastPost->id,
+                ]], [
+                    'topic_id',
+                    'user_id'
+                ], [
+                    'last_read_post_id' => DB::raw('GREATEST(last_read_post_id, VALUES(last_read_post_id))')
+                ]);
+            }
+
+            return $posts;
         }
-
-        return $posts;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

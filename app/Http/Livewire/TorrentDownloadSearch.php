@@ -16,19 +16,14 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
-use App\Models\Announce;
 use App\Models\TorrentDownload;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Announce> $announces
- */
 class TorrentDownloadSearch extends Component
 {
     use LivewireSort;
@@ -92,12 +87,10 @@ class TorrentDownloadSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TorrentDownload>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TorrentDownload>
      */
-    #[Computed]
-    final public function torrentDownloads(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return TorrentDownload::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $torrentDownloads {
+        get => TorrentDownload::query()
             ->with([
                 'user' => fn ($query) => $query->with('group')->withTrashed(),
                 'torrent:id,name'

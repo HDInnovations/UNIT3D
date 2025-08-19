@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\TmdbCompany;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,12 +36,10 @@ class TmdbCompanySearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TmdbCompany>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbCompany>
      */
-    #[Computed]
-    final public function companies(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return TmdbCompany::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $companies {
+        get => TmdbCompany::query()
             ->withCount([
                 'movie' => fn ($query) => $query->has('torrents'),
                 'tv'    => fn ($query) => $query->has('torrents'),

@@ -35,7 +35,6 @@ use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\Notification;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -228,138 +227,138 @@ class SimilarTorrent extends Component
     /**
      * @phpstan-ignore missingType.generics (The return type is too complex for phpstan, something to do with lack of support of Collection array shapes)
      */
-    #[Computed]
-    final public function torrents(): \Illuminate\Support\Collection
-    {
-        $user = auth()->user();
+    final protected \Illuminate\Support\Collection $torrents {
+        get {
+            $user = auth()->user();
 
-        return Torrent::query()
-            ->with('type:id,name,position', 'resolution:id,name,position')
-            ->withCount([
-                'comments',
-            ])
-            ->when(
-                !config('announce.external_tracker.is_enabled'),
-                fn ($query) => $query->withCount([
-                    'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
-                    'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
-                ]),
-            )
-            ->when(
-                config('other.thanks-system.is-enabled'),
-                fn ($query) => $query->withCount('thanks')
-            )
-            ->withExists([
-                'featured as featured',
-                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
-                'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
-                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 1)
-                    ->where('seeder', '=', 1),
-                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 1)
-                    ->where('seeder', '=', 0),
-                'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 0)
-                    ->where('seeder', '=', 0)
-                    ->whereNull('completed_at'),
-                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
-                    ->where('active', '=', 0)
-                    ->where(
-                        fn ($query) => $query
-                            ->where('seeder', '=', 1)
-                            ->orWhereNotNull('completed_at')
-                    ),
-                'trump',
-            ])
-            ->when(
-                $this->category->movie_meta,
-                fn ($query) => $query->whereRelation('category', 'movie_meta', '=', true),
-            )
-            ->when(
-                $this->category->tv_meta,
-                fn ($query) => $query->whereRelation('category', 'tv_meta', '=', true),
-            )
-            ->when($this->category->tv_meta, fn ($query) => $query->where('tmdb_tv_id', '=', $this->tmdbId))
-            ->when($this->category->movie_meta, fn ($query) => $query->where('tmdb_movie_id', '=', $this->tmdbId))
-            ->when($this->category->game_meta, fn ($query) => $query->where('igdb', '=', $this->igdbId))
-            ->where((new TorrentSearchFiltersDTO(
-                name: $this->name,
-                description: $this->description,
-                mediainfo: $this->mediainfo,
-                keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
-                uploader: $this->uploader,
-                episodeNumber: $this->episodeNumber,
-                seasonNumber: $this->seasonNumber,
-                minSize: $this->minSize === null ? null : $this->minSize * $this->minSizeMultiplier,
-                maxSize: $this->maxSize === null ? null : $this->maxSize * $this->maxSizeMultiplier,
-                playlistId: $this->playlistId,
-                typeIds: $this->typeIds,
-                resolutionIds: $this->resolutionIds,
-                free: $this->free,
-                doubleup: $this->doubleup,
-                featured: $this->featured,
-                refundable: $this->refundable,
-                internal: $this->internal,
-                personalRelease: $this->personalRelease,
-                trumpable: $this->trumpable,
-                highspeed: $this->highspeed,
-                userBookmarked: $this->bookmarked,
-                userWished: $this->wished,
-                alive: $this->alive,
-                dying: $this->dying,
-                dead: $this->dead,
-                graveyard: $this->graveyard,
-                userDownloaded: match (true) {
-                    $this->downloaded    => true,
-                    $this->notDownloaded => false,
-                    default              => null,
-                },
-                userSeeder: match (true) {
-                    $this->seeding  => true,
-                    $this->leeching => false,
-                    default         => null,
-                },
-                userActive: match (true) {
-                    $this->seeding  => true,
-                    $this->leeching => true,
-                    default         => null,
-                },
-            ))->toSqlQueryBuilder())
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->get()
-            ->when(
-                $this->category->movie_meta,
-                fn ($torrents) => $this->groupByTypeAndSort($torrents),
-                fn ($torrents) => $torrents
-                    ->when($this->category->tv_meta, function ($torrents) {
-                        return $torrents
-                            ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
-                            ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
-                                'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
-                                'Specials'      => $packOrSpecialOrSeasons
-                                    ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
-                                    ->sortKeysDesc(SORT_NATURAL)
-                                    ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
-                                'Seasons' => $packOrSpecialOrSeasons
-                                    ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
-                                    ->sortKeysDesc(SORT_NATURAL)
-                                    ->map(
-                                        fn ($season) => $season
-                                            ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
-                                            ->map(fn ($packOrEpisodes, $key) => match ($key) {
-                                                'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
-                                                'Episodes'    => $packOrEpisodes
-                                                    ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
-                                                    ->sortKeysDesc(SORT_NATURAL)
-                                                    ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
-                                                default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
-                                            })
-                                    ),
-                                default => abort(500, 'Group found that isn\'t one of: Complete Pack, Specials, Seasons'),
-                            });
-                    })
-            );
+            return Torrent::query()
+                ->with('type:id,name,position', 'resolution:id,name,position')
+                ->withCount([
+                    'comments',
+                ])
+                ->when(
+                    !config('announce.external_tracker.is_enabled'),
+                    fn ($query) => $query->withCount([
+                        'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                        'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                    ]),
+                )
+                ->when(
+                    config('other.thanks-system.is-enabled'),
+                    fn ($query) => $query->withCount('thanks')
+                )
+                ->withExists([
+                    'featured as featured',
+                    'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                    'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
+                    'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 1)
+                        ->where('seeder', '=', 1),
+                    'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 1)
+                        ->where('seeder', '=', 0),
+                    'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 0)
+                        ->where('seeder', '=', 0)
+                        ->whereNull('completed_at'),
+                    'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                        ->where('active', '=', 0)
+                        ->where(
+                            fn ($query) => $query
+                                ->where('seeder', '=', 1)
+                                ->orWhereNotNull('completed_at')
+                        ),
+                    'trump',
+                ])
+                ->when(
+                    $this->category->movie_meta,
+                    fn ($query) => $query->whereRelation('category', 'movie_meta', '=', true),
+                )
+                ->when(
+                    $this->category->tv_meta,
+                    fn ($query) => $query->whereRelation('category', 'tv_meta', '=', true),
+                )
+                ->when($this->category->tv_meta, fn ($query) => $query->where('tmdb_tv_id', '=', $this->tmdbId))
+                ->when($this->category->movie_meta, fn ($query) => $query->where('tmdb_movie_id', '=', $this->tmdbId))
+                ->when($this->category->game_meta, fn ($query) => $query->where('igdb', '=', $this->igdbId))
+                ->where((new TorrentSearchFiltersDTO(
+                    name: $this->name,
+                    description: $this->description,
+                    mediainfo: $this->mediainfo,
+                    keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
+                    uploader: $this->uploader,
+                    episodeNumber: $this->episodeNumber,
+                    seasonNumber: $this->seasonNumber,
+                    minSize: $this->minSize === null ? null : $this->minSize * $this->minSizeMultiplier,
+                    maxSize: $this->maxSize === null ? null : $this->maxSize * $this->maxSizeMultiplier,
+                    playlistId: $this->playlistId,
+                    typeIds: $this->typeIds,
+                    resolutionIds: $this->resolutionIds,
+                    free: $this->free,
+                    doubleup: $this->doubleup,
+                    featured: $this->featured,
+                    refundable: $this->refundable,
+                    internal: $this->internal,
+                    personalRelease: $this->personalRelease,
+                    trumpable: $this->trumpable,
+                    highspeed: $this->highspeed,
+                    userBookmarked: $this->bookmarked,
+                    userWished: $this->wished,
+                    alive: $this->alive,
+                    dying: $this->dying,
+                    dead: $this->dead,
+                    graveyard: $this->graveyard,
+                    userDownloaded: match (true) {
+                        $this->downloaded    => true,
+                        $this->notDownloaded => false,
+                        default              => null,
+                    },
+                    userSeeder: match (true) {
+                        $this->seeding  => true,
+                        $this->leeching => false,
+                        default         => null,
+                    },
+                    userActive: match (true) {
+                        $this->seeding  => true,
+                        $this->leeching => true,
+                        default         => null,
+                    },
+                ))->toSqlQueryBuilder())
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->get()
+                ->when(
+                    $this->category->movie_meta,
+                    fn ($torrents) => $this->groupByTypeAndSort($torrents),
+                    fn ($torrents) => $torrents
+                        ->when($this->category->tv_meta, function ($torrents) {
+                            return $torrents
+                                ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
+                                ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
+                                    'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
+                                    'Specials'      => $packOrSpecialOrSeasons
+                                        ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
+                                        ->sortKeysDesc(SORT_NATURAL)
+                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
+                                    'Seasons' => $packOrSpecialOrSeasons
+                                        ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
+                                        ->sortKeysDesc(SORT_NATURAL)
+                                        ->map(
+                                            fn ($season) => $season
+                                                ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
+                                                ->map(fn ($packOrEpisodes, $key) => match ($key) {
+                                                    'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
+                                                    'Episodes'    => $packOrEpisodes
+                                                        ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
+                                                        ->sortKeysDesc(SORT_NATURAL)
+                                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
+                                                    default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
+                                                })
+                                        ),
+                                    default => abort(500, 'Group found that isn\'t one of: Complete Pack, Specials, Seasons'),
+                                });
+                        })
+                );
+        }
     }
 
     /**
@@ -383,12 +382,10 @@ class SimilarTorrent extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
+     * @var \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
      */
-    #[Computed]
-    final public function torrentRequests(): \Illuminate\Database\Eloquent\Collection
-    {
-        return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+    final protected \Illuminate\Database\Eloquent\Collection $torrentRequests {
+        get => TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
             ->withExists('claim')
             ->when($this->category->movie_meta, fn ($query) => $query->where('tmdb_movie_id', '=', $this->tmdbId))
@@ -404,12 +401,10 @@ class SimilarTorrent extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
+     * @var \Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
      */
-    #[Computed]
-    final public function playlistCategories(): \Illuminate\Database\Eloquent\Collection
-    {
-        return PlaylistCategory::query()
+    final protected \Illuminate\Database\Eloquent\Collection $playlistCategories {
+        get => PlaylistCategory::query()
             ->with([
                 'playlists' => fn ($query) => $query
                     ->withCount('torrents')
@@ -433,16 +428,10 @@ class SimilarTorrent extends Component
     }
 
     /**
-     * @return ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie>
+     * @var ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie>
      */
-    #[Computed]
-    final public function collectionMovies(): ?\Illuminate\Database\Eloquent\Collection
-    {
-        if (!$this->work instanceof TmdbMovie) {
-            return null;
-        }
-
-        return $this->work->collections()->first()?->movies()->get();
+    final protected ?\Illuminate\Database\Eloquent\Collection $collectionMovies {
+        get => $this->work instanceof TmdbMovie ? $this->work->collections()->first()?->movies()->get() : null;
     }
 
     final public function alertConfirm(): void
@@ -537,46 +526,52 @@ class SimilarTorrent extends Component
         );
     }
 
-    #[Computed]
-    final public function personalFreeleech(): bool
-    {
-        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
+    final protected bool $personalFreeleech {
+        get => cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function types(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Type::query()->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $types {
+        get => cache()->remember(
+            'types',
+            3600,
+            fn () => Type::query()->orderBy('position')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function resolutions(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Resolution::query()->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $resolutions {
+        get => cache()->remember(
+            'resolutions',
+            3600,
+            fn () => Resolution::query()->orderBy('position')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Region>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Region>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function regions(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Region::query()->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $regions {
+        get => cache()->remember(
+            'regions',
+            3600,
+            fn () => Region::query()->orderBy('position')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Distributor>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Distributor>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function distributors(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Distributor::query()->orderBy('name')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $distributors {
+        get => cache()->remember(
+            'distributors',
+            3600,
+            fn () => Distributor::query()->orderBy('name')->get(),
+        );
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

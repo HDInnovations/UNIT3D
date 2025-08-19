@@ -25,7 +25,6 @@ use App\Models\Type;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -125,68 +124,74 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Category>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Category>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function categories(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Category::query()->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $categories {
+        get => cache()->remember(
+            'categories',
+            3600,
+            fn () => Category::query()->orderBy('position')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function types(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Type::query()->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $types {
+        get => cache()->remember(
+            'types',
+            3600,
+            fn () => Type::query()->orderBy('position')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function resolutions(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Resolution::query()->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $resolutions {
+        get => cache()->remember(
+            'resolutions',
+            3600,
+            fn () => Resolution::query()->orderBy('position')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, TmdbGenre>
+     * @var \Illuminate\Database\Eloquent\Collection<int, TmdbGenre>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function genres(): \Illuminate\Database\Eloquent\Collection
-    {
-        return TmdbGenre::query()->orderBy('name')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $genres {
+        get => cache()->remember(
+            'genres',
+            3600,
+            fn () => TmdbGenre::query()->orderBy('name')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int, TmdbMovie>
+     * @var \Illuminate\Support\Collection<int, TmdbMovie>
      */
-    #[Computed(seconds: 3600, cache: true)]
-    final public function primaryLanguages(): \Illuminate\Support\Collection
-    {
-        return TmdbMovie::query()
-            ->select('original_language')
-            ->distinct()
-            ->orderBy('original_language')
-            ->pluck('original_language');
+    final protected \Illuminate\Support\Collection $primaryLanguages {
+        get => cache()->remember(
+            'original-languages',
+            3600,
+            fn () => TmdbMovie::query()
+                ->select('original_language')
+                ->distinct()
+                ->orderBy('original_language')
+                ->pluck('original_language'),
+        );
     }
 
-    #[Computed]
-    final public function torrentRequestStat(): ?object
-    {
-        return DB::table('requests')
+    final protected ?object $torrentRequestStat {
+        get => DB::table('requests')
             ->selectRaw('count(*) as total')
             ->selectRaw('count(case when filled_by is not null then 1 end) as filled')
             ->selectRaw('count(case when filled_by is null then 1 end) as unfilled')
             ->first();
     }
 
-    #[Computed]
-    final public function torrentRequestBountyStat(): ?object
-    {
-        return DB::table('requests')
+    final protected ?object $torrentRequestBountyStat {
+        get => DB::table('requests')
             ->selectRaw('coalesce(sum(bounty), 0) as total')
             ->selectRaw('coalesce(sum(case when filled_by is not null then bounty end), 0) as claimed')
             ->selectRaw('coalesce(sum(case when filled_by is null then bounty end), 0) as unclaimed')
@@ -194,129 +199,129 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TorrentRequest>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TorrentRequest>
      */
-    #[Computed]
-    final public function torrentRequests(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        $user = auth()->user();
-        $isRegexAllowed = $user->group->is_modo;
-        $isRegex = fn ($field) => $isRegexAllowed
-            && \strlen((string) $field) > 2
-            && $field[0] === '/'
-            && $field[-1] === '/'
-            && @preg_match($field, 'Validate regex') !== false;
+    final protected \Illuminate\Pagination\LengthAwarePaginator $torrentRequests {
+        get {
+            $user = auth()->user();
+            $isRegexAllowed = $user->group->is_modo;
+            $isRegex = fn ($field) => $isRegexAllowed
+                && \strlen((string) $field) > 2
+                && $field[0] === '/'
+                && $field[-1] === '/'
+                && @preg_match($field, 'Validate regex') !== false;
 
-        return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
-            ->withCount(['comments', 'bounties'])
-            ->withExists('claim')
-            ->when(
-                $this->name !== '',
-                fn ($query) => $query
-                    ->when(
-                        $isRegex($this->name),
-                        fn ($query) => $query->where('name', 'REGEXP', substr($this->name, 1, -1)),
-                        fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%')
-                    )
-            )
-            ->when(
-                $this->requestor !== '',
-                fn ($query) => $query
-                    ->whereRelation('user', 'username', '=', $this->requestor)
-                    ->when(
-                        $user === null,
-                        fn ($query) => $query->where('anon', '=', false),
-                        fn ($query) => $query
-                            ->when(
-                                !$user->group->is_modo,
-                                fn ($query) => $query
-                                    ->where(
-                                        fn ($query) => $query
-                                            ->where('anon', '=', false)
-                                            ->orWhere('user_id', '=', $user->id)
-                                    )
-                            )
-                    )
-            )
-            ->when($this->categoryIds !== [], fn ($query) => $query->whereIntegerInRaw('category_id', $this->categoryIds))
-            ->when($this->typeIds !== [], fn ($query) => $query->whereIntegerInRaw('type_id', $this->typeIds))
-            ->when($this->resolutionIds !== [], fn ($query) => $query->whereIntegerInRaw('resolution_id', $this->resolutionIds))
-            ->when($this->tmdbId !== null, fn ($query) => $query->where(fn ($query) => $query->where('tmdb_movie_id', '=', $this->tmdbId)->orWhere('tmdb_tv_id', '=', $this->tmdbId)))
-            ->when($this->imdbId !== '', fn ($query) => $query->where('imdb', '=', (preg_match('/tt0*(\d{7,})/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
-            ->when($this->tvdbId !== null, fn ($query) => $query->where('tvdb', '=', $this->tvdbId))
-            ->when($this->malId !== null, fn ($query) => $query->where('mal', '=', $this->malId))
-            ->when(
-                $this->genreIds !== [],
-                fn ($query) => $query
-                    ->where(
-                        fn ($query) => $query
-                            ->where(
-                                fn ($query) => $query
-                                    ->whereRelation('category', 'movie_meta', '=', true)
-                                    ->whereIn('tmdb_movie_id', DB::table('tmdb_genre_tmdb_movie')->select('tmdb_movie_id')->whereIn('tmdb_genre_id', $this->genreIds))
-                            )
-                            ->orWhere(
-                                fn ($query) => $query
-                                    ->whereRelation('category', 'tv_meta', '=', true)
-                                    ->whereIn('tmdb_tv_id', DB::table('tmdb_genre_tmdb_tv')->select('tmdb_tv_id')->whereIn('tmdb_genre_id', $this->genreIds))
-                            )
-                    )
-            )
-            ->when(
-                $this->primaryLanguageNames !== [],
-                fn ($query) => $query
-                    ->where(
-                        fn ($query) => $query
-                            ->where(
-                                fn ($query) => $query
-                                    ->whereRelation('category', 'movie_meta', '=', true)
-                                    ->whereHas('movie', fn ($query) => $query->whereIn('original_language', $this->primaryLanguageNames))
-                            )
-                            ->orWhere(
-                                fn ($query) => $query
-                                    ->whereRelation('category', 'tv_meta', '=', true)
-                                    ->whereHas('tv', fn ($query) => $query->whereIn('original_language', $this->primaryLanguageNames))
-                            )
-                    )
-            )
-            ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query): void {
-                $query->where(function ($query): void {
+            return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+                ->withCount(['comments', 'bounties'])
+                ->withExists('claim')
+                ->when(
+                    $this->name !== '',
+                    fn ($query) => $query
+                        ->when(
+                            $isRegex($this->name),
+                            fn ($query) => $query->where('name', 'REGEXP', substr($this->name, 1, -1)),
+                            fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%')
+                        )
+                )
+                ->when(
+                    $this->requestor !== '',
+                    fn ($query) => $query
+                        ->whereRelation('user', 'username', '=', $this->requestor)
+                        ->when(
+                            $user === null,
+                            fn ($query) => $query->where('anon', '=', false),
+                            fn ($query) => $query
+                                ->when(
+                                    !$user->group->is_modo,
+                                    fn ($query) => $query
+                                        ->where(
+                                            fn ($query) => $query
+                                                ->where('anon', '=', false)
+                                                ->orWhere('user_id', '=', $user->id)
+                                        )
+                                )
+                        )
+                )
+                ->when($this->categoryIds !== [], fn ($query) => $query->whereIntegerInRaw('category_id', $this->categoryIds))
+                ->when($this->typeIds !== [], fn ($query) => $query->whereIntegerInRaw('type_id', $this->typeIds))
+                ->when($this->resolutionIds !== [], fn ($query) => $query->whereIntegerInRaw('resolution_id', $this->resolutionIds))
+                ->when($this->tmdbId !== null, fn ($query) => $query->where(fn ($query) => $query->where('tmdb_movie_id', '=', $this->tmdbId)->orWhere('tmdb_tv_id', '=', $this->tmdbId)))
+                ->when($this->imdbId !== '', fn ($query) => $query->where('imdb', '=', (preg_match('/tt0*(\d{7,})/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
+                ->when($this->tvdbId !== null, fn ($query) => $query->where('tvdb', '=', $this->tvdbId))
+                ->when($this->malId !== null, fn ($query) => $query->where('mal', '=', $this->malId))
+                ->when(
+                    $this->genreIds !== [],
+                    fn ($query) => $query
+                        ->where(
+                            fn ($query) => $query
+                                ->where(
+                                    fn ($query) => $query
+                                        ->whereRelation('category', 'movie_meta', '=', true)
+                                        ->whereIn('tmdb_movie_id', DB::table('tmdb_genre_tmdb_movie')->select('tmdb_movie_id')->whereIn('tmdb_genre_id', $this->genreIds))
+                                )
+                                ->orWhere(
+                                    fn ($query) => $query
+                                        ->whereRelation('category', 'tv_meta', '=', true)
+                                        ->whereIn('tmdb_tv_id', DB::table('tmdb_genre_tmdb_tv')->select('tmdb_tv_id')->whereIn('tmdb_genre_id', $this->genreIds))
+                                )
+                        )
+                )
+                ->when(
+                    $this->primaryLanguageNames !== [],
+                    fn ($query) => $query
+                        ->where(
+                            fn ($query) => $query
+                                ->where(
+                                    fn ($query) => $query
+                                        ->whereRelation('category', 'movie_meta', '=', true)
+                                        ->whereHas('movie', fn ($query) => $query->whereIn('original_language', $this->primaryLanguageNames))
+                                )
+                                ->orWhere(
+                                    fn ($query) => $query
+                                        ->whereRelation('category', 'tv_meta', '=', true)
+                                        ->whereHas('tv', fn ($query) => $query->whereIn('original_language', $this->primaryLanguageNames))
+                                )
+                        )
+                )
+                ->when($this->unfilled || $this->claimed || $this->pending || $this->filled, function ($query): void {
                     $query->where(function ($query): void {
-                        if ($this->unfilled) {
-                            $query->whereNull('torrent_id')->whereDoesntHave('claim');
-                        }
-                    })
-                        ->orWhere(function ($query): void {
-                            if ($this->claimed) {
-                                $query->whereHas('claim')->whereNull('torrent_id')->whereNull('approved_when');
+                        $query->where(function ($query): void {
+                            if ($this->unfilled) {
+                                $query->whereNull('torrent_id')->whereDoesntHave('claim');
                             }
                         })
-                        ->orWhere(function ($query): void {
-                            if ($this->pending) {
-                                $query->whereNotNull('torrent_id')->whereNull('approved_when');
-                            }
-                        })
-                        ->orWhere(function ($query): void {
-                            if ($this->filled) {
-                                $query->whereNotNull('torrent_id')->whereNotNull('approved_when');
-                            }
-                        });
-                });
-            })
-            ->when($this->myRequests, function ($query) use ($user): void {
-                $query->where('user_id', '=', $user->id);
-            })
-            ->when($this->myClaims, function ($query) use ($user): void {
-                $query->whereRelation('claim', 'user_id', '=', $user->id)->whereNull('torrent_id')->whereNull('approved_by');
-            })
-            ->when($this->myVoted, function ($query) use ($user): void {
-                $query->whereRelation('bounties', 'user_id', '=', $user->id);
-            })
-            ->when($this->myFilled, function ($query) use ($user): void {
-                $query->where('filled_by', '=', $user->id);
-            })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+                            ->orWhere(function ($query): void {
+                                if ($this->claimed) {
+                                    $query->whereHas('claim')->whereNull('torrent_id')->whereNull('approved_when');
+                                }
+                            })
+                            ->orWhere(function ($query): void {
+                                if ($this->pending) {
+                                    $query->whereNotNull('torrent_id')->whereNull('approved_when');
+                                }
+                            })
+                            ->orWhere(function ($query): void {
+                                if ($this->filled) {
+                                    $query->whereNotNull('torrent_id')->whereNotNull('approved_when');
+                                }
+                            });
+                    });
+                })
+                ->when($this->myRequests, function ($query) use ($user): void {
+                    $query->where('user_id', '=', $user->id);
+                })
+                ->when($this->myClaims, function ($query) use ($user): void {
+                    $query->whereRelation('claim', 'user_id', '=', $user->id)->whereNull('torrent_id')->whereNull('approved_by');
+                })
+                ->when($this->myVoted, function ($query) use ($user): void {
+                    $query->whereRelation('bounties', 'user_id', '=', $user->id);
+                })
+                ->when($this->myFilled, function ($query) use ($user): void {
+                    $query->where('filled_by', '=', $user->id);
+                })
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate($this->perPage);
+        }
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

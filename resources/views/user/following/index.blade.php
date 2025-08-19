@@ -32,6 +32,9 @@
                             <th>{{ __('user.avatar') }}</th>
                             <th>{{ __('user.user') }}</th>
                             <th>{{ __('common.created_at') }}</th>
+                            @if (auth()->id() === $user->id)
+                                <th>{{ __('common.actions') }}</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -48,10 +51,30 @@
                                     <x-user-tag :anon="false" :user="$following" />
                                 </td>
                                 <td>{{ $following->follow->created_at }}</td>
+                                @if (auth()->id() === $user->id)
+                                    <td>
+                                        <menu class="data-table__actions">
+                                            <li class="data-table__action">
+                                                <form
+                                                    method="POST"
+                                                    action="{{ route('users.followers.destroy', ['user' => $following]) }}"
+                                                >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="form__button form__button--text">
+                                                        {{ __('user.unfollow') }}
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </menu>
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">Not following</td>
+                                <td colspan="{{ 3 + (int) auth()->id() === $user->id }}">
+                                    Not following
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

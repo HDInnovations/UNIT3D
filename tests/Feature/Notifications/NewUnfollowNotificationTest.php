@@ -40,7 +40,7 @@ test('unfollow a user creates a notification for the followed user', function ()
     // $follower unfollows $followed
     $response = $this->actingAs($follower)->delete(route('users.followers.destroy', ['user' => $followed]));
 
-    $response->assertRedirect(route('users.show', ['user' => $followed->username]))
+    $response->assertRedirectBack()
         ->assertSessionHas('success', \sprintf(trans('user.follow-revoked'), $followed->username));
 
     Notification::assertSentTo(
@@ -75,7 +75,7 @@ test('unfollow a user creates a notification for the followed user when followin
     // $follower unfollows $followed
     $response = $this->actingAs($follower)->delete(route('users.followers.destroy', ['user' => $followed]));
 
-    $response->assertRedirect(route('users.show', ['user' => $followed->username]))
+    $response->assertRedirectBack()
         ->assertSessionHas('success', \sprintf(trans('user.follow-revoked'), $followed->username));
 
     Notification::assertSentTo(
@@ -108,7 +108,7 @@ test('unfollow a user does not create a notification for the followed user when 
     // $follower unfollows $followed
     $response = $this->actingAs($follower)->delete(route('users.followers.destroy', ['user' => $followed]));
 
-    $response->assertRedirect(route('users.show', ['user' => $followed->username]))
+    $response->assertRedirectBack()
         ->assertSessionHas('success', \sprintf(trans('user.follow-revoked'), $followed->username));
 
     Notification::assertCount(0);
@@ -137,7 +137,7 @@ test('unfollow a user does not create a notification for the followed user when 
     // $follower unfollows $followed
     $response = $this->actingAs($follower)->delete(route('users.followers.destroy', ['user' => $followed]));
 
-    $response->assertRedirect(route('users.show', ['user' => $followed->username]))
+    $response->assertRedirectBack()
         ->assertSessionHas('success', \sprintf(trans('user.follow-revoked'), $followed->username));
 
     Notification::assertCount(0);
@@ -167,7 +167,7 @@ test('unfollow a user does not create a notification for the followed user when 
     // $follower unfollows $followed
     $response = $this->actingAs($follower)->delete(route('users.followers.destroy', ['user' => $followed]));
 
-    $response->assertRedirect(route('users.show', ['user' => $followed->username]))
+    $response->assertRedirectBack()
         ->assertSessionHas('success', \sprintf(trans('user.follow-revoked'), $followed->username));
 
     Notification::assertCount(0);

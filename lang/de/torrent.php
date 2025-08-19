@@ -232,4 +232,12 @@ return [
     'votes' => 'Abstimmung',
     'year-range' => 'Jahresbereich',
     'comments-left' => 'Verbleibende Kommentare',
+    'distributor' => 'Vertrieb',
+    'not-personal-release' => 'Kein Personal Release',
+    'personal-release' => 'Personal Release',
+    'postponed' => 'Verschoben',
+    'refundable' => 'Erstattungsfähig',
+    'refunded' => 'Erstattet',
+    'region' => 'Region',
+    'season' => 'Staffel',
 ];

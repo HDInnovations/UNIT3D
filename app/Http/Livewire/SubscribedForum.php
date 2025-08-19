@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Forum;
-use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -26,12 +25,10 @@ class SubscribedForum extends Component
     use WithPagination;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Forum>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Forum>
      */
-    #[Computed]
-    final public function forums()
-    {
-        return Forum::query()
+    final protected $forums {
+        get => Forum::query()
             ->with('latestPoster', 'lastRepliedTopic')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->authorized(canReadTopic: true)

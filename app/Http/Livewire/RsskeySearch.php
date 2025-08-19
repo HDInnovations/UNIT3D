@@ -19,14 +19,10 @@ namespace App\Http\Livewire;
 use App\Models\Rsskey;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Rsskey> $rsskeys
- */
 class RsskeySearch extends Component
 {
     use LivewireSort;
@@ -50,14 +46,13 @@ class RsskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Rsskey>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Rsskey>
      */
-    #[Computed]
-    final public function rsskeys(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Rsskey::with([
-            'user' => fn ($query) => $query->withTrashed()->with('group'),
-        ])
+    final protected \Illuminate\Pagination\LengthAwarePaginator $rsskeys {
+        get => Rsskey::query()
+            ->with([
+                'user' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
             ->when($this->username, fn ($query) => $query->whereIn('user_id', User::withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->username.'%')))
             ->when($this->rsskey, fn ($query) => $query->where('content', 'LIKE', '%'.$this->rsskey.'%'))
             ->orderBy($this->sortField, $this->sortDirection)

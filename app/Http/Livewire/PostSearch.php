@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Post;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,12 +36,10 @@ class PostSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Post>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Post>
      */
-    #[Computed]
-    final public function posts(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Post::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $posts {
+        get => Post::query()
             ->with('user', 'user.group', 'topic:id,name,state')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'bon')

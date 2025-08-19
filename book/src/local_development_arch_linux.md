@@ -1,4 +1,4 @@
-# UNIT3D v8.x.x on Arch Linux with Laravel Sail
+# UNIT3D development on Arch Linux with Laravel Sail
 
 <!-- cspell:ignore dockerized,pacman -->
 
@@ -72,12 +72,12 @@ Clone the UNIT3D repository to your local environment:
 
 ## Step 3: Docker environment initialization
 
-1. **Switch to branch 8.x.x:**
+1. **Switch to branch `development`:**
 
-    Before starting Docker, switch to the `8.x.x` branch:
+    Before starting Docker, switch to the `development` branch:
 
     ```sh
-    git checkout 8.x.x
+    git checkout development
     ```
 
 2. **Start the Docker environment using Laravel Sail:**

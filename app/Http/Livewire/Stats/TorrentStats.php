@@ -19,41 +19,48 @@ namespace App\Http\Livewire\Stats;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\Torrent;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
 #[Lazy(isolate: true)]
 class TorrentStats extends Component
 {
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function totalCount(): int
-    {
-        return Torrent::query()->count();
+    final protected int $totalCount {
+        get => (int) cache()->remember(
+            'torrent-stats:total-count',
+            10 * 60,
+            fn () => Torrent::query()->count(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function resolutions(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Resolution::query()->withCount('torrents')->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $resolutions {
+        get => cache()->remember(
+            'torrent-stats:resolutions',
+            10 * 60,
+            fn () => Resolution::query()->withCount('torrents')->orderBy('position')->get(),
+        );
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Category>
+     * @var \Illuminate\Database\Eloquent\Collection<int, Category>
      */
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function categories(): \Illuminate\Database\Eloquent\Collection
-    {
-        return Category::query()->withCount('torrents')->orderBy('position')->get();
+    final protected \Illuminate\Database\Eloquent\Collection $categories {
+        get => cache()->remember(
+            'torrent-stats:categories',
+            10 * 60,
+            fn () => Category::query()->withCount('torrents')->orderBy('position')->get(),
+        );
     }
 
-    #[Computed(cache: true, seconds: 10 * 60)]
-    final public function sizeSum(): int
-    {
-        return (int) Torrent::query()->sum('size');
+    final protected int $sizeSum {
+        get => (int) cache()->remember(
+            'torrent-stats:size-sum',
+            10 * 60,
+            fn () => Torrent::query()->sum('size'),
+        );
     }
 
     final public function placeholder(): string

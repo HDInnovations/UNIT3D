@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\BlockedIp;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -75,12 +74,10 @@ class BlockIpAddress extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, BlockedIp>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, BlockedIp>
      */
-    #[Computed]
-    final public function ipAddresses(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return BlockedIp::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $ipAddresses {
+        get => BlockedIp::query()
             ->when($this->ipSearch, fn ($query) => $query->where('ip_address', 'LIKE', '%'.$this->ipSearch.'%'))
             ->when($this->reasonSearch, fn ($query) => $query->where('reason', 'LIKE', '%'.$this->reasonSearch.'%'))
             ->latest()

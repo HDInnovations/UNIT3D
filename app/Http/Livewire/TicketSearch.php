@@ -19,14 +19,10 @@ namespace App\Http\Livewire;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Traits\LivewireSort;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-/**
- * @property \Illuminate\Pagination\LengthAwarePaginator<int, Ticket> $tickets
- */
 class TicketSearch extends Component
 {
     use LivewireSort;
@@ -71,12 +67,10 @@ class TicketSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Ticket>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Ticket>
      */
-    #[Computed]
-    final public function tickets(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return Ticket::query()
+    final protected \Illuminate\Pagination\LengthAwarePaginator $tickets {
+        get => Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])
             ->when(!$this->user->group->is_modo, fn ($query) => $query->where('user_id', '=', $this->user->id))
             ->when(

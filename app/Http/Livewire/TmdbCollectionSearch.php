@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\TmdbCollection;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -37,12 +36,10 @@ class TmdbCollectionSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TmdbCollection>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbCollection>
      */
-    #[Computed]
-    final public function collections(): \Illuminate\Pagination\LengthAwarePaginator
-    {
-        return TmdbCollection::withCount('movies')
+    final protected \Illuminate\Pagination\LengthAwarePaginator $collections {
+        get => TmdbCollection::withCount('movies')
             ->with('movies')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->oldest('name')
