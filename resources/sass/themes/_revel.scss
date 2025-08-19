@@ -22,9 +22,8 @@
 
     --message-bubble-bg: #363636;
     --message-bubble-fg: currentColor;
-    --message-bubble-box-shadow:
-        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12),
-        0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    --message-bubble-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
     --message-bubble-border-radius: 20px;
     --message-bubble-border: none;
     --message-bubble-avatar-border-radius: 50%;
@@ -33,9 +32,8 @@
 
     --achievement-fg: inherit;
     --achievement-bg: #2c2c2c;
-    --achievement-box-shadow:
-        0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-        0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     --achievement-progress-bg: #8fbcbb;
 
     --alert-bg: #232323;
@@ -296,9 +294,8 @@
     --secondary-nav-tab-menu-fg: inherit;
     --secondary-nav-tab-menu-border: none;
     --secondary-nav-tab-menu-border-radius: 0;
-    --secondary-nav-tab-menu-box-shadow:
-        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-        0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --secondary-nav-tab-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
 
     --select-border: 1px solid #424242;
     --select-border-active: 2px solid #2195f3;
@@ -334,9 +331,8 @@
     --top-nav-dropdown-menu-bg: inherit;
     --top-nav-dropdown-menu-border: none;
     --top-nav-dropdown-menu-border-radius: 4px;
-    --top-nav-dropdown-menu-box-shadow:
-        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-        0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
     --top-nav-dropdown-menu-item-fg: #bbb;
     --top-nav-dropdown-menu-item-bg: transparent;
     --top-nav-dropdown-menu-item-hover-fg: inherit;

@@ -16,8 +16,8 @@
     }
 
     .torrent-search__filters:has(
-        + .torrent-search__results .torrent-search--grouped__results
-    ) {
+            + .torrent-search__results .torrent-search--grouped__results
+        ) {
         margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px)); /* Inverses the magic numbers used in main layout styles for high resolution then adds own magic numbers */
     }
 }

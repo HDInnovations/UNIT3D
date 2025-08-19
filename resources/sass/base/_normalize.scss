@@ -31,8 +31,7 @@ Use a better box model (opinionated).
 
 html {
     /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
-    font-family:
-        system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji';
     line-height: 1.15; /* 1. Correct the line height in all browsers. */
     -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
@@ -71,9 +70,8 @@ code,
 kbd,
 samp,
 pre {
-    font-family:
-        ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo,
-        monospace; /* 1 */
+    font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono',
+        Menlo, monospace; /* 1 */
     font-size: 1em; /* 2 */
 }
 

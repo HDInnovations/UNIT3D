@@ -4,9 +4,8 @@
 
     --achievement-fg: inherit;
     --achievement-bg: #343338;
-    --achievement-box-shadow:
-        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12),
-        0 3px 3px -2px rgba(0, 0, 0, 0.4);
+    --achievement-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
     --achievement-progress-bg: #444;
 
     --alert-bg: #221e24;
@@ -18,9 +17,8 @@
     --article-card-fg: #aaa;
     --article-card-head-fg: #d8d7dc;
     --article-card-time-fg: #999;
-    --article-box-shadow:
-        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12),
-        0 3px 3px -2px rgba(0, 0, 0, 0.4);
+    --article-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
 
     --bbcode-input-header-bg: #333;
     --bbcode-input-body-bg: #2a292e;
@@ -74,9 +72,8 @@
     --chatbox-tab-delete-bg: #444;
 
     --compact-search-bg: #2a292e;
-    --compact-search-box-shadow:
-        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12),
-        0 3px 3px -2px rgba(0, 0, 0, 0.4);
+    --compact-search-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
     --compact-search-border-radius: 27px;
     --compact-search-fg: #bbb;
     --compact-search-padding: 5px;
@@ -97,9 +94,8 @@
     --dialog-bg: #2a292e;
     --dialog-border: none;
     --dialog-border-radius: 22px;
-    --dialog-box-shadow:
-        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12),
-        0 3px 3px -2px rgba(0, 0, 0, 0.4);
+    --dialog-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
     --dialog-fg: #050505;
     --dialog-head-bg: #2a292e;
     --dialog-head-fg: #050505;
@@ -159,8 +155,7 @@
     --mediahub-card-hover-fg: #fff;
     --mediahub-card-border: none;
     --mediahub-card-border-radius: 22px;
-    --mediahub-card-box-shadow:
-        0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    --mediahub-card-box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
         0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 
     --meta-backdrop-filter: brightness(30%) blur(100px);
@@ -207,9 +202,8 @@
     --panel-bg: #2a292e;
     --panel-fg: #bbb;
     --panel-body-border-radius: 22px;
-    --panel-box-shadow:
-        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12),
-        0 3px 3px -2px rgba(0, 0, 0, 0.4);
+    --panel-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 1px 8px 0 rgba(0, 0, 0, 0.12), 0 3px 3px -2px rgba(0, 0, 0, 0.4);
     --panel-border-radius: 22px;
     --panel-head-bg: #2a292e;
     --panel-head-fg: #d8d7dc;
@@ -218,18 +212,16 @@
     --playlist-card-bg: #343338;
     --playlist-card-border: none;
     --playlist-card-border-radius: 20px;
-    --playlist-card-box-shadow:
-        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
-        0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --playlist-card-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --playlist-card-fg: #d8d7dc;
     --playlist-card-missing-image-bg: #262626;
     --playlist-card-missing-image-fg: #1d1d1d;
 
     --post-bg: #343338;
     --post-fg: #212121;
-    --post-shadow:
-        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12),
-        0 1px 8px 0 rgba(0, 0, 0, 0.2);
+    --post-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
     --post-head-fg: var(--panel-fg);
     --post-head-bg: none;
     --post-toolbar-bg: #343338;
@@ -245,9 +237,8 @@
     --prize-bg: #343338;
     --prize-border-radius: 20px;
     --prize-border: none;
-    --prize-box-shadow:
-        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
-        0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --prize-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --prize-fg: #d8d7dc;
     --prize-heading-fg: #d8d7dc;
     --prize-icon-primary-color: mediumseagreen;
@@ -285,9 +276,8 @@
     --secondary-nav-tab-menu-fg: inherit;
     --secondary-nav-tab-menu-border: none;
     --secondary-nav-tab-menu-border-radius: 6px;
-    --secondary-nav-tab-menu-box-shadow:
-        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-        0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --secondary-nav-tab-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
 
     --select-border: 1px solid #606060;
     --select-border-active: 2px solid #2195f3;
@@ -323,9 +313,8 @@
     --top-nav-dropdown-menu-bg: #2a292e;
     --top-nav-dropdown-menu-border: none;
     --top-nav-dropdown-menu-border-radius: 6px;
-    --top-nav-dropdown-menu-box-shadow:
-        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-        0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
     --top-nav-dropdown-menu-item-fg: #eae9ee;
     --top-nav-dropdown-menu-item-bg: transparent;
     --top-nav-dropdown-menu-item-hover-fg: inherit;
@@ -388,8 +377,7 @@
     --user-stat-card-fg: #ddd;
     --user-stat-card-border: none;
     --user-stat-card-border-radius: 22px;
-    --user-stat-card-box-shadow:
-        0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    --user-stat-card-box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
         0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 }
 

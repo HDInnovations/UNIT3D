@@ -4,9 +4,8 @@
 
     --achievement-fg: inherit;
     --achievement-bg: #e7e7e7;
-    --achievement-box-shadow:
-        0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-        0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     --achievement-progress-bg: #8fbcbb;
 
     --alert-bg: #e2e2e2;
@@ -18,9 +17,8 @@
     --article-card-fg: inherit;
     --article-card-head-fg: inherit;
     --article-card-time-fg: inherit;
-    --article-box-shadow:
-        0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-        0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    --article-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 
     --bbcode-input-header-bg: #e2e2e2;
     --bbcode-input-body-bg: white;
@@ -213,18 +211,16 @@
     --playlist-card-bg: #f6f6f6;
     --playlist-card-border: none;
     --playlist-card-border-radius: 8px;
-    --playlist-card-box-shadow:
-        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
-        0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --playlist-card-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --playlist-card-fg: #222;
     --playlist-card-missing-image-bg: #e6e6e6;
     --playlist-card-missing-image-fg: #aaa;
 
     --post-bg: #e9e9e9;
     --post-fg: #212121;
-    --post-shadow:
-        0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.12),
-        0 1px 8px 0 rgba(0, 0, 0, 0.2);
+    --post-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+        0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 8px 0 rgba(0, 0, 0, 0.2);
     --post-head-fg: var(--panel-fg);
     --post-head-bg: none;
     --post-toolbar-bg: #989898;
@@ -240,9 +236,8 @@
     --prize-bg: #f6f6f6;
     --prize-border-radius: 10px;
     --prize-border: none;
-    --prize-box-shadow:
-        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
-        0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --prize-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --prize-fg: #222;
     --prize-heading-fg: #222;
     --prize-icon-primary-color: mediumseagreen;
@@ -280,9 +275,8 @@
     --secondary-nav-tab-menu-fg: inherit;
     --secondary-nav-tab-menu-border: none;
     --secondary-nav-tab-menu-border-radius: 6px;
-    --secondary-nav-tab-menu-box-shadow:
-        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-        0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --secondary-nav-tab-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
 
     --select-border: 1px solid #555;
     --select-border-active: 2px solid #2195f3;
@@ -318,9 +312,8 @@
     --top-nav-dropdown-menu-bg: #eee;
     --top-nav-dropdown-menu-border: none;
     --top-nav-dropdown-menu-border-radius: 6px;
-    --top-nav-dropdown-menu-box-shadow:
-        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
-        0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
     --top-nav-dropdown-menu-item-fg: #050505;
     --top-nav-dropdown-menu-item-bg: transparent;
     --top-nav-dropdown-menu-item-hover-fg: inherit;
