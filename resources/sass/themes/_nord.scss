@@ -22,8 +22,9 @@
 
     --message-bubble-bg: #4c566a;
     --message-bubble-fg: #d8dee9;
-    --message-bubble-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
-        0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    --message-bubble-box-shadow:
+        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12),
+        0 1px 3px 0 rgba(0, 0, 0, 0.2);
     --message-bubble-border-radius: 20px;
     --message-bubble-border: none;
     --message-bubble-avatar-border-radius: 50%;
@@ -38,8 +39,9 @@
     --article-card-fg: #d8dee9;
     --article-card-head-fg: #d8dee9;
     --article-card-time-fg: #d8dee9;
-    --article-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
-        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    --article-box-shadow:
+        0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+        0 1px 3px 0 rgba(0, 0, 0, 0.12);
 
     --bbcode-input-header-bg: #3b4252;
     --bbcode-input-body-bg: #3b4252;
@@ -227,8 +229,9 @@
     --playlist-card-bg: #434c5e;
     --playlist-card-border: none;
     --playlist-card-border-radius: 10px;
-    --playlist-card-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --playlist-card-box-shadow:
+        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
+        0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --playlist-card-fg: #d8dee9;
     --playlist-card-missing-image-bg: #4c566a;
     --playlist-card-missing-image-fg: #3b4252;
@@ -251,8 +254,9 @@
     --prize-bg: #434c5e;
     --prize-border-radius: 10px;
     --prize-border: none;
-    --prize-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --prize-box-shadow:
+        0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
+        0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --prize-fg: #d8dee9;
     --prize-heading-fg: #d8dee9;
     --prize-icon-primary-color: mediumseagreen;
@@ -290,8 +294,9 @@
     --secondary-nav-tab-menu-fg: inherit;
     --secondary-nav-tab-menu-border: none;
     --secondary-nav-tab-menu-border-radius: 6px;
-    --secondary-nav-tab-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
-        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --secondary-nav-tab-menu-box-shadow:
+        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+        0 7px 8px -4px rgba(0, 0, 0, 0.2);
 
     --select-border: 1px solid #4c566a;
     --select-border-active: 2px solid #88c0d0;
@@ -327,8 +332,9 @@
     --top-nav-dropdown-menu-bg: #2e3440;
     --top-nav-dropdown-menu-border: none;
     --top-nav-dropdown-menu-border-radius: 6px;
-    --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
-        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --top-nav-dropdown-menu-box-shadow:
+        0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
+        0 7px 8px -4px rgba(0, 0, 0, 0.2);
     --top-nav-dropdown-menu-item-fg: #d8dee9;
     --top-nav-dropdown-menu-item-bg: #2e3440;
     --top-nav-dropdown-menu-item-hover-fg: #eceff4;

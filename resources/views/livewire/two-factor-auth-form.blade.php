@@ -102,25 +102,32 @@
                         {{ __('Regenerate Recovery Codes') }}
                     </button>
                     @script
-                    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-                        Alpine.data('recovery_codes', () => ({
-                            copy() {
-                                let text = document.createElement('textarea');
-                                navigator.clipboard.writeText(
-				    JSON.parse(atob('{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}')).join("\n")
-				);
-                                Swal.fire({
-                                    toast: true,
-                                    position: 'top-end',
-                                    showConfirmButton: false,
-                                    timer: 3000,
-                                    icon: 'success',
-                                    title: 'Copied to clipboard!',
-                                });
-                            },
-                        }));
-                    </script>
+                        <script
+                            nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}"
+                        >
+                            Alpine.data('recovery_codes', () => ({
+                                copy() {
+                                    let text = document.createElement('textarea');
+                                    navigator.clipboard.writeText(
+                                        JSON.parse(
+                                            atob(
+                                                '{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}',
+                                            ),
+                                        ).join('\n'),
+                                    );
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        icon: 'success',
+                                        title: 'Copied to clipboard!',
+                                    });
+                                },
+                            }));
+                        </script>
                     @endscript
+
                     <button
                         class="form__button form__button--filled"
                         x-data="recovery_codes"
