@@ -107,7 +107,6 @@
                         >
                             Alpine.data('recovery_codes', () => ({
                                 copy() {
-                                    let text = document.createElement('textarea');
                                     navigator.clipboard.writeText(
                                         JSON.parse(
                                             atob(
