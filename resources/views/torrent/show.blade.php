@@ -63,6 +63,18 @@
                                 @endif
                             </div>
                             <div><strong>Details:</strong> {{ $stashScene['details'] ?? 'N/A' }}</div>
+                                @if (!empty($stashScene['images']))
+                                    <div><strong>Scene Images:</strong></div>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        @foreach ($stashScene['images'] as $image)
+                                            <div>
+                                                <a href="{{ $image['url'] }}" target="_blank" style="display: flex; justify-content: center; align-items: center;">
+                                                    <img src="{{ $image['url'] }}" alt="Scene Image" style="max-width: 1920px; max-height: 1080px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); display: block; margin: 0 auto;">
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
                         @endif
                     @endif
                     @if ($torrent->theporndb_id)

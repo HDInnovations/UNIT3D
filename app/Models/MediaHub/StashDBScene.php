@@ -13,5 +13,6 @@ class StashDBScene extends Model
         'tags' => 'array',
         'performers' => 'array',
         'fingerprints' => 'array',
+        'images' => 'array',
     ];
 }

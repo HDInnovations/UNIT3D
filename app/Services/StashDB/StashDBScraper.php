@@ -10,9 +10,9 @@ class StashDBScraper
 
     public function scene(string $id)
     {
-        $query = <<<'GRAPHQL'
+        $query = <<<GRAPHQL
         query MyQuery {
-          findScene(id: "%s") {
+          findScene(id: "$id") {
             id
             studio { id name }
             title
@@ -23,6 +23,7 @@ class StashDBScraper
             fingerprints { algorithm hash reports }
             duration
             details
+            images { id url }
           }
         }
         GRAPHQL;
@@ -31,7 +32,24 @@ class StashDBScraper
             'ApiKey' => config('services.stashdb.key'),
             'Content-Type' => 'application/json',
         ])->post($this->endpoint, [
-            'query' => sprintf($query, $id),
+            'query' => $query,
+        ]);
+
+        // Debug logging: log request and response
+        logger()->info('StashDB API request', [
+            'endpoint' => $this->endpoint,
+            'headers' => [
+                'ApiKey' => config('services.stashdb.key'),
+                'Content-Type' => 'application/json',
+            ],
+            'body' => [
+                'query' => $query,
+            ],
+        ]);
+        logger()->info('StashDB API raw response', [
+            'status' => $response->status(),
+            'body' => $response->body(),
+            'json' => $response->json(),
         ]);
 
         $data = $response->json();

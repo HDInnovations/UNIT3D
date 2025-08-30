@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->json('fingerprints')->nullable();
             $table->integer('duration')->nullable();
             $table->text('details')->nullable();
+            $table->json('images')->nullable();
+            $table->json('image_data')->nullable();
             $table->timestamps();
         });
     }

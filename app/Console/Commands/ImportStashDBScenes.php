@@ -33,6 +33,7 @@ class ImportStashDBScenes extends Command
                     'fingerprints' => $sceneData['fingerprints'] ?? [],
                     'duration' => $sceneData['duration'] ?? null,
                     'details' => $sceneData['details'] ?? null,
+                    'images' => $sceneData['images'] ?? [],
                 ]);
                 $imported++;
             }
