@@ -40,6 +40,36 @@
             @include('torrent.partials.game-meta', ['category' => $torrent->category, 'igdb' => $torrent->igdb])
 
             @break
+            @case($torrent->category->porn_meta)
+                <div class="torrent__porn-meta">
+                    <h2>Porn Metadata</h2>
+                    @if ($torrent->fansdb_id)
+                        <div><strong>FansDB ID:</strong> {{ $torrent->fansdb_id }}</div>
+                    @endif
+                    @if ($torrent->stashdb_id)
+                        <div><strong>StashDB ID:</strong> {{ $torrent->stashdb_id }}</div>
+                        @php
+                            $stashScene = (new \App\Services\StashDB\StashDBScraper())->scene($torrent->stashdb_id);
+                        @endphp
+                        @if ($stashScene)
+                            <div><strong>StashDB Scene Title:</strong> {{ $stashScene['title'] ?? 'N/A' }}</div>
+                            <div><strong>Release Date:</strong> {{ $stashScene['release_date'] ?? 'N/A' }}</div>
+                            <div><strong>Studio:</strong> {{ $stashScene['studio']['name'] ?? 'N/A' }}</div>
+                            <div><strong>Performers:</strong>
+                                @if (!empty($stashScene['performers']))
+                                    {{ collect($stashScene['performers'])->pluck('performer.name')->join(', ') }}
+                                @else
+                                    N/A
+                                @endif
+                            </div>
+                            <div><strong>Details:</strong> {{ $stashScene['details'] ?? 'N/A' }}</div>
+                        @endif
+                    @endif
+                    @if ($torrent->theporndb_id)
+                        <div><strong>ThePornDB ID:</strong> {{ $torrent->theporndb_id }}</div>
+                    @endif
+                </div>
+                @break
         @default
             @include('torrent.partials.no-meta', ['category' => $torrent->category])
 

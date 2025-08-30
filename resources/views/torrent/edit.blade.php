@@ -503,6 +503,19 @@
                         </p>
                     </div>
                 </div>
+                <!-- Porn category extra IDs -->
+                <div class="form__group" x-show="cats[cat].name === 'Porn'">
+                    <label for="fansdb_id" class="form__label">FansDB ID</label>
+                    <input type="text" name="fansdb_id" id="fansdb_id" class="form__text" value="{{ old('fansdb_id', $torrent->fansdb_id) }}" />
+                </div>
+                <div class="form__group" x-show="cats[cat].name === 'Porn'">
+                    <label for="stashdb_id" class="form__label">StashDB ID</label>
+                    <input type="text" name="stashdb_id" id="stashdb_id" class="form__text" value="{{ old('stashdb_id', $torrent->stashdb_id) }}" />
+                </div>
+                <div class="form__group" x-show="cats[cat].name === 'Porn'">
+                    <label for="theporndb_id" class="form__label">ThePornDB ID</label>
+                    <input type="text" name="theporndb_id" id="theporndb_id" class="form__text" value="{{ old('theporndb_id', $torrent->theporndb_id) }}" />
+                </div>
                 <p class="form__group">
                     <input
                         id="keywords"

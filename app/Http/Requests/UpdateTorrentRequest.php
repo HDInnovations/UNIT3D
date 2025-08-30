@@ -226,6 +226,37 @@ class UpdateTorrentRequest extends FormRequest
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
                 Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
+                    // Porn category ID fields
+                    'fansdb_id' => [
+                        Rule::when($category->porn_meta, [
+                            'nullable',
+                            'string',
+                            'max:255',
+                        ]),
+                        Rule::when(!$category->porn_meta, [
+                            $mustBeNull,
+                        ]),
+                    ],
+                    'stashdb_id' => [
+                        Rule::when($category->porn_meta, [
+                            'nullable',
+                            'string',
+                            'max:255',
+                        ]),
+                        Rule::when(!$category->porn_meta, [
+                            $mustBeNull,
+                        ]),
+                    ],
+                    'theporndb_id' => [
+                        Rule::when($category->porn_meta, [
+                            'nullable',
+                            'string',
+                            'max:255',
+                        ]),
+                        Rule::when(!$category->porn_meta, [
+                            $mustBeNull,
+                        ]),
+                    ],
         ];
     }
 }
