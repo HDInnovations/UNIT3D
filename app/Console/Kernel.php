@@ -123,5 +123,6 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         \App\Console\Commands\ImportStashDBScenes::class,
+        \App\Console\Commands\ImportStashDBPornStars::class,
     ];
 }

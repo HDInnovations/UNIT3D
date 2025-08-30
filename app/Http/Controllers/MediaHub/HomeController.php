@@ -43,6 +43,8 @@ class HomeController extends Controller
             'genres'           => TmdbGenre::count(),
             'networks'         => TmdbNetwork::count(),
             'companies'        => TmdbCompany::count(),
+            'pornScenesCount'  => \App\Models\MediaHub\StashDBScene::count(),
+            'pornStarsCount'   => \App\Models\MediaHub\PornStar::count(),
         ]);
     }
 }

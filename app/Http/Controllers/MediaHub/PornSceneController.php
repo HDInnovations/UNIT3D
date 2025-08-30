@@ -19,7 +19,7 @@ class PornSceneController extends Controller
     /**
      * Display a specific porn scene.
      */
-    public function show($id)
+    public function show(string $id)
     {
         $scene = StashDBScene::findOrFail($id);
         return view('mediahub.porn.show', compact('scene'));

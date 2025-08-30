@@ -41,12 +41,14 @@ if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 Route::middleware('language')->group(function (): void {
-    /*
-    |---------------------------------------------------------------------------------
-    | Laravel Fortify Route Overrides
-    | Don't update Fortify without first making sure this override works.
-    |---------------------------------------------------------------------------------
-    */
+    // MediaHub PornStars routes
+    require base_path('routes/mediahub_pornstars.php');
+    // MediaHub Porn Scenes routes
+    require base_path('routes/mediahub_porn.php');
+    // ---------------------------------------------------------------------------------
+    // Laravel Fortify Route Overrides
+    // Don't update Fortify without first making sure this override works.
+    // ---------------------------------------------------------------------------------
 
     Route::middleware('guest:'.config('fortify.guard'))->group(function (): void {
         Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])

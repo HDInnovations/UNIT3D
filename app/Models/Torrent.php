@@ -965,4 +965,9 @@ class Torrent extends Model
     {
         return $query->selectRaw(self::SEARCHABLE);
     }
+
+    public function pornstars()
+    {
+    return $this->belongsToMany(\App\Models\MediaHub\PornStar::class, 'pornstar_torrent', 'torrent_id', 'pornstar_id');
+    }
 }

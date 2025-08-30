@@ -85,6 +85,22 @@
                         </h3>
                     </a>
                 </li>
+                <li class="mediahub-card__list-item">
+                    <a href="{{ route('mediahub.porn.index') }}" class="mediahub-card">
+                        <h2 class="mediahub-card__heading">Porn Scenes Hub</h2>
+                        <h3 class="mediahub-card__subheading">
+                            {{ $pornScenesCount ?? 0 }} Porn Scenes
+                        </h3>
+                    </a>
+                </li>
+                <li class="mediahub-card__list-item">
+                    <a href="{{ route('mediahub.pornstars.index') }}" class="mediahub-card">
+                        <h2 class="mediahub-card__heading">PornStars Hub</h2>
+                        <h3 class="mediahub-card__subheading">
+                            {{ $pornStarsCount ?? 0 }} PornStars
+                        </h3>
+                    </a>
+                </li>
             </ul>
         </div>
     </section>

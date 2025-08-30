@@ -265,7 +265,53 @@ class TorrentController extends Controller
 
         match (true) {
             $torrent->fansdb_id !== null     => new FansDBScraper()->fansdb($torrent->fansdb_id),
-            $torrent->stashdb_id !== null    => new StashDBScraper()->scene($torrent->stashdb_id),
+            $torrent->stashdb_id !== null    => (function() use ($torrent) {
+                $scene = (new StashDBScraper())->scene($torrent->stashdb_id);
+                if ($scene && !empty($scene['performers'])) {
+                    $pornstarIds = [];
+                    foreach ($scene['performers'] as $performerData) {
+                        $performer = $performerData['performer'] ?? null;
+                        if ($performer && !empty($performer['id'])) {
+                            $scraper = new \App\Services\StashDB\StashDBPornStarScraper();
+                            $data = $scraper->performer($performer['id']);
+                            if ($data) {
+                                $pornstar = \App\Models\MediaHub\PornStar::updateOrCreate(
+                                    ['stashdb_id' => $data['id']],
+                                    [
+                                        'name' => $data['name'],
+                                        'aliases' => $data['aliases'],
+                                        'age' => $data['age'] ?? null,
+                                        'gender' => $data['gender'] ?? null,
+                                        'country' => $data['country'] ?? null,
+                                        'ethnicity' => $data['ethnicity'] ?? null,
+                                        'eye_color' => $data['eye_color'] ?? null,
+                                        'hair_color' => $data['hair_color'] ?? null,
+                                        'cup_size' => $data['cup_size'] ?? null,
+                                        'band_size' => $data['band_size'] ?? null,
+                                        'waist_size' => $data['waist_size'] ?? null,
+                                        'hip_size' => $data['hip_size'] ?? null,
+                                        'breast_type' => $data['breast_type'] ?? null,
+                                        'birth_date' => $data['birth_date'] ?? null,
+                                        'birthdate' => $data['birthdate'] ?? null,
+                                        'height' => $data['height'] ?? null,
+                                        'scene_count' => $data['scene_count'] ?? null,
+                                        'career_start_year' => $data['career_start_year'] ?? null,
+                                        'career_end_year' => $data['career_end_year'] ?? null,
+                                        'images' => $data['images'] ?? [],
+                                        'urls' => $data['urls'] ?? [],
+                                    ]
+                                );
+                                $pornstarIds[] = $pornstar->id;
+                            }
+                        }
+                    }
+                    // Sync PornStars to the torrent
+                    if (!empty($pornstarIds)) {
+                        $torrent->pornstars()->sync($pornstarIds);
+                    }
+                }
+                return $scene;
+            })(),
             $torrent->theporndb_id !== null  => new ThePornDBScraper()->theporndb($torrent->theporndb_id),
             $torrent->tmdb_tv_id !== null    => new TMDBScraper()->tv($torrent->tmdb_tv_id),
             $torrent->tmdb_movie_id !== null => new TMDBScraper()->movie($torrent->tmdb_movie_id),
