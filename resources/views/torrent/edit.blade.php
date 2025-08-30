@@ -516,6 +516,25 @@
                     <label for="theporndb_id" class="form__label">ThePornDB ID</label>
                     <input type="text" name="theporndb_id" id="theporndb_id" class="form__text" value="{{ old('theporndb_id', $torrent->theporndb_id) }}" />
                 </div>
+                    <p class="form__group" x-show="cats[cat].name === 'Porn'">
+                        <select id="resolution_id" name="resolution_id" class="form__select">
+                            @if (! $torrent->resolution)
+                                <option hidden disabled selected value="">--Select Resolution--</option>
+                            @else
+                                <option value="{{ old('resolution_id') ?? $torrent->resolution->id }}" selected>
+                                    {{ $torrent->resolution->name }} ({{ __('torrent.current') }})
+                                </option>
+                            @endif
+                            @foreach ($resolutions as $resolution)
+                                <option value="{{ $resolution->id }}" @selected(old('resolution_id') === $resolution->id)>
+                                    {{ $resolution->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <label class="form__label form__label--floating" for="resolution_id">
+                            {{ __('torrent.resolution') }}
+                        </label>
+                    </p>
                 <p class="form__group">
                     <input
                         id="keywords"

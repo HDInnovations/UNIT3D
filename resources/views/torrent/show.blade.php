@@ -47,7 +47,7 @@
                         <div><strong>FansDB ID:</strong> {{ $torrent->fansdb_id }}</div>
                     @endif
                     @if ($torrent->stashdb_id)
-                        <div><strong>StashDB ID:</strong> {{ $torrent->stashdb_id }}</div>
+                        <div><strong>StashDB ID:</strong> <a href="{{ route('mediahub.porn.torrentsByStashId', $torrent->stashdb_id) }}">{{ $torrent->stashdb_id }}</a></div>
                         @php
                             $stashScene = (new \App\Services\StashDB\StashDBScraper())->scene($torrent->stashdb_id);
                         @endphp

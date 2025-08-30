@@ -104,44 +104,23 @@
         </dl>
     </section>
     <section class="panelV2" style="margin-top:2em;">
-        <h2 class="panel__heading">Torrents Featuring {{ $pornstar->name }}</h2>
-        @if (!empty($pornstar->torrents) && count($pornstar->torrents) > 0)
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                            <th>Thumbnail</th>
-                        <th>Title</th>
-                        <th>Size</th>
-                        <th>Seeders</th>
-                        <th>Leechers</th>
-                        <th>Added</th>
-                        <th>Link</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pornstar->torrents as $torrent)
-                        <tr>
-                                <td>
-                                    @if (!empty($torrent->scene) && !empty($torrent->scene->images))
-                                        <img src="{{ $torrent->scene->images[0]['url'] ?? '' }}" alt="Scene Thumbnail" style="max-width:80px;max-height:80px;border-radius:8px;">
-                                    @else
-                                        <img src="https://via.placeholder.com/80x80?text=No+Image" alt="No Thumbnail" style="max-width:80px;max-height:80px;border-radius:8px;">
-                                    @endif
-                                </td>
-                            <td>{{ $torrent->name ?? $torrent->title }}</td>
-                            <td>{{ $torrent->size ?? 'N/A' }}</td>
-                            <td>{{ $torrent->seeders ?? 'N/A' }}</td>
-                            <td>{{ $torrent->leechers ?? 'N/A' }}</td>
-                            <td>{{ $torrent->created_at ? $torrent->created_at->format('Y-m-d') : 'N/A' }}</td>
-                            <td>
-                                <a href="{{ route('torrents.show', $torrent->id) }}" target="_blank">View</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <h2 class="panel__heading">Scenes Featuring {{ $pornstar->name }}</h2>
+        @php
+            // Collect unique stash_ids from torrents' scenes
+            $stashIds = collect($pornstar->torrents ?? [])->map(function($torrent) {
+                return $torrent->scene->id ?? null;
+            })->filter()->unique();
+        @endphp
+        @if ($stashIds->count() > 0)
+            <ul>
+                @foreach ($stashIds as $stashid)
+                    <li>
+                        <a href="{{ route('mediahub.porn.gridByStashId', $stashid) }}">StashDB Scene #{{ $stashid }}</a>
+                    </li>
+                @endforeach
+            </ul>
         @else
-            <div class="panel__body">No torrents found for this pornstar.</div>
+            <div class="panel__body">No scenes found for this pornstar.</div>
         @endif
     </section>
 @endsection

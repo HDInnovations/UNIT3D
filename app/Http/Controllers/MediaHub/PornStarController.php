@@ -15,7 +15,7 @@ class PornStarController extends Controller
 
     public function show($id)
     {
-        $pornstar = PornStar::findOrFail($id);
-        return view('mediahub.pornstars.show', compact('pornstar'));
+    $pornstar = PornStar::with(['torrents.scene'])->findOrFail($id);
+    return view('mediahub.pornstars.show', compact('pornstar'));
     }
 }

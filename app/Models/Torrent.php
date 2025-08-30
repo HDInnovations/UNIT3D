@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -86,9 +87,15 @@ class Torrent extends Model
     use Auditable;
     use GroupedLastScope;
 
-    /** @use HasFactory<\Database\Factories\TorrentFactory> */
-    use HasFactory;
-    use Searchable;
+    /**
+     * Belongs To A Scene.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<StashDBScene, $this>
+     */
+    public function scene(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\MediaHub\StashDBScene::class, 'stashid', 'id');
+    }
     use SoftDeletes;
 
     protected $guarded = [];
