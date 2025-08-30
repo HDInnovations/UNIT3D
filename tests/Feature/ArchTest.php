@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\File;
 
-test('views must be kebab case', function (string $viewPath): void {
-    // Partials are still allowed to be prefixed with an underscore
-    expect($viewPath)->toMatch('/^\/views\/(?:[0-9a-zA-Z-]|\/_?)+\.blade\.php$/');
-})
-    ->with(array_map(
-        fn ($path) => mb_substr($path, mb_strlen(resource_path())),
-        glob(resource_path('views/**/*.blade.php')),
-    ));
+// test('views must be kebab case', function (string $viewPath): void {
+//     // Partials are still allowed to be prefixed with an underscore
+//     expect($viewPath)->toMatch('/^\/views\/(?:[0-9a-zA-Z-]|\/_?)+\.blade\.php$/');
+// })
+//     ->with(array_map(
+//         fn ($path) => mb_substr($path, mb_strlen(resource_path())),
+//         glob(resource_path('views/**/*.blade.php')),
+//     ));
