@@ -361,7 +361,7 @@ class TorrentController extends Controller
             'regions'      => Region::orderBy('position')->get(),
             'distributors' => Distributor::orderBy('name')->get(),
             'user'         => $request->user(),
-            'category_id'  => $request->category_id ?? Category::query()->first()->id,
+            'category_id'  => $request->category_id ?? optional(Category::query()->first())->id,
             'title'        => urldecode((string) $request->title),
             'imdb'         => $request->imdb,
             'movieId'      => $request->tmdb_movie_id,

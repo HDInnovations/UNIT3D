@@ -34,6 +34,7 @@ class CategorySeeder extends Seeder
                 'tv_meta'    => 0,
                 'game_meta'  => 0,
                 'music_meta' => 0,
+                'porn_meta'  => 0,
                 'no_meta'    => 0,
             ],
             [
@@ -46,7 +47,21 @@ class CategorySeeder extends Seeder
                 'tv_meta'    => 1,
                 'game_meta'  => 0,
                 'music_meta' => 0,
+                'porn_meta'  => 0,
                 'no_meta'    => 0,
+            ],
+            [
+                'id'         => 3,
+                'name'       => 'Porn',
+                'position'   => 2,
+                'icon'       => config('other.font-awesome').' fa-mars',
+                'image'      => null,
+                'movie_meta' => 0,
+                'tv_meta'    => 0,
+                'game_meta'  => 0,
+                'music_meta' => 0,
+                'porn_meta'  => 1,
+                'no_meta'    => 1,
             ],
         ], ['id'], []);
     }

@@ -51,7 +51,7 @@ class Category extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{music_meta: 'bool', game_meta: 'bool', tv_meta: 'bool', movie_meta: 'bool'}
+     * @return array{music_meta: 'bool', game_meta: 'bool', tv_meta: 'bool', movie_meta: 'bool', porn_meta: 'bool'}
      */
     protected function casts(): array
     {
@@ -60,6 +60,7 @@ class Category extends Model
             'game_meta'  => 'bool',
             'tv_meta'    => 'bool',
             'movie_meta' => 'bool',
+            'porn_meta'  => 'bool',
         ];
     }
 
