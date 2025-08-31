@@ -169,6 +169,7 @@ return [
     'required-anime'           => 'Required For Anime',
     'required-games'           => 'Required For Games',
     'requires-reseed'          => 'Requires Reseed',
+    'reseed-requests'          => 'Reseed Requests',
     'resolution'               => 'Resolution',
     'resolutions'              => 'Resolutions',
     'resurrections'            => 'Resurrections',

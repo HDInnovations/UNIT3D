@@ -44,6 +44,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('torrent-reseed.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-hands-helping"></i>
+                        {{ __('torrent.reseed-requests') }}
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('rss.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>
                         {{ __('rss.rss') }}

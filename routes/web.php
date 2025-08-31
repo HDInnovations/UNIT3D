@@ -260,7 +260,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/{id}/external-tracker', [App\Http\Controllers\ExternalTorrentController::class, 'show'])->name('torrents.external_tracker')->whereNumber('id')->middleware('modo');
             Route::get('/download_check/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'show'])->name('download_check')->whereNumber('id');
             Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download')->whereNumber('id');
-            Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed')->whereNumber('id');
+            Route::post('/{id}/reseed', [App\Http\Controllers\TorrentReseedController::class, 'store'])->name('reseed')->whereNumber('id');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar')->whereNumber('category_id');
             Route::patch('/similar/{category}.{metaId}', [App\Http\Controllers\SimilarTorrentController::class, 'update'])->name('torrents.similar.update');
             Route::get('pending', [App\Http\Controllers\TorrentPendingController::class, 'index'])->name('torrents.pending');
@@ -275,6 +275,10 @@ Route::middleware('language')->group(function (): void {
             Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentBuffController::class, 'revokeFeatured'])->name('torrent_revokefeature')->whereNumber('id');
             Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token')->whereNumber('id');
             Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable')->whereNumber('id');
+        });
+
+        Route::prefix('torrent-reseed')->name('torrent-reseed.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\TorrentReseedController::class, 'index'])->name('index');
         });
 
         Route::prefix('torrent')->name('torrent.trump.')->group(function (): void {
