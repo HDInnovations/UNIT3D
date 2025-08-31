@@ -88,6 +88,26 @@ class UpdateTorrentRequestRequest extends FormRequest
                     $mustBeNull,
                 ]),
             ],
+            'season_number' => [
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'integer',
+                    'min:0',
+                ]),
+                Rule::when(!$category->tv_meta, [
+                    $mustBeNull,
+                ]),
+            ],
+            'episode_number' => [
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'integer',
+                    'min:0',
+                ]),
+                Rule::when(!$category->tv_meta, [
+                    $mustBeNull,
+                ]),
+            ],
             'tmdb_movie_id' => [
                 Rule::when($category->movie_meta, [
                     'required_with:movie_exists_on_tmdb',

@@ -82,6 +82,30 @@
                     {{ $torrentRequest->category->name }}
                 </span>
             </li>
+            @if ($torrentRequest->category->tv_meta)
+                @if ($torrentRequest->season_number !== null && $torrentRequest->episode_number !== null)
+                    @if ($torrentRequest->season_number === 0 && $torrentRequest->episode_number === 0)
+                        <li class="request__season">
+                            <span>Complete Pack</span>
+                        </li>
+                    @elseif ($torrentRequest->season_number === 0 && $torrentRequest->episode_number !== 0)
+                        <li class="request__season">
+                            <span>S00E{{ $torrentRequest->episode_number }}</span>
+                        </li>
+                    @elseif ($torrentRequest->season_number !== 0 && $torrentRequest->episode_number === 0)
+                        <li class="request__season">
+                            <span>S{{ $torrentRequest->season_number }}</span>
+                        </li>
+                    @elseif ($torrentRequest->season_number !== 0 && $torrentRequest->episode_number !== 0)
+                        <li class="request__season">
+                            <span>
+                                S{{ $torrentRequest->season_number }}E{{ $torrentRequest->episode_number }}
+                            </span>
+                        </li>
+                    @endif
+                @endif
+            @endif
+
             <li class="request__resolution">
                 <span>
                     {{ $torrentRequest->resolution->name ?? 'Any' }}

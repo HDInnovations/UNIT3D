@@ -46,6 +46,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $approved_when
  * @property int|null                        $type_id
  * @property int|null                        $resolution_id
+ * @property int|null                        $season_number
+ * @property int|null                        $episode_number
  */
 class TorrentRequest extends Model
 {

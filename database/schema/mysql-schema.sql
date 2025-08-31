@@ -1427,6 +1427,8 @@ CREATE TABLE `requests` (
   `tvdb` int unsigned DEFAULT NULL,
   `mal` int unsigned DEFAULT NULL,
   `igdb` int unsigned DEFAULT NULL,
+  `season_number` int unsigned DEFAULT NULL,
+  `episode_number` int unsigned DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int unsigned NOT NULL,
   `tmdb_movie_id` int unsigned DEFAULT NULL,
@@ -1457,6 +1459,8 @@ CREATE TABLE `requests` (
   KEY `requests_torrent_id_foreign` (`torrent_id`),
   KEY `requests_movie_id_index` (`tmdb_movie_id`),
   KEY `requests_tv_id_index` (`tmdb_tv_id`),
+  KEY `requests_season_number_episode_number_index` (`season_number`,`episode_number`),
+  KEY `requests_episode_number_index` (`episode_number`),
   CONSTRAINT `requests_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `requests_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `requests_filled_by_foreign` FOREIGN KEY (`filled_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
@@ -3022,4 +3026,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_18_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (355,'2025_06_18_040627_alter_requests_drop_claimed',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (356,'2025_06_21_234021_alter_requests_drop_votes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_07_15_061844_add_block_order_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_22_064916_add_season_episode_to_requests_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_30_015125_create_torrent_reseeds_table',1);
