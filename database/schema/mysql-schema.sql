@@ -3027,4 +3027,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (355,'2025_06_18_04
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (356,'2025_06_21_234021_alter_requests_drop_votes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_07_15_061844_add_block_order_to_user_settings',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_22_064916_add_season_episode_to_requests_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_30_015125_create_torrent_reseeds_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (359,'2025_08_30_015125_create_torrent_reseeds_table',1);
