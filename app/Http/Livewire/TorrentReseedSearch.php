@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\TorrentReseed;
-use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Url;

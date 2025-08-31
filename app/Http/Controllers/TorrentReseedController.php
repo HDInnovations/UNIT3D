@@ -61,22 +61,24 @@ class TorrentReseedController extends Controller
 
         // Check seeders condition and if a request already exists for this torrent
         $existingReseed = TorrentReseed::where('torrent_id', '=', $torrent->id)->first();
-        if ($torrent->seeders <= 2 ) {
+
+        if ($torrent->seeders <= 2) {
             if ($existingReseed) {
                 $existingReseed->increment('requests_count');
                 $existingReseed->save();
-    
+
                 return to_route('torrents.show', ['id' => $torrent->id])
                     ->with('success', 'A reseed request already exists. Your request has been counted.');
-            } else {
+            }
             TorrentReseed::create([
-                'torrent_id' => $torrent->id,
-                'user_id' => $userId,
+                'torrent_id'     => $torrent->id,
+                'user_id'        => $userId,
                 'requests_count' => 1,
             ]);
 
             // Send notifications
             $potentialReseeds = History::where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
+
             foreach ($potentialReseeds as $potentialReseed) {
                 User::find($potentialReseed->user_id)->notify(new NewReseedRequest($torrent));
             }
@@ -89,8 +91,6 @@ class TorrentReseedController extends Controller
 
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->with('success', 'A notification has been sent to all users that downloaded this torrent along with original uploader!');
-        }
-
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
