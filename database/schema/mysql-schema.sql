@@ -2053,6 +2053,23 @@ CREATE TABLE `torrent_downloads` (
   CONSTRAINT `torrent_downloads_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `torrent_reseeds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `torrent_reseeds` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `torrent_id` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `requests_count` int NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `torrent_reseeds_torrent_id_foreign` (`torrent_id`),
+  KEY `torrent_reseeds_user_id_foreign` (`user_id`),
+  CONSTRAINT `torrent_reseeds_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `torrent_reseeds_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `torrent_tips`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -3005,3 +3022,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_18_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (355,'2025_06_18_040627_alter_requests_drop_claimed',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (356,'2025_06_21_234021_alter_requests_drop_votes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_07_15_061844_add_block_order_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_30_015125_create_torrent_reseeds_table',1);
