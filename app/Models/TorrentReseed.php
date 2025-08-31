@@ -35,9 +35,6 @@ class TorrentReseed extends Model
 {
     use Auditable;
 
-    /** @use HasFactory<\Database\Factories\TorrentReseedFactory> */
-    use HasFactory;
-
     /**
      * The attributes that aren't mass assignable.
      *
