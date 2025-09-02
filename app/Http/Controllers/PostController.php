@@ -66,6 +66,7 @@ class PostController extends Controller
         $request->validate([
             'content'  => 'required|min:1',
             'topic_id' => 'required|integer',
+            'anon'     => 'sometimes|boolean',
         ]);
 
         $user = $request->user();
@@ -76,6 +77,7 @@ class PostController extends Controller
 
         $post = Post::create([
             'content'  => $request->input('content'),
+            'anon'     => $request->boolean('anon'),
             'user_id'  => $user->id,
             'topic_id' => $topic->id,
         ]);
@@ -115,7 +117,11 @@ class PostController extends Controller
                 $staffer->notify(new NewPost('staff', $user, $post));
             }
         } else {
-            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            if ($post->anon) {
+                $this->chatRepository->systemMessage(\sprintf('An anonymous user has left a reply on topic [url=%s]%s[/url]', $postUrl, $topic->name));
+            } else {
+                $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            }
 
             $topicStarter = $topic->user;
 
