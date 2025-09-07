@@ -165,7 +165,7 @@
         </figure>
         <x-user-tag class="post__author" :anon="$post->anon" :user="$post->user">
             <x-slot:appended-icons>
-                @if (!$post->anon || auth()->user()->is($post->user) || auth()->user()->group->is_modo)
+                @if (! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo)
                     @if ($post->user->isOnline())
                         <i
                             class="{{ config('other.font-awesome') }} fa-circle text-green"
@@ -185,7 +185,7 @@
                 @endif
             </x-slot>
         </x-user-tag>
-        @if (!$post->anon || auth()->user()->is($post->user) || auth()->user()->group->is_modo)
+        @if (! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo)
             @if (! empty($post->user->title))
                 <p class="post__author-title">
                     {{ $post->user->title }}
@@ -229,7 +229,7 @@
     >
         @bbcode($post->content)
     </div>
-    @if (! empty($post->user->signature) && (!$post->anon || auth()->user()->is($post->user) || auth()->user()->group->is_modo))
+    @if (! empty($post->user->signature) &&(! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo))
         <footer class="post__footer" x-init>
             <p class="post__signature">
                 @bbcode($post->user->signature)
