@@ -229,7 +229,7 @@
     >
         @bbcode($post->content)
     </div>
-    @if (! empty($post->user->signature) &&! ($post->anon &&! (auth()->user()->is($post->user) || auth()->user()->group->is_modo)))
+    @if (! empty($post->user->signature) && (!$post->anon || auth()->user()->is($post->user) || auth()->user()->group->is_modo))
         <footer class="post__footer" x-init>
             <p class="post__signature">
                 @bbcode($post->user->signature)
