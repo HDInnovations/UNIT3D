@@ -67,7 +67,7 @@ class NewTopic extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(User $notifiable): array
     {
         $username = ($this->firstPost?->anon && !$notifiable->group->is_modo && !$notifiable->is($this->user))
             ? 'Anonymous'
