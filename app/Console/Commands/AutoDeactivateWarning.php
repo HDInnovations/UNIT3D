@@ -17,8 +17,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Warning;
-use App\Notifications\UserManualWarningExpire;
-use App\Notifications\UserWarningExpire;
+use App\Notifications\UserWarningExpired;
 use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
 use Exception;
@@ -51,6 +50,8 @@ class AutoDeactivateWarning extends Command
     {
         $current = Carbon::now();
 
+        $usersWithExpiredWarnings = [];
+
         Warning::query()
             ->where('active', '=', true)
             ->where(
@@ -63,19 +64,20 @@ class AutoDeactivateWarning extends Command
                             ->where('history.seedtime', '>=', config('hitrun.seedtime'))
                     )
             )
-            ->chunkById(100, function ($warnings): void {
+            ->chunkById(100, function ($warnings) use (&$usersWithExpiredWarnings): void {
                 foreach ($warnings as $warning) {
                     // Set Records Active To 0 in warnings table
                     $warning->update(['active' => false]);
 
-                    // Send Notifications
-                    if ($warning->torrenttitle) {
-                        $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
-                    } else {
-                        $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
-                    }
+                    // Add user to usersWithExpiredWarnings array
+                    $usersWithExpiredWarnings[$warning->user_id] = $warning->warneduser;
                 }
             });
+
+        // Send a single notification for each user with expired warnings
+        foreach ($usersWithExpiredWarnings as $user) {
+            $user->notify(new UserWarningExpired($user));
+        }
 
         // Calculate User Warning Count and Enable DL Priv If Required.
         Warning::with('warneduser')
