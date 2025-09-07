@@ -165,7 +165,7 @@
         </figure>
         <x-user-tag class="post__author" :anon="$post->anon" :user="$post->user">
             <x-slot:appended-icons>
-                @unless ($post->anon &&! (auth()->user()->is($post->user) || auth()->user()->group->is_modo))
+                @if (!$post->anon || auth()->user()->is($post->user) || auth()->user()->group->is_modo)
                     @if ($post->user->isOnline())
                         <i
                             class="{{ config('other.font-awesome') }} fa-circle text-green"
