@@ -182,7 +182,7 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                     </a>
-                @endunless
+                @endif
             </x-slot>
         </x-user-tag>
         @if (!$post->anon || auth()->user()->is($post->user) || auth()->user()->group->is_modo)
@@ -220,7 +220,7 @@
                 </dt>
                 <dd>{{ $post->author_posts_count ?? '0' }}</dd>
             </dl>
-        @endunless
+        @endif
     </aside>
     <div
         class="post__content bbcode-rendered"
