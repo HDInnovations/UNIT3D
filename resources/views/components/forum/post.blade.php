@@ -185,7 +185,7 @@
                 @endunless
             </x-slot>
         </x-user-tag>
-        @unless ($post->anon &&! (auth()->user()->is($post->user) || auth()->user()->group->is_modo))
+        @if (!$post->anon || auth()->user()->is($post->user) || auth()->user()->group->is_modo)
             @if (! empty($post->user->title))
                 <p class="post__author-title">
                     {{ $post->user->title }}
