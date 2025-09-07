@@ -157,20 +157,10 @@
             <div class="key-value__group">
                 <dt>{{ __('ticket.priority') }}</dt>
                 <dd>
-                    @switch($ticket->priority->name)
-                        @case('Low')
-                            <i class="fas fa-circle text-yellow"></i>
-
-                            @break
-                        @case('Medium')
-                            <i class="fas fa-circle text-orange"></i>
-
-                            @break
-                        @case('High')
-                            <i class="fas fa-circle text-red"></i>
-
-                            @break
-                    @endswitch
+                    <i
+                        class="{{ config('other.font-awesome') }} {{ $ticket->priority->icon }}"
+                        style="color: {{ $ticket->priority->color }}"
+                    ></i>
                     {{ $ticket->priority->name }}
                 </dd>
             </div>
@@ -288,20 +278,10 @@
                         @foreach ($pastUserTickets as $ticket)
                             <tr>
                                 <td>
-                                    @switch($ticket->priority->name)
-                                        @case('Low')
-                                            <i class="fas fa-circle text-yellow"></i>
-
-                                            @break
-                                        @case('Medium')
-                                            <i class="fas fa-circle text-orange"></i>
-
-                                            @break
-                                        @case('High')
-                                            <i class="fas fa-circle text-red"></i>
-
-                                            @break
-                                    @endswitch
+                                    <i
+                                        class="{{ config('other.font-awesome') }} {{ $ticket->priority->icon }}"
+                                        style="color: {{ $ticket->priority->color }}"
+                                    ></i>
                                     <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">
                                         {{ $ticket->subject }}
                                     </a>

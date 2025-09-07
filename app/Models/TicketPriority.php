@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $id
  * @property string                          $name
  * @property int                             $position
+ * @property string                          $color
+ * @property string                          $icon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -35,4 +37,11 @@ class TicketPriority extends Model
 
     /** @use HasFactory<\Database\Factories\TicketPriorityFactory> */
     use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
 }

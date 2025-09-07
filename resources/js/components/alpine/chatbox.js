@@ -26,7 +26,7 @@ const messageHandler = {
         return message;
     },
 
-    create(message, context, save = true, user_id = 1, receiver_id = null, bot_id = null) {
+    create(message, context, user_id = 1, receiver_id = null, bot_id = null) {
         if (!message || message.trim() === '') return;
 
         return axios
@@ -36,7 +36,6 @@ const messageHandler = {
                 bot_id,
                 chatroom_id: context.state.chat.room,
                 message: message,
-                save,
                 targeted: context.state.chat.target,
             })
             .then((response) => {
@@ -542,11 +541,10 @@ document.addEventListener('alpine:init', () => {
         },
 
         // Delegate message operations to messageHandler
-        createMessage(message, save = true, user_id = 1, receiver_id = null, bot_id = null) {
+        createMessage(message, user_id = 1, receiver_id = null, bot_id = null) {
             return messageHandler.create(
                 message,
                 this,
-                save,
                 user_id,
                 receiver_id || this.state.message.receiver_id,
                 bot_id || this.state.message.bot_id,

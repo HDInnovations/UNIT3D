@@ -295,21 +295,9 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: '#^Method App\\Http\\Controllers\\API\\ChatController\:\:createMessage\(\) should return App\\Http\\Resources\\ChatMessageResource\|bool\|Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response but returns bool\|Illuminate\\Contracts\\Foundation\\Application\|Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: '#^Property App\\Models\\UserAudible\:\:\$status \(int\) does not accept bool\.$#'
 			identifier: assign.propertyType
 			count: 3
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: '#^Property App\\Models\\UserAudible\:\:\$status \(int\) does not accept true\.$#'
-			identifier: assign.propertyType
-			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
 		-

@@ -35,4 +35,11 @@ class TicketCategory extends Model
 
     /** @use HasFactory<\Database\Factories\TicketCategoryFactory> */
     use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
 }

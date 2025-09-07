@@ -36,6 +36,7 @@ strcasecmp
 strpos
 strrchr
 strspn
+strstr
 strtolower
 strtotime
 strtoupper

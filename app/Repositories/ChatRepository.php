@@ -17,94 +17,23 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Events\Chatter;
-use App\Events\MessageDeleted;
 use App\Events\MessageSent;
 use App\Http\Resources\ChatMessageResource;
 use App\Models\Bot;
 use App\Models\Chatroom;
-use App\Models\ChatStatus;
 use App\Models\Message;
 use App\Models\User;
-use App\Models\UserAudible;
-use App\Models\UserEcho;
 use Illuminate\Support\Str;
 
 class ChatRepository
 {
-    /**
-     * ChatRepository Constructor.
-     */
-    public function __construct(private readonly Message $message, private readonly Chatroom $chatroom, private readonly ChatStatus $chatStatus, private readonly User $user, private readonly Bot $bot, private readonly UserEcho $userEcho, private readonly UserAudible $userAudible)
-    {
-    }
-
-    public function config(): mixed
-    {
-        return config('chat');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Bot>
-     */
-    public function bots(): \Illuminate\Database\Eloquent\Collection
-    {
-        return $this->bot->all();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, UserEcho>
-     */
-    public function echoes(int $userId): \Illuminate\Database\Eloquent\Collection
-    {
-        return $this->userEcho->with([
-            'bot',
-            'user',
-            'target',
-            'room',
-        ])
-            ->where('user_id', '=', $userId)
-            ->oldest('id')
-            ->get();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, UserAudible>
-     */
-    public function audibles(int $userId): \Illuminate\Database\Eloquent\Collection
-    {
-        return $this->userAudible->with([
-            'bot',
-            'user',
-            'target',
-            'room',
-        ])
-            ->where('user_id', '=', $userId)
-            ->latest()
-            ->get();
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Chatroom>
-     */
-    public function rooms(): \Illuminate\Database\Eloquent\Collection
-    {
-        return $this->chatroom->all();
-    }
-
-    public function roomFindOrFail(int $id): Chatroom
-    {
-        return $this->chatroom->findOrFail($id);
-    }
-
     public function message(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null): Message
     {
-        if ($this->user->find($userId)->settings->censor) {
+        if (User::find($userId)->settings->censor) {
             $message = $this->censorMessage($message);
         }
 
-        $message = $this->htmlifyMessage($message);
-
-        $message = $this->message->create([
+        $message = Message::create([
             'user_id'     => $userId,
             'chatroom_id' => $roomId,
             'message'     => $message,
@@ -121,14 +50,13 @@ class ChatRepository
 
     public function botMessage(int $botId, int $roomId, string $message, ?int $receiver = null): void
     {
-        $user = $this->user->find($receiver);
+        $user = User::find($receiver);
 
         if ($user->settings->censor) {
             $message = $this->censorMessage($message);
         }
 
-        $message = $this->htmlifyMessage($message);
-        $save = $this->message->create([
+        $save = Message::create([
             'bot_id'      => $botId,
             'user_id'     => 1,
             'chatroom_id' => 0,
@@ -138,10 +66,8 @@ class ChatRepository
 
         $message = Message::with([
             'bot',
-            'user.group',
-            'user.chatStatus',
-            'receiver.group',
-            'receiver.chatStatus',
+            'user'     => ['group', 'chatStatus'],
+            'receiver' => ['group', 'chatStatus'],
         ])->find($save->id);
 
         event(new Chatter('new.bot', $receiver, new ChatMessageResource($message)));
@@ -151,13 +77,11 @@ class ChatRepository
 
     public function privateMessage(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null, ?bool $ignore = null): Message
     {
-        if ($this->user->find($userId)->settings->censor) {
+        if (User::find($userId)->settings->censor) {
             $message = $this->censorMessage($message);
         }
 
-        $message = $this->htmlifyMessage($message);
-
-        $save = $this->message->create([
+        $save = Message::create([
             'user_id'     => $userId,
             'chatroom_id' => 0,
             'message'     => $message,
@@ -165,13 +89,13 @@ class ChatRepository
             'bot_id'      => $bot,
         ]);
 
-        $message = Message::with([
-            'bot',
-            'user.group',
-            'user.chatStatus',
-            'receiver.group',
-            'receiver.chatStatus',
-        ])->find($save->id);
+        $message = Message::query()
+            ->with([
+                'bot',
+                'user'     => ['group', 'chatStatus'],
+                'receiver' => ['group', 'chatStatus'],
+            ])
+            ->find($save->id);
 
         if ($ignore != null) {
             event(new Chatter('new.message', $userId, new ChatMessageResource($message)));
@@ -186,33 +110,20 @@ class ChatRepository
         return $message;
     }
 
-    public function deleteMessage(int $id): void
-    {
-        $message = $this->message->find($id);
-
-        if ($message) {
-            broadcast(new MessageDeleted($message));
-
-            $message->delete();
-        }
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Message>
      */
     public function messages(int $roomId): \Illuminate\Database\Eloquent\Collection
     {
-        return $this->message->with([
-            'bot',
-            'user.group',
-            'chatroom',
-            'user.chatStatus',
-            'receiver.group',
-            'receiver.chatStatus',
-        ])->where(function ($query) use ($roomId): void {
-            $query->where('chatroom_id', '=', $roomId);
-            $query->where('chatroom_id', '!=', 0);
-        })
+        return Message::query()
+            ->with([
+                'bot',
+                'chatroom',
+                'user'     => ['group', 'chatStatus'],
+                'receiver' => ['group', 'chatStatus'],
+            ])
+            ->where('chatroom_id', '=', $roomId)
+            ->where('chatroom_id', '!=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
@@ -223,16 +134,27 @@ class ChatRepository
      */
     public function botMessages(int $senderId, int $botId): \Illuminate\Database\Eloquent\Collection
     {
-        return $this->message->with([
-            'bot',
-            'user.group',
-            'chatroom',
-            'user.chatStatus',
-            'receiver.group',
-            'receiver.chatStatus',
-        ])->where(function ($query) use ($senderId): void {
-            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, User::SYSTEM_USER_ID])->orWhereRaw('(user_id = ? and receiver_id = ?)', [User::SYSTEM_USER_ID, $senderId]);
-        })->where('bot_id', '=', $botId)
+        return Message::query()
+            ->with([
+                'bot',
+                'chatroom',
+                'user'     => ['group', 'chatStatus'],
+                'receiver' => ['group', 'chatStatus'],
+            ])
+            ->where(
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where('user_id', '=', $senderId)
+                            ->where('receiver_id', '=', User::SYSTEM_USER_ID)
+                    )
+                    ->orWhere(
+                        fn ($query) => $query
+                            ->where('user_id', '=', User::SYSTEM_USER_ID)
+                            ->where('receiver_id', '=', $senderId)
+                    )
+            )
+            ->where('bot_id', '=', $botId)
             ->where('chatroom_id', '=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
@@ -244,16 +166,26 @@ class ChatRepository
      */
     public function privateMessages(int $senderId, int $targetId): \Illuminate\Database\Eloquent\Collection
     {
-        return $this->message->with([
-            'bot',
-            'user.group',
-            'chatroom',
-            'user.chatStatus',
-            'receiver.group',
-            'receiver.chatStatus',
-        ])->where(function ($query) use ($senderId, $targetId): void {
-            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $targetId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$targetId, $senderId]);
-        })
+        return Message::query()
+            ->with([
+                'bot',
+                'chatroom',
+                'user'     => ['group', 'chatStatus'],
+                'receiver' => ['group', 'chatStatus'],
+            ])
+            ->where(
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where('user_id', '=', $senderId)
+                            ->where('receiver_id', '=', $targetId)
+                    )
+                    ->orWhere(
+                        fn ($query) => $query
+                            ->where('user_id', '=', $targetId)
+                            ->where('receiver_id', '=', $senderId)
+                    )
+            )
             ->where('chatroom_id', '=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
@@ -272,7 +204,7 @@ class ChatRepository
                 $message = $messages->last();
                 echo $message['id']."\n";
 
-                $message = $this->message->find($message->id);
+                $message = Message::find($message->id);
 
                 if ($message->receiver_id === null) {
                     $message->delete();
@@ -302,45 +234,17 @@ class ChatRepository
             if ($room instanceof Chatroom) {
                 $room = $room->id;
             } elseif (\is_int($room)) {
-                $room = $this->chatroom->findOrFail($room)->id;
+                $room = Chatroom::findOrFail($room)->id;
             } else {
-                $room = $this->chatroom->whereName($room)->first()->id;
+                $room = Chatroom::query()->where('name', '=', $room)->first()->id;
             }
         } elseif (\is_int($config)) {
-            $room = $this->chatroom->findOrFail($config)->id;
+            $room = Chatroom::findOrFail($config)->id;
         } else {
-            $room = $this->chatroom->whereName($config)->first()->id;
+            $room = Chatroom::query()->where('name', '=', $config)->first()->id;
         }
 
         return $room;
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, ChatStatus>
-     */
-    public function statuses(): \Illuminate\Database\Eloquent\Collection
-    {
-        return $this->chatStatus->all();
-    }
-
-    public function status(int|User $user): ?ChatStatus
-    {
-        $status = null;
-
-        if ($user instanceof User) {
-            $status = $this->chatStatus->where('user_id', '=', $user->id)->first();
-        }
-
-        if (\is_int($user)) {
-            $status = $this->chatStatus->where('user_id', '=', $user)->first();
-        }
-
-        return $status;
-    }
-
-    public function statusFindOrFail(int $id): ChatStatus
-    {
-        return $this->chatStatus->findOrFail($id);
     }
 
     protected function censorMessage(string $message): string
@@ -357,11 +261,6 @@ class ChatRepository
             }
         }
 
-        return $message;
-    }
-
-    protected function htmlifyMessage(string $message): string
-    {
         return $message;
     }
 }

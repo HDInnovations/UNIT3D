@@ -1688,6 +1688,8 @@ CREATE TABLE `ticket_priorities` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
+  `color` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -3030,3 +3032,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_07_15_06
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_22_064916_add_season_episode_to_requests_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (359,'2025_08_30_015125_create_torrent_reseeds_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_140036_add_anon_to_posts_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_013312_add_color_icon_to_ticket_priorities_table',1);

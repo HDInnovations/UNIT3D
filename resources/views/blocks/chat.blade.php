@@ -406,7 +406,7 @@
             </section>
             <form
                 class="form chatroom__new-message"
-                @submit.prevent="createMessage($refs.message.value, true, auth.id, state.message.receiver_id, state.message.bot_id)"
+                @submit.prevent="createMessage($refs.message.value, auth.id, state.message.receiver_id, state.message.bot_id)"
             >
                 <p class="form__group">
                     <textarea
@@ -415,7 +415,7 @@
                         name="message"
                         placeholder=" "
                         x-ref="message"
-                        @keydown.enter="!$event.shiftKey && ($event.preventDefault(), createMessage($refs.message.value, true, auth.id, state.message.receiver_id, state.message.bot_id), $refs.message.value = '')"
+                        @keydown.enter="!$event.shiftKey && ($event.preventDefault(), createMessage($refs.message.value, auth.id, state.message.receiver_id, state.message.bot_id), $refs.message.value = '')"
                         @keyup="isTyping(auth)"
                     ></textarea>
                     <label class="form__label form__label--floating" for="chatbox__messages-create">

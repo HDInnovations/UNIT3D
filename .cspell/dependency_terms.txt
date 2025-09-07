@@ -1,6 +1,5 @@
 asciify
 dontBackupDatabases
 dontBackupFilesystem
-htmlify
 lexify
 swal
