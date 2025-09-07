@@ -31,7 +31,7 @@ class AutoGroup extends Command
      *
      * @var string
      */
-    protected $signature = 'auto:group';
+    protected $signature = 'auto:group {user_ids?*}';
 
     /**
      * The console command description.
@@ -55,49 +55,57 @@ class AutoGroup extends Command
             ->orderByDesc('position')
             ->get();
 
-        User::query()
+        $userIds = array_map('intval', (array) $this->argument('user_ids'));
+
+        $userQuery = User::query()
             ->withSum('seedingTorrents as seedsize', 'size')
             ->withCount([
                 'torrents as uploads',
                 'warnings' => fn ($query) => $query->where('active', '=', true),
             ])
-            ->withAvg('history as avg_seedtime', 'seedtime')
-            ->whereIntegerInRaw('group_id', $groups->pluck('id'))
-            ->chunkById(100, function ($users) use ($groups, $timestamp): void {
-                foreach ($users as $user) {
-                    foreach ($groups as $group) {
-                        if (
-                            ($group->min_uploaded === null || $user->uploaded >= $group->min_uploaded)
-                            && ($group->min_ratio === null || $user->ratio >= $group->min_ratio)
-                            && ($group->min_age === null || $timestamp - $user->created_at->timestamp >= $group->min_age)
-                            && ($group->min_avg_seedtime === null || $user->avg_seedtime >= $group->min_avg_seedtime)
-                            && ($group->min_seedsize === null || $user->seedsize >= $group->min_seedsize)
-                            && ($group->min_uploads === null || $user->uploads >= $group->min_uploads)
-                        ) {
-                            $user->group_id = $group->id;
+            ->withAvg('history as avg_seedtime', 'seedtime');
 
-                            // Leech ratio dropped below sites minimum
-                            if ($user->group_id === UserGroup::LEECH->value) {
-                                // Keep these as 0/1 instead of false/true
-                                // because it reduces 6% custom casting overhead
-                                $user->can_download = 0;
-                            } elseif ($user->warnings_count < config('hitrun.max_warnings')) {
-                                $user->can_download = 1;
-                            }
+        if ($userIds !== []) {
+            $userQuery->whereIntegerInRaw('id', $userIds);
+        } else {
+            $userQuery->whereIntegerInRaw('group_id', $groups->pluck('id'));
+        }
 
-                            $user->save();
+        $userQuery->chunkById(100, function ($users) use ($groups, $timestamp): void {
+            foreach ($users as $user) {
+                foreach ($groups as $group) {
+                    if (
+                        ($group->min_uploaded === null || $user->uploaded >= $group->min_uploaded)
+                        && ($group->min_ratio === null || $user->ratio >= $group->min_ratio)
+                        && ($group->min_age === null || $timestamp - $user->created_at->timestamp >= $group->min_age)
+                        && ($group->min_avg_seedtime === null || $user->avg_seedtime >= $group->min_avg_seedtime)
+                        && ($group->min_seedsize === null || $user->seedsize >= $group->min_seedsize)
+                        && ($group->min_uploads === null || $user->uploads >= $group->min_uploads)
+                    ) {
+                        $user->group_id = $group->id;
 
-                            if ($user->wasChanged()) {
-                                cache()->forget('user:'.$user->passkey);
-
-                                Unit3dAnnounce::addUser($user);
-                            }
-
-                            break;
+                        // Leech ratio dropped below sites minimum
+                        if ($user->group_id === UserGroup::LEECH->value) {
+                            // Keep these as 0/1 instead of false/true
+                            // because it reduces 6% custom casting overhead
+                            $user->can_download = 0;
+                        } elseif ($user->warnings_count < config('hitrun.max_warnings')) {
+                            $user->can_download = 1;
                         }
+
+                        $user->save();
+
+                        if ($user->wasChanged()) {
+                            cache()->forget('user:'.$user->passkey);
+
+                            Unit3dAnnounce::addUser($user);
+                        }
+
+                        break;
                     }
                 }
-            });
+            }
+        });
 
         $elapsed = (int) $now->diffInSeconds(now(), true);
         $this->comment('Automated User Group Command Complete ('.$elapsed.' s)');

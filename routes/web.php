@@ -891,6 +891,7 @@ Route::middleware('language')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
                 Route::get('/{group}/edit', [App\Http\Controllers\Staff\GroupController::class, 'edit'])->name('edit');
                 Route::patch('/{group}', [App\Http\Controllers\Staff\GroupController::class, 'update'])->name('update');
+                Route::delete('/{group}', [App\Http\Controllers\Staff\GroupController::class, 'destroy'])->name('destroy');
             });
 
             // Gifts Log

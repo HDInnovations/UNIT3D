@@ -72,7 +72,7 @@ class TopTorrents extends Component
                         WHEN category_id IN (SELECT id FROM categories WHERE no_meta = 1) THEN 'no'
                     END AS meta
                 SQL)
-                ->withCount(['thanks', 'comments'])
+                ->withCount(['comments'])
                 ->when($this->tab === 'newest', fn ($query) => $query->orderByDesc('id'))
                 ->when($this->tab === 'seeded', fn ($query) => $query->orderByDesc('seeders'))
                 ->when(

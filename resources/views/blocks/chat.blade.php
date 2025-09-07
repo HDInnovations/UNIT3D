@@ -247,6 +247,7 @@
                                                             :style="'max-height: 16px; vertical-align: text-bottom;'"
                                                             title="Custom User Icon"
                                                             :src="'/authenticated-images/user-icons/' + message.user.username"
+                                                            loading="lazy"
                                                         />
                                                     </i>
                                                 </template>
@@ -311,6 +312,7 @@
                                                     :src="message.user?.image ? '/authenticated-images/user-avatars/' + message.user.username : '/img/profile.png'"
                                                     :style="'border: 2px solid ' + (message.user?.chat_status?.color || '#ccc')"
                                                     :title="message.user?.chat_status?.name"
+                                                    loading="lazy"
                                                 />
                                             </a>
                                         </figure>

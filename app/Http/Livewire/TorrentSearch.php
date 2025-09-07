@@ -455,7 +455,6 @@ class TorrentSearch extends Component
             $eagerLoads = fn (Builder $query) => $query
                 ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
                 ->withCount([
-                    'thanks',
                     'comments',
                     'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                     'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
@@ -615,10 +614,6 @@ class TorrentSearch extends Component
                         'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                         'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                     ]),
-                )
-                ->when(
-                    config('other.thanks-system.is-enabled'),
-                    fn ($query) => $query->withCount('thanks')
                 )
                 ->withExists([
                     'featured as featured',

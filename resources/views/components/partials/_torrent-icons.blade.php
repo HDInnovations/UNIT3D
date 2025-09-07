@@ -27,15 +27,6 @@
         ></i>
     @endif
 
-    @if (config('other.thanks-system.is-enabled') && isset($torrent->thanks_count))
-        <i
-            class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks"
-            title="{{ __('torrent.thanks-given') }}"
-        >
-            {{ $torrent->thanks_count }}
-        </i>
-    @endif
-
     @isset($torrent->comments_count)
         <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
             <i

@@ -22,6 +22,7 @@ use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\ForumCategory;
 use App\Models\Group;
 use App\Services\Unit3dAnnounce;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 
 /**
@@ -100,5 +101,40 @@ class GroupController extends Controller
 
         return to_route('staff.groups.index')
             ->with('success', 'Group Was Updated Successfully!');
+    }
+
+    /**
+     * Delete A Group.
+     */
+    public function destroy(Group $group): \Illuminate\Http\RedirectResponse
+    {
+        if ($group->system_required) {
+            return to_route('staff.groups.index')
+                ->with('error', 'Cannot delete system required group: '.$group->name);
+        }
+
+        if ($group->users()->exists()) {
+            $userIds = $group->users()->pluck('id')->toArray();
+
+            $defaultGroup = Group::query()
+                ->where('system_required', true)
+                ->where('name', '=', 'User')
+                ->first();
+
+            if ($defaultGroup === null) {
+                return to_route('staff.groups.index')
+                    ->with('error', 'Cannot find default User group to reassign users.');
+            }
+
+            $group->users()->update(['group_id' => $defaultGroup->id]);
+
+            Artisan::call('auto:group', ['user_ids' => $userIds]);
+        }
+
+        Unit3dAnnounce::removeGroup($group);
+        $group->delete();
+
+        return to_route('staff.groups.index')
+            ->with('success', "Group deleted successfully.");
     }
 }

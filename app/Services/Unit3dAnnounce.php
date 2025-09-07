@@ -358,17 +358,11 @@ class Unit3dAnnounce
      */
     private static function get(string $path, ?int $id = null): bool|array
     {
-        if (
-            config('announce.external_tracker.is_enabled') === true
-            && config('announce.external_tracker.host') !== null
-            && config('announce.external_tracker.port') !== null
-            && config('announce.external_tracker.key') !== null
-        ) {
-            $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
-            $route = rtrim($route, "/");
+        if (self::isConfigValid()) {
+            $route = self::buildRoute($path, $id);
 
             try {
-                $response = Http::acceptJson()->get($route);
+                $response = self::buildHttpClient()->acceptJson()->get($route);
             } catch (Throwable) {
                 return [];
             }
@@ -399,18 +393,13 @@ class Unit3dAnnounce
      */
     private static function put(string $path, array $data): bool
     {
-        if (
-            config('announce.external_tracker.is_enabled') === true
-            && config('announce.external_tracker.host') !== null
-            && config('announce.external_tracker.port') !== null
-            && config('announce.external_tracker.key') !== null
-        ) {
+        if (self::isConfigValid()) {
             $isSuccess = false;
             $attemptsLeft = 3;
-            $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path;
+            $route = self::buildRoute($path);
 
             while (!$isSuccess && $attemptsLeft > 0) {
-                $response = Http::put($route, $data);
+                $response = self::buildHttpClient()->put($route, $data);
 
                 $isSuccess = $response->ok();
 
@@ -445,18 +434,13 @@ class Unit3dAnnounce
      */
     private static function delete(string $path, array $data): bool
     {
-        if (
-            config('announce.external_tracker.is_enabled') === true
-            && config('announce.external_tracker.host') !== null
-            && config('announce.external_tracker.port') !== null
-            && config('announce.external_tracker.key') !== null
-        ) {
+        if (self::isConfigValid()) {
             $isSuccess = false;
             $attemptsLeft = 3;
-            $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path;
+            $route = self::buildRoute($path);
 
             while (!$isSuccess && $attemptsLeft > 0) {
-                $response = Http::delete($route, $data);
+                $response = self::buildHttpClient()->delete($route, $data);
 
                 $isSuccess = $response->ok();
 
@@ -484,5 +468,46 @@ class Unit3dAnnounce
         }
 
         return true;
+    }
+
+    private static function isConfigValid(): bool
+    {
+        return config('announce.external_tracker.is_enabled') === true
+            && config('announce.external_tracker.key') !== null
+            && ((
+                config('announce.external_tracker.unix_socket') !== null
+                && config('announce.external_tracker.host') === null
+                && config('announce.external_tracker.port') === null
+            ) || (
+                config('announce.external_tracker.unix_socket') === null
+                && config('announce.external_tracker.host') !== null
+                && config('announce.external_tracker.port') !== null
+            ));
+    }
+
+    private static function buildRoute(string $path, ?int $id = null): string
+    {
+        if (config('announce.external_tracker.unix_socket') === null) {
+            $route = 'http://'.config('announce.external_tracker.host').':'.config('announce.external_tracker.port').'/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
+        } else {
+            $route = 'http://localhost/announce/'.config('announce.external_tracker.key').'/'.$path.'/'.$id;
+        }
+
+        return rtrim($route, '/');
+    }
+
+    private static function buildHttpClient(): \Illuminate\Http\Client\PendingRequest
+    {
+        $client = Http::createPendingRequest();
+
+        if (config('announce.external_tracker.unix_socket') !== null) {
+            $client->withOptions([
+                'curl' => [
+                    CURLOPT_UNIX_SOCKET_PATH => config('announce.external_tracker.unix_socket'),
+                ],
+            ]);
+        }
+
+        return $client;
     }
 }

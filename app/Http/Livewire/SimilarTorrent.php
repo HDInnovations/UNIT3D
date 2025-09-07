@@ -243,10 +243,6 @@ class SimilarTorrent extends Component
                         'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                     ]),
                 )
-                ->when(
-                    config('other.thanks-system.is-enabled'),
-                    fn ($query) => $query->withCount('thanks')
-                )
                 ->withExists([
                     'featured as featured',
                     'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),

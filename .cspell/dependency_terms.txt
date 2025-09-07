@@ -3,3 +3,4 @@ dontBackupDatabases
 dontBackupFilesystem
 lexify
 swal
+CURLOPT
