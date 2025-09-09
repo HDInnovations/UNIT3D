@@ -36,6 +36,7 @@ use App\Console\Commands\AutoRefundDownload;
 use App\Console\Commands\AutoRemoveExpiredDonors;
 use App\Console\Commands\AutoRemoveFeaturedTorrent;
 use App\Console\Commands\AutoRemovePersonalFreeleech;
+use App\Console\Commands\AutoRemoveReseeds;
 use App\Console\Commands\AutoRemoveTimedTorrentBuffs;
 use App\Console\Commands\AutoResetUserFlushes;
 use App\Console\Commands\AutoRewardResurrection;
@@ -105,6 +106,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoSyncTorrentsToMeilisearch::class)->everyFifteenMinutes();
         $schedule->command(AutoSyncPeopleToMeilisearch::class)->daily();
         $schedule->command(AutoRemoveExpiredDonors::class)->daily();
+        $schedule->command(AutoRemoveReseeds::class)->daily();
         // $schedule->command(AutoBanDisposableUsers::class)->weekends();
         $schedule->command(CleanupCommand::class)->daily();
         $schedule->command(BackupCommand::class, ['--only-db'])->daily();
