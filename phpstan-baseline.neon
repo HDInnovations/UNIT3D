@@ -535,6 +535,12 @@ parameters:
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentReseed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentReseedSearch.php
+
+		-
 			message: '#^Method App\\Http\\Middleware\\SetLanguage\:\:setSystemLocale\(\) has parameter \$request with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1

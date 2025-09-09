@@ -764,6 +764,16 @@ class Torrent extends Model
     }
 
     /**
+     * Reseeds.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentReseed, $this>
+     */
+    public function reseeds(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentReseed::class);
+    }
+
+    /**
      * Set The Torrents MediaInfo After Its Been Purified.
      */
     public function setMediaInfoAttribute(?string $value): void
