@@ -2067,11 +2067,11 @@ CREATE TABLE `torrent_reseeds` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `torrent_id` int unsigned NOT NULL,
   `user_id` int unsigned NOT NULL,
-  `requests_count` int NOT NULL DEFAULT '0',
+  `requests_count` int unsigned NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `torrent_reseeds_torrent_id_foreign` (`torrent_id`),
+  UNIQUE KEY `torrent_reseeds_torrent_id_user_id_unique` (`torrent_id`,`user_id`),
   KEY `torrent_reseeds_user_id_foreign` (`user_id`),
   CONSTRAINT `torrent_reseeds_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `torrent_reseeds_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -3033,3 +3033,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_22_06
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (359,'2025_08_30_015125_create_torrent_reseeds_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_013312_add_color_icon_to_ticket_priorities_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_09_02_140036_add_anon_to_posts_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_09_072435_alter_torrent_reseeds_table',1);

@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
-use App\Models\TorrentReseed;
+use App\Models\Torrent;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Url;
@@ -41,7 +41,7 @@ class TorrentReseedSearch extends Component
     public bool $myRequests = false;
 
     #[Url(history: true)]
-    public string $sortField = 'created_at';
+    public string $sortField = 'reseeds_min_created_at';
 
     #[Url(history: true)]
     public string $sortDirection = 'desc';
@@ -57,16 +57,22 @@ class TorrentReseedSearch extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TorrentReseed>
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Torrent>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $torrentReseeds {
-        get => TorrentReseed::query()
-            ->with([
-                'user:id,username,group_id,deleted_at',
-                'torrent:id,name,seeders,leechers,deleted_at',
+    final protected \Illuminate\Pagination\LengthAwarePaginator $torrents {
+        get => Torrent::query()
+            ->whereHas(
+                'reseeds',
+                fn ($query) => $query
+                    ->when($this->myRequests, fn ($query) => $query->where('user_id', '=', auth()->id()))
+            )
+            ->with('reseeds.user.group')
+            ->withCount('reseeds')
+            ->withMin('reseeds', 'created_at')
+            ->withCasts([
+                'reseeds_min_created_at' => 'datetime',
             ])
-            ->when($this->torrentName !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.$this->torrentName.'%'))
-            ->when($this->myRequests, fn ($query) => $query->where('user_id', '=', auth()->id()))
+            ->when($this->torrentName !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->torrentName.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -74,7 +80,7 @@ class TorrentReseedSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.torrent-reseed-search', [
-            'torrentReseeds' => $this->torrentReseeds,
+            'torrents' => $this->torrents,
         ]);
     }
 }

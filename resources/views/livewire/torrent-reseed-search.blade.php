@@ -53,7 +53,6 @@
             <table class="data-table">
                 <tbody>
                     <tr>
-                        <th>{{ __('common.user') }}</th>
                         <th>{{ __('torrent.torrent') }}</th>
                         <th title="{{ __('torrent.seeders') }}">
                             <i class="fas fa-arrow-alt-circle-up"></i>
@@ -66,24 +65,19 @@
                         </th>
                         <th wire:click="sortBy('requests_count')" role="columnheader button">
                             {{ __('request.requests') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'requests_count'])
+                            @include('livewire.includes._sort-icon', ['field' => 'reseeds_count'])
                         </th>
                         <th wire:click="sortBy('created_at')" role="columnheader button">
                             {{ __('common.created_at') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            @include('livewire.includes._sort-icon', ['field' => 'reseeds_min_created_at'])
                         </th>
-                        <th>{{ __('common.action') }}</th>
+                        <th>{{ __('common.user') }}</th>
                     </tr>
-                    @forelse ($torrentReseeds as $torrentReseed)
+                    @forelse ($torrents as $torrent)
                         <tr>
                             <td>
-                                <x-user-tag :anon="false" :user="$torrentReseed->user" />
-                            </td>
-                            <td>
-                                <a
-                                    href="{{ route('torrents.show', ['id' => $torrentReseed->torrent->id]) }}"
-                                >
-                                    {{ $torrentReseed->torrent->name }}
+                                <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
+                                    {{ $torrent->name }}
                                 </a>
                             </td>
                             <td>
@@ -111,29 +105,20 @@
                                 </a>
                             </td>
                             <td>
-                                {{ $torrentReseed->requests_count }}
+                                {{ $torrent->reseeds_count }}
                             </td>
                             <td>
                                 <time
-                                    datetime="{{ $torrentReseed->created_at }}"
-                                    title="{{ $torrentReseed->created_at }}"
+                                    datetime="{{ $torrent->reseeds_min_created_at }}"
+                                    title="{{ $torrent->reseeds_min_created_at }}"
                                 >
-                                    {{ $torrentReseed->created_at->diffForHumans() }}
+                                    {{ $torrent->reseeds_min_created_at->diffForHumans() }}
                                 </time>
                             </td>
-                            <td>
-                                <menu class="data-table__actions">
-                                    @if ($torrentReseed->torrent)
-                                        <li class="data-table__action">
-                                            <a
-                                                class="form__button form__button--text"
-                                                href="{{ route('torrents.show', ['id' => $torrentReseed->torrent->id]) }}"
-                                            >
-                                                {{ __('common.view') }}
-                                            </a>
-                                        </li>
-                                    @endif
-                                </menu>
+                            <td colspan="2">
+                                @foreach ($torrent->reseeds as $reseed)
+                                    <x-user-tag :anon="false" :user="$reseed->user" />
+                                @endforeach
                             </td>
                         </tr>
                     @empty
@@ -144,6 +129,6 @@
                 </tbody>
             </table>
         </div>
-        {{ $torrentReseeds->links('partials.pagination') }}
+        {{ $torrents->links('partials.pagination') }}
     </section>
 </div>
