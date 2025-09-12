@@ -2,14 +2,14 @@
     @if (Storage::disk('torrent-banners')->exists("torrent-banner_$torrent->id.jpg"))
         <img
             class="meta__backdrop"
-            src="{{ route('authenticated_images.torrent_banner', ['torrent' => $torrent->id]) }}"
+            src="{{ route('authenticated_images.torrent_banner', ['id' => $torrent->id]) }}"
             alt=""
         />
     @endif
 
     <span class="meta__poster-link">
         <img
-            src="{{ Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg") ? route('authenticated_images.torrent_cover', ['torrent' => $torrent]) : 'https://via.placeholder.com/400x600' }}"
+            src="{{ Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg") ? route('authenticated_images.torrent_cover', ['id' => $torrent->id]) : 'https://via.placeholder.com/400x600' }}"
             class="meta__poster"
         />
     </span>

@@ -70,7 +70,7 @@
                 @if ($torrent->category->no_meta)
                     @if (Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))
                         <img
-                            src="{{ route('authenticated_images.torrent_cover', ['torrent' => $torrent]) }}"
+                            src="{{ route('authenticated_images.torrent_cover', ['id' => $torrent->id]) }}"
                             class="torrent-search--list__poster-img"
                             loading="lazy"
                             alt="{{ __('torrent.similar') }}"
