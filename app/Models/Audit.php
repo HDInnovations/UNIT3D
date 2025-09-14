@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property int|null                        $user_id
- * @property string                          $model_name
- * @property int                             $model_entry_id
+ * @property string                          $auditable_type
+ * @property int                             $auditable_id
  * @property string                          $action
  * @property mixed                           $record
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -47,7 +47,7 @@ class Audit extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'user_id', 'model_name', 'model_entry_id', 'action', 'record',
+        'user_id', 'auditable_type', 'auditable_id', 'action', 'record',
     ];
 
     /**
@@ -61,5 +61,13 @@ class Audit extends Model
             'username' => 'System',
             'id'       => User::SYSTEM_USER_ID,
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, $this>
+     */
+    public function auditable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    {
+        return $this->morphTo();
     }
 }

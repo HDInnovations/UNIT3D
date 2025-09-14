@@ -51,7 +51,7 @@ class TopicPostSearch extends Component
     final protected \Illuminate\Pagination\LengthAwarePaginator $posts {
         get {
             $posts = Post::query()
-                ->with('user', 'user.group')
+                ->with('user.group')
                 ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
                 ->withSum('tips', 'bon')
                 ->where('topic_id', '=', $this->topic->id)

@@ -417,4 +417,5 @@ return [
     'homepage-block-random-media-visible' => 'Vis Tilfældig Medier',
     'homepage-block-top-torrents-visible' => 'Vis Top Torrents',
     'homepage-block-top-users-visible' => 'Vis Top Brugere',
+    'unregistered-info-hashes' => 'Uregistrerede Info Hashes',
 ];

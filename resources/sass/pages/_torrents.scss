@@ -53,10 +53,6 @@
     gap: 10px;
 }
 
-.torrent-icons__thanks {
-    font: inherit;
-    color: var(--torrent-row-thanks-fg);
-}
 .torrent-icons__comments {
     font: inherit;
     color: var(--torrent-row-comments-fg);
@@ -92,6 +88,36 @@
 
 .torrent-icons__bumped {
     color: var(--torrent-row-bumped-fg);
+}
+
+/* Torrent Activity Indicators
+---------------------------------------------------------------------------- */
+
+.torrent-activity-indicator--seeding {
+    text-shadow:
+        0 0 0 var(--torrent-row-seeders-fg),
+        0 0 4px var(--torrent-row-seeders-fg),
+        0 0 10px var(--torrent-row-seeders-fg),
+        0 0 16px var(--torrent-row-seeders-fg),
+        0 0 22px var(--torrent-row-seeders-fg);
+}
+
+.torrent-activity-indicator--leeching {
+    text-shadow:
+        0 0 0 var(--torrent-row-leechers-fg),
+        0 0 4px var(--torrent-row-leechers-fg),
+        0 0 10px var(--torrent-row-leechers-fg),
+        0 0 16px var(--torrent-row-leechers-fg),
+        0 0 22px var(--torrent-row-leechers-fg);
+}
+
+.torrent-activity-indicator--completed {
+    text-shadow:
+        0 0 0 var(--torrent-row-completed-fg),
+        0 0 4px var(--torrent-row-completed-fg),
+        0 0 10px var(--torrent-row-completed-fg),
+        0 0 16px var(--torrent-row-completed-fg),
+        0 0 22px var(--torrent-row-completed-fg);
 }
 
 /* List
@@ -241,19 +267,8 @@
         place-items: center right;
         width: 100%;
         height: 100%;
+        padding-right: 12px;
     }
-}
-
-.torrent-search--list__seeders a {
-    color: var(--torrent-row-seeders-fg);
-}
-
-.torrent-search--list__leechers a {
-    color: var(--torrent-row-leechers-fg);
-}
-
-.torrent-search--list__completed a {
-    color: var(--torrent-row-completed-fg);
 }
 
 .torrent-search--list__age {

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -29,7 +30,7 @@ class NewTopic extends Notification implements ShouldQueue
     /**
      * NewTopic Constructor.
      */
-    public function __construct(public string $type, public User $user, public Topic $topic)
+    public function __construct(public string $type, public User $user, public Topic $topic, public ?Post $firstPost = null)
     {
     }
 
@@ -66,19 +67,23 @@ class NewTopic extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(User $notifiable): array
     {
+        $username = ($this->firstPost?->anon && !$notifiable->group->is_modo && !$notifiable->is($this->user))
+            ? 'Anonymous'
+            : $this->user->username;
+
         if ($this->type == 'staff') {
             return [
-                'title' => $this->user->username.' Has Posted In A Staff Forum',
-                'body'  => $this->user->username.' has started a new staff topic in '.$this->topic->forum->name,
+                'title' => $username.' Has Posted In A Staff Forum',
+                'body'  => $username.' has started a new staff topic in '.$this->topic->forum->name,
                 'url'   => route('topics.show', ['id' => $this->topic->id]),
             ];
         }
 
         return [
-            'title' => $this->user->username.' Has Posted In A Subscribed Forum',
-            'body'  => $this->user->username.' has started a new topic in '.$this->topic->forum->name,
+            'title' => $username.' Has Posted In A Subscribed Forum',
+            'body'  => $username.' has started a new topic in '.$this->topic->forum->name,
             'url'   => \sprintf('/forums/topics/%s', $this->topic->id),
         ];
     }

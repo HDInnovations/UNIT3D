@@ -232,59 +232,37 @@ class NerdBot
     /**
      * Process Message.
      */
-    public function process(string $type, User $user, string $message = '', int $targeted = 0): true|\Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+    public function process(string $type, User $user, string $message): true|\Illuminate\Http\Response
     {
         $this->target = $user;
 
         if ($type === 'message') {
-            $x = 0;
-            $y = 1;
+            [$command,] = mb_split(' +', trim($message), 2) + [null, null];
         } else {
-            $x = 1;
-            $y = 2;
+            [, $command,] = mb_split(' +', trim($message), 3) + [null, null, null];
         }
 
-        if ($message === '') {
-            $log = '';
-        } else {
-            $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
-        }
-
-        $command = @explode(' ', $message);
-
-        $params = $command[$y] ?? null;
-
-        if ($params) {
-            $clone = $command;
-            array_shift($clone);
-            array_shift($clone);
-            array_shift($clone);
-        }
-
-        if (\array_key_exists($x, $command)) {
-            $log = match($command[$x]) {
-                'banker'        => $this->getBanker(),
-                'bans'          => $this->getBans(),
-                'unbans'        => $this->getUnbans(),
-                'doubleupload'  => $this->getDoubleUpload(),
-                'freeleech'     => $this->getFreeleech(),
-                'help'          => $this->getHelp(),
-                'king'          => $this->getKing(),
-                'logins'        => $this->getLogins(),
-                'peers'         => $this->getPeers(),
-                'registrations' => $this->getRegistrations(),
-                'uploads'       => $this->getUploads(),
-                'warnings'      => $this->getWarnings(),
-                'seeded'        => $this->getSeeded(),
-                'leeched'       => $this->getLeeched(),
-                'snatched'      => $this->getSnatched(),
-                default         => '',
-            };
-        }
+        $this->log = match($command) {
+            'banker'        => $this->getBanker(),
+            'bans'          => $this->getBans(),
+            'unbans'        => $this->getUnbans(),
+            'doubleupload'  => $this->getDoubleUpload(),
+            'freeleech'     => $this->getFreeleech(),
+            'help'          => $this->getHelp(),
+            'king'          => $this->getKing(),
+            'logins'        => $this->getLogins(),
+            'peers'         => $this->getPeers(),
+            'registrations' => $this->getRegistrations(),
+            'uploads'       => $this->getUploads(),
+            'warnings'      => $this->getWarnings(),
+            'seeded'        => $this->getSeeded(),
+            'leeched'       => $this->getLeeched(),
+            'snatched'      => $this->getSnatched(),
+            default         => 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.',
+        };
 
         $this->type = $type;
         $this->message = $message;
-        $this->log = $log;
 
         return $this->pm();
     }
@@ -292,7 +270,7 @@ class NerdBot
     /**
      * Output Message.
      */
-    public function pm(): true|\Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+    public function pm(): true|\Illuminate\Http\Response
     {
         $type = $this->type;
         $target = $this->target;
@@ -304,16 +282,14 @@ class NerdBot
             $echoes = cache()->remember(
                 'user-echoes'.$target->id,
                 3600,
-                fn () => UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
+                fn () => UserEcho::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
             );
 
             if ($echoes->doesntContain(fn ($echo) => $echo->bot_id == $this->bot->id)) {
-                UserEcho::create([
+                $echoes->push(UserEcho::create([
                     'user_id'   => $target->id,
                     'target_id' => $this->bot->id,
-                ]);
-
-                $echoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                ]));
 
                 cache()->put('user-echoes'.$target->id, $echoes, 3600);
 
@@ -324,17 +300,15 @@ class NerdBot
             $audibles = cache()->remember(
                 'user-audibles'.$target->id,
                 3600,
-                fn () => UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
+                fn () => UserAudible::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
             );
 
             if ($audibles->doesntContain(fn ($audible) => $audible->bot_id == $this->bot->id)) {
-                UserAudible::create([
+                $audibles->push(UserAudible::create([
                     'user_id'   => $target->id,
                     'target_id' => $this->bot->id,
-                    'status'    => false,
-                ]);
-
-                $audibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                    'status'    => 0,
+                ]));
 
                 cache()->put('user-audibles'.$target->id, $audibles, 3600);
 
@@ -342,29 +316,23 @@ class NerdBot
             }
 
             // Create message
-            if ($txt !== '') {
-                $roomId = 0;
-                $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
-                $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
-            }
+            $roomId = 0;
+            $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
+            $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
 
             return response('success');
         }
 
         if ($type === 'echo') {
-            if ($txt !== '') {
-                $roomId = 0;
-                $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
-            }
+            $roomId = 0;
+            $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
 
             return response('success');
         }
 
         if ($type === 'public') {
-            if ($txt !== '') {
-                $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-                $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
-            }
+            $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
+            $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
 
             return response('success');
         }

@@ -16,14 +16,20 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class TorrentsResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
+     *
+     * @return array{
+     *     data: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
+     * }
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
         return [
             'data' => TorrentResource::collection($this->collection),
@@ -32,8 +38,14 @@ class TorrentsResource extends ResourceCollection
 
     /**
      * Get additional data that should be returned with the resource array.
+     *
+     * @return array{
+     *     links: array{
+     *         self: string,
+     *     }
+     * }
      */
-    public function with($request): array
+    public function with(Request $request): array
     {
         return [
             'links' => [
@@ -45,7 +57,7 @@ class TorrentsResource extends ResourceCollection
     /**
      * Customize the outgoing response for the resource.
      */
-    public function withResponse($request, $response): void
+    public function withResponse(Request $request, JsonResponse $response): void
     {
         $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }

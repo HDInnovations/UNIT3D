@@ -32,7 +32,7 @@
             >
                 @csrf
                 <p class="form__group">
-                    <select id="category_id" class="form__text" name="category_id" required>
+                    <select id="category_id" class="form__select" name="category_id" required>
                         <option hidden disabled selected value=""></option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>

@@ -100,6 +100,7 @@ class TopicController extends Controller
         $request->validate([
             'title'   => 'required',
             'content' => 'required',
+            'anon'    => 'sometimes|boolean',
         ]);
 
         $user = $request->user();
@@ -118,6 +119,7 @@ class TopicController extends Controller
 
         $post = Post::create([
             'content'  => $request->input('content'),
+            'anon'     => $request->boolean('anon'),
             'user_id'  => $user->id,
             'topic_id' => $topic->id,
         ]);
@@ -148,10 +150,14 @@ class TopicController extends Controller
                 ->get();
 
             foreach ($staffers as $staffer) {
-                $staffer->notify(new NewTopic('staff', $user, $topic));
+                $staffer->notify(new NewTopic('staff', $user, $topic, $post));
             }
         } else {
-            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+            if ($post->anon) {
+                $this->chatRepository->systemMessage(\sprintf('An anonymous user has created a new topic [url=%s]%s[/url]', $topicUrl, $topic->name));
+            } else {
+                $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+            }
 
             $subscribers = User::query()
                 ->where('id', '!=', $topic->first_post_user_id)
@@ -168,7 +174,7 @@ class TopicController extends Controller
                 ->get();
 
             foreach ($subscribers as $subscriber) {
-                $subscriber->notify(new NewTopic('forum', $user, $topic));
+                $subscriber->notify(new NewTopic('forum', $user, $topic, $post));
             }
 
             //Achievements

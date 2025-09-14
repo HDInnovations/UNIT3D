@@ -448,7 +448,10 @@ readonly class TorrentSearchFiltersDTO
             $filters[] = 'user.username = '.json_encode($this->uploader);
 
             if (!$group->is_modo) {
-                $filters[] = 'anon = false';
+                $filters[] = [
+                    'anon = false',
+                    'user.username = '.json_encode($this->user->username),
+                ];
             }
         }
 

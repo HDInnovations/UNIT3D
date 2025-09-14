@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
@@ -24,6 +25,14 @@ return new class () extends Migration {
      */
     public function up(): void
     {
+        DB::table('tickets')->whereNull('user_read')->update([
+            'user_read' => false,
+        ]);
+
+        DB::table('tickets')->whereNull('staff_read')->update([
+            'staff_read' => false,
+        ]);
+
         Schema::table('tickets', function (Blueprint $table): void {
             $table->boolean('user_read')->default(false)->change();
             $table->boolean('staff_read')->default(false)->change();

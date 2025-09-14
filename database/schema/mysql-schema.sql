@@ -146,8 +146,8 @@ DROP TABLE IF EXISTS `audits`;
 CREATE TABLE `audits` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned DEFAULT NULL,
-  `model_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_entry_id` bigint unsigned NOT NULL,
+  `auditable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `auditable_id` bigint unsigned NOT NULL,
   `action` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `record` json NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1296,6 +1296,7 @@ DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `anon` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` int unsigned NOT NULL,
@@ -1427,6 +1428,8 @@ CREATE TABLE `requests` (
   `tvdb` int unsigned DEFAULT NULL,
   `mal` int unsigned DEFAULT NULL,
   `igdb` int unsigned DEFAULT NULL,
+  `season_number` int unsigned DEFAULT NULL,
+  `episode_number` int unsigned DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int unsigned NOT NULL,
   `tmdb_movie_id` int unsigned DEFAULT NULL,
@@ -1457,6 +1460,8 @@ CREATE TABLE `requests` (
   KEY `requests_torrent_id_foreign` (`torrent_id`),
   KEY `requests_movie_id_index` (`tmdb_movie_id`),
   KEY `requests_tv_id_index` (`tmdb_tv_id`),
+  KEY `requests_season_number_episode_number_index` (`season_number`,`episode_number`),
+  KEY `requests_episode_number_index` (`episode_number`),
   CONSTRAINT `requests_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `requests_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `requests_filled_by_foreign` FOREIGN KEY (`filled_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
@@ -1683,6 +1688,8 @@ CREATE TABLE `ticket_priorities` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
+  `color` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -2051,6 +2058,23 @@ CREATE TABLE `torrent_downloads` (
   KEY `torrent_downloads_created_at_index` (`created_at`),
   CONSTRAINT `torrent_downloads_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `torrent_downloads_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `torrent_reseeds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `torrent_reseeds` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `torrent_id` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `requests_count` int NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `torrent_reseeds_torrent_id_foreign` (`torrent_id`),
+  KEY `torrent_reseeds_user_id_foreign` (`user_id`),
+  CONSTRAINT `torrent_reseeds_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `torrent_reseeds_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `torrent_tips`;
@@ -3005,3 +3029,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_18_00
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (355,'2025_06_18_040627_alter_requests_drop_claimed',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (356,'2025_06_21_234021_alter_requests_drop_votes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_07_15_061844_add_block_order_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_22_064916_add_season_episode_to_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (359,'2025_08_30_015125_create_torrent_reseeds_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_013312_add_color_icon_to_ticket_priorities_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_09_02_140036_add_anon_to_posts_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_08_000029_make_audits_morphable',1);

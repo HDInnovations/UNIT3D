@@ -243,10 +243,6 @@ class SimilarTorrent extends Component
                         'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                     ]),
                 )
-                ->when(
-                    config('other.thanks-system.is-enabled'),
-                    fn ($query) => $query->withCount('thanks')
-                )
                 ->withExists([
                     'featured as featured',
                     'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
@@ -257,17 +253,9 @@ class SimilarTorrent extends Component
                     'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
-                    'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    'history as completed' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 0)
-                        ->where('seeder', '=', 0)
-                        ->whereNull('completed_at'),
-                    'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
-                        ->where('active', '=', 0)
-                        ->where(
-                            fn ($query) => $query
-                                ->where('seeder', '=', 1)
-                                ->orWhereNotNull('completed_at')
-                        ),
+                        ->where('seeder', '=', 1),
                     'trump',
                 ])
                 ->when(
@@ -534,9 +522,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Type>
      */
     final protected \Illuminate\Database\Eloquent\Collection $types {
-        get => cache()->remember(
+        get => cache()->flexible(
             'types',
-            3600,
+            [3600, 3600 * 2],
             fn () => Type::query()->orderBy('position')->get(),
         );
     }
@@ -545,9 +533,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
     final protected \Illuminate\Database\Eloquent\Collection $resolutions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'resolutions',
-            3600,
+            [3600, 3600 * 2],
             fn () => Resolution::query()->orderBy('position')->get(),
         );
     }
@@ -556,9 +544,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Region>
      */
     final protected \Illuminate\Database\Eloquent\Collection $regions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'regions',
-            3600,
+            [3600, 3600 * 2],
             fn () => Region::query()->orderBy('position')->get(),
         );
     }
@@ -567,9 +555,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Distributor>
      */
     final protected \Illuminate\Database\Eloquent\Collection $distributors {
-        get => cache()->remember(
+        get => cache()->flexible(
             'distributors',
-            3600,
+            [3600, 3600 * 2],
             fn () => Distributor::query()->orderBy('name')->get(),
         );
     }

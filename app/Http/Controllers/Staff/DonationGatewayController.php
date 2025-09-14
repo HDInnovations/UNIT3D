@@ -47,7 +47,7 @@ class DonationGatewayController extends Controller
     /**
      * Store A Donation Gateway.
      */
-    public function store(StoreDonationGatewayRequest $request)
+    public function store(StoreDonationGatewayRequest $request): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_owner, 403);
 
@@ -83,7 +83,7 @@ class DonationGatewayController extends Controller
     /**
      * Destroy A Donation Gateway.
      */
-    public function destroy(Request $request, DonationGateway $gateway)
+    public function destroy(Request $request, DonationGateway $gateway): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_owner, 403);
 

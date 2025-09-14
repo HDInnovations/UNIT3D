@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property string                          $content
+ * @property bool                            $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int                             $user_id
@@ -44,9 +45,22 @@ class Post extends Model
      */
     protected $fillable = [
         'content',
+        'anon',
         'topic_id',
         'user_id',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{anon: 'bool'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'anon' => 'bool',
+        ];
+    }
 
     /**
      * Belongs To A Topic.

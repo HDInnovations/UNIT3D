@@ -58,6 +58,18 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | External Tracker Unix Domain Socket
+        |--------------------------------------------------------------------------
+        |
+        | Path to unix domain socket of external tracker. Can be used in place of
+        | the host and port.
+        |
+        */
+
+        'unix_socket' => env('TRACKER_UNIX_SOCKET'),
+
+        /*
+        |--------------------------------------------------------------------------
         | External Tracker API Key
         |--------------------------------------------------------------------------
         |

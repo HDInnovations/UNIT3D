@@ -10,6 +10,7 @@ limewire
 mal
 mediainfo
 phpstorm
+rottentomatoes
 shareaza
 tmdb
 tvdb

@@ -563,6 +563,16 @@ class Torrent extends Model
     }
 
     /**
+     * Belongs To A Game.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<IgdbGame, $this>
+     */
+    public function game(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(IgdbGame::class, 'igdb_game_id');
+    }
+
+    /**
      * Belongs To A Playlist.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Playlist, $this, PlaylistTorrent>
@@ -751,6 +761,16 @@ class Torrent extends Model
     public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Report::class);
+    }
+
+    /**
+     * Has Many Downloads.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentDownload, $this>
+     */
+    public function downloads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentDownload::class);
     }
 
     /**

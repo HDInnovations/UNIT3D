@@ -241,15 +241,16 @@
                                                     x-show="message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2)"
                                                     x-text="message.bot?.name || 'Unknown'"
                                                 ></span>
-                                                <i
-                                                    x-show="message.user?.icon !== null && message.user?.icon !== undefined"
-                                                >
-                                                    <img
-                                                        :style="'max-height: 16px; vertical-align: text-bottom;'"
-                                                        title="Custom User Icon"
-                                                        :src="'/authenticated-images/user-icons/' + message.user.username"
-                                                    />
-                                                </i>
+                                                <template x-if="message.user?.icon">
+                                                    <i>
+                                                        <img
+                                                            :style="'max-height: 16px; vertical-align: text-bottom;'"
+                                                            title="Custom User Icon"
+                                                            :src="'/authenticated-images/user-icons/' + message.user.username"
+                                                            loading="lazy"
+                                                        />
+                                                    </i>
+                                                </template>
                                                 <i
                                                     x-show="message.user?.is_lifetime == 1"
                                                     class="fal fa-star"
@@ -311,6 +312,7 @@
                                                     :src="message.user?.image ? '/authenticated-images/user-avatars/' + message.user.username : '/img/profile.png'"
                                                     :style="'border: 2px solid ' + (message.user?.chat_status?.color || '#ccc')"
                                                     :title="message.user?.chat_status?.name"
+                                                    loading="lazy"
                                                 />
                                             </a>
                                         </figure>
@@ -406,7 +408,7 @@
             </section>
             <form
                 class="form chatroom__new-message"
-                @submit.prevent="createMessage($refs.message.value, true, auth.id, state.message.receiver_id, state.message.bot_id)"
+                @submit.prevent="createMessage($refs.message.value, auth.id, state.message.receiver_id, state.message.bot_id)"
             >
                 <p class="form__group">
                     <textarea
@@ -415,7 +417,7 @@
                         name="message"
                         placeholder=" "
                         x-ref="message"
-                        @keydown.enter="!$event.shiftKey && ($event.preventDefault(), createMessage($refs.message.value, true, auth.id, state.message.receiver_id, state.message.bot_id), $refs.message.value = '')"
+                        @keydown.enter="!$event.shiftKey && ($event.preventDefault(), createMessage($refs.message.value, auth.id, state.message.receiver_id, state.message.bot_id), $refs.message.value = '')"
                         @keyup="isTyping(auth)"
                     ></textarea>
                     <label class="form__label form__label--floating" for="chatbox__messages-create">

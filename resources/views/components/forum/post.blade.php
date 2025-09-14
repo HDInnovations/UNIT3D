@@ -159,64 +159,68 @@
         <figure class="post__figure">
             <img
                 class="post__avatar"
-                src="{{ $post->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $post->user]) }}"
+                src="{{ $post->anon && auth()->user()->isNot($post->user) &&! auth()->user()->group->is_modo ? url('img/profile.png') : ($post->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $post->user])) }}"
                 alt=""
             />
         </figure>
-        <x-user-tag class="post__author" :anon="false" :user="$post->user">
+        <x-user-tag class="post__author" :anon="$post->anon" :user="$post->user">
             <x-slot:appended-icons>
-                @if ($post->user->isOnline())
-                    <i
-                        class="{{ config('other.font-awesome') }} fa-circle text-green"
-                        title="Online"
-                    ></i>
-                @else
-                    <i
-                        class="{{ config('other.font-awesome') }} fa-circle text-red"
-                        title="Offline"
-                    ></i>
+                @if (! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo)
+                    @if ($post->user->isOnline())
+                        <i
+                            class="{{ config('other.font-awesome') }} fa-circle text-green"
+                            title="Online"
+                        ></i>
+                    @else
+                        <i
+                            class="{{ config('other.font-awesome') }} fa-circle text-red"
+                            title="Offline"
+                        ></i>
+                    @endif
+                    <a
+                        href="{{ route('users.conversations.create', ['user' => auth()->user(), 'username' => $post->user->username]) }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
+                    </a>
                 @endif
-                <a
-                    href="{{ route('users.conversations.create', ['user' => auth()->user(), 'username' => $post->user->username]) }}"
-                >
-                    <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
-                </a>
             </x-slot>
         </x-user-tag>
-        @if (! empty($post->user->title))
-            <p class="post__author-title">
-                {{ $post->user->title }}
-            </p>
-        @endif
+        @if (! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo)
+            @if (! empty($post->user->title))
+                <p class="post__author-title">
+                    {{ $post->user->title }}
+                </p>
+            @endif
 
-        <dl class="post__author-join">
-            <dt>Joined</dt>
-            <dd>
-                <time
-                    class="post__author-join-datetime"
-                    datetime="{{ $post->user->created_at }}"
-                    title="{{ $post->user->created_at }}"
-                >
-                    {{ date('d M Y', $post->user->created_at?->getTimestamp() ?? '') }}
-                </time>
-            </dd>
-        </dl>
-        <dl class="post__author-topics">
-            <dt>
-                <a href="{{ route('users.topics.index', ['user' => $post->user]) }}">
-                    {{ __('forum.topics') }}
-                </a>
-            </dt>
-            <dd>{{ $post->author_topics_count ?? '0' }}</dd>
-        </dl>
-        <dl class="post__author-posts">
-            <dt>
-                <a href="{{ route('users.posts.index', ['user' => $post->user]) }}">
-                    {{ __('forum.posts') }}
-                </a>
-            </dt>
-            <dd>{{ $post->author_posts_count ?? '0' }}</dd>
-        </dl>
+            <dl class="post__author-join">
+                <dt>Joined</dt>
+                <dd>
+                    <time
+                        class="post__author-join-datetime"
+                        datetime="{{ $post->user->created_at }}"
+                        title="{{ $post->user->created_at }}"
+                    >
+                        {{ date('d M Y', $post->user->created_at?->getTimestamp() ?? '') }}
+                    </time>
+                </dd>
+            </dl>
+            <dl class="post__author-topics">
+                <dt>
+                    <a href="{{ route('users.topics.index', ['user' => $post->user]) }}">
+                        {{ __('forum.topics') }}
+                    </a>
+                </dt>
+                <dd>{{ $post->author_topics_count ?? '0' }}</dd>
+            </dl>
+            <dl class="post__author-posts">
+                <dt>
+                    <a href="{{ route('users.posts.index', ['user' => $post->user]) }}">
+                        {{ __('forum.posts') }}
+                    </a>
+                </dt>
+                <dd>{{ $post->author_posts_count ?? '0' }}</dd>
+            </dl>
+        @endif
     </aside>
     <div
         class="post__content bbcode-rendered"
@@ -225,7 +229,7 @@
     >
         @bbcode($post->content)
     </div>
-    @if (! empty($post->user->signature))
+    @if (! empty($post->user->signature) &&(! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo))
         <footer class="post__footer" x-init>
             <p class="post__signature">
                 @bbcode($post->user->signature)

@@ -61,7 +61,7 @@ class UnregisteredInfoHashSearch extends Component
      */
     final protected \Illuminate\Pagination\LengthAwarePaginator $unregisteredInfoHashes {
         get => UnregisteredInfoHash::query()
-            ->with('user')
+            ->with('user.group')
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', '%'.$this->username.'%'))
             ->when(
                 $this->groupBy === 'info_hash',

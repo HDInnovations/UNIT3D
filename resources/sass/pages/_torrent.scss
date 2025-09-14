@@ -50,30 +50,6 @@
     color: var(--torrent-tag-hover-fg);
 }
 
-.torrent__seeders-link.torrent__seeders-link {
-    color: var(--torrent-row-seeders-fg);
-}
-
-.torrent__seeders-link:hover.torrent__seeders-link:hover {
-    color: var(--torrent-row-seeders-fg);
-}
-
-.torrent__leechers-link.torrent__leechers-link {
-    color: var(--torrent-row-leechers-fg);
-}
-
-.torrent__leechers-link:hover.torrent__leechers-link:hover {
-    color: var(--torrent-row-leechers-fg);
-}
-
-.torrent__completed-link.torrent__completed-link {
-    color: var(--torrent-row-completed-fg);
-}
-
-.torrent__completed-link:hover.torrent__completed-link:hover {
-    color: var(--torrent-row-completed-fg);
-}
-
 @media screen and (max-width: 767px) {
     .torrent__tags {
         display: flex;
@@ -112,4 +88,22 @@
 
 .torrent__nfo {
     line-height: 1;
+}
+
+/* Peer counts
+---------------------------------------------------------------------------- */
+
+/* Doubled up to override link colors */
+.torrent__seeder-count.torrent__seeder-count {
+    color: var(--torrent-row-seeders-fg);
+}
+
+/* Doubled up to override link colors */
+.torrent__leecher-count.torrent__leecher-count {
+    color: var(--torrent-row-leechers-fg);
+}
+
+/* Doubled up to override link colors */
+.torrent__times-completed-count.torrent__times-completed-count {
+    color: var(--torrent-row-completed-fg);
 }

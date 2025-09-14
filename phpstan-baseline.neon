@@ -43,12 +43,6 @@ parameters:
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:filter\(\) expects \(callable\(mixed, int\|string\)\: bool\)\|null, Closure\(mixed\)\: \(non\-falsy\-string\|false\) given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Console/Commands/AutoHighspeedTag.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
 			identifier: return.type
 			count: 1
@@ -59,6 +53,18 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/Console/Commands/AutoRecycleClaimedTorrentRequests.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRemoveReseeds.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRemoveReseeds.php
 
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
@@ -295,49 +301,13 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: '#^Method App\\Http\\Controllers\\API\\ChatController\:\:createMessage\(\) should return App\\Http\\Resources\\ChatMessageResource\|bool\|Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response but returns bool\|Illuminate\\Contracts\\Foundation\\Application\|Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: '#^Property App\\Models\\UserAudible\:\:\$status \(int\) does not accept bool\.$#'
 			identifier: assign.propertyType
 			count: 3
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: '#^Property App\\Models\\UserAudible\:\:\$status \(int\) does not accept true\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: '#^Cannot call method getClientOriginalExtension\(\) on array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Cannot call method getError\(\) on array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Parameter \#1 \$inputFile of static method App\\Helpers\\TorrentTools\:\:getNfo\(\) expects Illuminate\\Http\\UploadedFile\|null, array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Parameter \#1 \$torrentFile of static method App\\Helpers\\TorrentTools\:\:normalizeTorrent\(\) expects Illuminate\\Http\\UploadedFile, array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:remember\(\) contains unresolvable type\.$#'
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
@@ -401,36 +371,6 @@ parameters:
 			identifier: assignOp.invalid
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Property App\\Models\\Donation\:\:\$ends_at \(Illuminate\\Support\\Carbon\) does not accept Carbon\\Carbon\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Property App\\Models\\Donation\:\:\$ends_at \(Illuminate\\Support\\Carbon\) does not accept null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Property App\\Models\\Donation\:\:\$starts_at \(Illuminate\\Support\\Carbon\) does not accept Carbon\\Carbon\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\Staff\\DonationGatewayController\:\:destroy\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Controllers/Staff/DonationGatewayController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\Staff\\DonationGatewayController\:\:store\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Http/Controllers/Staff/DonationGatewayController.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Group\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Group\>\:\:\$level\.$#'
@@ -595,6 +535,18 @@ parameters:
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
+			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, string\|null\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) expects callable\(\)\: Illuminate\\Support\\Collection\<int, string\|null\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, string\|null\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
 			message: '#^Method App\\Http\\Middleware\\SetLanguage\:\:setSystemLocale\(\) has parameter \$request with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -625,88 +577,10 @@ parameters:
 			path: app/Http/Requests/StoreRequestFillRequest.php
 
 		-
-			message: '#^Method App\\Http\\Resources\\BotResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/BotResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\BotResource\:\:toArray\(\) return type with generic interface Illuminate\\Contracts\\Support\\Arrayable does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Resources/BotResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\ChatMessageResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/ChatMessageResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\ChatRoomResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/ChatRoomResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\ChatUserResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/ChatUserResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\TorrentResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/TorrentResource.php
-
-		-
 			message: '#^Strict comparison using \=\=\= between int\|null and true will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
-
-		-
-			message: '#^Unable to resolve the template type TKey in call to function collect$#'
-			identifier: argument.templateType
-			count: 1
-			path: app/Http/Resources/TorrentResource.php
-
-		-
-			message: '#^Unable to resolve the template type TValue in call to function collect$#'
-			identifier: argument.templateType
-			count: 1
-			path: app/Http/Resources/TorrentResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\TorrentsResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/TorrentsResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\TorrentsResource\:\:with\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/TorrentsResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\UserAudibleResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/UserAudibleResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\UserEchoResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/UserEchoResource.php
-
-		-
-			message: '#^Method App\\Http\\Resources\\UserResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Resources/UserResource.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'

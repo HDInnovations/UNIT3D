@@ -35,4 +35,9 @@ return [
     'subject' => 'Soggetto',
     'to' => 'A',
     'unread' => 'Non letto',
+    'all-marked-read' => 'Tutti i tuoi messaggi sono stati contrassegnati come letti!',
+    'delete-success' => 'PM eliminato con successo!',
+    'error' => 'Cosa stai cercando di fare ?!',
+    'sent-success' => 'Il tuo messaggio privato è stato inviato con successo!',
+    'empty-inbox' => 'Svuota messaggi in arrivo',
 ];

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -25,8 +26,21 @@ class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
+     *
+     * @return array{
+     *     username: string,
+     *     group: string,
+     *     uploaded: string,
+     *     downloaded: string,
+     *     ratio: string,
+     *     buffer: string,
+     *     seeding: int,
+     *     leeching: int,
+     *     seedbonus: string,
+     *     hit_and_runs: int,
+     * }
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
         return [
             'username'     => $this->username,

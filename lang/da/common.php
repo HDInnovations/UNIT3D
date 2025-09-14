@@ -244,4 +244,5 @@ return [
     'dead' => 'Døde',
     'total' => 'Total',
     'trending' => 'Trender',
+    'deleted_at' => 'Slettet',
 ];

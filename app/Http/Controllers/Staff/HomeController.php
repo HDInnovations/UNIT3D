@@ -49,12 +49,12 @@ class HomeController extends Controller
         $systemInformation = new SystemInformation();
 
         return view('Staff.dashboard.index', [
-            'users' => cache()->remember('dashboard_users', 300, fn () => DB::table('users')
+            'users' => cache()->flexible('dashboard_users', [60 * 5, 60 * 10], fn () => DB::table('users')
                 ->selectRaw('COUNT(*) AS total')
                 ->selectRaw('SUM(group_id = ?) AS banned', [Group::where('slug', '=', 'banned')->soleValue('id')])
                 ->selectRaw('SUM(group_id = ?) AS validating', [Group::where('slug', '=', 'validating')->soleValue('id')])
                 ->first()),
-            'torrents' => cache()->remember('dashboard_torrents', 300, fn () => DB::table('torrents')
+            'torrents' => cache()->flexible('dashboard_torrents', [60 * 5, 60 * 10], fn () => DB::table('torrents')
                 ->whereNull('deleted_at')
                 ->selectRaw('COUNT(*) AS total')
                 ->selectRaw('SUM(status = 0) AS pending')
@@ -62,7 +62,7 @@ class HomeController extends Controller
                 ->selectRaw('SUM(status = 2) AS rejected')
                 ->selectRaw('SUM(status = 3) AS postponed')
                 ->first()),
-            'peers' => cache()->remember('dashboard_peers', 300, fn () => DB::table('peers')
+            'peers' => cache()->flexible('dashboard_peers', [60 * 5, 60 * 10], fn () => DB::table('peers')
                 ->selectRaw('COUNT(*) AS total')
                 ->selectRaw('SUM(active = TRUE) AS active')
                 ->selectRaw('SUM(active = FALSE) AS inactive')

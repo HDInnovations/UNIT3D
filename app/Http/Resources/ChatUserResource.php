@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -25,8 +26,24 @@ class ChatUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
+     *
+     * @return array{
+     *     id: int,
+     *     username: string,
+     *     chat_status: mixed,
+     *     chat_status_id: int,
+     *     chatroom_id: int,
+     *     group: mixed,
+     *     echoes: mixed,
+     *     group_id: int,
+     *     title: string,
+     *     image: string,
+     *     is_lifetime: bool,
+     *     is_donor: bool,
+     *     icon: string,
+     * }
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
         return [
             'id'             => $this->id,

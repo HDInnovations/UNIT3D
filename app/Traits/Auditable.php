@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
+use App\Models\Audit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -160,8 +161,8 @@ trait Auditable
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
-                'model_name'     => class_basename($model),
-                'model_entry_id' => $model->{$model->getKeyName()},
+                'auditable_type' => $model::class,
+                'auditable_id'   => $model->{$model->getKeyName()},
                 'action'         => 'create',
                 'record'         => $data,
                 'created_at'     => $now,
@@ -188,8 +189,8 @@ trait Auditable
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
-                'model_name'     => class_basename($model),
-                'model_entry_id' => $model->{$model->getKeyName()},
+                'auditable_type' => $model::class,
+                'auditable_id'   => $model->{$model->getKeyName()},
                 'action'         => 'update',
                 'record'         => $data,
                 'created_at'     => $now,
@@ -216,13 +217,21 @@ trait Auditable
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
-                'model_name'     => class_basename($model),
-                'model_entry_id' => $model->{$model->getKeyName()},
+                'auditable_type' => $model::class,
+                'auditable_id'   => $model->{$model->getKeyName()},
                 'action'         => 'delete',
                 'record'         => $data,
                 'created_at'     => $now,
                 'updated_at'     => $now,
             ]);
         }
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Audit, $this>
+     */
+    public function audits(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(Audit::class, 'auditable');
     }
 }

@@ -82,9 +82,9 @@ class PlaylistSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
      */
     final protected \Illuminate\Database\Eloquent\Collection $playlistCategories {
-        get => cache()->remember(
+        get => cache()->flexible(
             'playlist-categories',
-            3600,
+            [3600, 3600 * 2],
             fn () => PlaylistCategory::query()->orderBy('position')->get()
         );
     }

@@ -26,4 +26,5 @@ return [
     'check-news' => 'Leggi cliccando qui le notizie',
     'new-news' => 'Nuove notizie ',
     'new-torrents' => 'Nuovi torrents',
+    'latest-comments' => 'Ultimi commenti',
 ];

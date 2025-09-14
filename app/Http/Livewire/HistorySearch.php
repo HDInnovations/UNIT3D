@@ -92,7 +92,7 @@ class HistorySearch extends Component
      */
     final protected \Illuminate\Pagination\LengthAwarePaginator $histories {
         get => History::query()
-            ->with('user', 'torrent:id,name')
+            ->with('user.group', 'torrent:id,name')
             ->when(
                 $this->groupBy === 'user_id',
                 fn ($query) => $query->groupBy('user_id')

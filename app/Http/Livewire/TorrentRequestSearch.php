@@ -127,9 +127,9 @@ class TorrentRequestSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Category>
      */
     final protected \Illuminate\Database\Eloquent\Collection $categories {
-        get => cache()->remember(
+        get => cache()->flexible(
             'categories',
-            3600,
+            [3600, 3600 * 2],
             fn () => Category::query()->orderBy('position')->get(),
         );
     }
@@ -138,9 +138,9 @@ class TorrentRequestSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Type>
      */
     final protected \Illuminate\Database\Eloquent\Collection $types {
-        get => cache()->remember(
+        get => cache()->flexible(
             'types',
-            3600,
+            [3600, 3600 * 2],
             fn () => Type::query()->orderBy('position')->get(),
         );
     }
@@ -149,9 +149,9 @@ class TorrentRequestSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
     final protected \Illuminate\Database\Eloquent\Collection $resolutions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'resolutions',
-            3600,
+            [3600, 3600 * 2],
             fn () => Resolution::query()->orderBy('position')->get(),
         );
     }
@@ -160,20 +160,20 @@ class TorrentRequestSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, TmdbGenre>
      */
     final protected \Illuminate\Database\Eloquent\Collection $genres {
-        get => cache()->remember(
+        get => cache()->flexible(
             'genres',
-            3600,
+            [3600, 3600 * 2],
             fn () => TmdbGenre::query()->orderBy('name')->get(),
         );
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, TmdbMovie>
+     * @var \Illuminate\Support\Collection<int, string>
      */
     final protected \Illuminate\Support\Collection $primaryLanguages {
-        get => cache()->remember(
+        get => cache()->flexible(
             'original-languages',
-            3600,
+            [3600, 3600 * 2],
             fn () => TmdbMovie::query()
                 ->select('original_language')
                 ->distinct()

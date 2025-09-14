@@ -211,19 +211,46 @@
     <td class="torrent-search--list__size">
         <span>{{ $torrent->getSize() }}</span>
     </td>
-    <td class="torrent-search--list__seeders">
-        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-            <span>{{ $torrent->seeds_count ?? $torrent->seeders }}</span>
+    <td
+        @class([
+            'torrent-search--list__seeders',
+            'torrent-activity-indicator--seeding' => $torrent->seeding,
+        ])
+        @if ($torrent->seeding)
+            title="{{ __('torrent.currently-seeding') }}"
+        @endif
+    >
+        <a class="torrent__seeder-count" href="{{ route('peers', ['id' => $torrent->id]) }}">
+            {{ $torrent->seeds_count ?? $torrent->seeders }}
         </a>
     </td>
-    <td class="torrent-search--list__leechers">
-        <a href="{{ route('peers', ['id' => $torrent->id]) }}">
-            <span>{{ $torrent->leeches_count ?? $torrent->leechers }}</span>
+    <td
+        @class([
+            'torrent-search--list__leechers',
+            'torrent-activity-indicator--leeching' => $torrent->leeching,
+        ])
+        @if ($torrent->leeching)
+            title="{{ __('torrent.currently-leeching') }}"
+        @endif
+    >
+        <a class="torrent__leecher-count" href="{{ route('peers', ['id' => $torrent->id]) }}">
+            {{ $torrent->leeches_count ?? $torrent->leechers }}
         </a>
     </td>
-    <td class="torrent-search--list__completed">
-        <a href="{{ route('history', ['id' => $torrent->id]) }}">
-            <span>{{ $torrent->times_completed }}</span>
+    <td
+        @class([
+            'torrent-search--list__completed',
+            'torrent-activity-indicator--completed' => $torrent->completed,
+        ])
+        @if ($torrent->completed)
+            title="{{ __('torrent.completed') }}"
+        @endif
+    >
+        <a
+            class="torrent__times-completed-count"
+            href="{{ route('history', ['id' => $torrent->id]) }}"
+        >
+            {{ $torrent->times_completed }}
         </a>
     </td>
     <td class="torrent-search--list__age">

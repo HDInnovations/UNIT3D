@@ -27,9 +27,9 @@ class BlockIpAddress
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        $ipAddresses = cache()->remember(
+        $ipAddresses = cache()->flexible(
             'blocked-ips',
-            8 * 3600,
+            [8 * 3600, 9 * 3600],
             fn () => BlockedIp::query()->pluck('ip_address')->toArray()
         );
 

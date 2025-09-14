@@ -49,6 +49,18 @@
             <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
             @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post') ])
             <p class="form__group">
+                <input type="hidden" name="anon" value="0" />
+                <input
+                    type="checkbox"
+                    class="form__checkbox"
+                    id="anon"
+                    name="anon"
+                    value="1"
+                    @checked(old('anon'))
+                />
+                <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
+            </p>
+            <p class="form__group">
                 <button type="submit" class="form__button form__button--filled">
                     {{ __('common.submit') }}
                 </button>

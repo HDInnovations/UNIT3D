@@ -70,7 +70,7 @@ class TorrentController extends BaseController
      */
     public function index(): TorrentsResource
     {
-        $torrents = cache()->remember('torrent-api-index', 300, function () {
+        $torrents = cache()->flexible('torrent-api-index', [60 * 5, 60 * 6], function () {
             $torrents = Torrent::with(
                 ['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files']
             )
@@ -567,7 +567,7 @@ class TorrentController extends BaseController
         $cacheKey = $url.'?'.$queryString;
 
         /** @phpstan-ignore method.unresolvableReturnType (phpstan is unable to resolve type because it's returning a phpstan-ignored line) */
-        [$torrents, $hasMore] = cache()->remember($cacheKey, 300, function () use ($request, $isSqlAllowed) {
+        [$torrents, $hasMore] = cache()->flexible($cacheKey, [60 * 5, 60 * 6], function () use ($request, $isSqlAllowed) {
             $eagerLoads = fn (Builder $query) => $query
                 ->with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region', 'files'])
                 ->select('*')
@@ -671,7 +671,6 @@ class TorrentController extends BaseController
                             'media_info'       => $hit['mediainfo'],
                             'bd_info'          => $hit['bdinfo'],
                             'description'      => $hit['description'],
-                            'info_hash'        => $hit['info_hash'],
                             'size'             => $hit['size'],
                             'num_file'         => $hit['num_file'],
                             'files'            => $hit['files'],

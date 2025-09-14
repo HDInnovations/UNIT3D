@@ -25,26 +25,26 @@ use Livewire\Component;
 class PeerStats extends Component
 {
     final protected int $leecherCount {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'peer-stats:leecher-count',
-            10 * 60,
+            [10 * 60, 30 * 60],
             // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute leechers and total instead of seeders and leechers.
             fn () => Peer::query()->where('seeder', '=', false)->where('active', '=', true)->count()
         );
     }
 
     final protected int $peerCount {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'peer-stats:peer-count',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => Peer::query()->where('active', '=', true)->count(),
         );
     }
 
     final protected int $totalSeeded {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'peer-stats:total-seeded',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => History::query()
                 ->join('torrents', 'history.torrent_id', '=', 'torrents.id')
                 ->where('history.active', '=', true)

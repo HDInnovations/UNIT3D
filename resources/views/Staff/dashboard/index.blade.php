@@ -228,6 +228,24 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.ticket_categories.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-tags"></i>
+                        {{ __('staff.ticket-categories') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.ticket_priorities.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
+                        {{ __('staff.ticket-priorities') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.whitelisted_image_urls.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-globe"></i>

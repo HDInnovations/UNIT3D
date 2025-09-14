@@ -56,6 +56,16 @@ if (!\function_exists('href_request')) {
     }
 }
 
+if (!\function_exists('href_rottentomatoes')) {
+    function href_rottentomatoes(string|null $title, string|null $date): string
+    {
+        $year = substr($date ?? '', 0, 4);
+        $query = "{$title}  ({$year}) site:rottentomatoes.com";
+
+        return "https://html.duckduckgo.com/html/?q=\\".rawurlencode($query);
+    }
+}
+
 if (!\function_exists('href_poll')) {
     function href_poll(App\Models\Poll $poll): string
     {

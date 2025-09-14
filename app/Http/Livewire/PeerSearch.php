@@ -119,7 +119,7 @@ class PeerSearch extends Component
                         'peers.connectable',
                     ])
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
-                    ->with(['user', 'user.group', 'torrent:id,name,size'])
+                    ->with(['user.group', 'torrent:id,name,size'])
             )
             ->when(
                 $this->groupBy === 'user_session',
@@ -139,7 +139,7 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.active = FALSE) as inactive_count')
                     ->selectRaw('ROUND(COALESCE(SUM(peers.active = FALSE) / SUM(peers.active = TRUE), 0), 2) as inactive_ratio')
                     ->groupBy(['peers.user_id', 'peers.agent', 'peers.ip', 'peers.port'])
-                    ->with(['user', 'user.group'])
+                    ->with(['user.group'])
             )
             ->when(
                 $this->groupBy === 'user_ip',
@@ -161,7 +161,7 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.active = FALSE) as inactive_count')
                     ->selectRaw('ROUND(COALESCE(SUM(peers.active = FALSE) / SUM(peers.active = TRUE), 0), 2) as inactive_ratio')
                     ->groupBy(['peers.user_id', 'peers.ip'])
-                    ->with(['user', 'user.group'])
+                    ->with(['user.group'])
             )
             ->when(
                 $this->groupBy === 'user',
@@ -183,7 +183,7 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.active = FALSE) as inactive_count')
                     ->selectRaw('ROUND(COALESCE(SUM(peers.active = FALSE) / SUM(peers.active = TRUE), 0), 2) as inactive_ratio')
                     ->groupBy(['peers.user_id'])
-                    ->with(['user', 'user.group'])
+                    ->with(['user.group'])
             )
             ->when(
                 $this->sharedIpsOnly,

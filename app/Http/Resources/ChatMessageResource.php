@@ -18,6 +18,7 @@ namespace App\Http\Resources;
 
 use App\Helpers\Bbcode;
 use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -29,8 +30,19 @@ class ChatMessageResource extends JsonResource
      * Transform the resource into an array.
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return array{
+     *     id: int,
+     *     bot: BotResource,
+     *     user: ChatUserResource,
+     *     receiver: ChatUserResource,
+     *     chatroom: ChatRoomResource,
+     *     message: string,
+     *     created_at: string,
+     *     updated_at: string,
+     * }
      */
-    public function toArray($request): array
+    public function toArray(Request $request): array
     {
         $emojiOne = new LaravelJoyPixels();
 

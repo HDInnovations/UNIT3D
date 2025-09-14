@@ -46,6 +46,12 @@ Route::middleware(['auth:'.AuthGuard::API->value, 'banned'])->group(function ():
         Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
     });
 
+    // Requests System
+    Route::prefix('requests')->group(function (): void {
+        Route::get('/filter', [App\Http\Controllers\API\TorrentRequestController::class, 'filter']);
+        Route::get('/{id}', [App\Http\Controllers\API\TorrentRequestController::class, 'show'])->where('id', '[0-9]+');
+    });
+
     // User
     Route::get('/user', [App\Http\Controllers\API\UserController::class, 'show']);
 });

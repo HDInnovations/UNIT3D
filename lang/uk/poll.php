@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,20 +11,24 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'add-option'      => 'Додати варіант',
-    'create-poll'     => 'Створити голосування',
-    'current'         => 'Поточне голосування',
-    'delete-option'   => 'Видалити варіант',
-    'multiple-choice' => 'Це голосування з декількома варіантами вибору. Виберіть стільки відповідей, скільки бажаєте.',
-    'option'          => 'Варіант',
-    'poll'            => 'Голосування',
-    'polls'           => 'Голосування',
-    'results'         => 'Результати голосування',
-    'title'           => 'Назва',
-    'total'           => 'Всього голосів',
-    'vote'            => 'Голосувати',
-    'vote-now'        => 'Віддайте свій голос зараз!',
-    'votes'           => 'Голосів',
+    'add-option' => 'Додати варіант',
+    'create-poll' => 'Створити голосування',
+    'current' => 'Поточні голосування',
+    'delete-option' => 'Видалити варіант',
+    'multiple-choice' => 'Опитування дозволяє вибирати кілька варіантів відповідей одночасно.',
+    'option' => 'Варіант',
+    'poll' => 'Голосування',
+    'polls' => 'Голосування',
+    'results' => 'Результати голосування',
+    'title' => 'Назва',
+    'total' => 'Всього голосів',
+    'vote' => 'Голосувати',
+    'vote-now' => 'Віддайте свій голос зараз!',
+    'votes' => 'Голосів',
+    'already-voted-error' => 'Ви вже зробили свій вибір. Голос не зараховано.',
+    'already-voted-result' => 'Ви вже проголосували в цьому опитуванні. Ось результати.',
+    'expired-voted-result' => 'Опитування завершилося. Пропонуємо вашій увазі результати.',
+    'edit-poll' => 'Редагувати опитування',
+    'vote-counted' => 'Ваш голос зараховано.',
+    'close-date' => 'Закрити опитування після',
 ];

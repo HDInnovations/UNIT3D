@@ -46,6 +46,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $approved_when
  * @property int|null                        $type_id
  * @property int|null                        $resolution_id
+ * @property int|null                        $season_number
+ * @property int|null                        $episode_number
  */
 class TorrentRequest extends Model
 {
@@ -191,6 +193,16 @@ class TorrentRequest extends Model
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(TmdbTv::class, 'tmdb_tv_id');
+    }
+
+    /**
+     * Belongs To A Game.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<IgdbGame, $this>
+     */
+    public function game(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(IgdbGame::class, 'igdb_game_id');
     }
 
     /**

@@ -18,18 +18,27 @@ namespace App\Http\Controllers;
 
 use App\Models\History;
 use App\Models\Torrent;
+use App\Models\TorrentReseed;
 use App\Models\User;
 use App\Notifications\NewReseedRequest;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
-class ReseedController extends Controller
+class TorrentReseedController extends Controller
 {
     /**
-     * ReseedController Constructor.
+     * TorrentReseedController Constructor.
      */
     public function __construct(private readonly ChatRepository $chatRepository)
     {
+    }
+
+    /**
+     * Display a listing of torrent reseed requests.
+     */
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('torrent-reseed.index');
     }
 
     /**
@@ -37,13 +46,39 @@ class ReseedController extends Controller
      */
     public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        // TODO: Store reseed requests so can be viewed in a table view.
-
         $torrent = Torrent::findOrFail($id);
-        $potentialReseeds = History::where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
+        $userId = $request->user()->id;
+
+        // Check if this user has already made a reseed request for this torrent
+        $existingUserReseed = TorrentReseed::where('torrent_id', '=', $torrent->id)
+            ->where('user_id', '=', $userId)
+            ->first();
+
+        if ($existingUserReseed) {
+            return to_route('torrents.show', ['id' => $torrent->id])
+                ->withErrors('You have already made a reseed request for this torrent.');
+        }
+
+        // Check seeders condition and if a request already exists for this torrent
+        $existingReseed = TorrentReseed::where('torrent_id', '=', $torrent->id)->first();
 
         if ($torrent->seeders <= 2) {
-            // Send Notification
+            if ($existingReseed) {
+                $existingReseed->increment('requests_count');
+                $existingReseed->save();
+
+                return to_route('torrents.show', ['id' => $torrent->id])
+                    ->with('success', 'A reseed request already exists. Your request has been counted.');
+            }
+            TorrentReseed::create([
+                'torrent_id'     => $torrent->id,
+                'user_id'        => $userId,
+                'requests_count' => 1,
+            ]);
+
+            // Send notifications
+            $potentialReseeds = History::where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
+
             foreach ($potentialReseeds as $potentialReseed) {
                 User::find($potentialReseed->user_id)->notify(new NewReseedRequest($torrent));
             }

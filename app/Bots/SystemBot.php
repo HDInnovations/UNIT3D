@@ -122,46 +122,33 @@ class SystemBot
     /**
      * Process Message.
      */
-    public function process(string $type, User $user, string $message = ''): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    public function process(string $type, User $user, string $message): \Illuminate\Http\Response|bool
     {
         $this->target = $user;
 
-        if ($type === 'message') {
-            $x = 0;
-            $y = 1;
-            $z = 2;
-        } else {
-            $x = 1;
-            $y = 2;
-            $z = 3;
+        if ($type !== 'message') {
+            $message = trim(strstr($message, ' ') ?: '');
         }
 
-        if ($message === '') {
-            $log = '';
-        } else {
-            $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
-        }
+        $firstWord = strstr($message, ' ', true);
 
-        $command = @explode(' ', $message);
+        switch ($firstWord) {
+            case 'gift':
+                [, $username, $amount, $message] = mb_split(' +', $message, 4) + [null, null, null, null];
 
-        if (\array_key_exists($x, $command)) {
-            if ($command[$x] === 'gift' && \array_key_exists($y, $command) && \array_key_exists($z, $command) && \array_key_exists($z + 1, $command)) {
-                $clone = $command;
-                array_shift($clone);
-                array_shift($clone);
-                array_shift($clone);
-                array_shift($clone);
-                $log = $this->putGift($command[$y], (float) $command[$z], $clone);
-            }
+                $this->log = $this->putGift($username, $amount, $message);
 
-            if ($command[$x] === 'help') {
-                $log = $this->getHelp();
-            }
+                break;
+            case 'help':
+                $this->log = $this->getHelp();
+
+                break;
+            default:
+                $this->log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
 
         $this->type = $type;
         $this->message = $message;
-        $this->log = $log;
 
         return $this->pm();
     }
@@ -169,7 +156,7 @@ class SystemBot
     /**
      * Output Message.
      */
-    public function pm(): \Illuminate\Http\Response|bool|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    public function pm(): \Illuminate\Http\Response|true
     {
         $type = $this->type;
         $target = $this->target;
@@ -181,16 +168,14 @@ class SystemBot
             $echoes = cache()->remember(
                 'user-echoes'.$target->id,
                 3600,
-                fn () => UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
+                fn () => UserEcho::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
             );
 
             if ($echoes->doesntContain(fn ($echo) => $echo->bot_id == $this->bot->id)) {
-                UserEcho::create([
+                $echoes->push(UserEcho::create([
                     'user_id'   => $target->id,
                     'target_id' => $this->bot->id,
-                ]);
-
-                $echoes = UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                ]));
 
                 cache()->put('user-echoes'.$target->id, $echoes, 3600);
 
@@ -201,17 +186,15 @@ class SystemBot
             $audibles = cache()->remember(
                 'user-audibles'.$target->id,
                 3600,
-                fn () => UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
+                fn () => UserAudible::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
             );
 
             if ($audibles->doesntContain(fn ($audible) => $audible->bot_id == $this->bot->id)) {
-                UserAudible::create([
+                $audibles->push(UserAudible::create([
                     'user_id'   => $target->id,
                     'target_id' => $this->bot->id,
-                    'status'    => false,
-                ]);
-
-                $audibles = UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $target->id)->get();
+                    'status'    => 0,
+                ]));
 
                 cache()->put('user-audibles'.$target->id, $audibles, 3600);
 
@@ -219,29 +202,23 @@ class SystemBot
             }
 
             // Create message
-            if ($txt !== '') {
-                $roomId = 0;
-                $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
-                $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
-            }
+            $roomId = 0;
+            $this->chatRepository->privateMessage($target->id, $roomId, $message, 1, $this->bot->id);
+            $this->chatRepository->privateMessage(1, $roomId, $txt, $target->id, $this->bot->id);
 
             return response('success');
         }
 
         if ($type === 'echo') {
-            if ($txt !== '') {
-                $roomId = 0;
-                $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
-            }
+            $roomId = 0;
+            $this->chatRepository->botMessage($this->bot->id, $roomId, $txt, $target->id);
 
             return response('success');
         }
 
         if ($type === 'public') {
-            if ($txt !== '') {
-                $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-                $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
-            }
+            $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
+            $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
 
             return response('success');
         }

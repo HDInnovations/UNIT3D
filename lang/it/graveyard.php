@@ -22,4 +22,13 @@ return [
     'pending' => 'in attesa di',
     'resurrect' => 'riesumare',
     'reward' => 'Token Freeleech',
+    'current-seedtime' => 'Tempo di semina attuale',
+    'not-rewarded' => 'Non ricompensato',
+    'resurrect-canceled' => 'Resurrezione annullata con successo!',
+    'resurrect-complete' => 'Resurrezione del Torrent completata! Sarai ricompensato automaticamente una volta soddisfatti i requisiti di seed time.',
+    'resurrect-date' => 'Data di resurrezione',
+    'resurrect-failed-own' => 'Resurrezione del torrent fallita! Non puoi resuscitare i tuoi uploads.',
+    'resurrect-failed-pending' => 'Resurrezione del torrent fallita! Questo torrent è già in attesa di essere resuscitato.',
+    'rewarded' => 'Premiato',
+    'seedtime-goal' => 'Obiettivo di semina',
 ];

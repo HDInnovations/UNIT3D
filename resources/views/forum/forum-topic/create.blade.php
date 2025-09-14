@@ -63,6 +63,18 @@
                     </label>
                 </p>
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'required' => true ])
+                <p class="form__group">
+                    <input type="hidden" name="anon" value="0" />
+                    <input
+                        type="checkbox"
+                        class="form__checkbox"
+                        id="anon"
+                        name="anon"
+                        value="1"
+                        @checked(old('anon'))
+                    />
+                    <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
+                </p>
                 <button class="form__button form__button--filled">
                     {{ __('forum.send-new-topic') }}
                 </button>

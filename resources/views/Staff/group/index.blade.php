@@ -63,6 +63,7 @@
                         <th>Min Avg Seedtime</th>
                         <th>Min Seedsize</th>
                         <th>Min Uploads</th>
+                        <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -332,6 +333,37 @@
                                 <td></td>
                                 <td></td>
                             @endif
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('staff.groups.edit', ['group' => $group]) }}"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    @unless ($group->system_required)
+                                        <li class="data-table__action">
+                                            <form
+                                                action="{{ route('staff.groups.destroy', ['group' => $group]) }}"
+                                                method="POST"
+                                                x-data="confirmation"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    x-on:click.prevent="confirmAction"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this group: ' . $group->name . '? All users in this group will be moved to their appropriate groups.') }}"
+                                                    class="form__button form__button--text"
+                                                >
+                                                    {{ __('common.delete') }}
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endunless
+                                </menu>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

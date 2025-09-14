@@ -19,6 +19,7 @@ namespace App\Http\Livewire;
 use App\Models\Bookmark;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -57,12 +58,21 @@ class UserBookmarks extends Component
                 'torrents.times_completed',
                 'torrents.size',
                 'torrents.created_at as torrent_created_at',
+                DB::raw('history.active AND history.seeder AS seeding'),
+                DB::raw('history.active AND NOT history.seeder AS leeching'),
+                DB::raw('NOT history.active AND history.seeder AS completed'),
             ])
             ->withCasts([
                 'bookmark_created_at' => 'datetime',
                 'torrent_created_at'  => 'datetime',
             ])
             ->join('torrents', 'torrents.id', '=', 'bookmarks.torrent_id')
+            ->leftJoin(
+                'history',
+                fn ($join) => $join
+                    ->on('history.torrent_id', '=', 'bookmarks.torrent_id')
+                    ->on('history.user_id', '=', 'bookmarks.user_id')
+            )
             ->where('bookmarks.user_id', '=', $this->user->id)
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);

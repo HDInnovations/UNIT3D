@@ -51,17 +51,9 @@ class TopTorrents extends Component
                     'history as leeching' => fn ($query) => $query->where('user_id', '=', $this->user->id)
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
-                    'history as not_completed' => fn ($query) => $query->where('user_id', '=', $this->user->id)
+                    'history as completed' => fn ($query) => $query->where('user_id', '=', $this->user->id)
                         ->where('active', '=', 0)
-                        ->where('seeder', '=', 0)
-                        ->whereNull('completed_at'),
-                    'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $this->user->id)
-                        ->where('active', '=', 0)
-                        ->where(
-                            fn ($query) => $query
-                                ->where('seeder', '=', 1)
-                                ->orWhereNotNull('completed_at')
-                        ),
+                        ->where('seeder', '=', 1),
                 ])
                 ->selectRaw(<<<SQL
                     CASE
@@ -72,7 +64,7 @@ class TopTorrents extends Component
                         WHEN category_id IN (SELECT id FROM categories WHERE no_meta = 1) THEN 'no'
                     END AS meta
                 SQL)
-                ->withCount(['thanks', 'comments'])
+                ->withCount(['comments'])
                 ->when($this->tab === 'newest', fn ($query) => $query->orderByDesc('id'))
                 ->when($this->tab === 'seeded', fn ($query) => $query->orderByDesc('seeders'))
                 ->when(

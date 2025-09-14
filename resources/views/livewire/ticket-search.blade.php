@@ -121,25 +121,15 @@
                                 ($ticket->user_id === auth()->id() && $ticket->user_read === false))
                                 <i
                                     style="color: #0dffff; vertical-align: 1px"
-                                    class="fas fa-circle fa-xs"
+                                    class="{{ config('other.font-awesome') }} fa-circle fa-xs"
                                 ></i>
                             @endif
                         </td>
                         <td>
-                            @switch($ticket->priority->name)
-                                @case('Low')
-                                    <i class="fas fa-circle text-yellow"></i>
-
-                                    @break
-                                @case('Medium')
-                                    <i class="fas fa-circle text-orange"></i>
-
-                                    @break
-                                @case('High')
-                                    <i class="fas fa-circle text-red"></i>
-
-                                    @break
-                            @endswitch
+                            <i
+                                class="{{ config('other.font-awesome') }} {{ $ticket->priority->icon }}"
+                                style="color: {{ $ticket->priority->color }}"
+                            ></i>
                             {{ $ticket->priority->name }}
                         </td>
                         <td>

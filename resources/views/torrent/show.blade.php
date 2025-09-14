@@ -29,15 +29,15 @@
 @section('main')
     @switch(true)
         @case($torrent->category->movie_meta)
-            @include('torrent.partials.movie-meta', ['category' => $torrent->category, 'tmdb' => $torrent->tmdb_movie_id])
+            @include('torrent.partials.movie-meta', ['category' => $torrent->category, 'meta' => $torrent->movie, 'tmdb' => $torrent->tmdb_movie_id])
 
             @break
         @case($torrent->category->tv_meta)
-            @include('torrent.partials.tv-meta', ['category' => $torrent->category, 'tmdb' => $torrent->tmdb_tv_id])
+            @include('torrent.partials.tv-meta', ['category' => $torrent->category, 'meta' => $torrent->tv, 'tmdb' => $torrent->tmdb_tv_id])
 
             @break
         @case($torrent->category->game_meta)
-            @include('torrent.partials.game-meta', ['category' => $torrent->category, 'igdb' => $torrent->igdb])
+            @include('torrent.partials.game-meta', ['category' => $torrent->category, 'meta' => $torrent->game, 'igdb' => $torrent->igdb])
 
             @break
         @default
@@ -82,7 +82,7 @@
     @endif
 
     {{-- Extra Meta Block --}}
-    @include('torrent.partials.extra-meta')
+    @include('torrent.partials.extra-meta', ['meta' => $torrent->movie ?? $torrent->tv ?? $torrent->game ?? null])
 
     {{-- Comments Block --}}
     @include('torrent.partials.comments')

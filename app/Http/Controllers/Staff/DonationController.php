@@ -20,7 +20,6 @@ use App\Enums\ModerationStatus;
 use App\Helpers\StringHelper;
 use App\Models\Conversation;
 use App\Services\Unit3dAnnounce;
-use Carbon\Carbon;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
@@ -68,7 +67,7 @@ class DonationController extends Controller
     {
         abort_unless($request->user()->group->is_owner, 403);
 
-        $now = Carbon::now();
+        $now = now();
 
         $donation = Donation::with(['user', 'package'])->findOrFail($id);
         $donation->status = ModerationStatus::APPROVED;

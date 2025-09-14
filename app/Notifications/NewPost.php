@@ -88,27 +88,31 @@ class NewPost extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(User $notifiable): array
     {
+        $username = ($this->post->anon && !$notifiable->group->is_modo && !$notifiable->is($this->user))
+            ? 'Anonymous'
+            : $this->user->username;
+
         if ($this->type == 'subscription') {
             return [
-                'title' => $this->user->username.' Has Posted In A Subscribed Topic',
-                'body'  => $this->user->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
+                'title' => $username.' Has Posted In A Subscribed Topic',
+                'body'  => $username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
                 'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
             ];
         }
 
         if ($this->type == 'staff') {
             return [
-                'title' => $this->user->username.' Has Posted In A Staff Forum Topic',
-                'body'  => $this->user->username.' has left a new post in Staff Topic '.$this->post->topic->name,
+                'title' => $username.' Has Posted In A Staff Forum Topic',
+                'body'  => $username.' has left a new post in Staff Topic '.$this->post->topic->name,
                 'url'   => \sprintf('%s/posts/%s', route('topics.show', ['id' => $this->post->topic->id]), $this->post->id),
             ];
         }
 
         return [
-            'title' => $this->user->username.' Has Posted In A Topic You Started',
-            'body'  => $this->user->username.' has left a new post in Your Topic '.$this->post->topic->name,
+            'title' => $username.' Has Posted In A Topic You Started',
+            'body'  => $username.' has left a new post in Your Topic '.$this->post->topic->name,
             'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
         ];
     }

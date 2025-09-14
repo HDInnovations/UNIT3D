@@ -28,38 +28,38 @@ return new class () extends Migration {
 
         $locations = [
             [
-                'baseNames'    => DB::table('articles')->whereNotNull('image')->pluck('image')->toArray(),
+                'baseNames'    => DB::table('articles')->whereNotNull('image')->where('image', '!=', '')->pluck('image')->toArray(),
                 'oldDirectory' => public_path('files/img'),
                 'newDirectory' => storage_path('app/images/articles/images'),
             ],
             [
-                'baseNames'    => DB::table('ticket_attachments')->pluck('file_name')->toArray(),
+                'baseNames'    => DB::table('ticket_attachments')->where('file_name', '!=', '')->pluck('file_name')->toArray(),
                 'oldDirectory' => public_path('files/attachments'),
                 'newDirectory' => storage_path('app/files/attachments/files'),
             ],
             [
                 // cspell:ignore profil
-                'baseNames'    => DB::table('users')->whereNotNull('image')->whereNotIn('image', ['profil.png', 'profile.png'])->pluck('image')->toArray(),
+                'baseNames'    => DB::table('users')->whereNotNull('image')->where('image', '!=', '')->whereNotIn('image', ['profil.png', 'profile.png'])->pluck('image')->toArray(),
                 'oldDirectory' => public_path('files/img'),
                 'newDirectory' => storage_path('app/images/users/avatars'),
             ],
             [
-                'baseNames'    => DB::table('users')->whereNotNull('icon')->pluck('icon')->toArray(),
+                'baseNames'    => DB::table('users')->whereNotNull('icon')->where('icon', '!=', '')->pluck('icon')->toArray(),
                 'oldDirectory' => public_path('files/img'),
                 'newDirectory' => storage_path('app/images/users/icons'),
             ],
             [
-                'baseNames'    => DB::table('categories')->whereNotNull('image')->pluck('image')->toArray(),
+                'baseNames'    => DB::table('categories')->whereNotNull('image')->where('image', '!=', '')->pluck('image')->toArray(),
                 'oldDirectory' => public_path('files/img'),
                 'newDirectory' => storage_path('app/images/categories/images'),
             ],
             [
-                'baseNames'    => DB::table('playlists')->whereNotNull('cover_image')->pluck('cover_image')->toArray(),
+                'baseNames'    => DB::table('playlists')->whereNotNull('cover_image')->where('cover_image', '!=', '')->pluck('cover_image')->toArray(),
                 'oldDirectory' => public_path('files/img'),
                 'newDirectory' => storage_path('app/images/playlists/images'),
             ],
             [
-                'baseNames'    => DB::table('subtitles')->pluck('file_name')->toArray(),
+                'baseNames'    => DB::table('subtitles')->where('file_name', '!=', '')->pluck('file_name')->toArray(),
                 'oldDirectory' => public_path('files/subtitles'),
                 'newDirectory' => storage_path('app/files/subtitles/files'),
             ],
@@ -74,7 +74,7 @@ return new class () extends Migration {
                 'newDirectory' => storage_path('app/images/torrents/covers'),
             ],
             [
-                'baseNames'    => DB::table('torrents')->pluck('file_name')->toArray(),
+                'baseNames'    => DB::table('torrents')->where('file_name', '!=', '')->pluck('file_name')->toArray(),
                 'oldDirectory' => public_path('files/torrents'),
                 'newDirectory' => storage_path('app/files/torrents/files'),
             ],

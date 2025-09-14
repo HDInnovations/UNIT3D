@@ -20,6 +20,10 @@ it('runs successfully', function (): void {
     $this->artisan('auto:group')
         ->assertExitCode(0)
         ->run();
+});
 
-    // TODO: perform additional assertions to ensure the command behaved as expected
+it('runs successfully with targeted users', function (): void {
+    $this->artisan('auto:group', ['user_ids' => [1, 2, 3]])
+        ->assertExitCode(0)
+        ->run();
 });

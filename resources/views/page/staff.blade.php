@@ -24,9 +24,6 @@
                             {{ $user->username }}
                         </h3>
                         <i class="fal {{ $user->group->icon }} user-card__icon"></i>
-                        <p class="user-card__group">
-                            {{ __('page.staff-group') }}: {{ $group->name }}
-                        </p>
                         @if ($user->title !== null)
                             <p class="user-card__title">
                                 {{ __('page.staff-title') }}: {{ $user->title }}

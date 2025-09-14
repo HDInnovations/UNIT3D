@@ -33,7 +33,7 @@ class TorrentPeerController extends Controller
         return view('torrent.peers', [
             'torrent' => $torrent,
             'peers'   => Peer::query()
-                ->with('user')
+                ->with('user.group')
                 ->select(['torrent_id', 'user_id', 'uploaded', 'downloaded', 'left', 'port', 'agent', 'created_at', 'updated_at', 'seeder', 'active', 'visible', 'connectable'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
                 ->where('torrent_id', '=', $id)

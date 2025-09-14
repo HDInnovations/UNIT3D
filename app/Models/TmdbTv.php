@@ -110,7 +110,17 @@ class TmdbTv extends Model
     public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits')
-            ->wherePivot('occupation_id', '=', Occupation::CREATOR->value);
+            ->wherePivot('occupation_id', '=', Occupation::CREATOR);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbPerson, $this>
+     */
+    public function actors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits')
+            ->wherePivot('occupation_id', '=', Occupation::ACTOR)
+            ->orderByPivot('order');
     }
 
     /**

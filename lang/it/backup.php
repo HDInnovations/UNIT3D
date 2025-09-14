@@ -39,4 +39,5 @@ return [
     'manager' => 'Manager',
     'no_disks_configured' => 'Nessun disco di backup configurato in config / backup.php',
     'only_local_downloads_supported' => 'Sono supportati solo i download dal filesystem locale.',
+    'backup_process_started' => 'Nuovo processo di backup avviato',
 ];

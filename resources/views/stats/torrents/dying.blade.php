@@ -30,9 +30,24 @@
                     <tr>
                         <th>#</th>
                         <th>{{ __('torrent.torrent') }}</th>
-                        <th>{{ __('torrent.seeders') }}</th>
-                        <th>{{ __('torrent.leechers') }}</th>
-                        <th>{{ __('torrent.completed') }}</th>
+                        <th
+                            title="{{ __('torrent.seeders') }}"
+                            style="text-align: right; min-width: 40px"
+                        >
+                            <i class="fas fa-arrow-alt-circle-up"></i>
+                        </th>
+                        <th
+                            title="{{ __('torrent.leechers') }}"
+                            style="text-align: right; min-width: 40px"
+                        >
+                            <i class="fas fa-arrow-alt-circle-down"></i>
+                        </th>
+                        <th
+                            title="{{ __('torrent.completed') }}"
+                            style="text-align: right; min-width: 40px"
+                        >
+                            <i class="fas fa-check-circle"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,9 +59,30 @@
                                     {{ $torrent->name }}
                                 </a>
                             </td>
-                            <td>{{ $torrent->seeders }}</td>
-                            <td>{{ $torrent->leechers }}</td>
-                            <td>{{ $torrent->times_completed }}</td>
+                            <td style="text-align: right">
+                                <a
+                                    class="torrent__seeder-count"
+                                    href="{{ route('peers', ['id' => $torrent->id]) }}"
+                                >
+                                    {{ $torrent->seeders }}
+                                </a>
+                            </td>
+                            <td style="text-align: right">
+                                <a
+                                    class="torrent__leecher-count"
+                                    href="{{ route('peers', ['id' => $torrent->id]) }}"
+                                >
+                                    {{ $torrent->leechers }}
+                                </a>
+                            </td>
+                            <td style="text-align: right">
+                                <a
+                                    class="torrent__times-completed-count"
+                                    href="{{ route('history', ['id' => $torrent->id]) }}"
+                                >
+                                    {{ $torrent->times_completed }}
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

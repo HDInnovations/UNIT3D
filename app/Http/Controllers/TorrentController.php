@@ -23,19 +23,14 @@ use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Http\Requests\StoreTorrentRequest;
 use App\Http\Requests\UpdateTorrentRequest;
-use App\Models\Audit;
 use App\Models\Category;
 use App\Models\Distributor;
-use App\Models\History;
-use App\Models\IgdbGame;
 use App\Models\Keyword;
-use App\Models\TmdbMovie;
 use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
-use App\Models\TmdbTv;
 use App\Models\Type;
 use App\Models\User;
 use App\Notifications\TorrentDeleted;
@@ -82,12 +77,46 @@ class TorrentController extends Controller
      */
     public function show(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $user = $request->user();
+        $user = $request->user()->load(['group', 'playlists']);
 
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists', 'reports', 'featured'])
+        $torrent = Torrent::query()
+            ->withoutGlobalScope(ApprovedScope::class)
+            ->with([
+                'user.group',
+                'comments',
+                'category',
+                'featured',
+                'files',
+                'game' => [
+                    'genres',
+                    'companies',
+                    'platforms',
+                ],
+                'history' => fn ($query) => $query->where('user_id', '=', $user->id),
+                'keywords',
+                'movie' => [
+                    'genres',
+                    'credits' => ['person', 'occupation'],
+                    'companies',
+                    'collections.movies' => fn ($query) => $query->withMin('torrents', 'category_id')->has('torrents'),
+                    'recommendedMovies'  => fn ($query) => $query->withMin('torrents', 'category_id')->has('torrents'),
+                ],
+                'playlists',
+                'resolution',
+                'subtitles',
+                'type',
+                'tv' => [
+                    'genres',
+                    'credits' => ['person', 'occupation'],
+                    'companies',
+                    'networks',
+                    'recommendedTv' => fn ($query) => $query->withMin('torrents', 'category_id')->has('torrents'),
+                ],
+            ])
             ->withCount([
                 'bookmarks',
+                'files',
+                'thanks',
                 'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                 'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
             ])
@@ -95,50 +124,85 @@ class TorrentController extends Controller
                 'featured as featured',
                 'bookmarks'       => fn ($query) => $query->where('user_id', '=', $user->id),
                 'freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id),
-                'trump'
+                'trump',
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', true)
+                    ->where('seeder', '=', true),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', true)
+                    ->where('seeder', '=', false),
+                'history as completed' => fn ($query) => $query->where('user_id', '=', $user->id)
+                    ->where('active', '=', false)
+                    ->where('seeder', '=', true),
+                'resurrections' => fn ($query) => $query->where('rewarded', '=', false),
             ])
+            ->withSum('tips as total_tips', 'bon')
+            ->withSum(['tips as user_tips' => fn ($query) => $query->where('sender_id', '=', $user->id)], 'bon')
+            ->withMax(['history' => fn ($query) => $query->where('seeder', '=', true)], 'updated_at')
+            ->when(
+                $user->group->is_modo,
+                fn ($query) => $query
+                    ->with([
+                        'audits.user.group',
+                        'downloads' => fn ($query) => $query->latest()->with('user.group'),
+                        'reports',
+                    ])
+                    ->withCount([
+                        'downloads',
+                    ])
+            )
+            ->when(
+                $user->group->is_torrent_modo,
+                fn ($query) => $query->with([
+                    'moderated.group',
+                ])
+            )
             ->findOrFail($id);
 
-        $meta = null;
+        $fileTree = [];
 
-        if ($torrent->category->tv_meta && $torrent->tmdb_tv_id) {
-            $meta = TmdbTv::with([
-                'genres',
-                'credits' => ['person', 'occupation'],
-                'companies',
-                'networks',
-                'recommendedTv' => fn ($query) => $query
-                    ->select('tmdb_tv.id', 'tmdb_tv.name', 'tmdb_tv.poster', 'tmdb_tv.first_air_date')
-                    ->withMin('torrents', 'category_id')
-                    ->has('torrents'),
-            ])->find($torrent->tmdb_tv_id);
+        foreach ($torrent->files->sortBy('name') as $index => $file) {
+            $parts = explode('/', trim($file->name, '/'));
+
+            $current = &$fileTree;
+
+            for ($i = 0; $i < \count($parts) - 1; $i++) {
+                $part = $parts[$i];
+
+                /** @phpstan-ignore function.impossibleType (PHPStan doesn't recognize that $current might not be empty in subsequent loops)*/
+                if (!\array_key_exists($part, $current)) {
+                    $current[$part] = [
+                        'type'     => 'directory',
+                        'children' => [],
+                    ];
+                }
+
+                $current = &$current[$part]['children'];
+            }
+
+            $current[$parts[$i]] = [
+                'type' => 'file',
+                'size' => $file->size,
+            ];
         }
 
-        if ($torrent->category->movie_meta && $torrent->tmdb_movie_id) {
-            $meta = TmdbMovie::with([
-                'genres',
-                'credits' => ['person', 'occupation'],
-                'companies',
-                'collections.movies' => fn ($query) => $query
-                    ->select('tmdb_movies.id', 'tmdb_movies.title', 'tmdb_movies.poster', 'tmdb_movies.release_date')
-                    ->withMin('torrents', 'category_id')
-                    ->has('torrents'),
-                'recommendedMovies' => fn ($query) => $query
-                    ->select('tmdb_movies.id', 'tmdb_movies.title', 'tmdb_movies.poster', 'tmdb_movies.release_date')
-                    ->withMin('torrents', 'category_id')
-                    ->has('torrents'),
-            ])
-                ->find($torrent->tmdb_movie_id);
-        }
+        $calculateTotals = function (array &$children) use (&$calculateTotals): array {
+            $totalSize = 0;
+            $totalCount = 0;
 
-        if ($torrent->category->game_meta && $torrent->igdb) {
-            $meta = IgdbGame::with([
-                'genres',
-                'companies',
-                'platforms',
-            ])
-                ->find($torrent->igdb);
-        }
+            foreach ($children as &$child) {
+                if ($child['type'] === 'directory') {
+                    [$child['size'], $child['count']] = $calculateTotals($child['children']);
+                }
+
+                $totalSize += $child['size'];
+                $totalCount += $child['count'] ?? 1;
+            }
+
+            return [$totalSize, $totalCount];
+        };
+
+        $calculateTotals($fileTree);
 
         return view('torrent.show', [
             'torrent' => $torrent,
@@ -153,13 +217,8 @@ class TorrentController extends Controller
                     )
                 ),
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
-            'meta'               => $meta,
-            'total_tips'         => $torrent->tips()->sum('bon'),
-            'user_tips'          => $torrent->tips()->where('sender_id', '=', $user->id)->sum('bon'),
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
-            'last_seed_activity' => History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first(),
-            'playlists'          => $user->playlists,
-            'audits'             => Audit::with('user')->where('model_entry_id', '=', $torrent->id)->where('model_name', '=', 'Torrent')->latest()->get(),
+            'fileTree'           => $fileTree,
         ]);
     }
 

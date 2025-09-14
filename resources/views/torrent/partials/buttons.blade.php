@@ -19,7 +19,7 @@
                     {{ __('common.download') }}
                 </a>
             @endif
-        @else
+        @elseif (config('torrent.magnet'))
             <a
                 href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => $user->rsskey]) }}&tr={{ route('announce', ['passkey' => $user->passkey]) }}&xl={{ $torrent->size }}"
                 class="form__button form__button--filled form__button--centered"
@@ -131,7 +131,7 @@
                 @csrf
                 <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                 <div>
-                    {!! __('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}.
+                    {!! __('torrent.torrent-tips', ['total' => $torrent->total_tips ?? 0, 'user' => $torrent->user_tips ?? 0]) !!}.
                     <span>({{ __('torrent.torrent-tips-desc') }})</span>
                 </div>
                 <div class="form__group">
@@ -180,12 +180,14 @@
                 <h4 class="dialog__heading">
                     {{ __('common.files') }}
                 </h4>
-                <div class="dialog__actions">
-                    <div class="dialog__action">
-                        {{ __('torrent.info-hash') }}:
-                        {{ bin2hex($torrent->info_hash) }}
+                @if ($user->group->is_modo)
+                    <div class="dialog__actions">
+                        <div class="dialog__action">
+                            {{ __('torrent.info-hash') }}:
+                            {{ bin2hex($torrent->info_hash) }}
+                        </div>
                     </div>
-                </div>
+                @endif
             </header>
             <div x-bind="dialogForm" x-data="tabs" data-default-tab="hierarchy">
                 <menu class="panel__tabs">
@@ -211,7 +213,7 @@
                                 {{ $torrent->folder }}
                             </span>
                             <span style="grid-area: count; padding-right: 4px">
-                                ({{ $torrent->files()->count() }})
+                                ({{ $torrent->files_count }})
                             </span>
                             <span
                                 class="text-info"
@@ -223,97 +225,7 @@
                         </span>
                     @endif
 
-                    @foreach ($files = $torrent->files->sortBy(fn ($file) => (($dir = dirname($file->name)) === '.' ? chr(0xFF) : $dir."/".chr(0xFF)).basename($file->name), SORT_NATURAL)->values() as $file)
-                        @php
-                            $prevNodes = explode('/', $files[$loop->index - 1]->name ?? ' ');
-                        @endphp
-
-                        @foreach ($nodes = explode("/", $file->name) as $node)
-                            @if (($prevNodes[$loop->index] ?? '') != $node)
-                                @for ($depth = count($prevNodes); $depth > $loop->index; $depth--)
-                                    {{-- format-ignore-start --}}
-                                    </details>
-                                    {{-- format-ignore-end --}}
-                                @endfor
-
-                                @for ($depth = $loop->index; $depth < $loop->count; $depth++)
-                                    {{-- format-ignore-start --}}
-                                    <details style="margin-left: 20px;">
-                                    {{-- format-ignore-end --}}
-                                    <summary
-                                        @style([
-                                            'padding: 8px;',
-                                            'list-style-position: outside',
-                                            'cursor: pointer' => $depth !== $loop->count - 1,
-                                            'list-style-type: none' => $depth === $loop->count - 1,
-                                        ])
-                                    >
-                                        <span
-                                            style="
-                                                display: grid;
-                                                grid-template-areas: 'icon2 folder count . size';
-                                                grid-template-columns: 24px auto auto 1fr auto;
-                                                gap: 4px;
-                                            "
-                                        >
-                                            @if ($depth == $loop->count - 1)
-                                                <i
-                                                    class="{{ config('other.font-awesome') }} fa-file"
-                                                    style="grid-area: icon2"
-                                                ></i>
-                                                <span style="word-break: break-all">
-                                                    {{ $nodes[$depth] }}
-                                                </span>
-                                                <span
-                                                    style="
-                                                        grid-area: size;
-                                                        white-space: nowrap;
-                                                        text-align: right;
-                                                    "
-                                                    title="{{ $file->size }}&nbsp;B"
-                                                >
-                                                    {{ $file->getSize() }}
-                                                </span>
-                                            @else
-                                                <i
-                                                    class="{{ config('other.font-awesome') }} fa-folder"
-                                                    style="grid-area: icon2"
-                                                ></i>
-                                                <span>
-                                                    {{ $nodes[$depth] }}
-                                                </span>
-                                                @php
-                                                    $filteredFiles = $files->filter(
-                                                        fn ($value) => str_starts_with(
-                                                            $value->name,
-                                                            implode('/', array_slice($nodes, 0, $depth + 1)) . '/'
-                                                        )
-                                                    );
-                                                @endphp
-
-                                                <span style="grid-area: count">
-                                                    ({{ $filteredFiles->count() }})
-                                                </span>
-                                                <span
-                                                    class="text-info"
-                                                    style="
-                                                        grid-area: size;
-                                                        white-space: nowrap;
-                                                        text-align: right;
-                                                    "
-                                                    title="{{ $filteredFiles->sum('size') }}&nbsp;B"
-                                                >
-                                                    {{ App\Helpers\StringHelper::formatBytes($filteredFiles->sum('size'), 2) }}
-                                                </span>
-                                            @endif
-                                        </span>
-                                    </summary>
-                                @endfor
-
-                                @break
-                            @endif
-                        @endforeach
-                    @endforeach
+                    @each('torrent.partials.file-tree-node', $fileTree, 'node')
                 </div>
                 <div class="data-table-wrapper" x-bind="tabPanel" data-tab="list">
                     <table class="data-table">
@@ -348,7 +260,7 @@
             'bookmarksCount' => $torrent->bookmarks_count ?? 0,
         ])
     </li>
-    @if ($playlists->count() > 0)
+    @if ($user->playlists->count() > 0)
         <li x-data="dialog" class="form__group form__group--short-horizontal">
             <button
                 class="form__button form__button--outlined form__button--centered"
@@ -369,7 +281,7 @@
                     <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                     <p class="form__group">
                         <select id="playlist_id" name="playlist_id" class="form__select">
-                            @foreach ($playlists as $playlist)
+                            @foreach ($user->playlists as $playlist)
                                 <option value="{{ $playlist->id }}">{{ $playlist->name }}</option>
                             @endforeach
                         </select>
@@ -395,14 +307,9 @@
     @endif
 
     @if ($torrent->seeders <= 2 &&
-        /* $history is used inside the resurrection code below and assumes is set if torrent->seeders are equal to 0 */
-        null !==
-            ($history = $user
-                ->history()
-                ->where('torrent_id', $torrent->id)
-                ->first()) &&
-        $history->seeder == 0 &&
-        $history->active == 1)
+    $torrent->history->first() !== null &&
+    ! $torrent->history->first()->seeder &&
+    $torrent->history->first()->active)
         <li class="form__group form__group--short-horizontal">
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"
@@ -418,7 +325,7 @@
         </li>
     @endif
 
-    @if (DB::table('resurrections')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
+    @if ($torrent->resurrections_exists)
         <li class="form__group form__group--short-horizontal">
             <button class="form__button form__button--outlined form__button--centered" disabled>
                 {{ strtolower(__('graveyard.pending')) }}
@@ -451,11 +358,11 @@
                     <p>
                         {!! __('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
                         <span class="text-red text-bold">
-                            {{ $history === null ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                            {{ $torrent->history->first() === null ? '0' : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime) }}
                         </span>
                         {{ strtolower(__('graveyard.howto-hits')) }}
                         <span class="text-red text-bold">
-                            {{ $history === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($history->seedtime + config('graveyard.time')) }}
+                            {{ $torrent->history->first() === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime + config('graveyard.time')) }}
                         </span>
                         {{ strtolower(__('graveyard.howto-desc2')) }}
                         <span

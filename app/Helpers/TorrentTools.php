@@ -48,6 +48,7 @@ class TorrentTools
 
         $result['info']['source'] = config('torrent.source');
         $result['info']['private'] = 1;
+        $result['info']['entropy'] = bin2hex(random_bytes(64));
 
         if (config('torrent.created_by_append') && \array_key_exists('created by', $result)) {
             $result['created by'] = trim((string) $result['created by'], '. ').'. '.config('torrent.created_by', '');

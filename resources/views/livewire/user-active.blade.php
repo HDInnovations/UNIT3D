@@ -175,15 +175,6 @@
                     @endif
 
                     <th
-                        class="user-active__seeding-header"
-                        wire:click="sortBy('seeder')"
-                        role="columnheader button"
-                        title="{{ __('torrent.seeding') }}"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'seeder'])
-                    </th>
-                    <th
                         class="user-active__visible-header"
                         wire:click="sortBy('visible')"
                         role="columnheader button"
@@ -260,25 +251,44 @@
                                     {{ $active->name }}
                                 </a>
                             </td>
-                            <td class="user-active__seeders">
-                                <a href="{{ route('peers', ['id' => $active->torrent_id]) }}">
-                                    <span class="text-green">
-                                        {{ $active->seeders }}
-                                    </span>
+                            <td
+                                @class([
+                                    'user-active__seeders',
+                                    'torrent-activity-indicator--seeding' => $active->seeding,
+                                ])
+                                @if ($active->seeding)
+                                    title="{{ __('torrent.currently-seeding') }}"
+                                @endif
+                            >
+                                <a
+                                    class="torrent__seeder-count"
+                                    href="{{ route('peers', ['id' => $active->torrent_id]) }}"
+                                >
+                                    {{ $active->seeders }}
                                 </a>
                             </td>
-                            <td class="user-active__leechers">
-                                <a href="{{ route('peers', ['id' => $active->torrent_id]) }}">
-                                    <span class="text-red">
-                                        {{ $active->leechers }}
-                                    </span>
+                            <td
+                                @class([
+                                    'user-active__leechers',
+                                    'torrent-activity-indicator--leeching' => $active->leeching,
+                                ])
+                                @if ($active->leeching)
+                                    title="{{ __('torrent.currently-leeching') }}"
+                                @endif
+                            >
+                                <a
+                                    class="torrent__leecher-count"
+                                    href="{{ route('peers', ['id' => $active->torrent_id]) }}"
+                                >
+                                    {{ $active->leechers }}
                                 </a>
                             </td>
                             <td class="user-active__times">
-                                <a href="{{ route('history', ['id' => $active->torrent_id]) }}">
-                                    <span class="text-orange">
-                                        {{ $active->times_completed }}
-                                    </span>
+                                <a
+                                    class="torrent__times-completed-count"
+                                    href="{{ route('history', ['id' => $active->torrent_id]) }}"
+                                >
+                                    {{ $active->times_completed }}
                                 </a>
                             </td>
                             <td class="user-active__agent">
@@ -322,26 +332,6 @@
                                 </td>
                             @endif
 
-                            <td class="user-active__seeding">
-                                @if ($active->active)
-                                    @if ($active->seeder)
-                                        <i
-                                            class="{{ config('other.font-awesome') }} text-green fa-arrow-up"
-                                            title="{{ __('torrent.seeding') }}"
-                                        ></i>
-                                    @else
-                                        <i
-                                            class="{{ config('other.font-awesome') }} text-red fa-arrow-down"
-                                            title="Not {{ __('torrent.seeding') }}"
-                                        ></i>
-                                    @endif
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-blue circle-stop"
-                                        title="Stopped {{ __('torrent.seeding') }}"
-                                    ></i>
-                                @endif
-                            </td>
                             <td
                                 class="user-active__visible {{ $active->visible ? 'text-green' : 'text-red' }}"
                             >

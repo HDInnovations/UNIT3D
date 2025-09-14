@@ -105,6 +105,44 @@
                             {{ __('request.resolution') }}
                         </label>
                     </p>
+                    <div class="form__group--horizontal" x-show="cats[cat].type === 'tv'">
+                        <p class="form__group">
+                            <input
+                                type="text"
+                                name="season_number"
+                                id="season_number"
+                                class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                value="{{ old('season_number') }}"
+                                x-bind:required="cats[cat].type === 'tv'"
+                            />
+                            <label class="form__label form__label--floating" for="season_number">
+                                {{ __('torrent.season-number') }}
+                            </label>
+                            <span class="form__hint">
+                                Numeric digits only. Use 0 only for specials and complete packs.
+                            </span>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                type="text"
+                                name="episode_number"
+                                id="episode_number"
+                                class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                value="{{ old('episode_number') }}"
+                                x-bind:required="cats[cat].type === 'tv'"
+                            />
+                            <label class="form__label form__label--floating" for="episode_number">
+                                {{ __('torrent.episode-number') }}
+                            </label>
+                            <span class="form__hint">
+                                Numeric digits only. Use 0 only for season packs and complete packs.
+                            </span>
+                        </p>
+                    </div>
                     <div
                         class="form__group--horizontal"
                         x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"

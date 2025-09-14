@@ -173,10 +173,6 @@ class TmdbPersonCredit extends Component
                         'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                     ]),
                 )
-                ->when(
-                    config('other.thanks-system.is-enabled'),
-                    fn ($query) => $query->withCount('thanks')
-                )
                 ->withExists([
                     'featured as featured',
                     'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
@@ -187,17 +183,9 @@ class TmdbPersonCredit extends Component
                     'history as leeching' => fn ($query) => $query->where('user_id', '=', auth()->id())
                         ->where('active', '=', 1)
                         ->where('seeder', '=', 0),
-                    'history as not_completed' => fn ($query) => $query->where('user_id', '=', auth()->id())
+                    'history as completed' => fn ($query) => $query->where('user_id', '=', auth()->id())
                         ->where('active', '=', 0)
-                        ->where('seeder', '=', 0)
-                        ->whereNull('completed_at'),
-                    'history as not_seeding' => fn ($query) => $query->where('user_id', '=', auth()->id())
-                        ->where('active', '=', 0)
-                        ->where(
-                            fn ($query) => $query
-                                ->where('seeder', '=', 1)
-                                ->orWhereNotNull('completed_at')
-                        ),
+                        ->where('seeder', '=', 1),
                     'trump',
                 ])
                 ->where(

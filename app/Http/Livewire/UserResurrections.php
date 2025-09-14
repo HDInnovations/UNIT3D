@@ -19,6 +19,7 @@ namespace App\Http\Livewire;
 use App\Models\Resurrection;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -67,10 +68,19 @@ class UserResurrections extends Component
                 'resurrections.created_at',
                 'resurrections.seedtime',
                 'resurrections.rewarded',
-                'resurrections.torrent_id'
+                'resurrections.torrent_id',
+                DB::raw('history.active AND history.seeder AS seeding'),
+                DB::raw('history.active AND NOT history.seeder AS leeching'),
+                DB::raw('NOT history.active AND history.seeder AS completed'),
             ])
             ->with(['torrent', 'user'])
             ->leftJoin('torrents', 'torrents.id', '=', 'resurrections.torrent_id')
+            ->leftJoin(
+                'history',
+                fn ($join) => $join
+                    ->on('history.torrent_id', '=', 'resurrections.torrent_id')
+                    ->on('history.user_id', '=', 'resurrections.user_id')
+            )
             ->where('resurrections.user_id', '=', $this->user->id)
             ->when($this->rewarded === 'include', fn ($query) => $query->where('rewarded', '=', 1))
             ->when($this->rewarded === 'exclude', fn ($query) => $query->where('rewarded', '=', 0))

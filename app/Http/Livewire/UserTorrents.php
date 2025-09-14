@@ -19,6 +19,7 @@ namespace App\Http\Livewire;
 use App\Models\History;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -120,10 +121,11 @@ class UserTorrents extends Component
                 'torrents.size',
                 'torrents.user_id',
                 'torrents.status',
+                DB::raw('history.active AND history.seeder AS seeding'),
+                DB::raw('history.active AND NOT history.seeder AS leeching'),
+                DB::raw('NOT history.active AND history.seeder AS completed'),
             )
             ->selectRaw('torrents.user_id = ? AS uploader', [$this->user->id])
-            ->selectRaw('history.active AND history.seeder AS seeding')
-            ->selectRaw('history.active AND NOT history.seeder AS leeching')
             ->selectRaw('TIMESTAMPDIFF(SECOND, history.created_at, history.completed_at) AS leechtime')
             ->selectRaw('CAST(history.uploaded AS float) / CAST((history.downloaded + 1) AS float) AS ratio')
             ->selectRaw('CAST(history.actual_uploaded AS float) / CAST((history.actual_downloaded + 1) AS float) AS actual_ratio')

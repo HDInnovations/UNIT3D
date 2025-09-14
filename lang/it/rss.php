@@ -26,4 +26,8 @@ return [
     'rss' => 'RSS',
     'rss-feed' => 'RSS Feed',
     'type' => 'Sorgente',
+    'created' => 'Feed RSS privato creato',
+    'deleted' => 'Feed RSS eliminato!',
+    'error' => 'Impossibile elaborare la richiesta',
+    'updated' => 'Feed RSS privato aggiornato',
 ];
