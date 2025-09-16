@@ -36,6 +36,10 @@ class RandomMedia extends Component
                 ->select(['id', 'backdrop', 'title', 'release_date'])
                 ->withMin('torrents', 'category_id')
                 ->whereIn('id', $movieIds)
+                ->when(
+                    auth()->user()->settings?->hide_adult_content,
+                    fn ($query) => $query->where('adult', '=', false)
+                )
                 ->get();
         }
     }
@@ -53,6 +57,10 @@ class RandomMedia extends Component
                 ->select(['id', 'backdrop', 'name', 'first_air_date'])
                 ->withMin('torrents', 'category_id')
                 ->whereIn('id', $tvIds)
+                ->when(
+                    auth()->user()->settings?->hide_adult_content,
+                    fn ($query) => $query->where('adult', '=', false)
+                )
                 ->get();
         }
     }

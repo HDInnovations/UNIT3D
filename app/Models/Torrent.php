@@ -383,6 +383,7 @@ class Torrent extends Model
                     'year', YEAR(tmdb_tv.first_air_date),
                     'poster', tmdb_tv.poster,
                     'original_language', tmdb_tv.original_language,
+                    'adult', tmdb_tv.adult != 0,
                     'rating', tmdb_tv.vote_average,
                     'companies', (
                         SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(

@@ -327,10 +327,20 @@ readonly class TorrentSearchFiltersDTO
             ->when(
                 $this->adult === true,
                 fn ($query) => $query
-                    ->whereRelation('category', 'movie_meta', '=', true)
-                    ->whereRelation('movie', 'adult', '=', true)
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                                    ->whereRelation('movie', 'adult', '=', true)
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'tv_meta', '=', true)
+                                    ->whereRelation('tv', 'adult', '=', true)
+                            )
+                    )
             )
-            // Currently, only movies have an `adult` column.
             ->when(
                 $this->adult === false,
                 fn ($query) => $query
@@ -343,7 +353,13 @@ readonly class TorrentSearchFiltersDTO
                             )
                             ->orWhere(
                                 fn ($query) => $query
+                                    ->whereRelation('category', 'tv_meta', '=', true)
+                                    ->whereRelation('tv', 'adult', '=', false)
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
                                     ->whereRelation('category', 'movie_meta', '=', false)
+                                    ->whereRelation('category', 'tv_meta', '=', false)
                             )
                     )
             )
@@ -531,7 +547,10 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->adult !== null) {
-            $filters[] = 'tmdb_movie.adult = '.($this->adult ? 'true' : 'false');
+            $filters[] = [
+                'tmdb_movie.adult = '.($this->adult ? 'true' : 'false'),
+                'tmdb_tv.adult = '.($this->adult ? 'true' : 'false'),
+            ];
         }
 
         if ($this->tmdbId !== null) {

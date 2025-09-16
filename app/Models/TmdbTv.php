@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property string|null                     $tmdb_id
+ * @property bool|null                       $adult
  * @property string|null                     $imdb_id
  * @property string|null                     $tvdb_id
  * @property string|null                     $type

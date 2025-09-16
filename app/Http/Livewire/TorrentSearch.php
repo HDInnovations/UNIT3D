@@ -382,10 +382,11 @@ class TorrentSearch extends Component
             genreIds: $this->genreIds,
             regionIds: $this->regionIds,
             distributorIds: $this->distributorIds,
-            adult: match ($this->adult) {
-                'include' => true,
-                'exclude' => false,
-                default   => null,
+            adult: match (true) {
+                $this->adult === 'include'                                             => true,
+                $this->adult === 'exclude'                                             => false,
+                $this->adult === 'any' && auth()->user()->settings->hide_adult_content => false,
+                default                                                                => null,
             },
             tmdbId: $this->tmdbId,
             imdbId: $this->imdbId === '' ? null : ((int) (preg_match('/tt0*(\d{7,})/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)),

@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property ?string                         $standalone_css
  * @property bool                            $show_poster
  * @property bool                            $unbookmark_torrents_on_completion
+ * @property bool                            $hide_adult_content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -124,6 +125,7 @@ class UserSetting extends Model
             'torrent_filters'                   => 'bool',
             'show_poster'                       => 'bool',
             'unbookmark_torrents_on_completion' => 'bool',
+            'hide_adult_content'                => 'bool',
         ];
     }
 

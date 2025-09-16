@@ -81,6 +81,23 @@ class TopTorrents extends Component
                         ->where('seeders', '=', 0)
                         ->orderByDesc('leechers')
                 )
+                ->when(
+                    $this->user?->settings?->hide_adult_content,
+                    fn ($query) => $query
+                        ->where(
+                            fn ($query) => $query
+                                ->where(
+                                    fn ($query) => $query
+                                        ->whereRelation('category', 'movie_meta', '=', true)
+                                        ->whereRelation('movie', 'adult', '=', false)
+                                )
+                                ->orWhere(
+                                    fn ($query) => $query
+                                        ->whereRelation('category', 'tv_meta', '=', true)
+                                        ->whereRelation('tv', 'adult', '=', false)
+                                )
+                        )
+                )
                 ->take(5)
                 ->get();
 

@@ -201,6 +201,7 @@ return [
                             'tmdb_tv.id',
                             'tmdb_tv.name',
                             'tmdb_tv.original_language',
+                            'tmdb_tv.adult',
                             'tmdb_tv.genres.id',
                             'tmdb_tv.networks.id',
                             'tmdb_tv.companies.id',

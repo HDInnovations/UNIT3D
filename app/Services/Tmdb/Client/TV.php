@@ -337,6 +337,7 @@ class TV
 
     /**
      * @return ?array{
+     *     adult: bool,
      *     backdrop: ?string,
      *     episode_run_time: mixed,
      *     first_air_date: mixed,
@@ -364,6 +365,7 @@ class TV
     {
         if (isset($this->data['id'], $this->data['name'])) {
             return [
+                'adult'              => $this->data['adult'] ?? false,
                 'backdrop'           => $this->tmdb->image('backdrop', $this->data),
                 'episode_run_time'   => $this->tmdb->ifHasItems('episode_run_time', $this->data),
                 'first_air_date'     => $this->tmdb->ifExists('first_air_date', $this->data),
