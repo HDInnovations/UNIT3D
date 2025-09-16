@@ -1958,6 +1958,7 @@ DROP TABLE IF EXISTS `tmdb_tv`;
 CREATE TABLE `tmdb_tv` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `tmdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `adult` tinyint(1) DEFAULT NULL,
   `imdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tvdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2481,6 +2482,7 @@ CREATE TABLE `user_settings` (
   `standalone_css` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `show_poster` tinyint(1) NOT NULL DEFAULT '0',
   `unbookmark_torrents_on_completion` tinyint(1) NOT NULL,
+  `hide_adult_content` tinyint(1) NOT NULL DEFAULT '0',
   `torrent_sort_field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `torrent_search_autofocus` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -3033,3 +3035,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_22_06
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (359,'2025_08_30_015125_create_torrent_reseeds_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_013312_add_color_icon_to_ticket_priorities_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_09_02_140036_add_anon_to_posts_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_07_235939_add_adult_content_setting_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (363,'2025_09_07_235945_add_adult_column_to_tmdb_tv',1);
