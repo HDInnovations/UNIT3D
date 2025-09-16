@@ -64,8 +64,8 @@ class UserWarningExpired extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Warnings Expired',
-            'body'  => 'One or more of your warnings have expired or been seeded off!',
+            'title' => 'Warning Expired',
+            'body'  => 'One or more of your warnings have expired or been seeded off',
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }
