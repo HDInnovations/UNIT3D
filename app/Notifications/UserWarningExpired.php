@@ -50,7 +50,7 @@ class UserWarningExpired extends Notification
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Warnings Expired!')
+            ->greeting('Warning Expired')
             ->line('One or more of your warnings have expired or been seeded off.')
             ->action('View Profile!', $profileUrl)
             ->line('Thank you for using 🚀'.config('other.title'));
