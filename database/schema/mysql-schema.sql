@@ -1988,7 +1988,8 @@ CREATE TABLE `tmdb_tv` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `trailer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `tv_name_index` (`name`)
+  KEY `tv_name_index` (`name`),
+  KEY `tmdb_tv_adult_index` (`adult`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `topic_reads`;
@@ -2482,7 +2483,7 @@ CREATE TABLE `user_settings` (
   `standalone_css` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `show_poster` tinyint(1) NOT NULL DEFAULT '0',
   `unbookmark_torrents_on_completion` tinyint(1) NOT NULL,
-  `hide_adult_content` tinyint(1) NOT NULL DEFAULT '0',
+  `show_adult_content` tinyint(1) NOT NULL DEFAULT '1',
   `torrent_sort_field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `torrent_search_autofocus` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
