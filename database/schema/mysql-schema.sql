@@ -3038,4 +3038,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_01
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_09_02_140036_add_anon_to_posts_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_07_235939_add_adult_content_setting_to_user_settings',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (363,'2025_09_07_235945_add_adult_column_to_tmdb_tv',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_08_000029_make_audits_morphable',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (364,'2025_09_08_000029_make_audits_morphable',1);
