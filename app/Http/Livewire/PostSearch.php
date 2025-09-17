@@ -40,7 +40,7 @@ class PostSearch extends Component
      */
     final protected \Illuminate\Pagination\LengthAwarePaginator $posts {
         get => Post::query()
-            ->with('user', 'user.group', 'topic:id,name,state')
+            ->with('user.group', 'topic:id,name,state')
             ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
             ->withSum('tips', 'bon')
             ->withExists([

@@ -80,9 +80,9 @@ class Trending extends Component
                 default   => 'tmdb_movie_id',
             };
 
-            return cache()->remember(
+            return cache()->flexible(
                 'trending-'.$this->interval.'-'.($this->from ?? '').'-'.($this->until ?? '').'-'.$this->metaType,
-                0, //3600,
+                [1800, 7200],
                 fn () => Torrent::query()
                     ->with('movie', 'tv')
                     ->addSelect([
@@ -122,9 +122,9 @@ class Trending extends Component
                 default   => 'tmdb_movie_id',
             };
 
-            return cache()->remember(
+            return cache()->flexible(
                 'weekly-charts:'.$this->metaType,
-                24 * 3600,
+                [24 * 3600, 4 * 24 * 3600],
                 fn () => Torrent::query()
                     ->withoutGlobalScopes()
                     ->with('movie', 'tv')
@@ -171,9 +171,9 @@ class Trending extends Component
                 default   => 'tmdb_movie_id',
             };
 
-            return cache()->remember(
+            return cache()->flexible(
                 'monthly-charts:'.$this->metaType,
-                24 * 3600,
+                [24 * 3600, 4 * 24 * 3600],
                 fn () => Torrent::query()
                     ->withoutGlobalScopes()
                     ->with($this->metaType === 'movie_meta' ? 'movie' : 'tv')
@@ -217,9 +217,9 @@ class Trending extends Component
                 default   => 'tmdb_movie_id',
             };
 
-            return cache()->remember(
+            return cache()->flexible(
                 'trending-by-release-year:'.$this->metaType,
-                24 * 3600,
+                [24 * 3600, 4 * 24 * 3600],
                 fn () => Torrent::query()
                     ->withoutGlobalScopes()
                     ->with($this->metaType === 'movie_meta' ? 'movie' : 'tv')

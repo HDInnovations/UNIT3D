@@ -24,9 +24,9 @@ class TopNavComposer
         $user = auth()->user()->load('group');
 
         $view->with([
-            'pages' => cache()->remember(
+            'pages' => cache()->flexible(
                 'cached-pages',
-                3600,
+                [3600, 3600 * 2],
                 fn () => Page::select(['id', 'name', 'created_at'])->take(6)->get()
             ),
             'hasUnreadTicket' => Ticket::query()
@@ -63,14 +63,14 @@ class TopNavComposer
                 return $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
             }),
             // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
-            'peerCount' => cache()->remember(
+            'peerCount' => cache()->flexible(
                 "users:{$user->id}:peer-count",
-                60,
+                [60, 60 * 2],
                 fn () => $user->peers()->where('active', '=', 1)->count(),
             ),
-            'leechCount' => cache()->remember(
+            'leechCount' => cache()->flexible(
                 "users:{$user->id}:leech-count",
-                60,
+                [60, 60 * 2],
                 fn () => $user->peers()->where('active', '=', 1)->where('seeder', '=', false)->count(),
             ),
             'hasActiveWarning'    => $user->warnings()->where('active', '=', true)->exists(),
@@ -85,14 +85,14 @@ class TopNavComposer
                 ->exists(),
             'hasUnreadPm'           => $user->participations()->where('read', '=', false)->exists(),
             'hasUnreadNotification' => $user->unreadNotifications()->exists(),
-            'uploadCount'           => cache()->remember(
+            'uploadCount'           => cache()->flexible(
                 "users:{$user->id}:upload-count",
-                60,
+                [60, 60 * 2],
                 fn () => $user->torrents()->count(),
             ),
-            'downloadCount' => cache()->remember(
+            'downloadCount' => cache()->flexible(
                 "users:{$user->id}:download-count",
-                60,
+                [60, 60 * 2],
                 fn () => $user->history()->withoutGlobalScopes()->where('actual_downloaded', '>', 0)->count(),
             ),
             'user' => $user,

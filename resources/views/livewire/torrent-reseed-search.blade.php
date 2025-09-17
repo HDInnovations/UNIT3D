@@ -55,8 +55,15 @@
                     <tr>
                         <th>{{ __('common.user') }}</th>
                         <th>{{ __('torrent.torrent') }}</th>
-                        <th>{{ __('torrent.seeders') }}</th>
-                        <th>{{ __('torrent.leechers') }}</th>
+                        <th title="{{ __('torrent.seeders') }}">
+                            <i class="fas fa-arrow-alt-circle-up"></i>
+                        </th>
+                        <th title="{{ __('torrent.leechers') }}">
+                            <i class="fas fa-arrow-alt-circle-down"></i>
+                        </th>
+                        <th title="{{ __('torrent.completed') }}">
+                            <i class="fas fa-check-circle"></i>
+                        </th>
                         <th wire:click="sortBy('requests_count')" role="columnheader button">
                             {{ __('request.requests') }}
                             @include('livewire.includes._sort-icon', ['field' => 'requests_count'])
@@ -80,10 +87,28 @@
                                 </a>
                             </td>
                             <td>
-                                {{ $torrentReseed->torrent->seeders }}
+                                <a
+                                    class="torrent__seeder-count"
+                                    href="{{ route('peers', ['id' => $torrentReseed->torrent->id]) }}"
+                                >
+                                    {{ $torrentReseed->torrent->seeders }}
+                                </a>
                             </td>
                             <td>
-                                {{ $torrentReseed->torrent->leechers }}
+                                <a
+                                    class="torrent__leecher-count"
+                                    href="{{ route('peers', ['id' => $torrentReseed->torrent->id]) }}"
+                                >
+                                    {{ $torrentReseed->torrent->leechers }}
+                                </a>
+                            </td>
+                            <td>
+                                <a
+                                    class="torrent__times-completed-count"
+                                    href="{{ route('history', ['id' => $torrentReseed->torrent->id]) }}"
+                                >
+                                    {{ $torrentReseed->torrent->times_completed }}
+                                </a>
                             </td>
                             <td>
                                 {{ $torrentReseed->requests_count }}

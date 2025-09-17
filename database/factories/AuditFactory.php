@@ -38,8 +38,8 @@ class AuditFactory extends Factory
     {
         return [
             'user_id'        => User::factory(),
-            'model_name'     => $this->faker->word(),
-            'model_entry_id' => $this->faker->randomDigitNotNull(),
+            'auditable_type' => $this->faker->word(),
+            'auditable_id'   => $this->faker->randomDigitNotNull(),
             'action'         => $this->faker->word(),
             'record'         => json_encode(["key" => "value"], JSON_THROW_ON_ERROR),
         ];

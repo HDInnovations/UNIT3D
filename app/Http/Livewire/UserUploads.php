@@ -74,6 +74,20 @@ class UserUploads extends Component
         get => Torrent::query()
             ->withCount('thanks', 'comments')
             ->withSum('tips', 'bon')
+            ->withExists([
+                'history as seeding' => fn ($query) => $query
+                    ->whereBelongsTo($this->user)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query
+                    ->whereBelongsTo($this->user)
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as completed' => fn ($query) => $query
+                    ->whereBelongsTo($this->user)
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 1),
+            ])
             ->withoutGlobalScope(ApprovedScope::class)
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)

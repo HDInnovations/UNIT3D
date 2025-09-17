@@ -150,7 +150,7 @@ class RssController extends Controller
         if (\is_object($search)) {
             $cacheKey = 'rss:'.$rss->id;
 
-            $torrents = cache()->remember($cacheKey, 300, function () use ($search) {
+            $torrents = cache()->flexible($cacheKey, [60 * 5, 60 * 6], function () use ($search) {
                 $filters = new TorrentSearchFiltersDTO(
                     name: $search->search ?? '',
                     description: $search->description ?? '',

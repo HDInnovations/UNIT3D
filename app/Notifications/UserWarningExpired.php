@@ -16,20 +16,19 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
-use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserWarningExpire extends Notification
+class UserWarningExpired extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user, public Torrent $torrent)
+    public function __construct(public User $user)
     {
     }
 
@@ -51,8 +50,8 @@ class UserWarningExpire extends Notification
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Hit and Run Warning Expired!')
-            ->line('Your Hit and Run Warning has expired or been seeded off!')
+            ->greeting('Warning Expired')
+            ->line('One or more of your warnings have expired or been seeded off.')
             ->action('View Profile!', $profileUrl)
             ->line('Thank you for using 🚀'.config('other.title'));
     }
@@ -65,9 +64,9 @@ class UserWarningExpire extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->torrent->name.' Hit and Run Warning Expired',
-            'body'  => 'Your Hit and Run Warning has expired or been seeded off on '.$this->torrent->name,
-            'url'   => \sprintf('/torrents/%s', $this->torrent->id),
+            'title' => 'Warning Expired',
+            'body'  => 'One or more of your warnings have expired or been seeded off',
+            'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }
 }

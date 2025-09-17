@@ -26,9 +26,9 @@ use Livewire\Component;
 class TorrentStats extends Component
 {
     final protected int $totalCount {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'torrent-stats:total-count',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => Torrent::query()->count(),
         );
     }
@@ -37,9 +37,9 @@ class TorrentStats extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
     final protected \Illuminate\Database\Eloquent\Collection $resolutions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'torrent-stats:resolutions',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => Resolution::query()->withCount('torrents')->orderBy('position')->get(),
         );
     }
@@ -48,17 +48,17 @@ class TorrentStats extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Category>
      */
     final protected \Illuminate\Database\Eloquent\Collection $categories {
-        get => cache()->remember(
+        get => cache()->flexible(
             'torrent-stats:categories',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => Category::query()->withCount('torrents')->orderBy('position')->get(),
         );
     }
 
     final protected int $sizeSum {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'torrent-stats:size-sum',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => Torrent::query()->sum('size'),
         );
     }

@@ -30,8 +30,6 @@
 .user-torrents__updated-at-header,
 .user-torrents__completed-at-header,
 .user-torrents__prewarned-header,
-.user-torrents__seeding-header,
-.user-torrents__leeching-header,
 .user-torrents__warned-header,
 .user-torrents__immune-header,
 .user-torrents__uploader-header,
@@ -59,8 +57,6 @@
     font-size: 14px;
 }
 
-.user-torrents__seeding,
-.user-torrents__leeching,
 .user-torrents__warned,
 .user-torrents__immune,
 .user-torrents__uploader,
@@ -89,14 +85,10 @@
     text-align: right;
 }
 
-.user-torrents__seeding-header,
-.user-torrents__leeching-header,
 .user-torrents__warned-header,
 .user-torrents__immune-header,
 .user-torrents__uploader-header,
 .user-torrents__status-header,
-.user-torrents__seeding,
-.user-torrents__leeching,
 .user-torrents__warned,
 .user-torrents__immune,
 .user-torrents__uploader,

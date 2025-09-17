@@ -19,12 +19,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Requests\UpdateTorrentRequestRequest;
 use App\Models\Category;
-use App\Models\IgdbGame;
-use App\Models\TmdbMovie;
 use App\Models\Resolution;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
-use App\Models\TmdbTv;
 use App\Models\Type;
 use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
@@ -58,36 +55,39 @@ class RequestController extends Controller
     public function show(Request $request, TorrentRequest $torrentRequest): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('requests.show', [
-            'torrentRequest' => $torrentRequest->load(['category', 'claim.user.group', 'bounties.user.group', 'torrent']),
-            'user'           => $request->user(),
-            'canEdit'        => $request->user()->group->is_modo || TorrentRequest::query()
+            'torrentRequest' => $torrentRequest->load([
+                'bounties.user.group',
+                'category',
+                'claim.user.group',
+                'game' => [
+                    'genres',
+                    'companies',
+                    'platforms',
+                ],
+                'movie' => [
+                    'genres',
+                    'credits' => ['person', 'occupation'],
+                    'companies',
+                    'collections.movies'
+                ],
+                'resolution',
+                'torrent',
+                'tv' => [
+                    'genres',
+                    'credits' => ['person', 'occupation'],
+                    'companies',
+                    'networks',
+                ],
+                'type',
+                'user.group',
+            ]),
+            'user'    => $request->user()->load('group'),
+            'canEdit' => $request->user()->group->is_modo || TorrentRequest::query()
                 ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
                 ->whereDoesntHave('claim')
                 ->whereNull('filled_by')
                 ->whereKey($torrentRequest)
                 ->exists(),
-            'meta' => match (true) {
-                ($torrentRequest->category->tv_meta && $torrentRequest->tmdb_tv_id) => TmdbTv::with([
-                    'genres',
-                    'credits' => ['person', 'occupation'],
-                    'networks',
-                ])
-                    ->find($torrentRequest->tmdb_tv_id),
-                ($torrentRequest->category->movie_meta && $torrentRequest->tmdb_movie_id) => TmdbMovie::with([
-                    'genres',
-                    'credits' => ['person', 'occupation'],
-                    'companies',
-                    'collections.movies'
-                ])
-                    ->find($torrentRequest->tmdb_movie_id),
-                ($torrentRequest->category->game_meta && $torrentRequest->igdb) => IgdbGame::with([
-                    'genres',
-                    'companies',
-                    'platforms',
-                ])
-                    ->find($torrentRequest->igdb),
-                default => null,
-            },
         ]);
     }
 

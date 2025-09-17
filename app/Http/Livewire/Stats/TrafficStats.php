@@ -24,33 +24,33 @@ use Livewire\Component;
 class TrafficStats extends Component
 {
     final protected int $actualUpload {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'traffic-stats:actual-upload',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => History::query()->sum('actual_uploaded'),
         );
     }
 
     final protected int $creditedUpload {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'traffic-stats:credited-upload',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => History::query()->sum('uploaded'),
         );
     }
 
     final protected int $actualDownload {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'traffic-stats:actual-download',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => History::query()->sum('actual_downloaded'),
         );
     }
 
     final protected int $creditedDownload {
-        get => (int) cache()->remember(
+        get => (int) cache()->flexible(
             'traffic-stats:credited-download',
-            10 * 60,
+            [10 * 60, 30 * 60],
             fn () => History::query()->sum('downloaded'),
         );
     }

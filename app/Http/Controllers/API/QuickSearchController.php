@@ -109,7 +109,7 @@ class QuickSearchController extends Controller
         $searchQuery = fn () => $client->multiSearch($searchQueries, ((new MultiSearchFederation()))->setLimit(20));
 
         if (preg_match("/^[a-zA-Z0-9-_ .'@:\\[\\]+&\\/,!#()?\"]{1,2}$/", $query)) {
-            $multiSearchResults = cache()->remember('quick-search:'.strtolower($query), 3600 * 24, $searchQuery);
+            $multiSearchResults = cache()->flexible('quick-search:'.strtolower($query), [3600 * 24, 3600 * 24 * 2], $searchQuery);
         } else {
             $multiSearchResults = $searchQuery();
         }

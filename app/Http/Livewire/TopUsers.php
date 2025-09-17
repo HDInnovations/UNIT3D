@@ -22,9 +22,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, Torrent>
      */
     final protected \Illuminate\Support\Collection $uploaders {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:uploaders',
-            3600,
+            [3600, 3600 * 2],
             fn () => Torrent::query()
                 ->with(['user.group'])
                 ->select(DB::raw('user_id, COUNT(user_id) as value'))
@@ -41,9 +41,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, History>
      */
     final protected \Illuminate\Support\Collection $downloaders {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:downloaders',
-            3600,
+            [3600, 3600 * 2],
             fn () => History::query()
                 ->with(['user.group'])
                 ->select(DB::raw('user_id, count(distinct torrent_id) as value'))
@@ -60,9 +60,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, User>
      */
     final protected \Illuminate\Support\Collection $uploaded {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:uploaded',
-            3600,
+            [3600, 3600 * 2],
             fn () => User::query()
                 ->select(['id', 'group_id', 'username', 'uploaded', 'image'])
                 ->with('group')
@@ -78,9 +78,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, User>
      */
     final protected \Illuminate\Support\Collection $downloaded {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:downloaded',
-            3600,
+            [3600, 3600 * 2],
             fn () => User::query()
                 ->select(['id', 'group_id', 'username', 'downloaded', 'image'])
                 ->with('group')
@@ -96,9 +96,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, Peer>
      */
     final protected \Illuminate\Support\Collection $seeders {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:seeders',
-            3600,
+            [3600, 3600 * 2],
             fn () => Peer::query()
                 ->with(['user.group'])
                 ->select(DB::raw('user_id, count(distinct torrent_id) as value'))
@@ -116,9 +116,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, User>
      */
     final protected \Illuminate\Support\Collection $seedtimes {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:seedtimes',
-            3600,
+            [3600, 3600 * 2],
             fn () => User::query()
                 ->withSum('history as seedtime', 'seedtime')
                 ->with('group')
@@ -134,9 +134,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, User>
      */
     final protected \Illuminate\Support\Collection $served {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:served',
-            3600,
+            [3600, 3600 * 2],
             fn () => User::query()
                 ->withCount('uploadSnatches')
                 ->with('group')
@@ -152,9 +152,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, Comment>
      */
     final protected \Illuminate\Support\Collection $commenters {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:commenters',
-            3600,
+            [3600, 3600 * 2],
             fn () => Comment::query()
                 ->with(['user.group'])
                 ->select(DB::raw('user_id, COUNT(user_id) as value'))
@@ -171,9 +171,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, Post>
      */
     final protected \Illuminate\Support\Collection $posters {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:posters',
-            3600,
+            [3600, 3600 * 2],
             fn () => Post::query()
                 ->with(['user.group'])
                 ->select(DB::raw('user_id, COUNT(user_id) as value'))
@@ -189,9 +189,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, Thank>
      */
     final protected \Illuminate\Support\Collection $thankers {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:thankers',
-            3600,
+            [3600, 3600 * 2],
             fn () => Thank::query()
                 ->with(['user.group'])
                 ->select(DB::raw('user_id, COUNT(user_id) as value'))
@@ -207,9 +207,9 @@ class TopUsers extends Component
      * @var \Illuminate\Support\Collection<int, Torrent>
      */
     final protected \Illuminate\Support\Collection $personals {
-        get => cache()->remember(
+        get => cache()->flexible(
             'top-users:personals',
-            3600,
+            [3600, 3600 * 2],
             fn () => Torrent::query()
                 ->with(['user.group'])
                 ->select(DB::raw('user_id, COUNT(user_id) as value'))

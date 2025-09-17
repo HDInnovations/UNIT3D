@@ -58,8 +58,10 @@ class StatsController extends Controller
     public function uploaded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.uploaded', [
-            'uploaded' => User::orderByDesc('uploaded')
+            'uploaded' => User::query()
+                ->with('group')
                 ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+                ->orderByDesc('uploaded')
                 ->take(100)
                 ->get(),
         ]);
@@ -73,8 +75,10 @@ class StatsController extends Controller
     public function downloaded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.downloaded', [
-            'downloaded' => User::orderByDesc('downloaded')
+            'downloaded' => User::query()
+                ->with('group')
                 ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+                ->orderByDesc('downloaded')
                 ->take(100)
                 ->get(),
         ]);
@@ -86,7 +90,7 @@ class StatsController extends Controller
     public function seeders(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.seeders', [
-            'seeders' => Peer::with('user')
+            'seeders' => Peer::with('user.group')
                 ->select(DB::raw('user_id, count(distinct torrent_id) as value'))
                 ->where('seeder', '=', 1)
                 ->where('active', '=', 1)
@@ -103,7 +107,8 @@ class StatsController extends Controller
     public function leechers(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.leechers', [
-            'leechers' => Peer::with('user')
+            'leechers' => Peer::query()
+                ->with('user.group')
                 ->select(DB::raw('user_id, count(*) as value'))
                 ->where('seeder', '=', 0)
                 ->where('active', '=', 1)
@@ -120,7 +125,8 @@ class StatsController extends Controller
     public function uploaders(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.uploaders', [
-            'uploaders' => Torrent::with('user')
+            'uploaders' => Torrent::query()
+                ->with('user.group')
                 ->where('anon', '=', false)
                 ->select(DB::raw('user_id, count(*) as value'))
                 ->groupBy('user_id')
@@ -138,7 +144,9 @@ class StatsController extends Controller
     public function bankers(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.bankers', [
-            'bankers' => User::orderByDesc('seedbonus')
+            'bankers' => User::query()
+                ->with('group')
+                ->orderByDesc('seedbonus')
                 ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->take(100)
                 ->get(),
@@ -151,7 +159,9 @@ class StatsController extends Controller
     public function seedtime(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.seedtime', [
-            'users' => User::withSum('history as seedtime', 'seedtime')
+            'users' => User::query()
+                ->with('group')
+                ->withSum('history as seedtime', 'seedtime')
                 ->orderByDesc('seedtime')
                 ->take(100)
                 ->get(),
@@ -164,7 +174,9 @@ class StatsController extends Controller
     public function seedsize(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.seedsize', [
-            'users' => User::withSum('seedingTorrents as seedsize', 'size')
+            'users' => User::query()
+                ->with('group')
+                ->withSum('seedingTorrents as seedsize', 'size')
                 ->orderByDesc('seedsize')
                 ->take(100)
                 ->get(),
@@ -177,7 +189,9 @@ class StatsController extends Controller
     public function uploadSnatches(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.upload-snatches', [
-            'users' => User::withCount('uploadSnatches')
+            'users' => User::query()
+                ->with('group')
+                ->withCount('uploadSnatches')
                 ->orderByDesc('upload_snatches_count')
                 ->take(100)
                 ->get(),
@@ -363,12 +377,15 @@ class StatsController extends Controller
      */
     public function messages(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $users = User::withCount(['messages' => function ($query): void {
-            $query->where('chatroom_id', '!=', 0);  // Exclude private chatbox messages;
-        }])
-            ->withSum(['messages as characters_typed' => function ($query): void {
-                $query->where('chatroom_id', '!=', 0);  // Exclude private chatbox messages;
-            }], DB::raw('CHAR_LENGTH(message)'))
+        $users = User::query()
+            ->with('group')
+            ->withCount([
+                'messages' => fn ($query) => $query->where('chatroom_id', '!=', 0), // Exclude private chatbox messages;
+            ])
+            ->withSum(
+                ['messages as characters_typed' => fn ($query) => $query->where('chatroom_id', '!=', 0)],  // Exclude private chatbox messages
+                DB::raw('CHAR_LENGTH(message)')
+            )
             ->orderByDesc('messages_count')
             ->where('id', '!=', User::SYSTEM_USER_ID)
             ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned', 'bot']))

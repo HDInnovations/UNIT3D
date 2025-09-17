@@ -17,18 +17,24 @@
             <span class="torrent-card__size">{{ $torrent->getSize() }}</span>
         </div>
         <div class="torrent-card__right-header">
-            <a class="torrent-card__seeds" href="{{ route('peers', ['id' => $torrent->id]) }}">
+            <a
+                class="torrent-card__seeds torrent__seeder-count"
+                href="{{ route('peers', ['id' => $torrent->id]) }}"
+            >
                 <i class="fas fa-arrow-up"></i>
                 {{ $torrent->seeders }}
             </a>
             <span class="torrent-card__meta-separator">&bull;</span>
-            <a class="torrent-card__leeches" href="{{ route('peers', ['id' => $torrent->id]) }}">
+            <a
+                class="torrent-card__leeches torrent__leecher-count"
+                href="{{ route('peers', ['id' => $torrent->id]) }}"
+            >
                 <i class="fas fa-arrow-down"></i>
                 {{ $torrent->leechers }}
             </a>
             <span class="torrent-card__meta-separator">&bull;</span>
             <a
-                class="torrent-card__completed"
+                class="torrent-card__completed torrent__times-completed-count"
                 href="{{ route('history', ['id' => $torrent->id]) }}"
             >
                 <i class="fas fa-check"></i>

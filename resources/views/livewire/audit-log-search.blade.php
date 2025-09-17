@@ -102,8 +102,8 @@
                                 {{ strtoupper($audit->action) }}
                             </span>
                         </td>
-                        <td>{{ $audit->model_name }}</td>
-                        <td>{{ $audit->model_entry_id }}</td>
+                        <td>{{ class_basename($audit->auditable_type) }}</td>
+                        <td>{{ $audit->auditable_id }}</td>
                         <td>
                             <a href="{{ route('users.show', ['user' => $audit->user]) }}">
                                 {{ $audit->user->username }}

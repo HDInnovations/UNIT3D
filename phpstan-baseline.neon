@@ -43,12 +43,6 @@ parameters:
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:filter\(\) expects \(callable\(mixed, int\|string\)\: bool\)\|null, Closure\(mixed\)\: \(non\-falsy\-string\|false\) given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Console/Commands/AutoHighspeedTag.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
 			identifier: return.type
 			count: 1
@@ -59,6 +53,18 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/Console/Commands/AutoRecycleClaimedTorrentRequests.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRemoveReseeds.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRemoveReseeds.php
 
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
@@ -301,31 +307,7 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: '#^Cannot call method getClientOriginalExtension\(\) on array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Cannot call method getError\(\) on array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Parameter \#1 \$inputFile of static method App\\Helpers\\TorrentTools\:\:getNfo\(\) expects Illuminate\\Http\\UploadedFile\|null, array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Parameter \#1 \$torrentFile of static method App\\Helpers\\TorrentTools\:\:normalizeTorrent\(\) expects Illuminate\\Http\\UploadedFile, array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:remember\(\) contains unresolvable type\.$#'
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
@@ -549,6 +531,18 @@ parameters:
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbTv\>\.$#'
 			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, string\|null\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) expects callable\(\)\: Illuminate\\Support\\Collection\<int, string\|null\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, string\|null\> given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Http/Livewire/TorrentRequestSearch.php
 

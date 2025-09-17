@@ -201,26 +201,27 @@
                                     {{ \App\Helpers\StringHelper::formatBytes($torrent->size) }}
                                 </td>
                                 <td class="user-earnings__seeders">
-                                    <a href="{{ route('peers', ['id' => $torrent->torrent_id]) }}">
-                                        <span class="text-green">
-                                            {{ $torrent->seeders }}
-                                        </span>
+                                    <a
+                                        class="torrent__seeder-count"
+                                        href="{{ route('peers', ['id' => $torrent->torrent_id]) }}"
+                                    >
+                                        {{ $torrent->seeders }}
                                     </a>
                                 </td>
                                 <td class="user-earnings__leechers">
-                                    <a href="{{ route('peers', ['id' => $torrent->torrent_id]) }}">
-                                        <span class="text-red">
-                                            {{ $torrent->leechers }}
-                                        </span>
+                                    <a
+                                        class="torrent__leecher-count"
+                                        href="{{ route('peers', ['id' => $torrent->torrent_id]) }}"
+                                    >
+                                        {{ $torrent->leechers }}
                                     </a>
                                 </td>
                                 <td class="user-earnings__times">
                                     <a
+                                        class="torrent__times-completed-count"
                                         href="{{ route('history', ['id' => $torrent->torrent_id]) }}"
                                     >
-                                        <span class="text-orange">
-                                            {{ $torrent->times_completed }}
-                                        </span>
+                                        {{ $torrent->times_completed }}
                                     </a>
                                 </td>
                                 <td class="user-earnings__internal">

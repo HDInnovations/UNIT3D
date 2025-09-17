@@ -49,20 +49,29 @@
                     </div>
                 @endif
 
-                @if ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupation::DIRECTOR->value)->isNotEmpty())
+                @if ($meta instanceof \App\Models\TmdbMovie && $meta->directors->isNotEmpty())
                     <div class="meta__poster-popup-detail">
                         <span class="detail-label">Directors</span>
                         <span class="detail-value">
-                            {{ $meta->credits->where('occupation_id', '=', App\Enums\Occupation::DIRECTOR->value)->take(3)->pluck('person.name')->join(', ') }}
+                            {{ $meta->directors->pluck('name')->join(', ') }}
                         </span>
                     </div>
                 @endif
 
-                @if ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupation::ACTOR->value)->isNotEmpty())
+                @if ($meta instanceof \App\Models\TmdbTv && $meta->creators->isNotEmpty())
+                    <div class="meta__poster-popup-detail">
+                        <span class="detail-label">Creators</span>
+                        <span class="detail-value">
+                            {{ $meta->creators->pluck('name')->join(', ') }}
+                        </span>
+                    </div>
+                @endif
+
+                @if ($meta?->actors?->isNotEmpty())
                     <div class="meta__poster-popup-detail">
                         <span class="detail-label">Actors</span>
                         <span class="detail-value">
-                            {{ $meta->credits->where('occupation_id', '=', App\Enums\Occupation::ACTOR->value)->take(3)->pluck('person.name')->join(', ') }}
+                            {{ $meta->actors->pluck('name')->join(', ') }}
                         </span>
                     </div>
                 @endif

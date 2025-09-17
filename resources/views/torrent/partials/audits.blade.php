@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($audits->load(['user.group']) as $audit)
+                @foreach ($torrent->audits as $audit)
                     {{-- format-ignore-start --}}
                     @php $values = json_decode($audit->record, true); @endphp
                     {{-- format-ignore-end --}}

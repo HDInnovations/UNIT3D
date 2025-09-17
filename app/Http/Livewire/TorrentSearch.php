@@ -234,9 +234,9 @@ class TorrentSearch extends Component
      * Get torrent health statistics.
      */
     final protected object $torrentHealth {
-        get => cache()->remember(
+        get => cache()->flexible(
             'torrent-search:health',
-            3600,
+            [3600, 3600 * 2],
             fn () => DB::table('torrents')
                 ->whereNull('deleted_at')
                 ->selectRaw('COUNT(*) AS total')
@@ -285,9 +285,9 @@ class TorrentSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Category>
      */
     final protected \Illuminate\Database\Eloquent\Collection $categories {
-        get => cache()->remember(
+        get => cache()->flexible(
             'categories',
-            3600,
+            [3600, 3600 * 2],
             fn () => Category::query()->orderBy('position')->get(),
         );
     }
@@ -296,9 +296,9 @@ class TorrentSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Type>
      */
     final protected \Illuminate\Database\Eloquent\Collection $types {
-        get => cache()->remember(
+        get => cache()->flexible(
             'types',
-            3600,
+            [3600, 3600 * 2],
             fn () => Type::query()->orderBy('position')->get(),
         );
     }
@@ -307,9 +307,9 @@ class TorrentSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
     final protected \Illuminate\Database\Eloquent\Collection $resolutions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'resolutions',
-            3600,
+            [3600, 3600 * 2],
             fn () => Resolution::query()->orderBy('position')->get(),
         );
     }
@@ -318,9 +318,9 @@ class TorrentSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
     final protected \Illuminate\Database\Eloquent\Collection $genres {
-        get => cache()->remember(
+        get => cache()->flexible(
             'genres',
-            3600,
+            [3600, 3600 * 2],
             fn () => TmdbGenre::query()->orderBy('name')->get(),
         );
     }
@@ -329,9 +329,9 @@ class TorrentSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Region>
      */
     final protected \Illuminate\Database\Eloquent\Collection $regions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'regions',
-            3600,
+            [3600, 3600 * 2],
             fn () => Region::query()->orderBy('position')->get(),
         );
     }
@@ -340,9 +340,9 @@ class TorrentSearch extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Distributor>
      */
     final protected \Illuminate\Database\Eloquent\Collection $distributors {
-        get => cache()->remember(
+        get => cache()->flexible(
             'distributors',
-            3600,
+            [3600, 3600 * 2],
             fn () => Distributor::query()->orderBy('name')->get(),
         );
     }
@@ -351,9 +351,9 @@ class TorrentSearch extends Component
      * @var \Illuminate\Support\Collection<int, TmdbMovie>
      */
     final protected \Illuminate\Support\Collection $primaryLanguages {
-        get => cache()->remember(
+        get => cache()->flexible(
             'original-languages',
-            3600,
+            [3600, 3600 * 2],
             fn () => TmdbMovie::query()
                 ->select('original_language')
                 ->distinct()
@@ -521,7 +521,7 @@ class TorrentSearch extends Component
             }
 
             // See app/Traits/TorrentMeta.php
-            $this->scopeMeta($torrents);
+            $this->scopeMeta($torrents, withCredits: true);
 
             return $torrents;
         }

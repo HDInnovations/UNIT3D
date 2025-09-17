@@ -41,7 +41,7 @@ class HomeController extends Controller
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         // For Cache
-        $expiresAt = now()->addMinutes(5);
+        $expiresAt = [now()->addMinutes(5), now()->addMinutes(10)];
 
         // Authorized User
         $user = $request->user()->load('settings');
@@ -64,7 +64,7 @@ class HomeController extends Controller
                 ->filter(fn ($block) => $block['visible'])
                 ->pluck('key')
                 ->toArray(),
-            'users' => cache()->remember(
+            'users' => cache()->flexible(
                 'online_users:by-group:'.auth()->user()->group_id,
                 $expiresAt,
                 fn () => User::with('group', 'privacy')
@@ -78,7 +78,7 @@ class HomeController extends Controller
                     ->get()
                     ->sortBy(fn ($user) => $user->privacy?->hidden || ! $user->isVisible($user, 'other', 'show_online')),
             ),
-            'groups' => cache()->remember(
+            'groups' => cache()->flexible(
                 'user-groups',
                 $expiresAt,
                 fn () => Group::select([
@@ -102,7 +102,7 @@ class HomeController extends Controller
                 ->latest()
                 ->take(5)
                 ->get(),
-            'posts' => cache()->remember(
+            'posts' => cache()->flexible(
                 'latest_posts:by-group:'.auth()->user()->group_id,
                 $expiresAt,
                 fn () => Post::query()
@@ -118,7 +118,7 @@ class HomeController extends Controller
                     ->take(5)
                     ->get(),
             ),
-            'comments' => cache()->remember(
+            'comments' => cache()->flexible(
                 'latest_comments',
                 $expiresAt,
                 fn () => Comment::query()
@@ -129,7 +129,7 @@ class HomeController extends Controller
                     ->take(5)
                     ->get(),
             ),
-            'featured' => cache()->remember(
+            'featured' => cache()->flexible(
                 'latest_featured',
                 $expiresAt,
                 fn () => FeaturedTorrent::with([
@@ -137,7 +137,7 @@ class HomeController extends Controller
                     'user.group',
                 ])->get(),
             ),
-            'poll' => cache()->remember('latest_poll', $expiresAt, function () {
+            'poll' => cache()->flexible('latest_poll', $expiresAt, function () {
                 return Poll::where(function ($query): void {
                     $query->where('expires_at', '>', now())
                         ->orWhereNull('expires_at');

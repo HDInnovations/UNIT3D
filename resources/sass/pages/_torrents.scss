@@ -271,18 +271,6 @@
     }
 }
 
-.torrent-search--list__seeders a {
-    color: var(--torrent-row-seeders-fg);
-}
-
-.torrent-search--list__leechers a {
-    color: var(--torrent-row-leechers-fg);
-}
-
-.torrent-search--list__completed a {
-    color: var(--torrent-row-completed-fg);
-}
-
 .torrent-search--list__age {
     grid-area: age;
     display: grid;

@@ -75,9 +75,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for(GlobalRateLimit::WEB, fn (Request $request): Limit => $request->user()
             ? Limit::perMinute(
-                cache()->remember(
+                cache()->flexible(
                     'group:'.$request->user()->group_id.':is_modo',
-                    5,
+                    [5, 10],
                     fn () => $request->user()->group()->value('is_modo')
                 )
                     ? 60

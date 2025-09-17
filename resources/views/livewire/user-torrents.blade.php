@@ -376,22 +376,6 @@
                         @include('livewire.includes._sort-icon', ['field' => 'prewarned_at'])
                     </th>
                     <th
-                        class="user-torrents__seeding-header"
-                        wire:click="sortBy('seeding')"
-                        role="columnheader button"
-                        title="{{ __('torrent.seeding') }}"
-                    >
-                        <i class="fas fa-arrow-up"></i>
-                    </th>
-                    <th
-                        class="user-torrents__leeching-header"
-                        wire:click="sortBy('leeching')"
-                        role="columnheader button"
-                        title="{{ __('torrent.leeching') }}"
-                    >
-                        <i class="fas fa-arrow-down"></i>
-                    </th>
-                    <th
                         class="user-torrents__warned-header"
                         wire:click="sortBy('hitrun')"
                         role="columnheader button"
@@ -436,25 +420,52 @@
                                     {{ $history->name }}
                                 </a>
                             </td>
-                            <td class="user-torrents__seeders">
-                                <a href="{{ route('peers', ['id' => $history->torrent_id]) }}">
-                                    <span class="text-green">
-                                        {{ $history->seeders }}
-                                    </span>
+                            <td
+                                @class([
+                                    'user-torrents__seeders',
+                                    'torrent-activity-indicator--seeding' => $history->seeding,
+                                ])
+                                @if ($history->seeding)
+                                    title="{{ __('torrent.currently-seeding') }}"
+                                @endif
+                            >
+                                <a
+                                    class="torrent__seeder-count"
+                                    href="{{ route('peers', ['id' => $history->torrent_id]) }}"
+                                >
+                                    {{ $history->seeders }}
                                 </a>
                             </td>
-                            <td class="user-torrents__leechers">
-                                <a href="{{ route('peers', ['id' => $history->torrent_id]) }}">
-                                    <span class="text-red">
-                                        {{ $history->leechers }}
-                                    </span>
+                            <td
+                                @class([
+                                    'user-torrents__leechers',
+                                    'torrent-activity-indicator--leeching' => $history->leeching,
+                                ])
+                                @if ($history->leeching)
+                                    title="{{ __('torrent.currently-leeching') }}"
+                                @endif
+                            >
+                                <a
+                                    class="torrent__leecher-count"
+                                    href="{{ route('peers', ['id' => $history->torrent_id]) }}"
+                                >
+                                    {{ $history->leechers }}
                                 </a>
                             </td>
-                            <td class="user-torrents__times">
-                                <a href="{{ route('history', ['id' => $history->torrent_id]) }}">
-                                    <span class="text-orange">
-                                        {{ $history->times_completed }}
-                                    </span>
+                            <td
+                                @class([
+                                    'user-torrents__times',
+                                    'torrent-activity-indicator--completed' => $history->completed,
+                                ])
+                                @if ($history->completed)
+                                    title="{{ __('torrent.completed') }}"
+                                @endif
+                            >
+                                <a
+                                    class="torrent__times-completed-count"
+                                    href="{{ route('history', ['id' => $history->torrent_id]) }}"
+                                >
+                                    {{ $history->times_completed }}
                                 </a>
                             </td>
                             <td class="user-torrents__agent text-purple">
@@ -624,32 +635,6 @@
                                     </time>
                                 </td>
                             @endif
-                            <td class="user-torrents__seeding">
-                                @if ($history->seeding == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-green fa-check"
-                                        title="{{ __('torrent.seeding') }}"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-red fa-times"
-                                        title="Not {{ __('torrent.seeding') }}"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__leeching">
-                                @if ($history->leeching == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-green fa-check"
-                                        title="{{ __('torrent.leeching') }}"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} text-red fa-times"
-                                        title="Not {{ __('torrent.leeching') }}"
-                                    ></i>
-                                @endif
-                            </td>
                             <td class="user-torrents__warned">
                                 @if ($history->hitrun == 1)
                                     <i

@@ -196,6 +196,16 @@ class TorrentRequest extends Model
     }
 
     /**
+     * Belongs To A Game.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<IgdbGame, $this>
+     */
+    public function game(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(IgdbGame::class, 'igdb_game_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany

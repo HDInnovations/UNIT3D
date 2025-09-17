@@ -50,7 +50,7 @@ class AutoHighspeedTag extends Command
     {
         $seedboxIps = Seedbox::all()
             ->pluck('ip')
-            ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP))
+            ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP) !== false)
             ->map(fn ($ip) => inet_pton($ip));
 
         Torrent::withoutGlobalScope(ApprovedScope::class)

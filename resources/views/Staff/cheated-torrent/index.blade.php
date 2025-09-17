@@ -74,17 +74,26 @@
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['id' => $torrent->id]) }}">
+                                <a
+                                    class="torrent__seeder-count"
+                                    href="{{ route('peers', ['id' => $torrent->id]) }}"
+                                >
                                     {{ $torrent->seeders }}
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['id' => $torrent->id]) }}">
+                                <a
+                                    class="torrent__leecher-count"
+                                    href="{{ route('peers', ['id' => $torrent->id]) }}"
+                                >
                                     {{ $torrent->leechers }}
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('history', ['id' => $torrent->id]) }}">
+                                <a
+                                    class="torrent__times-completed-count"
+                                    href="{{ route('history', ['id' => $torrent->id]) }}"
+                                >
                                     {{ $torrent->times_completed }}
                                 </a>
                             </td>

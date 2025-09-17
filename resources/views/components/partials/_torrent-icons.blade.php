@@ -1,12 +1,19 @@
 <span class="torrent-icons">
     @isset($torrent->comments_count)
         <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
-            <i
-                class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments"
-                title="{{ __('torrent.comments-left') }}"
-            >
-                {{ $torrent->comments_count }}
-            </i>
+            @if ($torrent->comments_count === 0)
+                <i
+                    class="{{ config('other.font-awesome') }} fa-comment-alt-plus torrent-icons__comments"
+                    title="{{ __('torrent.comments-left') }}"
+                ></i>
+            @else
+                <i
+                    class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments"
+                    title="{{ __('torrent.comments-left') }}"
+                >
+                    {{ $torrent->comments_count }}
+                </i>
+            @endif
         </a>
     @endisset
 

@@ -19,6 +19,7 @@ namespace App\Http\Livewire;
 use App\Models\Peer;
 use App\Models\User;
 use App\Traits\LivewireSort;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -100,6 +101,8 @@ class UserActive extends Component
                 'torrents.seeders',
                 'torrents.leechers',
                 'torrents.times_completed',
+                DB::raw('peers.active AND peers.seeder AS seeding'),
+                DB::raw('peers.active AND NOT peers.seeder AS leeching'),
             )
             ->selectRaw('INET6_NTOA(ip) as ip')
             ->selectRaw('(1 - (peers.left / COALESCE(torrents.size, 0))) AS progress')

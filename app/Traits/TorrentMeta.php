@@ -38,7 +38,7 @@ trait TorrentMeta
      *     : \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Torrent>
      * )))
      */
-    public function scopeMeta(\Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents): \Illuminate\Support\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+    public function scopeMeta(\Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents, bool $withCredits = false): \Illuminate\Support\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         if ($torrents instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator || $torrents instanceof \Illuminate\Contracts\Pagination\CursorPaginator) {
             $movieIds = collect($torrents->items())->where('meta', '=', 'movie')->pluck('tmdb_movie_id');
@@ -50,9 +50,29 @@ trait TorrentMeta
             $gameIds = $torrents->where('meta', '=', 'game')->pluck('igdb');
         }
 
-        $movies = TmdbMovie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-        $tv = TmdbTv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-        $games = IgdbGame::with('genres')->whereIntegerInRaw('id', $gameIds)->get()->keyBy('id');
+        $movies = TmdbMovie::query()
+            ->with('genres')
+            ->when($withCredits, fn ($query) => $query->with([
+                'actors'    => fn ($query) => $query->limit(3),
+                'directors' => fn ($query) => $query->limit(3),
+            ]))
+            ->whereIntegerInRaw('id', $movieIds)
+            ->get()
+            ->keyBy('id');
+        $tv = TmdbTv::query()
+            ->with('genres')
+            ->when($withCredits, fn ($query) => $query->with([
+                'actors'   => fn ($query) => $query->limit(3),
+                'creators' => fn ($query) => $query->limit(3),
+            ]))
+            ->whereIntegerInRaw('id', $tvIds)
+            ->get()
+            ->keyBy('id');
+        $games = IgdbGame::query()
+            ->with('genres')
+            ->whereIntegerInRaw('id', $gameIds)
+            ->get()
+            ->keyBy('id');
 
         $setRelation = function ($torrent) use ($movies, $tv, $games) {
             $torrent->setAttribute(

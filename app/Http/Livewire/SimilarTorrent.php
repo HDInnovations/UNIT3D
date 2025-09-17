@@ -522,9 +522,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Type>
      */
     final protected \Illuminate\Database\Eloquent\Collection $types {
-        get => cache()->remember(
+        get => cache()->flexible(
             'types',
-            3600,
+            [3600, 3600 * 2],
             fn () => Type::query()->orderBy('position')->get(),
         );
     }
@@ -533,9 +533,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
     final protected \Illuminate\Database\Eloquent\Collection $resolutions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'resolutions',
-            3600,
+            [3600, 3600 * 2],
             fn () => Resolution::query()->orderBy('position')->get(),
         );
     }
@@ -544,9 +544,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Region>
      */
     final protected \Illuminate\Database\Eloquent\Collection $regions {
-        get => cache()->remember(
+        get => cache()->flexible(
             'regions',
-            3600,
+            [3600, 3600 * 2],
             fn () => Region::query()->orderBy('position')->get(),
         );
     }
@@ -555,9 +555,9 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, Distributor>
      */
     final protected \Illuminate\Database\Eloquent\Collection $distributors {
-        get => cache()->remember(
+        get => cache()->flexible(
             'distributors',
-            3600,
+            [3600, 3600 * 2],
             fn () => Distributor::query()->orderBy('name')->get(),
         );
     }

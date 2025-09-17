@@ -146,8 +146,8 @@ DROP TABLE IF EXISTS `audits`;
 CREATE TABLE `audits` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned DEFAULT NULL,
-  `model_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_entry_id` bigint unsigned NOT NULL,
+  `auditable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `auditable_id` bigint unsigned NOT NULL,
   `action` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `record` json NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -3038,3 +3038,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_01
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_09_02_140036_add_anon_to_posts_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_07_235939_add_adult_content_setting_to_user_settings',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (363,'2025_09_07_235945_add_adult_column_to_tmdb_tv',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_08_000029_make_audits_morphable',1);

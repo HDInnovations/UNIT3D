@@ -35,14 +35,14 @@
             <div class="panel__action">
                 <div class="form__group">
                     <input
-                        id="comment"
+                        id="message"
                         class="form__text"
                         type="search"
                         autocomplete="off"
-                        wire:model.live="comment"
+                        wire:model.live="message"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="comment">
+                    <label class="form__label form__label--floating" for="message">
                         {{ __('common.message') }}
                     </label>
                 </div>
@@ -69,17 +69,17 @@
                         {{ __('user.sender') }}
                         @include('livewire.includes._sort-icon', ['field' => 'sender_id'])
                     </th>
-                    <th wire:click="sortBy('receiver_id')" role="columnheader button">
+                    <th wire:click="sortBy('recipient_id')" role="columnheader button">
                         {{ __('bon.receiver') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'receiver_id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'recipient_id'])
                     </th>
-                    <th wire:click="sortBy('cost')" role="columnheader button">
+                    <th wire:click="sortBy('bon')" role="columnheader button">
                         {{ __('bon.points') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'cost'])
+                        @include('livewire.includes._sort-icon', ['field' => 'bon'])
                     </th>
-                    <th wire:click="sortBy('comment')" role="columnheader button">
+                    <th wire:click="sortBy('message')" role="columnheader button">
                         {{ __('common.message') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'comment'])
+                        @include('livewire.includes._sort-icon', ['field' => 'message'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('user.created-on') }}

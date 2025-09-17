@@ -25,10 +25,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $id
  * @property int                             $torrent_id
  * @property int                             $user_id
+ * @property int                             $requests_count
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Torrent                    $torrent
- * @property-read User                       $user
  */
 class TorrentReseed extends Model
 {
@@ -39,7 +38,7 @@ class TorrentReseed extends Model
      *
      * @var string[]
      */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = [];
 
     /**
      * Belongs To A Torrent.
@@ -59,5 +58,15 @@ class TorrentReseed extends Model
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Belongs To A History.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<History, $this>
+     */
+    public function history(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(History::class, 'user_id', 'user_id')->whereColumn('torrent_reseeds.torrent_id', '=', 'history.torrent_id');
     }
 }

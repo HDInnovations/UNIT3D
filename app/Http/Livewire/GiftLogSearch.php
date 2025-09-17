@@ -36,7 +36,7 @@ class GiftLogSearch extends Component
     public string $receiver = '';
 
     #[Url(history: true)]
-    public string $comment = '';
+    public string $message = '';
 
     #[Url(history: true)]
     public string $sortField = 'created_at';
@@ -58,7 +58,7 @@ class GiftLogSearch extends Component
             ])
             ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
             ->when($this->receiver, fn ($query) => $query->whereRelation('recipient', 'username', '=', $this->receiver))
-            ->when($this->comment, fn ($query) => $query->where('comment', 'LIKE', '%'.$this->comment.'%'))
+            ->when($this->message, fn ($query) => $query->where('message', 'LIKE', '%'.$this->message.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

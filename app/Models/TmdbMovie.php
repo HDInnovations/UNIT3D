@@ -97,7 +97,17 @@ class TmdbMovie extends Model
     public function directors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits')
-            ->wherePivot('occupation_id', '=', Occupation::DIRECTOR->value);
+            ->wherePivot('occupation_id', '=', Occupation::DIRECTOR);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbPerson, $this>
+     */
+    public function actors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits')
+            ->wherePivot('occupation_id', '=', Occupation::ACTOR)
+            ->orderByPivot('order');
     }
 
     /**

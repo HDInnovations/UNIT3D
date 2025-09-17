@@ -31,7 +31,7 @@ class TorrentHistoryController extends Controller
         return view('torrent.history', [
             'torrent'   => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
             'histories' => History::query()
-                ->with(['user'])
+                ->with(['user.group'])
                 ->where('torrent_id', '=', $id)
                 ->orderByRaw('user_id = ? DESC', [$request->user()->id])
                 ->latest()

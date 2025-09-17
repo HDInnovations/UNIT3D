@@ -131,7 +131,7 @@
                 @csrf
                 <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                 <div>
-                    {!! __('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}.
+                    {!! __('torrent.torrent-tips', ['total' => $torrent->total_tips ?? 0, 'user' => $torrent->user_tips ?? 0]) !!}.
                     <span>({{ __('torrent.torrent-tips-desc') }})</span>
                 </div>
                 <div class="form__group">
@@ -213,7 +213,7 @@
                                 {{ $torrent->folder }}
                             </span>
                             <span style="grid-area: count; padding-right: 4px">
-                                ({{ $torrent->files()->count() }})
+                                ({{ $torrent->files_count }})
                             </span>
                             <span
                                 class="text-info"
@@ -260,7 +260,7 @@
             'bookmarksCount' => $torrent->bookmarks_count ?? 0,
         ])
     </li>
-    @if ($playlists->count() > 0)
+    @if ($user->playlists->count() > 0)
         <li x-data="dialog" class="form__group form__group--short-horizontal">
             <button
                 class="form__button form__button--outlined form__button--centered"
@@ -281,7 +281,7 @@
                     <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                     <p class="form__group">
                         <select id="playlist_id" name="playlist_id" class="form__select">
-                            @foreach ($playlists as $playlist)
+                            @foreach ($user->playlists as $playlist)
                                 <option value="{{ $playlist->id }}">{{ $playlist->name }}</option>
                             @endforeach
                         </select>
@@ -307,14 +307,9 @@
     @endif
 
     @if ($torrent->seeders <= 2 &&
-        /* $history is used inside the resurrection code below and assumes is set if torrent->seeders are equal to 0 */
-        null !==
-            ($history = $user
-                ->history()
-                ->where('torrent_id', $torrent->id)
-                ->first()) &&
-        $history->seeder == 0 &&
-        $history->active == 1)
+    $torrent->history->first() !== null &&
+    ! $torrent->history->first()->seeder &&
+    $torrent->history->first()->active)
         <li class="form__group form__group--short-horizontal">
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"
@@ -330,7 +325,7 @@
         </li>
     @endif
 
-    @if (DB::table('resurrections')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->exists())
+    @if ($torrent->resurrections_exists)
         <li class="form__group form__group--short-horizontal">
             <button class="form__button form__button--outlined form__button--centered" disabled>
                 {{ strtolower(__('graveyard.pending')) }}
@@ -363,11 +358,11 @@
                     <p>
                         {!! __('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
                         <span class="text-red text-bold">
-                            {{ $history === null ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                            {{ $torrent->history->first() === null ? '0' : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime) }}
                         </span>
                         {{ strtolower(__('graveyard.howto-hits')) }}
                         <span class="text-red text-bold">
-                            {{ $history === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($history->seedtime + config('graveyard.time')) }}
+                            {{ $torrent->history->first() === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime + config('graveyard.time')) }}
                         </span>
                         {{ strtolower(__('graveyard.howto-desc2')) }}
                         <span

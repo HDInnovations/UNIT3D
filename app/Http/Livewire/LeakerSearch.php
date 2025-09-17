@@ -61,6 +61,7 @@ class LeakerSearch extends Component
             ])
             ->with([
                 'user' => [
+                    'group',
                     'history' => fn ($query) => $query->select(['user_id', 'agent'])->distinct()->orderBy('agent'),
                     'peers'   => fn ($query) => $query->select(['user_id', 'ip'])->distinct()->orderBy('ip'),
                 ],
@@ -69,7 +70,7 @@ class LeakerSearch extends Component
             ->whereIn('history.torrent_id', array_filter(array_map('trim', explode(',', $this->torrentIds))))
             ->when(
                 $this->minutesLeakedWithin !== null,
-                fn ($query) => $query->whereRaw('history.created_at < TIMESTAMPADD(MINUTE, '.(int) $this->minutesLeakedWithin.', torrents.created_at)')
+                fn ($query) => $query->whereRaw('history.created_at < TIMESTAMPADD(MINUTE, ? , torrents.created_at)', [$this->minutesLeakedWithin])
             )
             ->whereColumn('history.user_id', '<>', 'torrents.user_id')
             ->groupBy('history.user_id')

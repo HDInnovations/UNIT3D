@@ -23,7 +23,6 @@
 .user-active__ip-header,
 .user-active__port-header,
 .user-active__connectable-header,
-.user-active__seeding-header,
 .user-active__visible-header,
 .user-active__size-header,
 .user-active__uploaded-header,
@@ -55,7 +54,6 @@
 }
 
 .user-active__connectable,
-.user-active__seeding,
 .user-active__visible {
     font-size: 11px;
 }
@@ -84,10 +82,8 @@
 }
 
 .user-active__connectable-header,
-.user-active__seeding-header,
 .user-active__visible-header,
-.user-active__connectable,
-.user-active__seeding {
+.user-active__connectable {
     text-align: center;
 }
 

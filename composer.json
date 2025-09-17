@@ -45,7 +45,7 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16.0",
         "brianium/paratest": "^7.12.0",
-        "calebdw/larastan": "3.4.2",
+        "calebdw/larastan": "3.7.1",
         "calebdw/larastan-livewire": "^2.3.0",
         "fakerphp/faker": "^1.24.1",
         "jasonmccreary/laravel-test-assertions": "^2.8.0",

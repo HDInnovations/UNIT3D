@@ -92,7 +92,7 @@
         title="{{ __('torrent.currently-seeding') }}"
     @endif
 >
-    <a class="text-green" href="{{ route('peers', ['id' => $torrent->id]) }}">
+    <a class="torrent__seeder-count" href="{{ route('peers', ['id' => $torrent->id]) }}">
         {{ $torrent->seeders }}
     </a>
 </td>
@@ -105,7 +105,7 @@
         title="{{ __('torrent.currently-leeching') }}"
     @endif
 >
-    <a class="text-red" href="{{ route('peers', ['id' => $torrent->id]) }}">
+    <a class="torrent__leecher-count" href="{{ route('peers', ['id' => $torrent->id]) }}">
         {{ $torrent->leechers }}
     </a>
 </td>
@@ -118,7 +118,10 @@
         title="{{ __('torrent.completed') }}"
     @endif
 >
-    <a class="text-orange" href="{{ route('history', ['id' => $torrent->id]) }}">
+    <a
+        class="torrent__times-completed-count"
+        href="{{ route('history', ['id' => $torrent->id]) }}"
+    >
         {{ $torrent->times_completed }}
     </a>
 </td>
