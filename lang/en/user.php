@@ -382,7 +382,7 @@ return [
     'torrent-privacy-download' => 'Allow users to view a list of torrents that you have downloaded',
     'torrent-privacy-upload'   => 'Allow users to view a list of torrents that you have uploaded',
     'torrent-privacy-peer'     => 'Allow users to see you in the torrent peer history table',
-    'hide-adult-content'       => 'Hide adult content from torrent search and homepage blocks',
+    'show-adult-content'       => 'Show adult content in torrent search and homepage blocks',
     'torrents'                 => 'Torrents',
     'torrents-history'         => 'Torrents History',
     'total-download'           => 'Total Download',

@@ -26,6 +26,7 @@ return new class () extends Migration {
     {
         Schema::table('tmdb_tv', function (Blueprint $table): void {
             $table->boolean('adult')->nullable()->after('tmdb_id');
+            $table->index('adult');
         });
     }
 };

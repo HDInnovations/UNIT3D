@@ -82,7 +82,7 @@ class TopTorrents extends Component
                         ->orderByDesc('leechers')
                 )
                 ->when(
-                    $this->user?->settings?->hide_adult_content,
+                    $this->user?->settings?->show_adult_content === false,
                     fn ($query) => $query
                         ->where(
                             fn ($query) => $query

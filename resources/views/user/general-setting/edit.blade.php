@@ -552,15 +552,15 @@
                         </p>
                         <p class="form__group">
                             <label class="form__label">
-                                <input type="hidden" name="hide_adult_content" value="0" />
+                                <input type="hidden" name="show_adult_content" value="0" />
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
-                                    name="hide_adult_content"
+                                    name="show_adult_content"
                                     value="1"
-                                    @checked($user->settings->hide_adult_content)
+                                    @checked($user->settings->show_adult_content)
                                 />
-                                {{ __('user.hide-adult-content') }}
+                                {{ __('user.show-adult-content') }}
                             </label>
                         </p>
                     </div>

@@ -25,7 +25,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('user_settings', function (Blueprint $table): void {
-            $table->boolean('hide_adult_content')->default(false)->after('unbookmark_torrents_on_completion');
+            $table->boolean('show_adult_content')->default(true)->after('unbookmark_torrents_on_completion');
         });
     }
 };

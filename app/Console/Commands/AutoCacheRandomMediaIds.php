@@ -46,30 +46,65 @@ class AutoCacheRandomMediaIds extends Command
      */
     final public function handle(): void
     {
-        $movieIds = TmdbMovie::query()
+        $prefix = config('cache.prefix');
+
+        [$movieIds, $nonAdultMovieIds] = $this->collectIds(TmdbMovie::query());
+        [$tvIds, $nonAdultTvIds] = $this->collectIds(TmdbTv::query());
+
+        $this->storeSet($prefix.':random-media-movie-ids', $movieIds);
+        $this->storeSet($prefix.':random-media-movie-ids-non-adult', $nonAdultMovieIds);
+        $this->storeSet($prefix.':random-media-tv-ids', $tvIds);
+        $this->storeSet($prefix.':random-media-tv-ids-non-adult', $nonAdultTvIds);
+
+        $this->comment(
+            \sprintf(
+                'Cached %d movies (%d non-adult) and %d tv (%d non-adult).',
+                $movieIds->count(),
+                $nonAdultMovieIds->count(),
+                $tvIds->count(),
+                $nonAdultTvIds->count()
+            )
+        );
+    }
+
+    /**
+     * Collect full and non-adult IDs for a given base query (movie or tv).
+     *
+     * @template T of \Illuminate\Database\Eloquent\Model
+     * @param  \Illuminate\Database\Eloquent\Builder<T>                                                $base
+     * @return array{\Illuminate\Support\Collection<int,int>, \Illuminate\Support\Collection<int,int>}
+     */
+    private function collectIds($base): array
+    {
+        $base = $base
             ->select('id')
             ->whereHas('torrents')
-            ->whereNotNull('backdrop')
+            ->whereNotNull('backdrop');
+
+        $all = (clone $base)->pluck('id');
+        $nonAdult = (clone $base)
+            ->where(function ($q): void {
+                $q->where('adult', '=', false)->orWhereNull('adult');
+            })
             ->pluck('id');
 
-        $tvIds = TmdbTv::query()
-            ->select('id')
-            ->whereHas('torrents')
-            ->whereNotNull('backdrop')
-            ->pluck('id');
+        return [$all, $nonAdult];
+    }
 
-        if ($movieIds->isNotEmpty()) {
-            $cacheKey = config('cache.prefix').':random-media-movie-ids';
-
-            Redis::connection('cache')->command('SADD', [$cacheKey, ...$movieIds]);
+    /**
+     * Store a Redis set (clearing previous contents). Skip empty collections.
+     *
+     * @param string                                  $key
+     * @param \Illuminate\Support\Collection<int,int> $ids
+     */
+    private function storeSet(string $key, $ids): void
+    {
+        if ($ids->isEmpty()) {
+            return;
         }
 
-        if ($tvIds->isNotEmpty()) {
-            $cacheKey = config('cache.prefix').':random-media-tv-ids';
-
-            Redis::connection('cache')->command('SADD', [$cacheKey, ...$tvIds]);
-        }
-
-        $this->comment($movieIds->count().' movie ids and '.$tvIds->count().' tv ids cached.');
+        $redis = Redis::connection('cache');
+        $redis->command('DEL', [$key]);
+        $redis->command('SADD', [$key, ...$ids]);
     }
 }

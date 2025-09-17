@@ -24,22 +24,42 @@ use Livewire\Component;
 class RandomMedia extends Component
 {
     /**
+     * Pick random IDs from appropriate Redis set (adult aware) with fallback.
+     *
+     * @param  string         $baseKey Base key suffix (e.g. 'movie' or 'tv')
+     * @param  int            $count   Number of random members to retrieve
+     * @return array<int,int>
+     */
+    private function pickIds(string $baseKey, int $count = 3): array
+    {
+        $prefix = config('cache.prefix');
+        $useAdult = auth()->user()->settings?->show_adult_content !== false;
+        $setKey = $useAdult ? "{$prefix}:random-media-{$baseKey}-ids" : "{$prefix}:random-media-{$baseKey}-ids-non-adult";
+
+        $ids = Redis::connection('cache')->command('SRANDMEMBER', [$setKey, $count]) ?: [];
+
+        if (!$useAdult && empty($ids)) {
+            $ids = Redis::connection('cache')->command('SRANDMEMBER', ["{$prefix}:random-media-{$baseKey}-ids", $count]) ?: [];
+        }
+
+        return array_filter($ids); // Remove null/false values if any
+    }
+
+    /**
      * @var \Illuminate\Support\Collection<int, TmdbMovie>
      */
     final protected \Illuminate\Support\Collection $movies {
         get {
-            $cacheKey = config('cache.prefix').':random-media-movie-ids';
+            $movieIds = $this->pickIds('movie');
 
-            $movieIds = Redis::connection('cache')->command('SRANDMEMBER', [$cacheKey, 3]);
+            if (empty($movieIds)) {
+                return collect();
+            }
 
             return TmdbMovie::query()
                 ->select(['id', 'backdrop', 'title', 'release_date'])
                 ->withMin('torrents', 'category_id')
                 ->whereIn('id', $movieIds)
-                ->when(
-                    auth()->user()->settings?->hide_adult_content,
-                    fn ($query) => $query->where('adult', '=', false)
-                )
                 ->get();
         }
     }
@@ -49,18 +69,16 @@ class RandomMedia extends Component
      */
     final protected \Illuminate\Support\Collection $tvs {
         get {
-            $cacheKey = config('cache.prefix').':random-media-tv-ids';
+            $tvIds = $this->pickIds('tv');
 
-            $tvIds = Redis::connection('cache')->command('SRANDMEMBER', [$cacheKey, 3]);
+            if (empty($tvIds)) {
+                return collect();
+            }
 
             return TmdbTv::query()
                 ->select(['id', 'backdrop', 'name', 'first_air_date'])
                 ->withMin('torrents', 'category_id')
                 ->whereIn('id', $tvIds)
-                ->when(
-                    auth()->user()->settings?->hide_adult_content,
-                    fn ($query) => $query->where('adult', '=', false)
-                )
                 ->get();
         }
     }
