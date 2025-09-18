@@ -1,0 +1,19 @@
+name: Check Spelling
+on: [ push, pull_request ]
+jobs:
+    spellcheck:
+        strategy:
+            matrix:
+                operating-system:
+                    - ubuntu-22.04
+        name: ${{ matrix.operating-system }}
+        runs-on: ${{ matrix.operating-system }}
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+                with:
+                    fetch-depth: 0
+            -   name: Run CSpell
+                uses: streetsidesoftware/cspell-action@v6
+                with:
+                    incremental_files_only: false

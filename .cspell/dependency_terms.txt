@@ -1,0 +1,6 @@
+asciify
+dontBackupDatabases
+dontBackupFilesystem
+lexify
+swal
+CURLOPT

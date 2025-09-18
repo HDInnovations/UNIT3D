@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Backups - UNIT3D Documentation</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">UNIT3D Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="backups"><a class="header" href="#backups">Backups</a></h1>
+<p>UNIT3D offers built in backup tools, available through the web dashboard or via Artisan commands, allowing you to create, manage, and restore your application snapshots.</p>
+<h2 id="1-configuration"><a class="header" href="#1-configuration">1. Configuration</a></h2>
+<p><strong>Customize</strong> <code>config/backup.php</code> in your editor and adjust settings as needed; inline notes outline the available configuration parameters.</p>
+<p><strong>Key structure</strong>:</p>
+<ul>
+<li>
+<p><strong><code>backup</code></strong></p>
+<ul>
+<li>
+<p><strong><code>name</code></strong></p>
+</li>
+<li>
+<p><strong><code>source</code></strong></p>
+<ul>
+<li>
+<p><strong><code>files</code></strong></p>
+<p>Specifies which directories and files to <code>include</code> and which to <code>exclude</code> in the backup.</p>
+<pre><code class="language-php">    'include' =&gt; [
+        base_path(),
+     ],
+
+    'exclude' =&gt; [
+        base_path(),
+        base_path('vendor'),
+        base_path('node_modules'),
+        base_path('storage'),
+        base_path('public/vendor/joypixels'),
+     ],
+</code></pre>
+<ul>
+<li>
+<p><strong><code>follow_links</code></strong></p>
+</li>
+<li>
+<p><strong><code>ignore_unreadable_directories</code></strong></p>
+</li>
+<li>
+<p><strong><code>relative_path</code></strong></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>databases</code></strong></p>
+<p>Specifies the database connections to back up.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>database_dump_compressor</code></strong></p>
+<p>Compressor class (e.g. <code>Spatie\DbDumper\Compressors\GzipCompressor::class</code>) or <code>null</code> to disable.</p>
+</li>
+<li>
+<p><strong><code>destination</code></strong></p>
+<p>Defines the storage location for backup files.​</p>
+</li>
+<li>
+<p><strong><code>temporary_directory</code></strong></p>
+</li>
+</ul>
+<p>Staging directory for temporary files.</p>
+</li>
+<li>
+<p><strong><code>notifications</code></strong></p>
+<p>Define when and how backup events trigger alerts via mail, Slack, or custom channels.</p>
+</li>
+<li>
+<p><strong><code>monitor_backups</code></strong></p>
+<p>Detect backup issues; triggers <code>UnhealthyBackupWasFound</code> when needed.</p>
+</li>
+<li>
+<p><strong><code>cleanup</code></strong></p>
+<p>Define how long to keep backups and when to purge old archives.</p>
+<ul>
+<li>
+<p><strong><code>strategy</code></strong></p>
+</li>
+<li>
+<p><strong><code>default_strategy</code></strong></p>
+<p>Keeps all backups for 7 days; then retains daily backups for 16 days, weekly for 8 weeks, monthly for 4 months, and yearly for 2 years. Deletes old backups exceeding 5000 MB.</p>
+<pre><code class="language-php">    'keep_all_backups_for_days'                =&gt; 7,
+    'keep_daily_backups_for_days'              =&gt; 16,
+    'keep_weekly_backups_for_weeks'            =&gt; 8,
+    'keep_monthly_backups_for_months'          =&gt; 4,
+    'keep_yearly_backups_for_years'            =&gt; 2,
+    'delete_oldest_backups_when_using_more_megabytes_than' =&gt; 5000,
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>security</code></strong></p>
+<p>Ensure that only someone with your <code>APP_KEY</code> can decrypt and restore snapshots.</p>
+</li>
+</ul>
+<h2 id="2-create-a-backup"><a class="header" href="#2-create-a-backup">2. Create a backup</a></h2>
+<p>You can access the built-in Backups dashboard from the Staff menu. It shows each backup’s status, health, size, and count, and lets administrators launch unscheduled full, database, or files-only backups instantly. Another approach is to use the command line.</p>
+<blockquote>
+<p>[!IMPORTANT]
+Backups initiated via the Staff Dashboard buttons may timeout on very large installations.</p>
+</blockquote>
+<ul>
+<li>
+<p>The following artisan commands are available:</p>
+<pre><code class="language-sh">php artisan backup:run
+</code></pre>
+<p>Creates a timestamped ZIP of application files and database.</p>
+<pre><code class="language-sh">php artisan backup:run --only-db
+</code></pre>
+<p>Creates a timestamped ZIP containing only the database.</p>
+<pre><code class="language-sh">php artisan backup:run --only-files
+</code></pre>
+<p>Creates a timestamped ZIP containing only application files.</p>
+</li>
+</ul>
+<h2 id="3-viewing-backup-list"><a class="header" href="#3-viewing-backup-list">3. Viewing backup list</a></h2>
+<ul>
+<li>
+<p><strong>List</strong> existing backups:</p>
+<pre><code class="language-sh">php artisan backup:list
+</code></pre>
+</li>
+</ul>
+<h2 id="4-restoring-a-backup"><a class="header" href="#4-restoring-a-backup">4. Restoring a backup</a></h2>
+<blockquote>
+<p>[!WARNING]
+<strong>Always test backup restoration procedures on a non‑critical environment before applying to production.</strong>
+Incorrect restoration can lead to data loss or service disruption.</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>Install prerequisites</strong> (Debian/Ubuntu):</p>
+<pre><code class="language-sh">sudo apt update &amp;&amp; sudo apt install p7zip-full -y
+</code></pre>
+</li>
+<li>
+<p><strong>Retrieve</strong> your application key:</p>
+<pre><code class="language-sh">grep '^APP_KEY=' /var/www/html/.env
+</code></pre>
+</li>
+<li>
+<p><strong>Extract</strong> the outer archive (enter APP_KEY when prompted):</p>
+<pre><code class="language-sh">7z x [UNIT3D]YYYY-MM-DD-HH-MM-SS.zip
+</code></pre>
+</li>
+<li>
+<p><strong>Unzip</strong> inner archive, if generated:</p>
+<pre><code class="language-sh">7z x backup.zip
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>[!NOTE]
+<strong>Full backups will contain two parts; the files backup and a database backup or dump file.</strong></p>
+</blockquote>
+<h3 id="restoring-the-files-backup"><a class="header" href="#restoring-the-files-backup"><strong>Restoring the files backup:</strong></a></h3>
+<ol>
+<li>
+<p><strong>Copy</strong> restored files to webroot:</p>
+<pre><code class="language-sh">sudo cp -a ~/tempBackup/var/www/html/. /var/www/html/
+</code></pre>
+</li>
+<li>
+<p><strong>Fix</strong> file permissions:</p>
+<pre><code class="language-sh">sudo chown -R www-data:www-data /var/www/html
+sudo find /var/www/html -type f -exec chmod 664 {} \;
+sudo find /var/www/html -type d -exec chmod 775 {} \;
+</code></pre>
+</li>
+</ol>
+<h3 id="restoring-the-database-backup"><a class="header" href="#restoring-the-database-backup"><strong>Restoring the database backup:</strong></a></h3>
+<ol>
+<li>
+<p><strong>Retrieve</strong> your database credentials:</p>
+<pre><code class="language-sh">grep '^DB_' /var/www/html/.env
+</code></pre>
+</li>
+<li>
+<p><strong>Restore</strong> your database:</p>
+<pre><code class="language-sh">mysql -u unit3d -p unit3d &lt; ~/tempBackup/db-dumps/mysql-unit3d.sql
+</code></pre>
+</li>
+</ol>
+<h2 id="5-reset--cleanup"><a class="header" href="#5-reset--cleanup">5. Reset &amp; Cleanup</a></h2>
+<blockquote>
+<p>After restoring backups, ensure to reset configurations and clean up temporary files to maintain system integrity.</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>Fix</strong> permissions:</p>
+<pre><code class="language-sh">sudo chown -R www-data:www-data /var/www/html
+sudo find /var/www/html -type f -exec chmod 664 {} \;
+sudo find /var/www/html -type d -exec chmod 775 {} \;
+</code></pre>
+</li>
+<li>
+<p><strong>Reinstall</strong> Node dependencies &amp; rebuild (if assets need it):</p>
+<pre><code class="language-sh">sudo rm -rf node_modules &amp;&amp; sudo bun install &amp;&amp; sudo bun run build
+</code></pre>
+</li>
+<li>
+<p><strong>Clear</strong> caches &amp; restart services:</p>
+<pre><code class="language-sh">cd /var/www/html
+sudo php artisan set:all_cache
+sudo systemctl restart php8.4-fpm
+sudo php artisan queue:restart
+</code></pre>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="basic_tuning.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="basic_tuning.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+autoload
+autoloaded
+autoloading
+bcmath
+classmap
+fastcgi
+igbinary
+mbstring
+opcache
+phar
