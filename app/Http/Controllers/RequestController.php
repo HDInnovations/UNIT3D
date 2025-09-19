@@ -219,8 +219,6 @@ class RequestController extends Controller
 
         $torrentRequest->update($request->validated());
 
-        $category = $torrentRequest->category;
-
         match (true) {
             $torrentRequest->tmdb_tv_id !== null    => new TMDBScraper()->tv($torrentRequest->tmdb_tv_id),
             $torrentRequest->tmdb_movie_id !== null => new TMDBScraper()->movie($torrentRequest->tmdb_movie_id),

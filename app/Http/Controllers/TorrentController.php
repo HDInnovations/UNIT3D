@@ -317,8 +317,6 @@ class TorrentController extends Controller
             Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
-        $category = $torrent->category;
-
         // Meta
 
         match (true) {
