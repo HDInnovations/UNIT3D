@@ -58,6 +58,8 @@ class ThankButton extends Component
             $uploader->notify(new NewThank('torrent', $thank));
         }
 
+        $this->torrent->loadCount('thanks');
+
         $this->dispatch('success', type: 'success', message: 'Your Thank Was Successfully Applied!');
     }
 
