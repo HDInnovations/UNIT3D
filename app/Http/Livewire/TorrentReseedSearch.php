@@ -65,6 +65,7 @@ class TorrentReseedSearch extends Component
                 'user:id,username,group_id,deleted_at',
                 'torrent:id,name,seeders,leechers,deleted_at',
             ])
+            ->whereHas('torrent')
             ->when($this->torrentName !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.$this->torrentName.'%'))
             ->when($this->myRequests, fn ($query) => $query->where('user_id', '=', auth()->id()))
             ->orderBy($this->sortField, $this->sortDirection)
