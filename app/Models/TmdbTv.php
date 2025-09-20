@@ -19,6 +19,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Enums\Occupation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\TmdbTv.
@@ -80,44 +82,52 @@ class TmdbTv extends Model
     }
 
     /**
-     * Has Many Torrents.
+     * Get torrents for the tv show.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
+     * @return HasMany<Torrent, $this>
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function torrents(): HasMany
     {
         return $this->hasMany(Torrent::class)->whereRelation('category', 'tv_meta', '=', true);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbPerson, $this>
+     * Get the people that belong to the tv show.
+     *
+     * @return BelongsToMany<TmdbPerson, $this>
      */
-    public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function people(): BelongsToMany
     {
         return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TmdbCredit, $this>
+     * Get the credits for the tv show.
+     *
+     * @return HasMany<TmdbCredit, $this>
      */
-    public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function credits(): HasMany
     {
         return $this->hasMany(TmdbCredit::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbPerson, $this>
+     * Get the creators that belong to the tv show.
+     *
+     * @return BelongsToMany<TmdbPerson, $this>
      */
-    public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function creators(): BelongsToMany
     {
         return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits')
             ->wherePivot('occupation_id', '=', Occupation::CREATOR);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbPerson, $this>
+     * Get the actors that belong to the tv show.
+     *
+     * @return BelongsToMany<TmdbPerson, $this>
      */
-    public function actors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function actors(): BelongsToMany
     {
         return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits')
             ->wherePivot('occupation_id', '=', Occupation::ACTOR)
@@ -125,41 +135,52 @@ class TmdbTv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbGenre, $this>
+     * Get the genres that belong to the tv show.
+     *
+     * @return BelongsToMany<TmdbGenre, $this>
      */
-    public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function genres(): BelongsToMany
     {
         return $this->belongsToMany(TmdbGenre::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbNetwork, $this>
+     * Get the networks that belong to the tv show.
+     *
+     * @return BelongsToMany<TmdbNetwork, $this>
      */
-    public function networks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function networks(): BelongsToMany
     {
         return $this->belongsToMany(TmdbNetwork::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbCompany, $this>
+     * Get the companies that belong to the tv show.
+     *
+     *
+     * @return BelongsToMany<TmdbCompany, $this>
      */
-    public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function companies(): BelongsToMany
     {
         return $this->belongsToMany(TmdbCompany::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbTv, $this>
+     * Get the recommended tv shows that belong to the tv show.
+     *
+     * @return BelongsToMany<TmdbTv, $this>
      */
-    public function recommendedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function recommendedTv(): BelongsToMany
     {
         return $this->belongsToMany(__CLASS__, 'tmdb_recommended_tv', 'tmdb_tv_id', 'recommended_tmdb_tv_id', 'id', 'id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
+     * Get the wishes for this tv show.
+     *
+     * @return HasMany<Wish, $this>
      */
-    public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function wishes(): HasMany
     {
         return $this->hasMany(Wish::class);
     }

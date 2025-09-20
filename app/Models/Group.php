@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Group.
@@ -129,28 +130,28 @@ class Group extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
     /**
-     * Has Many Users.
+     * Get the users for the group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User, $this>
+     * @return HasMany<User, $this>
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
 
     /**
-     * Has Many Permissions.
+     * Get the forum permissions for the group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
+     * @return HasMany<ForumPermission, $this>
      */
-    public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function permissions(): HasMany
     {
         return $this->hasMany(ForumPermission::class);
     }

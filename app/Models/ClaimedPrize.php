@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\ClaimedPrize.
@@ -39,21 +40,21 @@ class ClaimedPrize extends Model
     protected $guarded = [];
 
     /**
-     * Belongs to a user.
+     * Get the user that owns this claimed prize.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Belongs to an event.
+     * Get the event that owns this claimed prize.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Event, $this>
+     * @return BelongsTo<Event, $this>
      */
-    public function event(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }

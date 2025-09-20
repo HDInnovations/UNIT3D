@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\TorrentRequestBounty.
@@ -39,7 +40,7 @@ class TorrentRequestBounty extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
+     * The table associated with the model.
      *
      * @var string
      */
@@ -66,11 +67,11 @@ class TorrentRequestBounty extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that added the bounty.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -79,11 +80,11 @@ class TorrentRequestBounty extends Model
     }
 
     /**
-     * Belongs To A Torrent Request.
+     * Get the request that the bounty was added to.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, $this>
+     * @return BelongsTo<TorrentRequest, $this>
      */
-    public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function request(): BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class, 'requests_id');
     }

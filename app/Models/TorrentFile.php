@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Helpers\StringHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\TorrentFile.
@@ -34,31 +35,30 @@ class TorrentFile extends Model
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
     /**
-     * The Database Table Used By The Model.
-     *
+     * The table associated with the model.
      * @var string
      */
     protected $table = 'files';
 
     /**
-     * Belongs To A Torrent.
+     * The torrent that owns the file.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
 
     /**
-     * Return Size In Human Format.
+     * Get size in human format.
      */
     public function getSize(): string
     {

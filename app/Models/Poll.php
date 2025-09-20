@@ -19,6 +19,9 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Poll.
@@ -58,11 +61,11 @@ class Poll extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that created the poll.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -71,37 +74,37 @@ class Poll extends Model
     }
 
     /**
-     * A Poll Has Many Options.
+     * Get all options for the poll.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Option, $this>
+     * @return HasMany<Option, $this>
      */
-    public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function options(): HasMany
     {
         return $this->hasMany(Option::class);
     }
 
     /**
-     * A Poll Has Many Voters.
+     * Get all the users that voted on the poll.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
+     * @return BelongsToMany<User, $this>
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'voters')->withTimestamps();
     }
 
     /**
-     * A Poll Has Many Votes.
+     * Geth all the votes for the poll.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Voter, $this>
+     * @return HasMany<Voter, $this>
      */
-    public function votes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function votes(): HasMany
     {
         return $this->hasMany(Voter::class);
     }
 
     /**
-     * Set The Poll's Title.
+     * Set the poll's title.
      */
     public function setTitleAttribute(string $title): void
     {

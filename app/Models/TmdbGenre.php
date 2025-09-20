@@ -18,6 +18,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\TmdbGenre.
@@ -35,17 +36,21 @@ class TmdbGenre extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbMovie, $this>
+     * Get the movies that belong to the genre.
+     *
+     * @return BelongsToMany<TmdbMovie, $this>
      */
-    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function movie(): BelongsToMany
     {
         return $this->belongsToMany(TmdbMovie::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbTv, $this>
+     * Get the tv shows that belong to the genre.
+     *
+     * @return BelongsToMany<TmdbTv, $this>
      */
-    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function tv(): BelongsToMany
     {
         return $this->belongsToMany(TmdbTv::class);
     }

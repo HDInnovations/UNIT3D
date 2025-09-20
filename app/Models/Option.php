@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Option.
@@ -47,11 +48,11 @@ class Option extends Model
     ];
 
     /**
-     * Belongs To A Poll.
+     * Get the poll that owns the option.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Poll, $this>
+     * @return BelongsTo<Poll, $this>
      */
-    public function poll(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function poll(): BelongsTo
     {
         return $this->belongsTo(Poll::class);
     }

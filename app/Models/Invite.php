@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -48,11 +49,11 @@ class Invite extends Model
     protected $guarded = [];
 
     /**
-     * Belongs To A User.
+     * The user that sent the invite.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function sender(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
@@ -61,11 +62,11 @@ class Invite extends Model
     }
 
     /**
-     * Belongs To A User.
+     * The user that received the invite.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'accepted_by')->withDefault([
             'username' => 'System',

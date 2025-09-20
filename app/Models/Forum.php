@@ -19,6 +19,11 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\Forum.
@@ -53,97 +58,97 @@ class Forum extends Model
     protected $guarded = ['id', 'created_at'];
 
     /**
-     * Has Many Topic.
+     * Get the topics for the forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic, $this>
+     * @return HasMany<Topic, $this>
      */
-    public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);
     }
 
     /**
-     * Returns The Category In Which The Forum Is Located.
+     * Get the category for the forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ForumCategory, $this>
+     * @return BelongsTo<ForumCategory, $this>
      */
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(ForumCategory::class, 'forum_category_id');
     }
 
     /**
-     * All posts inside the forum.
+     * Get the posts for the forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Post, Topic, $this>
+     * @return HasManyThrough<Post, Topic, $this>
      */
-    public function posts(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    public function posts(): HasManyThrough
     {
         return $this->hasManyThrough(Post::class, Topic::class);
     }
 
     /**
-     * Latest topic.
+     * Get the forum's last replied topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Topic, $this>
+     * @return HasOne<Topic, $this>
      */
-    public function lastRepliedTopicSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function lastRepliedTopicSlow(): HasOne
     {
         return $this->hasOne(Topic::class)->ofMany('last_post_created_at', 'max');
     }
 
     /**
-     * Latest topic.
+     * Get the last replied topic of the forum (cached).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
+     * @return BelongsTo<Topic, $this>
      */
-    public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function lastRepliedTopic(): BelongsTo
     {
         return $this->belongsTo(Topic::class, 'last_topic_id');
     }
 
     /**
-     * Latest poster.
+     * Get the latest poster of the forum (cached).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function latestPoster(): BelongsTo
     {
         return $this->belongsTo(User::class, 'last_post_user_id');
     }
 
     /**
-     * Has Many Subscriptions.
+     * Get the subscriptions for the forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription, $this>
+     * @return HasMany<Subscription, $this>
      */
-    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class, 'forum_id', 'id');
     }
 
     /**
-     * Has Many Permissions.
+     * Get the permissions for the forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
+     * @return HasMany<ForumPermission, $this>
      */
-    public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function permissions(): HasMany
     {
         return $this->hasMany(ForumPermission::class);
     }
 
     /**
-     * Belongs To Many Subscribed Users.
+     * Get the users that are subscribed to the forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
+     * @return BelongsToMany<User, $this>
      */
-    public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function subscribedUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, Subscription::class);
     }
 
     /**
-     * Only include forums a user is authorized to.
+     * Scope a query to only include forums a user is authorized to.
      *
      * @param  \Illuminate\Database\Eloquent\Builder<self> $query
      * @return \Illuminate\Database\Eloquent\Builder<self>

@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\PlaylistCategory.
@@ -50,11 +51,11 @@ class PlaylistCategory extends Model
     protected $guarded = [];
 
     /**
-     * Has many playlists.
+     * Get the playlists for this category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Playlist, $this>
+     * @return HasMany<Playlist, $this>
      */
-    public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function playlists(): HasMany
     {
         return $this->hasMany(Playlist::class);
     }

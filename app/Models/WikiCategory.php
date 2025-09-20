@@ -18,6 +18,7 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\WikiCategory.
@@ -32,7 +33,7 @@ class WikiCategory extends Model
     use Auditable;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
@@ -41,11 +42,11 @@ class WikiCategory extends Model
     protected $guarded = [];
 
     /**
-     * Has Many Wikis.
+     * Get the wikis for the wiki category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wiki, $this>
+     * @return HasMany<Wiki, $this>
      */
-    public function wikis(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function wikis(): HasMany
     {
         return $this->hasMany(Wiki::class, 'category_id');
     }

@@ -19,6 +19,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -48,14 +49,14 @@ class History extends Model
     use SoftDeletes;
 
     /**
-     * The Database Table Used By The Model.
+     * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'history';
 
     /**
-     * The Attributes That Are Mass Assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var string[]
      */
@@ -76,11 +77,11 @@ class History extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Get the user associated with the history.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -89,11 +90,11 @@ class History extends Model
     }
 
     /**
-     * Belongs To A Torrent.
+     * Get the torrent associated with the history.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }

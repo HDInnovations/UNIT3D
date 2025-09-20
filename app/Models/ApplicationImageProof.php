@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\ApplicationImageProof.
@@ -47,11 +48,11 @@ class ApplicationImageProof extends Model
     ];
 
     /**
-     * Belongs To A Application.
+     * Get the application that owns the image proof.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Application, $this>
+     * @return BelongsTo<Application, $this>
      */
-    public function application(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function application(): BelongsTo
     {
         return $this->belongsTo(Application::class);
     }

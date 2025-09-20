@@ -18,6 +18,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * App\Models\TmdbCollection.
@@ -42,17 +44,21 @@ class TmdbCollection extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
+     * Get the comments for the collection.
+     *
+     * @return MorphMany<Comment, $this>
      */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbMovie, $this>
+     * Get the movies that belong to the collection.
+     *
+     * @return BelongsToMany<TmdbMovie, $this>
      */
-    public function movies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function movies(): BelongsToMany
     {
         return $this->belongsToMany(TmdbMovie::class);
     }

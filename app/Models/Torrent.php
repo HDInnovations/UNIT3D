@@ -24,6 +24,11 @@ use App\Traits\GroupedLastScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
@@ -479,11 +484,11 @@ class Torrent extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that uploaded the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -492,101 +497,101 @@ class Torrent extends Model
     }
 
     /**
-     * Belongs To A Category.
+     * Get the category associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, $this>
+     * @return BelongsTo<Category, $this>
      */
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
     /**
-     * Belongs To A Type.
+     * Get the type associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, $this>
+     * @return BelongsTo<Type, $this>
      */
-    public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
     }
 
     /**
-     * Belongs To A Resolution.
+     * Get the resolution associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, $this>
+     * @return BelongsTo<Resolution, $this>
      */
-    public function resolution(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function resolution(): BelongsTo
     {
         return $this->belongsTo(Resolution::class);
     }
 
     /**
-     * Belongs To A Distributor.
+     * Get the distributor associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Distributor, $this>
+     * @return BelongsTo<Distributor, $this>
      */
-    public function distributor(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function distributor(): BelongsTo
     {
         return $this->belongsTo(Distributor::class);
     }
 
     /**
-     * Belongs To A Region.
+     * Get the region associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Region, $this>
+     * @return BelongsTo<Region, $this>
      */
-    public function region(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);
     }
 
     /**
-     * Belongs To A Movie.
+     * Get the movie associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TmdbMovie, $this>
+     * @return BelongsTo<TmdbMovie, $this>
      */
-    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function movie(): BelongsTo
     {
         return $this->belongsTo(TmdbMovie::class, 'tmdb_movie_id');
     }
 
     /**
-     * Belongs To A Tv.
+     * Get the tv show associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TmdbTv, $this>
+     * @return BelongsTo<TmdbTv, $this>
      */
-    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function tv(): BelongsTo
     {
         return $this->belongsTo(TmdbTv::class, 'tmdb_tv_id');
     }
 
     /**
-     * Belongs To A Game.
+     * Get the game associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<IgdbGame, $this>
+     * @return BelongsTo<IgdbGame, $this>
      */
-    public function game(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function game(): BelongsTo
     {
         return $this->belongsTo(IgdbGame::class, 'igdb_game_id');
     }
 
     /**
-     * Belongs To A Playlist.
+     * Get the playlists that belong to the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Playlist, $this, PlaylistTorrent>
+     * @return BelongsToMany<Playlist, $this, PlaylistTorrent>
      */
-    public function playlists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function playlists(): BelongsToMany
     {
         return $this->belongsToMany(Playlist::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
     }
 
     /**
-     * Torrent Has Been Moderated By.
+     * Get the staff user that moderated the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function moderated(): BelongsTo
     {
         return $this->belongsTo(User::class, 'moderated_by')->withDefault([
             'username' => 'System',
@@ -595,195 +600,197 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Keywords.
+     * Get the keywords for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Keyword, $this>
+     * @return HasMany<Keyword, $this>
      */
-    public function keywords(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function keywords(): HasMany
     {
         return $this->hasMany(Keyword::class);
     }
 
     /**
-     * Has Many History.
+     * Get the history for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History, $this>
+     * @return HasMany<History, $this>
      */
-    public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function history(): HasMany
     {
         return $this->hasMany(History::class);
     }
 
     /**
-     * Has Many Tips.
+     * Get the tips for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip, $this>
+     * @return HasMany<TorrentTip, $this>
      */
-    public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tips(): HasMany
     {
         return $this->hasMany(TorrentTip::class);
     }
 
     /**
-     * Has Many Thank.
+     * Get the thanks for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank, $this>
+     * @return HasMany<Thank, $this>
      */
-    public function thanks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function thanks(): HasMany
     {
         return $this->hasMany(Thank::class);
     }
 
     /**
-     * Has Many HitRuns.
+     * Get the warnings for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
+     * @return HasMany<Warning, $this>
      */
-    public function hitrun(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function hitrun(): HasMany
     {
         return $this->hasMany(Warning::class, 'torrent');
     }
 
     /**
-     * Has Many Featured.
+     * Get the features for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent, $this>
+     * @return HasMany<FeaturedTorrent, $this>
      */
-    public function featured(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function featured(): HasMany
     {
         return $this->hasMany(FeaturedTorrent::class);
     }
 
     /**
-     * Has Many Files.
+     * Get the files for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentFile, $this>
+     * @return HasMany<TorrentFile, $this>
      */
-    public function files(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function files(): HasMany
     {
         return $this->hasMany(TorrentFile::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
+     * Get the comments for the torrent.
+     *
+     * @return MorphMany<Comment, $this>
      */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**
-     * Has Many Peers.
+     * Get the peers for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer, $this>
+     * @return HasMany<Peer, $this>
      */
-    public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function peers(): HasMany
     {
         return $this->hasMany(Peer::class);
     }
 
     /**
-     * Has Many Seeds.
+     * Get the seeds for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer, $this>
+     * @return HasMany<Peer, $this>
      */
-    public function seeds(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function seeds(): HasMany
     {
         return $this->hasMany(Peer::class)->where('seeder', '=', true);
     }
 
     /**
-     * Has Many Leeches.
+     * Get the leeches for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer, $this>
+     * @return HasMany<Peer, $this>
      */
-    public function leeches(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function leeches(): HasMany
     {
         return $this->hasMany(Peer::class)->where('seeder', '=', false);
     }
 
     /**
-     * Has Many Subtitles.
+     * Get the subtitles for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subtitle, $this>
+     * @return HasMany<Subtitle, $this>
      */
-    public function subtitles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subtitles(): HasMany
     {
         return $this->hasMany(Subtitle::class);
     }
 
     /**
-     * Relationship To Many Requests.
+     * Get the requests for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
+     * @return HasMany<TorrentRequest, $this>
      */
-    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function requests(): HasMany
     {
         return $this->hasMany(TorrentRequest::class);
     }
 
     /**
-     * Has many free leech tokens.
+     * Get the freeleech tokens for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken, $this>
+     * @return HasMany<FreeleechToken, $this>
      */
-    public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function freeleechTokens(): HasMany
     {
         return $this->hasMany(FreeleechToken::class);
     }
 
     /**
-     * Bookmarks.
+     * Get the bookmarks for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Bookmark, $this>
+     * @return HasMany<Bookmark, $this>
      */
-    public function bookmarks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function bookmarks(): HasMany
     {
         return $this->hasMany(Bookmark::class);
     }
 
     /**
-     * Resurrections.
+     * Get the resurrections for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection, $this>
+     * @return HasMany<Resurrection, $this>
      */
-    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function resurrections(): HasMany
     {
         return $this->hasMany(Resurrection::class);
     }
 
     /**
-     * Reports.
+     * Get the reports for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
+     * @return HasMany<Report, $this>
      */
-    public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function reports(): HasMany
     {
         return $this->hasMany(Report::class);
     }
 
     /**
-     * Has Many Downloads.
+     * Get the downloads for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentDownload, $this>
+     * @return HasMany<TorrentDownload, $this>
      */
-    public function downloads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function downloads(): HasMany
     {
         return $this->hasMany(TorrentDownload::class);
     }
 
     /**
-     * Trump.
+     * Get the trumps for the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentTrump, $this>
+     * @return HasOne<TorrentTrump, $this>
      */
-    public function trump(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function trump(): HasOne
     {
         return $this->hasOne(TorrentTrump::class);
     }
 
     /**
-     * Set The Torrents MediaInfo After Its Been Purified.
+     * Set the torrent's mediainfo after it's been purified.
      */
     public function setMediaInfoAttribute(?string $value): void
     {
@@ -791,7 +798,7 @@ class Torrent extends Model
     }
 
     /**
-     * Returns The Size In Human Format.
+     * Get the size in human format.
      */
     public function getSize(): string
     {

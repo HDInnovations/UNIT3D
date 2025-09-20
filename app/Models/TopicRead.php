@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\TopicRead.
@@ -30,32 +31,38 @@ class TopicRead extends Model
     protected $guarded = [];
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
+     * Get the topic that was read.
+     *
+     * @return BelongsTo<Topic, $this>
      */
-    public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function topic(): BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * Get the user that read the topic.
+     *
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, $this>
+     * Get the last post that the user read on the topic.
+     *
+     * @return BelongsTo<Post, $this>
      */
-    public function lastReadPost(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function lastReadPost(): BelongsTo
     {
         return $this->belongsTo(Post::class);
     }

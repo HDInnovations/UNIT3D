@@ -18,6 +18,7 @@ namespace App\Models;
 
 use App\Models\Scopes\ApprovedScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\TorrentTrump.
@@ -39,17 +40,21 @@ class TorrentTrump extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * Get the torrent that can be trumped.
+     *
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class)->withoutGlobalScope(ApprovedScope::class)->withTrashed();
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * Get the user that created the trump message.
+     *
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->with('group')->withTrashed();
     }

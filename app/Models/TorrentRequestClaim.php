@@ -39,7 +39,7 @@ class TorrentRequestClaim extends Model
     use HasFactory;
 
     /**
-     * The Database Table Used By The Model.
+     * The table associated with the model.
      *
      * @var string
      */
@@ -65,7 +65,7 @@ class TorrentRequestClaim extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that claimed the request.
      *
      * @return BelongsTo<User, $this>
      */
@@ -75,6 +75,7 @@ class TorrentRequestClaim extends Model
     }
 
     /**
+     * Get the request that the user claimed.
      * @return BelongsTo<TorrentRequest, $this>
      */
     public function request(): BelongsTo

@@ -20,6 +20,9 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * App\Models\Comment.
@@ -61,11 +64,11 @@ class Comment extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that owns the comment.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -74,17 +77,21 @@ class Comment extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, $this>
+     * Get the parent commentable model.
+     *
+     * @return MorphTo<Model, $this>
      */
-    public function commentable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    public function commentable(): MorphTo
     {
         return $this->morphTo();
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self, $this>
+     * Get the children comments for this comment.
+     *
+     * @return HasMany<self, $this>
      */
-    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function children(): HasMany
     {
         return $this->hasMany(__CLASS__, 'parent_id')->oldest();
     }
@@ -100,6 +107,8 @@ class Comment extends Model
     }
 
     /**
+     * Scope a query to only include parent comments.
+     *
      * @param Builder<Comment> $builder
      */
     public function scopeParent(Builder $builder): void

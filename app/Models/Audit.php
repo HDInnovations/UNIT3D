@@ -18,6 +18,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * App\Models\Audit.
@@ -51,11 +53,11 @@ class Audit extends Model
     ];
 
     /**
-     * Belongs To A User.
+     * Get the user who triggered the audit.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -64,9 +66,11 @@ class Audit extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, $this>
+     * Get the parent auditable model.
+     *
+     * @return MorphTo<Model, $this>
      */
-    public function auditable(): \Illuminate\Database\Eloquent\Relations\MorphTo
+    public function auditable(): MorphTo
     {
         return $this->morphTo();
     }

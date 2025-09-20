@@ -19,6 +19,8 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Post.
@@ -63,21 +65,21 @@ class Post extends Model
     }
 
     /**
-     * Belongs To A Topic.
+     * Get the topic that owns the post.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
+     * @return BelongsTo<Topic, $this>
      */
-    public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function topic(): BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that wrote the post.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -86,51 +88,51 @@ class Post extends Model
     }
 
     /**
-     * A Post Has Many Likes.
+     * Get all likes for the post.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like, $this>
+     * @return HasMany<Like, $this>
      */
-    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class)->where('like', '=', 1);
     }
 
     /**
-     * A Post Has Many Dislikes.
+     * Get all dislikes for the post.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like, $this>
+     * @return HasMany<Like, $this>
      */
-    public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function dislikes(): HasMany
     {
         return $this->hasMany(Like::class)->where('dislike', '=', 1);
     }
 
     /**
-     * Has Many Tips.
+     * Get all tips for the post.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip, $this>
+     * @return HasMany<PostTip, $this>
      */
-    public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tips(): HasMany
     {
         return $this->hasMany(PostTip::class);
     }
 
     /**
-     * A Post Author Has Many Posts.
+     * Get all the posts for the post's author.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post, $this>
+     * @return HasMany<Post, $this>
      */
-    public function authorPosts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function authorPosts(): HasMany
     {
         return $this->hasMany(Post::class, 'user_id', 'user_id');
     }
 
     /**
-     * A Post Author Has Many Topics.
+     * Get all the topics for the post's author.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic, $this>
+     * @return HasMany<Topic, $this>
      */
-    public function authorTopics(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function authorTopics(): HasMany
     {
         return $this->hasMany(Topic::class, 'first_post_user_id', 'user_id');
     }

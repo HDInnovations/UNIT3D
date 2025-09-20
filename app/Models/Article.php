@@ -19,6 +19,9 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * App\Models\Article.
@@ -46,11 +49,11 @@ class Article extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
-     * Belongs To A User.
+     * Get the author of the article.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -59,17 +62,21 @@ class Article extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
+     * Get the comments for the article.
+     *
+     * @return MorphMany<Comment, $this>
      */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UnreadArticle, $this>
+     * Get the unreads for the article.
+     *
+     * @return HasMany<UnreadArticle, $this>
      */
-    public function unreads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function unreads(): HasMany
     {
         return $this->HasMany(UnreadArticle::class);
     }

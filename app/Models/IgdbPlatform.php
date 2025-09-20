@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\IgdbPlatform.
@@ -42,11 +43,11 @@ class IgdbPlatform extends Model
     public $timestamps = false;
 
     /**
-     * Belongs to many games.
+     * Get the games that belong to the platform.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<IgdbGame, $this>
+     * @return BelongsToMany<IgdbGame, $this>
      */
-    public function games(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function games(): BelongsToMany
     {
         return $this->belongsToMany(IgdbGame::class);
     }

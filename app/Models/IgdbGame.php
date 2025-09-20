@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\IgdbGame.
@@ -56,31 +57,31 @@ class IgdbGame extends Model
     }
 
     /**
-     * Belongs to many platforms.
+     * Get the platforms that belong to the game.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<IgdbPlatform, $this>
+     * @return BelongsToMany<IgdbPlatform, $this>
      */
-    public function platforms(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function platforms(): BelongsToMany
     {
         return $this->belongsToMany(IgdbPlatform::class);
     }
 
     /**
-     * Belongs to many companies.
+     * Get the companies that belong to the game.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<IgdbCompany, $this>
+     * @return BelongsToMany<IgdbCompany, $this>
      */
-    public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function companies(): BelongsToMany
     {
         return $this->belongsToMany(IgdbCompany::class);
     }
 
     /**
-     * Belongs to many genres.
+     * Get the genres that belong to the game.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<IgdbGenre, $this>
+     * @return BelongsToMany<IgdbGenre, $this>
      */
-    public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function genres(): BelongsToMany
     {
         return $this->belongsToMany(IgdbGenre::class);
     }

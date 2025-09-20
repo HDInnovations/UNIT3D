@@ -18,6 +18,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\UserAudible.
@@ -44,41 +45,41 @@ class UserAudible extends Model
     protected $guarded = [];
 
     /**
-     * Belongs To A User.
+     * Get the user that owns the audible.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Belongs To A Chatroom.
+     * Get the chatroom associated with the audible.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, $this>
+     * @return BelongsTo<Chatroom, $this>
      */
-    public function room(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function room(): BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
     }
 
     /**
-     * Belongs To A Target.
+     * Get the target user associated with the audible.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function target(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function target(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Belongs To A Bot.
+     * Get the bot associated with the audible.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, $this>
+     * @return BelongsTo<Bot, $this>
      */
-    public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function bot(): BelongsTo
     {
         return $this->belongsTo(Bot::class);
     }

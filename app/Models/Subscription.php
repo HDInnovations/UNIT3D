@@ -20,6 +20,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Subscription.
@@ -39,11 +40,11 @@ class Subscription extends Model
     use HasFactory;
 
     /**
-     * Belongs To A User.
+     * Get the user that owns the subscription.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -52,27 +53,27 @@ class Subscription extends Model
     }
 
     /**
-     * Belongs To A Topic.
+     * Gets the subscribed topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
+     * @return BelongsTo<Topic, $this>
      */
-    public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function topic(): BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
 
     /**
-     * Belongs To A Forum.
+     * Gets the subscribed forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, $this>
+     * @return BelongsTo<Forum, $this>
      */
-    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function forum(): BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }
 
     /**
-     * Only include subscriptions of a forum.
+     * Scope query to only include subscriptions of a forum.
      *
      * @param  Builder<Subscription> $query
      * @return Builder<Subscription>
@@ -83,7 +84,7 @@ class Subscription extends Model
     }
 
     /**
-     * Only include subscriptions of a topic.
+     * Scope query to only include subscriptions of a topic.
      *
      * @param  Builder<Subscription> $query
      * @return Builder<Subscription>

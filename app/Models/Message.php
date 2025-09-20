@@ -18,6 +18,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Message.
@@ -50,41 +51,41 @@ class Message extends Model
     ];
 
     /**
-     * Belongs To A Bot.
+     * Get the bot that sent the message.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, $this>
+     * @return BelongsTo<Bot, $this>
      */
-    public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function bot(): BelongsTo
     {
         return $this->belongsTo(Bot::class);
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that sent the message.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * A message belongs to a receiver.
+     * Get the user that received the message.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
 
     /**
-     * Belongs To A Chat Room.
+     * Get the chatroom the message was sent in.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, $this>
+     * @return BelongsTo<Chatroom, $this>
      */
-    public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function chatroom(): BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
     }

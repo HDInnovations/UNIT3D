@@ -19,6 +19,10 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * App\Models\Playlist.
@@ -46,11 +50,11 @@ class Playlist extends Model
     protected $guarded = [];
 
     /**
-     * Belongs To A User.
+     * Get the user that owns the playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -59,39 +63,41 @@ class Playlist extends Model
     }
 
     /**
-     * Belongs to a Category.
+     * Get the category for the playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<PlaylistCategory, $this>
+     * @return BelongsTo<PlaylistCategory, $this>
      */
-    public function playlistCategory(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function playlistCategory(): BelongsTo
     {
         return $this->belongsTo(PlaylistCategory::class);
     }
 
     /**
-     * Has Many Torrents.
+     * Get the torrents that belong to the playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this, PlaylistTorrent>
+     * @return BelongsToMany<Torrent, $this, PlaylistTorrent>
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function torrents(): BelongsToMany
     {
         return $this->belongsToMany(Torrent::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id')->withTimestamps();
     }
 
     /**
-     * Has Many Torrents.
+     * Get the suggestions for this playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PlaylistSuggestion, $this>
+     * @return HasMany<PlaylistSuggestion, $this>
      */
-    public function suggestions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function suggestions(): HasMany
     {
         return $this->hasMany(PlaylistSuggestion::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
+     * Get the comments for this playlist.
+     *
+     * @return MorphMany<Comment, $this>
      */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }

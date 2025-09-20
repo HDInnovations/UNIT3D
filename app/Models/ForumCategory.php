@@ -19,6 +19,8 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * App\Models\Forum.
@@ -46,21 +48,21 @@ class ForumCategory extends Model
     protected $guarded = ['id', 'created_at'];
 
     /**
-     * Has Many Sub Topics.
+     * Has the topics for the category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Topic, Forum, $this>
+     * @return HasManyThrough<Topic, Forum, $this>
      */
-    public function topics(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    public function topics(): HasManyThrough
     {
         return $this->hasManyThrough(Topic::class, Forum::class);
     }
 
     /**
-     * Has Many Sub Forums.
+     * Get the forums for the category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Forum, $this>
+     * @return HasMany<Forum, $this>
      */
-    public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function forums(): HasMany
     {
         return $this->hasMany(Forum::class);
     }

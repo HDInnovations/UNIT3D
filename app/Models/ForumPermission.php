@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Permission.
@@ -38,12 +39,17 @@ class ForumPermission extends Model
     use HasFactory;
 
     /**
-     * Tells Laravel To Not Maintain The Timestamp Columns.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
     public $guarded = [];
 
     /**
@@ -61,21 +67,21 @@ class ForumPermission extends Model
     }
 
     /**
-     * Belongs To A Group.
+     * Get the group associated with the permission.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, $this>
+     * @return BelongsTo<Group, $this>
      */
-    public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
 
     /**
-     * Belongs To A Forum.
+     * Get the forum associated with the permission.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, $this>
+     * @return BelongsTo<Forum, $this>
      */
-    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function forum(): BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }

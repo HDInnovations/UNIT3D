@@ -20,6 +20,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -61,21 +62,21 @@ class Warning extends Model
     }
 
     /**
-     * Belongs To A Torrent.
+     * Get the torrent associated with the warning.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrenttitle(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrenttitle(): BelongsTo
     {
         return $this->belongsTo(Torrent::class, 'torrent');
     }
 
     /**
-     * Belongs To A User.
+     * Get the warned user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function warneduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function warneduser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
@@ -84,11 +85,11 @@ class Warning extends Model
     }
 
     /**
-     * Belongs To A USer.
+     * Get the staff user that issued the warning.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function staffuser(): BelongsTo
     {
         return $this->belongsTo(User::class, 'warned_by')->withDefault([
             'username' => 'System',
@@ -97,11 +98,11 @@ class Warning extends Model
     }
 
     /**
-     * Belongs To A USer.
+     * Get the staff user that revoked the warning.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function deletedBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by')->withDefault([
             'username' => 'System',
@@ -110,7 +111,7 @@ class Warning extends Model
     }
 
     /**
-     * Active Warnings.
+     * Scope query to only include active warnings.
      *
      * @param Builder<Warning> $query
      */

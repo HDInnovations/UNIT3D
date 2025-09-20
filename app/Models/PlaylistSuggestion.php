@@ -18,6 +18,7 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\PlaylistSuggestion.
@@ -42,31 +43,31 @@ class PlaylistSuggestion extends Model
     protected $guarded = [];
 
     /**
-     * Belongs to a torrent.
+     * Get the torrent associated with the playlist suggestion.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
 
     /**
-     * Belongs to a User.
+     * Get the user associated with the playlist suggestion.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Belongs to a playlist.
+     * Get the playlist associated with the suggestion.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Playlist, $this>
+     * @return BelongsTo<Playlist, $this>
      */
-    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function playlist(): BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }

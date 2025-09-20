@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Participant extends Model
@@ -31,31 +33,31 @@ class Participant extends Model
     protected $guarded = [];
 
     /**
-     * Belongs to a user.
+     * Get the user associated the participant.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Belongs to a user.
+     * Get the conversation associated with the participant.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Conversation, $this>
+     * @return BelongsTo<Conversation, $this>
      */
-    public function conversation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function conversation(): BelongsTo
     {
         return $this->belongsTo(Conversation::class);
     }
 
     /**
-     * Has many messages in the conversation.
+     * Get all of the messages for this participant.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage, $this>
+     * @return HasMany<PrivateMessage, $this>
      */
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(PrivateMessage::class, 'conversation_id', 'conversation_id');
     }

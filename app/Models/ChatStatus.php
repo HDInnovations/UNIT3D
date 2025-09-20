@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\ChatStatus.
@@ -45,11 +46,11 @@ class ChatStatus extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
-     * A Status Has Many Users.
+     * Get the users that have this chat status.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User, $this>
+     * @return HasMany<User, $this>
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class, 'chat_status_id', 'id');
     }

@@ -19,6 +19,9 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * App\Models\Ticket.
@@ -63,11 +66,11 @@ class Ticket extends Model
     }
 
     /**
-     * Belongs To A User (Created).
+     * Get the user who created the ticket.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -76,59 +79,61 @@ class Ticket extends Model
     }
 
     /**
-     * Belongs To A Staff User (Assigned).
+     * Get the staff user that was assigned the ticket.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function staff(): BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id');
     }
 
     /**
-     * Belongs To A Ticket Priority.
+     * Get the priority associated with the ticket.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TicketPriority, $this>
+     * @return BelongsTo<TicketPriority, $this>
      */
-    public function priority(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function priority(): BelongsTo
     {
         return $this->belongsTo(TicketPriority::class);
     }
 
     /**
-     * Belongs To A Ticket Category.
+     * Get the category associated with the ticket.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TicketCategory, $this>
+     * @return BelongsTo<TicketCategory, $this>
      */
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(TicketCategory::class);
     }
 
     /**
-     * Has Many Ticket Attachments.
+     * Get all attachments for the ticket.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketAttachment, $this>
+     * @return HasMany<TicketAttachment, $this>
      */
-    public function attachments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function attachments(): HasMany
     {
         return $this->hasMany(TicketAttachment::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
+     * Get the comments for the ticket.
+     *
+     * @return MorphMany<Comment, $this>
      */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
     /**
-     * Has Many Ticket Notes.
+     * Get the notes for the ticket.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketNote, $this>
+     * @return HasMany<TicketNote, $this>
      */
-    public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function notes(): HasMany
     {
         return $this->hasMany(TicketNote::class);
     }

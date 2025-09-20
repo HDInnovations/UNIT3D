@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\BonEarning.
@@ -30,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
 class BonEarningCondition extends Model
 {
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
@@ -44,11 +45,11 @@ class BonEarningCondition extends Model
     protected $guarded = [];
 
     /**
-     * Belongs To A Bon Earning.
+     * Get the bon earning that owns the condition.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonEarning, $this>
+     * @return BelongsTo<BonEarning, $this>
      */
-    public function bonEarning(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function bonEarning(): BelongsTo
     {
         return $this->belongsTo(BonEarning::class);
     }

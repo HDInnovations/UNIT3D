@@ -21,6 +21,8 @@ use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Application.
@@ -69,41 +71,41 @@ class Application extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that owns the application.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Application Has Been Moderated By.
+     * Get the user that moderated the application.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function moderated(): BelongsTo
     {
         return $this->belongsTo(User::class, 'moderated_by');
     }
 
     /**
-     * A Application Has Many Image Proofs.
+     * Get the image proofs for the application.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationImageProof, $this>
+     * @return HasMany<ApplicationImageProof, $this>
      */
-    public function imageProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function imageProofs(): HasMany
     {
         return $this->hasMany(ApplicationImageProof::class);
     }
 
     /**
-     * A Application Has Many URL Proofs.
+     * Get the URL proofs for the application.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationUrlProof, $this>
+     * @return HasMany<ApplicationUrlProof, $this>
      */
-    public function urlProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function urlProofs(): HasMany
     {
         return $this->hasMany(ApplicationUrlProof::class);
     }

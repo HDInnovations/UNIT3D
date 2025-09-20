@@ -18,6 +18,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Conversation extends Model
 {
@@ -32,31 +34,31 @@ class Conversation extends Model
     protected $guarded = [];
 
     /**
-     * Has many private messages.
+     * Get the private messages for this conversation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage, $this>
+     * @return HasMany<PrivateMessage, $this>
      */
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(PrivateMessage::class);
     }
 
     /**
-     * Has many users.
+     * Get the users that belong to the conversation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
+     * @return BelongsToMany<User, $this>
      */
-    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'participants')->withTrashed();
     }
 
     /**
-     * Has many participants.
+     * Get the participants for this conversation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant, $this>
+     * @return HasMany<Participant, $this>
      */
-    public function participants(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function participants(): HasMany
     {
         return $this->hasMany(Participant::class);
     }

@@ -18,6 +18,7 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
@@ -53,21 +54,21 @@ class PlaylistTorrent extends Pivot
     protected $table = 'playlist_torrents';
 
     /**
-     * Belongs To A Torrent.
+     * Get the torrent associated with the playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
 
     /**
-     * Belongs To A Playlist.
+     * Get the playlist associated with the torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Playlist, $this>
+     * @return BelongsTo<Playlist, $this>
      */
-    public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function playlist(): BelongsTo
     {
         return $this->belongsTo(Playlist::class);
     }

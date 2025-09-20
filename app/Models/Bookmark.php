@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Bookmark.
@@ -37,11 +38,11 @@ class Bookmark extends Model
     use HasFactory;
 
     /**
-     * Belongs To A User.
+     * Get the user that owns the bookmark.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
@@ -50,31 +51,31 @@ class Bookmark extends Model
     }
 
     /**
-     * Belongs To A User Setting.
+     * Get the user setting for the user that owns the bookmark.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<UserSetting, $this>
+     * @return BelongsTo<UserSetting, $this>
      */
-    public function userSetting(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function userSetting(): BelongsTo
     {
         return $this->belongsTo(UserSetting::class, 'user_id', 'user_id');
     }
 
     /**
-     * Belongs To A History.
+     * Get the history of the bookmarked torrent for the user that owns the bookmark.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<History, $this>
+     * @return BelongsTo<History, $this>
      */
-    public function history(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function history(): BelongsTo
     {
         return $this->belongsTo(History::class, 'user_id', 'user_id')->whereColumn('bookmarks.torrent_id', '=', 'history.torrent_id');
     }
 
     /**
-     * Belongs To A Torrent.
+     * Get the bookmarked torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }

@@ -18,6 +18,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\TmdbCredit.
@@ -36,40 +37,48 @@ class TmdbCredit extends Model
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Occupation, $this>
+     * Get the occupation associated with the credit.
+     *
+     * @return BelongsTo<Occupation, $this>
      */
-    public function occupation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function occupation(): BelongsTo
     {
         return $this->belongsTo(Occupation::class, 'occupation_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TmdbPerson, $this>
+     * Get the person associated with the credit.
+     *
+     * @return BelongsTo<TmdbPerson, $this>
      */
-    public function person(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function person(): BelongsTo
     {
         return $this->belongsTo(TmdbPerson::class, 'tmdb_person_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TmdbTv, $this>
+     * Get the tv show associated with the credit.
+     *
+     * @return BelongsTo<TmdbTv, $this>
      */
-    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function tv(): BelongsTo
     {
         return $this->belongsTo(TmdbTv::class, 'tmdb_tv_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TmdbMovie, $this>
+     * Get the movie associated with the credit.
+     *
+     * @return BelongsTo<TmdbMovie, $this>
      */
-    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function movie(): BelongsTo
     {
         return $this->belongsTo(TmdbMovie::class, 'tmdb_movie_id');
     }

@@ -18,6 +18,7 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Event.
@@ -56,21 +57,21 @@ class Event extends Model
     }
 
     /**
-     * Has many claimed prizes.
+     * Get the claimed prizes for the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ClaimedPrize, $this>
+     * @return HasMany<ClaimedPrize, $this>
      */
-    public function claimedPrizes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function claimedPrizes(): HasMany
     {
         return $this->hasMany(ClaimedPrize::class);
     }
 
     /**
-     * Has many prizes.
+     * Get the available prizes for the event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Prize, $this>
+     * @return HasMany<Prize, $this>
      */
-    public function prizes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function prizes(): HasMany
     {
         return $this->hasMany(Prize::class);
     }

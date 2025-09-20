@@ -18,6 +18,7 @@ namespace App\Models;
 
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\TorrentReseed.
@@ -41,31 +42,31 @@ class TorrentReseed extends Model
     protected $guarded = [];
 
     /**
-     * Belongs To A Torrent.
+     * Get the torrent that was requested to be reseeded.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
+     * @return BelongsTo<Torrent, $this>
      */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
 
     /**
-     * Belongs To A User.
+     * Get the user that requested the reseed.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * Belongs To A History.
+     * Get the history associated with the same user and torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<History, $this>
+     * @return BelongsTo<History, $this>
      */
-    public function history(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function history(): BelongsTo
     {
         return $this->belongsTo(History::class, 'user_id', 'user_id')->whereColumn('torrent_reseeds.torrent_id', '=', 'history.torrent_id');
     }

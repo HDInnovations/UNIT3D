@@ -22,6 +22,13 @@ use Assada\Achievements\Achiever;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -85,7 +92,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use UsersOnlineTrait;
 
     /**
-     * The Attributes Excluded From The Model's JSON Form.
+     * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
@@ -151,11 +158,11 @@ class User extends Authenticatable implements MustVerifyEmail
     final public const int SYSTEM_USER_ID = 1;
 
     /**
-     * Belongs To A Group.
+     * Get the group associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, $this>
+     * @return BelongsTo<Group, $this>
      */
-    public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class)->withDefault([
             'color'        => config('user.group.defaults.color'),
@@ -177,11 +184,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Belongs To A Internal Group.
+     * Get the internal groups that the user belongs to.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Internal, $this, InternalUser>
+     * @return BelongsToMany<Internal, $this, InternalUser>
      */
-    public function internals(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function internals(): BelongsToMany
     {
         return $this->belongsToMany(Internal::class)
             ->using(InternalUser::class)
@@ -189,41 +196,41 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Belongs To A Chatroom.
+     * Get the chatroom that contains the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, $this>
+     * @return BelongsTo<Chatroom, $this>
      */
-    public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function chatroom(): BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
     }
 
     /**
-     * Belongs To A Chat Status.
+     * Get the chat status associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ChatStatus, $this>
+     * @return BelongsTo<ChatStatus, $this>
      */
-    public function chatStatus(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function chatStatus(): BelongsTo
     {
         return $this->belongsTo(ChatStatus::class, 'chat_status_id', 'id');
     }
 
     /**
-     * Belongs To Many Bookmarks.
+     * Get the bookmarks that belong the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
+     * @return BelongsToMany<Torrent, $this>
      */
-    public function bookmarks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function bookmarks(): BelongsToMany
     {
         return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimestamps();
     }
 
     /**
-     * Belongs To Many Seeding Torrents.
+     * Get the seeding torrents that belong to the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
+     * @return BelongsToMany<Torrent, $this>
      */
-    public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function seedingTorrents(): BelongsToMany
     {
         return $this->belongsToMany(Torrent::class, 'history')
             ->wherePivot('active', '=', 1)
@@ -231,11 +238,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Belongs To Many Leeching Torrents.
+     * Get the leeching torrents that belong to the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
+     * @return BelongsToMany<Torrent, $this>
      */
-    public function leechingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function leechingTorrents(): BelongsToMany
     {
         return $this->belongsToMany(Torrent::class, 'history')
             ->wherePivot('active', '=', 1)
@@ -243,11 +250,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Belongs to many followers.
+     * Get the users that are following the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'follow'>
+     * @return BelongsToMany<User, $this, Pivot, 'follow'>
      */
-    public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function followers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'target_id', 'user_id')
             ->as('follow')
@@ -255,11 +262,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Belongs to many connectable seeding torrents.
+     * Get the connectable seeding torrents that belong to the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
+     * @return BelongsToMany<Torrent, $this>
      */
-    public function connectableSeedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function connectableSeedingTorrents(): BelongsToMany
     {
         return $this->belongsToMany(Torrent::class, 'peers')
             ->wherePivot('seeder', '=', 1)
@@ -267,11 +274,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Belongs to many followees.
+     * Get the users that the user is following.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'follow'>
+     * @return BelongsToMany<User, $this, Pivot, 'follow'>
      */
-    public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function following(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'target_id')
             ->as('follow')
@@ -279,21 +286,21 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Has Many Messages.
+     * Get the messages the user has sent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Message, $this>
+     * @return HasMany<Message, $this>
      */
-    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
     }
 
     /**
-     * Has One Settings Object.
+     * Get the settings associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserSetting, $this>
+     * @return HasOne<UserSetting, $this>
      */
-    public function settings(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function settings(): HasOne
     {
         return $this->hasOne(UserSetting::class)->withDefault([
             'censor'                            => false,
@@ -334,7 +341,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get user's settings object.
+     * Get the user's settings object.
      */
     public function getSettingsAttribute(): ?UserSetting
     {
@@ -350,17 +357,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Has One Privacy Object.
+     * Get the privacy settings associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserPrivacy, $this>
+     * @return HasOne<UserPrivacy, $this>
      */
-    public function privacy(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function privacy(): HasOne
     {
         return $this->hasOne(UserPrivacy::class);
     }
 
     /**
-     * Get user's notification object.
+     * Get the user's notification object.
      */
     public function getNotificationAttribute(): ?UserNotification
     {
@@ -376,17 +383,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Has One Notifications Object.
+     * Get the notification settings associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserNotification, $this>
+     * @return HasOne<UserNotification, $this>
      */
-    public function notification(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function notification(): HasOne
     {
         return $this->hasOne(UserNotification::class);
     }
 
     /**
-     * Get user's privacy object.
+     * Get the user's privacy object.
      */
     public function getPrivacyAttribute(): ?UserPrivacy
     {
@@ -402,657 +409,657 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Has One Watchlist Object.
+     * Get the watchlist associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Watchlist, $this>
+     * @return HasOne<Watchlist, $this>
      */
-    public function watchlist(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function watchlist(): HasOne
     {
         return $this->hasOne(Watchlist::class);
     }
 
     /**
-     * Has Many RSS Feeds.
+     * Get the RSS feeds the user owns.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rss, $this>
+     * @return HasMany<Rss, $this>
      */
-    public function rss(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function rss(): HasMany
     {
         return $this->hasMany(Rss::class);
     }
 
     /**
-     * Has Many Echo Settings.
+     * Get the echo settings for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserEcho, $this>
+     * @return HasMany<UserEcho, $this>
      */
-    public function echoes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function echoes(): HasMany
     {
         return $this->hasMany(UserEcho::class);
     }
 
     /**
-     * Has Many Audible Settings.
+     * Get the audible settings for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserAudible, $this>
+     * @return HasMany<UserAudible, $this>
      */
-    public function audibles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function audibles(): HasMany
     {
         return $this->hasMany(UserAudible::class);
     }
 
     /**
-     * Has Many Thanks Given.
+     * Get the thanks given to torrents by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank, $this>
+     * @return HasMany<Thank, $this>
      */
-    public function thanksGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function thanksGiven(): HasMany
     {
         return $this->hasMany(Thank::class, 'user_id', 'id');
     }
 
     /**
-     * Has Many Wish's.
+     * Get the wishes for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
+     * @return HasMany<Wish, $this>
      */
-    public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function wishes(): HasMany
     {
         return $this->hasMany(Wish::class);
     }
 
     /**
-     * Has Many Thanks Received.
+     * Get the thanks received from torrents to the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Thank, Torrent, $this>
+     * @return HasManyThrough<Thank, Torrent, $this>
      */
-    public function thanksReceived(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    public function thanksReceived(): HasManyThrough
     {
         return $this->hasManyThrough(Thank::class, Torrent::class);
     }
 
     /**
-     * Has Many Polls.
+     * Get the polls created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Poll, $this>
+     * @return HasMany<Poll, $this>
      */
-    public function polls(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function polls(): HasMany
     {
         return $this->hasMany(Poll::class);
     }
 
     /**
-     * Has Many Torrents.
+     * Get the torrents uploaded by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
+     * @return HasMany<Torrent, $this>
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function torrents(): HasMany
     {
         return $this->hasMany(Torrent::class);
     }
 
     /**
-     * Has Many Playlist.
+     * Get the playlists created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Playlist, $this>
+     * @return HasMany<Playlist, $this>
      */
-    public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function playlists(): HasMany
     {
         return $this->hasMany(Playlist::class);
     }
 
     /**
-     * Has Many Playlist Suggestions.
+     * Get the playlist suggestions created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PlaylistSuggestion, $this>
+     * @return HasMany<PlaylistSuggestion, $this>
      */
-    public function playlistSuggestions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function playlistSuggestions(): HasMany
     {
         return $this->hasMany(PlaylistSuggestion::class);
     }
 
     /**
-     * Has Many Sent PM's.
+     * Get the private messages sent by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage, $this>
+     * @return HasMany<PrivateMessage, $this>
      */
-    public function sentPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentPrivateMessages(): HasMany
     {
         return $this->hasMany(PrivateMessage::class, 'sender_id');
     }
 
     /**
-     * Has Many Peers.
+     * Get the peers for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer, $this>
+     * @return HasMany<Peer, $this>
      */
-    public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function peers(): HasMany
     {
         return $this->hasMany(Peer::class);
     }
 
     /**
-     * Has Many Articles.
+     * Get the articles authored by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Article, $this>
+     * @return HasMany<Article, $this>
      */
-    public function articles(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function articles(): HasMany
     {
         return $this->hasMany(Article::class);
     }
 
     /**
-     * Has Many Topics.
+     * Get the topics started by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic, $this>
+     * @return HasMany<Topic, $this>
      */
-    public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function topics(): HasMany
     {
         return $this->hasMany(Topic::class, 'first_post_user_id', 'id');
     }
 
     /**
-     * Has Many Posts.
+     * Get the posts written by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post, $this>
+     * @return HasMany<Post, $this>
      */
-    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
     /**
-     * Has Many Comments.
+     * Get the comments written by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Comment, $this>
+     * @return HasMany<Comment, $this>
      */
-    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
     /**
-     * Has Many Torrent Requests.
+     * Get the torrent requests created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
+     * @return HasMany<TorrentRequest, $this>
      */
-    public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function requests(): HasMany
     {
         return $this->hasMany(TorrentRequest::class);
     }
 
     /**
-     * Has Approved Many Torrent Requests.
+     * Get the torrent requests approved by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
+     * @return HasMany<TorrentRequest, $this>
      */
-    public function ApprovedRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function ApprovedRequests(): HasMany
     {
         return $this->hasMany(TorrentRequest::class, 'approved_by');
     }
 
     /**
-     * Has Filled Many Torrent Requests.
+     * Get the torrent requests filled by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
+     * @return HasMany<TorrentRequest, $this>
      */
-    public function filledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function filledRequests(): HasMany
     {
         return $this->hasMany(TorrentRequest::class, 'filled_by');
     }
 
     /**
-     * Has Many Torrent Request BON Bounties.
+     * Get the bounties added by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty, $this>
+     * @return HasMany<TorrentRequestBounty, $this>
      */
-    public function requestBounty(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function requestBounty(): HasMany
     {
         return $this->hasMany(TorrentRequestBounty::class);
     }
 
     /**
-     * Has Moderated Many Torrents.
+     * Get the torrents moderated by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
+     * @return HasMany<Torrent, $this>
      */
-    public function moderated(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function moderated(): HasMany
     {
         return $this->hasMany(Torrent::class, 'moderated_by');
     }
 
     /**
-     * Has Many Notes.
+     * Get the notes written by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note, $this>
+     * @return HasMany<Note, $this>
      */
-    public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function notes(): HasMany
     {
         return $this->hasMany(Note::class, 'user_id');
     }
 
     /**
-     * Has Many Reports.
+     * Get the reports reported by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
+     * @return HasMany<Report, $this>
      */
-    public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function reports(): HasMany
     {
         return $this->hasMany(Report::class, 'reporter_id');
     }
 
     /**
-     * Has Solved Many Reports.
+     * Get the reports solved by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
+     * @return HasMany<Report, $this>
      */
-    public function solvedReports(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function solvedReports(): HasMany
     {
         return $this->hasMany(Report::class, 'staff_id');
     }
 
     /**
-     * Has Many Torrent History.
+     * Get the torrent history associated with the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History, $this>
+     * @return HasMany<History, $this>
      */
-    public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function history(): HasMany
     {
         return $this->hasMany(History::class, 'user_id');
     }
 
     /**
-     * Has Many Bans.
+     * Get the bans received by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban, $this>
+     * @return HasMany<Ban, $this>
      */
-    public function userban(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function userban(): HasMany
     {
         return $this->hasMany(Ban::class, 'owned_by');
     }
 
     /**
-     * Has Given Many Bans.
+     * Get the bans issued by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban, $this>
+     * @return HasMany<Ban, $this>
      */
-    public function staffban(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function staffban(): HasMany
     {
         return $this->hasMany(Ban::class, 'created_by');
     }
 
     /**
-     * Has Given Many Warnings.
+     * Get the warnings issues by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
+     * @return HasMany<Warning, $this>
      */
-    public function staffwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function staffwarning(): HasMany
     {
         return $this->hasMany(Warning::class, 'warned_by');
     }
 
     /**
-     * Has Deleted Many Warnings.
+     * Get the warnings deleted by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
+     * @return HasMany<Warning, $this>
      */
-    public function staffdeletedwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function staffdeletedwarning(): HasMany
     {
         return $this->hasMany(Warning::class, 'deleted_by');
     }
 
     /**
-     * Has Many Warnings.
+     * Get the warnings received by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
+     * @return HasMany<Warning, $this>
      */
-    public function userwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function userwarning(): HasMany
     {
         return $this->hasMany(Warning::class, 'user_id');
     }
 
     /**
-     * Has Given Many Invites.
+     * Get the invites sent by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite, $this>
+     * @return HasMany<Invite, $this>
      */
-    public function sentInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentInvites(): HasMany
     {
         return $this->hasMany(Invite::class, 'user_id');
     }
 
     /**
-     * Has Received Many Invites.
+     * Get the invites received by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite, $this>
+     * @return HasMany<Invite, $this>
      */
-    public function receivedInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedInvites(): HasMany
     {
         return $this->hasMany(Invite::class, 'accepted_by');
     }
 
     /**
-     * Has Many Featured Torrents.
+     * Get the torrents featured by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent, $this>
+     * @return HasMany<FeaturedTorrent, $this>
      */
-    public function featuredTorrent(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function featuredTorrent(): HasMany
     {
         return $this->hasMany(FeaturedTorrent::class);
     }
 
     /**
-     * Has Many Post Likes.
+     * Get the likes created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like, $this>
+     * @return HasMany<Like, $this>
      */
-    public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
     }
 
     /**
-     * Has Many Subscriptions.
+     * Get the subscriptions for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription, $this>
+     * @return HasMany<Subscription, $this>
      */
-    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
     }
 
     /**
-     * Has Many Resurrections.
+     * Get the resurrections for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection, $this>
+     * @return HasMany<Resurrection, $this>
      */
-    public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function resurrections(): HasMany
     {
         return $this->hasMany(Resurrection::class);
     }
 
     /**
-     * Has Many Subscribed topics.
+     * Get the forums subscribed to by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Forum, $this>
+     * @return BelongsToMany<Forum, $this>
      */
-    public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function subscribedForums(): BelongsToMany
     {
         return $this->belongsToMany(Forum::class, 'subscriptions');
     }
 
     /**
-     * Has Many Subscribed topics.
+     * Get the topics subscribed to by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Topic, $this>
+     * @return BelongsToMany<Topic, $this>
      */
-    public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function subscribedTopics(): BelongsToMany
     {
         return $this->belongsToMany(Topic::class, 'subscriptions');
     }
 
     /**
-     * Has Many Permissions through Group.
+     * Get the forum permissions of the user's group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
+     * @return HasMany<ForumPermission, $this>
      */
-    public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function forumPermissions(): HasMany
     {
         return $this->hasMany(ForumPermission::class, 'group_id', 'group_id');
     }
 
     /**
-     * Has many free leech tokens.
+     * Get the the freeleech tokens for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken, $this>
+     * @return HasMany<FreeleechToken, $this>
      */
-    public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function freeleechTokens(): HasMany
     {
         return $this->hasMany(FreeleechToken::class);
     }
 
     /**
-     * Has many warnings.
+     * Get the warnings for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
+     * @return HasMany<Warning, $this>
      */
-    public function warnings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function warnings(): HasMany
     {
         return $this->hasMany(Warning::class);
     }
 
     /**
-     * Has Many Tickets.
+     * Get the tickets for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ticket, $this>
+     * @return HasMany<Ticket, $this>
      */
-    public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class, 'user_id');
     }
 
     /**
-     * Has Many Personal Freeleeches.
+     * Get the personal freeleeches for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PersonalFreeleech, $this>
+     * @return HasMany<PersonalFreeleech, $this>
      */
-    public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function personalFreeleeches(): HasMany
     {
         return $this->hasMany(PersonalFreeleech::class);
     }
 
     /**
-     * Has many failed logins.
+     * Get the failed logins for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FailedLoginAttempt, $this>
+     * @return HasMany<FailedLoginAttempt, $this>
      */
-    public function failedLogins(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function failedLogins(): HasMany
     {
         return $this->hasMany(FailedLoginAttempt::class);
     }
 
     /**
-     * Has many upload snatches.
+     * Get the upload snatches for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<History, Torrent, $this>
+     * @return HasManyThrough<History, Torrent, $this>
      */
-    public function uploadSnatches(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    public function uploadSnatches(): HasManyThrough
     {
         return $this->hasManyThrough(History::class, Torrent::class)->whereNotNull('completed_at');
     }
 
     /**
-     * Has many sent gifts.
+     * Get the gifts sent by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift, $this>
+     * @return HasMany<Gift, $this>
      */
-    public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentGifts(): HasMany
     {
         return $this->hasMany(Gift::class, 'sender_id');
     }
 
     /**
-     * Has many received gifts.
+     * Get the gifts received by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift, $this>
+     * @return HasMany<Gift, $this>
      */
-    public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedGifts(): HasMany
     {
         return $this->hasMany(Gift::class, 'recipient_id');
     }
 
     /**
-     * Has many sent tips.
+     * Get the tips sent by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip, $this>
+     * @return HasMany<PostTip, $this>
      */
-    public function sentPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentPostTips(): HasMany
     {
         return $this->hasMany(PostTip::class, 'sender_id');
     }
 
     /**
-     * Has many received tips.
+     * Get the post tips received by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip, $this>
+     * @return HasMany<PostTip, $this>
      */
-    public function receivedPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedPostTips(): HasMany
     {
         return $this->hasMany(PostTip::class, 'recipient_id');
     }
 
     /**
-     * Has many sent tips.
+     * Get the torrent tips sent by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip, $this>
+     * @return HasMany<TorrentTip, $this>
      */
-    public function sentTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentTorrentTips(): HasMany
     {
         return $this->hasMany(TorrentTip::class, 'sender_id');
     }
 
     /**
-     * Has many received tips.
+     * Get the torrent tips received by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip, $this>
+     * @return HasMany<TorrentTip, $this>
      */
-    public function receivedTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedTorrentTips(): HasMany
     {
         return $this->hasMany(TorrentTip::class, 'recipient_id');
     }
 
     /**
-     * Has many seedboxes.
+     * Get the seedboxes owned by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Seedbox, $this>
+     * @return HasMany<Seedbox, $this>
      */
-    public function seedboxes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function seedboxes(): HasMany
     {
         return $this->hasMany(Seedbox::class);
     }
 
     /**
-     * Has one application.
+     * Get the application submitted by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough<Application, Invite, $this>
+     * @return HasOneThrough<Application, Invite, $this>
      */
-    public function application(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
+    public function application(): HasOneThrough
     {
         return $this->hasOneThrough(Application::class, Invite::class, 'accepted_by', 'email', 'id', 'email');
     }
 
     /**
-     * Has many passkeys.
+     * Get passkeys for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Passkey, $this>
+     * @return HasMany<Passkey, $this>
      */
-    public function passkeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function passkeys(): HasMany
     {
         return $this->hasMany(Passkey::class);
     }
 
     /**
-     * Has many rsskeys.
+     * Get the rsskeys for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rsskey, $this>
+     * @return HasMany<Rsskey, $this>
      */
-    public function rsskeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function rsskeys(): HasMany
     {
         return $this->hasMany(Rsskey::class);
     }
 
     /**
-     * Has many apikeys.
+     * Get the apikeys for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Apikey, $this>
+     * @return HasMany<Apikey, $this>
      */
-    public function apikeys(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function apikeys(): HasMany
     {
         return $this->hasMany(Apikey::class);
     }
 
     /**
-     * Has many email updates.
+     * Get the email updates for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<EmailUpdate, $this>
+     * @return HasMany<EmailUpdate, $this>
      */
-    public function emailUpdates(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function emailUpdates(): HasMany
     {
         return $this->hasMany(EmailUpdate::class);
     }
 
     /**
-     * Has many password reset histories.
+     * Get the password reset history for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PasswordResetHistory, $this>
+     * @return HasMany<PasswordResetHistory, $this>
      */
-    public function passwordResetHistories(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function passwordResetHistories(): HasMany
     {
         return $this->hasMany(PasswordResetHistory::class);
     }
 
     /**
-     * Has many torrent trumps.
+     * Get the torrent trumps for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTrump, $this>
+     * @return HasMany<TorrentTrump, $this>
      */
-    public function torrentTrumps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function torrentTrumps(): HasMany
     {
         return $this->hasMany(TorrentTrump::class);
     }
 
     /**
-     * Has Many Audits.
+     * Get the audits created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Audit, $this>
+     * @return HasMany<Audit, $this>
      */
-    public function audits(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function audits(): HasMany
     {
         return $this->hasMany(Audit::class);
     }
 
     /**
-     * Has many claimed prizes.
+     * Get the prizes claimed by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ClaimedPrize, $this>
+     * @return HasMany<ClaimedPrize, $this>
      */
-    public function claimedPrizes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function claimedPrizes(): HasMany
     {
         return $this->hasMany(ClaimedPrize::class);
     }
 
     /**
-     * Has many donations.
+     * Get the donations submitted by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Donation, $this>
+     * @return HasMany<Donation, $this>
      */
-    public function donations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function donations(): HasMany
     {
         return $this->hasMany(Donation::class);
     }
 
     /**
-     * Has many conversations.
+     * Get the conversations participated in by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Conversation, $this>
+     * @return BelongsToMany<Conversation, $this>
      */
-    public function conversations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function conversations(): BelongsToMany
     {
         return $this->belongsToMany(Conversation::class, 'participants');
     }
 
     /**
-     * Has many participants.
+     * Get the participations of the user in conversations.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant, $this>
+     * @return HasMany<Participant, $this>
      */
-    public function participations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function participations(): HasMany
     {
         return $this->hasMany(Participant::class);
     }
 
     /**
-     * Get the Users accepts notification as bool.
+     * Get the user's notification acceptance as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool
     {
@@ -1082,7 +1089,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the Users allowed answer as bool.
+     * Get the user's privacy hidden as bool.
      */
     public function isVisible(self $target, string $group = 'profile', bool|string $type = false): bool
     {
@@ -1113,7 +1120,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the Users allowed answer as bool.
+     * Get the user's privacy visibility as bool.
      */
     public function isAllowed(self $target, string $group = 'profile', bool|string $type = false): bool
     {
@@ -1144,7 +1151,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Return Upload In Human Format.
+     * Get upload in human format.
      */
     public function getFormattedUploadedAttribute(): string
     {
@@ -1158,7 +1165,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Return Download In Human Format.
+     * Get download in human format.
      */
     public function getFormattedDownloadedAttribute(): string
     {
@@ -1172,7 +1179,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Return The Ratio.
+     * Get the ratio.
      */
     public function getRatioAttribute(): float
     {
@@ -1183,6 +1190,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return round($this->uploaded / $this->downloaded, 2);
     }
 
+    /**
+     * Get ratio in human format.
+     */
     public function getFormattedRatioAttribute(): string
     {
         $ratio = $this->ratio;
@@ -1210,7 +1220,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Formats the seed bonus points of the User.
+     * Get the formatted bonus points of the user.
      */
     public function getFormattedSeedbonusAttribute(): string
     {

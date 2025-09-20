@@ -19,6 +19,10 @@ namespace App\Models;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\Topic.
@@ -74,107 +78,107 @@ class Topic extends Model
     }
 
     /**
-     * Belongs To A Forum.
+     * Get the forum that owns the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, $this>
+     * @return BelongsTo<Forum, $this>
      */
-    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function forum(): BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }
 
     /**
-     * Belongs To A User.
+     * Get the user who started the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'first_post_user_id', 'id');
     }
 
     /**
-     * Has Many Posts.
+     * Get the posts for the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post, $this>
+     * @return HasMany<Post, $this>
      */
-    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
     /**
-     * Has Many Posts.
+     * Get the reads of the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TopicRead, $this>
+     * @return HasMany<TopicRead, $this>
      */
-    public function reads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function reads(): HasMany
     {
         return $this->hasMany(TopicRead::class);
     }
 
     /**
-     * Has Many Subscriptions.
+     * Get the subscriptions of the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription, $this>
+     * @return HasMany<Subscription, $this>
      */
-    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
     }
 
     /**
-     * Has One Permissions through Forum.
+     * Get the forum permissions of the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
+     * @return HasMany<ForumPermission, $this>
      */
-    public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function forumPermissions(): HasMany
     {
         return $this->hasMany(ForumPermission::class, 'forum_id', 'forum_id');
     }
 
     /**
-     * Belongs to Many Subscribed Users.
+     * Get the users subscribed to the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
+     * @return BelongsToMany<User, $this>
      */
-    public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function subscribedUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, Subscription::class);
     }
 
     /**
-     * Latest post.
+     * Get the latest post for the topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Post, $this>
+     * @return HasOne<Post, $this>
      */
-    public function latestPostSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function latestPostSlow(): HasOne
     {
         return $this->hasOne(Post::class)->latestOfMany();
     }
 
     /**
-     * Latest post.
+     * Get the latest post for the topic (cached).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, $this>
+     * @return BelongsTo<Post, $this>
      */
-    public function latestPost(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function latestPost(): BelongsTo
     {
         return $this->belongsTo(Post::class, 'last_post_id');
     }
 
     /**
-     * Latest poster.
+     * Get the latest poster for the topic (cached).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return BelongsTo<User, $this>
      */
-    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function latestPoster(): BelongsTo
     {
         return $this->belongsTo(User::class, 'last_post_user_id');
     }
 
     /**
-     * Only include topics a user is authorized to.
+     * Scope query to only include topics a user is authorized to.
      *
      * @param  \Illuminate\Database\Eloquent\Builder<self> $query
      * @return \Illuminate\Database\Eloquent\Builder<self>

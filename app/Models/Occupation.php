@@ -19,6 +19,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Occupation.
@@ -35,24 +37,28 @@ class Occupation extends Model
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<TmdbPerson, $this>
+     * Get the the people that belong to the occupation.
+     *
+     * @return BelongsToMany<TmdbPerson, $this>
      */
-    public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function people(): BelongsToMany
     {
         return $this->belongsToMany(TmdbPerson::class, 'tmdb_credits');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TmdbCredit, $this>
+     * Get all the credits for this occupation.
+     *
+     * @return HasMany<TmdbCredit, $this>
      */
-    public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function credits(): HasMany
     {
         return $this->hasMany(TmdbCredit::class);
     }
