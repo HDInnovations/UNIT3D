@@ -58,6 +58,6 @@ class UnbanController extends Controller
         $user->notify(new UserBanExpire());
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'User Is Now Relieved Of His Ban!');
+            ->with('success', 'User is now relieved of his ban!');
     }
 }

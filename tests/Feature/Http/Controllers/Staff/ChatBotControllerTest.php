@@ -38,7 +38,7 @@ test('destroy returns an ok response', function (): void {
     ]);
 
     $response = $this->actingAs($this->staffUser)->delete(route('staff.bots.destroy', ['bot' => $bot]));
-    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');
+    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Humans Vs Machines War has begun! Humans: 1 and Bots: 0');
 
     $this->assertModelMissing($bot);
 });
@@ -64,7 +64,7 @@ test('disable returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->post(route('staff.bots.disable', [$bot]), [
         'active' => false,
     ]);
-    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Bot Has Been Disabled');
+    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The bot has been disabled');
 });
 
 test('edit returns an ok response', function (): void {
@@ -84,7 +84,7 @@ test('enable returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->post(route('staff.bots.enable', [$bot]), [
         'active' => true,
     ]);
-    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Bot Has Been Enabled');
+    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The bot has been enabled');
 });
 
 test('index returns an ok response', function (): void {
@@ -119,5 +119,5 @@ test('update returns an ok response', function (): void {
         'is_nerdbot'   => $bot->is_nerdbot,
         'is_systembot' => $bot->is_systembot,
     ]);
-    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Bot Has Been Updated');
+    $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The bot has been updated');
 });

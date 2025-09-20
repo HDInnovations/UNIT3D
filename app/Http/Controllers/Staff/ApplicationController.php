@@ -77,7 +77,7 @@ class ApplicationController extends Controller
         Mail::to($application->email)->send(new InviteUser($invite));
 
         return to_route('staff.applications.index')
-            ->with('success', 'Application Approved');
+            ->with('success', 'Application approved');
     }
 
     /**
@@ -95,6 +95,6 @@ class ApplicationController extends Controller
         Mail::to($application->email)->send(new DenyApplication($request->deny));
 
         return to_route('staff.applications.index')
-            ->with('success', 'Application Rejected');
+            ->with('success', 'Application rejected');
     }
 }

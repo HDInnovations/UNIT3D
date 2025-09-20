@@ -53,7 +53,7 @@ class ChatStatusController extends Controller
         ChatStatus::create($request->validated());
 
         return to_route('staff.statuses.index')
-            ->with('success', 'Chat Status Successfully Added');
+            ->with('success', 'Chat status successfully added');
     }
 
     /**
@@ -74,7 +74,7 @@ class ChatStatusController extends Controller
         $chatStatus->update($request->validated());
 
         return to_route('staff.statuses.index')
-            ->with('success', 'Chat Status Successfully Modified');
+            ->with('success', 'Chat status successfully modified');
     }
 
     /**
@@ -87,6 +87,6 @@ class ChatStatusController extends Controller
         $chatStatus->delete();
 
         return to_route('staff.statuses.index')
-            ->with('success', 'Chat Status Successfully Deleted');
+            ->with('success', 'Chat status successfully deleted');
     }
 }

@@ -250,7 +250,7 @@ class UserController extends Controller
         }
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Your Account Was Updated Successfully!');
+            ->with('success', 'Your account was updated successfully!');
     }
 
     /**

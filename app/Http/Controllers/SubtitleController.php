@@ -139,7 +139,7 @@ class SubtitleController extends Controller
         }
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
-            ->with('success', 'Subtitle Successfully Added');
+            ->with('success', 'Subtitle successfully added');
     }
 
     /**
@@ -152,7 +152,7 @@ class SubtitleController extends Controller
         $subtitle->update($request->validated());
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
-            ->with('success', 'Subtitle Successfully Updated');
+            ->with('success', 'Subtitle successfully updated');
     }
 
     /**
@@ -173,7 +173,7 @@ class SubtitleController extends Controller
         $subtitle->delete();
 
         return to_route('torrents.show', ['id' => $request->integer('torrent_id')])
-            ->with('success', 'Subtitle Successfully Deleted');
+            ->with('success', 'Subtitle successfully deleted');
     }
 
     /**
@@ -186,7 +186,7 @@ class SubtitleController extends Controller
         // User's download rights are revoked
         if ($user->can_download == 0 && $subtitle->user_id != $user->id) {
             return to_route('torrents.show', ['id' => $subtitle->torrent->id])
-                ->withErrors('Your Download Rights Have Been Revoked!');
+                ->withErrors('Your download rights have been revoked!');
         }
 
         // Define the filename for the download

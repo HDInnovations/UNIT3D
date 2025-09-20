@@ -103,7 +103,7 @@ class DonationController extends Controller
         Unit3dAnnounce::addUser($donation->user);
 
         return redirect()->route('staff.donations.index')
-            ->with('success', 'Donation Approved!');
+            ->with('success', 'Donation approved!');
     }
 
     /**
@@ -128,6 +128,6 @@ class DonationController extends Controller
         $donation->save();
 
         return redirect()->route('staff.donations.index')
-            ->with('success', 'Donation Rejected!');
+            ->with('success', 'Donation rejected!');
     }
 }

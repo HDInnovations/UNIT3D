@@ -68,7 +68,7 @@ class TorrentBuffController extends Controller
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent Has Been Bumped To The Top Successfully!');
+            ->with('success', 'Torrent has been bumped to the top successfully!');
     }
 
     /**
@@ -84,7 +84,7 @@ class TorrentBuffController extends Controller
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent Sticky Status Has Been Adjusted!');
+            ->with('success', 'Torrent sticky status has been adjusted!');
     }
 
     /**
@@ -128,7 +128,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent FL Has Been Adjusted!');
+            ->with('success', 'Torrent FL has been adjusted!');
     }
 
     /**
@@ -158,11 +158,11 @@ class TorrentBuffController extends Controller
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->with('success', 'Torrent Is Now Featured!');
+                ->with('success', 'Torrent is now featured!');
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withErrors('Torrent Is Already Featured!');
+            ->withErrors('Torrent is already featured!');
     }
 
     /**
@@ -233,7 +233,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent DoubleUpload Has Been Adjusted!');
+            ->with('success', 'Torrent DoubleUpload has been adjusted!');
     }
 
     /**
@@ -262,11 +262,11 @@ class TorrentBuffController extends Controller
             $torrent->searchable();
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->with('success', 'You Have Successfully Activated A Freeleech Token For This Torrent!');
+                ->with('success', 'You have successfully activated a freeleech token for this torrent!');
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withErrors('You Don\'t Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
+            ->withErrors('You don\'t have enough freeleech tokens or already have one activated on this torrent.');
     }
 
     /**

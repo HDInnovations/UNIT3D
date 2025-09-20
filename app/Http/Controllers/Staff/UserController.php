@@ -84,7 +84,7 @@ class UserController extends Controller
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Account Was Updated Successfully!');
+            ->with('success', 'Account was updated successfully!');
     }
 
     /**
@@ -107,7 +107,7 @@ class UserController extends Controller
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Account Permissions Successfully Edited');
+            ->with('success', 'Account permissions successfully edited');
     }
 
     /**
@@ -171,10 +171,10 @@ class UserController extends Controller
             Unit3dAnnounce::removeUser($user);
 
             return to_route('staff.dashboard.index')
-                ->with('success', 'Account Has Been Removed');
+                ->with('success', 'Account has been removed');
         }
 
         return to_route('staff.dashboard.index')
-            ->withErrors('Something Went Wrong!');
+            ->withErrors('Something went wrong!');
     }
 }

@@ -56,7 +56,7 @@ class BonExchangeController extends Controller
         + $request->validated());
 
         return to_route('staff.bon_exchanges.index')
-            ->with('success', 'Bon Exchange Successfully Added');
+            ->with('success', 'Bon exchange successfully added');
     }
 
     /**
@@ -83,7 +83,7 @@ class BonExchangeController extends Controller
         + $request->validated());
 
         return to_route('staff.bon_exchanges.index')
-            ->with('success', 'Bon Exchange Successfully Modified');
+            ->with('success', 'Bon exchange successfully modified');
     }
 
     /**
@@ -96,6 +96,6 @@ class BonExchangeController extends Controller
         BonExchange::findOrFail($id)->delete();
 
         return to_route('staff.bon_exchanges.index')
-            ->with('success', 'Bon Exchange Successfully Deleted');
+            ->with('success', 'Bon exchange successfully deleted');
     }
 }

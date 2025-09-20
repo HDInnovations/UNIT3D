@@ -64,7 +64,7 @@ class BlacklistClientController extends Controller
         cache()->forget('client_blacklist');
 
         return to_route('staff.blacklisted_clients.index')
-            ->with('success', 'Blacklisted Client Was Updated Successfully!');
+            ->with('success', 'Blacklisted client was updated successfully!');
     }
 
     /**
@@ -90,7 +90,7 @@ class BlacklistClientController extends Controller
         cache()->forget('client_blacklist');
 
         return to_route('staff.blacklisted_clients.index')
-            ->with('success', 'Blacklisted Client Stored Successfully!');
+            ->with('success', 'Blacklisted client stored successfully!');
     }
 
     /**
@@ -105,6 +105,6 @@ class BlacklistClientController extends Controller
         cache()->forget('client_blacklist');
 
         return to_route('staff.blacklisted_clients.index')
-            ->with('success', 'Blacklisted Client Destroyed Successfully!');
+            ->with('success', 'Blacklisted client destroyed successfully!');
     }
 }

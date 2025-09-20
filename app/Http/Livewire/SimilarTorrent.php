@@ -425,7 +425,7 @@ class SimilarTorrent extends Component
     final public function alertConfirm(): void
     {
         if (!auth()->user()->group->is_modo) {
-            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+            $this->dispatch('error', type: 'error', message: 'Permission denied!');
 
             return;
         }
@@ -444,7 +444,7 @@ class SimilarTorrent extends Component
     final public function deleteRecords(): void
     {
         if (!auth()->user()->group->is_modo) {
-            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+            $this->dispatch('error', type: 'error', message: 'Permission denied!');
 
             return;
         }
@@ -509,7 +509,7 @@ class SimilarTorrent extends Component
         $this->dispatch(
             'swal:modal',
             type: 'success',
-            message: 'Torrents Deleted Successfully!',
+            message: 'Torrents deleted successfully!',
             text: 'A personal message has been sent to all users that have downloaded these torrents.',
         );
     }

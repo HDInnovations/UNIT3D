@@ -59,7 +59,7 @@ class BlockIpAddress extends Component
 
         cache()->forget('blocked-ips');
 
-        $this->dispatch('success', type: 'success', message: 'Ip Addresses Successfully Blocked!');
+        $this->dispatch('success', type: 'success', message: 'Ip addresses successfully blocked!');
     }
 
     final public function destroy(BlockedIp $blockedIp): void
@@ -69,7 +69,7 @@ class BlockIpAddress extends Component
 
             $this->dispatch('success', type: 'success', message: 'IP has successfully been deleted!');
         } else {
-            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+            $this->dispatch('error', type: 'error', message: 'Permission denied!');
         }
     }
 

@@ -52,7 +52,7 @@ test('destroy returns an ok response', function (): void {
     $region = Region::factory()->create();
 
     $response = $this->actingAs($this->staffUser)->delete(route('staff.regions.destroy', [$region]));
-    $response->assertRedirect(route('staff.regions.index'))->assertSessionHas('success', 'Region Successfully Deleted');
+    $response->assertRedirect(route('staff.regions.index'))->assertSessionHas('success', 'Region successfully deleted');
 
     $this->assertModelMissing($region);
 });
@@ -86,7 +86,7 @@ test('store returns an ok response', function (): void {
         'name'     => 'AFG',
         'position' => 0,
     ]);
-    $response->assertRedirect(route('staff.regions.index'))->assertSessionHas('success', 'Region Successfully Added');
+    $response->assertRedirect(route('staff.regions.index'))->assertSessionHas('success', 'Region successfully added');
 });
 
 test('update validates with a form request', function (): void {
@@ -104,5 +104,5 @@ test('update returns an ok response', function (): void {
         'name'     => $region->name,
         'position' => 1,
     ]);
-    $response->assertRedirect(route('staff.regions.index'))->assertSessionHas('success', 'Region Successfully Modified');
+    $response->assertRedirect(route('staff.regions.index'))->assertSessionHas('success', 'Region successfully modified');
 });

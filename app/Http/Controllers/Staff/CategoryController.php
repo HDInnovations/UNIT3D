@@ -72,7 +72,7 @@ class CategoryController extends Controller
         ] + $request->validated());
 
         return to_route('staff.categories.index')
-            ->with('success', 'Category Successfully Added');
+            ->with('success', 'Category successfully added');
     }
 
     /**
@@ -114,7 +114,7 @@ class CategoryController extends Controller
         ] + $request->validated());
 
         return to_route('staff.categories.index')
-            ->with('success', 'Category Successfully Modified');
+            ->with('success', 'Category successfully modified');
     }
 
     /**
@@ -127,6 +127,6 @@ class CategoryController extends Controller
         $category->delete();
 
         return to_route('staff.categories.index')
-            ->with('success', 'Category Successfully Deleted');
+            ->with('success', 'Category successfully deleted');
     }
 }

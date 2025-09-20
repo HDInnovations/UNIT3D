@@ -67,7 +67,7 @@ class GroupController extends Controller
         Unit3dAnnounce::addGroup($group);
 
         return to_route('staff.groups.index')
-            ->with('success', 'Group Was Created Successfully!');
+            ->with('success', 'Group was created successfully!');
     }
 
     /**
@@ -100,7 +100,7 @@ class GroupController extends Controller
         Unit3dAnnounce::addGroup($group);
 
         return to_route('staff.groups.index')
-            ->with('success', 'Group Was Updated Successfully!');
+            ->with('success', 'Group was updated successfully!');
     }
 
     /**

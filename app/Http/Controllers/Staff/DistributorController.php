@@ -51,7 +51,7 @@ class DistributorController extends Controller
         Distributor::create($request->validated());
 
         return to_route('staff.distributors.index')
-            ->with('success', 'Distributor Successfully Added');
+            ->with('success', 'Distributor successfully added');
     }
 
     /**
@@ -72,7 +72,7 @@ class DistributorController extends Controller
         $distributor->update($request->validated());
 
         return to_route('staff.distributors.index')
-            ->with('success', 'Distributor Successfully Modified');
+            ->with('success', 'Distributor successfully modified');
     }
 
     /**
@@ -97,6 +97,6 @@ class DistributorController extends Controller
         $distributor->delete();
 
         return to_route('staff.distributors.index')
-            ->with('success', 'Distributor Successfully Deleted');
+            ->with('success', 'Distributor successfully deleted');
     }
 }

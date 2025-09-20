@@ -53,7 +53,7 @@ class TypeController extends Controller
         Type::create($request->validated());
 
         return to_route('staff.types.index')
-            ->with('success', 'Type Successfully Added');
+            ->with('success', 'Type successfully added');
     }
 
     /**
@@ -74,7 +74,7 @@ class TypeController extends Controller
         $type->update($request->validated());
 
         return to_route('staff.types.index')
-            ->with('success', 'Type Successfully Modified');
+            ->with('success', 'Type successfully modified');
     }
 
     /**
@@ -87,6 +87,6 @@ class TypeController extends Controller
         $type->delete();
 
         return to_route('staff.types.index')
-            ->with('success', 'Type Successfully Deleted');
+            ->with('success', 'Type successfully deleted');
     }
 }

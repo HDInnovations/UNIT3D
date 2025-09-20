@@ -48,7 +48,7 @@ class DonationPackageController extends Controller
         DonationPackage::create($request->validated());
 
         return redirect()->route('staff.packages.index')
-            ->with('success', 'Donation Package Added Successfully!');
+            ->with('success', 'Donation package added successfully!');
     }
 
     /**
@@ -67,7 +67,7 @@ class DonationPackageController extends Controller
         $package->update($request->validated());
 
         return redirect()->route('staff.packages.index')
-            ->with('success', 'Donation Package Edited Successfully!');
+            ->with('success', 'Donation package edited successfully!');
     }
 
     /**
@@ -78,6 +78,6 @@ class DonationPackageController extends Controller
         $package->delete();
 
         return redirect()->route('staff.packages.index')
-            ->with('success', 'Donation Package Deleted Successfully!');
+            ->with('success', 'Donation package deleted successfully!');
     }
 }

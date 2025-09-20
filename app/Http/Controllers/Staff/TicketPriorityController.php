@@ -53,7 +53,7 @@ class TicketPriorityController extends Controller
         TicketPriority::create($request->validated());
 
         return to_route('staff.ticket_priorities.index')
-            ->with('success', 'Ticket Priority Successfully Added');
+            ->with('success', 'Ticket priority successfully added');
     }
 
     /**
@@ -74,7 +74,7 @@ class TicketPriorityController extends Controller
         $ticketPriority->update($request->validated());
 
         return to_route('staff.ticket_priorities.index')
-            ->with('success', 'Ticket Priority Successfully Modified');
+            ->with('success', 'Ticket priority successfully modified');
     }
 
     /**
@@ -87,6 +87,6 @@ class TicketPriorityController extends Controller
         $ticketPriority->delete();
 
         return to_route('staff.ticket_priorities.index')
-            ->with('success', 'Ticket Priority Successfully Deleted');
+            ->with('success', 'Ticket priority successfully deleted');
     }
 }

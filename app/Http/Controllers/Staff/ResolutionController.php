@@ -50,7 +50,7 @@ class ResolutionController extends Controller
         Resolution::create($request->validated());
 
         return to_route('staff.resolutions.index')
-            ->with('success', 'Resolution Successfully Added');
+            ->with('success', 'Resolution successfully added');
     }
 
     /**
@@ -71,7 +71,7 @@ class ResolutionController extends Controller
         $resolution->update($request->validated());
 
         return to_route('staff.resolutions.index')
-            ->with('success', 'Resolution Successfully Modified');
+            ->with('success', 'Resolution successfully modified');
     }
 
     /**
@@ -84,6 +84,6 @@ class ResolutionController extends Controller
         $resolution->delete();
 
         return to_route('staff.resolutions.index')
-            ->with('success', 'Resolution Successfully Deleted');
+            ->with('success', 'Resolution successfully deleted');
     }
 }

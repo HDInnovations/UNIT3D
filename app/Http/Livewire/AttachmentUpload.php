@@ -62,7 +62,7 @@ class AttachmentUpload extends Component
         $attachment->file_extension = $this->attachment->getMimeType();
         $attachment->save();
 
-        $this->dispatch('success', type: 'success', message: 'Ticket Attachment Uploaded Successfully!');
+        $this->dispatch('success', type: 'success', message: 'Ticket attachment uploaded successfully!');
     }
 
     /**

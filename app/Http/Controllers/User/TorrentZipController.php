@@ -56,7 +56,7 @@ class TorrentZipController extends Controller
         }
 
         if ($torrents->isEmpty()) {
-            return redirect()->back()->withErrors('No Torrents Found');
+            return redirect()->back()->withErrors('No torrents found');
         }
 
         return response()->streamDownload(

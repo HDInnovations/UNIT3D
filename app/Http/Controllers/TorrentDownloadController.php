@@ -54,25 +54,25 @@ class TorrentDownloadController extends Controller
         // User's ratio is too low
         if ($user->ratio < config('other.ratio') && !($torrent->user_id === $user->id || $hasHistory)) {
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withErrors('Your Ratio Is Too Low To Download!');
+                ->withErrors('Your ratio is too low to download!');
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0 && !($torrent->user_id === $user->id || $hasHistory)) {
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withErrors('Your Download Rights Have Been Revoked!');
+                ->withErrors('Your download rights have been revoked!');
         }
 
         // Torrent Status Is Rejected
         if ($torrent->status === ModerationStatus::REJECTED) {
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withErrors('This Torrent Has Been Rejected By Staff');
+                ->withErrors('This torrent has been rejected by staff');
         }
 
         // The torrent file exist ?
         if (!Storage::disk('torrent-files')->exists($torrent->file_name)) {
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withErrors('Torrent File Not Found! Please Report This Torrent!');
+                ->withErrors('Torrent file not found! Please report this torrent!');
         }
 
         if (!$request->user() && !($rsskey && $user)) {

@@ -69,7 +69,7 @@ class FlushController extends Controller
         }
 
         return to_route('staff.dashboard.index')
-            ->with('success', 'Ghost Peers Have Been Flushed');
+            ->with('success', 'Ghost peers have been flushed');
     }
 
     /**
@@ -89,6 +89,6 @@ class FlushController extends Controller
         );
 
         return to_route('staff.dashboard.index')
-            ->with('success', 'Chatbox Has Been Flushed');
+            ->with('success', 'Chatbox has been flushed');
     }
 }

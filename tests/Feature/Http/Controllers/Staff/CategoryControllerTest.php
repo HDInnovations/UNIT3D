@@ -41,7 +41,7 @@ test('destroy returns an ok response', function (): void {
     $category = Category::factory()->create();
 
     $response = $this->actingAs($this->staffUser)->delete(route('staff.categories.destroy', [$category]));
-    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category Successfully Deleted');
+    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category successfully deleted');
 
     $this->assertModelMissing($category);
 });
@@ -81,7 +81,7 @@ test('store returns an ok response', function (): void {
         'icon'     => $category->icon,
         'meta'     => $meta[array_rand($meta)],
     ]);
-    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category Successfully Added');
+    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category successfully added');
 });
 
 test('update validates with a form request', function (): void {
@@ -103,5 +103,5 @@ test('update returns an ok response', function (): void {
         'icon'     => $category->icon,
         'meta'     => $meta[array_rand($meta)],
     ]);
-    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category Successfully Modified');
+    $response->assertRedirect(route('staff.categories.index'))->assertSessionHas('success', 'Category successfully modified');
 });

@@ -50,7 +50,7 @@ class MediaLanguageController extends Controller
         MediaLanguage::create($request->validated());
 
         return to_route('staff.media_languages.index')
-            ->with('success', 'Media Language Successfully Added');
+            ->with('success', 'Media language successfully added');
     }
 
     /**
@@ -71,7 +71,7 @@ class MediaLanguageController extends Controller
         $mediaLanguage->update($request->validated());
 
         return to_route('staff.media_languages.index')
-            ->with('success', 'Media Language Successfully Updated');
+            ->with('success', 'Media language successfully updated');
     }
 
     /**
@@ -84,6 +84,6 @@ class MediaLanguageController extends Controller
         $mediaLanguage->delete();
 
         return to_route('staff.media_languages.index')
-            ->with('success', 'Media Language Has Successfully Been Deleted');
+            ->with('success', 'Media language has successfully been deleted');
     }
 }

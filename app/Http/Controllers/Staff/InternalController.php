@@ -84,7 +84,7 @@ class InternalController extends Controller
         $internal->update($request->validated());
 
         return to_route('staff.internals.index')
-            ->with('success', 'Internal Group Was Updated Successfully!');
+            ->with('success', 'Internal group was updated successfully!');
     }
 
     /**
@@ -103,7 +103,7 @@ class InternalController extends Controller
         Internal::create($request->validated());
 
         return to_route('staff.internals.index')
-            ->with('success', 'New Internal Group added!');
+            ->with('success', 'New internal group added!');
     }
 
     /**
@@ -114,6 +114,6 @@ class InternalController extends Controller
         $internal->delete();
 
         return to_route('staff.internals.index')
-            ->with('success', 'Group Has Been Removed.');
+            ->with('success', 'Group has been removed.');
     }
 }

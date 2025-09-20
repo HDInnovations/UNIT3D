@@ -33,7 +33,7 @@ test('destroy returns an ok response', function (): void {
     $audit = Audit::factory()->create();
 
     $response = $this->actingAs($this->staffUser)->delete(route('staff.audits.destroy', [$audit]));
-    $response->assertRedirect(route('staff.audits.index'))->assertSessionHas('success', 'Audit Record Has Successfully Been Deleted');
+    $response->assertRedirect(route('staff.audits.index'))->assertSessionHas('success', 'Audit record has successfully been deleted');
 
     $this->assertModelMissing($audit);
 });

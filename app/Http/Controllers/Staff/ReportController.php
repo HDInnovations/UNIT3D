@@ -55,7 +55,7 @@ class ReportController extends Controller
 
         if ($report->solved) {
             return to_route('staff.reports.index')
-                ->withErrors('This Report Has Already Been Solved');
+                ->withErrors('This report has already been solved');
         }
 
         $report->update(['solved' => true, 'staff_id' => $staff->id] + $request->validated());
