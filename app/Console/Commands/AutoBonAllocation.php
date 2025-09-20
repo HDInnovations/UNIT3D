@@ -39,7 +39,7 @@ class AutoBonAllocation extends Command
      *
      * @var string
      */
-    protected $description = 'Allocates Bonus Points To Users Based On Peer Activity.';
+    protected $description = 'Allocates bonus points to users based on peer activity.';
 
     /**
      * Execute the console command.
@@ -124,6 +124,6 @@ class AutoBonAllocation extends Command
             });
         }, 25);
 
-        $this->comment('Automated BON Allocation Command Complete in '.(int) now()->diffInMilliseconds($now, true).' ms');
+        $this->comment('Automated BON allocation command complete in '.(int) now()->diffInMilliseconds($now, true).' ms');
     }
 }

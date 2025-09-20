@@ -47,7 +47,7 @@ class AutoRewardResurrection extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Hands Out Rewards For Successful Resurrections';
+    protected $description = 'Automatically hands out rewards for successful resurrections';
 
     /**
      * Execute the console command.
@@ -101,6 +101,6 @@ class AutoRewardResurrection extends Command
                 }
             });
 
-        $this->comment('Automated Reward Resurrections Command Complete');
+        $this->comment('Automated reward resurrections command complete');
     }
 }

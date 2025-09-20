@@ -40,7 +40,7 @@ class AutoRemovePersonalFreeleech extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Removes A Users Personal Freeleech If It Has Expired';
+    protected $description = 'Automatically removes a users personal freeleech if it has expired';
 
     /**
      * Execute the console command.
@@ -62,6 +62,6 @@ class AutoRemovePersonalFreeleech extends Command
             Unit3dAnnounce::removePersonalFreeleech($pfl->user_id);
         }
 
-        $this->comment('Automated Removal User Personal Freeleech Command Complete');
+        $this->comment('Automated removal user personal freeleech command complete');
     }
 }

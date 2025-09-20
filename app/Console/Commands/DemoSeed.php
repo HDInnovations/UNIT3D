@@ -39,7 +39,7 @@ class DemoSeed extends Command
      *
      * @var string
      */
-    protected $description = 'Seeds Fake Data For Demonstration Or Testing Purposes';
+    protected $description = 'Seeds fake data for demonstration or testing purposes';
 
     /**
      * Execute the console command.
@@ -58,7 +58,7 @@ class DemoSeed extends Command
 
         foreach ($this->movie_ids() as $id) {
             // Users
-            $this->info('Creating User Account');
+            $this->info('Creating user account');
 
             $uid = User::factory()->create([
                 'chatroom_id'    => 1,
@@ -72,7 +72,7 @@ class DemoSeed extends Command
                 $movie = $this->fetchMovie($id);
 
                 // Torrents
-                $this->info('Creating Movie Torrents for Account ID #'.$uid);
+                $this->info('Creating movie torrents for account ID #'.$uid);
 
                 try {
                     $freeleech = ['0', '25', '50', '75', '100'];
@@ -253,7 +253,7 @@ Menu
 
         foreach ($this->tv_ids() as $id) {
             // Users
-            $this->info('Creating User Account');
+            $this->info('Creating user account');
 
             $uid = User::factory()->create([
                 'chatroom_id'    => 1,
@@ -267,7 +267,7 @@ Menu
                 $tv = $this->fetchTv($id);
 
                 // Torrents
-                $this->info('Creating TV Torrents for Account ID #'.$uid);
+                $this->info('Creating TV torrents for account ID #'.$uid);
 
                 try {
                     $freeleech = ['0', '25', '50', '75', '100'];
@@ -452,7 +452,7 @@ Menu
 
         if ($abort) {
             $this->error('Aborted ...');
-            $this->alert('Demo data was only PARTIALLY seeded! This is likely due to an API Request timeout.');
+            $this->alert('Demo data was only PARTIALLY seeded! This is likely due to an API request timeout.');
             $this->alert('Ensure TMDB api key is set and run "php artisan config:clear"');
         } else {
             $this->alert('Demo data has been successfully seeded!');

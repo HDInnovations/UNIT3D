@@ -44,7 +44,7 @@ class AutoNerdStat extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Posts Daily Nerd Stat To Shoutbox';
+    protected $description = 'Automatically posts daily nerd stat to shoutbox';
 
     /**
      * Execute the console command.
@@ -79,26 +79,26 @@ class AutoNerdStat extends Command
         // Generate the message based on the selected stat.
         $message = match ($stats) {
             'birthday' => config('other.title').' Birthday Is [b]'.config('other.birthdate').'[/b]!',
-            'logins'   => 'In The Last 24 Hours [color=#93c47d][b]'.DB::table('users')->whereNotNull('last_login')->where('last_login', '>', now()->subDay())->count().'[/b][/color] Unique Users Have Logged Into '.config('other.title').'!',
-            'uploads'  => 'In The Last 24 Hours [color=#93c47d][b]'.DB::table('torrents')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Torrents Have Been Uploaded To '.config('other.title').'!',
-            'users'    => 'In The Last 24 Hours [color=#93c47d][b]'.DB::table('users')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Users Have Registered To '.config('other.title').'!',
-            'fl25'     => 'There Are Currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 25)->count().'[/b][/color] 25% Freeleech Torrents On '.config('other.title').'!',
-            'fl50'     => 'There Are Currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 50)->count().'[/b][/color] 50% Freeleech Torrents On '.config('other.title').'!',
-            'fl75'     => 'There Are Currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 75)->count().'[/b][/color] 75% Freeleech Torrents On '.config('other.title').'!',
-            'fl100'    => 'There Are Currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 100)->count().'[/b][/color] 100% Freeleech Torrents On '.config('other.title').'!',
-            'du'       => 'There Are Currently [color=#93c47d][b]'.DB::table('torrents')->where('doubleup', '=', 1)->count().'[/b][/color] Double Upload Torrents On '.config('other.title').'!',
-            'peers'    => 'Currently There Are [color=#93c47d][b]'.DB::table('peers')->where('active', '=', 1)->count().'[/b][/color] Peers On '.config('other.title').'!',
-            'bans'     => 'In The Last 24 Hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('ban_reason')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Users Have Been Banned From '.config('other.title').'!',
-            'unbans'   => 'In The Last 24 Hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('unban_reason')->where('removed_at', '>', now()->subDay())->count().'[/b][/color] Users Have Been Unbanned From '.config('other.title').'!',
-            'warnings' => 'In The Last 24 Hours [color=#dd7e6b][b]'.DB::table('warnings')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Hit and Run Warnings Have Been Issued On '.config('other.title').'!',
-            'king'     => config('other.title').' Is King!',
-            default    => 'Nerd Stat Error!',
+            'logins'   => 'In the last 24 hours [color=#93c47d][b]'.DB::table('users')->whereNotNull('last_login')->where('last_login', '>', now()->subDay())->count().'[/b][/color] unique users have logged into '.config('other.title').'!',
+            'uploads'  => 'In the last 24 hours [color=#93c47d][b]'.DB::table('torrents')->where('created_at', '>', now()->subDay())->count().'[/b][/color] torrents have been uploaded to '.config('other.title').'!',
+            'users'    => 'In the last 24 hours [color=#93c47d][b]'.DB::table('users')->where('created_at', '>', now()->subDay())->count().'[/b][/color] users have registered to '.config('other.title').'!',
+            'fl25'     => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 25)->count().'[/b][/color] 25% freeleech torrents on '.config('other.title').'!',
+            'fl50'     => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 50)->count().'[/b][/color] 50% freeleech torrents on '.config('other.title').'!',
+            'fl75'     => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 75)->count().'[/b][/color] 75% freeleech torrents on '.config('other.title').'!',
+            'fl100'    => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 100)->count().'[/b][/color] 100% freeleech torrents on '.config('other.title').'!',
+            'du'       => 'There are currently [color=#93c47d][b]'.DB::table('torrents')->where('doubleup', '=', 1)->count().'[/b][/color] double upload torrents on '.config('other.title').'!',
+            'peers'    => 'Currently there are [color=#93c47d][b]'.DB::table('peers')->where('active', '=', 1)->count().'[/b][/color] peers on '.config('other.title').'!',
+            'bans'     => 'In the last 24 hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('ban_reason')->where('created_at', '>', now()->subDay())->count().'[/b][/color] users have been banned from '.config('other.title').'!',
+            'unbans'   => 'In the last 24 hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('unban_reason')->where('removed_at', '>', now()->subDay())->count().'[/b][/color] users have been unbanned from '.config('other.title').'!',
+            'warnings' => 'In the last 24 hours [color=#dd7e6b][b]'.DB::table('warnings')->where('created_at', '>', now()->subDay())->count().'[/b][/color] hit and run warnings have been issued on '.config('other.title').'!',
+            'king'     => config('other.title').' is king!',
+            default    => 'Nerd stat error!',
         };
 
         // Post the message to the chatbox.
         $this->chatRepository->systemMessage($message);
 
         // Output a success message to the console.
-        $this->comment('Automated Nerd Stat Command Complete');
+        $this->comment('Automated nerd stat command complete');
     }
 }

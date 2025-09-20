@@ -39,7 +39,7 @@ class AutoDeactivateWarning extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Deactivates User Warnings If Expired';
+    protected $description = 'Automatically deactivates user warnings if expired';
 
     /**
      * Execute the console command.
@@ -95,6 +95,6 @@ class AutoDeactivateWarning extends Command
                 }
             }, 'user_id');
 
-        $this->comment('Automated Warning Deactivation Command Complete');
+        $this->comment('Automated warning deactivation command complete');
     }
 }

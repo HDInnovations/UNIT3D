@@ -36,7 +36,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
      *
      * @var string
      */
-    protected $description = 'Recycle Torrent Requests That Were Claimed But Not Filled Within 7 Days.';
+    protected $description = 'Recycle torrent requests that were claimed but not filled within 7 days.';
 
     /**
      * AutoRecycleClaimedTorrentRequests Constructor.
@@ -75,6 +75,6 @@ class AutoRecycleClaimedTorrentRequests extends Command
                 }
             });
 
-        $this->comment('Automated Request Claim Reset Command Complete');
+        $this->comment('Automated request claim reset command complete');
     }
 }

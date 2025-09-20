@@ -41,7 +41,7 @@ class AutoWarning extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Post Warnings To Users Accounts and Warnings Table';
+    protected $description = 'Automatically post warnings to users accounts and warnings table';
 
     /**
      * Execute the console command.
@@ -119,6 +119,6 @@ class AutoWarning extends Command
                 }
             }, 'user_id');
 
-        $this->comment('Automated User Warning Command Complete');
+        $this->comment('Automated user warning command complete');
     }
 }

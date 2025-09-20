@@ -39,7 +39,7 @@ class SyncPeers extends Command
      *
      * @var string
      */
-    protected $description = 'Sync Torrent Seeders/Leechers/Times Completed Count.';
+    protected $description = 'Sync torrent seeders/leechers/times completed count.';
 
     /**
      * Execute the console command.
@@ -86,6 +86,6 @@ class SyncPeers extends Command
                 ]);
         }, 5);
 
-        $this->info('Torrent Seeders/Leechers/Times Completed Count Synced Successfully!');
+        $this->info('Torrent seeders/leechers/times completed count synced successfully!');
     }
 }

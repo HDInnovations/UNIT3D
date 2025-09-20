@@ -36,7 +36,7 @@ class SyncTorrentSeasonEpisode extends Command
      *
      * @var string
      */
-    protected $description = 'Syncs Season and Episode Numbers from Torrent Titles to Database';
+    protected $description = 'Syncs season and episode numbers from torrent titles to database';
 
     /**
      * Execute the console command.
@@ -72,6 +72,6 @@ class SyncTorrentSeasonEpisode extends Command
             }
         }
 
-        $this->comment('Torrent Season Episode Sync Command Complete');
+        $this->comment('Torrent season episode sync command complete');
     }
 }

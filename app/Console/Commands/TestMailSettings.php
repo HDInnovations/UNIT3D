@@ -36,7 +36,7 @@ class TestMailSettings extends Command
      *
      * @var string
      */
-    protected $description = 'Send A Test Email To Owner Account Using The Current Mail Configuration';
+    protected $description = 'Send a test email to owner account using the current mail configuration';
 
     /**
      * Execute the console command.
@@ -47,7 +47,7 @@ class TestMailSettings extends Command
     {
         $owner = config('other.email');
 
-        $this->info('Sending Test Email To '.$owner);
+        $this->info('Sending test email to '.$owner);
 
         if ($this->option('force') || $this->confirm('Do you wish to continue?', true)) {
             try {
@@ -59,7 +59,7 @@ class TestMailSettings extends Command
                 exit(1);
             }
 
-            $this->alert('Email Was Successfully Sent!');
+            $this->alert('Email was successfully sent!');
         }
     }
 }

@@ -37,7 +37,7 @@ class AutoRefundDownload extends Command
      *
      * @var string
      */
-    protected $description = 'Refunds Download To Users Based On Seed Time.';
+    protected $description = 'Refunds download to users based on seed time.';
 
     /**
      * Execute the console command.
@@ -73,6 +73,6 @@ class AutoRefundDownload extends Command
                 'history.updated_at'        => DB::raw('history.updated_at'),
             ]);
 
-        $this->comment('Automated Download Refund Command Complete');
+        $this->comment('Automated download refund command complete');
     }
 }

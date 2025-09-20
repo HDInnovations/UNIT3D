@@ -35,7 +35,7 @@ class AutoRecycleFailedLogins extends Command
      *
      * @var string
      */
-    protected $description = 'Recycle Failed Logins Once 30 Days Old.';
+    protected $description = 'Recycle failed logins once 30 days old.';
 
     /**
      * Execute the console command.
@@ -48,6 +48,6 @@ class AutoRecycleFailedLogins extends Command
             ->where('created_at', '<', now()->subDays(30))
             ->delete();
 
-        $this->comment('Automated Purge Old Failed Logins Command Complete');
+        $this->comment('Automated purge old failed logins command complete');
     }
 }

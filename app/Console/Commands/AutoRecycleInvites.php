@@ -35,7 +35,7 @@ class AutoRecycleInvites extends Command
      *
      * @var string
      */
-    protected $description = 'Recycle Invites That Are Expired.';
+    protected $description = 'Recycle invites that are expired.';
 
     /**
      * Execute the console command.
@@ -50,6 +50,6 @@ class AutoRecycleInvites extends Command
             ->where('expires_on', '<', now())
             ->delete();
 
-        $this->comment('Automated Purge Unaccepted Invites Command Complete');
+        $this->comment('Automated purge unaccepted invites command complete');
     }
 }

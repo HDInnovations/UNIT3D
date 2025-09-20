@@ -37,7 +37,7 @@ class AutoPreWarning extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Sends Pre Warning Notifications To Users';
+    protected $description = 'Automatically sends pre warning notifications to users';
 
     /**
      * Execute the console command.
@@ -85,6 +85,6 @@ class AutoPreWarning extends Command
             $user->notify(new UserPreWarning($user));
         }
 
-        $this->comment('Automated User Pre-Warning Command Complete');
+        $this->comment('Automated user pre-warning command complete');
     }
 }

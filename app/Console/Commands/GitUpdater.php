@@ -110,7 +110,7 @@ class GitUpdater extends Command
             $this->performUpdate();
         } catch (Throwable $e) {
             $this->log('Error during update: '.$e->getMessage());
-            $this->alert('error', 'Update Failed');
+            $this->alert('error', 'Update failed');
             $this->error('Error: '.$e->getMessage());
 
             if ($this->io->confirm('Would you like to restore from backup?', true)) {
@@ -253,11 +253,11 @@ Press CTRL + C ANYTIME to abort!
                     $this->success('Backups deleted successfully');
                 }
             } else {
-                $this->alert('warning', 'Update Aborted');
+                $this->alert('warning', 'Update aborted');
                 $this->log('Update aborted by user after displaying files to update');
             }
         } else {
-            $this->alert('success', 'No Available Updates Found');
+            $this->alert('success', 'No available updates found');
             $this->log('No updates available');
         }
     }

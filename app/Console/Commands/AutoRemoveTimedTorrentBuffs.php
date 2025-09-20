@@ -38,7 +38,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Removes Torrent Buffs If Expired';
+    protected $description = 'Automatically removes torrent buffs if expired';
 
     /**
      * Execute the console command.
@@ -79,6 +79,6 @@ class AutoRemoveTimedTorrentBuffs extends Command
                 'bumped_at' => DB::raw('created_at'),
             ]);
 
-        $this->comment('Automated Removal Of Expired Torrent Buffs Command Complete');
+        $this->comment('Automated removal of expired torrent buffs command complete');
     }
 }

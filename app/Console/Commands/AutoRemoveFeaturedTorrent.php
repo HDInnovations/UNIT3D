@@ -47,7 +47,7 @@ class AutoRemoveFeaturedTorrent extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Removes Featured Torrents If Expired';
+    protected $description = 'Automatically removes featured torrents if expired';
 
     /**
      * Execute the console command.
@@ -81,6 +81,6 @@ class AutoRemoveFeaturedTorrent extends Command
 
         cache()->forget('featured-torrent-ids');
 
-        $this->comment('Automated Removal Featured Torrents Command Complete');
+        $this->comment('Automated removal featured torrents command complete');
     }
 }

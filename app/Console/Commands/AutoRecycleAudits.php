@@ -36,7 +36,7 @@ class AutoRecycleAudits extends Command
      *
      * @var string
      */
-    protected $description = 'Recycle Audits Once X Days Old.';
+    protected $description = 'Recycle audits once X days old.';
 
     /**
      * Execute the console command.
@@ -49,6 +49,6 @@ class AutoRecycleAudits extends Command
             ->where('created_at', '<', now()->subDays(config('audit.recycle'))->max(Carbon::createFromTimestamp(0)))
             ->delete();
 
-        $this->comment('Automated Audit Recycle Command Complete');
+        $this->comment('Automated audit recycle command complete');
     }
 }

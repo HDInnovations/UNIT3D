@@ -38,7 +38,7 @@ class AutoFlushPeers extends Command
      *
      * @var string
      */
-    protected $description = 'Flushes Ghost Peers';
+    protected $description = 'Flushes ghost peers';
 
     /**
      * Execute the console command.
@@ -97,6 +97,6 @@ class AutoFlushPeers extends Command
             }
         }
 
-        $this->comment('Automated Flush Ghost Peers Command Complete');
+        $this->comment('Automated flush ghost peers command complete');
     }
 }

@@ -37,7 +37,7 @@ class AutoCorrectHistory extends Command
      *
      * @var string
      */
-    protected $description = 'Corrects History Records Said To Be Active Even Though Really Are Not Due To Not Receiving A STOPPED Event From Client.';
+    protected $description = 'Corrects history records said to be active even though really are not due to not receiving a stopped event from client.';
 
     /**
      * Execute the console command.
@@ -54,6 +54,6 @@ class AutoCorrectHistory extends Command
                 'updated_at' => DB::raw('updated_at'),
             ]);
 
-        $this->comment('Automated History Record Correction Command Complete');
+        $this->comment('Automated history record correction command complete');
     }
 }

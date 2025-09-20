@@ -39,7 +39,7 @@ class AutoHighspeedTag extends Command
      *
      * @var string
      */
-    protected $description = 'Updates Torrents Highspeed Tag Based On Registered Seedboxes.';
+    protected $description = 'Updates torrents highspeed tag based on registered seedboxes.';
 
     /**
      * Execute the console command.
@@ -68,6 +68,6 @@ class AutoHighspeedTag extends Command
                 'updated_at' => DB::raw('updated_at'),
             ]);
 
-        $this->comment('Automated High Speed Torrents Command Complete');
+        $this->comment('Automated high speed torrents command complete');
     }
 }

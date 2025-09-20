@@ -38,7 +38,7 @@ class AutoGroup extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically Change A Users Group Class If Requirements Met';
+    protected $description = 'Automatically change a users group class if requirements met';
 
     /**
      * Execute the console command.
@@ -108,6 +108,6 @@ class AutoGroup extends Command
         });
 
         $elapsed = (int) $now->diffInSeconds(now(), true);
-        $this->comment('Automated User Group Command Complete ('.$elapsed.' s)');
+        $this->comment('Automated user group command complete ('.$elapsed.' s)');
     }
 }

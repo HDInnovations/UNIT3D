@@ -41,7 +41,7 @@ class AutoBanDisposableUsers extends Command
      *
      * @var string
      */
-    protected $description = 'Ban User If they are using a disposable email';
+    protected $description = 'Ban user if they are using a disposable email';
 
     /**
      * Execute the console command.
@@ -51,7 +51,7 @@ class AutoBanDisposableUsers extends Command
     final public function handle(): void
     {
         if (!cache()->has(config('email-blacklist.cache-key'))) {
-            $this->comment('Email Blacklist Cache Key Not Found. Skipping!');
+            $this->comment('Email blacklist cache key not found. Skipping!');
 
             return;
         }
@@ -99,6 +99,6 @@ class AutoBanDisposableUsers extends Command
             }
         });
 
-        $this->comment('Automated User Banning Command Complete');
+        $this->comment('Automated user banning command complete');
     }
 }
