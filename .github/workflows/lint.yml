@@ -30,7 +30,7 @@ jobs:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
             -   name: Run Pint
-                run: ./vendor/bin/pint
+                run: ./vendor/bin/pint -v
             -   name: Commit Changes
                 uses: stefanzweifel/git-auto-commit-action@v5
                 with:
