@@ -37,6 +37,9 @@ import.meta.glob(['/public/img/pipes/**', '/resources/sass/vendor/webfonts/font-
 
 // Livewire + AlpineJS
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
+import morph from '@alpinejs/morph';
+
+Alpine.plugin(morph);
 
 // Custom AlpineJS Components
 import './components/alpine/chatbox';
@@ -47,6 +50,7 @@ import './components/alpine/dislikeButton';
 import './components/alpine/likeButton';
 import './components/alpine/livewireDialog';
 import './components/alpine/posterRow';
+import './components/alpine/searchPanel';
 import './components/alpine/smallBookmarkButton';
 import './components/alpine/tabs';
 import './components/alpine/toggle';

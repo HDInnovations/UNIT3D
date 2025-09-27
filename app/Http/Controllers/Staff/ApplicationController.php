@@ -28,6 +28,7 @@ use App\Models\Scopes\ApprovedScope;
 use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 use Exception;
+use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ApplicationControllerTest
@@ -37,9 +38,22 @@ class ApplicationController extends Controller
     /**
      * Display All Applications.
      */
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
     {
-        return view('Staff.application.index');
+        return view('Staff.application.index', [
+            'applications' => Application::query()
+                ->withoutGlobalScopes()
+                ->with([
+                    'user.group',
+                    'moderated.group',
+                    'imageProofs',
+                    'urlProofs'
+                ])
+                ->when($request->filled('email'), fn ($query) => $query->where('email', 'LIKE', '%'.$request->email.'%'))
+                ->when($request->filled('status'), fn ($query) => $query->where('status', '=', $request->status))
+                ->orderBy($request->sortField ?? 'created_at', $request->sortDirection ?? 'desc')
+                ->paginate($request->integer('perPage', 25)),
+        ])->fragmentIf($request->hasHeader('UNIT3D-Request'), 'application-search');
     }
 
     /**
@@ -50,6 +64,21 @@ class ApplicationController extends Controller
         return view('Staff.application.show', [
             'application' => Application::withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
         ]);
+    }
+
+    /**
+     * Delete an application.
+     */
+    public function destroy(Request $request, int $id): void
+    {
+        abort_unless($request->user()->group->is_modo, 403);
+
+        $application = Application::withoutGlobalScopes()->findOrFail($id);
+        $application->urlProofs()->delete();
+        $application->imageProofs()->delete();
+        $application->delete();
+
+        $this->dispatch('success', type: 'success', message: 'Application has successfully been deleted!');
     }
 
     /**
