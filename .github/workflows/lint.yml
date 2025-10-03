@@ -12,7 +12,7 @@ jobs:
         runs-on: ${{ matrix.operating-system }}
         steps:
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
                 with:
                     fetch-depth: 0
             -   name: Setup PHP 8.4
@@ -32,7 +32,7 @@ jobs:
             -   name: Run Pint
                 run: ./vendor/bin/pint -v
             -   name: Commit Changes
-                uses: stefanzweifel/git-auto-commit-action@v5
+                uses: stefanzweifel/git-auto-commit-action@v6
                 with:
                     commit_message: "automation: laravel pint ci"
                     commit_user_name: unit3d-bot
