@@ -15,14 +15,14 @@ declare(strict_types=1);
 
 return [
     'about'      => 'O',
-    'bot'        => 'Nerw',
+    'bot'        => 'Bot',
     'bots'       => 'Boty',
     'color'      => 'Kolor',
-    'command'    => 'Dowództwo',
-    'edit-bot'   => 'Edytuj Bot',
-    'emoji-code' => 'Kod Emoji',
-    'help'       => 'Wsparcie',
+    'command'    => 'Polecenie',
+    'edit-bot'   => 'Edytuj bota',
+    'emoji-code' => 'Kod emoji',
+    'help'       => 'Pomoc',
     'icon'       => 'Ikona',
     'info'       => 'Informacje',
-    'name'       => 'Imię',
+    'name'       => 'Nazwa',
 ];

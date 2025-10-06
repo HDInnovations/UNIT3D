@@ -15,13 +15,13 @@ declare(strict_types=1);
 
 return [
     'date'             => 'Data',
-    'delete'           => 'Kasować',
+    'delete'           => 'Usuń',
     'delete-all'       => 'Usuń wszystkie powiadomienia',
     'mark-all-read'    => 'Oznacz wszystkie jako przeczytane',
     'mark-read'        => 'Oznacz jako przeczytane',
     'message'          => 'Wiadomość',
-    'no-notifications' => 'Nie znaleziono żadnych powiadomień',
+    'no-notifications' => 'Brak powiadomień',
     'notifications'    => 'Powiadomienia',
-    'read'             => 'Czytać',
+    'read'             => 'Przeczytane',
     'title'            => 'Tytuł',
 ];
