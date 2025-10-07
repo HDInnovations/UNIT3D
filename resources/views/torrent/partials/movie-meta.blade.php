@@ -197,7 +197,7 @@
             <li class="meta__rotten">
                 <a
                     class="meta-id-tag"
-                    href="{{ href_rottentomatoes($meta->name, $meta->release_date) }}"
+                    href="{{ href_rottentomatoes($meta->title, $meta->release_date) }}"
                     title="Rotten Tomatoes: {{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})"
                     target="_blank"
                     rel="noreferrer"
