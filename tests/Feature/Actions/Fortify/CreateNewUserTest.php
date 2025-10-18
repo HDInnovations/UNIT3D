@@ -47,7 +47,7 @@ test('user registration is available when enabled', function (): void {
         'captcha.enabled'   => false,
     ]);
 
-    $email = fake()->safeEmail;
+    $email = fake()->freeEmail;
 
     $this->get('/register')
         ->assertOk()
@@ -94,7 +94,7 @@ test('user can register using invite code', function (): void {
         'expires_on'  => now()->addDays(7),
     ]);
 
-    $email = fake()->safeEmail;
+    $email = fake()->freeEmail;
 
     $this->get('/register?code=testcode')
         ->assertOk()
@@ -136,7 +136,7 @@ test('user cannot register using invalid invite code', function (): void {
         'captcha.enabled'   => false,
     ]);
 
-    $email = fake()->safeEmail;
+    $email = fake()->freeEmail;
 
     $this->get('/register?code=testcode')
         ->assertOk()
@@ -172,7 +172,7 @@ test('user cannot confirm email using invalid hash', function (): void {
         'expires_on'  => now()->addDays(7),
     ]);
 
-    $email = fake()->safeEmail;
+    $email = fake()->freeEmail;
 
     $this->get('/register?code=testcode')
         ->assertOk()
@@ -222,7 +222,7 @@ test('user can register using invite code with internal note assigned', function
         'internal_note' => 'This is a test note',
     ]);
 
-    $email = fake()->safeEmail;
+    $email = fake()->freeEmail;
 
     $this->get('/register?code=testcode')
         ->assertOk()

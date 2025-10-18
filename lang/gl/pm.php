@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,30 +11,28 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'create'        => 'Crear',
-    'delete'        => 'Eliminar',
+    'create' => 'Crear',
+    'delete' => 'Eliminar',
     'enter-subject' => 'Introduza o asunto',
-    'from'          => 'De',
-    'inbox'         => 'Caixa de entrada',
+    'from' => 'De',
+    'inbox' => 'Caixa de entrada',
     'mark-all-read' => 'Marcar todas as mensaxes como lidas',
-    'message'       => 'Mensaxe',
-    'messages'      => 'Mensaxes',
-    'new'           => 'Nova mensaxe',
-    'outbox'        => 'Caixa de saída',
-    'private'       => 'Privado',
-    'read'          => 'Ler',
-    'received-at'   => 'Recibido en',
-    'refresh'       => 'Actualizar',
-    'reply'         => 'Responder',
-    'search'        => 'Busca por asunto',
-    'select'        => 'Seleccione un usuario',
-    'send'          => 'Enviar PM',
-    'send-to'       => 'Enviar PM To',
-    'sent'          => 'Enviado',
-    'sent-at'       => 'Enviado',
-    'subject'       => 'Asunto',
-    'to'            => 'Para',
-    'unread'        => 'Sen ler',
+    'message' => 'Mensaxe',
+    'messages' => 'Mensaxes',
+    'new' => 'Nova mensaxe',
+    'outbox' => 'Caixa de saída',
+    'private' => 'Privado',
+    'read' => 'Ler',
+    'received-at' => 'Recibido en',
+    'refresh' => 'Actualizar',
+    'reply' => 'Responder',
+    'search' => 'Busca por asunto',
+    'select' => 'Seleccione un usuario',
+    'send' => 'Enviar PM',
+    'send-to' => 'Enviar PM To',
+    'sent' => 'Enviado',
+    'sent-at' => 'Enviado',
+    'subject' => 'Asunto',
+    'to' => 'Para',
+    'unread' => 'Sen ler',
 ];

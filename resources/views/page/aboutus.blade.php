@@ -21,7 +21,7 @@
         <h2 class="panel__heading">{{ __('page.aboutus-header') }}</h2>
         <div class="panel__body">
             <h3>{{ __('page.aboutus-welcome') }} {{ config('other.title') }}</h3>
-            <p>{!! __('page.aboutus-welcome-desc', ['title' => config('other.title')]) !!}</p>
+            <p>{{ __('page.aboutus-welcome-desc', ['title' => config('other.title')]) }}</p>
 
             <h4>
                 <i class="{{ config('other.font-awesome') }} fa-globe" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
             </h4>
             <ol class="wrapper">
                 <li>{{ __('page.aboutus-advantage1') }}</li>
-                <li>{!! __('page.aboutus-advantage2') !!}</li>
+                <li>{{ __('page.aboutus-advantage2') }}</li>
                 <li>{{ __('page.aboutus-advantage3') }}</li>
                 <li>{{ __('page.aboutus-advantage4', ['title' => config('other.title')]) }}</li>
                 <li>{{ __('page.aboutus-advantage5') }}</li>

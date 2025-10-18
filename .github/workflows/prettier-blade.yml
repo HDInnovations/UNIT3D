@@ -18,7 +18,7 @@ jobs:
                 with:
                     bun-version: latest
             -   name: Install JS Dependencies
-                run: bun install
+                run: bun ci
             -   name: Run Prettier
                 run: bunx prettier -w *
             -   name: Commit Changes
@@ -28,4 +28,3 @@ jobs:
                     commit_user_name: unit3d-bot
                     commit_user_email: unit3d_gh_bot@protonmail.com
                     commit_author: unit3d-bot <unit3d_gh_bot@protonmail.com>
-

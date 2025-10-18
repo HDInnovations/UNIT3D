@@ -110,7 +110,7 @@ class InviteController extends Controller
             'email'         => [
                 'required',
                 'string',
-                'email',
+                'email:rfc,dns',
                 'max:70',
                 'unique:invites',
                 'unique:users',

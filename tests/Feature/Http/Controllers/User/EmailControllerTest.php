@@ -48,7 +48,7 @@ test('update returns an ok response', function (): void {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->patch(route('users.email.update', [$user]), [
-        'email' => fake()->unique()->safeEmail,
+        'email' => fake()->unique()->freeEmail,
     ]);
 
     $response->assertRedirect(route('users.email.edit', ['user' => $user]))

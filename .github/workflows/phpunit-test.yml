@@ -55,7 +55,7 @@ jobs:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
             -   name: Install JS Dependencies
-                run: bun install
+                run: bun ci
             -   name: Compile Assets (Vite)
                 run: bun run build
             -   name: Generate Application Key

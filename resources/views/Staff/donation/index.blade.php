@@ -152,8 +152,8 @@
     @vite('resources/js/vendor/chart.js')
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('DOMContentLoaded', function () {
-            const dailyDonations = {!! Js::encode($dailyDonations) !!};
-            const monthlyDonations = {!! Js::encode($monthlyDonations) !!};
+            const dailyDonations = {{ Js::from($dailyDonations) }};
+            const monthlyDonations = {{ Js::from($monthlyDonations) }};
 
             // Daily donations chart
             const dailyCtx = document.getElementById('dailyDonationsChart').getContext('2d');

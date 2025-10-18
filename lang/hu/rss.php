@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,21 +11,19 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'create'              => 'teremt',
+    'create' => 'teremt',
     'create-private-feed' => 'Privát RSS-hírcsatorna létrehozása',
-    'create-public-feed'  => 'Nyilvános RSS-hírcsatorna létrehozása',
-    'delete'              => 'Töröl',
-    'edit'                => 'szerkesztése',
-    'edit-private-feed'   => 'Privát RSS-hírcsatorna szerkesztése',
-    'edit-public-feed'    => 'Nyilvános RSS-hírcsatorna szerkesztése',
-    'feed'                => 'takarmány',
-    'feeds'               => 'Takarmány',
-    'name'                => 'Név',
-    'public'              => 'Nyilvános',
-    'private'             => 'Magán',
-    'rss'                 => 'RSS',
-    'rss-feed'            => 'RSS-hírcsatorna',
-    'type'                => 'típus',
+    'create-public-feed' => 'Nyilvános RSS-hírcsatorna létrehozása',
+    'delete' => 'Töröl',
+    'edit' => 'szerkesztése',
+    'edit-private-feed' => 'Privát RSS-hírcsatorna szerkesztése',
+    'edit-public-feed' => 'Nyilvános RSS-hírcsatorna szerkesztése',
+    'feed' => 'takarmány',
+    'feeds' => 'Takarmány',
+    'name' => 'Név',
+    'public' => 'Nyilvános',
+    'private' => 'Magán',
+    'rss' => 'RSS',
+    'rss-feed' => 'RSS-hírcsatorna',
+    'type' => 'típus',
 ];

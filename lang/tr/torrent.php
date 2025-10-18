@@ -183,7 +183,7 @@ return [
     'top-seeded' => 'Top seed (kaynak) edilen',
     'torrent' => 'sel',
     'torrent-request' => 'Torrent İsteği',
-    'torrent-tips' => 'Toplamda <span class="text-red text-bold">: toplam</span> BON yükleyiciye gönderildi, bunlardan <span class="text-red text-bold">: kullanıcı</span> sizden',
+    'torrent-tips' => 'Toplamda : toplam BON yükleyiciye gönderildi, bunlardan : kullanıcı sizden',
     'torrent-tips-desc' => 'Bu, mevcut bonus puanlarınızdan düşülecektir.',
     'torrents' => 'Torrent lerin',
     'trailer' => 'Fragmanı görüntüle',

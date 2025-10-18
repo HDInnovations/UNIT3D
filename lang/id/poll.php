@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,20 +11,18 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'add-option'      => 'Tambahkan opsi',
-    'create-poll'     => 'Buat jajak pendapat',
-    'current'         => 'Polling Saat Ini',
-    'delete-option'   => 'Hapus opsi',
+    'add-option' => 'Tambahkan opsi',
+    'create-poll' => 'Buat jajak pendapat',
+    'current' => 'Polling Saat Ini',
+    'delete-option' => 'Hapus opsi',
     'multiple-choice' => 'Ini adalah jajak pendapat pilihan ganda. Pilih jawaban sebanyak yang Anda suka.',
-    'option'          => 'Pilihan',
-    'poll'            => 'Pemilihan',
-    'polls'           => 'Polling',
-    'results'         => 'Hasil Polling',
-    'title'           => 'Judul',
-    'total'           => 'Total Suara Pernah',
-    'vote'            => 'Memilih',
-    'vote-now'        => 'Dapatkan Suara Anda Sekarang!',
-    'votes'           => 'Voting',
+    'option' => 'Pilihan',
+    'poll' => 'Pemilihan',
+    'polls' => 'Polling',
+    'results' => 'Hasil Polling',
+    'title' => 'Judul',
+    'total' => 'Total Suara Pernah',
+    'vote' => 'Memilih',
+    'vote-now' => 'Dapatkan Suara Anda Sekarang!',
+    'votes' => 'Voting',
 ];

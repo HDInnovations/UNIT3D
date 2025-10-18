@@ -32,7 +32,11 @@
             </p>
             <p class="form__group" x-show="isToggledOn" x-cloak>
                 <button type="submit" class="form__button form__button--filled">Comment</button>
-                <button type="reset" class="form__button form__button--text">
+                <button
+                    type="reset"
+                    class="form__button form__button--text"
+                    x-on:click="toggleOff"
+                >
                     {{ __('common.cancel') }}
                 </button>
             </p>

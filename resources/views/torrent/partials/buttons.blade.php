@@ -132,7 +132,7 @@
                     @csrf
                     <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                     <div>
-                        {!! __('torrent.torrent-tips', ['total' => $torrent->total_tips ?? 0, 'user' => $torrent->user_tips ?? 0]) !!}.
+                        {{ __('torrent.torrent-tips', ['total' => $torrent->total_tips ?? 0, 'user' => $torrent->user_tips ?? 0]) }}.
                         <span>({{ __('torrent.torrent-tips-desc') }})</span>
                     </div>
                     <div class="form__group">
@@ -359,26 +359,14 @@
                 >
                     @csrf
                     <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
-                    <p class="form__group">
-                        {{ __('graveyard.howto') }}
-                    </p>
                     <p>
-                        {!! __('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
-                        <span class="text-red text-bold">
-                            {{ $torrent->history->first() === null ? '0' : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime) }}
-                        </span>
-                        {{ strtolower(__('graveyard.howto-hits')) }}
-                        <span class="text-red text-bold">
-                            {{ $torrent->history->first() === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime + config('graveyard.time')) }}
-                        </span>
-                        {{ strtolower(__('graveyard.howto-desc2')) }}
-                        <span
-                            class="text-bold text-pink"
-                            style="background-image:url({{ url('/img/sparkels.gif') }};"
-                        >
-                            {{ config('graveyard.reward') }} {{ __('torrent.freeleech') }}
-                            Token(s)!
-                        </span>
+                        {{
+                            __('graveyard.howto-desc', [
+                                'currentSeedtime' => $torrent->history->first() === null ? '0' : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime),
+                                'requiredSeedtime' => $torrent->history->first() === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime + config('graveyard.time')),
+                                'tokens' => config('graveyard.reward'),
+                            ])
+                        }}
                     </p>
                     <p class="form__group" style="text-align: left">
                         <button class="form__button form__button--filled">

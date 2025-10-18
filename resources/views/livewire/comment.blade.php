@@ -9,16 +9,21 @@
                 {{ $comment->created_at?->diffForHumans() }}
             </time>
             <menu class="comment__toolbar">
-                @if ($comment->isParent() && $comment->children()->doesntExist())
-                    <li class="comment__toolbar-item">
-                        <button wire:click="$toggle('isReplying')" class="comment__reply">
-                            <abbr class="comment__reply-abbr" title="Reply to this comment">
-                                <i class="{{ config('other.font-awesome') }} fa-reply"></i>
-                                <span class="sr-only">__('pm.reply')</span>
-                            </abbr>
-                        </button>
-                    </li>
-                @endif
+                <li class="comment__toolbar-item">
+                    <button
+                        @if ($comment->isParent())
+                            wire:click="$toggle('isReplying')"
+                        @else
+                            wire:click="$parent.$toggle('isReplying')"
+                        @endif
+                        class="comment__reply"
+                    >
+                        <abbr class="comment__reply-abbr" title="Reply to this comment">
+                            <i class="{{ config('other.font-awesome') }} fa-reply"></i>
+                            <span class="sr-only">__('pm.reply')</span>
+                        </abbr>
+                    </button>
+                </li>
 
                 <li class="comment__toolbar-item">
                     <button
@@ -31,8 +36,11 @@
                             if (input.value !== '') {
                                 input.value += '\n\n';
                             }
-                            input.value += '[quote={{ $comment->anon ? 'Anonymous' : '@' . $comment->user->username }}]\n';
-                            input.value += decodeURIComponent(escape(atob('{{ base64_encode($comment->content) }}')));
+                            input.value +=
+                                '[quote={{ $comment->anon ? 'Anonymous' : '@' . $comment->user->username }}]\n';
+                            input.value += decodeURIComponent(
+                                escape(atob('{{ base64_encode($comment->content) }}'))
+                            );
                             input.value += '\n[/quote]\n\n';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
@@ -152,7 +160,7 @@
                 </ul>
             @endif
 
-            @if ($isReplying || $comment->children()->exists())
+            @if ($isReplying)
                 <form wire:submit="postReply" class="form reply-comment" x-data="toggle">
                     <p class="form__group">
                         <textarea

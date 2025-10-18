@@ -135,6 +135,24 @@
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
+                                        <a
+                                            href="{{
+                                                route('requests.create', [
+                                                    'category_id' => match (true) {
+                                                        $wish->tmdb_movie_id !== null => $movieCategoryIds[0] ?? null,
+                                                        $wish->tmdb_tv_id !== null => $tvCategoryIds[0] ?? null,
+                                                    },
+                                                    'title' => $wish->title,
+                                                    'tmdb_movie_id' => $wish->tmdb_movie_id,
+                                                    'tmdb_tv_id' => $wish->tmdb_tv_id,
+                                                ])
+                                            }}"
+                                            class="form__button form__button--text"
+                                        >
+                                            {{ __('request.request') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
                                         <form
                                             action="{{ route('users.wishes.destroy', ['user' => $user, 'wish' => $wish]) }}"
                                             method="POST"

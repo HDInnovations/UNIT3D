@@ -214,7 +214,7 @@ return [
     'top-seeded' => 'Топ торрентів за кількістю сідерів',
     'torrent' => 'Торрент',
     'torrent-request' => 'Замовлення релізу',
-    'torrent-tips' => 'Всього <span class="text-red text-bold">:total</span> BON було передано релізеру, з яких <span class="text-red text-bold">:user</span> - від вас',
+    'torrent-tips' => 'Всього :total BON було передано релізеру, з яких :user - від вас',
     'torrent-tips-desc' => 'Чайові будуть відмінусовані від ваших наявних бонусів',
     'torrents' => 'Торенти',
     'torrents-matched' => 'Торренти збігаються',

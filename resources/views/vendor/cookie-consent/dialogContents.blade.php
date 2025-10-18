@@ -4,7 +4,7 @@
 >
     <div class="alert__content">
         <span class="cookie-consent__message">
-            {!! __('cookie-consent::texts.message') !!}
+            {{ __('cookie-consent::texts.message') }}
         </span>
 
         <button class="form__button form__button--filled js-cookie-consent-agree cookie-consent__agree">

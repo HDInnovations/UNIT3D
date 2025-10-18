@@ -127,7 +127,13 @@ return [
     'invites-count' => 'Hai: conta inviti token',
     'invites-disabled' => 'Attenzione: gli inviti sono disabilitati a causa della registrazione aperta!',
     'invites-disabled-desc' => 'Si prega di controllare presto!',
-    'invites-rules' => '<li class="text-success"> Invita solo le persone che conosci e di cui ti fidi. </li><li class="text-danger"> Sarai ritenuto personalmente responsabile per coloro che inviti. </li><li class="text-danger"> Non invitare te stesso, controlliamo ogni utente invitato. </li><li class="text-danger"> Non scambiare o vendere Inviti. </li><li class="text-danger"> Se tu o una persona che hai invitato viene sorpresa a barare o fare trading account, valuteremo la tua responsabilità. </li>',
+    'invites-rules' => [
+        'know-and-trust' => 'Invita solo le persone che conosci e di cui ti fidi.',
+        'responsible' => 'Sarai ritenuto personalmente responsabile per coloro che inviti.',
+        'yourself' => 'Non invitare te stesso, controlliamo ogni utente invitato.',
+        'trade-or-sell' => 'Non scambiare o vendere Inviti.',
+        'caught' => 'Se tu o una persona che hai invitato viene sorpresa a barare o fare trading account, valuteremo la tua responsabilità.',
+    ],
     'invites-send' => 'Inviti effettuati',
     'last-login' => 'Ultimo accesso',
     'locked' => 'Bloccato',
@@ -306,13 +312,13 @@ return [
     'user-id' => 'ID utente',
     'username-seedbox' => 'Nome utente Seedbox',
     'visible-to-achievement' => 'Risultati visibili a',
-    'visible-to-achievement-help' => 'I tuoi risultati saranno visibili solo al personale e ai seguenti gruppi. 
+    'visible-to-achievement-help' => 'I tuoi risultati saranno visibili solo al personale e ai seguenti gruppi.
 Queste impostazioni sono sovrascritte se <strong>vai privato</strong>',
     'visible-to-follower' => 'Seguaci visibili a',
-    'visible-to-follower-help' => 'I tuoi follower saranno visibili solo allo staff e ai seguenti gruppi. 
+    'visible-to-follower-help' => 'I tuoi follower saranno visibili solo allo staff e ai seguenti gruppi.
 Queste impostazioni sono sovrascritte se <strong>vai privato</strong>',
     'visible-to-forum' => 'Informazioni sul forum Visibile a',
-    'visible-to-forum-help' => 'Le tue informazioni nel forum saranno visibili solo allo staff e ai seguenti gruppi. 
+    'visible-to-forum-help' => 'Le tue informazioni nel forum saranno visibili solo allo staff e ai seguenti gruppi.
 Queste impostazioni sono sovrascritte se <strong>vai privato</strong>',
     'visible-to-other' => 'Altro visibile a',
     'visible-to-other-help' => 'Altre informazioni relative al tuo account saranno visibili solo allo staff e ai seguenti gruppi. Queste impostazioni sono sovrascritte se <strong>vai privato</strong> o se <strong>vai nascosto</strong>',

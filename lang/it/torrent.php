@@ -186,7 +186,7 @@ return [
     'top-seeded' => 'Top in condivisione',
     'torrent' => 'Torrent',
     'torrent-request' => 'Richiesta Torrent',
-    'torrent-tips' => 'In totale <span class="text-red text-bold">:total</span> punti BONUS sono stati consegnati all autore del caricamento, di cui <span class="text-red text-bold">:user</span> provengono da te',
+    'torrent-tips' => 'In totale :total punti BONUS sono stati consegnati all autore del caricamento, di cui :user provengono da te',
     'torrent-tips-desc' => 'Questo sarà detratto dai tuoi punti bonus disponibili',
     'torrents' => 'Torrents',
     'trailer' => 'Guarda il trailer',

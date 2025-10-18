@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,20 +11,18 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'add-option'      => 'إضافة خيار',
-    'create-poll'     => 'إنشاء استطلاع',
-    'current'         => 'الاستطلاع الحالي',
-    'delete-option'   => 'حذف الخيار',
+    'add-option' => 'إضافة خيار',
+    'create-poll' => 'إنشاء استطلاع',
+    'current' => 'الاستطلاع الحالي',
+    'delete-option' => 'حذف الخيار',
     'multiple-choice' => 'هذا استطلاع متعدد الاختيارات. حدد العديد من الإجابات التي تريدها.',
-    'option'          => 'اختيار',
-    'poll'            => 'تصويت',
-    'polls'           => 'استطلاعات الرأي',
-    'results'         => 'نتائج الاستطلاع',
-    'title'           => 'عنوان',
-    'total'           => 'مجموع الأصوات من أي وقت مضى',
-    'vote'            => 'تصويت',
-    'vote-now'        => 'احصل على صوتك الآن!',
-    'votes'           => 'الأصوات',
+    'option' => 'اختيار',
+    'poll' => 'تصويت',
+    'polls' => 'استطلاعات الرأي',
+    'results' => 'نتائج الاستطلاع',
+    'title' => 'عنوان',
+    'total' => 'مجموع الأصوات من أي وقت مضى',
+    'vote' => 'تصويت',
+    'vote-now' => 'احصل على صوتك الآن!',
+    'votes' => 'الأصوات',
 ];

@@ -57,14 +57,4 @@ class Distributor extends Model
     {
         return $this->hasMany(Torrent::class);
     }
-
-    /**
-     * Get the requests for this distributor.
-     *
-     * @return HasMany<TorrentRequest, $this>
-     */
-    public function requests(): HasMany
-    {
-        return $this->hasMany(TorrentRequest::class);
-    }
 }

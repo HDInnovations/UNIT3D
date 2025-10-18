@@ -183,7 +183,7 @@ return [
     'top-seeded' => 'Top Seeded',
     'torrent' => 'Torrent',
     'torrent-request' => 'Permintaan Torrent',
-    'torrent-tips' => 'Dalam Jumlah <span class="text-red text-bold">: jumlah</span> BON telah diberikan kepada pemuat naik, yang mana <span class="text-red text-bold">: pengguna</span> berasal dari anda',
+    'torrent-tips' => 'Dalam Jumlah : jumlah BON telah diberikan kepada pemuat naik, yang mana : pengguna berasal dari anda',
     'torrent-tips-desc' => 'Ini akan ditolak dari mata bonus anda yang ada',
     'torrents' => 'Torrents',
     'trailer' => 'Lihat treler',

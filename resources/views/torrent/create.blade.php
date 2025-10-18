@@ -695,9 +695,9 @@
                 <p>
                     {{ __('torrent.announce-url-desc', ['source' => config('torrent.source')]) }}
                 </p>
-                <p class="text-success">
-                    {!! __('torrent.announce-url-desc-url', ['url' => config('other.upload-guide_url')]) !!}
-                </p>
+                <a href="{{ config('other.upload-guide_url') }}">
+                    {{ __('torrent.announce-url-desc-url') }}
+                </a>
             </div>
         </section>
     @endsection

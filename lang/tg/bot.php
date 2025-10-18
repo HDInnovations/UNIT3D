@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,17 +11,15 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'about'      => 'Дар бораи',
-    'bot'        => 'Ботсос',
-    'bots'       => 'Бутҳо',
-    'color'      => 'Ранги',
-    'command'    => 'Фармон',
-    'edit-bot'   => 'Таҳрири Bot',
+    'about' => 'Дар бораи',
+    'bot' => 'Ботсос',
+    'bots' => 'Бутҳо',
+    'color' => 'Ранги',
+    'command' => 'Фармон',
+    'edit-bot' => 'Таҳрири Bot',
     'emoji-code' => 'Рамзи Э.',
-    'help'       => 'Кумак',
-    'icon'       => 'Icon',
-    'info'       => 'Маълумот',
-    'name'       => 'Ном',
+    'help' => 'Кумак',
+    'icon' => 'Icon',
+    'info' => 'Маълумот',
+    'name' => 'Ном',
 ];

@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,15 +11,13 @@ declare(strict_types=1);
  * @author     Howard Lau <howardlau1999@hotmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'downloads'      => 'Μεταφορτώσεις',
-    'extension'      => 'Επέκταση',
+    'downloads' => 'Μεταφορτώσεις',
+    'extension' => 'Επέκταση',
     'delete-confirm' => 'Σίγουρα θέλετε να διαγράψετε τον υπότιτλο?',
-    'note'           => 'Σημείωση',
-    'note-help'      => 'Extra πληροφορίες για τον υπότιτλο',
-    'rules-title'    => 'Κανόνες Υποτίτλων!',
-    'rules'          => '<ul>
+    'note' => 'Σημείωση',
+    'note-help' => 'Extra πληροφορίες για τον υπότιτλο',
+    'rules-title' => 'Κανόνες Υποτίτλων!',
+    'rules' => '<ul>
                                         <li>Only proper subtitles are allowed to be uploaded (Correct frame rate. translation, spelling, timing).</li>
                                         <li>No google translated / machine translated / incorrect subtitles allowed.</li>
                                         <li>Subtitle must be in sync with the video.</li>
@@ -29,9 +26,9 @@ return [
                                         <li>Keep the note of the subtitle short. NO urls/links are allowed.</li>
                                         <li>All Subtitles must be confirmed, verified, timed correctly for the specific Torrent/Video.</li>
                                       </ul>',
-    'size'                => 'Μέγεθος',
-    'subtitle-file'       => 'Αρχείο',
+    'size' => 'Μέγεθος',
+    'subtitle-file' => 'Αρχείο',
     'subtitle-file-types' => 'Απδεκτοί τυποι υποτίτλων: ICO, SRT, SUP, ASS and ZIP',
-    'uploaded'            => 'Ανέβηκε',
-    'uploader'            => 'Uploader',
+    'uploaded' => 'Ανέβηκε',
+    'uploader' => 'Uploader',
 ];

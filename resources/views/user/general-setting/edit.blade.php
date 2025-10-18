@@ -38,7 +38,7 @@
                 @method('PATCH')
                 <p class="form__group">
                     <select id="locale" class="form__select" name="locale" required>
-                        @foreach (App\Models\Language::allowed() as $code => $name)
+                        @foreach (App\Helpers\Language::allowed() as $code => $name)
                             <option
                                 class="form__option"
                                 value="{{ $code }}"

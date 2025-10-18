@@ -97,7 +97,7 @@ class AutoUpsertHistories extends Command
                         // We need to make sure seeder and active are updated after seedtime, otherwise the seedtime logic for ensuring it's not a new announce and the left was 0 in the last announce breaks.
                         // Unfortunately, laravel sorts the keys in this array alphabetically when inserting so reordering the keys themselves in this array doesn't work.
                         // This leaves us with this hacky fix.
-                        'seedtime'     => DB::raw('CASE WHEN DATE_ADD(updated_at, INTERVAL 5400 SECOND) > VALUES(updated_at) AND seeder = TRUE AND active = TRUE AND VALUES(seeder) = TRUE THEN seedtime + TIMESTAMPDIFF(SECOND, updated_at, VALUES(updated_at)) ELSE seedtime END, seeder = VALUES(seeder), active = VALUES(active)'),
+                        'seedtime'     => DB::raw('CASE WHEN updated_at + INTERVAL 5400 SECOND > VALUES(updated_at) AND seeder = TRUE AND active = TRUE AND VALUES(seeder) = TRUE THEN seedtime + TIMESTAMPDIFF(SECOND, updated_at, VALUES(updated_at)) ELSE seedtime END, seeder = VALUES(seeder), active = VALUES(active)'),
                         'immune'       => DB::raw('immune AND VALUES(immune)'),
                         'completed_at' => DB::raw('COALESCE(completed_at, VALUES(completed_at))'),
                     ],

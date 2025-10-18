@@ -19,6 +19,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Playlist;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -62,8 +63,10 @@ class AuthenticatedImageController extends Controller
         return response()->file($path, self::HEADERS);
     }
 
-    public function torrentBanner(Torrent $torrent): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function torrentBanner(int $id): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+
         $path = Storage::disk('torrent-banners')->path("torrent-banner_{$torrent->id}.jpg");
 
         abort_unless(file_exists($path), 404);
@@ -71,8 +74,10 @@ class AuthenticatedImageController extends Controller
         return response()->file($path, self::HEADERS);
     }
 
-    public function torrentCover(Torrent $torrent): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function torrentCover(int $id): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+
         $path = Storage::disk('torrent-covers')->path("torrent-cover_{$torrent->id}.jpg");
 
         abort_unless(file_exists($path), 404);

@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,16 +11,14 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'date'             => 'تاريخ',
-    'delete'           => 'حذف',
-    'delete-all'       => 'حذف جميع الإخطارات',
-    'mark-all-read'    => 'اشر عليها بانها قرات',
-    'mark-read'        => 'ضع إشارة مقروء',
-    'message'          => 'رسالة',
+    'date' => 'تاريخ',
+    'delete' => 'حذف',
+    'delete-all' => 'حذف جميع الإخطارات',
+    'mark-all-read' => 'اشر عليها بانها قرات',
+    'mark-read' => 'ضع إشارة مقروء',
+    'message' => 'رسالة',
     'no-notifications' => 'لا توجد إخطارات',
-    'notifications'    => 'إخطارات',
-    'read'             => 'اقرأ',
-    'title'            => 'عنوان',
+    'notifications' => 'إخطارات',
+    'read' => 'اقرأ',
+    'title' => 'عنوان',
 ];

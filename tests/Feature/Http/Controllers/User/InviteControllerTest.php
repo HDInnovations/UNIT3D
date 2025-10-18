@@ -29,8 +29,6 @@ test('create returns an ok response', function (): void {
         'two_factor_confirmed_at' => now(),
     ]);
 
-    $inviteEmail = 'test@unit3d.dev';
-
     config(['other.invites_restriced' => true]);
     config(['other.invite_groups' => [$group->name]]);
     config(['other.invite_groups' => [$group->name]]);
@@ -124,7 +122,7 @@ test('store returns an ok response', function (): void {
         'two_factor_confirmed_at' => now(),
     ]);
 
-    $inviteEmail = 'test@unit3d.dev';
+    $inviteEmail = fake()->freeEmail;
 
     config(['other.invites_restriced' => true]);
     config(['other.invite_groups' => [$group->name]]);
@@ -159,7 +157,7 @@ test('store with internal note as staff user', function (): void {
         'two_factor_confirmed_at' => now(),
     ]);
 
-    $inviteEmail = 'test@unit3d.dev';
+    $inviteEmail = fake()->freeEmail;
 
     config(['other' => [
         'invites_restriced'            => true,

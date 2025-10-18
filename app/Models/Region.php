@@ -58,14 +58,4 @@ class Region extends Model
     {
         return $this->hasMany(Torrent::class);
     }
-
-    /**
-     * Get all requests for the region.
-     *
-     * @return HasMany<TorrentRequest, $this>
-     */
-    public function requests(): HasMany
-    {
-        return $this->hasMany(TorrentRequest::class);
-    }
 }

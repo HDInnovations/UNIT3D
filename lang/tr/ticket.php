@@ -23,4 +23,13 @@ return [
     'fix-errors' => 'Lütfen aşağıdaki hataları düzelt ve yeniden dene:',
     'helpdesk' => 'YardımMasası',
     'no-attach' => 'Ek bulunamadı',
+    'note-create-success' => 'Personel Notu Başarıyla Kaydedildi!',
+    'note-destroy-success' => 'Personel Notu Başarıyla Kaldırıldı!',
+    'opened-by' => 'Açılış:',
+    'priority' => 'Öncelik',
+    'reopen' => 'Yeniden aç',
+    'reopen-success' => 'Yardım masası biletiniz başarıyla yeniden açıldı',
+    'reset' => 'Sıfırla',
+    'staff-notes' => 'Personel Notları',
+    'subject-enter' => 'Konuyu buraya girin...',
 ];

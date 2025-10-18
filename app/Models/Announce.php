@@ -57,7 +57,7 @@ class Announce extends Model
      *
      * @return BelongsTo<Torrent, $this>
      */
-    public function torrents(): BelongsTo
+    public function torrent(): BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
@@ -67,7 +67,7 @@ class Announce extends Model
      *
      * @return BelongsTo<User, $this>
      */
-    public function requests(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

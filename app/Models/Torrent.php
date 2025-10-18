@@ -573,7 +573,7 @@ class Torrent extends Model
      */
     public function game(): BelongsTo
     {
-        return $this->belongsTo(IgdbGame::class, 'igdb_game_id');
+        return $this->belongsTo(IgdbGame::class, 'igdb');
     }
 
     /**

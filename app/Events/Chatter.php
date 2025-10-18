@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace App\Events;
 
+use App\Http\Resources\ChatMessageResource;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Queue\SerializesModels;
 
 class Chatter implements ShouldBroadcastNow
@@ -28,19 +30,38 @@ class Chatter implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $echoes;
+    public ?AnonymousResourceCollection $echoes = null;
 
-    public $message;
+    public ?ChatMessageResource $message = null;
 
-    public $ping;
+    /**
+     * @var null|array{
+     *     type: 'bot'|'target',
+     *     id: int
+     * }
+     */
+    public ?array $ping = null;
 
-    public $audibles;
+    public ?AnonymousResourceCollection $audibles = null;
 
     /**
      * Chatter Constructor.
      */
-    public function __construct(public string $type, public $target, $payload)
-    {
+    public function __construct(
+        /** @var 'echo'|'audible'|'new.message'|'new.bot'|'new.ping' $type */
+        public string $type,
+        public int $target,
+        /** @var (
+         *      $type is 'echo'        ? AnonymousResourceCollection
+         *   : ($type is 'audible'     ? AnonymousResourceCollection
+         *   : ($type is 'new.message' ? ChatMessageResource
+         *   : ($type is 'new.bot'     ? ChatMessageResource
+         *   : ($type is 'new.ping'    ? array{type: 'bot'|'target', id: int}
+         *   : never
+         * ))))) $payload
+         */
+        mixed $payload,
+    ) {
         if ($type == 'echo') {
             $this->echoes = $payload;
         } elseif ($type == 'audible') {

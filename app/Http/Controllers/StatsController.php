@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Group;
-use App\Models\Language;
+use App\Helpers\Language;
 use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -26,6 +26,7 @@ use App\Models\UserSetting;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Concurrency;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\StatsControllerTest
@@ -308,37 +309,113 @@ class StatsController extends Controller
      */
     public function clients(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = cache()->remember(
-            'stats:clients',
-            3600,
-            fn () => Peer::selectRaw('agent, COUNT(*) as user_count, SUM(peer_count) as peer_count')
-                ->fromSub(
-                    Peer::query()
-                        ->select(['agent', 'user_id', DB::raw('COUNT(*) as peer_count')])
-                        ->groupBy('agent', 'user_id')
-                        ->where('active', '=', true),
-                    'distinct_agent_user'
-                )
-                ->groupBy('agent')
-                ->orderBy('agent')
-                ->get()
-                ->toArray()
-        );
+        [
+            $groupedClients,
+            $clients,
+            $singleSeedClientGroups,
+            $singleSeedClients,
+        ] = Concurrency::run([
+            fn () => cache()->flexible(
+                'stats:client-groups',
+                [3600, 2 * 24 * 3600],
+                fn () => Peer::query()
+                    ->select([
+                        DB::raw("SUBSTRING_INDEX(SUBSTRING_INDEX(agent, '/', 1), ' ', 1) AS prefix"),
+                        DB::raw('COUNT(DISTINCT user_id) AS user_count'),
+                        DB::raw('COUNT(DISTINCT torrent_id) AS torrent_count'),
+                        DB::raw('COUNT(*) AS peer_count'),
+                    ])
+                    ->where('active', '=', true)
+                    ->where('visible', '=', true)
+                    ->groupByRaw('prefix')
+                    ->orderBy('prefix')
+                    ->get()
+                    ->keyBy('prefix')
+                    ->toArray(),
+            ),
+            fn () => cache()->flexible(
+                'stats:clients',
+                [3600, 2 * 24 * 3600],
+                fn () => Peer::query()
+                    ->select([
+                        'agent',
+                        DB::raw("SUBSTRING_INDEX(SUBSTRING_INDEX(agent, '/', 1), ' ', 1) AS prefix"),
+                        DB::raw('COUNT(DISTINCT user_id) AS user_count'),
+                        DB::raw('COUNT(DISTINCT torrent_id) AS torrent_count'),
+                        DB::raw('COUNT(*) AS peer_count'),
+                    ])
+                    ->where('active', '=', true)
+                    ->where('visible', '=', true)
+                    ->groupBy('agent')
+                    ->orderBy('agent')
+                    ->get()
+                    ->keyBy('agent')
+                    ->toArray(),
+            ),
+            fn () => cache()->flexible(
+                'stats:client-groups-single-seeded',
+                [3600, 2 * 24 * 3600],
+                fn () => Peer::query()
+                    ->select([
+                        'agent',
+                        DB::raw("SUBSTRING_INDEX(SUBSTRING_INDEX(agent, '/', 1), ' ', 1) AS prefix"),
+                        DB::raw('COUNT(DISTINCT torrent_id) AS single_seed_count'),
+                    ])
+                    ->where('active', '=', true)
+                    ->where('visible', '=', true)
+                    ->whereIn(
+                        'torrent_id',
+                        Peer::query()
+                            ->select('torrent_id')
+                            ->where('active', '=', true)
+                            ->where('visible', '=', true)
+                            ->groupBy('torrent_id')
+                            ->havingRaw('COUNT(*) = 1')
+                    )
+                    ->groupBy('prefix')
+                    ->orderBy('prefix')
+                    ->get()
+                    ->keyBy('prefix')
+                    ->toArray(),
+            ),
+            fn () => cache()->flexible(
+                'stats:clients-single-seeded',
+                [3600, 2 * 24 * 3600],
+                fn () => Peer::query()
+                    ->select([
+                        'agent',
+                        DB::raw("SUBSTRING_INDEX(SUBSTRING_INDEX(agent, '/', 1), ' ', 1) AS prefix"),
+                        DB::raw('COUNT(DISTINCT torrent_id) AS single_seed_count'),
+                    ])
+                    ->where('active', '=', true)
+                    ->where('visible', '=', true)
+                    ->whereIn(
+                        'torrent_id',
+                        Peer::query()
+                            ->select('torrent_id')
+                            ->where('active', '=', true)
+                            ->where('visible', '=', true)
+                            ->groupBy('torrent_id')
+                            ->havingRaw('COUNT(*) = 1')
+                    )
+                    ->groupBy(['agent'])
+                    ->orderBy('agent')
+                    ->get()
+                    ->keyBy('agent')
+                    ->toArray(),
+            )
+        ]);
 
-        $groupedClients = [];
+        foreach ($clients as $agent => $client) {
+            $groupedClients[$client['prefix']]['clients'][$agent] = $client;
+        }
 
-        foreach ($clients as $client) {
-            $prefix = preg_split('/\/| /', $client['agent'], 2)[0] ?? $client['agent'];
+        foreach ($singleSeedClientGroups as $prefix => $client) {
+            $groupedClients[$prefix]['single_seed_count'] = $client['single_seed_count'];
+        }
 
-            if (\array_key_exists($prefix, $groupedClients)) {
-                $groupedClients[$prefix]['user_count'] += $client['user_count'];
-                $groupedClients[$prefix]['peer_count'] += $client['peer_count'];
-            } else {
-                $groupedClients[$prefix]['user_count'] = $client['user_count'];
-                $groupedClients[$prefix]['peer_count'] = $client['peer_count'];
-            }
-
-            $groupedClients[$prefix]['clients'][] = $client;
+        foreach ($singleSeedClients as $agent => $client) {
+            $groupedClients[$client['prefix']]['clients'][$agent]['single_seed_count'] = $client['single_seed_count'];
         }
 
         return view('stats.clients.clients', [

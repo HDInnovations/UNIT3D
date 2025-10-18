@@ -206,7 +206,7 @@ return [
     'top-seeded' => 'Κορυφαίοι Διαμοιραστές',
     'torrent' => 'Torrent',
     'torrent-request' => 'Αίτηση Torrent',
-    'torrent-tips' => 'Από το Σύνολο <span class="text-red text-bold">:total</span> πόντων που έχουνε χαριστεί στον χρήστη που ανέβασε το Torrent,  <span class="text-red text-bold">:user</span> είναι από εσάς',
+    'torrent-tips' => 'Από το Σύνολο :total πόντων που έχουνε χαριστεί στον χρήστη που ανέβασε το Torrent,  :user είναι από εσάς',
     'torrent-tips-desc' => 'Αυτό θα αφαιρεθεί από τα διαθέσιμa πονταλάκια σας',
     'torrents' => 'Torrents',
     'trailer' => 'Δείτε τρέιλερ',

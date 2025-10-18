@@ -13,7 +13,7 @@ return [
  */
     'aboutus-advantage' => 'Lo mejor de',
     'aboutus-advantage1' => 'Tenemos miembros y staff con experiencia que están bien versados en el mundo del video / audio HD y soporte técnico.',
-    'aboutus-advantage2' => 'Junto con nuestra gran pasión por las películas y los programas de televisión, también ofrecemos una de las mejores selecciones de algo que la mayoría no hace: ¡FANRES! <em>MUCHAS GRACIAS</em> a nuestros proveedores de contenido.',
+    'aboutus-advantage2' => 'Junto con nuestra gran pasión por las películas y los programas de televisión, también ofrecemos una de las mejores selecciones de algo que la mayoría no hace: ¡FANRES! MUCHAS GRACIAS a nuestros proveedores de contenido.',
     'aboutus-advantage3' => 'Si bien aceptamos donaciones para mantener el sitio en funcionamiento, no habrá mensajes publicitarios ni carteles en el sitio. No te lo rogaremos.',
     'aboutus-advantage4' => 'Nuestra comunidad es insuperable para su edad temprana. Entre nuestro staff y la base de usuarios, siempre estuvimos aquí para ayudar. Nos apasionó asegurarnos de que tu experiencia en: el título es algo increíble.',
     'aboutus-advantage5' => 'Nuestro servicio es utilizado diariamente por muchas personas en todo el mundo. Hemos demostrado que nos importa la funcionalidad y la seguridad de nuestra base de código y podemos confiar y confiar en ella. Nuestros desarrolladores trabajan diariamente para proporcionar una base de código verdaderamente nex-gen.',
@@ -23,7 +23,7 @@ return [
     'aboutus-rules2' => '¡Leer las reglas en su totalidad y, por favor, respétalas!',
     'aboutus-rules3' => '¡Hacer sugerencias! Nos estamos esforzando para hacer :title mejor cada día. No estamos diciendo que se utilizarán todas las sugerencias, pero nunca está de más ver nuevas ideas.',
     'aboutus-welcome' => 'Unas palabras sobre',
-    'aboutus-welcome-desc' => ':title es una base de datos de películas, series y FANRES <em>creada por la comunidad</em>. Cada dato ha sido añadido por nuestros increíbles miembros. El <em>enfoque</em> principal de :title está en el contenido en HD, una comunidad de usuarios activa, una base de código segura y alucinante, y un equipo de soporte útil y amable.',
+    'aboutus-welcome-desc' => ':title es una base de datos de películas, series y FANRES creada por la comunidad. Cada dato ha sido añadido por nuestros increíbles miembros. El enfoque principal de :title está en el contenido en HD, una comunidad de usuarios activa, una base de código segura y alucinante, y un equipo de soporte útil y amable.',
     'blacklist-btclient' => 'Cliente BitTorrent',
     'blacklist-clients' => 'Clientes',
     'blacklist-desc' => 'Estos clientes BitTorrent están en la lista negra/prohibidos de anunciar a :title',

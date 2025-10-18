@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,20 +11,18 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
-    'add-option'      => 'Добавить опцию',
-    'create-poll'     => 'Создать опрос',
-    'current'         => 'Текущий опрос (ы)',
-    'delete-option'   => 'Удалить опцию',
+    'add-option' => 'Добавить опцию',
+    'create-poll' => 'Создать опрос',
+    'current' => 'Текущий опрос (ы)',
+    'delete-option' => 'Удалить опцию',
     'multiple-choice' => 'Это опрос с множественным выбором. Выберите столько ответов, сколько хотите.',
-    'option'          => 'вариант',
-    'poll'            => 'Опрос',
-    'polls'           => 'Опросы',
-    'results'         => 'Результаты опроса',
-    'title'           => 'заглавие',
-    'total'           => 'Всего голосов',
-    'vote'            => 'Голос',
-    'vote-now'        => 'Получи свой голос сейчас!',
-    'votes'           => 'Голосов',
+    'option' => 'вариант',
+    'poll' => 'Опрос',
+    'polls' => 'Опросы',
+    'results' => 'Результаты опроса',
+    'title' => 'заглавие',
+    'total' => 'Всего голосов',
+    'vote' => 'Голос',
+    'vote-now' => 'Получи свой голос сейчас!',
+    'votes' => 'Голосов',
 ];

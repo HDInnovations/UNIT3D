@@ -204,7 +204,7 @@ return [
     'top-seeded' => 'Top Seeded',
     'torrent' => 'Torrent',
     'torrent-request' => 'Torrent Request',
-    'torrent-tips' => 'I alt <span class="text-red text-bold">:total</span> BON er blevet brugt til at belønne uploaderen, hvoraf <span class="text-red text-bold">:user</span> er fra dig',
+    'torrent-tips' => 'I alt :total BON er blevet brugt til at belønne uploaderen, hvoraf :user er fra dig',
     'torrent-tips-desc' => 'Dette vil blive fratrukket dine tilgængelige bonuspoint',
     'torrents' => 'Torrents',
     'torrents-matched' => 'Torrents listet',

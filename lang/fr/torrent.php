@@ -195,7 +195,7 @@ return [
     'top-seeded' => 'Top Seed',
     'torrent' => 'Torrent',
     'torrent-request' => 'Demande de Torrent',
-    'torrent-tips' => 'Un total de <span class="text-red text-bold">:total</span> POINTS ont étés distribué a l\'uploadeur, dont <span class="text-red text-bold">:user</span> de votre part',
+    'torrent-tips' => 'Un total de :total POINTS ont étés distribué a l\'uploadeur, dont :user de votre part',
     'torrent-tips-desc' => 'Ceci sera déduit de vos points bonus',
     'torrents' => 'Torrents',
     'trailer' => 'Voir la Bande Annonce',

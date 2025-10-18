@@ -219,7 +219,7 @@ return [
     'top-seeded' => 'Más compartidos',
     'torrent' => 'Torrent',
     'torrent-request' => 'Solicitud de Torrent',
-    'torrent-tips' => 'En total se han dado <span class="text-red text-bold">:total</span> BON al uploader, de los cuales <span class="text-red text-bold">:user</span> son tuyos',
+    'torrent-tips' => 'En total se han dado :total BON al uploader, de los cuales :user son tuyos',
     'torrent-tips-desc' => 'Esto se deducirá de tus puntos de bonificación disponibles',
     'torrents' => 'Torrents',
     'torrents-matched' => 'Torrents coincidentes',

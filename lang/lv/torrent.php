@@ -183,7 +183,7 @@ return [
     'top-seeded' => 'Augšējais sēj',
     'torrent' => 'Torrent',
     'torrent-request' => 'Torrent pieprasījums',
-    'torrent-tips' => 'Kopā <span class="text-red text-bold">: kopējais</span> BON ir novirzīts augšupielādētājam, no kura <span class="text-red text-bold">: lietotājs</span> ir no jums',
+    'torrent-tips' => 'Kopā : kopējais BON ir novirzīts augšupielādētājam, no kura : lietotājs ir no jums',
     'torrent-tips-desc' => 'Tas tiks atskaitīts no jūsu pieejamajiem bonusa punktiem',
     'torrents' => 'Torrents',
     'trailer' => 'Skatīt piekabi',

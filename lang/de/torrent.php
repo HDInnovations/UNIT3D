@@ -210,7 +210,7 @@ return [
     'top-seeded' => 'Top Seeded',
     'torrent' => 'Torrent',
     'torrent-request' => 'Torrent Request',
-    'torrent-tips' => 'Insgesamt wurden dem Uploader <span class="text-red text-bold">:total</span> Punkte Trinkgeld gegeben, davon sind <span class="text-red text-bold">:user</span> von dir',
+    'torrent-tips' => 'Insgesamt wurden dem Uploader :total Punkte Trinkgeld gegeben, davon sind :user von dir',
     'torrent-tips-desc' => 'Du kannst das nicht Rückgängig machen!',
     'torrents' => 'Torrents',
     'torrents-matched' => 'Passende Torrents',

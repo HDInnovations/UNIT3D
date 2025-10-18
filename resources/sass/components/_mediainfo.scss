@@ -31,6 +31,10 @@
     padding-right: 12px;
 }
 
+.mediainfo dd {
+    margin-left: 0;
+}
+
 .mediainfo__filename {
     font-weight: bold;
     padding-bottom: 20px;
@@ -45,15 +49,18 @@
 }
 
 .mediainfo__general {
-    flex-basis: 20%;
+    width: max-content;
+    max-width: 100%;
 }
 
 .mediainfo__video {
     max-width: max-content;
+    max-width: 100%;
 }
 
 .mediainfo__audio {
-    flex-basis: 100%;
+    width: max-content;
+    max-width: 100%;
 }
 
 .mediainfo__subtitles {

@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Models\Language;
+use App\Helpers\Language;
 use Closure;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;

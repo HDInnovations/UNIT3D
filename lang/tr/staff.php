@@ -63,4 +63,7 @@ return [
     'bon-exchange' => 'BON (bonus) Takası',
     'application-image-proofs' => 'Görsel onayı',
     'bon-earnings' => 'Kazanılan BONuslar',
+    'gifts-log' => 'Hediye Günlüğü',
+    'link' => 'Bağlantı',
+    'mass-email' => 'Toplu E-posta',
 ];

@@ -100,7 +100,13 @@
             <h2 class="panel__heading">
                 {{ __('user.invites-count', ['count' => $user->invites]) }}
             </h2>
-            <div class="panel__body">{!! __('user.invites-rules') !!}</div>
+            <div class="panel__body">
+                <ul style="padding-left: 0; list-style-position: inside">
+                    @foreach (__('user.invites-rules') as $rule)
+                        <li>{{ $rule }}</li>
+                    @endforeach
+                </ul>
+            </div>
         </section>
     @endsection
 @endif

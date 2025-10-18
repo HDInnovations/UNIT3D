@@ -91,54 +91,6 @@ parameters:
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: '#^Method App\\Events\\Chatter\:\:__construct\(\) has parameter \$payload with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Events/Chatter.php
-
-		-
-			message: '#^Method App\\Events\\Chatter\:\:__construct\(\) has parameter \$target with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Events/Chatter.php
-
-		-
-			message: '#^Property App\\Events\\Chatter\:\:\$audibles has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Events/Chatter.php
-
-		-
-			message: '#^Property App\\Events\\Chatter\:\:\$echoes has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Events/Chatter.php
-
-		-
-			message: '#^Property App\\Events\\Chatter\:\:\$message has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Events/Chatter.php
-
-		-
-			message: '#^Property App\\Events\\Chatter\:\:\$ping has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: app/Events/Chatter.php
-
-		-
-			message: '#^Method App\\Events\\Ping\:\:__construct\(\) has parameter \$room with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Events/Ping.php
-
-		-
-			message: '#^Property App\\Events\\Ping\:\:\$ping type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Events/Ping.php
-
-		-
 			message: '#^Method App\\Exceptions\\TrackerException\:\:__construct\(\) has parameter \$replace with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -574,7 +526,7 @@ parameters:
 			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
 			identifier: argument.type
 			count: 2
-			path: app/Models/Language.php
+			path: app/Helpers/Language.php
 
 		-
 			message: '#^Class App\\Models\\Rss has PHPDoc tag @property for property \$json_torrent with no value type specified in iterable type array\.$#'

@@ -54,7 +54,7 @@ class CheatedTorrentController extends Controller
                             fn ($query) => $query
                                 ->whereNotNull('balance_reset_at')
                                 ->whereColumn('balance_reset_at', '>', 'history.created_at')
-                                ->whereColumn(DB::raw('DATE_SUB(balance_reset_at, INTERVAL 1 HOUR)'), '<', 'history.completed_at')
+                                ->whereColumn(DB::raw('balance_reset_at - INTERVAL 1 HOUR'), '<', 'history.completed_at')
                                 ->whereNotNull('completed_at')
                         )
                         // Exclude torrents where the reporting period overlapped with both the balance reset and the current balance calculation
@@ -67,8 +67,8 @@ class CheatedTorrentController extends Controller
                                 ->where('seeder', '=', false)
                         )
                         // Exclude torrents where the reporting period overlapped with right now
-                        ->orWhereColumn(DB::raw('DATE_SUB(NOW(), INTERVAL 1 HOUR)'), '<', 'created_at')
-                        ->orWhereColumn(DB::raw('DATE_SUB(NOW(), INTERVAL 1 HOUR)'), '<', 'completed_at')
+                        ->orWhereColumn(DB::raw('NOW() - INTERVAL 1 HOUR'), '<', 'created_at')
+                        ->orWhereColumn(DB::raw('NOW() - INTERVAL 1 HOUR'), '<', 'completed_at')
                 )
                 // Tolerance of 5%
                 // @phpstan-ignore argument.type (This function works with DB::raw() even though larastan doesn't think so)

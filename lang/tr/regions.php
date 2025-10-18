@@ -23,4 +23,13 @@ return [
     'BEN' => 'Benin',
     'BER' => 'Bermuda',
     'BES' => 'Karayipler Hollandası: Bonaire, Aziz Euatatius ve Saba',
+    'BFA' => 'Burkina Faso',
+    'BHR' => 'Bahreyn',
+    'BHU' => 'Butan',
+    'BIH' => 'Bosna-Hersek',
+    'BLM' => 'Aziz Bartholomew',
+    'BLR' => 'Belarus',
+    'BLZ' => 'Belize',
+    'BOL' => 'Bolivya',
+    'BOT' => 'Botsvana',
 ];

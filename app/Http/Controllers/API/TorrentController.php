@@ -652,7 +652,7 @@ class TorrentController extends BaseController
                 $torrents = collect();
 
                 foreach ($results['hits'] ?? [] as $hit) {
-                    $meta = $hit['movie'] ?? $hit['tv'] ?? [];
+                    $meta = $hit['tmdb_movie'] ?? $hit['tmdb_tv'] ?? [];
 
                     /** @see TorrentResource */
                     $torrents->push([

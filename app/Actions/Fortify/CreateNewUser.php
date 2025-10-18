@@ -51,7 +51,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => [
                 'required',
                 'string',
-                'email',
+                'email:rfc,dns',
                 'max:70',
                 'unique:users',
                 Rule::when(config('email-blacklist.enabled') === true, fn () => new EmailBlacklist()),

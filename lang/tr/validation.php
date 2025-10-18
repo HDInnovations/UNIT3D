@@ -142,4 +142,5 @@ return [
     'current_password' => 'Şifre hatalı.',
     'declined' => 'The :attiribute resdedilmeli.',
     'declined_if' => 'Şu :attribute reddedilmeli, eğer  :other  bu  :value ise.',
+    'enum' => 'Seçilen :attribute geçersiz.',
 ];

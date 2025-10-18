@@ -70,7 +70,7 @@
                     
                             @break
                         @case($torrent->category->no_meta && Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))
-                            src="{{ route('authenticated_images.torrent_cover', ['torrent' => $torrent]) }}"
+                            src="{{ route('authenticated_images.torrent_cover', ['id' => $torrent->id]) }}"
                     
                             @break
                     @endswitch

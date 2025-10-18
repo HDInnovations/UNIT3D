@@ -81,19 +81,30 @@
                                         {{ $videoElement['bit_rate'] ?? __('common.unknown') }}
                                     </dd>
                                     @if (isset($videoElement['format']) && $videoElement['format'] === 'HEVC')
-                                    <dt>HDR format</dt>
-                                    <dd>
-                                        {{ $videoElement['hdr_format'] ?? __('common.unknown') }}
-                                    </dd>
-                                    <dt>Color primaries</dt>
-                                    <dd>
-                                        {{ $videoElement['color_primaries'] ?? __('common.unknown') }}
-                                    </dd>
-                                    <dt>Transfer characteristics</dt>
-                                    <dd>
-                                        {{ $videoElement['transfer_characteristics'] ?? __('common.unknown') }}
-                                    </dd>
-                                    @endisset
+                                        <dt>HDR</dt>
+                                        <dd>
+                                            {{
+                                                implode(
+                                                    ', ',
+                                                    array_keys(
+                                                        [
+                                                            'SDR' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'BT.709'),
+                                                            'HLG' => str_contains($videoElement['transfer_characteristics'] ?? '', 'HLG'),
+                                                            'WCG' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'BT.2020'),
+                                                            'PQ10' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'PQ') && str_contains($videoElement['color_primaries'], 'BT.2020'),
+                                                            'HDR10' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'HDR10'),
+                                                            'HDR10+' => array_key_exists('hdr_format', $videoElement) && (str_contains($videoElement['hdr_format'], 'HDR10+') || str_contains($videoElement['hdr_format'], 'SMPTE ST 2094 App 4')),
+                                                            'Dolby Vision Profile 5' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.05'),
+                                                            'Dolby Vision Profile 7' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.07'),
+                                                            'Dolby Vision Profile 8' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.08'),
+                                                        ],
+                                                        true
+                                                    )
+                                                ) ?:
+                                                __('common.unknown')
+                                            }}
+                                        </dd>
+                                    @endif
                                 </dl>
                             </article>
                         @endforeach

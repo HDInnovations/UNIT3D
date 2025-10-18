@@ -121,6 +121,8 @@ class TorrentRequestSearch extends Component
     final public function updating(string $field, mixed &$value): void
     {
         $this->castLivewireProperties($field, $value);
+
+        $this->resetPage();
     }
 
     /**

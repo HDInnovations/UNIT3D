@@ -188,6 +188,7 @@
 		"resources/js/unit3d/parser.js",
 		"resources/js/vendor",
 		"resources/sass/vendor",
+		"resources/views/torrent/partials/mediainfo.blade.php",
 		"resources/views/vendor/mail",
 		"tests/Unit/Helpers/MarkdownExtraTest.php",
 		"composer.json",
