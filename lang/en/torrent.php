@@ -184,7 +184,7 @@ return [
     'search-by-name'           => 'Search by name',
     'season-number'            => 'Season number',
     'season'                   => 'Season',
-    'seed-time'                => 'Seed yime',
+    'seed-time'                => 'Seed time',
     'seeder'                   => 'Seeder',
     'seeders'                  => 'Seeders',
     'seeding'                  => 'Seeding',
