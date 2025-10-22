@@ -72,6 +72,7 @@ use Laravel\Scout\Searchable;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $bumped_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property string|null                     $deletion_reason
  * @property \Illuminate\Support\Carbon|null $fl_until
  * @property \Illuminate\Support\Carbon|null $du_until
  * @property int                             $type_id
