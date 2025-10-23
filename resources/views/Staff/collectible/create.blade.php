@@ -153,7 +153,7 @@
                             type="text"
                         />
                         <label class="form__label" for="min_avg_seedtime">
-                            Min. Average Seedsize
+                            Min. Average Seedtime
                         </label>
                     </p>
                     <p class="form__group">
