@@ -18,6 +18,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Collectible;
 use App\Models\Playlist;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
@@ -101,6 +102,15 @@ class AuthenticatedImageController extends Controller
         abort_if($user->icon === null, 404);
 
         $path = Storage::disk('user-icons')->path($user->icon);
+
+        abort_unless(file_exists($path), 404);
+
+        return response()->file($path, self::HEADERS);
+    }
+
+    public function collectibleIcon(Collectible $collectible): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $path = Storage::disk('collectible-icons')->path($collectible->icon);
 
         abort_unless(file_exists($path), 404);
 

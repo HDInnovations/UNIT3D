@@ -5,3 +5,4 @@ sindre
 sindresorhus
 sorhus
 vinnie
+obi-wana

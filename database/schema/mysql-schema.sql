@@ -390,6 +390,110 @@ CREATE TABLE `claimed_prizes` (
   CONSTRAINT `claimed_prizes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collectible_categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collectible_categories` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `position` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `collectible_categories_position_unique` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collectible_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collectible_items` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `collectible_id` int unsigned NOT NULL,
+  `user_id` int unsigned DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `collectible_items_user_id_collectible_id_unique` (`user_id`,`collectible_id`),
+  KEY `collectible_items_collectible_id_foreign` (`collectible_id`),
+  CONSTRAINT `collectible_items_collectible_id_foreign` FOREIGN KEY (`collectible_id`) REFERENCES `collectibles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `collectible_items_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collectible_offers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collectible_offers` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `collectible_id` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `price` double NOT NULL,
+  `filled_at` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `collectible_offers_collectible_id_foreign` (`collectible_id`),
+  KEY `collectible_offers_user_id_foreign` (`user_id`),
+  CONSTRAINT `collectible_offers_collectible_id_foreign` FOREIGN KEY (`collectible_id`) REFERENCES `collectibles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `collectible_offers_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collectible_requirements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collectible_requirements` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `collectible_id` int unsigned NOT NULL,
+  `min_uploaded` bigint unsigned DEFAULT NULL,
+  `min_seedsize` bigint unsigned DEFAULT NULL,
+  `min_avg_seedtime` bigint unsigned DEFAULT NULL,
+  `min_ratio` decimal(4,2) DEFAULT NULL,
+  `min_age` bigint unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `collectible_requirements_collectible_id_foreign` (`collectible_id`),
+  CONSTRAINT `collectible_requirements_collectible_id_foreign` FOREIGN KEY (`collectible_id`) REFERENCES `collectibles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collectible_transactions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collectible_transactions` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `collectible_id` int unsigned NOT NULL,
+  `seller_id` int unsigned NOT NULL,
+  `buyer_id` int unsigned NOT NULL,
+  `price` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `collectible_transactions_collectible_id_foreign` (`collectible_id`),
+  KEY `collectible_transactions_seller_id_foreign` (`seller_id`),
+  KEY `collectible_transactions_buyer_id_foreign` (`buyer_id`),
+  CONSTRAINT `collectible_transactions_buyer_id_foreign` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `collectible_transactions_collectible_id_foreign` FOREIGN KEY (`collectible_id`) REFERENCES `collectibles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `collectible_transactions_seller_id_foreign` FOREIGN KEY (`seller_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `collectibles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `collectibles` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` int unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `resell` tinyint(1) NOT NULL DEFAULT '0',
+  `price` double NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `collectibles_category_id_foreign` (`category_id`),
+  CONSTRAINT `collectibles_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `collectible_categories` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2332,6 +2436,7 @@ CREATE TABLE `user_notifications` (
   `show_torrent_thank` tinyint(1) NOT NULL DEFAULT '1',
   `show_account_follow` tinyint(1) NOT NULL DEFAULT '1',
   `show_account_unfollow` tinyint(1) NOT NULL DEFAULT '1',
+  `show_collectible_new_item` tinyint(1) NOT NULL DEFAULT '1',
   `json_account_groups` json NOT NULL,
   `json_bon_groups` json NOT NULL,
   `json_mention_groups` json NOT NULL,
@@ -2363,6 +2468,7 @@ CREATE TABLE `user_notifications` (
   KEY `user_notifications_show_torrent_thank_index` (`show_torrent_thank`),
   KEY `user_notifications_show_account_follow_index` (`show_account_follow`),
   KEY `user_notifications_show_account_unfollow_index` (`show_account_unfollow`),
+  KEY `user_notifications_show_collectible_new_item_index` (`show_collectible_new_item`),
   CONSTRAINT `user_notifications_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3021,21 +3127,23 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (343,'2025_03_25_09
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (344,'2025_03_29_215845_create_playlist_categories',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (345,'2025_04_03_085022_drop_season_and_episodes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (346,'2025_04_07_152108_split_recommendations_into_movie_and_tv',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (347,'2025_04_15_075631_add_description_to_playlist_categories',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (348,'2025_04_15_090705_create_playlist_suggestions',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (349,'2025_05_28_084740_update_torrent_balance',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (350,'2025_06_11_053944_alter_users_drop_active',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (351,'2025_06_11_064742_rename_password_resets_to_password_reset_tokens',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (352,'2025_06_17_084333_alter_requests_nullable_type_id',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (353,'2025_06_17_092951_create_unread_articles_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_18_000000_add_homepage_block_settings_to_user_settings_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (355,'2025_06_18_040627_alter_requests_drop_claimed',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (356,'2025_06_21_234021_alter_requests_drop_votes',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_07_15_061844_add_block_order_to_user_settings',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_08_22_064916_add_season_episode_to_requests_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (359,'2025_08_30_015125_create_torrent_reseeds_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_09_02_013312_add_color_icon_to_ticket_priorities_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_09_02_140036_add_anon_to_posts_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_07_235939_add_adult_content_setting_to_user_settings',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (363,'2025_09_07_235945_add_adult_column_to_tmdb_tv',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (364,'2025_09_08_000029_make_audits_morphable',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (347,'2025_04_14_154318_create_collectables_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (348,'2025_04_15_075631_add_description_to_playlist_categories',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (349,'2025_04_15_090705_create_playlist_suggestions',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (350,'2025_05_28_084740_update_torrent_balance',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (351,'2025_06_11_053944_alter_users_drop_active',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (352,'2025_06_11_064742_rename_password_resets_to_password_reset_tokens',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (353,'2025_06_17_084333_alter_requests_nullable_type_id',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (354,'2025_06_17_092951_create_unread_articles_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (355,'2025_06_18_000000_add_homepage_block_settings_to_user_settings_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (356,'2025_06_18_040627_alter_requests_drop_claimed',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (357,'2025_06_21_234021_alter_requests_drop_votes',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (358,'2025_07_15_061844_add_block_order_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (359,'2025_08_03_105354_create_collectables_notification_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (360,'2025_08_22_064916_add_season_episode_to_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (361,'2025_08_30_015125_create_torrent_reseeds_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (362,'2025_09_02_013312_add_color_icon_to_ticket_priorities_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (363,'2025_09_02_140036_add_anon_to_posts_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (364,'2025_09_07_235939_add_adult_content_setting_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (365,'2025_09_07_235945_add_adult_column_to_tmdb_tv',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (366,'2025_09_08_000029_make_audits_morphable',1);

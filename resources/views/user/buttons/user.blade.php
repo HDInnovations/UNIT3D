@@ -546,6 +546,16 @@
                         {{ __('user.invite-tree') }}
                     </a>
                 </li>
+                <li
+                    class="{{ Route::is('users.collectibles.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
+                    <a
+                        class="{{ Route::is('users.collectibles.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.collectibles.index', ['user' => $user]) }}"
+                    >
+                        {{ __('user.badges') }}
+                    </a>
+                </li>
             @endif
         </ul>
     </li>

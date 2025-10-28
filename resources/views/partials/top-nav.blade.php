@@ -105,6 +105,12 @@
                         {{ __('common.news') }}
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('collectibles.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-id-badge"></i>
+                        Badges
+                    </a>
+                </li>
                 @if (! empty(config('unit3d.chat-link-url')))
                     <li>
                         <a href="{{ config('unit3d.chat-link-url') }}">
