@@ -262,6 +262,49 @@
                                                     class="fal fa-star text-gold"
                                                     title="Donor"
                                                 ></i>
+												<button
+													type="button"
+													class="bbc-btn mention-btn"
+													title="Mention user"
+													style="
+														font-size: 13.5px; 
+														font-family: inherit; 
+														background: #383868; 
+														color: #ffe266; 
+														border-radius: 4.2px; 
+														margin-left: 5px; 
+														padding: 2.5px 9px; 
+														font-weight: 600; 
+														cursor: pointer; 
+														border: none; 
+														transition: background 0.13s; 
+														outline: none; 
+														line-height: 1.2; 
+														min-width: 24px; 
+														min-height: 24px;
+													"
+													@click="
+														() => {
+															if (!$refs.message) return;
+															let username = message.user?.username;
+															if (!username) return;
+															let userColor = message.user?.group?.color || '#ecc846';
+															const baseUrl = window.location.origin;
+															const profileUrl = `${baseUrl}/users/${username}`;
+															const mentionText = `[url=${profileUrl}][color=${userColor}]@${username}[/color][/url] `;
+															$refs.message.value += mentionText;
+															$refs.message.focus();
+														}
+													"
+													@mouseenter="
+														$el.style.background = '#b068e7'; $el.style.color = '#fff';
+													"
+													@mouseleave="
+														$el.style.background = '#383868'; $el.style.color = '#ffe266';
+													"
+												>
+													@
+												</button>
                                             </a>
                                         </address>
                                         <div
