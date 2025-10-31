@@ -35,9 +35,9 @@ class SendDisableUserMail implements ShouldQueue
     use SerializesModels;
 
     /**
-     * The number of times the job may be attempted.
+     * The maximum number of unhandled exceptions to allow before failing.
      */
-    public int $tries = 3;
+    public int $maxExceptions = 1;
 
     /**
      * SendDisableUserMail Constructor.
