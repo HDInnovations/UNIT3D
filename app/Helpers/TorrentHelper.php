@@ -29,6 +29,7 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
+use App\Bots\IRCAnnounceBotExternal;
 use App\Enums\ModerationStatus;
 use App\Models\AutomaticTorrentFreeleech;
 use App\Models\TmdbMovie;
@@ -146,6 +147,9 @@ class TorrentHelper
                 )
                 ->say(\sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
+
+        // Announce to external IRC service
+        IRCAnnounceBotExternal::postAnnounceMsg($torrent);
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
