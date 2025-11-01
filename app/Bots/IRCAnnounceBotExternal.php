@@ -16,12 +16,12 @@ declare(strict_types=1);
 
 namespace App\Bots;
 
-use App\Models\IgdbGame;
 use App\Models\TmdbMovie;
 use App\Models\TmdbTv;
 use App\Models\Torrent;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class IRCAnnounceBotExternal
 {
@@ -32,9 +32,6 @@ class IRCAnnounceBotExternal
         }
 
         $appurl = config('app.url');
-
-        $category = $torrent->category;
-
         $announceTypeEnum = 0; // 0 NEW
 
         $originEnum = 0;
@@ -93,15 +90,19 @@ class IRCAnnounceBotExternal
             }
         }
 
-        $title = match (true) {
-            $torrent->category->movie_meta => (TmdbMovie::find($torrent->tmdbId))->title,
-            $torrent->category->tv_meta    => (TmdbTv::find($torrent->tmdbId))->name,
-            $torrent->category->game_meta  => (IgdbGame::find($torrent->igdbId))->name,
-            default                        => $torrent->pluck('name')->join(', '),
-        };
+        $meta = null;
+        $category = $torrent->category;
+
+        if ($torrent->tmdb_movie_id > 0 || $torrent->tmdb_tv_id > 0) {
+            $meta = match (true) {
+                $category->tv_meta    => TmdbTv::find($torrent->tmdb_tv_id),
+                $category->movie_meta => TmdbMovie::find($torrent->tmdb_movie_id),
+                default               => null,
+            };
+        }
 
         return self::post([
-            'id'                     => $torrent->id,
+            'id'                     => (string) $torrent->id,
             'url'                    => \sprintf('%s/torrents/%d', $appurl, $torrent->id),
             'name'                   => $torrent->name,
             'uploader'               => $torrent->anon ? 'Anonymous' : $torrent->user->username,
@@ -116,10 +117,10 @@ class IRCAnnounceBotExternal
             'freeleech'              => (bool) $torrent->free > 0,
             'freeleech_percent'      => $torrent->free,
             'double_up'              => $torrent->doubleup,
-            'resolution'             => isset($torrent->resolution_id), $torrent->resolution->name ?? '',
+            'resolution'             => $torrent->resolution?->name ?? '',
             'type'                   => $torrent->type->name,
             'release_year'           => isset($torrent->meta->release_date) ? $torrent->meta->release_date->format('Y') : (isset($torrent->meta->first_air_date) ? $torrent->meta->first_air_date->format('Y') : null),
-            'title'                  => $title,
+            'title'                  => $meta->title ?? $torrent->name,
             'metadata'               => [
                 'tmdb_id' => $torrent->tmdb_movie_id ?? $torrent->tmdb_tv_id,
                 'imdb_id' => $torrent->imdb,
@@ -139,7 +140,13 @@ class IRCAnnounceBotExternal
             return false;
         }
 
-        $response = self::buildHttpClient()->post(self::buildRoute(), $data);
+        try {
+            $response = self::buildHttpClient()->post(self::buildRoute(), $data);
+        } catch (Throwable) {
+            Log::error('External IRC Announce error - POST');
+
+            return false;
+        }
 
         if (! $response->ok()) {
             Log::notice('External IRC Announce error - POST', [
