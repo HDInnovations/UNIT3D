@@ -34,60 +34,28 @@ class IRCAnnounceBotExternal
         $appurl = config('app.url');
         $announceTypeEnum = 0; // 0 NEW
 
-        $originEnum = 0;
+        $originEnum = match (true) {
+            $torrent->personal_release == true => 2,
+            $torrent->internal                 => 1,
+            default                            => 0,
+        };
 
-        if ($torrent->internal) {
-            $originEnum = 1;
-        }
-
-        if ($torrent->personal_release) {
-            $originEnum = 2;
-        }
-
-        $leechTypeEnum = 0;
-
-        if ($torrent->free > 0) {
-            switch ($torrent->free) {
-                case 100:
-                    $leechTypeEnum = 1;
-
-                    break;
-                case 75:
-                    $leechTypeEnum = 2;
-
-                    break;
-                case 50:
-                    $leechTypeEnum = 3;
-
-                    break;
-                case 25:
-                    $leechTypeEnum = 4;
-
-                    break;
-            }
-        }
+        $leechTypeEnum = match ($torrent->free) {
+            100     => 1,
+            75      => 2,
+            50      => 3,
+            25      => 4,
+            default => 0,
+        };
 
         if ($torrent->doubleup) {
-            switch ($leechTypeEnum) {
-                case 0:
-                    $leechTypeEnum = 5;
-
-                    break;
-                case 1:
-                    $leechTypeEnum = 6;
-
-                    break;
-                case 2:
-                    $leechTypeEnum = 7;
-
-                    break;
-                case 3:
-                    $leechTypeEnum = 8;
-
-                    break;
-                case 4:
-                    $leechTypeEnum = 9;
-            }
+            $leechTypeEnum = match ($leechTypeEnum) {
+                0 => 5,
+                1 => 6,
+                2 => 7,
+                3 => 8,
+                4 => 9,
+            };
         }
 
         $meta = null;
@@ -102,7 +70,7 @@ class IRCAnnounceBotExternal
         }
 
         return self::post([
-            'id'                     => (string) $torrent->id,
+            'id'                     => $torrent->id,
             'url'                    => \sprintf('%s/torrents/%d', $appurl, $torrent->id),
             'name'                   => $torrent->name,
             'uploader'               => $torrent->anon ? 'Anonymous' : $torrent->user->username,
@@ -119,7 +87,7 @@ class IRCAnnounceBotExternal
             'double_up'              => $torrent->doubleup,
             'resolution'             => $torrent->resolution?->name ?? '',
             'type'                   => $torrent->type->name,
-            'release_year'           => isset($torrent->meta->release_date) ? $torrent->meta->release_date->format('Y') : (isset($torrent->meta->first_air_date) ? $torrent->meta->first_air_date->format('Y') : null),
+            'release_year'           => isset($meta->release_date) ? $meta->release_date->format('Y') : (isset($meta->first_air_date) ? $meta->first_air_date->format('Y') : null),
             'title'                  => $meta->title ?? $torrent->name,
             'metadata'               => [
                 'tmdb_id' => $torrent->tmdb_movie_id ?? $torrent->tmdb_tv_id,

@@ -30,7 +30,7 @@ return [
     | Host
     |--------------------------------------------------------------------------
     |
-    | Host takes an ip/localhost as http endpoint. The api key is not required, but recommended.
+    | Host takes an ip/localhost as http endpoint.
     |
     */
 
@@ -63,7 +63,7 @@ return [
     | API Key
     |--------------------------------------------------------------------------
     |
-    | API Key for the external announce service, not required for unix sockets.
+    | API Key for the external announce service. Not required for unix sockets, but recommended.
     |
     */
 
