@@ -43,6 +43,7 @@ use AllowDynamicProperties;
  * @property bool                            $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $last_bountied_at
  * @property int|null                        $filled_by
  * @property int|null                        $torrent_id
  * @property \Illuminate\Support\Carbon|null $filled_when
@@ -92,13 +93,14 @@ final class TorrentRequest extends Model
     protected function casts(): array
     {
         return [
-            'filled_when'   => 'datetime',
-            'approved_when' => 'datetime',
-            'tmdb_movie_id' => 'int',
-            'tmdb_tv_id'    => 'int',
-            'igdb'          => 'int',
-            'bounty'        => 'decimal:2',
-            'anon'          => 'bool',
+            'filled_when'      => 'datetime',
+            'approved_when'    => 'datetime',
+            'last_bountied_at' => 'datetime',
+            'tmdb_movie_id'    => 'int',
+            'tmdb_tv_id'       => 'int',
+            'igdb'             => 'int',
+            'bounty'           => 'decimal:2',
+            'anon'             => 'bool',
         ];
     }
 

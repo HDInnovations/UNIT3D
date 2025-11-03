@@ -113,7 +113,7 @@ class TorrentRequestSearch extends Component
     public int $perPage = 25;
 
     #[Url(history: true)]
-    public string $sortField = 'created_at';
+    public string $sortField = 'last_bountied_at';
 
     #[Url(history: true)]
     public string $sortDirection = 'desc';
