@@ -65,6 +65,7 @@ class UserFactory extends Factory
             'can_upload'        => $this->faker->boolean(),
             'remember_token'    => Str::random(10),
             'api_token'         => $this->faker->uuid(),
+            'irckey'            => md5(random_bytes(60)),
             'last_login'        => $this->faker->dateTime(),
             'last_action'       => $this->faker->dateTime(),
             //'disabled_at'         => $this->faker->dateTime(),
