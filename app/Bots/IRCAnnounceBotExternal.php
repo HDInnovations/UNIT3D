@@ -82,7 +82,7 @@ class IRCAnnounceBotExternal
             'origin_enum'            => $originEnum,
             'leech_type_enum'        => $leechTypeEnum,
             'upload_time_unix_epoch' => $torrent->created_at->getTimestamp(),
-            'freeleech'              => (bool) $torrent->free > 0,
+            'freeleech'              => $torrent->free > 0,
             'freeleech_percent'      => $torrent->free,
             'double_up'              => $torrent->doubleup,
             'resolution'             => $torrent->resolution?->name ?? '',
