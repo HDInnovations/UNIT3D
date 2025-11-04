@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Bots;
 
+use App\Models\IgdbGame;
 use App\Models\TmdbMovie;
 use App\Models\TmdbTv;
 use App\Models\Torrent;
@@ -65,6 +66,7 @@ class IRCAnnounceBotExternal
             $meta = match (true) {
                 $category->tv_meta    => TmdbTv::find($torrent->tmdb_tv_id),
                 $category->movie_meta => TmdbMovie::find($torrent->tmdb_movie_id),
+                $category->game_meta  => IgdbGame::find($torrent->igdb),
                 default               => null,
             };
         }
