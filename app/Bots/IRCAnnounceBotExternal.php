@@ -87,7 +87,7 @@ class IRCAnnounceBotExternal
             'double_up'              => $torrent->doubleup,
             'resolution'             => $torrent->resolution?->name ?? '',
             'type'                   => $torrent->type->name,
-            'release_year'           => isset($meta->release_date) ? $meta->release_date->format('Y') : (isset($meta->first_air_date) ? $meta->first_air_date->format('Y') : null),
+            'release_year'           => $meta?->release_date?->format('Y') ?? $meta?->first_air_date?->format('Y') ?? $meta?->first_release_date?->format('Y'),
             'title'                  => $meta->title ?? $torrent->name,
             'metadata'               => [
                 'tmdb_id' => $torrent->tmdb_movie_id ?? $torrent->tmdb_tv_id,
