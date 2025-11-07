@@ -37,7 +37,7 @@ return [
     'category'                 => 'Category',
     'client'                   => 'Client',
     'comments-left'            => 'Comments left',
-    'committed'                => 'Committed',
+    'commited'                 => 'Committed',
     'completed'                => 'Completed',
     'completed_at'             => 'Completed at',
     'completed-not-seeding'    => 'You completed this download but are no longer seeding it',
