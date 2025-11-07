@@ -33,7 +33,7 @@ return [
     'category'            => 'Category',
     'claim'               => 'Claim',
     'claim-anon-choose'   => 'Please choose wisely',
-    'claim-as-anon'       => 'Would you like to claim this anonomously?',
+    'claim-as-anon'       => 'Would you like to claim this anonymously?',
     'claim-now'           => 'Claim now',
     'claimed'             => 'Claimed',
     'claimed-success'     => 'Request successfully claimed',
