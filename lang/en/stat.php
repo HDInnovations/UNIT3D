@@ -36,7 +36,7 @@ return [
     'registration-date'       => 'Registration date',
     'request-fulfilled'       => 'Request fulfilled',
     'request-not-fulfilled'   => 'Request not fulfilled',
-    'request-pending-approval' => 'Request pending approval',
+    'request-pending-aproval' => 'Request pending approval',
     'select-category'         => 'Please select a category below',
     'site-stats'              => 'Site stats',
     'stats'                   => 'Stats',
