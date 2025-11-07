@@ -178,7 +178,7 @@ return [
     'invites-disabled-group'                => 'Invites are currently disabled for your group.',
     'invites-rules'                         => [
         'know-and-trust' => 'Only invite people you know and trust.',
-        'responsible' => 'You will be held personally responsible for those you invite.',
+        'responsibile' => 'You will be held personally responsible for those you invite.',
         'yourself' => 'Don\'t invite yourself, we check every invited user.',
         'trade-or-sell' => 'Don\'t trade or sell Invites.',
         'caught' => 'If a person you invited is caught cheating, trading account or selling/trading invites, you will be warned.',
