@@ -30,7 +30,7 @@ jobs:
                     --health-retries 5
         steps:
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
                 with:
                     fetch-depth: 0
             -   name: Setup PHP 8.4
@@ -88,7 +88,7 @@ jobs:
                   rm database/schema/mysql-schema-new.sql
             -   name: Commit Schema Changes
                 if: steps.diff.outputs.has_changes == 'true'
-                uses: stefanzweifel/git-auto-commit-action@v5
+                uses: stefanzweifel/git-auto-commit-action@v7
                 with:
                     commit_message: "automation: update schema dump"
                     commit_user_name: unit3d-bot
