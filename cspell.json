@@ -157,7 +157,7 @@
 	"patterns": [
 		{
 			"name": "bitcoin-address",
-			"pattern": "/[a-z0-9]{42}/",
+			"pattern": "/[a-z0-9]{42}/"
 		}
 	],
 	"ignorePaths": [
@@ -271,9 +271,19 @@
 			"addWords": false
 		},
 		{
-			"name": "redis",
-			"path": "./.cspell/redis.txt",
-			"addWords": false
-		},
-	],
+            "name": "redis",
+            "path": "./.cspell/redis.txt",
+            "addWords": false
+        }
+    ],
+    "overrides": [
+    {
+        "filename": "lang/**",
+        "enable": false
+    },
+    {
+        "filename": "lang/en/**",
+        "enable": true
+    }
+    ]
 }
