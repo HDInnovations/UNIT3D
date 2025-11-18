@@ -16,9 +16,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Staff;
 
+use App\Data\Staff\TypeData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Staff\StoreTypeRequest;
-use App\Http\Requests\Staff\UpdateTypeRequest;
 use App\Models\Type;
 use Exception;
 
@@ -48,9 +47,9 @@ class TypeController extends Controller
     /**
      * Store A New Type.
      */
-    public function store(StoreTypeRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(TypeData $typeData): \Illuminate\Http\RedirectResponse
     {
-        Type::create($request->validated());
+        Type::create($typeData->toArray());
 
         return to_route('staff.types.index')
             ->with('success', 'Type successfully added');
@@ -69,9 +68,9 @@ class TypeController extends Controller
     /**
      * Edit A Type.
      */
-    public function update(UpdateTypeRequest $request, Type $type): \Illuminate\Http\RedirectResponse
+    public function update(TypeData $typeData, Type $type): \Illuminate\Http\RedirectResponse
     {
-        $type->update($request->validated());
+        $type->update($typeData->toArray());
 
         return to_route('staff.types.index')
             ->with('success', 'Type successfully modified');
