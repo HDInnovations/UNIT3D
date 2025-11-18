@@ -276,13 +276,13 @@
         }
     ],
     "overrides": [
-      {
+    {
         "filename": "lang/*/**",
         "enable": false
-      },
-      {
+    },
+    {
         "filename": "lang/en/**",
         "enable": true
-      }
+    }
     ]
 }
