@@ -12,6 +12,7 @@ use App\Models\Report;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Ticket;
 use App\Models\Torrent;
+use App\Models\UploadContest;
 use Illuminate\View\View;
 
 class TopNavComposer
@@ -52,6 +53,9 @@ class TopNavComposer
                         ->where('created_at', '>', now()->startOfDay())
                         ->where('user_id', '=', $user->id),
                 ])
+                ->get(),
+            'uploadContests' => UploadContest::query()
+                ->where('active', '=', true)
                 ->get(),
             'donationPercentage' => value(function (): int|string {
                 $sum = Donation::query()
