@@ -31,10 +31,10 @@ jobs:
                     --health-retries 5
         steps:
             -   name: Checkout
-                uses: actions/checkout@v5
+                uses: actions/checkout@v6
                 with:
                     fetch-depth: 0
-            -   name: Setup PHP 8.4
+            -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php-version }}
@@ -44,25 +44,25 @@ jobs:
                     tools: composer:v2
                 env:
                     REDIS_CONFIGURE_OPTS: --enable-redis
-            -   name: Prepare The Laravel Environment
+            -   name: Prepare Laravel environment
                 run: cp .env.example .env
-            -   name: Configure Bun
+            -   name: Setup Bun
                 uses: oven-sh/setup-bun@v2
                 with:
                     bun-version: latest
-            -   name: Install Composer Dependencies
+            -   name: Install Composer dependencies
                 env:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
-            -   name: Install JS Dependencies
+            -   name: Install JS dependencies
                 run: bun ci
-            -   name: Compile Assets (Vite)
+            -   name: Compile assets (Vite)
                 run: bun run build
-            -   name: Generate Application Key
+            -   name: Generate application key
                 run: php artisan key:generate
-            -   name: Clear Application Cache
+            -   name: Clear application cache
                 run: php artisan clear:all_cache
-            -   name: Run PHPUnit Tests
+            -   name: Run PHPUnit tests
                 run: COLUMNS=200 ./vendor/bin/pest --compact --coverage --parallel --processes=4 --bail
                 env:
                     DB_CONNECTION: mysql
