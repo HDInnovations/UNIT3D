@@ -10,14 +10,14 @@ jobs:
         runs-on: ${{ matrix.operating-system }}
         steps:
             -   name: Checkout
-                uses: actions/checkout@v5
+                uses: actions/checkout@v6
                 with:
                     fetch-depth: 0
             -   name: Set file permissions
                 run: sudo find ${{ github.workspace }} -type f -exec chmod 664 {} \;
             -   name: Set folder permissions
                 run: sudo find ${{ github.workspace }} -type d -exec chmod 775 {} \;
-            -   name: Commit Changes
+            -   name: Commit changes
                 uses: stefanzweifel/git-auto-commit-action@v7
                 with:
                     commit_message: "automation: set git file permissions"
