@@ -12,10 +12,10 @@ jobs:
         runs-on: ${{ matrix.operating-system }}
         steps:
             -   name: Checkout
-                uses: actions/checkout@v5
+                uses: actions/checkout@v6
                 with:
                     fetch-depth: 0
-            -   name: Setup PHP 8.4
+            -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php-version }}
@@ -25,13 +25,13 @@ jobs:
                     tools: composer:v2
                 env:
                     REDIS_CONFIGURE_OPTS: --enable-redis
-            -   name: Install Composer Dependencies
+            -   name: Install composer dependencies
                 env:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
             -   name: Run Pint
                 run: ./vendor/bin/pint -v
-            -   name: Commit Changes
+            -   name: Commit changes
                 uses: stefanzweifel/git-auto-commit-action@v7
                 with:
                     commit_message: "automation: laravel pint ci"
