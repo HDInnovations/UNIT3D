@@ -282,7 +282,8 @@
     },
     {
         "filename": "lang/en/**",
-        "enable": true
+        "enable": true,
+        "extractStrings": true
     }
     ]
 }
