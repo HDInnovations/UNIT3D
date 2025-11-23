@@ -39,7 +39,7 @@ jobs:
                     php-version: ${{ matrix.php-version }}
                     extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
                     coverage: none
-            -   name: Install composer dependencies
+            -   name: Install Composer dependencies
                 env:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
