@@ -30,24 +30,24 @@ jobs:
                     --health-retries 5
         steps:
             -   name: Checkout
-                uses: actions/checkout@v5
+                uses: actions/checkout@v6
                 with:
                     fetch-depth: 0
-            -   name: Setup PHP 8.4
+            -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php-version }}
                     extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
                     coverage: none
-            -   name: Install Composer Dependencies
+            -   name: Install composer dependencies
                 env:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-            -   name: Prepare The Laravel Environment
+            -   name: Prepare Laravel environment
                 run: cp .env.example .env
-            -   name: Generate Application Key
+            -   name: Generate application key
                 run: php artisan key:generate
-            -   name: Clear Application Cache
+            -   name: Clear application cache
                 run: php artisan optimize:clear
             -   name: Run Larastan
                 run: ./vendor/bin/phpstan analyse -vvv --memory-limit=2G
