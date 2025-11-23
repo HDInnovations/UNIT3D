@@ -25,11 +25,11 @@ jobs:
                     tools: composer:v2
                 env:
                     REDIS_CONFIGURE_OPTS: --enable-redis
-            -   name: Configure Bun
+            -   name: Setup Bun
                 uses: oven-sh/setup-bun@v2
                 with:
                     bun-version: latest
-            -   name: Install composer dependencies
+            -   name: Install Composer dependencies
                 env:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
