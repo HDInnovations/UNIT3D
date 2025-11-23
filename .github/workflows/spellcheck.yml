@@ -10,12 +10,13 @@ jobs:
         runs-on: ${{ matrix.operating-system }}
         steps:
             -   name: Checkout
-                uses: actions/checkout@v5
+                uses: actions/checkout@v6
                 with:
                     fetch-depth: 0
             -   name: Run CSpell
                 uses: streetsidesoftware/cspell-action@v8
                 with:
                   incremental_files_only: false
+                  args: --extractStrings
                   files: |
                     lang/en/**
