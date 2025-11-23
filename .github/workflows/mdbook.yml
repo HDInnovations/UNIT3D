@@ -13,7 +13,7 @@ jobs:
             pull-requests: write  # To create a PR from that branch
         steps:
         -   name: Checkout
-            uses: actions/checkout@v5
+            uses: actions/checkout@v6
             with:
                 fetch-depth: 0
         -   name: Install latest mdbook
