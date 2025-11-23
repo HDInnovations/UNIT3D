@@ -25,7 +25,7 @@ jobs:
                     tools: composer:v2
                 env:
                     REDIS_CONFIGURE_OPTS: --enable-redis
-            -   name: Install composer dependencies
+            -   name: Install Composer dependencies
                 env:
                     COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
                 run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
