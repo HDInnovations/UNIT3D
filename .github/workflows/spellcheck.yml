@@ -17,6 +17,5 @@ jobs:
                 uses: streetsidesoftware/cspell-action@v8
                 with:
                   incremental_files_only: false
-                  args: --extractStrings
                   files: |
-                    lang/en/**
+                    .
