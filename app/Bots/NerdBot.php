@@ -279,40 +279,34 @@ class NerdBot
 
         if ($type === 'message' || $type === 'private') {
             // Create echo for user if missing
-            $echoes = cache()->remember(
-                'user-echoes'.$target->id,
-                3600,
-                fn () => UserEcho::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
-            );
+            $affected = UserEcho::query()->upsert([[
+                'user_id' => $target->id,
+                'bot_id' => $this->bot->id,
+            ]], ['user_id', 'bot_id']);
 
-            if ($echoes->doesntContain(fn ($echo) => $echo->bot_id == $this->bot->id)) {
-                $echoes->push(UserEcho::create([
-                    'user_id' => $target->id,
-                    'bot_id'  => $this->bot->id,
-                ]));
-
-                cache()->put('user-echoes'.$target->id, $echoes, 3600);
-
-                Chatter::dispatch('echo', $target->id, UserEchoResource::collection($echoes));
+            if ($affected === 1) {
+                Chatter::dispatch('echo', $target->id, UserEchoResource::collection(
+                    UserEcho::query()
+                        ->with(['user', 'room', 'target', 'bot'])
+                        ->where('user_id', '=', $target->id)
+                        ->get()
+                ));
             }
 
             // Create audible for user if missing
-            $audibles = cache()->remember(
-                'user-audibles'.$target->id,
-                3600,
-                fn () => UserAudible::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
-            );
+            $affected = UserAudible::query()->upsert([[
+                'user_id' => $target->id,
+                'bot_id' => $this->bot->id,
+                'status'  => false,
+            ]], ['user_id', 'bot_id']);
 
-            if ($audibles->doesntContain(fn ($audible) => $audible->bot_id == $this->bot->id)) {
-                $audibles->push(UserAudible::create([
-                    'user_id' => $target->id,
-                    'bot_id'  => $this->bot->id,
-                    'status'  => false,
-                ]));
-
-                cache()->put('user-audibles'.$target->id, $audibles, 3600);
-
-                Chatter::dispatch('audible', $target->id, UserAudibleResource::collection($audibles));
+            if ($affected === 1) {
+                Chatter::dispatch('audible', $target->id, UserAudibleResource::collection(
+                    UserAudible::query()
+                        ->with(['user', 'room', 'target', 'bot'])
+                        ->where('user_id', '=', $target->id)
+                        ->get()
+                ));
             }
 
             // Create message
