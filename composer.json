@@ -27,6 +27,7 @@
         "laravel/fortify": "^1.30.0",
         "laravel/framework": "^12.26.4",
         "laravel/octane": "^2.12.1",
+        "laravel/reverb": "^1.0",
         "laravel/scout": "^10.19.0",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6.4",
