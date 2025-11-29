@@ -7,27 +7,27 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.events.index') }}" class="breadcrumb__link">
-            {{ __('event.events') }}
+        <a href="{{ route('staff.giveaways.index') }}" class="breadcrumb__link">
+            {{ __('event.giveaways') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        {{ $event->name }}
+        {{ $giveaway->name }}
     </li>
     <li class="breadcrumb--active">
         {{ __('common.edit') }}
     </li>
 @endsection
 
-@section('page', 'page__staff-event--edit')
+@section('page', 'page__staff-giveaway--edit')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('event.edit-event') }}</h2>
+        <h2 class="panel__heading">{{ __('common.edit') }} {{ __('event.giveaway') }}</h2>
         <form
             class="dialog__form"
             method="POST"
-            action="{{ route('staff.events.update', ['event' => $event]) }}"
+            action="{{ route('staff.giveaways.update', ['giveaway' => $giveaway]) }}"
         >
             @csrf
             @method('PATCH')
@@ -39,7 +39,7 @@
                     autocomplete="off"
                     name="name"
                     required
-                    value="{{ $event->name }}"
+                    value="{{ $giveaway->name }}"
                 />
                 <label class="form__label form__label--floating" for="name">
                     {{ __('common.name') }}
@@ -47,7 +47,7 @@
             </p>
             <p class="form__group">
                 <textarea id="description" class="form__textarea" name="description" required>
-{{ $event->description }}</textarea
+{{ $giveaway->description }}</textarea
                 >
                 <label class="form__label form__label--floating" for="description">
                     {{ __('common.description') }}
@@ -61,7 +61,7 @@
                     autocomplete="off"
                     name="icon"
                     required
-                    value="{{ $event->icon }}"
+                    value="{{ $giveaway->icon }}"
                 />
                 <label class="form__label form__label--floating" for="icon">
                     {{ __('common.icon') }}
@@ -74,11 +74,11 @@
                         class="form__text"
                         name="starts_at"
                         type="date"
-                        value="{{ $event->starts_at->format('Y-m-d') }}"
+                        value="{{ $giveaway->starts_at->format('Y-m-d') }}"
                         required
                     />
                     <label class="form__label form__label--floating" for="starts_at">
-                        {{ __('event.starts-at') }}
+                        {{ __('common.starts-at') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -87,11 +87,11 @@
                         class="form__text"
                         name="ends_at"
                         type="date"
-                        value="{{ $event->ends_at->format('Y-m-d') }}"
+                        value="{{ $giveaway->ends_at->format('Y-m-d') }}"
                         required
                     />
                     <label class="form__label form__label--floating" for="ends_at">
-                        {{ __('event.ends-at') }}
+                        {{ __('common.ends-at') }}
                     </label>
                 </p>
             </div>
@@ -103,7 +103,7 @@
                     id="active"
                     name="active"
                     value="1"
-                    @checked($event->active)
+                    @checked($giveaway->active)
                 />
                 <label class="form__label" for="active">{{ __('common.active') }}?</label>
             </p>
@@ -134,11 +134,11 @@
                         <form
                             class="dialog__form"
                             method="POST"
-                            action="{{ route('staff.events.prizes.store', ['event' => $event]) }}"
+                            action="{{ route('staff.giveaways.prizes.store', ['giveaway' => $giveaway]) }}"
                             x-bind="dialogForm"
                         >
                             @csrf
-                            <input type="hidden" name="event_id" value="{{ $event->id }}" />
+                            <input type="hidden" name="giveaway_id" value="{{ $giveaway->id }}" />
                             <p class="form__group">
                                 <select name="type" id="type" class="form__select" required>
                                     <option hidden disabled selected value=""></option>
@@ -221,7 +221,7 @@
                     <th>{{ __('common.actions') }}</th>
                 </thead>
                 <tbody>
-                    @forelse ($event->prizes as $prize)
+                    @forelse ($giveaway->prizes as $prize)
                         <tr>
                             <td>
                                 @switch($prize->type)
@@ -254,15 +254,15 @@
                                             <form
                                                 class="dialog__form"
                                                 method="POST"
-                                                action="{{ route('staff.events.prizes.update', ['event' => $event, 'prize' => $prize]) }}"
+                                                action="{{ route('staff.giveaways.prizes.update', ['giveaway' => $giveaway, 'prize' => $prize]) }}"
                                                 x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('PATCH')
                                                 <input
                                                     type="hidden"
-                                                    name="event_id"
-                                                    value="{{ $event->id }}"
+                                                    name="giveaway_id"
+                                                    value="{{ $giveaway->id }}"
                                                 />
                                                 <p class="form__group">
                                                     <select
@@ -273,13 +273,13 @@
                                                     >
                                                         <option
                                                             value="bon"
-                                                            @selected($event->type === 'bon')
+                                                            @selected($giveaway->type === 'bon')
                                                         >
                                                             {{ __('bon.bon') }}
                                                         </option>
                                                         <option
                                                             value="fl_tokens"
-                                                            @selected($event->type === 'fl_tokens')
+                                                            @selected($giveaway->type === 'fl_tokens')
                                                         >
                                                             {{ __('common.fl_tokens') }}
                                                         </option>
@@ -367,7 +367,7 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.events.prizes.destroy', ['event' => $event, 'prize' => $prize]) }}"
+                                            action="{{ route('staff.giveaways.prizes.destroy', ['giveaway' => $giveaway, 'prize' => $prize]) }}"
                                             method="POST"
                                             x-data="confirmation"
                                         >
@@ -376,7 +376,7 @@
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 class="form__button form__button--text"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to remove this prize (Type: ' . $prize->type . ', Min: ' . $prize->min . ', Max: ' . $prize->max . ', Weight: ' . $prize->weight . ') from this event (.' . $event->name . ')?') }}"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to remove this prize (Type: ' . $prize->type . ', Min: ' . $prize->min . ', Max: ' . $prize->max . ', Weight: ' . $prize->weight . ') from this giveaways (.' . $giveaway->name . ')?') }}"
                                             >
                                                 {{ __('common.delete') }}
                                             </button>

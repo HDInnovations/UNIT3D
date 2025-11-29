@@ -7,8 +7,8 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.events.index') }}" class="breadcrumb__link">
-            {{ __('event.events') }}
+        <a href="{{ route('staff.giveaways.index') }}" class="breadcrumb__link">
+            {{ __('event.giveaways') }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -16,12 +16,12 @@
     </li>
 @endsection
 
-@section('page', 'page__staff-event--create')
+@section('page', 'page__staff-giveaway--create')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('event.add-event') }}</h2>
-        <form class="dialog__form" method="POST" action="{{ route('staff.events.store') }}">
+        <h2 class="panel__heading">{{ __('common.add') }} {{ __('event.giveaway') }}</h2>
+        <form class="dialog__form" method="POST" action="{{ route('staff.giveaways.store') }}">
             @csrf
             <p class="form__group">
                 <input
@@ -64,13 +64,13 @@
                 <p class="form__group">
                     <input id="starts_at" class="form__text" name="starts_at" type="date" />
                     <label class="form__label form__label--floating" for="starts_at">
-                        {{ __('event.starts-at') }}
+                        {{ __('common.starts-at') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <input id="ends_at" class="form__text" name="ends_at" type="date" />
                     <label class="form__label form__label--floating" for="ends_at">
-                        {{ __('event.ends-at') }}
+                        {{ __('common.ends-at') }}
                     </label>
                 </p>
             </div>

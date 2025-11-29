@@ -24,7 +24,7 @@ use AllowDynamicProperties;
  * App\Models\Prize.
  *
  * @property int                             $id
- * @property int                             $event_id
+ * @property int                             $giveaway_id
  * @property string                          $type
  * @property int                             $min
  * @property int                             $max
@@ -33,7 +33,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
 #[AllowDynamicProperties]
-final class Prize extends Model
+final class GiveawayPrize extends Model
 {
     /**
      * The attributes that aren't mass assignable.
@@ -43,12 +43,12 @@ final class Prize extends Model
     protected $guarded = [];
 
     /**
-     * Get the event that owns the prize.
+     * Get the giveaway that owns the prize.
      *
-     * @return BelongsTo<Event, $this>
+     * @return BelongsTo<Giveaway, $this>
      */
-    public function event(): BelongsTo
+    public function giveaway(): BelongsTo
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Giveaway::class);
     }
 }

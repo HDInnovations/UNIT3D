@@ -18,7 +18,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePrizeRequest extends FormRequest
+class UpdateGiveawayPrizeRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

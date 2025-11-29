@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
 
 /**
- * App\Models\ClaimedPrize.
+ * App\Models\GiveawayClaimedPrize.
  *
  * @property int                             $id
  * @property int                             $user_id
@@ -32,7 +32,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
 #[AllowDynamicProperties]
-final class ClaimedPrize extends Model
+final class GiveawayClaimedPrize extends Model
 {
     /**
      * The attributes that aren't mass assignable.
@@ -52,12 +52,12 @@ final class ClaimedPrize extends Model
     }
 
     /**
-     * Get the event that owns this claimed prize.
+     * Get the giveaway that owns this claimed prize.
      *
-     * @return BelongsTo<Event, $this>
+     * @return BelongsTo<Giveaway, $this>
      */
-    public function event(): BelongsTo
+    public function giveaway(): BelongsTo
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Giveaway::class);
     }
 }

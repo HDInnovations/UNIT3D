@@ -2,51 +2,51 @@
 
 @section('breadcrumbs')
     <li class="breadcrumb--active">
-        {{ __('event.events') }}
+        {{ __('event.giveaways') }}
     </li>
 @endsection
 
-@section('page', 'page__event--index')
+@section('page', 'page__giveaway--index')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('event.events') }}</h2>
+        <h2 class="panel__heading">{{ __('event.giveaways') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>{{ __('common.name') }}</th>
-                        <th>{{ __('event.starts-at') }}</th>
-                        <th>{{ __('event.ends-at') }}</th>
+                        <th>{{ __('common.starts-at') }}</th>
+                        <th>{{ __('common.ends-at') }}</th>
                         <th>{{ __('common.active') }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($events as $event)
+                    @foreach ($giveaways as $giveaway)
                         <tr>
                             <td>
-                                <a href="{{ route('events.show', ['event' => $event]) }}">
-                                    {{ $event->name }}
+                                <a href="{{ route('giveaways.show', ['giveaway' => $giveaway]) }}">
+                                    {{ $giveaway->name }}
                                 </a>
                             </td>
                             <td>
                                 <time
-                                    datetime="{{ $event->starts_at }}"
-                                    title="{{ $event->starts_at }}"
+                                    datetime="{{ $giveaway->starts_at }}"
+                                    title="{{ $giveaway->starts_at }}"
                                 >
-                                    {{ $event->starts_at->format('Y-m-d') }}
+                                    {{ $giveaway->starts_at->format('Y-m-d') }}
                                 </time>
                             </td>
                             <td>
                                 <time
-                                    datetime="{{ $event->ends_at }}"
-                                    title="{{ $event->ends_at }}"
+                                    datetime="{{ $giveaway->ends_at }}"
+                                    title="{{ $giveaway->ends_at }}"
                                 >
-                                    {{ $event->ends_at->format('Y-m-d') }}
+                                    {{ $giveaway->ends_at->format('Y-m-d') }}
                                 </time>
                             </td>
                             <td>
-                                @if ($event->active)
+                                @if ($giveaway->active)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
