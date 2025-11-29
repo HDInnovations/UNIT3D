@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 use App\Models\WhitelistedImageUrl;
+use Illuminate\Support\Str;
 
 class Bbcode
 {
@@ -283,6 +284,19 @@ class Bbcode
     {
         $source ??= '';
         $source = htmlspecialchars($source, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+
+        // Censor words
+        foreach (config('censor.redact') as $word) {
+            if (preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $source)) {
+                $source = str_replace($word, \sprintf("<span class='censor'>%s</span>", $word), (string) $source);
+            }
+        }
+
+        foreach (config('censor.replace') as $word => $replacementWord) {
+            if (Str::contains($source, $word)) {
+                $source = str_replace($word, $replacementWord, (string) $source);
+            }
+        }
 
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', (string) $source);

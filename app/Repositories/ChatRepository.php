@@ -23,16 +23,11 @@ use App\Models\Bot;
 use App\Models\Chatroom;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Support\Str;
 
 class ChatRepository
 {
     public function message(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null): Message
     {
-        if (User::find($userId)->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
         $message = Message::create([
             'user_id'     => $userId,
             'chatroom_id' => $roomId,
@@ -50,12 +45,6 @@ class ChatRepository
 
     public function botMessage(int $botId, int $roomId, string $message, ?int $receiver = null): void
     {
-        $user = User::find($receiver);
-
-        if ($user->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
         $save = Message::create([
             'bot_id'      => $botId,
             'user_id'     => 1,
@@ -77,10 +66,6 @@ class ChatRepository
 
     public function privateMessage(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null, ?bool $ignore = null): Message
     {
-        if (User::find($userId)->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
         $save = Message::create([
             'user_id'     => $userId,
             'chatroom_id' => 0,
@@ -245,22 +230,5 @@ class ChatRepository
         }
 
         return $room;
-    }
-
-    protected function censorMessage(string $message): string
-    {
-        foreach (config('censor.redact') as $word) {
-            if (preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $message)) {
-                $message = str_replace($word, \sprintf("<span class='censor'>%s</span>", $word), (string) $message);
-            }
-        }
-
-        foreach (config('censor.replace') as $word => $replacementWord) {
-            if (Str::contains($message, $word)) {
-                $message = str_replace($word, $replacementWord, (string) $message);
-            }
-        }
-
-        return $message;
     }
 }
