@@ -5,7 +5,7 @@
 }
 
 .request-search__filters {
-    margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px)); /* Inverses the magic numbers used in main layout styles for high resolution then adds own magic numbers */
+    margin: 0 calc(-1 * max(0px, 45vw - 820px) + max(12px, 45vw - 600px)); /* Inverses the magic numbers used in main layout styles for high resolution then adds own magic numbers */
 }
 
 @media only screen and (max-width: 767px) {

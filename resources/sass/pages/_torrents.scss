@@ -1,6 +1,9 @@
 @supports selector(:has(.torrent-search-grouped__results)) {
-    .page__torrents:not(:has(.torrent-search--grouped__results)) {
-        margin: 0 calc(-1 * max(0px, 10vw - 60px, 25vw - 300px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
+    .page__torrents:has(
+            .torrent-search--card__results,
+            .torrent-search--poster__results
+        ) {
+        margin: 0 calc(-1 * max(0px, 10vw - 100px, 25vw - 320px, 45vw - 820px)); /* Inverses the magic numbers used in the main layout styles */
     }
 }
 
@@ -15,16 +18,19 @@
         margin: 0 max(12px, 45vw - 600px); /* Adds magic numbers to shrink the advanced search a shorter width than the results on higher resolutions. */
     }
 
-    .torrent-search__filters:has(
-            + .torrent-search__results .torrent-search--grouped__results
+    .torrent-search__filters:not(
+            :has(
+                    + .torrent-search__results .torrent-search--card__results,
+                    + .torrent-search__results .torrent-search--poster__results
+                )
         ) {
-        margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px)); /* Inverses the magic numbers used in main layout styles for high resolution then adds own magic numbers */
+        margin: 0 calc(-1 * max(0px, 45vw - 820px) + max(12px, 45vw - 600px)); /* Inverses the magic numbers used in main layout styles for high resolution then adds own magic numbers */
     }
 }
 
 @supports not selector(:has(.torrent-search-grouped_-results)) {
     .torrent-search__filters {
-        margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px));
+        margin: 0 calc(-1 * max(0px, 45vw - 820px) + max(12px, 45vw - 600px));
     }
 }
 
@@ -946,7 +952,7 @@ td.torrent-search--grouped__age time {
 }
 
 .similar-torrents__filters {
-    margin: 0 calc(-1 * max(0px, 45vw - 800px) + max(12px, 45vw - 600px)); /* Inverses the magic numbers used in main layout styles for high resolution then adds own magic numbers */
+    margin: 0 calc(-1 * max(0px, 45vw - 820px) + max(12px, 45vw - 600px)); /* Inverses the magic numbers used in main layout styles for high resolution then adds own magic numbers */
 }
 
 .similar-torrents__torrents tbody:nth-child(odd) {
