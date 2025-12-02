@@ -106,5 +106,9 @@ class AppServiceProvider extends ServiceProvider
         Auth::viaRequest('rsskey', fn (Request $request) => User::query()->where('rsskey', '=', $request->route('rsskey'))->first());
 
         Context::add('url', $request->url());
+
+        if ($request->hasSession()) {
+            Context::add('previousUrl', $request->session()->previousUrl());
+        }
     }
 }
