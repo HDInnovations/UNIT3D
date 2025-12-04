@@ -983,11 +983,11 @@ final class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the prizes claimed by the user.
      *
-     * @return HasMany<ClaimedPrize, $this>
+     * @return HasMany<GiveawayClaimedPrize, $this>
      */
     public function claimedPrizes(): HasMany
     {
-        return $this->hasMany(ClaimedPrize::class);
+        return $this->hasMany(GiveawayClaimedPrize::class);
     }
 
     /**

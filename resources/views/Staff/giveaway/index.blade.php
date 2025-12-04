@@ -7,21 +7,21 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('event.events') }}
+        {{ __('event.giveaways') }}
     </li>
 @endsection
 
-@section('page', 'page__staff-event--index')
+@section('page', 'page__staff-giveaways--index')
 
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">{{ __('event.events') }}</h2>
+            <h2 class="panel__heading">{{ __('event.giveaways') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.events.create') }}"
+                        href="{{ route('staff.giveaways.create') }}"
                     >
                         {{ __('common.add') }}
                     </a>
@@ -40,31 +40,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($events as $event)
+                    @foreach ($giveaways as $giveaway)
                         <tr>
                             <td>
-                                <a href="{{ route('staff.events.edit', ['event' => $event]) }}">
-                                    {{ $event->name }}
+                                <a
+                                    href="{{ route('staff.giveaways.edit', ['giveaway' => $giveaway]) }}"
+                                >
+                                    {{ $giveaway->name }}
                                 </a>
                             </td>
                             <td>
                                 <time
-                                    datetime="{{ $event->starts_at }}"
-                                    title="{{ $event->starts_at }}"
+                                    datetime="{{ $giveaway->starts_at }}"
+                                    title="{{ $giveaway->starts_at }}"
                                 >
-                                    {{ $event->starts_at->format('Y-m-d') }}
+                                    {{ $giveaway->starts_at->format('Y-m-d') }}
                                 </time>
                             </td>
                             <td>
                                 <time
-                                    datetime="{{ $event->ends_at }}"
-                                    title="{{ $event->ends_at }}"
+                                    datetime="{{ $giveaway->ends_at }}"
+                                    title="{{ $giveaway->ends_at }}"
                                 >
-                                    {{ $event->ends_at->format('Y-m-d') }}
+                                    {{ $giveaway->ends_at->format('Y-m-d') }}
                                 </time>
                             </td>
                             <td>
-                                @if ($event->active)
+                                @if ($giveaway->active)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
@@ -78,7 +80,7 @@
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <a
-                                            href="{{ route('staff.events.edit', ['event' => $event]) }}"
+                                            href="{{ route('staff.giveaways.edit', ['giveaway' => $giveaway]) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.edit') }}
@@ -86,7 +88,7 @@
                                     </li>
                                     <li class="data-table__action">
                                         <form
-                                            action="{{ route('staff.events.destroy', ['event' => $event]) }}"
+                                            action="{{ route('staff.giveaways.destroy', ['giveaway' => $giveaway]) }}"
                                             method="POST"
                                             x-data="confirmation"
                                         >
@@ -94,7 +96,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this event: ' . $event->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this giveaway: ' . $giveaway->name . '?') }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

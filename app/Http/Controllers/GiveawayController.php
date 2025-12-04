@@ -16,33 +16,33 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Models\Giveaway;
 use Illuminate\Http\Request;
 
-class EventController extends Controller
+class GiveawayController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('event.index', [
-            'events' => Event::query()->where('active', '=', true)->orderBy('starts_at')->get(),
+        return view('giveaway.index', [
+            'giveaways' => Giveaway::query()->where('active', '=', true)->orderBy('starts_at')->get(),
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Event $event): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, Giveaway $giveaway): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('event.show', [
-            'event'      => $event,
-            'userPrizes' => $event
+        return view('giveaway.show', [
+            'giveaway'   => $giveaway,
+            'userPrizes' => $giveaway
                 ->claimedPrizes()
                 ->where('user_id', '=', $request->user()->id)
                 ->get()
-                ->groupBy(fn ($claimedPrize) => (int) $claimedPrize->created_at->diffInDays($event->starts_at, true)),
+                ->groupBy(fn ($claimedPrize) => (int) $claimedPrize->created_at->diffInDays($giveaway->starts_at, true)),
         ]);
     }
 }

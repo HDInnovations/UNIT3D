@@ -165,18 +165,18 @@
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
-                    @if ($events->contains(fn ($event) => ! $event->claimed_prizes_exists && $event->ends_at->endOfDay()->isFuture()))
+                    @if ($giveaways->contains(fn ($giveaway) => ! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture()))
                         <x-animation.notification />
                     @endif
                 </div>
             </a>
             <ul>
-                @foreach ($events as $event)
+                @foreach ($giveaways as $giveaway)
                     <li>
-                        <a href="{{ route('events.show', ['event' => $event]) }}">
+                        <a href="{{ route('giveaways.show', ['giveaway' => $giveaway]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-calendar-star"></i>
-                            {{ $event->name }}
-                            @if (! $event->claimed_prizes_exists && $event->ends_at->endOfDay()->isFuture())
+                            {{ $giveaway->name }}
+                            @if (! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture())
                                 <x-animation.notification />
                             @endif
                         </a>

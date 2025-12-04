@@ -18,7 +18,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEventRequest extends FormRequest
+class StoreGiveawayPrizeRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -28,32 +28,26 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'type' => [
                 'required',
                 'string',
-                'max:255',
+                'in:bon,fl_tokens',
             ],
-            'description' => [
+            'min' => [
                 'required',
-                'string',
-                'max:65535',
+                'integer',
+                'min:0',
+                'lte:max',
             ],
-            'icon' => [
+            'max' => [
                 'required',
-                'string',
-                'max:255',
+                'integer',
+                'gte:min',
             ],
-            'starts_at' => [
+            'weight' => [
                 'required',
-                'date',
-            ],
-            'ends_at' => [
-                'required',
-                'date',
-            ],
-            'active' => [
-                'required',
-                'boolean',
+                'integer',
+                'min:0',
             ],
         ];
     }

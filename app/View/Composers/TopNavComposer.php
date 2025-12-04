@@ -6,7 +6,7 @@ namespace App\View\Composers;
 
 use App\Enums\ModerationStatus;
 use App\Models\Donation;
-use App\Models\Event;
+use App\Models\Giveaway;
 use App\Models\Page;
 use App\Models\Report;
 use App\Models\Scopes\ApprovedScope;
@@ -45,7 +45,7 @@ class TopNavComposer
                         ->where('user_read', '=', false),
                 )
                 ->exists(),
-            'events' => Event::query()
+            'giveaways' => Giveaway::query()
                 ->where('active', '=', true)
                 ->withExists([
                     'claimedPrizes' => fn ($query) => $query

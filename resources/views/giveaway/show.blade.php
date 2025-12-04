@@ -2,23 +2,23 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('events.index') }}" class="breadcrumb__link">
-            {{ __('event.events') }}
+        <a href="{{ route('giveaways.index') }}" class="breadcrumb__link">
+            {{ __('event.giveaways') }}
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ $event->name }}
+        {{ $giveaway->name }}
     </li>
 @endsection
 
-@section('page', 'page__event--show')
+@section('page', 'page__giveaway--show')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ $event->name }}</h2>
+        <h2 class="panel__heading">{{ $giveaway->name }}</h2>
         <div class="panel__body">
             <ol class="events__list">
-                @foreach (\Carbon\CarbonPeriod::create($event->starts_at, $event->ends_at) as $i => $date)
+                @foreach (\Carbon\CarbonPeriod::create($giveaway->starts_at, $giveaway->ends_at) as $i => $date)
                     <li class="events__list-item">
                         <article class="events__prize">
                             <h3 class="events__prize-heading">
@@ -27,7 +27,7 @@
 
                             @if ($prize = $userPrizes->get($i)?->first())
                                 <i
-                                    class="events__prize-icon events__prize-icon--today-claimed fad {{ $event->icon }}"
+                                    class="events__prize-icon events__prize-icon--today-claimed fad {{ $giveaway->icon }}"
                                 ></i>
                                 @if ($prize->bon > 0 || $prize->fl_tokens > 0)
                                     <ul class="events__prize-winnings-list">
@@ -59,21 +59,21 @@
                             @else
                                 @if (now()->isBefore($date))
                                     <i
-                                        class="events__prize-icon events__prize-icon--future fad {{ $event->icon }}"
+                                        class="events__prize-icon events__prize-icon--future fad {{ $giveaway->icon }}"
                                     ></i>
                                     <i class="events__prize-message">Check back later!</i>
                                 @elseif (now()->isAfter($date->addDay(1)))
                                     <i
-                                        class="events__prize-icon events__prize-icon--past fad {{ $event->icon }}"
+                                        class="events__prize-icon events__prize-icon--past fad {{ $giveaway->icon }}"
                                     ></i>
                                     <i class="events__prize-message">{{ __('common.expired') }}</i>
                                 @else
                                     <i
-                                        class="events__prize-icon events__prize-icon--today-unclaimed fad {{ $event->icon }} fa-beat-fade"
+                                        class="events__prize-icon events__prize-icon--today-unclaimed fad {{ $giveaway->icon }} fa-beat-fade"
                                     ></i>
                                     <form
                                         class="form"
-                                        action="{{ route('events.claims.store', ['event' => $event]) }}"
+                                        action="{{ route('giveaways.claims.store', ['giveaway' => $giveaway]) }}"
                                         method="POST"
                                         style="display: contents"
                                     >
@@ -100,7 +100,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
-            {{ $event->description }}
+            {{ $giveaway->description }}
         </div>
     </section>
 @endsection

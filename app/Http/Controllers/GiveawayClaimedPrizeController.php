@@ -16,32 +16,32 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\ClaimedPrize;
-use App\Models\Event;
+use App\Models\GiveawayClaimedPrize;
+use App\Models\Giveaway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ClaimedPrizeController extends Controller
+class GiveawayClaimedPrizeController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Event $event): \Illuminate\Http\RedirectResponse
+    public function store(Request $request, Giveaway $giveaway): \Illuminate\Http\RedirectResponse
     {
-        if (!$event->active) {
-            return back()->withErrors('Event is not active.');
+        if (!$giveaway->active) {
+            return back()->withErrors('Giveaway is not active.');
         }
 
-        $isAvailable = now()->isBetween($event->starts_at->startOfDay(), $event->ends_at->endOfDay());
+        $isAvailable = now()->isBetween($giveaway->starts_at->startOfDay(), $giveaway->ends_at->endOfDay());
 
         if (!$isAvailable) {
             return back()->withErrors('Prizes are not currently available.');
         }
 
-        return DB::transaction(function () use ($request, $event) {
-            $prizeExists = ClaimedPrize::query()
+        return DB::transaction(function () use ($request, $giveaway) {
+            $prizeExists = GiveawayClaimedPrize::query()
                 ->whereBelongsTo($request->user())
-                ->whereBelongsTo($event)
+                ->whereBelongsTo($giveaway)
                 ->where('created_at', '>', now()->startOfDay())
                 ->exists();
 
@@ -49,7 +49,7 @@ class ClaimedPrizeController extends Controller
                 return back()->withErrors('You have already claimed your daily prize. Check back tomorrow!');
             }
 
-            $prizes = $event->prizes;
+            $prizes = $giveaway->prizes;
             $randomNumber = random_int(1, $prizes->sum('weight') ?: 1);
             $selectedPrize = null;
 
@@ -79,14 +79,14 @@ class ClaimedPrizeController extends Controller
                     break;
             }
 
-            ClaimedPrize::create([
-                'user_id'   => $request->user()->id,
-                'event_id'  => $event->id,
-                'bon'       => $bon_won,
-                'fl_tokens' => $fl_tokens_won,
+            GiveawayClaimedPrize::create([
+                'user_id'     => $request->user()->id,
+                'giveaway_id' => $giveaway->id,
+                'bon'         => $bon_won,
+                'fl_tokens'   => $fl_tokens_won,
             ]);
 
-            return to_route('events.show', ['event' => $event])->with('success', 'Congrats! You have won a prize!');
+            return to_route('giveaways.show', ['giveaway' => $giveaway])->with('success', 'Congrats! You have won a prize!');
         });
     }
 }

@@ -34,7 +34,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
 #[AllowDynamicProperties]
-final class Event extends Model
+final class Giveaway extends Model
 {
     use Auditable;
 
@@ -61,20 +61,20 @@ final class Event extends Model
     /**
      * Get the claimed prizes for the event.
      *
-     * @return HasMany<ClaimedPrize, $this>
+     * @return HasMany<GiveawayClaimedPrize, $this>
      */
     public function claimedPrizes(): HasMany
     {
-        return $this->hasMany(ClaimedPrize::class);
+        return $this->hasMany(GiveawayClaimedPrize::class);
     }
 
     /**
      * Get the available prizes for the event.
      *
-     * @return HasMany<Prize, $this>
+     * @return HasMany<GiveawayPrize, $this>
      */
     public function prizes(): HasMany
     {
-        return $this->hasMany(Prize::class);
+        return $this->hasMany(GiveawayPrize::class);
     }
 }
