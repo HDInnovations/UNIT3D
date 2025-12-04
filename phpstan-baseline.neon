@@ -523,6 +523,12 @@ parameters:
 			path: app/Listeners/AchievementUnlocked.php
 
 		-
+			message: '#^Empty array passed to foreach\.$#'
+			identifier: foreach.emptyArray
+			count: 1
+			path: app/Helpers/Bbcode.php
+
+		-
 			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
 			identifier: argument.type
 			count: 2
@@ -597,12 +603,6 @@ parameters:
 		-
 			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
 			identifier: function.impossibleType
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: '#^Empty array passed to foreach\.$#'
-			identifier: foreach.emptyArray
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
