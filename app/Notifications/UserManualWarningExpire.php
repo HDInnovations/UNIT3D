@@ -16,15 +16,23 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Http\Middleware\RateLimitOutboundMail;
 use App\Models\User;
 use App\Models\Warning;
+use DateTime;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserManualWarningExpire extends Notification
+class UserManualWarningExpire extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 1;
 
     /**
      * Create a new notification instance.
@@ -41,6 +49,19 @@ class UserManualWarningExpire extends Notification
     public function via(object $notifiable): array
     {
         return ['database', 'mail'];
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(object $notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail'  => [new RateLimitOutboundMail()],
+            default => [],
+        };
     }
 
     /**
@@ -69,5 +90,13 @@ class UserManualWarningExpire extends Notification
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(2);
     }
 }
