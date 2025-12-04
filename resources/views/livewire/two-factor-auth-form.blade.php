@@ -101,6 +101,39 @@
                     >
                         {{ __('Regenerate Recovery Codes') }}
                     </button>
+                    @script
+                        <script
+                            nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}"
+                        >
+                            Alpine.data('recovery_codes', () => ({
+                                copy() {
+                                    navigator.clipboard.writeText(
+                                        JSON.parse(
+                                            atob(
+                                                '{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}',
+                                            ),
+                                        ).join('\n'),
+                                    );
+                                    Swal.fire({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        icon: 'success',
+                                        title: 'Copied to clipboard!',
+                                    });
+                                },
+                            }));
+                        </script>
+                    @endscript
+
+                    <button
+                        class="form__button form__button--filled"
+                        x-data="recovery_codes"
+                        x-on:click.stop="copy"
+                    >
+                        {{ __('Copy Recovery Codes') }}
+                    </button>
                 @elseif ($showingConfirmation)
                     <button
                         class="form__button form__button--filled"
