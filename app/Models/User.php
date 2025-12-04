@@ -70,6 +70,7 @@ use AllowDynamicProperties;
  * @property bool                            $is_lifetime
  * @property string|null                     $remember_token
  * @property string|null                     $api_token
+ * @property string|null                     $irckey
  * @property \Illuminate\Support\Carbon|null $last_login
  * @property \Illuminate\Support\Carbon|null $last_action
  * @property \Illuminate\Support\Carbon|null $disabled_at
@@ -105,6 +106,7 @@ final class User extends Authenticatable implements MustVerifyEmail
         'rsskey',
         'remember_token',
         'api_token',
+        'irckey',
         'two_factor_secret',
         'two_factor_recovery_codes',
         'two_factor_confirmed_at',
@@ -938,6 +940,16 @@ final class User extends Authenticatable implements MustVerifyEmail
     public function apikeys(): HasMany
     {
         return $this->hasMany(Apikey::class);
+    }
+
+    /**
+     * Get the irckeys for the user.
+     *
+     * @return HasMany<Irckey, $this>
+     */
+    public function irckeys(): HasMany
+    {
+        return $this->hasMany(Irckey::class);
     }
 
     /**

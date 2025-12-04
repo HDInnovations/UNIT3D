@@ -37,6 +37,7 @@ class UserSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
+                'irckey'            => md5(random_bytes(60)),
             ],
             [
                 'id'                => 2,
@@ -48,6 +49,7 @@ class UserSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
+                'irckey'            => md5(random_bytes(60)),
             ],
             [
                 'id'                => 3,
@@ -59,6 +61,7 @@ class UserSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
+                'irckey'            => md5(random_bytes(60)),
             ],
         ], ['username'], ['updated_at' => DB::raw('updated_at')]);
     }
