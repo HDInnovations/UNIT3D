@@ -26,8 +26,9 @@ sudo chown -R www-data:www-data /var/www/html
 sudo find /var/www/html -type f -exec chmod 664 {} \;
 sudo find /var/www/html -type d -exec chmod 775 {} \;
 sudo chgrp -R www-data storage bootstrap/cache
-sudo chmod -R ug+rwx storage bootstrap/cache
-sudo rm -rf node_modules && sudo bun install && sudo bun run build
+sudo chmod -R ug+rw storage bootstrap/cache
+sudo chmod -R 664 storage/views
+sudo rm -rf node_modules && bun install && bun run build
 ```
 
 ## 3. Handling code changes
@@ -37,7 +38,7 @@ sudo rm -rf node_modules && sudo bun install && sudo bun run build
 If any PHP files are modified, run the following commands to clear the cache, restart the PHP-FPM service, and restart the Laravel queues:
 
 ```sh
-sudo php artisan set:all_cache && sudo systemctl restart php8.3-fpm && sudo php artisan queue:restart
+php artisan set:all_cache && sudo systemctl restart php8.3-fpm && php artisan queue:restart
 ```
 
 ### Static assets (SCSS, JS)
