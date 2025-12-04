@@ -172,7 +172,6 @@
 		"database/schema/mysql-schema.sql",
 		"database/seeders/DistributorSeeder.php",
 		"database/seeders/MediaLanguageSeeder.php",
-		"lang/",
 		"public/vendor/livewire/livewire.js",
 		"resources/js/unit3d/helper.js",
 		"resources/js/unit3d/parser.js",
@@ -274,6 +273,16 @@
 			"name": "redis",
 			"path": "./.cspell/redis.txt",
 			"addWords": false
-		},
+		}
 	],
+	"overrides": [
+    {
+        "filename": "lang/*/**",
+        "enable": false
+    },
+    {
+        "filename": "lang/en/**",
+        "enable": true
+    }
+    ]
 }
