@@ -65,6 +65,6 @@ We use Weblate for translations. You can easily contribute to translations at ht
 
 ## <a name="license"></a> 📜 License
 
-This project is licensed under the AGPL v3.0 License. See the [LICENSE](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE.md) file for details.
+This project is licensed under the AGPL v3.0 License. See the [LICENSE](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE) file for details.
 
 
