@@ -85,4 +85,5 @@ return [
     'already-rejected' => 'Permintaan (request) ini sudah ditolak (rejected)',
     'approved-anon' => 'Anda telah meluluskan %s dan \'bounty\' telah diberikan kepada pengguna tanpa nama (anonymous)',
     'approved-user' => 'Anda telah meluluskan %s dan \'bounty\' telah diberikan kepada %s',
+    'deleted' => 'Anda telah buang (delete) %',
 ];

@@ -40,4 +40,10 @@ return [
     'appl-reason' => 'Bagaimana anda tahu mengenai ":sitename" dan kenapa anda ingin menyertai? ',
     'application-submitted' => 'Permohonan anda telah dihantar. Anda akan menerima e-mel tidak lama lagi!',
     'banned' => 'Akaun ini telah di\'ban\'!',
+    'enter-totp' => 'Sila masukkan 6 digit kod yang dijana oleh app anda.',
+    'invalid-key' => 'Kod jemputan (invite key) tidak betul atau sudah luput!',
+    'login' => 'Log masuk',
+    'login-now-on' => 'Log masuk sekarang pada',
+    'lost-password' => 'Lupa kata laluan?',
+    'lost-username' => 'Lupa username?',
 ];

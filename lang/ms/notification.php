@@ -29,4 +29,9 @@ return [
     'deleted' => 'Notifikasi telah dibuang!',
     'filter-by-type' => '\'Filter\' mengikut jenis notifikasi',
     'marked-read' => 'Notifikasi ditandai sebagai sudah dibaca!',
+    'request-fills' => 'Permintaan (request) telah dilakukan',
+    'request-rejections' => 'Permintaan (request) tidak diterima',
+    'request-unclaims' => 'Permintaan (request) tidak dituntut (unclaim)',
+    'reseed-requests' => 'Permintaan untuk hidupkan torrent (Reseed request)',
+    'unfollows' => 'Tidak ikut (unfollow)',
 ];

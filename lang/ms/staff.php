@@ -63,4 +63,7 @@ return [
     'blocked-ips' => 'IP yang telah dihalang (blocked)',
     'bon-exchange' => 'Pertukaran BON',
     'bon-earnings' => 'BON pendapatan',
+    'gifts-log' => 'Rekod hadiah (gift)',
+    'link' => 'Pautan',
+    'mass-email' => 'Emel pukal',
 ];
