@@ -183,6 +183,19 @@
                     </li>
                 @endforeach
 
+                @foreach ($uploadContests as $uploadContest)
+                    <li>
+                        <a
+                            href="{{ route('upload_contests.show', ['uploadContest' => $uploadContest]) }}"
+                        >
+                            <i
+                                class="{{ config('other.font-awesome') }} {{ $uploadContest->icon }}"
+                            ></i>
+                            {{ $uploadContest->name }}
+                        </a>
+                    </li>
+                @endforeach
+
                 <li>
                     <a href="{{ route('subtitles.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-closed-captioning"></i>
