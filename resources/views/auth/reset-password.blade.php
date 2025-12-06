@@ -32,6 +32,7 @@
                 >
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}" />
+                    <input type="hidden" name="email" value="{{ $email }}" />
                     <a class="auth-form__branding" href="{{ route('home.index') }}">
                         <i class="fal fa-tv-retro"></i>
                         <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
@@ -52,20 +53,6 @@
                         </ul>
                     @endif
 
-                    <p class="auth-form__text-input-group">
-                        <label class="auth-form__label" for="email">
-                            {{ __('auth.email') }}
-                        </label>
-                        <input
-                            id="email"
-                            class="auth-form__text-input"
-                            autofocus
-                            name="email"
-                            required
-                            type="email"
-                            value="{{ old('email') }}"
-                        />
-                    </p>
                     <p class="auth-form__text-input-group">
                         <label class="auth-form__label" for="password">
                             {{ __('auth.new-password') }}
