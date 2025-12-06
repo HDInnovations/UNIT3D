@@ -10,44 +10,62 @@ declare(strict_types=1);
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Actions\Fortify;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\Invite;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
-use Exception;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
-use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Illuminate\Validation\Rules\Password;
 
-class CreateNewUser implements CreatesNewUsers
+class RegisteredUserController extends Controller
 {
-    use PasswordValidationRules;
+    /**
+     * Show registration form.
+     */
+    public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        if ($request->missing('code')) {
+            return view('auth.register');
+        }
+
+        return view('auth.register', ['code' => $request->query('code')]);
+    }
 
     /**
-     * Validate and create a newly registered user.
-     *
-     * @param  array<string, string> $input
-     * @throws ValidationException
-     * @throws Exception
+     * Receive registration form.
      */
-    public function create(array $input): RedirectResponse | User
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        Validator::make($input, [
-            'username' => 'required|alpha_dash|string|between:3,25|unique:users',
+        Validator::make($request->all(), [
+            'code' => [
+                Rule::when(config('other.invite-only') === true, [
+                    'required',
+                    Rule::exists('invites', 'code')->withoutTrashed()->whereNull('accepted_by'),
+                ]),
+            ],
             'password' => [
                 'required',
+                'string',
                 'confirmed',
-                $this->passwordRules(),
+                Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
             ],
+            'captcha' => [
+                Rule::excludeIf(config('captcha.enabled') === false),
+                Rule::when(config('captcha.enabled') === true, 'hiddencaptcha'),
+            ],
+            'username' => 'required|alpha_dash|string|between:3,25|unique:users',
             'email' => [
                 'required',
                 'string',
@@ -56,22 +74,12 @@ class CreateNewUser implements CreatesNewUsers
                 'unique:users',
                 Rule::when(config('email-blacklist.enabled') === true, fn () => new EmailBlacklist()),
             ],
-            'captcha' => [
-                Rule::excludeIf(config('captcha.enabled') === false),
-                Rule::when(config('captcha.enabled') === true, 'hiddencaptcha'),
-            ],
-            'code' => [
-                Rule::when(config('other.invite-only') === true, [
-                    'required',
-                    Rule::exists('invites', 'code')->withoutTrashed()->whereNull('accepted_by'),
-                ]),
-            ]
-        ])->validate();
+        ])->stopOnFirstFailure()->validate();
 
         $user = User::create([
-            'username'   => $input['username'],
-            'email'      => $input['email'],
-            'password'   => Hash::make($input['password']),
+            'username'   => $request->username,
+            'email'      => $request->email,
+            'password'   => Hash::make($request->password),
             'passkey'    => md5(random_bytes(60)),
             'rsskey'     => md5(random_bytes(60)),
             'uploaded'   => config('other.default_upload'),
@@ -86,7 +94,7 @@ class CreateNewUser implements CreatesNewUsers
         $user->emailUpdates()->create();
 
         if (config('other.invite-only') === true) {
-            $invite = Invite::where('code', '=', $input['code'])->first();
+            $invite = Invite::where('code', '=', $request->code)->first();
             $invite->update([
                 'accepted_by' => $user->id,
                 'accepted_at' => now(),
@@ -100,6 +108,14 @@ class CreateNewUser implements CreatesNewUsers
             }
         }
 
-        return $user;
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        if ($request->hasSession()) {
+            $request->session()->regenerate();
+        }
+
+        return to_route('verification.notice');
     }
 }

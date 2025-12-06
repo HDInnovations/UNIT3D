@@ -111,7 +111,10 @@
                 </form>
                 <footer class="auth-form__footer">
                     @if (! config('other.invite-only'))
-                        <a class="auth-form__footer-item" href="{{ route('register') }}">
+                        <a
+                            class="auth-form__footer-item"
+                            href="{{ route('registration.create') }}"
+                        >
                             {{ __('auth.signup') }}
                         </a>
                     @elseif (config('other.application_signups'))
