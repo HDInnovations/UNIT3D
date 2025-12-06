@@ -71,4 +71,5 @@ return [
     'view-all' => 'Lihat Semua Topik',
     'views' => 'Pandangan',
     'created-at' => 'Dicipta pada',
+    'forums-topic-search' => 'Topik carian',
 ];

@@ -207,4 +207,5 @@ return [
     'resolutions' => 'Resoluti-resolusi',
     'staff-tools' => 'Alat Kakitangan',
     'add-to-playlist' => 'Tambah ke dalam playlist',
+    'completed-times' => 'Kali siap (Times completed)',
 ];
