@@ -18,7 +18,6 @@ use App\Enums\GlobalRateLimit;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\RoutePath;
 
 /*
@@ -50,13 +49,6 @@ Route::middleware('language')->group(function (): void {
         Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
             ->middleware(['throttle:'.config('fortify.limiters.fortify-login-get')])
             ->name('login');
-
-        Route::get(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'create'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-register-get')])
-            ->name('register');
-
-        Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-register-post')]);
     });
 
     /*
@@ -75,9 +67,19 @@ Route::middleware('language')->group(function (): void {
         Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->middleware('throttle:'.GlobalRateLimit::RESET_PASSWORD->value)->name('password.reset');
         Route::post('/reset-password', [App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->middleware('throttle:'.GlobalRateLimit::RESET_PASSWORD->value)->name('password.update');
 
+        // Registration
+        Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->middleware('throttle:'.GlobalRateLimit::REGISTER->value)->name('registration.create');
+        Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->middleware('throttle:'.GlobalRateLimit::REGISTER->value)->name('registration.store');
         // This redirect must be kept until all invite emails that use the old syntax have expired
         // Hack so that Fortify can be used (allows query parameters but not route parameters)
-        Route::get('/register/{code?}', fn (string $code) => to_route('register', ['code' => $code]));
+        Route::get('/register/{code?}', fn (string $code) => to_route('registration.create', ['code' => $code]));
+    });
+
+    Route::middleware(['auth', 'banned'])->group(function (): void {
+        // Email verification
+        Route::get('/email/verify', [App\Http\Controllers\Auth\EmailVerificationController::class, 'create'])->name('verification.notice');
+        Route::get('/email/verify/{id}/{hash}', [App\Http\Controllers\Auth\EmailVerificationController::class, 'show'])->middleware(['signed'])->name('verification.verify');
+        Route::post('/email/verification-notification', [App\Http\Controllers\Auth\EmailVerificationController::class, 'store'])->middleware('throttle:'.GlobalRateLimit::EMAIL_VERIFICATION->value)->name('verification.send');
     });
 
     /*
