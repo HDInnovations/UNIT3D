@@ -9,33 +9,37 @@ deployment.
 
 ## Modifying .env and secure headers for non-HTTPS instances
 
-For local development, it's common to use HTTP instead of HTTPS. To prevent mixed content issues, follow these steps:
+For local development, HTTP is commonly used instead of HTTPS. To prevent mixed content issues, adjust your `.env` file as follows:
 
-1. **Modify the `.env` config:**
-    - Open your `.env` file located in the root directory of your UNIT3D project.
-    - Find the `SESSION_SECURE_COOKIE` setting and change its value to `false`. This action disables secure cookies,
-      which are otherwise required for HTTPS.
+1. **Create the `.env` Config:**
+    - Create a `.env` file in the root directory of your UNIT3D project.
+    - Copy and paste the contents from `.env.example` into the `.env` file.
+    - Add or modify the following environment variables:
 
-    ```dotenv
-    SESSION_SECURE_COOKIE=false
-    ```
-
-2. **Adjust the secure headers in `config/secure-headers.php`:**
-    - Navigate to the `config` directory and open the `secure-headers.php` file.
-    - To disable the `Strict-Transport-Security` header, locate the `hsts` setting and change its value to `false`.
-
-    ```php
-    'hsts' => false,
-    ```
-
-    - Next, locate the Content Security Policy (CSP) configuration to adjust it for HTTP. Disable the CSP to prevent it
-      from blocking content that doesn't meet the HTTPS security requirements.
-
-    ```php
-    'enable' => env('CSP_ENABLED', false),
-    ```
+        ```dotenv
+        DB_HOST=mysql               # Match the container name in the compose file
+        DB_USERNAME=unit3d          # The username can be anything except `root`
+        SESSION_SECURE_COOKIE=false # Disables secure cookies
+        REDIS_HOST=redis            # Match the container name in the compose file
+        CSP_ENABLED=false           # Disables Content Security Policy
+        HSTS_ENABLED=false          # Disables Strict Transport Security
+        ```
 
 ## Prerequisites
+
+### Installing Homebrew
+
+If you don't have Homebrew installed:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Installing PHP and Composer
+
+```bash
+brew install php composer
+```
 
 ### Installing Docker Desktop
 
@@ -65,6 +69,21 @@ Within PHPStorm goto `File` and then click `Open`. Select the local path you jus
 
 ### The following commands are run in PHPStorm. Can do so by clicking `Tools->Run Command`.
 
+## Step 2: Environment configuration
+
+1. **Create the `.env` file:**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Configure Docker-specific settings:**
+   Edit your `.env` file and ensure these Docker container settings are configured:
+   ```dotenv
+   DB_HOST=mysql               # Match the container name in the compose file
+   DB_USERNAME=unit3d          # The username can be anything except `root`
+   REDIS_HOST=redis            # Match the container name in the compose file
+   ```
+
 ## Step 3: start Sail
 Initialize the Docker environment using Laravel Sail:
 
@@ -72,13 +91,23 @@ Initialize the Docker environment using Laravel Sail:
 ./vendor/bin/sail up -d
 ```
 
-## Step 4: Composer dependency installation
+## Step 4: app key generation
+
+Generate a new `APP_KEY` in the `.env` file for encryption:
+
+```bash
+./vendor/bin/sail artisan key:generate
+```
+
+**Note**: If you are importing a database backup, make sure to set the `APP_KEY` in the `.env` file to match the key used when the backup was created.
+
+## Step 5: Composer dependency installation
 
 ```bash
 ./vendor/bin/sail composer install
 ```
 
-## Step 5: Bun dependency install and compile assets
+## Step 6: Bun dependency install and compile assets
 
 ```bash
 ./vendor/bin/sail bun install
@@ -88,7 +117,7 @@ Initialize the Docker environment using Laravel Sail:
 ./vendor/bin/sail bun run build
 ```
 
-## Step 6: database migrations and seeders
+## Step 7: database migrations and seeders
 
 For database initialization with sample data, apply migrations and seeders:
 
@@ -99,7 +128,7 @@ For database initialization with sample data, apply migrations and seeders:
 **Caution**: This operation will reset your database and seed it with default data. Exercise caution in production
 settings.
 
-## Step 7: database preparation (if want to use a production database backup locally)
+## Step 8: database preparation (if want to use a production database backup locally)
 
 ### Initial database loading
 
@@ -116,15 +145,15 @@ To import your database dump into MySQL within the local environment, use:
 
 **Note**: For this to work properly you must set the APP_KEY value in your local `.env` file to match you prod APP_KEY value.
 
-## Step 8: application cache configuration
+## Step 9: application cache configuration
 
 Optimize the application's performance by setting up the cache:
 
 ```bash
-sail artisan set:all_cache
+./vendor/bin/sail artisan set:all_cache
 ```
 
-## Step 9: visit local instance
+## Step 10: visit local instance
 
 Open your browser and visit `localhost`. Enjoy!
 
