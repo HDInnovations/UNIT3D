@@ -121,7 +121,11 @@ Generate a new `APP_KEY` in the `.env` file for encryption:
 ./vendor/bin/sail bun run build
 ```
 
-## Step 7: database migrations and seeders
+## Step 7: Database setup
+
+Choose one of the following options:
+
+### Step 7a: Database migrations and seeders (for sample data)
 
 For database initialization with sample data, apply migrations and seeders:
 
@@ -132,7 +136,9 @@ For database initialization with sample data, apply migrations and seeders:
 **Caution**: This operation will reset your database and seed it with default data. Exercise caution in production
 settings.
 
-## Step 8: database preparation (if want to use a production database backup locally)
+### Step 7b: Database preparation (for production database backup)
+
+If you want to use a production database backup locally:
 
 ### Initial database loading
 
@@ -149,7 +155,7 @@ To import your database dump into MySQL within the local environment, use:
 
 **Note**: For this to work properly you must set the APP_KEY value in your local `.env` file to match you prod APP_KEY value.
 
-## Step 9: application cache configuration
+## Step 8: application cache configuration
 
 Optimize the application's performance by setting up the cache:
 
@@ -157,7 +163,7 @@ Optimize the application's performance by setting up the cache:
 ./vendor/bin/sail artisan set:all_cache
 ```
 
-## Step 10: visit local instance
+## Step 9: visit local instance
 
 Open your browser and visit `localhost`. Enjoy!
 
