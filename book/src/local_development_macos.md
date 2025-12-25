@@ -84,14 +84,24 @@ Within PHPStorm goto `File` and then click `Open`. Select the local path you jus
    REDIS_HOST=redis            # Match the container name in the compose file
    ```
 
-## Step 3: start Sail
+## Step 3: Composer dependency installation
+
+Install PHP dependencies to bootstrap Laravel Sail:
+
+```bash
+composer install
+```
+
+**Note**: This step is required before using Laravel Sail because `./vendor/bin/sail` doesn't exist until Composer installs the Laravel Sail package and creates the vendor directory.
+
+## Step 4: start Sail
 Initialize the Docker environment using Laravel Sail:
 
 ```bash
 ./vendor/bin/sail up -d
 ```
 
-## Step 4: app key generation
+## Step 5: app key generation
 
 Generate a new `APP_KEY` in the `.env` file for encryption:
 
@@ -100,12 +110,6 @@ Generate a new `APP_KEY` in the `.env` file for encryption:
 ```
 
 **Note**: If you are importing a database backup, make sure to set the `APP_KEY` in the `.env` file to match the key used when the backup was created.
-
-## Step 5: Composer dependency installation
-
-```bash
-./vendor/bin/sail composer install
-```
 
 ## Step 6: Bun dependency install and compile assets
 
