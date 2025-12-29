@@ -107,7 +107,7 @@ final class BonTransactions extends Model
      */
     public function exchange(): BelongsTo
     {
-        return $this->belongsTo(BonExchange::class)->withDefault([
+        return $this->belongsTo(BonExchange::class, 'bon_exchange_id')->withDefault([
             'value' => 0,
             'cost'  => 0,
         ]);
