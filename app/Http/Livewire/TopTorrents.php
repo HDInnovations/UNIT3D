@@ -65,7 +65,7 @@ class TopTorrents extends Component
                     END AS meta
                 SQL)
                 ->withCount(['comments'])
-                ->when($this->tab === 'newest', fn ($query) => $query->orderByDesc('id'))
+                ->when($this->tab === 'newest', fn ($query) => $query->orderByDesc('created_at'))
                 ->when($this->tab === 'seeded', fn ($query) => $query->orderByDesc('seeders'))
                 ->when(
                     $this->tab === 'dying',
