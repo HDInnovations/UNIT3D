@@ -18,7 +18,6 @@ namespace App\Helpers;
 
 class Language
 {
-
     /**
      * Get country code based on locale.
      */
