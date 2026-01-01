@@ -286,13 +286,13 @@ class Bbcode
         $source = htmlspecialchars($source, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
 
         // Censor words
-        foreach (config('censor.redact') as $word) {
+        foreach (config('censor.redact', []) as $word) {
             if (preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $source)) {
                 $source = str_replace($word, \sprintf("<span class='censor'>%s</span>", $word), (string) $source);
             }
         }
 
-        foreach (config('censor.replace') as $word => $replacementWord) {
+        foreach (config('censor.replace', []) as $word => $replacementWord) {
             if (Str::contains($source, $word)) {
                 $source = str_replace($word, $replacementWord, (string) $source);
             }
