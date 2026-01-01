@@ -18,20 +18,6 @@ namespace App\Helpers;
 
 class Language
 {
-    /**
-     * Get single flags view.
-     */
-    public static function flag(string $code = 'default'): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-    {
-        if ($code === 'default') {
-            $code = app()->getLocale();
-        }
-
-        $name = self::getName($code);
-        $code = self::country($code);
-
-        return view('vendor.language.flag', ['code' => $code, 'name' => $name]);
-    }
 
     /**
      * Get country code based on locale.
@@ -47,14 +33,6 @@ class Language
         }
 
         return strtolower(substr((string) $locale, 3));
-    }
-
-    /**
-     * Get all flags view.
-     */
-    public static function flags(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-    {
-        return view('vendor.language.flags');
     }
 
     /**

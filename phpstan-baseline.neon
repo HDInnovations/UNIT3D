@@ -247,24 +247,6 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: '#^Access to an undefined property object\:\:\$banned_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$disabled_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$validating_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
 			message: '#^Method App\\Http\\Controllers\\AnnounceController\:\:index\(\) never returns null so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -311,12 +293,6 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/Staff/UserController.php
-
-		-
-			message: '#^Offset 0 does not exist on Illuminate\\Http\\Client\\Response\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
@@ -523,18 +499,6 @@ parameters:
 			path: app/Listeners/AchievementUnlocked.php
 
 		-
-			message: '#^Empty array passed to foreach\.$#'
-			identifier: foreach.emptyArray
-			count: 1
-			path: app/Helpers/Bbcode.php
-
-		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/Helpers/Language.php
-
-		-
 			message: '#^Class App\\Models\\Rss has PHPDoc tag @property for property \$json_torrent with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -659,102 +623,6 @@ parameters:
 			identifier: foreach.nonIterable
 			count: 1
 			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
-			identifier: property.notFound
-			count: 3
-			path: database/migrations/2023_02_09_113903_clean_torrent_files.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$content\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$description\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 2
-			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
-			identifier: property.notFound
-			count: 2
-			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_12_223126_create_passkeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$passkey\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_12_223126_create_passkeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$api_token\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_15_170525_create_apikeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_15_170525_create_apikeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_16_084506_create_rsskeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$rsskey\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_16_084506_create_rsskeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_01_15_151522_update_groups_table.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_01_21_062125_create_email_updates.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_02_14_022118_fix_subtitle_filepaths.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_11_26_170256_add_is_torrent_modo_to_groups_table.php
 
 		-
 			message: '#^Variable \$level might not be defined\.$#'

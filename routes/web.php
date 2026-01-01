@@ -794,11 +794,6 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/ghost-leechers', [App\Http\Controllers\Staff\CheaterController::class, 'index'])->name('index');
             });
 
-            // Codebase Version Check
-            Route::prefix('UNIT3D')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\VersionController::class, 'checkVersion']);
-            });
-
             // Commands
             Route::prefix('commands')->middleware('owner')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('commands.index');

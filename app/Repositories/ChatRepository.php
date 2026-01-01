@@ -185,7 +185,9 @@ class ChatRepository
 
         // Lets purge all old messages and keep the database to the limit settings
         if ($count > $limit) {
-            for ($x = 1; $x <= $count - $limit; $x++) {
+            $deleteCount = $count - $limit;
+
+            for ($x = 1; $x <= $deleteCount; $x++) {
                 $message = $messages->last();
                 echo $message['id']."\n";
 
