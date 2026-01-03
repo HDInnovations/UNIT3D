@@ -73,7 +73,7 @@
             <i class="{{ config('other.font-awesome') }} fa-download"></i>
         </a>
     @endif
-    @if (config('torrent.magnet') == 1)
+    @if (config('torrent.magnet') === true)
         <a
             href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth()->user()->rsskey]) }}&tr={{ route('announce', ['passkey' => auth()->user()->passkey]) }}&xl={{ $torrent->size }}"
             title="{{ __('common.magnet') }}"

@@ -56,8 +56,8 @@ return new class () extends Migration {
             $new = [];
             $old = json_decode($jsonGroups);
 
-            if (\is_object($old) && \is_object($old->default_groups)) {
-                foreach ($old->default_groups as $groupId => $isAllowed) {
+            if (\is_object($old) && property_exists($old, 'default_groups') && \is_object($old->default_groups)) {
+                foreach ((array) $old->default_groups as $groupId => $isAllowed) {
                     if (!$isAllowed && \in_array($groupId, $allowedGroups)) {
                         $new[] = (int) $groupId;
                     }

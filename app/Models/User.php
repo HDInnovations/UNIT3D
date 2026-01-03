@@ -1145,7 +1145,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      */
     public function getRatioAttribute(): float
     {
-        if ($this->downloaded === 0) {
+        if (!$this->downloaded) {
             return INF;
         }
 
@@ -1172,7 +1172,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFormattedBufferAttribute(): string
     {
-        if (config('other.ratio') === 0) {
+        if (config('other.ratio') === 0.0) {
             return '∞';
         }
 

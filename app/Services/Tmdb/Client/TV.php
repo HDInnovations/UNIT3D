@@ -444,7 +444,7 @@ class TV
 
         foreach ($this->data['aggregate_credits']['crew'] ?? [] as $person) {
             foreach ($person['jobs'] ?? [] as $job) {
-                if (!\array_key_exists('job', $job) || $job['job'] === null) {
+                if ($job['job'] === null) {
                     continue;
                 }
 

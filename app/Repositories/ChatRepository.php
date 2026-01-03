@@ -223,12 +223,12 @@ class ChatRepository
             } elseif (\is_int($room)) {
                 $room = Chatroom::findOrFail($room)->id;
             } else {
-                $room = Chatroom::query()->where('name', '=', $room)->first()->id;
+                $room = Chatroom::query()->where('name', '=', $room)->firstOrFail()->id;
             }
-        } elseif (\is_int($config)) {
-            $room = Chatroom::findOrFail($config)->id;
+        } elseif (is_numeric($config)) {
+            $room = Chatroom::findOrFail((int) $config)->id;
         } else {
-            $room = Chatroom::query()->where('name', '=', $config)->first()->id;
+            $room = Chatroom::query()->where('name', '=', (string) $config)->firstOrFail()->id;
         }
 
         return $room;

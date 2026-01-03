@@ -390,7 +390,7 @@ class Movie
         }
 
         foreach ($this->data['credits']['crew'] ?? [] as $person) {
-            if (!\array_key_exists('job', $person) || $person['job'] === null) {
+            if ($person['job'] === null) {
                 continue;
             }
 

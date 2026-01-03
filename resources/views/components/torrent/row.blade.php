@@ -180,7 +180,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                 </a>
             @endif
-            @if (config('torrent.magnet'))
+            @if (config('torrent.magnet') === true)
                 <a
                     class="torrent-search--list__magnet form__contained-icon-button form__contained-icon-button--filled"
                     href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth()->user()->rsskey]) }}&tr={{ route('announce', ['passkey' => auth()->user()->passkey]) }}&xl={{ $torrent->size }}"

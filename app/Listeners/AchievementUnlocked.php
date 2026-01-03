@@ -19,6 +19,7 @@ namespace App\Listeners;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use Assada\Achievements\Event\Unlocked;
+use Assada\Achievements\Model\AchievementDetails;
 use Illuminate\Support\Facades\Session;
 
 class AchievementUnlocked
@@ -38,15 +39,18 @@ class AchievementUnlocked
         // There's an AchievementProgress instance located on $event->progress
         $user = User::findOrFail($unlocked->progress->achiever_id);
 
+        $details = $unlocked->progress->details;
+        \assert($details instanceof AchievementDetails);
+
         if (auth()->id() === $user->id) {
-            Session::flash('achievement', $unlocked->progress->details->name);
+            Session::flash('achievement', $details->name);
         }
 
         if ($user->privacy?->private_profile == 0) {
             $profileUrl = href_profile($user);
 
             $this->chatRepository->systemMessage(
-                \sprintf('User [url=%s]%s[/url] has unlocked the %s achievement!', $profileUrl, $user->username, $unlocked->progress->details->name)
+                \sprintf('User [url=%s]%s[/url] has unlocked the %s achievement!', $profileUrl, $user->username, $details->name)
             );
         }
     }

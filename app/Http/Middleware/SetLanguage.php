@@ -74,7 +74,7 @@ class SetLanguage
         }
     }
 
-    public function setSystemLocale($request): void
+    public function setSystemLocale(\Illuminate\Http\Request $request): void
     {
         if ($request->session()->has('locale')) {
             $this->setLocale(session('locale'));

@@ -3,7 +3,7 @@
 @if (! empty($greeting))
 # {{ $greeting }}
 @else
-@if ($level === 'error')
+@if (isset($level) && $level === 'error')
 # {{ __('Whoops!') }}
 @else
 # {{ __('Hello!') }}
@@ -19,13 +19,14 @@
 {{-- Action button --}}
 @isset($actionText)
 <?php
-    switch ($level) {
-        case 'success':
-        case 'error':
-            $color = $level;
-            break;
-        default:
-            $color = 'primary';
+    $color = 'primary';
+    if (isset($level)) {
+        switch ($level) {
+            case 'success':
+            case 'error':
+                $color = $level;
+                break;
+        }
     }
 ?>
 @component('mail::button', ['url' => $actionUrl, 'color' => $color])

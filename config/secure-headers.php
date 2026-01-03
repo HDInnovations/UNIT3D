@@ -487,8 +487,8 @@ return [
             'self' => true,
 
             'allow' => [
-                'https://'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
-                'wss://'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
+                'https://'.parse_url((string) env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url((string) env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url((string) env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
+                'wss://'.parse_url((string) env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url((string) env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url((string) env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
                 'https://api.themoviedb.org/',
             ],
         ],

@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Context;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
@@ -67,11 +68,11 @@ class AppServiceProvider extends ServiceProvider
         // Linkify
         Blade::directive('linkify', fn (?string $contentString) => "<?php echo (new \App\Helpers\Linkify)->linky(e({$contentString})); ?>");
 
-        $this->app['validator']->extendImplicit(
+        Validator::extendImplicit(
             'hiddencaptcha',
             function ($attribute, $value, $parameters, $validator) {
-                $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
-                $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
+                $minLimit = (int) ((isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0);
+                $maxLimit = (int) ((isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200);
 
                 if (!HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {
                     $validator->setCustomMessages(['hiddencaptcha' => 'Captcha error']);
