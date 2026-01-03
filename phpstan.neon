@@ -15,10 +15,9 @@ parameters:
         - resources
         - routes
     excludePaths:
+        - app/Actions
         - app/Helpers/Markdown.php
         - app/Helpers/MarkdownExtra.php
-        - app/Http/Livewire/TmdbPersonCredit.php
-        - app/Http/Livewire/TorrentSearch.php
         - bootstrap/cache
     level: 7
     checkOctaneCompatibility: true

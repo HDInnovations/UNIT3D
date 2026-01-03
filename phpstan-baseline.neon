@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Instanceof between App\\Models\\User and Illuminate\\Contracts\\Auth\\MustVerifyEmail will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: app/Actions/Fortify/UpdateUserProfileInformation.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
 			identifier: return.type
 			count: 1
@@ -409,6 +403,18 @@ parameters:
 			path: app/Http/Livewire/SubtitleSearch.php
 
 		-
+			message: '#^Method App\\Http\\Livewire\\TmdbPersonCredit\:\:updatingOccupation\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Http/Livewire/TmdbPersonCredit.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\TmdbPersonCredit\:\:\$medias with generic class Illuminate\\Support\\Collection does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TmdbPersonCredit.php
+
+		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbCredit\>\.$#'
 			identifier: return.type
 			count: 2
@@ -455,6 +461,54 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Torrent\:\:\$meta\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, string\|null\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: '#^Get hook for property App\\Http\\Livewire\\TorrentSearch\:\:\$genres should return Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Resolution\> but returns Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\TmdbGenre\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: '#^Get hook for property App\\Http\\Livewire\\TorrentSearch\:\:\$groupedTorrents should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Torrent\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\|null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: '#^Get hook for property App\\Http\\Livewire\\TorrentSearch\:\:\$primaryLanguages should return Illuminate\\Support\\Collection\<int, App\\Models\\TmdbMovie\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) expects callable\(\)\: Illuminate\\Support\\Collection\<int, string\|null\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, string\|null\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: '#^Property App\\Models\\Torrent\:\:\$movie is not writable\.$#'
+			identifier: assign.propertyReadOnly
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
+
+		-
+			message: '#^Property App\\Models\\Torrent\:\:\$tv is not writable\.$#'
+			identifier: assign.propertyReadOnly
+			count: 1
+			path: app/Http/Livewire/TorrentSearch.php
 
 		-
 			message: '#^Method Laravel\\Fortify\\Contracts\\RegisterViewResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:96\:\:toResponse\(\) never returns Illuminate\\Http\\RedirectResponse so it can be removed from the return type\.$#'
