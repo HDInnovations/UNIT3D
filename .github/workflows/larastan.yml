@@ -1,4 +1,4 @@
-name: PHP Static Analysis (Larastan)
+name: PHP Static Analysis (PHPStan/Larastan)
 on: [ push, pull_request ]
 jobs:
     test:
