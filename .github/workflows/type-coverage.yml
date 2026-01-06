@@ -43,4 +43,4 @@ jobs:
                     filename: unit3d-type-coverage.json
                     label: Type Coverage (Pest)
                     message: ${{ steps.coverage.outputs.percentage }}%
-                    color: ${{ steps.coverage.outputs.percentage >= 90 && 'green' || steps.coverage.outputs.percentage >= 80 && 'green' || steps.coverage.outputs.percentage >= 70 && 'yellowgreen' || steps.coverage.outputs.percentage >= 60 && 'yellow' || steps.coverage.outputs.percentage >= 50 && 'orange' || 'red' }}
+                    color: ${{ steps.coverage.outputs.percentage >= 90 && '#2aad47ff' || steps.coverage.outputs.percentage >= 80 && '#2aad47ff' || steps.coverage.outputs.percentage >= 70 && '#cba219ff' || steps.coverage.outputs.percentage >= 60 && '#cba219ff' || steps.coverage.outputs.percentage >= 50 && '#d8634cff' || '#d8634cff' }}
