@@ -36,7 +36,6 @@ jobs:
                     echo "percentage=$COVERAGE" >> $GITHUB_OUTPUT
                     echo "Type Coverage: $COVERAGE%"
             -   name: Create Coverage Badge
-                if: github.ref == 'refs/heads/master'
                 uses: schneegans/dynamic-badges-action@v1.7.0
                 with:
                     auth: ${{ secrets.GIST_SECRET }}
