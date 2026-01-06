@@ -56,6 +56,7 @@
         "pestphp/pest": "^4.3.0",
         "pestphp/pest-plugin-laravel": "^4.0.0",
         "pestphp/pest-plugin-livewire": "^4.0.1",
+        "pestphp/pest-plugin-type-coverage": "^4.0.3",
         "phpstan/phpstan": "^2.1.33",
         "phpunit/phpunit": "^12.5.4",
         "ryoluo/sail-ssl": "^1.4.0",
