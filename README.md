@@ -10,9 +10,9 @@
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg?branch=master" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/type-coverage.yml"><img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HDVinnie/97033a0b0568173ced0e25f2617a1807/raw/unit3d-type-coverage.json" /></a>
     <a href="https://hosted.weblate.org/engage/unit3d/">
     <img src="https://hosted.weblate.org/widget/unit3d/svg-badge.svg" alt="Translation status" />
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/type-coverage.yml"><img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HDVinnie/97033a0b0568173ced0e25f2617a1807/raw/unit3d-type-coverage.json" /></a>
     </a>
 </p>
 
