@@ -42,19 +42,19 @@ class ForumController extends Controller
                 ->orderBy('position')
                 ->get()
                 ->filter(fn ($category) => $category->forums->isNotEmpty()),
-            'num_posts' => cache()->remember(
+            'num_posts' => cache()->flexible(
                 'post-count:by-group-id:'.$request->user()->group_id,
-                3600,
+                [3600, 300],
                 fn () => Post::query()->authorized(canReadTopic: true)->count()
             ),
-            'num_forums' => cache()->remember(
+            'num_forums' => cache()->flexible(
                 'forum-count:by-group-id:'.$request->user()->group_id,
-                3600,
+                [3600, 300],
                 fn () => Forum::query()->authorized(canReadTopic: true)->count()
             ),
-            'num_topics' => cache()->remember(
+            'num_topics' => cache()->flexible(
                 'topic-count:by-group-id:'.$request->user()->group_id,
-                3600,
+                [3600, 300],
                 fn () => Topic::query()->authorized(canReadTopic: true)->count()
             ),
         ]);

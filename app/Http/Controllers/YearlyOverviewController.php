@@ -147,9 +147,9 @@ class YearlyOverviewController extends Controller
                     ->take(5)
                     ->get()
             ),
-            'uploaders' => cache()->remember(
+            'uploaders' => cache()->flexible(
                 'yearly-overview:'.$year.':uploaders',
-                3600,
+                [3600, 360],
                 fn () => Torrent::with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
@@ -160,9 +160,9 @@ class YearlyOverviewController extends Controller
                     ->take(10)
                     ->get()
             ),
-            'posters' => $posters = cache()->remember(
+            'posters' => $posters = cache()->flexible(
                 'yearly-overview:'.$year.':posts',
-                3600,
+                [3600, 360],
                 fn () => Post::with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
@@ -172,9 +172,9 @@ class YearlyOverviewController extends Controller
                     ->take(10)
                     ->get()
             ),
-            'requesters' => cache()->remember(
+            'requesters' => cache()->flexible(
                 'yearly-overview:'.$year.':requesters',
-                3600,
+                [3600, 360],
                 fn () => TorrentRequest::with(['user.group'])
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
@@ -186,9 +186,9 @@ class YearlyOverviewController extends Controller
                     ->take(10)
                     ->get()
             ),
-            'fillers' => cache()->remember(
+            'fillers' => cache()->flexible(
                 'yearly-overview:'.$year.':fillers',
-                3600,
+                [3600, 360],
                 fn () => TorrentRequest::with('filler.group')
                     ->where('filled_when', '>=', $year.'-01-01 00:00:00')
                     ->where('filled_when', '<=', $year.'-12-31 23:59:59')
@@ -200,9 +200,9 @@ class YearlyOverviewController extends Controller
                     ->take(10)
                     ->get()
             ),
-            'commenters' => cache()->remember(
+            'commenters' => cache()->flexible(
                 'yearly-overview:'.$year.':commenters',
-                3600,
+                [3600, 360],
                 fn () => Comment::with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
@@ -214,9 +214,9 @@ class YearlyOverviewController extends Controller
                     ->take(10)
                     ->get()
             ),
-            'thankers' => cache()->remember(
+            'thankers' => cache()->flexible(
                 'yearly-overview:'.$year.':thankers',
-                3600,
+                [3600, 360],
                 fn () => Thank::with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
@@ -264,9 +264,9 @@ class YearlyOverviewController extends Controller
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
                     ->count()
             ),
-            'staffers' => cache()->remember(
+            'staffers' => cache()->flexible(
                 'yearly-overview:'.$year.':staffers',
-                3600,
+                [3600, 360],
                 fn () => Group::query()
                     ->with('users.group')
                     ->where('is_modo', '=', 1)

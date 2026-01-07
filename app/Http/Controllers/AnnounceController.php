@@ -325,7 +325,7 @@ final class AnnounceController extends Controller
     private function checkUser(string $passkey, AnnounceQueryDTO $queries): User
     {
         // Check Passkey Against Users Table
-        $user = cache()->remember('user:'.$passkey, 8 * 3600, fn () => User::query()
+        $user = cache()->flexible('user:'.$passkey, [8 * 3600, 600], fn () => User::query()
             ->select(['id', 'group_id', 'can_download', 'is_donor', 'is_lifetime'])
             ->where('passkey', '=', $passkey)
             ->first());
@@ -351,14 +351,14 @@ final class AnnounceController extends Controller
      */
     private function checkGroup(User $user): Group
     {
-        $deniedGroups = cache()->remember('denied_groups', 8 * 3600, fn () => DB::table('groups')
+        $deniedGroups = cache()->flexible('denied_groups', [8 * 3600, 600], fn () => DB::table('groups')
             ->selectRaw("min(case when slug = 'banned' then id end) as banned_id")
             ->selectRaw("min(case when slug = 'validating' then id end) as validating_id")
             ->selectRaw("min(case when slug = 'disabled' then id end) as disabled_id")
             ->first());
 
         // Get The Users Group
-        $group = cache()->remember('group:'.$user->group_id, 8 * 3600, fn () => Group::query()
+        $group = cache()->flexible('group:'.$user->group_id, [8 * 3600, 600], fn () => Group::query()
             ->select(['id', 'download_slots', 'is_immune', 'is_freeleech', 'is_double_upload'])
             ->find($user->group_id));
 
@@ -388,9 +388,9 @@ final class AnnounceController extends Controller
      */
     private function checkTorrent(string $infoHash, User $user): Torrent
     {
-        $torrent = cache()->remember(
+        $torrent = cache()->flexible(
             'announce-torrents:by-infohash:'.$infoHash,
-            8 * 3600,
+            [8 * 3600, 600],
             fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
                 ->where('info_hash', '=', $infoHash)

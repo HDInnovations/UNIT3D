@@ -176,7 +176,7 @@ class ChatController extends Controller
             return response('error', 401);
         }
 
-        $bots = cache()->remember('bots', 3600, fn () => Bot::where('active', '=', 1)->orderByDesc('position')->get());
+        $bots = cache()->flexible('bots', [3600, 300], fn () => Bot::where('active', '=', 1)->orderByDesc('position')->get());
 
         if (str_starts_with($message, '/msg')) {
             [, $username, $message] = mb_split(' +', trim($message), 3) + [null, null, ''];

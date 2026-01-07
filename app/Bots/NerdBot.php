@@ -42,8 +42,6 @@ class NerdBot
 
     private string $log;
 
-    private Carbon $expiresAt;
-
     private Carbon $current;
 
     private string $site;
@@ -51,7 +49,6 @@ class NerdBot
     public function __construct(private readonly ChatRepository $chatRepository)
     {
         $this->bot = Bot::findOrFail(2);
-        $this->expiresAt = Carbon::now()->addMinutes(60);
         $this->current = Carbon::now();
         $this->site = config('other.title');
     }
@@ -76,9 +73,9 @@ class NerdBot
 
     public function getBanker(): string
     {
-        $banker = cache()->remember(
+        $banker = cache()->flexible(
             'nerdbot-banker',
-            $this->expiresAt,
+            [3600, 300],
             fn () => User::orderByDesc('seedbonus')->first()
         );
 
@@ -87,9 +84,9 @@ class NerdBot
 
     public function getSnatched(): string
     {
-        $snatched = cache()->remember(
+        $snatched = cache()->flexible(
             'nerdbot-snatched',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Torrent::orderByDesc('times_completed')->first()
         );
 
@@ -98,9 +95,9 @@ class NerdBot
 
     public function getLeeched(): string
     {
-        $leeched = cache()->remember(
+        $leeched = cache()->flexible(
             'nerdbot-leeched',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Torrent::orderByDesc('leechers')->first()
         );
 
@@ -109,9 +106,9 @@ class NerdBot
 
     public function getSeeded(): string
     {
-        $seeded = cache()->remember(
+        $seeded = cache()->flexible(
             'nerdbot-seeded',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Torrent::orderByDesc('seeders')->first()
         );
 
@@ -120,9 +117,9 @@ class NerdBot
 
     public function getFreeleech(): string
     {
-        $freeleech = cache()->remember(
+        $freeleech = cache()->flexible(
             'nerdbot-freeleech',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Torrent::where('free', '=', 1)->count()
         );
 
@@ -131,9 +128,9 @@ class NerdBot
 
     public function getDoubleUpload(): string
     {
-        $doubleUpload = cache()->remember(
+        $doubleUpload = cache()->flexible(
             'nerdbot-doubleupload',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Torrent::where('doubleup', '=', 1)->count()
         );
 
@@ -142,9 +139,9 @@ class NerdBot
 
     public function getPeers(): string
     {
-        $peers = cache()->remember(
+        $peers = cache()->flexible(
             'nerdbot-peers',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Peer::where('active', '=', 1)->count()
         );
 
@@ -153,9 +150,9 @@ class NerdBot
 
     public function getBans(): string
     {
-        $bans = cache()->remember(
+        $bans = cache()->flexible(
             'nerdbot-bans',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Ban::whereNotNull('ban_reason')
                 ->where('created_at', '>', $this->current->subDay())->count()
         );
@@ -165,9 +162,9 @@ class NerdBot
 
     public function getUnbans(): string
     {
-        $unbans = cache()->remember(
+        $unbans = cache()->flexible(
             'nerdbot-unbans',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Ban::whereNotNull('unban_reason')
                 ->where('removed_at', '>', $this->current->subDay())->count()
         );
@@ -177,9 +174,9 @@ class NerdBot
 
     public function getWarnings(): string
     {
-        $warnings = cache()->remember(
+        $warnings = cache()->flexible(
             'nerdbot-warnings',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Warning::where('created_at', '>', $this->current->subDay())->count()
         );
 
@@ -188,9 +185,9 @@ class NerdBot
 
     public function getUploads(): string
     {
-        $uploads = cache()->remember(
+        $uploads = cache()->flexible(
             'nerdbot-uploads',
-            $this->expiresAt,
+            [3600, 300],
             fn () => Torrent::where('created_at', '>', $this->current->subDay())->count()
         );
 
@@ -199,9 +196,9 @@ class NerdBot
 
     public function getLogins(): string
     {
-        $logins = cache()->remember(
+        $logins = cache()->flexible(
             'nerdbot-logins',
-            $this->expiresAt,
+            [3600, 300],
             fn () => User::whereNotNull('last_login')->where('last_login', '>', $this->current->subDay())->count()
         );
 
@@ -210,9 +207,9 @@ class NerdBot
 
     public function getRegistrations(): string
     {
-        $registrations = cache()->remember(
+        $registrations = cache()->flexible(
             'nerdbot-users',
-            $this->expiresAt,
+            [3600, 300],
             fn () => User::where('created_at', '>', $this->current->subDay())->count()
         );
 
