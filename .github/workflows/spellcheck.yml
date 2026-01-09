@@ -1,4 +1,4 @@
-name: Check Spelling
+name: Check Spelling (CSpell)
 on: [ push, pull_request ]
 jobs:
     spellcheck:
@@ -9,11 +9,51 @@ jobs:
         name: ${{ matrix.operating-system }}
         runs-on: ${{ matrix.operating-system }}
         steps:
+            # 1. Checkout
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
                 with:
                     fetch-depth: 0
-            -   name: Run CSpell
-                uses: streetsidesoftware/cspell-action@v6
+
+            # 2. Bun Dependencies
+            -   name: Setup Bun
+                uses: oven-sh/setup-bun@v2
                 with:
-                    incremental_files_only: false
+                    bun-version: latest
+
+            -   name: Restore Bun cache
+                uses: actions/cache/restore@v4
+                with:
+                    path: ~/.bun/install/cache
+                    key: unit3d-${{ matrix.operating-system }}-bun-${{ hashFiles('**/bun.lockb') }}
+                    restore-keys: |
+                        unit3d-${{ matrix.operating-system }}-bun-
+
+            -   name: Install Bun dependencies
+                run: bun ci
+
+            -   name: Save Bun cache
+                uses: actions/cache/save@v4
+                if: always()
+                with:
+                    path: ~/.bun/install/cache
+                    key: unit3d-${{ matrix.operating-system }}-bun-${{ hashFiles('**/bun.lockb') }}
+
+            # 3. Run Spell Check
+            -   name: Restore CSpell cache
+                uses: actions/cache/restore@v4
+                with:
+                    path: .cspell.cache
+                    key: unit3d-${{ matrix.operating-system }}-cspell-${{ github.run_id }}
+                    restore-keys: |
+                        unit3d-${{ matrix.operating-system }}-cspell-
+
+            -   name: Run CSpell
+                run: bunx cspell --cache --cache-location .cspell.cache/spell-results "**"
+
+            -   name: Save CSpell cache
+                uses: actions/cache/save@v4
+                if: always()
+                with:
+                    path: .cspell.cache
+                    key: unit3d-${{ matrix.operating-system }}-cspell-${{ github.run_id }}

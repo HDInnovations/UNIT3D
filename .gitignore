@@ -45,6 +45,7 @@ Homestead.yaml
 npm-debug.log
 _ide_helper.php
 supervisor.ini
+/.cspell.cache/
 /.phpunit.cache/
 /.phpstan.cache/
 /.pint.cache/
