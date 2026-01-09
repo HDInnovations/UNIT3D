@@ -9,19 +9,57 @@ jobs:
         name: ${{ matrix.operating-system }}
         runs-on: ${{ matrix.operating-system }}
         steps:
+            # 1. Checkout
             -   name: Checkout
                 uses: actions/checkout@v6
                 with:
                     fetch-depth: 0
-            -   name: Configure Bun
+
+            # 2. Bun Dependencies
+            -   name: Setup Bun
                 uses: oven-sh/setup-bun@v2
                 with:
                     bun-version: latest
-            -   name: Install JS Dependencies
+
+            -   name: Restore Bun cache
+                uses: actions/cache/restore@v4
+                with:
+                    path: ~/.bun/install/cache
+                    key: unit3d-${{ matrix.operating-system }}-bun-${{ hashFiles('**/bun.lockb') }}
+                    restore-keys: |
+                        unit3d-${{ matrix.operating-system }}-bun-
+
+            -   name: Install Bun dependencies
                 run: bun ci
+
+            -   name: Save Bun cache
+                uses: actions/cache/save@v4
+                if: always()
+                with:
+                    path: ~/.bun/install/cache
+                    key: unit3d-${{ matrix.operating-system }}-bun-${{ hashFiles('**/bun.lockb') }}
+
+            # 3. Format Files
+            -   name: Restore Prettier cache
+                uses: actions/cache/restore@v4
+                with:
+                    path: .prettier.cache
+                    key: unit3d-${{ matrix.operating-system }}-prettier-${{ github.run_id }}
+                    restore-keys: |
+                        unit3d-${{ matrix.operating-system }}-prettier-
+
             -   name: Run Prettier
-                run: bunx prettier -w *
-            -   name: Commit Changes
+                run: bunx prettier --cache --cache-location .prettier.cache/format-results -w *
+
+            -   name: Save Prettier cache
+                uses: actions/cache/save@v4
+                if: always()
+                with:
+                    path: .prettier.cache
+                    key: unit3d-${{ matrix.operating-system }}-prettier-${{ github.run_id }}
+
+            # 4. Commit Changes
+            -   name: Commit changes
                 uses: stefanzweifel/git-auto-commit-action@v7
                 with:
                     commit_message: "automation: prettier blade ci"
