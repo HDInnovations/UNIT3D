@@ -120,7 +120,7 @@ jobs:
                         unit3d-${{ matrix.operating-system }}-php${{ matrix.php-version }}-phpunit-
 
             -   name: Run PHPUnit tests
-                run: COLUMNS=200 ./vendor/bin/pest --compact --coverage --parallel --processes=4 --bail
+                run: COLUMNS=200 ./vendor/bin/pest --compact --parallel --processes=4
                 env:
                     DB_CONNECTION: mysql
                     DB_PORT: ${{ job.services.mysql.ports['3306'] }}

@@ -49,6 +49,7 @@ supervisor.ini
 /.phpunit.cache/
 /.phpstan.cache/
 /.pint.cache/
+/.prettier.cache/
 /caddy
 frankenphp
 frankenphp-worker.php
