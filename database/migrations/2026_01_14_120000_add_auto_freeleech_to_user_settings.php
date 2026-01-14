@@ -13,13 +13,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('user_settings', function (Blueprint $table): void {
-            if (! Schema::hasColumn('user_settings', 'auto_freeleech_apply')) {
-                $table->boolean('auto_freeleech_apply')->default(false)->after('unbookmark_torrents_on_completion');
-            }
-
-            if (! Schema::hasColumn('user_settings', 'auto_freeleech_min_tokens')) {
-                $table->unsignedInteger('auto_freeleech_min_tokens')->default(0)->after('auto_freeleech_apply');
-            }
+            $table->boolean('auto_freeleech_apply')->default(false)->after('unbookmark_torrents_on_completion');
+            $table->unsignedInteger('auto_freeleech_min_tokens')->default(0)->after('auto_freeleech_apply');
         });
     }
 };

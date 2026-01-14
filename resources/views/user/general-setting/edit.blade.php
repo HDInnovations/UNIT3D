@@ -568,19 +568,16 @@
                                 Minimum tokens to keep when auto-applying freeleech
                             </label>
                             <input
+                                pattern="[0-9]*"
                                 id="auto_freeleech_min_tokens"
                                 class="form__text"
                                 name="auto_freeleech_min_tokens"
                                 placeholder=" "
-                                type="number"
+                                type="text"
                                 min="0"
                                 step="1"
                                 value="{{ $user->settings->auto_freeleech_min_tokens }}"
                             />
-                            <small class="text-muted">
-                                Automatically apply freeleech tokens to a torrent only if you would
-                                be left with at least this many tokens.
-                            </small>
                         </p>
                         <p class="form__group">
                             <label class="form__label">

@@ -26,8 +26,6 @@ use App\Models\FreeleechToken;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
-use Throwable;
 
 class TorrentDownloadController extends Controller
 {
@@ -90,45 +88,24 @@ class TorrentDownloadController extends Controller
         $torrentDownload->save();
 
         // Auto-apply a freeleech token if the user has enabled the setting
-        try {
-            $settings = $user->getSettingsAttribute();
+        $settings = $user->settings;
 
-            $minTokens = $settings?->auto_freeleech_min_tokens ?? 0;
+        if (
+            $settings?->auto_freeleech_apply &&
+            $user->fl_tokens >= max(1, $settings->auto_freeleech_min_tokens) &&
+            !cache()->get("freeleech_token:{$user->id}:{$torrent->id}")
+        ) {
+            $freeleech_token = new FreeleechToken();
+            $freeleech_token->user_id = $user->id;
+            $freeleech_token->torrent_id = $torrent->id;
+            $freeleech_token->save();
 
-            if (($settings?->auto_freeleech_apply ?? false) && $user->fl_tokens >= max(1, (int) $minTokens)) {
-                $activeToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
+            Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
 
-                if ($user->fl_tokens < 1) {
-                    Log::debug('Skipping auto-freeleech - user has no tokens', ['user_id' => $user->id, 'torrent_id' => $torrent->id]);
-                } elseif ($activeToken) {
-                    Log::debug('Skipping auto-freeleech - active token exists', ['user_id' => $user->id, 'torrent_id' => $torrent->id]);
-                } else {
-                    Log::debug('Applying auto-freeleech token', ['user_id' => $user->id, 'torrent_id' => $torrent->id]);
+            $user->decrement('fl_tokens');
+            cache()->put("freeleech_token:{$user->id}:{$torrent->id}", true);
 
-                    $freeleechToken = new FreeleechToken();
-                    $freeleechToken->user_id = $user->id;
-                    $freeleechToken->torrent_id = $torrent->id;
-                    $freeleechToken->save();
-
-                    Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
-
-                    $user->fl_tokens -= 1;
-                    $user->save();
-
-                    cache()->put('freeleech_token:'.$user->id.':'.$torrent->id, true);
-
-                    // Ensure search index reflects the change
-                    $torrent->searchable();
-
-                    Log::info('Auto-freeleech token assigned', ['user_id' => $user->id, 'torrent_id' => $torrent->id, 'remaining_tokens' => $user->fl_tokens]);
-                }
-            } else {
-                Log::debug('Auto-freeleech conditions not met', ['user_id' => $user->id, 'torrent_id' => $torrent->id]);
-            }
-        } catch (Throwable $e) {
-            // Do not block download if auto-apply fails. Log and continue
-            report($e);
-            Log::debug('Auto-freeleech assignment failed', ['user_id' => $user->id, 'torrent_id' => $torrent->id, 'error' => $e->getMessage()]);
+            $torrent->searchable();
         }
 
         return response()->streamDownload(
