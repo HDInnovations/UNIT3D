@@ -27,6 +27,7 @@ use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class TorrentDownloadController extends Controller
 {
@@ -124,7 +125,7 @@ class TorrentDownloadController extends Controller
             } else {
                 Log::debug('Auto-freeleech conditions not met', ['user_id' => $user->id, 'torrent_id' => $torrent->id]);
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             // Do not block download if auto-apply fails. Log and continue
             report($e);
             Log::debug('Auto-freeleech assignment failed', ['user_id' => $user->id, 'torrent_id' => $torrent->id, 'error' => $e->getMessage()]);
