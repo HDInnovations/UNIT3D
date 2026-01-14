@@ -552,6 +552,38 @@
                         </p>
                         <p class="form__group">
                             <label class="form__label">
+                                <input type="hidden" name="auto_freeleech_apply" value="0" />
+                                <input
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    name="auto_freeleech_apply"
+                                    value="1"
+                                    @checked($user->settings->auto_freeleech_apply)
+                                />
+                                Automatically apply freeleech tokens when applicable
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label" for="auto_freeleech_min_tokens">
+                                Minimum tokens to keep when auto-applying freeleech
+                            </label>
+                            <input
+                                id="auto_freeleech_min_tokens"
+                                class="form__text"
+                                name="auto_freeleech_min_tokens"
+                                placeholder=" "
+                                type="number"
+                                min="0"
+                                step="1"
+                                value="{{ $user->settings->auto_freeleech_min_tokens }}"
+                            />
+                            <small class="text-muted">
+                                Automatically apply freeleech tokens to a torrent only if you would
+                                be left with at least this many tokens.
+                            </small>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
                                 <input type="hidden" name="show_adult_content" value="0" />
                                 <input
                                     class="form__checkbox"
