@@ -34,7 +34,7 @@ class RequestFillController extends Controller
      */
     public function store(StoreRequestFillRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
     {
-        $torrent = Torrent::find(basename((string) $request->torrent_id));
+        $torrent = Torrent::query()->find(basename((string) $request->torrent_id));
 
         if ($torrent === null) {
             return to_route('requests.show', ['torrentRequest' => $torrentRequest])

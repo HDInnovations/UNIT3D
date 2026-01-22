@@ -110,7 +110,7 @@
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <a
-            class="{{ Route::is('users.general_settings.edit', 'user_security', 'user_privacy', 'user_notification') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            class="{{ Route::is('users.general_settings.edit', 'users.email.edit', 'users.password.edit', 'users.passkeys.index', 'users.rsskeys.index', 'users.apikeys.index', 'users.two_factor_auth.edit', 'users.privacy_settings.edit', 'users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
             href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
         >
             {{ __('user.settings') }}

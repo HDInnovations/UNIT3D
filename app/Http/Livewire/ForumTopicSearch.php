@@ -60,7 +60,7 @@ class ForumTopicSearch extends Component
     final public function mount(Forum $forum): void
     {
         $this->forum = $forum;
-        $this->subscription = Subscription::where('user_id', '=', auth()->id())->where('forum_id', '=', $forum->id)->first();
+        $this->subscription = Subscription::query()->where('user_id', '=', auth()->id())->where('forum_id', '=', $forum->id)->first();
         $this->state = $this->forum->default_topic_state_filter ?: '';
         $this->permission = ForumPermission::query()
             ->where('group_id', '=', auth()->user()->group_id)

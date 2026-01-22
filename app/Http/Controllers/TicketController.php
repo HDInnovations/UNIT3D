@@ -38,8 +38,8 @@ class TicketController extends Controller
     final public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('ticket.create', [
-            'categories' => TicketCategory::orderBy('position')->get(),
-            'priorities' => TicketPriority::orderBy('position')->get(),
+            'categories' => TicketCategory::query()->orderBy('position')->get(),
+            'priorities' => TicketPriority::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class TicketController extends Controller
      */
     final public function store(StoreTicketRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $ticket = Ticket::create(['user_id' => $request->user()->id] + $request->validated());
+        $ticket = Ticket::query()->create(['user_id' => $request->user()->id] + $request->validated());
 
         if ($request->hasFile('attachments')) {
             TicketAttachmentController::storeTicketAttachments($request, $ticket, $request->user());

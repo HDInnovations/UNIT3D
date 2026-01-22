@@ -49,7 +49,7 @@ class SeedboxController extends Controller
         abort_unless($request->user()->is($user), 403);
 
         // The user's seedbox IPs are encrypted, so they have to be decrypted first to check that the new IP inputted is unique
-        $userSeedboxes = Seedbox::where('user_id', '=', $user->id)->get(['ip', 'name']);
+        $userSeedboxes = Seedbox::query()->where('user_id', '=', $user->id)->get(['ip', 'name']);
         $seedboxIps = $userSeedboxes->pluck('ip')->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP) !== false);
         $seedboxNames = $userSeedboxes->pluck('name');
 
@@ -73,7 +73,7 @@ class SeedboxController extends Controller
             ]
         );
 
-        Seedbox::create([
+        Seedbox::query()->create([
             'user_id' => $user->id,
             'name'    => $request->name,
             'ip'      => $request->ip,

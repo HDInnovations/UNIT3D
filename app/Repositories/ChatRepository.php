@@ -23,17 +23,12 @@ use App\Models\Bot;
 use App\Models\Chatroom;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Support\Str;
 
 class ChatRepository
 {
     public function message(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null): Message
     {
-        if (User::find($userId)->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
-        $message = Message::create([
+        $message = Message::query()->create([
             'user_id'     => $userId,
             'chatroom_id' => $roomId,
             'message'     => $message,
@@ -50,13 +45,7 @@ class ChatRepository
 
     public function botMessage(int $botId, int $roomId, string $message, ?int $receiver = null): void
     {
-        $user = User::find($receiver);
-
-        if ($user->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
-        $save = Message::create([
+        $save = Message::query()->create([
             'bot_id'      => $botId,
             'user_id'     => 1,
             'chatroom_id' => 0,
@@ -64,7 +53,7 @@ class ChatRepository
             'receiver_id' => $receiver,
         ]);
 
-        $message = Message::with([
+        $message = Message::query()->with([
             'bot',
             'user'     => ['group', 'chatStatus'],
             'receiver' => ['group', 'chatStatus'],
@@ -77,11 +66,7 @@ class ChatRepository
 
     public function privateMessage(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null, ?bool $ignore = null): Message
     {
-        if (User::find($userId)->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
-        $save = Message::create([
+        $save = Message::query()->create([
             'user_id'     => $userId,
             'chatroom_id' => 0,
             'message'     => $message,
@@ -200,11 +185,13 @@ class ChatRepository
 
         // Lets purge all old messages and keep the database to the limit settings
         if ($count > $limit) {
-            for ($x = 1; $x <= $count - $limit; $x++) {
+            $deleteCount = $count - $limit;
+
+            for ($x = 1; $x <= $deleteCount; $x++) {
                 $message = $messages->last();
                 echo $message['id']."\n";
 
-                $message = Message::find($message->id);
+                $message = Message::query()->find($message->id);
 
                 if ($message->receiver_id === null) {
                     $message->delete();
@@ -218,7 +205,7 @@ class ChatRepository
         if ($bot) {
             $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $bot);
         } else {
-            $systemBotId = Bot::where('command', 'systembot')->first()->id;
+            $systemBotId = Bot::query()->where('command', 'systembot')->first()->id;
 
             $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $systemBotId);
         }
@@ -234,33 +221,16 @@ class ChatRepository
             if ($room instanceof Chatroom) {
                 $room = $room->id;
             } elseif (\is_int($room)) {
-                $room = Chatroom::findOrFail($room)->id;
+                $room = Chatroom::query()->findOrFail($room)->id;
             } else {
                 $room = Chatroom::query()->where('name', '=', $room)->first()->id;
             }
         } elseif (\is_int($config)) {
-            $room = Chatroom::findOrFail($config)->id;
+            $room = Chatroom::query()->findOrFail($config)->id;
         } else {
             $room = Chatroom::query()->where('name', '=', $config)->first()->id;
         }
 
         return $room;
-    }
-
-    protected function censorMessage(string $message): string
-    {
-        foreach (config('censor.redact') as $word) {
-            if (preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $message)) {
-                $message = str_replace($word, \sprintf("<span class='censor'>%s</span>", $word), (string) $message);
-            }
-        }
-
-        foreach (config('censor.replace') as $word => $replacementWord) {
-            if (Str::contains($message, $word)) {
-                $message = str_replace($word, $replacementWord, (string) $message);
-            }
-        }
-
-        return $message;
     }
 }

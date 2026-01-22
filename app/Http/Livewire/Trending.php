@@ -265,11 +265,11 @@ class Trending extends Component
         get {
             $metaTypes = [];
 
-            if (Category::where('movie_meta', '=', true)->exists()) {
+            if (Category::query()->where('movie_meta', '=', true)->exists()) {
                 $metaTypes[(string) __('mediahub.movie')] = 'movie_meta';
             }
 
-            if (Category::where('tv_meta', '=', true)->exists()) {
+            if (Category::query()->where('tv_meta', '=', true)->exists()) {
                 $metaTypes[(string) __('mediahub.show')] = 'tv_meta';
             }
 

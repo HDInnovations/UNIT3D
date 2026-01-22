@@ -65,7 +65,7 @@ class UserNotes extends Component
 
     final public function mount(): void
     {
-        $this->messages = Note::where('user_id', '=', $this->user->id)->pluck('message', 'id')->toArray();
+        $this->messages = Note::query()->where('user_id', '=', $this->user->id)->pluck('message', 'id')->toArray();
     }
 
     /**
@@ -94,7 +94,7 @@ class UserNotes extends Component
 
         $this->validateOnly('message');
 
-        Note::create([
+        Note::query()->create([
             'user_id'  => $this->user->id,
             'staff_id' => auth()->id(),
             'message'  => $this->message,
@@ -115,7 +115,7 @@ class UserNotes extends Component
         $this->validateOnly('messages');
         $this->validateOnly('messages.*');
 
-        Note::whereKey($id)->update([
+        Note::query()->whereKey($id)->update([
             'staff_id'   => auth()->id(),
             'message'    => $this->messages[$id],
             'updated_at' => now(),
@@ -128,7 +128,7 @@ class UserNotes extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        Note::findOrFail($id)->delete();
+        Note::query()->findOrFail($id)->delete();
 
         $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
     }

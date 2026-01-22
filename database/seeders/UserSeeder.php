@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::upsert([
+        User::query()->upsert([
             [
                 'id'                => User::SYSTEM_USER_ID,
                 'username'          => 'System',

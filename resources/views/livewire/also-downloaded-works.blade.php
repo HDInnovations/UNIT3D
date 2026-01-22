@@ -14,11 +14,7 @@
             </div>
         </div>
     </header>
-    <div
-        class="panel__body collection-posters"
-        x-ref="posters"
-        style="max-height: 330px !important"
-    >
+    <div class="panel__body collection__posters" x-ref="posters">
         @foreach ($alsoDownloadedWorks as $alsoDownloadedWork)
             <figure class="trending-poster">
                 @switch($alsoDownloadedWork::class)

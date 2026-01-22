@@ -89,7 +89,8 @@ class InviteLogSearch extends Component
      * @var \Illuminate\Pagination\LengthAwarePaginator<int, Invite>
      */
     final protected \Illuminate\Pagination\LengthAwarePaginator $invites {
-        get => Invite::withTrashed()
+        get => Invite::query()
+            ->withTrashed()
             ->with([
                 'sender'   => fn ($query) => $query->withTrashed()->with('group'),
                 'receiver' => fn ($query) => $query->withTrashed()->with('group'),

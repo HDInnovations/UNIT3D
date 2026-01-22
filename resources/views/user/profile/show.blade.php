@@ -905,7 +905,7 @@
                         <div class="key-value__group">
                             <dt>{{ __('common.group') }}</dt>
                             <dd>
-                                @if (null !== ($group = \App\Models\Group::find($externalUser['group_id'])))
+                                @if (null !== ($group = \App\Models\Group::query()->find($externalUser['group_id'])))
                                     <span class="user-tag">
                                         <span
                                             class="user-tag__link {{ $group->icon }}"
@@ -1020,7 +1020,11 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('user.passkey') }}</dt>
+                        <dt>
+                            <a href="{{ route('users.passkeys.index', ['user' => $user]) }}">
+                                {{ __('user.passkey') }}
+                            </a>
+                        </dt>
                         <dd>
                             <details>
                                 <summary style="cursor: pointer">
@@ -1036,11 +1040,19 @@
                         <dd>{{ $user->id }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('common.email') }}</dt>
+                        <dt>
+                            <a href="{{ route('users.email.edit', ['user' => $user]) }}">
+                                {{ __('common.email') }}
+                            </a>
+                        </dt>
                         <dd>{{ $user->email }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>2FA enabled</dt>
+                        <dt>
+                            <a href="{{ route('users.two_factor_auth.edit', ['user' => $user]) }}">
+                                2FA enabled
+                            </a>
+                        </dt>
                         <dd>
                             @if ($user->two_factor_confirmed_at !== null)
                                 <i

@@ -178,7 +178,7 @@ class FortifyServiceProvider extends ServiceProvider
                 defer(function () use ($user, $request): void {
                     $ip = $request->ip();
 
-                    FailedLoginAttempt::create([
+                    FailedLoginAttempt::query()->create([
                         'user_id'    => $user->id,
                         'username'   => $request->username,
                         'ip_address' => $ip,
@@ -188,15 +188,15 @@ class FortifyServiceProvider extends ServiceProvider
                         ->select('username')
                         ->distinct()
                         ->where('ip_address', '=', $ip)
-                        ->where('created_at', '>', now()->subDay())
+                        ->where('created_at', '>', now()->subSeconds(config('other.auth.multi-account.interval')))
                         ->pluck('username');
 
-                    if ($otherUsernamesAttempted->count() > 1) {
+                    if ($otherUsernamesAttempted->count() >= config('other.auth.multi-account.max-usernames')) {
                         BlockedIp::query()->upsert([[
                             'ip_address' => $ip,
                             'user_id'    => User::SYSTEM_USER_ID,
                             'reason'     => 'Multi-account abuse: Attempted '.$otherUsernamesAttempted->count().' separate usernames: '.$otherUsernamesAttempted->join(', '),
-                            'expires_at' => now()->addDay(),
+                            'expires_at' => now()->addSeconds(config('other.auth.multi-account.blocked-for')),
                         ]], ['ip_address']);
 
                         cache()->forget('blocked-ips');
@@ -204,15 +204,15 @@ class FortifyServiceProvider extends ServiceProvider
 
                     $ipAttemptCount = FailedLoginAttempt::query()
                         ->where('ip_address', '=', $ip)
-                        ->where('created_at', '>', now()->subDay())
+                        ->where('created_at', '>', now()->subSeconds(config('other.auth.brute-force.interval')))
                         ->count();
 
-                    if ($ipAttemptCount > 5) {
-                        BlockedIp::upsert([[
+                    if ($ipAttemptCount >= config('other.auth.brute-force.max-attempts')) {
+                        BlockedIp::query()->upsert([[
                             'ip_address' => $ip,
                             'user_id'    => User::SYSTEM_USER_ID,
-                            'reason'     => 'Brute-force attempt: 6 failed attempts in last 4h',
-                            'expires_at' => now()->addHours(4),
+                            'reason'     => 'Brute-force attempt: 6 failed attempts in last '.config('other.auth.brute-force.interval').' s',
+                            'expires_at' => now()->addSeconds(config('other.auth.brute-force.blocked-for')),
                         ]], ['ip_address'], ['expires_at' => DB::raw('expires_at')]);
 
                         cache()->forget('blocked-ips');

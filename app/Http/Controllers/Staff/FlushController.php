@@ -50,7 +50,7 @@ class FlushController extends Controller
         }
 
         $carbon = new Carbon();
-        $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2))->get();
+        $peers = Peer::query()->select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2))->get();
 
         foreach ($peers as $peer) {
             History::query()

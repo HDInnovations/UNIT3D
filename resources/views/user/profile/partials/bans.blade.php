@@ -36,7 +36,7 @@
                                     <option value="{{ $user->group->id }}">
                                         {{ $user->group->name }} (Default)
                                     </option>
-                                    @foreach (App\Models\Group::orderByDesc('position')->get() as $group)
+                                    @foreach (App\Models\Group::query()->orderByDesc('position')->get() as $group)
                                         <option value="{{ $group->id }}">
                                             {{ $group->name }}
                                         </option>

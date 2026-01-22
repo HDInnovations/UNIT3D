@@ -33,8 +33,9 @@ class PlaylistCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'     => $this->faker->name(),
-            'position' => $this->faker->randomNumber(),
+            'name'        => $this->faker->name(),
+            'position'    => $this->faker->numberBetween(0, 2 ** 15 - 1),
+            'description' => $this->faker->text(),
         ];
     }
 }

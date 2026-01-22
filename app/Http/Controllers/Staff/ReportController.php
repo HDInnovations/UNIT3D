@@ -48,7 +48,7 @@ class ReportController extends Controller
         return view('Staff.report.show', [
             'report' => $report,
             'urls'   => $match[0],
-            'staff'  => User::whereIn('group_id', Group::where('is_modo', '=', 1)->whereNot('slug', '=', 'bot')->select('id'))->get(),
+            'staff'  => User::query()->whereIn('group_id', Group::query()->where('is_modo', '=', 1)->whereNot('slug', '=', 'bot')->select('id'))->get(),
         ]);
     }
 
@@ -69,11 +69,11 @@ class ReportController extends Controller
             'solved_at' => now(),
         ] + $request->validated());
 
-        $conversation = Conversation::create(['subject' => 'Your Report Has A New Verdict']);
+        $conversation = Conversation::query()->create(['subject' => 'Your Report Has A New Verdict']);
 
         $conversation->users()->sync([$staff->id => ['read' => true], $report->reporter_id]);
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'conversation_id' => $conversation->id,
             'sender_id'       => $staff->id,
             'message'         => '[b]REPORT TITLE:[/b] '.$report->title."\n\n[b]ORIGINAL MESSAGE:[/b] ".$report->message."\n\n[b]VERDICT:[/b] ".$report->verdict,

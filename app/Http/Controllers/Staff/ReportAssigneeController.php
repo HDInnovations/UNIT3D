@@ -29,7 +29,7 @@ class ReportAssigneeController extends Controller
     {
         $report->update($request->validated());
 
-        $assignedStaff = User::findOrFail($request->integer('assigned_to'));
+        $assignedStaff = User::query()->findOrFail($request->integer('assigned_to'));
 
         $assignedStaff->notify(new NewReportAssigned($report));
 

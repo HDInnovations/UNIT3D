@@ -72,7 +72,7 @@ test('user tags user on article creates a notification for tagged user', functio
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$user],
@@ -128,7 +128,7 @@ test('staff tags user on article creates a notification for tagged user even whe
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$user],
@@ -183,7 +183,7 @@ test('user tags user on article creates a notification for tagged user when ment
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$user],
@@ -236,7 +236,7 @@ test('user tags user on article does not create a notification for tagged user w
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertNotSentTo(
         [$user],
@@ -287,7 +287,7 @@ test('user tags user on article does not create a notification for tagged user w
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertNotSentTo(
         [$user],
@@ -339,7 +339,7 @@ test('user tags user on article does not create a notification for tagged user w
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertNotSentTo(
         [$user],

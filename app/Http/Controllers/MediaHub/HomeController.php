@@ -34,15 +34,15 @@ class HomeController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('mediahub.index', [
-            'tv'               => TmdbTv::count(),
-            'movies'           => TmdbMovie::count(),
-            'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
-            'tvCategoryIds'    => Category::where('tv_meta', '=', 1)->pluck('id')->toArray(),
-            'collections'      => TmdbCollection::count(),
-            'persons'          => TmdbPerson::whereNotNull('still')->count(),
-            'genres'           => TmdbGenre::count(),
-            'networks'         => TmdbNetwork::count(),
-            'companies'        => TmdbCompany::count(),
+            'tv'               => TmdbTv::query()->count(),
+            'movies'           => TmdbMovie::query()->count(),
+            'movieCategoryIds' => Category::query()->where('movie_meta', '=', 1)->pluck('id')->toArray(),
+            'tvCategoryIds'    => Category::query()->where('tv_meta', '=', 1)->pluck('id')->toArray(),
+            'collections'      => TmdbCollection::query()->count(),
+            'persons'          => TmdbPerson::query()->whereNotNull('still')->count(),
+            'genres'           => TmdbGenre::query()->count(),
+            'networks'         => TmdbNetwork::query()->count(),
+            'companies'        => TmdbCompany::query()->count(),
         ]);
     }
 }

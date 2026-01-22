@@ -48,15 +48,15 @@ class ModerationController extends Controller
 
         return view('Staff.moderation.index', [
             'current' => now(),
-            'pending' => Torrent::withoutGlobalScope(ApprovedScope::class)
+            'pending' => Torrent::query()->withoutGlobalScope(ApprovedScope::class)
                 ->with(['user.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', ModerationStatus::PENDING)
                 ->get(),
-            'postponed' => Torrent::withoutGlobalScope(ApprovedScope::class)
+            'postponed' => Torrent::query()->withoutGlobalScope(ApprovedScope::class)
                 ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', ModerationStatus::POSTPONED)
                 ->get(),
-            'rejected' => Torrent::withoutGlobalScope(ApprovedScope::class)
+            'rejected' => Torrent::query()->withoutGlobalScope(ApprovedScope::class)
                 ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', ModerationStatus::REJECTED)
                 ->get(),
@@ -70,7 +70,7 @@ class ModerationController extends Controller
     {
         abort_unless(auth()->user()->group->is_torrent_modo, 403);
 
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->with('user')->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->with('user')->findOrFail($id);
 
         if (ModerationStatus::from($request->integer('old_status')) !== $torrent->status) {
             return to_route('torrents.show', ['id' => $id])
@@ -118,11 +118,11 @@ class ModerationController extends Controller
                     'moderated_by' => $staff->id,
                 ]);
 
-                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been rejected by '.$staff->username]);
+                $conversation = Conversation::query()->create(['subject' => 'Your upload, '.$torrent->name.', has been rejected by '.$staff->username]);
 
                 $conversation->users()->sync([$staff->id => ['read' => true], $torrent->user_id]);
 
-                PrivateMessage::create([
+                PrivateMessage::query()->create([
                     'conversation_id' => $conversation->id,
                     'sender_id'       => $staff->id,
                     'message'         => "Greetings, \n\nYour upload, [url=/torrents/".$id.']'.$torrent->name."[/url], has been rejected. Please see below the message from the staff member.\n\n[quote=".$staff->username.']'.$request->message.'[/quote]',
@@ -142,11 +142,11 @@ class ModerationController extends Controller
                     'moderated_by' => $staff->id,
                 ]);
 
-                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been postponed by '.$staff->username]);
+                $conversation = Conversation::query()->create(['subject' => 'Your upload, '.$torrent->name.', has been postponed by '.$staff->username]);
 
                 $conversation->users()->sync([$staff->id => ['read' => true], $torrent->user_id]);
 
-                PrivateMessage::create([
+                PrivateMessage::query()->create([
                     'conversation_id' => $conversation->id,
                     'sender_id'       => $staff->id,
                     'message'         => "Greetings, \n\nYour upload, [url=/torrents/".$id.']'.$torrent->name."[/url], has been postponed. Please see below the message from the staff member.\n\n[quote=".$staff->username.']'.$request->message.'[/quote]',

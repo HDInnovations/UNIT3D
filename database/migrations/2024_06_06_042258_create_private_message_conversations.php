@@ -69,18 +69,7 @@ return new class () extends Migration {
         DB::table('private_messages')
             ->select('id', 'sender_id', 'receiver_id', 'subject', 'read', 'related_to', 'created_at', 'updated_at')
             ->lazyByIdDesc()
-            ->each(function ($message) use (&$messageId2ConversationId, &$participants, &$privateMessageUpdates, &$conversations): void {
-                /** @var object{
-                 *     id: int,
-                 *     sender_id: int,
-                 *     receiver_id: int,
-                 *     subject: string,
-                 *     read: int,
-                 *     related_to: int,
-                 *     created_at: string,
-                 *     updated_at: string,
-                 * } $message
-                 */
+            ->each(function (object $message) use (&$messageId2ConversationId, &$participants, &$privateMessageUpdates, &$conversations): void {
                 if (\array_key_exists($message->id, $messageId2ConversationId)) {
                     $conversationId = $messageId2ConversationId[$message->id];
 

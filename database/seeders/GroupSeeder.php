@@ -23,7 +23,7 @@ class GroupSeeder extends Seeder
 {
     public function run(): void
     {
-        Group::upsert([
+        Group::query()->upsert([
             [
                 'name'             => 'Validating',
                 'slug'             => 'validating',

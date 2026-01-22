@@ -1,6 +1,6 @@
 # UNIT3D development on Arch Linux with Laravel Sail
 
-<!-- cspell:ignore dockerized,pacman -->
+<!-- cspell:ignore dockerized,pacman,reqs -->
 
 _A guide by EkoNesLeg_
 
@@ -68,7 +68,7 @@ Clone the UNIT3D repository to your local environment:
     Run the following command to install the PHP dependencies:
 
     ```sh
-    composer install
+    composer install --ignore-platform-reqs
     ```
 
 ## Step 3: Docker environment initialization

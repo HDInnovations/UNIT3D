@@ -79,7 +79,7 @@ test('user comments own ticket does not create a notification for self but assig
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$staff],
@@ -134,7 +134,7 @@ test('user comments own ticket does not create a notification for staff when non
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -185,7 +185,7 @@ test('staff comments a ticket creates a notification for the user but not staff'
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$user],
@@ -242,7 +242,7 @@ test('staff comments a ticket create a notification for the user even when all n
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$user],

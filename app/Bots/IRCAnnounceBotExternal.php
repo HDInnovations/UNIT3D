@@ -64,9 +64,9 @@ class IRCAnnounceBotExternal
 
         if ($torrent->tmdb_movie_id > 0 || $torrent->tmdb_tv_id > 0) {
             $meta = match (true) {
-                $category->tv_meta    => TmdbTv::find($torrent->tmdb_tv_id),
-                $category->movie_meta => TmdbMovie::find($torrent->tmdb_movie_id),
-                $category->game_meta  => IgdbGame::find($torrent->igdb),
+                $category->tv_meta    => TmdbTv::query()->find($torrent->tmdb_tv_id),
+                $category->movie_meta => TmdbMovie::query()->find($torrent->tmdb_movie_id),
+                $category->game_meta  => IgdbGame::query()->find($torrent->igdb),
                 default               => null,
             };
         }
@@ -89,9 +89,19 @@ class IRCAnnounceBotExternal
             'double_up'              => $torrent->doubleup,
             'resolution'             => $torrent->resolution?->name ?? '',
             'type'                   => $torrent->type->name,
-            'release_year'           => $meta?->release_date?->format('Y') ?? $meta?->first_air_date?->format('Y') ?? $meta?->first_release_date?->format('Y'),
-            'title'                  => $meta->title ?? $torrent->name,
-            'metadata'               => [
+            'release_year'           => match ($meta::class) {
+                TmdbTv::class    => $meta->first_air_date?->format('Y'),
+                TmdbMovie::class => $meta->release_date?->format('Y'),
+                IgdbGame::class  => $meta->first_release_date?->format('Y'),
+                default          => null,
+            },
+            'title' => match ($meta::class) {
+                TmdbTv::class    => $meta->name,
+                TmdbMovie::class => $meta->title,
+                IgdbGame::class  => $meta->name,
+                default          => $torrent->name,
+            },
+            'metadata' => [
                 'tmdb_id' => $torrent->tmdb_movie_id ?? $torrent->tmdb_tv_id,
                 'imdb_id' => $torrent->imdb,
                 'tvdb_id' => $torrent->tvdb,

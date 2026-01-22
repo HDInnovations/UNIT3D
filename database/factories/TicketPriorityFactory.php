@@ -35,6 +35,8 @@ class TicketPriorityFactory extends Factory
         return [
             'name'     => $this->faker->name(),
             'position' => $this->faker->randomNumber(),
+            'color'    => $this->faker->hexColor(),
+            'icon'     => $this->faker->word(),
         ];
     }
 }

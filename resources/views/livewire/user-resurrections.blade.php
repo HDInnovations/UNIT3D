@@ -184,7 +184,8 @@
                             </td>
                             <td class="user-resurrections__current-seedtime">
                                 @php
-                                    $history = App\Models\History::select(['seedtime'])
+                                    $history = App\Models\History::query()
+                                        ->select(['seedtime'])
                                         ->where('user_id', '=', $user->id)
                                         ->where('torrent_id', '=', $resurrection->torrent_id)
                                         ->first();

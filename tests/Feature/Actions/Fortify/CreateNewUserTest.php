@@ -68,7 +68,7 @@ test('user registration is available when enabled', function (): void {
     Event::assertDispatched(Registered::class);
 
     // Email verification for newly registered user
-    $user = User::where('email', $email)->first();
+    $user = User::query()->where('email', $email)->first();
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(5),
@@ -117,7 +117,7 @@ test('user can register using invite code', function (): void {
     Event::assertDispatched(Registered::class);
 
     // Email verification for newly registered user
-    $user = User::where('email', $email)->first();
+    $user = User::query()->where('email', $email)->first();
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(5),
@@ -195,7 +195,7 @@ test('user cannot confirm email using invalid hash', function (): void {
     Event::assertDispatched(Registered::class);
 
     // Email verification for newly registered user with invalid email
-    $user = User::where('email', $email)->first();
+    $user = User::query()->where('email', $email)->first();
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(5),
@@ -254,7 +254,7 @@ test('user can register using invite code with internal note assigned', function
     Event::assertDispatched(Registered::class);
 
     // Email verification for newly registered user
-    $user = User::where('email', $email)->first();
+    $user = User::query()->where('email', $email)->first();
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(5),

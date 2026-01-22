@@ -22,12 +22,12 @@ test('update returns an ok response', function (): void {
     $this->seed(GroupSeeder::class);
     User::factory()->times(3)->create([
         'email_verified_at' => null,
-        'group_id'          => Group::firstWhere('slug', 'validating')
+        'group_id'          => Group::query()->firstWhere('slug', 'validating')
     ]);
 
     $this->get(route('staff.mass-actions.validate'))
         ->assertRedirect(route('staff.dashboard.index'));
 
-    expect(User::where('email_verified_at', '=', null)->count())
+    expect(User::query()->where('email_verified_at', '=', null)->count())
         ->toBe(0, 'All users should be validated');
 });

@@ -56,10 +56,12 @@ class TmdbPersonCredit extends Component
         get => cache()->get('personal_freeleech:'.auth()->user()->id) ?? false;
     }
 
-    /*
+    /**
      * Livewire doesn't support enum properties, so we have to convert it manually.
+     *
+     * @param-out Occupation $value
      */
-    public function updatingOccupation(&$value): void
+    public function updatingOccupation(int|string &$value): void
     {
         $value = Occupation::from($value);
     }
@@ -105,7 +107,7 @@ class TmdbPersonCredit extends Component
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int, Torrent>
+     * @var \Illuminate\Support\Collection<int, Torrent>
      */
     final protected \Illuminate\Support\Collection $medias {
         get {
@@ -237,7 +239,7 @@ class TmdbPersonCredit extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.tmdb-person-credit', [
-            'user'                    => User::with(['group'])->findOrFail(auth()->user()->id),
+            'user'                    => User::query()->with(['group'])->findOrFail(auth()->user()->id),
             'personalFreeleech'       => $this->personalFreeleech,
             'medias'                  => $this->medias,
             'directedCount'           => $this->directedCount,

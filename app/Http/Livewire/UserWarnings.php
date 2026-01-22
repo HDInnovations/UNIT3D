@@ -99,7 +99,7 @@ class UserWarnings extends Component
 
         $this->validate();
 
-        Warning::create([
+        Warning::query()->create([
             'user_id'    => $this->user->id,
             'warned_by'  => auth()->user()->id,
             'torrent_id' => null,
@@ -222,7 +222,7 @@ class UserWarnings extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        Warning::withTrashed()->findOrFail($id)->restore();
+        Warning::query()->withTrashed()->findOrFail($id)->restore();
 
         $this->dispatch('success', type: 'success', message: 'Warning was successfully restored');
     }
