@@ -216,7 +216,7 @@ class UserController extends Controller
                 Image::make($image->getRealPath())->fit(30, 30)->encode('png', 100)->save($path);
             } else {
                 $request->validate([
-                    'image' => 'dimensions:ratio=1/1',
+                    'icon' => 'dimensions:ratio=1/1',
                 ]);
 
                 $image->storeAs('', $filename, 'user-icons');
