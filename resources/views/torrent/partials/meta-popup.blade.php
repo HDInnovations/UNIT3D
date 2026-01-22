@@ -62,7 +62,7 @@
                     <div class="meta__poster-popup-detail">
                         <span class="detail-label">Creators</span>
                         <span class="detail-value">
-                            {{ $meta->creators->pluck('name')->join(', ') }}
+                            {{ $meta->creators->take(3)->pluck('name')->join(', ') }}
                         </span>
                     </div>
                 @endif
@@ -71,7 +71,7 @@
                     <div class="meta__poster-popup-detail">
                         <span class="detail-label">Actors</span>
                         <span class="detail-value">
-                            {{ $meta->actors->pluck('name')->join(', ') }}
+                            {{ $meta->actors->take(3)->pluck('name')->join(', ') }}
                         </span>
                     </div>
                 @endif
