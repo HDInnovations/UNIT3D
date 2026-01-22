@@ -4,13 +4,18 @@
     display: inline-flex;
     white-space: nowrap;
     align-items: baseline;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .user-tag__link::before {
     margin-right: 0.5ch;
+    flex-shrink: 0;
 }
 
 .user-tag__link ~ i,
 .user-tag__link ~ a {
     margin-left: 0.5ch;
+    flex-shrink: 0;
 }
