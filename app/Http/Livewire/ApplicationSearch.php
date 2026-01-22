@@ -69,7 +69,7 @@ class ApplicationSearch extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $application = Application::withoutGlobalScopes()->findOrFail($id);
+        $application = Application::query()->withoutGlobalScopes()->findOrFail($id);
         $application->urlProofs()->delete();
         $application->imageProofs()->delete();
         $application->delete();

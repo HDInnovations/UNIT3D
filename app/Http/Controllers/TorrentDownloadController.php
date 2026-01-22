@@ -33,7 +33,7 @@ class TorrentDownloadController extends Controller
     public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('torrent.download-check', [
-            'torrent' => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
+            'torrent' => Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
             'user'    => $request->user(),
         ]);
     }
@@ -46,9 +46,9 @@ class TorrentDownloadController extends Controller
         $user = $request->user();
 
         if (!$user && $rsskey) {
-            $user = User::where('rsskey', '=', $rsskey)->sole();
+            $user = User::query()->where('rsskey', '=', $rsskey)->sole();
         }
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->exists();
 
         // User's ratio is too low

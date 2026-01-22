@@ -35,7 +35,7 @@ class CategoryController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.category.index', [
-            'categories' => Category::orderBy('position')->get(),
+            'categories' => Category::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -62,7 +62,7 @@ class CategoryController extends Controller
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
-        Category::create([
+        Category::query()->create([
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',

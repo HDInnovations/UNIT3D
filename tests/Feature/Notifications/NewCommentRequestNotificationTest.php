@@ -68,7 +68,7 @@ test('comment own request does not create a notification for self', function ():
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -117,7 +117,7 @@ test('comment a request creates a notification for the requester', function (): 
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$requester],
@@ -172,7 +172,7 @@ test('comment a request creates a notification for the requester when request co
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$requester],
@@ -225,7 +225,7 @@ test('comment a request creates a notification for the requester when all notifi
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -274,7 +274,7 @@ test('comment a request creates a notification for the requester when request co
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -324,7 +324,7 @@ test('comment a request creates a notification for the requester when request co
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });

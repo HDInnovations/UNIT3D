@@ -48,7 +48,7 @@ class AutoBonAllocation extends Command
     {
         $now = now();
 
-        $bonEarnings = BonEarning::with('conditions')->orderBy('position')->get();
+        $bonEarnings = BonEarning::query()->with('conditions')->orderBy('position')->get();
 
         $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
 
@@ -107,7 +107,20 @@ class AutoBonAllocation extends Command
                                 ->where('peers.seeder', '=', true)
                                 ->where('peers.active', '=', true)
                                 ->where('peers.created_at', '<', now()->subMinutes(30))
-                                ->groupBy(['peers.user_id', 'peers.torrent_id']),
+                                ->groupBy([
+                                    'peers.user_id',
+                                    'peers.torrent_id',
+                                    'torrents.name',
+                                    'torrents.type_id',
+                                    'torrents.created_at',
+                                    'torrents.size',
+                                    'torrents.seeders',
+                                    'torrents.leechers',
+                                    'torrents.times_completed',
+                                    'torrents.internal',
+                                    'torrents.personal_release',
+                                    'history.seedtime',
+                                ]),
                             'earnings_per_user_per_torrent',
                         )
                             ->select([

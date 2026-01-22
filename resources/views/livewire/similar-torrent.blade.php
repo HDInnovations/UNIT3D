@@ -1098,11 +1098,7 @@
                         </div>
                     </div>
                 </header>
-                <div
-                    class="panel__body collection-posters"
-                    x-ref="posters"
-                    style="max-height: 330px !important"
-                >
+                <div class="panel__body collection__posters" x-ref="posters">
                     @foreach ($collectionMovies as $collectionMovie)
                         <x-movie.poster :movie="$collectionMovie" :categoryId="$category->id" />
                     @endforeach

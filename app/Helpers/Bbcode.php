@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 use App\Models\WhitelistedImageUrl;
+use Illuminate\Support\Str;
 
 class Bbcode
 {
@@ -186,7 +187,7 @@ class Bbcode
                 'openBbcode'  => '/^\[code\]/i',
                 'closeBbcode' => '[/code]',
                 'openHtml'    => '<div class="bbcode-rendered__clipboard" x-data="clipboardButton"><pre><code>',
-                'closeHtml'   => '</code></pre><div class="bbcode-rendered__clipboard-container"><button class="bbcode-rendered__clipboard-button" x-bind="button"><i class="fa fa-clone"></i></button></div></div>',
+                'closeHtml'   => '</code></pre><div class="bbcode-rendered__clipboard-container"><button type="button" class="bbcode-rendered__clipboard-button" x-bind="button"><i class="fa fa-clone"></i></button></div></div>',
                 'block'       => true,
             ],
             'pre' => [
@@ -283,6 +284,17 @@ class Bbcode
     {
         $source ??= '';
         $source = htmlspecialchars($source, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8');
+
+        // Censor words
+        foreach (config('censor.redact', []) as $word) {
+            $source = preg_replace("/\b{$word}(?=[.,]|$|\s)/mi", "<span class='censor'>{$word}</span>", (string) $source);
+        }
+
+        foreach (config('censor.replace', []) as $word => $replacementWord) {
+            if (Str::contains($source, $word)) {
+                $source = str_replace($word, $replacementWord, (string) $source);
+            }
+        }
 
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', (string) $source);

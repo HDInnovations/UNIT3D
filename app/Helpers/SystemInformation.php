@@ -37,7 +37,7 @@ class SystemInformation
     ];
 
     /**
-     * @return null|array{
+     * @return array{
      *     '1-minute': string,
      *     '5-minute': string,
      *     '15-minute': string,
@@ -45,28 +45,25 @@ class SystemInformation
      */
     public function avg(): ?array
     {
-        // cspell:ignore loadavg
-        if (is_readable('/proc/loadavg')) {
-            $file = file_get_contents('/proc/loadavg');
+        $loads = sys_getloadavg();
 
-            if ($file === false) {
-                return null;
-            }
-
-            $loads = explode(' ', $file);
-
+        if ($loads === false) {
             return [
-                '1-minute'  => $loads[0],
-                '5-minute'  => $loads[1],
-                '15-minute' => $loads[2],
+                '1-minute'  => __('common.unknown'),
+                '5-minute'  => __('common.unknown'),
+                '15-minute' => __('common.unknown'),
             ];
         }
 
-        return null;
+        return [
+            '1-minute'  => number_format($loads[0], 2),
+            '5-minute'  => number_format($loads[1], 2),
+            '15-minute' => number_format($loads[2], 2),
+        ];
     }
 
     /**
-     * @return null|array{
+     * @return array{
      *     total: string,
      *     available: string,
      *     used: string,
@@ -74,29 +71,33 @@ class SystemInformation
      */
     public function memory(): ?array
     {
-        if (is_readable('/proc/meminfo')) {
-            $content = file_get_contents('/proc/meminfo');
-
-            if ($content === false) {
-                return null;
-            }
-
-            preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
-            $total = ((int) $matches[1]) * 1_024;
-            preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
-            $available = ((int) $matches[1]) * 1_024;
-
+        if (!is_readable('/proc/meminfo')) {
             return [
-                'total'     => $this->formatBytes($total),
-                'available' => $this->formatBytes($available),
-                'used'      => $this->formatBytes($total - $available),
+                'total'     => __('common.unknown'),
+                'available' => __('common.unknown'),
+                'used'      => __('common.unknown'),
             ];
         }
 
+        $content = file_get_contents('/proc/meminfo');
+
+        if ($content === false) {
+            return [
+                'total'     => __('common.unknown'),
+                'available' => __('common.unknown'),
+                'used'      => __('common.unknown'),
+            ];
+        }
+
+        preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
+        $total = ((int) $matches[1]) * 1_024;
+        preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
+        $available = ((int) $matches[1]) * 1_024;
+
         return [
-            'total'     => '0',
-            'available' => '0',
-            'used'      => '0',
+            'total'     => $this->formatBytes($total),
+            'available' => $this->formatBytes($available),
+            'used'      => $this->formatBytes($total - $available),
         ];
     }
 
@@ -124,20 +125,34 @@ class SystemInformation
         $total = disk_total_space(base_path());
         $free = disk_free_space(base_path());
 
+        if ($total === false || $free === false) {
+            return [
+                'total' => __('common.unknown'),
+                'free'  => __('common.unknown'),
+                'used'  => __('common.unknown'),
+            ];
+        }
+
         return [
-            'total' => $this->formatBytes($total ?: 0),
-            'free'  => $this->formatBytes($free ?: 0),
-            'used'  => $this->formatBytes(($total ?: 0) - ($free ?: 0)),
+            'total' => $this->formatBytes($total),
+            'free'  => $this->formatBytes($free),
+            'used'  => $this->formatBytes($total - $free),
         ];
     }
 
     public function uptime(): ?float
     {
-        if (is_readable('/proc/uptime')) {
-            return (float) file_get_contents('/proc/uptime');
+        if (!is_readable('/proc/uptime')) {
+            return null;
         }
 
-        return null;
+        $uptime = file_get_contents('/proc/uptime');
+
+        if ($uptime === false) {
+            return null;
+        }
+
+        return (float) $uptime;
     }
 
     /**
@@ -213,7 +228,7 @@ class SystemInformation
         try {
             return substr(\sprintf('%o', fileperms(base_path($path))), -4);
         } catch (Exception) {
-            return trans('site.error');
+            return __('common.unknown');
         }
     }
 }

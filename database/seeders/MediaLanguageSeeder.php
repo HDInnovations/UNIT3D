@@ -24,7 +24,7 @@ class MediaLanguageSeeder extends Seeder
 {
     public function run(): void
     {
-        MediaLanguage::upsert([
+        MediaLanguage::query()->upsert([
             [
                 'code' => 'aa',
                 'name' => 'Afar',

@@ -44,8 +44,8 @@ class WishController extends Controller
                 ->withCount(['movieTorrents', 'tvTorrents'])
                 ->latest()
                 ->paginate(25),
-            'movieCategoryIds' => Category::where('movie_meta', '=', 1)->pluck('id')->toArray(),
-            'tvCategoryIds'    => Category::where('tv_meta', '=', 1)->pluck('id')->toArray(),
+            'movieCategoryIds' => Category::query()->where('movie_meta', '=', 1)->pluck('id')->toArray(),
+            'tvCategoryIds'    => Category::query()->where('tv_meta', '=', 1)->pluck('id')->toArray(),
             'route'            => 'wish',
         ]);
     }
@@ -70,7 +70,7 @@ class WishController extends Controller
 
                 $title = $meta['title'].' ('.$meta['release_date'].')';
 
-                Wish::create([
+                Wish::query()->create([
                     'user_id'       => $user->id,
                     'title'         => $title,
                     'tmdb_movie_id' => $request->tmdb_movie_id,
@@ -87,7 +87,7 @@ class WishController extends Controller
 
                 $title = $meta['name'].' ('.$meta['first_air_date'].')';
 
-                Wish::create([
+                Wish::query()->create([
                     'user_id'    => $user->id,
                     'title'      => $title,
                     'tmdb_tv_id' => $request->tmdb_tv_id,

@@ -63,7 +63,7 @@ class TransactionController extends Controller
 
         return DB::transaction(function () use ($request, $user) {
             $user->refresh();
-            $bonExchange = BonExchange::findOrFail($request->integer('exchange'));
+            $bonExchange = BonExchange::query()->findOrFail($request->integer('exchange'));
 
             if ($bonExchange->cost > $user->seedbonus) {
                 return back()->withErrors('Not enough BON.');
@@ -91,7 +91,7 @@ class TransactionController extends Controller
                         return back()->withErrors('Your previous personal freeleech is still active.');
                     }
 
-                    PersonalFreeleech::create(['user_id' => $user->id]);
+                    PersonalFreeleech::query()->create(['user_id' => $user->id]);
 
                     cache()->put('personal_freeleech:'.$user->id, true);
 
@@ -114,7 +114,7 @@ class TransactionController extends Controller
                     break;
             }
 
-            BonTransactions::create([
+            BonTransactions::query()->create([
                 'bon_exchange_id' => $bonExchange->id,
                 'name'            => $bonExchange->description,
                 'cost'            => $bonExchange->value,

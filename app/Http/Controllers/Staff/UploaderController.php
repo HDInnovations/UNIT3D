@@ -27,7 +27,8 @@ class UploaderController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.uploader.index', [
-            'uploaders' => User::with(['group'])
+            'uploaders' => User::query()
+                ->with(['group'])
                 ->withCount('torrents as total_uploads')
                 ->whereRelation('group', 'is_uploader', '=', true)
                 // Count recent uploads for current user

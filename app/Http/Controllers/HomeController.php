@@ -67,7 +67,8 @@ class HomeController extends Controller
             'users' => cache()->flexible(
                 'online_users:by-group:'.auth()->user()->group_id,
                 $expiresAt,
-                fn () => User::with('group', 'privacy')
+                fn () => User::query()
+                    ->with('group', 'privacy')
                     ->withCount([
                         'warnings' => function (Builder $query): void {
                             $query->whereNotNull('torrent_id')->where('active', true);
@@ -81,13 +82,14 @@ class HomeController extends Controller
             'groups' => cache()->flexible(
                 'user-groups',
                 $expiresAt,
-                fn () => Group::select([
-                    'id',
-                    'name',
-                    'color',
-                    'effect',
-                    'icon',
-                ])
+                fn () => Group::query()
+                    ->select([
+                        'id',
+                        'name',
+                        'color',
+                        'effect',
+                        'icon',
+                    ])
                     ->oldest('position')
                     ->get()
             ),
@@ -132,13 +134,13 @@ class HomeController extends Controller
             'featured' => cache()->flexible(
                 'latest_featured',
                 $expiresAt,
-                fn () => FeaturedTorrent::with([
+                fn () => FeaturedTorrent::query()->with([
                     'torrent' => ['resolution', 'type', 'category'],
                     'user.group',
                 ])->get(),
             ),
             'poll' => cache()->flexible('latest_poll', $expiresAt, function () {
-                return Poll::where(function ($query): void {
+                return Poll::query()->where(function ($query): void {
                     $query->where('expires_at', '>', now())
                         ->orWhereNull('expires_at');
                 })->latest()->first();

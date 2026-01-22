@@ -245,7 +245,8 @@ readonly class TorrentSearchFiltersDTO
                 fn ($query) => $query
                     ->whereIn(
                         'id',
-                        PlaylistTorrent::select('torrent_id')
+                        PlaylistTorrent::query()
+                            ->select('torrent_id')
                             ->where('playlist_id', '=', $this->playlistId)
                             ->when(
                                 $this->user === null,
@@ -383,12 +384,12 @@ readonly class TorrentSearchFiltersDTO
                             ->where(
                                 fn ($query) => $query
                                     ->whereRelation('category', 'movie_meta', '=', true)
-                                    ->whereIn('tmdb_movie_id', Wish::select('tmdb_movie_id')->where('user_id', '=', $this->user->id))
+                                    ->whereIn('tmdb_movie_id', Wish::query()->select('tmdb_movie_id')->where('user_id', '=', $this->user->id))
                             )
                             ->orWhere(
                                 fn ($query) => $query
                                     ->whereRelation('category', 'tv_meta', '=', true)
-                                    ->whereIn('tmdb_tv_id', Wish::select('tmdb_tv_id')->where('user_id', '=', $this->user->id))
+                                    ->whereIn('tmdb_tv_id', Wish::query()->select('tmdb_tv_id')->where('user_id', '=', $this->user->id))
                             )
                     )
             )
@@ -550,6 +551,7 @@ readonly class TorrentSearchFiltersDTO
             $filters[] = [
                 'tmdb_movie.adult = '.($this->adult ? 'true' : 'false'),
                 'tmdb_tv.adult = '.($this->adult ? 'true' : 'false'),
+                'tmdb_movie_id IS NULL AND tmdb_tv_id IS NULL',
             ];
         }
 

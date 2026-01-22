@@ -97,7 +97,7 @@ class ProcessTvJob implements ShouldQueue
             return;
         }
 
-        $tv = TmdbTv::updateOrCreate(['id' => $this->id], $tvScraper->getTv());
+        $tv = TmdbTv::query()->updateOrCreate(['id' => $this->id], $tvScraper->getTv());
 
         // Companies
 
@@ -107,7 +107,7 @@ class ProcessTvJob implements ShouldQueue
             $companies[] = (new Client\Company($company['id']))->getCompany();
         }
 
-        TmdbCompany::upsert($companies, 'id');
+        TmdbCompany::query()->upsert($companies, 'id');
         $tv->companies()->sync(array_unique(array_column($companies, 'id')));
 
         // Networks
@@ -118,12 +118,12 @@ class ProcessTvJob implements ShouldQueue
             $networks[] = (new Client\Network($network['id']))->getNetwork();
         }
 
-        TmdbNetwork::upsert($networks, 'id');
+        TmdbNetwork::query()->upsert($networks, 'id');
         $tv->networks()->sync(array_unique(array_column($networks, 'id')));
 
         // Genres
 
-        TmdbGenre::upsert($tvScraper->getGenres(), 'id');
+        TmdbGenre::query()->upsert($tvScraper->getGenres(), 'id');
         $tv->genres()->sync(array_unique(array_column($tvScraper->getGenres(), 'id')));
 
         // People
@@ -147,15 +147,15 @@ class ProcessTvJob implements ShouldQueue
         }
 
         foreach (collect($people)->chunk(intdiv(65_000, 13)) as $people) {
-            TmdbPerson::upsert($people->toArray(), 'id');
+            TmdbPerson::query()->upsert($people->toArray(), 'id');
         }
 
         if ($cache !== []) {
             cache()->put($cache, 8 * 3600);
         }
 
-        TmdbCredit::where('tmdb_tv_id', '=', $this->id)->delete();
-        TmdbCredit::upsert($credits, ['tmdb_person_id', 'tmdb_movie_id', 'tmdb_tv_id', 'occupation_id', 'character']);
+        TmdbCredit::query()->where('tmdb_tv_id', '=', $this->id)->delete();
+        TmdbCredit::query()->upsert($credits, ['tmdb_person_id', 'tmdb_movie_id', 'tmdb_tv_id', 'occupation_id', 'character']);
 
         // Recommendations
 

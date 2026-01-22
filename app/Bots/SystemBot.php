@@ -41,7 +41,7 @@ class SystemBot
 
     public function __construct(private readonly ChatRepository $chatRepository)
     {
-        $this->bot = Bot::where('is_systembot', '=', true)->sole();
+        $this->bot = Bot::query()->where('is_systembot', '=', true)->sole();
     }
 
     public function replaceVars(string $output): string
@@ -50,7 +50,7 @@ class SystemBot
 
         if (str_contains($output, '{bots}')) {
             $botHelp = '';
-            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
+            $bots = Bot::query()->where('active', '=', 1)->where('id', '!=', $this->bot->id)->oldest('position')->get();
 
             foreach ($bots as $bot) {
                 $botHelp .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
@@ -84,7 +84,7 @@ class SystemBot
         ]);
 
         if ($v->passes()) {
-            $recipient = User::where('username', 'LIKE', $receiver)->first();
+            $recipient = User::query()->where('username', 'LIKE', $receiver)->first();
 
             if (!$recipient || $recipient->id === $this->target->id) {
                 return 'Your BON gift could not be sent.';
@@ -95,7 +95,7 @@ class SystemBot
             $recipient->increment('seedbonus', $amount);
             $this->target->decrement('seedbonus', $amount);
 
-            $gift = Gift::create([
+            $gift = Gift::query()->create([
                 'sender_id'    => $this->target->id,
                 'recipient_id' => $recipient->id,
                 'bon'          => $amount,
@@ -165,40 +165,34 @@ class SystemBot
 
         if ($type === 'message' || $type === 'private') {
             // Create echo for user if missing
-            $echoes = cache()->remember(
-                'user-echoes'.$target->id,
-                3600,
-                fn () => UserEcho::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
-            );
+            $affected = UserEcho::query()->upsert([[
+                'user_id' => $target->id,
+                'bot_id'  => $this->bot->id,
+            ]], ['user_id', 'bot_id']);
 
-            if ($echoes->doesntContain(fn ($echo) => $echo->bot_id == $this->bot->id)) {
-                $echoes->push(UserEcho::create([
-                    'user_id' => $target->id,
-                    'bot_id'  => $this->bot->id,
-                ]));
-
-                cache()->put('user-echoes'.$target->id, $echoes, 3600);
-
-                Chatter::dispatch('echo', $target->id, UserEchoResource::collection($echoes));
+            if ($affected === 1) {
+                Chatter::dispatch('echo', $target->id, UserEchoResource::collection(
+                    UserEcho::query()
+                        ->with(['user', 'room', 'target', 'bot'])
+                        ->where('user_id', '=', $target->id)
+                        ->get()
+                ));
             }
 
             // Create audible for user if missing
-            $audibles = cache()->remember(
-                'user-audibles'.$target->id,
-                3600,
-                fn () => UserAudible::with(['user', 'room', 'target', 'bot'])->where('user_id', '=', $target->id)->get()
-            );
+            $affected = UserAudible::query()->upsert([[
+                'user_id' => $target->id,
+                'bot_id'  => $this->bot->id,
+                'status'  => false,
+            ]], ['user_id', 'bot_id']);
 
-            if ($audibles->doesntContain(fn ($audible) => $audible->bot_id == $this->bot->id)) {
-                $audibles->push(UserAudible::create([
-                    'user_id' => $target->id,
-                    'bot_id'  => $this->bot->id,
-                    'status'  => false,
-                ]));
-
-                cache()->put('user-audibles'.$target->id, $audibles, 3600);
-
-                Chatter::dispatch('audible', $target->id, UserAudibleResource::collection($audibles));
+            if ($affected === 1) {
+                Chatter::dispatch('audible', $target->id, UserAudibleResource::collection(
+                    UserAudible::query()
+                        ->with(['user', 'room', 'target', 'bot'])
+                        ->where('user_id', '=', $target->id)
+                        ->get()
+                ));
             }
 
             // Create message

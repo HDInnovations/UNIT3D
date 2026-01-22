@@ -49,7 +49,7 @@ class BlockIpAddress extends Component
 
         $this->validate();
 
-        BlockedIp::create([
+        BlockedIp::query()->create([
             'ip_address' => $this->ipAddress,
             'reason'     => $this->reason,
             'user_id'    => auth()->user()->id,

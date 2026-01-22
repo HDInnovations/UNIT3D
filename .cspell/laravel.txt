@@ -3,6 +3,7 @@ assertdontseetext
 dispatchable
 doesntcontain
 doesntexist
+doesntExpectOutput
 dontbroadcasttocurrentuser
 dontflash
 dontrelease

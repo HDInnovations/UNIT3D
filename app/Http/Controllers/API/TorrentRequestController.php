@@ -61,7 +61,8 @@ class TorrentRequestController extends Controller
      */
     public function show(int $id): \Illuminate\Http\JsonResponse
     {
-        $request = TorrentRequest::with(['user', 'claim.user', 'filler'])
+        $request = TorrentRequest::query()
+            ->with(['user', 'claim.user', 'filler'])
             ->withSum('bounties', 'seedbonus')
             ->findOrFail($id);
 

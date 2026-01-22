@@ -36,12 +36,16 @@ class EmailBlacklistUpdater
 
         if (cache()->get($key) === null) {
             try {
-                $domains = Http::get($url)->json();
+                /** @var \Illuminate\Http\Client\Response $response */
+                $response = Http::get($url);
+                $domains = $response->json();
             } catch (Exception) {
                 $domains = [];
             }
         } else {
-            $domains = Http::get($url)->json();
+            /** @var \Illuminate\Http\Client\Response $response */
+            $response = Http::get($url);
+            $domains = $response->json();
         }
 
         $count = is_countable($domains) ? \count($domains) : 0;

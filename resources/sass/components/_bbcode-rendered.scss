@@ -534,4 +534,10 @@
             padding-right: 1ch;
         }
     }
+
+    /* Censor */
+
+    &.bbcode-rendered__censor .censor:not(:hover) {
+        filter: blur(0.5em);
+    }
 }

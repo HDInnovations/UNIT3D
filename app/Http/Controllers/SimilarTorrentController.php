@@ -41,12 +41,13 @@ class SimilarTorrentController extends Controller
 
                 abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
 
-                $meta = TmdbMovie::with([
-                    'genres',
-                    'credits' => ['person', 'occupation'],
-                    'companies',
-                    'collections.movies',
-                ])
+                $meta = TmdbMovie::query()
+                    ->with([
+                        'genres',
+                        'credits' => ['person', 'occupation'],
+                        'companies',
+                        'collections.movies',
+                    ])
                     ->findOrFail($tmdbId);
                 $tmdb = $tmdbId;
 
@@ -56,12 +57,13 @@ class SimilarTorrentController extends Controller
 
                 abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
 
-                $meta = TmdbTv::with([
-                    'genres',
-                    'credits' => ['person', 'occupation'],
-                    'companies',
-                    'networks'
-                ])
+                $meta = TmdbTv::query()
+                    ->with([
+                        'genres',
+                        'credits' => ['person', 'occupation'],
+                        'companies',
+                        'networks'
+                    ])
                     ->findOrFail($tmdbId);
                 $tmdb = $tmdbId;
 
@@ -71,11 +73,12 @@ class SimilarTorrentController extends Controller
 
                 abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
 
-                $meta = IgdbGame::with([
-                    'genres',
-                    'companies',
-                    'platforms',
-                ])
+                $meta = IgdbGame::query()
+                    ->with([
+                        'genres',
+                        'companies',
+                        'platforms',
+                    ])
                     ->findOrFail($tmdbId);
 
                 $igdb = $tmdbId;
@@ -107,18 +110,18 @@ class SimilarTorrentController extends Controller
             $metaId === 0
             || (
                 $category->movie_meta
-                && Torrent::where('category_id', '=', $category->id)->where('tmdb_movie_id', '=', $metaId)->doesntExist()
-                && TorrentRequest::where('category_id', '=', $category->id)->where('tmdb_movie_id', '=', $metaId)->doesntExist()
+                && Torrent::query()->where('category_id', '=', $category->id)->where('tmdb_movie_id', '=', $metaId)->doesntExist()
+                && TorrentRequest::query()->where('category_id', '=', $category->id)->where('tmdb_movie_id', '=', $metaId)->doesntExist()
             )
             || (
                 $category->tv_meta
-                && Torrent::where('category_id', '=', $category->id)->where('tmdb_tv_id', '=', $metaId)->doesntExist()
-                && TorrentRequest::where('category_id', '=', $category->id)->where('tmdb_tv_id', '=', $metaId)->doesntExist()
+                && Torrent::query()->where('category_id', '=', $category->id)->where('tmdb_tv_id', '=', $metaId)->doesntExist()
+                && TorrentRequest::query()->where('category_id', '=', $category->id)->where('tmdb_tv_id', '=', $metaId)->doesntExist()
             )
             || (
                 $category->game_meta
-                && Torrent::where('category_id', '=', $category->id)->where('igdb', '=', $metaId)->doesntExist()
-                && TorrentRequest::where('category_id', '=', $category->id)->where('igdb', '=', $metaId)->doesntExist()
+                && Torrent::query()->where('category_id', '=', $category->id)->where('igdb', '=', $metaId)->doesntExist()
+                && TorrentRequest::query()->where('category_id', '=', $category->id)->where('igdb', '=', $metaId)->doesntExist()
             )
         ) {
             return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $metaId])

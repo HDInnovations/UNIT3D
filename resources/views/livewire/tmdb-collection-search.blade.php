@@ -24,16 +24,7 @@
         <ul class="collection__list">
             @foreach ($collections as $collection)
                 <li class="collection__list-item">
-                    <article
-                        class="collection"
-                        style="
-                            background-image: linear-gradient(
-                                    rgba(0, 0, 0, 0.87),
-                                    rgba(45, 71, 131, 0.46)
-                                ),
-                                url({{ isset($collection->backdrop) ? tmdb_image('back_big', $collection->backdrop) : 'https://via.placeholder.com/1280x300' }});
-                        "
-                    >
+                    <article class="collection">
                         <h3 class="collection__heading">
                             <a
                                 class="collection__link"
@@ -42,10 +33,14 @@
                                 {{ $collection->name }}
                             </a>
                         </h3>
-                        <p class="collection__description">
-                            {{ __('mediahub.includes') }}
-                            {{ $collection->movies->pluck('title')->implode(',') }}
-                        </p>
+                        <div class="collection__posters">
+                            @foreach ($collection->movies as $movie)
+                                <x-movie.poster
+                                    :$movie
+                                    :categoryId="$movie->torrents_min_category_id"
+                                />
+                            @endforeach
+                        </div>
                     </article>
                 </li>
             @endforeach

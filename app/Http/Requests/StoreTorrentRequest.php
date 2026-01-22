@@ -61,7 +61,7 @@ class StoreTorrentRequest extends FormRequest
     public function rules(Request $request): array
     {
         $user = $request->user()->loadExists('internals');
-        $category = Category::findOrFail($request->integer('category_id'));
+        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {
             if ($value !== null) {
@@ -98,7 +98,7 @@ class StoreTorrentRequest extends FormRequest
                         }
                     }
 
-                    $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
+                    $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
 
                     if ($torrent !== null) {
                         match ($torrent->status) {

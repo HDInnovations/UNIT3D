@@ -50,7 +50,8 @@ class AutoPreWarning extends Command
             return;
         }
 
-        $prewarn = History::with(['user'])
+        $prewarn = History::query()
+            ->with(['user'])
             ->whereNull('prewarned_at')
             ->where('hitrun', '=', 0)
             ->where('immune', '=', 0)

@@ -319,7 +319,7 @@ class TorrentController extends Controller
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless($user->group->is_editor || $user->group->is_modo || $user->id === $torrent->user_id, 403);
 
@@ -340,11 +340,11 @@ class TorrentController extends Controller
                         },
                     ]
                 ]),
-            'types'        => Type::orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]),
-            'resolutions'  => Resolution::orderBy('position')->get(),
-            'regions'      => Region::orderBy('position')->get(),
-            'distributors' => Distributor::orderBy('name')->get(),
-            'keywords'     => Keyword::where('torrent_id', '=', $torrent->id)->pluck('name'),
+            'types'        => Type::query()->orderBy('position')->get()->mapWithKeys(fn ($type) => [$type['id'] => ['name' => $type['name']]]),
+            'resolutions'  => Resolution::query()->orderBy('position')->get(),
+            'regions'      => Region::query()->orderBy('position')->get(),
+            'distributors' => Distributor::query()->orderBy('name')->get(),
+            'keywords'     => Keyword::query()->where('torrent_id', '=', $torrent->id)->pluck('name'),
             'torrent'      => $torrent,
             'user'         => $user,
         ]);
@@ -356,7 +356,7 @@ class TorrentController extends Controller
     public function update(UpdateTorrentRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless(
             $user->group->is_editor
@@ -396,7 +396,7 @@ class TorrentController extends Controller
         }
 
         // Torrent Keywords System
-        Keyword::where('torrent_id', '=', $torrent->id)->delete();
+        Keyword::query()->where('torrent_id', '=', $torrent->id)->delete();
 
         $keywords = [];
 
@@ -405,7 +405,7 @@ class TorrentController extends Controller
         }
 
         foreach (collect($keywords)->chunk(65_000 / 2) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
+            Keyword::query()->upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         // Meta
@@ -436,7 +436,7 @@ class TorrentController extends Controller
         ]);
 
         $user = $request->user();
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless($user->group->is_modo || ($user->id === $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay())), 403);
 
@@ -462,6 +462,7 @@ class TorrentController extends Controller
         $torrent->subtitles()->delete();
         $torrent->resurrections()->delete();
         $torrent->featured()->delete();
+        $torrent->reseeds()->delete();
 
         $freeleechTokens = $torrent->freeleechTokens();
 
@@ -490,7 +491,7 @@ class TorrentController extends Controller
         abort_unless($user->can_upload ?? $user->group->can_upload, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
         return view('torrent.create', [
-            'categories' => Category::orderBy('position')
+            'categories' => Category::query()->orderBy('position')
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
@@ -504,10 +505,10 @@ class TorrentController extends Controller
                     },
                 ]])
                 ->toArray(),
-            'types'        => Type::orderBy('position')->get(),
-            'resolutions'  => Resolution::orderBy('position')->get(),
-            'regions'      => Region::orderBy('position')->get(),
-            'distributors' => Distributor::orderBy('name')->get(),
+            'types'        => Type::query()->orderBy('position')->get(),
+            'resolutions'  => Resolution::query()->orderBy('position')->get(),
+            'regions'      => Region::query()->orderBy('position')->get(),
+            'distributors' => Distributor::query()->orderBy('name')->get(),
             'user'         => $request->user(),
             'category_id'  => $request->category_id ?? Category::query()->first()->id,
             'title'        => urldecode((string) $request->title),
@@ -539,7 +540,7 @@ class TorrentController extends Controller
         $fileName = uniqid('', true).'.torrent'; // Generate a unique name
         Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
 
-        $torrent = Torrent::create([
+        $torrent = Torrent::query()->create([
             'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
@@ -555,7 +556,7 @@ class TorrentController extends Controller
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
 
-        $category = Category::findOrFail($request->integer('category_id'));
+        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
@@ -567,7 +568,7 @@ class TorrentController extends Controller
         // Can't insert them all at once since some torrents have more files than mysql supports placeholders.
         // Divide by 3 since we're inserting 3 fields: name, size and torrent_id
         foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
-            TorrentFile::insert($files->toArray());
+            TorrentFile::query()->insert($files->toArray());
         }
 
         // Cover Image for No-Meta Torrents
@@ -614,7 +615,7 @@ class TorrentController extends Controller
         }
 
         foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
+            Keyword::query()->upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         // check for trusted user and update torrent

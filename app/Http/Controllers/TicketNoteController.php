@@ -31,7 +31,7 @@ class TicketNoteController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_modo, 403);
 
-        TicketNote::create(['ticket_id' => $ticket->id, 'user_id' => $user->id] + $request->validated());
+        TicketNote::query()->create(['ticket_id' => $ticket->id, 'user_id' => $user->id] + $request->validated());
 
         return to_route('tickets.show', ['ticket' => $ticket])
             ->with('success', trans('ticket.note-create-success'));

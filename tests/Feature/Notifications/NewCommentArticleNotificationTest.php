@@ -73,7 +73,7 @@ test('user comments on article creates a notification for staff', function (): v
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$staff],
@@ -119,7 +119,7 @@ test('staff comments on own article does not create a notification for staff', f
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -168,7 +168,7 @@ test('user comments on article does not a notification for staff user when all n
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });

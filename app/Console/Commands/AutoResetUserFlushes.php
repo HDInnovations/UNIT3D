@@ -45,7 +45,7 @@ class AutoResetUserFlushes extends Command
     final public function handle(): void
     {
         // Updates own_flushes for each user
-        User::where('own_flushes', '<', 2)->update(['own_flushes' => 2]);
+        User::query()->where('own_flushes', '<', 2)->update(['own_flushes' => 2]);
 
         $this->comment('Automated reset user flushes command complete');
     }
