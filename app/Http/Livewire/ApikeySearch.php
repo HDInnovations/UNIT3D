@@ -53,7 +53,7 @@ class ApikeySearch extends Component
             ->with([
                 'user' => fn ($query) => $query->withTrashed()->with('group'),
             ])
-            ->when($this->username, fn ($query) => $query->whereIn('user_id', User::withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->username.'%')))
+            ->when($this->username, fn ($query) => $query->whereIn('user_id', User::query()->withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->username.'%')))
             ->when($this->apikey, fn ($query) => $query->where('content', 'LIKE', '%'.$this->apikey.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);

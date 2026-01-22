@@ -69,7 +69,7 @@ test('comments on playlist creates a notification for playlist owner', function 
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$owner],
@@ -114,7 +114,7 @@ test('user comments on own playlist does not create a notification for self', fu
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -159,7 +159,7 @@ test('comments on playlist does not create a notification for playlist owner whe
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });

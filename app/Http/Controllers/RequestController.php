@@ -97,7 +97,7 @@ class RequestController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('requests.create', [
-            'categories' => Category::orderBy('position')
+            'categories' => Category::query()->orderBy('position')
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
@@ -111,10 +111,10 @@ class RequestController extends Controller
                     },
                 ]])
                 ->toArray(),
-            'types'       => Type::orderBy('position')->get(),
-            'resolutions' => Resolution::orderBy('position')->get(),
+            'types'       => Type::query()->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->orderBy('position')->get(),
             'user'        => $request->user(),
-            'category_id' => $request->category_id ?? Category::first('id')->id,
+            'category_id' => $request->category_id ?? Category::query()->first('id')->id,
             'title'       => urldecode((string) $request->title),
             'imdb'        => $request->imdb,
             'movieId'     => $request->tmdb_movie_id,
@@ -134,9 +134,9 @@ class RequestController extends Controller
 
         $user->decrement('seedbonus', $request->bounty);
 
-        $torrentRequest = TorrentRequest::create(['user_id' => $request->user()->id] + $request->validated());
+        $torrentRequest = TorrentRequest::query()->create(['user_id' => $request->user()->id] + $request->validated());
 
-        TorrentRequestBounty::create([
+        TorrentRequestBounty::query()->create([
             'user_id'     => $user->id,
             'seedbonus'   => $request->bounty,
             'requests_id' => $torrentRequest->id,
@@ -187,8 +187,8 @@ class RequestController extends Controller
                         },
                     ]
                 ]),
-            'types'          => Type::orderBy('position')->get(),
-            'resolutions'    => Resolution::orderBy('position')->get(),
+            'types'          => Type::query()->orderBy('position')->get(),
+            'resolutions'    => Resolution::query()->orderBy('position')->get(),
             'user'           => $request->user(),
             'torrentRequest' => $torrentRequest,
         ]);

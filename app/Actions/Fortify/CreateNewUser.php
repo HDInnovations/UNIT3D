@@ -68,7 +68,7 @@ class CreateNewUser implements CreatesNewUsers
             ]
         ])->validate();
 
-        $user = User::create([
+        $user = User::query()->create([
             'username'   => $input['username'],
             'email'      => $input['email'],
             'password'   => Hash::make($input['password']),
@@ -86,7 +86,7 @@ class CreateNewUser implements CreatesNewUsers
         $user->emailUpdates()->create();
 
         if (config('other.invite-only') === true) {
-            $invite = Invite::where('code', '=', $input['code'])->first();
+            $invite = Invite::query()->where('code', '=', $input['code'])->first();
             $invite->update([
                 'accepted_by' => $user->id,
                 'accepted_at' => now(),

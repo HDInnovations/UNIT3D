@@ -16,14 +16,22 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Http\Middleware\RateLimitOutboundMail;
 use App\Models\User;
+use DateTime;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserWarning extends Notification
+class UserWarning extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 1;
 
     /**
      * Create a new notification instance.
@@ -40,6 +48,19 @@ class UserWarning extends Notification
     public function via(object $notifiable): array
     {
         return ['database', 'mail'];
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(object $notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail'  => [new RateLimitOutboundMail()],
+            default => [],
+        };
     }
 
     /**
@@ -66,5 +87,13 @@ class UserWarning extends Notification
             'body'  => 'You have received an automated hit and run WARNING on one or more torrents! View your unsatisfied torrents and seed off your warnings or wait until they expire!',
             'url'   => route('users.history.index', ['user' => $this->user]),
         ];
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(2);
     }
 }

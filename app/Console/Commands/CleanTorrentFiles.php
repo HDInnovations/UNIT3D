@@ -48,7 +48,7 @@ class CleanTorrentFiles extends Command
     {
         $this->alert('Torrent file cleaning started');
 
-        Torrent::withoutGlobalScopes()->select('file_name')->orderBy('id')->chunk(100, function ($torrents): void {
+        Torrent::query()->withoutGlobalScopes()->select('file_name')->orderBy('id')->chunk(100, function ($torrents): void {
             foreach ($torrents as $torrent) {
                 if (Storage::disk('torrent-files')->exists($torrent->file_name)) {
                     $filePath = Storage::disk('torrent-files')->path($torrent->file_name);

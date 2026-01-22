@@ -31,7 +31,7 @@ class CheckIfBanned
     {
         $user = $request->user();
         // Redis returns ints as numeric strings!
-        $bannedGroupId = (int) cache()->rememberForever('group:banned:id', fn () => Group::where('slug', '=', 'banned')->soleValue('id'));
+        $bannedGroupId = (int) cache()->rememberForever('group:banned:id', fn () => Group::query()->where('slug', '=', 'banned')->soleValue('id'));
 
         if ($user && $user->group_id === $bannedGroupId) {
             if ($request->is('api/*')) {

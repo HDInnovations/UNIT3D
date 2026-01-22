@@ -76,7 +76,7 @@ class StoreTorrentTipRequest extends FormRequest
     {
         $this->merge([
             'sender_id'    => auth()->id(),
-            'recipient_id' => Torrent::whereKey($this->torrent_id)->value('user_id'),
+            'recipient_id' => Torrent::query()->whereKey($this->torrent_id)->value('user_id'),
         ]);
     }
 }

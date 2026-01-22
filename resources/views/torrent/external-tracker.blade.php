@@ -89,7 +89,7 @@
                         @foreach ($externalTorrent['peers'] ?? [] as $peerId => $peer)
                             <tr>
                                 <td>
-                                    @if (null !== ($user = \App\Models\User::find($peer['user_id'])))
+                                    @if (null !== ($user = \App\Models\User::query()->find($peer['user_id'])))
                                         @if ($torrent === null)
                                             <x-user-tag :user="$user" :anon="true" />
                                         @else

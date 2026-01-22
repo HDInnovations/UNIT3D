@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function (): void {
             Route::prefix('api')
                 ->middleware(MiddlewareGroup::CHAT->value)
-                ->group(base_path('routes/vue.php'));
+                ->group(base_path('routes/chat.php'));
 
             Route::middleware(MiddlewareGroup::WEB->value)
                 ->group(base_path('routes/web.php'));

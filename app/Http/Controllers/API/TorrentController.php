@@ -71,9 +71,16 @@ class TorrentController extends BaseController
     public function index(): TorrentsResource
     {
         $torrents = cache()->flexible('torrent-api-index', [60 * 5, 60 * 6], function () {
-            $torrents = Torrent::with(
-                ['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files']
-            )
+            $torrents = Torrent::query()
+                ->with([
+                    'user:id,username',
+                    'category',
+                    'type',
+                    'resolution',
+                    'region',
+                    'distributor',
+                    'files'
+                ])
                 ->withExists([
                     'featured as featured'
                 ])
@@ -140,7 +147,7 @@ class TorrentController extends BaseController
         Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
-        $category = Category::withCount('torrents')->findOrFail($request->integer('category_id'));
+        $category = Category::query()->withCount('torrents')->findOrFail($request->integer('category_id'));
 
         // Create the torrent (DB)
         $torrent = app()->make(Torrent::class);
@@ -379,7 +386,7 @@ class TorrentController extends BaseController
         // Can't insert them all at once since some torrents have more files than mysql supports placeholders.
         // Divide by 3 since we're inserting 3 fields: name, size and torrent_id
         foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
-            TorrentFile::insert($files->toArray());
+            TorrentFile::query()->insert($files->toArray());
         }
 
         // Set torrent to featured
@@ -415,7 +422,7 @@ class TorrentController extends BaseController
         }
 
         foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
-            Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
+            Keyword::query()->upsert($keywords->toArray(), ['torrent_id', 'name']);
         }
 
         // check for trusted user & mod queue isn't opted in and update torrent
@@ -496,7 +503,8 @@ class TorrentController extends BaseController
      */
     public function show(int $id): TorrentResource
     {
-        $torrent = Torrent::with(['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files'])
+        $torrent = Torrent::query()
+            ->with(['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files'])
             ->select('*')
             ->selectRaw("
                 CASE
@@ -512,15 +520,15 @@ class TorrentController extends BaseController
         $torrent->setAttribute('meta', null);
 
         if ($torrent->category->tv_meta && $torrent->tmdb_tv_id) {
-            $torrent->setAttribute('meta', TmdbTv::with(['genres'])->find($torrent->tmdb_tv_id));
+            $torrent->setAttribute('meta', TmdbTv::query()->with(['genres'])->find($torrent->tmdb_tv_id));
         }
 
         if ($torrent->category->movie_meta && $torrent->tmdb_movie_id) {
-            $torrent->setAttribute('meta', TmdbMovie::with(['genres'])->find($torrent->tmdb_movie_id));
+            $torrent->setAttribute('meta', TmdbMovie::query()->with(['genres'])->find($torrent->tmdb_movie_id));
         }
 
         if ($torrent->category->game_meta && $torrent->igdb) {
-            $torrent->setAttribute('meta', IgdbGame::with(['genres'])->find($torrent->igdb));
+            $torrent->setAttribute('meta', IgdbGame::query()->with(['genres'])->find($torrent->igdb));
         }
 
         TorrentResource::withoutWrapping();
@@ -671,6 +679,7 @@ class TorrentController extends BaseController
                             'media_info'       => $hit['mediainfo'],
                             'bd_info'          => $hit['bdinfo'],
                             'description'      => $hit['description'],
+                            'info_hash'        => $hit['info_hash'],
                             'size'             => $hit['size'],
                             'num_file'         => $hit['num_file'],
                             'files'            => $hit['files'],
@@ -716,6 +725,9 @@ class TorrentController extends BaseController
         $torrents->through(function ($torrent) {
             $torrent['attributes']['download_link'] = route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth(AuthGuard::API->value)->user()->rsskey]);
             $torrent['attributes']['magnet_link'] = config('torrent.magnet') ? 'magnet:?dn='.$torrent['attributes']['name'].'&xt=urn:btih:'.$torrent['attributes']['info_hash'].'&as='.route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth(AuthGuard::API->value)->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$torrent['attributes']['size'] : null;
+
+            // Info hash is only used for the magnet link if it's enabled. Make sure it's erased from the response before returned to the user.
+            unset($torrent['attributes']['info_hash']);
 
             return $torrent;
         });

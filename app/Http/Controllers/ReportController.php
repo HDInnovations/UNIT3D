@@ -32,7 +32,7 @@ class ReportController extends Controller
      */
     public function request(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest = TorrentRequest::query()->findOrFail($id);
         $reportedBy = $request->user();
         $reportedUser = $torrentRequest->user;
 
@@ -43,7 +43,7 @@ class ReportController extends Controller
             ],
         ]);
 
-        Report::create([
+        Report::query()->create([
             'type'                => 'Request',
             'reported_request_id' => $torrentRequest->id,
             'reported_torrent_id' => null,
@@ -62,7 +62,7 @@ class ReportController extends Controller
      */
     public function torrent(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $torrent = Torrent::findOrFail($id);
+        $torrent = Torrent::query()->findOrFail($id);
         $reportedBy = $request->user();
         $reportedUser = $torrent->user;
 
@@ -73,7 +73,7 @@ class ReportController extends Controller
             ],
         ]);
 
-        Report::create([
+        Report::query()->create([
             'type'                => 'Torrent',
             'reported_torrent_id' => $torrent->id,
             'reported_request_id' => null,
@@ -92,7 +92,7 @@ class ReportController extends Controller
      */
     public function user(Request $request, string $username): \Illuminate\Http\RedirectResponse
     {
-        $reportedUser = User::where('username', '=', $username)->sole();
+        $reportedUser = User::query()->where('username', '=', $username)->sole();
         $reportedBy = $request->user();
 
         $request->validate([
@@ -102,7 +102,7 @@ class ReportController extends Controller
             ],
         ]);
 
-        Report::create([
+        Report::query()->create([
             'type'                => 'User',
             'reported_torrent_id' => null,
             'reported_request_id' => null,

@@ -1,5 +1,7 @@
 @php
-    $user = App\Models\User::with(['chatroom', 'group'])->find(auth()->id());
+    $user = App\Models\User::query()
+    ->with(['chatroom', 'group', 'settings'])
+    ->find(auth()->id());
 @endphp
 
 <section
@@ -318,7 +320,11 @@
                                         </figure>
                                     </aside>
                                     <section
-                                        class="chatbox-message__content bbcode-rendered"
+                                        @class([
+                                            'bbcode-rendered',
+                                            'chatbox-message__content',
+                                            'bbcode-rendered__censor' => $user->settings->censor,
+                                        ])
                                         x-show="! (message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2))"
                                         x-html="message.message"
                                     ></section>

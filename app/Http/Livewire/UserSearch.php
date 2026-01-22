@@ -106,7 +106,7 @@ class UserSearch extends Component
      * @var \Illuminate\Support\Collection<int, Group>
      */
     final protected $groups {
-        get => Group::orderBy('position')->get();
+        get => Group::query()->orderBy('position')->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

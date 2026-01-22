@@ -6,12 +6,13 @@ namespace App\View\Composers;
 
 use App\Enums\ModerationStatus;
 use App\Models\Donation;
-use App\Models\Event;
+use App\Models\Giveaway;
 use App\Models\Page;
 use App\Models\Report;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Ticket;
 use App\Models\Torrent;
+use App\Models\UploadContest;
 use Illuminate\View\View;
 
 class TopNavComposer
@@ -27,7 +28,7 @@ class TopNavComposer
             'pages' => cache()->flexible(
                 'cached-pages',
                 [3600, 3600 * 2],
-                fn () => Page::select(['id', 'name', 'created_at'])->take(6)->get()
+                fn () => Page::query()->select(['id', 'name', 'created_at'])->take(6)->get()
             ),
             'hasUnreadTicket' => Ticket::query()
                 ->when(
@@ -45,13 +46,16 @@ class TopNavComposer
                         ->where('user_read', '=', false),
                 )
                 ->exists(),
-            'events' => Event::query()
+            'giveaways' => Giveaway::query()
                 ->where('active', '=', true)
                 ->withExists([
                     'claimedPrizes' => fn ($query) => $query
                         ->where('created_at', '>', now()->startOfDay())
                         ->where('user_id', '=', $user->id),
                 ])
+                ->get(),
+            'uploadContests' => UploadContest::query()
+                ->where('active', '=', true)
                 ->get(),
             'donationPercentage' => value(function (): int|string {
                 $sum = Donation::query()

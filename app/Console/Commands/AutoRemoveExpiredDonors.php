@@ -48,7 +48,8 @@ class AutoRemoveExpiredDonors extends Command
      */
     final public function handle(): void
     {
-        $expiredDonors = User::where('is_donor', '=', true)
+        $expiredDonors = User::query()
+            ->where('is_donor', '=', true)
             ->where('is_lifetime', '=', false)
             ->whereHas('donations')
             ->whereDoesntHave('donations', function ($query): void {

@@ -49,7 +49,8 @@ class SyncPeers extends Command
     final public function handle(): void
     {
         DB::transaction(function (): void {
-            Torrent::withoutGlobalScope(ApprovedScope::class)
+            Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
                 ->leftJoinSub(
                     Peer::query()
                         ->select('torrent_id')
@@ -71,7 +72,8 @@ class SyncPeers extends Command
         }, 5);
 
         DB::transaction(function (): void {
-            Torrent::withoutGlobalScope(ApprovedScope::class)
+            Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
                 ->leftJoinSub(
                     History::query()
                         ->select('torrent_id')

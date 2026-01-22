@@ -77,7 +77,7 @@ class PlaylistController extends Controller
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         }
 
-        $playlist = Playlist::create([
+        $playlist = Playlist::query()->create([
             'user_id'     => $request->user()->id,
             'cover_image' => $filename ?? null
         ] + $request->validated());
@@ -124,8 +124,8 @@ class PlaylistController extends Controller
         return view('playlist.show', [
             'playlist' => $playlist->load(['user.group', 'suggestions' => ['user.group', 'torrent']]),
             'meta'     => match (true) {
-                $randomTorrent?->category?->tv_meta    => TmdbTv::find($randomTorrent->tmdb_tv_id),
-                $randomTorrent?->category?->movie_meta => TmdbMovie::find($randomTorrent->tmdb_movie_id),
+                $randomTorrent?->category?->tv_meta    => TmdbTv::query()->find($randomTorrent->tmdb_tv_id),
+                $randomTorrent?->category?->movie_meta => TmdbMovie::query()->find($randomTorrent->tmdb_movie_id),
                 default                                => null,
             },
             'latestPlaylistTorrent' => $playlist->torrents()->orderByPivot('created_at', 'desc')->first(),

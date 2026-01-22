@@ -68,7 +68,7 @@
         </section>
     @endif
 
-    @if ($report->solved)
+    @if ($report->solved_by !== null)
         <section class="panelV2">
             <h2 class="panel__heading">Verdict</h2>
             {{-- format-ignore-start --}}<div class="panel__body" style="white-space: pre-wrap">{{ $report->verdict }}</div>{{-- format-ignore-end --}}

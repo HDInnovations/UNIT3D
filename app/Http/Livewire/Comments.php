@@ -129,23 +129,23 @@ class Comments extends Component
         switch ($this->model::class) {
             case Ticket::class:
                 // Notify assigned staff if needed
-                User::find($this->model->staff_id)?->notify(new NewComment($this->model, $comment));
+                User::query()->find($this->model->staff_id)?->notify(new NewComment($this->model, $comment));
 
                 // Notify ticket creator if needed
-                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
+                User::query()->find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
 
                 break;
             case Article::class:
             case Playlist::class:
             case TorrentRequest::class:
             case Torrent::class:
-                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
+                User::query()->find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
 
                 break;
         }
 
         // User Tagged Notification
-        $users = User::whereIn('username', $this->taggedUsers())->get();
+        $users = User::query()->whereIn('username', $this->taggedUsers())->get();
         Notification::sendNow($users, new NewCommentTag($this->model, $comment));
 
         if (!$this->model instanceof Ticket) {

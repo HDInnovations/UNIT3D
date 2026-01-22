@@ -1,0 +1,119 @@
+name: Type Coverage (Pest)
+on: [ push, pull_request ]
+jobs:
+    type-coverage:
+        strategy:
+            matrix:
+                operating-system:
+                    - ubuntu-24.04
+                php-version:
+                    - '8.5'
+        name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
+        runs-on: ${{ matrix.operating-system }}
+        steps:
+            # 1. Checkout
+            -   name: Checkout
+                uses: actions/checkout@v6
+                with:
+                    fetch-depth: 0
+
+            # 2. Setup PHP
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-version }}
+                    extensions: bcmath, ctype, dom, fileinfo, json, libxml, mbstring, openssl, pdo, tokenizer, xml, zip
+                    coverage: none
+
+            # 3. Composer Dependencies
+            -   name: Get Composer cache directory
+                id: composer-cache
+                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            -   name: Restore Composer cache
+                uses: actions/cache/restore@v4
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: unit3d-${{ matrix.operating-system }}-php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        unit3d-${{ matrix.operating-system }}-php${{ matrix.php-version }}-composer-
+
+            -   name: Install Composer dependencies
+                env:
+                    COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+                run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+            -   name: Save Composer cache
+                uses: actions/cache/save@v4
+                if: always()
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: unit3d-${{ matrix.operating-system }}-php${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}
+
+            # 4. Type Coverage Analysis
+            -   name: Restore baseline coverage cache
+                uses: actions/cache/restore@v4
+                id: cache-baseline
+                with:
+                    path: baseline-type-coverage.txt
+                    key: type-coverage-baseline-master
+            
+            -   name: Run Type Coverage
+                run: |
+                    ./vendor/bin/pest --type-coverage --min=0 > type-coverage.txt
+                    cat type-coverage.txt
+            
+            -   name: Extract Coverage Percentage
+                id: coverage
+                run: |
+                    COVERAGE=$(grep -oP 'Total: \K[0-9.]+' type-coverage.txt || echo "0")
+                    echo "percentage=$COVERAGE" >> $GITHUB_OUTPUT
+                    echo "Type Coverage: $COVERAGE%"
+            
+            -   name: Compare Coverage Against Baseline
+                if: github.event_name == 'pull_request'
+                run: |
+                    CURRENT_COVERAGE=${{ steps.coverage.outputs.percentage }}
+                    
+                    if [ -f baseline-type-coverage.txt ]; then
+                        BASELINE_COVERAGE=$(cat baseline-type-coverage.txt)
+                        echo "📊 Current Coverage: $CURRENT_COVERAGE%"
+                        echo "📈 Baseline Coverage: $BASELINE_COVERAGE%"
+                        
+                        # Use bc for floating point comparison
+                        if (( $(echo "$CURRENT_COVERAGE < $BASELINE_COVERAGE" | bc -l) )); then
+                            DIFF=$(echo "$BASELINE_COVERAGE - $CURRENT_COVERAGE" | bc -l)
+                            echo "❌ Type coverage decreased by $DIFF%"
+                            echo "::error::Type coverage dropped from $BASELINE_COVERAGE% to $CURRENT_COVERAGE%. Please add type declarations."
+                            exit 1
+                        else
+                            DIFF=$(echo "$CURRENT_COVERAGE - $BASELINE_COVERAGE" | bc -l)
+                            echo "✅ Type coverage maintained or improved (+$DIFF%)"
+                        fi
+                    else
+                        echo "⚠️  No baseline coverage found. Skipping comparison."
+                        echo "::warning::No baseline type coverage found. Baseline will be established when merged to master."
+                    fi
+            
+            -   name: Save Baseline Coverage to File
+                if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'HDInnovations/UNIT3D'
+                run: |
+                    echo "${{ steps.coverage.outputs.percentage }}" > baseline-type-coverage.txt
+            
+            -   name: Save Baseline Coverage Cache
+                if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'HDInnovations/UNIT3D'
+                uses: actions/cache/save@v4
+                with:
+                    path: baseline-type-coverage.txt
+                    key: type-coverage-baseline-master
+            
+            -   name: Create Coverage Badge
+                if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'HDInnovations/UNIT3D'
+                uses: schneegans/dynamic-badges-action@v1.7.0
+                with:
+                    auth: ${{ secrets.GIST_SECRET }}
+                    gistID: ${{ secrets.GIST_ID }}
+                    filename: unit3d-type-coverage.json
+                    label: Type Coverage (Pest)
+                    message: ${{ steps.coverage.outputs.percentage }}%
+                    color: ${{ steps.coverage.outputs.percentage >= 90 && '#2aad47ff' || steps.coverage.outputs.percentage >= 80 && '#2aad47ff' || steps.coverage.outputs.percentage >= 70 && '#cba219ff' || steps.coverage.outputs.percentage >= 60 && '#cba219ff' || steps.coverage.outputs.percentage >= 50 && '#d8634cff' || '#d8634cff' }}

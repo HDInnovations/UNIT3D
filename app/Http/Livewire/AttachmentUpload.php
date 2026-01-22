@@ -46,7 +46,7 @@ class AttachmentUpload extends Component
     {
         $this->validate();
 
-        $ticket = Ticket::find($this->ticket);
+        $ticket = Ticket::query()->find($this->ticket);
 
         abort_unless($ticket->user_id === $this->user->id || $this->user->group->is_modo, 403);
 
@@ -70,7 +70,7 @@ class AttachmentUpload extends Component
      */
     protected \Illuminate\Database\Eloquent\Collection $attachments {
         get {
-            $ticket = Ticket::find($this->ticket);
+            $ticket = Ticket::query()->find($this->ticket);
 
             abort_unless($ticket->user_id === $this->user->id || $this->user->group->is_modo, 403);
 

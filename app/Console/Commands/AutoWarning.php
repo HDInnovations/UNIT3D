@@ -55,7 +55,8 @@ class AutoWarning extends Command
         }
 
         $carbon = new Carbon();
-        $hitrun = History::with(['user', 'torrent'])
+        $hitrun = History::query()
+            ->with(['user', 'torrent'])
             ->where('actual_downloaded', '>', 0)
             ->where('prewarned_at', '<=', now()->subDays(config('hitrun.prewarn')))
             ->where('hitrun', '=', 0)
@@ -72,7 +73,7 @@ class AutoWarning extends Command
         $usersWithWarnings = [];
 
         foreach ($hitrun as $hr) {
-            Warning::create([
+            Warning::query()->create([
                 'user_id'    => $hr->user->id,
                 'warned_by'  => User::SYSTEM_USER_ID,
                 'torrent_id' => $hr->torrent->id,

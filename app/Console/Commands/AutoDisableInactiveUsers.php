@@ -52,7 +52,7 @@ class AutoDisableInactiveUsers extends Command
             return;
         }
 
-        $disabledGroupId = Group::where('slug', '=', 'disabled')->soleValue('id');
+        $disabledGroupId = Group::query()->where('slug', '=', 'disabled')->soleValue('id');
 
         $current = Carbon::now();
 

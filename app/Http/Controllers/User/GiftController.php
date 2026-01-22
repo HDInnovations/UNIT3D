@@ -43,10 +43,11 @@ class GiftController extends Controller
 
         return view('user.gift.index', [
             'user'  => $user,
-            'gifts' => Gift::with([
-                'sender.group',
-                'recipient.group',
-            ])
+            'gifts' => Gift::query()
+                ->with([
+                    'sender.group',
+                    'recipient.group',
+                ])
                 ->where('sender_id', '=', $user->id)
                 ->orWhere('recipient_id', '=', $user->id)
                 ->latest()
@@ -76,13 +77,13 @@ class GiftController extends Controller
     public function store(StoreGiftRequest $request): \Illuminate\Http\RedirectResponse
     {
         $sender = $request->user();
-        $receiver = User::where('username', '=', $request->recipient_username)->sole();
+        $receiver = User::query()->where('username', '=', $request->recipient_username)->sole();
 
         DB::transaction(function () use ($sender, $receiver, $request): void {
             $sender->decrement('seedbonus', $request->bon);
             $receiver->increment('seedbonus', $request->bon);
 
-            $gift = Gift::create([
+            $gift = Gift::query()->create([
                 'bon'          => $request->bon,
                 'sender_id'    => $sender->id,
                 'recipient_id' => $receiver->id,

@@ -157,17 +157,17 @@ class Comment extends Component
                 $ticket = $this->model;
 
                 if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
-                    User::find($ticket->staff_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($ticket->staff_id)->notify(new NewComment($this->model, $reply));
                     $this->model->update(['staff_read' => false]);
                 }
 
                 if ($this->user->id !== $ticket->user_id) {
-                    User::find($ticket->user_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($ticket->user_id)->notify(new NewComment($this->model, $reply));
                     $this->model->update(['user_read' => false]);
                 }
 
                 if (!\in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
-                    User::find($this->comment->user_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($this->comment->user_id)->notify(new NewComment($this->model, $reply));
                 }
 
                 break;
@@ -176,18 +176,18 @@ class Comment extends Component
             case TorrentRequest::class:
             case Torrent::class:
                 if ($this->user->id !== $this->model->user_id) {
-                    User::find($this->model->user_id)?->notify(new NewComment($this->model, $reply));
+                    User::query()->find($this->model->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 if ($this->user->id !== $this->comment->user_id && $this->comment->user_id !== $this->model->user_id) {
-                    User::find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
+                    User::query()->find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 break;
         }
 
         // User Tagged Notification
-        $users = User::whereIn('username', $this->taggedUsers())->get();
+        $users = User::query()->whereIn('username', $this->taggedUsers())->get();
         Notification::sendNow($users, new NewCommentTag($this->model, $reply));
 
         if (!$this->model instanceof Ticket) {

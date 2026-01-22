@@ -36,7 +36,7 @@ class GroupController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.group.index', [
-            'groups' => Group::orderBy('position')->get(),
+            'groups' => Group::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -60,7 +60,7 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $group = Group::create(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
+        $group = Group::query()->create(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
 
         $group->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 
