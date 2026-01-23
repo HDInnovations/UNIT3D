@@ -579,17 +579,20 @@
                     </p>
                     <p class="form__group">
                         <input
-                            pattern="[0-9]*"
                             id="auto_freeleech_min_tokens"
                             class="form__text"
+                            inputmode="numeric"
                             name="auto_freeleech_min_tokens"
+                            pattern="[0-9]*"
                             placeholder=" "
                             type="text"
-                            min="0"
-                            step="1"
+                            required
                             value="{{ $user->settings->auto_freeleech_min_tokens }}"
                         />
-                        <label class="form__label form__label--floating" for="auto_freeleech_min_tokens">
+                        <label
+                            class="form__label form__label--floating"
+                            for="auto_freeleech_min_tokens"
+                        >
                             Minimum tokens to keep when auto-applying freeleech
                         </label>
                     </p>

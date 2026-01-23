@@ -95,10 +95,10 @@ class TorrentDownloadController extends Controller
             $user->fl_tokens >= max(1, $settings->auto_freeleech_min_tokens) &&
             !cache()->get("freeleech_token:{$user->id}:{$torrent->id}")
         ) {
-            $freeleech_token = new FreeleechToken();
-            $freeleech_token->user_id = $user->id;
-            $freeleech_token->torrent_id = $torrent->id;
-            $freeleech_token->save();
+            FreeleechToken::query()->create([
+                'user_id' => $user->id,
+                'torrent_id' => $torrent->id,
+            ]);
 
             Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
 
