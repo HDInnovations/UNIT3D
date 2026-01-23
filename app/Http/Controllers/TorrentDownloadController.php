@@ -96,7 +96,7 @@ class TorrentDownloadController extends Controller
             !cache()->get("freeleech_token:{$user->id}:{$torrent->id}")
         ) {
             FreeleechToken::query()->create([
-                'user_id' => $user->id,
+                'user_id'    => $user->id,
                 'torrent_id' => $torrent->id,
             ]);
 

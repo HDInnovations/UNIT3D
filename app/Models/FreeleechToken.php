@@ -40,14 +40,11 @@ final class FreeleechToken extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
      * @var list<string>
      */
-    protected $fillable = [
-        "user_id",
-        "torrent_id"
-    ];
+    protected $guarded = [];
 
     /**
      * Get the torrent the freeleech token was redeemed on.
