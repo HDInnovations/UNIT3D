@@ -93,6 +93,33 @@ if (!\function_exists('href_collection')) {
     }
 }
 
+if (!\function_exists('href_movie')) {
+    function href_movie(App\Models\TmdbMovie $movie, App\Models\Category $category): string
+    {
+        $appurl = appurl();
+
+        return \sprintf('%s/torrents/similar/%s.%s', $appurl, $category->id, $movie->id);
+    }
+}
+
+if (!\function_exists('href_tv')) {
+    function href_tv(App\Models\TmdbTv $tv, App\Models\Category $category): string
+    {
+        $appurl = appurl();
+
+        return \sprintf('%s/torrents/similar/%s.%s', $appurl, $category->id, $tv->id);
+    }
+}
+
+if (!\function_exists('href_game')) {
+    function href_game(App\Models\IgdbGame $game, App\Models\Category $category): string
+    {
+        $appurl = appurl();
+
+        return \sprintf('%s/torrents/similar/%s.%s', $appurl, $category->id, $game->id);
+    }
+}
+
 if (!\function_exists('tmdb_image')) {
     function tmdb_image(string $type, ?string $original): string
     {
