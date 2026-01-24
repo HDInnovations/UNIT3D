@@ -13,14 +13,17 @@
             $hasSecurityKeys = $user && $user->webauthnKeys()->exists();
             $hasTotpEnabled = $user && $user->two_factor_secret;
         @endphp
+
         {{-- Default to security key if available, otherwise TOTP code --}}
-        <main x-data="{ 
-            recovery: false, 
-            entered: false, 
-            securityKey: {{ $hasSecurityKeys ? 'true' : 'false' }}, 
-            webauthnInProgress: false,
-            webauthnError: null
-        }">
+        <main
+            x-data="{
+                recovery: false,
+                entered: false,
+                securityKey: {{ $hasSecurityKeys ? 'true' : 'false' }},
+                webauthnInProgress: false,
+                webauthnError: null,
+            }"
+        >
             <section class="auth-form">
                 <header class="auth-form__header">
                     @if ($hasTotpEnabled)
@@ -49,6 +52,7 @@
                             {{ __('auth.recovery-code') }}
                         </button>
                     @endif
+
                     @if ($hasSecurityKeys)
                         <button
                             class="auth-form__header-item"
@@ -73,18 +77,27 @@
                     </a>
                     <ul class="auth-form__important-infos">
                         @if ($hasTotpEnabled)
-                            <li class="auth-form__important-info" x-show="!recovery && !securityKey">
+                            <li
+                                class="auth-form__important-info"
+                                x-show="!recovery && !securityKey"
+                            >
                                 {{ __('auth.enter-totp') }}
                             </li>
                             <li class="auth-form__important-info" x-cloak x-show="recovery">
                                 {{ __('auth.enter-recovery') }}
                             </li>
                         @endif
+
                         <li class="auth-form__important-info" x-cloak x-show="securityKey">
                             {{ __('auth.enter-security-key') }}
                         </li>
                         {{-- WebAuthn error message --}}
-                        <li class="auth-form__important-info auth-form__error" x-cloak x-show="webauthnError" x-text="webauthnError"></li>
+                        <li
+                            class="auth-form__important-info auth-form__error"
+                            x-cloak
+                            x-show="webauthnError"
+                            x-text="webauthnError"
+                        ></li>
                         @if (Session::has('warning'))
                             <li class="auth-form__important-info">
                                 Warning: {{ Session::get('warning') }}
@@ -104,7 +117,10 @@
                         @endif
                     </ul>
                     @if ($hasTotpEnabled)
-                        <p class="auth-form__text-input-group" x-show="!recovery && !securityKey">
+                        <p
+                            class="auth-form__text-input-group"
+                            x-show="!recovery && !securityKey"
+                        >
                             <label class="auth-form__label" for="code">
                                 {{ __('auth.code') }}
                             </label>
@@ -150,7 +166,11 @@
 
                     {{-- Security Key Authentication --}}
                     @if ($hasSecurityKeys)
-                        <div x-cloak x-show="securityKey" class="auth-form__security-key-section">
+                        <div
+                            x-cloak
+                            x-show="securityKey"
+                            class="auth-form__security-key-section"
+                        >
                             <button
                                 type="button"
                                 class="auth-form__primary-button"
@@ -195,17 +215,20 @@
                 async function authenticateWithSecurityKey() {
                     const mainEl = document.querySelector('main');
                     const alpineData = Alpine.$data(mainEl);
-                    
+
                     try {
                         // Fetch the public key options from our custom 2FA controller
-                        const optionsResponse = await fetch('{{ route('two-factor.webauthn.options') }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Accept': 'application/json'
-                            }
-                        });
+                        const optionsResponse = await fetch(
+                            '{{ route('two-factor.webauthn.options') }}',
+                            {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    Accept: 'application/json',
+                                },
+                            },
+                        );
 
                         if (!optionsResponse.ok) {
                             const error = await optionsResponse.json();
@@ -219,9 +242,9 @@
 
                         // Decode allowCredentials if present
                         if (publicKey.allowCredentials) {
-                            publicKey.allowCredentials = publicKey.allowCredentials.map(cred => ({
+                            publicKey.allowCredentials = publicKey.allowCredentials.map((cred) => ({
                                 ...cred,
-                                id: base64UrlDecode(cred.id)
+                                id: base64UrlDecode(cred.id),
                             }));
                         }
 
@@ -239,22 +262,29 @@
                             type: credential.type,
                             response: {
                                 clientDataJSON: base64UrlEncode(credential.response.clientDataJSON),
-                                authenticatorData: base64UrlEncode(credential.response.authenticatorData),
+                                authenticatorData: base64UrlEncode(
+                                    credential.response.authenticatorData,
+                                ),
                                 signature: base64UrlEncode(credential.response.signature),
-                                userHandle: credential.response.userHandle ? base64UrlEncode(credential.response.userHandle) : null
-                            }
+                                userHandle: credential.response.userHandle
+                                    ? base64UrlEncode(credential.response.userHandle)
+                                    : null,
+                            },
                         };
 
                         // Send the credential to our custom 2FA verification endpoint
-                        const authResponse = await fetch('{{ route('two-factor.webauthn.verify') }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Accept': 'application/json'
+                        const authResponse = await fetch(
+                            '{{ route('two-factor.webauthn.verify') }}',
+                            {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    Accept: 'application/json',
+                                },
+                                body: JSON.stringify(credentialData),
                             },
-                            body: JSON.stringify(credentialData)
-                        });
+                        );
 
                         if (authResponse.ok) {
                             const result = await authResponse.json();
@@ -265,12 +295,17 @@
                             }
                         } else {
                             const error = await authResponse.json();
-                            alpineData.webauthnError = error.error || error.message || 'Authentication failed. Please try again.';
+                            alpineData.webauthnError =
+                                error.error ||
+                                error.message ||
+                                'Authentication failed. Please try again.';
                             alpineData.webauthnInProgress = false;
                         }
                     } catch (error) {
                         console.error('WebAuthn authentication error:', error);
-                        alpineData.webauthnError = error.message || 'Security key authentication failed. Please try again.';
+                        alpineData.webauthnError =
+                            error.message ||
+                            'Security key authentication failed. Please try again.';
                         alpineData.webauthnInProgress = false;
                     }
                 }
@@ -302,10 +337,7 @@
                     for (let i = 0; i < bytes.length; i++) {
                         binary += String.fromCharCode(bytes[i]);
                     }
-                    return btoa(binary)
-                        .replace(/\+/g, '-')
-                        .replace(/\//g, '_')
-                        .replace(/=/g, '');
+                    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
                 }
             </script>
         @endif

@@ -50,10 +50,14 @@
                 x-data="webauthnRegister(@entangle('publicKeyOptions'))"
                 x-init="register"
             >
-                <p class="text-info">{{ __('user.two-step-auth.security-keys.register-prompt') }}</p>
+                <p class="text-info">
+                    {{ __('user.two-step-auth.security-keys.register-prompt') }}
+                </p>
 
                 <div class="form__group">
-                    <label for="keyName" class="form__label">{{ __('user.two-step-auth.security-keys.key-name') }}</label>
+                    <label for="keyName" class="form__label">
+                        {{ __('user.two-step-auth.security-keys.key-name') }}
+                    </label>
                     <input
                         id="keyName"
                         class="form__text"
@@ -74,7 +78,7 @@
                 </div>
             </div>
         @else
-            <div class="form__actions" style="margin-top: 1rem;">
+            <div class="form__actions" style="margin-top: 1rem">
                 <button
                     class="form__button form__button--filled"
                     type="button"
@@ -89,91 +93,92 @@
 </section>
 
 @script
-<script>
-    Alpine.data('webauthnRegister', (publicKeyOptions) => ({
-        publicKeyOptions: publicKeyOptions,
+    <script>
+        Alpine.data('webauthnRegister', (publicKeyOptions) => ({
+            publicKeyOptions: publicKeyOptions,
 
-        async register() {
-            if (!window.PublicKeyCredential) {
-                alert('{{ __('user.two-step-auth.security-keys.not-supported') }}');
-                $wire.cancelRegistration();
-                return;
-            }
-
-            try {
-                const publicKey = JSON.parse(this.publicKeyOptions);
-
-                // Decode challenge
-                publicKey.challenge = this.base64UrlDecode(publicKey.challenge);
-
-                // Decode user.id
-                if (publicKey.user && publicKey.user.id) {
-                    publicKey.user.id = this.base64UrlDecode(publicKey.user.id);
+            async register() {
+                if (!window.PublicKeyCredential) {
+                    alert('{{ __('user.two-step-auth.security-keys.not-supported') }}');
+                    $wire.cancelRegistration();
+                    return;
                 }
 
-                // Decode excludeCredentials
-                if (publicKey.excludeCredentials) {
-                    publicKey.excludeCredentials = publicKey.excludeCredentials.map(cred => ({
-                        ...cred,
-                        id: this.base64UrlDecode(cred.id)
-                    }));
-                }
+                try {
+                    const publicKey = JSON.parse(this.publicKeyOptions);
 
-                const credential = await navigator.credentials.create({ publicKey });
+                    // Decode challenge
+                    publicKey.challenge = this.base64UrlDecode(publicKey.challenge);
 
-                if (!credential) {
-                    throw new Error('No credential returned');
-                }
-
-                const credentialData = {
-                    id: credential.id,
-                    rawId: this.base64UrlEncode(credential.rawId),
-                    type: credential.type,
-                    response: {
-                        clientDataJSON: this.base64UrlEncode(credential.response.clientDataJSON),
-                        attestationObject: this.base64UrlEncode(credential.response.attestationObject),
+                    // Decode user.id
+                    if (publicKey.user && publicKey.user.id) {
+                        publicKey.user.id = this.base64UrlDecode(publicKey.user.id);
                     }
-                };
 
-                $wire.registerKey(credentialData);
-            } catch (error) {
-                console.error('WebAuthn registration error:', error);
-                $wire.cancelRegistration();
-            }
-        },
+                    // Decode excludeCredentials
+                    if (publicKey.excludeCredentials) {
+                        publicKey.excludeCredentials = publicKey.excludeCredentials.map((cred) => ({
+                            ...cred,
+                            id: this.base64UrlDecode(cred.id),
+                        }));
+                    }
 
-        base64UrlDecode(input) {
-            // Replace URL-safe characters with standard Base64 characters
-            input = input.replace(/-/g, '+').replace(/_/g, '/');
+                    const credential = await navigator.credentials.create({ publicKey });
 
-            // Pad with = if necessary
-            const pad = input.length % 4;
-            if (pad) {
-                input += '='.repeat(4 - pad);
-            }
+                    if (!credential) {
+                        throw new Error('No credential returned');
+                    }
 
-            // Decode base64 to binary string
-            const binaryString = atob(input);
+                    const credentialData = {
+                        id: credential.id,
+                        rawId: this.base64UrlEncode(credential.rawId),
+                        type: credential.type,
+                        response: {
+                            clientDataJSON: this.base64UrlEncode(
+                                credential.response.clientDataJSON,
+                            ),
+                            attestationObject: this.base64UrlEncode(
+                                credential.response.attestationObject,
+                            ),
+                        },
+                    };
 
-            // Convert binary string to Uint8Array
-            const bytes = new Uint8Array(binaryString.length);
-            for (let i = 0; i < binaryString.length; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            return bytes.buffer;
-        },
+                    $wire.registerKey(credentialData);
+                } catch (error) {
+                    console.error('WebAuthn registration error:', error);
+                    $wire.cancelRegistration();
+                }
+            },
 
-        base64UrlEncode(buffer) {
-            const bytes = new Uint8Array(buffer);
-            let binary = '';
-            for (let i = 0; i < bytes.length; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            return btoa(binary)
-                .replace(/\+/g, '-')
-                .replace(/\//g, '_')
-                .replace(/=/g, '');
-        }
-    }));
-</script>
+            base64UrlDecode(input) {
+                // Replace URL-safe characters with standard Base64 characters
+                input = input.replace(/-/g, '+').replace(/_/g, '/');
+
+                // Pad with = if necessary
+                const pad = input.length % 4;
+                if (pad) {
+                    input += '='.repeat(4 - pad);
+                }
+
+                // Decode base64 to binary string
+                const binaryString = atob(input);
+
+                // Convert binary string to Uint8Array
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                return bytes.buffer;
+            },
+
+            base64UrlEncode(buffer) {
+                const bytes = new Uint8Array(buffer);
+                let binary = '';
+                for (let i = 0; i < bytes.length; i++) {
+                    binary += String.fromCharCode(bytes[i]);
+                }
+                return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            },
+        }));
+    </script>
 @endscript
