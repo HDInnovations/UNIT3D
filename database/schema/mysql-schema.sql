@@ -2669,6 +2669,29 @@ CREATE TABLE `watchlists` (
   CONSTRAINT `watchlists_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `webauthn_keys`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `webauthn_keys` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'key',
+  `credentialId` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transports` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attestationType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `trustPath` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `aaguid` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `credentialPublicKey` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `counter` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `webauthn_keys_user_id_foreign` (`user_id`),
+  KEY `webauthn_keys_credentialid_index` (`credentialId`(255)),
+  CONSTRAINT `webauthn_keys_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `whitelisted_image_urls`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -3103,3 +3126,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (369,'2025_11_29_10
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (370,'2026_01_06_231535_remove_unnecessary_bigints',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (371,'2026_01_07_040502_mark_columns_as_unsigned',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (372,'2026_01_09_015532_alter_table_reports_make_verdict_nullable',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (373,'2026_01_23_043127_create_webauthn_keys_table',1);

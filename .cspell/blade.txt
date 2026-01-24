@@ -5,8 +5,10 @@ endforeach
 endforelse
 endisset
 endphp
+endscript
 endsection
 endslot
 endswitch
+entangle
 forelse
 isset
