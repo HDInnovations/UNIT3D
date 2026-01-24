@@ -47,6 +47,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Register custom RedirectIfTwoFactorAuthenticatable action that also checks for WebAuthn keys
+        $this->app->singleton(
+            \Laravel\Fortify\Contracts\RedirectsIfTwoFactorAuthenticatable::class,
+            fn ($app) => $app->make(\App\Actions\Fortify\RedirectIfTwoFactorAuthenticatable::class)
+        );
+
         // Handle redirects after successful login
         $this->app->instance(LoginResponse::class, new class () implements LoginResponse {
             public function toResponse($request): \Illuminate\Http\RedirectResponse

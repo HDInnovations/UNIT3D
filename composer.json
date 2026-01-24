@@ -14,6 +14,7 @@
         "ext-libxml": "*",
         "ext-zend-opcache": "*",
         "ext-zip": "*",
+        "asbiin/laravel-webauthn": "^5.4",
         "assada/laravel-achievements": "^2.8",
         "bjeavons/zxcvbn-php": "^1.4.2",
         "doctrine/dbal": "^3.10.4",

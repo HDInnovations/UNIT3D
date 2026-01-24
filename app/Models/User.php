@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use LaravelWebauthn\WebauthnAuthenticatable;
 use AllowDynamicProperties;
 
 /**
@@ -92,6 +93,7 @@ final class User extends Authenticatable implements MustVerifyEmail
     use SoftDeletes;
     use TwoFactorAuthenticatable;
     use UsersOnlineTrait;
+    use WebauthnAuthenticatable;
 
     /**
      * The attributes that should be hidden for serialization.

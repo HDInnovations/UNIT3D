@@ -34,4 +34,5 @@
 
 @section('main')
     @livewire('two-factor-auth-form')
+    @livewire('security-key-form')
 @endsection

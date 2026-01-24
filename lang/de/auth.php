@@ -79,4 +79,7 @@ return [
     'verifying' => 'Verifizierung läuft...',
     'code' => '2FA Code',
     'totp-code' => 'TOTP code',
+    'security-key' => 'Sicherheitsschlüssel',
+    'enter-security-key' => 'Bitte stecke deinen Sicherheitsschlüssel ein und berühre ihn zur Authentifizierung.',
+    'use-security-key' => 'Sicherheitsschlüssel verwenden',
 ];

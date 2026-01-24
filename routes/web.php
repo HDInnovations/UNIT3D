@@ -82,6 +82,16 @@ Route::middleware('language')->group(function (): void {
 
     /*
     |---------------------------------------------------------------------------------
+    | WebAuthn Two-Factor Authentication (During 2FA Challenge)
+    |---------------------------------------------------------------------------------
+    */
+    Route::prefix('two-factor/webauthn')->name('two-factor.webauthn.')->group(function (): void {
+        Route::post('/options', [App\Http\Controllers\Auth\WebAuthnTwoFactorController::class, 'options'])->name('options');
+        Route::post('/verify', [App\Http\Controllers\Auth\WebAuthnTwoFactorController::class, 'verify'])->name('verify');
+    });
+
+    /*
+    |---------------------------------------------------------------------------------
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
