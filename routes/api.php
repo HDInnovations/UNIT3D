@@ -38,6 +38,8 @@ if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 Route::middleware(['auth:'.AuthGuard::API->value, 'banned'])->group(function (): void {
+    Route::post('/irc/authenticate', App\Http\Controllers\API\IrckeyAuthController::class)->name('api.irc.authenticate');
+
     // Torrents System
     Route::prefix('torrents')->group(function (): void {
         Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('api.torrents.index');
