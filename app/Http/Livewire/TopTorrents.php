@@ -102,7 +102,7 @@ class TopTorrents extends Component
                 ->get();
 
             // See app/Traits/TorrentMeta.php
-            $this->scopeMeta($torrents);
+            $this->scopeMeta($torrents, withCredits: true);
 
             return $torrents;
         }

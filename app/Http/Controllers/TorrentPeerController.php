@@ -28,7 +28,7 @@ class TorrentPeerController extends Controller
      */
     public function index(int $id, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         return view('torrent.peers', [
             'torrent' => $torrent,

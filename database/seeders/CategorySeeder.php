@@ -23,7 +23,7 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        Category::upsert([
+        Category::query()->upsert([
             [
                 'id'         => 1,
                 'name'       => 'Movies',

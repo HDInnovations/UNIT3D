@@ -5,6 +5,7 @@ endforeach
 endforelse
 endisset
 endphp
+endscript
 endsection
 endslot
 endswitch

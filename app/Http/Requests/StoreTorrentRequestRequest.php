@@ -53,7 +53,7 @@ class StoreTorrentRequestRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
-        $category = Category::findOrFail($request->integer('category_id'));
+        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {
             if ($value !== null) {

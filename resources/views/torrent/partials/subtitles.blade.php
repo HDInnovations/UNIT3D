@@ -102,7 +102,7 @@
                                                                 {{ $subtitle->language->name }}
                                                                 ({{ __('torrent.current') }})
                                                             </option>
-                                                            @foreach (App\Models\MediaLanguage::orderBy('name')->get() as $media_language)
+                                                            @foreach (App\Models\MediaLanguage::query()->orderBy('name')->get() as $media_language)
                                                                 <option
                                                                     value="{{ $media_language->id }}"
                                                                 >

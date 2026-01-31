@@ -47,6 +47,7 @@ class AutoCorrectHistory extends Command
     final public function handle(): void
     {
         History::query()
+            ->withTrashed()
             ->where('active', '=', 1)
             ->where('updated_at', '<', Carbon::now()->subHours(2))
             ->update([

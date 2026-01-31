@@ -28,7 +28,7 @@
                 <form
                     class="auth-form__form"
                     method="POST"
-                    action="{{ route('register', ['code' => request()->query('code')]) }}"
+                    action="{{ route('registration.store', ['code' => request()->query('code')]) }}"
                 >
                     @csrf
                     <a class="auth-form__branding" href="{{ route('home.index') }}">

@@ -40,7 +40,7 @@ class ForumCategoryController extends Controller
 
     public function store(StoreForumCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
-        ForumCategory::create($request->validated());
+        ForumCategory::query()->create($request->validated());
 
         return to_route('staff.forum_categories.index')
             ->with('success', 'Forum has been created successfully');

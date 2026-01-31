@@ -212,9 +212,7 @@
                                 class="{{ config('other.font-awesome') }} fa-folder"
                                 style="grid-area: icon; padding-right: 4px"
                             ></i>
-                            <span style="padding-right: 4px; word-break: break-all">
-                                {{ $torrent->folder }}
-                            </span>
+                            {{-- format-ignore-start --}}<span style="padding-right: 4px; word-break: break-all">{{ $torrent->folder }}</span>{{-- format-ignore-end --}}
                             <span style="grid-area: count; padding-right: 4px">
                                 ({{ $torrent->files_count }})
                             </span>

@@ -339,6 +339,8 @@ final class User extends Authenticatable implements MustVerifyEmail
             'torrent_sort_field'                => 'bumped_at',
             'torrent_search_autofocus'          => false,
             'show_adult_content'                => true,
+            'auto_freeleech_apply'              => false,
+            'auto_freeleech_min_tokens'         => 0,
         ]);
     }
 
@@ -983,11 +985,11 @@ final class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the prizes claimed by the user.
      *
-     * @return HasMany<ClaimedPrize, $this>
+     * @return HasMany<GiveawayClaimedPrize, $this>
      */
     public function claimedPrizes(): HasMany
     {
-        return $this->hasMany(ClaimedPrize::class);
+        return $this->hasMany(GiveawayClaimedPrize::class);
     }
 
     /**

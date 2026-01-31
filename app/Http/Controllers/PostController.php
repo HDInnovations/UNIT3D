@@ -75,7 +75,7 @@ class PostController extends Controller
 
         $forum = $topic->forum;
 
-        $post = Post::create([
+        $post = Post::query()->create([
             'content'  => $request->input('content'),
             'anon'     => $request->boolean('anon'),
             'user_id'  => $user->id,
@@ -170,7 +170,7 @@ class PostController extends Controller
 
         // User Tagged Notification
         preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
-        $users = User::whereIn('username', $matches[1])->where('id', '!=', $user->id)->get();
+        $users = User::query()->whereIn('username', $matches[1])->where('id', '!=', $user->id)->get();
         Notification::send($users, new NewPostTag($post));
 
         return redirect()->to($realUrl)
@@ -184,8 +184,8 @@ class PostController extends Controller
     {
         $user = $request->user();
 
-        $post = Post::find($id);
-        $topic = Topic::whereKey($post->topic_id)->authorized(canReadTopic: true, canReplyTopic: true)->sole();
+        $post = Post::query()->find($id);
+        $topic = Topic::query()->whereKey($post->topic_id)->authorized(canReadTopic: true, canReplyTopic: true)->sole();
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
@@ -211,7 +211,7 @@ class PostController extends Controller
 
         $user = $request->user();
 
-        $post = Post::findOrFail($id);
+        $post = Post::query()->findOrFail($id);
         $postUrl = \sprintf('forums/topics/%s/posts/%s', $post->topic->id, $id);
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
@@ -234,11 +234,11 @@ class PostController extends Controller
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $post = Post::with('topic')->findOrFail($id);
+        $post = Post::query()->with('topic')->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 
-        $topic = Topic::whereKey($post->topic_id)->authorized(canReplyTopic: true)->sole();
+        $topic = Topic::query()->whereKey($post->topic_id)->authorized(canReplyTopic: true)->sole();
 
         $post->delete();
 

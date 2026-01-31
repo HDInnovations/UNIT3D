@@ -100,7 +100,7 @@
 
     ```sh
     sudo php artisan set:all_cache
-    sudo systemctl restart php8.3-fpm
+    sudo systemctl restart php8.4-fpm
     sudo php artisan queue:restart
     ```
 

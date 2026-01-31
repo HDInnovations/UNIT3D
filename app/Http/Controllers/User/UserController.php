@@ -92,9 +92,9 @@ class UserController extends Controller
                 ->with(['torrent', 'user'])
                 ->latest('created_at')
                 ->paginate(10, ['*'], 'deletedWarningsPage'),
-            'boughtUpload' => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
-            // 'boughtDownload'        => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
-            'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
+            'boughtUpload' => BonTransactions::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
+            // 'boughtDownload'        => BonTransactions::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
+            'invitedBy' => Invite::query()->where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
                 ->select('agent', 'port')
@@ -107,7 +107,8 @@ class UserController extends Controller
                 ->groupBy(['ip', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),
-            'achievements' => AchievementProgress::with('details')
+            'achievements' => AchievementProgress::query()
+                ->with('details')
                 ->where('achiever_id', '=', $user->id)
                 ->whereNotNull('unlocked_at')
                 ->get(),
@@ -119,7 +120,7 @@ class UserController extends Controller
                 ->first(),
             'watch'        => $user->watchlist,
             'externalUser' => ! $user->trashed() && $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : false,
-            'donation'     => Donation::where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
+            'donation'     => Donation::query()->where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
         ]);
     }
 

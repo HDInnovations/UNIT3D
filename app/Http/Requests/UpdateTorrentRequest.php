@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Helpers\TorrentTools;
 use App\Models\Category;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
@@ -45,6 +46,7 @@ class UpdateTorrentRequest extends FormRequest
             'tvdb'          => $this->has('tv_exists_on_tvdb') ? ($this->input('tvdb') ?: null) : null,
             'mal'           => $this->has('anime_exists_on_mal') ? ($this->input('mal') ?: null) : null,
             'igdb'          => $this->has('game_exists_on_igdb') ? ($this->input('igdb') ?: null) : null,
+            'mediainfo'     => TorrentTools::anonymizeMediainfo($this->filled('mediainfo') ? $this->string('mediainfo') : null),
         ]);
     }
 
@@ -55,12 +57,12 @@ class UpdateTorrentRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
-        $category = Category::findOrFail($request->integer('category_id'));
+        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         /** @var string $torrentId */
         $torrentId = $request->route('id');
 
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->find($torrentId);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->find($torrentId);
         $user = $request->user()->load('group')->loadExists('internals');
 
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {

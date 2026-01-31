@@ -36,7 +36,7 @@ class BanController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.ban.index', [
-            'bans' => Ban::latest()->with('user.group', 'staff.group')->paginate(25),
+            'bans' => Ban::query()->latest()->with('user.group', 'staff.group')->paginate(25),
         ]);
     }
 
@@ -47,17 +47,17 @@ class BanController extends Controller
      */
     public function store(StoreBanRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = User::findOrFail($request->string('owned_by'));
+        $user = User::query()->findOrFail($request->string('owned_by'));
         $staff = $request->user();
 
         abort_if($user->group->is_modo || $staff->is($user), 403);
 
         $user->update([
-            'group_id'     => Group::where('slug', '=', 'banned')->soleValue('id'),
+            'group_id'     => Group::query()->where('slug', '=', 'banned')->soleValue('id'),
             'can_download' => 0,
         ]);
 
-        $ban = Ban::create(['created_by' => $staff->id] + $request->validated());
+        $ban = Ban::query()->create(['created_by' => $staff->id] + $request->validated());
 
         cache()->forget('user:'.$user->passkey);
 

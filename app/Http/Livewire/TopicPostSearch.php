@@ -61,7 +61,7 @@ class TopicPostSearch extends Component
                 ->paginate(25);
 
             if ($lastPost = $posts->getCollection()->last()) {
-                TopicRead::upsert([[
+                TopicRead::query()->upsert([[
                     'topic_id'          => $this->topic->id,
                     'user_id'           => auth()->id(),
                     'last_read_post_id' => $lastPost->id,

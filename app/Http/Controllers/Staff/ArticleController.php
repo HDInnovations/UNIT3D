@@ -37,7 +37,8 @@ class ArticleController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.article.index', [
-            'articles' => Article::latest()
+            'articles' => Article::query()
+                ->latest()
                 ->with('user:id,username')
                 ->withCount('comments')
                 ->paginate(25),
@@ -67,7 +68,7 @@ class ArticleController extends Controller
             Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
         }
 
-        $article = Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
+        $article = Article::query()->create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
 
         UnreadArticle::query()->insertUsing(
             ['article_id', 'user_id'],

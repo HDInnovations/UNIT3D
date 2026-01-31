@@ -31,7 +31,7 @@ class RegionController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.region.index', [
-            'regions' => Region::orderBy('position')->get(),
+            'regions' => Region::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class RegionController extends Controller
      */
     public function store(StoreRegionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Region::create($request->validated());
+        Region::query()->create($request->validated());
 
         return to_route('staff.regions.index')
             ->with('success', 'Region successfully added');

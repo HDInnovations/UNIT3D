@@ -18,13 +18,15 @@ namespace Database\Seeders;
 
 use App\Models\Group;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class GroupSeeder extends Seeder
 {
     public function run(): void
     {
-        Group::upsert([
+        Group::query()->upsert([
             [
+                'id'               => 1,
                 'name'             => 'Validating',
                 'slug'             => 'validating',
                 'position'         => 4,
@@ -56,6 +58,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 2,
                 'name'             => 'Guest',
                 'slug'             => 'guest',
                 'position'         => 3,
@@ -87,6 +90,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 3,
                 'name'             => 'User',
                 'slug'             => 'user',
                 'position'         => 6,
@@ -118,6 +122,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 4,
                 'name'             => 'Administrator',
                 'slug'             => 'administrator',
                 'position'         => 20,
@@ -149,6 +154,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 5,
                 'name'             => 'Banned',
                 'slug'             => 'banned',
                 'position'         => 1,
@@ -180,6 +186,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 6,
                 'name'             => 'Moderator',
                 'slug'             => 'moderator',
                 'position'         => 19,
@@ -211,6 +218,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 7,
                 'name'             => 'Uploader',
                 'slug'             => 'uploader',
                 'position'         => 15,
@@ -242,6 +250,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 8,
                 'name'             => 'Trustee',
                 'slug'             => 'trustee',
                 'position'         => 16,
@@ -273,6 +282,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 9,
                 'name'             => 'Bot',
                 'slug'             => 'bot',
                 'position'         => 22,
@@ -304,6 +314,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 10,
                 'name'             => 'Owner',
                 'slug'             => 'owner',
                 'position'         => 21,
@@ -335,6 +346,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 0,
             ],
             [
+                'id'               => 11,
                 'name'             => 'PowerUser',
                 'slug'             => 'poweruser',
                 'position'         => 7,
@@ -366,6 +378,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 30 * 24 * 3600,
             ],
             [
+                'id'               => 12,
                 'name'             => 'SuperUser',
                 'slug'             => 'superuser',
                 'position'         => 8,
@@ -397,6 +410,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 60 * 24 * 3600,
             ],
             [
+                'id'               => 13,
                 'name'             => 'ExtremeUser',
                 'slug'             => 'extremeuser',
                 'position'         => 9,
@@ -428,6 +442,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 90 * 24 * 3600,
             ],
             [
+                'id'               => 14,
                 'name'             => 'InsaneUser',
                 'slug'             => 'insaneuser',
                 'position'         => 10,
@@ -459,6 +474,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 180 * 24 * 3600,
             ],
             [
+                'id'               => 15,
                 'name'             => 'Leech',
                 'slug'             => 'leech',
                 'position'         => 5,
@@ -490,6 +506,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 0,
             ],
             [
+                'id'               => 16,
                 'name'             => 'Veteran',
                 'slug'             => 'veteran',
                 'position'         => 11,
@@ -521,6 +538,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 365 * 24 * 3600,
             ],
             [
+                'id'               => 17,
                 'name'             => 'Seeder',
                 'slug'             => 'seeder',
                 'position'         => 12,
@@ -552,6 +570,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 30 * 24 * 3600,
             ],
             [
+                'id'               => 18,
                 'name'             => 'Archivist',
                 'slug'             => 'archivist',
                 'position'         => 13,
@@ -583,6 +602,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => 90 * 24 * 3600,
             ],
             [
+                'id'               => 19,
                 'name'             => 'Internal',
                 'slug'             => 'internal',
                 'position'         => 14,
@@ -614,6 +634,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 20,
                 'name'             => 'Disabled',
                 'slug'             => 'disabled',
                 'position'         => 2,
@@ -645,6 +666,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 21,
                 'name'             => 'Pruned',
                 'slug'             => 'pruned',
                 'position'         => 0,
@@ -676,6 +698,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 22,
                 'name'             => 'Editor',
                 'slug'             => 'editor',
                 'position'         => 17,
@@ -707,6 +730,7 @@ class GroupSeeder extends Seeder
                 'min_age'          => null,
             ],
             [
+                'id'               => 23,
                 'name'             => 'Torrent Moderator',
                 'slug'             => 'torrent-moderator',
                 'position'         => 18,
@@ -737,35 +761,6 @@ class GroupSeeder extends Seeder
                 'min_ratio'        => null,
                 'min_age'          => null,
             ]
-        ], ['slug'], [
-            'name',
-            'position',
-            'color',
-            'icon',
-            'effect',
-            'autogroup',
-            'system_required',
-            'is_owner',
-            'is_admin',
-            'is_modo',
-            'is_torrent_modo',
-            'is_editor',
-            'is_internal',
-            'is_uploader',
-            'is_trusted',
-            'is_freeleech',
-            'is_immune',
-            'can_chat',
-            'can_comment',
-            'can_invite',
-            'can_request',
-            'can_upload',
-            'level',
-            'min_uploaded',
-            'min_seedsize',
-            'min_avg_seedtime',
-            'min_ratio',
-            'min_age'
-        ]);
+        ], ['id'], ['id' => DB::raw('id')]);
     }
 }

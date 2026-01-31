@@ -46,7 +46,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
 
@@ -79,7 +79,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->sticky = !$torrent->sticky;
         $torrent->save();
 
@@ -95,7 +95,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
         $request->validate([
@@ -139,7 +139,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         if ($torrent->featured()->doesntExist()) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
@@ -174,9 +174,9 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo, 403);
 
-        $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
+        $featured_torrent = FeaturedTorrent::query()->where('torrent_id', '=', $id)->sole();
 
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
@@ -202,7 +202,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
 
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
         if (!$torrent->doubleup) {
@@ -242,7 +242,7 @@ class TorrentBuffController extends Controller
     public function freeleechToken(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         $activeToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
 
@@ -277,7 +277,7 @@ class TorrentBuffController extends Controller
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
 
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent_url = href_torrent($torrent);
 
         if (!$torrent->refundable) {

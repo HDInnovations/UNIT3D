@@ -21,7 +21,8 @@
       "options": {
         "printWidth": 100,
         "semi": true,
-        "singleQuote": true
+        "singleQuote": true,
+        "tabWidth": 4
       }
     },
     {
@@ -30,7 +31,8 @@
       ],
       "options": {
         "semi": true,
-        "singleQuote": true
+        "singleQuote": true,
+        "tabWidth": 4
       }
     }
   ]

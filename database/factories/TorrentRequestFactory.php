@@ -45,7 +45,7 @@ class TorrentRequestFactory extends Factory
             'tmdb_movie_id' => $this->faker->randomNumber(),
             'tmdb_tv_id'    => $this->faker->randomNumber(),
             'mal'           => $this->faker->randomNumber(),
-            'igdb'          => $this->faker->word(),
+            'igdb'          => $this->faker->randomNumber(),
             'description'   => $this->faker->text(),
             'user_id'       => User::factory(),
             'bounty'        => $this->faker->randomFloat(),

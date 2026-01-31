@@ -27,7 +27,7 @@ class TmdbGenreController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('mediahub.genre.index', [
-            'genres' => TmdbGenre::withCount(['tv', 'movie'])->orderBy('name')->get(),
+            'genres' => TmdbGenre::query()->withCount(['tv', 'movie'])->orderBy('name')->get(),
         ]);
     }
 }

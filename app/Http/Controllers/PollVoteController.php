@@ -39,12 +39,12 @@ class PollVoteController extends Controller
      */
     public function store(StorePollVoteRequest $request, Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        if (Voter::whereBelongsTo($poll)->whereBelongsTo($request->user())->exists()) {
+        if (Voter::query()->whereBelongsTo($poll)->whereBelongsTo($request->user())->exists()) {
             return to_route('polls.votes.index', ['poll' => $poll])
                 ->withErrors(trans('poll.already-voted-error'));
         }
 
-        Option::whereIn('id', $request->validated('options'))->increment('votes');
+        Option::query()->whereIn('id', $request->validated('options'))->increment('votes');
 
         $poll->users()->attach($request->user());
 

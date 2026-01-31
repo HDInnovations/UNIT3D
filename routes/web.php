@@ -18,7 +18,6 @@ use App\Enums\GlobalRateLimit;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use Laravel\Fortify\RoutePath;
 
 /*
@@ -50,13 +49,6 @@ Route::middleware('language')->group(function (): void {
         Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
             ->middleware(['throttle:'.config('fortify.limiters.fortify-login-get')])
             ->name('login');
-
-        Route::get(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'create'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-register-get')])
-            ->name('register');
-
-        Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-register-post')]);
     });
 
     /*
@@ -75,9 +67,19 @@ Route::middleware('language')->group(function (): void {
         Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->middleware('throttle:'.GlobalRateLimit::RESET_PASSWORD->value)->name('password.reset');
         Route::post('/reset-password', [App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->middleware('throttle:'.GlobalRateLimit::RESET_PASSWORD->value)->name('password.update');
 
+        // Registration
+        Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->middleware('throttle:'.GlobalRateLimit::REGISTER->value)->name('registration.create');
+        Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->middleware('throttle:'.GlobalRateLimit::REGISTER->value)->name('registration.store');
         // This redirect must be kept until all invite emails that use the old syntax have expired
         // Hack so that Fortify can be used (allows query parameters but not route parameters)
-        Route::get('/register/{code?}', fn (string $code) => to_route('register', ['code' => $code]));
+        Route::get('/register/{code?}', fn (string $code) => to_route('registration.create', ['code' => $code]));
+    });
+
+    Route::middleware(['auth', 'banned'])->group(function (): void {
+        // Email verification
+        Route::get('/email/verify', [App\Http\Controllers\Auth\EmailVerificationController::class, 'create'])->name('verification.notice');
+        Route::get('/email/verify/{id}/{hash}', [App\Http\Controllers\Auth\EmailVerificationController::class, 'show'])->middleware(['signed'])->name('verification.verify');
+        Route::post('/email/verification-notification', [App\Http\Controllers\Auth\EmailVerificationController::class, 'store'])->middleware('throttle:'.GlobalRateLimit::EMAIL_VERIFICATION->value)->name('verification.send');
     });
 
     /*
@@ -112,16 +114,26 @@ Route::middleware('language')->group(function (): void {
             Route::post('/store', [App\Http\Controllers\DonationController::class, 'store'])->name('store');
         });
 
-        // Events
-        Route::prefix('events')->name('events.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\EventController::class, 'index'])->name('index');
-            Route::prefix('{event}')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\EventController::class, 'show'])->name('show');
+        // Giveaways
+        Route::prefix('giveaways')->name('giveaways.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\GiveawayController::class, 'index'])->name('index');
+            Route::prefix('{giveaway}')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\GiveawayController::class, 'show'])->name('show');
 
                 //Claims
                 Route::prefix('claims')->name('claims.')->group(function (): void {
-                    Route::post('/', [App\Http\Controllers\ClaimedPrizeController::class, 'store'])->name('store');
+                    Route::post('/', [App\Http\Controllers\GiveawayClaimedPrizeController::class, 'store'])->name('store');
                 });
+            });
+        });
+
+        Route::get('/groups', [App\Http\Controllers\GroupController::class, 'index'])->name('groups.index');
+
+        // Upload Contests
+        Route::prefix('upload-contests')->name('upload_contests.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\UploadContestController::class, 'index'])->name('index');
+            Route::prefix('{uploadContest}')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\UploadContestController::class, 'show'])->name('show');
             });
         });
 
@@ -185,7 +197,6 @@ Route::middleware('language')->group(function (): void {
             Route::get('/torrent/dead', [App\Http\Controllers\StatsController::class, 'dead'])->name('dead');
             Route::get('/request/bountied', [App\Http\Controllers\StatsController::class, 'bountied'])->name('bountied');
             Route::get('/groups', [App\Http\Controllers\StatsController::class, 'groups'])->name('groups');
-            Route::get('/groups/requirements', [App\Http\Controllers\StatsController::class, 'groupsRequirements'])->name('groups_requirements');
             Route::get('/languages', [App\Http\Controllers\StatsController::class, 'languages'])->name('languages');
             Route::get('/themes', [App\Http\Controllers\StatsController::class, 'themes'])->name('themes');
         });
@@ -794,11 +805,6 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/ghost-leechers', [App\Http\Controllers\Staff\CheaterController::class, 'index'])->name('index');
             });
 
-            // Codebase Version Check
-            Route::prefix('UNIT3D')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\VersionController::class, 'checkVersion']);
-            });
-
             // Commands
             Route::prefix('commands')->middleware('owner')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('commands.index');
@@ -829,21 +835,21 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\EmailUpdateController::class, 'index'])->name('index');
             });
 
-            // Events
-            Route::prefix('events')->name('events.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\EventController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\EventController::class, 'create'])->name('create');
-                Route::post('/', [App\Http\Controllers\Staff\EventController::class, 'store'])->name('store');
-                Route::prefix('{event}')->group(function (): void {
-                    Route::get('/edit', [App\Http\Controllers\Staff\EventController::class, 'edit'])->name('edit');
-                    Route::patch('/', [App\Http\Controllers\Staff\EventController::class, 'update'])->name('update');
-                    Route::delete('/', [App\Http\Controllers\Staff\EventController::class, 'destroy'])->name('destroy');
+            // Giveaways
+            Route::prefix('giveaways')->name('giveaways.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\GiveawayController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\GiveawayController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\GiveawayController::class, 'store'])->name('store');
+                Route::prefix('{giveaway}')->group(function (): void {
+                    Route::get('/edit', [App\Http\Controllers\Staff\GiveawayController::class, 'edit'])->name('edit');
+                    Route::patch('/', [App\Http\Controllers\Staff\GiveawayController::class, 'update'])->name('update');
+                    Route::delete('/', [App\Http\Controllers\Staff\GiveawayController::class, 'destroy'])->name('destroy');
 
                     // Prizes
                     Route::prefix('prizes')->name('prizes.')->group(function (): void {
-                        Route::post('/', [App\Http\Controllers\Staff\PrizeController::class, 'store'])->name('store');
-                        Route::patch('/{prize}', [App\Http\Controllers\Staff\PrizeController::class, 'update'])->name('update');
-                        Route::delete('/{prize}', [App\Http\Controllers\Staff\PrizeController::class, 'destroy'])->name('destroy');
+                        Route::post('/', [App\Http\Controllers\Staff\GiveawayPrizeController::class, 'store'])->name('store');
+                        Route::patch('/{prize}', [App\Http\Controllers\Staff\GiveawayPrizeController::class, 'update'])->name('update');
+                        Route::delete('/{prize}', [App\Http\Controllers\Staff\GiveawayPrizeController::class, 'destroy'])->name('destroy');
                     });
                 });
             });
@@ -1073,6 +1079,25 @@ Route::middleware('language')->group(function (): void {
             // Unregistered Torrents
             Route::prefix('unregistered-info-hashes')->name('unregistered_info_hashes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\UnregisteredInfoHashController::class, 'index'])->name('index');
+            });
+
+            // Upload Contests
+            Route::prefix('upload-contests')->name('upload_contests.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\UploadContestController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\UploadContestController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\UploadContestController::class, 'store'])->name('store');
+                Route::prefix('{uploadContest}')->group(function (): void {
+                    Route::get('/edit', [App\Http\Controllers\Staff\UploadContestController::class, 'edit'])->name('edit');
+                    Route::patch('/', [App\Http\Controllers\Staff\UploadContestController::class, 'update'])->name('update');
+                    Route::delete('/', [App\Http\Controllers\Staff\UploadContestController::class, 'destroy'])->name('destroy');
+
+                    // Prizes
+                    Route::prefix('prizes')->name('prizes.')->group(function (): void {
+                        Route::post('/', [App\Http\Controllers\Staff\UploadContestPrizeController::class, 'store'])->name('store');
+                        Route::patch('/{prize}', [App\Http\Controllers\Staff\UploadContestPrizeController::class, 'update'])->name('update');
+                        Route::delete('/{prize}', [App\Http\Controllers\Staff\UploadContestPrizeController::class, 'destroy'])->name('destroy');
+                    });
+                });
             });
 
             // User Staff Notes

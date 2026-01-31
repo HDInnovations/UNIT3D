@@ -564,7 +564,40 @@
                             </label>
                         </p>
                     </div>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="auto_freeleech_apply" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="auto_freeleech_apply"
+                                value="1"
+                                @checked($user->settings->auto_freeleech_apply)
+                            />
+                            Automatically apply freeleech tokens when applicable
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="auto_freeleech_min_tokens"
+                            class="form__text"
+                            inputmode="numeric"
+                            name="auto_freeleech_min_tokens"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                            type="text"
+                            required
+                            value="{{ $user->settings->auto_freeleech_min_tokens }}"
+                        />
+                        <label
+                            class="form__label form__label--floating"
+                            for="auto_freeleech_min_tokens"
+                        >
+                            Minimum tokens to keep when auto-applying freeleech
+                        </label>
+                    </p>
                 </fieldset>
+
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}

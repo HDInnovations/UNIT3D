@@ -42,7 +42,7 @@ class PollController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.poll.index', [
-            'polls' => Poll::latest()->paginate(25),
+            'polls' => Poll::query()->latest()->paginate(25),
         ]);
     }
 
@@ -69,7 +69,7 @@ class PollController extends Controller
      */
     public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'expires_at', 'multiple_choice']));
+        $poll = Poll::query()->create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'expires_at', 'multiple_choice']));
 
         $poll->options()->upsert($request->validated('options'), ['id'], []);
 

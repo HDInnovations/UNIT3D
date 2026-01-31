@@ -40,8 +40,8 @@ class RssController extends Controller
     {
         return view('rss.index', [
             'hash'        => $hash,
-            'public_rss'  => Rss::where('is_private', '=', false)->oldest('position')->get(),
-            'private_rss' => Rss::where('is_private', '=', true)->where('user_id', '=', $request->user()->id)->latest()->get(),
+            'public_rss'  => Rss::query()->where('is_private', '=', false)->oldest('position')->get(),
+            'private_rss' => Rss::query()->where('is_private', '=', true)->where('user_id', '=', $request->user()->id)->latest()->get(),
             'user'        => $request->user(),
         ]);
     }
@@ -52,10 +52,10 @@ class RssController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('rss.create', [
-            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'genres'      => TmdbGenre::orderBy('name')->get(),
+            'categories'  => Category::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => TmdbGenre::query()->orderBy('name')->get(),
             'user'        => $request->user(),
         ]);
     }
@@ -133,7 +133,7 @@ class RssController extends Controller
         $user = $request->user();
 
         // Redis returns ints as numeric strings!
-        $disabledGroupId = (int) cache()->rememberForever('group:disabled:id', fn () => Group::where('slug', '=', 'disabled')->soleValue('id'));
+        $disabledGroupId = (int) cache()->rememberForever('group:disabled:id', fn () => Group::query()->where('slug', '=', 'disabled')->soleValue('id'));
 
         abort_if($user->group_id === $disabledGroupId, 404);
 
@@ -211,15 +211,15 @@ class RssController extends Controller
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $rss = Rss::where('is_private', '=', true)->findOrFail($id);
+        $rss = Rss::query()->where('is_private', '=', true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
         return view('rss.edit', [
-            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'genres'      => TmdbGenre::orderBy('name')->get(),
+            'categories'  => Category::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => TmdbGenre::query()->orderBy('name')->get(),
             'user'        => $user,
             'rss'         => $rss,
         ]);
@@ -231,7 +231,7 @@ class RssController extends Controller
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
-        $rss = Rss::where('is_private', '=', true)->findOrFail($id);
+        $rss = Rss::query()->where('is_private', '=', true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
@@ -297,7 +297,7 @@ class RssController extends Controller
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
-        $rss = Rss::where('is_private', '=', true)->findOrFail($id);
+        $rss = Rss::query()->where('is_private', '=', true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 

@@ -348,7 +348,8 @@ class SimilarTorrent extends Component
      * @var \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
      */
     final protected \Illuminate\Database\Eloquent\Collection $torrentRequests {
-        get => TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+        get => TorrentRequest::query()
+            ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
             ->withExists('claim')
             ->when($this->category->movie_meta, fn ($query) => $query->where('tmdb_movie_id', '=', $this->tmdbId))
@@ -405,7 +406,7 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
+        $torrents = Torrent::query()->whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
         $this->dispatch(
             'swal:confirm',
@@ -424,17 +425,17 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::whereKey($this->checked)->get();
+        $torrents = Torrent::query()->whereKey($this->checked)->get();
         $users = [];
         $title = match (true) {
-            $this->category->movie_meta => ($movie = TmdbMovie::find($this->tmdbId))->title.($movie->release_date === null ? '' : ' ('.$movie->release_date->format('Y').')'),
-            $this->category->tv_meta    => ($tv = TmdbTv::find($this->tmdbId))->name.($tv->first_air_date === null ? '' : ' ('.$tv->first_air_date->format('Y').')'),
-            $this->category->game_meta  => ($game = IgdbGame::find($this->igdbId))->name.($game->first_release_date === null ? '' : ' ('.$game->first_release_date->format('Y').')'),
+            $this->category->movie_meta => ($movie = TmdbMovie::query()->find($this->tmdbId))->title.($movie->release_date === null ? '' : ' ('.$movie->release_date->format('Y').')'),
+            $this->category->tv_meta    => ($tv = TmdbTv::query()->find($this->tmdbId))->name.($tv->first_air_date === null ? '' : ' ('.$tv->first_air_date->format('Y').')'),
+            $this->category->game_meta  => ($game = IgdbGame::query()->find($this->igdbId))->name.($game->first_release_date === null ? '' : ' ('.$game->first_release_date->format('Y').')'),
             default                     => $torrents->pluck('name')->join(', '),
         };
 
         foreach ($torrents as $torrent) {
-            foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
+            foreach (History::query()->where('torrent_id', '=', $torrent->id)->get() as $pm) {
                 if (!\in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
                 }
@@ -457,6 +458,7 @@ class SimilarTorrent extends Component
             $torrent->subtitles()->delete();
             $torrent->resurrections()->delete();
             $torrent->featured()->delete();
+            $torrent->reseeds()->delete();
 
             $freeleechTokens = $torrent->freeleechTokens();
 

@@ -106,11 +106,9 @@ return [
     */
 
     'limiters' => [
-        'login'                 => 'login',
-        'two-factor'            => 'two-factor',
-        'fortify-login-get'     => 'fortify-login-get',
-        'fortify-register-get'  => 'fortify-register-get',
-        'fortify-register-post' => 'fortify-register-post',
+        'login'             => 'login',
+        'two-factor'        => 'two-factor',
+        'fortify-login-get' => 'fortify-login-get',
     ],
 
     /*
@@ -138,8 +136,6 @@ return [
     */
 
     'features' => [
-        Features::registration(),
-        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([

@@ -56,9 +56,9 @@ class AutoBanDisposableUsers extends Command
             return;
         }
 
-        $bannedGroupId = Group::where('slug', '=', 'banned')->soleValue('id');
+        $bannedGroupId = Group::query()->where('slug', '=', 'banned')->soleValue('id');
 
-        User::where('group_id', '!=', $bannedGroupId)->chunkById(100, function ($users) use ($bannedGroupId): void {
+        User::query()->where('group_id', '!=', $bannedGroupId)->chunkById(100, function ($users) use ($bannedGroupId): void {
             foreach ($users as $user) {
                 $v = validator([
                     'email' => $user->email,
@@ -82,7 +82,7 @@ class AutoBanDisposableUsers extends Command
                     // Log The Ban To Ban Log
                     $domain = substr((string) strrchr((string) $user->email, '@'), 1);
 
-                    $ban = Ban::create([
+                    $ban = Ban::query()->create([
                         'owned_by'     => $user->id,
                         'created_by'   => User::SYSTEM_USER_ID,
                         'ban_reason'   => 'Detected disposable email, '.$domain.' not allowed.',

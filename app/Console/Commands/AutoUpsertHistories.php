@@ -82,7 +82,7 @@ class AutoUpsertHistories extends Command
             $histories = array_map('unserialize', $histories);
 
             DB::transaction(function () use ($histories): void {
-                History::upsert(
+                History::query()->upsert(
                     $histories,
                     ['user_id', 'torrent_id'],
                     [

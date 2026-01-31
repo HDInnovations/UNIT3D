@@ -38,11 +38,12 @@ class TorrentTipController extends Controller
 
         return view('user.torrent-tip.index', [
             'user' => $user,
-            'tips' => TorrentTip::with([
-                'sender.group',
-                'recipient.group',
-                'torrent'
-            ])
+            'tips' => TorrentTip::query()
+                ->with([
+                    'sender.group',
+                    'recipient.group',
+                    'torrent'
+                ])
                 ->where('sender_id', '=', $user->id)
                 ->orWhere('recipient_id', '=', $user->id)
                 ->latest()
@@ -63,10 +64,10 @@ class TorrentTipController extends Controller
         abort_unless($request->user()->is($user), 403);
 
         DB::transaction(static function () use ($request, $user): void {
-            $tip = TorrentTip::create($request->validated());
+            $tip = TorrentTip::query()->create($request->validated());
 
-            User::whereKey($tip->sender_id)->decrement('seedbonus', (float) $tip->bon);
-            User::whereKey($tip->recipient_id)->increment('seedbonus', (float) $tip->bon);
+            User::query()->whereKey($tip->sender_id)->decrement('seedbonus', (float) $tip->bon);
+            User::query()->whereKey($tip->recipient_id)->increment('seedbonus', (float) $tip->bon);
 
             $recipient = $tip->recipient;
 

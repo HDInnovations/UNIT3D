@@ -34,7 +34,7 @@ class UnbanController extends Controller
      */
     public function store(StoreUnbanRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = User::findOrFail($request->integer('owned_by'));
+        $user = User::query()->findOrFail($request->integer('owned_by'));
         $staff = $request->user();
 
         abort_if($user->group->is_modo || $request->user()->is($user), 403);
@@ -44,7 +44,7 @@ class UnbanController extends Controller
             'can_download' => 1,
         ]);
 
-        Ban::create([
+        Ban::query()->create([
             'owned_by'     => $user->id,
             'created_by'   => $staff->id,
             'unban_reason' => $request->unban_reason,

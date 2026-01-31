@@ -48,7 +48,7 @@ class TorrentHelper
     {
         $appurl = config('app.url');
 
-        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->status = ModerationStatus::APPROVED;
@@ -129,8 +129,8 @@ class TorrentHelper
 
             if ($torrent->tmdb_movie_id > 0 || $torrent->tmdb_tv_id > 0) {
                 $meta = match (true) {
-                    $category->tv_meta    => TmdbTv::find($torrent->tmdb_tv_id),
-                    $category->movie_meta => TmdbMovie::find($torrent->tmdb_movie_id),
+                    $category->tv_meta    => TmdbTv::query()->find($torrent->tmdb_tv_id),
+                    $category->movie_meta => TmdbMovie::query()->find($torrent->tmdb_movie_id),
                     default               => null,
                 };
             }

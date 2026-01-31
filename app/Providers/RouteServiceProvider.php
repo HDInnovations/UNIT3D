@@ -48,7 +48,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function (): void {
             Route::prefix('api')
                 ->middleware(MiddlewareGroup::CHAT->value)
-                ->group(base_path('routes/vue.php'));
+                ->group(base_path('routes/chat.php'));
 
             Route::middleware(MiddlewareGroup::WEB->value)
                 ->group(base_path('routes/web.php'));
@@ -98,6 +98,8 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for(GlobalRateLimit::IGDB, fn (): Limit => Limit::perSecond(2));
         RateLimiter::for(GlobalRateLimit::FORGOT_PASSWORD, fn (Request $request) => Limit::perMinute(5)->by('forgot-password'.$request->ip()));
         RateLimiter::for(GlobalRateLimit::RESET_PASSWORD, fn (Request $request) => Limit::perMinute(5)->by('reset-password'.$request->ip()));
+        RateLimiter::for(GlobalRateLimit::REGISTER, fn (Request $request) => Limit::perMinute(5)->by('register'.$request->ip()));
+        RateLimiter::for(GlobalRateLimit::EMAIL_VERIFICATION, fn (Request $request) => Limit::perMinute(5)->by('email-verification'.$request->user()->id));
     }
 
     protected function removeIndexPhpFromUrl(): void

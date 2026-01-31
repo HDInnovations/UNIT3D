@@ -4,3 +4,46 @@ language = "en"
 multilingual = false
 src = "src"
 title = "UNIT3D Documentation"
+description = "Comprehensive documentation for UNIT3D - A modern private torrent tracker platform built with Laravel"
+
+[build]
+build-dir = "book"
+create-missing = true
+
+[output.html]
+default-theme = "mocha"
+preferred-dark-theme = "mocha"
+git-repository-url = "https://github.com/HDInnovations/UNIT3D"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/HDInnovations/UNIT3D/edit/master/book/{path}"
+site-url = "/UNIT3D/"
+cname = "docs.unit3d.dev"
+additional-css = ["./theme/catppuccin.css"]
+
+[output.html.print]
+enable = true
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+
+[output.html.playground]
+editable = false
+copyable = true
+copy-js = true
+line-numbers = true
+
+[preprocessor.links]
+
+[preprocessor.index]

@@ -38,7 +38,7 @@ class StorePostTipRequest extends FormRequest
                 'required',
                 function ($attribute, $value, $fail): void {
                     if (
-                        Post::whereKey($value)->whereNotIn(
+                        Post::query()->whereKey($value)->whereNotIn(
                             'topic_id',
                             Topic::query()
                                 ->whereRelation(
@@ -94,7 +94,8 @@ class StorePostTipRequest extends FormRequest
     {
         $this->merge([
             'sender_id'    => auth()->id(),
-            'recipient_id' => Post::whereKey($this->post_id)
+            'recipient_id' => Post::query()
+                ->whereKey($this->post_id)
                 ->whereNotIn(
                     'topic_id',
                     Topic::query()

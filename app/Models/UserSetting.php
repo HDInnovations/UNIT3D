@@ -56,6 +56,8 @@ use AllowDynamicProperties;
  * @property ?string                         $custom_css
  * @property ?string                         $standalone_css
  * @property bool                            $show_poster
+ * @property bool                            $auto_freeleech_apply
+ * @property int                             $auto_freeleech_min_tokens
  * @property bool                            $unbookmark_torrents_on_completion
  * @property bool                            $show_adult_content
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -127,6 +129,8 @@ final class UserSetting extends Model
             'online_block_position'             => 'int',
             'torrent_filters'                   => 'bool',
             'show_poster'                       => 'bool',
+            'auto_freeleech_apply'              => 'bool',
+            'auto_freeleech_min_tokens'         => 'int',
             'unbookmark_torrents_on_completion' => 'bool',
             'show_adult_content'                => 'bool',
         ];

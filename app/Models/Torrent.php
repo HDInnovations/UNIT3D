@@ -790,6 +790,16 @@ final class Torrent extends Model
     }
 
     /**
+     * Get the reseeds for the torrent.
+     *
+     * @return HasMany<TorrentReseed, $this>
+     */
+    public function reseeds(): HasMany
+    {
+        return $this->hasMany(TorrentReseed::class);
+    }
+
+    /**
      * Set the torrent's mediainfo after it's been purified.
      */
     public function setMediaInfoAttribute(?string $value): void

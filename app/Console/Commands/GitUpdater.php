@@ -597,7 +597,6 @@ Press CTRL + C ANYTIME to abort!
         return match(strtolower($extension)) {
             'php' => '🐘',
             'js'  => '🟨',
-            'vue' => '🟩',
             'css', 'scss', 'sass' => '🎨',
             'json' => '📝',
             'md'   => '📄',
