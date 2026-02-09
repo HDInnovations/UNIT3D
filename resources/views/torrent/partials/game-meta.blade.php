@@ -66,26 +66,28 @@
                     Request similar
                 </a>
             </li>
-            @if ($meta?->id || $torrent?->igdb ?? null)
-                <li>
-                    <form
-                        action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta?->id ?? $torrent->igdb]) }}"
-                        method="post"
-                    >
-                        @csrf
-                        @method('PATCH')
-
-                        <button
-                            @if (cache()->has('igdb-game-scraper:' . ($meta?->id ?? $torrent->igdb)))
-                                disabled
-                                title="This item was recently updated. Try again tomorrow."
-                            @endif
-                            style="cursor: pointer"
+            @if (auth()->user()->group->is_modo || auth()->user()->group->is_torrent_modo || auth()->user()->group->is_editor)
+                @if ($meta?->id || $torrent?->igdb ?? null)
+                    <li>
+                        <form
+                            action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta?->id ?? $torrent->igdb]) }}"
+                            method="post"
                         >
-                            Update metadata
-                        </button>
-                    </form>
-                </li>
+                            @csrf
+                            @method('PATCH')
+
+                            <button
+                                @if (cache()->has('igdb-game-scraper:' . ($meta?->id ?? $torrent->igdb)))
+                                    disabled
+                                    title="This item was recently updated. Try again in 8 hours."
+                                @endif
+                                style="cursor: pointer"
+                            >
+                                Update metadata
+                            </button>
+                        </form>
+                    </li>
+                @endif
             @endif
         </ul>
     </div>

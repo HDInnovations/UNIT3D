@@ -102,6 +102,13 @@ class SimilarTorrentController extends Controller
 
     public function update(Request $request, Category $category, int $metaId): \Illuminate\Http\RedirectResponse
     {
+        abort_unless(
+            $request->user()->group->is_modo ||
+            $request->user()->group->is_torrent_modo ||
+            $request->user()->group->is_editor,
+            403
+        );
+
         if (!($category->movie_meta || $category->tv_meta || $category->game_meta)) {
             return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $metaId])
                 ->withErrors('This meta type can not be updated.');

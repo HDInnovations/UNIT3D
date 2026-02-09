@@ -79,26 +79,28 @@
                 </li>
             @endif
 
-            @if ($meta?->id || $torrent?->tmdb_movie_id ?? null)
-                <li>
-                    <form
-                        action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta?->id ?? $torrent->tmdb_movie_id]) }}"
-                        method="post"
-                    >
-                        @csrf
-                        @method('PATCH')
-
-                        <button
-                            @if (cache()->has('tmdb-movie-scraper:' . ($meta?->id ?? $torrent->tmdb_movie_id)))
-                                disabled
-                                title="This item was recently updated. Try again tomorrow."
-                            @endif
-                            style="cursor: pointer"
+            @if (auth()->user()->group->is_modo || auth()->user()->group->is_torrent_modo || auth()->user()->group->is_editor)
+                @if ($meta?->id || $torrent?->tmdb_movie_id ?? null)
+                    <li>
+                        <form
+                            action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta?->id ?? $torrent->tmdb_movie_id]) }}"
+                            method="post"
                         >
-                            Update metadata
-                        </button>
-                    </form>
-                </li>
+                            @csrf
+                            @method('PATCH')
+
+                            <button
+                                @if (cache()->has('tmdb-movie-scraper:' . ($meta?->id ?? $torrent->tmdb_movie_id)))
+                                    disabled
+                                    title="This item was recently updated. Try again in 8 hours."
+                                @endif
+                                style="cursor: pointer"
+                            >
+                                Update metadata
+                            </button>
+                        </form>
+                    </li>
+                @endif
             @endif
         </ul>
     </div>
