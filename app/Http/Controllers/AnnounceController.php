@@ -110,7 +110,7 @@ final class AnnounceController extends Controller
             $this->checkMaxConnections($torrent, $user);
 
             // Check Download Slots.
-            if (($user->is_lifetime === false || $user->group->download_slots !== null) && config('announce.slots_system.enabled')) {
+            if ($user->is_lifetime === false && config('announce.slots_system.enabled')) {
                 $visible = $this->checkDownloadSlots($queries, $torrent, $user, $group);
             } else {
                 $visible = true;
