@@ -128,6 +128,7 @@ jobs:
                     DB_DATABASE: unit3d
                     DB_PASSWORD: null
                     CACHE_STORE: array
+                    BROADCAST_CONNECTION: 'null'
 
             -   name: Save PHPUnit cache
                 uses: actions/cache/save@v4

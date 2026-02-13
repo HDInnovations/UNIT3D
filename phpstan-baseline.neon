@@ -579,8 +579,8 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$url of function parse_url expects string, bool\|string\|null given\.$#'
 			identifier: argument.type
-			count: 6
-			path: config/secure-headers.php
+			count: 1
+			path: config/reverb.php
 
 		-
 			message: '#^Parameter \#1 \$title of static method Illuminate\\Support\\Str\:\:slug\(\) expects string, bool\|string given\.$#'
@@ -671,3 +671,141 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: routes/web.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_articles_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_ban_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_clients_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_comments_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_history_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_peers_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_reports_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_rss_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_torrents_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_voters_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: database/migrations/2017_12_10_020754_add_foreign_keys_to_warnings_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onDelete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2018_05_31_120955_create_images_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2019_01_27_005216_create_user_privacy_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2019_01_28_225127_create_user_notifications_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2019_02_04_041644_create_user_echoes_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2019_02_06_075938_create_bot_transactions_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2019_02_07_022409_create_user_audibles_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2020_02_14_185120_add_foreign_key_to_options_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onDelete\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: database/migrations/2021_05_26_215430_create_recommendations_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onDelete\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: database/migrations/2022_01_23_232931_update_comments_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onDelete\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2024_07_23_054751_create_torrent_trumps_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onDelete\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: database/migrations/2024_07_28_231553_update_cat_type_res_table.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:onUpdate\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: database/migrations/2025_09_25_110038_alter_reports_create_assignee.php

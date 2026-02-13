@@ -1,13 +1,14 @@
 import Echo from 'laravel-echo';
-import client from 'socket.io-client';
 
-window.io = client;
+import Pusher from 'pusher-js';
+window.Pusher = Pusher;
 
 window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: import.meta.env.VITE_ECHO_ADDRESS,
-    forceTLS: true,
-    withCredentials: true,
-    transports: ['websocket'],
-    enabledTransports: ['wss'],
+    broadcaster: 'reverb',
+    key: import.meta.env.VITE_REVERB_APP_KEY,
+    wsHost: import.meta.env.VITE_REVERB_HOST,
+    wsPort: import.meta.env.VITE_REVERB_PORT ?? 80,
+    wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
+    forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
+    enabledTransports: ['ws', 'wss'],
 });

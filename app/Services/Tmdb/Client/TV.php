@@ -19,9 +19,10 @@ namespace App\Services\Tmdb\Client;
 use App\Enums\Occupation;
 use App\Exceptions\MetaFetchNotFoundException;
 use App\Services\Tmdb\TMDB;
-use Exception;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Client\Response;
+use Throwable;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -312,7 +313,7 @@ class TV
         $response = Http::acceptJson()
             ->retry(
                 [1000, 5000, 15000],
-                when: fn (Exception $exception) => !($exception instanceof RequestException && $exception->response->notFound()),
+                when: fn (Throwable $exception, PendingRequest $request) => !($exception instanceof RequestException && $exception->response->notFound()),
                 throw: false
             )
             ->withUrlParameters(['id' => $id])
