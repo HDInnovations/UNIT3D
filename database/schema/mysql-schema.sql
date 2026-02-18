@@ -499,8 +499,8 @@ CREATE TABLE `donations` (
   `package_id` int unsigned NOT NULL,
   `transaction` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_gifted` tinyint(1) NOT NULL DEFAULT '0',
-  `starts_at` date DEFAULT NULL,
-  `ends_at` date DEFAULT NULL,
+  `starts_at` timestamp DEFAULT NULL,
+  `ends_at` timestamp DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -3124,3 +3124,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (374,'2026_01_27_07
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (375,'2026_02_02_180456_add_foreign_keys_echoes_audibles_messages',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (376,'2026_02_03_012707_drop_keys_from_seedboxes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (377,'2026_02_04_184040_combine_user_audibles_echoes',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (378,'2026_02_18_023757_change_donation_dates_to_timestamps',1);
