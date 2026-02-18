@@ -631,7 +631,7 @@
                     <div class="key-value__group">
                         <dt>Latest donation date</dt>
                         <dd>
-                            {{ $donation->starts_at ?? 'N/A' }}
+                            {{ $donation->updated_at ?? 'N/A' }}
                         </dd>
                     </div>
                     <div class="key-value__group">
