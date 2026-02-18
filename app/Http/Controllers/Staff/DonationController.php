@@ -39,7 +39,7 @@ class DonationController extends Controller
         }])->latest()->paginate(25);
 
         $dailyDonations = Donation::query()
-            ->selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
+            ->selectRaw('DATE(donations.updated_at) as date, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
             ->where('donations.status', '=', ModerationStatus::APPROVED)
             ->groupBy('date')
@@ -47,7 +47,7 @@ class DonationController extends Controller
             ->get();
 
         $monthlyDonations = Donation::query()
-            ->selectRaw('EXTRACT(YEAR FROM donations.created_at) as year, EXTRACT(MONTH FROM donations.created_at) as month, SUM(donation_packages.cost) as total')
+            ->selectRaw('EXTRACT(YEAR FROM donations.updated_at) as year, EXTRACT(MONTH FROM donations.updated_at) as month, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
             ->where('donations.status', '=', ModerationStatus::APPROVED)
             ->groupBy('year', 'month')

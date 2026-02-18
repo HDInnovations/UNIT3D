@@ -60,7 +60,7 @@ class TopNavComposer
             'donationPercentage' => value(function (): int|string {
                 $sum = Donation::query()
                     ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
-                    ->where('donations.created_at', '>=', now()->startOfMonth())
+                    ->where('donations.updated_at', '>=', now()->startOfMonth())
                     ->where('donations.status', ModerationStatus::APPROVED)
                     ->sum('donation_packages.cost');
 

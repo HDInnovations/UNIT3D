@@ -120,7 +120,7 @@ class UserController extends Controller
                 ->first(),
             'watch'        => $user->watchlist,
             'externalUser' => ! $user->trashed() && $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : false,
-            'donation'     => Donation::query()->where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
+            'donation'     => Donation::query()->where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest('updated_at')->first(),
         ]);
     }
 
