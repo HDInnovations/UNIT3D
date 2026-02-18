@@ -90,7 +90,17 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this page: ' . $package->name . '?') }}"
+                                                data-b64-deletion-message="{{
+                                                    base64_encode(
+                                                        'Are you sure you want to delete this package: #' .
+                                                            $package->position .
+                                                            ' - ' .
+                                                            e($package->name) .
+                                                            ' - ' .
+                                                            $package->cost .
+                                                            '?'
+                                                    )
+                                                }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

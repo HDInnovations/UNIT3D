@@ -112,7 +112,17 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to approve this donation: ' . $donation->id . '?') }}"
+                                                    data-b64-deletion-message="{{
+                                                        base64_encode(
+                                                            'Are you sure you want to approve this donation: ' .
+                                                                e($donation->user->username) .
+                                                                ' - ' .
+                                                                $donation->created_at->diffForHumans() .
+                                                                ' - ' .
+                                                                $donation->package->cost .
+                                                                '?'
+                                                        )
+                                                    }}"
                                                     class="form__button form__button--filled"
                                                 >
                                                     Approve
@@ -129,7 +139,17 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to reject this donation: ' . $donation->id . '?') }}"
+                                                    data-b64-deletion-message="{{
+                                                        base64_encode(
+                                                            'Are you sure you want to reject this donation: ' .
+                                                                e($donation->user->username) .
+                                                                ' - ' .
+                                                                $donation->created_at->diffForHumans() .
+                                                                ' - ' .
+                                                                $donation->package->cost .
+                                                                '?'
+                                                        )
+                                                    }}"
                                                     class="form__button form__button--filled"
                                                 >
                                                     Reject
