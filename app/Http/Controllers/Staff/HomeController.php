@@ -21,10 +21,10 @@ use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
@@ -75,6 +75,7 @@ class HomeController extends Controller
                 ->where(fn ($query) => $query->whereNull('assigned_to')->orWhere('assigned_to', '=', auth()->id()))
                 ->count(),
             'pendingApplicationsCount' => DB::table('applications')->where('status', '=', ModerationStatus::PENDING)->count(),
+            'pendingDonationsCount'    => DB::table('donations')->where('status', '=', ModerationStatus::PENDING)->count(),
             'certificate'              => $certificate,
             'uptime'                   => $systemInformation->uptime(),
             'ram'                      => $systemInformation->memory(),
