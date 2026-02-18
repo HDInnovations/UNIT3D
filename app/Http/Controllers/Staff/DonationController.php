@@ -73,18 +73,34 @@ class DonationController extends Controller
 
         $donation = Donation::query()->with(['user', 'package'])->findOrFail($id);
         $donation->status = ModerationStatus::APPROVED;
+
+        $activeDonation = Donation::query()
+            ->where('status', '=', ModerationStatus::APPROVED)
+            ->where('user_id', '=', $donation->user->id)
+            ->where(function ($query) use ($now): void {
+                $query->where('ends_at', '>', $now)
+                    ->orWhereNull('ends_at');
+            })
+            ->latest('updated_at')
+            ->first();
+
+        $isLifetime = $donation->package->donor_value === null ||
+            ($activeDonation && $activeDonation->ends_at === null);
+
         $donation->starts_at = $now;
 
-        if ($donation->package->donor_value > 0) {
-            $donation->ends_at = $now->addDays($donation->package->donor_value);
-        } else {
-            $donation->ends_at = null;
+        if ($activeDonation && !$isLifetime) {
+            $donation->starts_at = $activeDonation->ends_at;
+        }
+
+        if (!$isLifetime) {
+            $donation->ends_at = $donation->starts_at->copy()->addDays($donation->package->donor_value);
         }
 
         $donation->user->invites += $donation->package->invite_value ?? 0;
         $donation->user->uploaded += $donation->package->upload_value ?? 0;
         $donation->user->is_donor = true;
-        $donation->user->is_lifetime = $donation->package->donor_value === null;
+        $donation->user->is_lifetime = $isLifetime;
         $donation->user->seedbonus += $donation->package->bonus_value ?? 0;
         $donation->user->save();
 
