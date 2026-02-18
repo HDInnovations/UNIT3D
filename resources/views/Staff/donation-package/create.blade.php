@@ -28,7 +28,7 @@
                             <th>Position</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Cost</th>
+                            <th>Cost ({{ config('donation.currency') }})</th>
                             <th>Upload (Bytes)</th>
                             <th>Invite (#)</th>
                             <th>Bonus (#)</th>

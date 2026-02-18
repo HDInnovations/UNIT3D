@@ -30,7 +30,7 @@
                     <tr>
                         <th>Position</th>
                         <th>Name</th>
-                        <th>Cost</th>
+                        <th>Cost ({{ config('donation.currency') }})</th>
                         <th>Upload (GiB)</th>
                         <th>Invite (#)</th>
                         <th>Bonus (#)</th>
@@ -50,7 +50,7 @@
                                     {{ $package->name }}
                                 </a>
                             </td>
-                            <td>$ {{ $package->cost }}</td>
+                            <td>{{ $package->cost }}</td>
                             <td>
                                 {{ App\Helpers\StringHelper::formatBytes($package->upload_value ?? 0) }}
                             </td>
@@ -90,7 +90,8 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this page: ' . $package->name . '?') }}"
+                                                data-allow-html="true"
+                                                data-b64-deletion-message="{{ base64_encode("Are you sure you want to delete this package:<br><br>#{$package->position} - <b>" . e($package->name) . "</b> - {$package->cost}") }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

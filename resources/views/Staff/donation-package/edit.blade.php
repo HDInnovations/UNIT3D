@@ -34,8 +34,8 @@
                                 <th>Position</th>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Cost</th>
-                                <th>Upload (GiB)</th>
+                                <th>Cost ({{ config('donation.currency') }})</th>
+                                <th>Upload (Bytes)</th>
                                 <th>Invite (#)</th>
                                 <th>Bonus (#)</th>
                                 <th>Supporter (Days)</th>
@@ -47,7 +47,7 @@
                             <tr>
                                 <td>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="position"
                                         value="{{ $package->position }}"
                                         class="form__text"
@@ -70,7 +70,7 @@
                                 <td>
                                     <input
                                         type="number"
-                                        step="0.01"
+                                        step="1.00"
                                         name="cost"
                                         value="{{ $package->cost }}"
                                         class="form__text"

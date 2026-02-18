@@ -41,7 +41,7 @@
                         <tr>
                             <td>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="position"
                                     value="{{ $gateway->position }}"
                                     class="form__text"

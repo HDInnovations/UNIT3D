@@ -173,9 +173,12 @@
             document.addEventListener('alpine:init', () => {
                 Alpine.data('confirmation', () => ({
                     confirmAction() {
+                        const swalMessage = atob(this.$el.dataset.b64DeletionMessage);
+                        const allowHtml = this.$el.dataset.allowHtml === 'true';
+
                         Swal.fire({
                             title: 'Are you sure?',
-                            text: atob(this.$el.dataset.b64DeletionMessage),
+                            ...(allowHtml ? { html: swalMessage } : { text: swalMessage }),
                             icon: 'warning',
                             showConfirmButton: true,
                             showCancelButton: true,

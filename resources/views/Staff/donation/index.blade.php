@@ -37,7 +37,7 @@
                         <th>Date</th>
                         <th>User</th>
                         <th>Transaction</th>
-                        <th>Cost</th>
+                        <th>Cost ({{ config('donation.currency') }})</th>
                         <th>Upload #</th>
                         <th>Invite #</th>
                         <th>Bonus #</th>
@@ -60,7 +60,7 @@
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
                                 title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
                             >
-                                $ {{ $donation->package->cost }}
+                                {{ $donation->package->cost }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
@@ -112,7 +112,8 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to approve this donation: ' . $donation->id . '?') }}"
+                                                    data-allow-html="true"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to <b>approve</b> this donation:<br><br><b>' . e($donation->user->username) . "</b> - {$donation->created_at->diffForHumans()} - {$donation->package->cost}") }}"
                                                     class="form__button form__button--filled"
                                                 >
                                                     Approve
@@ -129,7 +130,8 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to reject this donation: ' . $donation->id . '?') }}"
+                                                    data-allow-html="true"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to <b>reject</b> this donation:<br><br><b>' . e($donation->user->username) . "</b> - {$donation->created_at->diffForHumans()} - {$donation->package->cost}") }}"
                                                     class="form__button form__button--filled"
                                                 >
                                                     Reject
