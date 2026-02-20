@@ -132,8 +132,9 @@
                                 <input
                                     class="form__text"
                                     type="text"
-                                    disabled
+                                    readonly
                                     value="{{ $gateway->address }}"
+                                    x-on:focus="$el.select()"
                                     id="{{ 'gateway-' . $gateway->id }}"
                                 />
                                 <label
@@ -159,8 +160,9 @@
                             <input
                                 class="form__text"
                                 type="text"
-                                disabled
+                                readonly
                                 value="{{ $package->cost }}"
+                                x-on:focus="$el.select()"
                                 id="package-cost"
                             />
                             <label for="package-cost" class="form__label form__label--floating">
@@ -171,6 +173,7 @@
                             <input
                                 class="form__text"
                                 type="text"
+                                autofocus
                                 value=""
                                 id="proof"
                                 name="transaction"
