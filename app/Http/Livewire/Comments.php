@@ -135,7 +135,16 @@ class Comments extends Component
         switch ($this->model::class) {
             case Ticket::class:
                 // Notify assigned staff if needed
-                User::query()->find($this->model->staff_id)?->notify(new NewComment($this->model, $comment));
+                if ($this->model->staff_id) {
+                    $staff = User::query()->with('group')->find($this->model->staff_id);
+
+                    if ($staff?->group->is_modo) {
+                        $staff->notify(new NewComment($this->model, $comment));
+                    } else {
+                        // Staff has been demoted since ticket was assigned, do not notify
+                        $this->model->update(['staff_id' => null]);
+                    }
+                }
 
                 // Notify ticket creator if needed
                 User::query()->find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
