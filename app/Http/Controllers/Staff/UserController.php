@@ -33,7 +33,6 @@ use App\Models\Post;
 use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Thank;
-use App\Models\Ticket;
 use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
@@ -77,12 +76,6 @@ class UserController extends Controller
         $group = Group::query()->findOrFail($request->group_id);
 
         abort_if(! $staff->group->is_owner && ($staff->group->level <= $user->group->level || $staff->group->level <= $group->level), 403);
-
-        if ($user->group->is_modo && !$group->is_modo) {
-            Ticket::query()->where('staff_id', '=', $user->id)->update([
-                'staff_id' => null,
-            ]);
-        }
 
         $user->update($request->validated());
 
