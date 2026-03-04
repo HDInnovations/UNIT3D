@@ -87,13 +87,29 @@ class TorrentDownloadController extends Controller
         $torrentDownload->type = $rsskey ? 'RSS/API using '.$request->header('User-Agent') : 'Site using '.$request->header('User-Agent');
         $torrentDownload->save();
 
-        // Auto-apply a freeleech token if the user has enabled the setting
         $settings = $user->settings;
+        $personalFreeleech = cache()->get('personal_freeleech:'.$user->id) ?? false;
+        $userHasToken = $torrent->freeleechTokens()->where('user_id', $user->id)->exists();
 
+        // Auto-apply a freeleech token if
         if (
+            // User has enabled the setting
             $settings?->auto_freeleech_apply &&
             $user->fl_tokens >= max(1, $settings->auto_freeleech_min_tokens) &&
-            !cache()->get("freeleech_token:{$user->id}:{$torrent->id}")
+            // No cached token already applied for this torrent
+            ! cache()->get("freeleech_token:{$user->id}:{$torrent->id}") &&
+            // Global freeleech mode is OFF
+            config('other.freeleech') == false &&
+            // The torrent is not 100% free (adjust threshold?)
+            $torrent->free !== 100 &&
+            // Personal, group or donor not already freeleech
+            ! $personalFreeleech &&
+            $user->group->is_freeleech == 0 &&
+            ! $user->is_donor &&
+            // User is not the uploader
+            $torrent->user_id !== $user->id &&
+            // Token does not already exist
+            ! $userHasToken
         ) {
             FreeleechToken::query()->create([
                 'user_id'    => $user->id,
