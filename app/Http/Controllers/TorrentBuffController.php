@@ -243,7 +243,10 @@ class TorrentBuffController extends Controller
         $user = $request->user();
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        $activeToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
+        $activeToken = FreeleechToken::query()
+            ->where('user_id', '=', $user->id)
+            ->where('torrent_id', '=', $torrent->id)
+            ->exists();
 
         if ($user->fl_tokens >= 1 && !$activeToken) {
             $freeleechToken = new FreeleechToken();
@@ -256,7 +259,7 @@ class TorrentBuffController extends Controller
             $user->fl_tokens -= 1;
             $user->save();
 
-            cache()->put('freeleech_token:'.$user->id.':'.$torrent->id, true);
+            cache()->forget('freeleech_token:'.$user->id.':'.$torrent->id);
 
             $torrent->searchable();
 

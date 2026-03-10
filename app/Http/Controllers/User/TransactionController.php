@@ -93,7 +93,7 @@ class TransactionController extends Controller
 
                     PersonalFreeleech::query()->create(['user_id' => $user->id]);
 
-                    cache()->put('personal_freeleech:'.$user->id, true);
+                    cache()->forget('personal_freeleech:'.$user->id);
 
                     Unit3dAnnounce::addPersonalFreeleech($user->id);
 
