@@ -115,3 +115,32 @@
 .torrent__times-completed-count.torrent__times-completed-count {
     color: var(--torrent-row-completed-fg);
 }
+
+/* File Tree
+---------------------------------------------------------------------------- */
+
+.file-tree__wrapper {
+    display: grid;
+    grid-template-areas: 'icon2 name count . size';
+    grid-template-columns: 24px auto auto 1fr auto;
+    gap: 4px;
+}
+
+.file-tree__icon {
+    grid-area: icon2;
+}
+
+.file-tree__name {
+    word-break: break-all;
+    grid-area: name;
+}
+
+.file-tree__size {
+    grid-area: size;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.file-tree__count {
+    grid-area: count;
+}
