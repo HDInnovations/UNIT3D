@@ -311,8 +311,8 @@ class NerdBot
         }
 
         if ($type === 'public') {
-            $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-            $this->chatRepository->message(User::SYSTEM_USER_ID, $target->chatroom->id, $txt, null, $this->bot->id);
+            $this->chatRepository->message($target->id, $target->chatroom->id, $message, null);
+            $this->chatRepository->message(User::SYSTEM_USER_ID, $target->chatroom->id, $txt, $this->bot->id);
 
             return response('success');
         }

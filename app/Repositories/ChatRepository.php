@@ -26,13 +26,13 @@ use App\Models\User;
 
 class ChatRepository
 {
-    public function message(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null): Message
+    public function message(int $userId, int $roomId, string $message, ?int $bot = null): Message
     {
         $message = Message::query()->create([
             'user_id'     => $userId,
             'chatroom_id' => $roomId,
             'message'     => $message,
-            'receiver_id' => $receiver,
+            'receiver_id' => null,
             'bot_id'      => $bot,
         ]);
 
@@ -41,7 +41,7 @@ class ChatRepository
         return $message;
     }
 
-    public function botMessage(int $botId, string $message, ?int $receiver = null): void
+    public function botMessage(int $botId, string $message, int $receiver): void
     {
         $message = Message::query()->create([
             'bot_id'      => $botId,
@@ -62,7 +62,7 @@ class ChatRepository
         $message->delete();
     }
 
-    public function privateMessage(int $userId, string $message, ?int $receiver = null, ?int $bot = null, ?bool $ignore = null): Message
+    public function privateMessage(int $userId, string $message, int $receiver, ?int $bot = null, ?bool $ignore = null): Message
     {
         $message = Message::query()->create([
             'user_id'     => $userId,
@@ -186,6 +186,6 @@ class ChatRepository
             )
             ->value('id');
 
-        $this->message(User::SYSTEM_USER_ID, $systemChatroomId, $message, null, $systemBotId);
+        $this->message(User::SYSTEM_USER_ID, $systemChatroomId, $message, $systemBotId);
     }
 }

@@ -203,9 +203,8 @@ class ChatController extends Controller
             return new ChatMessageResource($message);
         }
 
-        $receiverId = null;
         $botId = null;
-        $message = $this->chatRepository->message($userId, $roomId, $message, $receiverId, $botId);
+        $message = $this->chatRepository->message($userId, $roomId, $message, $botId);
 
         return response('success');
     }
