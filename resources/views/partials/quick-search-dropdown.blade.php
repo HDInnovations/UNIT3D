@@ -5,7 +5,7 @@
             type="text"
             placeholder="Search"
             x-model="searchText"
-            x-on:input.debounce.100ms="performSearch"
+            x-on:input.debounce="performSearch"
             x-ref="quickSearch"
             x-on:keydown.down.prevent="focusFirstResult"
             x-on:keydown.up.prevent="focusLastResult"
