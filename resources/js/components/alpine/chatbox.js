@@ -22,10 +22,6 @@ const debounce = (func, wait) => {
 
 // Message handler module
 const messageHandler = {
-    format(message) {
-        return message;
-    },
-
     create(message, context, user_id = 1, receiver_id = null, bot_id = null) {
         if (!message || message.trim() === '') return;
 
@@ -308,12 +304,6 @@ document.addEventListener('alpine:init', () => {
 
             // Check if the user can moderate this message
             message.canMod = this.canMod(message);
-
-            // Sanitize message content if it exists
-            if (message.message) {
-                message.originalMessage = message.message;
-                message.message = messageHandler.format(message.message);
-            }
 
             return message;
         },
