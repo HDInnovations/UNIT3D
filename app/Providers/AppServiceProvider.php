@@ -105,6 +105,14 @@ class AppServiceProvider extends ServiceProvider
 
         Auth::viaRequest('rsskey', fn (Request $request) => User::query()->where('rsskey', '=', $request->route('rsskey'))->first());
 
+        Auth::viaRequest('apikey', function (Request $request) {
+            if ($request->bearerToken()) {
+                return User::query()
+                    ->where('api_token', '=', $request->bearerToken())
+                    ->first();
+            }
+        });
+
         Context::add('url', $request->url());
     }
 }

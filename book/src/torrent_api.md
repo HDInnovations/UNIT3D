@@ -13,43 +13,16 @@ UNIT3D is offering a new `{JSON:API}`. If you haven't already head over to your 
 
 ## API authentication
 
-There are several ways of passing the API token to UNIT3D. We'll discuss each of these approaches while using the Guzzle HTTP library to demonstrate their usage. You may choose any of these approaches based on your needs to communicate with our API.
+To authenticate with UNIT3D, pass your API token as a `Bearer` token in the `Authorization` header of the request:
 
--   **Query string**
-
-    UNIT3D's API consumers may specify their token as an `api_token` query string value:
-
-    ```php
-    $response = $client->request('GET', '/api/torrents?api_token=YOUR_TOKEN_HERE);
-    ```
-
--   **Request payload**
-
-    UNIT3D's API consumers may include their API token in the request's form parameters as an `api_token`:
-
-    ```php
-    $response = $client->request('POST', '/api/torrents', [
-        'headers' => [
-            'Accept' => 'application/json',
-        ],
-        'form_params' => [
-            'api_token' => 'YOUR_TOKEN_HERE',
-        ],
-    ]);
-    ```
-
--   **Bearer token**
-
-    UNIT3D's API consumers may provide their API token as a `Bearer` token in the `Authorization` header of the request:
-
-    ```php
-    $response = $client->request('POST', '/api/torrents', [
-        'headers' => [
-            'Authorization' => 'Bearer YOUR_TOKEN_HERE',
-            'Accept' => 'application/json',
-        ],
-    ]);
-    ```
+```php
+$response = $client->request('POST', '/api/torrents', [
+    'headers' => [
+        'Authorization' => 'Bearer YOUR_TOKEN_HERE',
+        'Accept' => 'application/json',
+    ],
+]);
+```
 
 ## API endpoints
 
