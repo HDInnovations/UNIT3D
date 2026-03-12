@@ -20,6 +20,8 @@ use App\Enums\ModerationStatus;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\Scopes\ApprovedScope;
+use App\Models\Torrent;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,8 +56,8 @@ class HomeController extends Controller
                 ->selectRaw('SUM(group_id = ?) AS banned', [Group::query()->where('slug', '=', 'banned')->soleValue('id')])
                 ->selectRaw('SUM(group_id = ?) AS validating', [Group::query()->where('slug', '=', 'validating')->soleValue('id')])
                 ->first()),
-            'torrents' => cache()->flexible('dashboard_torrents', [60 * 5, 60 * 10], fn () => DB::table('torrents')
-                ->whereNull('deleted_at')
+            'torrents' => cache()->flexible('dashboard_torrents', [60 * 5, 60 * 10], fn () => Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
                 ->selectRaw('COUNT(*) AS total')
                 ->selectRaw('SUM(status = 0) AS pending')
                 ->selectRaw('SUM(status = 1) AS approved')

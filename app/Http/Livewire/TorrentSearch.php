@@ -24,6 +24,7 @@ use App\Models\TmdbGenre;
 use App\Models\TmdbMovie;
 use App\Models\Region;
 use App\Models\Resolution;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\TmdbTv;
 use App\Models\Type;
@@ -37,7 +38,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
-use Illuminate\Support\Facades\DB;
 
 class TorrentSearch extends Component
 {
@@ -238,8 +238,8 @@ class TorrentSearch extends Component
         get => cache()->flexible(
             'torrent-search:health',
             [3600, 3600 * 2],
-            fn () => DB::table('torrents')
-                ->whereNull('deleted_at')
+            fn () => Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
                 ->selectRaw('COUNT(*) AS total')
                 ->selectRaw('SUM(seeders > 0) AS alive')
                 ->selectRaw('SUM(seeders = 0) AS dead')

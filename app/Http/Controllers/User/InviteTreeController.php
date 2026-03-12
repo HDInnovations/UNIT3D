@@ -102,8 +102,8 @@ class InviteTreeController extends Controller
                 'receiver' => fn ($query) => $query
                     ->withTrashed()
                     ->with('group')
-                    ->withAvg('history', 'seedtime')
-                    ->withSum('history', 'seedtime')
+                    ->withAvg(['history' => fn ($query) => $query->withTrashed()], 'seedtime')
+                    ->withSum(['history' => fn ($query) => $query->withTrashed()], 'seedtime')
                     ->withSum('seedingTorrents', 'size')
                     ->withCount([
                         'warnings' => function ($query): void {

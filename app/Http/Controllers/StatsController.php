@@ -163,7 +163,7 @@ class StatsController extends Controller
         return view('stats.users.seedtime', [
             'users' => User::query()
                 ->with('group')
-                ->withSum('history as seedtime', 'seedtime')
+                ->withSum(['history as seedtime' => fn ($query) => $query->withTrashed()], 'seedtime')
                 ->orderByDesc('seedtime')
                 ->take(100)
                 ->get(),

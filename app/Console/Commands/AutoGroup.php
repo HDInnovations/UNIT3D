@@ -63,7 +63,7 @@ class AutoGroup extends Command
                 'torrents as uploads',
                 'warnings' => fn ($query) => $query->where('active', '=', true),
             ])
-            ->withAvg('history as avg_seedtime', 'seedtime');
+            ->withAvg(['history as avg_seedtime' => fn ($query) => $query->withTrashed()], 'seedtime');
 
         if ($userIds !== []) {
             $userQuery->whereIntegerInRaw('id', $userIds);

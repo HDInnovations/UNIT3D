@@ -20,13 +20,13 @@ use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
 use App\Models\Donation;
+use App\Models\History;
 use App\Models\Invite;
 use App\Models\Peer;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -64,7 +64,8 @@ class UserController extends Controller
         return view('user.profile.show', [
             'user'      => $user,
             'followers' => $user->followers()->latest()->limit(25)->get(),
-            'history'   => DB::table('history')
+            'history'   => History::query()
+                ->withTrashed()
                 ->where('user_id', '=', $user->id)
                 ->where('created_at', '>', $user->created_at)
                 ->selectRaw('SUM(actual_uploaded) as upload_sum')
