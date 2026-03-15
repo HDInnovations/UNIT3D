@@ -28,6 +28,7 @@ use App\Models\Distributor;
 use App\Models\History;
 use App\Models\IgdbGame;
 use App\Models\Keyword;
+use App\Models\PersonalFreeleech;
 use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Scopes\ApprovedScope;
@@ -229,7 +230,7 @@ class TorrentController extends Controller
                         || now()->isBefore($torrent->created_at->addDay())
                     )
                 ),
-            'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
+            'personal_freeleech' => PersonalFreeleech::query()->where('user_id', '=', $user->id)->exists(),
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
             'fileTree'           => $fileTree,
             'alsoDownloaded'     => cache()->flexible(

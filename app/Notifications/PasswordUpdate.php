@@ -45,8 +45,8 @@ class PasswordUpdate extends Notification implements ShouldQueue, SystemNotifica
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'ATTENTION - Your password has been changed',
-            'message' => "Your password has been changed by staff. You will need to update your password manager with the new password.\n\nFor more information, please create a helpdesk ticket.",
+            'subject' => 'Your password was changed',
+            'message' => "Your password was changed. Update it in your password manager.\n\nNeed help? Open a helpdesk ticket.",
         ];
     }
 }

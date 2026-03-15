@@ -87,7 +87,7 @@ class TransactionController extends Controller
 
                     break;
                 case $bonExchange->personal_freeleech:
-                    if (cache()->get('personal_freeleech:'.$user->id)) {
+                    if (PersonalFreeleech::query()->where('user_id', '=', $user->id)->exists()) {
                         return back()->withErrors('Your previous personal freeleech is still active.');
                     }
 

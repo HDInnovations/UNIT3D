@@ -71,9 +71,17 @@ class UserBan extends Notification implements ShouldQueue
         $chatUrl = config('unit3d.chat-link-url');
 
         return (new MailMessage())
-            ->greeting('You have been banned 😭')
-            ->line('You have been banned from '.config('other.title').' for '.$this->ban->ban_reason)
-            ->action('Need Support?', $chatUrl);
+            ->greeting('Account suspended')
+            ->line(
+                'Your account on '.config(
+                    'other.title'
+                ).' was suspended for this reason: '.$this->ban->ban_reason.'.'
+            )
+            ->action('Contact support', $chatUrl)
+            ->line(
+                'If you think this was a mistake, contact support and we will review it.'
+            )
+            ->line('Use the support link above if you need help.');
     }
 
     /**

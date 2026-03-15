@@ -232,7 +232,7 @@ class ChatController extends Controller
         $user = $request->user();
         ChatConversation::query()->where('user_id', '=', $user->id)->where('room_id', '=', $request->integer('room_id'))->delete();
 
-        $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
+        $user->load(['chatStatus', 'chatroom', 'group']);
         $room = Chatroom::query()->findOrFail($request->integer('room_id'));
 
         $user->chatroom()->dissociate();
@@ -256,7 +256,7 @@ class ChatController extends Controller
         $user = $request->user();
         ChatConversation::query()->where('user_id', '=', $user->id)->where('target_id', '=', $request->input('target_id'))->delete();
 
-        $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
+        $user->load(['chatStatus', 'chatroom', 'group']);
         $senderEchoes = ChatConversation::query()->with(['room', 'target', 'bot'])->where('user_id', $user->id)->get();
 
         event(new Chatter('conversations', $user->id, ChatConversationResource::collection($senderEchoes)));
@@ -273,7 +273,7 @@ class ChatController extends Controller
         $user = $request->user();
         ChatConversation::query()->where('user_id', '=', $user->id)->where('bot_id', '=', $request->input('bot_id'))->delete();
 
-        $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
+        $user->load(['chatStatus', 'chatroom', 'group']);
         $senderEchoes = ChatConversation::query()->with(['room', 'target', 'bot'])->where('user_id', $user->id)->get();
 
         event(new Chatter('conversations', $user->id, ChatConversationResource::collection($senderEchoes)));
@@ -373,7 +373,7 @@ class ChatController extends Controller
 
     public function updateUserTarget(Request $request): \Illuminate\Http\JsonResponse
     {
-        $user = $request->user()->load(['chatStatus', 'chatroom', 'group', 'echoes']);
+        $user = $request->user()->load(['chatStatus', 'chatroom', 'group']);
 
         return response()->json($user);
     }

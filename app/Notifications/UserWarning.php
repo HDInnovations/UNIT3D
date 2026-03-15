@@ -69,9 +69,9 @@ class UserWarning extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Hit and Run Warning Received!')
-            ->line('You have received an automated hit and run WARNING on one or more torrents!')
-            ->action('View your unsatisfied torrents and seed off your warnings or wait until they expire!', route('users.history.index', ['user' => $this->user]));
+            ->greeting('Hit and run warning')
+            ->line('You received a hit and run warning on one or more torrents.')
+            ->action('View unsatisfied torrents and seed, or wait for warnings to expire.', route('users.history.index', ['user' => $this->user]));
     }
 
     /**
@@ -82,8 +82,8 @@ class UserWarning extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Hit and Run Warning Received!',
-            'body'  => 'You have received an automated hit and run WARNING on one or more torrents! View your unsatisfied torrents and seed off your warnings or wait until they expire!',
+            'title' => 'Hit and run warning',
+            'body'  => 'You received a hit and run warning on one or more torrents. View unsatisfied torrents and seed, or wait for warnings to expire.',
             'url'   => route('users.history.index', ['user' => $this->user]),
         ];
     }

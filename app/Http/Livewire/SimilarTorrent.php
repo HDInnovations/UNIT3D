@@ -21,6 +21,7 @@ use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\History;
 use App\Models\IgdbGame;
+use App\Models\PersonalFreeleech;
 use App\Models\PlaylistCategory;
 use App\Models\TmdbMovie;
 use App\Models\Region;
@@ -492,7 +493,7 @@ class SimilarTorrent extends Component
     }
 
     final protected bool $personalFreeleech {
-        get => cache()->get('personal_freeleech:'.auth()->id()) ?? false;
+        get => PersonalFreeleech::query()->where('user_id', '=', auth()->id())->exists();
     }
 
     /**

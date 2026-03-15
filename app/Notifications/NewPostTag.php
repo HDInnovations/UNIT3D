@@ -79,11 +79,11 @@ class NewPostTag extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         $username = $this->post->anon ? 'Anonymous' : $this->post->user->username;
-        $title = $this->post->anon ? 'You Have Been Tagged In A Post' : $username.' Has Tagged You In A Post';
+        $title = $this->post->anon ? 'You were tagged in a post' : $username.' tagged you in a post';
 
         return [
             'title' => $title,
-            'body'  => $username.' has tagged you in a Post in Topic '.$this->post->topic->name,
+            'body'  => $username.' tagged you in a post in topic '.$this->post->topic->name,
             'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
         ];
     }

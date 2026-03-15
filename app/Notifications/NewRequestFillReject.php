@@ -74,8 +74,8 @@ class NewRequestFillReject extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->sender.' Has Rejected Your Fill Of A Requested Torrent',
-            'body'  => $this->sender.' has rejected your fill of Requested Torrent '.$this->torrentRequest->name,
+            'title' => $this->sender.' rejected your fill for a requested torrent',
+            'body'  => $this->sender.' rejected your fill for requested torrent: '.$this->torrentRequest->name,
             'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
         ];
     }

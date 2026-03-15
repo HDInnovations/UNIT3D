@@ -71,9 +71,9 @@ class UserWarningExpired extends Notification implements ShouldQueue
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Warning Expired')
+            ->greeting('Warning expired')
             ->line('One or more of your warnings have expired or been seeded off.')
-            ->action('View Profile!', $profileUrl);
+            ->action('View profile', $profileUrl);
     }
 
     /**
@@ -84,8 +84,8 @@ class UserWarningExpired extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Warning Expired',
-            'body'  => 'One or more of your warnings have expired or been seeded off',
+            'title' => 'Warning expired',
+            'body'  => 'One or more warnings expired or were seeded off.',
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }

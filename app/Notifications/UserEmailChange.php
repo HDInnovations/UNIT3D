@@ -69,8 +69,8 @@ class UserEmailChange extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Your Email Address Has Been Changed!')
-            ->line('Your email address regarding account '.$this->user->username.' has been changed from '.$this->oldEmail.' to '.$this->newEmail.'. If you feel this was done in error, please create a helpdesk ticket.')
+            ->greeting('Your email address was changed')
+            ->line('The email on account '.$this->user->username.' was changed from '.$this->oldEmail.' to '.$this->newEmail.'. If this was not you, please create a helpdesk ticket.')
             ->action('Helpdesk', route('tickets.index'));
     }
 

@@ -9,7 +9,6 @@
     class="panelV2 chatbox"
     x-data="chatbox(@js($user))"
     :class="state.ui.fullscreen && 'chatbox--fullscreen'"
-    audio="false"
 >
     <div class="loading__spinner" x-show="state.ui.loading">
         <div class="spinner__dots">

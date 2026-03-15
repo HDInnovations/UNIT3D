@@ -68,8 +68,16 @@ class UserBanExpire extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('You have been unbanned 🤩')
-            ->line('You have been unbanned from '.config('other.title'));
+            ->greeting('Account reinstated')
+            ->line(
+                'Your account on '.config('other.title').' has been reinstated.'
+            )
+            ->line(
+                'Please review the community rules before continuing on '.config(
+                    'other.title'
+                ).'.'
+            )
+            ->line('Welcome back to '.config('other.title').'.');
     }
 
     /**

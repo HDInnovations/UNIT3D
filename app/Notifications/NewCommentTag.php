@@ -98,52 +98,52 @@ class NewCommentTag extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         $username = $this->comment->anon ? 'Anonymous' : $this->comment->user->username;
-        $title = $this->comment->anon ? 'You Have Been Tagged' : $username.' Has Tagged You';
+        $title = $this->comment->anon ? 'You were tagged' : $username.' tagged you';
 
         return match ($this->model::class) {
             Torrent::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent '.$this->model->name,
+                'body'  => $username.' tagged you on torrent '.$this->model->name,
                 'url'   => '/torrents/'.$this->model->id,
             ],
             TorrentRequest::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent Request '.$this->model->name,
+                'body'  => $username.' tagged you on request '.$this->model->name,
                 'url'   => '/requests/'.$this->model->id,
             ],
             Ticket::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Ticket '.$this->model->subject,
+                'body'  => $username.' tagged you on ticket '.$this->model->subject,
                 'url'   => '/tickets/'.$this->model->id,
             ],
             Playlist::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Playlist '.$this->model->name,
+                'body'  => $username.' tagged you on playlist '.$this->model->name,
                 'url'   => '/playlists/'.$this->model->id,
             ],
             TmdbCollection::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Collection '.$this->model->name,
+                'body'  => $username.' tagged you on collection '.$this->model->name,
                 'url'   => '/mediahub/collections/'.$this->model->id,
             ],
             TmdbMovie::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in a comment on Movie '.$this->model->title,
+                'body'  => $username.' tagged you on movie '.$this->model->title,
                 'url'   => '/torrents/similar/'.($this->model->torrents()->value('category_id') ?? 1).'.'.$this->model->id,
             ],
             TmdbTv::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in a comment on TV Show '.$this->model->name,
+                'body'  => $username.' tagged you on TV show '.$this->model->name,
                 'url'   => '/torrents/similar/'.($this->model->torrents()->value('category_id') ?? 2).'.'.$this->model->id,
             ],
             IgdbGame::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in a comment on Game '.$this->model->name,
+                'body'  => $username.' tagged you on game '.$this->model->name,
                 'url'   => '/torrents/similar/'.Torrent::query()->where('igdb', '=', $this->model->id)->value('category_id').'.'.$this->model->id,
             ],
             Article::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Article '.$this->model->title,
+                'body'  => $username.' tagged you on article '.$this->model->title,
                 'url'   => '/articles/'.$this->model->id,
             ],
         };

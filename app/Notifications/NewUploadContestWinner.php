@@ -60,8 +60,8 @@ class NewUploadContestWinner extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'You have won an upload contest!',
-            'body'  => 'Your awards have been added to your account',
+            'title' => 'You won an upload contest',
+            'body'  => 'Your awards were added to your account.',
             'url'   => route('upload_contests.show', ['uploadContest' => $this->uploadContest]),
         ];
     }

@@ -43,19 +43,19 @@ class ChatRepository
 
     public function botMessage(int $botId, string $message, ?int $receiver = null): void
     {
-        $save = Message::query()->create([
+        $message = Message::query()->create([
             'bot_id'      => $botId,
-            'user_id'     => 1,
+            'user_id'     => User::SYSTEM_USER_ID,
             'chatroom_id' => null,
             'message'     => $message,
             'receiver_id' => $receiver,
-        ]);
-
-        $message = Message::query()->with([
-            'bot',
-            'user'     => ['group', 'chatStatus'],
-            'receiver' => ['group', 'chatStatus'],
-        ])->find($save->id);
+        ])
+            ->refresh()
+            ->load([
+                'bot',
+                'user'     => ['group', 'chatStatus'],
+                'receiver' => ['group', 'chatStatus'],
+            ]);
 
         event(new Chatter('new.bot', $receiver, new ChatMessageResource($message)));
         event(new Chatter('new.ping', $receiver, ['type' => 'bot', 'id' => $botId]));
@@ -64,21 +64,19 @@ class ChatRepository
 
     public function privateMessage(int $userId, string $message, ?int $receiver = null, ?int $bot = null, ?bool $ignore = null): Message
     {
-        $save = Message::query()->create([
+        $message = Message::query()->create([
             'user_id'     => $userId,
             'chatroom_id' => null,
             'message'     => $message,
             'receiver_id' => $receiver,
             'bot_id'      => $bot,
-        ]);
-
-        $message = Message::query()
-            ->with([
+        ])
+            ->refresh()
+            ->load([
                 'bot',
                 'user'     => ['group', 'chatStatus'],
                 'receiver' => ['group', 'chatStatus'],
-            ])
-            ->find($save->id);
+            ]);
 
         if ($ignore != null) {
             event(new Chatter('new.message', $userId, new ChatMessageResource($message)));

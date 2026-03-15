@@ -96,23 +96,23 @@ class NewPost extends Notification implements ShouldQueue
 
         if ($this->type == 'subscription') {
             return [
-                'title' => $username.' Has Posted In A Subscribed Topic',
-                'body'  => $username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
+                'title' => $username.' posted in a subscribed topic',
+                'body'  => $username.' posted in subscribed topic: '.$this->post->topic->name,
                 'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
             ];
         }
 
         if ($this->type == 'staff') {
             return [
-                'title' => $username.' Has Posted In A Staff Forum Topic',
-                'body'  => $username.' has left a new post in Staff Topic '.$this->post->topic->name,
+                'title' => $username.' posted in a staff forum topic',
+                'body'  => $username.' posted in staff topic: '.$this->post->topic->name,
                 'url'   => \sprintf('%s/posts/%s', route('topics.show', ['id' => $this->post->topic->id]), $this->post->id),
             ];
         }
 
         return [
-            'title' => $username.' Has Posted In A Topic You Started',
-            'body'  => $username.' has left a new post in Your Topic '.$this->post->topic->name,
+            'title' => $username.' posted in a topic you started',
+            'body'  => $username.' posted in your topic: '.$this->post->topic->name,
             'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
         ];
     }

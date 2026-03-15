@@ -45,8 +45,8 @@ class RsskeyReset extends Notification implements ShouldQueue, SystemNotificatio
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'ATTENTION - Your RSS key has been reset',
-            'message' => "Your RSS key has been reset by staff. You will need to update your RSS key in your torrent client to continue receiving new torrents.\n\nFor more information, please create a helpdesk ticket.",
+            'subject' => 'Your RSS key was reset',
+            'message' => "Your RSS key was reset. Update it in your torrent client to keep receiving new torrents.\n\nNeed help? Open a helpdesk ticket.",
         ];
     }
 }

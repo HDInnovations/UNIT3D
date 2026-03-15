@@ -72,9 +72,9 @@ class UserManualWarningExpire extends Notification implements ShouldQueue
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Manual Warning Expired!')
-            ->line('Your Warning has expired!')
-            ->action('View Profile!', $profileUrl);
+            ->greeting('Manual warning expired')
+            ->line('Your warning has expired.')
+            ->action('View profile', $profileUrl);
     }
 
     /**
@@ -85,7 +85,7 @@ class UserManualWarningExpire extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Manual Warning Expired',
+            'title' => 'Manual warning expired',
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];

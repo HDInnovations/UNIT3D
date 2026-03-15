@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Enums\Occupation;
+use App\Models\PersonalFreeleech;
 use App\Models\TmdbPerson;
 use App\Models\Torrent;
 use App\Models\User;
@@ -53,7 +54,7 @@ class TmdbPersonCredit extends Component
     }
 
     final protected bool $personalFreeleech {
-        get => cache()->get('personal_freeleech:'.auth()->user()->id) ?? false;
+        get => PersonalFreeleech::query()->where('user_id', '=', auth()->id())->exists();
     }
 
     /**

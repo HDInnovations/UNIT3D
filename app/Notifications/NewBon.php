@@ -76,8 +76,8 @@ class NewBon extends Notification implements ShouldQueue
         $this->gift->load('sender');
 
         return [
-            'title' => $this->gift->sender->username.' Has Gifted You '.$this->gift->bon.' BON',
-            'body'  => $this->gift->sender->username.' has gifted you '.$this->gift->bon.' BON with the following note: '.$this->gift->message,
+            'title' => $this->gift->sender->username.' gifted you '.$this->gift->bon.' BON',
+            'body'  => $this->gift->sender->username.' gifted you '.$this->gift->bon.' BON. Note: '.$this->gift->message,
             'url'   => \sprintf('/users/%s', $this->gift->sender->username),
         ];
     }

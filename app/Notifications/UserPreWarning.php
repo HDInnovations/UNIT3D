@@ -69,9 +69,9 @@ class UserPreWarning extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Hit and Run Pre Warning Received!')
-            ->line('You have received an automated hit and run PRE WARNING on one or more torrents!')
-            ->action('View your unsatisfied torrents and start seeding before you are issued a permanent WARNING!', route('users.history.index', ['user' => $this->user]));
+            ->greeting('Hit and run pre-warning')
+            ->line('You received a hit and run pre-warning on one or more torrents.')
+            ->action('View unsatisfied torrents and start seeding.', route('users.history.index', ['user' => $this->user]));
     }
 
     /**
@@ -82,8 +82,8 @@ class UserPreWarning extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Hit and Run Pre Warning Received!',
-            'body'  => 'You have received an automated hit and run PRE WARNING on one or more torrents! View your unsatisfied torrents and start seeding before you are issued a permanent WARNING!!',
+            'title' => 'Hit and run pre-warning',
+            'body'  => 'You received a hit and run pre-warning on one or more torrents. View unsatisfied torrents and start seeding.',
             'url'   => route('users.history.index', ['user' => $this->user]),
         ];
     }

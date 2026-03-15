@@ -132,7 +132,7 @@ class StoreTorrentRequest extends FormRequest
             'mediainfo' => [
                 'nullable',
                 'sometimes',
-                'max:65535',
+                'max:2097152',
             ],
             'bdinfo' => [
                 'nullable',

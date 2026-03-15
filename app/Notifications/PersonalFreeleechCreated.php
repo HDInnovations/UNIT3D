@@ -46,7 +46,7 @@ class PersonalFreeleechCreated extends Notification implements ShouldQueue, Syst
     {
         return [
             'subject' => __('bon.pm-subject'),
-            'message' => \sprintf(__('bon.pm-message'), now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]!',
+            'message' => \sprintf(__('bon.pm-message'), now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b].',
         ];
     }
 }

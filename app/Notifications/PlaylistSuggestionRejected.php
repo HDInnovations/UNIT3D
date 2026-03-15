@@ -50,8 +50,8 @@ class PlaylistSuggestionRejected extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Playlist Suggestion Rejected',
-            'body'  => 'Your playlist suggestion has been rejected. Message from playlist creator: '.$this->message,
+            'title' => 'Playlist suggestion rejected',
+            'body'  => 'Playlist suggestion rejected. Note from playlist creator: '.$this->message,
             'url'   => '/playlists/'.$this->playlistSuggestion->playlist_id.'#playlist_suggestions',
         ];
     }

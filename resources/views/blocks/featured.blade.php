@@ -21,27 +21,11 @@
         <div>
             <ul class="featured-carousel" x-ref="featured" x-bind="list">
                 @foreach ($featured as $feature)
-                    @if ($feature->torrent === null || $feature->torrent->status !== \App\Enums\ModerationStatus::APPROVED)
-                        @continue
-                    @endif
-
-                    @php
-                        $meta = match (true) {
-                            $feature->torrent->category->tv_meta => App\Models\TmdbTv::query()
-                                ->with('genres', 'networks')
-                                ->find($feature->torrent->tmdb_tv_id ?? 0),
-                            $feature->torrent->category->movie_meta => App\Models\TmdbMovie::query()
-                                ->with('genres', 'companies')
-                                ->find($feature->torrent->tmdb_movie_id ?? 0),
-                            $feature->torrent->category->game_meta => App\Models\Game::query()
-                                ->with('genres')
-                                ->find((int) $feature->torrent->igdb),
-                            default => null,
-                        };
-                    @endphp
-
                     <li class="featured-carousel__slide">
-                        <x-torrent.card :meta="$meta" :torrent="$feature->torrent" />
+                        <x-torrent.card
+                            :meta="$feature->torrent->meta"
+                            :torrent="$feature->torrent"
+                        />
                         <footer class="featured-carousel__feature-details">
                             <p class="featured-carousel__featured-until">
                                 {{ __('blocks.featured-until') }}:

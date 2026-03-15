@@ -71,9 +71,9 @@ class UserMaxWarningsReached extends Notification implements ShouldQueue
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Max Hit and Run Warnings Reached!')
-            ->line('You have hit the limit on active Hit and Run Warnings! Your download privileges have been revoked!')
-            ->action('View Unsatisfied Torrents to seed off your warnings or wait until they expire!', $profileUrl);
+            ->greeting('Hit and run warning limit reached')
+            ->line('You reached the active hit and run warning limit. Download privileges were revoked.')
+            ->action('View unsatisfied torrents and seed, or wait for warnings to expire.', $profileUrl);
     }
 
     /**
@@ -84,8 +84,8 @@ class UserMaxWarningsReached extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Max Hit and Run Warnings Reached!',
-            'body'  => 'You have hit the limit on active Hit and Run Warnings! Your download privileges have been revoked!',
+            'title' => 'Hit and run warning limit reached',
+            'body'  => 'You reached the active hit and run warning limit. Download privileges were revoked.',
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }

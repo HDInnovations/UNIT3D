@@ -74,8 +74,8 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->sender.' Has Unclaimed One Of Your Requested Torrents',
-            'body'  => $this->sender.' has unclaimed your Requested Torrent '.$this->torrentRequestClaim->request->name,
+            'title' => $this->sender.' unclaimed one of your requested torrents',
+            'body'  => $this->sender.' unclaimed your requested torrent: '.$this->torrentRequestClaim->request->name,
             'url'   => \sprintf('/requests/%s', $this->torrentRequestClaim->request->id),
         ];
     }

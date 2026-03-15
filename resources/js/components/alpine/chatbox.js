@@ -160,19 +160,9 @@ document.addEventListener('alpine:init', () => {
         chatter: null,
         config: {},
         typingTimeout: null,
-        blurHandler: null,
-        focusHandler: null,
         timestampTick: 0,
 
         init() {
-            this.blurHandler = () => {
-                document.getElementById('chatbody').setAttribute('audio', true);
-            };
-
-            this.focusHandler = () => {
-                document.getElementById('chatbody').setAttribute('audio', false);
-            };
-
             Promise.all([
                 this.fetchStatuses(),
                 this.fetchConversations(),
@@ -182,7 +172,6 @@ document.addEventListener('alpine:init', () => {
                 .then(() => {
                     this.state.ui.loading = false;
                     this.listenForChatter();
-                    this.attachAudible();
 
                     setInterval(() => {
                         this.timestampTick++;
@@ -211,8 +200,6 @@ document.addEventListener('alpine:init', () => {
                 if (this.chatter) {
                     this.chatter.stopListening('Chatter');
                 }
-                window.removeEventListener('blur', this.blurHandler);
-                window.removeEventListener('focus', this.focusHandler);
                 clearTimeout(this.typingTimeout);
             };
         },
@@ -631,17 +618,18 @@ document.addEventListener('alpine:init', () => {
             if (!this.pings.some((p) => p.type === type && p.id === id)) {
                 this.pings.push({ type, id, count: 0 });
             }
-            this.playSound();
+
+            let conversation = this.conversations.find(
+                (conversation) => conversation[type]?.id == id,
+            );
+
+            if (conversation.audible && !this.$root.matches(':focus-within')) {
+                this.playSound();
+            }
         },
 
         checkPings(type, id) {
             return this.pings.some((p) => p.type === type && p.id === id);
-        },
-
-        attachAudible() {
-            // Use the stored handlers for consistency and cleanup
-            window.addEventListener('blur', this.blurHandler);
-            window.addEventListener('focus', this.focusHandler);
         },
 
         // UI actions

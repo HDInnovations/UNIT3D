@@ -50,7 +50,7 @@ class NewReportAssigned extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'New Torrent Report Assigned!',
+            'title' => 'Torrent report assigned',
             'body'  => 'You have been assigned a new torrent report.',
             'url'   => route('staff.reports.show', ['report' => $this->report]),
         ];

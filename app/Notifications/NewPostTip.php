@@ -52,8 +52,8 @@ class NewPostTip extends Notification implements ShouldQueue
         $this->tip->load('sender');
 
         return [
-            'title' => $this->tip->sender->username.' Has Tipped You '.$this->tip->bon.' BON For A Forum Post',
-            'body'  => $this->tip->sender->username.' has tipped one of your Forum posts in '.$this->tip->post->topic->name,
+            'title' => $this->tip->sender->username.' tipped you '.$this->tip->bon.' BON for a forum post',
+            'body'  => $this->tip->sender->username.' tipped your forum post in '.$this->tip->post->topic->name,
             'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->tip->post->topic_id, $this->tip->post_id),
         ];
     }

@@ -91,51 +91,59 @@ class AutoBonAllocation extends Command
             };
         }
 
-        DB::transaction(function () use ($earningsQuery): void {
-            User::withoutTimestamps(function () use ($earningsQuery): void {
-                DB::table('users')
-                    ->joinSub(
-                        DB::query()->fromSub(
-                            DB::table('peers')
+        $maxUserId = User::query()->max('id');
+
+        for ($userId = 0; $userId < $maxUserId; $userId += 500) {
+            $userIdRange = [$userId, $userId + 499];
+
+            DB::transaction(function () use ($earningsQuery, $userIdRange): void {
+                User::withoutTimestamps(function () use ($earningsQuery, $userIdRange): void {
+                    User::query()
+                        ->whereBetween('id', $userIdRange)
+                        ->joinSub(
+                            DB::query()->fromSub(
+                                DB::table('peers')
+                                    ->select([
+                                        'peers.user_id',
+                                        'peers.torrent_id',
+                                        DB::raw("({$earningsQuery}) AS hourly_earnings"),
+                                    ])
+                                    ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
+                                    ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+                                    ->where('peers.seeder', '=', true)
+                                    ->where('peers.active', '=', true)
+                                    ->where('peers.created_at', '<', now()->subMinutes(30))
+                                    ->whereBetween('peers.user_id', $userIdRange)
+                                    ->groupBy([
+                                        'peers.user_id',
+                                        'peers.torrent_id',
+                                        'torrents.name',
+                                        'torrents.type_id',
+                                        'torrents.created_at',
+                                        'torrents.size',
+                                        'torrents.seeders',
+                                        'torrents.leechers',
+                                        'torrents.times_completed',
+                                        'torrents.internal',
+                                        'torrents.personal_release',
+                                        'history.seedtime',
+                                    ]),
+                                'earnings_per_user_per_torrent',
+                            )
                                 ->select([
-                                    'peers.user_id',
-                                    'peers.torrent_id',
-                                    DB::raw("({$earningsQuery}) AS hourly_earnings"),
+                                    'user_id',
+                                    DB::raw('SUM(hourly_earnings) AS hourly_earnings_sum'),
                                 ])
-                                ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
-                                ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
-                                ->where('peers.seeder', '=', true)
-                                ->where('peers.active', '=', true)
-                                ->where('peers.created_at', '<', now()->subMinutes(30))
-                                ->groupBy([
-                                    'peers.user_id',
-                                    'peers.torrent_id',
-                                    'torrents.name',
-                                    'torrents.type_id',
-                                    'torrents.created_at',
-                                    'torrents.size',
-                                    'torrents.seeders',
-                                    'torrents.leechers',
-                                    'torrents.times_completed',
-                                    'torrents.internal',
-                                    'torrents.personal_release',
-                                    'history.seedtime',
-                                ]),
-                            'earnings_per_user_per_torrent',
+                                ->groupBy('user_id'),
+                            'earnings_per_user',
+                            fn ($join) => $join->on('users.id', '=', 'earnings_per_user.user_id'),
                         )
-                            ->select([
-                                'user_id',
-                                DB::raw('SUM(hourly_earnings) AS hourly_earnings_sum'),
-                            ])
-                            ->groupBy('user_id'),
-                        'earnings_per_user',
-                        fn ($join) => $join->on('users.id', '=', 'earnings_per_user.user_id'),
-                    )
-                    ->update([
-                        'seedbonus' => DB::raw('seedbonus + hourly_earnings_sum'),
-                    ]);
-            });
-        }, 25);
+                        ->update([
+                            'seedbonus' => DB::raw('seedbonus + hourly_earnings_sum'),
+                        ]);
+                });
+            }, 25);
+        }
 
         $this->comment('Automated BON allocation command complete in '.(int) now()->diffInMilliseconds($now, true).' ms');
     }

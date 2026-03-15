@@ -52,8 +52,8 @@ class ResurrectionCompleted extends Notification implements ShouldQueue, SystemN
         $appurl = config('app.url');
 
         return [
-            'subject' => 'Successful Graveyard Resurrection',
-            'message' => "You have successfully resurrected [url={$appurl}/torrents/{$this->torrent->id}]{$this->torrent->name}[/url]! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!",
+            'subject' => 'Graveyard resurrection complete',
+            'message' => "You resurrected [url={$appurl}/torrents/{$this->torrent->id}]{$this->torrent->name}[/url]. Enjoy your freeleech tokens.",
         ];
     }
 }

@@ -52,8 +52,8 @@ class NewReseedRequest extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => 'New Reseed Request',
-            'body'  => \sprintf('Some time ago, you downloaded: %s. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!', $this->torrent->name),
+            'title' => 'Reseed request',
+            'body'  => \sprintf('You downloaded this earlier: %s. It is now dead and someone requested a reseed. If you still have it, please reseed.', $this->torrent->name),
             'url'   => \sprintf('%s/torrents/%s', $appurl, $this->torrent->id),
         ];
     }

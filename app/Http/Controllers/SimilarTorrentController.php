@@ -18,6 +18,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\IgdbGame;
+use App\Models\PersonalFreeleech;
 use App\Models\TmdbMovie;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -88,7 +89,7 @@ class SimilarTorrentController extends Controller
                 abort(404, 'No Similar Torrents Found');
         }
 
-        $personalFreeleech = cache()->get('personal_freeleech:'.auth()->id());
+        $personalFreeleech = PersonalFreeleech::query()->where('user_id', '=', auth()->id())->exists();
 
         return view('torrent.similar', [
             'meta'               => $meta,

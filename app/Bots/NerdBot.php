@@ -284,7 +284,7 @@ class NerdBot
             $affected = ChatConversation::query()->upsert([[
                 'user_id'    => $target->id,
                 'bot_id'     => $this->bot->id,
-                'status'     => false,
+                'audible'    => false,
                 'deleted_at' => null,
             ]], ['user_id', 'bot_id'], ['deleted_at']);
 
@@ -298,8 +298,8 @@ class NerdBot
             }
 
             // Create message
-            $this->chatRepository->privateMessage($target->id, $message, 1, $this->bot->id);
-            $this->chatRepository->privateMessage(1, $txt, $target->id, $this->bot->id);
+            $this->chatRepository->privateMessage($target->id, $message, User::SYSTEM_USER_ID, $this->bot->id);
+            $this->chatRepository->privateMessage(User::SYSTEM_USER_ID, $txt, $target->id, $this->bot->id);
 
             return response('success');
         }
@@ -312,7 +312,7 @@ class NerdBot
 
         if ($type === 'public') {
             $this->chatRepository->message($target->id, $target->chatroom->id, $message, null, null);
-            $this->chatRepository->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
+            $this->chatRepository->message(User::SYSTEM_USER_ID, $target->chatroom->id, $txt, null, $this->bot->id);
 
             return response('success');
         }

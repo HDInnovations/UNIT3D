@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\Models\PersonalFreeleech;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Traits\TorrentMeta;
@@ -109,7 +110,7 @@ class TopTorrents extends Component
     }
 
     final protected bool $personalFreeleech {
-        get => cache()->get('personal_freeleech:'.$this->user->id) ?? false;
+        get => PersonalFreeleech::query()->where('user_id', '=', $this->user->id)->exists();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application

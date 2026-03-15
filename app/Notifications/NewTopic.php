@@ -75,14 +75,14 @@ class NewTopic extends Notification implements ShouldQueue
 
         if ($this->type == 'staff') {
             return [
-                'title' => $username.' Has Posted In A Staff Forum',
+                'title' => $username.' posted in a staff forum',
                 'body'  => $username.' has started a new staff topic in '.$this->topic->forum->name,
                 'url'   => route('topics.show', ['id' => $this->topic->id]),
             ];
         }
 
         return [
-            'title' => $username.' Has Posted In A Subscribed Forum',
+            'title' => $username.' posted in a subscribed forum',
             'body'  => $username.' has started a new topic in '.$this->topic->forum->name,
             'url'   => \sprintf('/forums/topics/%s', $this->topic->id),
         ];

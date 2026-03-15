@@ -51,7 +51,7 @@ class WarningDeactivated extends Notification implements ShouldQueue, SystemNoti
     {
         return [
             'subject' => 'Hit and Run Warning Deactivated',
-            'message' => "{$this->staff->username} has decided to deactivate your warning for torrent {$this->warning->torrent->name}. You lucked out!",
+            'message' => "{$this->staff->username} has decided to deactivate your warning for torrent {$this->warning->torrent->name}",
         ];
     }
 }

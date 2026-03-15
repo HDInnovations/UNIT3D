@@ -49,8 +49,8 @@ class WarningsDeactivated extends Notification implements ShouldQueue, SystemNot
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'All Hit and Run Warnings Deactivated',
-            'message' => "{$this->staff->username} has decided to deactivate all of your warnings. You lucked out!",
+            'subject' => 'All hit and run warnings deactivated',
+            'message' => "{$this->staff->username} deactivated all of your hit and run warnings.",
         ];
     }
 }
