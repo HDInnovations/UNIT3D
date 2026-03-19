@@ -23,6 +23,7 @@ use App\Models\Torrent;
 use App\Models\TorrentDownload;
 use App\Models\User;
 use App\Models\FreeleechToken;
+use App\Models\UserSetting;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -127,7 +128,7 @@ class TorrentDownloadController extends Controller
         );
     }
 
-    private function shouldApplyFreeleech($user, $torrent, $settings)
+    private function shouldApplyFreeleech(User $user, Torrent $torrent, UserSetting $settings): bool
     {
         $personalFreeleech = cache()->get('personal_freeleech:'.$user->id) ?? false;
         $minTokens = $settings->auto_freeleech_min_tokens ?? 1;
