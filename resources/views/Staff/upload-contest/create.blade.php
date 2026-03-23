@@ -11,9 +11,7 @@
             {{ __('common.upload') }} {{ __('common.contests') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-upload-contest--create')

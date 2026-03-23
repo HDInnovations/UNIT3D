@@ -9,14 +9,10 @@
     <ul class="top-nav__main-menus" x-bind:class="expanded && 'mobile'">
         <li class="top-nav--left__list-item top-nav__dropdown">
             <a class="top-nav__dropdown--nontouch" href="{{ route('torrents.index') }}">
-                <div class="top-nav--left__container">
-                    {{ __('torrent.torrents') }}
-                </div>
+                <div class="top-nav--left__container">{{ __('torrent.torrents') }}</div>
             </a>
             <a class="top-nav__dropdown--touch" tabindex="0">
-                <div class="top-nav--left__container">
-                    {{ __('torrent.torrents') }}
-                </div>
+                <div class="top-nav--left__container">{{ __('torrent.torrents') }}</div>
             </a>
             <ul>
                 <li>
@@ -65,14 +61,10 @@
         </li>
         <li class="top-nav--left__list-item top-nav__dropdown">
             <a class="top-nav__dropdown--nontouch" href="{{ route('forums.index') }}">
-                <div class="top-nav--left__container">
-                    {{ __('common.community') }}
-                </div>
+                <div class="top-nav--left__container">{{ __('common.community') }}</div>
             </a>
             <a class="top-nav__dropdown--touch" tabindex="0">
-                <div class="top-nav--left__container">
-                    {{ __('common.community') }}
-                </div>
+                <div class="top-nav--left__container">{{ __('common.community') }}</div>
             </a>
             <ul>
                 <li>
@@ -105,11 +97,14 @@
                         {{ __('common.news') }}
                     </a>
                 </li>
-                @if (! empty(config('unit3d.chat-link-url')))
+                @if (!empty(config('unit3d.chat-link-url')))
                     <li>
                         <a href="{{ config('unit3d.chat-link-url') }}">
                             <i class="{{ config('unit3d.chat-link-icon') }}"></i>
-                            {{ config('unit3d.chat-link-name') ?: __('common.chat') }}
+                            {{
+                                config('unit3d.chat-link-name') ?:
+                                    __('common.chat')
+                            }}
                         </a>
                     </li>
                 @endif
@@ -165,7 +160,10 @@
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
-                    @if ($giveaways->contains(fn ($giveaway) => ! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture()))
+                    @if ($giveaways->contains(
+                            fn($giveaway) => !$giveaway->claimed_prizes_exists &&
+                                $giveaway->ends_at->endOfDay()->isFuture()
+                        ))
                         <x-animation.notification />
                     @endif
                 </div>
@@ -176,7 +174,7 @@
                         <a href="{{ route('giveaways.show', ['giveaway' => $giveaway]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-calendar-star"></i>
                             {{ $giveaway->name }}
-                            @if (! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture())
+                            @if (!$giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture())
                                 <x-animation.notification />
                             @endif
                         </a>

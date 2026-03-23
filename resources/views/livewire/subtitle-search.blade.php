@@ -100,7 +100,11 @@
                     </tbody>
                 </table>
             </div>
-            {{ $subtitles->links('partials.pagination') }}
+            {{
+                $subtitles->links(
+                    'partials.pagination',
+                )
+            }}
         </section>
     </div>
     <aside>

@@ -10,19 +10,24 @@
                 @if ($articles->first()?->unreads_exists)
                     @joypixels(':rotating_light:')
                     {{ __('blocks.new-news') }}
-                    {{ $articles->first()?->created_at?->diffForHumans() }}
+                    {{
+                        $articles
+                            ->first()
+                            ?->created_at?->diffForHumans()
+                    }}
                     @joypixels(':rotating_light:')
                 @else
                     {{ __('blocks.check-news') }}
-                    {{ $articles->first()?->created_at?->diffForHumans() }}
+                    {{
+                        $articles
+                            ->first()
+                            ?->created_at?->diffForHumans()
+                    }}
                 @endif
             </h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    <a
-                        href="{{ route('articles.index') }}"
-                        class="form__button form__button--text"
-                    >
+                    <a href="{{ route('articles.index') }}" class="form__button form__button--text">
                         {{ __('common.view-all') }}
                     </a>
                 </div>
@@ -58,7 +63,7 @@
                         />
                     </header>
                     <p class="article-preview__content">
-                        @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150))
+                        @joypixels(preg_replace( '#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150 ))
                     </p>
                     <a
                         href="{{ route('articles.show', ['article' => $article]) }}"

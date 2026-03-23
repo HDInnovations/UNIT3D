@@ -28,20 +28,43 @@
         <section class="mediainfo">
             <section class="mediainfo__filename">
                 <h3>Filename</h3>
-                {{ $mediaInfo['general']['file_name'] ?? __('common.unknown') }}
+                {{
+                    $mediaInfo['general']['file_name'] ??
+                        __('common.unknown')
+                }}
             </section>
             <section class="mediainfo__general">
                 <h3>General</h3>
                 <dl>
                     <dt>Format</dt>
-                    <dd>{{ $mediaInfo['general']['format'] ?? __('common.unknown') }}</dd>
+                    <dd>
+                        {{
+                            $mediaInfo['general']['format'] ??
+                                __('common.unknown')
+                        }}
+                    </dd>
                     <dt>Duration</dt>
-                    <dd>{{ $mediaInfo['general']['duration'] ?? __('common.unknown') }}</dd>
+                    <dd>
+                        {{
+                            $mediaInfo['general']['duration'] ??
+                                __('common.unknown')
+                        }}
+                    </dd>
                     <dt>Bitrate</dt>
-                    <dd>{{ $mediaInfo['general']['bit_rate'] ?? __('common.unknown') }}</dd>
+                    <dd>
+                        {{
+                            $mediaInfo['general']['bit_rate'] ??
+                                __('common.unknown')
+                        }}
+                    </dd>
                     <dt>Size</dt>
                     <dd>
-                        {{ App\Helpers\StringHelper::formatBytes($mediaInfo['general']['file_size'] ?? 0, 2) }}
+                        {{
+                            App\Helpers\StringHelper::formatBytes(
+                                $mediaInfo['general']['file_size'] ?? 0,
+                                2,
+                            )
+                        }}
                     </dd>
                 </dl>
             </section>
@@ -55,30 +78,39 @@
                                 <dl>
                                     <dt>Format</dt>
                                     <dd>
-                                        {{ $videoElement['format'] ?? __('common.unknown') }}
-                                        ({{ $videoElement['bit_depth'] ?? __('common.unknown') }})
+                                        {{ $videoElement['format'] ?? __('common.unknown') }} ({{
+                                            $videoElement['bit_depth'] ??
+                                                __('common.unknown')
+                                        }})
                                     </dd>
                                     <dt>Resolution</dt>
                                     <dd>
-                                        {{ $videoElement['width'] ?? __('common.unknown') }}
-                                        &times;
-                                        {{ $videoElement['height'] ?? __('common.unknown') }}
+                                        {{ $videoElement['width'] ?? __('common.unknown') }} &times; {{ $videoElement['height'] ?? __('common.unknown') }}
                                     </dd>
                                     <dt>Aspect ratio</dt>
                                     <dd>
-                                        {{ $videoElement['aspect_ratio'] ?? __('common.unknown') }}
+                                        {{
+                                            $videoElement['aspect_ratio'] ??
+                                                __('common.unknown')
+                                        }}
                                     </dd>
                                     <dt>Frame rate</dt>
                                     <dd>
                                         @if (isset($videoElement['framerate_mode']) && $videoElement['framerate_mode'] === 'Variable')
                                             VFR
                                         @else
-                                            {{ $videoElement['frame_rate'] ?? __('common.unknown') }}
+                                            {{
+                                                $videoElement['frame_rate'] ??
+                                                    __('common.unknown')
+                                            }}
                                         @endif
                                     </dd>
                                     <dt>Bit rate</dt>
                                     <dd>
-                                        {{ $videoElement['bit_rate'] ?? __('common.unknown') }}
+                                        {{
+                                            $videoElement['bit_rate'] ??
+                                                __('common.unknown')
+                                        }}
                                     </dd>
                                     @if (isset($videoElement['format']) && $videoElement['format'] === 'HEVC')
                                         <dt>HDR</dt>
@@ -88,20 +120,41 @@
                                                     ', ',
                                                     array_keys(
                                                         [
-                                                            'SDR' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'BT.709'),
+                                                            'SDR' =>
+                                                                !array_key_exists('hdr_format', $videoElement) &&
+                                                                array_key_exists('transfer_characteristics', $videoElement) &&
+                                                                str_contains($videoElement['transfer_characteristics'], 'BT.709'),
                                                             'HLG' => str_contains($videoElement['transfer_characteristics'] ?? '', 'HLG'),
-                                                            'WCG' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'BT.2020'),
-                                                            'PQ10' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'PQ') && str_contains($videoElement['color_primaries'], 'BT.2020'),
-                                                            'HDR10' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'HDR10'),
-                                                            'HDR10+' => array_key_exists('hdr_format', $videoElement) && (str_contains($videoElement['hdr_format'], 'HDR10+') || str_contains($videoElement['hdr_format'], 'SMPTE ST 2094 App 4')),
-                                                            'Dolby Vision Profile 5' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.05'),
-                                                            'Dolby Vision Profile 7' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.07'),
-                                                            'Dolby Vision Profile 8' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.08'),
+                                                            'WCG' =>
+                                                                !array_key_exists('hdr_format', $videoElement) &&
+                                                                array_key_exists('transfer_characteristics', $videoElement) &&
+                                                                str_contains($videoElement['transfer_characteristics'], 'BT.2020'),
+                                                            'PQ10' =>
+                                                                !array_key_exists('hdr_format', $videoElement) &&
+                                                                array_key_exists('transfer_characteristics', $videoElement) &&
+                                                                str_contains($videoElement['transfer_characteristics'], 'PQ') &&
+                                                                str_contains($videoElement['color_primaries'], 'BT.2020'),
+                                                            'HDR10' =>
+                                                                array_key_exists('hdr_format', $videoElement) &&
+                                                                str_contains($videoElement['hdr_format'], 'HDR10'),
+                                                            'HDR10+' =>
+                                                                array_key_exists('hdr_format', $videoElement) &&
+                                                                (str_contains($videoElement['hdr_format'], 'HDR10+') ||
+                                                                    str_contains($videoElement['hdr_format'], 'SMPTE ST 2094 App 4')),
+                                                            'Dolby Vision Profile 5' =>
+                                                                array_key_exists('hdr_format', $videoElement) &&
+                                                                str_contains($videoElement['hdr_format'], 'dvhe.05'),
+                                                            'Dolby Vision Profile 7' =>
+                                                                array_key_exists('hdr_format', $videoElement) &&
+                                                                str_contains($videoElement['hdr_format'], 'dvhe.07'),
+                                                            'Dolby Vision Profile 8' =>
+                                                                array_key_exists('hdr_format', $videoElement) &&
+                                                                str_contains($videoElement['hdr_format'], 'dvhe.08'),
                                                         ],
-                                                        true
-                                                    )
+                                                        true,
+                                                    ),
                                                 ) ?:
-                                                __('common.unknown')
+                                                    __('common.unknown')
                                             }}
                                         </dd>
                                     @endif
@@ -110,7 +163,6 @@
                         @endforeach
                     </section>
                 @endisset
-
                 @isset($mediaInfo['audio'])
                     <section class="mediainfo__audio">
                         <h3>Audio</h3>
@@ -125,17 +177,21 @@
                                         height="13"
                                         title="{{ $audioElement['language'] ?? __('common.unknown') }}"
                                     />
-                                    {{ $audioElement['language'] ?? __('common.unknown') }}
-                                    / {{ $audioElement['format'] ?? __('common.unknown') }} /
-                                    {{ $audioElement['channels'] ?? __('common.unknown') }} /
-                                    {{ $audioElement['bit_rate'] ?? __('common.unknown') }} /
-                                    {{ $audioElement['title'] ?? __('common.unknown') }}
+                                    {{
+                                        $audioElement['language'] ??
+                                            __('common.unknown')
+                                    }} / {{ $audioElement['format'] ?? __('common.unknown') }} / {{
+                                        $audioElement['channels'] ??
+                                            __('common.unknown')
+                                    }} / {{
+                                        $audioElement['bit_rate'] ??
+                                            __('common.unknown')
+                                    }} / {{ $audioElement['title'] ?? __('common.unknown') }}
                                 </dd>
                             @endforeach
                         </dl>
                     </section>
                 @endisset
-
                 @isset($mediaInfo['text'])
                     <section class="mediainfo__subtitles">
                         <h3>Subtitles</h3>
@@ -154,8 +210,7 @@
                         </ul>
                     </section>
                 @endisset
-
-                @isset($mediaInfo['video'], array_merge(... $mediaInfo['video'])['encoding_settings'])
+                @isset($mediaInfo['video'], array_merge(...$mediaInfo['video'])['encoding_settings'])
                     <section class="mediainfo__encode-settings">
                         <h3>Encode settings</h3>
                         @foreach ($mediaInfo['video'] as $key => $videoElement)

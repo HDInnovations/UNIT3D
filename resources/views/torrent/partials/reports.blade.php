@@ -18,15 +18,9 @@
                 <tr>
                     <th>{{ __('common.title') }}</th>
                     <th>Reported</th>
-                    <th>
-                        {{ __('common.reporter') }}
-                    </th>
-                    <th>
-                        {{ __('common.created_at') }}
-                    </th>
-                    <th>
-                        {{ __('common.staff') }}
-                    </th>
+                    <th>{{ __('common.reporter') }}</th>
+                    <th>{{ __('common.created_at') }}</th>
+                    <th>{{ __('common.staff') }}</th>
                     <th>{{ __('forum.solved') }}</th>
                 </tr>
             </thead>
@@ -66,9 +60,7 @@
                                 ></i>
                                 {{ __('common.yes') }}
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                                 {{ __('common.no') }}
                             @endif
                         </td>

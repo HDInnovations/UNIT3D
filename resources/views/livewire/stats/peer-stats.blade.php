@@ -15,7 +15,13 @@
         </div>
         <div class="key-value__group">
             <dt>{{ __('torrent.seedsize') }}</dt>
-            <dd>{{ \App\Helpers\StringHelper::formatBytes($totalSeeded) }}</dd>
+            <dd>
+                {{
+                    \App\Helpers\StringHelper::formatBytes(
+                        $totalSeeded,
+                    )
+                }}
+            </dd>
         </div>
     </dl>
 </section>

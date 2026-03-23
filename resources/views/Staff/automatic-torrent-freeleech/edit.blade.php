@@ -7,19 +7,12 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a
-            href="{{ route('staff.automatic_torrent_freeleeches.index') }}"
-            class="breadcrumb__link"
-        >
+        <a href="{{ route('staff.automatic_torrent_freeleeches.index') }}" class="breadcrumb__link">
             Automatic torrent freeleeches
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $automaticTorrentFreeleech->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $automaticTorrentFreeleech->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-automatic-torrent-freeleech--edit')
@@ -27,8 +20,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} automatic torrent freeleech:
-            {{ $automaticTorrentFreeleech->name }}
+            {{ __('common.edit') }} automatic torrent freeleech: {{ $automaticTorrentFreeleech->name }}
         </h2>
         <div class="panel__body">
             <form

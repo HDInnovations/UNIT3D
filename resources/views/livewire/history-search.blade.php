@@ -211,36 +211,73 @@
                                     <td>
                                         <x-user-tag :user="$history->user" :anon="false" />
                                     </td>
-                                    <td>
-                                        {{ $history->torrent_count }}
-                                    </td>
+                                    <td>{{ $history->torrent_count }}</td>
                                     <td title="{{ $history->uploaded_sum }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->uploaded_sum, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->uploaded_sum,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->actual_uploaded_sum }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->actual_uploaded_sum, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->actual_uploaded_sum,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->client_uploaded_sum }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->client_uploaded_sum, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->client_uploaded_sum,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->downloaded_sum }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->downloaded_sum, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->downloaded_sum,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->actual_downloaded_sum }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->actual_downloaded_sum, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->actual_downloaded_sum,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->client_downloaded_sum }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->client_downloaded_sum, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->client_downloaded_sum,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->refunded_download_sum }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->refunded_download_sum,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td>
                                         <time
                                             datetime="{{ $history->created_at_min }}"
                                             title="{{ $history->created_at_min }}"
                                         >
-                                            {{ $history->created_at_min ? $history->created_at_min->diffForHumans() : 'N/A' }}
+                                            {{
+                                                $history->created_at_min
+                                                    ? $history->created_at_min->diffForHumans()
+                                                    : 'N/A'
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -248,7 +285,11 @@
                                             datetime="{{ $history->updated_at_max }}"
                                             title="{{ $history->updated_at_max }}"
                                         >
-                                            {{ $history->updated_at_max ? $history->updated_at_max->diffForHumans() : 'N/A' }}
+                                            {{
+                                                $history->updated_at_max
+                                                    ? $history->updated_at_max->diffForHumans()
+                                                    : 'N/A'
+                                            }}
                                         </time>
                                     </td>
 
@@ -257,16 +298,34 @@
                                             class="text-red"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_avg) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{
+                                                $weeks = intdiv(
+                                                    $history->seedtime_avg ?? 0,
+                                                    3600 * 24 * 7,
+                                                )
+                                            }}w {{
+                                                intdiv(
+                                                    ($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7,
+                                                    3600,
+                                                )
+                                            }}h
                                         </td>
                                     @else
                                         <td
                                             class="text-green"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_avg) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{
+                                                $weeks = intdiv(
+                                                    $history->seedtime_avg ?? 0,
+                                                    3600 * 24 * 7,
+                                                )
+                                            }}w {{
+                                                intdiv(
+                                                    ($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7,
+                                                    3600,
+                                                )
+                                            }}h
                                         </td>
                                     @endif
                                     <td>{{ $history->seeding_count }}</td>
@@ -278,7 +337,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">
@@ -425,32 +483,71 @@
                                     </td>
                                     <td>{{ $history->agent }}</td>
                                     <td title="{{ $history->uploaded }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->uploaded, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->uploaded,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->actual_uploaded }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->actual_uploaded, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->actual_uploaded,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->client_uploaded }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->client_uploaded, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->client_uploaded,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->downloaded }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->downloaded, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->downloaded,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->actual_downloaded }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->actual_downloaded, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->actual_downloaded,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->client_downloaded }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->client_downloaded, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->client_downloaded,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td title="{{ $history->refunded_download }}">
-                                        {{ App\Helpers\StringHelper::formatBytes($history->refunded_download, 2) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->refunded_download,
+                                                2,
+                                            )
+                                        }}
                                     </td>
                                     <td>
                                         <time
                                             datetime="{{ $history->created_at }}"
                                             title="{{ $history->created_at }}"
                                         >
-                                            {{ $history->created_at ? $history->created_at->diffForHumans() : 'N/A' }}
+                                            {{
+                                                $history->created_at
+                                                    ? $history->created_at->diffForHumans()
+                                                    : 'N/A'
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -458,7 +555,11 @@
                                             datetime="{{ $history->updated_at }}"
                                             title="{{ $history->updated_at }}"
                                         >
-                                            {{ $history->updated_at ? $history->updated_at->diffForHumans() : 'N/A' }}
+                                            {{
+                                                $history->updated_at
+                                                    ? $history->updated_at->diffForHumans()
+                                                    : 'N/A'
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -466,7 +567,11 @@
                                             datetime="{{ $history->completed_at }}"
                                             title="{{ $history->completed_at }}"
                                         >
-                                            {{ $history->completed_at ? $history->completed_at->diffForHumans() : 'N/A' }}
+                                            {{
+                                                $history->completed_at
+                                                    ? $history->completed_at->diffForHumans()
+                                                    : 'N/A'
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -474,7 +579,11 @@
                                             datetime="{{ $history->prewarned_at }}"
                                             title="{{ $history->prewarned_at }}"
                                         >
-                                            {{ $history->prewarned_at ? $history->prewarned_at->diffForHumans() : 'N/A' }}
+                                            {{
+                                                $history->prewarned_at
+                                                    ? $history->prewarned_at->diffForHumans()
+                                                    : 'N/A'
+                                            }}
                                         </time>
                                     </td>
 
@@ -483,16 +592,34 @@
                                             class="text-red"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{
+                                                $weeks = intdiv(
+                                                    $history->seedtime ?? 0,
+                                                    3600 * 24 * 7,
+                                                )
+                                            }}w {{
+                                                intdiv(
+                                                    ($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7,
+                                                    3600,
+                                                )
+                                            }}h
                                         </td>
                                     @else
                                         <td
                                             class="text-green"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{
+                                                $weeks = intdiv(
+                                                    $history->seedtime ?? 0,
+                                                    3600 * 24 * 7,
+                                                )
+                                            }}w {{
+                                                intdiv(
+                                                    ($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7,
+                                                    3600,
+                                                )
+                                            }}h
                                         </td>
                                     @endif
                                     <td>
@@ -551,8 +678,13 @@
                             @endforeach
                         </tbody>
                     </table>
+
             @endswitch
-            {{ $histories->links('partials.pagination') }}
+            {{
+                $histories->links(
+                    'partials.pagination',
+                )
+            }}
         </div>
     </section>
 </div>

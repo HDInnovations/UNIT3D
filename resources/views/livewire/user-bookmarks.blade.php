@@ -74,27 +74,27 @@
                     Bookmarked at
                     @include('livewire.includes._sort-icon', ['field' => 'bookmarks.created_at'])
                 </th>
-                <th class="user-bookmarks__actions-header">
-                    {{ __('common.actions') }}
-                </th>
+                <th class="user-bookmarks__actions-header">{{ __('common.actions') }}</th>
             </thead>
             <tbody>
                 @foreach ($bookmarks as $bookmark)
                     <tr>
                         <td class="user-bookmarks__name">
-                            <a
-                                href="{{ route('torrents.show', ['id' => $bookmark->torrent_id]) }}"
-                            >
+                            <a href="{{ route('torrents.show', ['id' => $bookmark->torrent_id]) }}">
                                 {{ $bookmark->name }}
                             </a>
                         </td>
                         <td class="user-bookmarks__size">
-                            {{ App\Helpers\StringHelper::formatBytes($bookmark->size) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $bookmark->size,
+                                )
+                            }}
                         </td>
                         <td
                             @class([
                                 'user-bookmarks__seeders',
-                                'torrent-activity-indicator--seeding' => $bookmark->seeding,
+                                'torrent-activity-indicator--seeding' => $bookmark->seeding
                             ])
                             @if ($bookmark->seeding)
                                 title="{{ __('torrent.currently-seeding') }}"
@@ -110,7 +110,7 @@
                         <td
                             @class([
                                 'user-bookmarks__leechers',
-                                'torrent-activity-indicator--leeching' => $bookmark->leeching,
+                                'torrent-activity-indicator--leeching' => $bookmark->leeching
                             ])
                             @if ($bookmark->leeching)
                                 title="{{ __('torrent.currently-leeching') }}"
@@ -126,7 +126,7 @@
                         <td
                             @class([
                                 'user-bookmarks__times_completed',
-                                'torrent-activity-indicator--completed' => $bookmark->completed,
+                                'torrent-activity-indicator--completed' => $bookmark->completed
                             ])
                             @if ($bookmark->completed)
                                 title="{{ __('torrent.completed') }}"
@@ -199,5 +199,9 @@
             </tbody>
         </table>
     </div>
-    {{ $bookmarks->links('partials.pagination') }}
+    {{
+        $bookmarks->links(
+            'partials.pagination',
+        )
+    }}
 </section>

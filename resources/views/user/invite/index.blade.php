@@ -10,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.invites') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.invites') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -137,7 +135,9 @@
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to retract the invite to: ' . $invite->email . '?') }}"
                                                 class="form__button form__button--text"
-                                                @disabled($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
+                                                @disabled($invite->accepted_at !== null ||
+                                                        $invite->expires_on < now() ||
+                                                        $invite->deleted_at !== null)
                                             >
                                                 {{ __('common.delete') }}
                                             </button>
@@ -156,6 +156,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $invites->links('partials.pagination') }}
+        {{
+            $invites->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 @endsection

@@ -7,16 +7,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a
-            href="{{ route('staff.automatic_torrent_freeleeches.index') }}"
-            class="breadcrumb__link"
-        >
+        <a href="{{ route('staff.automatic_torrent_freeleeches.index') }}" class="breadcrumb__link">
             Automatic torrent freeleeches
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-automatic-torrent-freeleech--create')
@@ -95,10 +90,7 @@
                     <select id="type_id" name="type_id" class="form__select">
                         <option hidden disabled selected value="">Any</option>
                         @foreach ($types as $type)
-                            <option
-                                value="{{ $type->id }}"
-                                @selected(old('type_id') == $type->id)
-                            >
+                            <option value="{{ $type->id }}" @selected(old('type_id') == $type->id)>
                                 {{ $type->name }}
                             </option>
                         @endforeach

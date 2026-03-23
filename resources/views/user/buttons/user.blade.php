@@ -1,8 +1,6 @@
 @php
     $isModo = auth()->user()->group->is_modo;
-    $isProfileOwner = auth()
-        ->user()
-        ->is($user);
+    $isProfileOwner = auth()->user()->is($user);
 @endphp
 
 <li class="nav-tab-menu">
@@ -32,7 +30,7 @@
             </li>
         @else
             <li class="nav-tabV2">
-                @if ($user->followers()->where('users.id', '=', auth()->id())->exists())
+                @if ($user ->followers() ->where('users.id', '=', auth()->id()) ->exists())
                     <form
                         action="{{ route('users.followers.destroy', ['user' => $user]) }}"
                         method="POST"
@@ -66,9 +64,7 @@
                 @endif
             </li>
             <li class="nav-tabV2" x-data="dialog">
-                <button class="nav-tab__link" x-bind="showDialog">
-                    {{ __('user.report') }}
-                </button>
+                <button class="nav-tab__link" x-bind="showDialog">{{ __('user.report') }}</button>
                 <dialog class="dialog" x-bind="dialogElement">
                     <h3 class="dialog__heading">Report user: {{ $user->username }}</h3>
                     <form
@@ -215,9 +211,7 @@
                 {{ __('torrent.torrents') }}
             </a>
         @else
-            <span tabindex="-1" class="nav-tab__link">
-                {{ __('torrent.torrents') }}
-            </span>
+            <span tabindex="-1" class="nav-tab__link"> {{ __('torrent.torrents') }} </span>
         @endif
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
@@ -286,13 +280,17 @@
                         class="{{ Route::is('users.unregistered_info_hashes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.unregistered_info_hashes.index', ['user' => $user]) }}"
                     >
-                        {{ __('user.unregistered-info-hashes') }}
+                        {{
+                            __(
+                                'user.unregistered-info-hashes',
+                            )
+                        }}
                     </a>
                 </li>
             @endif
 
             @if ($isProfileOwner)
-                @if (! config('announce.external_tracker.is_enabled'))
+                @if (!config('announce.external_tracker.is_enabled'))
                     <form
                         action="{{ route('users.peers.mass_destroy', ['user' => $user]) }}"
                         method="POST"
@@ -305,7 +303,6 @@
                         </button>
                     </form>
                 @endif
-
                 <li class="nav-tabV2" x-data="dialog">
                     <a class="nav-tab__link" x-bind="showDialog">Download torrent files</a>
 
@@ -506,9 +503,7 @@
         </span>
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
-                <li
-                    class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
-                >
+                <li class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
                         class="{{ Route::is('users.wishes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.wishes.index', ['user' => $user]) }}"

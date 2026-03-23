@@ -1,7 +1,5 @@
 @section('title')
-    <title>
-        Torrent trumps - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
-    </title>
+    <title>Torrent trumps - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -115,7 +113,11 @@
                                 datetime="{{ $torrentTrump->created_at }}"
                                 title="{{ $torrentTrump->created_at }}"
                             >
-                                {{ $torrentTrump->created_at->format('Y-m-d') }}
+                                {{
+                                    $torrentTrump->created_at->format(
+                                        'Y-m-d',
+                                    )
+                                }}
                             </time>
                         </td>
                     </tr>
@@ -123,5 +125,9 @@
             </tbody>
         </table>
     </div>
-    {{ $torrentTrumps->links('partials.pagination') }}
+    {{
+        $torrentTrumps->links(
+            'partials.pagination',
+        )
+    }}
 </section>

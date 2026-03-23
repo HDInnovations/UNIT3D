@@ -14,7 +14,9 @@
                 flex-wrap: wrap;
             "
         >
-            @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && $canEdit))
+            @if (auth()->user()->group->is_editor ||
+                auth()->user()->group->is_modo ||
+                (auth()->id() === $torrent->user_id && $canEdit))
                 <li>
                     <menu
                         style="
@@ -32,15 +34,15 @@
                                     href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                                     role="button"
                                 >
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-pencil-alt"
-                                    ></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
                                     {{ __('common.edit') }}
                                 </a>
                             </li>
                         @endif
 
-                        @if (auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
+                        @if (auth()->user()->group->is_modo ||
+                            (auth()->id() === $torrent->user_id &&
+                                Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
                             <li x-data="dialog">
                                 <button
                                     class="form__button form__button--outlined"
@@ -113,7 +115,7 @@
                 </li>
             @endif
 
-            @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
+            @if (auth()->user()->group->is_modo || auth()->user()->internals()->exists())
                 <menu
                     style="
                         display: flex;
@@ -250,7 +252,7 @@
                         </dialog>
                     </li>
                     <li>
-                        @if (! $torrent->refundable)
+                        @if (!$torrent->refundable)
                             <form
                                 action="{{ route('refundable', ['id' => $torrent->id]) }}"
                                 method="POST"
@@ -277,7 +279,7 @@
                         @endif
                     </li>
                     <li>
-                        @if (! $torrent->sticky)
+                        @if (!$torrent->sticky)
                             <form
                                 action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
                                 method="POST"
@@ -317,7 +319,7 @@
                         </form>
                     </li>
                     <li>
-                        @if (! $torrent->featured)
+                        @if (!$torrent->featured)
                             <form
                                 method="POST"
                                 action="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
@@ -390,10 +392,7 @@
 
                     @if ($torrent->status !== \App\Enums\ModerationStatus::POSTPONED)
                         <li x-data="dialog">
-                            <button
-                                class="form__button form__button--outlined"
-                                x-bind="showDialog"
-                            >
+                            <button class="form__button form__button--outlined" x-bind="showDialog">
                                 <i class="{{ config('other.font-awesome') }} fa-pause"></i>
                                 {{ __('common.moderation-postpone') }}
                             </button>
@@ -463,10 +462,7 @@
 
                     @if ($torrent->status !== \App\Enums\ModerationStatus::REJECTED)
                         <li x-data="dialog">
-                            <button
-                                class="form__button form__button--outlined"
-                                x-bind="showDialog"
-                            >
+                            <button class="form__button form__button--outlined" x-bind="showDialog">
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-fw fa-thumbs-down"
                                 ></i>
@@ -541,17 +537,14 @@
                             @case(\App\Enums\ModerationStatus::APPROVED)
                                 Approved by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
-
                                 @break
                             @case(\App\Enums\ModerationStatus::POSTPONED)
                                 Postponed by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
-
                                 @break
                             @case(\App\Enums\ModerationStatus::REJECTED)
                                 Rejected by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
-
                                 @break
                             @default
                                 Unmoderated

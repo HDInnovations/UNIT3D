@@ -37,9 +37,7 @@
                                         {{ $user->group->name }} (Default)
                                     </option>
                                     @foreach (App\Models\Group::query()->orderByDesc('position')->get() as $group)
-                                        <option value="{{ $group->id }}">
-                                            {{ $group->name }}
-                                        </option>
+                                        <option value="{{ $group->id }}">{{ $group->name }}</option>
                                     @endforeach
                                 </select>
                                 <label class="form__label form__label--floating" for="group_id">
@@ -130,18 +128,12 @@
                         <td>{{ $ban->ban_reason }}</td>
                         <td>{{ $ban->unban_reason }}</td>
                         <td>
-                            <time
-                                datetime="{{ $ban->created_at }}"
-                                title="{{ $ban->created_at }}"
-                            >
+                            <time datetime="{{ $ban->created_at }}" title="{{ $ban->created_at }}">
                                 {{ $ban->created_at }}
                             </time>
                         </td>
                         <td>
-                            <time
-                                datetime="{{ $ban->removed_at }}"
-                                title="{{ $ban->removed_at }}"
-                            >
+                            <time datetime="{{ $ban->removed_at }}" title="{{ $ban->removed_at }}">
                                 {{ $ban->removed_at }}
                             </time>
                         </td>

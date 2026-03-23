@@ -53,7 +53,11 @@
                                     datetime="{{ $uploadContest->starts_at }}"
                                     title="{{ $uploadContest->starts_at }}"
                                 >
-                                    {{ $uploadContest->starts_at->format('Y-m-d') }}
+                                    {{
+                                        $uploadContest->starts_at->format(
+                                            'Y-m-d',
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>
@@ -61,7 +65,11 @@
                                     datetime="{{ $uploadContest->ends_at }}"
                                     title="{{ $uploadContest->ends_at }}"
                                 >
-                                    {{ $uploadContest->ends_at->format('Y-m-d') }}
+                                    {{
+                                        $uploadContest->ends_at->format(
+                                            'Y-m-d',
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>

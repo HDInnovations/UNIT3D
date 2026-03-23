@@ -6,13 +6,9 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('polls.index') }}" class="breadcrumb__link">
-            {{ __('poll.polls') }}
-        </a>
+        <a href="{{ route('polls.index') }}" class="breadcrumb__link"> {{ __('poll.polls') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $poll->title }}
-    </li>
+    <li class="breadcrumb--active">{{ $poll->title }}</li>
 @endsection
 
 @section('page', 'page__poll--show')

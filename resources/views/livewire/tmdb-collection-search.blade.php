@@ -19,7 +19,11 @@
             </div>
         </div>
     </header>
-    {{ $collections->links('partials.pagination') }}
+    {{
+        $collections->links(
+            'partials.pagination',
+        )
+    }}
     <div class="panel__body">
         <ul class="collection__list">
             @foreach ($collections as $collection)
@@ -46,5 +50,9 @@
             @endforeach
         </ul>
     </div>
-    {{ $collections->links('partials.pagination') }}
+    {{
+        $collections->links(
+            'partials.pagination',
+        )
+    }}
 </section>

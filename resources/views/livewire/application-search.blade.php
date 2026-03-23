@@ -85,15 +85,12 @@
                             @switch($application->status)
                                 @case(\App\Enums\ModerationStatus::PENDING)
                                     <span class="application--pending">Pending</span>
-
                                     @break
                                 @case(\App\Enums\ModerationStatus::APPROVED)
                                     <span class="application--approved">Approved</span>
-
                                     @break
                                 @case(\App\Enums\ModerationStatus::REJECTED)
                                     <span class="application--rejected">Rejected</span>
-
                                     @break
                                 @default
                                     <span class="application--unknown">Unknown</span>
@@ -138,7 +135,11 @@
             </tbody>
         </table>
     </div>
-    {{ $applications->links('partials.pagination') }}
+    {{
+        $applications->links(
+            'partials.pagination',
+        )
+    }}
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {
             Alpine.data('application', () => ({

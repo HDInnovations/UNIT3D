@@ -72,18 +72,24 @@
                         @foreach ($unregisteredInfoHashes as $unregisteredInfoHash)
                             <tr>
                                 <td>
-                                    <x-user-tag
-                                        :user="$unregisteredInfoHash->user"
-                                        :anon="false"
-                                    />
+                                    <x-user-tag :user="$unregisteredInfoHash->user" :anon="false" />
                                 </td>
-                                <td>{{ bin2hex($unregisteredInfoHash->info_hash) }}</td>
+                                <td>
+                                    {{
+                                        bin2hex(
+                                            $unregisteredInfoHash->info_hash,
+                                        )
+                                    }}
+                                </td>
                                 <td>
                                     <time
                                         datetime="{{ $unregisteredInfoHash->created_at }}"
                                         title="{{ $unregisteredInfoHash->created_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->created_at?->diffForHumans() ?? 'N/A' }}
+                                        {{
+                                            $unregisteredInfoHash->created_at?->diffForHumans() ??
+                                                'N/A'
+                                        }}
                                     </time>
                                 </td>
                                 <td>
@@ -91,13 +97,15 @@
                                         datetime="{{ $unregisteredInfoHash->updated_at }}"
                                         title="{{ $unregisteredInfoHash->updated_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? 'N/A' }}
+                                        {{
+                                            $unregisteredInfoHash->updated_at?->diffForHumans() ??
+                                                'N/A'
+                                        }}
                                     </time>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-
                     @break
                 @case('info_hash')
                     <thead>
@@ -123,13 +131,22 @@
                     <tbody>
                         @foreach ($unregisteredInfoHashes as $unregisteredInfoHash)
                             <tr>
-                                <td>{{ bin2hex($unregisteredInfoHash->info_hash) }}</td>
+                                <td>
+                                    {{
+                                        bin2hex(
+                                            $unregisteredInfoHash->info_hash,
+                                        )
+                                    }}
+                                </td>
                                 <td>
                                     <time
                                         datetime="{{ $unregisteredInfoHash->created_at }}"
                                         title="{{ $unregisteredInfoHash->created_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->created_at?->diffForHumans() ?? 'N/A' }}
+                                        {{
+                                            $unregisteredInfoHash->created_at?->diffForHumans() ??
+                                                'N/A'
+                                        }}
                                     </time>
                                 </td>
                                 <td>
@@ -137,17 +154,24 @@
                                         datetime="{{ $unregisteredInfoHash->updated_at }}"
                                         title="{{ $unregisteredInfoHash->updated_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? 'N/A' }}
+                                        {{
+                                            $unregisteredInfoHash->updated_at?->diffForHumans() ??
+                                                'N/A'
+                                        }}
                                     </time>
                                 </td>
                                 <td>{{ $unregisteredInfoHash->amount }}</td>
                             </tr>
                         @endforeach
                     </tbody>
-
                     @break
+
             @endswitch
         </table>
-        {{ $unregisteredInfoHashes->links('partials.pagination') }}
+        {{
+            $unregisteredInfoHashes->links(
+                'partials.pagination',
+            )
+        }}
     </div>
 </section>

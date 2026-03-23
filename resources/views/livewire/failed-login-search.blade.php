@@ -95,7 +95,12 @@
                                 <x-user-tag :anon="false" :user="$failedLogin->user" />
                             @endif
                         </td>
-                        <td>{{ $failedLogin->user_id ?? 'Not found' }}</td>
+                        <td>
+                            {{
+                                $failedLogin->user_id ??
+                                    'Not found'
+                            }}
+                        </td>
                         <td>{{ $failedLogin->ip_address }}</td>
                         <td>
                             <time
@@ -114,7 +119,11 @@
             </tbody>
         </table>
     </div>
-    {{ $failedLogins->links('partials.pagination') }}
+    {{
+        $failedLogins->links(
+            'partials.pagination',
+        )
+    }}
 </section>
 
 @section('sidebar')

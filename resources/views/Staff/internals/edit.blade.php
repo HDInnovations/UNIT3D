@@ -9,12 +9,8 @@
     <li class="breadcrumbV2">
         <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">Internals</a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $internal->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $internal->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-internal--edit')

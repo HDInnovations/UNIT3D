@@ -86,7 +86,10 @@
                                 datetime="{{ $apikey->deleted_at }}"
                                 title="{{ $apikey->deleted_at }}"
                             >
-                                {{ $apikey->deleted_at ?? 'Currently in use' }}
+                                {{
+                                    $apikey->deleted_at ??
+                                        'Currently in use'
+                                }}
                             </time>
                         </td>
                     </tr>
@@ -98,5 +101,9 @@
             </tbody>
         </table>
     </div>
-    {{ $apikeys->links('partials.pagination') }}
+    {{
+        $apikeys->links(
+            'partials.pagination',
+        )
+    }}
 </section>

@@ -383,7 +383,7 @@
                             <td
                                 @class([
                                     'user-torrents__seeders',
-                                    'torrent-activity-indicator--seeding' => $history->seeding,
+                                    'torrent-activity-indicator--seeding' => $history->seeding
                                 ])
                                 @if ($history->seeding)
                                     title="{{ __('torrent.currently-seeding') }}"
@@ -399,7 +399,7 @@
                             <td
                                 @class([
                                     'user-torrents__leechers',
-                                    'torrent-activity-indicator--leeching' => $history->leeching,
+                                    'torrent-activity-indicator--leeching' => $history->leeching
                                 ])
                                 @if ($history->leeching)
                                     title="{{ __('torrent.currently-leeching') }}"
@@ -415,7 +415,7 @@
                             <td
                                 @class([
                                     'user-torrents__times',
-                                    'torrent-activity-indicator--completed' => $history->completed,
+                                    'torrent-activity-indicator--completed' => $history->completed
                                 ])
                                 @if ($history->completed)
                                     title="{{ __('torrent.completed') }}"
@@ -429,38 +429,65 @@
                                 </a>
                             </td>
                             <td class="user-torrents__agent text-purple">
-                                {{ $history->agent ?: __('common.unknown') }}
+                                {{
+                                    $history->agent ?:
+                                        __('common.unknown')
+                                }}
                             </td>
                             <td class="user-torrents__size">
-                                {{ App\Helpers\StringHelper::formatBytes($history->size) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $history->size,
+                                    )
+                                }}
                             </td>
                             <td
                                 class="user-torrents__upload"
                                 title="{{ __('user.actual-upload') }}"
                             >
                                 <span class="text-green">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->actual_uploaded, 2) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $history->actual_uploaded,
+                                            2,
+                                        )
+                                    }}
                                 </span>
                                 <br />
                                 <span class="text-blue" title="{{ __('user.credited-upload') }}">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->uploaded, 2) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $history->uploaded,
+                                            2,
+                                        )
+                                    }}
                                 </span>
                             </td>
                             <td class="user-torrents__download">
                                 <span class="text-red" title="{{ __('user.actual-download') }}">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->actual_downloaded, 2) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $history->actual_downloaded,
+                                            2,
+                                        )
+                                    }}
                                 </span>
                                 <br />
                                 <span
                                     class="text-orange"
                                     title="{{ __('user.credited-download') }}"
                                 >
-                                    {{ App\Helpers\StringHelper::formatBytes($history->downloaded, 2) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $history->downloaded,
+                                            2,
+                                        )
+                                    }}
                                 </span>
                             </td>
                             <td class="user-torrents__ratio">
                                 @php
-                                    $ratio = $history->actual_ratio < 1000 ? \number_format($history->actual_ratio, 2) : INF
+                                    $ratio = $history->actual_ratio < 1000 ? \number_format($history->actual_ratio, 2) : INF;
                                 @endphp
 
                                 <span
@@ -468,7 +495,7 @@
                                         'ratio-0' . floor($ratio * 10) => $ratio < 1,
                                         'ratio-10' => 1 <= $ratio && $ratio < 2,
                                         'ratio-20' => 2 <= $ratio && $ratio < 5,
-                                        'ratio-50' => 5 <= $ratio,
+                                        'ratio-50' => 5 <= $ratio
                                     ])
                                     title="Actual ratio: {{ $history->actual_ratio }}"
                                 >
@@ -476,7 +503,7 @@
                                 </span>
                                 <br />
                                 @php
-                                    $ratio = $history->ratio < 1000 ? \number_format($history->ratio, 2) : INF
+                                    $ratio = $history->ratio < 1000 ? \number_format($history->ratio, 2) : INF;
                                 @endphp
 
                                 <span
@@ -484,7 +511,7 @@
                                         'ratio-0' . floor($ratio * 10) => $ratio < 1,
                                         'ratio-10' => 1 <= $ratio && $ratio < 2,
                                         'ratio-20' => 2 <= $ratio && $ratio < 5,
-                                        'ratio-50' => 5 <= $ratio,
+                                        'ratio-50' => 5 <= $ratio
                                     ])
                                     title="Credited ratio: {{ $history->ratio }}"
                                 >
@@ -496,7 +523,11 @@
                                     @if ($history->leechtime === null)
                                         N/A
                                     @else
-                                        {{ App\Helpers\StringHelper::timeElapsed($history->leechtime) }}
+                                        {{
+                                            App\Helpers\StringHelper::timeElapsed(
+                                                $history->leechtime,
+                                            )
+                                        }}
                                     @endif
                                 </td>
                                 <td class="user-torrents__seedtime">
@@ -506,7 +537,11 @@
                                         @if ($history->seedtime === null)
                                             N/A
                                         @else
-                                            {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                            {{
+                                                App\Helpers\StringHelper::timeElapsed(
+                                                    $history->seedtime,
+                                                )
+                                            }}
                                         @endif
                                     </span>
                                 </td>
@@ -547,7 +582,12 @@
                                     @if ($history->leechtime === null)
                                         N/A
                                     @else
-                                        {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2)) }}
+                                        {{
+                                            \implode(
+                                                ' ',
+                                                \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2),
+                                            )
+                                        }}
                                     @endif
                                 </td>
                                 <td class="user-torrents__seedtime">
@@ -557,7 +597,12 @@
                                         <span
                                             class="{{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}"
                                         >
-                                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2)) }}
+                                            {{
+                                                \implode(
+                                                    ' ',
+                                                    \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->seedtime)), 0, 2),
+                                                )
+                                            }}
                                         </span>
                                     @endif
                                 </td>
@@ -566,7 +611,11 @@
                                         datetime="{{ $history->created_at }}"
                                         title="{{ $history->created_at }}"
                                     >
-                                        {{ $history->created_at === null ? 'N/A' : \explode(' ', $history->created_at)[0] }}
+                                        {{
+                                            $history->created_at === null
+                                                ? 'N/A'
+                                                : \explode(' ', $history->created_at)[0]
+                                        }}
                                     </time>
                                 </td>
                                 <td class="user-torrents__updated-at">
@@ -574,7 +623,11 @@
                                         datetime="{{ $history->updated_at }}"
                                         title="{{ $history->updated_at }}"
                                     >
-                                        {{ $history->updated_at === null ? 'N/A' : \explode(' ', $history->updated_at)[0] }}
+                                        {{
+                                            $history->updated_at === null
+                                                ? 'N/A'
+                                                : \explode(' ', $history->updated_at)[0]
+                                        }}
                                     </time>
                                 </td>
                                 <td class="user-torrents__completed-at">
@@ -582,16 +635,23 @@
                                         datetime="{{ $history->completed_at }}"
                                         title="{{ $history->completed_at }}"
                                     >
-                                        {{ $history->completed_at === null ? 'N/A' : \explode(' ', $history->completed_at)[0] }}
+                                        {{
+                                            $history->completed_at === null
+                                                ? 'N/A'
+                                                : \explode(' ', $history->completed_at)[0]
+                                        }}
                                     </time>
                                 </td>
-
                                 <td class="user-torrents__prewarned-at">
                                     <time
                                         datetime="{{ $history->prewarned_at }}"
                                         title="{{ $history->prewarned_at }}"
                                     >
-                                        {{ $history->prewarned_at === null ? 'N/A' : \explode(' ', $history->prewarned_at)[0] }}
+                                        {{
+                                            $history->prewarned_at === null
+                                                ? 'N/A'
+                                                : \explode(' ', $history->prewarned_at)[0]
+                                        }}
                                     </time>
                                 </td>
                             @endif
@@ -651,29 +711,26 @@
                                             title="{{ __('torrent.pending') }}"
                                             class="{{ config('other.font-awesome') }} fa-tasks text-orange"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::APPROVED)
                                         <span
                                             title="{{ __('torrent.approved') }}"
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::REJECTED)
                                         <span
                                             title="{{ __('torrent.rejected') }}"
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
                                             title="Postponed"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
-
                                         @break
+
                                 @endswitch
                             </td>
                         </tr>
@@ -681,7 +738,11 @@
                 </tbody>
             </table>
         </div>
-        {{ $histories->links('partials.pagination') }}
+        {{
+            $histories->links(
+                'partials.pagination',
+            )
+        }}
     </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {

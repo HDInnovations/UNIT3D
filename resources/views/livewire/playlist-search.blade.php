@@ -66,5 +66,9 @@
             {{ __('playlist.about') }}
         @endforelse
     </div>
-    {{ $playlists->links('partials.pagination') }}
+    {{
+        $playlists->links(
+            'partials.pagination',
+        )
+    }}
 </section>

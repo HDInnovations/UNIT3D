@@ -88,6 +88,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $gateways->links('partials.pagination') }}
+        {{
+            $gateways->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 @endsection

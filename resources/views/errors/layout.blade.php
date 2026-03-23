@@ -2,7 +2,10 @@
 <html class="no-js page__error" lang="{{ config('app.locale') }}">
     <head>
         <meta charset="utf-8" />
-        <title>@yield('title') - {{ config('other.title') }}</title>
+        <title>
+            @yield('title')
+            - {{ config('other.title') }}
+        </title>
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Error" />

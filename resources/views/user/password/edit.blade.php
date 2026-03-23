@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,9 +20,7 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.password') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.password') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -44,10 +41,7 @@
                 @csrf
                 @method('PATCH')
                 <p>{{ __('user.change-password-help') }}.</p>
-                <p>
-                    We strongly recommend you use a password manager (such as the free version of
-                    Bitwarden) to generate a secure random password
-                </p>
+                <p>We strongly recommend you use a password manager (such as the free version of Bitwarden) to generate a secure random password</p>
                 @if (auth()->id() == $user->id)
                     <p class="form__group">
                         <input

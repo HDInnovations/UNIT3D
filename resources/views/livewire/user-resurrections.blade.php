@@ -109,9 +109,7 @@
                         {{ __('graveyard.rewarded') }}
                         @include('livewire.includes._sort-icon', ['field' => 'rewarded'])
                     </th>
-                    <th class="user-resurrections__actions-header">
-                        {{ __('common.actions') }}
-                    </th>
+                    <th class="user-resurrections__actions-header">{{ __('common.actions') }}</th>
                 </thead>
                 <tbody>
                     @foreach ($resurrections as $resurrection)
@@ -124,12 +122,16 @@
                                 </a>
                             </td>
                             <td class="user-resurrections__size">
-                                {{ App\Helpers\StringHelper::formatBytes($resurrection->torrent->size) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $resurrection->torrent->size,
+                                    )
+                                }}
                             </td>
                             <td
                                 @class([
                                     'user-resurrections__seeders',
-                                    'torrent-activity-indicator--seeding' => $resurrection->seeding,
+                                    'torrent-activity-indicator--seeding' => $resurrection->seeding
                                 ])
                                 @if ($resurrection->seeding)
                                     title="{{ __('torrent.currently-seeding') }}"
@@ -145,7 +147,7 @@
                             <td
                                 @class([
                                     'user-resurrections__leechers',
-                                    'torrent-activity-indicator--leeching' => $resurrection->leeching,
+                                    'torrent-activity-indicator--leeching' => $resurrection->leeching
                                 ])
                                 @if ($resurrection->leeching)
                                     title="{{ __('torrent.currently-leeching') }}"
@@ -161,7 +163,7 @@
                             <td
                                 @class([
                                     'user-resurrections__times_completed',
-                                    'torrent-activity-indicator--completed' => $resurrection->completed,
+                                    'torrent-activity-indicator--completed' => $resurrection->completed
                                 ])
                                 @if ($resurrection->completed)
                                     title="{{ __('torrent.completed') }}"
@@ -171,7 +173,10 @@
                                     class="torrent__times-completed-count"
                                     href="{{ route('history', ['id' => $resurrection->torrent->id]) }}"
                                 >
-                                    {{ $resurrection->torrent->times_completed }}
+                                    {{
+                                        $resurrection->torrent
+                                            ->times_completed
+                                    }}
                                 </a>
                             </td>
                             <td class="user-resurrections__created-at">
@@ -186,10 +191,18 @@
                                         ->first();
                                 @endphp
 
-                                {{ empty($history) ? '0' : App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                {{
+                                    empty($history)
+                                        ? '0'
+                                        : App\Helpers\StringHelper::timeElapsed($history->seedtime)
+                                }}
                             </td>
                             <td class="user-resurrections__seedtime">
-                                {{ App\Helpers\StringHelper::timeElapsed($resurrection->seedtime) }}
+                                {{
+                                    App\Helpers\StringHelper::timeElapsed(
+                                        $resurrection->seedtime,
+                                    )
+                                }}
                             </td>
                             <td class="user-resurrections__rewarded">
                                 @if ($resurrection->rewarded)
@@ -228,6 +241,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $resurrections->links('partials.pagination') }}
+        {{
+            $resurrections->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 </div>

@@ -10,9 +10,7 @@
             {{ __('request.requests') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $torrentRequest->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $torrentRequest->name }}</li>
 @endsection
 
 @section('page', 'page__request--show')
@@ -21,21 +19,41 @@
     @if ($user->can_request ?? $user->group->can_request)
         @switch(true)
             @case($torrentRequest->category->movie_meta)
-                @include('torrent.partials.movie-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->movie, 'tmdb' => $torrentRequest->tmdb_movie_id])
-
+                @include('torrent.partials.movie-meta',
+                    [
+                        'torrent' => $torrentRequest,
+                        'category' => $torrentRequest->category,
+                        'meta' => $torrentRequest->movie,
+                        'tmdb' => $torrentRequest->tmdb_movie_id
+                    ])
                 @break
             @case($torrentRequest->category->tv_meta)
-                @include('torrent.partials.tv-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->tv, 'tmdb' => $torrentRequest->tmdb_tv_id])
-
+                @include('torrent.partials.tv-meta',
+                    [
+                        'torrent' => $torrentRequest,
+                        'category' => $torrentRequest->category,
+                        'meta' => $torrentRequest->tv,
+                        'tmdb' => $torrentRequest->tmdb_tv_id
+                    ])
                 @break
             @case($torrentRequest->category->game_meta)
-                @include('torrent.partials.game-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->game, 'igdb' => $torrentRequest->igdb])
-
+                @include('torrent.partials.game-meta',
+                    [
+                        'torrent' => $torrentRequest,
+                        'category' => $torrentRequest->category,
+                        'meta' => $torrentRequest->game,
+                        'igdb' => $torrentRequest->igdb
+                    ])
                 @break
             @default
-                @include('torrent.partials.no-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => null])
-
+                @include('torrent.partials.no-meta',
+                    [
+                        'torrent' => $torrentRequest,
+                        'category' => $torrentRequest->category,
+                        'meta' => null
+                    ])
                 @break
+
         @endswitch
         <menu class="torrent__buttons form__group--short-horizontal">
             @includeWhen($torrentRequest->torrent === null, 'requests.partials.vote')
@@ -43,19 +61,19 @@
             @switch(true)
                 {{-- Claimed --}}
                 @case($torrentRequest->claim !== null && $torrentRequest->torrent === null)
-                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.unclaim')
-                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.fulfill')
+                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user),
+                        'requests.partials.unclaim')
+                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user),
+                        'requests.partials.fulfill')
                     @include('requests.partials.report')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
-
                     @break
                     {{-- Pending --}}
                 @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
                     @include('requests.partials.report')
                     @includeWhen($user->group->is_modo, 'requests.partials.edit')
                     @includeWhen($user->group->is_modo, 'requests.partials.delete')
-
                     @break
                     {{-- Unfilled --}}
                 @case($torrentRequest->torrent === null)
@@ -64,7 +82,6 @@
                     @include('requests.partials.report')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
-
                     @break
                     {{-- Filled --}}
                 @default
@@ -72,15 +89,13 @@
                     @includeWhen($user->group->is_modo, 'requests.partials.reset')
                     @includeWhen($user->group->is_modo, 'requests.partials.edit')
                     @includeWhen($user->group->is_modo, 'requests.partials.delete')
-
                     @break
+
             @endswitch
         </menu>
         <ul class="request__tags">
             <li class="request__category">
-                <span>
-                    {{ $torrentRequest->category->name }}
-                </span>
+                <span> {{ $torrentRequest->category->name }} </span>
             </li>
             @if ($torrentRequest->category->tv_meta)
                 @if ($torrentRequest->season_number !== null && $torrentRequest->episode_number !== null)
@@ -91,19 +106,47 @@
                     @elseif ($torrentRequest->season_number === 0 && $torrentRequest->episode_number !== 0)
                         <li class="request__season">
                             <span>
-                                S00E{{ \str_pad((string) $torrentRequest->episode_number, 2, '0', STR_PAD_LEFT) }}
+                                S00E{{
+                                    \str_pad(
+                                        (string) $torrentRequest->episode_number,
+                                        2,
+                                        '0',
+                                        STR_PAD_LEFT,
+                                    )
+                                }}
                             </span>
                         </li>
                     @elseif ($torrentRequest->season_number !== 0 && $torrentRequest->episode_number === 0)
                         <li class="request__season">
                             <span>
-                                S{{ \str_pad((string) $torrentRequest->season_number, 2, '0', STR_PAD_LEFT) }}
+                                S{{
+                                    \str_pad(
+                                        (string) $torrentRequest->season_number,
+                                        2,
+                                        '0',
+                                        STR_PAD_LEFT,
+                                    )
+                                }}
                             </span>
                         </li>
                     @elseif ($torrentRequest->season_number !== 0 && $torrentRequest->episode_number !== 0)
                         <li class="request__season">
                             <span>
-                                S{{ \str_pad((string) $torrentRequest->season_number, 2, '0', STR_PAD_LEFT) }}E{{ \str_pad((string) $torrentRequest->episode_number, 2, '0', STR_PAD_LEFT) }}
+                                S{{
+                                    \str_pad(
+                                        (string) $torrentRequest->season_number,
+                                        2,
+                                        '0',
+                                        STR_PAD_LEFT,
+                                    )
+                                }}E{{
+                                    \str_pad(
+                                        (string) $torrentRequest->episode_number,
+                                        2,
+                                        '0',
+                                        STR_PAD_LEFT,
+                                    )
+                                }}
                             </span>
                         </li>
                     @endif
@@ -112,12 +155,18 @@
 
             <li class="request__resolution">
                 <span>
-                    {{ $torrentRequest->resolution->name ?? 'Any' }}
+                    {{
+                        $torrentRequest->resolution->name ??
+                            'Any'
+                    }}
                 </span>
             </li>
             <li class="request__type">
                 <span>
-                    {{ $torrentRequest->type->name ?? 'Any' }}
+                    {{
+                        $torrentRequest->type->name ??
+                            'Any'
+                    }}
                 </span>
             </li>
             <li class="request__requester">
@@ -137,23 +186,20 @@
                         @case($torrentRequest->claim !== null && $torrentRequest->torrent === null)
                             <i class="fas fa-circle text-blue"></i>
                             {{ __('request.claimed') }}
-
                             @break
                         @case($torrentRequest->torrent !== null && $torrentRequest->approved_when === null)
                             <i class="fas fa-circle text-purple"></i>
                             {{ __('request.pending') }}
-
                             @break
                         @case($torrentRequest->torrent === null)
                             <i class="fas fa-circle text-red"></i>
                             {{ __('request.unfilled') }}
-
                             @break
                         @default
                             <i class="fas fa-circle text-green"></i>
                             {{ __('request.filled') }}
-
                             @break
+
                     @endswitch
                 </span>
             </li>
@@ -195,7 +241,6 @@
                 </dl>
             </section>
         @endif
-
         @if ($torrentRequest->filled_by !== null)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.filled') }}</h2>
@@ -235,7 +280,8 @@
                         </dd>
                     </div>
                 </dl>
-                @if ($torrentRequest->approved_when === null && ($torrentRequest->user_id == $user->id || $user->group->is_modo))
+                @if ($torrentRequest->approved_when === null &&
+                    ($torrentRequest->user_id == $user->id || $user->group->is_modo))
                     <div class="panel__body">
                         <div class="form__group">
                             <form
@@ -268,7 +314,6 @@
                 @endif
             </section>
         @endif
-
         <section class="panelV2" x-data="toggle">
             <header class="panel__header" style="cursor: pointer" x-on:click="toggle">
                 <h2 class="panel__heading">{{ __('request.voters') }}</h2>
@@ -324,8 +369,7 @@
                                                 </button>
                                                 <dialog class="dialog" x-bind="dialogElement">
                                                     <h4 class="dialog__heading">
-                                                        {{ __('common.edit') }}
-                                                        {{ __('request.vote') }}
+                                                        {{ __('common.edit') }} {{ __('request.vote') }}
                                                     </h4>
                                                     <form
                                                         class="dialog__form"

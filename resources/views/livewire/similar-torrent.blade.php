@@ -223,9 +223,7 @@
                     </div>
                     <div class="form__group">
                         <fieldset class="form__fieldset">
-                            <legend class="form__legend">
-                                {{ __('torrent.resolution') }}
-                            </legend>
+                            <legend class="form__legend">{{ __('torrent.resolution') }}</legend>
                             <div class="form__fieldset-checkbox-container">
                                 @foreach ($resolutions as $resolution)
                                     <p class="form__group">
@@ -592,7 +590,9 @@
                                                     @if ($user->group->is_modo)
                                                         <td
                                                             class="similar-torrents__checkbox"
-                                                            x-on:click.self="$el.firstElementChild.click()"
+                                                            x-on:click.self="
+                                                                $el.firstElementChild.click()
+                                                            "
                                                         >
                                                             <input
                                                                 type="checkbox"
@@ -614,7 +614,9 @@
                         @if (array_key_exists('Specials', $similarTorrents))
                             <details
                                 class="torrent-search--grouped__dropdown"
-                                @if ($checked || (! array_key_exists('Complete Pack', $similarTorrents) && ! array_key_exists('Seasons', $similarTorrents)))
+                                @if ($checked ||
+                                    (!array_key_exists('Complete Pack', $similarTorrents) &&
+                                        !array_key_exists('Seasons', $similarTorrents)))
                                     open
                                 @endif
                                 wire:ignore.self
@@ -647,7 +649,9 @@
                                                             @if ($user->group->is_modo)
                                                                 <td
                                                                     class="similar-torrents__checkbox"
-                                                                    x-on:click.self="$el.firstElementChild.click()"
+                                                                    x-on:click.self="
+                                                                        $el.firstElementChild.click()
+                                                                    "
                                                                 >
                                                                     <input
                                                                         type="checkbox"
@@ -677,7 +681,7 @@
                                 wire:ignore.self
                             >
                                 <summary x-bind="season">{{ $seasonName }}</summary>
-                                @if (array_key_exists('Season Pack', $season) && ! array_key_exists('Episodes', $season))
+                                @if (array_key_exists('Season Pack', $season) && !array_key_exists('Episodes', $season))
                                     <table class="similar-torrents__torrents">
                                         @foreach ($season['Season Pack'] as $type => $torrents)
                                             <tbody>
@@ -696,7 +700,9 @@
                                                         @if ($user->group->is_modo)
                                                             <td
                                                                 class="similar-torrents__checkbox"
-                                                                x-on:click.self="$el.firstElementChild.click()"
+                                                                x-on:click.self="
+                                                                    $el.firstElementChild.click()
+                                                                "
                                                             >
                                                                 <input
                                                                     type="checkbox"
@@ -737,7 +743,9 @@
                                                             @if ($user->group->is_modo)
                                                                 <td
                                                                     class="similar-torrents__checkbox"
-                                                                    x-on:click.self="$el.firstElementChild.click()"
+                                                                    x-on:click.self="
+                                                                        $el.firstElementChild.click()
+                                                                    "
                                                                 >
                                                                     <input
                                                                         type="checkbox"
@@ -759,7 +767,7 @@
                                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                                     <details
                                         class="torrent-search--grouped__dropdown"
-                                        @if ($checked || ($loop->first && ! array_key_exists('Season Pack', $season)))
+                                        @if ($checked || ($loop->first && !array_key_exists('Season Pack', $season)))
                                             open
                                         @endif
                                         wire:ignore.self
@@ -783,7 +791,9 @@
                                                             @if ($user->group->is_modo)
                                                                 <td
                                                                     class="similar-torrents__checkbox"
-                                                                    x-on:click.self="$el.firstElementChild.click()"
+                                                                    x-on:click.self="
+                                                                        $el.firstElementChild.click()
+                                                                    "
                                                                 >
                                                                     <input
                                                                         type="checkbox"
@@ -979,9 +989,7 @@
         </section>
         <section class="panelV2">
             <header style="cursor: pointer" class="panel__header">
-                <h2 class="panel__heading">
-                    {{ __('request.requests') }}
-                </h2>
+                <h2 class="panel__heading">{{ __('request.requests') }}</h2>
                 <div class="panel__actions">
                     <div class="panel__action">
                         <label class="form__label">
@@ -1030,8 +1038,18 @@
                                     </a>
                                 </td>
                                 <td>{{ $torrentRequest->category->name }}</td>
-                                <td>{{ $torrentRequest->type->name ?? 'Any' }}</td>
-                                <td>{{ $torrentRequest->resolution->name ?? 'Any' }}</td>
+                                <td>
+                                    {{
+                                        $torrentRequest->type->name ??
+                                            'Any'
+                                    }}
+                                </td>
+                                <td>
+                                    {{
+                                        $torrentRequest->resolution->name ??
+                                            'Any'
+                                    }}
+                                </td>
                                 <td>
                                     <x-user-tag
                                         :user="$torrentRequest->user"
@@ -1040,7 +1058,13 @@
                                 </td>
                                 <td>{{ $torrentRequest->votes }}</td>
                                 <td>{{ $torrentRequest->comments_count }}</td>
-                                <td>{{ number_format($torrentRequest->bounty) }}</td>
+                                <td>
+                                    {{
+                                        number_format(
+                                            $torrentRequest->bounty,
+                                        )
+                                    }}
+                                </td>
                                 <td>
                                     <time
                                         datetime="{{ $torrentRequest->created_at }}"
@@ -1054,23 +1078,20 @@
                                         @case($torrentRequest->claim_exists && $torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-blue"></i>
                                             {{ __('request.claimed') }}
-
                                             @break
                                         @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
                                             <i class="fas fa-circle text-purple"></i>
                                             {{ __('request.pending') }}
-
                                             @break
                                         @case($torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-red"></i>
                                             {{ __('request.unfilled') }}
-
                                             @break
                                         @default
                                             <i class="fas fa-circle text-green"></i>
                                             {{ __('request.filled') }}
-
                                             @break
+
                                     @endswitch
                                 </td>
                             </tr>
@@ -1156,41 +1177,41 @@
 @section('javascripts')
     @if ($user->group->is_modo)
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-            window.addEventListener('swal:modal', event => {
-              Swal.fire({
-                title: event.detail.message,
-                text: event.detail.text,
-                icon: event.detail.type,
-              })
-            })
+            window.addEventListener('swal:modal', (event) => {
+                Swal.fire({
+                    title: event.detail.message,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                });
+            });
 
-            window.addEventListener('swal:confirm', event => {
-              const { value: text } = Swal.fire({
-                input: 'textarea',
-                inputLabel: 'Delete reason',
-                inputPlaceholder: 'Type your reason here...',
-                inputAttributes: {
-                  'aria-label': 'Type your reason here'
-                },
-                inputValidator: (value) => {
-                  if (!value) {
-                    return 'You need to write something!'
-                  }
-                },
-                title: event.detail.message,
-                html: event.detail.body,
-                icon: event.detail.type,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-              }).then((result) => {
-                if (result.isConfirmed) {
-                @this.set('reason', result.value);
-                  Livewire.dispatch('destroy')
-                }
-              })
-            })
+            window.addEventListener('swal:confirm', (event) => {
+                const { value: text } = Swal.fire({
+                    input: 'textarea',
+                    inputLabel: 'Delete reason',
+                    inputPlaceholder: 'Type your reason here...',
+                    inputAttributes: {
+                        'aria-label': 'Type your reason here',
+                    },
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to write something!';
+                        }
+                    },
+                    title: event.detail.message,
+                    html: event.detail.body,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.set('reason', result.value);
+                        Livewire.dispatch('destroy');
+                    }
+                });
+            });
         </script>
     @endif
 @endsection

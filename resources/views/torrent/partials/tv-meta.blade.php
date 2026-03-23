@@ -8,8 +8,7 @@
         href="{{ $tmdb ? route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdb]) : '#' }}"
     >
         <h1 class="meta__title">
-            {{ $meta->name ?? 'No meta found' }}
-            ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})
+            {{ $meta->name ?? 'No meta found' }} ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})
         </h1>
     </a>
     <a
@@ -115,12 +114,19 @@
                 class="work__language-link"
                 href="{{ $meta?->original_language === null ? '#' : route('torrents.index', ['primaryLanguageNames' => [$meta->original_language]]) }}"
             >
-                {{ $meta->original_language ?? __('common.unknown') }}
+                {{
+                    $meta->original_language ??
+                        __('common.unknown')
+                }}
             </a>
         </li>
         <li class="work__runtime">
             <span class="work__runtime-text">
-                {{ \Carbon\CarbonInterval::minutes($meta->episode_run_time ?? 0)->cascade()->forHumans(null, true) }}
+                {{
+                    \Carbon\CarbonInterval::minutes($meta->episode_run_time ?? 0)
+                        ->cascade()
+                        ->forHumans(null, true)
+                }}
             </span>
         </li>
         <li class="work__rating">
@@ -133,9 +139,7 @@
         </li>
         @if ($meta?->trailer)
             <li class="work__trailer show-trailer">
-                <a class="work__trailer-link" href="#">
-                    {{ __('torrent.view-trailer') }}
-                </a>
+                <a class="work__trailer-link" href="#"> {{ __('torrent.view-trailer') }} </a>
             </li>
         @endif
     </ul>
@@ -230,7 +234,10 @@
     <div class="meta__chips">
         <section class="meta__chip-container">
             <h2 class="meta__heading">Cast</h2>
-            @foreach ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupation::ACTOR->value)?->sortBy('order') ?? [] as $credit)
+            @foreach ($meta?->credits
+                    ?->where('occupation_id', '=', App\Enums\Occupation::ACTOR->value)
+                    ?->sortBy('order') ?? []
+                as $credit)
                 <article class="meta-chip-wrapper">
                     <a
                         href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}"
@@ -256,7 +263,10 @@
         </section>
         <section class="meta__chip-container" title="Crew">
             <h2 class="meta__heading">Crew</h2>
-            @foreach ($meta?->credits?->where('occupation_id', '!=', App\Enums\Occupation::ACTOR->value)?->sortBy('occupation.position') ?? [] as $credit)
+            @foreach ($meta?->credits
+                    ?->where('occupation_id', '!=', App\Enums\Occupation::ACTOR->value)
+                    ?->sortBy('occupation.position') ?? []
+                as $credit)
                 <article class="meta-chip-wrapper">
                     <a
                         href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}"
@@ -293,7 +303,11 @@
                         ></i>
                         <h2 class="meta-chip__name">Genres</h2>
                         <h3 class="meta-chip__value">
-                            {{ $meta->genres->pluck('name')->join(' / ') }}
+                            {{
+                                $meta->genres
+                                    ->pluck('name')
+                                    ->join(' / ')
+                            }}
                         </h3>
                     </a>
                 </article>
@@ -356,7 +370,11 @@
                         <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
                         <h2 class="meta-chip__name">Keywords</h2>
                         <h3 class="meta-chip__value">
-                            {{ $torrent->keywords->pluck('name')->join(', ') }}
+                            {{
+                                $torrent->keywords
+                                    ->pluck('name')
+                                    ->join(', ')
+                            }}
                         </h3>
                     </a>
                 </article>

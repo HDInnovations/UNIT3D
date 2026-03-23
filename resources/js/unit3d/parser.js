@@ -2,7 +2,14 @@ const rules = {
     source: {
         CAM: ['camrip', 'cam-rip', 'cam', 'ts', 'telesync', 'pdvd'],
         TC: ['tc', 'telecine'],
-        SCREENER: ['dvdscr', 'dvd-scr', 'dvdscreener', 'screener', 'scr', 'DDC'],
+        SCREENER: [
+            'dvdscr',
+            'dvd-scr',
+            'dvdscreener',
+            'screener',
+            'scr',
+            'DDC',
+        ],
         R5: ['r5'],
         DVDRip: ['dvdrip', 'dvd-rip'],
         BDRip: ['bdrip', 'bd-rip', 'brrip', 'br-rip'],
@@ -202,7 +209,10 @@ function clean(string, erase) {
     erase.forEach(
         (regexp) =>
             (result = result.replace(
-                new RegExp(`[\.\-]*?${regexp.replace(/\\\\/g, '\\')}[\.\-]*?`, 'ig'),
+                new RegExp(
+                    `[\.\-]*?${regexp.replace(/\\\\/g, '\\')}[\.\-]*?`,
+                    'ig',
+                ),
                 '',
             )),
     );
@@ -237,7 +247,9 @@ function deduce(property, name, multi = false) {
 
             if (matches !== null) {
                 result.match =
-                    matches[1].length > 12 ? matches[1].replace(/[_\.].+?$/, '') : matches[1];
+                    matches[1].length > 12
+                        ? matches[1].replace(/[_\.].+?$/, '')
+                        : matches[1];
                 result.waste = name.replace(regexp, '');
             }
 
@@ -257,7 +269,8 @@ function deduce(property, name, multi = false) {
 
         case 'episode': {
             const regexps = {
-                episodes: /[\.\-](?:S(?:\d+))?[\.\-]?((?:-?E(?:\d+))+)(?:[\.\-])/i,
+                episodes:
+                    /[\.\-](?:S(?:\d+))?[\.\-]?((?:-?E(?:\d+))+)(?:[\.\-])/i,
                 episode: /E(\d+)/gi,
             };
 
@@ -265,7 +278,10 @@ function deduce(property, name, multi = false) {
             const match = [];
             let crumbs = [];
 
-            while (matches && (crumbs = regexps.episode.exec(matches[1])) !== null) {
+            while (
+                matches &&
+                (crumbs = regexps.episode.exec(matches[1])) !== null
+            ) {
                 match.push(crumbs[1]);
             }
 
@@ -283,7 +299,8 @@ function deduce(property, name, multi = false) {
 
         case 'episodes': {
             const regexps = {
-                episodes: /[\.\-](?:S(?:\d+))?[\.\-]?((?:-?E(?:\d+))+)(?:[\.\-])/i,
+                episodes:
+                    /[\.\-](?:S(?:\d+))?[\.\-]?((?:-?E(?:\d+))+)(?:[\.\-])/i,
                 episode: /E(\d+)/gi,
             };
 
@@ -291,7 +308,10 @@ function deduce(property, name, multi = false) {
             const match = [];
             let crumbs = [];
 
-            while (matches && (crumbs = regexps.episode.exec(matches[1])) !== null) {
+            while (
+                matches &&
+                (crumbs = regexps.episode.exec(matches[1])) !== null
+            ) {
                 match.push(crumbs[1]);
             }
 
@@ -330,10 +350,15 @@ function deduce(property, name, multi = false) {
             const patterns = Array.isArray(rule[tag]) ? rule[tag] : [rule[tag]];
 
             for (let j = 0; j < patterns.length; j++) {
-                const regexp = new RegExp('[.-]' + patterns[j] + '([.-]|$)', 'i');
+                const regexp = new RegExp(
+                    '[.-]' + patterns[j] + '([.-]|$)',
+                    'i',
+                );
 
                 if (result.waste.match(regexp)) {
-                    result.match = multi ? (result.match || []).concat([tag]) : tag;
+                    result.match = multi
+                        ? (result.match || []).concat([tag])
+                        : tag;
                     result.waste = result.waste.replace(regexp, '$1');
 
                     if (!multi && result.match) {
@@ -355,7 +380,9 @@ function stringify(release, options) {
         .concat([
             release.year,
             [
-                release.season ? 'S' + release.season.toString().padStart(2, '0') : null,
+                release.season
+                    ? 'S' + release.season.toString().padStart(2, '0')
+                    : null,
                 release.episodes.length
                     ? 'E' +
                       release.episodes
@@ -378,11 +405,17 @@ function stringify(release, options) {
         .concat('-' + (release.group || 'NOGROUP'));
 }
 
-function parse(name, options = { strict: false, flagged: true, erase: [], defaults: {} }) {
+function parse(
+    name,
+    options = { strict: false, flagged: true, erase: [], defaults: {} },
+) {
     options.defaults = Object.assign(
         properties
             .filter((property) => !['type'].includes(property))
-            .reduce((obj, property) => Object.assign(obj, { [property]: null }), {}),
+            .reduce(
+                (obj, property) => Object.assign(obj, { [property]: null }),
+                {},
+            ),
         {
             language: 'VO',
         },
@@ -400,14 +433,20 @@ function parse(name, options = { strict: false, flagged: true, erase: [], defaul
     };
 
     properties.map((property) => {
-        const result = deduce(property, waste, ['language', 'flags'].includes(property));
+        const result = deduce(
+            property,
+            waste,
+            ['language', 'flags'].includes(property),
+        );
 
         if (property === 'language' && result.match) {
             result.match = result.match.length > 1 ? 'MULTI' : result.match[0];
         }
 
         waste = result.waste;
-        handicap = handicap.concat([!result.match && options.defaults[property] && property]);
+        handicap = handicap.concat([
+            !result.match && options.defaults[property] && property,
+        ]);
 
         release[property] = result.match || options.defaults[property];
     });
@@ -417,16 +456,23 @@ function parse(name, options = { strict: false, flagged: true, erase: [], defaul
         .split('.')
         .filter((word, position) => word === words[position])
         .map((word) =>
-            word.split('').every((char) => ['i', 'I'].includes(char)) ? word.length : word,
+            word.split('').every((char) => ['i', 'I'].includes(char))
+                ? word.length
+                : word,
         )
         .join(' ')
         .toLowerCase()
-        .replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, (s) => s.toUpperCase()); // ucwords
+        .replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, (s) =>
+            s.toUpperCase(),
+        ); // ucwords
 
     release.generated = stringify(release, options);
 
     release.score = properties
-        .filter((property) => !['season', 'episodes', 'episode', 'type'].includes(property))
+        .filter(
+            (property) =>
+                !['season', 'episodes', 'episode', 'type'].includes(property),
+        )
         .filter((property) => !handicap.includes(property))
         .filter((property) => release[property]).length;
 
@@ -435,7 +481,11 @@ function parse(name, options = { strict: false, flagged: true, erase: [], defaul
         .filter((property) => release[property]).length;
 
     if (options.strict && !valid) {
-        throw new Error('"' + release.original + '" does\'t follow scene release naming rules');
+        throw new Error(
+            '"' +
+                release.original +
+                '" does\'t follow scene release naming rules',
+        );
     }
 
     return release;

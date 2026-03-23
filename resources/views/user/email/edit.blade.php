@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,9 +20,7 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.email') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.email') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -91,7 +88,11 @@
                                     datetime="{{ $emailUpdate->created_at }}"
                                     title="{{ $emailUpdate->created_at }}"
                                 >
-                                    {{ $emailUpdate->created_at->format('Y-m-d') }}
+                                    {{
+                                        $emailUpdate->created_at->format(
+                                            'Y-m-d',
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>
@@ -99,7 +100,10 @@
                                     datetime="{{ $emailUpdate->deleted_at }}"
                                     title="{{ $emailUpdate->deleted_at }}"
                                 >
-                                    {{ $emailUpdate->deleted_at?->format('Y-m-d') ?? 'Currently in use' }}
+                                    {{
+                                        $emailUpdate->deleted_at?->format('Y-m-d') ??
+                                            'Currently in use'
+                                    }}
                                 </time>
                             </td>
                             <td>

@@ -40,15 +40,28 @@
                             </a>
                         </td>
                         <td title="{{ $unregisteredInfoHash->size }} B">
-                            {{ \App\Helpers\StringHelper::formatBytes($unregisteredInfoHash->size) }}
+                            {{
+                                \App\Helpers\StringHelper::formatBytes(
+                                    $unregisteredInfoHash->size,
+                                )
+                            }}
                         </td>
-                        <td>{{ bin2hex($unregisteredInfoHash->info_hash) }}</td>
+                        <td>
+                            {{
+                                bin2hex(
+                                    $unregisteredInfoHash->info_hash,
+                                )
+                            }}
+                        </td>
                         <td>
                             <time
                                 datetime="{{ $unregisteredInfoHash->deleted_at }}"
                                 title="{{ $unregisteredInfoHash->deleted_at }}"
                             >
-                                {{ $unregisteredInfoHash->deleted_at?->diffForHumans() ?? 'N/A' }}
+                                {{
+                                    $unregisteredInfoHash->deleted_at?->diffForHumans() ??
+                                        'N/A'
+                                }}
                             </time>
                         </td>
                         <td>
@@ -56,13 +69,20 @@
                                 datetime="{{ $unregisteredInfoHash->updated_at }}"
                                 title="{{ $unregisteredInfoHash->updated_at }}"
                             >
-                                {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? 'N/A' }}
+                                {{
+                                    $unregisteredInfoHash->updated_at?->diffForHumans() ??
+                                        'N/A'
+                                }}
                             </time>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        {{ $unregisteredInfoHashes->links('partials.pagination') }}
+        {{
+            $unregisteredInfoHashes->links(
+                'partials.pagination',
+            )
+        }}
     </div>
 </section>

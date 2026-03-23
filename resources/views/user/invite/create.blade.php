@@ -12,9 +12,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.invites') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.invites') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -30,7 +28,7 @@
             <div class="panel__body">{{ __('user.invites-disabled-desc') }}</div>
         </section>
     @endsection
-@elseif (! ($user->can_invite ?? $user->group->can_invite))
+@elseif (!($user->can_invite ?? $user->group->can_invite))
     @section('main')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.invites-banned') }}</h2>
@@ -94,11 +92,14 @@
             </div>
         </section>
     @endsection
-
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">
-                {{ __('user.invites-count', ['count' => $user->invites]) }}
+                {{
+                    __('user.invites-count', [
+                        'count' => $user->invites,
+                    ])
+                }}
             </h2>
             <div class="panel__body">
                 <ul style="padding-left: 0; list-style-position: inside">

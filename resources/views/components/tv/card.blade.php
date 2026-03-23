@@ -1,7 +1,4 @@
-@props([
-    'media',
-    'personalFreeleech',
-])
+@props(['media', 'personalFreeleech'])
 
 <article class="torrent-search--grouped__result" x-data="torrentGroup">
     <header class="torrent-search--grouped__header">
@@ -24,7 +21,10 @@
             >
                 {{ $media->name ?? '' }} (
                 <time class="torrent-search--grouped__title-year">
-                    {{ substr($media->first_air_date ?? '', 0, 4) ?? '' }}
+                    {{
+                        substr($media->first_air_date ?? '', 0, 4) ??
+                            ''
+                    }}
                 </time>
                 )
             </a>
@@ -39,7 +39,7 @@
                     >
                         {{ $creator->name }}
                     </a>
-                    @if (! $loop->last)
+                    @if (!$loop->last)
                         ,
                     @endif
                 @endforeach
@@ -88,7 +88,8 @@
         @if (array_key_exists('Specials', $media->torrents))
             <details
                 class="torrent-search--grouped__dropdown"
-                @if (! array_key_exists('Complete Pack', $media->torrents) && ! array_key_exists('Seasons', $media->torrents))
+                @if (!array_key_exists('Complete Pack', $media->torrents) &&
+                    !array_key_exists('Seasons', $media->torrents))
                     open
                 @endif
             >
@@ -135,7 +136,7 @@
                 @endif
             >
                 <summary x-bind="season">{{ $seasonName }}</summary>
-                @if (array_key_exists('Season Pack', $season) && ! array_key_exists('Episodes', $season))
+                @if (array_key_exists('Season Pack', $season) && !array_key_exists('Episodes', $season))
                     <table class="torrent-search--grouped__torrents">
                         @foreach ($season['Season Pack'] as $type => $torrents)
                             <tbody>
@@ -187,7 +188,7 @@
                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                     <details
                         class="torrent-search--grouped__dropdown"
-                        @if ($loop->first && ! array_key_exists('Season Pack', $season))
+                        @if ($loop->first && !array_key_exists('Season Pack', $season))
                             open
                         @endif
                     >

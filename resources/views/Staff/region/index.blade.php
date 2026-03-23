@@ -43,9 +43,7 @@
                                     {{ $region->name }}
                                 </a>
                             </td>
-                            <td>
-                                {{ __('regions.' . $region->name) }}
-                            </td>
+                            <td>{{ __('regions.' . $region->name) }}</td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
@@ -65,8 +63,12 @@
                                         </button>
                                         <dialog class="dialog" x-bind="dialogElement">
                                             <h4 class="dialog__heading">
-                                                Delete torrent region:
-                                                {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
+                                                Delete torrent region: {{
+                                                    $region->name .
+                                                        ' (' .
+                                                        __('regions.' . $region->name) .
+                                                        ')'
+                                                }}
                                             </h4>
                                             <form
                                                 class="dialog__form"
@@ -76,10 +78,7 @@
                                             >
                                                 @csrf
                                                 @method('DELETE')
-                                                <p class="form__group">
-                                                    An existing torrent on site may already use this
-                                                    region. Would you like to change it?
-                                                </p>
+                                                <p class="form__group">An existing torrent on site may already use this region. Would you like to change it?</p>
                                                 <p class="form__group" x-data>
                                                     <select
                                                         name="region_id"
@@ -87,7 +86,11 @@
                                                         class="form__select"
                                                         x-data="{ region: '' }"
                                                         x-model="region"
-                                                        x-bind:class="region === '' ? 'form__select--default' : ''"
+                                                        x-bind:class="
+                                                            region === ''
+                                                                ? 'form__select--default'
+                                                                : ''
+                                                        "
                                                     >
                                                         <option
                                                             hidden
@@ -97,7 +100,12 @@
                                                         ></option>
                                                         @foreach ($regions as $region)
                                                             <option value="{{ $region->id }}">
-                                                                {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
+                                                                {{
+                                                                    $region->name .
+                                                                        ' (' .
+                                                                        __('regions.' . $region->name) .
+                                                                        ')'
+                                                                }}
                                                             </option>
                                                         @endforeach
                                                     </select>

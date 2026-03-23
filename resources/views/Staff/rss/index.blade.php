@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('rss.rss') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('rss.rss') }}</li>
 @endsection
 
 @section('page', 'page__staff-rss--index')
@@ -93,7 +91,9 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->freeleech || $rss->object_torrent?->doubleupload || $rss->object_torrent?->featured)
+                                @if ($rss->object_torrent?->freeleech ||
+                                    $rss->object_torrent?->doubleupload ||
+                                    $rss->object_torrent?->featured)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
@@ -104,7 +104,10 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->highspeed || $rss->object_torrent?->internal || $rss->object_torrent->personalrelease || $rss->object_torrent?->bookmark)
+                                @if ($rss->object_torrent?->highspeed ||
+                                    $rss->object_torrent?->internal ||
+                                    $rss->object_torrent->personalrelease ||
+                                    $rss->object_torrent?->bookmark)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

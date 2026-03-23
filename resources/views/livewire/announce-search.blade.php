@@ -129,7 +129,11 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $announces->links('partials.pagination') }}
+            {{
+                $announces->links(
+                    'partials.pagination',
+                )
+            }}
         </div>
     </section>
 </div>

@@ -1,14 +1,10 @@
-@props([
-    'torrent',
-    'meta',
-    'personalFreeleech',
-])
+@props(['torrent', 'meta', 'personalFreeleech'])
 
 <tr
     @class([
         'torrent-search--list__row' => auth()->user()->settings->show_poster,
-        'torrent-search--list__no-poster-row' => ! auth()->user()->settings->show_poster,
-        'torrent-search--list__sticky-row' => $torrent->sticky,
+        'torrent-search--list__no-poster-row' => !auth()->user()->settings->show_poster,
+        'torrent-search--list__sticky-row' => $torrent->sticky
     ])
     data-torrent-id="{{ $torrent->id }}"
     data-igdb-id="{{ $torrent->igdb }}"
@@ -68,7 +64,7 @@
                 @endif
 
                 @if ($torrent->category->no_meta)
-                    @if (Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))
+                    @if (Storage::disk('torrent-covers')->exists( "torrent-cover_$torrent->id.jpg" ))
                         <img
                             src="{{ route('authenticated_images.torrent_cover', ['id' => $torrent->id]) }}"
                             class="torrent-search--list__poster-img"
@@ -100,7 +96,7 @@
                         @style([
                             'height: 32px',
                             'padding-top: 1px' => $torrent->category->movie_meta || $torrent->category->tv_meta,
-                            'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta),
+                            'padding-top: 12px' => !($torrent->category->movie_meta || $torrent->category->tv_meta)
                         ])
                     />
                 @else
@@ -109,7 +105,7 @@
                         @style([
                             'font-size: 24px',
                             'padding-top: 1px' => $torrent->category->movie_meta || $torrent->category->tv_meta,
-                            'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta),
+                            'padding-top: 12px' => !($torrent->category->movie_meta || $torrent->category->tv_meta)
                         ])
                     ></i>
                 @endif
@@ -117,13 +113,14 @@
             <div class="torrent-search--list__resolution-and-type">
                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <span class="torrent-search--list__resolution">
-                        {{ $torrent->resolution->name ?? 'No res' }}
+                        {{
+                            $torrent->resolution->name ??
+                                'No res'
+                        }}
                     </span>
                 @endif
 
-                <span class="torrent-search--list__type">
-                    {{ $torrent->type->name }}
-                </span>
+                <span class="torrent-search--list__type"> {{ $torrent->type->name }} </span>
             </div>
         </div>
     </td>
@@ -145,7 +142,9 @@
     </td>
     <td class="torrent-search--list__buttons">
         <div>
-            @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)
+            @if (auth()->user()->group->is_editor ||
+                auth()->user()->group->is_modo ||
+                auth()->id() === $torrent->user_id)
                 <a
                     class="torrent-search--list__edit form__standard-icon-button"
                     href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
@@ -214,33 +213,39 @@
     <td
         @class([
             'torrent-search--list__seeders',
-            'torrent-activity-indicator--seeding' => $torrent->seeding,
+            'torrent-activity-indicator--seeding' => $torrent->seeding
         ])
         @if ($torrent->seeding)
             title="{{ __('torrent.currently-seeding') }}"
         @endif
     >
         <a class="torrent__seeder-count" href="{{ route('peers', ['id' => $torrent->id]) }}">
-            {{ $torrent->seeds_count ?? $torrent->seeders }}
+            {{
+                $torrent->seeds_count ??
+                    $torrent->seeders
+            }}
         </a>
     </td>
     <td
         @class([
             'torrent-search--list__leechers',
-            'torrent-activity-indicator--leeching' => $torrent->leeching,
+            'torrent-activity-indicator--leeching' => $torrent->leeching
         ])
         @if ($torrent->leeching)
             title="{{ __('torrent.currently-leeching') }}"
         @endif
     >
         <a class="torrent__leecher-count" href="{{ route('peers', ['id' => $torrent->id]) }}">
-            {{ $torrent->leeches_count ?? $torrent->leechers }}
+            {{
+                $torrent->leeches_count ??
+                    $torrent->leechers
+            }}
         </a>
     </td>
     <td
         @class([
             'torrent-search--list__completed',
-            'torrent-activity-indicator--completed' => $torrent->completed,
+            'torrent-activity-indicator--completed' => $torrent->completed
         ])
         @if ($torrent->completed)
             title="{{ __('torrent.completed') }}"

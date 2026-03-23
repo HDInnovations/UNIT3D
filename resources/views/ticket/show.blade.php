@@ -10,9 +10,7 @@
             {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $ticket->subject }}
-    </li>
+    <li class="breadcrumb--active">{{ $ticket->subject }}</li>
 @endsection
 
 @section('page', 'page__ticket--show')
@@ -128,7 +126,6 @@
             </div>
         </section>
     @endif
-
     <livewire:comments :model="$ticket" />
 @endsection
 
@@ -142,7 +139,13 @@
             </div>
             <div class="key-value__group">
                 <dt>{{ __('common.created_at') }}</dt>
-                <dd>{{ $ticket->created_at->format('Y-m-d') }}</dd>
+                <dd>
+                    {{
+                        $ticket->created_at->format(
+                            'Y-m-d',
+                        )
+                    }}
+                </dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('ticket.opened-by') }}</dt>
@@ -168,11 +171,12 @@
                 <div class="key-value__group">
                     <dt>{{ __('ticket.closed') }}</dt>
                     <dd>
-                        <time
-                            datetime="{{ $ticket->closed_at }}"
-                            title="{{ $ticket->closed_at }}"
-                        >
-                            {{ $ticket->closed_at->format('Y-m-d') }}
+                        <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
+                            {{
+                                $ticket->closed_at->format(
+                                    'Y-m-d',
+                                )
+                            }}
                         </time>
                     </dd>
                 </div>
@@ -198,7 +202,18 @@
                             x-on:change="$root.submit()"
                         >
                             <option hidden disabled selected value=""></option>
-                            @foreach (App\Models\User::query()->select(['id', 'username'])->whereIn('group_id', App\Models\Group::query()->where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
+                            @foreach (App\Models\User::query()
+                                    ->select(['id', 'username'])
+                                    ->whereIn(
+                                        'group_id',
+                                        App\Models\Group::query()
+                                            ->where('is_modo', 1)
+                                            ->whereNotIn('id', [9])
+                                            ->pluck('id')
+                                            ->toArray()
+                                    )
+                                    ->get()
+                                as $user)
                                 <option
                                     value="{{ $user->id }}"
                                     @selected($user->id === $ticket->staff_id)
@@ -212,7 +227,6 @@
                         </label>
                     </p>
                 </form>
-
                 @if ($ticket->staff_id !== null)
                     <form
                         action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
@@ -229,7 +243,6 @@
                         </p>
                     </form>
                 @endif
-
                 <form action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}" method="POST">
                     @csrf
                     @method('DELETE')

@@ -19,9 +19,7 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.peers') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -81,20 +79,37 @@
                                 <x-user-tag
                                     :user="$peer->user"
                                     :anon="
-                                        $peer->user->privacy?->hidden
-                                        || $peer->user->privacy?->show_peer === 0
-                                        || ($peer->user->id == $torrent->user->id && $torrent->anon == 1)
+                                        $peer->user->privacy?->hidden ||
+        $peer->user->privacy?->show_peer === 0 ||
+        ($peer->user->id == $torrent->user->id && $torrent->anon == 1)
                                     "
                                 />
                             </td>
                             <td>{{ $peer->progress }}%</td>
                             <td class="text-green">
-                                {{ \App\Helpers\StringHelper::formatBytes($peer->uploaded, 2) }}
+                                {{
+                                    \App\Helpers\StringHelper::formatBytes(
+                                        $peer->uploaded,
+                                        2,
+                                    )
+                                }}
                             </td>
                             <td class="text-red">
-                                {{ \App\Helpers\StringHelper::formatBytes($peer->downloaded, 2) }}
+                                {{
+                                    \App\Helpers\StringHelper::formatBytes(
+                                        $peer->downloaded,
+                                        2,
+                                    )
+                                }}
                             </td>
-                            <td>{{ \App\Helpers\StringHelper::formatBytes($peer->left, 2) }}</td>
+                            <td>
+                                {{
+                                    \App\Helpers\StringHelper::formatBytes(
+                                        $peer->left,
+                                        2,
+                                    )
+                                }}
+                            </td>
                             <td>{{ $peer->agent }}</td>
 
                             @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
@@ -110,10 +125,11 @@
                                     if (config('announce.external_tracker.is_enabled')) {
                                         $connectable = $peer->connectable;
                                     } elseif (cache()->has('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent)) {
-                                        $connectable = cache()->get('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent);
+                                        $connectable = cache()->get(
+                                            'peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent,
+                                        );
                                     }
                                 @endphp
-
                                 <td class="{{ $connectable ? 'text-green' : 'text-red' }}">
                                     @choice('user.client-connectable-state', $connectable)
                                 </td>
@@ -124,7 +140,11 @@
                                     datetime="{{ $peer->created_at }}"
                                     title="{{ $peer->created_at }}"
                                 >
-                                    {{ $peer->created_at ? $peer->created_at->diffForHumans() : 'N/A' }}
+                                    {{
+                                        $peer->created_at
+                                            ? $peer->created_at->diffForHumans()
+                                            : 'N/A'
+                                    }}
                                 </time>
                             </td>
                             <td>
@@ -132,7 +152,11 @@
                                     datetime="{{ $peer->updated_at }}"
                                     title="{{ $peer->updated_at }}"
                                 >
-                                    {{ $peer->updated_at ? $peer->updated_at->diffForHumans() : 'N/A' }}
+                                    {{
+                                        $peer->updated_at
+                                            ? $peer->updated_at->diffForHumans()
+                                            : 'N/A'
+                                    }}
                                 </time>
                             </td>
                             <td
@@ -145,7 +169,7 @@
                                         {{ __('torrent.leecher') }}
                                     @endif
                                 @else
-                                        Inactive
+                                    Inactive
                                 @endif
                             </td>
                             <td class="{{ $peer->visible ? 'text-green' : 'text-red' }}">

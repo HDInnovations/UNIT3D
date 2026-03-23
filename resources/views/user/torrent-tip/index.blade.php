@@ -15,9 +15,7 @@
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('bon.tips') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('bon.tips') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -85,7 +83,11 @@
                 </tbody>
             </table>
         </div>
-        {{ $tips->links('partials.pagination') }}
+        {{
+            $tips->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 @endsection
 

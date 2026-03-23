@@ -11,7 +11,9 @@ import axios from 'axios';
 window.axios = axios;
 window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    'X-CSRF-TOKEN': document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute('content'),
 };
 
 /**
@@ -25,7 +27,9 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error(
+        'CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token',
+    );
 }
 
 // Sweet Alert
@@ -33,10 +37,16 @@ import Swal from 'sweetalert2';
 window.Swal = Swal;
 
 // Vite Import
-import.meta.glob(['/public/img/pipes/**', '/resources/sass/vendor/webfonts/font-awesome/**']);
+import.meta.glob([
+    '/public/img/pipes/**',
+    '/resources/sass/vendor/webfonts/font-awesome/**',
+]);
 
 // Livewire + AlpineJS
-import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
+import {
+    Livewire,
+    Alpine,
+} from '../../vendor/livewire/livewire/dist/livewire.esm.js';
 
 // Custom AlpineJS Components
 import './components/alpine/chatbox';

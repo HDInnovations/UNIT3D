@@ -5,9 +5,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('ticket.helpdesk') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('ticket.helpdesk') }}</li>
 @endsection
 
 @section('page', 'page__ticket--index')

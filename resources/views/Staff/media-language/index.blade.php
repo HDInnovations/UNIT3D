@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.media-languages') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.media-languages') }}</li>
 @endsection
 
 @section('page', 'page__staff-media-language--index')

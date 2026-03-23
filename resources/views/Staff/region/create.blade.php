@@ -9,9 +9,7 @@
     <li class="breadcrumbV2">
         <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">Torrent regions</a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-region--create')

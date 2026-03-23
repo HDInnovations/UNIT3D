@@ -11,12 +11,8 @@
             {{ __('staff.pages') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $page->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $page->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-page--edit')
@@ -47,7 +43,13 @@
                         {{ __('common.name') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $page->content])
+                @livewire('bbcode-input',
+                    [
+                        'name' => 'content',
+                        'label' => __('common.content'),
+                        'required' => true,
+                        'content' => $page->content
+                    ])
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}

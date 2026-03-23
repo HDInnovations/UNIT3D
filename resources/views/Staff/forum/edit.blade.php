@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -25,20 +24,14 @@
             Forum categories
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $forum->category->name }}
-    </li>
+    <li class="breadcrumbV2">{{ $forum->category->name }}</li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.forum_categories.index') }}" class="breadcrumb__link">
             {{ __('staff.forums') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $forum->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $forum->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-forum--edit')
@@ -87,8 +80,7 @@
                         name="forum[description]"
                         class="form__textarea"
                         required
-                    >
-{{ $forum->description }}</textarea
+                        >{{ $forum->description }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
                         Description
@@ -143,10 +135,7 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Groups</th>
@@ -176,7 +165,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $loop->index }}][read_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->read_topic)
+                                                @checked(( $forum->permissions->where('group_id', '=', $group->id)->first()?->read_topic)
                                             />
                                         </td>
                                         <td>
@@ -189,7 +178,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $loop->index }}][start_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->start_topic)
+                                                @checked(( $forum->permissions->where('group_id', '=', $group->id)->first()?->start_topic)
                                             />
                                         </td>
                                         <td>
@@ -202,7 +191,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $loop->index }}][reply_topic]"
                                                 value="1"
-                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->reply_topic)
+                                                @checked(( $forum->permissions->where('group_id', '=', $group->id)->first()?->reply_topic)
                                             />
                                         </td>
                                     </tr>

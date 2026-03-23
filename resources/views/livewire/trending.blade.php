@@ -2,7 +2,7 @@
     @class([
         'panelV2',
         'trending',
-        'trending--weekly' => in_array($this->interval, ['weekly', 'monthly']),
+        'trending--weekly' => in_array($this->interval, ['weekly', 'monthly'])
     ])
 >
     <header class="panel__header">
@@ -89,7 +89,11 @@
                     @foreach ($works as $weeklyRankings)
                         <tr>
                             <th>
-                                {{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}
+                                {{
+                                    $weeklyRankings
+                                        ->first()
+                                        ?->week_start?->format('Y-m-d')
+                                }}
                             </th>
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($weeklyRankings as $ranking)
@@ -101,7 +105,6 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
                                             @case('tv_meta')
                                                 <x-tv.poster
@@ -109,8 +112,8 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -141,7 +144,18 @@
                     @foreach ($works as $monthlyRankings)
                         <tr>
                             <th>
-                                {{ substr($monthlyRankings->first()?->the_year_month, 0, 4) }}-{{ substr($monthlyRankings->first()?->the_year_month, 4) }}
+                                {{
+                                    substr(
+                                        $monthlyRankings->first()?->the_year_month,
+                                        0,
+                                        4,
+                                    )
+                                }}-{{
+                                    substr(
+                                        $monthlyRankings->first()?->the_year_month,
+                                        4,
+                                    )
+                                }}
                             </th>
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($monthlyRankings as $ranking)
@@ -153,7 +167,6 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
                                             @case('tv_meta')
                                                 <x-tv.poster
@@ -161,8 +174,8 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -192,7 +205,12 @@
                 <tbody>
                     @foreach ($works as $releaseYearRankings)
                         <tr>
-                            <th>{{ $releaseYearRankings->first()?->the_year }}</th>
+                            <th>
+                                {{
+                                    $releaseYearRankings->first()
+                                        ?->the_year
+                                }}
+                            </th>
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($releaseYearRankings as $ranking)
                                     <figure class="trending-poster">
@@ -203,7 +221,6 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
                                             @case('tv_meta')
                                                 <x-tv.poster
@@ -211,8 +228,8 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -249,7 +266,6 @@
                             </figcaption>
                         </figure>
                     @endforeach
-
                     @break
                 @case('tv_meta')
                     @foreach ($works as $work)
@@ -267,8 +283,8 @@
                             </figcaption>
                         </figure>
                     @endforeach
-
                     @break
+
             @endswitch
         </div>
     @endif

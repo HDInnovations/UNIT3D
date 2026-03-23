@@ -1,18 +1,25 @@
-@props([
-    'style',
-    'anon',
-    'appendedIcons',
-    'user',
-])
+@props(['style', 'anon', 'appendedIcons', 'user'])
 
 @if ($anon)
     @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
         <span
-            {{ $attributes->class('user-tag fas fa-eye-slash') }}
+            {{
+                $attributes->class(
+                    'user-tag fas fa-eye-slash',
+                )
+            }}
             @if ($user->is_donor == 1)
-                {{ $attributes->merge(['style' => 'background-image: url(/img/sparkels.gif);' . ($style ?? '')]) }}
+                {{
+                    $attributes->merge([
+                        'style' => 'background-image: url(/img/sparkels.gif);' . ($style ?? ''),
+                    ])
+                }}
             @else
-                {{ $attributes->merge(['style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? '')]) }}
+                {{
+                    $attributes->merge([
+                        'style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? ''),
+                    ])
+                }}
             @endif
         >
             (
@@ -28,15 +35,9 @@
                 <i>
                     <img
                         @style([
-                            'max-height: 22px;' =>
-                                request()
-                                    ->route()
-                                    ->getName() === 'users.show',
-                            'max-height: 17px;' =>
-                                request()
-                                    ->route()
-                                    ->getName() !== 'users.show',
-                            'vertical-align: text-bottom',
+                            'max-height: 22px;' => request()->route()->getName() === 'users.show',
+                            'max-height: 17px;' => request()->route()->getName() !== 'users.show',
+                            'vertical-align: text-bottom'
                         ])
                         title="Custom user icon"
                         src="{{ route('authenticated_images.user_icon', ['user' => $user]) }}"
@@ -52,11 +53,16 @@
                 <i class="fal fa-star text-gold" title="Donor"></i>
             @endif
 
-            {{ $appendedIcons ?? '' }}
-            )
+            {{ $appendedIcons ?? '' }} )
         </span>
     @else
-        <span {{ $attributes->class('user-tag fas fa-eye-slash') }}>
+        <span
+            {{
+                $attributes->class(
+                    'user-tag fas fa-eye-slash',
+                )
+            }}
+        >
             ({{ __('common.anonymous') }})
         </span>
     @endif
@@ -64,9 +70,17 @@
     <span
         {{ $attributes->class('user-tag') }}
         @if ($user->is_donor == 1)
-            {{ $attributes->merge(['style' => 'background-image: url(/img/sparkels.gif);' . ($style ?? '')]) }}
+            {{
+                $attributes->merge([
+                    'style' => 'background-image: url(/img/sparkels.gif);' . ($style ?? ''),
+                ])
+            }}
         @else
-            {{ $attributes->merge(['style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? '')]) }}
+            {{
+                $attributes->merge([
+                    'style' => 'background-image: ' . $user->group->effect . ';' . ($style ?? ''),
+                ])
+            }}
         @endif
     >
         <a
@@ -81,15 +95,9 @@
             <i>
                 <img
                     @style([
-                        'max-height: 22px;' =>
-                            request()
-                                ->route()
-                                ->getName() === 'users.show',
-                        'max-height: 17px;' =>
-                            request()
-                                ->route()
-                                ->getName() !== 'users.show',
-                        'vertical-align: text-bottom',
+                        'max-height: 22px;' => request()->route()->getName() === 'users.show',
+                        'max-height: 17px;' => request()->route()->getName() !== 'users.show',
+                        'vertical-align: text-bottom'
                     ])
                     title="Custom user icon"
                     src="{{ route('authenticated_images.user_icon', ['user' => $user]) }}"

@@ -9,9 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('common.pending-torrents') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.pending-torrents') }}</li>
 @endsection
 
 @section('page', 'page__torrent-pending--index')
@@ -38,7 +36,12 @@
                             <td>{{ $torrent->name }}</td>
                             <td>{{ $torrent->category->name }}</td>
                             <td>{{ $torrent->type->name }}</td>
-                            <td>{{ $torrent->resolution->name ?? 'No res' }}</td>
+                            <td>
+                                {{
+                                    $torrent->resolution->name ??
+                                        'No res'
+                                }}
+                            </td>
                             <td>{{ $torrent->getSize() }}</td>
                             <td>{{ $torrent->created_at->diffForHumans() }}</td>
                             <td>
@@ -47,13 +50,11 @@
                                         <span class="torrent--pending">
                                             {{ __('torrent.pending') }}
                                         </span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span class="torrent--postponed">
                                             {{ __('torrent.postponed') }}
                                         </span>
-
                                         @break
                                     @default
                                         <span class="torrent--rejected">

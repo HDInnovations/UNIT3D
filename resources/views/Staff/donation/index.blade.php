@@ -25,7 +25,6 @@
             </div>
         </div>
     </section>
-
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Donations</h2>
@@ -66,19 +65,29 @@
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
                                 title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
                             >
-                                {{ App\Helpers\StringHelper::formatBytes($donation->package->upload_value ?? 0) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $donation->package->upload_value ?? 0,
+                                    )
+                                }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
                                 title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
                             >
-                                {{ $donation->package->invite_value ?? 0 }}
+                                {{
+                                    $donation->package->invite_value ??
+                                        0
+                                }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
                                 title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
                             >
-                                {{ $donation->package->bonus_value ?? 0 }}
+                                {{
+                                    $donation->package->bonus_value ??
+                                        0
+                                }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
@@ -144,7 +153,11 @@
                 </tbody>
             </table>
         </div>
-        {{ $donations->links('partials.pagination') }}
+        {{
+            $donations->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 @endsection
 
@@ -165,12 +178,12 @@
                         {
                             label: 'Daily donations',
                             data: dailyDonations.map((donation) => donation.total),
-                            backgroundColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-daily-bg'),
-                            borderColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-daily-border'),
+                            backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-daily-bg',
+                            ),
+                            borderColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-daily-border',
+                            ),
                             borderWidth: 1,
                             fill: false,
                         },
@@ -189,19 +202,17 @@
             new Chart(monthlyCtx, {
                 type: 'line',
                 data: {
-                    labels: monthlyDonations.map(
-                        (donation) => `${donation.year}-${donation.month}`,
-                    ),
+                    labels: monthlyDonations.map((donation) => `${donation.year}-${donation.month}`),
                     datasets: [
                         {
                             label: 'Monthly donations',
                             data: monthlyDonations.map((donation) => donation.total),
-                            backgroundColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-monthly-bg'),
-                            borderColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-monthly-border'),
+                            backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-monthly-bg',
+                            ),
+                            borderColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-monthly-border',
+                            ),
                             borderWidth: 1,
                             fill: false,
                         },

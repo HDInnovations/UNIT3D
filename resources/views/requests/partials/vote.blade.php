@@ -3,9 +3,7 @@
         {{ __('request.vote') }}
     </button>
     <dialog class="dialog" x-bind="dialogElement">
-        <h3 class="dialog__heading">
-            {{ __('request.vote-that') }}
-        </h3>
+        <h3 class="dialog__heading">{{ __('request.vote-that') }}</h3>
         <form
             class="dialog__form"
             method="POST"

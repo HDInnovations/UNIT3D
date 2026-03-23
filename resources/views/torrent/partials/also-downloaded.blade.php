@@ -15,7 +15,6 @@
                 @empty
                     No other downloads found!
                 @endforelse
-
                 @break
             @case($torrent->category->tv_meta)
                 @forelse ($alsoDownloaded ?? [] as $tv)
@@ -31,7 +30,6 @@
                 @empty
                     No other downloads found!
                 @endforelse
-
                 @break
             @case($torrent->category->game_meta)
                 @forelse ($alsoDownloaded ?? [] as $game)
@@ -47,7 +45,6 @@
                 @empty
                     No other downloads found!
                 @endforelse
-
                 @break
             @default
                 No other downloads found!

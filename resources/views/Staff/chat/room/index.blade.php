@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.chat-rooms') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.chat-rooms') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -23,9 +21,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.bots.index') }}">
-            {{ __('staff.bots') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('staff.bots.index') }}"> {{ __('staff.bots') }} </a>
     </li>
 @endsection
 

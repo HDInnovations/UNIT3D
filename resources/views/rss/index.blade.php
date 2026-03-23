@@ -6,9 +6,7 @@
             {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('rss.rss') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('rss.rss') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -23,9 +21,7 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('rss.index') }}">
-            {{ __('rss.rss') }}
-        </a>
+        <a class="nav-tab--active__link" href="{{ route('rss.index') }}"> {{ __('rss.rss') }} </a>
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.create') }}">
@@ -109,7 +105,9 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->freeleech || $rss->object_torrent->doubleupload || $rss->object_torrent->featured)
+                                @if ($rss->object_torrent?->freeleech ||
+                                    $rss->object_torrent->doubleupload ||
+                                    $rss->object_torrent->featured)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
@@ -120,7 +118,10 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->highspeed || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
+                                @if ($rss->object_torrent?->highspeed ||
+                                    $rss->object_torrent?->internal ||
+                                    $rss->object_torrent?->personalrelease ||
+                                    $rss->object_torrent?->bookmark)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
@@ -231,7 +232,9 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->freeleech || $rss->object_torrent?->doubleupload || $rss->object_torrent?->featured)
+                                @if ($rss->object_torrent?->freeleech ||
+                                    $rss->object_torrent?->doubleupload ||
+                                    $rss->object_torrent?->featured)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
@@ -242,7 +245,10 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->highspeed || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
+                                @if ($rss->object_torrent?->highspeed ||
+                                    $rss->object_torrent?->internal ||
+                                    $rss->object_torrent?->personalrelease ||
+                                    $rss->object_torrent?->bookmark)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

@@ -15,9 +15,7 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.download-check') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.download-check') }}</li>
 @endsection
 
 @section('page', 'page__torrent-download-check--show')
@@ -73,7 +71,8 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.download-check') }}</h2>
         <div class="panel__body">
-            @if (($user->ratio < config('other.ratio') || $user->can_download == 0) && $torrent->user_id !== $user->id)
+            @if (($user->ratio < config('other.ratio') || $user->can_download == 0) &&
+                $torrent->user_id !== $user->id)
                 <h4>{{ __('torrent.no-privileges') }}</h4>
             @else
                 <h4>{{ __('torrent.ready') }}</h4>
@@ -82,8 +81,11 @@
         <dl class="key-value">
             <div class="key-value__group">
                 <dt>
-                    {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }}
-                    {{ config('other.ratio') }} :
+                    {{ __('common.ratio') }} {{
+                        strtolower(
+                            __('torrent.greater-than'),
+                        )
+                    }} {{ config('other.ratio') }} :
                 </dt>
                 <dd>
                     @if ($user->ratio < config('other.ratio'))
@@ -100,7 +102,13 @@
                 </dd>
             </div>
             <div class="key-value__group">
-                <dt>{{ __('torrent.download-rights-active') }}</dt>
+                <dt>
+                    {{
+                        __(
+                            'torrent.download-rights-active',
+                        )
+                    }}
+                </dt>
                 <dd>
                     @if ($user->can_download == 0 && $torrent->user_id != $user->id)
                         <span class="text-red">
@@ -131,7 +139,11 @@
                     @elseif ($torrent->status === \App\Enums\ModerationStatus::POSTPONED)
                         <span class="text-red">
                             <i class="{{ config('other.font-awesome') }} fa-times"></i>
-                            {{ strtoupper(__('torrent.postponed')) }}
+                            {{
+                                strtoupper(
+                                    __('torrent.postponed'),
+                                )
+                            }}
                         </span>
                     @else
                         <span class="text-green">
@@ -143,7 +155,8 @@
             </div>
         </dl>
         <div class="panel__body">
-            @if (($user->ratio < config('other.ratio') || $user->can_download == 0) && $torrent->user_id != $user->id)
+            @if (($user->ratio < config('other.ratio') || $user->can_download == 0) &&
+                $torrent->user_id != $user->id)
                 <span class="text-red text-bold">{{ __('torrent.no-privileges-desc') }}</span>
             @else
                 <p class="form__group form__group--horizontal">

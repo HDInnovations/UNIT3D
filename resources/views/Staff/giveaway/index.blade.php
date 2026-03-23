@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('event.giveaways') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('event.giveaways') }}</li>
 @endsection
 
 @section('page', 'page__staff-giveaways--index')
@@ -54,7 +52,11 @@
                                     datetime="{{ $giveaway->starts_at }}"
                                     title="{{ $giveaway->starts_at }}"
                                 >
-                                    {{ $giveaway->starts_at->format('Y-m-d') }}
+                                    {{
+                                        $giveaway->starts_at->format(
+                                            'Y-m-d',
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>
@@ -62,7 +64,11 @@
                                     datetime="{{ $giveaway->ends_at }}"
                                     title="{{ $giveaway->ends_at }}"
                                 >
-                                    {{ $giveaway->ends_at->format('Y-m-d') }}
+                                    {{
+                                        $giveaway->ends_at->format(
+                                            'Y-m-d',
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>

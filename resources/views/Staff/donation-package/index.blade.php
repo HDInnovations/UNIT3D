@@ -52,7 +52,11 @@
                             </td>
                             <td>$ {{ $package->cost }}</td>
                             <td>
-                                {{ App\Helpers\StringHelper::formatBytes($package->upload_value ?? 0) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $package->upload_value ?? 0,
+                                    )
+                                }}
                             </td>
                             <td>{{ $package->invite_value ?? 0 }}</td>
                             <td>{{ $package->bonus_value ?? 0 }}</td>
@@ -104,6 +108,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $packages->links('partials.pagination') }}
+        {{
+            $packages->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 @endsection

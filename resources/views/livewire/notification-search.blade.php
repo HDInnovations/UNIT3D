@@ -74,12 +74,22 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">{{ __('notification.no-notifications') }}</td>
+                                <td colspan="4">
+                                    {{
+                                        __(
+                                            'notification.no-notifications',
+                                        )
+                                    }}
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
-                {{ $notifications->links('partials.pagination') }}
+                {{
+                    $notifications->links(
+                        'partials.pagination',
+                    )
+                }}
             </div>
         </section>
     </div>
@@ -157,7 +167,11 @@
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-comment-dots text-success"
                                 ></i>
-                                {{ __('playlist.playlist-suggestions') }}
+                                {{
+                                    __(
+                                        'playlist.playlist-suggestions',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -171,7 +185,11 @@
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-comment-dots text-success"
                                 ></i>
-                                {{ __('playlist.playlist-suggestion-rejections') }}
+                                {{
+                                    __(
+                                        'playlist.playlist-suggestion-rejections',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -227,7 +245,11 @@
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-crosshairs text-success"
                                 ></i>
-                                {{ __('notification.request-bounties') }}
+                                {{
+                                    __(
+                                        'notification.request-bounties',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -269,7 +291,11 @@
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-clipboard-check text-success"
                                 ></i>
-                                {{ __('notification.request-approvals') }}
+                                {{
+                                    __(
+                                        'notification.request-approvals',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -283,7 +309,11 @@
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-times text-success"
                                 ></i>
-                                {{ __('notification.request-rejections') }}
+                                {{
+                                    __(
+                                        'notification.request-rejections',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -297,7 +327,11 @@
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-times-square text-success"
                                 ></i>
-                                {{ __('notification.request-unclaims') }}
+                                {{
+                                    __(
+                                        'notification.request-unclaims',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">

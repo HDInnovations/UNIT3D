@@ -20,9 +20,7 @@
                     class="panel__action"
                     action="{{ route('staff.playlist_categories.create') }}"
                 >
-                    <button class="form__button form__button--text">
-                        {{ __('common.add') }}
-                    </button>
+                    <button class="form__button form__button--text">{{ __('common.add') }}</button>
                 </form>
             </div>
         </header>

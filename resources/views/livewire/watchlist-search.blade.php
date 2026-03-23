@@ -100,5 +100,9 @@
             </tbody>
         </table>
     </div>
-    {{ $watchedUsers->links('partials.pagination') }}
+    {{
+        $watchedUsers->links(
+            'partials.pagination',
+        )
+    }}
 </section>

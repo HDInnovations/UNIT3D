@@ -12,9 +12,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.invite-tree') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.invite-tree') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -60,17 +58,23 @@
                                                 class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                 title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                             ></i>
-                                        </x-slot>
+                                        </x-slot:appended-icons>
                                     @endif
                                 </x-user-tag>
                             </td>
 
-                            @if (auth()->user()->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_ratio'))
+                            @if (auth() ->user() ->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_ratio'))
                                 <td style="text-align: right">
-                                    {{ $invite->receiver->formatted_uploaded }}
+                                    {{
+                                        $invite->receiver
+                                            ->formatted_uploaded
+                                    }}
                                 </td>
                                 <td style="text-align: right">
-                                    {{ $invite->receiver->formatted_downloaded }}
+                                    {{
+                                        $invite->receiver
+                                            ->formatted_downloaded
+                                    }}
                                 </td>
                                 <td style="text-align: right">
                                     {{ $invite->receiver->formatted_ratio }}
@@ -81,12 +85,28 @@
                                 <td>{{ __('common.hidden') }}</td>
                             @endif
 
-                            @if (auth()->user()->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_seed'))
+                            @if (auth() ->user() ->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_seed'))
                                 <td style="text-align: right">
-                                    {{ App\Helpers\StringHelper::formatBytes($invite->receiver->seeding_torrents_sum_size ?? 0) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $invite->receiver->seeding_torrents_sum_size ?? 0,
+                                        )
+                                    }}
                                 </td>
                                 <td style="text-align: right">
-                                    {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($invite->receiver->history_avg_seedtime ?? 0)), 0, 2)) }}
+                                    {{
+                                        \implode(
+                                            ' ',
+                                            \array_slice(
+                                                \explode(
+                                                    ' ',
+                                                    App\Helpers\StringHelper::timeElapsed($invite->receiver->history_avg_seedtime ?? 0),
+                                                ),
+                                                0,
+                                                2,
+                                            ),
+                                        )
+                                    }}
                                 </td>
                             @else
                                 <td>{{ __('common.hidden') }}</td>
@@ -185,7 +205,7 @@
                                                 class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                 title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                             ></i>
-                                        </x-slot>
+                                        </x-slot:appended-icons>
                                     @endif
                                 </x-user-tag>
                             </td>
@@ -203,7 +223,7 @@
                                                     class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                     title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                                 ></i>
-                                            </x-slot>
+                                            </x-slot:appended-icons>
                                         @endif
                                     </x-user-tag>
                                 </td>
@@ -252,43 +272,89 @@
                         <th>{{ __('common.ratio') }}</th>
                         <td style="text-align: right">{{ number_format($average_ratio, 2) }}</td>
                         <td style="text-align: right">
-                            {{ number_format($total_uploaded / ($total_downloaded ?: 1), 2) }}
+                            {{
+                                number_format(
+                                    $total_uploaded / ($total_downloaded ?: 1),
+                                    2,
+                                )
+                            }}
                         </td>
                     </tr>
                     <tr>
                         <th>{{ __('torrent.uploaded') }}</th>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_uploaded / ($invites->count() ?: 1)) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $total_uploaded / ($invites->count() ?: 1),
+                                )
+                            }}
                         </td>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_uploaded ?? 0) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $total_uploaded ?? 0,
+                                )
+                            }}
                         </td>
                     </tr>
                     <tr>
                         <th>{{ __('torrent.downloaded') }}</th>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_downloaded / ($invites->count() ?: 1)) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $total_downloaded / ($invites->count() ?: 1),
+                                )
+                            }}
                         </td>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_downloaded ?? 0) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $total_downloaded ?? 0,
+                                )
+                            }}
                         </td>
                     </tr>
                     <tr>
                         <th>{{ __('torrent.seedtime') }}</th>
                         <td style="text-align: right">
-                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($average_seedtime / ($invites->count() ?: 1))), 0, 2)) }}
+                            {{
+                                \implode(
+                                    ' ',
+                                    \array_slice(
+                                        \explode(
+                                            ' ',
+                                            App\Helpers\StringHelper::timeElapsed($average_seedtime / ($invites->count() ?: 1)),
+                                        ),
+                                        0,
+                                        2,
+                                    ),
+                                )
+                            }}
                         </td>
                         <td style="text-align: right">
-                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($total_seedtime ?? 0)), 0, 2)) }}
+                            {{
+                                \implode(
+                                    ' ',
+                                    \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($total_seedtime ?? 0)), 0, 2),
+                                )
+                            }}
                         </td>
                     </tr>
                     <tr>
                         <th>{{ __('torrent.seedsize') }}</th>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_seedsize / ($invites->count() ?: 1)) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $total_seedsize / ($invites->count() ?: 1),
+                                )
+                            }}
                         </td>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_seedsize ?? 0) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $total_seedsize ?? 0,
+                                )
+                            }}
                         </td>
                     </tr>
                 </tbody>
@@ -322,7 +388,10 @@
                             </td>
                             <td style="text-align: right">{{ $groups->count() }}</td>
                             <td style="text-align: right">
-                                {{ number_format($groups->count() / $invites->count(), 2) * 100 }}
+                                {{
+                                    number_format($groups->count() / $invites->count(), 2) *
+                                        100
+                                }}
                             </td>
                         </tr>
                     @endforeach

@@ -9,9 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('articles.articles') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('articles.articles') }}</li>
 @endsection
 
 @section('page', 'page__article--index')
@@ -42,7 +40,7 @@
                 />
             </header>
             <p class="article-preview__content">
-                @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150))
+                @joypixels(preg_replace( '#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150 ))
             </p>
             <a
                 href="{{ route('articles.show', ['article' => $article]) }}"
@@ -52,6 +50,9 @@
             </a>
         </article>
     @endforeach
-
-    {{ $articles->links('partials.pagination') }}
+    {{
+        $articles->links(
+            'partials.pagination',
+        )
+    }}
 @endsection

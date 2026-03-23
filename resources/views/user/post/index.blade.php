@@ -10,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.posts') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.posts') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -34,7 +32,11 @@
                     @endforeach
                 </ol>
             </div>
-            {{ $posts->links('partials.pagination') }}
+            {{
+                $posts->links(
+                    'partials.pagination',
+                )
+            }}
         </section>
     @else
         <section class="panelV2">

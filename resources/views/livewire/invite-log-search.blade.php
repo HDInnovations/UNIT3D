@@ -234,7 +234,11 @@
                                             datetime="{{ $invite->created_at_min }}"
                                             title="{{ $invite->created_at_min }}"
                                         >
-                                            {{ $invite->created_at_min->format('Y-m-d') }}
+                                            {{
+                                                $invite->created_at_min->format(
+                                                    'Y-m-d',
+                                                )
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -242,7 +246,11 @@
                                             datetime="{{ $invite->created_at_avg }}"
                                             title="{{ $invite->created_at_avg }}"
                                         >
-                                            {{ $invite->created_at_avg->format('Y-m-d') }}
+                                            {{
+                                                $invite->created_at_avg->format(
+                                                    'Y-m-d',
+                                                )
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -250,7 +258,11 @@
                                             datetime="{{ $invite->created_at_max }}"
                                             title="{{ $invite->created_at_max }}"
                                         >
-                                            {{ $invite->created_at_max->format('Y-m-d') }}
+                                            {{
+                                                $invite->created_at_max->format(
+                                                    'Y-m-d',
+                                                )
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -265,7 +277,12 @@
                                     <td
                                         class="{{ $invite->inactive_ratio < $threshold ? 'text-green' : 'text-red' }}"
                                     >
-                                        {{ number_format($invite->inactive_ratio, 1) }}
+                                        {{
+                                            number_format(
+                                                $invite->inactive_ratio,
+                                                1,
+                                            )
+                                        }}
                                     </td>
                                 </tr>
                             @empty
@@ -275,7 +292,6 @@
                             @endforelse
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">
@@ -382,6 +398,10 @@
                     </table>
             @endswitch
         </div>
-        {{ $invites->links('partials.pagination') }}
+        {{
+            $invites->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 </div>

@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -30,9 +29,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-user--edit')
@@ -107,7 +104,13 @@
                         {{ __('user.title') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about])
+                @livewire('bbcode-input',
+                    [
+                        'name' => 'about',
+                        'label' => __('user.about-me'),
+                        'required' => false,
+                        'content' => $user->about
+                    ])
                 <p class="form__group">
                     <select id="group_id" class="form__select" name="group_id">
                         <option class="form__option" value="{{ $user->group->id }}">
@@ -374,11 +377,27 @@
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
             document.addEventListener('alpine:init', () => {
                 Alpine.data('overrides', () => ({
-                    override_can_comment: {{ Js::from($user->can_comment !== null) }},
+                    override_can_comment: {{
+                Js::from(
+                    $user->can_comment !== null,
+                )
+            }},
                     override_can_chat: {{ Js::from($user->can_chat !== null) }},
-                    override_can_invite: {{ Js::from($user->can_invite !== null) }},
-                    override_can_request: {{ Js::from($user->can_request !== null) }},
-                    override_can_upload: {{ Js::from($user->can_upload !== null) }},
+                    override_can_invite: {{
+                Js::from(
+                    $user->can_invite !== null,
+                )
+            }},
+                    override_can_request: {{
+                Js::from(
+                    $user->can_request !== null,
+                )
+            }},
+                    override_can_upload: {{
+                Js::from(
+                    $user->can_upload !== null,
+                )
+            }},
                 }));
             });
         </script>

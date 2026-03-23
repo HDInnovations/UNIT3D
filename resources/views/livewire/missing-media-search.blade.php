@@ -92,7 +92,11 @@
                                     font-weight: bold;
                                 "
                             >
-                                {{ $media->torrents->where('type_id', '=', $type->id)->implode('resolution.name', ' | ') }}
+                                {{
+                                    $media->torrents
+                                        ->where('type_id', '=', $type->id)
+                                        ->implode('resolution.name', ' | ')
+                                }}
                             </td>
                         @endif
                     @endforeach
@@ -100,5 +104,9 @@
             @endforeach
         </tbody>
     </table>
-    {{ $medias->links('partials.pagination') }}
+    {{
+        $medias->links(
+            'partials.pagination',
+        )
+    }}
 </section>

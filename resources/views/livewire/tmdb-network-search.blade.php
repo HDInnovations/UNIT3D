@@ -19,7 +19,11 @@
             </div>
         </div>
     </header>
-    {{ $networks->links('partials.pagination') }}
+    {{
+        $networks->links(
+            'partials.pagination',
+        )
+    }}
     <div class="panel__body">
         <ul class="mediahub-card__list">
             @forelse ($networks as $network)
@@ -50,5 +54,9 @@
             @endforelse
         </ul>
     </div>
-    {{ $networks->links('partials.pagination') }}
+    {{
+        $networks->links(
+            'partials.pagination',
+        )
+    }}
 </section>

@@ -98,10 +98,18 @@
                                 </a>
                             </td>
                             <td title="{{ $torrent->size }}&nbsp;B">
-                                {{ \App\Helpers\StringHelper::formatBytes($torrent->size) }}
+                                {{
+                                    \App\Helpers\StringHelper::formatBytes(
+                                        $torrent->size,
+                                    )
+                                }}
                             </td>
                             <td title="{{ $torrent->current_balance }}&nbsp;B">
-                                {{ \App\Helpers\StringHelper::formatBytes($torrent->current_balance) }}
+                                {{
+                                    \App\Helpers\StringHelper::formatBytes(
+                                        $torrent->current_balance,
+                                    )
+                                }}
                             </td>
                             <td>{{ \round($torrent->times_cheated, 3) }}</td>
                             <td>
@@ -137,6 +145,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $torrents->links('partials.pagination') }}
+        {{
+            $torrents->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 @endsection

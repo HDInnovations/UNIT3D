@@ -10,13 +10,9 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('about') }}" class="breadcrumb__link">
-            {{ __('common.about') }}
-        </a>
+        <a href="{{ route('about') }}" class="breadcrumb__link"> {{ __('common.about') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.contact') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.contact') }}</li>
 @endsection
 
 @section('page', 'page__contact')

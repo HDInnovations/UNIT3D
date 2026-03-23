@@ -7,10 +7,13 @@
             </h2>
             <p>{{ config('other.meta_description') }}</p>
             <p class="footer__icons">
-                @if (! empty(config('unit3d.chat-link-url')))
+                @if (!empty(config('unit3d.chat-link-url')))
                     <a href="{{ config('unit3d.chat-link-url') }}">
                         <i class="{{ config('unit3d.chat-link-icon') }}"></i>
-                        {{ config('unit3d.chat-link-name') ?: __('common.chat') }}
+                        {{
+                            config('unit3d.chat-link-name') ?:
+                                __('common.chat')
+                        }}
                     </a>
                 @endif
             </p>
@@ -26,9 +29,7 @@
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="display: contents">
                         @csrf
-                        <button style="display: contents">
-                            {{ __('common.logout') }}
-                        </button>
+                        <button style="display: contents">{{ __('common.logout') }}</button>
                     </form>
                 </li>
             </ul>
@@ -233,22 +234,38 @@
         <p class="footer__stats">
             <strong>Time:</strong>
             <span>
-                {{ number_format((microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT'))) * 1000, 5) }}
-                ms
+                {{
+                    number_format(
+                        (microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT'))) *
+                            1000,
+                        5,
+                    )
+                }} ms
             </span>
             <strong>Used:</strong>
-            <span>{{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MiB</span>
+            <span
+                >{{
+                    number_format(
+                        memory_get_peak_usage(true) / 1024 / 1024,
+                        2,
+                    )
+                }} MiB</span
+            >
             <strong>Load:</strong>
             <span>
-                {{ implode(' ', array_map(fn ($n) => number_format($n, 2), sys_getloadavg() ?: [])) ?: __('common.unknown') }}
+                {{
+                    implode(
+                        ' ',
+                        array_map(fn($n) => number_format($n, 2), sys_getloadavg() ?: []),
+                    ) ?:
+                        __('common.unknown')
+                }}
             </span>
             <strong>Date:</strong>
             <span>{{ now() }}</span>
         </p>
         <p class="footer__copyright">
-            Site and design &copy;
-            {{ date('Y', strtotime(config('other.birthdate'))) }}-{{ date('Y') }}
-            {{ config('other.title') }} |
+            Site and design &copy; {{ date('Y', strtotime(config('other.birthdate'))) }}-{{ date('Y') }} {{ config('other.title') }} |
             <a href="https://github.com/HDInnovations/UNIT3D">
                 UNIT3D {{ config('unit3d.version') }}
             </a>

@@ -9,9 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('forum.forums') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('forum.forums') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -65,9 +63,7 @@
         </dl>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.actions') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
             <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
                 @csrf

@@ -1,12 +1,12 @@
-@props([
-    'topic',
-])
+@props(['topic'])
 
 <article
     @class([
         'topic-listing',
-        'topic-listing--read' => $topic->reads->first()?->last_read_post_id === $topic->last_post_id,
-        'topic-listing--unread' => $topic->reads->first()?->last_read_post_id !== $topic->last_post_id,
+        'topic-listing--read' =>
+            $topic->reads->first()?->last_read_post_id === $topic->last_post_id,
+        'topic-listing--unread' =>
+            $topic->reads->first()?->last_read_post_id !== $topic->last_post_id
     ])
     class="topic-listing"
 >
@@ -76,7 +76,10 @@
                     class="topic-listing__created-link"
                     href="{{ route('topics.show', ['id' => $topic->id]) }}"
                 >
-                    {{ $topic->created_at?->diffForHumans() ?? __('common.unknown') }}
+                    {{
+                        $topic->created_at?->diffForHumans() ??
+                            __('common.unknown')
+                    }}
                 </a>
             </time>
         </article>
@@ -99,9 +102,7 @@
         @else
             <i class="fad fa-comments topic-listing__icon"></i>
         @endif
-        <figcaption class="topic-listing__forum">
-            {{ $topic->forum->name }}
-        </figcaption>
+        <figcaption class="topic-listing__forum">{{ $topic->forum->name }}</figcaption>
     </figure>
     <dl class="topic-listing__post-stats">
         <dt>{{ __('forum.replies') }}</dt>
@@ -133,7 +134,10 @@
                 class="topic-listing__latest-post-link"
                 href="{{ route('topics.latestPermalink', ['id' => $topic->id]) }}"
             >
-                {{ $topic->last_post_created_at?->diffForHumans() ?? __('common.unknown') }}
+                {{
+                    $topic->last_post_created_at?->diffForHumans() ??
+                        __('common.unknown')
+                }}
             </a>
         </time>
     </article>

@@ -21,13 +21,19 @@
                                     @if ($bonEarning->operation === 'multiply')
                                         &times;
                                     @else
-                                            &plus;
+                                        &plus;
                                     @endif
 
-                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}
+                                    {{
+                                        preg_replace(
+                                            '/(\.\d+?)0+$/',
+                                            '$1',
+                                            $bonEarning->multiplier,
+                                        )
+                                    }}
 
                                     @if ($bonEarning->variable != 1)
-                                            &times; {{ $bonEarning->variable }}
+                                        &times; {{ $bonEarning->variable }}
                                     @endif
                                 </td>
                                 <td>{{ $bonEarning->torrents_count }}</td>
@@ -60,7 +66,11 @@
                     </label>
                 </div>
             </header>
-            {{ $torrents->links('partials.pagination') }}
+            {{
+                $torrents->links(
+                    'partials.pagination',
+                )
+            }}
             <div class="data-table-wrapper">
                 <table class="data-table">
                     <thead>
@@ -167,18 +177,10 @@
                             <th class="user-earnings__daily-header" x-cloak x-show="isToggledOn">
                                 Daily
                             </th>
-                            <th
-                                class="user-earnings__weekly-header"
-                                x-cloak
-                                x-show="isToggledOn"
-                            >
+                            <th class="user-earnings__weekly-header" x-cloak x-show="isToggledOn">
                                 Weekly
                             </th>
-                            <th
-                                class="user-earnings__monthly-header"
-                                x-cloak
-                                x-show="isToggledOn"
-                            >
+                            <th class="user-earnings__monthly-header" x-cloak x-show="isToggledOn">
                                 Monthly
                             </th>
                         </tr>
@@ -187,7 +189,11 @@
                         @foreach ($torrents as $torrent)
                             <tr>
                                 <td class="user-earnings__type">
-                                    {{ $types[$torrent->type_id] ??= \App\Models\Type::query()->find($torrent->type_id)?->name ?? __('common.unknown') }}
+                                    {{
+                                        $types[$torrent->type_id] ??=
+                                            \App\Models\Type::query()->find($torrent->type_id)?->name ??
+                                            __('common.unknown')
+                                    }}
                                 </td>
                                 <td>
                                     <a
@@ -198,7 +204,11 @@
                                     </a>
                                 </td>
                                 <td class="user-earnings__size">
-                                    {{ \App\Helpers\StringHelper::formatBytes($torrent->size) }}
+                                    {{
+                                        \App\Helpers\StringHelper::formatBytes(
+                                            $torrent->size,
+                                        )
+                                    }}
                                 </td>
                                 <td class="user-earnings__seeders">
                                     <a
@@ -259,29 +269,61 @@
                                     @endif
                                 </td>
                                 <td class="user-earnings__seedtime">
-                                    {{ \App\Helpers\StringHelper::timeElapsed($torrent->seedtime) }}
+                                    {{
+                                        \App\Helpers\StringHelper::timeElapsed(
+                                            $torrent->seedtime,
+                                        )
+                                    }}
                                 </td>
                                 <td class="user-earnings__age">
-                                    {{ \App\Helpers\StringHelper::timeElapsed($torrent->age) }}
+                                    {{
+                                        \App\Helpers\StringHelper::timeElapsed(
+                                            $torrent->age,
+                                        )
+                                    }}
                                 </td>
                                 <td class="user-earnings__hourly">
-                                    {{ number_format($torrent->hourly_earnings, 4) }}
+                                    {{
+                                        number_format(
+                                            $torrent->hourly_earnings,
+                                            4,
+                                        )
+                                    }}
                                 </td>
                                 <td class="user-earnings__daily" x-cloak x-show="isToggledOn">
-                                    {{ number_format($torrent->hourly_earnings * 24, 4) }}
+                                    {{
+                                        number_format(
+                                            $torrent->hourly_earnings * 24,
+                                            4,
+                                        )
+                                    }}
                                 </td>
                                 <td class="user-earnings__weekly" x-cloak x-show="isToggledOn">
-                                    {{ number_format($torrent->hourly_earnings * 24 * 7, 4) }}
+                                    {{
+                                        number_format(
+                                            $torrent->hourly_earnings * 24 * 7,
+                                            4,
+                                        )
+                                    }}
                                 </td>
                                 <td class="user-earnings__monthly" x-cloak x-show="isToggledOn">
-                                    {{ number_format($torrent->hourly_earnings * 24 * 30, 4) }}
+                                    {{
+                                        number_format(
+                                            $torrent->hourly_earnings * 24 * 30,
+                                            4,
+                                        )
+                                    }}
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            {{ $torrents->links('partials.pagination') }}
+            {{
+                $torrents->links(
+                    'partials.pagination',
+                )
+            }}
         </section>
     </div>
     <aside>
@@ -318,7 +360,14 @@
                 </div>
                 <div class="key-value__group">
                     <dt>{{ __('bon.per-year') }}</dt>
-                    <dd>{{ number_format($total * 24 * 365, 2) }}</dd>
+                    <dd>
+                        {{
+                            number_format(
+                                $total * 24 * 365,
+                                2,
+                            )
+                        }}
+                    </dd>
                 </div>
             </dl>
         </section>

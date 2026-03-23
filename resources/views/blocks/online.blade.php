@@ -9,7 +9,7 @@
                 <li>
                     <x-user-tag
                         :user="$user"
-                        :anon="$user->privacy?->hidden || ! $user->isVisible($user, 'other', 'show_online')"
+                        :anon="$user->privacy?->hidden || !$user->isVisible($user, 'other', 'show_online')"
                     >
                         @if ($user->warnings_count > 0)
                             <x-slot:appended-icons>
@@ -17,7 +17,7 @@
                                     class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                     title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                 ></i>
-                            </x-slot>
+                            </x-slot:appended-icons>
                         @endif
                     </x-user-tag>
                 </li>

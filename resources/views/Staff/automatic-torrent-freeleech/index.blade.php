@@ -44,20 +44,49 @@
                     @forelse ($automaticTorrentFreeleeches as $automaticTorrentFreeleech)
                         <tr>
                             <td>{{ $automaticTorrentFreeleech->position }}</td>
-                            <td>{{ $automaticTorrentFreeleech->name_regex ?? '*' }}</td>
-                            <td title="{{ $automaticTorrentFreeleech->size ?? 0 }} B">
-                                {{ App\Helpers\StringHelper::formatBytes($automaticTorrentFreeleech->size ?? 0, 2) }}
+                            <td>
+                                {{
+                                    $automaticTorrentFreeleech->name_regex ??
+                                        '*'
+                                }}
                             </td>
-                            <td>{{ $automaticTorrentFreeleech->category?->name ?? 'Any' }}</td>
-                            <td>{{ $automaticTorrentFreeleech->type?->name ?? 'Any' }}</td>
-                            <td>{{ $automaticTorrentFreeleech->resolution?->name ?? 'Any' }}</td>
+                            <td title="{{ $automaticTorrentFreeleech->size ?? 0 }} B">
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $automaticTorrentFreeleech->size ?? 0,
+                                        2,
+                                    )
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    $automaticTorrentFreeleech->category?->name ??
+                                        'Any'
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    $automaticTorrentFreeleech->type?->name ??
+                                        'Any'
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    $automaticTorrentFreeleech->resolution?->name ??
+                                        'Any'
+                                }}
+                            </td>
                             <td>{{ $automaticTorrentFreeleech->freeleech_percentage }}</td>
                             <td>
                                 <time
                                     datetime="{{ $automaticTorrentFreeleech->created_at }}"
                                     title="{{ $automaticTorrentFreeleech->created_at }}"
                                 >
-                                    {{ $automaticTorrentFreeleech->created_at->format('Y-m-d') }}
+                                    {{
+                                        $automaticTorrentFreeleech->created_at->format(
+                                            'Y-m-d',
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>
@@ -65,7 +94,11 @@
                                     datetime="{{ $automaticTorrentFreeleech->updated_at }}"
                                     title="{{ $automaticTorrentFreeleech->updated_at }}"
                                 >
-                                    {{ $automaticTorrentFreeleech->updated_at->format('Y-m-d') }}
+                                    {{
+                                        $automaticTorrentFreeleech->updated_at->format(
+                                            'Y-m-d',
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>

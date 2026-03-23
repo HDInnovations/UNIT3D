@@ -50,7 +50,11 @@
                                             <tr>
                                                 <td>Min. Upload</td>
                                                 <td>
-                                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_uploaded ?? 0) }}
+                                                    {{
+                                                        \App\Helpers\StringHelper::formatBytes(
+                                                            $group->min_uploaded ?? 0,
+                                                        )
+                                                    }}
                                                 </td>
                                                 <td>
                                                     @if ($user->uploaded >= $group->min_uploaded ?? 0)
@@ -62,7 +66,11 @@
                                                             class="{{ config('other.font-awesome') }} fa-x text-red"
                                                         ></i>
                                                         |
-                                                        {{ \App\Helpers\StringHelper::formatBytes($group->min_uploaded - $user->uploaded) }}
+                                                        {{
+                                                            \App\Helpers\StringHelper::formatBytes(
+                                                                $group->min_uploaded - $user->uploaded,
+                                                            )
+                                                        }}
                                                     @endif
                                                 </td>
                                             </tr>
@@ -86,13 +94,17 @@
                                                 <td>Min. account age</td>
                                                 <td>
                                                     @if ($group->min_age > 0)
-                                                        {{ \App\Helpers\StringHelper::timeElapsed($group->min_age ?? 0) }}
+                                                        {{
+                                                            \App\Helpers\StringHelper::timeElapsed(
+                                                                $group->min_age ?? 0,
+                                                            )
+                                                        }}
                                                     @else
                                                         {{ $group->min_age ?? 0 }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($user->created_at->addRealSeconds($group->min_age ?? 0)->isBefore($current))
+                                                    @if ($user->created_at ->addRealSeconds($group->min_age ?? 0) ->isBefore($current))
                                                         <i
                                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                                         ></i>
@@ -101,14 +113,22 @@
                                                             class="{{ config('other.font-awesome') }} fa-x text-red"
                                                         ></i>
                                                         |
-                                                        {{ \App\Helpers\StringHelper::timeElapsed($group->min_age - $user_account_age) }}
+                                                        {{
+                                                            \App\Helpers\StringHelper::timeElapsed(
+                                                                $group->min_age - $user_account_age,
+                                                            )
+                                                        }}
                                                     @endif
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Min. average seedtime</td>
                                                 <td>
-                                                    {{ \App\Helpers\StringHelper::timeElapsed($group->min_avg_seedtime ?? 0) }}
+                                                    {{
+                                                        \App\Helpers\StringHelper::timeElapsed(
+                                                            $group->min_avg_seedtime ?? 0,
+                                                        )
+                                                    }}
                                                 </td>
                                                 <td>
                                                     @if ($group->min_avg_seedtime <= $user_avg_seedtime)
@@ -120,14 +140,22 @@
                                                             class="{{ config('other.font-awesome') }} fa-x text-red"
                                                         ></i>
                                                         |
-                                                        {{ \App\Helpers\StringHelper::timeElapsed($group->min_avg_seedtime - $user_avg_seedtime) }}
+                                                        {{
+                                                            \App\Helpers\StringHelper::timeElapsed(
+                                                                $group->min_avg_seedtime - $user_avg_seedtime,
+                                                            )
+                                                        }}
                                                     @endif
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Min. Seedsize</td>
                                                 <td>
-                                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
+                                                    {{
+                                                        \App\Helpers\StringHelper::formatBytes(
+                                                            $group->min_seedsize ?? 0,
+                                                        )
+                                                    }}
                                                 </td>
                                                 <td>
                                                     @if ($group->min_seedsize <= $user_seed_size)
@@ -139,15 +167,17 @@
                                                             class="{{ config('other.font-awesome') }} fa-x text-red"
                                                         ></i>
                                                         |
-                                                        {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize - $user_seed_size) }}
+                                                        {{
+                                                            \App\Helpers\StringHelper::formatBytes(
+                                                                $group->min_seedsize - $user_seed_size,
+                                                            )
+                                                        }}
                                                     @endif
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Min. Uploads</td>
-                                                <td>
-                                                    {{ $group->min_uploads ?? 0 }}
-                                                </td>
+                                                <td>{{ $group->min_uploads ?? 0 }}</td>
                                                 <td>
                                                     @if ($group->min_uploads <= $user_uploads)
                                                         <i
@@ -158,7 +188,10 @@
                                                             class="{{ config('other.font-awesome') }} fa-x text-red"
                                                         ></i>
                                                         |
-                                                        {{ $group->min_uploads - $user_uploads }}
+                                                        {{
+                                                            $group->min_uploads -
+                                                                $user_uploads
+                                                        }}
                                                     @endif
                                                 </td>
                                             </tr>
@@ -186,13 +219,15 @@
                                                     <i
                                                         class="{{ config('other.font-awesome') }} fa-upload text-success"
                                                     ></i>
-                                                    {{ __('common.upload') }}
-                                                    {{ __('torrent.torrents') }}
+                                                    {{ __('common.upload') }} {{ __('torrent.torrents') }}
                                                 </td>
                                             </tr>
                                         @endif
 
-                                        @if ($group->can_invite && (! config('other.invites_restriced') || (config('other.invites_restriced') && \in_array($group->name, config('other.invite_groups'), true))))
+                                        @if ($group->can_invite &&
+                                            (!config('other.invites_restriced') ||
+                                                (config('other.invites_restriced') &&
+                                                    \in_array($group->name, config('other.invite_groups'), true))))
                                             <tr>
                                                 <td>
                                                     <i

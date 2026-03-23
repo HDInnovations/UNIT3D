@@ -27,9 +27,7 @@
             {{ $forum->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -62,7 +60,7 @@
                         {{ __('forum.topic-title') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'required' => true ])
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'required' => true])
                 <p class="form__group">
                     <input type="hidden" name="anon" value="0" />
                     <input

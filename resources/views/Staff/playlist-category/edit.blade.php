@@ -11,12 +11,8 @@
             Playlist categories
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $playlistCategory->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $playlistCategory->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-playlist-category--edit')
@@ -63,8 +59,7 @@
                         name="description"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ $playlistCategory->description }}</textarea
+                        >{{ $playlistCategory->description }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
                         {{ __('common.description') }}

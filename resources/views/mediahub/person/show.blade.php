@@ -11,9 +11,7 @@
             {{ __('mediahub.persons') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $person->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $person->name }}</li>
 @endsection
 
 @section('page', 'page__person--show')
@@ -33,13 +31,28 @@
         <dl class="key-value">
             <div class="key-value__group">
                 <dt>{{ __('mediahub.born') }}</dt>
-                <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>
+                <dd>
+                    {{
+                        $person->birthday ??
+                            __('common.unknown')
+                    }}
+                </dd>
             </div>
             <div class="key-value__group">
                 <dt>Place of Birth</dt>
-                <dd>{{ $person->place_of_birth ?? __('common.unknown') }}</dd>
+                <dd>
+                    {{
+                        $person->place_of_birth ??
+                            __('common.unknown')
+                    }}
+                </dd>
             </div>
         </dl>
-        <div class="panel__body">{{ $person->biography ?? 'No biography' }}</div>
+        <div class="panel__body">
+            {{
+                $person->biography ??
+                    'No biography'
+            }}
+        </div>
     </section>
 @endsection

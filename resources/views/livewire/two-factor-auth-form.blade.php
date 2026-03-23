@@ -6,22 +6,38 @@
         @if ($this->enabled)
             @if ($showingConfirmation)
                 <span class="text-warning">
-                    {{ __('Finish enabling two factor authentication.') }}
+                    {{
+                        __(
+                            'Finish enabling two factor authentication.',
+                        )
+                    }}
                 </span>
             @else
                 <span class="text-success">
-                    {{ __('You have enabled two factor authentication.') }}
+                    {{
+                        __(
+                            'You have enabled two factor authentication.',
+                        )
+                    }}
                 </span>
             @endif
         @else
             <span class="text-danger">
-                {{ __('You have not enabled two factor authentication.') }}
+                {{
+                    __(
+                        'You have not enabled two factor authentication.',
+                    )
+                }}
             </span>
         @endif
 
         <div>
             <span class="text-muted">
-                {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from a synchronized 2fa app such as Google Authenticator, Authy, BitWarden, etc.') }}
+                {{
+                    __(
+                        'When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from a synchronized 2fa app such as Google Authenticator, Authy, BitWarden, etc.',
+                    )
+                }}
             </span>
         </div>
 
@@ -30,21 +46,24 @@
                 <div>
                     <p class="text-info">
                         @if ($showingConfirmation)
-                            {{ __('To finish enabling two factor authentication, scan the following QR code using your phone\'s authenticator application or enter the setup key and provide the generated OTP code.') }}
+                            {{
+                                __(
+                                    'To finish enabling two factor authentication, scan the following QR code using your phone\'s authenticator application or enter the setup key and provide the generated OTP code.',
+                                )
+                            }}
                         @else
-                            {{ __('Two factor authentication is now enabled. Scan the following QR code using your phone\'s authenticator application or enter the setup key.') }}
+                            {{
+                                __(
+                                    'Two factor authentication is now enabled. Scan the following QR code using your phone\'s authenticator application or enter the setup key.',
+                                )
+                            }}
                         @endif
                     </p>
                 </div>
-
-                <div class="twoStep__qrCode">
-                    {!! $this->user->twoFactorQrCodeSvg() !!}
-                </div>
-
+                <div class="twoStep__qrCode">{!! $this->user->twoFactorQrCodeSvg() !!}</div>
                 <div>
                     <p>{{ __('Setup Key') }}: {{ decrypt($this->user->two_factor_secret) }}</p>
                 </div>
-
                 @if ($showingConfirmation)
                     <div>
                         <label for="code" value="{{ __('Code') }}"></label>
@@ -67,11 +86,14 @@
                     </div>
                 @endif
             @endif
-
             @if ($showingRecoveryCodes)
                 <div class="panel__body">
                     <span class="text-danger">
-                        {{ __('Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.') }}
+                        {{
+                            __(
+                                'Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.',
+                            )
+                        }}
                     </span>
                     {{-- format-ignore-start --}}
                     <pre>
@@ -85,7 +107,7 @@
         @endif
 
         <div>
-            @if (! $this->enabled)
+            @if (!$this->enabled)
                 <button
                     class="form__button form__button--filled"
                     wire:click="enableTwoFactorAuthentication"
@@ -102,17 +124,15 @@
                         {{ __('Regenerate Recovery Codes') }}
                     </button>
                     @script
-                        <script
-                            nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}"
-                        >
+                        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
                             Alpine.data('recovery_codes', () => ({
                                 copy() {
                                     navigator.clipboard.writeText(
-                                        JSON.parse(
-                                            atob(
-                                                '{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}',
-                                            ),
-                                        ).join('\n'),
+                                        JSON.parse(atob('{{
+                                base64_encode(
+                                    decrypt($this->user->two_factor_recovery_codes),
+                                )
+                            }}')).join('\n'),
                                     );
                                     Swal.fire({
                                         toast: true,
@@ -126,7 +146,6 @@
                             }));
                         </script>
                     @endscript
-
                     <button
                         class="form__button form__button--filled"
                         x-data="recovery_codes"
@@ -151,7 +170,6 @@
                         {{ __('Show Recovery Codes') }}
                     </button>
                 @endif
-
                 @if ($showingConfirmation)
                     <button
                         class="form__button form__button--filled"

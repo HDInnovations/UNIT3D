@@ -6,11 +6,20 @@
                     @case('movie')
                         {{-- Removes the year and everything before it --}}
                         @php
-                            $releaseYear = $media->release_date instanceof \Illuminate\Support\Carbon ? $media->release_date->year : (int) $media->release_date;
+                            $releaseYear =
+                                $media->release_date instanceof \Illuminate\Support\Carbon
+                                    ? $media->release_date->year
+                                    : (int) $media->release_date;
                         @endphp
-
-                        {{ str_contains($torrent->name, ' / ') ? $torrent->name : \preg_replace('/^.*( ' . implode(' | ', range($releaseYear - 1, $releaseYear + 1)) . ' )/i', '', $torrent->name) }}
-
+                        {{
+                            str_contains($torrent->name, ' / ')
+                                ? $torrent->name
+                                : \preg_replace(
+                                    '/^.*( ' . implode(' | ', range($releaseYear - 1, $releaseYear + 1)) . ' )/i',
+                                    '',
+                                    $torrent->name,
+                                )
+                        }}
                         @break
                     @case('tv')
                         {{-- Removes the year and everything before it. Also removes everything before the following patterns: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000- --}}
@@ -23,14 +32,28 @@
                                 $fullRange = [];
                             }
                         @endphp
-
-                        {{ str_contains($torrent->name, ' / ') ? $torrent->name : \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})?(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
-
+                        {{
+                            str_contains($torrent->name, ' / ')
+                                ? $torrent->name
+                                : \preg_replace(
+                                    '/^.*( ' .
+                                        implode(' | ', $firstAirDateRange) .
+                                        ' | (?=S\d{2,4}(?:-S\d{2,4})?(?:-?E\d{2,4})*? |' .
+                                        implode('-|', $fullRange) .
+                                        '-))/i',
+                                    '',
+                                    $torrent->name,
+                                )
+                        }}
                         @break
                     @case('game')
-                        {{ Str::of($torrent->name)->after($media->name) }}
-
+                        {{
+                            Str::of($torrent->name)->after(
+                                $media->name,
+                            )
+                        }}
                         @break
+
                 @endswitch
             </a>
         </h3>
@@ -39,7 +62,11 @@
 </td>
 
 <td class="torrent-search--grouped__edit">
-    @if (auth()->user()->group->is_editor || auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && ($torrent->status !== \App\Enums\ModerationStatus::APPROVED || now()->isBefore($torrent->created_at->addDay()))))
+    @if (auth()->user()->group->is_editor ||
+        auth()->user()->group->is_modo ||
+        (auth()->id() === $torrent->user_id &&
+            ($torrent->status !== \App\Enums\ModerationStatus::APPROVED ||
+                now()->isBefore($torrent->created_at->addDay()))))
         <a
             href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
             title="{{ __('common.edit') }}"
@@ -83,14 +110,12 @@
     @endif
 </td>
 <td class="torrent-search--grouped__size">
-    <span title="{{ $torrent->size }} B">
-        {{ $torrent->getSize() }}
-    </span>
+    <span title="{{ $torrent->size }} B"> {{ $torrent->getSize() }} </span>
 </td>
 <td
     @class([
         'torrent-search--grouped__seeders',
-        'torrent-activity-indicator--seeding' => $torrent->seeding,
+        'torrent-activity-indicator--seeding' => $torrent->seeding
     ])
     @if ($torrent->seeding)
         title="{{ __('torrent.currently-seeding') }}"
@@ -103,7 +128,7 @@
 <td
     @class([
         'torrent-search--grouped__leechers',
-        'torrent-activity-indicator--leeching' => $torrent->leeching,
+        'torrent-activity-indicator--leeching' => $torrent->leeching
     ])
     @if ($torrent->leeching)
         title="{{ __('torrent.currently-leeching') }}"
@@ -116,16 +141,13 @@
 <td
     @class([
         'torrent-search--grouped__completed',
-        'torrent-activity-indicator--completed' => $torrent->completed,
+        'torrent-activity-indicator--completed' => $torrent->completed
     ])
     @if ($torrent->completed)
         title="{{ __('torrent.completed') }}"
     @endif
 >
-    <a
-        class="torrent__times-completed-count"
-        href="{{ route('history', ['id' => $torrent->id]) }}"
-    >
+    <a class="torrent__times-completed-count" href="{{ route('history', ['id' => $torrent->id]) }}">
         {{ $torrent->times_completed }}
     </a>
 </td>

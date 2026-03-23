@@ -14,9 +14,7 @@
             {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__playlist--create')
@@ -65,7 +63,8 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
+                    @livewire('bbcode-input',
+                        ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                 </p>
                 <p class="form__group">
                     <label for="cover_image" class="form__label">

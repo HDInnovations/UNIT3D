@@ -125,9 +125,7 @@
                     </td>
                     <td>
                         @isset($warning->torrent)
-                            <a
-                                href="{{ route('torrents.show', ['id' => $warning->torrent->id]) }}"
-                            >
+                            <a href="{{ route('torrents.show', ['id' => $warning->torrent->id]) }}">
                                 {{ $warning->torrent->name }}
                             </a>
                         @else
@@ -166,5 +164,9 @@
             @endforelse
         </tbody>
     </table>
-    {{ $warnings->links('partials.pagination') }}
+    {{
+        $warnings->links(
+            'partials.pagination',
+        )
+    }}
 </section>

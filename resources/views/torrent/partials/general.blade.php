@@ -59,7 +59,7 @@
     <li
         @class([
             'torrent__seeders',
-            'torrent-activity-indicator--seeding' => $torrent->seeding,
+            'torrent-activity-indicator--seeding' => $torrent->seeding
         ])
     >
         <a
@@ -74,7 +74,7 @@
     <li
         @class([
             'torrent__leechers',
-            'torrent-activity-indicator--leeching' => $torrent->leeching,
+            'torrent-activity-indicator--leeching' => $torrent->leeching
         ])
     >
         <a
@@ -89,7 +89,7 @@
     <li
         @class([
             'torrent__completed',
-            'torrent-activity-indicator--completed' => $torrent->completed,
+            'torrent-activity-indicator--completed' => $torrent->completed
         ])
     >
         <a
@@ -112,8 +112,10 @@
     @if ($torrent->seeders === 0)
         <li class="torrent__activity">
             <span class="torrent__activity-link">
-                {{ __('torrent.last-seed-activity') }}:
-                {{ $torrent->history_max_updated_at ?? __('common.unknown') }}
+                {{ __('torrent.last-seed-activity') }}: {{
+                    $torrent->history_max_updated_at ??
+                        __('common.unknown')
+                }}
             </span>
         </li>
     @endif

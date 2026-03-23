@@ -1,9 +1,8 @@
-@props([
-    'playlist',
-])
+@props(['playlist'])
 
 <article class="playlists__playlist">
-    @if (isset($playlist->cover_image) && Storage::disk('playlist-images')->exists($playlist->cover_image))
+    @if (isset($playlist->cover_image) &&
+        Storage::disk('playlist-images')->exists($playlist->cover_image))
         <a
             class="playlists__playlist-image-link"
             href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
@@ -29,9 +28,7 @@
         class="playlists__playlist-link"
         href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
     >
-        <h3 class="playlists__playlist-name">
-            {{ $playlist->name }}
-        </h3>
+        <h3 class="playlists__playlist-name">{{ $playlist->name }}</h3>
     </a>
     <a
         class="playlists__playlist-link-titles"

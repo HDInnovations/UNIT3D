@@ -39,7 +39,10 @@ const messageHandler = {
                     context.state.chat.activeTab.startsWith('bot') ||
                     context.state.chat.activeTab.startsWith('target')
                 ) {
-                    context.messages.set(response.data.data.id, response.data.data);
+                    context.messages.set(
+                        response.data.data.id,
+                        response.data.data,
+                    );
                 }
                 if (context.$refs && context.$refs.message) {
                     context.$refs.message.value = '';
@@ -95,14 +98,19 @@ const channelHandler = {
                 context.handlePing('room', e.ping.id);
             })
             .listen('.delete.message', (e) => {
-                if (context.state.chat.target > 0 || context.state.chat.bot > 0) return;
+                if (context.state.chat.target > 0 || context.state.chat.bot > 0)
+                    return;
                 context.messages.delete(e.message.id);
             })
             .listenForWhisper('typing', (e) => {
-                if (context.state.chat.target > 0 || context.state.chat.bot > 0) return;
+                if (context.state.chat.target > 0 || context.state.chat.bot > 0)
+                    return;
                 const username = e.username;
                 clearTimeout(context.activePeer.get(username));
-                const messageTimeout = setTimeout(() => context.activePeer.delete(username), 15000);
+                const messageTimeout = setTimeout(
+                    () => context.activePeer.delete(username),
+                    15000,
+                );
                 context.activePeer.set(username, messageTimeout);
             });
 
@@ -175,7 +183,8 @@ document.addEventListener('alpine:init', () => {
                 })
                 .catch((error) => {
                     console.error('Error initializing chat:', error);
-                    this.state.ui.error = 'Error loading chat. Please try again.';
+                    this.state.ui.error =
+                        'Error loading chat. Please try again.';
                     this.state.ui.loading = false;
                 });
 
@@ -257,7 +266,10 @@ document.addEventListener('alpine:init', () => {
                 // Process messages to add canMod property for each message and sanitize content
                 this.messages = new Map(
                     response.data.data
-                        .map((message) => [message.id, this.processMessageCanMod(message)])
+                        .map((message) => [
+                            message.id,
+                            this.processMessageCanMod(message),
+                        ])
                         .reverse(),
                 );
             } catch (error) {
@@ -274,7 +286,10 @@ document.addEventListener('alpine:init', () => {
                 // Process messages to add canMod property for each message and sanitize content
                 this.messages = new Map(
                     response.data.data
-                        .map((message) => [message.id, this.processMessageCanMod(message)])
+                        .map((message) => [
+                            message.id,
+                            this.processMessageCanMod(message),
+                        ])
                         .reverse(),
                 );
             } catch (error) {
@@ -285,11 +300,16 @@ document.addEventListener('alpine:init', () => {
 
         async fetchMessages() {
             try {
-                const response = await axios.get(`/api/chat/messages/${this.state.chat.room}`);
+                const response = await axios.get(
+                    `/api/chat/messages/${this.state.chat.room}`,
+                );
                 // Process messages to add canMod property for each message and sanitize content
                 this.messages = new Map(
                     response.data.data
-                        .map((message) => [message.id, this.processMessageCanMod(message)])
+                        .map((message) => [
+                            message.id,
+                            this.processMessageCanMod(message),
+                        ])
                         .reverse(),
                 );
             } catch (error) {
@@ -310,7 +330,8 @@ document.addEventListener('alpine:init', () => {
 
         // Permission checking
         canMod(message) {
-            if (!message || !message.user || !this.auth || !this.auth.group) return false;
+            if (!message || !message.user || !this.auth || !this.auth.group)
+                return false;
 
             return (
                 // Owner can mod all messages
@@ -318,9 +339,13 @@ document.addEventListener('alpine:init', () => {
                 // User can mod their own messages
                 message.user.id === this.auth.id ||
                 // Admins can mod messages except for Owner messages
-                (this.auth.group.is_admin && message.user?.group && !message.user.group.is_owner) ||
+                (this.auth.group.is_admin &&
+                    message.user?.group &&
+                    !message.user.group.is_owner) ||
                 // Mods cannot mod other mods' messages
-                (this.auth.group.is_modo && message.user?.group && !message.user.group.is_modo)
+                (this.auth.group.is_modo &&
+                    message.user?.group &&
+                    !message.user.group.is_modo)
             );
         },
 
@@ -345,7 +370,9 @@ document.addEventListener('alpine:init', () => {
                 this.state.chat.activeTab = 'room' + newVal;
                 this.deletePing('room', newVal);
 
-                let currentRoom = this.conversations.find((o) => o.room && o.room.id == newVal);
+                let currentRoom = this.conversations.find(
+                    (o) => o.room && o.room.id == newVal,
+                );
                 if (currentRoom) {
                     if (this.state.chat.room === currentRoom.room.id) {
                         this.fetchMessages();
@@ -377,7 +404,9 @@ document.addEventListener('alpine:init', () => {
                 this.state.chat.activeTab = 'bot' + newVal;
                 this.deletePing('bot', newVal);
 
-                let currentBot = this.conversations.find((o) => o.bot && o.bot.id == newVal);
+                let currentBot = this.conversations.find(
+                    (o) => o.bot && o.bot.id == newVal,
+                );
                 if (currentBot) {
                     this.changeBot(currentBot.bot.id);
                     this.state.message.receiver_id = 1;
@@ -421,7 +450,9 @@ document.addEventListener('alpine:init', () => {
             if (id !== 1) {
                 // Update the user's chatroom in the database
                 axios
-                    .post(`/api/chat/conversations/delete/chatroom`, { room_id: id })
+                    .post(`/api/chat/conversations/delete/chatroom`, {
+                        room_id: id,
+                    })
                     .then((response) => {
                         // Reassign the auth variable to the response data
                         this.auth = response.data;
@@ -437,7 +468,9 @@ document.addEventListener('alpine:init', () => {
                                 const firstChatroom = this.chatrooms[0];
                                 this.state.chat.room = firstChatroom.id;
                             } else {
-                                console.warn('No chat tabs or chatrooms available.');
+                                console.warn(
+                                    'No chat tabs or chatrooms available.',
+                                );
                             }
                         });
                     })
@@ -458,7 +491,9 @@ document.addEventListener('alpine:init', () => {
             if (id !== 1) {
                 // Update the user's chatroom in the database
                 axios
-                    .post(`/api/chat/conversations/delete/target`, { target_id: id })
+                    .post(`/api/chat/conversations/delete/target`, {
+                        target_id: id,
+                    })
                     .then((response) => {
                         // Reassign the auth variable to the response data
                         this.auth = response.data;
@@ -474,7 +509,9 @@ document.addEventListener('alpine:init', () => {
                                 const firstChatroom = this.chatrooms[0];
                                 this.state.chat.room = firstChatroom.id;
                             } else {
-                                console.warn('No chat tabs or chatrooms available.');
+                                console.warn(
+                                    'No chat tabs or chatrooms available.',
+                                );
                             }
                         });
                     })
@@ -513,8 +550,14 @@ document.addEventListener('alpine:init', () => {
 
             if (!this._debouncedIsTyping) {
                 this._debouncedIsTyping = debounce(function (e) {
-                    if (self.state.chat.target < 1 && self.channel && self.state.chat.tab != '') {
-                        self.channel.whisper('typing', { username: e.username });
+                    if (
+                        self.state.chat.target < 1 &&
+                        self.channel &&
+                        self.state.chat.tab != ''
+                    ) {
+                        self.channel.whisper('typing', {
+                            username: e.username,
+                        });
                     }
                 }, 300);
             }
@@ -537,7 +580,9 @@ document.addEventListener('alpine:init', () => {
 
             this.chatter.listen('Chatter', (e) => {
                 if (e.type == 'conversations') {
-                    this.conversations = this.sortConversations(e.conversations);
+                    this.conversations = this.sortConversations(
+                        e.conversations,
+                    );
                 } else if (e.type == 'new.message') {
                     if (
                         !this.state.chat.activeTab.startsWith('bot') &&
@@ -545,8 +590,16 @@ document.addEventListener('alpine:init', () => {
                     )
                         return;
 
-                    if (e.message.bot && e.message.bot.id != this.state.chat.bot) return;
-                    if (e.message.user && e.message.user.id != this.state.chat.target) return;
+                    if (
+                        e.message.bot &&
+                        e.message.bot.id != this.state.chat.bot
+                    )
+                        return;
+                    if (
+                        e.message.user &&
+                        e.message.user.id != this.state.chat.target
+                    )
+                        return;
 
                     // Process and sanitize new message
                     const message = this.processMessageCanMod(e.message);
@@ -562,7 +615,8 @@ document.addEventListener('alpine:init', () => {
                         this.handlePing('target', e.ping.id);
                     }
                 } else if (e.type == 'delete.message') {
-                    if (this.state.chat.target < 1 && this.state.chat.bot < 1) return;
+                    if (this.state.chat.target < 1 && this.state.chat.bot < 1)
+                        return;
                     this.messages.delete(e.message.id);
                 } else if (e.type == 'typing') {
                     if (this.state.chat.target < 1) return;
@@ -593,14 +647,18 @@ document.addEventListener('alpine:init', () => {
             if (!obj || !Array.isArray(obj)) return [];
 
             return obj.sort((a, b) => {
-                let nv1 = a.room?.name || a.target?.username || a.bot?.name || '';
-                let nv2 = b.room?.name || b.target?.username || b.bot?.name || '';
+                let nv1 =
+                    a.room?.name || a.target?.username || a.bot?.name || '';
+                let nv2 =
+                    b.room?.name || b.target?.username || b.bot?.name || '';
                 return nv1.localeCompare(nv2);
             });
         },
 
         deletePing(type, id) {
-            let idx = this.pings.findIndex((p) => p.type === type && p.id === id);
+            let idx = this.pings.findIndex(
+                (p) => p.type === type && p.id === id,
+            );
             if (idx !== -1) this.pings.splice(idx, 1);
         },
 
@@ -633,7 +691,9 @@ document.addEventListener('alpine:init', () => {
 
         syncStatus() {
             axios
-                .post(`/api/chat/user/status`, { status_id: this.auth.chat_status_id })
+                .post(`/api/chat/user/status`, {
+                    status_id: this.auth.chat_status_id,
+                })
                 .catch((error) => {
                     console.error('Error changing status:', error);
                 });
@@ -651,7 +711,9 @@ document.addEventListener('alpine:init', () => {
         },
 
         forceMessage(name) {
-            const messageInput = document.getElementById('chatbox__messages-create');
+            const messageInput = document.getElementById(
+                'chatbox__messages-create',
+            );
             if (messageInput) {
                 messageInput.value = '/msg ' + name + ' ';
                 messageInput.focus();
@@ -659,7 +721,9 @@ document.addEventListener('alpine:init', () => {
         },
 
         forceGift(name) {
-            const messageInput = document.getElementById('chatbox__messages-create');
+            const messageInput = document.getElementById(
+                'chatbox__messages-create',
+            );
             if (messageInput) {
                 messageInput.value = '/gift ' + name + ' ';
                 messageInput.focus();

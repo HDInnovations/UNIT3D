@@ -354,8 +354,18 @@
                                 </a>
                             </td>
                             <td>{{ $torrentRequest->category->name }}</td>
-                            <td>{{ $torrentRequest->type->name ?? 'Any' }}</td>
-                            <td>{{ $torrentRequest->resolution->name ?? 'Any' }}</td>
+                            <td>
+                                {{
+                                    $torrentRequest->type->name ??
+                                        'Any'
+                                }}
+                            </td>
+                            <td>
+                                {{
+                                    $torrentRequest->resolution->name ??
+                                        'Any'
+                                }}
+                            </td>
                             <td>
                                 <x-user-tag
                                     :user="$torrentRequest->user"
@@ -364,7 +374,13 @@
                             </td>
                             <td>{{ $torrentRequest->bounties_count }}</td>
                             <td>{{ $torrentRequest->comments_count }}</td>
-                            <td>{{ number_format($torrentRequest->bounty) }}</td>
+                            <td>
+                                {{
+                                    number_format(
+                                        $torrentRequest->bounty,
+                                    )
+                                }}
+                            </td>
                             <td>
                                 <time
                                     datetime="{{ $torrentRequest->created_at }}"
@@ -378,23 +394,20 @@
                                     @case($torrentRequest->claim_exists && $torrentRequest->torrent_id === null)
                                         <i class="fas fa-circle text-blue"></i>
                                         {{ __('request.claimed') }}
-
                                         @break
                                     @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
                                         <i class="fas fa-circle text-purple"></i>
                                         {{ __('request.pending') }}
-
                                         @break
                                     @case($torrentRequest->torrent_id === null)
                                         <i class="fas fa-circle text-red"></i>
                                         {{ __('request.unfilled') }}
-
                                         @break
                                     @default
                                         <i class="fas fa-circle text-green"></i>
                                         {{ __('request.filled') }}
-
                                         @break
+
                                 @endswitch
                             </td>
                         </tr>
@@ -405,7 +418,11 @@
                     @endforelse
                 </tbody>
             </table>
-            {{ $torrentRequests->links('partials.pagination') }}
+            {{
+                $torrentRequests->links(
+                    'partials.pagination',
+                )
+            }}
         </div>
     </section>
     <section class="panelV2">
@@ -413,32 +430,62 @@
         <dl class="key-value">
             <div class="key-value__group">
                 <dt>{{ __('request.requests') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->total) }}</dd>
+                <dd>
+                    {{
+                        number_format(
+                            $torrentRequestStat->total,
+                        )
+                    }}
+                </dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.filled') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->filled) }}</dd>
+                <dd>
+                    {{
+                        number_format(
+                            $torrentRequestStat->filled,
+                        )
+                    }}
+                </dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.unfilled') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->unfilled) }}</dd>
+                <dd>
+                    {{
+                        number_format(
+                            $torrentRequestStat->unfilled,
+                        )
+                    }}
+                </dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.total-bounty') }}:</dt>
-                <dd>{{ number_format($torrentRequestBountyStat->total) }} {{ __('bon.bon') }}</dd>
+                <dd>
+                    {{
+                        number_format(
+                            $torrentRequestBountyStat->total,
+                        )
+                    }} {{ __('bon.bon') }}
+                </dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-claimed') }}:</dt>
                 <dd>
-                    {{ number_format($torrentRequestBountyStat->claimed) }}
-                    {{ __('bon.bon') }}
+                    {{
+                        number_format(
+                            $torrentRequestBountyStat->claimed,
+                        )
+                    }} {{ __('bon.bon') }}
                 </dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-unclaimed') }}:</dt>
                 <dd>
-                    {{ number_format($torrentRequestBountyStat->unclaimed) }}
-                    {{ __('bon.bon') }}
+                    {{
+                        number_format(
+                            $torrentRequestBountyStat->unclaimed,
+                        )
+                    }} {{ __('bon.bon') }}
                 </dd>
             </div>
         </dl>

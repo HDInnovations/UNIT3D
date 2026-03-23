@@ -65,5 +65,9 @@
             </tbody>
         </table>
     </div>
-    {{ $passwordResetHistories->links('partials.pagination') }}
+    {{
+        $passwordResetHistories->links(
+            'partials.pagination',
+        )
+    }}
 </section>

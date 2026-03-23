@@ -66,7 +66,10 @@
                                 datetime="{{ $emailUpdate->deleted_at }}"
                                 title="{{ $emailUpdate->deleted_at }}"
                             >
-                                {{ $emailUpdate->deleted_at ?? 'Currently in use' }}
+                                {{
+                                    $emailUpdate->deleted_at ??
+                                        'Currently in use'
+                                }}
                             </time>
                         </td>
                     </tr>
@@ -78,5 +81,9 @@
             </tbody>
         </table>
     </div>
-    {{ $emailUpdates->links('partials.pagination') }}
+    {{
+        $emailUpdates->links(
+            'partials.pagination',
+        )
+    }}
 </section>

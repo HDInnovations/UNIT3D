@@ -9,12 +9,8 @@
     <li class="breadcrumbV2">
         <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">Wikis</a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $wiki->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $wiki->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-wiki--edit')
@@ -58,7 +54,13 @@
                         {{ __('common.category') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $wiki->content])
+                @livewire('bbcode-input',
+                    [
+                        'name' => 'content',
+                        'label' => __('common.content'),
+                        'required' => true,
+                        'content' => $wiki->content
+                    ])
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}

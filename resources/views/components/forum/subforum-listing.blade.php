@@ -1,6 +1,4 @@
-@props([
-    'subforum',
-])
+@props(['subforum'])
 
 <article class="subforum-listing">
     <header class="subforum-listing__header">
@@ -12,9 +10,7 @@
                 {{ $subforum->name }}
             </a>
         </h3>
-        <p class="subforum-listing__description">
-            {{ $subforum->description }}
-        </p>
+        <p class="subforum-listing__description">{{ $subforum->description }}</p>
     </header>
     <figure class="subforum-listing__figure">
         <i class="fad fa-comments subforum-listing__icon"></i>
@@ -45,13 +41,19 @@
             title="{{ $subforum->updated_at }}"
         >
             @if ($subforum->lastRepliedTopic === null)
-                {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+                {{
+                    $subforum->updated_at?->diffForHumans() ??
+                        __('common.unknown')
+                }}
             @else
                 <a
                     class="subforum-listing__latest-post-link"
                     href="{{ route('topics.latestPermalink', ['id' => $subforum->lastRepliedTopic->id]) }}"
                 >
-                    {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
+                    {{
+                        $subforum->updated_at?->diffForHumans() ??
+                            __('common.unknown')
+                    }}
                 </a>
             @endif
         </time>

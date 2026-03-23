@@ -84,7 +84,11 @@
             </tbody>
         </table>
     </div>
-    {{ $notes->links('partials.pagination') }}
+    {{
+        $notes->links(
+            'partials.pagination',
+        )
+    }}
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {
             Alpine.data('note', () => ({

@@ -11,13 +11,9 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.rss.index') }}" class="breadcrumb__link">
-            {{ __('rss.rss') }}
-        </a>
+        <a href="{{ route('staff.rss.index') }}" class="breadcrumb__link"> {{ __('rss.rss') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-rss--edit')
@@ -177,7 +173,8 @@
                                                 name="categories[]"
                                                 type="checkbox"
                                                 value="{{ $category->id }}"
-                                                @checked(is_array($rss->object_torrent->categories) && in_array((string)$category->id, $rss->object_torrent->categories, true))
+                                                @checked(is_array($rss->object_torrent->categories) &&
+                                                        in_array((string) $category->id, $rss->object_torrent->categories, true))
                                             />
                                             {{ $category->name }}
                                         </label>
@@ -199,7 +196,8 @@
                                                 name="types[]"
                                                 type="checkbox"
                                                 value="{{ $type->id }}"
-                                                @checked(is_array($rss->object_torrent->types) && in_array((string)$type->id, $rss->object_torrent->types, true))
+                                                @checked(is_array($rss->object_torrent->types) &&
+                                                        in_array((string) $type->id, $rss->object_torrent->types, true))
                                             />
                                             {{ $type->name }}
                                         </label>
@@ -221,7 +219,8 @@
                                                 name="resolutions[]"
                                                 type="checkbox"
                                                 value="{{ $resolution->id }}"
-                                                @checked(is_array($rss->object_torrent->resolutions) && in_array((string)$resolution->id, $rss->object_torrent->resolutions, true))
+                                                @checked(is_array($rss->object_torrent->resolutions) &&
+                                                        in_array((string) $resolution->id, $rss->object_torrent->resolutions, true))
                                             />
                                             {{ $resolution->name }}
                                         </label>
@@ -243,7 +242,8 @@
                                                 name="genres[]"
                                                 type="checkbox"
                                                 value="{{ $genre->id }}"
-                                                @checked(is_array($rss->object_torrent->genres) && in_array((string)$genre->id, $rss->object_torrent->genres, true))
+                                                @checked(is_array($rss->object_torrent->genres) &&
+                                                        in_array((string) $genre->id, $rss->object_torrent->genres, true))
                                             />
                                             {{ $genre->name }}
                                         </label>

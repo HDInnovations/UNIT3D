@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Privacy - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Privacy - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,9 +20,7 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.privacy') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.privacy') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -56,7 +53,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_torrent_count)
                             />
-                            {{ __('user.profile-privacy-torrent-count') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-torrent-count',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -95,7 +96,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_torrent_ratio)
                             />
-                            {{ __('user.profile-privacy-torrent-ratio') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-torrent-ratio',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -108,7 +113,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_torrent_seed)
                             />
-                            {{ __('user.profile-privacy-torrent-seed') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-torrent-seed',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -121,7 +130,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_bon_extra)
                             />
-                            {{ __('user.profile-privacy-bon-extra') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-bon-extra',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -134,7 +147,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_torrent_extra)
                             />
-                            {{ __('user.profile-privacy-torrent-extra') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-torrent-extra',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -147,7 +164,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_comment_extra)
                             />
-                            {{ __('user.profile-privacy-comment-extra') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-comment-extra',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -160,7 +181,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_request_extra)
                             />
-                            {{ __('user.profile-privacy-request-extra') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-request-extra',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -173,7 +198,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_forum_extra)
                             />
-                            {{ __('user.profile-privacy-forum-extra') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-forum-extra',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -212,7 +241,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_achievement)
                             />
-                            {{ __('user.profile-privacy-achievement') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-achievement',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -225,7 +258,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_profile_follower)
                             />
-                            {{ __('user.profile-privacy-follower') }}
+                            {{
+                                __(
+                                    'user.profile-privacy-follower',
+                                )
+                            }}
                         </label>
                     </p>
                 </fieldset>
@@ -241,7 +278,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_achievement)
                             />
-                            {{ __('user.achievement-privacy-list') }}
+                            {{
+                                __(
+                                    'user.achievement-privacy-list',
+                                )
+                            }}
                         </label>
                     </p>
                 </fieldset>
@@ -302,7 +343,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_requested)
                             />
-                            {{ __('user.request-privacy-requested') }}
+                            {{
+                                __(
+                                    'user.request-privacy-requested',
+                                )
+                            }}
                         </label>
                     </p>
                 </fieldset>
@@ -331,7 +376,11 @@
                                 value="1"
                                 @checked($user->privacy === null || $user->privacy->show_download)
                             />
-                            {{ __('user.torrent-privacy-download') }}
+                            {{
+                                __(
+                                    'user.torrent-privacy-download',
+                                )
+                            }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -367,10 +416,7 @@
                 <h3>Hide your profile options from the selected groups.</h3>
                 <div class="form__group">
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">{{ __('common.group') }}</th>
@@ -386,18 +432,17 @@
                             <tbody x-ref="tbody">
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <th x-bind="rowHeader">
-                                            {{ $group->name }}
-                                        </th>
+                                        <th x-bind="rowHeader">{{ $group->name }}</th>
                                         @foreach ([
-                                            'json_profile_groups',
-                                            'json_achievement_groups',
-                                            'json_follower_groups',
-                                            'json_forum_groups',
-                                            'json_request_groups',
-                                            'json_torrent_groups',
-                                            'json_other_groups'
-                                        ] as $setting)
+                                                'json_profile_groups',
+                                                'json_achievement_groups',
+                                                'json_follower_groups',
+                                                'json_forum_groups',
+                                                'json_request_groups',
+                                                'json_torrent_groups',
+                                                'json_other_groups'
+                                            ]
+                                            as $setting)
                                             <td x-bind="cell">
                                                 <input
                                                     class="form__checkbox"
@@ -422,7 +467,7 @@
                             type="checkbox"
                             value="1"
                             name="hidden"
-                            @checked($user->privacy?->hidden)
+                            @checked(($user->privacy?->hidden)
                         />
                         {{ __('user.become-hidden') }}
                     </label>
@@ -435,7 +480,7 @@
                             type="checkbox"
                             value="1"
                             name="private_profile"
-                            @checked($user->privacy?->private_profile)
+                            @checked(($user->privacy?->private_profile)
                         />
                         {{ __('user.go-private') }}
                     </label>

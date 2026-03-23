@@ -1,6 +1,10 @@
 <section class="panelV2">
     <h2 class="panel__heading">{{ __('forum.topics') }}</h2>
-    {{ $topics->links('partials.pagination') }}
+    {{
+        $topics->links(
+            'partials.pagination',
+        )
+    }}
     @if ($topics->count() > 0)
         <ul class="topic-listings">
             @foreach ($topics as $topic)
@@ -12,5 +16,9 @@
     @else
         <div class="panel__body">No topics.</div>
     @endif
-    {{ $topics->links('partials.pagination') }}
+    {{
+        $topics->links(
+            'partials.pagination',
+        )
+    }}
 </section>

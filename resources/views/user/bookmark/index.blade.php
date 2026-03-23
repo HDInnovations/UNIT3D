@@ -1,9 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>
-        {{ $user->username }} {{ __('torrent.bookmarks') }} - {{ config('other.title') }}
-    </title>
+    <title>{{ $user->username }} {{ __('torrent.bookmarks') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -12,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.bookmarks') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.bookmarks') }}</li>
 @endsection
 
 @section('page', 'page__user-bookmark--index')

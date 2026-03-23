@@ -151,9 +151,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </td>
                         @if (auth()->user()->group->is_modo)
@@ -203,7 +201,6 @@
                                                 </li>
                                             @endif
                                         @endif
-
                                         <li class="data-table__action">
                                             <form>
                                                 @csrf
@@ -232,7 +229,11 @@
                 @endforelse
             </tbody>
         </table>
-        {{ $warnings->links('partials.pagination') }}
+        {{
+            $warnings->links(
+                'partials.pagination',
+            )
+        }}
     </div>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {

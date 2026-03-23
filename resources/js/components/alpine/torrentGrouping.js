@@ -60,7 +60,9 @@ document.addEventListener('alpine:init', () => {
             },
         },
         toggle(root, dropdowns) {
-            let query = dropdowns.map((dropdown) => `details:has([x-bind="${dropdown}"])`).join();
+            let query = dropdowns
+                .map((dropdown) => `details:has([x-bind="${dropdown}"])`)
+                .join();
 
             console.log(query);
 

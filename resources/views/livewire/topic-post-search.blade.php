@@ -19,7 +19,13 @@
             </div>
         </div>
     </header>
-    @if ($topic->approved || $topic->denied || $topic->solved || $topic->invalid || $topic->bug || $topic->suggestion || $topic->implemented)
+    @if ($topic->approved ||
+        $topic->denied ||
+        $topic->solved ||
+        $topic->invalid ||
+        $topic->bug ||
+        $topic->suggestion ||
+        $topic->implemented)
         <ul class="topic-tags">
             <li class="topic-tag">
                 <i class="{{ config('other.font-awesome') }} fa-tags"></i>
@@ -54,7 +60,11 @@
         </ul>
     @endif
 
-    {{ $posts->links('partials.pagination') }}
+    {{
+        $posts->links(
+            'partials.pagination',
+        )
+    }}
     <div class="panel__body">
         @if ($posts->count() > 0)
             <ol class="topic-posts">
@@ -68,5 +78,9 @@
             No topics.
         @endif
     </div>
-    {{ $posts->links('partials.pagination') }}
+    {{
+        $posts->links(
+            'partials.pagination',
+        )
+    }}
 </section>

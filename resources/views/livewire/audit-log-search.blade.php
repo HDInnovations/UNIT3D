@@ -102,7 +102,13 @@
                                 {{ strtoupper($audit->action) }}
                             </span>
                         </td>
-                        <td>{{ class_basename($audit->auditable_type) }}</td>
+                        <td>
+                            {{
+                                class_basename(
+                                    $audit->auditable_type,
+                                )
+                            }}
+                        </td>
                         <td>{{ $audit->auditable_id }}</td>
                         <td>
                             <a href="{{ route('users.show', ['user' => $audit->user]) }}">
@@ -119,10 +125,7 @@
                                             overflow-wrap: break-word;
                                         "
                                     >
-                                        {{ $key }}:
-                                        {{ json_encode($value['old'], JSON_THROW_ON_ERROR) }}
-                                        &rarr;
-                                        {{ json_encode($value['new'], JSON_THROW_ON_ERROR) }}
+                                        {{ $key }}: {{ json_encode($value['old'], JSON_THROW_ON_ERROR) }} &rarr; {{ json_encode($value['new'], JSON_THROW_ON_ERROR) }}
                                     </li>
                                 @endforeach
                             </ul>
@@ -165,5 +168,9 @@
             </tbody>
         </table>
     </div>
-    {{ $audits->links('partials.pagination') }}
+    {{
+        $audits->links(
+            'partials.pagination',
+        )
+    }}
 </section>

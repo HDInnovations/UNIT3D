@@ -1,9 +1,7 @@
 <section class="panelV2 blocks__posts">
     <header class="panel__header">
         <h2 class="panel__heading">
-            <a href="{{ route('posts.index') }}">
-                {{ __('blocks.latest-posts') }}
-            </a>
+            <a href="{{ route('posts.index') }}"> {{ __('blocks.latest-posts') }} </a>
         </h2>
     </header>
     <div class="panel__body">

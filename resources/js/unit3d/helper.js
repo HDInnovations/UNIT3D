@@ -15,16 +15,25 @@ class uploadExtensionBuilder {
         title = title.replace(/ E-?AC-?3 /i, ' DD+ ');
         title = title.replace(/ AC-?3 /i, ' DD ');
         title = title.replace(/ AC-? ?3-?EX /i, ' DD EX ');
-        title = title.replace(/( DTS-?H?D? ?MA ?)(\d)( )(\d)/i, ' DTS-HD MA $2.$4');
+        title = title.replace(
+            /( DTS-?H?D? ?MA ?)(\d)( )(\d)/i,
+            ' DTS-HD MA $2.$4',
+        );
         title = title.replace(/( DTS-?X ?)(\d)( )(\d)/i, ' DTS:X $2.$4');
         title = title.replace(/( DTS-?X)(-?[^ ]*)$/i, ' DTS:X 7.1$2');
-        title = title.replace(/( DTS-?H?D? ?HRA? ?)(\d)( )(\d)/i, ' DTS-HD HRA $2.$4');
+        title = title.replace(
+            /( DTS-?H?D? ?HRA? ?)(\d)( )(\d)/i,
+            ' DTS-HD HRA $2.$4',
+        );
         title = title.replace(/( DTS ?)(\d)( )(\d)/i, ' DTS $2.$4');
         title = title.replace(/( FLAC ?)(\d)( )(\d)/i, '$1 $2.$4');
         title = title.replace(/( L?PCM ?)(\d)( )(\d)/i, '$1 $2.$4');
         title = title.replace(/( DD[P+]? ?)(\d)( )(\d)/i, '$1 $2.$4');
         title = title.replace(/( Opus ?)(\d)( )(\d)/i, ' Opus $2.$4');
-        title = title.replace(/( AAC? ?L?C? ?S?B?R? ?)(\d)( )(\d)/i, ' AAC $2.$4');
+        title = title.replace(
+            /( AAC? ?L?C? ?S?B?R? ?)(\d)( )(\d)/i,
+            ' AAC $2.$4',
+        );
         title = title.replace(/ (DDP?\+?)[- ]*EX ?(\d) (\d)/i, ' $1 EX $2.$3');
         title = title.replace(/ DDPA ?5.1 /i, ' DD+ 5.1 Atmos ');
         title = title.replace(/( \d\.\d)\+Atmos /i, '$1 Atmos ');
@@ -32,7 +41,10 @@ class uploadExtensionBuilder {
         title = title.replace(/ (TrueHD|Atmos) (\d) (\d)/i, ' $1 $2.$3');
         // Fix Atmos
         if (!title.includes(' DD+ ')) {
-            title = title.replace(/ (TrueHD ?)?Atmos (\d)([ .])(\d)/i, ' TrueHD $2.$4 Atmos');
+            title = title.replace(
+                / (TrueHD ?)?Atmos (\d)([ .])(\d)/i,
+                ' TrueHD $2.$4 Atmos',
+            );
         }
         title = title.replace(/ +DTSMA /i, ' DTS-HD MA ');
         // Fix for parenthesis around year.
@@ -49,7 +61,10 @@ class uploadExtensionBuilder {
         title = title.replace(/( +X ?26)(\d)/i, ' x26$2');
         // Dolby Vision fix
         title = title.replace(/( +DoVi +)/i, ' DV ');
-        title = title.replace(/ +(HDR10Plus|HDR10P|HDR\+|HDR10\+) +/i, ' HDR10+ ');
+        title = title.replace(
+            / +(HDR10Plus|HDR10P|HDR\+|HDR10\+) +/i,
+            ' HDR10+ ',
+        );
         title = title.replace(/( +HEVC +)(HDR|HDR10)( +)/i, ' HDR HEVC ');
         // WEB-DL fix
         title = title.replace(/ WEBDL /i, ' WEB-DL ');
@@ -66,7 +81,10 @@ class uploadExtensionBuilder {
         title = title.replace(/( +)(\d{2})(x)(\d{2} )/i, ' S$2E$4');
         // Remove episode (non S00/E00)
         if (!title.includes('E00') && !title.includes('S00')) {
-            title = title.replace(/(S\d{2}E\d{2}[^ ]* )(.* )(\d{3,4}[ip])/i, '$1 $3');
+            title = title.replace(
+                /(S\d{2}E\d{2}[^ ]* )(.* )(\d{3,4}[ip])/i,
+                '$1 $3',
+            );
         }
         //Blu-ray fixes
         title = title.replace(/ +Bluray +/i, ' BluRay ');
@@ -110,7 +128,10 @@ class uploadExtensionBuilder {
         // Fix for date formats
         title = title.replace(/( \d{4})( +)(\d{2})( +)(\d{2} )/, '$1-$3-$5');
         title = title.replace(/( \d{4})( +)(\d{2} )/, '$1-$3');
-        title = title.replace(/(UHD)?( BluRay)(.*)( \d{3,4}[ip] )/i, '$4 $1 $2 $3 ');
+        title = title.replace(
+            /(UHD)?( BluRay)(.*)( \d{3,4}[ip] )/i,
+            '$4 $1 $2 $3 ',
+        );
         // Fix some remux ordering
         title = title.replace(
             /( +\d{3,4}[ip] +)(.*)(UHD)?( +BluRay)(.*)(AVC|HEVC|MPEG-2|VC-1)(.*)(Hybrid)?( +REMUX)/i,
@@ -129,14 +150,21 @@ class uploadExtensionBuilder {
             );
         }
         // Fixing HDR ordering
-        if (title.includes('HEVC') || title.includes('H.265') || title.includes('x265')) {
+        if (
+            title.includes('HEVC') ||
+            title.includes('H.265') ||
+            title.includes('x265')
+        ) {
             if (title.includes(' DV ') && title.includes(' HDR10+ ')) {
                 // Remove the two HDR formats and place in correct order.
                 // Replace with space to not ruin spacing.
                 title = title.replace(' DV ', ' ');
                 title = title.replace(' HDR10+ ', ' ');
                 // Replace them where HEVC/H.265/x265 is.
-                title = title.replace(/( )(HEVC|H\.265|x265)/i, ' DV HDR10+ $2');
+                title = title.replace(
+                    /( )(HEVC|H\.265|x265)/i,
+                    ' DV HDR10+ $2',
+                );
             } else if (title.includes(' DV ') && title.includes(' HDR ')) {
                 // Remove the two HDR formats and place in correct order.
                 // Replace with space to not ruin spacing.
@@ -166,11 +194,17 @@ class uploadExtensionBuilder {
         }
         // Fixing UHD being missing in 2160p Blu-rays
         if (!title.includes('UHD')) {
-            title = title.replace(/( +2160p)(.*)( Blu-?ray )/i, ' 2160p $2 UHD$3');
+            title = title.replace(
+                /( +2160p)(.*)( Blu-?ray )/i,
+                ' 2160p $2 UHD$3',
+            );
         }
         // Fixing hybrid casing/location
         if (title.toLowerCase().includes('hybrid')) {
-            title = title.replace(/(.*)( \d{3,4}[ip] )(.*)(Hybrid)(.+)/i, '$1 Hybrid$2$3 $5');
+            title = title.replace(
+                /(.*)( \d{3,4}[ip] )(.*)(Hybrid)(.+)/i,
+                '$1 Hybrid$2$3 $5',
+            );
             title = title.replace(
                 /(.*)(S\d{2}E\d{2}|S\d{2}|\d{4})( .*)(Hybrid)(.*)( \d{3,4}[ip] )/i,
                 '$1$2$3 $5 Hybrid $6',
@@ -189,7 +223,11 @@ class uploadExtensionBuilder {
             let torrent = document.querySelector('#torrent');
             let release;
             if (!name.value) {
-                const fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
+                const fileEndings = [
+                    '.mkv.torrent',
+                    '.mp4.torrent',
+                    '.torrent',
+                ];
                 let newValue = torrent.value;
                 // strip path
                 newValue = newValue.split('\\').pop().split('/').pop();
@@ -245,7 +283,10 @@ class uploadExtensionBuilder {
             if (matcher.indexOf('webdl') > 0 || matcher.indexOf('web-dl') > 0) {
                 document.getElementById('autotype').value = 4;
             }
-            if (matcher.indexOf('web-rip') > 0 || matcher.indexOf('webrip') > 0) {
+            if (
+                matcher.indexOf('web-rip') > 0 ||
+                matcher.indexOf('webrip') > 0
+            ) {
                 document.getElementById('autotype').value = 5;
             }
             if (matcher.indexOf('hdtv') > 0) {
@@ -264,7 +305,8 @@ class uploadExtensionBuilder {
 
             // Torrent Episode (TV Only)
             if (release.episode) {
-                document.getElementById('episode_number').value = release.episode;
+                document.getElementById('episode_number').value =
+                    release.episode;
             }
 
             // Torrent TMDB ID
@@ -291,7 +333,8 @@ class uploadExtensionBuilder {
                 data = JSON.parse(data);
                 if (release.type === 'Movie') {
                     if (data.results && data.results.length > 0) {
-                        document.getElementById('auto_tmdb_movie').value = data.results[0].id;
+                        document.getElementById('auto_tmdb_movie').value =
+                            data.results[0].id;
                         document.getElementById('apimatch').value =
                             'Found Match: ' +
                             data.results[0].title +
@@ -315,7 +358,8 @@ class uploadExtensionBuilder {
                     }
                 } else if (release.type === 'TV Show') {
                     if (data.results && data.results.length > 0) {
-                        document.getElementById('auto_tmdb_tv').value = data.results[0].id;
+                        document.getElementById('auto_tmdb_tv').value =
+                            data.results[0].id;
                         document.getElementById('apimatch').value =
                             'Found Match: ' +
                             data.results[0].name +
@@ -350,7 +394,10 @@ class uploadExtensionBuilder {
                 if (release.type === 'Movie') {
                     let tags = data.keywords.map(({ name }) => name).join(', ');
                     document.getElementById('autokeywords').value = tags;
-                } else if (release.type === 'TV Show' && data?.results.length > 0) {
+                } else if (
+                    release.type === 'TV Show' &&
+                    data?.results.length > 0
+                ) {
                     let tags = data.results.map(({ name }) => name).join(', ');
                     document.getElementById('autokeywords').value = tags;
                 }
@@ -369,7 +416,8 @@ class uploadExtensionBuilder {
                     document.getElementById('autoimdb').value = imdb;
                 } else if (release.type === 'TV Show') {
                     document.getElementById('autoimdb').value = imdb;
-                    document.getElementById('autotvdb').value = data.tvdb_id ?? 0;
+                    document.getElementById('autotvdb').value =
+                        data.tvdb_id ?? 0;
                 }
             }
 

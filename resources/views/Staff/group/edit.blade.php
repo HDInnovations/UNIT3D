@@ -11,12 +11,8 @@
             {{ __('staff.groups') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $group->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $group->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-group--edit')
@@ -449,10 +445,7 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Forum category</th>
@@ -495,7 +488,7 @@
                                                     type="checkbox"
                                                     name="permissions[{{ $forum->id }}][read_topic]"
                                                     value="1"
-                                                    @checked($group->permissions->where('forum_id', '=', $forum->id)->first()?->read_topic)
+                                                    @checked(( $group->permissions->where('forum_id', '=', $forum->id)->first()?->read_topic)
                                                 />
                                             </td>
                                             <td x-bind="cell">
@@ -508,7 +501,7 @@
                                                     type="checkbox"
                                                     name="permissions[{{ $forum->id }}][start_topic]"
                                                     value="1"
-                                                    @checked($group->permissions->where('forum_id', '=', $forum->id)->first()?->start_topic)
+                                                    @checked(( $group->permissions->where('forum_id', '=', $forum->id)->first()?->start_topic)
                                                 />
                                             </td>
                                             <td x-bind="cell">
@@ -521,7 +514,7 @@
                                                     type="checkbox"
                                                     name="permissions[{{ $forum->id }}][reply_topic]"
                                                     value="1"
-                                                    @checked($group->permissions->where('forum_id', '=', $forum->id)->first()?->reply_topic)
+                                                    @checked(( $group->permissions->where('forum_id', '=', $forum->id)->first()?->reply_topic)
                                                 />
                                             </td>
                                         </tr>

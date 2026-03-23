@@ -19,7 +19,11 @@
             </div>
         </div>
     </header>
-    {{ $companies->links('partials.pagination') }}
+    {{
+        $companies->links(
+            'partials.pagination',
+        )
+    }}
     <div class="panel__body">
         <ul class="mediahub-card__list">
             @forelse ($companies as $company)
@@ -50,5 +54,9 @@
             @endforelse
         </ul>
     </div>
-    {{ $companies->links('partials.pagination') }}
+    {{
+        $companies->links(
+            'partials.pagination',
+        )
+    }}
 </section>

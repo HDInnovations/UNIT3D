@@ -15,12 +15,8 @@
             {{ __('bot.bots') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $bot->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $bot->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -135,8 +131,12 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <textarea id="help" class="form__textarea" name="help" placeholder=" ">
-{{ $bot->help }}</textarea
+                    <textarea
+                        id="help"
+                        class="form__textarea"
+                        name="help"
+                        placeholder=" "
+                        >{{ $bot->help }}</textarea
                     >
                     <label class="form__label form__label--floating" for="help">
                         {{ __('bot.help') }}

@@ -230,7 +230,11 @@
                     </tbody>
                 </table>
             </div>
-            {{ $users->links('partials.pagination') }}
+            {{
+                $users->links(
+                    'partials.pagination',
+                )
+            }}
         </section>
     </div>
 </div>

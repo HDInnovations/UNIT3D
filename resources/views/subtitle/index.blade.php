@@ -5,9 +5,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('common.subtitles') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.subtitles') }}</li>
 @endsection
 
 @section('page', 'page__subtitle--index')

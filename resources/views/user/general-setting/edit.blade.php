@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Settings - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Settings - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -13,9 +12,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.settings') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.settings') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -227,7 +224,11 @@
                                     value="1"
                                     @checked($user->settings->news_block_visible)
                                 />
-                                {{ __('user.homepage-block-news-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-news-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -240,7 +241,11 @@
                                     value="1"
                                     @checked($user->settings->chat_block_visible)
                                 />
-                                {{ __('user.homepage-block-chat-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-chat-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -253,7 +258,11 @@
                                     value="1"
                                     @checked($user->settings->featured_block_visible)
                                 />
-                                {{ __('user.homepage-block-featured-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-featured-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -266,7 +275,11 @@
                                     value="1"
                                     @checked($user->settings->random_media_block_visible)
                                 />
-                                {{ __('user.homepage-block-random-media-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-random-media-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -279,7 +292,11 @@
                                     value="1"
                                     @checked($user->settings->poll_block_visible)
                                 />
-                                {{ __('user.homepage-block-poll-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-poll-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -292,7 +309,11 @@
                                     value="1"
                                     @checked($user->settings->top_torrents_block_visible)
                                 />
-                                {{ __('user.homepage-block-top-torrents-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-top-torrents-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -305,7 +326,11 @@
                                     value="1"
                                     @checked($user->settings->top_users_block_visible)
                                 />
-                                {{ __('user.homepage-block-top-users-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-top-users-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -318,7 +343,11 @@
                                     value="1"
                                     @checked($user->settings->latest_topics_block_visible)
                                 />
-                                {{ __('user.homepage-block-latest-topics-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-latest-topics-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -331,7 +360,11 @@
                                     value="1"
                                     @checked($user->settings->latest_posts_block_visible)
                                 />
-                                {{ __('user.homepage-block-latest-posts-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-latest-posts-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -348,7 +381,11 @@
                                     value="1"
                                     @checked($user->settings->latest_comments_block_visible)
                                 />
-                                {{ __('user.homepage-block-latest-comments-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-latest-comments-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -361,7 +398,11 @@
                                     value="1"
                                     @checked($user->settings->online_block_visible)
                                 />
-                                {{ __('user.homepage-block-online-visible') }}
+                                {{
+                                    __(
+                                        'user.homepage-block-online-visible',
+                                    )
+                                }}
                             </label>
                         </p>
                     </fieldset>
@@ -390,9 +431,7 @@
                                         list-style: none;
                                     "
                                 >
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-arrows-alt"
-                                    ></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-arrows-alt"></i>
                                     <span x-text="block.label"></span>
                                     <input
                                         type="hidden"
@@ -576,31 +615,29 @@
             document.addEventListener('alpine:init', () => {
                 Alpine.data('generalSettings', () => ({
                     blocks: {{
-                        Js::from(
-                            array_map(
-                                fn ($item) => [
-                                    'key' => $item[0],
-                                    'label' => $item[1],
-                                    'position' => (int) $user->settings->{$item[0] . '_block_position'},
-                                ],
-                                [
-                                    ['news', __('blocks.check-news')],
-                                    ['chat', __('blocks.chatbox')],
-                                    ['featured', __('blocks.featured-torrents')],
-                                    ['random_media', 'Random media'],
-                                    ['poll', 'Polls'],
-                                    ['top_torrents', __('blocks.top-torrents')],
-                                    ['top_users', 'Top users'],
-                                    ['latest_topics', __('blocks.latest-topics')],
-                                    ['latest_posts', __('blocks.latest-posts')],
-                                    ['latest_comments', __('blocks.latest-comments')],
-                                    ['online', 'Online users'],
-                                ]
-                            )
-                        )
-                    }}.sort(
-                        (a, b) => a.position - b.position,
+                Js::from(
+                    array_map(
+                        fn($item) => [
+                            'key' => $item[0],
+                            'label' => $item[1],
+                            'position' => (int) $user->settings->{$item[0] . '_block_position'},
+                        ],
+                        [
+                            ['news', __('blocks.check-news')],
+                            ['chat', __('blocks.chatbox')],
+                            ['featured', __('blocks.featured-torrents')],
+                            ['random_media', 'Random media'],
+                            ['poll', 'Polls'],
+                            ['top_torrents', __('blocks.top-torrents')],
+                            ['top_users', 'Top users'],
+                            ['latest_topics', __('blocks.latest-topics')],
+                            ['latest_posts', __('blocks.latest-posts')],
+                            ['latest_comments', __('blocks.latest-comments')],
+                            ['online', 'Online users'],
+                        ],
                     ),
+                )
+            }}.sort((a, b) => a.position - b.position),
                     dragging: null,
                     dragOver: null,
                     move(from, to) {

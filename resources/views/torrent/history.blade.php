@@ -1,9 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>
-        {{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}
-    </title>
+    <title>{{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -21,9 +19,7 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.history') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.history') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -54,17 +50,23 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">
-                {{ __('torrent.torrent') }} {{ __('torrent.history') }}
-            </h2>
+            <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.history') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    Total up:
-                    {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_uploaded'), 2) }}
+                    Total up: {{
+                        App\Helpers\StringHelper::formatBytes(
+                            $histories->sum('actual_uploaded'),
+                            2,
+                        )
+                    }}
                 </div>
                 <div class="panel__action">
-                    Total down:
-                    {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_downloaded'), 2) }}
+                    Total down: {{
+                        App\Helpers\StringHelper::formatBytes(
+                            $histories->sum('actual_downloaded'),
+                            2,
+                        )
+                    }}
                 </div>
             </div>
         </header>
@@ -92,9 +94,9 @@
                                 <x-user-tag
                                     :user="$history->user"
                                     :anon="
-                                        $history->user->privacy?->hidden
-                                        || $history->user->privacy?->show_peer === 0
-                                        || ($history->user->id == $torrent->user->id && $torrent->anon == 1)
+                                        $history->user->privacy?->hidden ||
+        $history->user->privacy?->show_peer === 0 ||
+        ($history->user->id == $torrent->user->id && $torrent->anon == 1)
                                     "
                                 />
                             </td>
@@ -118,23 +120,43 @@
                             @endif
                             <td>
                                 <span class="text-green">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->actual_uploaded, 2) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $history->actual_uploaded,
+                                            2,
+                                        )
+                                    }}
                                     <span
                                         class="text-blue"
                                         title="{{ __('torrent.credited') }} {{ strtolower(__('common.upload')) }}"
                                     >
-                                        ({{ App\Helpers\StringHelper::formatBytes($history->uploaded, 2) }})
+                                        ({{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->uploaded,
+                                                2,
+                                            )
+                                        }})
                                     </span>
                                 </span>
                             </td>
                             <td>
                                 <span class="text-red">
-                                    {{ App\Helpers\StringHelper::formatBytes($history->actual_downloaded, 2) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $history->actual_downloaded,
+                                            2,
+                                        )
+                                    }}
                                     <span
                                         class="text-orange"
                                         title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}"
                                     >
-                                        ({{ App\Helpers\StringHelper::formatBytes($history->downloaded, 2) }})
+                                        ({{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $history->downloaded,
+                                                2,
+                                            )
+                                        }})
                                     </span>
                                 </span>
                             </td>
@@ -143,7 +165,12 @@
                                     class="text-info"
                                     title="{{ __('torrent.refunded') }} {{ strtolower(__('common.download')) }}"
                                 >
-                                    ({{ App\Helpers\StringHelper::formatBytes($history->refunded_download, 2) }})
+                                    ({{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $history->refunded_download,
+                                            2,
+                                        )
+                                    }})
                                 </span>
                             </td>
                             <td>
@@ -151,7 +178,11 @@
                                     datetime="{{ $history->created_at }}"
                                     title="{{ $history->created_at }}"
                                 >
-                                    {{ $history->created_at ? $history->created_at->diffForHumans() : 'N/A' }}
+                                    {{
+                                        $history->created_at
+                                            ? $history->created_at->diffForHumans()
+                                            : 'N/A'
+                                    }}
                                 </time>
                             </td>
                             <td>
@@ -159,7 +190,11 @@
                                     datetime="{{ $history->updated_at }}"
                                     title="{{ $history->updated_at }}"
                                 >
-                                    {{ $history->updated_at ? $history->updated_at->diffForHumans() : 'N/A' }}
+                                    {{
+                                        $history->updated_at
+                                            ? $history->updated_at->diffForHumans()
+                                            : 'N/A'
+                                    }}
                                 </time>
                             </td>
                             <td>
@@ -167,17 +202,29 @@
                                     datetime="{{ $history->completed_at }}"
                                     title="{{ $history->completed_at }}"
                                 >
-                                    {{ $history->completed_at ? $history->completed_at->diffForHumans() : 'N/A' }}
+                                    {{
+                                        $history->completed_at
+                                            ? $history->completed_at->diffForHumans()
+                                            : 'N/A'
+                                    }}
                                 </time>
                             </td>
 
                             @if ($history->seedtime < config('hitrun.seedtime'))
                                 <td class="text-red">
-                                    {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                    {{
+                                        App\Helpers\StringHelper::timeElapsed(
+                                            $history->seedtime,
+                                        )
+                                    }}
                                 </td>
                             @else
                                 <td class="text-green">
-                                    {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
+                                    {{
+                                        App\Helpers\StringHelper::timeElapsed(
+                                            $history->seedtime,
+                                        )
+                                    }}
                                 </td>
                             @endif
                         </tr>

@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.groups') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.groups') }}</li>
 @endsection
 
 @section('page', 'page__staff-group--index')
@@ -77,7 +75,12 @@
                             </td>
                             <td>{{ $group->position }}</td>
                             <td>{{ $group->level }}</td>
-                            <td>{{ $group->download_slots ?? 'Unlimited' }}</td>
+                            <td>
+                                {{
+                                    $group->download_slots ??
+                                        'Unlimited'
+                                }}
+                            </td>
                             <td>
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-circle"
@@ -312,17 +315,33 @@
 
                             @if ($group->autogroup)
                                 <td>
-                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_uploaded ?? 0) }}
+                                    {{
+                                        \App\Helpers\StringHelper::formatBytes(
+                                            $group->min_uploaded ?? 0,
+                                        )
+                                    }}
                                 </td>
                                 <td>{{ $group->min_ratio }}</td>
                                 <td>
-                                    {{ \App\Helpers\StringHelper::timeElapsed($group->min_age ?? 0) }}
+                                    {{
+                                        \App\Helpers\StringHelper::timeElapsed(
+                                            $group->min_age ?? 0,
+                                        )
+                                    }}
                                 </td>
                                 <td>
-                                    {{ \App\Helpers\StringHelper::timeElapsed($group->min_avg_seedtime ?? 0) }}
+                                    {{
+                                        \App\Helpers\StringHelper::timeElapsed(
+                                            $group->min_avg_seedtime ?? 0,
+                                        )
+                                    }}
                                 </td>
                                 <td>
-                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
+                                    {{
+                                        \App\Helpers\StringHelper::formatBytes(
+                                            $group->min_seedsize ?? 0,
+                                        )
+                                    }}
                                 </td>
                                 <td>{{ $group->min_uploads }}</td>
                             @else

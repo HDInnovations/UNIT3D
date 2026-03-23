@@ -1,5 +1,5 @@
 <section class="meta">
-    @if (Storage::disk('torrent-banners')->exists("torrent-banner_$torrent->id.jpg"))
+    @if (Storage::disk('torrent-banners')->exists( "torrent-banner_$torrent->id.jpg" ))
         <img
             class="meta__backdrop"
             src="{{ route('authenticated_images.torrent_banner', ['id' => $torrent->id]) }}"
@@ -43,8 +43,14 @@
                     title="Internet Movie Database"
                     target="_blank"
                 >
-                    IMDB:
-                    {{ \str_pad((string) $torrent->imdb, 7, '0', STR_PAD_LEFT) }}
+                    IMDB: {{
+                        \str_pad(
+                            (string) $torrent->imdb,
+                            7,
+                            '0',
+                            STR_PAD_LEFT,
+                        )
+                    }}
                 </a>
             </li>
         @endif
@@ -99,7 +105,11 @@
                         <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
                         <h2 class="meta-chip__name">Keywords</h2>
                         <h3 class="meta-chip__value">
-                            {{ $torrent->keywords->pluck('name')->join(', ') }}
+                            {{
+                                $torrent->keywords
+                                    ->pluck('name')
+                                    ->join(', ')
+                            }}
                         </h3>
                     </a>
                 </article>

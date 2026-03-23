@@ -1,7 +1,4 @@
-@props([
-    'media',
-    'personalFreeleech',
-])
+@props(['media', 'personalFreeleech'])
 
 <article class="torrent-search--grouped__result">
     <header class="torrent-search--grouped__header">
@@ -24,7 +21,10 @@
             >
                 {{ $media->title ?? '' }} (
                 <time class="torrent-search--grouped__title-year">
-                    {{ substr($media->release_date ?? '', 0, 4) ?? '' }}
+                    {{
+                        substr($media->release_date ?? '', 0, 4) ??
+                            ''
+                    }}
                 </time>
                 )
             </a>
@@ -39,7 +39,7 @@
                     >
                         {{ $director->name }}
                     </a>
-                    @if (! $loop->last)
+                    @if (!$loop->last)
                         ,
                     @endif
                 @endforeach

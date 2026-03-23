@@ -46,11 +46,7 @@
             </button>
         </li>
         <li>
-            <button
-                type="button"
-                class="form__standard-icon-button"
-                x-on:click="insertUnderline"
-            >
+            <button type="button" class="form__standard-icon-button" x-on:click="insertUnderline">
                 <abbr title="Underline">
                     <i class="{{ config('other.font-awesome') }} fa-underline"></i>
                 </abbr>
@@ -102,11 +98,7 @@
             </button>
         </li>
         <li>
-            <button
-                type="button"
-                class="form__standard-icon-button"
-                x-on:click="insertOrderedList"
-            >
+            <button type="button" class="form__standard-icon-button" x-on:click="insertOrderedList">
                 <abbr title="Ordered list">
                     <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
                 </abbr>
@@ -128,11 +120,7 @@
             </button>
         </li>
         <li>
-            <button
-                type="button"
-                class="form__button form__button--text"
-                x-on:click="insertFont"
-            >
+            <button type="button" class="form__button form__button--text" x-on:click="insertFont">
                 <abbr title="Font family">Font</abbr>
             </button>
         </li>
@@ -373,10 +361,7 @@
                     input.dispatchEvent(new Event('input'));
                     input.focus();
                     if (openTag.charAt(openTag.length - 2) === '=') {
-                        input.setSelectionRange(
-                            start + openTag.length - 1,
-                            start + openTag.length - 1,
-                        );
+                        input.setSelectionRange(start + openTag.length - 1, start + openTag.length - 1);
                     } else if (start == end) {
                         input.setSelectionRange(start + openTag.length, end + openTag.length);
                     } else {

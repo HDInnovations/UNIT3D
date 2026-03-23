@@ -10,9 +10,7 @@
             {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.upload') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.upload') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -27,9 +25,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}">
-            {{ __('rss.rss') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('rss.index') }}"> {{ __('rss.rss') }} </a>
     </li>
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('torrents.create') }}">
@@ -144,10 +140,7 @@
                     <select name="type_id" id="autotype" class="form__select" required>
                         <option hidden disabled selected value=""></option>
                         @foreach ($types as $type)
-                            <option
-                                value="{{ $type->id }}"
-                                @selected(old('type_id') == $type->id)
-                            >
+                            <option value="{{ $type->id }}" @selected(old('type_id') == $type->id)>
                                 {{ $type->name }}
                             </option>
                         @endforeach
@@ -224,7 +217,12 @@
                                     value="{{ $region->id }}"
                                     @selected(old('region_id') == $region->id)
                                 >
-                                    {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
+                                    {{
+                                        $region->name .
+                                            ' (' .
+                                            __('regions.' . $region->name) .
+                                            ')'
+                                    }}
                                 </option>
                             @endforeach
                         </select>
@@ -273,7 +271,11 @@
                 </div>
                 <div
                     class="form__group--horizontal"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
+                    x-show="
+                        cats[cat].type === 'movie' ||
+                        cats[cat].type === 'tv' ||
+                        cats[cat].type === 'game'
+                    "
                 >
                     <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                         <p class="form__group">
@@ -378,7 +380,10 @@
                                         ? '{{ old('imdb', $imdb) }}'
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    imdb_title_exists
+                                "
                                 x-bind="imdbInput"
                             />
                             <label class="form__label form__label--floating" for="autoimdb">
@@ -452,7 +457,10 @@
                                         ? '{{ old('mal', $mal) }}'
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    mal_anime_exists
+                                "
                                 class="form__text"
                                 placeholder=" "
                             />
@@ -510,7 +518,8 @@
                         )
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
+                @livewire('bbcode-input',
+                    ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                 <p
                     class="form__group"
                     x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
@@ -520,8 +529,7 @@
                         name="mediainfo"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ old('mediainfo') }}</textarea
+                        >{{ old('mediainfo') }}</textarea
                     >
                     <label class="form__label form__label--floating" for="upload-form-mediainfo">
                         {{ __('torrent.media-info-parser') }}
@@ -536,8 +544,7 @@
                         name="bdinfo"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ old('bdinfo') }}</textarea
+                        >{{ old('bdinfo') }}</textarea
                     >
                     <label class="form__label form__label--floating" for="upload-form-bdinfo">
                         BDInfo (quick summary)
@@ -555,7 +562,7 @@
                     />
                     <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                 </p>
-                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
+                @if (auth()->user()->group->is_modo || auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="internal" value="0" />
                         <input
@@ -601,7 +608,7 @@
                     </p>
                 @endif
 
-                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
+                @if (auth()->user()->group->is_modo || auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="refundable" value="0" />
                         <input
@@ -618,7 +625,7 @@
                     </p>
                 @endif
 
-                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
+                @if (auth()->user()->group->is_modo || auth()->user()->internals()->exists())
                     <p class="form__group">
                         <select name="free" id="free" class="form__select">
                             <option
@@ -654,7 +661,12 @@
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
             document.addEventListener('alpine:init', () => {
                 Alpine.data('torrentCreate', () => ({
-                    cat: {{ old('category_id', (int) $category_id) }},
+                    cat: {{
+                old(
+                    'category_id',
+                    (int) $category_id,
+                )
+            }},
                     cats: {{ Js::from($categories) }},
                     tmdb_movie_exists: true,
                     tmdb_tv_exists: true,
@@ -670,9 +682,7 @@
                     },
                     imdbInput: {
                         ['x-on:paste']() {
-                            matches = this.$event.clipboardData
-                                .getData('text')
-                                .match(/tt0*(\d{7,})/);
+                            matches = this.$event.clipboardData.getData('text').match(/tt0*(\d{7,})/);
 
                             if (matches !== null) {
                                 this.$el.value = Number(matches[1]);
@@ -707,14 +717,26 @@
                         x-on:click.prevent="copy"
                         href="{{ route('announce', ['passkey' => $user->passkey]) }}"
                     >
-                        {{ route('announce', ['passkey' => $user->passkey]) }}
+                        {{
+                            route('announce', [
+                                'passkey' => $user->passkey,
+                            ])
+                        }}
                     </a>
                 </p>
                 <p>
-                    {{ __('torrent.announce-url-desc', ['source' => config('torrent.source')]) }}
+                    {{
+                        __('torrent.announce-url-desc', [
+                            'source' => config('torrent.source'),
+                        ])
+                    }}
                 </p>
                 <a href="{{ config('other.upload-guide_url') }}">
-                    {{ __('torrent.announce-url-desc-url') }}
+                    {{
+                        __(
+                            'torrent.announce-url-desc-url',
+                        )
+                    }}
                 </a>
             </div>
         </section>

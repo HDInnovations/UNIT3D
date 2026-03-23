@@ -9,9 +9,7 @@
             {{ __('pm.messages') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('pm.inbox') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('pm.inbox') }}</li>
 @endsection
 
 @section('page', 'page__user-conversation--index')

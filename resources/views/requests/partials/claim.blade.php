@@ -1,14 +1,9 @@
 <li class="form__group form__group--short-horizontal" x-data="dialog">
-    <button
-        class="form__button form__button--outlined form__button--centered"
-        x-bind="showDialog"
-    >
+    <button class="form__button form__button--outlined form__button--centered" x-bind="showDialog">
         {{ __('request.claim') }}
     </button>
     <dialog class="dialog" x-bind="dialogElement">
-        <h3 class="dialog__heading">
-            {{ __('request.claim') }}
-        </h3>
+        <h3 class="dialog__heading">{{ __('request.claim') }}</h3>
         <form
             class="dialog__form"
             method="POST"

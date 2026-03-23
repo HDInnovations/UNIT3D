@@ -1,7 +1,4 @@
-@props([
-    'torrent',
-    'meta',
-])
+@props(['torrent', 'meta'])
 
 <article class="torrent-card">
     <header class="torrent-card__header">
@@ -9,7 +6,10 @@
             <span class="torrent-card__category">{{ $torrent->category->name }}</span>
             <span class="torrent-card__meta-separator">&bull;</span>
             <span class="torrent-card__resolution">
-                {{ $torrent->resolution->name ?? 'No res' }}
+                {{
+                    $torrent->resolution->name ??
+                        'No res'
+                }}
             </span>
             <span class="torrent-card__meta-separator"></span>
             <span class="torrent-card__type">{{ $torrent->type->name }}</span>
@@ -56,25 +56,21 @@
             <figure class="torrent-card__figure">
                 <img
                     class="torrent-card__image"
-                                @switch(true)
+                    @switch(true)
                         @case($torrent->category->movie_meta || $torrent->category->tv_meta)
                             src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
-                    
                             @break
                         @case($torrent->category->game_meta && isset($torrent->meta) && $meta->cover_image_id && $meta->name)
                             src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover_image_id }}.jpg"
-                    
                             @break
                         @case($torrent->category->music_meta)
                             src="https://via.placeholder.com/160x240"
-                    
                             @break
                         @case($torrent->category->no_meta && Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))
                             src="{{ route('authenticated_images.torrent_cover', ['id' => $torrent->id]) }}"
-                    
                             @break
-                    @endswitch
 
+                    @endswitch
                     alt="{{ __('torrent.similar') }}"
                 />
             </figure>
@@ -112,7 +108,11 @@
             </ul>
         </div>
         <p class="torrent-card__plot">
-            {{ Str::of($meta?->overview ?: $meta?->summary)->stripTags()->limit(350, '...') }}
+            {{
+                Str::of($meta?->overview ?: $meta?->summary)
+                    ->stripTags()
+                    ->limit(350, '...')
+            }}
         </p>
     </div>
     <footer class="torrent-card__footer">

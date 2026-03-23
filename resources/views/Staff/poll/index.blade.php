@@ -10,9 +10,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('poll.polls') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('poll.polls') }}</li>
 @endsection
 
 @section('page', 'page__staff-poll--index')
@@ -48,7 +46,12 @@
                                     datetime="{{ $poll->created_at }}"
                                     title="{{ $poll->created_at }}"
                                 >
-                                    {{ date('d M Y', $poll->created_at->getTimestamp()) }}
+                                    {{
+                                        date(
+                                            'd M Y',
+                                            $poll->created_at->getTimestamp(),
+                                        )
+                                    }}
                                 </time>
                             </td>
                             <td>

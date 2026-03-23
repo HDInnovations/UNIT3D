@@ -6,9 +6,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link">
-            {{ __('stat.stats') }}
-        </a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link"> {{ __('stat.stats') }} </a>
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('yearly_overviews.index') }}" class="breadcrumb__link">
@@ -40,11 +38,7 @@
             <div class="overview__opening">
                 <h1 class="overview__opening-heading">That's a wrap!</h1>
                 <h2 class="overview__opening-subheading">{{ $year }}</h2>
-                <p class="overview__opening-text">
-                    Another strong year here at {{ config('app.name') }}. To every user who made a
-                    contribution big or small please accept our sincere thanks. Now, without further
-                    ado, here's the best and worst of the year!
-                </p>
+                <p class="overview__opening-text">Another strong year here at {{ config('app.name') }}. To every user who made a contribution big or small please accept our sincere thanks. Now, without further ado, here's the best and worst of the year!</p>
             </div>
         </div>
     </section>

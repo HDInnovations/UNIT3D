@@ -9,9 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('staff.staff-dashboard') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.staff-dashboard') }}</li>
 @endsection
 
 @section('page', 'page__staff-dashboard--index')
@@ -46,8 +44,7 @@
                             href="{{ route('staff.backups.index') }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-hdd"></i>
-                            {{ __('backup.backup') }}
-                            {{ __('backup.manager') }}
+                            {{ __('backup.backup') }} {{ __('backup.manager') }}
                         </a>
                     </p>
                     <p class="form__group form__group--horizontal">
@@ -59,7 +56,6 @@
                             Commands
                         </a>
                     </p>
-
                     @if (config('donation.is_enabled'))
                         <p class="form__group form__group--horizontal">
                             <a
@@ -443,7 +439,7 @@
                     </p>
                 @endif
 
-                @if (! config('announce.external_tracker.is_enabled'))
+                @if (!config('announce.external_tracker.is_enabled'))
                     <div class="form__group form__group--horizontal">
                         <form
                             method="POST"
@@ -586,7 +582,11 @@
                         href="{{ route('staff.cheaters.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-question"></i>
-                        {{ __('staff.possible-leech-cheaters') }}
+                        {{
+                            __(
+                                'staff.possible-leech-cheaters',
+                            )
+                        }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -752,13 +752,21 @@
                 <div class="key-value__group">
                     <dt>Issued by</dt>
                     <dd>
-                        {{ ! is_string($certificate) ? $certificate->getIssuer() : 'No certificate info found' }}
+                        {{
+                            !is_string($certificate)
+                                ? $certificate->getIssuer()
+                                : 'No certificate info found'
+                        }}
                     </dd>
                 </div>
                 <div class="key-value__group">
                     <dt>Expires</dt>
                     <dd>
-                        {{ ! is_string($certificate) ? $certificate->expirationDate()->diffForHumans() : 'No certificate info found' }}
+                        {{
+                            !is_string($certificate)
+                                ? $certificate->expirationDate()->diffForHumans()
+                                : 'No certificate info found'
+                        }}
                     </dd>
                 </div>
             @else
@@ -980,9 +988,15 @@
                 <h2 class="panel__heading">External tracker stats</h2>
                 <dl class="key-value">
                     @php
-                        $createdAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['created_at']);
-                        $lastRequestAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['last_request_at']);
-                        $lastAnnounceResponseAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['last_announce_response_at']);
+                        $createdAt = \Illuminate\Support\Carbon::createFromTimestampUTC(
+                            $externalTrackerStats['created_at'],
+                        );
+                        $lastRequestAt = \Illuminate\Support\Carbon::createFromTimestampUTC(
+                            $externalTrackerStats['last_request_at'],
+                        );
+                        $lastAnnounceResponseAt = \Illuminate\Support\Carbon::createFromTimestampUTC(
+                            $externalTrackerStats['last_announce_response_at'],
+                        );
                     @endphp
 
                     <div class="key-value__group">
@@ -1032,10 +1046,24 @@
                             <tr>
                                 <td style="text-align: right">{{ $interval }}</td>
                                 <td style="text-align: right">
-                                    {{ \number_format($externalTrackerStats['requests_per_' . $interval . 's'], 0, null, "\u{202F}") }}
+                                    {{
+                                        \number_format(
+                                            $externalTrackerStats['requests_per_' . $interval . 's'],
+                                            0,
+                                            null,
+                                            "\u{202F}",
+                                        )
+                                    }}
                                 </td>
                                 <td style="text-align: right">
-                                    {{ \number_format($externalTrackerStats['announce_responses_per_' . $interval . 's'], 0, null, "\u{202F}") }}
+                                    {{
+                                        \number_format(
+                                            $externalTrackerStats['announce_responses_per_' . $interval . 's'],
+                                            0,
+                                            null,
+                                            "\u{202F}",
+                                        )
+                                    }}
                                 </td>
                             </tr>
                         @endforeach

@@ -7,7 +7,6 @@
                 @empty
                     No recommendations found!
                 @endforelse
-
                 @break
             @case($torrent->category->tv_meta)
                 @forelse ($meta->recommendedTv ?? [] as $tv)
@@ -15,7 +14,6 @@
                 @empty
                     No recommendations found!
                 @endforelse
-
                 @break
             @default
                 No recommendations Found!

@@ -33,7 +33,10 @@
     <p class="form__group">
         <label class="form__label" for="password_strength">
             Password strength:
-            <b>{{ $strengthLevels[$strengthScore] ?? 'Weak' }}</b>
+            <b>{{
+                $strengthLevels[$strengthScore] ??
+                    'Weak'
+            }}</b>
         </label>
         <meter
             id="password_strength"
@@ -42,7 +45,10 @@
             max="4"
             value="{{ $strengthScore }}"
         >
-            {{ $strengthLevels[$strengthScore] ?? 'Weak' }}
+            {{
+                $strengthLevels[$strengthScore] ??
+                    'Weak'
+            }}
         </meter>
     </p>
 </div>

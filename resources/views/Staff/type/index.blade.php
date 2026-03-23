@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.torrent-types') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.torrent-types') }}</li>
 @endsection
 
 @section('page', 'page__staff-type--index')

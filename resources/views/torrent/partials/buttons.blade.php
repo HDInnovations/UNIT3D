@@ -1,6 +1,6 @@
 <menu class="torrent__buttons form__group--short-horizontal">
     <li class="form__group form__group--short-horizontal">
-        @if ($fileExists = Storage::disk('torrent-files')->exists($torrent->file_name))
+        @if ($fileExists = Storage::disk('torrent-files')->exists( $torrent->file_name ))
             @if (config('torrent.download_check_page') == 1)
                 <a
                     class="form__button form__button--filled form__button--centered"
@@ -30,7 +30,11 @@
         @endif
     </li>
     @if ($fileExists && $torrent->status === \App\Enums\ModerationStatus::APPROVED)
-        @if ($torrent->free !== 100 && config('other.freeleech') == false && ! $personal_freeleech && $user->group->is_freeleech == 0 && ! $torrent->freeleechToken_exists)
+        @if ($torrent->free !== 100 &&
+            config('other.freeleech') == false &&
+            !$personal_freeleech &&
+            $user->group->is_freeleech == 0 &&
+            !$torrent->freeleechToken_exists)
             <li class="form__group form__group--short-horizontal">
                 <form
                     action="{{ route('freeleech_token', ['id' => $torrent->id]) }}"
@@ -82,7 +86,8 @@
         @endif
     @endif
 
-    @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED && config('other.thanks-system.is-enabled'))
+    @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED &&
+        config('other.thanks-system.is-enabled'))
         <li class="form__group form__group--short-horizontal">
             @livewire('thank-button', ['torrent' => $torrent])
         </li>
@@ -120,9 +125,7 @@
                 {{ __('torrent.leave-tip') }}
             </button>
             <dialog class="dialog" x-bind="dialogElement">
-                <h4 class="dialog__heading">
-                    {{ __('torrent.tip-jar') }}
-                </h4>
+                <h4 class="dialog__heading">{{ __('torrent.tip-jar') }}</h4>
                 <form
                     class="dialog__form"
                     method="POST"
@@ -132,7 +135,12 @@
                     @csrf
                     <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
                     <div>
-                        {{ __('torrent.torrent-tips', ['total' => $torrent->total_tips ?? 0, 'user' => $torrent->user_tips ?? 0]) }}.
+                        {{
+                            __('torrent.torrent-tips', [
+                                'total' => $torrent->total_tips ?? 0,
+                                'user' => $torrent->user_tips ?? 0,
+                            ])
+                        }}.
                         <span>({{ __('torrent.torrent-tips-desc') }})</span>
                     </div>
                     <div class="form__group">
@@ -180,14 +188,11 @@
         </button>
         <dialog class="dialog dialog--auto-width" x-bind="dialogElement">
             <header class="dialog__header">
-                <h4 class="dialog__heading">
-                    {{ __('common.files') }}
-                </h4>
+                <h4 class="dialog__heading">{{ __('common.files') }}</h4>
                 @if ($user->group->is_modo)
                     <div class="dialog__actions">
                         <div class="dialog__action">
-                            {{ __('torrent.info-hash') }}:
-                            {{ bin2hex($torrent->info_hash) }}
+                            {{ __('torrent.info-hash') }}: {{ bin2hex($torrent->info_hash) }}
                         </div>
                     </div>
                 @endif
@@ -221,7 +226,12 @@
                                 style="grid-area: size; white-space: nowrap; text-align: right"
                                 title="{{ $torrent->size }}&nbsp;B"
                             >
-                                {{ App\Helpers\StringHelper::formatBytes($torrent->size, 2) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $torrent->size,
+                                        2,
+                                    )
+                                }}
                             </span>
                         </span>
                     @endif
@@ -255,12 +265,13 @@
     </li>
     @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED)
         <li class="form__group form__group--short-horizontal">
-            @livewire('bookmark-button', [
-            'torrent' => $torrent,
-            'isBookmarked' => $torrent->bookmarks_exists,
-            'user' => auth()->user(),
-            'bookmarksCount' => $torrent->bookmarks_count ?? 0,
-        ])
+            @livewire('bookmark-button',
+                [
+                    'torrent' => $torrent,
+                    'isBookmarked' => $torrent->bookmarks_exists,
+                    'user' => auth()->user(),
+                    'bookmarksCount' => $torrent->bookmarks_count ?? 0
+                ])
         </li>
     @endif
 
@@ -311,10 +322,10 @@
     @endif
 
     @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED &&
-    $torrent->seeders <= 2 &&
-    $torrent->history->first() !== null &&
-    ! $torrent->history->first()->seeder &&
-    $torrent->history->first()->active)
+        $torrent->seeders <= 2 &&
+        $torrent->history->first() !== null &&
+        !$torrent->history->first()->seeder &&
+        $torrent->history->first()->active)
         <li class="form__group form__group--short-horizontal">
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"
@@ -333,10 +344,16 @@
     @if ($torrent->resurrections_exists && $torrent->status === \App\Enums\ModerationStatus::APPROVED)
         <li class="form__group form__group--short-horizontal">
             <button class="form__button form__button--outlined form__button--centered" disabled>
-                {{ strtolower(__('graveyard.pending')) }}
+                {{
+                    strtolower(
+                        __('graveyard.pending'),
+                    )
+                }}
             </button>
         </li>
-    @elseif ($torrent->seeders == 0 && $torrent->created_at->lt(\Illuminate\Support\Carbon::now()->subDays(30)) && $torrent->status === \App\Enums\ModerationStatus::APPROVED)
+    @elseif ($torrent->seeders == 0 &&
+        $torrent->created_at->lt(\Illuminate\Support\Carbon::now()->subDays(30)) &&
+        $torrent->status === \App\Enums\ModerationStatus::APPROVED)
         <li class="form__group form__group--short-horizontal" x-data="dialog">
             <button
                 class="form__button form__button--outlined form__button--centered"
@@ -360,8 +377,16 @@
                     <p>
                         {{
                             __('graveyard.howto-desc', [
-                                'currentSeedtime' => $torrent->history->first() === null ? '0' : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime),
-                                'requiredSeedtime' => $torrent->history->first() === null ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime + config('graveyard.time')),
+                                'currentSeedtime' =>
+                                    $torrent->history->first() === null
+                                        ? '0'
+                                        : App\Helpers\StringHelper::timeElapsed($torrent->history->first()->seedtime),
+                                'requiredSeedtime' =>
+                                    $torrent->history->first() === null
+                                        ? App\Helpers\StringHelper::timeElapsed(config('graveyard.time'))
+                                        : App\Helpers\StringHelper::timeElapsed(
+                                            $torrent->history->first()->seedtime + config('graveyard.time'),
+                                        ),
                                 'tokens' => config('graveyard.reward'),
                             ])
                         }}
@@ -394,8 +419,7 @@
             </button>
             <dialog class="dialog" x-bind="dialogElement">
                 <h4 class="dialog__heading">
-                    {{ __('common.report') }} {{ strtolower(__('torrent.torrent')) }}:
-                    {{ $torrent->name }}
+                    {{ __('common.report') }} {{ strtolower(__('torrent.torrent')) }}: {{ $torrent->name }}
                 </h4>
                 <form
                     class="dialog__form"
@@ -438,7 +462,7 @@
     @endif
 
     @if ($user->group->is_modo)
-        @if (! $torrent->trump_exists)
+        @if (!$torrent->trump_exists)
             <li x-data="dialog" class="form__group form__group--short-horizontal">
                 <button
                     class="form__button form__button--outlined form__button--centered"
@@ -449,8 +473,7 @@
                 </button>
                 <dialog class="dialog" x-bind="dialogElement">
                     <h4 class="dialog__heading">
-                        Trump {{ strtolower(__('torrent.torrent')) }}:
-                        {{ $torrent->name }}
+                        Trump {{ strtolower(__('torrent.torrent')) }}: {{ $torrent->name }}
                     </h4>
                     <form
                         class="dialog__form"

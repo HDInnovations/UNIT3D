@@ -227,7 +227,7 @@
                             <td
                                 @class([
                                     'user-active__seeders',
-                                    'torrent-activity-indicator--seeding' => $active->seeding,
+                                    'torrent-activity-indicator--seeding' => $active->seeding
                                 ])
                                 @if ($active->seeding)
                                     title="{{ __('torrent.currently-seeding') }}"
@@ -243,7 +243,7 @@
                             <td
                                 @class([
                                     'user-active__leechers',
-                                    'torrent-activity-indicator--leeching' => $active->leeching,
+                                    'torrent-activity-indicator--leeching' => $active->leeching
                                 ])
                                 @if ($active->leeching)
                                     title="{{ __('torrent.currently-leeching') }}"
@@ -265,13 +265,22 @@
                                 </a>
                             </td>
                             <td class="user-active__agent">
-                                {{ $active->agent ?: __('common.unknown') }}
+                                {{
+                                    $active->agent ?:
+                                        __('common.unknown')
+                                }}
                             </td>
                             <td class="user-active__ip">
-                                {{ $active->ip ?: __('common.unknown') }}
+                                {{
+                                    $active->ip ?:
+                                        __('common.unknown')
+                                }}
                             </td>
                             <td class="user-active__port">
-                                {{ $active->port ?: __('common.unknown') }}
+                                {{
+                                    $active->port ?:
+                                        __('common.unknown')
+                                }}
                             </td>
                             @if (\config('announce.connectable_check'))
                                 <td class="user-active__connectable">
@@ -279,8 +288,12 @@
                                         $connectable = null;
                                         if (config('announce.external_tracker.is_enabled')) {
                                             $connectable = $active->connectable;
-                                        } elseif (cache()->has('peers:connectable:' . $active->ip . '-' . $active->port . '-' . $active->agent)) {
-                                            $connectable = cache()->get('peers:connectable:' . $active->ip . '-' . $active->port . '-' . $active->agent);
+                                        } elseif (
+                                            cache()->has('peers:connectable:' . $active->ip . '-' . $active->port . '-' . $active->agent)
+                                        ) {
+                                            $connectable = cache()->get(
+                                                'peers:connectable:' . $active->ip . '-' . $active->port . '-' . $active->agent,
+                                            );
                                         }
                                     @endphp
 
@@ -321,22 +334,45 @@
                                 @endif
                             </td>
                             <td class="user-active__size">
-                                {{ App\Helpers\StringHelper::formatBytes($active->size) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $active->size,
+                                    )
+                                }}
                             </td>
                             <td class="user-active__uploaded text-green">
-                                {{ App\Helpers\StringHelper::formatBytes($active->uploaded, 2) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $active->uploaded,
+                                        2,
+                                    )
+                                }}
                             </td>
                             <td class="user-active__downloaded text-red">
-                                {{ App\Helpers\StringHelper::formatBytes($active->downloaded, 2) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $active->downloaded,
+                                        2,
+                                    )
+                                }}
                             </td>
                             <td class="user-active__left">
-                                {{ App\Helpers\StringHelper::formatBytes($active->left, 2) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $active->left,
+                                        2,
+                                    )
+                                }}
                             </td>
                             <td
                                 class="user-active__progress"
                                 title="{{ __('torrent.progress') }}: {{ $active->progress * 100 }}%"
                             >
-                                {{ $active->progress < 100 ? \floor($active->progress * 10000) / 100 : INF }}%
+                                {{
+                                    $active->progress < 100
+                                        ? \floor($active->progress * 10000) / 100
+                                        : INF
+                                }}%
                             </td>
                             @if ($showMorePrecision)
                                 <td class="user-active__created-at">
@@ -361,7 +397,11 @@
                                         datetime="{{ $active->created_at }}"
                                         title="{{ $active->created_at }}"
                                     >
-                                        {{ isset($active->created_at) ? \explode(' ', $active->created_at)[0] : 'N/A' }}
+                                        {{
+                                            isset($active->created_at)
+                                                ? \explode(' ', $active->created_at)[0]
+                                                : 'N/A'
+                                        }}
                                     </time>
                                 </td>
                                 <td class="user-active__updated-at">
@@ -369,7 +409,11 @@
                                         datetime="{{ $active->updated_at }}"
                                         title="{{ $active->updated_at }}"
                                     >
-                                        {{ isset($active->updated_at) ? \explode(' ', $active->updated_at)[0] : 'N/A' }}
+                                        {{
+                                            isset($active->updated_at)
+                                                ? \explode(' ', $active->updated_at)[0]
+                                                : 'N/A'
+                                        }}
                                     </time>
                                 </td>
                             @endif
@@ -378,6 +422,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $actives->links('partials.pagination') }}
+        {{
+            $actives->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 </div>

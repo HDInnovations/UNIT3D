@@ -6,9 +6,7 @@
             {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $playlist->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $playlist->name }}</li>
 @endsection
 
 @section('page', 'page__playlist--show')
@@ -27,9 +25,7 @@
                         {{ __('playlist.add-torrent') }}
                     </button>
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h4 class="dialog__heading">
-                            {{ __('playlist.add-to-playlist') }}
-                        </h4>
+                        <h4 class="dialog__heading">{{ __('playlist.add-to-playlist') }}</h4>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -53,8 +49,7 @@
                                     name="torrent_urls"
                                     type="text"
                                     required
-                                >
-{{ old('torrent_urls') }}</textarea
+                                    >{{ old('torrent_urls') }}</textarea
                                 >
                                 <label class="form__label form__label--floating" for="torrent_urls">
                                     Torrent IDs/URLs (one per line)
@@ -114,9 +109,7 @@
                         {{ __('playlist.suggest-torrent') }}
                     </button>
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h4 class="dialog__heading">
-                            {{ __('playlist.suggest-torrent') }}
-                        </h4>
+                        <h4 class="dialog__heading">{{ __('playlist.suggest-torrent') }}</h4>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -147,8 +140,7 @@
                                     name="message"
                                     type="text"
                                     required
-                                >
-{{ old('message') }}</textarea
+                                    >{{ old('message') }}</textarea
                                 >
                                 <label
                                     class="form__label form__label--floating"
@@ -175,7 +167,6 @@
             @endif
         </div>
     </section>
-
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.download') }}</h2>
         <div class="panel__body">
@@ -313,7 +304,11 @@
                 </div>
             @endforeach
         </div>
-        {{ $torrents->links('partials.pagination') }}
+        {{
+            $torrents->links(
+                'partials.pagination',
+            )
+        }}
     </section>
     <section class="panelV2" id="playlist_suggestions">
         <h2 class="panel__heading">Suggestions</h2>
@@ -380,9 +375,7 @@
                                         </button>
                                         <dialog class="dialog" x-bind="dialogElement">
                                             <h3 class="dialog__heading">
-                                                {{ __('common.moderation-reject') }}
-                                                {{ __('torrent.torrent') }}:
-                                                {{ $torrent->name }}
+                                                {{ __('common.moderation-reject') }} {{ __('torrent.torrent') }}: {{ $torrent->name }}
                                             </h3>
                                             <form
                                                 class="dialog__form"
@@ -403,8 +396,7 @@
                                                         class="form__textarea"
                                                         name="rejection_message"
                                                         required
-                                                    >
-{{ old('rejection_message') }}</textarea
+                                                        >{{ old('rejection_message') }}</textarea
                                                     >
                                                     <label
                                                         for="rejection_message{{ $playlistSuggestion->id }}"
@@ -450,6 +442,5 @@
             </tbody>
         </table>
     </section>
-
     <livewire:comments :model="$playlist" />
 @endsection

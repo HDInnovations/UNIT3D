@@ -58,7 +58,9 @@
                     @endif
 
                     @if ($paginator instanceof \Illuminate\Pagination\LengthAwarePaginator)
-                        @for ($page = max(2, $paginator->currentPage() - 3); $page <= min($paginator->currentPage() + 3, $paginator->lastPage() - 1); $page++)
+                        @for ($page = max(2, $paginator->currentPage() - 3);
+                            $page <= min($paginator->currentPage() + 3, $paginator->lastPage() - 1);
+                            $page++)
                             @if ($page === $paginator->currentPage())
                                 <li class="pagination__current">{{ $page }}</li>
                             @else
@@ -74,7 +76,6 @@
                                 </li>
                             @endif
                         @endfor
-
                         @if ($paginator->currentPage() + 3 < $paginator->lastPage() - 1)
                             @if ($paginator->currentPage() + 4 === $paginator->lastPage() - 1)
                                 <li>
@@ -91,7 +92,6 @@
                                 <li class="pagination__ellipsis">&middot;&middot;&middot;</li>
                             @endif
                         @endif
-
                         @if ($paginator->hasMorePages())
                             <li>
                                 <a
@@ -124,7 +124,6 @@
                                 </li>
                             @endif
                         @endfor
-
                         @if ($paginator->hasMorePages())
                             <li>
                                 <a

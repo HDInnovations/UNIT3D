@@ -11,18 +11,14 @@
             {{ __('common.media-languages') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-media-language--create')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.add') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('common.add') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.media_languages.store') }}">
                 @csrf

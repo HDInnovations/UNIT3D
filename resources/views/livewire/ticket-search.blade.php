@@ -94,16 +94,14 @@
                 </tr>
                 @forelse ($tickets as $ticket)
                     <tr>
-                        <td>
-                            {{ $ticket->id }}
-                        </td>
+                        <td>{{ $ticket->id }}</td>
                         <td>
                             <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">
                                 {{ $ticket->subject }}
                             </a>
                             @if ((auth()->user()->group->is_modo &&
-                                (($ticket->staff_id === auth()->id() && $ticket->staff_read === false) ||
-                                    ($ticket->staff_id === null && $ticket->closed_at === null))) ||
+                                    (($ticket->staff_id === auth()->id() && $ticket->staff_read === false) ||
+                                        ($ticket->staff_id === null && $ticket->closed_at === null))) ||
                                 ($ticket->user_id === auth()->id() && $ticket->user_read === false))
                                 <i
                                     style="color: #0dffff; vertical-align: 1px"
@@ -149,7 +147,10 @@
                                 datetime="{{ $ticket->closed_at }}"
                                 title="{{ $ticket->closed_at }}"
                             >
-                                {{ $ticket->closed_at?->diffForHumans() ?? 'N/A' }}
+                                {{
+                                    $ticket->closed_at?->diffForHumans() ??
+                                        'N/A'
+                                }}
                             </time>
                         </td>
                         <td>
@@ -175,6 +176,10 @@
                 @endforelse
             </tbody>
         </table>
-        {{ $tickets->links('partials.pagination') }}
+        {{
+            $tickets->links(
+                'partials.pagination',
+            )
+        }}
     </div>
 </section>

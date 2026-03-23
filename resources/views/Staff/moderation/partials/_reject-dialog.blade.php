@@ -5,8 +5,7 @@
     </button>
     <dialog class="dialog" x-bind="dialogElement">
         <h3 class="dialog__heading">
-            {{ __('common.moderation-reject') }} {{ __('torrent.torrent') }}:
-            {{ $torrent->name }}
+            {{ __('common.moderation-reject') }} {{ __('torrent.torrent') }}: {{ $torrent->name }}
         </h3>
         <form
             class="dialog__form"
@@ -24,8 +23,11 @@
                 value="{{ \App\Enums\ModerationStatus::REJECTED }}"
             />
             <p class="form__group">
-                <textarea id="message" class="form__textarea" name="message">
-{{ old('message') }}</textarea
+                <textarea
+                    id="message"
+                    class="form__textarea"
+                    name="message"
+                    >{{ old('message') }}</textarea
                 >
                 <label for="message" class="form__label form__label__floating">
                     Rejection message

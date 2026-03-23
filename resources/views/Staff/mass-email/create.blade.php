@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('staff.mass-email') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('staff.mass-email') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -20,9 +19,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.mass-email') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.mass-email') }}</li>
 @endsection
 
 @section('page', 'page__staff-mass-email--create')
@@ -72,7 +69,8 @@
                         {{ __('common.subject') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'message', 'label' => __('common.message'), 'required' => true])
+                @livewire('bbcode-input',
+                    ['name' => 'message', 'label' => __('common.message'), 'required' => true])
                 <p class="form__group">
                     <button
                         x-on:click.prevent="confirmAction"

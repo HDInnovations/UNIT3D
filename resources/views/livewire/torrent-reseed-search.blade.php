@@ -107,12 +107,13 @@
                                     class="torrent__times-completed-count"
                                     href="{{ route('history', ['id' => $torrentReseed->torrent->id]) }}"
                                 >
-                                    {{ $torrentReseed->torrent->times_completed }}
+                                    {{
+                                        $torrentReseed->torrent
+                                            ->times_completed
+                                    }}
                                 </a>
                             </td>
-                            <td>
-                                {{ $torrentReseed->requests_count }}
-                            </td>
+                            <td>{{ $torrentReseed->requests_count }}</td>
                             <td>
                                 <time
                                     datetime="{{ $torrentReseed->created_at }}"
@@ -144,6 +145,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $torrentReseeds->links('partials.pagination') }}
+        {{
+            $torrentReseeds->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 </div>

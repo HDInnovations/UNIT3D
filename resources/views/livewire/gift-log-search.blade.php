@@ -123,5 +123,9 @@
             </tbody>
         </table>
     </div>
-    {{ $gifts->links('partials.pagination') }}
+    {{
+        $gifts->links(
+            'partials.pagination',
+        )
+    }}
 </section>

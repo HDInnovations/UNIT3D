@@ -86,7 +86,10 @@
                                 datetime="{{ $rsskey->deleted_at }}"
                                 title="{{ $rsskey->deleted_at }}"
                             >
-                                {{ $rsskey->deleted_at ?? 'Currently in use' }}
+                                {{
+                                    $rsskey->deleted_at ??
+                                        'Currently in use'
+                                }}
                             </time>
                         </td>
                     </tr>
@@ -98,5 +101,9 @@
             </tbody>
         </table>
     </div>
-    {{ $rsskeys->links('partials.pagination') }}
+    {{
+        $rsskeys->links(
+            'partials.pagination',
+        )
+    }}
 </section>

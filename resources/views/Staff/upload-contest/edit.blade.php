@@ -11,12 +11,8 @@
             {{ __('common.upload') }} {{ __('common.contests') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $uploadContest->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $uploadContest->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-upload-contest--edit')
@@ -46,8 +42,12 @@
                 </label>
             </p>
             <p class="form__group">
-                <textarea id="description" class="form__textarea" name="description" required>
-{{ $uploadContest->description }}</textarea
+                <textarea
+                    id="description"
+                    class="form__textarea"
+                    name="description"
+                    required
+                    >{{ $uploadContest->description }}</textarea
                 >
                 <label class="form__label form__label--floating" for="description">
                     {{ __('common.description') }}
@@ -216,12 +216,11 @@
                                 @switch($prize->type)
                                     @case('bon')
                                         {{ __('bon.bon') }}
-
                                         @break
                                     @case('fl_tokens')
                                         {{ __('common.fl_tokens') }}
-
                                         @break
+
                                 @endswitch
                             </td>
                             <td>{{ $prize->amount }}</td>

@@ -9,9 +9,7 @@
             {{ __('pm.messages') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $conversation->subject }}
-    </li>
+    <li class="breadcrumb--active">{{ $conversation->subject }}</li>
 @endsection
 
 @section('page', 'page__user-conversation--show')
@@ -40,11 +38,10 @@
             </div>
         </section>
     @endforeach
-
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('pm.reply') }}</h2>
         <div class="panel__body">
-            @if ($conversation->users->contains(fn ($user) => $user->id === \App\Models\User::SYSTEM_USER_ID))
+            @if ($conversation->users->contains( fn($user) => $user->id === \App\Models\User::SYSTEM_USER_ID ))
                 You can not reply to the system user.
             @else
                 <form

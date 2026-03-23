@@ -1,8 +1,5 @@
 <div class="form__group form__group--short-horizontal" x-data="dialog">
-    <button
-        class="form__button form__button--outlined form__button--centered"
-        x-bind="showDialog"
-    >
+    <button class="form__button form__button--outlined form__button--centered" x-bind="showDialog">
         {{ __('common.report') }}
     </button>
     <dialog class="dialog" x-bind="dialogElement">

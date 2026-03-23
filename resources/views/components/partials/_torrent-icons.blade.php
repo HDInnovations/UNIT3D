@@ -32,7 +32,12 @@
     @endif
 
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || auth()->user()->is_donor || config('other.freeleech')
+        $alwaysFreeleech =
+            $personalFreeleech ||
+            $torrent->freeleech_tokens_exists ||
+            auth()->user()->group->is_freeleech ||
+            auth()->user()->is_donor ||
+            config('other.freeleech');
     @endphp
 
     @if ($torrent->featured)
@@ -66,8 +71,8 @@
                 @class([
                     'torrent-icons__freeleech ' . config('other.font-awesome'),
                     'fa-star' => $alwaysFreeleech || (90 <= $torrent->free && $torrent->fl_until === null),
-                    'fa-star-half' => ! $alwaysFreeleech && $torrent->free < 90 && $torrent->fl_until === null,
-                    'fa-calendar-star' => ! $alwaysFreeleech && $torrent->fl_until !== null,
+                    'fa-star-half' => !$alwaysFreeleech && $torrent->free < 90 && $torrent->fl_until === null,
+                    'fa-calendar-star' => !$alwaysFreeleech && $torrent->fl_until !== null
                 ])
                 title="{{
                     implode(
@@ -87,7 +92,6 @@
                 }}"
             ></i>
         @endif
-
         @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
             <i
                 class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"
@@ -130,7 +134,8 @@
         ></i>
     @endif
 
-    @if ($torrent->bumped_at?->notEqualTo($torrent->created_at) && $torrent->bumped_at?->isBefore(now()->addDay(2)))
+    @if ($torrent->bumped_at?->notEqualTo($torrent->created_at) &&
+        $torrent->bumped_at?->isBefore(now()->addDay(2)))
         <i
             class="{{ config('other.font-awesome') }} fa-level-up-alt torrent-icons__bumped"
             title="{{ __('torrent.recent-bumped') }}: {{ $torrent->bumped_at }}"

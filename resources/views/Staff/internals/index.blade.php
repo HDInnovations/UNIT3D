@@ -83,7 +83,6 @@
             </table>
         </div>
     </section>
-
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.internal') }} {{ __('common.stats') }}</h2>
         <div class="data-table-wrapper">
@@ -106,7 +105,13 @@
                             <td>
                                 <x-user-tag :anon="false" :user="$user" />
                             </td>
-                            <td>{{ $user->internals->pluck('name')->implode(', ') }}</td>
+                            <td>
+                                {{
+                                    $user->internals
+                                        ->pluck('name')
+                                        ->implode(', ')
+                                }}
+                            </td>
                             <td>{{ $user->total_uploads }}</td>
                             <td>{{ $user->recent_uploads }}</td>
                             <td>{{ $user->total_personal_releases }}</td>

@@ -82,10 +82,8 @@
                 :anon="$comment->anon"
                 :user="$comment->user"
             ></x-user-tag>
-            @if (! $comment->anon && ! empty($comment->user->title))
-                <p class="comment__author-title">
-                    {{ $comment->user->title }}
-                </p>
+            @if (!$comment->anon && !empty($comment->user->title))
+                <p class="comment__author-title">{{ $comment->user->title }}</p>
             @endif
         </aside>
         @if ($isEditing)

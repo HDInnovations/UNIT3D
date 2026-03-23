@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -25,12 +24,8 @@
             {{ __('staff.forums') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $forumCategory->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $forumCategory->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-forum-category--edit')
@@ -74,8 +69,12 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <textarea id="description" name="description" class="form__textarea" required>
-{{ $forumCategory->description }}</textarea
+                    <textarea
+                        id="description"
+                        name="description"
+                        class="form__textarea"
+                        required
+                        >{{ $forumCategory->description }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
                         Description

@@ -32,11 +32,7 @@
                         <li class="auth-form__important-info" x-show="tab === 'totp'">
                             {{ __('auth.enter-totp') }}
                         </li>
-                        <li
-                            class="auth-form__important-info"
-                            x-cloak
-                            x-show="tab === 'recovery'"
-                        >
+                        <li class="auth-form__important-info" x-cloak x-show="tab === 'recovery'">
                             {{ __('auth.enter-recovery') }}
                         </li>
                         @if (Session::has('warning'))
@@ -58,9 +54,7 @@
                         @endif
                     </ul>
                     <p class="auth-form__text-input-group" x-show="tab === 'totp'">
-                        <label class="auth-form__label" for="code">
-                            {{ __('auth.code') }}
-                        </label>
+                        <label class="auth-form__label" for="code"> {{ __('auth.code') }} </label>
                         <input
                             id="code"
                             class="auth-form__text-input"

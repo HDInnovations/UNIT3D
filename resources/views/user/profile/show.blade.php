@@ -1,9 +1,7 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    <title>
-        {{ $user->username }} - {{ __('common.members') }} - {{ config('other.title') }}
-    </title>
+    <title>{{ $user->username }} - {{ __('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -14,9 +12,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ $user->username }}
-    </li>
+    <li class="breadcrumb--active">{{ $user->username }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -142,15 +138,14 @@
                                     title="{{ __('user.active-warning') }}"
                                 ></i>
                             @endif
-                        </x-slot>
+                        </x-slot:appendedIcons>
                     </x-user-tag>
                     <time
                         datetime="{{ $user->created_at }}"
                         title="{{ $user->created_at }}"
                         class="profile__registration"
                     >
-                        {{ __('user.registration-date') }}:
-                        {{ $user->created_at?->format('Y-m-d') ?? 'N/A' }}
+                        {{ __('user.registration-date') }}: {{ $user->created_at?->format('Y-m-d') ?? 'N/A' }}
                     </time>
                     <img
                         src="{{ $user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $user]) }}"
@@ -189,14 +184,13 @@
                 </div>
             </section>
         @endif
-
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_follower'))
             <section class="panelV2">
                 <header class="panel__header">
                     <h2 class="panel__heading">{{ __('user.recent-followers') }}</h2>
                     @if (auth()->id() !== $user->id)
                         <div class="panel__actions">
-                            @if ($user->followers()->where('users.id', '=', auth()->id())->exists())
+                            @if ($user ->followers() ->where('users.id', '=', auth()->id()) ->exists())
                                 <form
                                     action="{{ route('users.followers.destroy', ['user' => $user]) }}"
                                     method="POST"
@@ -244,7 +238,6 @@
                 </div>
             </section>
         @endif
-
         @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.client-list') }}</h2>
@@ -285,7 +278,10 @@
                                             datetime="{{ $client->created_at }}"
                                             title="{{ $client->created_at }}"
                                         >
-                                            {{ $client->created_at?->diffForHumans() ?? 'N/A' }}
+                                            {{
+                                                $client->created_at?->diffForHumans() ??
+                                                    'N/A'
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -293,7 +289,10 @@
                                             datetime="{{ $client->updated_at }}"
                                             title="{{ $client->updated_at }}"
                                         >
-                                            {{ $client->updated_at?->diffForHumans() ?? 'N/A' }}
+                                            {{
+                                                $client->updated_at?->diffForHumans() ??
+                                                    'N/A'
+                                            }}
                                         </time>
                                     </td>
                                     <td>
@@ -304,18 +303,25 @@
                                         </a>
                                     </td>
                                     <td>
-                                        {{ App\Helpers\StringHelper::formatBytes($client->size) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $client->size,
+                                            )
+                                        }}
                                     </td>
                                     @if (\config('announce.connectable_check') == true)
                                         @php
                                             $connectable = false;
                                             if (config('announce.external_tracker.is_enabled')) {
                                                 $connectable = $client->connectable;
-                                            } elseif (cache()->has('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent)) {
-                                                $connectable = cache()->get('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent);
+                                            } elseif (
+                                                cache()->has('peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent)
+                                            ) {
+                                                $connectable = cache()->get(
+                                                    'peers:connectable:' . $client->ip . '-' . $client->port . '-' . $client->agent,
+                                                );
                                             }
                                         @endphp
-
                                         <td>
                                             @choice('user.client-connectable-state', $connectable)
                                         </td>
@@ -346,7 +352,6 @@
                 </div>
             </section>
         @endif
-
         @if (auth()->user()->group->is_modo)
             @livewire('user-notes', ['user' => $user])
             @if ($user->application !== null)
@@ -378,15 +383,12 @@
                                     @switch($user->application->status)
                                         @case(\App\Enums\ModerationStatus::PENDING)
                                             <span class="application--pending">Pending</span>
-
                                             @break
                                         @case(\App\Enums\ModerationStatus::APPROVED)
                                             <span class="application--approved">Approved</span>
-
                                             @break
                                         @case(\App\Enums\ModerationStatus::REJECTED)
                                             <span class="application--rejected">Rejected</span>
-
                                             @break
                                         @default
                                             <span class="application--unknown">Unknown</span>
@@ -410,8 +412,7 @@
                 </section>
             @endif
         @endif
-
-        @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
+        @if (auth()->user()->group->is_modo || auth()->user()->is($user))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('ticket.helpdesk') }}</h2>
                 <div class="data-table-wrapper">
@@ -450,15 +451,12 @@
                 </div>
             </section>
         @endif
-
         @if (auth()->user()->group->is_modo)
             @include('user.profile.partials.bans', ['bans' => $user->bans])
         @endif
-
-        @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
+        @if (auth()->user()->group->is_modo || auth()->user()->is($user))
             <livewire:user-warnings :user="$user" />
         @endif
-
         @if (auth()->user()->group->is_modo)
             <section class="panelV2">
                 <header class="panel__header">
@@ -466,10 +464,7 @@
                     <div class="panel__actions">
                         @if ($watch === null)
                             <div class="panel__action" x-data="dialog">
-                                <button
-                                    class="form__button form__button--text"
-                                    x-bind="showDialog"
-                                >
+                                <button class="form__button form__button--text" x-bind="showDialog">
                                     Watch
                                 </button>
                                 <dialog class="dialog" x-bind="dialogElement">
@@ -588,9 +583,8 @@
             </section>
         @endif
     @endsection
-
     @section('sidebar')
-        @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
+        @if (auth()->user()->group->is_modo || auth()->user()->is($user))
             <section class="panelV2">
                 <h2 class="panel__heading">Donations</h2>
                 <dl class="key-value">
@@ -602,9 +596,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -616,23 +608,17 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Latest donation amount</dt>
-                        <dd>
-                            {{ $donation->package->cost ?? 'N/A' }}
-                        </dd>
+                        <dd>{{ $donation->package->cost ?? 'N/A' }}</dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Latest donation date</dt>
-                        <dd>
-                            {{ $donation->starts_at ?? 'N/A' }}
-                        </dd>
+                        <dd>{{ $donation->starts_at ?? 'N/A' }}</dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Donation expire date</dt>
@@ -648,7 +634,6 @@
                 </dl>
             </section>
         @endif
-
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_warning'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('common.warnings') }}</h2>
@@ -664,7 +649,6 @@
                 </dl>
             </section>
         @endif
-
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_seed'))
             <section class="panelV2">
                 <h2 class="panel__heading">Seed {{ __('user.statistics') }}</h2>
@@ -678,7 +662,11 @@
                             </abbr>
                         </dt>
                         <dd>
-                            {{ App\Helpers\StringHelper::timeElapsed($history->seedtime_sum ?? 0) }}
+                            {{
+                                App\Helpers\StringHelper::timeElapsed(
+                                    $history->seedtime_sum ?? 0,
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
@@ -691,7 +679,11 @@
                         </dt>
 
                         <dd>
-                            {{ App\Helpers\StringHelper::timeElapsed(($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}
+                            {{
+                                App\Helpers\StringHelper::timeElapsed(
+                                    ($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0),
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
@@ -703,14 +695,18 @@
                             </abbr>
                         </dt>
                         <dd>
-                            {{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size'), 2) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $user->seedingTorrents()->sum('size'),
+                                    2,
+                                )
+                            }}
                         </dd>
                     </div>
                 </dl>
             </section>
         @endif
-
-        @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_count'))
+        @if (auth() ->user() ->isAllowed($user, 'profile', 'show_profile_torrent_count'))
             @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
                 <section class="panelV2">
                     <h2 class="panel__heading">Torrent count</h2>
@@ -718,8 +714,7 @@
                         <div class="key-value__group">
                             <dt>
                                 <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
-                                    {{ __('user.total-uploads') }}
-                                    (Non-{{ __('common.anonymous') }})
+                                    {{ __('user.total-uploads') }} (Non-{{ __('common.anonymous') }})
                                 </a>
                             </dt>
                             <dd>{{ $user->non_anon_uploads_count ?? 0 }}</dd>
@@ -808,8 +803,7 @@
                 </section>
             @endif
         @endif
-
-        @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_ratio'))
+        @if (auth() ->user() ->isAllowed($user, 'profile', 'show_profile_torrent_ratio'))
             <section class="panelV2">
                 <h2 class="panel__heading">Traffic {{ __('torrent.statistics') }}</h2>
                 <dl class="key-value">
@@ -820,7 +814,11 @@
                     <div class="key-value__group">
                         <dt>Real {{ __('common.ratio') }}</dt>
                         <dd>
-                            {{ $history->download_sum ? round(($history->upload_sum ?? 0) / $history->download_sum, 2) : "\u{221E}" }}
+                            {{
+                                $history->download_sum
+                                    ? round(($history->upload_sum ?? 0) / $history->download_sum, 2)
+                                    : "\u{221E}"
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
@@ -838,50 +836,78 @@
                     <div class="key-value__group">
                         <dt>{{ __('torrent.torrent') }} {{ __('common.upload') }}</dt>
                         <dd>
-                            {{ App\Helpers\StringHelper::formatBytes($history->upload_sum ?? 0, 2) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $history->upload_sum ?? 0,
+                                    2,
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.upload') }}
-                            ({{ __('torrent.credited') }})
+                            {{ __('torrent.torrent') }} {{ __('common.upload') }} ({{ __('torrent.credited') }})
                         </dt>
                         <dd>
-                            {{ App\Helpers\StringHelper::formatBytes($history->credited_upload_sum ?? 0, 2) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $history->credited_upload_sum ?? 0,
+                                    2,
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('torrent.torrent') }} {{ __('common.download') }}</dt>
                         <dd>
-                            {{ App\Helpers\StringHelper::formatBytes($history->download_sum ?? 0, 2) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $history->download_sum ?? 0,
+                                    2,
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.download') }}
-                            ({{ __('torrent.credited') }})
+                            {{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.credited') }})
                         </dt>
                         <dd>
-                            {{ App\Helpers\StringHelper::formatBytes($history->credited_download_sum ?? 0, 2) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $history->credited_download_sum ?? 0,
+                                    2,
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.download') }}
-                            ({{ __('torrent.refunded') }})
+                            {{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.refunded') }})
                         </dt>
                         <dd>
-                            {{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum ?? 0, 2) }}
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $history->refunded_download_sum ?? 0,
+                                    2,
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('bon.bon') }} {{ __('common.upload') }}</dt>
-                        <dd>{{ App\Helpers\StringHelper::formatBytes($boughtUpload, 2) }}</dd>
+                        <dd>
+                            {{
+                                App\Helpers\StringHelper::formatBytes(
+                                    $boughtUpload,
+                                    2,
+                                )
+                            }}
+                        </dd>
                     </div>
                 </dl>
             </section>
         @endif
-
         @if (config('announce.external_tracker.is_enabled') && auth()->user()->group->is_modo)
             @if ($externalUser === true)
                 <section class="panelV2">
@@ -935,7 +961,11 @@
                         <div class="key-value__group">
                             <dt>{{ __('user.can-download') }}</dt>
                             <dd>
-                                {{ $externalUser['can_download'] ? __('common.yes') : __('common.no') }}
+                                {{
+                                    $externalUser['can_download']
+                                        ? __('common.yes')
+                                        : __('common.no')
+                                }}
                             </dd>
                         </div>
                         <div class="key-value__group">
@@ -961,12 +991,26 @@
                                         <td
                                             title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
                                         >
-                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
+                                            {{
+                                                \number_format(
+                                                    $rate['count'],
+                                                    2,
+                                                    null,
+                                                    "\u{202F}",
+                                                )
+                                            }}
                                         </td>
                                         <td>{{ $rate['window'] }}</td>
                                         <td>{{ $rate['max_count'] }}</td>
                                         <td>
-                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
+                                            {{
+                                                \number_format(
+                                                    (3600 * $rate['count']) / $rate['window'],
+                                                    1,
+                                                    null,
+                                                    "\u{202F}",
+                                                )
+                                            }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -987,12 +1031,26 @@
                                         <td
                                             title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
                                         >
-                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
+                                            {{
+                                                \number_format(
+                                                    $rate['count'],
+                                                    2,
+                                                    null,
+                                                    "\u{202F}",
+                                                )
+                                            }}
                                         </td>
                                         <td>{{ $rate['window'] }}</td>
                                         <td>{{ $rate['max_count'] }}</td>
                                         <td>
-                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
+                                            {{
+                                                \number_format(
+                                                    (3600 * $rate['count']) / $rate['window'],
+                                                    1,
+                                                    null,
+                                                    "\u{202F}",
+                                                )
+                                            }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -1002,12 +1060,9 @@
                 </section>
             @endif
         @endif
-
         @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
-                <h2 class="panel__heading">
-                    {{ __('user.id-permissions') }}
-                </h2>
+                <h2 class="panel__heading">{{ __('user.id-permissions') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
                         <dt>{{ __('user.invited-by') }}</dt>
@@ -1105,9 +1160,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1119,9 +1172,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1133,9 +1184,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1147,9 +1196,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1161,9 +1208,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1175,9 +1220,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1192,7 +1235,6 @@
                 </dl>
             </section>
         @endif
-
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_bon_extra'))
             <section class="panelV2">
                 <header class="panel__header">
@@ -1200,10 +1242,7 @@
                     @if (auth()->user()->isNot($user))
                         <div class="panel__actions">
                             <div class="panel__action" x-data="dialog">
-                                <button
-                                    class="form__button form__button--text"
-                                    x-bind="showDialog"
-                                >
+                                <button class="form__button form__button--text" x-bind="showDialog">
                                     Gift BON
                                 </button>
                                 <dialog class="dialog" x-bind="dialogElement">
@@ -1284,44 +1323,85 @@
                     <div class="key-value__group">
                         <dt>{{ __('user.tips-received') }}</dt>
                         <dd>
-                            {{ \number_format($user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
+                            {{
+                                \number_format(
+                                    $user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'),
+                                    0,
+                                    null,
+                                    "\u{202F}",
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.tips-given') }}</dt>
                         <dd>
-                            {{ \number_format($user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
+                            {{
+                                \number_format(
+                                    $user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'),
+                                    0,
+                                    null,
+                                    "\u{202F}",
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.gift-received') }}</dt>
                         <dd>
-                            {{ \number_format($user->receivedGifts()->sum('bon'), 0, null, "\u{202F}") }}
+                            {{
+                                \number_format(
+                                    $user->receivedGifts()->sum('bon'),
+                                    0,
+                                    null,
+                                    "\u{202F}",
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.gift-given') }}</dt>
                         <dd>
-                            {{ \number_format($user->sentGifts()->sum('bon'), 0, null, "\u{202F}") }}
+                            {{
+                                \number_format(
+                                    $user->sentGifts()->sum('bon'),
+                                    0,
+                                    null,
+                                    "\u{202F}",
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.bounty-received') }}</dt>
                         <dd>
-                            {{ \number_format($user->filledRequests()->sum('bounty'), 0, null, "\u{202F}") }}
+                            {{
+                                \number_format(
+                                    $user->filledRequests()->sum('bounty'),
+                                    0,
+                                    null,
+                                    "\u{202F}",
+                                )
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.bounty-given') }}</dt>
                         <dd>
-                            {{ \number_format($user->requestBounty()->sum('seedbonus'), 0, null, "\u{202F}") }}
+                            {{
+                                \number_format(
+                                    $user->requestBounty()->sum('seedbonus'),
+                                    0,
+                                    null,
+                                    "\u{202F}",
+                                )
+                            }}
                         </dd>
                     </div>
                 </dl>
             </section>
         @endif
-
-        @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_extra'))
+        @if (auth() ->user() ->isAllowed($user, 'profile', 'show_profile_torrent_extra'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.torrents') }}</h2>
                 <dl class="key-value">
@@ -1347,33 +1427,46 @@
                 </dl>
             </section>
         @endif
-
-        @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_comment_extra'))
+        @if (auth() ->user() ->isAllowed($user, 'profile', 'show_profile_comment_extra'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.comments') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
                         <dt>{{ __('user.article-comments') }}</dt>
                         <dd>
-                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\Article::class])->count() }}
+                            {{
+                                $user
+                                    ->comments()
+                                    ->whereHasMorph('commentable', [App\Models\Article::class])
+                                    ->count()
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.torrent-comments') }}</dt>
                         <dd>
-                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\Torrent::class])->count() }}
+                            {{
+                                $user
+                                    ->comments()
+                                    ->whereHasMorph('commentable', [App\Models\Torrent::class])
+                                    ->count()
+                            }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.request-comments') }}</dt>
                         <dd>
-                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\TorrentRequest::class])->count() }}
+                            {{
+                                $user
+                                    ->comments()
+                                    ->whereHasMorph('commentable', [App\Models\TorrentRequest::class])
+                                    ->count()
+                            }}
                         </dd>
                     </div>
                 </dl>
             </section>
         @endif
-
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_forum_extra'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.forums') }}</h2>
@@ -1397,8 +1490,7 @@
                 </dl>
             </section>
         @endif
-
-        @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_request_extra'))
+        @if (auth() ->user() ->isAllowed($user, 'profile', 'show_profile_request_extra'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.requests') }}</h2>
                 <dl class="key-value">

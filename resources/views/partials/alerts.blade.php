@@ -1,9 +1,11 @@
-@if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
+@if (config('other.freeleech') == true ||
+    config('other.invite-only') == false ||
+    config('other.doubleup') == true)
     <section class="alert special-event-alert" x-data="timer()" x-init="start()">
         <div class="alert__content">
             <strong>
                 @if (config('other.freeleech') == true)
-                        🌐 {{ __('common.freeleech_activated') }} 🌐
+                    🌐 {{ __('common.freeleech_activated') }} 🌐
                 @endif
 
                 @if (config('other.invite-only') == false)
@@ -11,7 +13,7 @@
                 @endif
 
                 @if (config('other.doubleup') == true)
-                        🌐 {{ __('common.doubleup_activated') }} 🌐
+                    🌐 {{ __('common.doubleup_activated') }} 🌐
                 @endif
             </strong>
             <div>

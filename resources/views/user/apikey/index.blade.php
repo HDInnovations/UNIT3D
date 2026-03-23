@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,9 +20,7 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.apikeys') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.apikeys') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -62,7 +59,10 @@
                                     datetime="{{ $apikey->deleted_at }}"
                                     title="{{ $apikey->deleted_at }}"
                                 >
-                                    {{ $apikey->deleted_at ?? 'Currently in use' }}
+                                    {{
+                                        $apikey->deleted_at ??
+                                            'Currently in use'
+                                    }}
                                 </time>
                             </td>
                             <td>

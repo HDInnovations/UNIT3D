@@ -6,13 +6,9 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link">
-            {{ __('stat.stats') }}
-        </a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link"> {{ __('stat.stats') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.users') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.users') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -44,7 +40,11 @@
                                 />
                             </td>
                             <td>
-                                {{ \App\Helpers\StringHelper::formatBytes($user->seedsize ?? 0) }}
+                                {{
+                                    \App\Helpers\StringHelper::formatBytes(
+                                        $user->seedsize ?? 0,
+                                    )
+                                }}
                             </td>
                         </tr>
                     @endforeach

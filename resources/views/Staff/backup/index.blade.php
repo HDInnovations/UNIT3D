@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }}
-        - {{ config('other.title') }}
+        {{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 

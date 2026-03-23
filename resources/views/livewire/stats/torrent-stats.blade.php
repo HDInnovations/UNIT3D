@@ -33,7 +33,14 @@
         </div>
         <div class="key-value__group">
             <dt>{{ __('stat.total-torrents') }} {{ __('torrent.size') }}</dt>
-            <dd>{{ App\Helpers\StringHelper::formatBytes($torrent_size, 2) }}</dd>
+            <dd>
+                {{
+                    App\Helpers\StringHelper::formatBytes(
+                        $torrent_size,
+                        2,
+                    )
+                }}
+            </dd>
         </div>
     </dl>
 </section>

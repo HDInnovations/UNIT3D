@@ -10,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.following') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.following') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -80,7 +78,11 @@
                     </tbody>
                 </table>
             </div>
-            {{ $followings->links('partials.pagination') }}
+            {{
+                $followings->links(
+                    'partials.pagination',
+                )
+            }}
         </section>
     @else
         <section class="panelV2">

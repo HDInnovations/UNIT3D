@@ -2,8 +2,11 @@
 
 @section('title')
     <title>
-        {{ $user->username }} {{ __('user.unregistered-info-hashes') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} {{
+            __(
+                'user.unregistered-info-hashes',
+            )
+        }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -14,7 +17,11 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('user.unregistered-info-hashes') }}
+        {{
+            __(
+                'user.unregistered-info-hashes',
+            )
+        }}
     </li>
 @endsection
 

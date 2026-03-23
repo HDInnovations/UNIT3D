@@ -86,7 +86,10 @@
                                 datetime="{{ $passkey->deleted_at }}"
                                 title="{{ $passkey->deleted_at }}"
                             >
-                                {{ $passkey->deleted_at ?? 'Currently in use' }}
+                                {{
+                                    $passkey->deleted_at ??
+                                        'Currently in use'
+                                }}
                             </time>
                         </td>
                     </tr>
@@ -98,5 +101,9 @@
             </tbody>
         </table>
     </div>
-    {{ $passkeys->links('partials.pagination') }}
+    {{
+        $passkeys->links(
+            'partials.pagination',
+        )
+    }}
 </section>

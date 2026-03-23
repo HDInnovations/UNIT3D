@@ -1,9 +1,7 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('common.blacklist') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.blacklist') }}</li>
 @endsection
 
 @section('page', 'page__blacklist--index')
@@ -34,7 +32,11 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
-            {{ __('page.blacklist-desc', ['title' => config('other.title')]) }}
+            {{
+                __('page.blacklist-desc', [
+                    'title' => config('other.title'),
+                ])
+            }}
         </div>
     </section>
 @endsection

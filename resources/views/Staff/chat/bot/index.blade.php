@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.bots') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.bots') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -76,7 +74,7 @@
                             </td>
                             <td>
                                 <div class="data-table__actions">
-                                    @if (! $bot->is_systembot)
+                                    @if (!$bot->is_systembot)
                                         @if ($bot->active)
                                             <li class="data-table__action">
                                                 <form
@@ -120,7 +118,7 @@
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            @if (! $bot->is_protected)
+                                            @if (!$bot->is_protected)
                                                 <button class="form__button form__button--text">
                                                     {{ __('common.delete') }}
                                                 </button>

@@ -12,7 +12,7 @@
             @include('partials.top-nav')
             <nav class="secondary-nav">
                 <ol class="breadcrumbsV2">
-                    @if (! Route::is('home.index'))
+                    @if (!Route::is('home.index'))
                         <li class="breadcrumbV2">
                             <a class="breadcrumb__link" href="{{ route('home.index') }}">
                                 <i class="{{ config('other.font-awesome') }} fa-home"></i>
@@ -50,7 +50,9 @@
 
         @vite('resources/js/app.js')
 
-        @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
+        @if (config('other.freeleech') == true ||
+            config('other.invite-only') == false ||
+            config('other.doubleup') == true)
             <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
                 function timer() {
                     return {
@@ -68,20 +70,14 @@
                                 this.now = new Date().getTime();
                                 this.distance = this.promoTime - this.now;
                                 // Set times
-                                this.days = this.padNum(
-                                    Math.floor(this.distance / (1000 * 60 * 60 * 24)),
-                                );
+                                this.days = this.padNum(Math.floor(this.distance / (1000 * 60 * 60 * 24)));
                                 this.hours = this.padNum(
-                                    Math.floor(
-                                        (this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                                    ),
+                                    Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
                                 );
                                 this.minutes = this.padNum(
                                     Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60)),
                                 );
-                                this.seconds = this.padNum(
-                                    Math.floor((this.distance % (1000 * 60)) / 1000),
-                                );
+                                this.seconds = this.padNum(Math.floor((this.distance % (1000 * 60)) / 1000));
                                 // Stop
                                 if (this.distance < 0) {
                                     clearInterval(this.countdown);

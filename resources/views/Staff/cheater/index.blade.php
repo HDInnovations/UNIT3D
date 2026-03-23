@@ -20,7 +20,11 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('staff.possible-leech-cheaters') }}
+        {{
+            __(
+                'staff.possible-leech-cheaters',
+            )
+        }}
     </li>
 @endsection
 
@@ -65,6 +69,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $cheaters->links('partials.pagination') }}
+        {{
+            $cheaters->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 @endsection

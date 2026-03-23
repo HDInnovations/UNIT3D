@@ -168,10 +168,7 @@
                             @foreach ($torrentDownloads as $torrentDownload)
                                 <tr>
                                     <td>
-                                        <x-user-tag
-                                            :user="$torrentDownload->user"
-                                            :anon="false"
-                                        />
+                                        <x-user-tag :user="$torrentDownload->user" :anon="false" />
                                     </td>
                                     <td>{{ $torrentDownload->download_count }}</td>
                                     <td>{{ $torrentDownload->distinct_torrent_count }}</td>
@@ -195,7 +192,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">
@@ -232,21 +228,26 @@
                                 <tr>
                                     <td>{{ $torrentDownload->id }}</td>
                                     <td>
-                                        <x-user-tag
-                                            :user="$torrentDownload->user"
-                                            :anon="false"
-                                        />
+                                        <x-user-tag :user="$torrentDownload->user" :anon="false" />
                                     </td>
-                                    <td>{{ $torrentDownload->torrent?->id ?? 'Not found' }}</td>
+                                    <td>
+                                        {{
+                                            $torrentDownload->torrent?->id ??
+                                                'Not found'
+                                        }}
+                                    </td>
                                     <td>
                                         @if ($torrentDownload->torrent !== null)
                                             <a
                                                 href="{{ route('torrents.show', ['id' => $torrentDownload->torrent->id]) }}"
                                             >
-                                                {{ $torrentDownload->torrent->name ?? 'Not found' }}
+                                                {{
+                                                    $torrentDownload->torrent->name ??
+                                                        'Not found'
+                                                }}
                                             </a>
                                         @else
-                                                Not found
+                                            Not found
                                         @endif
                                     </td>
                                     <td>{{ $torrentDownload->type }}</td>
@@ -264,6 +265,10 @@
                     </table>
             @endswitch
         </div>
-        {{ $torrentDownloads->links('partials.pagination') }}
+        {{
+            $torrentDownloads->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 </div>

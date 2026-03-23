@@ -25,7 +25,9 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="ternaryCheckMark($wire.entangle('personalRelease').live)"
+                                    x-data="
+                                        ternaryCheckMark($wire.entangle('personalRelease').live)
+                                    "
                                 >
                                     <input
                                         type="checkbox"
@@ -233,12 +235,16 @@
                                 </a>
                             </td>
                             <td class="user-uploads__size">
-                                {{ App\Helpers\StringHelper::formatBytes($torrent->size) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $torrent->size,
+                                    )
+                                }}
                             </td>
                             <td
                                 @class([
                                     'user-uploads__seeders',
-                                    'torrent-activity-indicator--seeding' => $torrent->seeding,
+                                    'torrent-activity-indicator--seeding' => $torrent->seeding
                                 ])
                                 @if ($torrent->seeding)
                                     title="{{ __('torrent.currently-seeding') }}"
@@ -254,7 +260,7 @@
                             <td
                                 @class([
                                     'user-uploads__leechers',
-                                    'torrent-activity-indicator--leeching' => $torrent->leeching,
+                                    'torrent-activity-indicator--leeching' => $torrent->leeching
                                 ])
                                 @if ($torrent->leeching)
                                     title="{{ __('torrent.currently-leeching') }}"
@@ -270,7 +276,7 @@
                             <td
                                 @class([
                                     'user-uploads__times',
-                                    'torrent-activity-indicator--completed' => $torrent->completed,
+                                    'torrent-activity-indicator--completed' => $torrent->completed
                                 ])
                                 @if ($torrent->completed)
                                     title="{{ __('torrent.completed') }}"
@@ -283,9 +289,7 @@
                                     {{ $torrent->times_completed }}
                                 </a>
                             </td>
-                            <td class="user-uploads__tips">
-                                {{ $torrent->tips_sum_bon ?? 0 }}
-                            </td>
+                            <td class="user-uploads__tips">{{ $torrent->tips_sum_bon ?? 0 }}</td>
                             @if (config('other.thanks-system.is-enabled'))
                                 <td class="user-uploads__thanks">
                                     {{ $torrent->thanks_count ?? 0 }}
@@ -303,7 +307,11 @@
                                     @if ($showMorePrecision)
                                         {{ $torrent->created_at ?? 'N/A' }}
                                     @else
-                                        {{ $torrent->created_at === null ? 'N/A' : \explode(' ', $torrent->created_at)[0] }}
+                                        {{
+                                            $torrent->created_at === null
+                                                ? 'N/A'
+                                                : \explode(' ', $torrent->created_at)[0]
+                                        }}
                                     @endif
                                 </time>
                             </td>
@@ -327,29 +335,26 @@
                                             title="{{ __('torrent.pending') }}"
                                             class="{{ config('other.font-awesome') }} fa-tasks text-orange"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::APPROVED)
                                         <span
                                             title="{{ __('torrent.approved') }}"
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::REJECTED)
                                         <span
                                             title="{{ __('torrent.rejected') }}"
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
                                             title="Postponed"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
-
                                         @break
+
                                 @endswitch
                             </td>
                         </tr>
@@ -357,6 +362,10 @@
                 </tbody>
             </table>
         </div>
-        {{ $uploads->links('partials.pagination') }}
+        {{
+            $uploads->links(
+                'partials.pagination',
+            )
+        }}
     </section>
 </div>

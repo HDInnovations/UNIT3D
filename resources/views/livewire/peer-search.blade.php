@@ -343,9 +343,7 @@
                                 <x-user-tag :user="$peer->user" :anon="false" />
                             </td>
                             @if ($groupBy !== 'none')
-                                <td style="text-align: right">
-                                    {{ $peer->peer_count }}
-                                </td>
+                                <td style="text-align: right">{{ $peer->peer_count }}</td>
                             @endif
 
                             @if ($groupBy === 'none')
@@ -357,48 +355,71 @@
                                     </a>
                                 </td>
                             @else
-                                <td style="text-align: right">
-                                    {{ $peer->torrent_id }}
-                                </td>
+                                <td style="text-align: right">{{ $peer->torrent_id }}</td>
                             @endif
 
                             @if ($groupBy === 'none' || $groupBy === 'user_session')
                                 <td>{{ $peer->agent }}</td>
                             @else
-                                <td style="text-align: right">
-                                    {{ $peer->agent }}
-                                </td>
+                                <td style="text-align: right">{{ $peer->agent }}</td>
                             @endif
+                            <td style="text-align: right">{{ $peer->ip }}</td>
+                            <td style="text-align: right">{{ $peer->port }}</td>
                             <td style="text-align: right">
-                                {{ $peer->ip }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $peer->uploaded,
+                                        2,
+                                    )
+                                }}
                             </td>
                             <td style="text-align: right">
-                                {{ $peer->port }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $peer->downloaded,
+                                        2,
+                                    )
+                                }}
                             </td>
                             <td style="text-align: right">
-                                {{ App\Helpers\StringHelper::formatBytes($peer->uploaded, 2) }}
-                            </td>
-                            <td style="text-align: right">
-                                {{ App\Helpers\StringHelper::formatBytes($peer->downloaded, 2) }}
-                            </td>
-                            <td style="text-align: right">
-                                {{ App\Helpers\StringHelper::formatBytes($peer->left, 2) }}
+                                {{
+                                    App\Helpers\StringHelper::formatBytes(
+                                        $peer->left,
+                                        2,
+                                    )
+                                }}
                             </td>
                             @if ($groupBy === 'none')
                                 <td style="text-align: right">
-                                    {{ App\Helpers\StringHelper::formatBytes($peer->torrent->size ?? 0) }}
+                                    {{
+                                        App\Helpers\StringHelper::formatBytes(
+                                            $peer->torrent->size ?? 0,
+                                        )
+                                    }}
                                 </td>
                             @else
                                 @if ($includeSeedsize)
                                     <td style="text-align: right">
-                                        {{ App\Helpers\StringHelper::formatBytes($peer->size ?? 0) }}
+                                        {{
+                                            App\Helpers\StringHelper::formatBytes(
+                                                $peer->size ?? 0,
+                                            )
+                                        }}
                                     </td>
                                     @if (\config('announce.connectable_check'))
                                         <td style="text-align: right">
-                                            {{ App\Helpers\StringHelper::formatBytes($peer->connectable_size ?? 0) }}
+                                            {{
+                                                App\Helpers\StringHelper::formatBytes(
+                                                    $peer->connectable_size ?? 0,
+                                                )
+                                            }}
                                         </td>
                                         <td style="text-align: right">
-                                            {{ App\Helpers\StringHelper::formatBytes($peer->unconnectable_size ?? 0) }}
+                                            {{
+                                                App\Helpers\StringHelper::formatBytes(
+                                                    $peer->unconnectable_size ?? 0,
+                                                )
+                                            }}
                                         </td>
                                     @endif
                                 @endif
@@ -452,7 +473,10 @@
                                     datetime="{{ $peer->created_at }}"
                                     title="{{ $peer->created_at }}"
                                 >
-                                    {{ $peer->created_at?->diffForHumans() ?? 'N/A' }}
+                                    {{
+                                        $peer->created_at?->diffForHumans() ??
+                                            'N/A'
+                                    }}
                                 </time>
                             </td>
                             <td style="text-align: right">
@@ -460,14 +484,21 @@
                                     datetime="{{ $peer->updated_at }}"
                                     title="{{ $peer->updated_at }}"
                                 >
-                                    {{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}
+                                    {{
+                                        $peer->updated_at?->diffForHumans() ??
+                                            'N/A'
+                                    }}
                                 </time>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            {{ $peers->links('partials.pagination') }}
+            {{
+                $peers->links(
+                    'partials.pagination',
+                )
+            }}
         </div>
     </section>
 </div>

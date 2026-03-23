@@ -89,7 +89,11 @@
                         </p>
                         <p class="auth-form__textarea-group">
                             <label for="referrer" class="auth-form__label">
-                                {{ __('auth.appl-reason', ['sitename' => config('other.title')]) }}
+                                {{
+                                    __('auth.appl-reason', [
+                                        'sitename' => config('other.title'),
+                                    ])
+                                }}
                             </label>
                             <textarea
                                 id="referrer"
@@ -158,7 +162,6 @@
                         @if (config('captcha.enabled'))
                             @hiddencaptcha
                         @endif
-
                         <button class="auth-form__primary-button">{{ __('auth.apply') }}</button>
                         @if (Session::has('errors'))
                             <ul class="auth-form__errors">

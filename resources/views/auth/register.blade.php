@@ -4,19 +4,19 @@
         <meta charset="UTF-8" />
         <title>{{ __('auth.signup') }} - {{ config('other.title') }}</title>
         @section('meta')
-        <meta
-            name="description"
-            content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="{{ __('auth.login') }}" />
-        <meta property="og:site_name" content="{{ config('other.title') }}" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="{{ url('/img/og.png') }}" />
-        <meta property="og:description" content="{{ config('unit3d.powered-by') }}" />
-        <meta property="og:url" content="{{ url('/') }}" />
-        <meta property="og:locale" content="{{ config('app.locale') }}" />
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
+            <meta
+                name="description"
+                content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}"
+            />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta property="og:title" content="{{ __('auth.login') }}" />
+            <meta property="og:site_name" content="{{ config('other.title') }}" />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content="{{ url('/img/og.png') }}" />
+            <meta property="og:description" content="{{ config('unit3d.powered-by') }}" />
+            <meta property="og:url" content="{{ url('/') }}" />
+            <meta property="og:locale" content="{{ config('app.locale') }}" />
+            <meta name="csrf-token" content="{{ csrf_token() }}" />
         @show
         <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
         <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
@@ -35,9 +35,12 @@
                         <i class="fal fa-tv-retro"></i>
                         <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
                     </a>
-                    @if ((config('other.invite-only') && ! request()->has('code')) || Session::has('warning') || Session::has('success') || Session::has('info'))
+                    @if ((config('other.invite-only') && !request()->has('code')) ||
+                        Session::has('warning') ||
+                        Session::has('success') ||
+                        Session::has('info'))
                         <ul class="auth-form__important-infos">
-                            @if (config('other.invite-only') && ! request()->has('code'))
+                            @if (config('other.invite-only') && !request()->has('code'))
                                 <li class="auth-form__important-info">
                                     {{ __('auth.need-invite') }}
                                 </li>
@@ -120,7 +123,6 @@
                         @if (config('captcha.enabled'))
                             @hiddencaptcha
                         @endif
-
                         <button class="auth-form__primary-button">{{ __('auth.signup') }}</button>
                         @if (Session::has('errors'))
                             <ul class="auth-form__errors">

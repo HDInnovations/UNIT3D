@@ -2,7 +2,11 @@
     <div>
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('mediahub.persons') }}</h2>
-            {{ $persons->links('partials.pagination') }}
+            {{
+                $persons->links(
+                    'partials.pagination',
+                )
+            }}
             <div
                 class="panel__body"
                 style="
@@ -16,7 +20,10 @@
                         <a href="{{ route('mediahub.persons.show', ['id' => $person->id]) }}">
                             @if ($person->still === null)
                                 <div class="person--no-still">
-                                    {{ $person->name[0] ?? '' }}{{ str($person->name)->explode(' ')->last()[0] ?? '' }}
+                                    {{ $person->name[0] ?? '' }}{{
+                                        str($person->name)->explode(' ')->last()[0] ??
+                                            ''
+                                    }}
                                 </div>
                             @else
                                 <img
@@ -32,7 +39,11 @@
                     No persons.
                 @endforelse
             </div>
-            {{ $persons->links('partials.pagination') }}
+            {{
+                $persons->links(
+                    'partials.pagination',
+                )
+            }}
         </section>
     </div>
     <aside>
@@ -65,8 +76,7 @@
                             <option hidden disabled selected value=""></option>
                             @foreach ($firstCharacters as $firstCharacter)
                                 <option class="form__option" value="{{ $firstCharacter->alpha }}">
-                                    {{ $firstCharacter->alpha }}
-                                    ({{ $firstCharacter->count }})
+                                    {{ $firstCharacter->alpha }} ({{ $firstCharacter->count }})
                                 </option>
                             @endforeach
                         </select>
@@ -78,7 +88,11 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.category') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @foreach (App\Models\Occupation::query()->select(['id', 'name'])->orderBy('position')->get() as $occupation)
+                                @foreach (App\Models\Occupation::query()
+                                        ->select(['id', 'name'])
+                                        ->orderBy('position')
+                                        ->get()
+                                    as $occupation)
                                     <p class="form__group">
                                         <label class="form__label">
                                             <input

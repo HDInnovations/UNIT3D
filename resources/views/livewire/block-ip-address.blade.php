@@ -158,7 +158,11 @@
             </tbody>
         </table>
     </div>
-    {{ $ipAddresses->links('partials.pagination') }}
+    {{
+        $ipAddresses->links(
+            'partials.pagination',
+        )
+    }}
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {
             Alpine.data('blockedIp', () => ({

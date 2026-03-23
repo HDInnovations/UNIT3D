@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,9 +20,7 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.rsskeys') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.rsskeys') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -62,7 +59,10 @@
                                     datetime="{{ $rsskey->deleted_at }}"
                                     title="{{ $rsskey->deleted_at }}"
                                 >
-                                    {{ $rsskey->deleted_at ?? 'Currently in use' }}
+                                    {{
+                                        $rsskey->deleted_at ??
+                                            'Currently in use'
+                                    }}
                                 </time>
                             </td>
                             <td>

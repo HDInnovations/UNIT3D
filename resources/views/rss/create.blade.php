@@ -6,13 +6,9 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('rss.index') }}" class="breadcrumb__link">
-            {{ __('rss.rss') }}
-        </a>
+        <a href="{{ route('rss.index') }}" class="breadcrumb__link"> {{ __('rss.rss') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__rss--create')

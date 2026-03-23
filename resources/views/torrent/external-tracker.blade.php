@@ -21,9 +21,7 @@
             {{ $torrent?->name ?? 'Not found' }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.peers') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -96,18 +94,26 @@
                                             <x-user-tag
                                                 :user="$user"
                                                 :anon="
-                                                    $user->privacy?->hidden
-                                                    || $user->privacy?->show_peer === 0
-                                                    || ($user->id == $torrent->user->id && $torrent->anon == 1)
+                                                    $user->privacy?->hidden ||
+        $user->privacy?->show_peer === 0 ||
+        ($user->id == $torrent->user->id && $torrent->anon == 1)
                                                 "
                                             />
                                         @endif
                                     @else
-                                            User not found
+                                        User not found
                                     @endif
                                 </td>
                                 <td>
-                                    {{ implode('', array_map(fn ($char) => ctype_print($char) ? $char : '\x' . bin2hex($char), str_split($peer['peer_id']))) }}
+                                    {{
+                                        implode(
+                                            '',
+                                            array_map(
+                                                fn($char) => ctype_print($char) ? $char : '\x' . bin2hex($char),
+                                                str_split($peer['peer_id']),
+                                            ),
+                                        )
+                                    }}
                                 </td>
                                 <td>
                                     @if ($torrent === null)
@@ -116,7 +122,6 @@
                                         @php
                                             $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size;
                                         @endphp
-
                                         @if (0 < $progress && $progress < 1)
                                             1%
                                         @elseif (99 < $progress && $progress < 100)
@@ -127,13 +132,28 @@
                                     @endif
                                 </td>
                                 <td class="text-green">
-                                    {{ \App\Helpers\StringHelper::formatBytes($peer['uploaded'] ?? 0, 2) }}
+                                    {{
+                                        \App\Helpers\StringHelper::formatBytes(
+                                            $peer['uploaded'] ?? 0,
+                                            2,
+                                        )
+                                    }}
                                 </td>
                                 <td class="text-red">
-                                    {{ \App\Helpers\StringHelper::formatBytes($peer['downloaded'] ?? 0, 2) }}
+                                    {{
+                                        \App\Helpers\StringHelper::formatBytes(
+                                            $peer['downloaded'] ?? 0,
+                                            2,
+                                        )
+                                    }}
                                 </td>
                                 <td>
-                                    {{ \App\Helpers\StringHelper::formatBytes($peer['left'] ?? 0, 2) }}
+                                    {{
+                                        \App\Helpers\StringHelper::formatBytes(
+                                            $peer['left'] ?? 0,
+                                            2,
+                                        )
+                                    }}
                                 </td>
 
                                 @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
@@ -149,7 +169,11 @@
                                     @endphp
 
                                     <time datetime="{{ $updatedAt }}" title="{{ $updatedAt }}">
-                                        {{ $updatedAt ? $updatedAt->diffForHumans() : 'N/A' }}
+                                        {{
+                                            $updatedAt
+                                                ? $updatedAt->diffForHumans()
+                                                : 'N/A'
+                                        }}
                                     </time>
                                 </td>
                                 <td
@@ -162,7 +186,7 @@
                                             {{ __('torrent.leecher') }}
                                         @endif
                                     @else
-                                            Inactive
+                                        Inactive
                                     @endif
                                 </td>
                                 <td class="{{ $peer['is_visible'] ? 'text-green' : 'text-red' }}">
@@ -196,11 +220,23 @@
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('torrent.completed-times') }}</dt>
-                        <dd>{{ $externalTorrent['times_completed'] }}</dd>
+                        <dd>
+                            {{
+                                $externalTorrent[
+                                    'times_completed'
+                                ]
+                            }}
+                        </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Download factor</dt>
-                        <dd>{{ $externalTorrent['download_factor'] }}</dd>
+                        <dd>
+                            {{
+                                $externalTorrent[
+                                    'download_factor'
+                                ]
+                            }}
+                        </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Upload factor</dt>
@@ -209,7 +245,11 @@
                     <div class="key-value__group">
                         <dt>Deleted</dt>
                         <dd>
-                            {{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}
+                            {{
+                                $externalTorrent['is_deleted']
+                                    ? __('common.yes')
+                                    : __('common.no')
+                            }}
                         </dd>
                     </div>
                 </dl>
