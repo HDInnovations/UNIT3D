@@ -74,7 +74,6 @@
                         name="category_id"
                         x-model="cat"
                         x-ref="catId"
-                        x-bind="categorySelect"
                     >
                         <option value="{{ old('category_id') ?? $torrent->category_id }}" selected>
                             {{ $torrent->category->name }} ({{ __('torrent.current') }})
@@ -96,7 +95,6 @@
                         name="type_id"
                         x-model="type"
                         x-ref="typeId"
-                        x-bind="typeSelect"
                     >
                         <option value="{{ old('type_id') ?? $torrent->type->id }}" selected>
                             {{ $torrent->type->name }} ({{ __('torrent.current') }})
@@ -613,16 +611,6 @@
                         {{ Js::from(old('anime_exists_on_mal', $torrent->mal) !== null) }},
                     igdb_game_exists:
                         {{ Js::from(old('game_exists_on_igdb', $torrent->igdb) !== null) }},
-                    typeSelect: {
-                        ['x-on:change']() {
-                            this.types[this.type].name = this.types[this.$event.target.value].name;
-                        },
-                    },
-                    categorySelect: {
-                        ['x-on:change']() {
-                            this.cats[this.cat].type = this.cats[this.$event.target.value].type;
-                        },
-                    },
                 }));
             });
         </script>

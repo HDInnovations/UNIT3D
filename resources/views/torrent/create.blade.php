@@ -127,7 +127,6 @@
                         class="form__select"
                         required
                         x-model="cat"
-                        x-bind="categorySelect"
                     >
                         <option hidden selected disabled value=""></option>
                         @foreach ($categories as $id => $category)
@@ -678,11 +677,6 @@
                                 this.$el.value = Number(matches[1]);
                                 this.$event.preventDefault();
                             }
-                        },
-                    },
-                    categorySelect: {
-                        ['x-on:change']() {
-                            this.cats[this.cat].type = this.cats[this.$event.target.value].type;
                         },
                     },
                 }));
