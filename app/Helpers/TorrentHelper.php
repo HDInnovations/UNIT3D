@@ -56,11 +56,13 @@ class TorrentHelper
 
         if (!$torrent->free) {
             $autoFreeleeches = AutomaticTorrentFreeleech::query()
-                ->orderBy('position')
                 ->where(fn ($query) => $query->whereNull('category_id')->orWhere('category_id', '=', $torrent->category_id))
                 ->where(fn ($query) => $query->whereNull('type_id')->orWhere('type_id', '=', $torrent->type_id))
                 ->where(fn ($query) => $query->whereNull('resolution_id')->orWhere('resolution_id', '=', $torrent->resolution_id))
-                ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<', $torrent->size))
+                ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<=', $torrent->size))
+                ->orderByRaw('name_regex IS NULL')  // regex rules first
+                ->orderByDesc('position')           // then regex priority
+                ->orderByDesc('size')               // then size tiers
                 ->get();
 
             foreach ($autoFreeleeches as $autoFreeleech) {
