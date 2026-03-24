@@ -38,6 +38,7 @@
     color: var(--secondary-nav-tab-fg);
     background-color: var(--secondary-nav-tab-bg);
     font-size: 14px;
+    line-height: 24px;
     border: none;
     text-align: left;
     cursor: pointer;
@@ -148,6 +149,7 @@
     text-decoration: var(--breadcrumb-inactive-text-decoration);
     color: var(--breadcrumb-fg);
     cursor: pointer;
+    line-height: 24px;
 
     &:hover {
         color: var(--breadcrumb-hover-fg);
