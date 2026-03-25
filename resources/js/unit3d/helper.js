@@ -203,8 +203,8 @@ class uploadExtensionBuilder {
 
             /* PARSING */
             release = title_parser.parse(name.value, {
-                strict: true, // if no main tags found, will throw an exception
-                flagged: true, // add flags to generated relese name (like STV, REMASTERED, READNFO)
+                strict: false, // if no main tags found, will throw an exception
+                flagged: true, // add flags to generated release name (like STV, REMASTERED, READNFO)
                 erase: [], // add expressions to erase before parsing
                 defaults: {
                     language: 'ENGLISH',

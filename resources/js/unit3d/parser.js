@@ -435,7 +435,8 @@ function parse(name, options = { strict: false, flagged: true, erase: [], defaul
         .filter((property) => release[property]).length;
 
     if (options.strict && !valid) {
-        throw new Error('"' + release.original + '" does\'t follow scene release naming rules');
+        const message = '"' + release.original + '" doesn\'t follow scene release naming rules';
+        window.dispatchEvent(new CustomEvent('alertError', { detail: { message } }));
     }
 
     return release;
