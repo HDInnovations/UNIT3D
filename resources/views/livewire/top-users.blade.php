@@ -40,6 +40,7 @@
                                     class="user-stat-card__avatar"
                                     alt=""
                                     src="{{ url('img/profile.png') }}"
+                                    loading="lazy"
                                 />
                             @else
                                 <img

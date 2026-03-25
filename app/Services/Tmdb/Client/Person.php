@@ -90,7 +90,7 @@ class Person
             'still'                => $this->tmdb->image('profile', $this->data),
             'adult'                => $this->data['adult'] ?? null,
             'imdb_id'              => $this->data['imdb_id'] ?? null,
-            'homepage'             => $this->data['homepage'] ?? null,
+            'homepage'             => $this->data['homepage'] === null || \strlen($this->data['homepage']) > 255 ? null : $this->data['homepage'],
         ];
     }
 }

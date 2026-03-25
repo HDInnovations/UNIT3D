@@ -1010,7 +1010,11 @@
                 </h2>
                 <dl class="key-value">
                     <div class="key-value__group">
-                        <dt>{{ __('user.invited-by') }}</dt>
+                        <dt>
+                            <a href="{{ route('users.invite_tree.index', ['user' => $user]) }}">
+                                {{ __('user.invited-by') }}
+                            </a>
+                        </dt>
                         <dd>
                             @if ($invitedBy)
                                 <x-user-tag :user="$invitedBy->sender" :anon="false" />

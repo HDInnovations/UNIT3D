@@ -336,9 +336,9 @@
                             <i class="{{ config('other.font-awesome') }} fa-coins"></i>
                             @include('livewire.includes._sort-icon', ['field' => 'bounty'])
                         </th>
-                        <th wire:click="sortBy('created_at')" role="columnheader button">
+                        <th wire:click="sortBy('bumped_at')" role="columnheader button">
                             {{ __('common.created_at') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            @include('livewire.includes._sort-icon', ['field' => 'bumped_at'])
                         </th>
                         <th>{{ __('common.status') }}</th>
                     </tr>
@@ -367,10 +367,10 @@
                             <td>{{ number_format($torrentRequest->bounty) }}</td>
                             <td>
                                 <time
-                                    datetime="{{ $torrentRequest->created_at }}"
-                                    title="{{ $torrentRequest->created_at }}"
+                                    datetime="{{ $torrentRequest->bumped_at }}"
+                                    title="{{ $torrentRequest->bumped_at }}"
                                 >
-                                    {{ $torrentRequest->created_at->diffForHumans() }}
+                                    {{ $torrentRequest->bumped_at->diffForHumans() }}
                                 </time>
                             </td>
                             <td>

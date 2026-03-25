@@ -67,7 +67,10 @@
                                 href="{{ route('staff.donations.index') }}"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
-                                Donations
+                                Donations ({{ $pendingDonationsCount }})
+                                @if ($pendingDonationsCount > 0)
+                                    <x-animation.notification />
+                                @endif
                             </a>
                         </p>
                         <p class="form__group form__group--horizontal">

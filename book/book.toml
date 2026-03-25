@@ -1,7 +1,6 @@
 [book]
 authors = ["EkoNesLeg", "HDVinnie", "Roardom"]
 language = "en"
-multilingual = false
 src = "src"
 title = "UNIT3D Documentation"
 description = "Comprehensive documentation for UNIT3D - A modern private torrent tracker platform built with Laravel"
@@ -14,10 +13,10 @@ create-missing = true
 default-theme = "mocha"
 preferred-dark-theme = "mocha"
 git-repository-url = "https://github.com/HDInnovations/UNIT3D"
-git-repository-icon = "fa-github"
+git-repository-icon = "fab-github"
 edit-url-template = "https://github.com/HDInnovations/UNIT3D/edit/master/book/{path}"
 site-url = "/UNIT3D/"
-cname = "docs.unit3d.dev"
+#cname = "docs.unit3d.dev"
 additional-css = ["./theme/catppuccin.css"]
 
 [output.html.print]

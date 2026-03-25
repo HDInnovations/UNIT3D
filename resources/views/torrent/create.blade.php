@@ -699,20 +699,6 @@
                 {{ __('common.info') }}
             </h2>
             <div class="panel__body">
-                <p>
-                    {{ __('torrent.announce-url') }}:
-                    <a
-                        x-data="upload"
-                        data-announce-url="{{ route('announce', ['passkey' => $user->passkey]) }}"
-                        x-on:click.prevent="copy"
-                        href="{{ route('announce', ['passkey' => $user->passkey]) }}"
-                    >
-                        {{ route('announce', ['passkey' => $user->passkey]) }}
-                    </a>
-                </p>
-                <p>
-                    {{ __('torrent.announce-url-desc', ['source' => config('torrent.source')]) }}
-                </p>
                 <a href="{{ config('other.upload-guide_url') }}">
                     {{ __('torrent.announce-url-desc-url') }}
                 </a>

@@ -61,7 +61,7 @@ class CleanTorrentFiles extends Command
                         'info'       => '',
                     ]);
 
-                    Storage::disk('torrent-files')->put($filePath, Bencode::bencode($dict));
+                    Storage::disk('torrent-files')->put($torrent->file_name, Bencode::bencode($dict));
                 }
             }
         });

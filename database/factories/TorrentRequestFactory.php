@@ -58,6 +58,7 @@ class TorrentRequestFactory extends Factory
             'approved_when' => $this->faker->dateTime(),
             'type_id'       => Type::factory(),
             'resolution_id' => Resolution::factory(),
+            'bumped_at'     => $this->faker->dateTime(),
         ];
     }
 }

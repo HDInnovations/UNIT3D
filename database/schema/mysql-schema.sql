@@ -499,8 +499,8 @@ CREATE TABLE `donations` (
   `package_id` int unsigned NOT NULL,
   `transaction` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_gifted` tinyint(1) NOT NULL DEFAULT '0',
-  `starts_at` date DEFAULT NULL,
-  `ends_at` date DEFAULT NULL,
+  `starts_at` timestamp NULL DEFAULT NULL,
+  `ends_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1487,6 +1487,7 @@ CREATE TABLE `requests` (
   `anon` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `bumped_at` timestamp NOT NULL,
   `filled_by` int unsigned DEFAULT NULL,
   `torrent_id` int unsigned DEFAULT NULL,
   `filled_when` datetime DEFAULT NULL,
@@ -1511,6 +1512,7 @@ CREATE TABLE `requests` (
   KEY `requests_tv_id_index` (`tmdb_tv_id`),
   KEY `requests_season_number_episode_number_index` (`season_number`,`episode_number`),
   KEY `requests_episode_number_index` (`episode_number`),
+  KEY `requests_bumped_at_index` (`bumped_at`),
   CONSTRAINT `requests_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `requests_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `requests_filled_by_foreign` FOREIGN KEY (`filled_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
@@ -3124,3 +3126,5 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (374,'2026_01_27_07
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (375,'2026_02_02_180456_add_foreign_keys_echoes_audibles_messages',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (376,'2026_02_03_012707_drop_keys_from_seedboxes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (377,'2026_02_04_184040_combine_user_audibles_echoes',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (378,'2026_02_18_023757_change_donation_dates_to_timestamps',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (379,'2026_03_10_033755_migrate_request_bounty_created_at_to_updated_at',1);

@@ -43,6 +43,7 @@ use AllowDynamicProperties;
  * @property bool                            $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $bumped_at
  * @property int|null                        $filled_by
  * @property int|null                        $torrent_id
  * @property \Illuminate\Support\Carbon|null $filled_when
@@ -94,6 +95,7 @@ final class TorrentRequest extends Model
         return [
             'filled_when'   => 'datetime',
             'approved_when' => 'datetime',
+            'bumped_at'     => 'datetime',
             'tmdb_movie_id' => 'int',
             'tmdb_tv_id'    => 'int',
             'igdb'          => 'int',

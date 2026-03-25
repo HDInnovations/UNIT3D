@@ -5,7 +5,6 @@
     </head>
     <body>
         <div class="alerts">
-            @include('cookie-consent::index')
             @include('partials.alerts')
         </div>
         <header>

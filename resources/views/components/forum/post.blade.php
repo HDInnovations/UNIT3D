@@ -161,6 +161,7 @@
                 class="post__avatar"
                 src="{{ $post->anon && auth()->user()->isNot($post->user) &&! auth()->user()->group->is_modo ? url('img/profile.png') : ($post->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $post->user])) }}"
                 alt=""
+                loading="lazy"
             />
         </figure>
         <x-user-tag class="post__author" :anon="$post->anon" :user="$post->user">

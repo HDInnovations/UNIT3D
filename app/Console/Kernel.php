@@ -108,7 +108,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(ClearResetsCommand::class)->daily();
         $schedule->command(AutoSyncTorrentsToMeilisearch::class)->everyFifteenMinutes();
         $schedule->command(AutoSyncPeopleToMeilisearch::class)->daily();
-        $schedule->command(AutoRemoveExpiredDonors::class)->daily();
+        $schedule->command(AutoRemoveExpiredDonors::class)->hourly();
         $schedule->command(AutoRemoveReseeds::class)->daily();
         $schedule->command(AutoRewardUploadContestPrize::class)->daily();
         // $schedule->command(AutoBanDisposableUsers::class)->weekends();

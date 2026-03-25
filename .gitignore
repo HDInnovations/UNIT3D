@@ -3,8 +3,6 @@
 
 # Laravel
 # Ignore everything in the public/files directory EXCEPT the .gitkeep
-/public/vendor/livewire/livewire.js
-/public/vendor/livewire/manifest.json
 /public/files
 !.gitkeep
 /public/sounds
