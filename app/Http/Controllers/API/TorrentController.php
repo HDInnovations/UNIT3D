@@ -177,32 +177,34 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->personal_release = $request->input('personal_release') ?? false;
 
-        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-        $torrent->internal = $user->group->is_modo || $user->internals_exists ? ($request->input('internal') ?? 0) : 0;
+        $isModoOrHasInternals = $user->group->is_modo || $user->internals_exists;
 
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-        $torrent->doubleup = $user->group->is_modo || $user->internals_exists ? ($request->input('doubleup') ?? 0) : 0;
+        $torrent->internal = $isModoOrHasInternals ? ($request->input('internal') ?? 0) : 0;
 
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-        $torrent->refundable = $user->group->is_modo || $user->internals_exists ? ($request->input('refundable') ?? false) : false;
+        $torrent->doubleup = $isModoOrHasInternals ? ($request->input('doubleup') ?? 0) : 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        $torrent->refundable = $isModoOrHasInternals ? ($request->input('refundable') ?? false) : false;
         $du_until = $request->input('du_until');
 
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-        if (($user->group->is_modo || $user->internals_exists) && isset($du_until)) {
+        if ($isModoOrHasInternals && isset($du_until)) {
             $torrent->du_until = now()->addDays($request->integer('du_until'));
         }
 
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-        $torrent->free = $user->group->is_modo || $user->internals_exists ? ($request->input('free') ?? 0) : 0;
+        $torrent->free = $isModoOrHasInternals ? ($request->input('free') ?? 0) : 0;
         $fl_until = $request->input('fl_until');
 
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-        if (($user->group->is_modo || $user->internals_exists) && isset($fl_until)) {
+        if ($isModoOrHasInternals && isset($fl_until)) {
             $torrent->fl_until = now()->addDays($request->integer('fl_until'));
         }
 
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-        $torrent->sticky = $user->group->is_modo || $user->internals_exists ? ($request->input('sticky') ?? false) : false;
+        $torrent->sticky = $isModoOrHasInternals ? ($request->input('sticky') ?? false) : false;
         $torrent->moderated_at = now();
         $torrent->moderated_by = User::SYSTEM_USER_ID;
 
@@ -389,7 +391,9 @@ class TorrentController extends BaseController
         }
 
         // Set torrent to featured
-        if (($user->group->is_modo || $user->group->is_internal) && $request->input('featured')) {
+        $isFeatured = $isModoOrHasInternals && $request->input('featured');
+
+        if ($isFeatured) {
             $featuredTorrent = new FeaturedTorrent();
             $featuredTorrent->user_id = $user->id;
             $featuredTorrent->torrent_id = $torrent->id;
@@ -400,7 +404,7 @@ class TorrentController extends BaseController
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        if (($user->group->is_modo || $user->group->is_internal) && $request->input('featured')) {
+        if ($isFeatured) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
@@ -430,7 +434,6 @@ class TorrentController extends BaseController
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
-            $featured = ($user->group->is_modo || $user->group->is_internal) && $request->input('featured');
             $free = $torrent->free;
             $doubleup = $torrent->doubleup;
 
@@ -445,17 +448,17 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($anon && $featured == 1) {
+            if ($anon && $isFeatured) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can!'
                 );
-            } elseif (!$anon && $featured == 1) {
+            } elseif (!$anon && $isFeatured) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can!'
                 );
             }
 
-            if ($free >= 1 && $featured == 0) {
+            if ($free >= 1 && !$isFeatured) {
                 if ($torrent->fl_until === null) {
                     $this->chatRepository->systemMessage(
                         \sprintf(
@@ -473,7 +476,7 @@ class TorrentController extends BaseController
                 }
             }
 
-            if ($doubleup == 1 && $featured == 0) {
+            if ($doubleup == 1 && !$isFeatured) {
                 if ($torrent->du_until === null) {
                     $this->chatRepository->systemMessage(
                         \sprintf(
