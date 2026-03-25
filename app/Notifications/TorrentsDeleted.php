@@ -32,7 +32,7 @@ class TorrentsDeleted extends Notification implements ShouldQueue, SystemNotific
     /**
      * @param Collection<int, Torrent> $torrents
      */
-    public function __construct(public Collection $torrents, public string $title, public string $reason)
+    public function __construct(public Collection $torrents, public string $title)
     {
     }
 
@@ -53,19 +53,40 @@ class TorrentsDeleted extends Notification implements ShouldQueue, SystemNotific
      */
     public function toSystemNotification(User $notifiable): array
     {
+        $torrent = $this->torrents->first()->load([
+            'trumpedBy',
+            'deletionReason',
+        ]);
+
+        $message = <<<BBCODE
+        [b]Attention:[/b] The following torrents have been removed from our site.
+
+        [list]
+        [*]{$this->torrents->pluck('name')->join("\n[*]")}
+        [/list]
+
+        Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+
+        [b]Reason:[/b] {$torrent->deletionReason->name}
+        BBCODE;
+
+        if ($torrent->trumpedBy !== null) {
+            $message .= <<<BBCODE
+
+            [b]Trumped by:[/b] [url=/torrents/{$torrent->trumped_by}]{$torrent->trumpedBy->name}[/url]
+            BBCODE;
+        }
+
+        if ($torrent->deletion_reason_extra !== null) {
+            $message .= <<<BBCODE
+
+            [b]Additional info:[/b] {$torrent->deletion_reason_extra}
+            BBCODE;
+        }
+
         return [
             'subject' => 'Bulk Torrents Deleted - '.$this->title.'! ',
-            'message' => <<<BBCODE
-            [b]Attention:[/b] The following torrents have been removed from our site.
-
-            [list]
-            [*]{$this->torrents->pluck('name')->join("\n[*]")}
-            [/list]
-
-            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-
-            [b]Removal Reason:[/b] {$this->reason}
-            BBCODE
+            'message' => $message,
         ];
     }
 }

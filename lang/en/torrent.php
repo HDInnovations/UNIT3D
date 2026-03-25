@@ -16,6 +16,7 @@ declare(strict_types=1);
 return [
     'activity'                 => 'Activity',
     'add-to-playlist'          => 'Add to playlist',
+    'additional-deletion-information' => 'Additional deletion information (optional)',
     'age'                      => 'Age',
     'agent'                    => 'Agent',
     'alive'                    => 'Alive',
@@ -229,6 +230,8 @@ return [
     'torrents'                 => 'Torrents',
     'torrents-matched'         => 'Torrents matched',
     'trailer'                  => 'View trailer',
+    'trumped-by-optional'      => 'Trumped by (optional)',
+    'trumped-by-hint'          => 'Link to torrent',
     'type'                     => 'Type',
     'types'                    => 'Types',
     'unbookmark'               => 'Unbookmark',

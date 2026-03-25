@@ -61,36 +61,62 @@
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <input
-                                            id="type"
-                                            name="type"
-                                            type="hidden"
-                                            value="Torrent"
-                                        />
-                                        <input
-                                            id="id"
-                                            name="id"
-                                            type="hidden"
-                                            value="{{ $torrent->id }}"
-                                        />
-                                        <input
-                                            id="title"
-                                            name="title"
-                                            type="hidden"
-                                            value="{{ $torrent->name }}"
-                                        />
                                         <p class="form__group">
-                                            <textarea
-                                                id="message"
-                                                class="form__textarea"
-                                                name="message"
+                                            <select
+                                                id="deletion_reason_id"
+                                                class="form__select"
+                                                name="deletion_reason_id"
                                                 required
-                                            ></textarea>
+                                                x-data="{ selected: '' }"
+                                                x-model="selected"
+                                                x-bind:class="selected === '' ? 'form__select--default' : ''"
+                                            >
+                                                <option selected disabled hidden value=""></option>
+                                                @foreach ($torrentDeletionReasons as $torrentDeletionReason)
+                                                    <option
+                                                        value="{{ $torrentDeletionReason->id }}"
+                                                    >
+                                                        {{ $torrentDeletionReason->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                             <label
-                                                for="message"
+                                                for="deletion_reason_id"
                                                 class="form__label form__label--floating"
                                             >
                                                 {{ __('common.reason') }}
+                                            </label>
+                                        </p>
+                                        <p class="form__group">
+                                            <input
+                                                id="trumped_by"
+                                                type="text"
+                                                class="form__text"
+                                                name="trumped_by"
+                                                placeholder=" "
+                                            />
+                                            <label
+                                                for="trumped_by"
+                                                class="form__label form__label--floating"
+                                            >
+                                                {{ __('torrent.trumped-by-optional') }}
+                                            </label>
+                                            <span class="form__hint">
+                                                {{ __('torrent.trumped-by-hint') }}
+                                            </span>
+                                        </p>
+                                        <p class="form__group">
+                                            <textarea
+                                                id="deletion_reason_extra"
+                                                class="form__textarea"
+                                                name="deletion_reason_extra"
+                                                placeholder=" "
+                                            ></textarea>
+                                            <label
+                                                for="deletion_reason_extra"
+                                                class="form__label form__label--floating"
+                                            >
+                                                {{ __('torrent.additional-deletion-information') }}
                                             </label>
                                         </p>
                                         <p class="form__group">

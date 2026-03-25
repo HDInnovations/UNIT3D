@@ -28,7 +28,7 @@ class TorrentDeleted extends Notification implements ShouldQueue, SystemNotifica
 {
     use Queueable;
 
-    public function __construct(public Torrent $torrent, public string $reason)
+    public function __construct(public Torrent $torrent)
     {
     }
 
@@ -49,15 +49,36 @@ class TorrentDeleted extends Notification implements ShouldQueue, SystemNotifica
      */
     public function toSystemNotification(User $notifiable): array
     {
+        $this->torrent->load([
+            'deletionReason',
+            'trumpedBy',
+        ]);
+
+        $message = <<<BBCODE
+        [b]Torrent removed:[/b] {$this->torrent->name} was removed from the site.
+
+        You were listed as an uploader, seeder, or leecher on this torrent. You can remove it from your client.
+
+        [b]Reason:[/b] {$this->torrent->deletionReason->name}
+        BBCODE;
+
+        if ($this->torrent->trumpedBy !== null) {
+            $message .= <<<BBCODE
+
+            [b]Trumped by:[/b] [url=/torrents/{$this->torrent->trumped_by}]{$this->torrent->trumpedBy->name}[/url]
+            BBCODE;
+        }
+
+        if ($this->torrent->deletion_reason_extra !== null) {
+            $message .= <<<BBCODE
+
+            [b]Additional info:[/b] {$this->torrent->deletion_reason_extra}
+            BBCODE;
+        }
+
         return [
             'subject' => "Torrent deleted: {$this->torrent->name}",
-            'message' => <<<BBCODE
-            [b]Torrent removed:[/b] {$this->torrent->name} was removed from the site.
-
-            You were listed as an uploader, seeder, or leecher on this torrent. You can remove it from your client.
-            
-            [b]Reason:[/b] {$this->reason}
-            BBCODE
+            'message' => $message,
         ];
     }
 }

@@ -35,6 +35,7 @@ use App\Models\Scopes\ApprovedScope;
 use App\Models\TmdbMovie;
 use App\Models\TmdbTv;
 use App\Models\Torrent;
+use App\Models\TorrentDeletionReason;
 use App\Models\TorrentFile;
 use App\Models\Type;
 use App\Models\User;
@@ -49,6 +50,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use ReflectionException;
 use JsonException;
 
@@ -230,10 +232,11 @@ class TorrentController extends Controller
                         || now()->isBefore($torrent->created_at->addDay())
                     )
                 ),
-            'personal_freeleech' => PersonalFreeleech::query()->where('user_id', '=', $user->id)->exists(),
-            'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
-            'fileTree'           => $fileTree,
-            'alsoDownloaded'     => cache()->flexible(
+            'personal_freeleech'     => PersonalFreeleech::query()->where('user_id', '=', $user->id)->exists(),
+            'mediaInfo'              => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
+            'torrentDeletionReasons' => TorrentDeletionReason::query()->get(),
+            'fileTree'               => $fileTree,
+            'alsoDownloaded'         => cache()->flexible(
                 'also-downloaded:by-torrent-id:'.$torrent->id,
                 [3600 * 12, 3600 * 24 * 14],
                 match (true) {
@@ -436,10 +439,21 @@ class TorrentController extends Controller
      */
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
+        $trumpedBy = Torrent::query()->find(basename((string) $request->trumped_by));
+
+        if ($request->trumped_by !== null && $trumpedBy === null) {
+            return back()->withErrors('Submitted trumped torrent link not found or not yet approved.');
+        }
+
         $request->validate([
-            'message' => [
+            'deletion_reason_id' => [
                 'required',
-                'min:1',
+                Rule::exists('torrent_deletion_reasons', 'id'),
+            ],
+            'deletion_reason_extra' => [
+                'nullable',
+                'sometimes',
+                'max:1000',
             ],
         ]);
 
@@ -447,11 +461,6 @@ class TorrentController extends Controller
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless($user->group->is_modo || ($user->id === $torrent->user_id && now()->lt($torrent->created_at->addDay())), 403);
-
-        Notification::send(
-            User::query()->whereHas('history', fn ($query) => $query->where('torrent_id', '=', $torrent->id))->get(),
-            new TorrentDeleted($torrent, $request->message),
-        );
 
         // Reset Requests
         $torrent->requests()->whereNull('approved_when')->update([
@@ -482,9 +491,20 @@ class TorrentController extends Controller
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
+        $torrent->update([
+            'trumped_by'            => $trumpedBy->id,
+            'deletion_reason_id'    => $request->deletion_reason_id,
+            'deletion_reason_extra' => $request->deletion_reason_extra,
+        ]);
+
         Unit3dAnnounce::removeTorrent($torrent);
 
         $torrent->delete();
+
+        Notification::send(
+            User::query()->whereHas('history', fn ($query) => $query->withTrashed()->where('torrent_id', '=', $torrent->id))->get(),
+            new TorrentDeleted($torrent),
+        );
 
         return to_route('torrents.index')
             ->with('success', 'Torrent has been deleted!');

@@ -29,6 +29,7 @@ use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\TmdbTv;
+use App\Models\TorrentDeletionReason;
 use App\Models\Type;
 use App\Models\User;
 use App\Notifications\TorrentsDeleted;
@@ -37,6 +38,8 @@ use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -54,7 +57,11 @@ class SimilarTorrent extends Component
 
     public ?int $igdbId;
 
-    public string $reason;
+    public ?string $trumpedBy = null;
+
+    public ?int $deletionReasonId = null;
+
+    public string $deletionReasonExtra = '';
 
     #[Url(history: true)]
     public string $name = '';
@@ -399,7 +406,21 @@ class SimilarTorrent extends Component
         get => $this->work instanceof TmdbMovie ? $this->work->collections()->first()?->movies()->get() : null;
     }
 
-    final public function alertConfirm(): void
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection<int, TorrentDeletionReason>
+     */
+    final protected \Illuminate\Database\Eloquent\Collection $torrentDeletionReasons {
+        get => TorrentDeletionReason::query()->get();
+    }
+
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection<int, Torrent>
+     */
+    final protected \Illuminate\Database\Eloquent\Collection $deletingTorrents {
+        get => Torrent::query()->select(['id', 'name'])->whereKey($this->checked)->get();
+    }
+
+    final public function deleteRecords(): void
     {
         if (!auth()->user()->group->is_modo) {
             $this->dispatch('error', type: 'error', message: 'Permission denied!');
@@ -407,21 +428,35 @@ class SimilarTorrent extends Component
             return;
         }
 
-        $torrents = Torrent::query()->whereKey($this->checked)->pluck('name')->toArray();
-        $names = $torrents;
-        $this->dispatch(
-            'swal:confirm',
-            type: 'warning',
-            message: 'Are you sure?',
-            body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
-                        .nl2br(implode("\n", $names)),
-        );
-    }
+        $trumpedBy = Torrent::query()->find(basename($this->trumpedBy));
 
-    final public function deleteRecords(): void
-    {
-        if (!auth()->user()->group->is_modo) {
-            $this->dispatch('error', type: 'error', message: 'Permission denied!');
+        if ($this->trumpedBy !== null && $trumpedBy === null) {
+            $this->dispatch('error', type: 'error', message: 'Submitted trumped torrent link not found or not yet approved.');
+
+            return;
+        }
+
+        $validator = Validator::make([
+            'deletion_reason_id'    => $this->deletionReasonId,
+            'deletion_reason_extra' => $this->deletionReasonExtra,
+        ], [
+            'deletion_reason_id' => [
+                'required',
+                Rule::exists('torrent_deletion_reasons', 'id'),
+            ],
+            'deletion_reason_extra' => [
+                'nullable',
+                'sometimes',
+                'max:1000',
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            $this->dispatch(
+                'error',
+                type: 'error',
+                message: $validator->messages()->get('deletion_reason_id') + $validator->messages()->get('deletion_reason_extra')
+            );
 
             return;
         }
@@ -473,12 +508,17 @@ class SimilarTorrent extends Component
 
             Unit3dAnnounce::removeTorrent($torrent);
 
+            $torrent->update([
+                'trumped_by'            => $trumpedBy->id,
+                'deletion_reason_id'    => $this->deletionReasonId,
+                'deletion_reason_extra' => $this->deletionReasonExtra,
+            ]);
             $torrent->delete();
         }
 
         Notification::send(
             array_map(fn ($userId) => new User(['id' => $userId]), $users),
-            new TorrentsDeleted($torrents, $title, $this->reason)
+            new TorrentsDeleted($torrents, $title)
         );
 
         $this->checked = [];
@@ -543,17 +583,19 @@ class SimilarTorrent extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.similar-torrent', [
-            'user'               => auth()->user(),
-            'similarTorrents'    => $this->torrents,
-            'personalFreeleech'  => $this->personalFreeleech,
-            'torrentRequests'    => $this->torrentRequests,
-            'media'              => $this->work,
-            'types'              => $this->types,
-            'resolutions'        => $this->resolutions,
-            'regions'            => $this->regions,
-            'distributors'       => $this->distributors,
-            'playlistCategories' => $this->playlistCategories,
-            'collectionMovies'   => $this->collectionMovies,
+            'user'                   => auth()->user(),
+            'similarTorrents'        => $this->torrents,
+            'personalFreeleech'      => $this->personalFreeleech,
+            'torrentRequests'        => $this->torrentRequests,
+            'media'                  => $this->work,
+            'types'                  => $this->types,
+            'resolutions'            => $this->resolutions,
+            'regions'                => $this->regions,
+            'distributors'           => $this->distributors,
+            'playlistCategories'     => $this->playlistCategories,
+            'collectionMovies'       => $this->collectionMovies,
+            'torrentDeletionReasons' => $this->torrentDeletionReasons,
+            'deletingTorrents'       => $this->deletingTorrents,
         ]);
     }
 }

@@ -2097,6 +2097,18 @@ CREATE TABLE `topics` (
   CONSTRAINT `topics_last_post_user_id_foreign` FOREIGN KEY (`last_post_user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `torrent_deletion_reasons`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `torrent_deletion_reasons` (
+  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `torrent_downloads`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -2209,6 +2221,9 @@ CREATE TABLE `torrents` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `bumped_at` datetime DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `deletion_reason_id` smallint unsigned DEFAULT NULL,
+  `deletion_reason_extra` text COLLATE utf8mb4_unicode_ci,
+  `trumped_by` int unsigned DEFAULT NULL,
   `fl_until` datetime DEFAULT NULL,
   `du_until` datetime DEFAULT NULL,
   `type_id` smallint unsigned DEFAULT NULL,
@@ -2255,11 +2270,15 @@ CREATE TABLE `torrents` (
   KEY `torrents_distributor_id_foreign` (`distributor_id`),
   KEY `torrents_region_id_foreign` (`region_id`),
   KEY `torrents_moderated_by_foreign` (`moderated_by`),
+  KEY `torrents_trumped_by_foreign` (`trumped_by`),
+  KEY `torrents_deletion_reason_id_foreign` (`deletion_reason_id`),
   CONSTRAINT `torrents_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `torrents_deletion_reason_id_foreign` FOREIGN KEY (`deletion_reason_id`) REFERENCES `torrent_deletion_reasons` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `torrents_distributor_id_foreign` FOREIGN KEY (`distributor_id`) REFERENCES `distributors` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `torrents_moderated_by_foreign` FOREIGN KEY (`moderated_by`) REFERENCES `users` (`id`),
   CONSTRAINT `torrents_region_id_foreign` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `torrents_resolution_id_foreign` FOREIGN KEY (`resolution_id`) REFERENCES `resolutions` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `torrents_trumped_by_foreign` FOREIGN KEY (`trumped_by`) REFERENCES `torrents` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `torrents_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `torrents_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3125,3 +3144,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (375,'2026_02_02_18
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (376,'2026_02_03_012707_drop_keys_from_seedboxes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (377,'2026_02_04_184040_combine_user_audibles_echoes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (378,'2026_02_18_023757_change_donation_dates_to_timestamps',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (379,'2026_03_24_070714_add_deletion_reasons',1);

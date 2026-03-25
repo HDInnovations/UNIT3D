@@ -67,6 +67,8 @@ return [
     'ticket-priorities'        => 'Ticket priorities',
     'ticket-priority'          => 'Ticket priority',
     'torrent-categories'       => 'Torrent categories',
+    'torrent-deletion-reason'  => 'Torrent deletion reason',
+    'torrent-deletion-reasons' => 'Torrent deletion reasons',
     'torrent-moderation'       => 'Torrent moderation',
     'torrent-tools'            => 'Torrent tools',
     'torrent-types'            => 'Torrent types',

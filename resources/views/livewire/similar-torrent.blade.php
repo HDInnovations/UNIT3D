@@ -531,14 +531,112 @@
             <header class="panel__header">
                 <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
                 <div class="panel__actions">
-                    @if ($checked && $user->group->is_modo)
-                        <div class="panel__action">
+                    @if ($user->group->is_modo)
+                        <div class="panel__action" x-data="dialogLivewire">
                             <button
                                 class="form__button form__button--filled"
-                                wire:click="alertConfirm()"
+                                x-bind="showDialog"
+                                @style(['display: none;' => $checked === []])
                             >
-                                Delete ({{ count($checked) }})
+                                <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                                {{ __('common.delete') }} ({{ count($checked) }})
                             </button>
+                            <dialog class="dialog" x-bind="dialogElement">
+                                <h4 class="dialog__heading">
+                                    {{ __('common.delete') }}
+                                </h4>
+                                <form class="dialog__form" x-bind="dialogForm">
+                                    <div class="form__group">
+                                        Are you sure you want to delete the following torrents?
+                                        <ul>
+                                            @foreach ($deletingTorrents as $deletingTorrent)
+                                                <li>
+                                                    <a
+                                                        href="{{ route('torrents.show', ['id' => $deletingTorrent->id]) }}"
+                                                    >
+                                                        {{ $deletingTorrent->name }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <p class="form__group">
+                                        <select
+                                            id="deletion_reason_id"
+                                            class="form__select"
+                                            name="deletion_reason_id"
+                                            wire:model="deletionReasonId"
+                                            required
+                                            x-data="{ selected: '' }"
+                                            x-model="selected"
+                                            x-bind:class="selected === '' ? 'form__select--default' : ''"
+                                        >
+                                            <option selected disabled hidden value=""></option>
+                                            @foreach ($torrentDeletionReasons as $torrentDeletionReason)
+                                                <option value="{{ $torrentDeletionReason->id }}">
+                                                    {{ $torrentDeletionReason->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <label
+                                            for="deletion_reason_id"
+                                            class="form__label form__label--floating"
+                                        >
+                                            {{ __('common.reason') }}
+                                        </label>
+                                    </p>
+                                    <p class="form__group">
+                                        <input
+                                            id="trumped_by"
+                                            type="text"
+                                            class="form__text"
+                                            name="trumped_by"
+                                            placeholder=" "
+                                            wire:model="trumpedBy"
+                                        />
+                                        <label
+                                            for="trumped_by"
+                                            class="form__label form__label--floating"
+                                        >
+                                            {{ __('torrent.trumped-by-optional') }}
+                                        </label>
+                                        <span class="form__hint">
+                                            {{ __('torrent.trumped-by-hint') }}
+                                        </span>
+                                    </p>
+                                    <p class="form__group">
+                                        <textarea
+                                            id="deletion_reason_extra"
+                                            class="form__textarea"
+                                            name="deletion_reason_extra"
+                                            placeholder=" "
+                                            wire:model="deletionReasonExtra"
+                                        ></textarea>
+                                        <label
+                                            for="deletion_reason_extra"
+                                            class="form__label form__label--floating"
+                                        >
+                                            {{ __('torrent.additional-deletion-information') }}
+                                        </label>
+                                    </p>
+                                    <p class="form__group">
+                                        <button
+                                            class="form__button form__button--filled"
+                                            wire:click="deleteRecords"
+                                            x-bind="submitDialogForm"
+                                        >
+                                            {{ __('common.delete') }}
+                                        </button>
+                                        <button
+                                            formmethod="dialog"
+                                            formnovalidate
+                                            class="form__button form__button--outlined"
+                                        >
+                                            {{ __('common.cancel') }}
+                                        </button>
+                                    </p>
+                                </form>
+                            </dialog>
                         </div>
                     @endif
 
@@ -1152,45 +1250,3 @@
         @endif
     </div>
 </div>
-
-@section('javascripts')
-    @if ($user->group->is_modo)
-        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-            window.addEventListener('swal:modal', event => {
-              Swal.fire({
-                title: event.detail.message,
-                text: event.detail.text,
-                icon: event.detail.type,
-              })
-            })
-
-            window.addEventListener('swal:confirm', event => {
-              const { value: text } = Swal.fire({
-                input: 'textarea',
-                inputLabel: 'Delete reason',
-                inputPlaceholder: 'Type your reason here...',
-                inputAttributes: {
-                  'aria-label': 'Type your reason here'
-                },
-                inputValidator: (value) => {
-                  if (!value) {
-                    return 'You need to write something!'
-                  }
-                },
-                title: event.detail.message,
-                html: event.detail.body,
-                icon: event.detail.type,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-              }).then((result) => {
-                if (result.isConfirmed) {
-                @this.set('reason', result.value);
-                  Livewire.dispatch('destroy')
-                }
-              })
-            })
-        </script>
-    @endif
-@endsection

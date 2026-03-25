@@ -410,6 +410,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.torrent_deletion_reasons.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-columns"></i>
+                        {{ __('staff.torrent-deletion-reasons') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.rss.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-rss"></i>

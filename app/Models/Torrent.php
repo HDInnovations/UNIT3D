@@ -73,6 +73,9 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $bumped_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property int|null                        $trumped_by
+ * @property int|null                        $deletion_reason_id
+ * @property string|null                     $deletion_reason_extra
  * @property \Illuminate\Support\Carbon|null $fl_until
  * @property \Illuminate\Support\Carbon|null $du_until
  * @property int                             $type_id
@@ -547,6 +550,16 @@ final class Torrent extends Model
     }
 
     /**
+     * Get the torrent deletion reason associated with the torrent.
+     *
+     * @return BelongsTo<TorrentDeletionReason, $this>
+     */
+    public function deletionReason(): BelongsTo
+    {
+        return $this->belongsTo(TorrentDeletionReason::class, 'deletion_reason_id');
+    }
+
+    /**
      * Get the movie associated with the torrent.
      *
      * @return BelongsTo<TmdbMovie, $this>
@@ -787,6 +800,16 @@ final class Torrent extends Model
     public function trump(): HasOne
     {
         return $this->hasOne(TorrentTrump::class);
+    }
+
+    /**
+     * Get the trumped torrent associated with the torrent.
+     *
+     * @return BelongsTo<Torrent, $this>
+     */
+    public function trumpedBy(): BelongsTo
+    {
+        return $this->belongsTo(Torrent::class, 'trumped_by');
     }
 
     /**

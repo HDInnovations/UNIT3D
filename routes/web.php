@@ -286,6 +286,10 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable')->whereNumber('id');
         });
 
+        Route::prefix('torrent-deletion-reasons')->name('torrent_deletion_reasons.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\TorrentDeletionReasonController::class, 'index'])->name('index');
+        });
+
         Route::prefix('torrent-reseed')->name('torrent-reseed.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TorrentReseedController::class, 'index'])->name('index');
         });
@@ -1068,6 +1072,17 @@ Route::middleware(SetLanguage::class)->group(function (): void {
                 Route::get('/{ticketPriority}/edit', [App\Http\Controllers\Staff\TicketPriorityController::class, 'edit'])->name('edit');
                 Route::patch('/{ticketPriority}', [App\Http\Controllers\Staff\TicketPriorityController::class, 'update'])->name('update');
                 Route::delete('/{ticketPriority}', [App\Http\Controllers\Staff\TicketPriorityController::class, 'destroy'])->name('destroy');
+            });
+
+            // Torrent Deletion Reasons
+            Route::prefix('torrent-deletion-reasons')->name('torrent_deletion_reasons.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\TorrentDeletionReasonController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\TorrentDeletionReasonController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\TorrentDeletionReasonController::class, 'store'])->name('store');
+                Route::get('/{torrentDeletionReason}/edit', [App\Http\Controllers\Staff\TorrentDeletionReasonController::class, 'edit'])->name('edit');
+                Route::patch('/{torrentDeletionReason}', [App\Http\Controllers\Staff\TorrentDeletionReasonController::class, 'update'])->name('update');
+                Route::get('/{torrentDeletionReason}/delete', [App\Http\Controllers\Staff\TorrentDeletionReasonController::class, 'delete'])->name('delete');
+                Route::delete('/{torrentDeletionReason}', [App\Http\Controllers\Staff\TorrentDeletionReasonController::class, 'destroy'])->name('destroy');
             });
 
             // Torrent Downloads

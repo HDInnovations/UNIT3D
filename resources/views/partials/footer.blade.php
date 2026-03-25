@@ -77,6 +77,11 @@
                     <a href="{{ route('client_blacklist') }}">{{ __('common.blacklist') }}</a>
                 </li>
                 <li>
+                    <a href="{{ route('torrent_deletion_reasons.index') }}">
+                        {{ __('staff.torrent-deletion-reasons') }}
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('about') }}">{{ __('common.about') }}</a>
                 </li>
             </ul>
