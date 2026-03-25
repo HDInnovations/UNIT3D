@@ -89,9 +89,14 @@
             @endif
         </aside>
         @if ($isEditing)
-            <form wire:submit="editComment" class="form edit-comment">
+            <form
+                wire:submit="editComment"
+                class="form edit-comment"
+                x-init="$nextTick(() => $refs.editBox.focus())"
+            >
                 <p class="form__group">
                     <textarea
+                        x-ref="editBox"
                         name="comment"
                         id="edit-comment"
                         class="form__textarea"
@@ -144,9 +149,15 @@
             @endif
 
             @if ($isReplying)
-                <form wire:submit="postReply" class="form reply-comment" x-data="toggle">
+                <form
+                    wire:submit="postReply"
+                    class="form reply-comment"
+                    x-data="toggle"
+                    x-init="$nextTick(() => $refs.replyBox.focus())"
+                >
                     <p class="form__group">
                         <textarea
+                            x-ref="replyBox"
                             name="comment"
                             id="reply-comment"
                             class="form__textarea"
