@@ -36,13 +36,13 @@ class ThankButton extends Component
     final public function store(): void
     {
         if ($this->user->id === $this->torrent->user_id) {
-            $this->dispatch('error', type: 'error', message: 'You cannot thank your own content!');
+            $this->dispatch('alertError', type: 'error', message: 'You cannot thank your own content!');
 
             return;
         }
 
         if (Thank::query()->whereBelongsTo($this->user)->whereBelongsTo($this->torrent)->exists()) {
-            $this->dispatch('error', type: 'error', message: 'You have already thanked!');
+            $this->dispatch('alertError', type: 'error', message: 'You have already thanked!');
 
             return;
         }

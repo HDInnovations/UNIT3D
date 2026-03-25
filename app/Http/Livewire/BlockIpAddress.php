@@ -71,7 +71,7 @@ class BlockIpAddress extends Component
 
             $this->dispatch('success', type: 'success', message: 'IP has successfully been deleted!');
         } else {
-            $this->dispatch('error', type: 'error', message: 'Permission denied!');
+            $this->dispatch('alertError', type: 'error', message: 'Permission denied!');
         }
     }
 

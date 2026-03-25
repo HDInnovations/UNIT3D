@@ -80,7 +80,7 @@ class TwoFactorAuthForm extends Component
     final public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
         if (empty($this->code)) {
-            $this->dispatch('error', type: 'error', message: 'The two factor authentication code input must not be empty.');
+            $this->dispatch('alertError', type: 'error', message: 'The two factor authentication code input must not be empty.');
 
             return;
         }

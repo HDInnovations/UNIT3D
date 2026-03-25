@@ -33,7 +33,7 @@ class BookmarkButton extends Component
     final public function store(): void
     {
         if ($this->user->bookmarks()->where('torrent_id', '=', $this->torrent->id)->exists()) {
-            $this->dispatch('error', type: 'error', message: 'Torrent has already been bookmarked!');
+            $this->dispatch('alertError', type: 'error', message: 'Torrent has already been bookmarked!');
 
             return;
         }
