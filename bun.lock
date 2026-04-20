@@ -4,6 +4,7 @@
   "workspaces": {
     "": {
       "dependencies": {
+        "@alpinejs/morph": "^3.15.0",
         "alpinejs": "^3.14.8",
         "axios": "^1.7.9",
         "chart.js": "^4.4.7",
@@ -27,6 +28,8 @@
     },
   },
   "packages": {
+    "@alpinejs/morph": ["@alpinejs/morph@3.15.11", "", {}, "sha512-BQA0C4nXEZ0cdUI4gjCiccw50sdZ+KT/umzjYyamI1KPfzrc6ibbpBmavWrOIZYaWCH/q/mDSj3ohszjg3DoNw=="],
+
     "@bufbuild/protobuf": ["@bufbuild/protobuf@2.11.0", "", {}, "sha512-sBXGT13cpmPR5BMgHE6UEEfEaShh5Ror6rfN3yEK5si7QVrtZg8LEPQb0VVhiLRUslD2yLnXtnRzG035J/mZXQ=="],
 
     "@emnapi/core": ["@emnapi/core@1.9.0", "", { "dependencies": { "@emnapi/wasi-threads": "1.2.0", "tslib": "^2.4.0" } }, "sha512-0DQ98G9ZQZOxfUcQn1waV2yS8aWdZ6kJMbYCJB3oUBecjWYO1fqJ+a1DRfPF3O5JEkwqwP1A9QEN/9mYm2Yd0w=="],
