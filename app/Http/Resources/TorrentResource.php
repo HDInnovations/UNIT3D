@@ -56,6 +56,7 @@ class TorrentResource extends JsonResource
      *             array{
      *                 index: int,
      *                 name: string,
+     *                 path: string,
      *                 size: int,
      *             },
      *         >,
@@ -111,7 +112,8 @@ class TorrentResource extends JsonResource
                 'num_file'     => $this->num_file,
                 'files'        => $this->files->map(fn ($file, $index) => [
                     'index' => $index + 1,
-                    'name'  => $file->name,
+                    'name'  => basename($file->name),
+                    'path'  => $file->name,
                     'size'  => $file->size,
                 ]),
                 'freeleech'        => $this->free.'%',
