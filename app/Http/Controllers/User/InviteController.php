@@ -39,9 +39,27 @@ class InviteController extends Controller
     {
         abort_unless($request->user()->group->is_modo || $request->user()->is($user), 403);
 
+        $search = trim($request->string('search')->toString());
+
+        $invites = $user->sentInvites()
+            ->withTrashed()
+            ->with(['sender.group', 'receiver.group'])
+            ->when(
+                $search !== '',
+                fn ($query) => $query->where(
+                    fn ($query) => $query
+                        ->where('email', 'LIKE', '%'.$search.'%')
+                        ->orWhere('code', 'LIKE', '%'.$search.'%')
+                )
+            )
+            ->latest()
+            ->paginate(25)
+            ->withQueryString();
+
         return view('user.invite.index', [
             'user'    => $user,
-            'invites' => $user->sentInvites()->withTrashed()->with(['sender.group', 'receiver.group'])->latest()->paginate(25),
+            'invites' => $invites,
+            'search'  => $search,
         ]);
     }
 

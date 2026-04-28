@@ -36,6 +36,37 @@
                 </div>
             </div>
         </header>
+        <div class="panel__body" style="padding: 5px">
+            <form class="form" method="GET" action="{{ route('users.invites.index', ['user' => $user]) }}">
+                <div class="form__group--short-horizontal">
+                    <div class="form__group">
+                        <input
+                            id="search"
+                            class="form__text"
+                            type="search"
+                            name="search"
+                            value="{{ $search }}"
+                            autocomplete="off"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="search">
+                            {{ __('common.email') }} / {{ __('user.code') }}
+                        </label>
+                    </div>
+                    <button class="form__button form__button--filled">
+                        {{ __('common.search') }}
+                    </button>
+                    @if ($search !== '')
+                        <a
+                            class="form__button form__button--text"
+                            href="{{ route('users.invites.index', ['user' => $user]) }}"
+                        >
+                            {{ __('common.cancel') }}
+                        </a>
+                    @endif
+                </div>
+            </form>
+        </div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
