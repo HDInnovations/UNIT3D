@@ -338,7 +338,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="{{ $category->id }}"
-                                            wire:model.live="categoryIds"
+                                            wire:model.live.debounce.500ms="categoryIds"
                                         />
                                         {{ $category->name }}
                                     </label>
@@ -358,7 +358,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="{{ $type->id }}"
-                                            wire:model.live="typeIds"
+                                            wire:model.live.debounce.500ms="typeIds"
                                         />
                                         {{ $type->name }}
                                     </label>
@@ -378,7 +378,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="{{ $resolution->id }}"
-                                            wire:model.live="resolutionIds"
+                                            wire:model.live.debounce.500ms="resolutionIds"
                                         />
                                         {{ $resolution->name }}
                                     </label>
@@ -398,7 +398,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="{{ $genre->id }}"
-                                            wire:model.live="genreIds"
+                                            wire:model.live.debounce.500ms="genreIds"
                                         />
                                         {{ $genre->name }}
                                     </label>
@@ -417,7 +417,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="0"
-                                        wire:model.live="free"
+                                        wire:model.live.debounce.500ms="free"
                                     />
                                     0% Freeleech
                                 </label>
@@ -428,7 +428,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="25"
-                                        wire:model.live="free"
+                                        wire:model.live.debounce.500ms="free"
                                     />
                                     25% Freeleech
                                 </label>
@@ -439,7 +439,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="50"
-                                        wire:model.live="free"
+                                        wire:model.live.debounce.500ms="free"
                                     />
                                     50% Freeleech
                                 </label>
@@ -450,7 +450,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="75"
-                                        wire:model.live="free"
+                                        wire:model.live.debounce.500ms="free"
                                     />
                                     75% Freeleech
                                 </label>
@@ -461,7 +461,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="100"
-                                        wire:model.live="free"
+                                        wire:model.live.debounce.500ms="free"
                                     />
                                     100% Freeleech
                                 </label>
@@ -472,7 +472,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="doubleup"
+                                        wire:model.live.debounce.500ms="doubleup"
                                     />
                                     Double upload
                                 </label>
@@ -483,7 +483,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="featured"
+                                        wire:model.live.debounce.500ms="featured"
                                     />
                                     Featured
                                 </label>
@@ -494,7 +494,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="refundable"
+                                        wire:model.live.debounce.500ms="refundable"
                                     />
                                     Refundable
                                 </label>
@@ -512,7 +512,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="internal"
+                                        wire:model.live.debounce.500ms="internal"
                                     />
                                     {{ __('torrent.internal') }}
                                 </label>
@@ -523,7 +523,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="personalRelease"
+                                        wire:model.live.debounce.500ms="personalRelease"
                                     />
                                     {{ __('torrent.personal-release') }}
                                 </label>
@@ -534,7 +534,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="trumpable"
+                                        wire:model.live.debounce.500ms="trumpable"
                                     />
                                     Trumpable
                                 </label>
@@ -545,7 +545,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="highspeed"
+                                        wire:model.live.debounce.500ms="highspeed"
                                     />
                                     {{ __('common.high-speeds') }}
                                 </label>
@@ -556,7 +556,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="bookmarked"
+                                        wire:model.live.debounce.500ms="bookmarked"
                                     />
                                     {{ __('common.bookmarked') }}
                                 </label>
@@ -567,7 +567,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="wished"
+                                        wire:model.live.debounce.500ms="wished"
                                     />
                                     {{ __('common.wished') }}
                                 </label>
@@ -585,7 +585,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="alive"
+                                        wire:model.live.debounce.500ms="alive"
                                     />
                                     {{ __('torrent.alive') }}
                                 </label>
@@ -596,7 +596,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="dying"
+                                        wire:model.live.debounce.500ms="dying"
                                     />
                                     Dying
                                 </label>
@@ -607,7 +607,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="dead"
+                                        wire:model.live.debounce.500ms="dead"
                                     />
                                     Dead
                                 </label>
@@ -618,7 +618,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="graveyard"
+                                        wire:model.live.debounce.500ms="graveyard"
                                     />
                                     {{ __('graveyard.graveyard') }}
                                 </label>
@@ -636,7 +636,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="notDownloaded"
+                                        wire:model.live.debounce.500ms="notDownloaded"
                                     />
                                     Not downloaded
                                 </label>
@@ -647,7 +647,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="downloaded"
+                                        wire:model.live.debounce.500ms="downloaded"
                                     />
                                     Downloaded
                                 </label>
@@ -658,7 +658,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="seeding"
+                                        wire:model.live.debounce.500ms="seeding"
                                     />
                                     Seeding
                                 </label>
@@ -669,7 +669,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="leeching"
+                                        wire:model.live.debounce.500ms="leeching"
                                     />
                                     Leeching
                                 </label>
@@ -680,7 +680,7 @@
                                         class="form__checkbox"
                                         type="checkbox"
                                         value="1"
-                                        wire:model.live="incomplete"
+                                        wire:model.live.debounce.500ms="incomplete"
                                     />
                                     Incomplete
                                 </label>
@@ -699,7 +699,7 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="{{ $primaryLanguage }}"
-                                            wire:model.live="primaryLanguageNames"
+                                            wire:model.live.debounce.500ms="primaryLanguageNames"
                                         />
                                         {{ $primaryLanguage }}
                                     </label>
