@@ -134,6 +134,16 @@ class Comments extends Component
                 // Notify ticket creator if needed
                 User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
 
+                // Notify previous ticket commenters when a new reply is added
+                User::whereIn(
+                    'id',
+                    $this->model->comments()
+                        ->where('id', '!=', $comment->id)
+                        ->whereNotNull('user_id')
+                        ->pluck('user_id')
+                        ->unique(),
+                )->get()->each->notify(new NewComment($this->model, $comment));
+
                 break;
             case Article::class:
             case Playlist::class:
