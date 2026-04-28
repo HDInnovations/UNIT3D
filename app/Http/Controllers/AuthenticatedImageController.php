@@ -30,6 +30,10 @@ class AuthenticatedImageController extends Controller
         'Cache-Control' => 'private, max-age=7200',
     ];
 
+    private const array USER_IMAGE_HEADERS = [
+        'Cache-Control' => 'private, no-cache, max-age=0, must-revalidate',
+    ];
+
     public function articleImage(Article $article): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $path = $article->image === null
@@ -93,7 +97,7 @@ class AuthenticatedImageController extends Controller
 
         abort_unless(file_exists($path), 404);
 
-        return response()->file($path, self::HEADERS);
+        return response()->file($path, self::USER_IMAGE_HEADERS);
     }
 
     public function userIcon(User $user): \Symfony\Component\HttpFoundation\BinaryFileResponse
@@ -104,6 +108,6 @@ class AuthenticatedImageController extends Controller
 
         abort_unless(file_exists($path), 404);
 
-        return response()->file($path, self::HEADERS);
+        return response()->file($path, self::USER_IMAGE_HEADERS);
     }
 }
