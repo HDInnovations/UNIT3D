@@ -25,7 +25,7 @@
                 {{ $user->username }}
             </a>
             @if ($user->icon !== null)
-                <i>
+                <i class="user-tag__custom-icon">
                     <img
                         @style([
                             'max-height: 22px;' =>
@@ -78,7 +78,7 @@
             {{ $user->username }}
         </a>
         @if ($user->icon !== null)
-            <i>
+            <i class="user-tag__custom-icon">
                 <img
                     @style([
                         'max-height: 22px;' =>
