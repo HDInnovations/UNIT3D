@@ -148,7 +148,9 @@ final class TorrentRequest extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->withDefault([
+            'name' => 'Deleted category',
+        ]);
     }
 
     /**
