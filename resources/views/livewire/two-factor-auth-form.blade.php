@@ -128,6 +128,20 @@
                         {{ __('Cancel') }}
                     </button>
                 @else
+                    <div class="form__group">
+                        <input
+                            id="password"
+                            class="form__text"
+                            type="password"
+                            autocomplete="current-password"
+                            wire:model.live="password"
+                            wire:keydown.enter="disableTwoFactorAuthentication"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="password">
+                            {{ __('Current Password') }}
+                        </label>
+                    </div>
                     <button
                         class="form__button form__button--filled"
                         wire:click="disableTwoFactorAuthentication"

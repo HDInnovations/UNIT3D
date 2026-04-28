@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
@@ -44,6 +45,11 @@ class TwoFactorAuthForm extends Component
      * The OTP code for confirming two-factor authentication.
      */
     public string $code;
+
+    /**
+     * The current password confirmation for disabling two-factor authentication.
+     */
+    public string $password = '';
 
     /**
      * Mount the component.
@@ -115,8 +121,15 @@ class TwoFactorAuthForm extends Component
      */
     final public function disableTwoFactorAuthentication(DisableTwoFactorAuthentication $disable): void
     {
+        if (!$this->showingConfirmation && !Hash::check($this->password, auth()->user()->password)) {
+            $this->dispatch('error', type: 'error', message: 'The provided password is incorrect.');
+
+            return;
+        }
+
         $disable(auth()->user());
 
+        $this->password = '';
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
         $this->showingRecoveryCodes = false;
