@@ -18,10 +18,12 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Mail\InviteUser;
+use App\Models\Application;
 use App\Models\Invite;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
@@ -101,6 +103,20 @@ class InviteController extends Controller
         if ($user->two_factor_confirmed_at === null || $user->two_factor_confirmed_at->addHours($minHours)->isFuture()) {
             return to_route('home.index')
                 ->withErrors("Two-factor authentication must be enabled for {$minHours} hours to send invites");
+        }
+
+        $email = $request->string('email')->toString();
+
+        if ($email !== '' && (
+            Invite::where('email', '=', $email)->exists()
+            || User::where('email', '=', $email)->exists()
+            || Application::where('email', '=', $email)->exists()
+        )) {
+            Log::notice('Invite rejected because email is already in use.', [
+                'email'           => $email,
+                'sender_user_id'  => $user->id,
+                'request_user_id' => $request->user()->id,
+            ]);
         }
 
         $request->validate([

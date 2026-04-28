@@ -17,6 +17,7 @@ declare(strict_types=1);
 use App\Models\Group;
 use App\Models\Invite;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 test('create returns an ok response', function (): void {
@@ -146,6 +147,40 @@ test('store returns an ok response', function (): void {
         'user_id' => $user->id,
         'email'   => $inviteEmail,
     ]);
+});
+
+test('store logs failed invite when email is already in use', function (): void {
+    $group = Group::factory()->create([]);
+
+    $user = User::factory()->create([
+        'group_id'                => $group->id,
+        'can_invite'              => 1,
+        'invites'                 => 1,
+        'two_factor_confirmed_at' => now(),
+    ]);
+
+    $existingUser = User::factory()->create();
+
+    config(['other.invites_restriced' => true]);
+    config(['other.invite_groups' => [$group->name]]);
+    config(['other.hours-until-invite-after-2fa' => 0]);
+    config(['email-blacklist.enabled' => false]);
+
+    Log::spy();
+
+    $response = $this->actingAs($user)->post(route('users.invites.store', [$user]), [
+        'email'   => $existingUser->email,
+        'message' => 'Test Invite',
+    ]);
+
+    $response->assertSessionHasErrors('email');
+    Log::shouldHaveReceived('notice')
+        ->once()
+        ->with('Invite rejected because email is already in use.', Mockery::on(
+            fn (array $context): bool => $context['email'] === $existingUser->email
+                && $context['sender_user_id'] === $user->id
+                && $context['request_user_id'] === $user->id
+        ));
 });
 
 test('store with internal note as staff user', function (): void {
