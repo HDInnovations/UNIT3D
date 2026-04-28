@@ -67,13 +67,12 @@ class PeerController extends Controller
             ->where('updated_at', '<', $cutoff)
             ->delete();
 
-        $user->history()
-            ->where('active', '=', 1)
-            ->where('updated_at', '<', $cutoff)
-            ->update([
-                'active'     => 0,
-                'updated_at' => DB::raw('updated_at'),
-            ]);
+        History::withoutTimestamps(
+            fn () => $user->history()
+                ->where('active', '=', 1)
+                ->where('updated_at', '<', $cutoff)
+                ->update(['active' => 0])
+        );
 
         $user->decrement('own_flushes');
 

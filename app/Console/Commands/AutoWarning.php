@@ -81,13 +81,12 @@ class AutoWarning extends Command
                 'active'     => true,
             ]);
 
-            History::query()
-                ->where('torrent_id', '=', $hr->torrent_id)
-                ->where('user_id', '=', $hr->user_id)
-                ->update([
-                    'hitrun'     => true,
-                    'updated_at' => DB::raw('updated_at'),
-                ]);
+            History::withoutTimestamps(
+                fn () => History::query()
+                    ->where('torrent_id', '=', $hr->torrent_id)
+                    ->where('user_id', '=', $hr->user_id)
+                    ->update(['hitrun' => true])
+            );
 
             // Add +1 To Users Warnings Count In Users Table
             $hr->user->increment('hitandruns');
