@@ -107,10 +107,18 @@ class IRCAnnounceBot
 
     private function send(string $data): void
     {
-        if (\is_resource($this->socket)) {
-            fwrite($this->socket, $data."\r\n");
-        } else {
+        if (! \is_resource($this->socket)) {
             Log::error('Tried to send data while not connected.');
+
+            return;
+        }
+
+        $bytesWritten = @fwrite($this->socket, $data."\r\n");
+
+        if ($bytesWritten === false) {
+            Log::warning('Failed to send IRC data, closing stale socket.');
+            fclose($this->socket);
+            $this->socket = null;
         }
     }
 
