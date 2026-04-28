@@ -104,6 +104,10 @@ class PostController extends Controller
         $realUrl = \sprintf('/forums/topics/%s/posts/%s', $topic->id, $post->id);
         $profileUrl = \sprintf('%s/users/%s', $appUrl, $user->username);
 
+        preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
+        $taggedUsers = User::whereIn('username', $matches[1])->where('id', '!=', $user->id)->get();
+        $taggedUserIds = $taggedUsers->modelKeys();
+
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
                 ->where('id', '!=', $user->id)
@@ -133,10 +137,13 @@ class PostController extends Controller
             $topicStarter = $topic->user;
 
             // Notify All Subscribers Of New Reply
-            $topicStarter->notify(new NewPost('topic', $user, $post));
+            if (!\in_array($topicStarter->id, $taggedUserIds, true)) {
+                $topicStarter->notify(new NewPost('topic', $user, $post));
+            }
 
             $subscribers = User::query()
                 ->where('id', '!=', $user->id)
+                ->whereNotIn('id', $taggedUserIds)
                 ->whereRelation('subscriptions', 'topic_id', '=', $topic->id)
                 ->whereRelation('forumPermissions', [
                     ['read_topic', '=', 1],
@@ -169,9 +176,7 @@ class PostController extends Controller
         }
 
         // User Tagged Notification
-        preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
-        $users = User::whereIn('username', $matches[1])->where('id', '!=', $user->id)->get();
-        Notification::send($users, new NewPostTag($post));
+        Notification::send($taggedUsers, new NewPostTag($post));
 
         return redirect()->to($realUrl)
             ->with('success', trans('forum.reply-topic-success'));
