@@ -54,7 +54,7 @@
         </ul>
     @endif
 
-    {{ $posts->links('partials.pagination') }}
+    {{ $posts->links('partials.pagination-links') }}
     <div class="panel__body">
         @if ($posts->count() > 0)
             <ol class="topic-posts">
@@ -68,5 +68,5 @@
             No topics.
         @endif
     </div>
-    {{ $posts->links('partials.pagination') }}
+    {{ $posts->links('partials.pagination-links') }}
 </section>
