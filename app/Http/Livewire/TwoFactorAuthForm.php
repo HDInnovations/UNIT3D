@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\Models\Audit;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
 use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
@@ -87,6 +88,8 @@ class TwoFactorAuthForm extends Component
 
         $confirm(auth()->user(), $this->code);
 
+        $this->logTwoFactorChange('enabled');
+
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
         $this->showingRecoveryCodes = true;
@@ -117,9 +120,29 @@ class TwoFactorAuthForm extends Component
     {
         $disable(auth()->user());
 
+        $this->logTwoFactorChange('disabled');
+
         $this->showingQrCode = false;
         $this->showingConfirmation = false;
         $this->showingRecoveryCodes = false;
+    }
+
+    /**
+     * Log two-factor authentication state changes for staff review.
+     */
+    private function logTwoFactorChange(string $state): void
+    {
+        $user = auth()->user();
+
+        Audit::create([
+            'user_id'        => $user->id,
+            'auditable_type' => $user::class,
+            'auditable_id'   => $user->id,
+            'action'         => 'two_factor_'.$state,
+            'record'         => json_encode([
+                'two_factor_authentication' => $state,
+            ], JSON_THROW_ON_ERROR),
+        ]);
     }
 
     /**
