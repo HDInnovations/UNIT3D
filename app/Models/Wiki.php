@@ -21,6 +21,7 @@ use App\Traits\Auditable;
 use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 use AllowDynamicProperties;
 
 /**
@@ -55,6 +56,23 @@ final class Wiki extends Model
      */
     public function getContentHtml(): string
     {
-        return Markdown::convert(htmlspecialchars_decode((new Bbcode())->parse($this->content, false), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5))->getContent();
+        $content = $this->replaceCurrentUserPlaceholders($this->content);
+
+        return Markdown::convert(htmlspecialchars_decode((new Bbcode())->parse($content, false), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5))->getContent();
+    }
+
+    private function replaceCurrentUserPlaceholders(string $content): string
+    {
+        $user = Auth::user();
+
+        if ($user === null) {
+            return $content;
+        }
+
+        return str_replace(
+            ['{user}', '{username}', '{user_id}'],
+            [$user->username, $user->username, (string) $user->id],
+            $content,
+        );
     }
 }
