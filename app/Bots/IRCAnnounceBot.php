@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Log;
 class IRCAnnounceBot
 {
     /**
-     * @var resource
+     * @var resource|null
      */
-    private $socket;
+    private $socket = null;
 
     private const RPL_WELCOME = 001;
 
