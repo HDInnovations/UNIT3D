@@ -18,11 +18,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Mail\InviteUser;
+use App\Models\Application;
 use App\Models\Invite;
 use App\Models\User;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Ramsey\Uuid\Uuid;
 use Exception;
@@ -103,7 +105,7 @@ class InviteController extends Controller
                 ->withErrors("Two-factor authentication must be enabled for {$minHours} hours to send invites");
         }
 
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'bail',
             'message'       => 'required',
             'internal_note' => Rule::unless($user->group->is_modo, 'missing'),
@@ -112,12 +114,20 @@ class InviteController extends Controller
                 'string',
                 'email:rfc,dns',
                 'max:70',
-                'unique:invites',
+                Rule::unique('invites')->whereNull('failed_at'),
                 'unique:users',
                 'unique:applications',
                 Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist())
             ],
         ]);
+
+        if ($validator->fails()) {
+            $this->logFailedInvite($request, $user, $validator->errors()->first('email'));
+
+            return to_route('users.invites.create', ['user' => $user])
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $user->decrement('invites');
 
@@ -134,6 +144,29 @@ class InviteController extends Controller
 
         return to_route('users.invites.create', ['user' => $user])
             ->with('success', trans('user.invite-sent-success'));
+    }
+
+    private function logFailedInvite(Request $request, User $user, ?string $failureReason): void
+    {
+        if ($failureReason === null) {
+            return;
+        }
+
+        $email = $request->input('email');
+
+        if (!User::where('email', $email)->exists() && !Application::where('email', $email)->exists()) {
+            return;
+        }
+
+        Invite::create([
+            'user_id'        => $user->id,
+            'email'          => $email,
+            'code'           => Uuid::uuid4()->toString(),
+            'internal_note'  => $request->input('internal_note'),
+            'custom'         => $request->input('message'),
+            'failed_at'      => now(),
+            'failure_reason' => $failureReason,
+        ]);
     }
 
     /**

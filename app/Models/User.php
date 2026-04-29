@@ -697,7 +697,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      */
     public function sentInvites(): HasMany
     {
-        return $this->hasMany(Invite::class, 'user_id');
+        return $this->hasMany(Invite::class, 'user_id')->whereNull('failed_at');
     }
 
     /**

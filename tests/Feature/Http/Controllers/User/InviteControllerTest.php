@@ -199,3 +199,48 @@ test('store aborts with a 403', function (): void {
 });
 
 // test cases...
+
+test('store logs failed invite attempts for emails already in use', function (): void {
+    $group = Group::factory()->create([]);
+
+    $user = User::factory()->create([
+        'group_id'                => $group->id,
+        'can_invite'              => 1,
+        'invites'                 => 1,
+        'two_factor_confirmed_at' => now(),
+    ]);
+
+    $existingUser = User::factory()->create();
+
+    config(['other.invites_restriced' => true]);
+    config(['other.invite_groups' => [$group->name]]);
+    config(['other.hours-until-invite-after-2fa' => 0]);
+    config(['email-blacklist.enabled' => false]);
+
+    Mail::fake();
+
+    $response = $this->actingAs($user)->post(route('users.invites.store', [$user]), [
+        'email'   => $existingUser->email,
+        'message' => 'Test Invite',
+    ]);
+
+    $response->assertRedirect(route('users.invites.create', [$user]));
+    $response->assertSessionHasErrors('email');
+
+    $this->assertDatabaseHas('invites', [
+        'user_id' => $user->id,
+        'email'   => $existingUser->email,
+        'custom'  => 'Test Invite',
+    ]);
+
+    $failedInvite = Invite::where('email', $existingUser->email)->first();
+
+    expect($failedInvite->failed_at)->not()->toBeNull()
+        ->and($failedInvite->failure_reason)->not()->toBeNull();
+
+    $user->refresh();
+    expect($user->invites)->toBe(1)
+        ->and($user->sentInvites()->count())->toBe(0);
+
+    Mail::assertNothingSent();
+});

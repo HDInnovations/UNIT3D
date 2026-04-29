@@ -317,6 +317,14 @@
                                     {{ __('user.accepted-at') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'accepted_at'])
                                 </th>
+                                <th wire:click="sortBy('failed_at')" role="columnheader button">
+                                    Failed At
+                                    @include('livewire.includes._sort-icon', ['field' => 'failed_at'])
+                                </th>
+                                <th wire:click="sortBy('failure_reason')" role="columnheader button">
+                                    Failure Reason
+                                    @include('livewire.includes._sort-icon', ['field' => 'failure_reason'])
+                                </th>
                                 <th wire:click="sortBy('deleted_at')" role="columnheader button">
                                     {{ __('user.deleted-on') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'deleted_at'])
@@ -366,6 +374,15 @@
                                     </td>
                                     <td>
                                         <time
+                                            datetime="{{ $invite->failed_at }}"
+                                            title="{{ $invite->failed_at }}"
+                                        >
+                                            {{ $invite->failed_at ?? 'N/A' }}
+                                        </time>
+                                    </td>
+                                    <td>{{ $invite->failure_reason ?? 'N/A' }}</td>
+                                    <td>
+                                        <time
                                             datetime="{{ $invite->deleted_at }}"
                                             title="{{ $invite->deleted_at }}"
                                         >
@@ -375,7 +392,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10">No invites</td>
+                                    <td colspan="12">No invites</td>
                                 </tr>
                             @endforelse
                         </tbody>
