@@ -16,18 +16,6 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use App\Achievements\UserMade100Uploads;
-use App\Achievements\UserMade200Uploads;
-use App\Achievements\UserMade25Uploads;
-use App\Achievements\UserMade300Uploads;
-use App\Achievements\UserMade400Uploads;
-use App\Achievements\UserMade500Uploads;
-use App\Achievements\UserMade50Uploads;
-use App\Achievements\UserMade600Uploads;
-use App\Achievements\UserMade700Uploads;
-use App\Achievements\UserMade800Uploads;
-use App\Achievements\UserMade900Uploads;
-use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
 use App\Bots\IRCAnnounceBotExternal;
 use App\Enums\ModerationStatus;
@@ -105,22 +93,6 @@ class TorrentHelper
         $user = $torrent->user;
         $username = $user->username;
         $anon = $torrent->anon;
-
-        if (!$anon) {
-            // Achievements
-            $user->unlock(new UserMadeUpload());
-            $user->addProgress(new UserMade25Uploads(), 1);
-            $user->addProgress(new UserMade50Uploads(), 1);
-            $user->addProgress(new UserMade100Uploads(), 1);
-            $user->addProgress(new UserMade200Uploads(), 1);
-            $user->addProgress(new UserMade300Uploads(), 1);
-            $user->addProgress(new UserMade400Uploads(), 1);
-            $user->addProgress(new UserMade500Uploads(), 1);
-            $user->addProgress(new UserMade600Uploads(), 1);
-            $user->addProgress(new UserMade700Uploads(), 1);
-            $user->addProgress(new UserMade800Uploads(), 1);
-            $user->addProgress(new UserMade900Uploads(), 1);
-        }
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {

@@ -16,19 +16,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Achievements\UserUploaded1000Subtitles;
-use App\Achievements\UserUploaded100Subtitles;
-use App\Achievements\UserUploaded200Subtitles;
-use App\Achievements\UserUploaded25Subtitles;
-use App\Achievements\UserUploaded300Subtitles;
-use App\Achievements\UserUploaded400Subtitles;
-use App\Achievements\UserUploaded500Subtitles;
-use App\Achievements\UserUploaded50Subtitles;
-use App\Achievements\UserUploaded600Subtitles;
-use App\Achievements\UserUploaded700Subtitles;
-use App\Achievements\UserUploaded800Subtitles;
-use App\Achievements\UserUploaded900Subtitles;
-use App\Achievements\UserUploadedFirstSubtitle;
 use App\Enums\ModerationStatus;
 use App\Http\Requests\StoreSubtitleRequest;
 use App\Http\Requests\UpdateSubtitleRequest;
@@ -113,20 +100,6 @@ class SubtitleController extends Controller
                 )
             );
 
-            // Achievements
-            $user->unlock(new UserUploadedFirstSubtitle());
-            $user->addProgress(new UserUploaded25Subtitles(), 1);
-            $user->addProgress(new UserUploaded50Subtitles(), 1);
-            $user->addProgress(new UserUploaded100Subtitles(), 1);
-            $user->addProgress(new UserUploaded200Subtitles(), 1);
-            $user->addProgress(new UserUploaded300Subtitles(), 1);
-            $user->addProgress(new UserUploaded400Subtitles(), 1);
-            $user->addProgress(new UserUploaded500Subtitles(), 1);
-            $user->addProgress(new UserUploaded600Subtitles(), 1);
-            $user->addProgress(new UserUploaded700Subtitles(), 1);
-            $user->addProgress(new UserUploaded800Subtitles(), 1);
-            $user->addProgress(new UserUploaded900Subtitles(), 1);
-            $user->addProgress(new UserUploaded1000Subtitles(), 1);
         } else {
             $this->chatRepository->systemMessage(
                 \sprintf(

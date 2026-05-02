@@ -97,6 +97,8 @@ Route::middleware('language')->group(function (): void {
 
         // Authenticated Images
         Route::prefix('authenticated-images')->name('authenticated_images.')->middleware('throttle:'.GlobalRateLimit::AUTHENTICATED_IMAGES->value)->withoutMiddleware('throttle:'.GlobalRateLimit::WEB->value)->group(function (): void {
+            Route::get('/achievement-images/{achievement}', [App\Http\Controllers\AuthenticatedImageController::class, 'achievementImage'])->name('achievement_image');
+            Route::get('/achievement-tier-images/{achievementTier}', [App\Http\Controllers\AuthenticatedImageController::class, 'achievementTierImage'])->name('achievement_tier_image');
             Route::get('/article-images/{article}', [App\Http\Controllers\AuthenticatedImageController::class, 'articleImage'])->name('article_image');
             Route::get('/category-images/{category}', [App\Http\Controllers\AuthenticatedImageController::class, 'categoryImage'])->name('category_image');
             Route::get('/playlist-images/{playlist}', [App\Http\Controllers\AuthenticatedImageController::class, 'playlistImage'])->name('playlist_image');
@@ -852,6 +854,16 @@ Route::middleware('language')->group(function (): void {
             Route::prefix('flush')->name('flush.')->group(function (): void {
                 Route::post('/peers', [App\Http\Controllers\Staff\FlushController::class, 'peers'])->name('peers');
                 Route::post('/chat', [App\Http\Controllers\Staff\FlushController::class, 'chat'])->name('chat');
+            });
+
+            // Achievements System
+            Route::prefix('achievements')->name('achievements.')->middleware('admin')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\AchievementController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\AchievementController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\AchievementController::class, 'store'])->name('store');
+                Route::get('/{achievement}/edit', [App\Http\Controllers\Staff\AchievementController::class, 'edit'])->name('edit');
+                Route::patch('/{achievement}', [App\Http\Controllers\Staff\AchievementController::class, 'update'])->name('update');
+                Route::delete('/{achievement}', [App\Http\Controllers\Staff\AchievementController::class, 'destroy'])->name('destroy');
             });
 
             // Forums System

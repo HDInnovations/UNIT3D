@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Achievement;
+use App\Models\AchievementTier;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Playlist;
@@ -29,6 +31,28 @@ class AuthenticatedImageController extends Controller
     private const array HEADERS = [
         'Cache-Control' => 'private, max-age=7200',
     ];
+
+    public function achievementImage(Achievement $achievement): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        abort_if($achievement->icon_path === null, 404);
+
+        $path = Storage::disk('achievement-images')->path($achievement->icon_path);
+
+        abort_unless(file_exists($path), 404);
+
+        return response()->file($path, self::HEADERS);
+    }
+
+    public function achievementTierImage(AchievementTier $achievementTier): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        abort_if($achievementTier->icon_path === null, 404);
+
+        $path = Storage::disk('achievement-images')->path($achievementTier->icon_path);
+
+        abort_unless(file_exists($path), 404);
+
+        return response()->file($path, self::HEADERS);
+    }
 
     public function articleImage(Article $article): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {

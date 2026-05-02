@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\Console\Commands\AutoAchievementEvaluation;
 use App\Console\Commands\AutoBonAllocation;
 use App\Console\Commands\AutoCacheRandomMediaIds;
 use App\Console\Commands\AutoCacheUserLeechCounts;
@@ -78,6 +79,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoUpdateUserLastActions::class)->everyFiveSeconds();
         $schedule->command(AutoDeleteStoppedPeers::class)->everyTwoMinutes();
         $schedule->command(AutoUnbookmarkCompletedTorrents::class)->everyFifteenMinutes();
+        $schedule->command(AutoAchievementEvaluation::class)->daily();
         $schedule->command(AutoGroup::class)->daily();
         $schedule->command(AutoNerdStat::class)->hourly();
         $schedule->command(AutoCacheRandomMediaIds::class)->hourly();

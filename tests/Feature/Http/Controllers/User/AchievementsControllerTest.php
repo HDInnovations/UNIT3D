@@ -25,6 +25,8 @@ test('index returns an ok response', function (): void {
     $response->assertViewIs('user.achievement.index');
     $response->assertViewHas('route');
     $response->assertViewHas('user', $user);
-    $response->assertViewHas('achievements');
-    $response->assertViewHas('pending');
+    $response->assertViewHas('grouped');
+    $response->assertViewHas('earnedCount');
+    $response->assertViewHas('completedCount');
+    $response->assertViewHas('availableCount');
 });

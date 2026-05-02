@@ -92,6 +92,11 @@ return [
         ],
 
         // UNIT3D Custom Disks (Alphabetical Order)
+        'achievement-images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/achievements/images'),
+        ],
+
         'article-images' => [
             'driver' => 'local',
             'root'   => storage_path('app/images/articles/images'),

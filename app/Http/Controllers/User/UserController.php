@@ -18,13 +18,14 @@ namespace App\Http\Controllers\User;
 
 use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
+use App\Models\Achievement;
 use App\Models\BonTransactions;
 use App\Models\Donation;
 use App\Models\Invite;
 use App\Models\Peer;
 use App\Models\User;
+use App\Models\UserAchievement;
 use App\Services\Unit3dAnnounce;
-use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -42,6 +43,53 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $achievements = Achievement::query()
+            ->with('tiers')
+            ->where('enabled', '=', true)
+            ->where('is_hidden', '=', false)
+            ->orderBy('positions')
+            ->get();
+
+        $userAchievements = UserAchievement::query()
+            ->where('user_id', '=', $user->id)
+            ->pluck('current_tier', 'achievement_id');
+
+        $hiddenTotal = Achievement::query()
+            ->where('enabled', '=', true)
+            ->where('is_hidden', '=', true)
+            ->count();
+
+        $hiddenEarned = UserAchievement::query()
+            ->where('user_id', '=', $user->id)
+            ->whereHas('achievement', function ($query): void {
+                $query->where('is_hidden', '=', true);
+            })
+            ->count();
+
+        $achievementCards = $achievements->map(function (Achievement $achievement) use ($userAchievements): array {
+            $currentTier = $userAchievements->get($achievement->id, 0);
+            $maxTier = $achievement->tiers->max('tier');
+            $currentTierDetails = $achievement->tiers->firstWhere('tier', $currentTier);
+            $iconTier = $currentTierDetails?->icon_path !== null ? $currentTierDetails : null;
+
+            return [
+                'name'        => $currentTierDetails?->name ?? $achievement->name,
+                'achievement' => $achievement->name,
+                'currentTier' => $currentTier,
+                'maxTier'     => $maxTier,
+                'isMaxed'     => $currentTier > 0 && $currentTier >= $maxTier,
+                'isEarned'    => $currentTier > 0,
+                'iconRoute'   => $iconTier !== null
+                    ? route('authenticated_images.achievement_tier_image', ['achievementTier' => $iconTier])
+                    : ($achievement->icon_path !== null
+                        ? route('authenticated_images.achievement_image', ['achievement' => $achievement])
+                        : null),
+            ];
+        });
+
+        $earnedAchievements = $achievementCards->filter(fn (array $card) => $card['isEarned'])->values();
+        $lockedAchievements = $achievementCards->filter(fn (array $card) => ! $card['isEarned'])->values();
+
         $user->load([
             'application',
             'privacy',
@@ -107,11 +155,12 @@ class UserController extends Controller
                 ->groupBy(['ip', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),
-            'achievements' => AchievementProgress::with('details')
-                ->where('achiever_id', '=', $user->id)
-                ->whereNotNull('unlocked_at')
-                ->get(),
-            'peers' => Peer::query()
+            'earnedAchievements' => $earnedAchievements,
+            'lockedAchievements' => $lockedAchievements,
+            'achievementsTotal'  => $achievements->count() + $hiddenTotal,
+            'achievementsEarned' => $earnedAchievements->count() + $hiddenEarned,
+            'secretLockedCount'  => $hiddenTotal - $hiddenEarned,
+            'peers'              => Peer::query()
                 ->selectRaw('SUM(seeder = FALSE AND active = TRUE) as leeching')
                 ->selectRaw('SUM(seeder = TRUE AND active = TRUE) as seeding')
                 ->selectRaw('SUM(active = FALSE) as inactive')

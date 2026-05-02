@@ -29,7 +29,6 @@ class DatabaseSeeder extends Seeder
             GroupSeeder::class,
             UserSeeder::class,
             BonExchangeSeeder::class,
-            AchievementDetailSeeder::class,
             PageSeeder::class,
             CategorySeeder::class,
             TypeSeeder::class,
