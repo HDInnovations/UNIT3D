@@ -21,6 +21,7 @@ use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use App\Notifications\TorrentFeatured;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
@@ -155,6 +156,8 @@ class TorrentBuffController extends Controller
             $this->chatRepository->systemMessage(
                 \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
             );
+
+            $torrent->user->notify(new TorrentFeatured($torrent, $user));
 
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->with('success', 'Torrent is now featured!');
