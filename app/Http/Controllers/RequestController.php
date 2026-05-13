@@ -22,11 +22,8 @@ use App\Http\Requests\UpdateTorrentRequestRequest;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\TorrentRequest;
-use App\Models\TorrentRequestBounty;
 use App\Models\Type;
-use App\Repositories\ChatRepository;
-use App\Services\Igdb\IgdbScraper;
-use App\Services\Tmdb\TMDBScraper;
+use App\Services\TorrentRequestCreator;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -38,7 +35,7 @@ class RequestController extends Controller
     /**
      * RequestController Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository)
+    public function __construct(private readonly TorrentRequestCreator $torrentRequestCreator)
     {
     }
 
@@ -135,39 +132,7 @@ class RequestController extends Controller
      */
     public function store(StoreTorrentRequestRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
-        $user->decrement('seedbonus', $request->bounty);
-
-        $torrentRequest = TorrentRequest::query()->create([
-            'user_id'   => $request->user()->id,
-            'bumped_at' => now(),
-        ] + $request->validated());
-
-        TorrentRequestBounty::query()->create([
-            'user_id'     => $user->id,
-            'seedbonus'   => $request->bounty,
-            'requests_id' => $torrentRequest->id,
-            'anon'        => $request->anon,
-        ]);
-
-        // Auto Shout
-        if (!$torrentRequest->anon) {
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
-            );
-        }
-
-        match (true) {
-            $torrentRequest->tmdb_tv_id !== null    => new TMDBScraper()->tv($torrentRequest->tmdb_tv_id),
-            $torrentRequest->tmdb_movie_id !== null => new TMDBScraper()->movie($torrentRequest->tmdb_movie_id),
-            $torrentRequest->igdb !== null          => new IgdbScraper()->game($torrentRequest->igdb),
-            default                                 => null,
-        };
+        $this->torrentRequestCreator->create($request->user(), $request->validated());
 
         return to_route('requests.index')
             ->with('success', trans('request.added-request'));

@@ -52,6 +52,7 @@ Route::middleware([Authenticate::using(AuthGuard::API->value), CheckIfBanned::cl
 
     // Requests System
     Route::prefix('requests')->group(function (): void {
+        Route::post('/', [App\Http\Controllers\API\TorrentRequestController::class, 'store']);
         Route::get('/filter', [App\Http\Controllers\API\TorrentRequestController::class, 'filter']);
         Route::get('/{id}', [App\Http\Controllers\API\TorrentRequestController::class, 'show'])->where('id', '[0-9]+');
     });

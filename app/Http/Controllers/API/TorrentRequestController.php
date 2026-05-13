@@ -17,12 +17,32 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\StoreTorrentRequestRequest;
 use App\Http\Resources\TorrentRequestResource;
 use App\Models\TorrentRequest;
+use App\Services\TorrentRequestCreator;
 use Illuminate\Http\Request;
 
 class TorrentRequestController extends Controller
 {
+    public function __construct(private readonly TorrentRequestCreator $torrentRequestCreator)
+    {
+    }
+
+    /**
+     * Store a newly created request.
+     */
+    public function store(StoreTorrentRequestRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $torrentRequest = $this->torrentRequestCreator->create($request->user(), $request->validated())
+            ->load(['user', 'claim.user', 'filler'])
+            ->loadSum('bounties', 'seedbonus');
+
+        return (new TorrentRequestResource($torrentRequest))
+            ->response()
+            ->setStatusCode(201);
+    }
+
     /**
      * Request search filter.
      */
