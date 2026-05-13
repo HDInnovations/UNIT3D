@@ -114,7 +114,7 @@ class TorrentResource extends JsonResource
                     'name'  => $file->name,
                     'size'  => $file->size,
                 ]),
-                'freeleech'        => $this->free.'%',
+                'freeleech'        => $this->effectiveFreeleechPercentage($request).'%',
                 'double_upload'    => $this->doubleup,
                 'refundable'       => $this->refundable,
                 'internal'         => $this->internal,
@@ -148,5 +148,24 @@ class TorrentResource extends JsonResource
     public function withResponse(Request $request, JsonResponse $response): void
     {
         $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    }
+
+    private function effectiveFreeleechPercentage(Request $request): int
+    {
+        $user = $request->user(AuthGuard::API->value);
+
+        if (config('other.freeleech')) {
+            return 100;
+        }
+
+        if ($user !== null) {
+            $user->loadMissing('group');
+
+            if ($user->group->is_freeleech) {
+                return 100;
+            }
+        }
+
+        return (int) $this->free;
     }
 }

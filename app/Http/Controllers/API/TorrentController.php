@@ -320,6 +320,7 @@ class TorrentController extends BaseController
         unset($queryParams['api_token']);
         $queryParams['isRegexAllowed'] = $isRegexAllowed;
         $queryParams['isSqlAllowed'] = $isSqlAllowed;
+        $queryParams['isFreeleechUser'] = config('other.freeleech') || $user->group->is_freeleech;
 
         // Sorting query params by key (acts by reference)
         ksort($queryParams);
@@ -329,7 +330,7 @@ class TorrentController extends BaseController
         $cacheKey = $url.'?'.$queryString;
 
         /** @phpstan-ignore method.unresolvableReturnType (phpstan is unable to resolve type because it's returning a phpstan-ignored line) */
-        [$torrents, $hasMore] = cache()->flexible($cacheKey, [60 * 5, 60 * 6], function () use ($request, $isSqlAllowed) {
+        [$torrents, $hasMore] = cache()->flexible($cacheKey, [60 * 5, 60 * 6], function () use ($request, $isSqlAllowed, $user) {
             $eagerLoads = fn (Builder $query) => $query
                 ->with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region', 'files'])
                 ->select('*')
@@ -416,6 +417,8 @@ class TorrentController extends BaseController
                 foreach ($results['hits'] ?? [] as $hit) {
                     $meta = $hit['tmdb_movie'] ?? $hit['tmdb_tv'] ?? [];
 
+                    $effectiveFreeleech = config('other.freeleech') || $user->group->is_freeleech ? 100 : (int) $hit['free'];
+
                     /** @see TorrentResource */
                     $torrents->push([
                         'type'       => 'torrent',
@@ -437,7 +440,7 @@ class TorrentController extends BaseController
                             'size'             => $hit['size'],
                             'num_file'         => $hit['num_file'],
                             'files'            => $hit['files'],
-                            'freeleech'        => $hit['free'].'%',
+                            'freeleech'        => $effectiveFreeleech.'%',
                             'double_upload'    => $hit['doubleup'],
                             'refundable'       => $hit['refundable'],
                             'internal'         => $hit['internal'],
