@@ -334,7 +334,7 @@ final class User extends Authenticatable implements MustVerifyEmail
             'torrent_filters'                   => false,
             'custom_css'                        => null,
             'standalone_css'                    => null,
-            'show_poster'                       => false,
+            'show_poster'                       => config('other.default_show_poster', false),
             'unbookmark_torrents_on_completion' => false,
             'torrent_sort_field'                => 'bumped_at',
             'torrent_search_autofocus'          => false,
