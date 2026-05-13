@@ -148,6 +148,10 @@ class TorrentController extends Controller
             ])
             ->withSum('tips as total_tips', 'bon')
             ->withSum(['tips as user_tips' => fn ($query) => $query->where('sender_id', '=', $user->id)], 'bon')
+            ->withMax('reseeds as latest_reseed_requested_at', 'created_at')
+            ->withCasts([
+                'latest_reseed_requested_at' => 'datetime',
+            ])
             ->withMax(['history' => fn ($query) => $query->where('seeder', '=', true)], 'updated_at')
             ->when(
                 $user->group->is_modo,

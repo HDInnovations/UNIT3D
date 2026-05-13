@@ -324,23 +324,41 @@
         </li>
     @endif
 
+    @php
+        $latestReseedRequestAt = $torrent->latest_reseed_requested_at;
+        $hasRecentReseedRequest = $latestReseedRequestAt?->isAfter(now()->subDays(30)) ?? false;
+        $reseedButtonText = $latestReseedRequestAt === null
+            ? __('torrent.request-reseed')
+            : __('torrent.reseed-requested-on', ['datetime' => $latestReseedRequestAt->toDayDateTimeString()]);
+    @endphp
+
     @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED &&
     $torrent->seeders <= 2 &&
     $torrent->history->first() !== null &&
     ! $torrent->history->first()->seeder &&
     $torrent->history->first()->active)
         <li class="form__group form__group--short-horizontal">
-            <form
-                action="{{ route('reseed', ['id' => $torrent->id]) }}"
-                method="POST"
-                style="display: contents"
-            >
-                @csrf
-                <button class="form__button form__button--outlined form__button--centered">
+            @if ($hasRecentReseedRequest)
+                <button
+                    class="form__button form__button--outlined form__button--centered"
+                    disabled
+                >
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
-                    {{ __('torrent.request-reseed') }}
+                    {{ $reseedButtonText }}
                 </button>
-            </form>
+            @else
+                <form
+                    action="{{ route('reseed', ['id' => $torrent->id]) }}"
+                    method="POST"
+                    style="display: contents"
+                >
+                    @csrf
+                    <button class="form__button form__button--outlined form__button--centered">
+                        <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
+                        {{ $reseedButtonText }}
+                    </button>
+                </form>
+            @endif
         </li>
     @endif
 

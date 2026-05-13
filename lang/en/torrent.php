@@ -167,6 +167,7 @@ return [
     'released'                 => 'Released',
     'remaining'                => 'Remaining',
     'request-reseed'           => 'Request reseed',
+    'reseed-requested-on'      => 'Reseed Requested on :datetime',
     'required-anime'           => 'Required for anime',
     'required-games'           => 'Required for games',
     'requires-reseed'          => 'Requires reseed',
