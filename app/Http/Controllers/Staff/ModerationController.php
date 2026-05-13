@@ -19,13 +19,17 @@ namespace App\Http\Controllers\Staff;
 use App\Enums\ModerationStatus;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\DestroyRejectedTorrentsRequest;
 use App\Http\Requests\Staff\UpdateModerationRequest;
 use App\Models\Conversation;
 use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use App\Models\User;
+use App\Notifications\TorrentsDeleted;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
+use Illuminate\Support\Facades\Notification;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\ModerationControllerTest
@@ -61,6 +65,46 @@ class ModerationController extends Controller
                 ->where('status', '=', ModerationStatus::REJECTED)
                 ->get(),
         ]);
+    }
+
+    /**
+     * Delete selected rejected torrents from the moderation panel.
+     */
+    public function destroyRejected(DestroyRejectedTorrentsRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        abort_unless(auth()->user()->group->is_torrent_modo, 403);
+
+        $torrentIds = $request->collect('torrent_ids')
+            ->map(fn (mixed $torrentId): int => (int) $torrentId)
+            ->all();
+
+        $torrents = Torrent::query()
+            ->withoutGlobalScope(ApprovedScope::class)
+            ->whereKey($torrentIds)
+            ->where('status', '=', ModerationStatus::REJECTED)
+            ->get();
+
+        if ($torrents->count() !== \count($torrentIds)) {
+            return to_route('staff.moderation.index')
+                ->withInput()
+                ->withErrors('Only rejected torrents can be bulk deleted from moderation.');
+        }
+
+        $users = User::query()
+            ->whereHas('history', fn ($query) => $query->whereIn('torrent_id', $torrentIds))
+            ->get();
+
+        foreach ($torrents as $torrent) {
+            $this->deleteTorrent($torrent);
+        }
+
+        Notification::send(
+            $users,
+            new TorrentsDeleted($torrents, 'Rejected torrents', (string) $request->string('message')),
+        );
+
+        return to_route('staff.moderation.index')
+            ->with('success', \sprintf('%d rejected %s deleted.', $torrents->count(), $torrents->count() === 1 ? 'torrent' : 'torrents'));
     }
 
     /**
@@ -163,5 +207,44 @@ class ModerationController extends Controller
                 return to_route('torrents.show', ['id' => $id])
                     ->withErrors('Invalid moderation status.');
         }
+    }
+
+    /**
+     * Remove torrent records and related announce/cache state.
+     */
+    private function deleteTorrent(Torrent $torrent): void
+    {
+        // Reset Requests
+        $torrent->requests()->whereNull('approved_when')->update([
+            'torrent_id' => null,
+        ]);
+
+        //Remove Torrent related info
+        cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
+
+        $torrent->comments()->delete();
+        $torrent->peers()->delete();
+        $torrent->history()->delete();
+        $torrent->warnings()->delete();
+        $torrent->files()->delete();
+        $torrent->playlists()->detach();
+        $torrent->subtitles()->delete();
+        $torrent->resurrections()->delete();
+        $torrent->featured()->delete();
+        $torrent->reseeds()->delete();
+
+        $freeleechTokens = $torrent->freeleechTokens();
+
+        foreach ($freeleechTokens->get() as $freeleechToken) {
+            cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
+        }
+
+        $freeleechTokens->delete();
+
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
+        Unit3dAnnounce::removeTorrent($torrent);
+
+        $torrent->delete();
     }
 }

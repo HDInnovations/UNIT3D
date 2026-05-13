@@ -200,12 +200,84 @@
             </table>
         </div>
     </section>
-    <section class="panelV2">
+    <section
+        class="panelV2"
+        x-data="{
+            selectedRejected: [],
+            rejectedTorrentIds:
+                {{ Js::from($rejected->pluck('id')->map(fn ($id) => (string) $id)->values()) }},
+        }"
+    >
         <h2 class="panel__heading">{{ __('torrent.rejected') }}</h2>
+        @if ($rejected->isNotEmpty())
+            <menu class="data-table__actions">
+                <li class="data-table__action">
+                    <button
+                        class="form__button form__button--filled"
+                        type="button"
+                        popovertarget="rejected-torrents-delete"
+                        x-bind:disabled="selectedRejected.length === 0"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
+                        {{ __('common.delete') }} selected
+                    </button>
+                </li>
+            </menu>
+            <dialog id="rejected-torrents-delete" class="dialog" popover>
+                <h4 class="dialog__heading">
+                    {{ __('common.delete') }} selected rejected torrents
+                </h4>
+                <form
+                    id="bulk-delete-rejected-torrents"
+                    class="dialog__form"
+                    method="POST"
+                    action="{{ route('staff.moderation.destroy_rejected') }}"
+                >
+                    @csrf
+                    @method('DELETE')
+                    <p class="form__group">
+                        <textarea
+                            class="form__textarea"
+                            name="message"
+                            id="bulk-deletion-message"
+                            required
+                        ></textarea>
+                        <label
+                            class="form__label form__label--floating"
+                            for="bulk-deletion-message"
+                        >
+                            Deletion reason
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <button class="form__button form__button--filled">
+                            {{ __('common.delete') }}
+                        </button>
+                        <button
+                            class="form__button form__button--outlined"
+                            type="button"
+                            popovertarget="rejected-torrents-delete"
+                        >
+                            {{ __('common.cancel') }}
+                        </button>
+                    </p>
+                </form>
+            </dialog>
+        @endif
+
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
+                        <th>
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                aria-label="Select all rejected torrents"
+                                x-bind:checked="rejectedTorrentIds.length > 0 && selectedRejected.length === rejectedTorrentIds.length"
+                                x-on:change="selectedRejected = $event.target.checked ? rejectedTorrentIds.slice() : []"
+                            />
+                        </th>
                         <th>{{ __('staff.moderation-since') }}</th>
                         <th>{{ __('common.name') }}</th>
                         <th>{{ __('common.category') }}</th>
@@ -220,6 +292,17 @@
                 <tbody>
                     @forelse ($rejected as $torrent)
                         <tr>
+                            <td>
+                                <input
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    name="torrent_ids[]"
+                                    value="{{ $torrent->id }}"
+                                    form="bulk-delete-rejected-torrents"
+                                    x-model="selectedRejected"
+                                    aria-label="Select {{ $torrent->name }}"
+                                />
+                            </td>
                             <td>
                                 <time
                                     datetime="{{ $torrent->moderated_at }}"
@@ -292,7 +375,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9">No rejected torrents</td>
+                            <td colspan="10">No rejected torrents</td>
                         </tr>
                     @endforelse
                 </tbody>

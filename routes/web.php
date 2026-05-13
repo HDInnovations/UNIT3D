@@ -250,6 +250,7 @@ Route::middleware(SetLanguage::class)->group(function (): void {
         // Torrents System
         Route::prefix('torrents/moderation')->name('staff.moderation.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
+            Route::delete('/rejected', [App\Http\Controllers\Staff\ModerationController::class, 'destroyRejected'])->name('destroy_rejected');
             Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update')->whereNumber('id');
         });
 
