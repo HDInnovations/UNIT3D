@@ -186,6 +186,14 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Determine whether the user may access invite-only forum areas.
+     */
+    public function canAccessInviteForums(): bool
+    {
+        return (bool) ($this->can_invite ?? $this->group->can_invite);
+    }
+
+    /**
      * Get the internal groups that the user belongs to.
      *
      * @return BelongsToMany<Internal, $this, InternalUser>

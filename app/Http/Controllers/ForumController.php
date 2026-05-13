@@ -32,6 +32,11 @@ class ForumController extends Controller
      */
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $canAccessInviteForums = $request->user()->canAccessInviteForums();
+        $forumCountCacheKey = 'forum-count:by-group-id:'.$request->user()->group_id.':invite-forums:'.(int) $canAccessInviteForums;
+        $postCountCacheKey = 'post-count:by-group-id:'.$request->user()->group_id.':invite-forums:'.(int) $canAccessInviteForums;
+        $topicCountCacheKey = 'topic-count:by-group-id:'.$request->user()->group_id.':invite-forums:'.(int) $canAccessInviteForums;
+
         return view('forum.index', [
             'categories' => ForumCategory::query()
                 ->with([
@@ -43,17 +48,17 @@ class ForumController extends Controller
                 ->get()
                 ->filter(fn ($category) => $category->forums->isNotEmpty()),
             'num_posts' => cache()->remember(
-                'post-count:by-group-id:'.$request->user()->group_id,
+                $postCountCacheKey,
                 3600,
                 fn () => Post::query()->authorized(canReadTopic: true)->count()
             ),
             'num_forums' => cache()->remember(
-                'forum-count:by-group-id:'.$request->user()->group_id,
+                $forumCountCacheKey,
                 3600,
                 fn () => Forum::query()->authorized(canReadTopic: true)->count()
             ),
             'num_topics' => cache()->remember(
-                'topic-count:by-group-id:'.$request->user()->group_id,
+                $topicCountCacheKey,
                 3600,
                 fn () => Topic::query()->authorized(canReadTopic: true)->count()
             ),

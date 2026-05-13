@@ -45,6 +45,7 @@ class ForumFactory extends Factory
             'slug'                 => $this->faker->slug(),
             'description'          => $this->faker->text(),
             'forum_category_id'    => ForumCategory::factory(),
+            'is_invite_forum'      => false,
         ];
     }
 }

@@ -154,23 +154,35 @@ final class Post extends Model
         ?bool $canReplyTopic = null,
         ?bool $canStartTopic = null,
     ): \Illuminate\Database\Eloquent\Builder {
-        return $query->whereNotIn(
-            'topic_id',
-            Topic::query()
-                ->whereRelation(
-                    'forumPermissions',
-                    fn ($query) => $query
-                        ->where('group_id', '=', auth()->user()->group_id)
-                        ->where(
-                            fn ($query) => $query
-                                ->whereRaw('1 = 0')
-                                ->when($canReadTopic !== null, fn ($query) => $query->orWhere('read_topic', '!=', $canReadTopic))
-                                ->when($canReplyTopic !== null, fn ($query) => $query->orWhere('reply_topic', '!=', $canReplyTopic))
-                                ->when($canStartTopic !== null, fn ($query) => $query->orWhere('start_topic', '!=', $canStartTopic))
-                        )
+        $user = auth()->user();
+
+        return $query
+            ->whereNotIn(
+                'topic_id',
+                Topic::query()
+                    ->whereRelation(
+                        'forumPermissions',
+                        fn ($query) => $query
+                            ->where('group_id', '=', $user->group_id)
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRaw('1 = 0')
+                                    ->when($canReadTopic !== null, fn ($query) => $query->orWhere('read_topic', '!=', $canReadTopic))
+                                    ->when($canReplyTopic !== null, fn ($query) => $query->orWhere('reply_topic', '!=', $canReplyTopic))
+                                    ->when($canStartTopic !== null, fn ($query) => $query->orWhere('start_topic', '!=', $canStartTopic))
+                            )
+                    )
+                    ->when($canReplyTopic && ! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+                    ->select('id')
+            )
+            ->when(
+                ! $user->canAccessInviteForums(),
+                fn ($query) => $query->whereNotIn(
+                    'topic_id',
+                    Topic::query()
+                        ->whereRelation('forum', 'is_invite_forum', '=', true)
+                        ->select('id')
                 )
-                ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
-                ->select('id')
-        );
+            );
     }
 }

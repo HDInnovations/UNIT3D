@@ -41,6 +41,7 @@ use AllowDynamicProperties;
  * @property string|null                     $slug
  * @property string|null                     $description
  * @property int                             $forum_category_id
+ * @property bool                            $is_invite_forum
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -58,6 +59,18 @@ final class Forum extends Model
      * @var string[]
      */
     protected $guarded = ['id', 'created_at'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{is_invite_forum: 'bool'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_invite_forum' => 'bool',
+        ];
+    }
 
     /**
      * Get the topics for the forum.
@@ -161,14 +174,17 @@ final class Forum extends Model
         ?bool $canReplyTopic = null,
         ?bool $canStartTopic = null,
     ): \Illuminate\Database\Eloquent\Builder {
+        $user = auth()->user();
+
         return $query
             ->whereRelation(
                 'permissions',
                 fn ($query) => $query
-                    ->where('group_id', '=', auth()->user()->group_id)
+                    ->where('group_id', '=', $user->group_id)
                     ->when($canReadTopic !== null, fn ($query) => $query->where('read_topic', '=', $canReadTopic))
                     ->when($canReplyTopic !== null, fn ($query) => $query->where('reply_topic', '=', $canReplyTopic))
                     ->when($canStartTopic !== null, fn ($query) => $query->where('start_topic', '=', $canStartTopic))
-            );
+            )
+            ->when(! $user->canAccessInviteForums(), fn ($query) => $query->where('is_invite_forum', '=', false));
     }
 }

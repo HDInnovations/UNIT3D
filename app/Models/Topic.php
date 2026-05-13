@@ -191,15 +191,18 @@ final class Topic extends Model
         ?bool $canReplyTopic = null,
         ?bool $canStartTopic = null,
     ): \Illuminate\Database\Eloquent\Builder {
+        $user = auth()->user();
+
         return $query
             ->whereRelation(
                 'forumPermissions',
                 fn ($query) => $query
-                    ->where('group_id', '=', auth()->user()->group_id)
+                    ->where('group_id', '=', $user->group_id)
                     ->when($canReadTopic !== null, fn ($query) => $query->where('read_topic', '=', $canReadTopic))
                     ->when($canReplyTopic !== null, fn ($query) => $query->where('reply_topic', '=', $canReplyTopic))
                     ->when($canStartTopic !== null, fn ($query) => $query->where('start_topic', '=', $canStartTopic))
             )
-            ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'));
+            ->when(! $user->canAccessInviteForums(), fn ($query) => $query->whereRelation('forum', 'is_invite_forum', '=', false))
+            ->when($canReplyTopic && ! $user->group->is_modo, fn ($query) => $query->where('state', '=', 'open'));
     }
 }

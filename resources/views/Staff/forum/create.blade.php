@@ -100,6 +100,17 @@
                         Default topic state filter
                     </label>
                 </p>
+                <p class="form__group">
+                    <input name="forum[is_invite_forum]" type="hidden" value="0" />
+                    <input
+                        id="is_invite_forum"
+                        class="form__checkbox"
+                        name="forum[is_invite_forum]"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="is_invite_forum">Invite forum</label>
+                </p>
                 <div class="form__group">
                     <h3>Permissions</h3>
                     <div class="data-table-wrapper" x-data="checkboxGrid">

@@ -52,6 +52,10 @@ test('rules', function (): void {
             'nullable',
             Rule::in(['close', 'open', null]),
         ],
+        'forum.is_invite_forum' => [
+            'sometimes',
+            'boolean',
+        ],
         'permissions' => [
             'required',
             'array',

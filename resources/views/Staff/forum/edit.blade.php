@@ -140,6 +140,18 @@
                         Topic state filter
                     </label>
                 </p>
+                <p class="form__group">
+                    <input name="forum[is_invite_forum]" type="hidden" value="0" />
+                    <input
+                        id="is_invite_forum"
+                        class="form__checkbox"
+                        name="forum[is_invite_forum]"
+                        type="checkbox"
+                        value="1"
+                        @checked($forum->is_invite_forum)
+                    />
+                    <label class="form__label" for="is_invite_forum">Invite forum</label>
+                </p>
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
