@@ -1015,6 +1015,8 @@ Route::middleware(SetLanguage::class)->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
                 Route::get('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->name('show');
                 Route::patch('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
+                Route::post('/{report}/notes', [App\Http\Controllers\Staff\ReportNoteController::class, 'store'])->name('notes.store');
+                Route::delete('/{report}/notes/{reportNote}', [App\Http\Controllers\Staff\ReportNoteController::class, 'destroy'])->name('notes.destroy');
                 Route::post('/{report}/assignee', [App\Http\Controllers\Staff\ReportAssigneeController::class, 'store'])->name('assignee.store');
                 Route::delete('/{report}/assignee', [App\Http\Controllers\Staff\ReportAssigneeController::class, 'destroy'])->name('assignee.destroy');
             });

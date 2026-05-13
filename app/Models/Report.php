@@ -20,28 +20,30 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
 
 /**
  * App\Models\Report.
  *
- * @property int                             $id
- * @property string                          $type
- * @property int                             $reporter_id
- * @property int                             $reported_user_id
- * @property int                             $reported_torrent_id
- * @property int                             $reported_request_id
- * @property string                          $title
- * @property string                          $message
- * @property int|null                        $solved_by
- * @property int|null                        $assigned_to
- * @property string|null                     $verdict
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property int|null                        $reported_user
- * @property int|null                        $torrent_id
- * @property int|null                        $request_id
- * @property \Illuminate\Support\Carbon|null $snoozed_until
+ * @property int                                                       $id
+ * @property string                                                    $type
+ * @property int                                                       $reporter_id
+ * @property int                                                       $reported_user_id
+ * @property int                                                       $reported_torrent_id
+ * @property int                                                       $reported_request_id
+ * @property string                                                    $title
+ * @property string                                                    $message
+ * @property int|null                                                  $solved_by
+ * @property int|null                                                  $assigned_to
+ * @property string|null                                               $verdict
+ * @property \Illuminate\Support\Carbon|null                           $created_at
+ * @property \Illuminate\Support\Carbon|null                           $updated_at
+ * @property int|null                                                  $reported_user
+ * @property int|null                                                  $torrent_id
+ * @property int|null                                                  $request_id
+ * @property \Illuminate\Support\Carbon|null                           $snoozed_until
+ * @property \Illuminate\Database\Eloquent\Collection<int, ReportNote> $notes
  */
 #[AllowDynamicProperties]
 final class Report extends Model
@@ -129,5 +131,15 @@ final class Report extends Model
     public function judge(): BelongsTo
     {
         return $this->belongsTo(User::class, 'solved_by')->withTrashed();
+    }
+
+    /**
+     * Get the staff notes for this report.
+     *
+     * @return HasMany<ReportNote, $this>
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(ReportNote::class)->latest();
     }
 }

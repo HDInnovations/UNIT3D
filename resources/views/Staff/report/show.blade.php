@@ -68,6 +68,82 @@
         </section>
     @endif
 
+    <section class="panelV2">
+        <h2 class="panel__heading">Staff Notes</h2>
+        <div class="panel__body">
+            <button class="form__button form__button--text" popovertarget="report-note-add">
+                <i class="{{ config('other.font-awesome') }} fa-plus"></i>
+                Add staff note
+            </button>
+            <dialog id="report-note-add" class="dialog" popover>
+                <h4 class="dialog__heading">Add staff note</h4>
+                <form
+                    class="form"
+                    method="POST"
+                    action="{{ route('staff.reports.notes.store', ['report' => $report]) }}"
+                >
+                    @csrf
+                    @livewire('bbcode-input', ['name' => 'message', 'label' => __('common.message'), 'required' => true])
+                    <p class="form__group">
+                        <button class="form__button form__button--filled">
+                            {{ __('common.submit') }}
+                        </button>
+                        <button
+                            formmethod="dialog"
+                            formnovalidate
+                            class="form__button form__button--outlined"
+                            popovertarget="report-note-add"
+                        >
+                            {{ __('common.cancel') }}
+                        </button>
+                    </p>
+                </form>
+            </dialog>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{ __('common.created_at') }}</th>
+                    <th>{{ __('common.user') }}</th>
+                    <th>{{ __('user.note') }}</th>
+                    <th>{{ __('common.actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($report->notes as $note)
+                    <tr>
+                        <td>
+                            <time datetime="{{ $note->created_at }}" title="{{ $note->created_at }}">
+                                {{ $note->created_at->diffForHumans() }}
+                            </time>
+                        </td>
+                        <td>
+                            <x-user-tag :anon="false" :user="$note->user" />
+                        </td>
+                        {{-- format-ignore-start --}}<td style="white-space: pre-wrap">@linkify($note->message)</td>{{-- format-ignore-end --}}
+                        <td>
+                            <form
+                                method="POST"
+                                action="{{ route('staff.reports.notes.destroy', ['report' => $report, 'reportNote' => $note]) }}"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button class="form__button form__button--text">
+                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                    {{ __('common.delete') }}
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4">No notes</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </section>
+
     @if ($report->solved_by !== null)
         <section class="panelV2">
             <h2 class="panel__heading">Verdict</h2>

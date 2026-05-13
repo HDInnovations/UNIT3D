@@ -42,6 +42,8 @@ class ReportController extends Controller
      */
     public function show(Report $report): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $report->load(['notes.user']);
+
         // cspell:ignore punct
         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', (string) $report->message, $match);
 
