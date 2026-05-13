@@ -184,6 +184,12 @@
                 @endforeach
 
                 <li>
+                    <a href="{{ route('groups_requirements') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-users"></i>
+                        {{ __('common.user') }} {{ __('common.groups') }}
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('subtitles.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-closed-captioning"></i>
                         {{ __('common.subtitles') }}
