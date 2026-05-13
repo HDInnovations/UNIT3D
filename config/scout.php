@@ -237,6 +237,7 @@ return [
                             'freeleech_tokens.user_id',
                             'files.name',
                             'keywords',
+                            'subtitle_language_ids',
                             'distributor_id',
                             'region_id',
                         ],

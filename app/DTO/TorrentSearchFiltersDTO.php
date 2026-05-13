@@ -65,6 +65,8 @@ readonly class TorrentSearchFiltersDTO
         /** @var array<mixed> */
         private array $primaryLanguageNames = [],
         /** @var array<mixed> */
+        private array $subtitleLanguageIds = [],
+        /** @var array<mixed> */
         private array $free = [],
         private bool $doubleup = false,
         private bool $featured = false,
@@ -308,6 +310,13 @@ readonly class TorrentSearchFiltersDTO
                                     ->whereHas('tv', fn ($query) => $query->whereIn('original_language', $this->primaryLanguageNames))
                             )
                     )
+            )
+            ->when(
+                $this->subtitleLanguageIds !== [],
+                fn ($query) => $query->whereHas(
+                    'subtitles',
+                    fn ($query) => $query->whereIntegerInRaw('language_id', array_map(intval(...), $this->subtitleLanguageIds))
+                )
             )
             ->when(
                 $this->free !== [],
@@ -630,6 +639,10 @@ readonly class TorrentSearchFiltersDTO
                 'tmdb_movie.original_language IN '.json_encode(array_map(strval(...), $this->primaryLanguageNames)),
                 'tmdb_tv.original_language IN '.json_encode(array_map(strval(...), $this->primaryLanguageNames)),
             ];
+        }
+
+        if ($this->subtitleLanguageIds !== []) {
+            $filters[] = 'subtitle_language_ids IN '.json_encode(array_map(intval(...), $this->subtitleLanguageIds));
         }
 
         if ($this->free !== []) {

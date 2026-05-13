@@ -19,6 +19,7 @@ namespace App\Http\Livewire;
 use App\DTO\TorrentSearchFiltersDTO;
 use App\Models\Category;
 use App\Models\Distributor;
+use App\Models\MediaLanguage;
 use App\Models\PersonalFreeleech;
 use App\Models\TmdbGenre;
 use App\Models\TmdbMovie;
@@ -155,6 +156,12 @@ class TorrentSearch extends Component
      */
     #[Url(history: true)]
     public array $primaryLanguageNames = [];
+
+    /**
+     * @var array<int>
+     */
+    #[Url(history: true)]
+    public array $subtitleLanguageIds = [];
 
     /**
      * @var string[]
@@ -360,6 +367,17 @@ class TorrentSearch extends Component
         );
     }
 
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection<int, MediaLanguage>
+     */
+    final protected \Illuminate\Database\Eloquent\Collection $subtitleLanguages {
+        get => cache()->flexible(
+            'media-languages',
+            [3600, 3600 * 2],
+            fn () => MediaLanguage::query()->orderBy('name')->get(),
+        );
+    }
+
     final public function filters(): TorrentSearchFiltersDTO
     {
         return (new TorrentSearchFiltersDTO(
@@ -395,6 +413,7 @@ class TorrentSearch extends Component
             networkId: $this->networkId,
             companyId: $this->companyId,
             primaryLanguageNames: $this->primaryLanguageNames,
+            subtitleLanguageIds: $this->subtitleLanguageIds,
             free: $this->free,
             doubleup: $this->doubleup,
             featured: $this->featured,
@@ -820,6 +839,7 @@ class TorrentSearch extends Component
             'resolutions'       => $this->resolutions,
             'genres'            => $this->genres,
             'primaryLanguages'  => $this->primaryLanguages,
+            'subtitleLanguages' => $this->subtitleLanguages,
             'regions'           => $this->regions,
             'distributors'      => $this->distributors,
             'user'              => auth()->user()->load('group'),

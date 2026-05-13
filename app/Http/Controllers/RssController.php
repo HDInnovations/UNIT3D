@@ -163,6 +163,7 @@ class RssController extends Controller
                     imdbId: $search->imdb === null ? null : ((int) (preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)),
                     tvdbId: $search->tvdb === null ? null : (int) $search->tvdb,
                     malId: $search->mal === null ? null : (int) $search->mal,
+                    subtitleLanguageIds: array_map(intval(...), (array) ($search->subtitleLanguages ?? [])),
                     free: $search->freeleech === null ? [] : [25, 50, 75, 100],
                     doubleup: (bool) ($search->doubleupload ?? false),
                     featured: (bool) ($search->featured ?? false),

@@ -362,6 +362,7 @@ class TorrentController extends BaseController
                 playlistId: $request->filled('playlistId') ? $request->integer('playlistId') : null,
                 collectionId: $request->filled('collectionId') ? $request->integer('collectionId') : null,
                 primaryLanguageNames: $request->filled('primaryLanguages') ? array_map(str(...), $request->primaryLanguages) : [],
+                subtitleLanguageIds: $request->filled('subtitleLanguages') ? array_map(intval(...), (array) $request->subtitleLanguages) : [],
                 adult: $request->filled('adult') ? $request->boolean('adult') : null,
                 free: $request->filled('free') ? array_map(intval(...), (array) $request->free) : [],
                 doubleup: $request->filled('doubleup'),

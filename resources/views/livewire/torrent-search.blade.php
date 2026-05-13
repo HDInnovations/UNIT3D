@@ -217,6 +217,9 @@
                 <div class="form__group">
                     <div id="distributors" wire:ignore></div>
                 </div>
+                <div class="form__group">
+                    <div id="subtitle-languages" wire:ignore></div>
+                </div>
                 <p class="form__group">
                     <select id="adult" wire:model.live="adult" class="form__select" placeholder=" ">
                         <option value="any" selected>Any</option>
@@ -1092,6 +1095,33 @@
           distributors.addEventListener('change', () => {
             let data = distributors.value
             @this.set('distributorIds', data)
+          })
+
+          let mySubtitleLanguages = {{
+              Js::from(
+                  $subtitleLanguages
+                      ->each(function ($subtitleLanguage) {
+                          $subtitleLanguage->label = $subtitleLanguage->name;
+                          $subtitleLanguage->value = $subtitleLanguage->id;
+                      })
+                      ->select(['label', 'value'])
+              )
+          }};
+
+          VirtualSelect.init({
+            ele: '#subtitle-languages',
+            options: mySubtitleLanguages,
+            multiple: true,
+            search: true,
+            selectedValue: {{ Js::from($subtitleLanguageIds) }},
+            placeholder: "{{ __('Subtitle language') }}",
+            noOptionsText: "{{ __('No results found') }}",
+          })
+
+          let subtitleLanguages = document.querySelector('#subtitle-languages')
+          subtitleLanguages.addEventListener('change', () => {
+            let data = subtitleLanguages.value
+            @this.set('subtitleLanguageIds', data)
           })
         })
     </script>
