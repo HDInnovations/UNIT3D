@@ -55,7 +55,9 @@ test('store validates with a form request', function (): void {
 });
 
 test('store returns an ok response', function (): void {
-    $group = Group::factory()->make();
+    $group = Group::factory()->make([
+        'requires_2fa' => true,
+    ]);
     $forum = Forum::factory()->create();
 
     $this->post(route('staff.groups.store'), [
@@ -85,6 +87,7 @@ test('store returns an ok response', function (): void {
             'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
+            'requires_2fa'     => $group->requires_2fa,
         ],
         'permissions' => [
             [
@@ -99,8 +102,9 @@ test('store returns an ok response', function (): void {
         ->assertSessionHasNoErrors();
 
     assertDatabaseHas('groups', [
-        'name'     => $group->name,
-        'position' => $group->position,
+        'name'         => $group->name,
+        'position'     => $group->position,
+        'requires_2fa' => $group->requires_2fa,
     ]);
 });
 
@@ -119,9 +123,10 @@ test('update returns an ok response', function (): void {
     $this->patch(route('staff.groups.update', ['group' => $group]), [
         'group' => [
             ...$group->toArray(),
-            'name'     => 'new name',
-            'position' => -2,
-            'level'    => 1000,
+            'name'         => 'new name',
+            'position'     => -2,
+            'level'        => 1000,
+            'requires_2fa' => true,
         ],
         'permissions' => [
             [
@@ -136,10 +141,11 @@ test('update returns an ok response', function (): void {
         ->assertSessionHasNoErrors();
 
     assertDatabaseHas('groups', [
-        'name'     => 'new name',
-        'slug'     => 'new-name',
-        'position' => -2,
-        'level'    => 1000,
+        'name'         => 'new name',
+        'slug'         => 'new-name',
+        'position'     => -2,
+        'level'        => 1000,
+        'requires_2fa' => true,
     ]);
 
     assertDatabaseHas('forum_permissions', [

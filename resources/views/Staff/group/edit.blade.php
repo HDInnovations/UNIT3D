@@ -363,6 +363,18 @@
                     />
                     <label class="form__label" for="autogroup">Autogroup</label>
                 </p>
+                <p class="form__group">
+                    <input name="group[requires_2fa]" type="hidden" value="0" />
+                    <input
+                        id="requires_2fa"
+                        class="form__checkbox"
+                        name="group[requires_2fa]"
+                        type="checkbox"
+                        value="1"
+                        @checked($group->requires_2fa)
+                    />
+                    <label class="form__label" for="requires_2fa">Require 2FA for promotion</label>
+                </p>
                 <div class="form__group" x-show="autogroup">
                     <fieldset class="form form__fieldset">
                         <legend class="form__legend">Autogroup requirements</legend>

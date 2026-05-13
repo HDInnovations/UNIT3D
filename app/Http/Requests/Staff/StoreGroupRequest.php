@@ -139,6 +139,10 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'group.requires_2fa' => [
+                'required',
+                'boolean',
+            ],
             'group.min_uploaded' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',

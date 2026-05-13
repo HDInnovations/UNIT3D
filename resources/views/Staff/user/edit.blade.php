@@ -116,6 +116,9 @@
                         @foreach ($groups as $group)
                             <option class="form__option" value="{{ $group->id }}">
                                 {{ $group->name }}
+                                @if ($group->requires_2fa)
+                                    (2FA required)
+                                @endif
                             </option>
                         @endforeach
                     </select>

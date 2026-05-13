@@ -54,6 +54,7 @@ use AllowDynamicProperties;
  * @property bool        $can_upload
  * @property bool        $is_incognito
  * @property bool        $autogroup
+ * @property bool        $requires_2fa
  * @property bool        $system_required
  * @property int|null    $min_uploaded
  * @property int|null    $min_seedsize
@@ -93,6 +94,7 @@ final class Group extends Model
      *     can_upload: 'bool',
      *     is_incognito: 'bool',
      *     autogroup: 'bool',
+     *     requires_2fa: 'bool',
      *     system_required: 'bool',
      *     min_ratio: 'decimal:2',
      * }
@@ -119,6 +121,7 @@ final class Group extends Model
             'can_upload'       => 'bool',
             'is_incognito'     => 'bool',
             'autogroup'        => 'bool',
+            'requires_2fa'     => 'bool',
             'system_required'  => 'bool',
             'min_ratio'        => 'decimal:2',
         ];

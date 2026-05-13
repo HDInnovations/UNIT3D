@@ -81,6 +81,7 @@ class AutoGroup extends Command
                         && ($group->min_avg_seedtime === null || $user->avg_seedtime >= $group->min_avg_seedtime)
                         && ($group->min_seedsize === null || $user->seedsize >= $group->min_seedsize)
                         && ($group->min_uploads === null || $user->uploads >= $group->min_uploads)
+                        && (!$group->requires_2fa || $user->two_factor_confirmed_at !== null)
                     ) {
                         $user->group_id = $group->id;
 

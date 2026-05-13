@@ -77,6 +77,10 @@ class UserController extends Controller
 
         abort_if(! $staff->group->is_owner && ($staff->group->level <= $user->group->level || $staff->group->level <= $group->level), 403);
 
+        if ($user->group_id !== $group->id && $group->requires_2fa && $user->two_factor_confirmed_at === null) {
+            return back()->withErrors('This group requires confirmed two-factor authentication before promotion.');
+        }
+
         $user->update($request->validated());
 
         cache()->forget('user:'.$user->passkey);
