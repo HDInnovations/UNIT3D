@@ -32,6 +32,7 @@ readonly class TorrentSearchFiltersDTO
         private string $name = '',
         private string $description = '',
         private string $mediainfo = '',
+        private string $bdinfo = '',
         private string $uploader = '',
         /** @var array<mixed> */
         private array $keywords = [],
@@ -127,6 +128,15 @@ readonly class TorrentSearchFiltersDTO
                         $isRegex($this->mediainfo),
                         fn ($query) => $query->where('mediainfo', 'REGEXP', substr($this->mediainfo, 1, -1)),
                         fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$this->mediainfo.'%')
+                    )
+            )
+            ->when(
+                $this->bdinfo !== '',
+                fn ($query) => $query
+                    ->when(
+                        $isRegex($this->bdinfo),
+                        fn ($query) => $query->where('bdinfo', 'REGEXP', substr($this->bdinfo, 1, -1)),
+                        fn ($query) => $query->where('bdinfo', 'LIKE', '%'.$this->bdinfo.'%')
                     )
             )
             ->when(

@@ -52,6 +52,17 @@
                     </p>
                     <p class="form__group">
                         <input
+                            id="bdinfo"
+                            wire:model.live="bdinfo"
+                            class="form__text"
+                            type="search"
+                            autocomplete="off"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="bdinfo">BDInfo</label>
+                    </p>
+                    <p class="form__group">
+                        <input
                             id="keywords"
                             wire:model.live="keywords"
                             class="form__text"
