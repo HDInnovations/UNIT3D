@@ -66,6 +66,7 @@ use AllowDynamicProperties;
  * @property bool                            $can_request
  * @property bool                            $can_invite
  * @property bool                            $can_upload
+ * @property bool                            $force_mod_queue
  * @property bool                            $is_donor
  * @property bool                            $is_lifetime
  * @property string|null                     $remember_token
@@ -129,6 +130,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      *     can_request: 'bool',
      *     can_invite: 'bool',
      *     can_upload: 'bool',
+     *     force_mod_queue: 'bool',
      *     can_chat: 'bool',
      *     seedbonus: 'decimal:2',
      *     is_donor: 'bool',
@@ -148,6 +150,7 @@ final class User extends Authenticatable implements MustVerifyEmail
             'can_request'             => 'bool',
             'can_invite'              => 'bool',
             'can_upload'              => 'bool',
+            'force_mod_queue'         => 'bool',
             'can_chat'                => 'bool',
             'is_donor'                => 'bool',
             'is_lifetime'             => 'bool',
@@ -183,6 +186,11 @@ final class User extends Authenticatable implements MustVerifyEmail
             'can_upload'   => config('user.group.defaults.can_upload'),
             'level'        => config('user.group.defaults.level'),
         ]);
+    }
+
+    public function canSkipTorrentModeration(bool $modQueueOptIn = false): bool
+    {
+        return $this->group->is_trusted && !$this->force_mod_queue && !$modQueueOptIn;
     }
 
     /**

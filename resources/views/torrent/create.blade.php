@@ -584,7 +584,7 @@
                     />
                     <label class="form__label" for="personal_release">Personal release?</label>
                 </p>
-                @if ($user->group->is_trusted)
+                @if ($user->group->is_trusted && ! $user->force_mod_queue)
                     <p class="form__group">
                         <input type="hidden" name="mod_queue_opt_in" value="0" />
                         <input

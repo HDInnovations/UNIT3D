@@ -341,6 +341,18 @@
                     </fieldset>
                 </div>
                 <p class="form__group">
+                    <input type="hidden" name="force_mod_queue" value="0" />
+                    <input
+                        type="checkbox"
+                        class="form__checkbox"
+                        id="force_mod_queue"
+                        name="force_mod_queue"
+                        value="1"
+                        @checked($user->force_mod_queue)
+                    />
+                    <label for="force_mod_queue">Force moderation queue?</label>
+                </p>
+                <p class="form__group">
                     <input type="hidden" name="is_donor" value="0" />
                     <input
                         type="checkbox"

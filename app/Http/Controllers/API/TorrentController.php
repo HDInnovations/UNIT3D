@@ -193,7 +193,7 @@ class TorrentController extends BaseController
         }
 
         // check for trusted user & mod queue isn't opted in and update torrent
-        if ($user->group->is_trusted && !$request->boolean('mod_queue_opt_in')) {
+        if ($user->canSkipTorrentModeration($request->boolean('mod_queue_opt_in'))) {
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
