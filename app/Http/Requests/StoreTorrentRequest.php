@@ -120,6 +120,20 @@ class StoreTorrentRequest extends FormRequest
                     }
                 },
             ],
+            'torrent-cover' => [
+                'nullable',
+                'sometimes',
+                'file',
+                'image',
+                'mimes:jpg,jpeg,png,webp,gif',
+            ],
+            'torrent-banner' => [
+                'nullable',
+                'sometimes',
+                'file',
+                'image',
+                'mimes:jpg,jpeg,png,webp,gif',
+            ],
             'name' => [
                 'required',
                 Rule::unique('torrents')->whereNull('deleted_at'),

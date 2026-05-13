@@ -371,7 +371,7 @@ class TorrentController extends Controller
             403
         );
 
-        $torrent->update($request->validated());
+        $torrent->update($request->safe()->except(['torrent-cover', 'torrent-banner']));
 
         // Cover Image for No-Meta Torrents
         if ($request->hasFile('torrent-cover')) {
@@ -550,7 +550,7 @@ class TorrentController extends Controller
             'user_id'      => $user->id,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except(['torrent']));
+        ] + $request->safe()->except(['torrent', 'nfo', 'torrent-cover', 'torrent-banner']));
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();

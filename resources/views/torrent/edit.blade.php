@@ -52,7 +52,7 @@
                     <input
                         id="torrent-cover"
                         class="form__file"
-                        accept=".jpg, .jpeg, .png"
+                        accept=".jpg, .jpeg, .png, .webp, .gif"
                         name="torrent-cover"
                         type="file"
                     />
@@ -64,7 +64,7 @@
                     <input
                         id="torrent-banner"
                         class="form__file"
-                        accept=".jpg, .jpeg, .png"
+                        accept=".jpg, .jpeg, .png, .webp, .gif"
                         name="torrent-banner"
                         type="file"
                     />

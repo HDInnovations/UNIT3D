@@ -89,6 +89,20 @@ class UpdateTorrentRequest extends FormRequest
                 'sometimes',
                 'max:2097152',
             ],
+            'torrent-cover' => [
+                'nullable',
+                'sometimes',
+                'file',
+                'image',
+                'mimes:jpg,jpeg,png,webp,gif',
+            ],
+            'torrent-banner' => [
+                'nullable',
+                'sometimes',
+                'file',
+                'image',
+                'mimes:jpg,jpeg,png,webp,gif',
+            ],
             'category_id' => [
                 'required',
                 'exists:categories,id',

@@ -102,7 +102,7 @@
                         id="torrent-cover"
                         class="upload-form-file form__file"
                         type="file"
-                        accept=".jpg, .jpeg"
+                        accept=".jpg, .jpeg, .png, .webp, .gif"
                         name="torrent-cover"
                     />
                 </p>
@@ -114,7 +114,7 @@
                         id="torrent-banner"
                         class="upload-form-file form__file"
                         type="file"
-                        accept=".jpg, .jpeg"
+                        accept=".jpg, .jpeg, .png, .webp, .gif"
                         name="torrent-banner"
                     />
                 </p>
