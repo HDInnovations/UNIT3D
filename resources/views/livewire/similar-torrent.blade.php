@@ -614,7 +614,7 @@
                         @if (array_key_exists('Specials', $similarTorrents))
                             <details
                                 class="torrent-search--grouped__dropdown"
-                                @if ($checked || (! array_key_exists('Complete Pack', $similarTorrents) && ! array_key_exists('Seasons', $similarTorrents)))
+                                @if ($checked || $expandGroups || (! array_key_exists('Complete Pack', $similarTorrents) && ! array_key_exists('Seasons', $similarTorrents)))
                                     open
                                 @endif
                                 wire:ignore.self
@@ -623,7 +623,7 @@
                                 @foreach ($similarTorrents['Specials'] as $specialName => $special)
                                     <details
                                         class="torrent-search--grouped__dropdown"
-                                        @if ($checked || $loop->first)
+                                        @if ($checked || $expandGroups || $loop->first)
                                             open
                                         @endif
                                         wire:ignore.self
@@ -671,7 +671,7 @@
                         @foreach ($similarTorrents['Seasons'] ?? [] as $seasonName => $season)
                             <details
                                 class="torrent-search--grouped__dropdown"
-                                @if ($checked || $loop->first)
+                                @if ($checked || $expandGroups || $loop->first)
                                     open
                                 @endif
                                 wire:ignore.self
@@ -759,7 +759,7 @@
                                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                                     <details
                                         class="torrent-search--grouped__dropdown"
-                                        @if ($checked || ($loop->first && ! array_key_exists('Season Pack', $season)))
+                                        @if ($checked || $expandGroups || ($loop->first && ! array_key_exists('Season Pack', $season)))
                                             open
                                         @endif
                                         wire:ignore.self

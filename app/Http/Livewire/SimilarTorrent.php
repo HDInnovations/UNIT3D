@@ -188,6 +188,8 @@ class SimilarTorrent extends Component
 
     public bool $selectPage = false;
 
+    public bool $expandGroups = false;
+
     public bool $hideFilledRequests = true;
 
     #[Url(history: true)]
@@ -215,16 +217,22 @@ class SimilarTorrent extends Component
     final public function updating(string $field, mixed &$value): void
     {
         $this->castLivewireProperties($field, $value);
+
+        if (!str_starts_with($field, 'checked') && !\in_array($field, ['selectPage', 'reason'], true)) {
+            $this->expandGroups = false;
+        }
     }
 
     final public function updatedSelectPage(bool $value): void
     {
         $this->checked = $value ? collect($this->torrents)->flatten()->pluck('id')->toArray() : [];
+        $this->expandGroups = $this->checked !== [];
     }
 
     final public function updatedChecked(): void
     {
         $this->selectPage = false;
+        $this->expandGroups = $this->checked !== [];
     }
 
     /**
@@ -483,6 +491,7 @@ class SimilarTorrent extends Component
 
         $this->checked = [];
         $this->selectPage = false;
+        $this->expandGroups = true;
 
         $this->dispatch(
             'swal:modal',
