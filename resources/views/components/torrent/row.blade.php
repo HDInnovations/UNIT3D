@@ -163,6 +163,10 @@
                 <i class="{{ config('other.font-awesome') }}" x-bind="icon"></i>
             </button>
 
+            @if (config('other.thanks-system.is-enabled'))
+                @livewire('thank-button', ['torrent' => $torrent, 'iconOnly' => true], key('torrent-row-thank-'.$torrent->id))
+            @endif
+
             @if (config('torrent.download_check_page'))
                 <a
                     class="torrent-search--list__file form__standard-icon-button"

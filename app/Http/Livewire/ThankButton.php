@@ -28,6 +28,8 @@ class ThankButton extends Component
 
     public ?User $user = null;
 
+    public bool $iconOnly = false;
+
     final public function mount(): void
     {
         $this->user = auth()->user();

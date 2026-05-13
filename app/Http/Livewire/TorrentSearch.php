@@ -455,6 +455,7 @@ class TorrentSearch extends Component
                 ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
                 ->withCount([
                     'comments',
+                    'thanks',
                     'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                     'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                 ])
