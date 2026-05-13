@@ -23,7 +23,6 @@ use App\Models\Message;
 use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest
@@ -51,13 +50,14 @@ class FlushController extends Controller
         $peers = Peer::query()->select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', now()->subHours(2))->get();
 
         foreach ($peers as $peer) {
-            History::query()
-                ->where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->update([
-                    'active'     => false,
-                    'updated_at' => DB::raw('updated_at'),
-                ]);
+            History::withoutTimestamps(
+                fn () => History::query()
+                    ->where('torrent_id', '=', $peer->torrent_id)
+                    ->where('user_id', '=', $peer->user_id)
+                    ->update([
+                        'active' => false,
+                    ])
+            );
 
             Peer::query()
                 ->where('torrent_id', '=', $peer->torrent_id)

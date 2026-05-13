@@ -20,7 +20,6 @@ use App\Models\History;
 use App\Models\Peer;
 use Illuminate\Console\Command;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AutoFlushPeers extends Command
@@ -53,22 +52,24 @@ class AutoFlushPeers extends Command
             ->get();
 
         foreach ($peers as $peer) {
-            History::query()
-                ->where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->update([
-                    'active'     => false,
-                    'updated_at' => DB::raw('updated_at')
-                ]);
+            History::withoutTimestamps(
+                fn () => History::query()
+                    ->where('torrent_id', '=', $peer->torrent_id)
+                    ->where('user_id', '=', $peer->user_id)
+                    ->update([
+                        'active' => false,
+                    ])
+            );
 
-            Peer::query()
-                ->where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->where('peer_id', '=', $peer->peer_id)
-                ->update([
-                    'active'     => false,
-                    'updated_at' => DB::raw('updated_at'),
-                ]);
+            Peer::withoutTimestamps(
+                fn () => Peer::query()
+                    ->where('torrent_id', '=', $peer->torrent_id)
+                    ->where('user_id', '=', $peer->user_id)
+                    ->where('peer_id', '=', $peer->peer_id)
+                    ->update([
+                        'active' => false,
+                    ])
+            );
         }
 
         // Keep peers that stopped being announced without a `stopped` event

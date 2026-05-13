@@ -47,19 +47,20 @@ class AutoTorrentBalance extends Command
     final public function handle(): void
     {
         DB::transaction(static function (): void {
-            Torrent::query()->withoutGlobalScopes()->joinSub(
-                History::query()
-                    ->withTrashed()
-                    ->select('torrent_id')
-                    ->selectRaw('SUM(actual_uploaded) - SUM(actual_downloaded) AS balance')
-                    ->groupBy('torrent_id'),
-                'balances',
-                static fn ($join) => $join->on('balances.torrent_id', '=', 'torrents.id')
-            )
-                ->update([
-                    'torrents.balance' => DB::raw('balances.balance'),
-                    'updated_at'       => DB::raw('updated_at'),
-                ]);
+            Torrent::withoutTimestamps(
+                fn () => Torrent::query()->withoutGlobalScopes()->joinSub(
+                    History::query()
+                        ->withTrashed()
+                        ->select('torrent_id')
+                        ->selectRaw('SUM(actual_uploaded) - SUM(actual_downloaded) AS balance')
+                        ->groupBy('torrent_id'),
+                    'balances',
+                    static fn ($join) => $join->on('balances.torrent_id', '=', 'torrents.id')
+                )
+                    ->update([
+                        'torrents.balance' => DB::raw('balances.balance'),
+                    ])
+            );
         }, 5);
 
         $this->comment('Torrent balance calculations completed.');

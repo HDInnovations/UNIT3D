@@ -20,7 +20,6 @@ use App\Models\History;
 use App\Notifications\UserPreWarning;
 use Illuminate\Console\Command;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AutoPreWarning extends Command
@@ -69,13 +68,14 @@ class AutoPreWarning extends Command
         $usersWithPreWarnings = [];
 
         foreach ($prewarn as $pre) {
-            History::query()
-                ->where('torrent_id', '=', $pre->torrent_id)
-                ->where('user_id', '=', $pre->user_id)
-                ->update([
-                    'prewarned_at' => now(),
-                    'updated_at'   => DB::raw('updated_at'),
-                ]);
+            History::withoutTimestamps(
+                fn () => History::query()
+                    ->where('torrent_id', '=', $pre->torrent_id)
+                    ->where('user_id', '=', $pre->user_id)
+                    ->update([
+                        'prewarned_at' => now(),
+                    ])
+            );
 
             // Add user to usersWithWarnings array
             $usersWithPreWarnings[$pre->user_id] = $pre->user;
