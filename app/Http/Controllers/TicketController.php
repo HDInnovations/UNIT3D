@@ -118,7 +118,8 @@ class TicketController extends Controller
         abort_unless($request->user()->group->is_modo || $request->user()->id === $ticket->user_id, 403);
 
         $ticket->update([
-            'closed_at' => null,
+            'closed_at'   => null,
+            'reminded_at' => null,
         ]);
 
         return to_route('tickets.show', ['ticket' => $ticket])

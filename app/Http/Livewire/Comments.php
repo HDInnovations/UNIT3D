@@ -134,6 +134,12 @@ class Comments extends Component
         // New Comment Notification
         switch ($this->model::class) {
             case Ticket::class:
+                if ($this->user->id === $this->model->user_id) {
+                    $this->model->update([
+                        'reminded_at' => null,
+                    ]);
+                }
+
                 // Notify assigned staff if needed
                 User::query()->find($this->model->staff_id)?->notify(new NewComment($this->model, $comment));
 

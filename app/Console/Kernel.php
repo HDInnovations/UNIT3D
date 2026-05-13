@@ -19,6 +19,7 @@ namespace App\Console;
 use App\Console\Commands\AutoBonAllocation;
 use App\Console\Commands\AutoCacheRandomMediaIds;
 use App\Console\Commands\AutoCacheUserLeechCounts;
+use App\Console\Commands\AutoCloseInactiveTickets;
 use App\Console\Commands\AutoCorrectHistory;
 use App\Console\Commands\AutoDeactivateWarning;
 use App\Console\Commands\AutoDeleteStoppedPeers;
@@ -98,6 +99,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoRecycleFailedLogins::class)->daily();
         $schedule->command(AutoDisableInactiveUsers::class)->daily();
         $schedule->command(AutoSoftDeleteDisabledUsers::class)->daily();
+        $schedule->command(AutoCloseInactiveTickets::class)->hourly();
         $schedule->command(AutoRecycleClaimedTorrentRequests::class)->daily();
         $schedule->command(DeleteUnparticipatedConversations::class)->daily();
         $schedule->command(AutoCorrectHistory::class)->daily();

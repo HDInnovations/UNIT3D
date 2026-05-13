@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use AllowDynamicProperties;
 
 /**
@@ -128,6 +129,16 @@ final class Ticket extends Model
     public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    /**
+     * Get the latest comment for the ticket.
+     *
+     * @return MorphOne<Comment, $this>
+     */
+    public function latestComment(): MorphOne
+    {
+        return $this->morphOne(Comment::class, 'commentable')->latestOfMany('created_at');
     }
 
     /**

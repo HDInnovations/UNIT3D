@@ -162,6 +162,12 @@ class Comment extends Component
             case Ticket::class:
                 $ticket = $this->model;
 
+                if ($this->user->id === $ticket->user_id) {
+                    $ticket->update([
+                        'reminded_at' => null,
+                    ]);
+                }
+
                 if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
                     User::query()->find($ticket->staff_id)->notify(new NewComment($this->model, $reply));
                     $this->model->update(['staff_read' => false]);

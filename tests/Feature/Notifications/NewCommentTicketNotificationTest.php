@@ -63,8 +63,9 @@ test('user comments own ticket does not create a notification for self but assig
     ]);
 
     $ticket = Ticket::factory()->create([
-        'user_id'  => $user->id,
-        'staff_id' => $staff->id,
+        'user_id'     => $user->id,
+        'staff_id'    => $staff->id,
+        'reminded_at' => now()->subHour(),
     ]);
 
     $commentText = 'This is a test comment';
@@ -76,6 +77,7 @@ test('user comments own ticket does not create a notification for self but assig
         ->call('postComment');
 
     $this->assertEquals(1, Comment::query()->count());
+    $this->assertNull($ticket->refresh()->reminded_at);
 
     Notification::assertSentTo(
         [$staff],
