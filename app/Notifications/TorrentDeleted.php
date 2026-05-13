@@ -23,12 +23,16 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Carbon;
 
 class TorrentDeleted extends Notification implements ShouldQueue, SystemNotificationInterface
 {
     use Queueable;
 
-    public function __construct(public Torrent $torrent, public string $reason)
+    /**
+     * @param array<int, string|null> $lastAnnouncedAtByUserId
+     */
+    public function __construct(public Torrent $torrent, public string $reason, public array $lastAnnouncedAtByUserId = [])
     {
     }
 
@@ -54,10 +58,23 @@ class TorrentDeleted extends Notification implements ShouldQueue, SystemNotifica
             'message' => <<<BBCODE
             [b]Torrent removed:[/b] {$this->torrent->name} was removed from the site.
 
-            You were listed as an uploader, seeder, or leecher on this torrent. You can remove it from your client.
+            You were listed as an uploader, seeder, or leecher on this torrent. {$this->lastAnnounceMessage($notifiable)} You can remove it from your client if it is still active.
             
             [b]Reason:[/b] {$this->reason}
             BBCODE
         ];
+    }
+
+    private function lastAnnounceMessage(User $notifiable): string
+    {
+        $lastAnnouncedAt = $this->lastAnnouncedAtByUserId[$notifiable->id] ?? null;
+
+        if ($lastAnnouncedAt === null) {
+            return 'No last announce timestamp was found for this torrent.';
+        }
+
+        $lastAnnouncedAt = Carbon::parse($lastAnnouncedAt);
+
+        return 'Your last announce for this torrent was '.$lastAnnouncedAt->diffForHumans().' ('.$lastAnnouncedAt->utc()->format('Y-m-d H:i:s \U\T\C').').';
     }
 }

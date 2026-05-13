@@ -428,6 +428,7 @@ class SimilarTorrent extends Component
 
         $torrents = Torrent::query()->whereKey($this->checked)->get();
         $users = [];
+        $lastAnnouncedAtByUserIdAndTorrentId = [];
         $title = match (true) {
             $this->category->movie_meta => ($movie = TmdbMovie::query()->find($this->tmdbId))->title.($movie->release_date === null ? '' : ' ('.$movie->release_date->format('Y').')'),
             $this->category->tv_meta    => ($tv = TmdbTv::query()->find($this->tmdbId))->name.($tv->first_air_date === null ? '' : ' ('.$tv->first_air_date->format('Y').')'),
@@ -436,10 +437,12 @@ class SimilarTorrent extends Component
         };
 
         foreach ($torrents as $torrent) {
-            foreach (History::query()->where('torrent_id', '=', $torrent->id)->get() as $pm) {
-                if (!\in_array($pm->user_id, $users)) {
-                    $users[] = $pm->user_id;
+            foreach (History::query()->where('torrent_id', '=', $torrent->id)->get(['user_id', 'torrent_id', 'updated_at']) as $history) {
+                if (!\in_array($history->user_id, $users)) {
+                    $users[] = $history->user_id;
                 }
+
+                $lastAnnouncedAtByUserIdAndTorrentId[$history->user_id][$history->torrent_id] = $history->updated_at?->toJSON();
             }
 
             // Reset Requests
@@ -478,7 +481,7 @@ class SimilarTorrent extends Component
 
         Notification::send(
             array_map(fn ($userId) => new User(['id' => $userId]), $users),
-            new TorrentsDeleted($torrents, $title, $this->reason)
+            new TorrentsDeleted($torrents, $title, $this->reason, $lastAnnouncedAtByUserIdAndTorrentId)
         );
 
         $this->checked = [];

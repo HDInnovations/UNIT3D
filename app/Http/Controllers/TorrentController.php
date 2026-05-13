@@ -454,9 +454,19 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || ($user->id === $torrent->user_id && now()->lt($torrent->created_at->addDay())), 403);
 
+        $histories = History::query()
+            ->where('torrent_id', '=', $torrent->id)
+            ->get(['user_id', 'updated_at']);
+
         Notification::send(
-            User::query()->whereHas('history', fn ($query) => $query->where('torrent_id', '=', $torrent->id))->get(),
-            new TorrentDeleted($torrent, $request->message),
+            User::query()->whereKey($histories->pluck('user_id'))->get(),
+            new TorrentDeleted(
+                $torrent,
+                $request->message,
+                $histories
+                    ->mapWithKeys(fn (History $history) => [$history->user_id => $history->updated_at?->toJSON()])
+                    ->all(),
+            ),
         );
 
         // Reset Requests

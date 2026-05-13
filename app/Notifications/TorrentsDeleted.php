@@ -24,15 +24,17 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Carbon;
 
 class TorrentsDeleted extends Notification implements ShouldQueue, SystemNotificationInterface
 {
     use Queueable;
 
     /**
-     * @param Collection<int, Torrent> $torrents
+     * @param Collection<int, Torrent>            $torrents
+     * @param array<int, array<int, string|null>> $lastAnnouncedAtByUserIdAndTorrentId
      */
-    public function __construct(public Collection $torrents, public string $title, public string $reason)
+    public function __construct(public Collection $torrents, public string $title, public string $reason, public array $lastAnnouncedAtByUserIdAndTorrentId = [])
     {
     }
 
@@ -59,13 +61,33 @@ class TorrentsDeleted extends Notification implements ShouldQueue, SystemNotific
             [b]Attention:[/b] The following torrents have been removed from our site.
 
             [list]
-            [*]{$this->torrents->pluck('name')->join("\n[*]")}
+            [*]{$this->torrentLines($notifiable)}
             [/list]
 
-            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. You can safely remove it from your client if it is still active.
 
             [b]Removal Reason:[/b] {$this->reason}
             BBCODE
         ];
+    }
+
+    private function torrentLines(User $notifiable): string
+    {
+        return $this->torrents
+            ->map(fn (Torrent $torrent) => $torrent->name.$this->lastAnnounceSuffix($notifiable, $torrent))
+            ->join("\n[*]");
+    }
+
+    private function lastAnnounceSuffix(User $notifiable, Torrent $torrent): string
+    {
+        $lastAnnouncedAt = $this->lastAnnouncedAtByUserIdAndTorrentId[$notifiable->id][$torrent->id] ?? null;
+
+        if ($lastAnnouncedAt === null) {
+            return ' (last announce: not found)';
+        }
+
+        $lastAnnouncedAt = Carbon::parse($lastAnnouncedAt);
+
+        return ' (last announce: '.$lastAnnouncedAt->diffForHumans().' on '.$lastAnnouncedAt->utc()->format('Y-m-d H:i:s \U\T\C').')';
     }
 }
