@@ -85,6 +85,19 @@
                         {{ __('torrent.torrent') }} {{ __('torrent.uploader') }}
                     </label>
                 </p>
+                <p class="form__group">
+                    <input
+                        id="excluded_uploader"
+                        type="text"
+                        class="form__text"
+                        name="excluded_uploader"
+                        placeholder=" "
+                        value="{{ $rss->object_torrent->excluded_uploader }}"
+                    />
+                    <label class="form__label form__label--floating" for="excluded_uploader">
+                        Excluded {{ __('torrent.uploader') }}
+                    </label>
+                </p>
                 <div class="form__group--horizontal">
                     <p class="form__group">
                         <input

@@ -50,6 +50,9 @@ class UpdateRssRequest extends FormRequest
             'uploader' => [
                 'max:255',
             ],
+            'excluded_uploader' => [
+                'max:255',
+            ],
             'categories' => [
                 'sometimes',
                 'array',

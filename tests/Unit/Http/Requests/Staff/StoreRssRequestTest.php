@@ -44,6 +44,9 @@ test('rules', function (): void {
         'uploader' => [
             'max:255',
         ],
+        'excluded_uploader' => [
+            'max:255',
+        ],
         'categories' => [
             'sometimes',
             'array',

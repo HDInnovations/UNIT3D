@@ -33,6 +33,7 @@ readonly class TorrentSearchFiltersDTO
         private string $description = '',
         private string $mediainfo = '',
         private string $uploader = '',
+        private string $excludedUploader = '',
         /** @var array<mixed> */
         private array $keywords = [],
         private ?int $startYear = null,
@@ -147,6 +148,10 @@ readonly class TorrentSearchFiltersDTO
                                     )
                             )
                     )
+            )
+            ->when(
+                $this->excludedUploader !== '',
+                fn ($query) => $query->whereDoesntHave('user', fn ($query) => $query->where('username', '=', $this->excludedUploader))
             )
             ->when(
                 $this->keywords !== [],
@@ -470,6 +475,10 @@ readonly class TorrentSearchFiltersDTO
                     'user.username = '.json_encode($this->user->username),
                 ];
             }
+        }
+
+        if ($this->excludedUploader !== '') {
+            $filters[] = 'user.username != '.json_encode($this->excludedUploader);
         }
 
         if ($this->keywords !== []) {
