@@ -77,6 +77,7 @@ readonly class TorrentSearchFiltersDTO
         private bool $dying = false,
         private bool $dead = false,
         private string $filename = '',
+        private string $hash = '',
         private bool $graveyard = false,
         private bool $userBookmarked = false,
         private bool $userWished = false,
@@ -325,6 +326,7 @@ readonly class TorrentSearchFiltersDTO
                     )
             )
             ->when($this->filename !== '', fn ($query) => $query->whereRelation('files', 'name', '=', $this->filename))
+            ->when($this->hash !== '', fn ($query) => $query->whereRaw('LOWER(HEX(info_hash)) = ?', [$this->hash]))
             ->when(
                 $this->adult === true,
                 fn ($query) => $query
@@ -691,6 +693,10 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->filename !== '') {
             $filters[] = 'files.name = '.json_encode($this->filename);
+        }
+
+        if ($this->hash !== '') {
+            $filters[] = 'info_hash = '.json_encode($this->hash);
         }
 
         if ($this->graveyard) {

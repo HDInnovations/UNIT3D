@@ -309,7 +309,13 @@ class TorrentController extends BaseController
                 'nullable',
                 'sometimes',
                 'in:asc,desc'
-            ]
+            ],
+            'hash' => [
+                'nullable',
+                'sometimes',
+                'string',
+                'regex:/\A[0-9a-fA-F]{40}\z/',
+            ],
         ]);
 
         // Caching
@@ -374,6 +380,7 @@ class TorrentController extends BaseController
                 dying: $request->filled('dying'),
                 dead: $request->filled('dead'),
                 filename: $request->filled('file_name') ? $request->string('file_name')->toString() : '',
+                hash: $request->filled('hash') ? strtolower($request->string('hash')->toString()) : '',
                 seasonNumber: $request->filled('seasonNumber') ? $request->integer('seasonNumber') : null,
                 episodeNumber: $request->filled('episodeNumber') ? $request->integer('episodeNumber') : null,
             );
