@@ -30,6 +30,7 @@ if (config('unit3d.root_url_override')) {
 
 Route::middleware([Authenticate::using('rss'), CheckIfBanned::class, EnsureEmailIsVerified::class])->group(function (): void {
     // RSS (RSS Key Auth)
+    Route::get('/rss/articles.{rsskey}', [App\Http\Controllers\RssController::class, 'articles'])->name('rss.articles.rsskey');
     Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
     Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');
 });

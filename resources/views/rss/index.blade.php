@@ -37,6 +37,32 @@
 @section('page', 'page__rss--index')
 
 @section('main')
+    <section class="panelV2" id="news">
+        <h2 class="panel__heading">{{ __('common.news') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('rss.type') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a
+                                href="{{ route('rss.articles.rsskey', ['rsskey' => auth()->user()->rsskey]) }}"
+                                target="_blank"
+                            >
+                                {{ __('common.news') }}
+                            </a>
+                        </td>
+                        <td>{{ __('rss.rss-feed') }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
     <section class="panelV2" id="public">
         <h2 class="panel__heading">{{ __('rss.public') }}</h2>
         <div class="data-table-wrapper">

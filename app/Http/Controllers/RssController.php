@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\DTO\TorrentSearchFiltersDTO;
+use App\Models\Article;
 use App\Models\Category;
 use App\Models\TmdbGenre;
 use App\Models\Group;
@@ -33,6 +34,22 @@ use Meilisearch\Endpoints\Indexes;
  */
 class RssController extends Controller
 {
+    /**
+     * Display an RSS feed of latest articles.
+     */
+    public function articles(Request $request): \Illuminate\Http\Response
+    {
+        return response()->view('rss.articles', [
+            'articles' => Article::query()
+                ->with('user')
+                ->latest()
+                ->take(50)
+                ->get(),
+            'user' => $request->user(),
+        ])
+            ->header('Content-Type', 'text/xml');
+    }
+
     /**
      * Display a listing of the RSS resource.
      */
