@@ -101,6 +101,13 @@ final class History extends Model
         return $this->belongsTo(Torrent::class);
     }
 
+    public function canRequestReseed(): bool
+    {
+        return $this->active
+            && ! $this->seeder
+            && $this->created_at?->lte(now()->subHours((int) config('torrent.reseed_minimum_leech_hours')));
+    }
+
     /**
      * Prepare a date for array / JSON serialization.
      */

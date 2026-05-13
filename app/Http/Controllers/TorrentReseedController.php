@@ -60,6 +60,20 @@ class TorrentReseedController extends Controller
                 ->withErrors('You have already made a reseed request for this torrent.');
         }
 
+        $minimumLeechHours = (int) config('torrent.reseed_minimum_leech_hours');
+        $canRequestReseed = History::query()
+            ->where('torrent_id', '=', $torrent->id)
+            ->where('user_id', '=', $userId)
+            ->where('active', '=', true)
+            ->where('seeder', '=', false)
+            ->where('created_at', '<=', now()->subHours($minimumLeechHours))
+            ->exists();
+
+        if (! $canRequestReseed) {
+            return to_route('torrents.show', ['id' => $torrent->id])
+                ->withErrors(\sprintf('You must be actively leeching this torrent for at least %d hours before requesting a reseed.', $minimumLeechHours));
+        }
+
         // Check seeders condition and if a request already exists for this torrent
         $existingReseed = TorrentReseed::query()->where('torrent_id', '=', $torrent->id)->first();
 

@@ -326,9 +326,7 @@
 
     @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED &&
     $torrent->seeders <= 2 &&
-    $torrent->history->first() !== null &&
-    ! $torrent->history->first()->seeder &&
-    $torrent->history->first()->active)
+    $torrent->history->first()?->canRequestReseed())
         <li class="form__group form__group--short-horizontal">
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"
