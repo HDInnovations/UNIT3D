@@ -58,6 +58,11 @@ Route::middleware([Authenticate::using(AuthGuard::API->value), CheckIfBanned::cl
 
     // User
     Route::get('/user', [App\Http\Controllers\API\UserController::class, 'show']);
+    Route::prefix('user/seedboxes')->group(function (): void {
+        Route::get('/', [App\Http\Controllers\API\SeedboxController::class, 'index']);
+        Route::post('/', [App\Http\Controllers\API\SeedboxController::class, 'store']);
+        Route::delete('/{seedbox}', [App\Http\Controllers\API\SeedboxController::class, 'destroy'])->whereNumber('seedbox');
+    });
 });
 
 // Internal front-end web API routes
