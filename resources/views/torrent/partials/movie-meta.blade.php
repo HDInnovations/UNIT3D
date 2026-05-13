@@ -22,7 +22,12 @@
         />
     </a>
     <div class="meta__actions">
-        <a class="meta__dropdown-button" href="#">
+        <a
+            class="meta__dropdown-button"
+            href="#"
+            aria-label="{{ __('common.actions') }}"
+            title="{{ __('common.actions') }}"
+        >
             <i class="{{ config('other.font-awesome') }} fa-ellipsis-v"></i>
         </a>
         <ul class="meta__dropdown">

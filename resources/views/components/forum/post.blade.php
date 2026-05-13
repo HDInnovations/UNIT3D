@@ -41,9 +41,14 @@
             </dl>
         @endif
 
-        <a class="post__toolbar-overflow" tabindex="0">
+        <button
+            class="post__toolbar-overflow"
+            type="button"
+            aria-label="{{ __('common.actions') }}"
+            title="{{ __('common.actions') }}"
+        >
             <i class="fa fas fa-ellipsis"></i>
-        </a>
+        </button>
         <menu class="post__toolbar">
             <li class="post__toolbar-item">
                 <form

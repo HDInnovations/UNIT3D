@@ -295,8 +295,18 @@
 
 .post__toolbar-overflow {
     display: none;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
     color: var(--post-head-fg);
     cursor: pointer;
+    font-family: inherit;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0;
+    touch-action: manipulation;
 }
 
 @media screen and (max-width: 576px) {
@@ -343,9 +353,9 @@
 
     .post__toolbar-overflow {
         grid-area: overflow;
-        display: block;
-        padding: 4px 8px;
-        text-align: right;
+        display: grid;
+        justify-self: end;
+        padding: 0;
     }
 
     .post__toolbar {
