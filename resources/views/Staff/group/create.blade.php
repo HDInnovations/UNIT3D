@@ -330,18 +330,36 @@
                     />
                     <label class="form__label" for="autogroup">Autogroup</label>
                 </p>
-                <p class="form__group" x-show="autogroup" x-cloak>
-                    <input
-                        id="min_uploaded"
-                        class="form__text"
-                        type="text"
-                        name="group[min_uploaded]"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="min_uploaded">
-                        Minimum upload required
-                    </label>
-                </p>
+                <div class="form__group--horizontal" x-show="autogroup" x-cloak>
+                    <p class="form__group">
+                        <select
+                            id="min_uploaded_unit"
+                            class="form__select"
+                            name="group[min_uploaded_unit]"
+                            x-bind:disabled="!autogroup"
+                        >
+                            <option value="bytes">Bytes</option>
+                            <option value="mb">MB</option>
+                            <option value="gb">GB</option>
+                            <option value="tb">TB</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="min_uploaded_unit">
+                            Upload unit
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="min_uploaded"
+                            class="form__text"
+                            type="text"
+                            name="group[min_uploaded]"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="min_uploaded">
+                            Minimum upload required
+                        </label>
+                    </p>
+                </div>
                 <p class="form__group" x-show="autogroup" x-cloak>
                     <input
                         id="min_ratio"
@@ -354,42 +372,101 @@
                         Minimum ratio required
                     </label>
                 </p>
-                <p class="form__group" x-show="autogroup" x-cloak>
-                    <input
-                        id="min_age"
-                        class="form__text"
-                        type="text"
-                        name="group[min_age]"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="min_age">
-                        Minimum age required
-                    </label>
-                </p>
-                <p class="form__group" x-show="autogroup" x-cloak>
-                    <input
-                        id="min_avg_seedtime"
-                        class="form__text"
-                        type="text"
-                        name="group[min_avg_seedtime]"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="min_avg_seedtime">
-                        Minimum average seedtime required
-                    </label>
-                </p>
-                <p class="form__group" x-show="autogroup" x-cloak>
-                    <input
-                        id="min_seedsize"
-                        class="form__text"
-                        type="text"
-                        name="group[min_seedsize]"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="min_seedsize">
-                        Minimum seedsize required
-                    </label>
-                </p>
+                <div class="form__group--horizontal" x-show="autogroup" x-cloak>
+                    <p class="form__group">
+                        <select
+                            id="min_age_unit"
+                            class="form__select"
+                            name="group[min_age_unit]"
+                            x-bind:disabled="!autogroup"
+                        >
+                            <option value="seconds">Seconds</option>
+                            <option value="days">Days</option>
+                            <option value="weeks">Weeks</option>
+                            <option value="months">Months</option>
+                            <option value="years">Years</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="min_age_unit">
+                            Age unit
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="min_age"
+                            class="form__text"
+                            type="text"
+                            name="group[min_age]"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="min_age">
+                            Minimum age required
+                        </label>
+                    </p>
+                </div>
+                <div class="form__group--horizontal" x-show="autogroup" x-cloak>
+                    <p class="form__group">
+                        <select
+                            id="min_avg_seedtime_unit"
+                            class="form__select"
+                            name="group[min_avg_seedtime_unit]"
+                            x-bind:disabled="!autogroup"
+                        >
+                            <option value="seconds">Seconds</option>
+                            <option value="days">Days</option>
+                            <option value="weeks">Weeks</option>
+                            <option value="months">Months</option>
+                            <option value="years">Years</option>
+                        </select>
+                        <label
+                            class="form__label form__label--floating"
+                            for="min_avg_seedtime_unit"
+                        >
+                            Seedtime unit
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="min_avg_seedtime"
+                            class="form__text"
+                            type="text"
+                            name="group[min_avg_seedtime]"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="min_avg_seedtime">
+                            Minimum average seedtime required
+                        </label>
+                    </p>
+                </div>
+                <div class="form__group--horizontal" x-show="autogroup" x-cloak>
+                    <p class="form__group">
+                        <select
+                            id="min_seedsize_unit"
+                            class="form__select"
+                            name="group[min_seedsize_unit]"
+                            x-bind:disabled="!autogroup"
+                        >
+                            <option value="bytes">Bytes</option>
+                            <option value="mb">MB</option>
+                            <option value="gb">GB</option>
+                            <option value="tb">TB</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="min_seedsize_unit">
+                            Seedsize unit
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="min_seedsize"
+                            class="form__text"
+                            type="text"
+                            name="group[min_seedsize]"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="min_seedsize">
+                            Minimum seedsize required
+                        </label>
+                    </p>
+                </div>
                 <p class="form__group" x-show="autogroup" x-cloak>
                     <input
                         id="min_uploads"

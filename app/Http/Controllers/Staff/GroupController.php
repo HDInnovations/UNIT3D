@@ -60,7 +60,7 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $group = Group::query()->create(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
+        $group = Group::query()->create(['slug' => Str::slug($request->validated('group.name'))] + $request->groupAttributes());
 
         $group->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 
@@ -91,7 +91,7 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, Group $group): \Illuminate\Http\RedirectResponse
     {
-        $group->update(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
+        $group->update(['slug' => Str::slug($request->validated('group.name'))] + $request->groupAttributes());
 
         $group->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 

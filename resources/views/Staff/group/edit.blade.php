@@ -25,6 +25,13 @@
     <section class="panelV2" x-data="{ autogroup: {{ Js::from($group->autogroup) }} }">
         <h2 class="panel__heading">Edit group: {{ $group->name }}</h2>
         <div class="panel__body">
+            @php
+                $minUploaded = \App\Support\AutogroupRequirementUnits::displayByte($group->min_uploaded);
+                $minSeedsize = \App\Support\AutogroupRequirementUnits::displayByte($group->min_seedsize);
+                $minAge = \App\Support\AutogroupRequirementUnits::displayTime($group->min_age);
+                $minAverageSeedtime = \App\Support\AutogroupRequirementUnits::displayTime($group->min_avg_seedtime);
+            @endphp
+
             <form
                 class="form"
                 method="POST"
@@ -366,19 +373,51 @@
                 <div class="form__group" x-show="autogroup">
                     <fieldset class="form form__fieldset">
                         <legend class="form__legend">Autogroup requirements</legend>
-                        <p class="form__group">
-                            <input
-                                id="min_uploaded"
-                                class="form__text"
-                                type="text"
-                                name="group[min_uploaded]"
-                                placeholder=" "
-                                value="{{ $group->min_uploaded }}"
-                            />
-                            <label class="form__label form__label--floating" for="min_uploaded">
-                                Minimum upload
-                            </label>
-                        </p>
+                        <div class="form__group--horizontal">
+                            <p class="form__group">
+                                <select
+                                    id="min_uploaded_unit"
+                                    class="form__select"
+                                    name="group[min_uploaded_unit]"
+                                    x-bind:disabled="!autogroup"
+                                >
+                                    <option
+                                        value="bytes"
+                                        @selected($minUploaded['unit'] === 'bytes')
+                                    >
+                                        Bytes
+                                    </option>
+                                    <option value="mb" @selected($minUploaded['unit'] === 'mb')>
+                                        MB
+                                    </option>
+                                    <option value="gb" @selected($minUploaded['unit'] === 'gb')>
+                                        GB
+                                    </option>
+                                    <option value="tb" @selected($minUploaded['unit'] === 'tb')>
+                                        TB
+                                    </option>
+                                </select>
+                                <label
+                                    class="form__label form__label--floating"
+                                    for="min_uploaded_unit"
+                                >
+                                    Upload unit
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="min_uploaded"
+                                    class="form__text"
+                                    type="text"
+                                    name="group[min_uploaded]"
+                                    placeholder=" "
+                                    value="{{ $minUploaded['value'] }}"
+                                />
+                                <label class="form__label form__label--floating" for="min_uploaded">
+                                    Minimum upload
+                                </label>
+                            </p>
+                        </div>
                         <p class="form__group">
                             <input
                                 id="min_ratio"
@@ -392,45 +431,159 @@
                                 Minimum ratio
                             </label>
                         </p>
-                        <p class="form__group">
-                            <input
-                                id="min_age"
-                                class="form__text"
-                                type="text"
-                                name="group[min_age]"
-                                placeholder=" "
-                                value="{{ $group->min_age }}"
-                            />
-                            <label class="form__label form__label--floating" for="min_age">
-                                Minimum age
-                            </label>
-                        </p>
-                        <p class="form__group">
-                            <input
-                                id="min_avg_seedtime"
-                                class="form__text"
-                                type="text"
-                                name="group[min_avg_seedtime]"
-                                placeholder=" "
-                                value="{{ $group->min_avg_seedtime }}"
-                            />
-                            <label class="form__label form__label--floating" for="min_avg_seedtime">
-                                Minimum average seedtime
-                            </label>
-                        </p>
-                        <p class="form__group">
-                            <input
-                                id="min_seedsize"
-                                class="form__text"
-                                type="text"
-                                name="group[min_seedsize]"
-                                placeholder=" "
-                                value="{{ $group->min_seedsize }}"
-                            />
-                            <label class="form__label form__label--floating" for="min_seedsize">
-                                Minimum seedsize
-                            </label>
-                        </p>
+                        <div class="form__group--horizontal">
+                            <p class="form__group">
+                                <select
+                                    id="min_age_unit"
+                                    class="form__select"
+                                    name="group[min_age_unit]"
+                                    x-bind:disabled="!autogroup"
+                                >
+                                    <option
+                                        value="seconds"
+                                        @selected($minAge['unit'] === 'seconds')
+                                    >
+                                        Seconds
+                                    </option>
+                                    <option value="days" @selected($minAge['unit'] === 'days')>
+                                        Days
+                                    </option>
+                                    <option value="weeks" @selected($minAge['unit'] === 'weeks')>
+                                        Weeks
+                                    </option>
+                                    <option value="months" @selected($minAge['unit'] === 'months')>
+                                        Months
+                                    </option>
+                                    <option value="years" @selected($minAge['unit'] === 'years')>
+                                        Years
+                                    </option>
+                                </select>
+                                <label class="form__label form__label--floating" for="min_age_unit">
+                                    Age unit
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="min_age"
+                                    class="form__text"
+                                    type="text"
+                                    name="group[min_age]"
+                                    placeholder=" "
+                                    value="{{ $minAge['value'] }}"
+                                />
+                                <label class="form__label form__label--floating" for="min_age">
+                                    Minimum age
+                                </label>
+                            </p>
+                        </div>
+                        <div class="form__group--horizontal">
+                            <p class="form__group">
+                                <select
+                                    id="min_avg_seedtime_unit"
+                                    class="form__select"
+                                    name="group[min_avg_seedtime_unit]"
+                                    x-bind:disabled="!autogroup"
+                                >
+                                    <option
+                                        value="seconds"
+                                        @selected($minAverageSeedtime['unit'] === 'seconds')
+                                    >
+                                        Seconds
+                                    </option>
+                                    <option
+                                        value="days"
+                                        @selected($minAverageSeedtime['unit'] === 'days')
+                                    >
+                                        Days
+                                    </option>
+                                    <option
+                                        value="weeks"
+                                        @selected($minAverageSeedtime['unit'] === 'weeks')
+                                    >
+                                        Weeks
+                                    </option>
+                                    <option
+                                        value="months"
+                                        @selected($minAverageSeedtime['unit'] === 'months')
+                                    >
+                                        Months
+                                    </option>
+                                    <option
+                                        value="years"
+                                        @selected($minAverageSeedtime['unit'] === 'years')
+                                    >
+                                        Years
+                                    </option>
+                                </select>
+                                <label
+                                    class="form__label form__label--floating"
+                                    for="min_avg_seedtime_unit"
+                                >
+                                    Seedtime unit
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="min_avg_seedtime"
+                                    class="form__text"
+                                    type="text"
+                                    name="group[min_avg_seedtime]"
+                                    placeholder=" "
+                                    value="{{ $minAverageSeedtime['value'] }}"
+                                />
+                                <label
+                                    class="form__label form__label--floating"
+                                    for="min_avg_seedtime"
+                                >
+                                    Minimum average seedtime
+                                </label>
+                            </p>
+                        </div>
+                        <div class="form__group--horizontal">
+                            <p class="form__group">
+                                <select
+                                    id="min_seedsize_unit"
+                                    class="form__select"
+                                    name="group[min_seedsize_unit]"
+                                    x-bind:disabled="!autogroup"
+                                >
+                                    <option
+                                        value="bytes"
+                                        @selected($minSeedsize['unit'] === 'bytes')
+                                    >
+                                        Bytes
+                                    </option>
+                                    <option value="mb" @selected($minSeedsize['unit'] === 'mb')>
+                                        MB
+                                    </option>
+                                    <option value="gb" @selected($minSeedsize['unit'] === 'gb')>
+                                        GB
+                                    </option>
+                                    <option value="tb" @selected($minSeedsize['unit'] === 'tb')>
+                                        TB
+                                    </option>
+                                </select>
+                                <label
+                                    class="form__label form__label--floating"
+                                    for="min_seedsize_unit"
+                                >
+                                    Seedsize unit
+                                </label>
+                            </p>
+                            <p class="form__group">
+                                <input
+                                    id="min_seedsize"
+                                    class="form__text"
+                                    type="text"
+                                    name="group[min_seedsize]"
+                                    placeholder=" "
+                                    value="{{ $minSeedsize['value'] }}"
+                                />
+                                <label class="form__label form__label--floating" for="min_seedsize">
+                                    Minimum seedsize
+                                </label>
+                            </p>
+                        </div>
                         <p class="form__group">
                             <input
                                 id="min_uploads"

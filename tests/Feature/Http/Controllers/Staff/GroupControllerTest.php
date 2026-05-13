@@ -15,12 +15,21 @@ declare(strict_types=1);
  */
 
 use App\Http\Controllers\Staff\GroupController;
+use App\Http\Middleware\UpdateLastAction;
 use App\Http\Requests\Staff\StoreGroupRequest;
 use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\Forum;
 use App\Models\Group;
+use Illuminate\Routing\Middleware\ThrottleRequestsWithRedis;
 
 use function Pest\Laravel\assertDatabaseHas;
+
+beforeEach(function (): void {
+    $this->withoutMiddleware([
+        ThrottleRequestsWithRedis::class,
+        UpdateLastAction::class,
+    ]);
+});
 
 test('create returns an ok response', function (): void {
     $this->get(route('staff.groups.create'))
@@ -101,6 +110,72 @@ test('store returns an ok response', function (): void {
     assertDatabaseHas('groups', [
         'name'     => $group->name,
         'position' => $group->position,
+    ]);
+});
+
+test('store converts autogroup requirement units', function (): void {
+    $group = Group::factory()->make([
+        'name'      => 'Unit Converted',
+        'autogroup' => true,
+    ]);
+    $forum = Forum::factory()->create();
+
+    $this->post(route('staff.groups.store'), [
+        'group' => [
+            'name'                  => $group->name,
+            'position'              => $group->position,
+            'level'                 => $group->level,
+            'color'                 => $group->color,
+            'icon'                  => $group->icon,
+            'effect'                => $group->effect,
+            'is_uploader'           => $group->is_uploader,
+            'is_internal'           => $group->is_internal,
+            'is_owner'              => $group->is_owner,
+            'is_admin'              => $group->is_admin,
+            'is_modo'               => $group->is_modo,
+            'is_torrent_modo'       => $group->is_torrent_modo,
+            'is_editor'             => $group->is_editor,
+            'is_trusted'            => $group->is_trusted,
+            'is_immune'             => $group->is_immune,
+            'is_freeleech'          => $group->is_freeleech,
+            'is_double_upload'      => $group->is_double_upload,
+            'can_chat'              => $group->can_chat,
+            'can_comment'           => $group->can_comment,
+            'can_invite'            => $group->can_invite,
+            'can_request'           => $group->can_request,
+            'can_upload'            => $group->can_upload,
+            'is_incognito'          => $group->is_incognito,
+            'autogroup'             => true,
+            'min_uploaded'          => 5,
+            'min_uploaded_unit'     => 'gb',
+            'min_seedsize'          => 2,
+            'min_seedsize_unit'     => 'tb',
+            'min_age'               => 3,
+            'min_age_unit'          => 'weeks',
+            'min_avg_seedtime'      => 4,
+            'min_avg_seedtime_unit' => 'days',
+            'min_ratio'             => 1.5,
+            'min_uploads'           => 12,
+        ],
+        'permissions' => [
+            [
+                'forum_id'    => $forum->id,
+                'read_topic'  => true,
+                'start_topic' => true,
+                'reply_topic' => true,
+            ],
+        ],
+    ])
+        ->assertRedirect(route('staff.groups.index'))
+        ->assertSessionHasNoErrors();
+
+    assertDatabaseHas('groups', [
+        'name'             => 'Unit Converted',
+        'min_uploaded'     => 5 * 1024 ** 3,
+        'min_seedsize'     => 2 * 1024 ** 4,
+        'min_age'          => 3 * 604800,
+        'min_avg_seedtime' => 4 * 86400,
+        'min_uploads'      => 12,
     ]);
 });
 

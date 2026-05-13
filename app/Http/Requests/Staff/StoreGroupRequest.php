@@ -16,12 +16,24 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
+use App\Support\AutogroupRequirementUnits;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class StoreGroupRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $group = $this->input('group');
+
+        if (\is_array($group)) {
+            $this->merge([
+                'group' => AutogroupRequirementUnits::convertGroup($group),
+            ]);
+        }
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -37,6 +49,8 @@ class StoreGroupRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
+        $autogroup = $request->boolean('group.autogroup');
+
         return [
             'group.name' => [
                 'required',
@@ -140,43 +154,72 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
             'group.min_uploaded' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
             ],
+            'group.min_uploaded_unit' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::BYTE_UNITS)),
+                ], 'nullable'),
+            ],
             'group.min_ratio' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
                     'min:0',
                     'max:99.99',
                 ], 'prohibited'),
             ],
             'group.min_age' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
+            ],
+            'group.min_age_unit' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::TIME_UNITS)),
+                ], 'nullable'),
             ],
             'group.min_avg_seedtime' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
+            ],
+            'group.min_avg_seedtime_unit' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::TIME_UNITS)),
+                ], 'nullable'),
             ],
             'group.min_seedsize' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
             ],
-            'group.min_uploads' => [
-                Rule::when($request->boolean('autogroup'), [
+            'group.min_seedsize_unit' => [
+                Rule::when($autogroup, [
                     'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::BYTE_UNITS)),
+                ], 'nullable'),
+            ],
+            'group.min_uploads' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
@@ -206,5 +249,13 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
         ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function groupAttributes(): array
+    {
+        return AutogroupRequirementUnits::stripUnitFields($this->validated('group'));
     }
 }

@@ -17,12 +17,24 @@ declare(strict_types=1);
 namespace App\Http\Requests\Staff;
 
 use App\Models\Group;
+use App\Support\AutogroupRequirementUnits;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class UpdateGroupRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $group = $this->input('group');
+
+        if (\is_array($group)) {
+            $this->merge([
+                'group' => AutogroupRequirementUnits::convertGroup($group),
+            ]);
+        }
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -40,6 +52,7 @@ class UpdateGroupRequest extends FormRequest
     {
         /** @var Group $group */
         $group = $request->route('group');
+        $autogroup = $request->boolean('group.autogroup');
 
         return [
             'group.name' => [
@@ -146,43 +159,72 @@ class UpdateGroupRequest extends FormRequest
                 'boolean',
             ],
             'group.min_uploaded' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
+            'group.min_uploaded_unit' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::BYTE_UNITS)),
+                ], 'nullable'),
+            ],
             'group.min_ratio' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
                     'min:0',
                     'max:99.99',
                 ], 'nullable'),
             ],
             'group.min_age' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
+                ], 'nullable'),
+            ],
+            'group.min_age_unit' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::TIME_UNITS)),
                 ], 'nullable'),
             ],
             'group.min_avg_seedtime' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
+                ], 'nullable'),
+            ],
+            'group.min_avg_seedtime_unit' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::TIME_UNITS)),
                 ], 'nullable'),
             ],
             'group.min_seedsize' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($autogroup, [
                     'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
-            'group.min_uploads' => [
-                Rule::when($request->boolean('autogroup'), [
+            'group.min_seedsize_unit' => [
+                Rule::when($autogroup, [
                     'sometimes',
+                    Rule::in(array_keys(AutogroupRequirementUnits::BYTE_UNITS)),
+                ], 'nullable'),
+            ],
+            'group.min_uploads' => [
+                Rule::when($autogroup, [
+                    'sometimes',
+                    'nullable',
                     'integer',
                     'min:0',
                 ], 'nullable'),
@@ -224,5 +266,13 @@ class UpdateGroupRequest extends FormRequest
         return [
             'name.prohibited' => 'You cannot change the name of a system required group.',
         ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function groupAttributes(): array
+    {
+        return AutogroupRequirementUnits::stripUnitFields($this->validated('group'));
     }
 }
