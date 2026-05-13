@@ -1,3 +1,4 @@
+@php($trailerEmbedUrl = (new \App\Services\Tmdb\TMDB())->trailerEmbedUrl($meta?->trailer))
 <section class="meta">
     @if ($meta?->backdrop)
         <img class="meta__backdrop" src="{{ tmdb_image('back_big', $meta->backdrop) }}" alt="" />
@@ -131,7 +132,7 @@
                 {{ round(($meta->vote_average ?? 0) * 10) }}%
             </span>
         </li>
-        @if ($meta?->trailer)
+        @if ($trailerEmbedUrl)
             <li class="work__trailer show-trailer">
                 <a class="work__trailer-link" href="#">
                     {{ __('torrent.view-trailer') }}
@@ -340,7 +341,7 @@
     </div>
 </section>
 
-@if ($meta?->trailer)
+@if ($trailerEmbedUrl)
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
         document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {
             e.preventDefault();
@@ -349,7 +350,7 @@
                 showCloseButton: true,
                 background: 'rgb(35,35,35)',
                 width: 970,
-                html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                html: '<iframe width="930" height="523" src="{{ $trailerEmbedUrl }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
                 title: '<i style="color: #a5a5a5;">{{ $meta->name }} trailer</i>',
                 text: '',
             });

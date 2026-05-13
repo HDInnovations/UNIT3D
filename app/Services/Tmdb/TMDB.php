@@ -35,11 +35,43 @@ class TMDB
      */
     public function trailer(array $array): ?string
     {
-        if (isset($array['videos']['results'])) {
-            return 'https://www.youtube.com/embed/'.$array['videos']['results'][0]['key'];
+        foreach ($array['videos']['results'] ?? [] as $video) {
+            if (!\is_array($video) || strcasecmp((string) ($video['type'] ?? ''), 'Trailer') !== 0) {
+                continue;
+            }
+
+            $key = $video['key'] ?? null;
+            $site = strtolower((string) ($video['site'] ?? ''));
+
+            if (!\is_string($key) || $key === '' || !\in_array($site, ['youtube', 'vimeo'], true)) {
+                continue;
+            }
+
+            return $site.':'.$key;
         }
 
         return null;
+    }
+
+    public function trailerEmbedUrl(?string $trailer): ?string
+    {
+        if ($trailer === null || $trailer === '') {
+            return null;
+        }
+
+        [$site, $key] = str_contains($trailer, ':')
+            ? explode(':', $trailer, 2)
+            : ['youtube', $trailer];
+
+        if ($key === '') {
+            return null;
+        }
+
+        return match (strtolower($site)) {
+            'youtube' => 'https://www.youtube-nocookie.com/embed/'.$key,
+            'vimeo'   => 'https://player.vimeo.com/video/'.$key,
+            default   => null,
+        };
     }
 
     /**

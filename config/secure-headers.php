@@ -478,7 +478,8 @@ return [
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/child-src
         'child-src' => [
             'allow' => [
-                'https://www.youtube-nocookie.com/embed/'
+                'https://www.youtube-nocookie.com/embed/',
+                'https://player.vimeo.com/video/',
             ],
         ],
 
@@ -553,6 +554,7 @@ return [
 
             'allow' => [
                 'https://www.youtube-nocookie.com/embed/',
+                'https://player.vimeo.com/video/',
             ],
         ],
 
