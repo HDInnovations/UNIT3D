@@ -139,6 +139,21 @@
                     </label>
                 </p>
                 <p class="form__group">
+                    <input
+                        type="text"
+                        name="freeleech_duration"
+                        id="freeleech_duration"
+                        class="form__text"
+                        inputmode="numeric"
+                        pattern="[1-9][0-9]*"
+                        placeholder=" "
+                        value="{{ old('freeleech_duration') }}"
+                    />
+                    <label class="form__label form__label--floating" for="freeleech_duration">
+                        Freeleech duration (days)
+                    </label>
+                </p>
+                <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.add') }}
                     </button>
@@ -153,7 +168,7 @@
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
             When a torrent is uploaded that meets the given criteria, the specified freeleech
-            percentage will be automatically applied.
+            percentage will be automatically applied. Leave duration empty to apply it indefinitely.
         </div>
     </section>
 @endsection

@@ -64,6 +64,9 @@ class TorrentHelper
             foreach ($autoFreeleeches as $autoFreeleech) {
                 if ($autoFreeleech->name_regex === null || preg_match($autoFreeleech->name_regex, $torrent->name)) {
                     $torrent->free = $autoFreeleech->freeleech_percentage;
+                    $torrent->fl_until = $autoFreeleech->freeleech_duration === null || $autoFreeleech->freeleech_percentage === 0
+                        ? null
+                        : now()->addDays($autoFreeleech->freeleech_duration);
 
                     break;
                 }

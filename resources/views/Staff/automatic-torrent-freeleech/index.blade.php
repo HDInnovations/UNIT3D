@@ -35,6 +35,7 @@
                         <th>{{ __('common.type') }}</th>
                         <th>{{ __('common.resolution') }}</th>
                         <th>Freeleech percentage</th>
+                        <th>Freeleech duration</th>
                         <th>{{ __('common.created_at') }}</th>
                         <th>{{ __('torrent.updated_at') }}</th>
                         <th>{{ __('common.actions') }}</th>
@@ -52,6 +53,14 @@
                             <td>{{ $automaticTorrentFreeleech->type?->name ?? 'Any' }}</td>
                             <td>{{ $automaticTorrentFreeleech->resolution?->name ?? 'Any' }}</td>
                             <td>{{ $automaticTorrentFreeleech->freeleech_percentage }}</td>
+                            <td>
+                                @if ($automaticTorrentFreeleech->freeleech_duration === null)
+                                    Indefinite
+                                @else
+                                    {{ $automaticTorrentFreeleech->freeleech_duration }}
+                                    {{ Illuminate\Support\Str::plural('day', $automaticTorrentFreeleech->freeleech_duration) }}
+                                @endif
+                            </td>
                             <td>
                                 <time
                                     datetime="{{ $automaticTorrentFreeleech->created_at }}"
@@ -100,7 +109,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10">No automated torrent freeleeches</td>
+                            <td colspan="11">No automated torrent freeleeches</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -114,7 +123,7 @@
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
             When a torrent is uploaded that meets the given criteria, the specified freeleech
-            percentage will be automatically applied.
+            percentage will be automatically applied. Rules without a duration apply indefinitely.
         </div>
     </section>
 @endsection

@@ -29,6 +29,20 @@ final class AutomaticTorrentFreeleech extends Model
     protected $guarded = [];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{
+     *     freeleech_duration: 'int',
+     * }
+     */
+    protected function casts(): array
+    {
+        return [
+            'freeleech_duration' => 'int',
+        ];
+    }
+
+    /**
      * Get the category that owns automatic torrent freeleech.
      *
      * @return BelongsTo<Category, $this>
