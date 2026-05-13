@@ -334,7 +334,14 @@
 
     @if ($torrent->resurrections_exists && $torrent->status === \App\Enums\ModerationStatus::APPROVED)
         <li class="form__group form__group--short-horizontal">
-            <button class="form__button form__button--outlined form__button--centered" disabled>
+            <button
+                @class([
+                    'form__button form__button--outlined form__button--centered',
+                    'torrent-activity-indicator--seeding' => $torrent->resurrected_by_current_user,
+                ])
+                @if ($torrent->resurrected_by_current_user) title="You requested this resurrection" @endif
+                disabled
+            >
                 {{ strtolower(__('graveyard.pending')) }}
             </button>
         </li>

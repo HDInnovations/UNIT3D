@@ -140,7 +140,10 @@ class TorrentController extends Controller
                 'history as completed' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', false)
                     ->where('seeder', '=', true),
-                'resurrections' => fn ($query) => $query->where('rewarded', '=', false),
+                'resurrections'                                => fn ($query) => $query->where('rewarded', '=', false),
+                'resurrections as resurrected_by_current_user' => fn ($query) => $query
+                    ->where('rewarded', '=', false)
+                    ->where('user_id', '=', $user->id),
             ])
             ->withSum('tips as total_tips', 'bon')
             ->withSum(['tips as user_tips' => fn ($query) => $query->where('sender_id', '=', $user->id)], 'bon')
