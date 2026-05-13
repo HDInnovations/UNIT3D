@@ -34,6 +34,7 @@ use AllowDynamicProperties;
  * @property ?float                      $rating
  * @property ?int                        $rating_count
  * @property ?string                     $first_video_video_id
+ * @property ?string                     $note
  * @property ?\Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */

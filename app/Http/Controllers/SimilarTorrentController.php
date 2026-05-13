@@ -26,6 +26,8 @@ use App\Models\TorrentRequest;
 use App\Models\TmdbTv;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SimilarTorrentController extends Controller
@@ -105,8 +107,26 @@ class SimilarTorrentController extends Controller
         ]);
     }
 
-    public function update(Request $request, Category $category, int $metaId): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Category $category, int $metaId): RedirectResponse
     {
+        if ($request->has('note')) {
+            abort_unless($request->user()->group->is_modo || $request->user()->group->is_torrent_modo, 403);
+
+            $validated = $request->validate([
+                'note' => [
+                    'nullable',
+                    'string',
+                    'max:65535',
+                ],
+            ]);
+
+            $this->meta($category, $metaId)->update([
+                'note' => blank($validated['note'] ?? null) ? null : $validated['note'],
+            ]);
+
+            return back()->with('success', 'Similar page note updated successfully.');
+        }
+
         if (!($category->movie_meta || $category->tv_meta || $category->game_meta)) {
             return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $metaId])
                 ->withErrors('This meta type can not be updated.');
@@ -142,5 +162,15 @@ class SimilarTorrentController extends Controller
         };
 
         return back()->with('success', 'Metadata update queued successfully.');
+    }
+
+    private function meta(Category $category, int $metaId): Model
+    {
+        return match (true) {
+            $category->movie_meta => TmdbMovie::query()->findOrFail($metaId),
+            $category->tv_meta    => TmdbTv::query()->findOrFail($metaId),
+            $category->game_meta  => IgdbGame::query()->findOrFail($metaId),
+            default               => abort(404, 'No Similar Torrents Found'),
+        };
     }
 }

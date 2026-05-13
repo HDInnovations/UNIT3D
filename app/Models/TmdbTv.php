@@ -58,6 +58,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $trailer
+ * @property string|null                     $note
  */
 #[AllowDynamicProperties]
 final class TmdbTv extends Model
