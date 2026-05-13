@@ -91,6 +91,18 @@
                         </label>
                     </p>
                     <p class="form__group">
+                        <input
+                            id="ipAddress"
+                            class="form__text"
+                            type="text"
+                            wire:model.live="ipAddress"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="ipAddress">
+                            IP address
+                        </label>
+                    </p>
+                    <p class="form__group">
                         <select
                             id="groupId"
                             class="form__select"
@@ -138,6 +150,55 @@
             </form>
         </div>
     </section>
+    @if (filled($ipAddress))
+        <section class="panelV2">
+            <h2 class="panel__heading">IP matches</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <tbody>
+                        <tr>
+                            <th>Source</th>
+                            <th>{{ __('common.user') }}</th>
+                            <th>IP address</th>
+                            <th>Details</th>
+                            <th>Matched at</th>
+                        </tr>
+                        @forelse ($ipMatches as $match)
+                            <tr>
+                                <td>{{ $match['source'] }}</td>
+                                <td>
+                                    @if ($match['user'] !== null)
+                                        <x-user-tag :anon="false" :user="$match['user']" />
+                                    @else
+                                        {{ $match['fallback_user'] ?? 'Unknown' }}
+                                    @endif
+                                </td>
+                                <td>{{ $match['ip_address'] }}</td>
+                                <td>{{ $match['details'] === '' ? 'N/A' : $match['details'] }}</td>
+                                <td>
+                                    @if ($match['matched_at'] !== null)
+                                        <time
+                                            datetime="{{ $match['matched_at'] }}"
+                                            title="{{ $match['matched_at'] }}"
+                                        >
+                                            {{ $match['matched_at'] }}
+                                        </time>
+                                    @else
+                                        N/A
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5">No IP matches</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    @endif
+
     <div>
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.users') }}</h2>
