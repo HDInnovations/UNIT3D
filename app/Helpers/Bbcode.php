@@ -21,6 +21,8 @@ use Illuminate\Support\Str;
 
 class Bbcode
 {
+    private const string EXTERNAL_LINK_ATTRIBUTES = ' target="_blank" rel="noopener noreferrer"';
+
     /**
      * @return array<
      *     string,
@@ -301,12 +303,12 @@ class Bbcode
         $source = str_replace('[hr]', '<hr>', $source);
         $source = preg_replace_callback(
             '/\[url](.*?)\[\/url]/i',
-            fn ($matches) => '<a href="'.self::sanitizeUrl($matches[1]).'">'.self::sanitizeUrl($matches[1]).'</a>',
+            fn ($matches) => '<a href="'.self::sanitizeUrl($matches[1]).'"'.self::EXTERNAL_LINK_ATTRIBUTES.'>'.self::sanitizeUrl($matches[1]).'</a>',
             $source
         );
         $source = preg_replace_callback(
             '/\[url=(.*?)](.*?)\[\/url]/i',
-            fn ($matches) => '<a href="'.self::sanitizeUrl($matches[1]).'">'.$matches[2].'</a>',
+            fn ($matches) => '<a href="'.self::sanitizeUrl($matches[1]).'"'.self::EXTERNAL_LINK_ATTRIBUTES.'>'.$matches[2].'</a>',
             $source ?? ''
         );
         $source = preg_replace_callback(

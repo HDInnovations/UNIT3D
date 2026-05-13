@@ -40,7 +40,7 @@ class Linkify
 
         $highlighter = new HtmlHighlighter(
             'http', // string - scheme to use for urls matched by top level domain
-            ['rel' => 'noopener noreferrer'], // string[] - key/value map of tag attributes
+            ['target' => '_blank', 'rel' => 'noopener noreferrer'], // string[] - key/value map of tag attributes
             '',     // string - content to add before highlight: {here}<a...
             ''      // string - content to add after highlight: ...</a>{here}
         );
