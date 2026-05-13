@@ -16,12 +16,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\History;
+use App\Enums\TorrentReseedRequestResult;
 use App\Models\Torrent;
-use App\Models\TorrentReseed;
-use App\Models\User;
-use App\Notifications\NewReseedRequest;
-use App\Repositories\ChatRepository;
+use App\Services\TorrentReseedService;
 use Illuminate\Http\Request;
 
 class TorrentReseedController extends Controller
@@ -29,7 +26,7 @@ class TorrentReseedController extends Controller
     /**
      * TorrentReseedController Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository)
+    public function __construct(private readonly TorrentReseedService $torrentReseedService)
     {
     }
 
@@ -47,54 +44,17 @@ class TorrentReseedController extends Controller
     public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $torrent = Torrent::query()->findOrFail($id);
-        $userId = $request->user()->id;
+        $result = $this->torrentReseedService->request($torrent, $request->user());
 
-        // Check if this user has already made a reseed request for this torrent
-        $existingUserReseed = TorrentReseed::query()
-            ->where('torrent_id', '=', $torrent->id)
-            ->where('user_id', '=', $userId)
-            ->first();
-
-        if ($existingUserReseed) {
-            return to_route('torrents.show', ['id' => $torrent->id])
-                ->withErrors('You have already made a reseed request for this torrent.');
-        }
-
-        // Check seeders condition and if a request already exists for this torrent
-        $existingReseed = TorrentReseed::query()->where('torrent_id', '=', $torrent->id)->first();
-
-        if ($torrent->seeders <= 2) {
-            if ($existingReseed) {
-                $existingReseed->increment('requests_count');
-                $existingReseed->save();
-
-                return to_route('torrents.show', ['id' => $torrent->id])
-                    ->with('success', 'A reseed request already exists. Your request has been counted.');
-            }
-            TorrentReseed::query()->create([
-                'torrent_id'     => $torrent->id,
-                'user_id'        => $userId,
-                'requests_count' => 1,
-            ]);
-
-            // Send notifications
-            $potentialReseeds = History::query()->where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
-
-            foreach ($potentialReseeds as $potentialReseed) {
-                User::query()->find($potentialReseed->user_id)->notify(new NewReseedRequest($torrent));
-            }
-
-            $torrentUrl = href_torrent($torrent);
-
-            $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out?', $torrentUrl, $torrent->name)
-            );
-
-            return to_route('torrents.show', ['id' => $torrent->id])
-                ->with('success', 'A notification has been sent to all users that downloaded this torrent along with original uploader!');
-        }
-
-        return to_route('torrents.show', ['id' => $torrent->id])
-            ->withErrors('This torrent doesn\'t meet the rules for a reseed request.');
+        return match ($result) {
+            TorrentReseedRequestResult::AlreadyRequested => to_route('torrents.show', ['id' => $torrent->id])
+                ->withErrors('You have already made a reseed request for this torrent.'),
+            TorrentReseedRequestResult::Counted => to_route('torrents.show', ['id' => $torrent->id])
+                ->with('success', 'A reseed request already exists. Your request has been counted.'),
+            TorrentReseedRequestResult::Created => to_route('torrents.show', ['id' => $torrent->id])
+                ->with('success', 'A notification has been sent to all users that downloaded this torrent along with original uploader!'),
+            TorrentReseedRequestResult::Ineligible => to_route('torrents.show', ['id' => $torrent->id])
+                ->withErrors('This torrent doesn\'t meet the rules for a reseed request.'),
+        };
     }
 }

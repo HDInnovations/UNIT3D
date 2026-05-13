@@ -23,12 +23,17 @@ use App\Models\Torrent;
 use App\Models\TorrentDownload;
 use App\Models\User;
 use App\Models\FreeleechToken;
+use App\Services\TorrentReseedService;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class TorrentDownloadController extends Controller
 {
+    public function __construct(private readonly TorrentReseedService $torrentReseedService)
+    {
+    }
+
     /**
      * Download Check.
      */
@@ -110,6 +115,8 @@ class TorrentDownloadController extends Controller
 
             $torrent->searchable();
         }
+
+        $this->torrentReseedService->request($torrent, $user);
 
         return response()->streamDownload(
             function () use ($id, $user, $torrent): void {
