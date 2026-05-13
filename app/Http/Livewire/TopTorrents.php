@@ -99,7 +99,7 @@ class TopTorrents extends Component
                                 )
                         )
                 )
-                ->take(5)
+                ->take($this->tab === 'newest' ? 15 : 5)
                 ->get();
 
             // See app/Traits/TorrentMeta.php

@@ -29,17 +29,27 @@
             {{ __('torrent.dead-torrents') }}
         </li>
     </menu>
-    <div class="data-table-wrapper">
-        <table class="data-table">
-            <tbody>
-                @foreach ($torrents as $torrent)
-                    <x-torrent.row
-                        :$torrent
-                        :meta="$torrent->meta"
-                        :personalFreeleech="$personal_freeleech"
-                    />
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    @if ($tab === 'newest')
+        <div class="panel__body torrent-search--poster__results">
+            @forelse ($torrents as $torrent)
+                <x-torrent.poster :$torrent :meta="$torrent->meta" />
+            @empty
+                {{ __('common.no-result') }}
+            @endforelse
+        </div>
+    @else
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <tbody>
+                    @foreach ($torrents as $torrent)
+                        <x-torrent.row
+                            :$torrent
+                            :meta="$torrent->meta"
+                            :personalFreeleech="$personal_freeleech"
+                        />
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
 </section>
