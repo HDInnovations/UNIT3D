@@ -23,6 +23,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Str;
 
 class UserPreWarning extends Notification implements ShouldQueue
 {
@@ -71,6 +72,7 @@ class UserPreWarning extends Notification implements ShouldQueue
         return (new MailMessage())
             ->greeting('Hit and run pre-warning')
             ->line('You received a hit and run pre-warning on one or more torrents.')
+            ->line('The current hit and run grace period is '.$this->gracePeriod().' from your last activity.')
             ->action('View unsatisfied torrents and start seeding.', route('users.history.index', ['user' => $this->user]));
     }
 
@@ -83,9 +85,16 @@ class UserPreWarning extends Notification implements ShouldQueue
     {
         return [
             'title' => 'Hit and run pre-warning',
-            'body'  => 'You received a hit and run pre-warning on one or more torrents. View unsatisfied torrents and start seeding.',
+            'body'  => 'You received a hit and run pre-warning on one or more torrents. The current hit and run grace period is '.$this->gracePeriod().' from your last activity. View unsatisfied torrents and start seeding.',
             'url'   => route('users.history.index', ['user' => $this->user]),
         ];
+    }
+
+    private function gracePeriod(): string
+    {
+        $days = (int) config('hitrun.grace');
+
+        return $days.' '.Str::plural('day', $days);
     }
 
     /**
