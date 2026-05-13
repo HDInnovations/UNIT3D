@@ -15,7 +15,15 @@ class FooterComposer
     public function compose(View $view): void
     {
         $view->with([
-            'pages' => cache()->flexible('cached-pages', [3600, 3600 * 2], fn () => Page::select(['id', 'name', 'created_at'])->take(6)->get())
+            'pages' => cache()->flexible(
+                'cached-footer-pages',
+                [3600, 3600 * 2],
+                fn () => Page::select(['id', 'name', 'footer_position', 'created_at'])
+                    ->orderBy('footer_position')
+                    ->orderBy('id')
+                    ->take(6)
+                    ->get()
+            ),
         ]);
     }
 }

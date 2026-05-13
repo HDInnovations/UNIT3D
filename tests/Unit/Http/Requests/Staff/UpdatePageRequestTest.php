@@ -38,5 +38,10 @@ test('rules', function (): void {
             'required',
             'string',
         ],
+        'footer_position' => [
+            'required',
+            'integer',
+            'min:0',
+        ],
     ], $actual);
 });

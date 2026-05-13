@@ -44,6 +44,11 @@ class UpdatePageRequest extends FormRequest
                 'required',
                 'string',
             ],
+            'footer_position' => [
+                'required',
+                'integer',
+                'min:0',
+            ],
         ];
     }
 }

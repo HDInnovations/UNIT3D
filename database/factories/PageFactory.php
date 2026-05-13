@@ -33,8 +33,9 @@ class PageFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'    => $this->faker->name(),
-            'content' => $this->faker->text(),
+            'name'            => $this->faker->name(),
+            'content'         => $this->faker->text(),
+            'footer_position' => $this->faker->numberBetween(0, 100),
         ];
     }
 }

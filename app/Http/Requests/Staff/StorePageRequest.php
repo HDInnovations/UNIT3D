@@ -44,6 +44,11 @@ class StorePageRequest extends FormRequest
                 'required',
                 'string',
             ],
+            'footer_position' => [
+                'required',
+                'integer',
+                'min:0',
+            ],
         ];
     }
 }

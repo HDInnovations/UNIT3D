@@ -47,6 +47,21 @@
                         {{ __('common.name') }}
                     </label>
                 </p>
+                <p class="form__group">
+                    <input
+                        id="footer_position"
+                        class="form__text"
+                        inputmode="numeric"
+                        min="0"
+                        name="footer_position"
+                        required
+                        type="number"
+                        value="{{ old('footer_position', $page->footer_position) }}"
+                    />
+                    <label class="form__label form__label--floating" for="footer_position">
+                        Footer Position
+                    </label>
+                </p>
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $page->content])
                 <p class="form__group">
                     <button class="form__button form__button--filled">

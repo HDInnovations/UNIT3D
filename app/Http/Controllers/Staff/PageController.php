@@ -33,7 +33,10 @@ class PageController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.page.index', [
-            'pages' => Page::all(),
+            'pages' => Page::query()
+                ->orderBy('footer_position')
+                ->orderBy('id')
+                ->get(),
         ]);
     }
 
@@ -51,6 +54,8 @@ class PageController extends Controller
     public function store(StorePageRequest $request): \Illuminate\Http\RedirectResponse
     {
         Page::create($request->validated());
+
+        $this->clearPageCache();
 
         return to_route('staff.pages.index')
             ->with('success', 'Page has been created successfully');
@@ -73,6 +78,8 @@ class PageController extends Controller
     {
         $page->update($request->validated());
 
+        $this->clearPageCache();
+
         return to_route('staff.pages.index')
             ->with('success', 'Page has been edited successfully');
     }
@@ -86,7 +93,15 @@ class PageController extends Controller
     {
         $page->delete();
 
+        $this->clearPageCache();
+
         return to_route('staff.pages.index')
             ->with('success', 'Page has been deleted successfully');
+    }
+
+    private function clearPageCache(): void
+    {
+        cache()->forget('cached-pages');
+        cache()->forget('cached-footer-pages');
     }
 }

@@ -31,6 +31,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.title') }}</th>
+                        <th>Footer Position</th>
                         <th>{{ __('common.date') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
@@ -43,6 +44,7 @@
                                     {{ $page->name }}
                                 </a>
                             </td>
+                            <td>{{ $page->footer_position }}</td>
                             <td>
                                 <time
                                     datetime="{{ $page->created_at }}"
@@ -91,7 +93,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">No pages</td>
+                            <td colspan="4">No pages</td>
                         </tr>
                     @endforelse
                 </tbody>

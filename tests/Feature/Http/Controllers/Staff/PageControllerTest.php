@@ -22,6 +22,12 @@ use Database\Seeders\GroupSeeder;
 
 use function Pest\Laravel\assertDatabaseHas;
 
+beforeEach(function (): void {
+    $this->withoutVite();
+    $this->withoutMiddleware(App\Http\Middleware\UpdateLastAction::class);
+    $this->withoutMiddleware(Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class);
+});
+
 test('create returns an ok response', function (): void {
     $this->seed(GroupSeeder::class);
 
@@ -49,7 +55,14 @@ test('edit returns an ok response', function (): void {
 });
 
 test('index returns an ok response', function (): void {
-    $pages = Page::factory()->times(3)->create();
+    Page::factory()->create(['footer_position' => 30]);
+    Page::factory()->create(['footer_position' => 10]);
+    Page::factory()->create(['footer_position' => 20]);
+
+    $pages = Page::query()
+        ->orderBy('footer_position')
+        ->orderBy('id')
+        ->get();
 
     $this->get(route('staff.pages.index'))
         ->assertOk()
@@ -69,15 +82,17 @@ test('store returns an ok response', function (): void {
     $page = Page::factory()->make();
 
     $this->post(route('staff.pages.store'), [
-        'name'    => $page->name,
-        'content' => $page->content,
+        'name'            => $page->name,
+        'content'         => $page->content,
+        'footer_position' => $page->footer_position,
     ])
         ->assertRedirect(route('staff.pages.index'))
         ->assertSessionHasNoErrors();
 
     assertDatabaseHas('pages', [
-        'name'    => $page->name,
-        'content' => $page->content,
+        'name'            => $page->name,
+        'content'         => $page->content,
+        'footer_position' => $page->footer_position,
     ]);
 });
 
@@ -94,10 +109,12 @@ test('update returns an ok response', function (): void {
 
     $name = fake()->name;
     $content = fake()->text;
+    $footerPosition = 50;
 
     $this->patch(route('staff.pages.update', ['page' => $page]), [
-        'name'    => $name,
-        'content' => $content,
+        'name'            => $name,
+        'content'         => $content,
+        'footer_position' => $footerPosition,
     ])
         ->assertRedirect(route('staff.pages.index'))
         ->assertSessionHasNoErrors();
@@ -107,5 +124,7 @@ test('update returns an ok response', function (): void {
     expect($page->name)
         ->toBe($name)
         ->and($page->content)
-        ->toBe($content);
+        ->toBe($content)
+        ->and($page->footer_position)
+        ->toBe($footerPosition);
 });
