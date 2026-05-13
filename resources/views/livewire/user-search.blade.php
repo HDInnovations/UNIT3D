@@ -56,6 +56,39 @@
                     </p>
                     <p class="form__group">
                         <input
+                            id="searchEmailUsers"
+                            class="form__checkbox"
+                            type="checkbox"
+                            wire:model.live="searchEmailUsers"
+                        />
+                        <label class="form__label" for="searchEmailUsers">
+                            {{ __('common.users') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="searchEmailInvites"
+                            class="form__checkbox"
+                            type="checkbox"
+                            wire:model.live="searchEmailInvites"
+                        />
+                        <label class="form__label" for="searchEmailInvites">
+                            {{ __('staff.invites-log') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="searchEmailApplications"
+                            class="form__checkbox"
+                            type="checkbox"
+                            wire:model.live="searchEmailApplications"
+                        />
+                        <label class="form__label" for="searchEmailApplications">
+                            {{ __('staff.applications') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
                             id="apikey"
                             class="form__text"
                             type="text"
@@ -138,7 +171,7 @@
             </form>
         </div>
     </section>
-    <div>
+    @if (! $emailSearchIsActive || $searchEmailUsers)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.users') }}</h2>
             <div class="data-table-wrapper">
@@ -232,5 +265,146 @@
             </div>
             {{ $users->links('partials.pagination') }}
         </section>
-    </div>
+    @endif
+
+    @if ($emailSearchIsActive && $searchEmailInvites)
+        <section class="panelV2">
+            <h2 class="panel__heading">Invite email matches</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>{{ __('user.sender') }}</th>
+                            <th>{{ __('common.email') }}</th>
+                            <th>Code</th>
+                            <th>{{ __('user.created-on') }}</th>
+                            <th>{{ __('user.accepted-by') }}</th>
+                            <th>{{ __('user.deleted-on') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($invites as $invite)
+                            <tr>
+                                <td>{{ $invite->id }}</td>
+                                <td>
+                                    <x-user-tag :anon="false" :user="$invite->sender" />
+                                </td>
+                                <td>{{ $invite->email }}</td>
+                                <td>{{ $invite->code }}</td>
+                                <td>
+                                    <time
+                                        datetime="{{ $invite->created_at }}"
+                                        title="{{ $invite->created_at }}"
+                                    >
+                                        {{ $invite->created_at }}
+                                    </time>
+                                </td>
+                                <td>
+                                    @if ($invite->accepted_by === null)
+                                        N/A
+                                    @else
+                                        <x-user-tag :anon="false" :user="$invite->receiver" />
+                                    @endif
+                                </td>
+                                <td>
+                                    <time
+                                        datetime="{{ $invite->deleted_at }}"
+                                        title="{{ $invite->deleted_at }}"
+                                    >
+                                        {{ $invite->deleted_at ?? 'N/A' }}
+                                    </time>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7">No invite email matches</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            {{ $invites->links('partials.pagination') }}
+        </section>
+    @endif
+
+    @if ($emailSearchIsActive && $searchEmailApplications)
+        <section class="panelV2">
+            <h2 class="panel__heading">Application email matches</h2>
+            <div class="data-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ __('common.email') }}</th>
+                            <th>{{ __('staff.application-type') }}</th>
+                            <th>{{ __('common.created_at') }}</th>
+                            <th>{{ __('common.status') }}</th>
+                            <th>{{ __('common.moderated-by') }}</th>
+                            <th>{{ __('common.action') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($applications as $application)
+                            <tr>
+                                <td>{{ $application->id }}</td>
+                                <td>{{ $application->email }}</td>
+                                <td>{{ $application->type }}</td>
+                                <td>
+                                    <time
+                                        datetime="{{ $application->created_at }}"
+                                        title="{{ $application->created_at }}"
+                                    >
+                                        {{ $application->created_at }}
+                                    </time>
+                                </td>
+                                <td>
+                                    @switch($application->status)
+                                        @case(\App\Enums\ModerationStatus::PENDING)
+                                            <span class="application--pending">Pending</span>
+
+                                            @break
+                                        @case(\App\Enums\ModerationStatus::APPROVED)
+                                            <span class="application--approved">Approved</span>
+
+                                            @break
+                                        @case(\App\Enums\ModerationStatus::REJECTED)
+                                            <span class="application--rejected">Rejected</span>
+
+                                            @break
+                                        @default
+                                            <span class="application--unknown">Unknown</span>
+                                    @endswitch
+                                </td>
+                                <td>
+                                    @if ($application->moderated === null)
+                                        N/A
+                                    @else
+                                        <x-user-tag :anon="false" :user="$application->moderated" />
+                                    @endif
+                                </td>
+                                <td>
+                                    <menu class="data-table__actions">
+                                        <li class="data-table__action">
+                                            <a
+                                                class="form__button form__button--text"
+                                                href="{{ route('staff.applications.show', ['id' => $application->id]) }}"
+                                            >
+                                                {{ __('common.view') }}
+                                            </a>
+                                        </li>
+                                    </menu>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7">No application email matches</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            {{ $applications->links('partials.pagination') }}
+        </section>
+    @endif
 </div>

@@ -16,10 +16,13 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\Models\Application;
 use App\Models\Group;
+use App\Models\Invite;
 use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -51,6 +54,15 @@ class UserSearch extends Component
     public string $soundexEmail = '';
 
     #[Url(history: true)]
+    public bool $searchEmailUsers = true;
+
+    #[Url(history: true)]
+    public bool $searchEmailInvites = true;
+
+    #[Url(history: true)]
+    public bool $searchEmailApplications = true;
+
+    #[Url(history: true)]
     public string $rsskey = '';
 
     #[Url(history: true)]
@@ -73,6 +85,10 @@ class UserSearch extends Component
         $this->resetPage();
     }
 
+    final protected bool $emailSearchIsActive {
+        get => $this->email !== '' || $this->soundexEmail !== '';
+    }
+
     /**
      * @var \Illuminate\Pagination\LengthAwarePaginator<int, User>
      */
@@ -84,15 +100,8 @@ class UserSearch extends Component
                 $this->soundexUsername !== '',
                 fn ($query) => $query->whereRaw('SOUNDEX(username) = SOUNDEX(?)', [$this->soundexUsername]),
             )
-            ->when($this->email !== '', fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
-            ->when(
-                $this->soundexEmail !== '',
-                fn ($query) => $query->when(
-                    str_contains($this->soundexEmail, '@'),
-                    fn ($query) => $query->whereRaw('SOUNDEX(email) = SOUNDEX(?)', [$this->soundexEmail]),
-                    fn ($query) => $query->whereRaw("SOUNDEX(SUBSTRING_INDEX(email, '@', 1)) = SOUNDEX(SUBSTRING_INDEX(?, '@', 1))", [$this->soundexEmail])
-                )
-            )
+            ->when($this->emailSearchIsActive && ! $this->searchEmailUsers, fn ($query) => $query->whereRaw('1 = 0'))
+            ->when($this->searchEmailUsers, fn ($query) => $this->applyEmailSearch($query))
             ->when($this->rsskey !== '', fn ($query) => $query->where('rsskey', 'LIKE', '%'.$this->rsskey.'%'))
             ->when($this->apikey !== '', fn ($query) => $query->where('api_token', 'LIKE', '%'.$this->apikey.'%'))
             ->when($this->passkey !== '', fn ($query) => $query->where('passkey', 'LIKE', '%'.$this->passkey.'%'))
@@ -103,17 +112,70 @@ class UserSearch extends Component
     }
 
     /**
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Invite>
+     */
+    final protected \Illuminate\Pagination\LengthAwarePaginator $invites {
+        get => Invite::withTrashed()
+            ->with([
+                'sender'   => fn ($query) => $query->withTrashed()->with('group'),
+                'receiver' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
+            ->when(
+                ! $this->emailSearchIsActive || ! $this->searchEmailInvites,
+                fn ($query) => $query->whereRaw('1 = 0'),
+                fn ($query) => $this->applyEmailSearch($query)
+            )
+            ->latest()
+            ->paginate($this->perPage, ['*'], 'invitePage');
+    }
+
+    /**
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Application>
+     */
+    final protected \Illuminate\Pagination\LengthAwarePaginator $applications {
+        get => Application::withoutGlobalScopes()
+            ->with('moderated.group')
+            ->when(
+                ! $this->emailSearchIsActive || ! $this->searchEmailApplications,
+                fn ($query) => $query->whereRaw('1 = 0'),
+                fn ($query) => $this->applyEmailSearch($query)
+            )
+            ->latest()
+            ->paginate($this->perPage, ['*'], 'applicationPage');
+    }
+
+    /**
      * @var \Illuminate\Support\Collection<int, Group>
      */
     final protected $groups {
         get => Group::orderBy('position')->get();
     }
 
+    private function applyEmailSearch(Builder $query): Builder
+    {
+        return $query
+            ->when($this->email !== '', fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
+            ->when(
+                $this->soundexEmail !== '',
+                fn ($query) => $query->when(
+                    str_contains($this->soundexEmail, '@'),
+                    fn ($query) => $query->whereRaw('SOUNDEX(email) = SOUNDEX(?)', [$this->soundexEmail]),
+                    fn ($query) => $query->whereRaw("SOUNDEX(SUBSTRING_INDEX(email, '@', 1)) = SOUNDEX(SUBSTRING_INDEX(?, '@', 1))", [$this->soundexEmail])
+                )
+            );
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.user-search', [
-            'users'  => $this->users,
-            'groups' => $this->groups,
+            'applications'            => $this->applications,
+            'emailSearchIsActive'     => $this->emailSearchIsActive,
+            'groups'                  => $this->groups,
+            'invites'                 => $this->invites,
+            'searchEmailApplications' => $this->searchEmailApplications,
+            'searchEmailInvites'      => $this->searchEmailInvites,
+            'searchEmailUsers'        => $this->searchEmailUsers,
+            'users'                   => $this->users,
         ]);
     }
 }
