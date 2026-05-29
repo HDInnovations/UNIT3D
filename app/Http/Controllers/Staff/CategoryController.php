@@ -124,8 +124,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category): \Illuminate\Http\RedirectResponse
     {
-        // Set the category_id to null for all requests that have this category_id
-        $category->requests()->update(['category_id' => null]);
+        // Delete all requests that have this category_id
+        $category->requests()->delete();
 
         $category->delete();
 
