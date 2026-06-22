@@ -1,0 +1,48 @@
+ii  php-common                             2:95+ubuntu22.04.1+deb.sury.org+2            all          Common files for PHP packages
+ii  php-pear                               1:1.10.12+submodules+notgz+20210212-1ubuntu3 all          PEAR Base System
+ii  php8.1                                 8.1.32-1+ubuntu22.04.1+deb.sury.org+1        all          server-side, HTML-embedded scripting language (metapackage)
+ii  php8.1-bcmath                          8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        Bcmath module for PHP
+ii  php8.1-cli                             8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        command-line interpreter for the PHP scripting language
+ii  php8.1-common                          8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        documentation, examples and common module for PHP
+ii  php8.1-curl                            8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        CURL module for PHP
+ii  php8.1-fpm                             8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        server-side, HTML-embedded scripting language (FPM-CGI binary)
+ii  php8.1-gd                              8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        GD module for PHP
+ii  php8.1-intl                            8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        Internationalisation module for PHP
+ii  php8.1-mbstring                        8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        MBSTRING module for PHP
+ii  php8.1-mysql                           8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        MySQL module for PHP
+ii  php8.1-opcache                         8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        Zend OpCache module for PHP
+ii  php8.1-readline                        8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        readline module for PHP
+ii  php8.1-xml                             8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        DOM, SimpleXML, XML, and XSL module for PHP
+ii  php8.1-zip                             8.1.32-1+ubuntu22.04.1+deb.sury.org+1        amd64        Zip module for PHP
+ii  php8.3                                 8.3.19-1+ubuntu22.04.1+deb.sury.org+1        all          server-side, HTML-embedded scripting language (metapackage)
+ii  php8.3-bcmath                          8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        Bcmath module for PHP
+ii  php8.3-cli                             8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        command-line interpreter for the PHP scripting language
+ii  php8.3-common                          8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        documentation, examples and common module for PHP
+ii  php8.3-curl                            8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        CURL module for PHP
+ii  php8.3-dev                             8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        Files for PHP8.3 module development
+ii  php8.3-fpm                             8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        server-side, HTML-embedded scripting language (FPM-CGI binary)
+ii  php8.3-gd                              8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        GD module for PHP
+ii  php8.3-gnupg                           1.5.1-6+ubuntu22.04.1+deb.sury.org+1         amd64        PHP wrapper around the gpgme library
+ii  php8.3-igbinary                        3.2.16-3+ubuntu22.04.1+deb.sury.org+1        amd64        igbinary PHP serializer
+ii  php8.3-intl                            8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        Internationalisation module for PHP
+ii  php8.3-mbstring                        8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        MBSTRING module for PHP
+ii  php8.3-mysql                           8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        MySQL module for PHP
+ii  php8.3-opcache                         8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        Zend OpCache module for PHP
+ii  php8.3-readline                        8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        readline module for PHP
+ii  php8.3-redis                           6.1.0-2+ubuntu22.04.1+deb.sury.org+1         amd64        PHP extension for interfacing with Redis
+ii  php8.3-xml                             8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        DOM, SimpleXML, XML, and XSL module for PHP
+ii  php8.3-zip                             8.3.19-1+ubuntu22.04.1+deb.sury.org+1        amd64        Zip module for PHP
+rc  php8.4-bcmath                          8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        Bcmath module for PHP
+rc  php8.4-cli                             8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        command-line interpreter for the PHP scripting language
+rc  php8.4-common                          8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        documentation, examples and common module for PHP
+rc  php8.4-curl                            8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        CURL module for PHP
+rc  php8.4-fpm                             8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        server-side, HTML-embedded scripting language (FPM-CGI binary)
+rc  php8.4-gd                              8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        GD module for PHP
+rc  php8.4-intl                            8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        Internationalisation module for PHP
+rc  php8.4-mbstring                        8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        MBSTRING module for PHP
+rc  php8.4-mysql                           8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        MySQL module for PHP
+rc  php8.4-opcache                         8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        Zend OpCache module for PHP
+rc  php8.4-readline                        8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        readline module for PHP
+rc  php8.4-xml                             8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        DOM, SimpleXML, XML, and XSL module for PHP
+rc  php8.4-zip                             8.4.2-1+ubuntu22.04.1+deb.sury.org+1         amd64        Zip module for PHP
+ii  pkg-php-tools                          1.42build1                                   all          various packaging tools and scripts for PHP packages

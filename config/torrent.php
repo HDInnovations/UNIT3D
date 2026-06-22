@@ -1,6 +1,4 @@
 <?php
-
-declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +32,7 @@ return [
     |
     */
 
-    'source' => 'UNIT3D',
+    'source' => 'MalayaBits',
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +55,7 @@ return [
     |
     */
 
-    'comment' => 'This torrent was downloaded from UNIT3D',
+    'comment' => 'This torrent was downloaded from MalayaBits',
 
     /*
     |--------------------------------------------------------------------------

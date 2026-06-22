@@ -1,6 +1,4 @@
 <?php
-
-declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,18 +32,18 @@ return [
     |
     */
 
-    'seedtime' => 604800,
+    'seedtime' => 86400,
 
     /*
     |--------------------------------------------------------------------------
     | Max Warnings
     |--------------------------------------------------------------------------
     |
-    | Max Warnings Before Download Privileges Disabled
+    | Max Warnings Before Download Privliges Disabled
     |
     */
 
-    'max_warnings' => 3,
+    'max_warnings' => 10,
 
     /*
     |--------------------------------------------------------------------------
@@ -79,7 +77,7 @@ return [
     |
     */
 
-    'expire' => 14,
+    'expire' => 7,
 
     /*
     |--------------------------------------------------------------------------
@@ -91,5 +89,5 @@ return [
     |
     */
 
-    'prewarn' => 1,
+    'prewarn' => 3,
 ];

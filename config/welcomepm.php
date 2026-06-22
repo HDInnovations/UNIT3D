@@ -1,6 +1,4 @@
 <?php
-
-declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -23,7 +21,7 @@ return [
     |
     */
 
-    'subject' => 'Welcome to UNIT3D',
+    'subject' => 'Selamat Datang ke MalayaBits',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +32,13 @@ return [
     |
     */
 
-    'message' => 'Welcome To [b]UNIT3D[/b].
+    'message' => 'Selamat Datang [b]MalayaBits[/b].<br><br>
 
-    - UNIT3D :space_invader:',
+MalayaBits adalah satu website "private tracker" untuk movie, tv dan musik untuk konten Malaysia sahaja. Orang Malaysia kurang tahu berkaitan "private tracker" ini.
+Ianya sama konsep download dari torrent tapi "private tracker" mementingkan aspek kualiti dan jangka hayat sesuatu media untuk terus hidup dengan terus "seed" walaupun kita sendiri sudah berjaya download media tersebut.
+Cara untuk teruskan share adalah buka torrent client di PC anda dan tinggalkan untuk terus "seed". Anda akan diberi mata ganjaran. Semakin lama anda "seed" semakin banyak mata ganjaran akan diberikan. Mata ganjaran ini boleh digunakan untuk download media yang lain pula.
+<br><br>
+Banyak perlu belajar, sila baca "Rules" dan fahamkan terutama Rules berkaitan "Seeding" dan "Hit and Run".
+
+    - MalayaBits :space_invader:',
 ];

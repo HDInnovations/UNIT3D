@@ -23,7 +23,7 @@ return [
     |
     */
     'is_enabled'   => true,
-    'monthly_goal' => 100,
+    'monthly_goal' => 40,
     'currency'     => 'USD',
     'description'  => 'Help keep the site alive by donating to our monthly goal.',
 ];

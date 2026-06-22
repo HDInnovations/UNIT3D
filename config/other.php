@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'title' => 'UNIT3D',
+    'title' => 'MalayaBits',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'subTitle' => 'Built On Laravel',
+    'subTitle' => 'Percuma',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'email' => env('DEFAULT_OWNER_EMAIL', 'unit3d@none.com'),
+    'email' => env('DEFAULT_OWNER_EMAIL', 'admin@malayabits.cc'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'meta_description' => 'Built On Laravel',
+    'meta_description' => 'Percuma',
 
     /*
     |--------------------------------------------------------------------------
@@ -66,7 +66,7 @@ return [
     | Date Site Was Born
     |
     */
-    'birthdate' => 'December 30th 2017',
+    'birthdate' => 'June 1st 2024',
 
     /*
     |--------------------------------------------------------------------------
@@ -76,9 +76,9 @@ return [
     | Global Freeleech
     |
     */
-    'freeleech' => false,
+    'freeleech' => true,
 
-    'freeleech_until' => '12/23/2017 3:00 PM EST',
+    'freeleech_until' => '06/16/2026 3:00 AM EST',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
     | Global Double Upload
     |
     */
-    'doubleup' => false,
+    'doubleup' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +122,7 @@ return [
     | Restricted mode for invites. If set to true, invites will be restricted
     | Exempt these groups from the invite restrictions
     */
-    'invite-only'   => true,
+    'invite-only'   => false,
     'invite_expire' => 14,
 
     'invites_restriced' => false,
@@ -130,7 +130,7 @@ return [
         'Administrator',
         'Owner',
     ],
-    'max_unused_user_invites' => 1,
+    'max_unused_user_invites' => 3,
 
     'hours-until-invite-after-2fa' => 24,
 
@@ -163,7 +163,7 @@ return [
     | 11 = Revel
     | 12 = Material Design v3 Light
     */
-    'default_style' => 12,
+    'default_style' => 8,
 
     /*
     |--------------------------------------------------------------------------
