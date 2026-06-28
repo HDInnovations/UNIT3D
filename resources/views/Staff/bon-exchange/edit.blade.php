@@ -11,9 +11,7 @@
             {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-bon-exchange--edit')
@@ -21,9 +19,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('bon.bon') }} {{ __('bon.exchange') }}
+            {{ __('common.edit') }} {{ trans_choice('common.a-an-art', false) }} {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </h2>
         <div class="panel__body">
             <form
@@ -81,11 +77,7 @@
                 <p class="form__group">
                     <select name="type" id="type" class="form__select" required>
                         <option hidden selected disabled value=""></option>
-                        <option
-                            class="form__option"
-                            value="upload"
-                            @selected($bonExchange->upload)
-                        >
+                        <option class="form__option" value="upload" @selected($bonExchange->upload)>
                             {{ __('common.add') }} {{ __('common.upload') }}
                         </option>
                         <option
@@ -102,11 +94,7 @@
                         >
                             {{ __('torrent.personal-freeleech') }}
                         </option>
-                        <option
-                            class="form__option"
-                            value="invite"
-                            @selected($bonExchange->invite)
-                        >
+                        <option class="form__option" value="invite" @selected($bonExchange->invite)>
                             {{ __('user.invites') }}
                         </option>
                     </select>

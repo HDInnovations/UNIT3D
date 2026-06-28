@@ -112,8 +112,7 @@
     @if ($torrent->seeders === 0)
         <li class="torrent__activity">
             <span class="torrent__activity-link">
-                {{ __('torrent.last-seed-activity') }}:
-                {{ $torrent->history_max_updated_at ?? __('common.unknown') }}
+                {{ __('torrent.last-seed-activity') }}: {{ $torrent->history_max_updated_at ?? __('common.unknown') }}
             </span>
         </li>
     @endif

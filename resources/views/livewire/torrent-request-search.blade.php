@@ -378,23 +378,20 @@
                                     @case($torrentRequest->claim_exists && $torrentRequest->torrent_id === null)
                                         <i class="fas fa-circle text-blue"></i>
                                         {{ __('request.claimed') }}
-
                                         @break
                                     @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
                                         <i class="fas fa-circle text-purple"></i>
                                         {{ __('request.pending') }}
-
                                         @break
                                     @case($torrentRequest->torrent_id === null)
                                         <i class="fas fa-circle text-red"></i>
                                         {{ __('request.unfilled') }}
-
                                         @break
                                     @default
                                         <i class="fas fa-circle text-green"></i>
                                         {{ __('request.filled') }}
-
                                         @break
+
                                 @endswitch
                             </td>
                         </tr>
@@ -429,16 +426,12 @@
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-claimed') }}:</dt>
-                <dd>
-                    {{ number_format($torrentRequestBountyStat->claimed) }}
-                    {{ __('bon.bon') }}
-                </dd>
+                <dd>{{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }}</dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-unclaimed') }}:</dt>
                 <dd>
-                    {{ number_format($torrentRequestBountyStat->unclaimed) }}
-                    {{ __('bon.bon') }}
+                    {{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}
                 </dd>
             </div>
         </dl>

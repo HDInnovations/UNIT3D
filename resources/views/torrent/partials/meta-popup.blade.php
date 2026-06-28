@@ -25,8 +25,7 @@
                     <div class="meta__poster-popup-detail">
                         <span class="detail-label">Rating</span>
                         <span class="detail-value">
-                            {{ round($meta?->vote_average ?? 0, 1) }}/10
-                            ({{ $meta?->vote_count ?? 0 }} votes)
+                            {{ round($meta?->vote_average ?? 0, 1) }}/10 ({{ $meta?->vote_count ?? 0 }} votes)
                         </span>
                     </div>
                 @endif

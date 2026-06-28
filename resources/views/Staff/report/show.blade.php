@@ -35,7 +35,6 @@
             </div>
         </section>
     @endif
-
     @if ($report->request)
         <section class="panelV2">
             <h2 class="panel__heading">
@@ -48,7 +47,6 @@
             </div>
         </section>
     @endif
-
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.message') }}</h2>
         {{-- format-ignore-start --}}<div class="panel__body" style="white-space: pre-wrap">{{ $report->message }}</div>{{-- format-ignore-end --}}
@@ -67,7 +65,6 @@
             </div>
         </section>
     @endif
-
     @if ($report->solved_by !== null)
         <section class="panelV2">
             <h2 class="panel__heading">Verdict</h2>
@@ -134,10 +131,7 @@
                 <div class="key-value__group">
                     <dt>{{ __('ticket.closed') }}</dt>
                     <dd>
-                        <time
-                            datetime="{{ $report->solved_at }}"
-                            title="{{ $report->solved_at }}"
-                        >
+                        <time datetime="{{ $report->solved_at }}" title="{{ $report->solved_at }}">
                             {{ $report->solved_at?->format('Y-m-d') }}
                         </time>
                     </dd>

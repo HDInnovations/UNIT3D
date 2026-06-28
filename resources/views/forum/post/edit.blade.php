@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.edit') }} {{ __('forum.post') }} - {{ $topic->name }} -
-        {{ config('other.title') }}
+        {{ __('common.edit') }} {{ __('forum.post') }} - {{ $topic->name }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -35,9 +34,7 @@
             {{ $topic->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -49,8 +46,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}:
-            {{ $forum->name }}
+            {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}: {{ $forum->name }}
         </h2>
         <div class="panel__body">
             <form
@@ -73,15 +69,11 @@
                             value="1"
                             @checked(old('pinned') ?? $post->pinned)
                         />
-                        <label class="form__label" for="pinned">
-                            {{ __('forum.pin') }}
-                        </label>
+                        <label class="form__label" for="pinned"> {{ __('forum.pin') }} </label>
                     </p>
                 @endif
 
-                <button class="form__button form__button--filled">
-                    {{ __('common.submit') }}
-                </button>
+                <button class="form__button form__button--filled">{{ __('common.submit') }}</button>
             </form>
         </div>
     </section>

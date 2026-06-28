@@ -43,25 +43,34 @@
                 </div>
                 <div class="panel__action">
                     <template
-                        x-if="state.chat.room && state.chat.room > 0 && state.chat.bot < 1 && state.chat.target < 1"
+                        x-if="
+                            state.chat.room &&
+                            state.chat.room > 0 &&
+                            state.chat.bot < 1 &&
+                            state.chat.target < 1
+                        "
                     >
                         <button
                             class="form__button form__standard-icon-button form__standard-icon-button--skinny"
-                            @click.prevent="changeAudible('room', state.chat.room, state.chat.listening ? 0 : 1)"
-                            :style="'color: ' + (state.chat.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
+                            @click.prevent="
+                                changeAudible('room', state.chat.room, state.chat.listening ? 0 : 1)
+                            "
+                            :style="'color: ' +
+                            (state.chat.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
                         >
                             <i
                                 :class="state.chat.listening ? 'fa fa-bell' : 'fa fa-bell-slash'"
                             ></i>
                         </button>
                     </template>
-                    <template
-                        x-if="state.chat.bot && state.chat.bot >= 1 && state.chat.target < 1"
-                    >
+                    <template x-if="state.chat.bot && state.chat.bot >= 1 && state.chat.target < 1">
                         <button
                             class="form__button form__standard-icon-button form__standard-icon-button--skinny"
-                            @click.prevent="changeAudible('bot', state.chat.bot, state.chat.listening ? 0 : 1)"
-                            :style="'color: ' + (state.chat.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
+                            @click.prevent="
+                                changeAudible('bot', state.chat.bot, state.chat.listening ? 0 : 1)
+                            "
+                            :style="'color: ' +
+                            (state.chat.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
                         >
                             <i
                                 :class="state.chat.listening ? 'fa fa-bell' : 'fa fa-bell-slash'"
@@ -73,8 +82,15 @@
                     >
                         <button
                             class="form__button form__standard-icon-button form__standard-icon-button--skinny"
-                            @click.prevent="changeAudible('target', state.chat.target, state.chat.listening ? 0 : 1)"
-                            :style="'color: ' + (state.chat.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
+                            @click.prevent="
+                                changeAudible(
+                                    'target',
+                                    state.chat.target,
+                                    state.chat.listening ? 0 : 1,
+                                )
+                            "
+                            :style="'color: ' +
+                            (state.chat.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
                         >
                             <i
                                 :class="state.chat.listening ? 'fa fa-bell' : 'fa fa-bell-slash'"
@@ -87,7 +103,8 @@
                         class="form__button form__standard-icon-button form__standard-icon-button--skinny"
                         title="Toggle typing notifications"
                         @click.prevent="changeWhispers()"
-                        :style="'color: ' + (state.chat.showWhispers ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
+                        :style="'color: ' +
+                        (state.chat.showWhispers ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
                     >
                         <i
                             :class="state.chat.showWhispers ? 'fas fa-keyboard' : 'fa fa-keyboard'"
@@ -145,21 +162,41 @@
         <menu id="chatbox_tabs" class="panel__tabs" role="tablist">
             <template x-for="conversation in conversations" :key="conversation.id">
                 <li
-                    x-show="conversation.room && conversation.room.name && conversation.room.name.length > 0"
+                    x-show="
+                        conversation.room &&
+                        conversation.room.name &&
+                        conversation.room.name.length > 0
+                    "
                     class="panel__tab chatbox__tab"
-                    :class="state.chat.tab && conversation.room && state.chat.tab === conversation.room.name && 'panel__tab--active'"
+                    :class="state.chat.tab &&
+                    conversation.room &&
+                    state.chat.tab === conversation.room.name &&
+                    'panel__tab--active'"
                     role="tab"
                     @click.prevent="changeTab('room', conversation.room.id)"
                 >
                     <i
                         class="fa fa-comment"
-                        :class="checkPings('room', conversation.room && conversation.room.id ? conversation.room.id : 0) ? 'fa-beat text-success' : 'text-danger'"
+                        :class="checkPings(
+                            'room',
+                            conversation.room && conversation.room.id ? conversation.room.id : 0,
+                        )
+                            ? 'fa-beat text-success'
+                            : 'text-danger'"
                     ></i>
                     <span
-                        x-text="conversation.room && conversation.room.name ? conversation.room.name : ''"
+                        x-text="
+                            conversation.room && conversation.room.name
+                                ? conversation.room.name
+                                : ''
+                        "
                     ></span>
                     <button
-                        x-show="state.chat.tab && conversation.room && state.chat.tab === conversation.room.name"
+                        x-show="
+                            state.chat.tab &&
+                            conversation.room &&
+                            state.chat.tab === conversation.room.name
+                        "
                         class="chatbox__tab-delete-button"
                         @click.prevent="leaveRoom(state.chat.room)"
                     >
@@ -171,25 +208,43 @@
                 <li
                     x-show="
                         conversation.target &&
-                            conversation.target.id >= 3 &&
-                            conversation.target.username &&
-                            conversation.target.username.length > 0
+                        conversation.target.id >= 3 &&
+                        conversation.target.username &&
+                        conversation.target.username.length > 0
                     "
                     class="panel__tab chatbox__tab"
-                    :class="state.chat.target >= 3 && conversation.target && state.chat.target === conversation.target.id && 'panel__tab--active'"
+                    :class="state.chat.target >= 3 &&
+                    conversation.target &&
+                    state.chat.target === conversation.target.id &&
+                    'panel__tab--active'"
                     role="tab"
                     @click.prevent="changeTab('target', conversation.target.id)"
                 >
                     <i
                         class="fa fa-comment"
-                        :class="checkPings('target', conversation.target && conversation.target.id ? conversation.target.id : 0) ? 'fa-beat text-success' : 'text-danger'"
+                        :class="checkPings(
+                            'target',
+                            conversation.target && conversation.target.id
+                                ? conversation.target.id
+                                : 0,
+                        )
+                            ? 'fa-beat text-success'
+                            : 'text-danger'"
                     ></i>
                     @
                     <span
-                        x-text="conversation.target && conversation.target.username ? conversation.target.username : ''"
+                        x-text="
+                            conversation.target && conversation.target.username
+                                ? conversation.target.username
+                                : ''
+                        "
                     ></span>
                     <button
-                        x-show="state.chat.target >= 3 && conversation.target && state.chat.target === conversation.target.id"
+                        x-show="
+                            state.chat.target >= 3 &&
+                            conversation.target &&
+                            state.chat.target === conversation.target.id
+                        "
                         class="chatbox__tab-delete-button"
                         @click.prevent="leaveTarget(state.chat.target)"
                     >
@@ -201,25 +256,39 @@
                 <li
                     x-show="
                         conversation.bot &&
-                            conversation.bot.id >= 1 &&
-                            conversation.bot.name &&
-                            conversation.bot.name.length > 0
+                        conversation.bot.id >= 1 &&
+                        conversation.bot.name &&
+                        conversation.bot.name.length > 0
                     "
                     class="panel__tab chatbox__tab"
-                    :class="state.chat.bot > 0 && conversation.bot && state.chat.bot === conversation.bot.id && 'panel__tab--active'"
+                    :class="state.chat.bot > 0 &&
+                    conversation.bot &&
+                    state.chat.bot === conversation.bot.id &&
+                    'panel__tab--active'"
                     role="tab"
                     @click.prevent="changeTab('bot', conversation.bot.id)"
                 >
                     <i
                         class="fa fa-comment"
-                        :class="checkPings('bot', conversation.bot && conversation.bot.id ? conversation.bot.id : 0) ? 'fa-beat text-success' : 'text-danger'"
+                        :class="checkPings(
+                            'bot',
+                            conversation.bot && conversation.bot.id ? conversation.bot.id : 0,
+                        )
+                            ? 'fa-beat text-success'
+                            : 'text-danger'"
                     ></i>
                     @
                     <span
-                        x-text="conversation.bot && conversation.bot.name ? conversation.bot.name : ''"
+                        x-text="
+                            conversation.bot && conversation.bot.name ? conversation.bot.name : ''
+                        "
                     ></span>
                     <button
-                        x-show="state.chat.bot > 0 && conversation.bot && state.chat.bot === conversation.bot.id"
+                        x-show="
+                            state.chat.bot > 0 &&
+                            conversation.bot &&
+                            state.chat.bot === conversation.bot.id
+                        "
                         class="chatbox__tab-delete-button"
                         @click.prevent="leaveBot(state.chat.bot)"
                     >
@@ -238,13 +307,23 @@
                                     <header class="chatbox-message__header">
                                         <address
                                             class="chatbox-message__address user-tag"
-                                            :style="(message.user?.is_donor ? 'background-image: url(/img/sparkels.gif);' : (message.user?.group?.effect ? 'background-image:' + message.user.group.effect + ';' : ''))"
+                                            :style="message.user?.is_donor
+                                                ? 'background-image: url(/img/sparkels.gif);'
+                                                : message.user?.group?.effect
+                                                  ? 'background-image:' +
+                                                    message.user.group.effect +
+                                                    ';'
+                                                  : ''"
                                         >
                                             <a
                                                 class="user-tag__link"
                                                 :class="message.user?.group?.icon"
-                                                :href="message.user?.username ? '/users/' + message.user.username : ''"
-                                                :style="message.user?.group?.color ? 'color:' + message.user.group.color : ''"
+                                                :href="message.user?.username
+                                                    ? '/users/' + message.user.username
+                                                    : ''"
+                                                :style="message.user?.group?.color
+                                                    ? 'color:' + message.user.group.color
+                                                    : ''"
                                                 :title="message.user?.group?.name"
                                             >
                                                 <span
@@ -253,7 +332,11 @@
                                                     x-text="message.user?.username || 'Unknown'"
                                                 ></span>
                                                 <span
-                                                    x-show="message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2)"
+                                                    x-show="
+                                                        message.bot &&
+                                                        message.bot.id >= 1 &&
+                                                        (!message.user || message.user.id < 2)
+                                                    "
                                                     x-text="message.bot?.name || 'Unknown'"
                                                 ></span>
                                                 <template x-if="message.user?.icon">
@@ -261,7 +344,8 @@
                                                         <img
                                                             :style="'max-height: 16px; vertical-align: text-bottom;'"
                                                             title="Custom user icon"
-                                                            :src="'/authenticated-images/user-icons/' + message.user.username"
+                                                            :src="'/authenticated-images/user-icons/' +
+                                                            message.user.username"
                                                             loading="lazy"
                                                         />
                                                     </i>
@@ -273,14 +357,21 @@
                                                     title="Lifetime donor"
                                                 ></i>
                                                 <i
-                                                    x-show="message.user?.is_donor == 1 && message.user?.is_lifetime == 0"
+                                                    x-show="
+                                                        message.user?.is_donor == 1 &&
+                                                        message.user?.is_lifetime == 0
+                                                    "
                                                     class="fal fa-star text-gold"
                                                     title="Donor"
                                                 ></i>
                                             </a>
                                         </address>
                                         <div
-                                            x-show="message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2)"
+                                            x-show="
+                                                message.bot &&
+                                                message.bot.id >= 1 &&
+                                                (!message.user || message.user.id < 2)
+                                            "
                                             class="bbcode-rendered bot-message"
                                             style="
                                                 font-style: italic;
@@ -290,7 +381,11 @@
                                             x-html="message.message"
                                         ></div>
                                         <time
-                                            x-show="message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2)"
+                                            x-show="
+                                                message.bot &&
+                                                message.bot.id >= 1 &&
+                                                (!message.user || message.user.id < 2)
+                                            "
                                             style="
                                                 margin-left: 10px;
                                                 white-space: nowrap;
@@ -302,7 +397,13 @@
                                             x-text="formatTime(message.created_at)"
                                         ></time>
                                         <time
-                                            x-show="! (message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2))"
+                                            x-show="
+                                                !(
+                                                    message.bot &&
+                                                    message.bot.id >= 1 &&
+                                                    (!message.user || message.user.id < 2)
+                                                )
+                                            "
                                             class="chatbox-message__time"
                                             :datetime="message.created_at"
                                             :title="message.created_at"
@@ -314,7 +415,11 @@
                                             <i
                                                 class="fa fa-bell"
                                                 title="System notification"
-                                                x-show="message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2)"
+                                                x-show="
+                                                    message.bot &&
+                                                    message.bot.id >= 1 &&
+                                                    (!message.user || message.user.id < 2)
+                                                "
                                             ></i>
                                             <a
                                                 x-show="message.user && message.user.id != 1"
@@ -324,8 +429,12 @@
                                                 <img
                                                     x-show="message.user && message.user.id != 1"
                                                     class="chatbox-message__avatar"
-                                                    :src="message.user?.image ? '/authenticated-images/user-avatars/' + message.user.username : '/img/profile.png'"
-                                                    :style="'border: 2px solid ' + (message.user?.chat_status?.color || '#ccc')"
+                                                    :src="message.user?.image
+                                                        ? '/authenticated-images/user-avatars/' +
+                                                          message.user.username
+                                                        : '/img/profile.png'"
+                                                    :style="'border: 2px solid ' +
+                                                    (message.user?.chat_status?.color || '#ccc')"
                                                     :title="message.user?.chat_status?.name"
                                                     loading="lazy"
                                                 />
@@ -338,7 +447,13 @@
                                             'chatbox-message__content',
                                             'bbcode-rendered__censor' => $user->settings->censor,
                                         ])
-                                        x-show="! (message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2))"
+                                        x-show="
+                                            !(
+                                                message.bot &&
+                                                message.bot.id >= 1 &&
+                                                (!message.user || message.user.id < 2)
+                                            )
+                                        "
                                         x-html="message.message"
                                     ></section>
                                     <!-- Move menu back to original position after timestamp -->
@@ -412,7 +527,12 @@
             </section>
             <section class="chatroom__whispers" x-show="state.chat.showWhispers">
                 <span
-                    x-show="state.chat.target < 1 && state.chat.bot < 1 && activePeer && activePeer.size > 0"
+                    x-show="
+                        state.chat.target < 1 &&
+                        state.chat.bot < 1 &&
+                        activePeer &&
+                        activePeer.size > 0
+                    "
                     x-text="
                         activePeer.size > 3
                             ? 'Several people are typing...'
@@ -427,7 +547,14 @@
             </section>
             <form
                 class="form chatroom__new-message"
-                @submit.prevent="createMessage($refs.message.value, auth.id, state.message.receiver_id, state.message.bot_id)"
+                @submit.prevent="
+                    createMessage(
+                        $refs.message.value,
+                        auth.id,
+                        state.message.receiver_id,
+                        state.message.bot_id,
+                    )
+                "
             >
                 <p class="form__group">
                     <textarea
@@ -436,7 +563,17 @@
                         name="message"
                         placeholder=" "
                         x-ref="message"
-                        @keydown.enter="!$event.shiftKey && ($event.preventDefault(), createMessage($refs.message.value, auth.id, state.message.receiver_id, state.message.bot_id), $refs.message.value = '')"
+                        @keydown.enter="
+                            !$event.shiftKey &&
+                                ($event.preventDefault(),
+                                createMessage(
+                                    $refs.message.value,
+                                    auth.id,
+                                    state.message.receiver_id,
+                                    state.message.bot_id,
+                                ),
+                                ($refs.message.value = ''))
+                        "
                         @keyup="isTyping(auth)"
                     ></textarea>
                     <label class="form__label form__label--floating" for="chatbox__messages-create">

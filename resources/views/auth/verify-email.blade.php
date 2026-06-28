@@ -4,19 +4,19 @@
         <meta charset="UTF-8" />
         <title>{{ __('auth.verify-email') }} - {{ config('other.title') }}</title>
         @section('meta')
-        <meta
-            name="description"
-            content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:title" content="{{ __('auth.login') }}" />
-        <meta property="og:site_name" content="{{ config('other.title') }}" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="{{ url('/img/og.png') }}" />
-        <meta property="og:description" content="{{ config('unit3d.powered-by') }}" />
-        <meta property="og:url" content="{{ url('/') }}" />
-        <meta property="og:locale" content="{{ config('app.locale') }}" />
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
+            <meta
+                name="description"
+                content="{{ __('auth.login-now-on') }} {{ config('other.title') }} . {{ __('auth.not-a-member') }}"
+            />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta property="og:title" content="{{ __('auth.login') }}" />
+            <meta property="og:site_name" content="{{ config('other.title') }}" />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content="{{ url('/img/og.png') }}" />
+            <meta property="og:description" content="{{ config('unit3d.powered-by') }}" />
+            <meta property="og:url" content="{{ url('/') }}" />
+            <meta property="og:locale" content="{{ config('app.locale') }}" />
+            <meta name="csrf-token" content="{{ csrf_token() }}" />
         @show
         <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
         <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />

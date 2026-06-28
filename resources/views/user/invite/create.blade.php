@@ -12,9 +12,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.invites') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.invites') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -94,7 +92,6 @@
             </div>
         </section>
     @endsection
-
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">

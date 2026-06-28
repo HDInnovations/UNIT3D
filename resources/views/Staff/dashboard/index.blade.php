@@ -9,9 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('staff.staff-dashboard') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.staff-dashboard') }}</li>
 @endsection
 
 @section('page', 'page__staff-dashboard--index')
@@ -46,8 +44,7 @@
                             href="{{ route('staff.backups.index') }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-hdd"></i>
-                            {{ __('backup.backup') }}
-                            {{ __('backup.manager') }}
+                            {{ __('backup.backup') }} {{ __('backup.manager') }}
                         </a>
                     </p>
                     <p class="form__group form__group--horizontal">
@@ -59,7 +56,6 @@
                             Commands
                         </a>
                     </p>
-
                     @if (config('donation.is_enabled'))
                         <p class="form__group form__group--horizontal">
                             <a

@@ -1,9 +1,7 @@
 @extends('layout.with-main')
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('common.internal') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.internal') }}</li>
 @endsection
 
 @section('page', 'page__internal--index')
@@ -26,9 +24,7 @@
                             background-image: {{ $internal->effect }};
                         "
                     >
-                        <h3 class="user-card__username">
-                            {{ $user->username }}
-                        </h3>
+                        <h3 class="user-card__username">{{ $user->username }}</h3>
                         <i class="{{ $user->group->icon }} user-card__icon"></i>
                         @if ($user->title !== null)
                             <p class="user-card__title">

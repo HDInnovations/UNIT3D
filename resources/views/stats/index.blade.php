@@ -5,9 +5,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('stat.stats') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('stat.stats') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -17,29 +15,19 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('uploaded') }}">
-            {{ __('common.users') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('uploaded') }}"> {{ __('common.users') }} </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('seeded') }}">
-            {{ __('torrent.torrents') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('seeded') }}"> {{ __('torrent.torrents') }} </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('bountied') }}">
-            {{ __('request.requests') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('bountied') }}"> {{ __('request.requests') }} </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('groups') }}">
-            {{ __('common.groups') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('groups') }}"> {{ __('common.groups') }} </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('languages') }}">
-            {{ __('common.languages') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('languages') }}"> {{ __('common.languages') }} </a>
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('themes') }}">Themes</a>

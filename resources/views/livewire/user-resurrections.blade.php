@@ -109,9 +109,7 @@
                         {{ __('graveyard.rewarded') }}
                         @include('livewire.includes._sort-icon', ['field' => 'rewarded'])
                     </th>
-                    <th class="user-resurrections__actions-header">
-                        {{ __('common.actions') }}
-                    </th>
+                    <th class="user-resurrections__actions-header">{{ __('common.actions') }}</th>
                 </thead>
                 <tbody>
                     @foreach ($resurrections as $resurrection)

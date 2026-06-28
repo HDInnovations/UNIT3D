@@ -12,9 +12,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('auth.two-factor-confirmation') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('auth.two-factor-confirmation') }}</li>
 @endsection
 
 @section('main')

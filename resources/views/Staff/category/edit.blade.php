@@ -11,12 +11,8 @@
             {{ __('staff.torrent-categories') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $category->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $category->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-category--edit')
@@ -73,20 +69,14 @@
                 </p>
                 <p class="form__group">
                     <label for="image">
-                        {{ __('common.select') }}
-                        {{ trans_choice('common.a-an-art', false) }}
-                        {{ __('common.image') }}
-                        (If not using a FontAwesome icon)
+                        {{ __('common.select') }} {{ trans_choice('common.a-an-art', false) }} {{ __('common.image') }} (If
+                        not using a FontAwesome icon)
                     </label>
                     <input id="file" class="form__file" type="file" name="image" />
                 </p>
                 <p class="form__group">
                     <select name="meta" id="meta" class="form__select" required>
-                        <option
-                            class="form__option"
-                            value="movie"
-                            @selected($category->movie_meta)
-                        >
+                        <option class="form__option" value="movie" @selected($category->movie_meta)>
                             Movie metadata
                         </option>
                         <option class="form__option" value="tv" @selected($category->tv_meta)>
@@ -95,11 +85,7 @@
                         <option class="form__option" value="game" @selected($category->game_meta)>
                             Game metadata
                         </option>
-                        <option
-                            class="form__option"
-                            value="music"
-                            @selected($category->music_meta)
-                        >
+                        <option class="form__option" value="music" @selected($category->music_meta)>
                             Music metadata
                         </option>
                         <option class="form__option" value="no" @selected($category->no_meta)>

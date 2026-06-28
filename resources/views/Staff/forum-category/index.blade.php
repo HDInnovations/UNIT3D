@@ -14,9 +14,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.forums') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.forums') }}</li>
 @endsection
 
 @section('page', 'page__staff-forum-category--index')
@@ -75,9 +73,7 @@
                             <tr>
                                 <td>{{ $forum->position }}</td>
                                 <td>
-                                    <a
-                                        href="{{ route('staff.forums.edit', ['forum' => $forum]) }}"
-                                    >
+                                    <a href="{{ route('staff.forums.edit', ['forum' => $forum]) }}">
                                         {{ $forum->name }}
                                     </a>
                                 </td>

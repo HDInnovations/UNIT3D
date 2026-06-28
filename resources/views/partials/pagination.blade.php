@@ -74,7 +74,6 @@
                                 </li>
                             @endif
                         @endfor
-
                         @if ($paginator->currentPage() + 3 < $paginator->lastPage() - 1)
                             @if ($paginator->currentPage() + 4 === $paginator->lastPage() - 1)
                                 <li>
@@ -91,7 +90,6 @@
                                 <li class="pagination__ellipsis">&middot;&middot;&middot;</li>
                             @endif
                         @endif
-
                         @if ($paginator->hasMorePages())
                             <li>
                                 <a
@@ -124,7 +122,6 @@
                                 </li>
                             @endif
                         @endfor
-
                         @if ($paginator->hasMorePages())
                             <li>
                                 <a

@@ -65,8 +65,7 @@
                             <option hidden disabled selected value=""></option>
                             @foreach ($firstCharacters as $firstCharacter)
                                 <option class="form__option" value="{{ $firstCharacter->alpha }}">
-                                    {{ $firstCharacter->alpha }}
-                                    ({{ $firstCharacter->count }})
+                                    {{ $firstCharacter->alpha }} ({{ $firstCharacter->count }})
                                 </option>
                             @endforeach
                         </select>

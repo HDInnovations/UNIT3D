@@ -36,15 +36,10 @@
                         @endif
                     </p>
                 </div>
-
-                <div class="twoStep__qrCode">
-                    {!! $this->user->twoFactorQrCodeSvg() !!}
-                </div>
-
+                <div class="twoStep__qrCode">{!! $this->user->twoFactorQrCodeSvg() !!}</div>
                 <div>
                     <p>{{ __('Setup Key') }}: {{ decrypt($this->user->two_factor_secret) }}</p>
                 </div>
-
                 @if ($showingConfirmation)
                     <div>
                         <label for="code" value="{{ __('Code') }}"></label>
@@ -67,7 +62,6 @@
                     </div>
                 @endif
             @endif
-
             @if ($showingRecoveryCodes)
                 <div class="panel__body">
                     <span class="text-danger">
@@ -102,17 +96,11 @@
                         {{ __('Regenerate Recovery Codes') }}
                     </button>
                     @script
-                        <script
-                            nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}"
-                        >
+                        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
                             Alpine.data('recovery_codes', () => ({
                                 copy() {
                                     navigator.clipboard.writeText(
-                                        JSON.parse(
-                                            atob(
-                                                '{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}',
-                                            ),
-                                        ).join('\n'),
+                                        JSON.parse(atob('{{ base64_encode(decrypt($this->user->two_factor_recovery_codes)) }}')).join('\n'),
                                     );
                                     Swal.fire({
                                         toast: true,
@@ -126,7 +114,6 @@
                             }));
                         </script>
                     @endscript
-
                     <button
                         class="form__button form__button--filled"
                         x-data="recovery_codes"
@@ -151,7 +138,6 @@
                         {{ __('Show Recovery Codes') }}
                     </button>
                 @endif
-
                 @if ($showingConfirmation)
                     <button
                         class="form__button form__button--filled"

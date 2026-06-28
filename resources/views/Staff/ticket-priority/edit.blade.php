@@ -11,12 +11,8 @@
             {{ __('staff.ticket-priorities') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $ticketPriority->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $ticketPriority->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-ticket-priority--edit')
@@ -24,9 +20,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }}
-            {{ __('staff.ticket-priority') }}:
-            {{ $ticketPriority->name }}
+            {{ __('common.edit') }} {{ __('staff.ticket-priority') }}: {{ $ticketPriority->name }}
         </h2>
         <div class="panel__body">
             <form

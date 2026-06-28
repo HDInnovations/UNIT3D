@@ -11,9 +11,7 @@
             {{ __('staff.groups') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-group--create')
@@ -405,10 +403,7 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Forum category</th>

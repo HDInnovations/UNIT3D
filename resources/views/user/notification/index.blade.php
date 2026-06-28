@@ -5,9 +5,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('notification.notifications') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('notification.notifications') }}</li>
 @endsection
 
 @section('page', 'page__user-notification--index')

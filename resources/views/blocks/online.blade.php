@@ -17,7 +17,7 @@
                                     class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                     title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                 ></i>
-                            </x-slot>
+                            </x-slot:appended-icons>
                         @endif
                     </x-user-tag>
                 </li>

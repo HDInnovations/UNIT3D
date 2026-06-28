@@ -18,9 +18,7 @@
             {{ $torrentRequest->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__request--edit')
@@ -146,7 +144,11 @@
                     </div>
                     <div
                         class="form__group--horizontal"
-                        x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
+                        x-show="
+                            cats[cat].type === 'movie' ||
+                            cats[cat].type === 'tv' ||
+                            cats[cat].type === 'game'
+                        "
                     >
                         <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                             <p class="form__group">
@@ -177,7 +179,9 @@
                                             ? '{{ old('tmdb_movie_id', $torrentRequest->tmdb_movie_id) }}'
                                             : ''
                                     "
-                                    x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
+                                    x-bind:required="
+                                        cats[cat].type === 'movie' && tmdb_movie_exists
+                                    "
                                 />
                                 <label
                                     class="form__label form__label--floating"
@@ -259,7 +263,10 @@
                                             ? '{{ old('imdb', $torrentRequest->imdb) }}'
                                             : ''
                                     "
-                                    x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
+                                    x-bind:required="
+                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                        imdb_title_exists
+                                    "
                                 />
                                 <label class="form__label form__label--floating" for="autoimdb">
                                     IMDB ID
@@ -334,7 +341,10 @@
                                             ? '{{ old('mal', $torrentRequest->mal) }}'
                                             : ''
                                     "
-                                    x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
+                                    x-bind:required="
+                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                        mal_anime_exists
+                                    "
                                 />
                                 <label class="form__label form__label--floating" for="automal">
                                     MAL ID
@@ -404,18 +414,12 @@
                     Alpine.data('requestEdit', () => ({
                         cat: {{ (int) $torrentRequest->category_id }},
                         cats: {{ Js::from($categories) }},
-                        tmdb_movie_exists:
-                            {{ Js::from(old('movie_exists_on_tmdb', $torrentRequest->tmdb_movie_id) !== null) }},
-                        tmdb_tv_exists:
-                            {{ Js::from(old('tv_exists_on_tmdb', $torrentRequest->tmdb_tv_id) !== null) }},
-                        imdb_title_exists:
-                            {{ Js::from(old('title_exists_on_imdb', $torrentRequest->imdb) !== null) }},
-                        tvdb_tv_exists:
-                            {{ Js::from(old('tv_exists_on_tvdb', $torrentRequest->tvdb) !== null) }},
-                        mal_anime_exists:
-                            {{ Js::from(old('anime_exists_on_mal', $torrentRequest->mal) !== null) }},
-                        igdb_game_exists:
-                            {{ Js::from(old('game_exists_on_igdb', $torrentRequest->igdb) !== null) }},
+                        tmdb_movie_exists: {{ Js::from(old('movie_exists_on_tmdb', $torrentRequest->tmdb_movie_id) !== null) }},
+                        tmdb_tv_exists: {{ Js::from(old('tv_exists_on_tmdb', $torrentRequest->tmdb_tv_id) !== null) }},
+                        imdb_title_exists: {{ Js::from(old('title_exists_on_imdb', $torrentRequest->imdb) !== null) }},
+                        tvdb_tv_exists: {{ Js::from(old('tv_exists_on_tvdb', $torrentRequest->tvdb) !== null) }},
+                        mal_anime_exists: {{ Js::from(old('anime_exists_on_mal', $torrentRequest->mal) !== null) }},
+                        igdb_game_exists: {{ Js::from(old('game_exists_on_igdb', $torrentRequest->igdb) !== null) }},
                     }));
                 });
             </script>

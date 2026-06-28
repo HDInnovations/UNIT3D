@@ -1,9 +1,7 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    <title>
-        {{ $user->username }} - {{ __('user.seedboxes') }} - {{ config('other.title') }}
-    </title>
+    <title>{{ $user->username }} - {{ __('user.seedboxes') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -12,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.seedboxes') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.seedboxes') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -33,9 +29,7 @@
                         {{ __('common.add') }}
                     </button>
                     <dialog id="seedbox-add" class="dialog" popover>
-                        <h3 class="dialog__heading">
-                            {{ __('user.add-seedbox') }}
-                        </h3>
+                        <h3 class="dialog__heading">{{ __('user.add-seedbox') }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -135,12 +129,8 @@
             {{ strtoupper(__('user.disclaimer')) }}
         </h2>
         <div class="panel__body">
-            <p>
-                {{ __('user.disclaimer-info') }}
-            </p>
-            <p>
-                {{ __('user.disclaimer-info-bordered') }}
-            </p>
+            <p>{{ __('user.disclaimer-info') }}</p>
+            <p>{{ __('user.disclaimer-info-bordered') }}</p>
         </div>
     </section>
 @endsection

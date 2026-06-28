@@ -1,9 +1,7 @@
 @extends('layout.with-main')
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('event.giveaways') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('event.giveaways') }}</li>
 @endsection
 
 @section('page', 'page__giveaway--index')

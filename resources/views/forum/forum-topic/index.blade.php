@@ -22,9 +22,7 @@
             {{ $forum->category->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $forum->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $forum->name }}</li>
 @endsection
 
 @section('nav-tabs')

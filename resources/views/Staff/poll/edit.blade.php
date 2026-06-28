@@ -15,9 +15,7 @@
             {{ __('poll.polls') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-poll--edit')
@@ -75,17 +73,14 @@
                             x-bind:value="option['name']"
                             required
                         />
-                        <label
-                            class="form__label form__label--floating"
-                            x-bind:for="'option' + i"
-                        >
+                        <label class="form__label form__label--floating" x-bind:for="'option' + i">
                             {{ __('poll.option') }}
                         </label>
                     </p>
                 </template>
                 <p class="form__group">
                     <button
-                        x-on:click.prevent="extraOptions.push({ 'id': 0, 'name': '' })"
+                        x-on:click.prevent="extraOptions.push({ id: 0, name: '' })"
                         class="form__button form__button--outlined"
                     >
                         {{ __('poll.add-option') }}

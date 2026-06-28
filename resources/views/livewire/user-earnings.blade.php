@@ -21,13 +21,13 @@
                                     @if ($bonEarning->operation === 'multiply')
                                         &times;
                                     @else
-                                            &plus;
+                                        &plus;
                                     @endif
 
                                     {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}
 
                                     @if ($bonEarning->variable != 1)
-                                            &times; {{ $bonEarning->variable }}
+                                        &times; {{ $bonEarning->variable }}
                                     @endif
                                 </td>
                                 <td>{{ $bonEarning->torrents_count }}</td>
@@ -167,18 +167,10 @@
                             <th class="user-earnings__daily-header" x-cloak x-show="isToggledOn">
                                 Daily
                             </th>
-                            <th
-                                class="user-earnings__weekly-header"
-                                x-cloak
-                                x-show="isToggledOn"
-                            >
+                            <th class="user-earnings__weekly-header" x-cloak x-show="isToggledOn">
                                 Weekly
                             </th>
-                            <th
-                                class="user-earnings__monthly-header"
-                                x-cloak
-                                x-show="isToggledOn"
-                            >
+                            <th class="user-earnings__monthly-header" x-cloak x-show="isToggledOn">
                                 Monthly
                             </th>
                         </tr>

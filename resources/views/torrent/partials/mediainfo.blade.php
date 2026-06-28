@@ -55,14 +55,11 @@
                                 <dl>
                                     <dt>Format</dt>
                                     <dd>
-                                        {{ $videoElement['format'] ?? __('common.unknown') }}
-                                        ({{ $videoElement['bit_depth'] ?? __('common.unknown') }})
+                                        {{ $videoElement['format'] ?? __('common.unknown') }} ({{ $videoElement['bit_depth'] ?? __('common.unknown') }})
                                     </dd>
                                     <dt>Resolution</dt>
                                     <dd>
-                                        {{ $videoElement['width'] ?? __('common.unknown') }}
-                                        &times;
-                                        {{ $videoElement['height'] ?? __('common.unknown') }}
+                                        {{ $videoElement['width'] ?? __('common.unknown') }} &times; {{ $videoElement['height'] ?? __('common.unknown') }}
                                     </dd>
                                     <dt>Aspect ratio</dt>
                                     <dd>
@@ -77,9 +74,7 @@
                                         @endif
                                     </dd>
                                     <dt>Bit rate</dt>
-                                    <dd>
-                                        {{ $videoElement['bit_rate'] ?? __('common.unknown') }}
-                                    </dd>
+                                    <dd>{{ $videoElement['bit_rate'] ?? __('common.unknown') }}</dd>
                                     @if (isset($videoElement['format']) && $videoElement['format'] === 'HEVC')
                                         <dt>HDR</dt>
                                         <dd>
@@ -110,7 +105,6 @@
                         @endforeach
                     </section>
                 @endisset
-
                 @isset($mediaInfo['audio'])
                     <section class="mediainfo__audio">
                         <h3>Audio</h3>
@@ -125,17 +119,12 @@
                                         height="13"
                                         title="{{ $audioElement['language'] ?? __('common.unknown') }}"
                                     />
-                                    {{ $audioElement['language'] ?? __('common.unknown') }}
-                                    / {{ $audioElement['format'] ?? __('common.unknown') }} /
-                                    {{ $audioElement['channels'] ?? __('common.unknown') }} /
-                                    {{ $audioElement['bit_rate'] ?? __('common.unknown') }} /
-                                    {{ $audioElement['title'] ?? __('common.unknown') }}
+                                    {{ $audioElement['language'] ?? __('common.unknown') }} / {{ $audioElement['format'] ?? __('common.unknown') }} / {{ $audioElement['channels'] ?? __('common.unknown') }} / {{ $audioElement['bit_rate'] ?? __('common.unknown') }} / {{ $audioElement['title'] ?? __('common.unknown') }}
                                 </dd>
                             @endforeach
                         </dl>
                     </section>
                 @endisset
-
                 @isset($mediaInfo['text'])
                     <section class="mediainfo__subtitles">
                         <h3>Subtitles</h3>
@@ -154,7 +143,6 @@
                         </ul>
                     </section>
                 @endisset
-
                 @isset($mediaInfo['video'], array_merge(... $mediaInfo['video'])['encoding_settings'])
                     <section class="mediainfo__encode-settings">
                         <h3>Encode settings</h3>

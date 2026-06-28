@@ -3,7 +3,7 @@
         <div class="alert__content">
             <strong>
                 @if (config('other.freeleech') == true)
-                        🌐 {{ __('common.freeleech_activated') }} 🌐
+                    🌐 {{ __('common.freeleech_activated') }} 🌐
                 @endif
 
                 @if (config('other.invite-only') == false)
@@ -11,7 +11,7 @@
                 @endif
 
                 @if (config('other.doubleup') == true)
-                        🌐 {{ __('common.doubleup_activated') }} 🌐
+                    🌐 {{ __('common.doubleup_activated') }} 🌐
                 @endif
             </strong>
             <div>

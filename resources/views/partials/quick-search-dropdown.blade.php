@@ -41,10 +41,7 @@
                         >
                             <img class="quick-search__image" :src="getSrc(result.image)" alt="" />
                             <h2 class="quick-search__result-text">
-                                <span
-                                    class="quick-search__result-name"
-                                    x-text="result.name"
-                                ></span>
+                                <span class="quick-search__result-name" x-text="result.name"></span>
                                 <span x-show="result.type != 'Person'">
                                     <time
                                         class="quick-search__result-year"

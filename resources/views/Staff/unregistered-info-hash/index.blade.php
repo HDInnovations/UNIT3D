@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.user') }} unregistered info hashes - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.user') }} unregistered info hashes - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 

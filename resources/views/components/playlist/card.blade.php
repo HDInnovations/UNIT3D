@@ -29,9 +29,7 @@
         class="playlists__playlist-link"
         href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
     >
-        <h3 class="playlists__playlist-name">
-            {{ $playlist->name }}
-        </h3>
+        <h3 class="playlists__playlist-name">{{ $playlist->name }}</h3>
     </a>
     <a
         class="playlists__playlist-link-titles"

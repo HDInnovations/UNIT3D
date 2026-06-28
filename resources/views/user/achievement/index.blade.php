@@ -1,9 +1,7 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    <title>
-        {{ $user->username }} {{ __('user.achievements') }} - {{ config('other.title') }}
-    </title>
+    <title>{{ $user->username }} {{ __('user.achievements') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -12,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.achievements') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.achievements') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -76,7 +72,6 @@
             @endforeach
         </section>
     @endsection
-
     @section('sidebar')
         <section class="panelV2 achievement__statistics">
             <h2 class="panel__heading">{{ __('user.statistics') }}</h2>

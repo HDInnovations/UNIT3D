@@ -10,9 +10,7 @@
             {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.upload') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.upload') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -27,9 +25,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}">
-            {{ __('rss.rss') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('rss.index') }}"> {{ __('rss.rss') }} </a>
     </li>
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('torrents.create') }}">
@@ -144,10 +140,7 @@
                     <select name="type_id" id="autotype" class="form__select" required>
                         <option hidden disabled selected value=""></option>
                         @foreach ($types as $type)
-                            <option
-                                value="{{ $type->id }}"
-                                @selected(old('type_id') == $type->id)
-                            >
+                            <option value="{{ $type->id }}" @selected(old('type_id') == $type->id)>
                                 {{ $type->name }}
                             </option>
                         @endforeach
@@ -273,7 +266,11 @@
                 </div>
                 <div
                     class="form__group--horizontal"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
+                    x-show="
+                        cats[cat].type === 'movie' ||
+                        cats[cat].type === 'tv' ||
+                        cats[cat].type === 'game'
+                    "
                 >
                     <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                         <p class="form__group">
@@ -378,7 +375,10 @@
                                         ? '{{ old('imdb', $imdb) }}'
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    imdb_title_exists
+                                "
                                 x-bind="imdbInput"
                             />
                             <label class="form__label form__label--floating" for="autoimdb">
@@ -452,7 +452,10 @@
                                         ? '{{ old('mal', $mal) }}'
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    mal_anime_exists
+                                "
                                 class="form__text"
                                 placeholder=" "
                             />
@@ -520,8 +523,7 @@
                         name="mediainfo"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ old('mediainfo') }}</textarea
+                        >{{ old('mediainfo') }}</textarea
                     >
                     <label class="form__label form__label--floating" for="upload-form-mediainfo">
                         {{ __('torrent.media-info-parser') }}
@@ -536,8 +538,7 @@
                         name="bdinfo"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ old('bdinfo') }}</textarea
+                        >{{ old('bdinfo') }}</textarea
                     >
                     <label class="form__label form__label--floating" for="upload-form-bdinfo">
                         BDInfo (quick summary)
@@ -670,9 +671,7 @@
                     },
                     imdbInput: {
                         ['x-on:paste']() {
-                            matches = this.$event.clipboardData
-                                .getData('text')
-                                .match(/tt0*(\d{7,})/);
+                            matches = this.$event.clipboardData.getData('text').match(/tt0*(\d{7,})/);
 
                             if (matches !== null) {
                                 this.$el.value = Number(matches[1]);

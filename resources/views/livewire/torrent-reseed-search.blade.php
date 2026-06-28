@@ -110,9 +110,7 @@
                                     {{ $torrentReseed->torrent->times_completed }}
                                 </a>
                             </td>
-                            <td>
-                                {{ $torrentReseed->requests_count }}
-                            </td>
+                            <td>{{ $torrentReseed->requests_count }}</td>
                             <td>
                                 <time
                                     datetime="{{ $torrentReseed->created_at }}"

@@ -16,9 +16,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.failed-login-log') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.failed-login-log') }}</li>
 @endsection
 
 @section('page', 'page__staff-failed-logins--index')

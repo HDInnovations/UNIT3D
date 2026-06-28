@@ -11,12 +11,8 @@
             {{ __('staff.groups') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $group->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $group->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-group--edit')
@@ -449,10 +445,7 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Forum category</th>

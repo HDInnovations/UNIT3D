@@ -28,9 +28,7 @@
                 </label>
             </p>
             <p class="form__group">
-                <button class="form__button form__button--filled">
-                    {{ __('common.delete') }}
-                </button>
+                <button class="form__button form__button--filled">{{ __('common.delete') }}</button>
                 <button
                     class="form__button form__button--outlined"
                     type="button"

@@ -19,9 +19,7 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.peers') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -113,7 +111,6 @@
                                         $connectable = cache()->get('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent);
                                     }
                                 @endphp
-
                                 <td class="{{ $connectable ? 'text-green' : 'text-red' }}">
                                     @choice('user.client-connectable-state', $connectable)
                                 </td>
@@ -145,7 +142,7 @@
                                         {{ __('torrent.leecher') }}
                                     @endif
                                 @else
-                                        Inactive
+                                    Inactive
                                 @endif
                             </td>
                             <td class="{{ $peer->visible ? 'text-green' : 'text-red' }}">

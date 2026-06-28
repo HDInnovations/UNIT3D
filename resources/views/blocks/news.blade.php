@@ -19,10 +19,7 @@
             </h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    <a
-                        href="{{ route('articles.index') }}"
-                        class="form__button form__button--text"
-                    >
+                    <a href="{{ route('articles.index') }}" class="form__button form__button--text">
                         {{ __('common.view-all') }}
                     </a>
                 </div>

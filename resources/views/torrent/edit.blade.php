@@ -11,9 +11,7 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__torrent--edit')
@@ -144,7 +142,10 @@
                 </p>
                 <div
                     class="form__group--horizontal"
-                    x-show="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && types[type].name === 'Full Disc'"
+                    x-show="
+                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                        types[type].name === 'Full Disc'
+                    "
                 >
                     <p class="form__group">
                         <select id="distributor_id" name="distributor_id" class="form__select">
@@ -162,8 +163,7 @@
                                     "
                                     selected
                                 >
-                                    {{ $torrent->distributor->name }}
-                                    ({{ __('torrent.current') }})
+                                    {{ $torrent->distributor->name }} ({{ __('torrent.current') }})
                                 </option>
                             @endif
                             <option value="">No distributor</option>
@@ -251,14 +251,18 @@
                             value="{{ old('episode_number') ?? $torrent->episode_number }}"
                         />
                         <label class="form__label form__label--floating" for="episode_number">
-                            {{ __('torrent.episode-number') }} ({{ __('common.required') }} for
-                            TV. Use "0" for season packs.)
+                            {{ __('torrent.episode-number') }} ({{ __('common.required') }} for TV.
+                            Use "0" for season packs.)
                         </label>
                     </p>
                 </div>
                 <div
                     class="form__group--horizontal"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
+                    x-show="
+                        cats[cat].type === 'movie' ||
+                        cats[cat].type === 'tv' ||
+                        cats[cat].type === 'game'
+                    "
                 >
                     <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                         <p class="form__group">
@@ -368,9 +372,14 @@
                                         ? '{{ old('imdb', $torrent->imdb) }}'
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    imdb_title_exists
+                                "
                                 x-on:paste="
-                                    matches = $event.clipboardData.getData('text').match(/tt0*(\d{7,})/);
+                                    matches = $event.clipboardData
+                                        .getData('text')
+                                        .match(/tt0*(\d{7,})/);
 
                                     if (matches !== null) {
                                         $el.value = Number(matches[1]);
@@ -453,7 +462,10 @@
                                         ? '{{ old('mal', $torrent->mal) }}'
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    mal_anime_exists
+                                "
                             />
                             <label class="form__label form__label--floating" for="mal">
                                 MAL ID
@@ -523,8 +535,7 @@
                         class="form__textarea"
                         name="mediainfo"
                         placeholder=" "
-                    >
-{{ old('mediainfo') ?? $torrent->mediainfo }}</textarea
+                        >{{ old('mediainfo') ?? $torrent->mediainfo }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
                         {{ __('torrent.media-info') }}
@@ -532,8 +543,12 @@
                 </p>
 
                 <p class="form__group">
-                    <textarea id="bdinfo" class="form__textarea" name="bdinfo" placeholder=" ">
-{{ old('bdinfo') ?? $torrent->bdinfo }}</textarea
+                    <textarea
+                        id="bdinfo"
+                        class="form__textarea"
+                        name="bdinfo"
+                        placeholder=" "
+                        >{{ old('bdinfo') ?? $torrent->bdinfo }}</textarea
                     >
                     <label class="form__label form__label--floating" for="bdinfo">
                         BDInfo (quick summary)
@@ -601,18 +616,12 @@
                     cats: {{ Js::from($categories) }},
                     type: {{ (int) $torrent->type_id }},
                     types: {{ Js::from($types) }},
-                    tmdb_movie_exists:
-                        {{ Js::from(old('movie_exists_on_tmdb', $torrent->tmdb_movie_id) !== null) }},
-                    tmdb_tv_exists:
-                        {{ Js::from(old('tv_exists_on_tmdb', $torrent->tmdb_tv_id) !== null) }},
-                    imdb_title_exists:
-                        {{ Js::from(old('title_exists_on_imdb', $torrent->imdb) !== null) }},
-                    tvdb_tv_exists:
-                        {{ Js::from(old('tv_exists_on_tvdb', $torrent->tvdb) !== null) }},
-                    mal_anime_exists:
-                        {{ Js::from(old('anime_exists_on_mal', $torrent->mal) !== null) }},
-                    igdb_game_exists:
-                        {{ Js::from(old('game_exists_on_igdb', $torrent->igdb) !== null) }},
+                    tmdb_movie_exists: {{ Js::from(old('movie_exists_on_tmdb', $torrent->tmdb_movie_id) !== null) }},
+                    tmdb_tv_exists: {{ Js::from(old('tv_exists_on_tmdb', $torrent->tmdb_tv_id) !== null) }},
+                    imdb_title_exists: {{ Js::from(old('title_exists_on_imdb', $torrent->imdb) !== null) }},
+                    tvdb_tv_exists: {{ Js::from(old('tv_exists_on_tvdb', $torrent->tvdb) !== null) }},
+                    mal_anime_exists: {{ Js::from(old('anime_exists_on_mal', $torrent->mal) !== null) }},
+                    igdb_game_exists: {{ Js::from(old('game_exists_on_igdb', $torrent->igdb) !== null) }},
                     typeSelect: {
                         ['x-on:change']() {
                             this.types[this.type].name = this.types[this.$event.target.value].name;

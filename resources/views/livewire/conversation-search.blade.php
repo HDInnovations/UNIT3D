@@ -113,9 +113,7 @@
                                 {{ $conversation->updated_at->diffForHumans() }}
                             </time>
                         </td>
-                        <td>
-                            {{ $conversation->messages_count }}
-                        </td>
+                        <td>{{ $conversation->messages_count }}</td>
                         <td>
                             @if ($conversation->participants->first()->read)
                                 <i

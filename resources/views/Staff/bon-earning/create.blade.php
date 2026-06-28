@@ -11,9 +11,7 @@
             {{ __('bon.bon') }} {{ __('bon.earning') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-bon-earning--create')
@@ -21,9 +19,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('bon.bon') }} {{ __('bon.earning') }}
+            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }} {{ __('bon.bon') }} {{ __('bon.earning') }}
         </h2>
         <div class="panel__body">
             <form

@@ -11,9 +11,7 @@
             {{ __('mediahub.persons') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $person->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $person->name }}</li>
 @endsection
 
 @section('page', 'page__person--show')

@@ -34,8 +34,7 @@
                                     datetime="{{ $feature->created_at->addDay(7) }}"
                                     title="{{ $feature->created_at->addDay(7) }}"
                                 >
-                                    {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
-                                    ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
+                                    {{ $feature->created_at->addDay(7)->toFormattedDateString() }} ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
                                 </time>
                             </p>
                             <p class="featured-carousel__featured-by">

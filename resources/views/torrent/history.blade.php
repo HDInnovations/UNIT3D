@@ -1,9 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>
-        {{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}
-    </title>
+    <title>{{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -21,9 +19,7 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.history') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.history') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -54,17 +50,13 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">
-                {{ __('torrent.torrent') }} {{ __('torrent.history') }}
-            </h2>
+            <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.history') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    Total up:
-                    {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_uploaded'), 2) }}
+                    Total up: {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_uploaded'), 2) }}
                 </div>
                 <div class="panel__action">
-                    Total down:
-                    {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_downloaded'), 2) }}
+                    Total down: {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_downloaded'), 2) }}
                 </div>
             </div>
         </header>

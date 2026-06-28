@@ -9,9 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('common.about') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.about') }}</li>
 @endsection
 
 @section('page', 'page__about-us--index')

@@ -43,8 +43,7 @@
                     title="Internet Movie Database"
                     target="_blank"
                 >
-                    IMDB:
-                    {{ \str_pad((string) $torrent->imdb, 7, '0', STR_PAD_LEFT) }}
+                    IMDB: {{ \str_pad((string) $torrent->imdb, 7, '0', STR_PAD_LEFT) }}
                 </a>
             </li>
         @endif

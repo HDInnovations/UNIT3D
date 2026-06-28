@@ -12,9 +12,7 @@
                 {{ $subforum->name }}
             </a>
         </h3>
-        <p class="subforum-listing__description">
-            {{ $subforum->description }}
-        </p>
+        <p class="subforum-listing__description">{{ $subforum->description }}</p>
     </header>
     <figure class="subforum-listing__figure">
         <i class="fad fa-comments subforum-listing__icon"></i>

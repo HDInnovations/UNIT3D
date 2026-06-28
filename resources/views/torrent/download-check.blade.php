@@ -15,9 +15,7 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.download-check') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.download-check') }}</li>
 @endsection
 
 @section('page', 'page__torrent-download-check--show')
@@ -82,8 +80,7 @@
         <dl class="key-value">
             <div class="key-value__group">
                 <dt>
-                    {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }}
-                    {{ config('other.ratio') }} :
+                    {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }} {{ config('other.ratio') }} :
                 </dt>
                 <dd>
                     @if ($user->ratio < config('other.ratio'))

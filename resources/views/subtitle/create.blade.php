@@ -12,9 +12,7 @@
             {{ __('common.subtitles') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__subtitle--create')
@@ -34,8 +32,7 @@
                 <input name="torrent_id" type="hidden" value="{{ $torrent->id }}" />
                 <p class="form__group">
                     <label for="subtitle_file" class="form__label">
-                        {{ __('subtitle.subtitle-file') }}
-                        ({{ __('subtitle.subtitle-file-types') }})
+                        {{ __('subtitle.subtitle-file') }} ({{ __('subtitle.subtitle-file-types') }})
                     </label>
                     <input
                         id="subtitle_file"

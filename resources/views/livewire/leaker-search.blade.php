@@ -78,8 +78,7 @@
                                 <x-user-tag :user="$leaker->user" :anon="false" />
                             </td>
                             <td>
-                                {{ round((100 * $leaker->leak_count) / $torrentIdCount) }}%
-                                ({{ $leaker->leak_count }})
+                                {{ round((100 * $leaker->leak_count) / $torrentIdCount) }}% ({{ $leaker->leak_count }})
                             </td>
                             <td>
                                 <ul>

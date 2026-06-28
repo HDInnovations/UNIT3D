@@ -15,16 +15,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a
-            href="{{ route('playlists.edit', ['playlist' => $playlist]) }}"
-            class="breadcrumb__link"
-        >
+        <a href="{{ route('playlists.edit', ['playlist' => $playlist]) }}" class="breadcrumb__link">
             {{ $playlist->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__playlist--edit')

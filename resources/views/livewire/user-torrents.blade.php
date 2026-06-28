@@ -585,7 +585,6 @@
                                         {{ $history->completed_at === null ? 'N/A' : \explode(' ', $history->completed_at)[0] }}
                                     </time>
                                 </td>
-
                                 <td class="user-torrents__prewarned-at">
                                     <time
                                         datetime="{{ $history->prewarned_at }}"
@@ -651,29 +650,26 @@
                                             title="{{ __('torrent.pending') }}"
                                             class="{{ config('other.font-awesome') }} fa-tasks text-orange"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::APPROVED)
                                         <span
                                             title="{{ __('torrent.approved') }}"
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::REJECTED)
                                         <span
                                             title="{{ __('torrent.rejected') }}"
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
                                             title="Postponed"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
-
                                         @break
+
                                 @endswitch
                             </td>
                         </tr>

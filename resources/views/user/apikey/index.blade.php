@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,9 +20,7 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.apikeys') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.apikeys') }}</li>
 @endsection
 
 @section('nav-tabs')

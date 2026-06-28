@@ -6,9 +6,7 @@
             {{ __('common.upload') }} {{ __('common.contests') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $uploadContest->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $uploadContest->name }}</li>
 @endsection
 
 @section('page', 'page__upload-contest--show')
@@ -23,9 +21,7 @@
                         <tr>
                             <th>#</th>
                             <th>{{ __('common.user') }}</th>
-                            <th>
-                                {{ __('torrent.uploaded') }} (Non-{{ __('common.anonymous') }})
-                            </th>
+                            <th>{{ __('torrent.uploaded') }} (Non-{{ __('common.anonymous') }})</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,9 +34,7 @@
                                         :anon="$user->user->privacy?->private_profile"
                                     />
                                 </td>
-                                <td>
-                                    {{ $user->uploads }}
-                                </td>
+                                <td>{{ $user->uploads }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -81,8 +75,6 @@
                 </dd>
             </div>
         </dl>
-        <div class="panel__body">
-            {{ $uploadContest->description }}
-        </div>
+        <div class="panel__body">{{ $uploadContest->description }}</div>
     </section>
 @endsection

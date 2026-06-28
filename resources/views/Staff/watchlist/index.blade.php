@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        Watchlist {{ __('common.search') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        Watchlist {{ __('common.search') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 

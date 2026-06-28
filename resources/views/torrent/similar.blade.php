@@ -2,9 +2,8 @@
 
 @section('title')
     <title>
-        {{ __('common.similar') }} - {{ $meta->title ?? $meta->name }}
-        ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }}) -
-        {{ config('other.title') }}
+        {{ __('common.similar') }} - {{ $meta->title ?? $meta->name }} ({{ substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})
+        - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -22,8 +21,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('common.similar') }} - {{ $meta->title ?? $meta->name }}
-        ({{ \substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})
+        {{ __('common.similar') }} - {{ $meta->title ?? $meta->name }} ({{ \substr($meta->release_date ?? $meta->first_air_date, 0, 4) }})
     </li>
 @endsection
 
@@ -33,20 +31,17 @@
     @switch(true)
         @case($category->movie_meta)
             @include('torrent.partials.movie-meta')
-
             @break
         @case($category->tv_meta)
             @include('torrent.partials.tv-meta')
-
             @break
         @case($category->game_meta)
             @include('torrent.partials.game-meta')
-
             @break
         @default
             @include('torrent.partials.no-meta')
-
             @break
+
     @endswitch
     @livewire('similar-torrent', ['category' => $category, 'tmdbId' => $tmdb, 'igdbId' => $igdb, 'work' => $meta])
     <livewire:comments :model="$meta" :category="$category" />

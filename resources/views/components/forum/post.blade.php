@@ -12,10 +12,7 @@
 >
     <header class="post__header">
         @if ($post->pinned)
-            <i
-                class="{{ config('other.font-awesome') }} fa-thumbtack post__pin"
-                title="Pinned"
-            ></i>
+            <i class="{{ config('other.font-awesome') }} fa-thumbtack post__pin" title="Pinned"></i>
         @endif
 
         <time
@@ -194,15 +191,12 @@
                         <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                     </a>
                 @endif
-            </x-slot>
+            </x-slot:appended-icons>
         </x-user-tag>
         @if (! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo)
             @if (! empty($post->user->title))
-                <p class="post__author-title">
-                    {{ $post->user->title }}
-                </p>
+                <p class="post__author-title">{{ $post->user->title }}</p>
             @endif
-
             <dl class="post__author-join">
                 <dt>Joined</dt>
                 <dd>

@@ -11,9 +11,7 @@
             {{ __('event.giveaways') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-giveaway--create')
@@ -75,9 +73,7 @@
                 </p>
             </div>
             <p class="form__group">
-                <button class="form__button form__button--filled">
-                    {{ __('common.save') }}
-                </button>
+                <button class="form__button form__button--filled">{{ __('common.save') }}</button>
                 <button class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>

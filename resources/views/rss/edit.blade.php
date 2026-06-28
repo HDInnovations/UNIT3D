@@ -6,18 +6,14 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('rss.index') }}" class="breadcrumb__link">
-            {{ __('rss.rss') }}
-        </a>
+        <a href="{{ route('rss.index') }}" class="breadcrumb__link"> {{ __('rss.rss') }} </a>
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('rss.edit', ['id' => $rss->id]) }}" class="breadcrumb__link">
             {{ $rss->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__rss--edit')
@@ -26,11 +22,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('rss.edit-public-feed') }}</h2>
         <div class="panel__body">
-            <form
-                class="form"
-                method="POST"
-                action="{{ route('rss.update', ['id' => $rss->id]) }}"
-            >
+            <form class="form" method="POST" action="{{ route('rss.update', ['id' => $rss->id]) }}">
                 @csrf
                 @method('PATCH')
                 <p class="form__group">

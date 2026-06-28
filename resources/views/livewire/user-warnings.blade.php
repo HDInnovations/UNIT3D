@@ -152,9 +152,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </td>
                         @if (auth()->user()->group->is_modo)
@@ -204,7 +202,6 @@
                                                 </li>
                                             @endif
                                         @endif
-
                                         <li class="data-table__action">
                                             <form>
                                                 @csrf

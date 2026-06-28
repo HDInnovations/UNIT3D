@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.user') }} {{ __('user.password-resets') }} -
-        {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('common.user') }} {{ __('user.password-resets') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -20,9 +19,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.password-resets') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.password-resets') }}</li>
 @endsection
 
 @section('page', 'page__staff-password-reset-history--index')

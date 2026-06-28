@@ -106,9 +106,7 @@
                                             class="dialog"
                                             popover
                                         >
-                                            <h3 class="dialog__heading">
-                                                {{ __('common.edit') }}
-                                            </h3>
+                                            <h3 class="dialog__heading">{{ __('common.edit') }}</h3>
                                             <form
                                                 class="dialog__form"
                                                 method="POST"
@@ -185,47 +183,34 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
-            <p>
-                When users add images via BBCode, other users will load the image on page load. This
-                means whoever operates the website of the image URL can view the connecting IPs.
-                Therefore, all images entered via BBCode are proxied.
-            </p>
-            <p>
-                In exception cases where the proxy blocks a popular image host, that image URL
-                should be whitelisted here. This will bypass the proxy and directly link the image.
-                Any trusted image URLs can also be included here to increase client image loading
-                speeds.
-            </p>
-            <p>
-                You can use
-                <code>*</code>
-                as a wildcard when matching URLs. A
-                <code>*</code>
-                wildcard will match everything except for
-                <code>/</code>
-                and
-                <code>.</code>
-                in the URL. You can also use
-                <code>**</code>
-                to match any character. You must never use
-                <code>**</code>
-                for matching subdomains as any user can register their own domain and link
-                <code>https://evil.example/subdomain.whitelisted-domain.example/image.png</code>
-                to bypass the proxy.
-            </p>
-            <p>
-                To match a url with a variable subdomain, make sure to manually specify the
-                <code>.</code>
-                otherwise a user can register
-                <code>https://evilimgur.com</code>
-                if you use
-                <code>https://*imgur.com/**</code>
-                (bad) instead of
-                <code>https://*.imgur.com/**</code>
-                (good) or
-                <code>https://i.imgur.com/**</code>
-                (best).
-            </p>
+            <p>When users add images via BBCode, other users will load the image on page load. This means whoever operates the website of the image URL can view the connecting IPs. Therefore, all images entered via BBCode are proxied.</p>
+            <p>In exception cases where the proxy blocks a popular image host, that image URL should be whitelisted here. This will bypass the proxy and directly link the image. Any trusted image URLs can also be included here to increase client image loading speeds.</p>
+            <p>You can use
+            <code>*</code>
+            as a wildcard when matching URLs. A
+            <code>*</code>
+            wildcard will match everything except for
+            <code>/</code>
+            and
+            <code>.</code>
+            in the URL. You can also use
+            <code>**</code>
+            to match any character. You must never use
+            <code>**</code>
+            for matching subdomains as any user can register their own domain and link
+            <code>https://evil.example/subdomain.whitelisted-domain.example/image.png</code>
+            to bypass the proxy.</p>
+            <p>To match a url with a variable subdomain, make sure to manually specify the
+            <code>.</code>
+            otherwise a user can register
+            <code>https://evilimgur.com</code>
+            if you use
+            <code>https://*imgur.com/**</code>
+            (bad) instead of
+            <code>https://*.imgur.com/**</code>
+            (good) or
+            <code>https://i.imgur.com/**</code>
+            (best).</p>
         </div>
     </section>
 @endsection

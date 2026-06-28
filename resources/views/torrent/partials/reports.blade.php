@@ -18,15 +18,9 @@
                 <tr>
                     <th>{{ __('common.title') }}</th>
                     <th>Reported</th>
-                    <th>
-                        {{ __('common.reporter') }}
-                    </th>
-                    <th>
-                        {{ __('ticket.assigned-staff') }}
-                    </th>
-                    <th>
-                        {{ __('common.created_at') }}
-                    </th>
+                    <th>{{ __('common.reporter') }}</th>
+                    <th>{{ __('ticket.assigned-staff') }}</th>
+                    <th>{{ __('common.created_at') }}</th>
                     <th>{{ __('user.judge') }}</th>
                 </tr>
             </thead>
@@ -63,9 +57,7 @@
                             @if ($report->judge)
                                 <x-user-tag :anon="false" :user="$report->judge" />
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </td>
                     </tr>

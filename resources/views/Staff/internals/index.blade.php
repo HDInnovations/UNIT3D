@@ -83,7 +83,6 @@
             </table>
         </div>
     </section>
-
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.internal') }} {{ __('common.stats') }}</h2>
         <div class="data-table-wrapper">

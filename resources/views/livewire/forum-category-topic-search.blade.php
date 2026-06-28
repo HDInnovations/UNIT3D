@@ -19,9 +19,7 @@
     </div>
     <aside>
         <section class="panelV2">
-            <h2 class="panel__heading">
-                {{ __('common.actions') }}
-            </h2>
+            <h2 class="panel__heading">{{ __('common.actions') }}</h2>
             <div class="panel__body">
                 <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
                     @csrf
@@ -72,27 +70,13 @@
                             wire:mode.live="label"
                         >
                             <option value="" selected default>Any</option>
-                            <option value="approved">
-                                {{ __('forum.approved') }}
-                            </option>
-                            <option value="implemented">
-                                {{ __('forum.implemented') }}
-                            </option>
-                            <option value="solved">
-                                {{ __('forum.solved') }}
-                            </option>
-                            <option value="denied">
-                                {{ __('forum.denied') }}
-                            </option>
-                            <option value="invalid">
-                                {{ __('forum.invalid') }}
-                            </option>
-                            <option value="bug">
-                                {{ __('forum.bug') }}
-                            </option>
-                            <option value="suggestion">
-                                {{ __('forum.suggestion') }}
-                            </option>
+                            <option value="approved">{{ __('forum.approved') }}</option>
+                            <option value="implemented">{{ __('forum.implemented') }}</option>
+                            <option value="solved">{{ __('forum.solved') }}</option>
+                            <option value="denied">{{ __('forum.denied') }}</option>
+                            <option value="invalid">{{ __('forum.invalid') }}</option>
+                            <option value="bug">{{ __('forum.bug') }}</option>
+                            <option value="suggestion">{{ __('forum.suggestion') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="sorting">
                             {{ __('forum.label') }}
@@ -109,9 +93,7 @@
                             <option value="last_post_created_at">
                                 {{ __('forum.updated-at') }}
                             </option>
-                            <option value="created_at">
-                                {{ __('forum.created-at') }}
-                            </option>
+                            <option value="created_at">{{ __('forum.created-at') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="sorting">
                             {{ __('common.sort') }}
@@ -125,12 +107,8 @@
                             required
                             wire:model.live="sortDirection"
                         >
-                            <option value="desc">
-                                {{ __('common.descending') }}
-                            </option>
-                            <option value="asc">
-                                {{ __('common.ascending') }}
-                            </option>
+                            <option value="desc">{{ __('common.descending') }}</option>
+                            <option value="asc">{{ __('common.ascending') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="direction">
                             {{ __('common.direction') }}
@@ -144,12 +122,8 @@
                             wire:model.live="state"
                         >
                             <option value="" selected default>Any</option>
-                            <option value="open">
-                                {{ __('forum.open') }}
-                            </option>
-                            <option value="close">
-                                {{ __('forum.closed') }}
-                            </option>
+                            <option value="open">{{ __('forum.open') }}</option>
+                            <option value="close">{{ __('forum.closed') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="direction">
                             {{ __('forum.state') }}
@@ -163,12 +137,8 @@
                             wire:model.live="subscribed"
                         >
                             <option value="" selected default>Any</option>
-                            <option value="include">
-                                {{ __('forum.subscribed') }}
-                            </option>
-                            <option value="exclude">
-                                {{ __('forum.not-subscribed') }}
-                            </option>
+                            <option value="include">{{ __('forum.subscribed') }}</option>
+                            <option value="exclude">{{ __('forum.not-subscribed') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="direction">
                             {{ __('common.subscriptions') }}

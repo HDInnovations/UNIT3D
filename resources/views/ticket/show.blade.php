@@ -10,9 +10,7 @@
             {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $ticket->subject }}
-    </li>
+    <li class="breadcrumb--active">{{ $ticket->subject }}</li>
 @endsection
 
 @section('page', 'page__ticket--show')
@@ -130,7 +128,6 @@
             </div>
         </section>
     @endif
-
     <livewire:comments :model="$ticket" />
 @endsection
 
@@ -170,10 +167,7 @@
                 <div class="key-value__group">
                     <dt>{{ __('ticket.closed') }}</dt>
                     <dd>
-                        <time
-                            datetime="{{ $ticket->closed_at }}"
-                            title="{{ $ticket->closed_at }}"
-                        >
+                        <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
                             {{ $ticket->closed_at->format('Y-m-d') }}
                         </time>
                     </dd>
@@ -214,7 +208,6 @@
                         </label>
                     </p>
                 </form>
-
                 @if ($ticket->staff_id !== null)
                     <form
                         action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
@@ -231,7 +224,6 @@
                         </p>
                     </form>
                 @endif
-
                 <form action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}" method="POST">
                     @csrf
                     @method('DELETE')

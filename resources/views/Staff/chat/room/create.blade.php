@@ -11,9 +11,7 @@
             {{ __('common.chat-rooms') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
 @section('page', 'page__staff-chat-room--create')
@@ -21,9 +19,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('common.chat-room') }}
+            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }} {{ __('common.chat-room') }}
         </h2>
         <div class="panel__body">
             <form

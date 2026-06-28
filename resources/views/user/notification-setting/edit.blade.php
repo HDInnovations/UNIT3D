@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - {{ __('user.notification') }} - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - {{ __('user.notification') }} - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,9 +20,7 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.notification') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.notification') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -344,10 +341,7 @@
                 <h3>Block all notifications from the selected groups.</h3>
                 <div class="form__group">
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">{{ __('common.group') }}</th>
@@ -356,9 +350,7 @@
                                     <th x-bind="columnHeader">{{ __('user.followers') }}</th>
                                     <th x-bind="columnHeader">{{ __('forum.forums') }}</th>
                                     <th x-bind="columnHeader">{{ __('request.requests') }}</th>
-                                    <th x-bind="columnHeader">
-                                        {{ __('common.subscriptions') }}
-                                    </th>
+                                    <th x-bind="columnHeader">{{ __('common.subscriptions') }}</th>
                                     <th x-bind="columnHeader">{{ __('torrent.torrents') }}</th>
                                     <th x-bind="columnHeader">Mentions</th>
                                 </tr>
@@ -366,9 +358,7 @@
                             <tbody x-ref="tbody">
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <th x-bind="rowHeader">
-                                            {{ $group->name }}
-                                        </th>
+                                        <th x-bind="rowHeader">{{ $group->name }}</th>
                                         @foreach ([
                                             'json_account_groups',
                                             'json_bon_groups',

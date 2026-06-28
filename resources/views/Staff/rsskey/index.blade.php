@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.user') }} {{ __('user.rsskeys') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.user') }} {{ __('user.rsskeys') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -20,9 +19,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.rsskeys') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.rsskeys') }}</li>
 @endsection
 
 @section('page', 'page__staff-rsskey--index')

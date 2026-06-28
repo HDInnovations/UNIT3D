@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('staff.mass-email') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('staff.mass-email') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -20,9 +19,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.mass-email') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.mass-email') }}</li>
 @endsection
 
 @section('page', 'page__staff-mass-email--create')

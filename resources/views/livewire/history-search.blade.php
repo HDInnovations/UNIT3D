@@ -211,9 +211,7 @@
                                     <td>
                                         <x-user-tag :user="$history->user" :anon="false" />
                                     </td>
-                                    <td>
-                                        {{ $history->torrent_count }}
-                                    </td>
+                                    <td>{{ $history->torrent_count }}</td>
                                     <td title="{{ $history->uploaded_sum }}">
                                         {{ App\Helpers\StringHelper::formatBytes($history->uploaded_sum, 2) }}
                                     </td>
@@ -257,16 +255,14 @@
                                             class="text-red"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_avg) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @else
                                         <td
                                             class="text-green"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_avg) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @endif
                                     <td>{{ $history->seeding_count }}</td>
@@ -278,7 +274,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">
@@ -483,16 +478,14 @@
                                             class="text-red"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @else
                                         <td
                                             class="text-green"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @endif
                                     <td>
@@ -551,6 +544,7 @@
                             @endforeach
                         </tbody>
                     </table>
+
             @endswitch
             {{ $histories->links('partials.pagination') }}
         </div>

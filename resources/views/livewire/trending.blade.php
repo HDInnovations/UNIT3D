@@ -88,9 +88,7 @@
                 <tbody>
                     @foreach ($works as $weeklyRankings)
                         <tr>
-                            <th>
-                                {{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}
-                            </th>
+                            <th>{{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}</th>
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($weeklyRankings as $ranking)
                                     <figure class="trending-poster">
@@ -101,7 +99,6 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
                                             @case('tv_meta')
                                                 <x-tv.poster
@@ -109,8 +106,8 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -153,7 +150,6 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
                                             @case('tv_meta')
                                                 <x-tv.poster
@@ -161,8 +157,8 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -203,7 +199,6 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
                                             @case('tv_meta')
                                                 <x-tv.poster
@@ -211,8 +206,8 @@
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -249,7 +244,6 @@
                             </figcaption>
                         </figure>
                     @endforeach
-
                     @break
                 @case('tv_meta')
                     @foreach ($works as $work)
@@ -267,8 +261,8 @@
                             </figcaption>
                         </figure>
                     @endforeach
-
                     @break
+
             @endswitch
         </div>
     @endif

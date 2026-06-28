@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.bots') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.bots') }}</li>
 @endsection
 
 @section('nav-tabs')

@@ -75,13 +75,12 @@
                                         @endif
                                     </li>
                                     <li>
-                                        Warm fuzzy feeling by supporting
-                                        {{ config('other.title') }}
+                                        Warm fuzzy feeling by supporting {{ config('other.title') }}
                                     </li>
                                     @if ($package->upload_value !== null)
                                         <li>
-                                            {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }}
-                                            Upload credit
+                                            {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }} Upload
+                                            credit
                                         </li>
                                     @endif
 
@@ -147,14 +146,9 @@
                             </p>
                         @endforeach
 
-                        <p class="text-info">
-                            Send
-                            <strong>
-                                {{ $package->cost }} {{ config('donation.currency') }}
-                            </strong>
-                            to the gateway of your choice. Take note of the Tx hash, receipt number,
-                            etc. and input it below.
-                        </p>
+                        <p class="text-info">Send
+                        <strong> {{ $package->cost }} {{ config('donation.currency') }} </strong>
+                        to the gateway of your choice. Take note of the Tx hash, receipt number, etc. and input it below.</p>
                     </div>
                     <div class="form__group--horizontal">
                         <p class="form__group">

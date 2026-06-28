@@ -10,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.wishlist') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.wishlist') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -64,9 +62,7 @@
                     method="POST"
                 >
                     @csrf
-                    <button class="form__button form__button--text">
-                        {{ __('common.add') }}
-                    </button>
+                    <button class="form__button form__button--text">{{ __('common.add') }}</button>
                 </form>
             </div>
         </header>

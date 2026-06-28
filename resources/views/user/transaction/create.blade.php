@@ -11,9 +11,7 @@
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('bon.store') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('bon.store') }}</li>
 @endsection
 
 @section('nav-tabs')

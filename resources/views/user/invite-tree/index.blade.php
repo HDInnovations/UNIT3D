@@ -12,9 +12,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.invite-tree') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.invite-tree') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -60,7 +58,7 @@
                                                 class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                 title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                             ></i>
-                                        </x-slot>
+                                        </x-slot:appended-icons>
                                     @endif
                                 </x-user-tag>
                             </td>
@@ -185,7 +183,7 @@
                                                 class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                 title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                             ></i>
-                                        </x-slot>
+                                        </x-slot:appended-icons>
                                     @endif
                                 </x-user-tag>
                             </td>
@@ -203,7 +201,7 @@
                                                     class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                     title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                                 ></i>
-                                            </x-slot>
+                                            </x-slot:appended-icons>
                                         @endif
                                     </x-user-tag>
                                 </td>

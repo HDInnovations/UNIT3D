@@ -8,8 +8,7 @@
         href="{{ $tmdb ? route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdb]) : '#' }}"
     >
         <h1 class="meta__title">
-            {{ $meta->name ?? 'No meta found' }}
-            ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})
+            {{ $meta->name ?? 'No meta found' }} ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})
         </h1>
     </a>
     <a
@@ -133,9 +132,7 @@
         </li>
         @if ($meta?->trailer)
             <li class="work__trailer show-trailer">
-                <a class="work__trailer-link" href="#">
-                    {{ __('torrent.view-trailer') }}
-                </a>
+                <a class="work__trailer-link" href="#"> {{ __('torrent.view-trailer') }} </a>
             </li>
         @endif
     </ul>

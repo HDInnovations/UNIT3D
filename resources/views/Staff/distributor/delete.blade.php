@@ -11,12 +11,8 @@
             Torrent distributors
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $distributor->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.delete') }}
-    </li>
+    <li class="breadcrumbV2">{{ $distributor->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.delete') }}</li>
 @endsection
 
 @section('page', 'page__staff-distributor--delete')
@@ -35,10 +31,7 @@
             >
                 @csrf
                 @method('DELETE')
-                <p class="form__group">
-                    An existing torrent on site may already use this distributor. Would you like to
-                    change it?
-                </p>
+                <p class="form__group">An existing torrent on site may already use this distributor. Would you like to change it?</p>
                 <p class="form__group">
                     <select
                         name="distributor_id"
@@ -50,9 +43,7 @@
                     >
                         <option hidden disabled selected value=""></option>
                         @foreach ($distributors as $distributor)
-                            <option value="{{ $distributor->id }}">
-                                {{ $distributor->name }}
-                            </option>
+                            <option value="{{ $distributor->id }}">{{ $distributor->name }}</option>
                         @endforeach
                     </select>
                     <label class="form__label form__label--floating" for="autoreg">

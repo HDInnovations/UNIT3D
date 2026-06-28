@@ -10,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.torrents-history') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.torrents-history') }}</li>
 @endsection
 
 @section('page', 'page__user-torrents--index')

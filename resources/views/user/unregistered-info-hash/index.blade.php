@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} {{ __('user.unregistered-info-hashes') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} {{ __('user.unregistered-info-hashes') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -13,9 +12,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.unregistered-info-hashes') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.unregistered-info-hashes') }}</li>
 @endsection
 
 @section('nav-tabs')

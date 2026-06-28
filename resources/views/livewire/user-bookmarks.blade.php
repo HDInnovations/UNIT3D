@@ -74,17 +74,13 @@
                     Bookmarked at
                     @include('livewire.includes._sort-icon', ['field' => 'bookmarks.created_at'])
                 </th>
-                <th class="user-bookmarks__actions-header">
-                    {{ __('common.actions') }}
-                </th>
+                <th class="user-bookmarks__actions-header">{{ __('common.actions') }}</th>
             </thead>
             <tbody>
                 @foreach ($bookmarks as $bookmark)
                     <tr>
                         <td class="user-bookmarks__name">
-                            <a
-                                href="{{ route('torrents.show', ['id' => $bookmark->torrent_id]) }}"
-                            >
+                            <a href="{{ route('torrents.show', ['id' => $bookmark->torrent_id]) }}">
                                 {{ $bookmark->name }}
                             </a>
                         </td>

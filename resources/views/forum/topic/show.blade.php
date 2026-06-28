@@ -23,9 +23,7 @@
             {{ $topic->forum->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $topic->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $topic->name }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -37,12 +35,8 @@
 @section('main')
     @livewire('topic-post-search', ['topic' => $topic])
     @if ($topic->state === 'close' && auth()->user()->group->is_modo)
-        <p>
-            This topic is closed, but you can still reply due to you being
-            {{ auth()->user()->group->name }}.
-        </p>
+        <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
     @endif
-
     @if (($topic->state === 'open' && $permission?->reply_topic) || auth()->user()->group->is_modo)
         <form id="forum_reply_form" method="POST" action="{{ route('posts.store') }}">
             @csrf
@@ -201,7 +195,6 @@
             </div>
         </section>
     @endif
-
     @if (auth()->user()->group->is_modo)
         <section class="panelV2" x-data>
             <h2 class="panel__heading">{{ __('forum.label-system') }}</h2>

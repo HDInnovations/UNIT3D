@@ -4,9 +4,7 @@
     <li class="breadcrumbV2">
         <a href="{{ route('wikis.index') }}" class="breadcrumb__link">Wikis</a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $wiki->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $wiki->name }}</li>
 @endsection
 
 @section('page', 'page__wiki--show')

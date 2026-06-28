@@ -66,8 +66,11 @@
                                     />
                                 </td>
                                 <td>
-                                    <textarea name="description" required class="form__textarea">
-{{ $package->description }}</textarea
+                                    <textarea
+                                        name="description"
+                                        required
+                                        class="form__textarea"
+                                        >{{ $package->description }}</textarea
                                     >
                                 </td>
 

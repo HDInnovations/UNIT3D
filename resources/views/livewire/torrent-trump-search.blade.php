@@ -1,7 +1,5 @@
 @section('title')
-    <title>
-        Torrent trumps - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
-    </title>
+    <title>Torrent trumps - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

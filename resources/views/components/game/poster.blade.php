@@ -17,13 +17,9 @@
             />
         </a>
         <figcaption class="torrent-search--poster__caption">
-            <h2 class="torrent-search--poster__title">
-                {{ $game->name ?? '' }}
-            </h2>
+            <h2 class="torrent-search--poster__title">{{ $game->name ?? '' }}</h2>
             <h3 class="torrent-search--poster__release-date">
-                <time>
-                    {{ substr($game->first_release_date ?? '', 0, 4) ?? '' }}
-                </time>
+                <time> {{ substr($game->first_release_date ?? '', 0, 4) ?? '' }} </time>
             </h3>
         </figcaption>
     </figure>

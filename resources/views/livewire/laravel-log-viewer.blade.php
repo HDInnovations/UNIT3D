@@ -69,25 +69,21 @@
                                         <span class="text-danger">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
-
                                         @break
                                     @case('ERROR')
                                         <span class="text-warning">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
-
                                         @break
                                     @case('INFO')
                                         <span class="text-info">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
-
                                         @break
                                     @case('WARNING')
                                         <span class="text-info">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
-
                                         @break
                                     @default
                                         {{ $groupedEntry[0]['level'] }}
@@ -117,7 +113,11 @@
                                                 <td>
                                                     <button
                                                         class="form__button form__button--text"
-                                                        x-on:click.stop="navigator.clipboard.writeText($refs.stacktrace.textContent)"
+                                                        x-on:click.stop="
+                                                            navigator.clipboard.writeText(
+                                                                $refs.stacktrace.textContent,
+                                                            )
+                                                        "
                                                     >
                                                         Copy
                                                     </button>

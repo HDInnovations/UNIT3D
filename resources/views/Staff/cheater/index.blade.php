@@ -19,9 +19,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.possible-leech-cheaters') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.possible-leech-cheaters') }}</li>
 @endsection
 
 @section('page', 'page__staff-cheater--index')

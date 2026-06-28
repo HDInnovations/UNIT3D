@@ -6,9 +6,7 @@
             {{ __('event.giveaways') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $giveaway->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $giveaway->name }}</li>
 @endsection
 
 @section('page', 'page__giveaway--show')
@@ -21,9 +19,7 @@
                 @foreach (\Carbon\CarbonPeriod::create($giveaway->starts_at, $giveaway->ends_at) as $i => $date)
                     <li class="events__list-item">
                         <article class="events__prize">
-                            <h3 class="events__prize-heading">
-                                {{ $date->format('M j') }}
-                            </h3>
+                            <h3 class="events__prize-heading">{{ $date->format('M j') }}</h3>
 
                             @if ($prize = $userPrizes->get($i)?->first())
                                 <i
@@ -99,8 +95,6 @@
 @section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
-        <div class="panel__body">
-            {{ $giveaway->description }}
-        </div>
+        <div class="panel__body">{{ $giveaway->description }}</div>
     </section>
 @endsection

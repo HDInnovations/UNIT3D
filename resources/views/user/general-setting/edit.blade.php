@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Settings - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Settings - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -13,9 +12,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.settings') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.settings') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -390,9 +387,7 @@
                                         list-style: none;
                                     "
                                 >
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-arrows-alt"
-                                    ></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-arrows-alt"></i>
                                     <span x-text="block.label"></span>
                                     <input
                                         type="hidden"
@@ -576,31 +571,29 @@
             document.addEventListener('alpine:init', () => {
                 Alpine.data('generalSettings', () => ({
                     blocks: {{
-                        Js::from(
-                            array_map(
-                                fn ($item) => [
-                                    'key' => $item[0],
-                                    'label' => $item[1],
-                                    'position' => (int) $user->settings->{$item[0] . '_block_position'},
-                                ],
-                                [
-                                    ['news', __('blocks.check-news')],
-                                    ['chat', __('blocks.chatbox')],
-                                    ['featured', __('blocks.featured-torrents')],
-                                    ['random_media', 'Random media'],
-                                    ['poll', 'Polls'],
-                                    ['top_torrents', __('blocks.top-torrents')],
-                                    ['top_users', 'Top users'],
-                                    ['latest_topics', __('blocks.latest-topics')],
-                                    ['latest_posts', __('blocks.latest-posts')],
-                                    ['latest_comments', __('blocks.latest-comments')],
-                                    ['online', 'Online users'],
-                                ]
-                            )
-                        )
-                    }}.sort(
-                        (a, b) => a.position - b.position,
-                    ),
+                Js::from(
+                    array_map(
+                        fn ($item) => [
+                            'key' => $item[0],
+                            'label' => $item[1],
+                            'position' => (int) $user->settings->{$item[0] . '_block_position'},
+                        ],
+                        [
+                            ['news', __('blocks.check-news')],
+                            ['chat', __('blocks.chatbox')],
+                            ['featured', __('blocks.featured-torrents')],
+                            ['random_media', 'Random media'],
+                            ['poll', 'Polls'],
+                            ['top_torrents', __('blocks.top-torrents')],
+                            ['top_users', 'Top users'],
+                            ['latest_topics', __('blocks.latest-topics')],
+                            ['latest_posts', __('blocks.latest-posts')],
+                            ['latest_comments', __('blocks.latest-comments')],
+                            ['online', 'Online users'],
+                        ]
+                    )
+                )
+            }}.sort((a, b) => a.position - b.position),
                     dragging: null,
                     dragOver: null,
                     move(from, to) {

@@ -6,13 +6,9 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link">
-            {{ __('stat.stats') }}
-        </a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link"> {{ __('stat.stats') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('stat.languages') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('stat.languages') }}</li>
 @endsection
 
 @section('page', 'page__stats--languages')
@@ -26,9 +22,7 @@
                     <tr>
                         <td>{{ $name }}</td>
                         <td>
-                            Used by
-                            {{ App\Models\UserSetting::query()->where('locale', '=', $code)->count() }}
-                            Users
+                            Used by {{ App\Models\UserSetting::query()->where('locale', '=', $code)->count() }} Users
                         </td>
                     </tr>
                 @endforeach

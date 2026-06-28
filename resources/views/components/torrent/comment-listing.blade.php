@@ -21,7 +21,6 @@
                     <a href="{{ route('torrents.show', ['id' => $comment->commentable->id]) }}">
                         {{ $comment->commentable->name }}
                     </a>
-
                     @break
                 @case(\App\Models\TorrentRequest::class)
                     {{ __('request.request') }}
@@ -30,7 +29,6 @@
                     >
                         {{ $comment->commentable->name }}
                     </a>
-
                     @break
                 @default
                     {{ __('common.unknown') }}
@@ -56,12 +54,10 @@
                 >
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
-            </x-slot>
+            </x-slot:appended-icons>
         </x-user-tag>
         @if (! empty($comment->user->title) && ! $comment->anon)
-            <p class="comment__author-title">
-                {{ $comment->user->title }}
-            </p>
+            <p class="comment__author-title">{{ $comment->user->title }}</p>
         @endif
     </aside>
     <div class="comment__content bbcode-rendered">

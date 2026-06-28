@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -30,9 +29,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-user--edit')

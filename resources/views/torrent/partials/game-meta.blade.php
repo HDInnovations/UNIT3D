@@ -12,8 +12,7 @@
         href="{{ $igdb ? route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $igdb]) : '#' }}"
     >
         <h1 class="meta__title">
-            {{ $meta->name ?? 'No meta found' }}
-            ({{ substr($meta->first_release_date ?? '', 0, 4) ?? '' }})
+            {{ $meta->name ?? 'No meta found' }} ({{ substr($meta->first_release_date ?? '', 0, 4) ?? '' }})
         </h1>
     </a>
     <a
@@ -152,8 +151,7 @@
                 <i class="{{ config('other.font-awesome') }} fa-star meta-chip__icon"></i>
                 <h2 class="meta-chip__name">{{ __('torrent.rating') }}</h2>
                 <h3 class="meta-chip__value">
-                    {{ $meta->rating ?? 0 }}% ({{ $meta->rating_count ?? 0 }}
-                    {{ __('torrent.votes') }})
+                    {{ $meta->rating ?? 0 }}% ({{ $meta->rating_count ?? 0 }} {{ __('torrent.votes') }})
                 </h3>
             </article>
             @isset($meta?->first_video_video_id)

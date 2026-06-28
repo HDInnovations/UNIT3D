@@ -87,7 +87,6 @@
                 }}"
             ></i>
         @endif
-
         @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
             <i
                 class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"

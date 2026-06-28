@@ -88,10 +88,7 @@
                     </form>
                 </div>
                 <div class="form__group form__group--horizontal">
-                    <form
-                        method="POST"
-                        action="{{ url('/dashboard/commands/clear-route-cache') }}"
-                    >
+                    <form method="POST" action="{{ url('/dashboard/commands/clear-route-cache') }}">
                         @csrf
                         <button
                             class="form__button form__button--text"

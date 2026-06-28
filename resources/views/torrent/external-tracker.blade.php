@@ -21,9 +21,7 @@
             {{ $torrent?->name ?? 'Not found' }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.peers') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -103,7 +101,7 @@
                                             />
                                         @endif
                                     @else
-                                            User not found
+                                        User not found
                                     @endif
                                 </td>
                                 <td>
@@ -116,7 +114,6 @@
                                         @php
                                             $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size;
                                         @endphp
-
                                         @if (0 < $progress && $progress < 1)
                                             1%
                                         @elseif (99 < $progress && $progress < 100)
@@ -162,7 +159,7 @@
                                             {{ __('torrent.leecher') }}
                                         @endif
                                     @else
-                                            Inactive
+                                        Inactive
                                     @endif
                                 </td>
                                 <td class="{{ $peer['is_visible'] ? 'text-green' : 'text-red' }}">

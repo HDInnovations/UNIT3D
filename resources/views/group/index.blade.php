@@ -145,9 +145,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Min. Uploads</td>
-                                                <td>
-                                                    {{ $group->min_uploads ?? 0 }}
-                                                </td>
+                                                <td>{{ $group->min_uploads ?? 0 }}</td>
                                                 <td>
                                                     @if ($group->min_uploads <= $user_uploads)
                                                         <i
@@ -186,8 +184,7 @@
                                                     <i
                                                         class="{{ config('other.font-awesome') }} fa-upload text-success"
                                                     ></i>
-                                                    {{ __('common.upload') }}
-                                                    {{ __('torrent.torrents') }}
+                                                    {{ __('common.upload') }} {{ __('torrent.torrents') }}
                                                 </td>
                                             </tr>
                                         @endif

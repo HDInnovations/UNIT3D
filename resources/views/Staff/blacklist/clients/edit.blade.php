@@ -11,18 +11,14 @@
             Blacklisted clients
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-blacklisted-client--edit')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.edit') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('common.edit') }}</h2>
         <div class="panel__body">
             <form
                 name="upload"

@@ -11,12 +11,8 @@
             Wiki categories
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $wikiCategory->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $wikiCategory->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-wiki-category--edit')

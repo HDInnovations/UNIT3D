@@ -9,12 +9,8 @@
     <li class="breadcrumbV2">
         <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">Torrent regions</a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $region->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $region->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
 @section('page', 'page__staff-region--edit')
@@ -22,8 +18,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} torrent region:
-            {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
+            {{ __('common.edit') }} torrent region: {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
         </h2>
         <div class="panel__body">
             <form

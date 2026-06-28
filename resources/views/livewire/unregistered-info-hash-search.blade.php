@@ -72,10 +72,7 @@
                         @foreach ($unregisteredInfoHashes as $unregisteredInfoHash)
                             <tr>
                                 <td>
-                                    <x-user-tag
-                                        :user="$unregisteredInfoHash->user"
-                                        :anon="false"
-                                    />
+                                    <x-user-tag :user="$unregisteredInfoHash->user" :anon="false" />
                                 </td>
                                 <td>{{ bin2hex($unregisteredInfoHash->info_hash) }}</td>
                                 <td>
@@ -97,7 +94,6 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                     @break
                 @case('info_hash')
                     <thead>
@@ -144,8 +140,8 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                     @break
+
             @endswitch
         </table>
         {{ $unregisteredInfoHashes->links('partials.pagination') }}

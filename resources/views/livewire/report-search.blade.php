@@ -196,7 +196,7 @@
                                 @if ($report->assignee)
                                     <x-user-tag :anon="false" :user="$report->assignee" />
                                 @else
-                                        Unassigned
+                                    Unassigned
                                 @endif
                             </td>
                             <td>

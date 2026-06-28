@@ -4,9 +4,7 @@
     <li class="breadcrumbV2">
         <a href="{{ route('pages.index') }}" class="breadcrumb__link">Pages</a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $page->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $page->name }}</li>
 @endsection
 
 @section('page', 'page__page--show')
@@ -60,11 +58,7 @@
                         confirmButtonText: '<i class="fa fa-thumbs-up"></i> I do!',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            axios.post(
-                                `/users/${atob(
-                                    '{{ base64_encode(auth()->user()->username) }}',
-                                )}/accept-rules`,
-                            );
+                            axios.post(`/users/${atob('{{ base64_encode(auth()->user()->username) }}')}/accept-rules`);
                             const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',

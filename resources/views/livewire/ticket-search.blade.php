@@ -94,9 +94,7 @@
                 </tr>
                 @forelse ($tickets as $ticket)
                     <tr>
-                        <td>
-                            {{ $ticket->id }}
-                        </td>
+                        <td>{{ $ticket->id }}</td>
                         <td>
                             <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">
                                 {{ $ticket->subject }}

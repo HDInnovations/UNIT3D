@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('event.giveaways') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('event.giveaways') }}</li>
 @endsection
 
 @section('page', 'page__staff-giveaways--index')

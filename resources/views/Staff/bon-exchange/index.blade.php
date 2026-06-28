@@ -17,9 +17,7 @@
             <h2 class="panel__heading">{{ __('bon.bon') }} {{ __('bon.exchange') }}</h2>
             <div class="panel__actions">
                 <a href="{{ route('staff.bon_exchanges.create') }}" class="panel__action">
-                    {{ __('common.add') }}
-                    {{ trans_choice('common.a-an-art', true) }}
-                    {{ __('bon.exchange') }}
+                    {{ __('common.add') }} {{ trans_choice('common.a-an-art', true) }} {{ __('bon.exchange') }}
                 </a>
             </div>
         </header>
@@ -44,20 +42,17 @@
                                 @switch(1)
                                     @case($bonExchange->upload)
                                         {{ __('common.add') }} {{ __('common.upload') }}
-
                                         @break
                                     @case($bonExchange->download)
                                         {{ __('common.remove') }} {{ __('common.download') }}
-
                                         @break
                                     @case($bonExchange->personal_freeleech)
                                         {{ __('torrent.personal-freeleech') }}
-
                                         @break
                                     @case($bonExchange->invite)
                                         {{ __('user.invites') }}
-
                                         @break
+
                                 @endswitch
                             </td>
                             <td>

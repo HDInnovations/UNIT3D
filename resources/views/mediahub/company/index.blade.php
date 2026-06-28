@@ -14,9 +14,7 @@
             {{ __('mediahub.title') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('mediahub.companies') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('mediahub.companies') }}</li>
 @endsection
 
 @section('page', 'page__company--index')

@@ -75,8 +75,7 @@
                                                 popover
                                             >
                                                 <h4 class="dialog__heading">
-                                                    {{ __('common.edit') }}
-                                                    {{ __('common.subtitle') }}
+                                                    {{ __('common.edit') }} {{ __('common.subtitle') }}
                                                 </h4>
                                                 <form
                                                     class="dialog__form"
@@ -102,15 +101,13 @@
                                                                 value="{{ $subtitle->language_id }}"
                                                                 selected
                                                             >
-                                                                {{ $subtitle->language->name }}
-                                                                ({{ __('torrent.current') }})
+                                                                {{ $subtitle->language->name }} ({{ __('torrent.current') }})
                                                             </option>
                                                             @foreach (App\Models\MediaLanguage::query()->orderBy('name')->get() as $media_language)
                                                                 <option
                                                                     value="{{ $media_language->id }}"
                                                                 >
-                                                                    {{ $media_language->name }}
-                                                                    ({{ $media_language->code }})
+                                                                    {{ $media_language->name }} ({{ $media_language->code }})
                                                                 </option>
                                                             @endforeach
                                                         </select>

@@ -21,9 +21,7 @@
                         href="{{ route('staff.bon_earnings.create') }}"
                         class="form__button form__button--text"
                     >
-                        {{ __('common.add') }}
-                        {{ trans_choice('common.a-an-art', true) }}
-                        {{ __('bon.earning') }}
+                        {{ __('common.add') }} {{ trans_choice('common.a-an-art', true) }} {{ __('bon.earning') }}
                     </a>
                 </div>
             </div>
@@ -56,43 +54,33 @@
                                 @switch($bonEarning->variable)
                                     @case('1')
                                         1 (Constant)
-
                                         @break
                                     @case('age')
                                         {{ __('torrent.age') }}
-
                                         @break
                                     @case('size')
                                         {{ __('torrent.size') }}
-
                                         @break
                                     @case('seeders')
                                         {{ __('torrent.seeders') }}
-
                                         @break
                                     @case('leechers')
                                         {{ __('torrent.leechers') }}
-
                                         @break
                                     @case('times_completed')
                                         {{ __('torrent.completed-times') }}
-
                                         @break
                                     @case('internal')
                                         {{ __('common.internal') }}
-
                                         @break
                                     @case('personal_release')
                                         {{ __('torrent.personal-release') }}
-
                                         @break
                                     @case('seedtime')
                                         {{ __('torrent.seedtime') }}
-
                                         @break
                                     @case('connectable')
                                         Connectable
-
                                         @break
                                     @default
                                         {{ __('common.unknown') }}
@@ -102,11 +90,9 @@
                                 @switch($bonEarning->operation)
                                     @case('append')
                                         Append
-
                                         @break
                                     @case('multiply')
                                         Multiply
-
                                         @break
                                     @default
                                         {{ __('common.unknown') }}
@@ -119,8 +105,7 @@
                                 <ul>
                                     @forelse ($bonEarning->conditions as $condition)
                                         <li>
-                                            {{ $condition->operand1 }} {{ $condition->operator }}
-                                            {{
+                                            {{ $condition->operand1 }} {{ $condition->operator }} {{
                                                 match ($condition->operand1) {
                                                     'age' => \App\Helpers\StringHelper::timeElapsed($condition->operand2),
                                                     'size' => \App\Helpers\StringHelper::formatBytes($condition->operand2),

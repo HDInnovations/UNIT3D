@@ -10,9 +10,7 @@
             {{ __('request.requests') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $torrentRequest->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $torrentRequest->name }}</li>
 @endsection
 
 @section('page', 'page__request--show')
@@ -22,20 +20,17 @@
         @switch(true)
             @case($torrentRequest->category->movie_meta)
                 @include('torrent.partials.movie-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->movie, 'tmdb' => $torrentRequest->tmdb_movie_id])
-
                 @break
             @case($torrentRequest->category->tv_meta)
                 @include('torrent.partials.tv-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->tv, 'tmdb' => $torrentRequest->tmdb_tv_id])
-
                 @break
             @case($torrentRequest->category->game_meta)
                 @include('torrent.partials.game-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->game, 'igdb' => $torrentRequest->igdb])
-
                 @break
             @default
                 @include('torrent.partials.no-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => null])
-
                 @break
+
         @endswitch
         <menu class="torrent__buttons form__group--short-horizontal">
             @includeWhen($torrentRequest->torrent === null, 'requests.partials.vote')
@@ -48,14 +43,12 @@
                     @include('requests.partials.report')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
-
                     @break
                     {{-- Pending --}}
                 @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
                     @include('requests.partials.report')
                     @includeWhen($user->group->is_modo, 'requests.partials.edit')
                     @includeWhen($user->group->is_modo, 'requests.partials.delete')
-
                     @break
                     {{-- Unfilled --}}
                 @case($torrentRequest->torrent === null)
@@ -64,7 +57,6 @@
                     @include('requests.partials.report')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
                     @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
-
                     @break
                     {{-- Filled --}}
                 @default
@@ -72,15 +64,13 @@
                     @includeWhen($user->group->is_modo, 'requests.partials.reset')
                     @includeWhen($user->group->is_modo, 'requests.partials.edit')
                     @includeWhen($user->group->is_modo, 'requests.partials.delete')
-
                     @break
+
             @endswitch
         </menu>
         <ul class="request__tags">
             <li class="request__category">
-                <span>
-                    {{ $torrentRequest->category->name }}
-                </span>
+                <span> {{ $torrentRequest->category->name }} </span>
             </li>
             @if ($torrentRequest->category->tv_meta)
                 @if ($torrentRequest->season_number !== null && $torrentRequest->episode_number !== null)
@@ -111,14 +101,10 @@
             @endif
 
             <li class="request__resolution">
-                <span>
-                    {{ $torrentRequest->resolution->name ?? 'Any' }}
-                </span>
+                <span> {{ $torrentRequest->resolution->name ?? 'Any' }} </span>
             </li>
             <li class="request__type">
-                <span>
-                    {{ $torrentRequest->type->name ?? 'Any' }}
-                </span>
+                <span> {{ $torrentRequest->type->name ?? 'Any' }} </span>
             </li>
             <li class="request__requester">
                 <x-user-tag :user="$torrentRequest->user" :anon="$torrentRequest->anon" />
@@ -137,23 +123,20 @@
                         @case($torrentRequest->claim !== null && $torrentRequest->torrent === null)
                             <i class="fas fa-circle text-blue"></i>
                             {{ __('request.claimed') }}
-
                             @break
                         @case($torrentRequest->torrent !== null && $torrentRequest->approved_when === null)
                             <i class="fas fa-circle text-purple"></i>
                             {{ __('request.pending') }}
-
                             @break
                         @case($torrentRequest->torrent === null)
                             <i class="fas fa-circle text-red"></i>
                             {{ __('request.unfilled') }}
-
                             @break
                         @default
                             <i class="fas fa-circle text-green"></i>
                             {{ __('request.filled') }}
-
                             @break
+
                     @endswitch
                 </span>
             </li>
@@ -195,7 +178,6 @@
                 </dl>
             </section>
         @endif
-
         @if ($torrentRequest->filled_by !== null)
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('request.filled') }}</h2>
@@ -268,7 +250,6 @@
                 @endif
             </section>
         @endif
-
         <section class="panelV2" x-data="toggle">
             <header class="panel__header" style="cursor: pointer" x-on:click="toggle">
                 <h2 class="panel__heading">{{ __('request.voters') }}</h2>
@@ -299,7 +280,7 @@
                     </thead>
                     <tbody>
                         @foreach ($torrentRequest->bounties as $bounty)
-                            <tr @if($loop->iteration > 10) x-show="isToggledOn" x-cloak @endif>
+                            <tr @if ($loop->iteration > 10) x-show="isToggledOn" x-cloak @endif>
                                 <td>
                                     <x-user-tag :user="$bounty->user" :anon="$bounty->anon" />
                                 </td>
@@ -328,8 +309,7 @@
                                                     popover
                                                 >
                                                     <h4 class="dialog__heading">
-                                                        {{ __('common.edit') }}
-                                                        {{ __('request.vote') }}
+                                                        {{ __('common.edit') }} {{ __('request.vote') }}
                                                     </h4>
                                                     <form
                                                         class="dialog__form"

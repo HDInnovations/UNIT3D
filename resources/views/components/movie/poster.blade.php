@@ -17,9 +17,7 @@
             />
         </a>
         <figcaption class="torrent-search--poster__caption">
-            <h2 class="torrent-search--poster__title">
-                {{ $movie->title ?? '' }}
-            </h2>
+            <h2 class="torrent-search--poster__title">{{ $movie->title ?? '' }}</h2>
             <h3 class="torrent-search--poster__release-date">
                 {{ substr($movie->release_date ?? '', 0, 4) ?? '' }}
             </h3>

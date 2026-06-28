@@ -25,7 +25,6 @@
             </div>
         </div>
     </section>
-
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Donations</h2>
@@ -165,12 +164,12 @@
                         {
                             label: 'Daily donations',
                             data: dailyDonations.map((donation) => donation.total),
-                            backgroundColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-daily-bg'),
-                            borderColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-daily-border'),
+                            backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-daily-bg',
+                            ),
+                            borderColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-daily-border',
+                            ),
                             borderWidth: 1,
                             fill: false,
                         },
@@ -189,19 +188,17 @@
             new Chart(monthlyCtx, {
                 type: 'line',
                 data: {
-                    labels: monthlyDonations.map(
-                        (donation) => `${donation.year}-${donation.month}`,
-                    ),
+                    labels: monthlyDonations.map((donation) => `${donation.year}-${donation.month}`),
                     datasets: [
                         {
                             label: 'Monthly donations',
                             data: monthlyDonations.map((donation) => donation.total),
-                            backgroundColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-monthly-bg'),
-                            borderColor: getComputedStyle(
-                                document.documentElement,
-                            ).getPropertyValue('--donation-chart-monthly-border'),
+                            backgroundColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-monthly-bg',
+                            ),
+                            borderColor: getComputedStyle(document.documentElement).getPropertyValue(
+                                '--donation-chart-monthly-border',
+                            ),
                             borderWidth: 1,
                             fill: false,
                         },

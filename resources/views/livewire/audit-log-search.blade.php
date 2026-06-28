@@ -119,10 +119,7 @@
                                             overflow-wrap: break-word;
                                         "
                                     >
-                                        {{ $key }}:
-                                        {{ json_encode($value['old'], JSON_THROW_ON_ERROR) }}
-                                        &rarr;
-                                        {{ json_encode($value['new'], JSON_THROW_ON_ERROR) }}
+                                        {{ $key }}: {{ json_encode($value['old'], JSON_THROW_ON_ERROR) }} &rarr; {{ json_encode($value['new'], JSON_THROW_ON_ERROR) }}
                                     </li>
                                 @endforeach
                             </ul>

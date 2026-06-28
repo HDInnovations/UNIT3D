@@ -275,7 +275,6 @@
                             @endforelse
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">

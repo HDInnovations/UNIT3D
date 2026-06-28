@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('staff.blocked-ips') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('staff.blocked-ips') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -20,9 +19,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.blocked-ips') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.blocked-ips') }}</li>
 @endsection
 
 @section('page', 'page__staff-blocked-ip--index')

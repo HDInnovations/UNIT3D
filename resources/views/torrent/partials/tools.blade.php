@@ -32,9 +32,7 @@
                                     href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                                     role="button"
                                 >
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-pencil-alt"
-                                    ></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
                                     {{ __('common.edit') }}
                                 </a>
                             </li>
@@ -544,17 +542,14 @@
                             @case(\App\Enums\ModerationStatus::APPROVED)
                                 Approved by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
-
                                 @break
                             @case(\App\Enums\ModerationStatus::POSTPONED)
                                 Postponed by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
-
                                 @break
                             @case(\App\Enums\ModerationStatus::REJECTED)
                                 Rejected by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
-
                                 @break
                             @default
                                 Unmoderated

@@ -2,8 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('staff.gifts-log') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('staff.gifts-log') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -17,9 +16,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.gifts-log') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.gifts-log') }}</li>
 @endsection
 
 @section('page', 'page__staff-gift--index')

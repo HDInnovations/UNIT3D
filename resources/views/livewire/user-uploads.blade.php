@@ -25,7 +25,9 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="ternaryCheckMark($wire.entangle('personalRelease').live)"
+                                    x-data="
+                                        ternaryCheckMark($wire.entangle('personalRelease').live)
+                                    "
                                 >
                                     <input
                                         type="checkbox"
@@ -283,9 +285,7 @@
                                     {{ $torrent->times_completed }}
                                 </a>
                             </td>
-                            <td class="user-uploads__tips">
-                                {{ $torrent->tips_sum_bon ?? 0 }}
-                            </td>
+                            <td class="user-uploads__tips">{{ $torrent->tips_sum_bon ?? 0 }}</td>
                             @if (config('other.thanks-system.is-enabled'))
                                 <td class="user-uploads__thanks">
                                     {{ $torrent->thanks_count ?? 0 }}
@@ -327,29 +327,26 @@
                                             title="{{ __('torrent.pending') }}"
                                             class="{{ config('other.font-awesome') }} fa-tasks text-orange"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::APPROVED)
                                         <span
                                             title="{{ __('torrent.approved') }}"
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::REJECTED)
                                         <span
                                             title="{{ __('torrent.rejected') }}"
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
                                         ></span>
-
                                         @break
                                     @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
                                             title="Postponed"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
-
                                         @break
+
                                 @endswitch
                             </td>
                         </tr>

@@ -10,9 +10,7 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.posts') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.posts') }}</li>
 @endsection
 
 @section('nav-tabs')

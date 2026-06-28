@@ -5,9 +5,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('poll.polls') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('poll.polls') }}</li>
 @endsection
 
 @section('page', 'page__poll--index')

@@ -67,20 +67,14 @@
                                 this.now = new Date().getTime();
                                 this.distance = this.promoTime - this.now;
                                 // Set times
-                                this.days = this.padNum(
-                                    Math.floor(this.distance / (1000 * 60 * 60 * 24)),
-                                );
+                                this.days = this.padNum(Math.floor(this.distance / (1000 * 60 * 60 * 24)));
                                 this.hours = this.padNum(
-                                    Math.floor(
-                                        (this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-                                    ),
+                                    Math.floor((this.distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
                                 );
                                 this.minutes = this.padNum(
                                     Math.floor((this.distance % (1000 * 60 * 60)) / (1000 * 60)),
                                 );
-                                this.seconds = this.padNum(
-                                    Math.floor((this.distance % (1000 * 60)) / 1000),
-                                );
+                                this.seconds = this.padNum(Math.floor((this.distance % (1000 * 60)) / 1000));
                                 // Stop
                                 if (this.distance < 0) {
                                     clearInterval(this.countdown);

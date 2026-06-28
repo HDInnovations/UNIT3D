@@ -6,9 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.torrent-resolutions') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.torrent-resolutions') }}</li>
 @endsection
 
 @section('page', 'page__staff-resolution--index')

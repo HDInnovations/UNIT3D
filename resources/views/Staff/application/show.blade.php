@@ -19,9 +19,7 @@
             {{ __('staff.applications') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $application->id }}
-    </li>
+    <li class="breadcrumb--active">{{ $application->id }}</li>
 @endsection
 
 @section('page', 'page__staff-application--show')
@@ -47,18 +45,14 @@
             <ul>
                 @foreach ($application->urlProofs as $url_proof)
                     <li>
-                        <a href="{{ $url_proof->url }}" target="_blank">
-                            {{ $url_proof->url }}
-                        </a>
+                        <a href="{{ $url_proof->url }}" target="_blank"> {{ $url_proof->url }} </a>
                     </li>
                 @endforeach
             </ul>
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('staff.application-referrer') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('staff.application-referrer') }}</h2>
         <div class="panel__body">{{ $application->referrer }}</div>
     </section>
 @endsection
@@ -92,15 +86,12 @@
                     @switch($application->status)
                         @case(\App\Enums\ModerationStatus::PENDING)
                             <span class="application--pending">Pending</span>
-
                             @break
                         @case(\App\Enums\ModerationStatus::APPROVED)
                             <span class="application--approved">Approved</span>
-
                             @break
                         @case(\App\Enums\ModerationStatus::REJECTED)
                             <span class="application--rejected">Rejected</span>
-
                             @break
                         @default
                             <span class="application--unknown">Unknown</span>
@@ -130,9 +121,7 @@
                     </p>
                     <dialog id="application-show" class="dialog" popover>
                         <h3 class="dialog__heading">
-                            {{ __('request.approve') }}
-                            {{ __('common.this') }}
-                            {{ __('staff.application') }}
+                            {{ __('request.approve') }} {{ __('common.this') }} {{ __('staff.application') }}
                         </h3>
                         <form
                             class="dialog__form"
@@ -186,9 +175,7 @@ Application approved!</textarea
                     </p>
                     <dialog id="application-reject" class="dialog" popover>
                         <h3 class="dialog__heading">
-                            {{ __('request.reject') }}
-                            {{ __('common.this') }}
-                            {{ __('staff.application') }}
+                            {{ __('request.reject') }} {{ __('common.this') }} {{ __('staff.application') }}
                         </h3>
                         <form
                             class="dialog__form"

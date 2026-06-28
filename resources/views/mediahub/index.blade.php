@@ -9,9 +9,7 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('mediahub.title') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('mediahub.title') }}</li>
 @endsection
 
 @section('page', 'page__mediahub')
@@ -45,9 +43,7 @@
                 </li>
                 <li class="mediahub-card__list-item">
                     <a href="{{ route('mediahub.collections.index') }}" class="mediahub-card">
-                        <h2 class="mediahub-card__heading">
-                            {{ __('mediahub.collections') }} hub
-                        </h2>
+                        <h2 class="mediahub-card__heading">{{ __('mediahub.collections') }} hub</h2>
                         <h3 class="mediahub-card__subheading">
                             {{ $collections }} {{ __('mediahub.collections') }}
                         </h3>
