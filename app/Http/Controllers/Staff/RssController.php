@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Staff;
 
+use App\DTO\RssTorrentDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreRssRequest;
 use App\Http\Requests\Staff\UpdateRssRequest;
@@ -64,7 +65,7 @@ class RssController extends Controller
         $rss = new Rss();
         $rss->name = $request->name;
         $rss->user_id = $request->user()->id;
-        $rss->json_torrent = array_merge($rss->expected_fields, $request->validated());
+        $rss->json_torrent = new RssTorrentDTO(... $request->validated());
         $rss->is_private = false;
         $rss->position = $request->position;
         $rss->save();
@@ -98,7 +99,7 @@ class RssController extends Controller
         abort_if($rss->is_private, 403);
 
         $rss->update([
-            'json_torrent' => array_merge($rss->json_torrent, $rss->expected_fields, $request->validated()),
+            'json_torrent' => new RssTorrentDTO(...$request->validated()),
             'name'         => $request->name,
             'position'     => $request->position,
         ]);

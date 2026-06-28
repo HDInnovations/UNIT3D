@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\DTO\RssTorrentDTO;
 use App\DTO\TorrentSearchFiltersDTO;
 use App\Models\Category;
 use App\Models\TmdbGenre;
@@ -110,8 +111,7 @@ class RssController extends Controller
             $rss = new Rss();
             $rss->name = $request->input('name');
             $rss->user_id = $request->user()->id;
-            $expected = $rss->expected_fields;
-            $rss->json_torrent = array_merge($expected, $params);
+            $rss->json_torrent = new RssTorrentDTO(...$params);
             $rss->is_private = true;
             $rss->save();
 
@@ -147,62 +147,59 @@ class RssController extends Controller
 
         $search = $rss->object_torrent;
 
-        if (\is_object($search)) {
-            $cacheKey = 'rss:'.$rss->id;
+        $cacheKey = 'rss:'.$rss->id;
 
-            $torrents = cache()->flexible($cacheKey, [60 * 5, 60 * 6], function () use ($search) {
-                $filters = new TorrentSearchFiltersDTO(
-                    name: $search->search ?? '',
-                    description: $search->description ?? '',
-                    uploader: $search->uploader ?? '',
-                    categoryIds: array_map(intval(...), $search->categories ?? []),
-                    typeIds: array_map(intval(...), $search->types ?? []),
-                    resolutionIds: array_map(intval(...), $search->resolutions ?? []),
-                    genreIds: array_map(intval(...), $search->genres ?? []),
-                    tmdbId: $search->tmdb === null ? null : (int) $search->tmdb,
-                    imdbId: $search->imdb === null ? null : ((int) (preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)),
-                    tvdbId: $search->tvdb === null ? null : (int) $search->tvdb,
-                    malId: $search->mal === null ? null : (int) $search->mal,
-                    free: $search->freeleech === null ? [] : [25, 50, 75, 100],
-                    doubleup: (bool) ($search->doubleupload ?? false),
-                    featured: (bool) ($search->featured ?? false),
-                    highspeed: (bool) ($search->highspeed ?? false),
-                    userBookmarked: (bool) ($search->bookmark ?? false),
-                    internal: (bool) ($search->internal ?? false),
-                    personalRelease: (bool) ($search->personalrelease ?? false),
-                    alive: (bool) ($search->alive ?? false),
-                    dying: (bool) ($search->dying ?? false),
-                    dead: (bool) ($search->dead ?? false),
-                );
+        $torrents = cache()->flexible($cacheKey, [60 * 5, 60 * 6], function () use ($search) {
+            $filters = new TorrentSearchFiltersDTO(
+                name: $search->search ?? '',
+                description: $search->description ?? '',
+                uploader: $search->uploader ?? '',
+                categoryIds: array_map(intval(...), $search->categories ?? []),
+                typeIds: array_map(intval(...), $search->types ?? []),
+                resolutionIds: array_map(intval(...), $search->resolutions ?? []),
+                genreIds: array_map(intval(...), $search->genres ?? []),
+                tmdbId: $search->tmdb === null ? null : (int) $search->tmdb,
+                imdbId: $search->imdb === null ? null : ((int) (preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)),
+                tvdbId: $search->tvdb === null ? null : (int) $search->tvdb,
+                malId: $search->mal === null ? null : (int) $search->mal,
+                free: $search->freeleech === null ? [] : [25, 50, 75, 100],
+                doubleup: (bool) ($search->doubleupload ?? false),
+                featured: (bool) ($search->featured ?? false),
+                highspeed: (bool) ($search->highspeed ?? false),
+                userBookmarked: (bool) ($search->bookmark ?? false),
+                internal: (bool) ($search->internal ?? false),
+                personalRelease: (bool) ($search->personalrelease ?? false),
+                alive: (bool) ($search->alive ?? false),
+                dying: (bool) ($search->dying ?? false),
+                dead: (bool) ($search->dead ?? false),
+            );
 
-                $results = Torrent::search(
-                    $search->search ?? '',
-                    function (Indexes $meilisearch, string $query, array $options) use ($filters) {
-                        $options['limit'] = 50;
-                        $options['sort'] = [
-                            'bumped_at:desc',
-                        ];
-                        $options['filter'] = $filters->toMeilisearchFilter();
-                        $options['matchingStrategy'] = 'all';
+            $results = Torrent::search(
+                $search->search ?? '',
+                function (Indexes $meilisearch, string $query, array $options) use ($filters) {
+                    $options['limit'] = 50;
+                    $options['sort'] = [
+                        'bumped_at:desc',
+                    ];
+                    $options['filter'] = $filters->toMeilisearchFilter();
+                    $options['matchingStrategy'] = 'all';
 
-                        $results = $meilisearch->search($query, $options);
+                    $results = $meilisearch->search($query, $options);
 
-                        return $results;
-                    }
-                )
-                    ->raw();
+                    return $results;
+                }
+            )
+                ->raw();
 
-                return $results['hits'] ?? [];
-            });
+            return $results['hits'] ?? [];
+        });
 
-            return response()->view('rss.show', [
-                'torrents' => $torrents,
-                'user'     => $user,
-                'rss'      => $rss,
-            ])
-                ->header('Content-Type', 'text/xml');
-        }
-        abort(404);
+        return response()->view('rss.show', [
+            'torrents' => $torrents,
+            'user'     => $user,
+            'rss'      => $rss,
+        ])
+            ->header('Content-Type', 'text/xml');
     }
 
     /**
@@ -275,9 +272,7 @@ class RssController extends Controller
         ]);
 
         if ($v->passes()) {
-            $expected = $rss->expected_fields;
-            $push = array_merge($expected, $params);
-            $rss->json_torrent = array_merge($rss->json_torrent, $push);
+            $rss->json_torrent = new RssTorrentDTO(...$params);
             $rss->is_private = true;
             $rss->save();
 

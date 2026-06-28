@@ -21,8 +21,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use stdClass;
 use AllowDynamicProperties;
+use App\Casts\AsRssTorrent;
+use App\DTO\RssTorrentDTO;
 
 /**
  * App\Models\Rss.
@@ -33,7 +34,7 @@ use AllowDynamicProperties;
  * @property int                             $user_id
  * @property bool                            $is_private
  * @property int                             $is_torrent
- * @property array                           $json_torrent
+ * @property RssTorrentDTO                   $json_torrent
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -57,15 +58,14 @@ final class Rss extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{name: 'string', json_torrent: 'array', expected_fields: 'array', is_private: 'bool'}
+     * @return array{name: 'string', json_torrent: class-string<AsRssTorrent>, is_private: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'name'            => 'string',
-            'json_torrent'    => 'array',
-            'expected_fields' => 'array',
-            'is_private'      => 'bool',
+            'name'         => 'string',
+            'json_torrent' => AsRssTorrent::class,
+            'is_private'   => 'bool',
         ];
     }
 
@@ -102,47 +102,11 @@ final class Rss extends Model
 
     /**
      * Get the RSS feeds JSON Torrent as object.
-     */
-    public function getObjectTorrentAttribute(): stdClass|bool
-    {
-        // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
-        if ($this->json_torrent) {
-            $expected = $this->expected_fields;
-
-            return (object) array_merge($expected, $this->json_torrent);
-        }
-
-        return false;
-    }
-
-    /**
-     * Get the RSS feeds expected fields for form validation.
      *
-     * @return array<string, null>
+     * @return RssTorrentDTO
      */
-    public function getExpectedFieldsAttribute(): array
+    public function getObjectTorrentAttribute(): RssTorrentDTO
     {
-        // Just Torrents for now... extendable to check on feed type in future.
-        return [
-            'search'          => null,
-            'description'     => null,
-            'uploader'        => null,
-            'imdb'            => null,
-            'mal'             => null,
-            'categories'      => null,
-            'types'           => null,
-            'resolutions'     => null,
-            'genres'          => null,
-            'freeleech'       => null,
-            'doubleupload'    => null,
-            'featured'        => null,
-            'highspeed'       => null,
-            'internal'        => null,
-            'personalrelease' => null,
-            'bookmark'        => null,
-            'alive'           => null,
-            'dying'           => null,
-            'dead'            => null,
-        ];
+        return $this->json_torrent;
     }
 }
