@@ -27,14 +27,13 @@
                     <th>
                         {{ __('common.created_at') }}
                     </th>
-                    <th>{{ __('user.judge') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($torrent->reports as $report)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.reports.show', ['report' => $report]) }}">
+                            <a href="{{ route('reports.show', ['report' => $report]) }}">
                                 {{ $report->title }}
                             </a>
                         </td>
@@ -45,8 +44,8 @@
                             <x-user-tag :anon="false" :user="$report->reporter" />
                         </td>
                         <td>
-                            @if ($report->assignee)
-                                <x-user-tag :anon="false" :user="$report->assignee" />
+                            @if ($report->staff)
+                                <x-user-tag :anon="false" :user="$report->staff" />
                             @else
                                 Unassigned
                             @endif
@@ -58,15 +57,6 @@
                             >
                                 {{ $report->created_at->toDayDateTimeString() }}
                             </time>
-                        </td>
-                        <td>
-                            @if ($report->judge)
-                                <x-user-tag :anon="false" :user="$report->judge" />
-                            @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
-                            @endif
                         </td>
                     </tr>
                 @empty

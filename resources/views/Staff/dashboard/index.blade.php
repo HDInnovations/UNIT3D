@@ -716,18 +716,6 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.reports.index') }}"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-file"></i>
-                        {{ __('staff.reports-log') }} ({{ $unsolvedReportsCount }})
-                        @if ($unsolvedReportsCount > 0)
-                            <x-animation.notification />
-                        @endif
-                    </a>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <a
-                        class="form__button form__button--text"
                         href="{{ route('staff.warnings.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-file"></i>
