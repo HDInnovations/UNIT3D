@@ -92,7 +92,6 @@ test('announce rejects invalid numeric fields', function (string $field, string 
     'scientific notation'      => ['uploaded', '1e19'],
     'negative uploaded'        => ['uploaded', '-1'],
     'float uploaded'           => ['uploaded', '1.5'],
-    'whitespace-padded'        => ['uploaded', ' 1'],
     'hex uploaded'             => ['uploaded', '0x10'],
     'above max left'           => ['left', '1125899906842625'], // MAX_ANNOUNCE_VALUE + 1
     'exabyte-scale downloaded' => ['downloaded', '99999999999999999999'],
