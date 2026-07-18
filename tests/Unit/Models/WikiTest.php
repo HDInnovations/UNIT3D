@@ -14,32 +14,32 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Models\Page;
+use App\Models\Wiki;
 
-describe('page model', function (): void {
+describe('wiki model', function (): void {
     it('parses BBCode and Markdown', function (): void {
-        $page = Page::factory()->make([
+        $wiki = new Wiki([
             'content' => '# Hello [b]world[/b]',
         ]);
 
-        expect(trim($page->getContentHtml()))->toBe('<h1>Hello <b>world</b></h1>');
+        expect(trim($wiki->getContentHtml()))->toBe('<h1>Hello <b>world</b></h1>');
     });
 
     it('escapes raw html in content', function (): void {
-        $page = Page::factory()->make([
+        $wiki = new Wiki([
             'content' => '<script>alert(1)</script>',
         ]);
 
-        expect($page->getContentHtml())
+        expect($wiki->getContentHtml())
             ->not->toContain('<script>')
             ->toContain('&lt;script&gt;');
     });
 
     it('neutralizes unsafe markdown links', function (): void {
-        $page = Page::factory()->make([
+        $wiki = new Wiki([
             'content' => '[click](javascript:alert(1))',
         ]);
 
-        expect($page->getContentHtml())->not->toContain('javascript:');
+        expect($wiki->getContentHtml())->not->toContain('javascript:');
     });
 });

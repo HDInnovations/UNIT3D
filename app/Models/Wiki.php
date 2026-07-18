@@ -55,6 +55,6 @@ final class Wiki extends Model
      */
     public function getContentHtml(): string
     {
-        return Markdown::convert(htmlspecialchars_decode((new Bbcode())->parse($this->content, false), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5))->getContent();
+        return Markdown::convert((new Bbcode())->parse($this->content, false))->getContent();
     }
 }
