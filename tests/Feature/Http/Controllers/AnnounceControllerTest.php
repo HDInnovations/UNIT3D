@@ -54,3 +54,70 @@ test('index returns an ok response', function (): void {
 
     $this->assertStringNotContainsString('failure reason', $response->getContent());
 });
+
+test('announce rejects invalid numeric fields', function (string $field, string $value): void {
+    Redis::connection('announce')->flushdb();
+    $user = User::factory()->create([
+        'can_download' => true,
+    ]);
+
+    $info_hash = '16679042096019090177'; // 20 bytes
+    $peer_id = '19045931013802080695'; // 20 bytes
+
+    Torrent::factory()->create([
+        'info_hash' => $info_hash,
+        'status'    => ModerationStatus::APPROVED,
+    ]);
+
+    $response = $this->get(route('announce', array_merge([
+        'passkey'    => $user->passkey,
+        'info_hash'  => $info_hash,
+        'peer_id'    => $peer_id,
+        'port'       => 7022,
+        'left'       => 0,
+        'uploaded'   => 1,
+        'downloaded' => 1,
+    ], [$field => $value])));
+
+    $this->assertStringContainsString('failure reason', $response->getContent());
+})->with([
+    'exabyte-scale uploaded'   => ['uploaded', '9000000000000000000'],
+    'scientific notation'      => ['uploaded', '1e19'],
+    'negative uploaded'        => ['uploaded', '-1'],
+    'float uploaded'           => ['uploaded', '1.5'],
+    'whitespace-padded'        => ['uploaded', ' 1'],
+    'hex uploaded'             => ['uploaded', '0x10'],
+    'above max left'           => ['left', '1125899906842625'], // MAX_ANNOUNCE_VALUE + 1
+    'exabyte-scale downloaded' => ['downloaded', '99999999999999999999'],
+    'float numwant'            => ['numwant', '25.5'],
+    'negative corrupt'         => ['corrupt', '-1'],
+]);
+
+test('announce accepts legitimate boundary values', function (): void {
+    Redis::connection('announce')->flushdb();
+    $user = User::factory()->create([
+        'can_download' => true,
+    ]);
+
+    $info_hash = '16679042096019090177'; // 20 bytes
+    $peer_id = '19045931013802080695'; // 20 bytes
+
+    Torrent::factory()->create([
+        'info_hash' => $info_hash,
+        'status'    => ModerationStatus::APPROVED,
+    ]);
+
+    // Exactly MAX_ANNOUNCE_VALUE (1 PiB), with numwant/corrupt omitted
+    $response = $this->get(route('announce', [
+        'passkey'    => $user->passkey,
+        'info_hash'  => $info_hash,
+        'peer_id'    => $peer_id,
+        'port'       => 7022,
+        'left'       => 1125899906842624,
+        'uploaded'   => 1099511627776, // 1 TiB
+        'downloaded' => 1,
+    ]));
+    $response->assertOk();
+
+    $this->assertStringNotContainsString('failure reason', $response->getContent());
+});
