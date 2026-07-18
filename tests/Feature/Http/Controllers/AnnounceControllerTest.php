@@ -69,7 +69,14 @@ test('announce rejects invalid numeric fields', function (string $field, string 
         'status'    => ModerationStatus::APPROVED,
     ]);
 
-    $response = $this->get(route('announce', array_merge([
+    $headers = [
+        'accept-language' => null,
+        'referer'         => null,
+        'accept-charset'  => null,
+        'want-digest'     => null,
+    ];
+
+    $response = $this->withHeaders($headers)->get(route('announce', array_merge([
         'passkey'    => $user->passkey,
         'info_hash'  => $info_hash,
         'peer_id'    => $peer_id,
@@ -79,7 +86,7 @@ test('announce rejects invalid numeric fields', function (string $field, string 
         'downloaded' => 1,
     ], [$field => $value])));
 
-    $this->assertStringContainsString('failure reason', $response->getContent());
+    $this->assertStringContainsString('Invalid '.$field.' !', $response->getContent());
 })->with([
     'exabyte-scale uploaded'   => ['uploaded', '9000000000000000000'],
     'scientific notation'      => ['uploaded', '1e19'],
@@ -107,8 +114,15 @@ test('announce accepts legitimate boundary values', function (): void {
         'status'    => ModerationStatus::APPROVED,
     ]);
 
+    $headers = [
+        'accept-language' => null,
+        'referer'         => null,
+        'accept-charset'  => null,
+        'want-digest'     => null,
+    ];
+
     // Exactly MAX_ANNOUNCE_VALUE (1 PiB), with numwant/corrupt omitted
-    $response = $this->get(route('announce', [
+    $response = $this->withHeaders($headers)->get(route('announce', [
         'passkey'    => $user->passkey,
         'info_hash'  => $info_hash,
         'peer_id'    => $peer_id,
