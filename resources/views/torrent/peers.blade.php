@@ -98,25 +98,61 @@
                             <td>{{ $peer->agent }}</td>
 
                             @if (auth()->user()->group->is_modo || auth()->id() == $peer->user_id)
-                                <td>{{ $peer->ip }}</td>
-                                <td>{{ $peer->port }}</td>
+                                <td>
+                                    @if ($peer->ipv4_ip)
+                                        <div>{{ $peer->ipv4_ip }}</div>
+                                    @endif
+                                    @if ($peer->ipv6_ip)
+                                        <div>{{ $peer->ipv6_ip }}</div>
+                                    @endif
+                                    @unless ($peer->ipv4_ip || $peer->ipv6_ip)
+                                        ---
+                                    @endunless
+                                </td>
+                                <td>
+                                    @if ($peer->ipv4_ip)
+                                        <div>{{ $peer->ipv4_port }}</div>
+                                    @endif
+                                    @if ($peer->ipv6_ip)
+                                        <div>{{ $peer->ipv6_port }}</div>
+                                    @endif
+                                </td>
                             @else
                                 <td>---</td>
                                 <td>---</td>
                             @endif
                             @if (\config('announce.connectable_check') == true)
-                                @php
-                                    $connectable = false;
-                                    if (config('announce.external_tracker.is_enabled')) {
-                                        $connectable = $peer->connectable;
-                                    } elseif (cache()->has('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent)) {
-                                        $connectable = cache()->get('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent);
-                                    }
-                                @endphp
+                                @if (config('announce.external_tracker.is_enabled'))
+                                    {{-- Dual-stack: report connectability per IP family, stacked like
+                                         the IP/Port columns, so a peer reachable on one family but not
+                                         the other is unambiguous (the legacy single flag hid this). --}}
+                                    <td>
+                                        @if ($peer->ipv4_ip)
+                                            <div class="{{ $peer->ipv4_connectable ? 'text-green' : 'text-red' }}">
+                                                IPv4: @choice('user.client-connectable-state', $peer->ipv4_connectable ? 1 : 0)
+                                            </div>
+                                        @endif
+                                        @if ($peer->ipv6_ip)
+                                            <div class="{{ $peer->ipv6_connectable ? 'text-green' : 'text-red' }}">
+                                                IPv6: @choice('user.client-connectable-state', $peer->ipv6_connectable ? 1 : 0)
+                                            </div>
+                                        @endif
+                                        @unless ($peer->ipv4_ip || $peer->ipv6_ip)
+                                            ---
+                                        @endunless
+                                    </td>
+                                @else
+                                    @php
+                                        $connectable = false;
+                                        if (cache()->has('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent)) {
+                                            $connectable = cache()->get('peers:connectable:' . $peer->ip . '-' . $peer->port . '-' . $peer->agent);
+                                        }
+                                    @endphp
 
-                                <td class="{{ $connectable ? 'text-green' : 'text-red' }}">
-                                    @choice('user.client-connectable-state', $connectable)
-                                </td>
+                                    <td class="{{ $connectable ? 'text-green' : 'text-red' }}">
+                                        @choice('user.client-connectable-state', $connectable)
+                                    </td>
+                                @endif
                             @endif
 
                             <td>

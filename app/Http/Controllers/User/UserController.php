@@ -95,18 +95,28 @@ class UserController extends Controller
             'boughtUpload' => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
             // 'boughtDownload'        => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
-            'clients'   => $user->peers()
-                ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
-                ->select('agent', 'port')
-                ->selectRaw('INET6_NTOA(peers.ip) as ip')
-                ->selectRaw('MIN(peers.created_at) as created_at')
-                ->selectRaw('MAX(peers.updated_at) as updated_at')
-                ->selectRaw('SUM(torrents.size) as size')
-                ->selectRaw('COUNT(*) as num_peers')
-                ->selectRaw('MAX(peers.connectable) as connectable')
-                ->groupBy(['ip', 'port', 'agent'])
-                ->where('active', '=', true)
-                ->get(),
+            // Dual-stack aware: one row per IP family (IPv4 and IPv6) so a
+            // dual-stack peer shows two separate lines (same content, two
+            // addresses) instead of collapsing onto the legacy `ip` column.
+            'clients'   => (function () use ($user) {
+                $family = fn (string $ip, string $port, string $conn) => $user->peers()
+                    ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
+                    ->whereNotNull('peers.'.$ip)
+                    ->where('peers.active', '=', true)
+                    ->selectRaw("INET6_NTOA(peers.$ip) as ip")
+                    ->selectRaw("peers.$port as port")
+                    ->selectRaw('peers.agent as agent')
+                    ->selectRaw('MIN(peers.created_at) as created_at')
+                    ->selectRaw('MAX(peers.updated_at) as updated_at')
+                    ->selectRaw('SUM(torrents.size) as size')
+                    ->selectRaw('COUNT(*) as num_peers')
+                    ->selectRaw("MAX(peers.$conn) as connectable")
+                    ->groupBy("peers.$ip", "peers.$port", 'peers.agent');
+
+                return $family('ipv6', 'ipv6_port', 'ipv6_connectable')
+                    ->union($family('ipv4', 'ipv4_port', 'ipv4_connectable'))
+                    ->get();
+            })(),
             'achievements' => AchievementProgress::with('details')
                 ->where('achiever_id', '=', $user->id)
                 ->whereNotNull('unlocked_at')

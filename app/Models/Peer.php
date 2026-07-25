@@ -50,14 +50,20 @@ final class Peer extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{active: 'bool', seeder: 'bool', connectable: 'bool'}
+     * @return array{active: 'bool', seeder: 'bool', connectable: 'bool', ipv4_connectable: 'bool', ipv6_connectable: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'active'      => 'bool',
-            'seeder'      => 'bool',
-            'connectable' => 'bool',
+            'active'           => 'bool',
+            'seeder'           => 'bool',
+            'connectable'      => 'bool',
+            // Per-family connectability (dual-stack). Nullable in the DB: null
+            // means "no endpoint on this family", so the null-stays-null behavior
+            // of the bool cast is intentional — the blade only renders these when
+            // the corresponding ipv4_ip / ipv6_ip is present.
+            'ipv4_connectable' => 'bool',
+            'ipv6_connectable' => 'bool',
         ];
     }
 

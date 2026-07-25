@@ -32,10 +32,18 @@ class TorrentPeerController extends Controller
 
         return view('torrent.peers', [
             'torrent' => $torrent,
+            // Dual-stack aware: ONE row per peer (it is a single peer with a
+            // single progress), but exposing BOTH IP families so the blade can
+            // show the IPv4 and IPv6 addresses together in one entry.
             'peers'   => Peer::query()
                 ->with('user.group')
-                ->select(['torrent_id', 'user_id', 'uploaded', 'downloaded', 'left', 'port', 'agent', 'created_at', 'updated_at', 'seeder', 'active', 'visible', 'connectable'])
-                ->selectRaw('INET6_NTOA(ip) as ip')
+                ->select(['torrent_id', 'user_id', 'uploaded', 'downloaded', 'left', 'agent', 'created_at', 'updated_at', 'seeder', 'active', 'visible', 'connectable'])
+                ->selectRaw('INET6_NTOA(ipv4) as ipv4_ip')
+                ->selectRaw('ipv4_port')
+                ->selectRaw('ipv4_connectable')
+                ->selectRaw('INET6_NTOA(ipv6) as ipv6_ip')
+                ->selectRaw('ipv6_port')
+                ->selectRaw('ipv6_connectable')
                 ->where('torrent_id', '=', $id)
                 ->orderByRaw('user_id = ? DESC', [$request->user()->id])
                 ->orderByDesc('active')
