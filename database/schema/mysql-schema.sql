@@ -2408,6 +2408,7 @@ CREATE TABLE `user_notifications` (
   `show_torrent_comment` tinyint(1) NOT NULL DEFAULT '1',
   `show_torrent_tip` tinyint(1) NOT NULL DEFAULT '1',
   `show_torrent_thank` tinyint(1) NOT NULL DEFAULT '1',
+  `show_torrent_deleted` tinyint(1) NOT NULL DEFAULT '1',
   `show_account_follow` tinyint(1) NOT NULL DEFAULT '1',
   `show_account_unfollow` tinyint(1) NOT NULL DEFAULT '1',
   `json_account_groups` json NOT NULL,
@@ -2439,6 +2440,7 @@ CREATE TABLE `user_notifications` (
   KEY `user_notifications_show_torrent_comment_index` (`show_torrent_comment`),
   KEY `user_notifications_show_torrent_tip_index` (`show_torrent_tip`),
   KEY `user_notifications_show_torrent_thank_index` (`show_torrent_thank`),
+  KEY `user_notifications_show_torrent_deleted_index` (`show_torrent_deleted`),
   KEY `user_notifications_show_account_follow_index` (`show_account_follow`),
   KEY `user_notifications_show_account_unfollow_index` (`show_account_unfollow`),
   CONSTRAINT `user_notifications_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
@@ -3142,3 +3144,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (381,'2026_06_26_13
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (382,'2026_06_27_065215_rename_bounty_requests_id',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (383,'2026_06_27_193400_add_apikey_permissions',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (384,'2026_07_15_070539_remove_unused_ticket_columns',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (384,'2026_08_04_000000_add_show_torrent_deleted_to_user_notifications_table',1);

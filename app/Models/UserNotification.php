@@ -47,6 +47,7 @@ use Override;
  * @property int       $show_torrent_comment
  * @property int       $show_torrent_tip
  * @property int       $show_torrent_thank
+ * @property int       $show_torrent_deleted
  * @property int       $show_account_follow
  * @property int       $show_account_unfollow
  * @property list<int> $json_account_groups

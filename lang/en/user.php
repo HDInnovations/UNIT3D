@@ -383,6 +383,7 @@ return [
     'torrent-notification-comment' => 'Receive a notification when an uploaded torrent gets a new comment',
     'torrent-notification-thank'   => 'Receive a notification when an uploaded torrent gets a new thank',
     'torrent-notification-tip'     => 'Receive a notification when an uploaded torrent gets a new tip',
+    'torrent-notification-deleted' => 'Receive a notification when an uploaded, seeded or leeched torrent gets deleted',
     'torrent-notification-help'    => 'Control which notifications are sent concerning torrent activities.
     These settings are overridden if you do not allow any groups to send notifications concerning torrent activities or if you <strong>disable notifications</strong>',
     'torrent-privacy'          => 'Torrent settings',

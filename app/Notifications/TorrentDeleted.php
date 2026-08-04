@@ -44,6 +44,22 @@ class TorrentDeleted extends Notification implements ShouldQueue, SystemNotifica
     }
 
     /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        if ($notifiable->notification?->block_notifications === 1) {
+            return false;
+        }
+
+        if ($notifiable->notification?->show_torrent_deleted === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>

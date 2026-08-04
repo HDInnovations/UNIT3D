@@ -285,6 +285,19 @@
                             {{ __('user.torrent-notification-tip') }}
                         </label>
                     </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="show_torrent_deleted" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="show_torrent_deleted"
+                                value="1"
+                                @checked($user->notification === null || $user->notification?->show_torrent_deleted)
+                            />
+                            {{ __('user.torrent-notification-deleted') }}
+                        </label>
+                    </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
                     <legend class="form__legend">Mentions</legend>

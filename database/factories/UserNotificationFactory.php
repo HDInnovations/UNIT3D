@@ -58,6 +58,7 @@ class UserNotificationFactory extends Factory
             'show_torrent_comment'         => $this->faker->boolean(),
             'show_torrent_tip'             => $this->faker->boolean(),
             'show_torrent_thank'           => $this->faker->boolean(),
+            'show_torrent_deleted'         => $this->faker->boolean(),
             'show_account_follow'          => $this->faker->boolean(),
             'show_account_unfollow'        => $this->faker->boolean(),
             'json_account_groups'          => Group::factory()->count(3)->create()->pluck('id')->toArray(),
