@@ -17,12 +17,26 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Resources\TorrentRequestResource;
 use App\Models\TorrentRequest;
+use App\Models\TorrentRequestBounty;
+use App\Repositories\ChatRepository;
+use App\Services\Igdb\IgdbScraper;
+use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TorrentRequestController extends Controller
 {
+    /**
+     * TorrentRequestController Constructor.
+     */
+    public function __construct(
+        private readonly ChatRepository $chatRepository
+    ) {
+    }
+
     /**
      * Request search filter.
      */
@@ -54,6 +68,53 @@ class TorrentRequestController extends Controller
         );
 
         return TorrentRequestResource::collection($requests)->response();
+    }
+
+    /**
+     * Store a newly created request in storage.
+     */
+    public function store(StoreTorrentRequestRequest $request): \Illuminate\Http\JsonResponse
+    {
+        $user = $request->user();
+
+        $torrentRequest = DB::transaction(function () use ($request, $user): TorrentRequest {
+            $user->decrement('seedbonus', $request->bounty);
+
+            $torrentRequest = TorrentRequest::create(['user_id' => $user->id] + $request->safe()->except(['bounty', 'anon']));
+
+            TorrentRequestBounty::create([
+                'user_id'     => $user->id,
+                'seedbonus'   => $request->bounty,
+                'requests_id' => $torrentRequest->id,
+                'anon'        => $request->anon,
+            ]);
+
+            return $torrentRequest;
+        });
+
+        // Auto Shout
+        if (!$torrentRequest->anon) {
+            $this->chatRepository->systemMessage(
+                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
+            );
+        } else {
+            $this->chatRepository->systemMessage(
+                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
+            );
+        }
+
+        match (true) {
+            $torrentRequest->tmdb_tv_id !== null    => new TMDBScraper()->tv($torrentRequest->tmdb_tv_id),
+            $torrentRequest->tmdb_movie_id !== null => new TMDBScraper()->movie($torrentRequest->tmdb_movie_id),
+            $torrentRequest->igdb !== null          => new IgdbScraper()->game($torrentRequest->igdb),
+            default                                 => null,
+        };
+
+        $torrentRequest->load(['user', 'claim.user', 'filler'])->loadSum('bounties', 'seedbonus');
+
+        return (new TorrentRequestResource($torrentRequest))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
