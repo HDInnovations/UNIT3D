@@ -35,7 +35,7 @@ class ConversationFactory extends Factory
     public function definition(): array
     {
         return [
-            'subject'    => $this->faker->text,
+            'subject'    => $this->faker->text(),
             'created_at' => $this->faker->optional()->dateTime(),
             'updated_at' => $this->faker->optional()->dateTime(),
         ];
