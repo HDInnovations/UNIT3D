@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\Comments;
 use App\Models\Bot;
 use App\Models\Comment;
 use App\Models\Group;
@@ -60,7 +59,7 @@ test('comments on playlist creates a notification for playlist owner', function 
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $playlist])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $playlist])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -102,7 +101,7 @@ test('user comments on own playlist does not create a notification for self', fu
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($owner)
-        ->test(Comments::class, ['model' => $playlist])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $playlist])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -144,7 +143,7 @@ test('comments on playlist does not create a notification for playlist owner whe
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $playlist])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $playlist])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');

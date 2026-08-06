@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\Comments;
 use App\Models\Article;
 use App\Models\Bot;
 use App\Models\Comment;
@@ -64,7 +63,7 @@ test('user comments on article creates a notification for staff', function (): v
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($user)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -107,7 +106,7 @@ test('staff comments on own article does not create a notification for staff', f
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($staff)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -153,7 +152,7 @@ test('user comments on article does not a notification for staff user when all n
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($user)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');

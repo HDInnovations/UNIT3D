@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\AuditLogSearch;
 use App\Models\Audit;
 use App\Models\Group;
 use App\Models\User;
@@ -42,5 +41,5 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->get(route('staff.audits.index'));
     $response->assertOk();
     $response->assertViewIs('Staff.audit.index');
-    $response->assertSeeLivewire(AuditLogSearch::class);
+    $response->assertSeeLivewire('resources.views.livewire.app.http.livewire.audit-log-search');
 });

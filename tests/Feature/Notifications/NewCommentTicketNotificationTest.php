@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\Comments;
 use App\Models\Bot;
 use App\Models\Comment;
 use App\Models\Group;
@@ -70,7 +69,7 @@ test('user comments own ticket does not create a notification for self but assig
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($user)
-        ->test(Comments::class, ['model' => $ticket])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $ticket])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -122,7 +121,7 @@ test('user comments own ticket does not create a notification for staff when non
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($user)
-        ->test(Comments::class, ['model' => $ticket])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $ticket])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -170,7 +169,7 @@ test('staff comments a ticket creates a notification for the user but not staff'
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($staff)
-        ->test(Comments::class, ['model' => $ticket])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $ticket])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -224,7 +223,7 @@ test('staff comments a ticket create a notification for the user even when all n
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($staff)
-        ->test(Comments::class, ['model' => $ticket])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $ticket])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');

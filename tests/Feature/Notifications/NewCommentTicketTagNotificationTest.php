@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\Comments;
 use App\Models\Bot;
 use App\Models\Comment;
 use App\Models\Group;
@@ -66,7 +65,7 @@ test('user tags user on ticket creates a notification for tagged user', function
     $commentText = '@'.$staff->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $ticket])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $ticket])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -119,7 +118,7 @@ test('user tags user on ticket does not create a notification for tagged user wh
     $commentText = '@'.$staff->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $ticket])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $ticket])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');

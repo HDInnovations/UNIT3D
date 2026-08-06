@@ -1,0 +1,43 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
+use Livewire\Component;
+use ZxcvbnPhp\Zxcvbn;
+
+new class extends Component
+{
+    public string $password = '';
+
+    public string $passwordStrength = 'Weak';
+
+    public int $strengthScore = 0;
+
+    /**
+     * @var array<int, string>
+     */
+    public array $strengthLevels = [
+        1 => 'Weak',
+        2 => 'Fair',
+        3 => 'Good',
+        4 => 'Strong',
+    ];
+
+    final public function updatedPassword(string $password): void
+    {
+        $this->strengthScore = (new Zxcvbn())->passwordStrength($password)['score'];
+    }
+
+    };

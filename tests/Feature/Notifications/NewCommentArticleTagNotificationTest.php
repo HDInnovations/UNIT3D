@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\Comments;
 use App\Models\Article;
 use App\Models\Bot;
 use App\Models\Comment;
@@ -63,7 +62,7 @@ test('user tags user on article creates a notification for tagged user', functio
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -116,7 +115,7 @@ test('staff tags user on article creates a notification for tagged user even whe
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -168,7 +167,7 @@ test('user tags user on article creates a notification for tagged user when ment
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -218,7 +217,7 @@ test('user tags user on article does not create a notification for tagged user w
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -266,7 +265,7 @@ test('user tags user on article does not create a notification for tagged user w
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -315,7 +314,7 @@ test('user tags user on article does not create a notification for tagged user w
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $article])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $article])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');

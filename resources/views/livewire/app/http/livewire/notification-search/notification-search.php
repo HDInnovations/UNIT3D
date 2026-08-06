@@ -1,0 +1,146 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
+use App\Models\User;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Url;
+use Livewire\Component;
+use Livewire\WithPagination;
+
+new class extends Component
+{
+    use LivewireSort;
+    use WithPagination;
+
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
+    public bool $bon_gifts = false;
+
+    #[Url(history: true)]
+    public bool $comment = false;
+
+    #[Url(history: true)]
+    public bool $comment_tags = false;
+
+    #[Url(history: true)]
+    public bool $followers = false;
+
+    #[Url(history: true)]
+    public bool $playlist_suggestions = false;
+
+    #[Url(history: true)]
+    public bool $playlist_suggestion_rejections = false;
+
+    #[Url(history: true)]
+    public bool $posts = false;
+
+    #[Url(history: true)]
+    public bool $post_tags = false;
+
+    #[Url(history: true)]
+    public bool $post_tips = false;
+
+    #[Url(history: true)]
+    public bool $request_bounties = false;
+
+    #[Url(history: true)]
+    public bool $request_claims = false;
+
+    #[Url(history: true)]
+    public bool $request_fills = false;
+
+    #[Url(history: true)]
+    public bool $request_approvals = false;
+
+    #[Url(history: true)]
+    public bool $request_rejections = false;
+
+    #[Url(history: true)]
+    public bool $request_unclaims = false;
+
+    #[Url(history: true)]
+    public bool $reseed_requests = false;
+
+    #[Url(history: true)]
+    public bool $thanks = false;
+
+    #[Url(history: true)]
+    public bool $upload_tips = false;
+
+    #[Url(history: true)]
+    public bool $topics = false;
+
+    #[Url(history: true)]
+    public bool $unfollows = false;
+
+    #[Url(history: true)]
+    public bool $uploads = false;
+
+    #[Url(history: true)]
+    public int $perPage = 25;
+
+    #[Url(history: true)]
+    public string $sortField = 'created_at';
+
+    #[Url(history: true)]
+    public string $sortDirection = 'desc';
+
+    /**
+     * @var \Illuminate\Pagination\LengthAwarePaginator<int, \Illuminate\Notifications\DatabaseNotification>
+     */
+    final protected \Illuminate\Pagination\LengthAwarePaginator $notifications {
+        get => auth()->user()->notifications()
+            ->select('*')
+            ->selectRaw("CASE WHEN read_at IS NULL THEN 'FALSE' ELSE 'TRUE' END as is_read")
+            ->where(
+                fn ($query) => $query
+                    ->when($this->bon_gifts, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewBon::class))
+                    ->when($this->comment, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewComment::class))
+                    ->when($this->comment_tags, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewCommentTag::class))
+                    ->when($this->followers, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewFollow::class))
+                    ->when($this->playlist_suggestions, fn ($query) => $query->orWhere('type', '=', \App\Notifications\PlaylistSuggestionCreated::class))
+                    ->when($this->playlist_suggestion_rejections, fn ($query) => $query->orWhere('type', '=', \App\Notifications\PlaylistSuggestionRejected::class))
+                    ->when($this->posts, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewPost::class))
+                    ->when($this->post_tags, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewPostTag::class))
+                    ->when($this->post_tips, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewPostTip::class))
+                    ->when($this->request_bounties, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewRequestBounty::class))
+                    ->when($this->request_claims, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewRequestClaim::class))
+                    ->when($this->request_fills, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewRequestFill::class))
+                    ->when($this->request_approvals, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewRequestFillApprove::class))
+                    ->when($this->request_rejections, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewRequestFillReject::class))
+                    ->when($this->request_unclaims, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewRequestUnclaim::class))
+                    ->when($this->reseed_requests, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewReseedRequest::class))
+                    ->when($this->thanks, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewThank::class))
+                    ->when($this->upload_tips, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewUploadTip::class))
+                    ->when($this->topics, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewTopic::class))
+                    ->when($this->unfollows, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewUnfollow::class))
+                    ->when($this->uploads, fn ($query) => $query->orWhere('type', '=', \App\Notifications\NewUpload::class))
+            )
+            ->reorder()
+            ->orderBy('is_read')
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate(min($this->perPage, 100));
+    }
+
+    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        return $this->view([
+            'user'          => User::query()->with(['group'])->findOrFail(auth()->id()),
+            'notifications' => $this->notifications,
+        ]);
+    }
+};

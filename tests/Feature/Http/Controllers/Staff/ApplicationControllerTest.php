@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 use App\Enums\ModerationStatus;
 use App\Http\Controllers\Staff\ApplicationController;
-use App\Http\Livewire\ApplicationSearch;
 use App\Http\Requests\Staff\ApproveApplicationRequest;
 use App\Http\Requests\Staff\RejectApplicationRequest;
 use App\Models\Application;
@@ -61,7 +60,7 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->get(route('staff.applications.index'));
     $response->assertOk();
     $response->assertViewIs('Staff.application.index');
-    $response->assertSeeLivewire(ApplicationSearch::class);
+    $response->assertSeeLivewire('resources.views.livewire.app.http.livewire.application-search');
 });
 
 test('reject validates with a form request', function (): void {

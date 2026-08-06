@@ -16,9 +16,6 @@ declare(strict_types=1);
 
 namespace Tests\Old;
 
-use App\Http\Livewire\PostSearch;
-use App\Http\Livewire\SubscribedForum;
-use App\Http\Livewire\TopicSearch;
 use App\Models\Forum;
 use App\Models\ForumPermission;
 use App\Models\User;
@@ -60,7 +57,7 @@ final class ForumControllerTest extends TestCase
         $this->actingAs($user)->get(route('posts.index'))
             ->assertOk()
             ->assertViewIs('forum.post.index')
-            ->assertSeeLivewire(PostSearch::class);
+            ->assertSeeLivewire('resources.views.livewire.app.http.livewire.post-search');
     }
 
     #[Test]
@@ -74,7 +71,7 @@ final class ForumControllerTest extends TestCase
         $this->actingAs($user)->get(route('topics.index'))
             ->assertOk()
             ->assertViewIs('forum.topic.index')
-            ->assertSeeLivewire(TopicSearch::class);
+            ->assertSeeLivewire('resources.views.livewire.app.http.livewire.topic.search');
     }
 
     #[Test]
@@ -108,6 +105,6 @@ final class ForumControllerTest extends TestCase
         $this->actingAs($user)->get(route('subscriptions.index'))
             ->assertOk()
             ->assertViewIs('forum.subscriptions')
-            ->assertSeeLivewire(SubscribedForum::class);
+            ->assertSeeLivewire('resources.views.livewire.app.http.livewire.subscribed.forum');
     }
 }

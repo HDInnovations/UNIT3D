@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\Comments;
 use App\Models\Bot;
 use App\Models\Comment;
 use App\Models\Group;
@@ -59,7 +58,7 @@ test('comment own torrent does not create a notification for self', function ():
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($uploader)
-        ->test(Comments::class, ['model' => $torrent])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrent])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -105,7 +104,7 @@ test('comment a torrent creates a notification for the uploader', function (): v
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrent])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrent])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -157,7 +156,7 @@ test('comment a torrent creates a notification for the requester when request co
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrent])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrent])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -207,7 +206,7 @@ test('comment a torrent creates a notification for the requester when all notifi
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrent])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrent])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -253,7 +252,7 @@ test('comment a torrent creates a notification for the requester when request co
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrent])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrent])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -300,7 +299,7 @@ test('comment a torrent creates a notification for the requester when request co
     $commentText = 'This is a test comment';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrent])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrent])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');

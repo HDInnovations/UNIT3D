@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\NoteSearch;
 use App\Models\Group;
 use App\Models\Note;
 use App\Models\User;
@@ -47,5 +46,5 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->get(route('staff.notes.index'));
     $response->assertOk();
     $response->assertViewIs('Staff.note.index');
-    $response->assertSeeLivewire(NoteSearch::class);
+    $response->assertSeeLivewire('resources.views.livewire.app.http.livewire.note-search');
 });

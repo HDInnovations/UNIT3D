@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\TmdbPersonSearch;
 use App\Models\TmdbPerson;
 use App\Models\User;
 
@@ -24,7 +23,7 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($user)->get(route('mediahub.persons.index'));
     $response->assertOk();
     $response->assertViewIs('mediahub.person.index');
-    $response->assertSeeLivewire(TmdbPersonSearch::class);
+    $response->assertSeeLivewire('resources.views.livewire.app.http.livewire.tmdb.person-search');
 });
 
 test('show returns an ok response', function (): void {

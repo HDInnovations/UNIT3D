@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\TmdbCollectionSearch;
 use App\Models\TmdbCollection;
 use App\Models\User;
 
@@ -24,7 +23,7 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($user)->get(route('mediahub.collections.index'));
     $response->assertOk();
     $response->assertViewIs('mediahub.collection.index');
-    $response->assertSeeLivewire(TmdbCollectionSearch::class);
+    $response->assertSeeLivewire('resources.views.livewire.app.http.livewire.tmdb.collection-search');
 });
 
 test('show returns an ok response', function (): void {

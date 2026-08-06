@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\Comments;
 use App\Models\Bot;
 use App\Models\Comment;
 use App\Models\Group;
@@ -63,7 +62,7 @@ test('user tags user on request creates a notification for tagged user', functio
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrentRequest])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrentRequest])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -114,7 +113,7 @@ test('user tags user on request creates a notification for tagged user when ment
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrentRequest])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrentRequest])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -163,7 +162,7 @@ test('user tags user on request does not create a notification for tagged user w
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrentRequest])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrentRequest])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -211,7 +210,7 @@ test('user tags user on request does not create a notification for tagged user w
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrentRequest])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrentRequest])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');
@@ -260,7 +259,7 @@ test('user tags user on request does not create a notification for tagged user w
     $commentText = '@'.$user->username.' Test';
 
     Livewire::actingAs($commenter)
-        ->test(Comments::class, ['model' => $torrentRequest])
+        ->test('resources.views.livewire.app.http.livewire.comments', ['model' => $torrentRequest])
         ->set('newCommentState', $commentText)
         ->set('anon', false)
         ->call('postComment');

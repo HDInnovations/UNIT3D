@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\BackupPanel;
 use App\Models\Group;
 use App\Models\User;
 
@@ -32,5 +31,5 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($this->staffUser)->get(route('staff.backups.index'));
     $response->assertOk();
     $response->assertViewIs('Staff.backup.index');
-    $response->assertSeeLivewire(BackupPanel::class);
+    $response->assertSeeLivewire('resources.views.livewire.app.http.livewire.backup-panel');
 });

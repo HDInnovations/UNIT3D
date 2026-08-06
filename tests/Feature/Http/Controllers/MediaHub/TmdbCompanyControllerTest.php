@@ -14,7 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Livewire\TmdbCompanySearch;
 use App\Models\User;
 
 test('index returns an ok response', function (): void {
@@ -23,5 +22,5 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($user)->get(route('mediahub.companies.index'));
     $response->assertOk();
     $response->assertViewIs('mediahub.company.index');
-    $response->assertSeeLivewire(TmdbCompanySearch::class);
+    $response->assertSeeLivewire('resources.views.livewire.app.http.livewire.tmdb.company-search');
 });
