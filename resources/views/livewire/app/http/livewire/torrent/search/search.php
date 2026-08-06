@@ -412,9 +412,9 @@ new class () extends Component {
                 default              => null,
             },
             userSeeder: match (true) {
-                $this->seeding => true,
+                $this->seeding                     => true,
                 $this->leeching, $this->incomplete => false,
-                default => null,
+                default                            => null,
             },
             userActive: match (true) {
                 $this->seeding    => true,
