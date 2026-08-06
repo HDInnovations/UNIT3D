@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Providers\AppServiceProvider;
 use App\Enums\AuthGuard;
 use App\Enums\MiddlewareGroup;
 use App\Providers\RouteServiceProvider;
@@ -64,7 +65,7 @@ return [
     |
     */
 
-    'home' => RouteServiceProvider::HOME,
+    'home' => AppServiceProvider::HOME,
 
     /*
     |--------------------------------------------------------------------------

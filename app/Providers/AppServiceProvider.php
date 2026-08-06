@@ -37,6 +37,15 @@ use Override;
 class AppServiceProvider extends ServiceProvider
 {
     /**
+     * The path to your application's "home" route.
+     *
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
+     */
+    public const HOME = '/home';
+
+    /**
      * Register any application services.
      *
      * This service provider is a great spot to register your various container
@@ -129,5 +138,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Context::add('url', $request->url());
+
+        $this->bootAuth();
+    }
+
+    public function bootAuth(): void
+    {
+        Auth::provider('cache-user', fn () => resolve(CacheUserProvider::class));
     }
 }
