@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Enums\AuthGuard;
 
 return [
-
     'defaults' => [
         'guard'     => AuthGuard::WEB->value,
         'passwords' => 'users',
@@ -38,5 +37,4 @@ return [
     'verification' => [
         'expire' => 1440,
     ],
-
 ];

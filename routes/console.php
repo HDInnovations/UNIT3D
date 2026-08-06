@@ -71,7 +71,6 @@ use Spatie\Backup\Commands\CleanupCommand;
 |
 */
 
-
 if (! config('announce.external_tracker.is_enabled')) {
     Schedule::command(AutoUpsertPeers::class)->everyFiveSeconds()->withoutOverlapping(2);
     Schedule::command(AutoUpsertHistories::class)->everyFiveSeconds()->withoutOverlapping(2);

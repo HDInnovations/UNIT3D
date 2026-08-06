@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-
     'connections' => [
         'mysql' => [
             'driver'         => 'mysql',
@@ -138,5 +137,4 @@ return [
             'read_write_timeout' => -1,
         ],
     ],
-
 ];

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-
     'disks' => [
         'local' => [
             'driver' => 'local',
@@ -109,5 +108,4 @@ return [
             'root'   => storage_path('app/files/torrents/files'),
         ],
     ],
-
 ];

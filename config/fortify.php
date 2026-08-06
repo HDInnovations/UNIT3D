@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Providers\AppServiceProvider;
 use App\Enums\AuthGuard;
 use App\Enums\MiddlewareGroup;
-use App\Providers\RouteServiceProvider;
 use Laravel\Fortify\Features;
 
 return [

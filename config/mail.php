@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 return [
-
     'mailers' => [
         'mailgun' => [
             'transport' => 'mailgun',
@@ -20,5 +19,4 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-
 ];

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\ServiceProvider;
 
 /**
  * NOTICE OF LICENSE.
@@ -18,9 +17,7 @@ use Illuminate\Support\ServiceProvider;
  */
 
 return [
-
     'meta_locale' => 'en_US',
-
 
     'aliases' => Facade::defaultAliases()->merge([
         'CacheUser' => App\Helpers\CacheUser::class,
@@ -28,5 +25,4 @@ return [
         'Irc'       => App\Bots\IRCAnnounceBot::class,
         'Redis'     => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
-
 ];
