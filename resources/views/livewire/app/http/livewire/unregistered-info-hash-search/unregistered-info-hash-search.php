@@ -23,8 +23,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
     use LivewireSort;
     use WithPagination;
@@ -55,9 +54,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, UnregisteredInfoHash>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, UnregisteredInfoHash>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $unregisteredInfoHashes {
+    final protected Illuminate\Pagination\LengthAwarePaginator $unregisteredInfoHashes {
         get => UnregisteredInfoHash::query()
             ->with('user.group')
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', '%'.$this->username.'%'))
@@ -79,7 +78,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'unregisteredInfoHashes' => $this->unregisteredInfoHashes,

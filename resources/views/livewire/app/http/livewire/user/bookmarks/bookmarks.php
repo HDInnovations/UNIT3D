@@ -22,8 +22,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -43,9 +42,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Bookmark>
+     * @var Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Bookmark>
      */
-    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $bookmarks {
+    final protected Illuminate\Contracts\Pagination\LengthAwarePaginator $bookmarks {
         get => Bookmark::query()
             ->select([
                 'bookmarks.torrent_id',
@@ -76,7 +75,7 @@ new class extends Component
             ->paginate(25);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'bookmarks' => $this->bookmarks,

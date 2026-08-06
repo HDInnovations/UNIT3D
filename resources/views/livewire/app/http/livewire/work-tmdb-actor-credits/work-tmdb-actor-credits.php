@@ -20,8 +20,7 @@ use App\Models\TmdbTv;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     public TmdbMovie|TmdbTv|null $work = null;
 
     public int $page = 1;
@@ -32,7 +31,7 @@ new class extends Component
     }
 
     /**
-     * @var Collection<int, \App\Models\TmdbCredit>|null
+     * @var Collection<int, App\Models\TmdbCredit>|null
      */
     final protected ?Collection $credits {
         get => $this->work === null ? null : match ($this->work::class) {
@@ -53,7 +52,7 @@ new class extends Component
         };
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'credits' => $this->credits,

@@ -45,15 +45,14 @@ use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
 
     protected ChatRepository $chatRepository;
 
     public null|Article|IgdbGame|Playlist|Ticket|TmdbCollection|TmdbMovie|TmdbTv|Torrent|TorrentRequest $model;
 
-    public \App\Models\Comment $comment;
+    public App\Models\Comment $comment;
 
     public ?Category $category = null;
 
@@ -254,5 +253,4 @@ new class extends Component
 
         $this->dispatch('refresh')->self();
     }
-
-    };
+};

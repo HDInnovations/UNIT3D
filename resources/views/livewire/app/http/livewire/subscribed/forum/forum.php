@@ -18,12 +18,11 @@ use App\Models\Forum;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use WithPagination;
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Forum>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Forum>
      */
     final protected $forums {
         get => Forum::query()
@@ -39,7 +38,7 @@ new class extends Component
         $this->dispatch('paginationChanged');
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'forums' => $this->forums,

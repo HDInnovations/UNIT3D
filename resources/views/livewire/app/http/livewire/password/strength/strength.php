@@ -17,8 +17,7 @@ declare(strict_types=1);
 use Livewire\Component;
 use ZxcvbnPhp\Zxcvbn;
 
-new class extends Component
-{
+new class () extends Component {
     public string $password = '';
 
     public string $passwordStrength = 'Weak';
@@ -39,5 +38,4 @@ new class extends Component
     {
         $this->strengthScore = (new Zxcvbn())->passwordStrength($password)['score'];
     }
-
-    };
+};

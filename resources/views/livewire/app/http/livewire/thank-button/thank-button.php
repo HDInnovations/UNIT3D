@@ -20,8 +20,7 @@ use App\Models\User;
 use App\Notifications\NewThank;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     public ?Torrent $torrent = null;
 
     public ?User $user = null;
@@ -60,5 +59,4 @@ new class extends Component
 
         $this->torrent->loadCount('thanks');
     }
-
-    };
+};

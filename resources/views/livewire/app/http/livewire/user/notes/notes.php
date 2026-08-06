@@ -20,8 +20,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use WithPagination;
 
     public User $user;
@@ -50,16 +49,16 @@ new class extends Component
     ];
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Note>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Note>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $notes {
+    final protected Illuminate\Pagination\LengthAwarePaginator $notes {
         get => Note::query()
             ->with('staff', 'staff.group')
             ->where('user_id', '=', $this->user->id)
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'notes' => $this->notes,
@@ -67,7 +66,7 @@ new class extends Component
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws Illuminate\Validation\ValidationException
      */
     final public function store(): void
     {

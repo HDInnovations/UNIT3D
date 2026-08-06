@@ -24,8 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
-new #[Lazy] class extends Component
-{
+new #[Lazy] class () extends Component {
     public TmdbMovie|TmdbTv|IgdbGame $work;
 
     public int $categoryId;
@@ -147,7 +146,7 @@ new #[Lazy] class extends Component
         HTML;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'alsoDownloadedWorks' => $this->alsoDownloadedWorks,

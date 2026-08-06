@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -44,9 +43,9 @@ new class extends Component
     public int $perPage = 25;
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Application>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Application>
      */
-    protected \Illuminate\Pagination\LengthAwarePaginator $applications {
+    protected Illuminate\Pagination\LengthAwarePaginator $applications {
         get => Application::query()
             ->withoutGlobalScopes()
             ->with([
@@ -75,7 +74,7 @@ new class extends Component
         $this->dispatch('success', type: 'success', message: 'Application has successfully been deleted!');
     }
 
-    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\View|Illuminate\Foundation\Application|Illuminate\Contracts\View\Factory|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'applications' => $this->applications

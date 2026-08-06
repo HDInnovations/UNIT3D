@@ -19,8 +19,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use WithPagination;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
@@ -43,9 +42,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbPerson>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, TmdbPerson>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $persons {
+    final protected Illuminate\Pagination\LengthAwarePaginator $persons {
         get => TmdbPerson::query()
             ->select(['id', 'still', 'name'])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
@@ -56,9 +55,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, TmdbPerson>
+     * @var Illuminate\Database\Eloquent\Collection<int, TmdbPerson>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $firstCharacters {
+    final protected Illuminate\Database\Eloquent\Collection $firstCharacters {
         get => TmdbPerson::query()
             ->selectRaw('substr(name, 1, 1) as alpha, count(*) as count')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
@@ -68,7 +67,7 @@ new class extends Component
             ->get();
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'persons'         => $this->persons,

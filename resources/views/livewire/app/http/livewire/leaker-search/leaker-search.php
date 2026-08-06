@@ -22,8 +22,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
     use LivewireSort;
     use WithPagination;
@@ -49,9 +48,9 @@ new class extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, History>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, History>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $leakers {
+    final protected Illuminate\Pagination\LengthAwarePaginator $leakers {
         get => History::query()
             ->select([
                 'history.user_id',
@@ -81,7 +80,7 @@ new class extends Component
         get => \count(array_filter(array_map(trim(...), explode(',', $this->torrentIds))));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'leakers'        => $this->leakers,

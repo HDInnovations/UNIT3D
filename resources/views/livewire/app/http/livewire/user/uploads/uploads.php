@@ -22,8 +22,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -66,9 +65,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Torrent>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Torrent>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $uploads {
+    final protected Illuminate\Pagination\LengthAwarePaginator $uploads {
         get => Torrent::query()
             ->withCount('thanks', 'comments')
             ->withSum('tips', 'bon')
@@ -100,7 +99,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'uploads' => $this->uploads,

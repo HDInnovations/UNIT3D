@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -47,9 +46,9 @@ new class extends Component
     public int $perPage = 50;
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbMovie>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, TmdbMovie>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $medias {
+    final protected Illuminate\Pagination\LengthAwarePaginator $medias {
         get => TmdbMovie::query()
             ->with(['torrents:tmdb_movie_id,tmdb_tv_id,resolution_id,type_id' => ['resolution:id,position,name']])
             ->when($this->name, fn ($query) => $query->where('title', 'LIKE', '%'.$this->name.'%'))
@@ -62,16 +61,16 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Type>
+     * @var Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $types {
+    final protected Illuminate\Database\Eloquent\Collection $types {
         get => Type::query()
             ->select(['id', 'position', 'name'])
             ->orderBy('position')
             ->get();
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view(['medias' => $this->medias, 'types' => $this->types]);
     }

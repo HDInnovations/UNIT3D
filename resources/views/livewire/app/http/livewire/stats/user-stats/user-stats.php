@@ -18,8 +18,7 @@ use App\Models\User;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
-new #[Lazy(isolate: true)] class extends Component
-{
+new #[Lazy(isolate: true)] class extends Component {
     final protected int $allUsers {
         get => (int) cache()->flexible(
             'user-stats:all-users',
@@ -94,7 +93,7 @@ new #[Lazy(isolate: true)] class extends Component
         HTML;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.stats.user-stats', [
             'all_user'                => $this->allUsers,

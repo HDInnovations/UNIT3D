@@ -19,8 +19,7 @@ use App\Models\Peer;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
-new #[Lazy(isolate: true)] class extends Component
-{
+new #[Lazy(isolate: true)] class extends Component {
     final protected int $leecherCount {
         get => (int) cache()->flexible(
             'peer-stats:leecher-count',
@@ -60,7 +59,7 @@ new #[Lazy(isolate: true)] class extends Component
         HTML;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.stats.peer-stats', [
             'num_seeders'  => $this->peerCount - $this->leecherCount,

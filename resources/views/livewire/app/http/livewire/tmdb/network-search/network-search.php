@@ -19,8 +19,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use WithPagination;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
@@ -34,9 +33,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbNetwork>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, TmdbNetwork>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $networks {
+    final protected Illuminate\Pagination\LengthAwarePaginator $networks {
         get => TmdbNetwork::query()
             ->withCount([
                 'tv' => fn ($query) => $query->has('torrents'),
@@ -47,7 +46,7 @@ new class extends Component
             ->paginate(30);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'networks' => $this->networks,

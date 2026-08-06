@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -46,9 +45,9 @@ new class extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Conversation>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Conversation>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $conversations {
+    final protected Illuminate\Pagination\LengthAwarePaginator $conversations {
         get => Conversation::query()
             ->with([
                 'users'        => fn ($query) => $query->with('group')->where('users.id', '!=', auth()->id()),
@@ -123,7 +122,7 @@ new class extends Component
         $this->dispatch('success', type: 'success', message: 'Conversation marked unread');
     }
 
-    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'conversations' => $this->conversations,

@@ -12,14 +12,13 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     public string $tab = 'uploaders';
 
     /**
-     * @var \Illuminate\Support\Collection<int, Torrent>
+     * @var Illuminate\Support\Collection<int, Torrent>
      */
-    final protected \Illuminate\Support\Collection $uploaders {
+    final protected Illuminate\Support\Collection $uploaders {
         get => cache()->flexible(
             'top-users:uploaders',
             [3600, 3600 * 2],
@@ -36,9 +35,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, History>
+     * @var Illuminate\Support\Collection<int, History>
      */
-    final protected \Illuminate\Support\Collection $downloaders {
+    final protected Illuminate\Support\Collection $downloaders {
         get => cache()->flexible(
             'top-users:downloaders',
             [3600, 3600 * 2],
@@ -55,9 +54,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, User>
+     * @var Illuminate\Support\Collection<int, User>
      */
-    final protected \Illuminate\Support\Collection $uploaded {
+    final protected Illuminate\Support\Collection $uploaded {
         get => cache()->flexible(
             'top-users:uploaded',
             [3600, 3600 * 2],
@@ -73,9 +72,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, User>
+     * @var Illuminate\Support\Collection<int, User>
      */
-    final protected \Illuminate\Support\Collection $downloaded {
+    final protected Illuminate\Support\Collection $downloaded {
         get => cache()->flexible(
             'top-users:downloaded',
             [3600, 3600 * 2],
@@ -91,9 +90,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, Peer>
+     * @var Illuminate\Support\Collection<int, Peer>
      */
-    final protected \Illuminate\Support\Collection $seeders {
+    final protected Illuminate\Support\Collection $seeders {
         get => cache()->flexible(
             'top-users:seeders',
             [3600, 3600 * 2],
@@ -111,9 +110,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, User>
+     * @var Illuminate\Support\Collection<int, User>
      */
-    final protected \Illuminate\Support\Collection $seedtimes {
+    final protected Illuminate\Support\Collection $seedtimes {
         get => cache()->flexible(
             'top-users:seedtimes',
             [3600, 3600 * 2],
@@ -129,9 +128,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, User>
+     * @var Illuminate\Support\Collection<int, User>
      */
-    final protected \Illuminate\Support\Collection $served {
+    final protected Illuminate\Support\Collection $served {
         get => cache()->flexible(
             'top-users:served',
             [3600, 3600 * 2],
@@ -147,9 +146,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, Comment>
+     * @var Illuminate\Support\Collection<int, Comment>
      */
-    final protected \Illuminate\Support\Collection $commenters {
+    final protected Illuminate\Support\Collection $commenters {
         get => cache()->flexible(
             'top-users:commenters',
             [3600, 3600 * 2],
@@ -166,9 +165,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, Post>
+     * @var Illuminate\Support\Collection<int, Post>
      */
-    final protected \Illuminate\Support\Collection $posters {
+    final protected Illuminate\Support\Collection $posters {
         get => cache()->flexible(
             'top-users:posters',
             [3600, 3600 * 2],
@@ -184,9 +183,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, Torrent>
+     * @var Illuminate\Support\Collection<int, Torrent>
      */
-    final protected \Illuminate\Support\Collection $thanked {
+    final protected Illuminate\Support\Collection $thanked {
         get => cache()->flexible(
             'top-users:thanked',
             [3600, 3600 * 2],
@@ -204,9 +203,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, Thank>
+     * @var Illuminate\Support\Collection<int, Thank>
      */
-    final protected \Illuminate\Support\Collection $thankers {
+    final protected Illuminate\Support\Collection $thankers {
         get => cache()->flexible(
             'top-users:thankers',
             [3600, 3600 * 2],
@@ -222,9 +221,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, Torrent>
+     * @var Illuminate\Support\Collection<int, Torrent>
      */
-    final protected \Illuminate\Support\Collection $personals {
+    final protected Illuminate\Support\Collection $personals {
         get => cache()->flexible(
             'top-users:personals',
             [3600, 3600 * 2],
@@ -240,5 +239,4 @@ new class extends Component
                 ->get(),
         );
     }
-
-    };
+};

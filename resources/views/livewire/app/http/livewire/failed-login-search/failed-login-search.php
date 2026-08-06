@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -47,9 +46,9 @@ new class extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
+     * @var Illuminate\Database\Eloquent\Collection<int, FailedLoginAttempt>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $failedLoginsTop10Ip {
+    final protected Illuminate\Database\Eloquent\Collection $failedLoginsTop10Ip {
         get => FailedLoginAttempt::query()
             ->select(['ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at')])
             ->groupBy('ip_address')
@@ -61,9 +60,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, FailedLoginAttempt>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, FailedLoginAttempt>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $failedLogins {
+    final protected Illuminate\Pagination\LengthAwarePaginator $failedLogins {
         get => FailedLoginAttempt::query()
             ->with('user.group')
             ->when($this->username, fn ($query) => $query->where('username', 'LIKE', $this->username.'%'))
@@ -73,7 +72,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\View|Illuminate\Foundation\Application|Illuminate\Contracts\View\Factory|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'failedLogins'        => $this->failedLogins,

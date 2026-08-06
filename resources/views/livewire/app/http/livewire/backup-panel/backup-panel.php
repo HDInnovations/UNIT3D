@@ -30,8 +30,7 @@ use Spatie\Backup\Tasks\Monitor\BackupDestinationStatusFactory;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-new class extends Component
-{
+new class () extends Component {
     /**
      * @var array<string, string>
      */
@@ -110,7 +109,7 @@ new class extends Component
     /**
      * @throws ValidationException
      */
-    final public function downloadBackup(string $filePath): Response|StreamedResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
+    final public function downloadBackup(string $filePath): Response|StreamedResponse|Illuminate\Contracts\Foundation\Application|Illuminate\Contracts\Routing\ResponseFactory
     {
         $this->validateActiveDisk();
         $this->validateFilePath($filePath);

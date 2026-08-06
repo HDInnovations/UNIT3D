@@ -20,8 +20,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -64,9 +63,9 @@ new class extends Component
     public int $perPage = 25;
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Report>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Report>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $reports {
+    final protected Illuminate\Pagination\LengthAwarePaginator $reports {
         get => Report::query()
             ->with('reported.group', 'reporter.group', 'assignee.group')
             ->when($this->type !== null, fn ($query) => $query->where('type', '=', $this->type))
@@ -85,7 +84,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\View|Illuminate\Foundation\Application|Illuminate\Contracts\View\Factory|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'reports' => $this->reports,

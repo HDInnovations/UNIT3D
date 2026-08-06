@@ -21,8 +21,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-new class extends Component
-{
+new class () extends Component {
     use WithFileUploads;
 
     public ?User $user = null;
@@ -64,9 +63,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, TicketAttachment>
+     * @var Illuminate\Database\Eloquent\Collection<int, TicketAttachment>
      */
-    protected \Illuminate\Database\Eloquent\Collection $attachments {
+    protected Illuminate\Database\Eloquent\Collection $attachments {
         get {
             $ticket = Ticket::query()->find($this->ticket);
 
@@ -76,7 +75,7 @@ new class extends Component
         }
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view(['attachments' => $this->attachments]);
     }

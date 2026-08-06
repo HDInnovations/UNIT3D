@@ -38,8 +38,7 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
     use LivewireSort;
     use TorrentMeta;
@@ -344,9 +343,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
+     * @var Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $torrentRequests {
+    final protected Illuminate\Database\Eloquent\Collection $torrentRequests {
         get => TorrentRequest::query()
             ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount(['comments'])
@@ -364,9 +363,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
+     * @var Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $playlistCategories {
+    final protected Illuminate\Database\Eloquent\Collection $playlistCategories {
         get => PlaylistCategory::query()
             ->with([
                 'playlists' => fn ($query) => $query
@@ -391,9 +390,9 @@ new class extends Component
     }
 
     /**
-     * @var ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie>
+     * @var ?Illuminate\Database\Eloquent\Collection<int, TmdbMovie>
      */
-    final protected ?\Illuminate\Database\Eloquent\Collection $collectionMovies {
+    final protected ?Illuminate\Database\Eloquent\Collection $collectionMovies {
         get => $this->work instanceof TmdbMovie ? $this->work->collections()->first()?->movies()->get() : null;
     }
 
@@ -495,9 +494,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Type>
+     * @var Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $types {
+    final protected Illuminate\Database\Eloquent\Collection $types {
         get => cache()->flexible(
             'types',
             [3600, 3600 * 2],
@@ -506,9 +505,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     * @var Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $resolutions {
+    final protected Illuminate\Database\Eloquent\Collection $resolutions {
         get => cache()->flexible(
             'resolutions',
             [3600, 3600 * 2],
@@ -517,9 +516,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Region>
+     * @var Illuminate\Database\Eloquent\Collection<int, Region>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $regions {
+    final protected Illuminate\Database\Eloquent\Collection $regions {
         get => cache()->flexible(
             'regions',
             [3600, 3600 * 2],
@@ -528,9 +527,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Distributor>
+     * @var Illuminate\Database\Eloquent\Collection<int, Distributor>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $distributors {
+    final protected Illuminate\Database\Eloquent\Collection $distributors {
         get => cache()->flexible(
             'distributors',
             [3600, 3600 * 2],
@@ -538,7 +537,7 @@ new class extends Component
         );
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'user'               => auth()->user(),

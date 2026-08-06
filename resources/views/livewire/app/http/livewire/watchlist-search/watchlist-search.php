@@ -20,12 +20,11 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?Illuminate\Contracts\Auth\Authenticatable $user = null;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
@@ -52,9 +51,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Watchlist>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Watchlist>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $users {
+    final protected Illuminate\Pagination\LengthAwarePaginator $users {
         get => Watchlist::query()
             ->with(['user.group', 'author.group'])
             ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
@@ -62,7 +61,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'watchedUsers' => $this->users,

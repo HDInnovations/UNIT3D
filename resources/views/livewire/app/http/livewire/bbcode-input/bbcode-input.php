@@ -16,8 +16,7 @@ declare(strict_types=1);
 
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     public string $label = '';
 
     public string $name = '';
@@ -38,7 +37,7 @@ new class extends Component
         $this->contentBbcode = $content ?? old($name) ?? '';
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'contentBbcode' => $this->contentBbcode,

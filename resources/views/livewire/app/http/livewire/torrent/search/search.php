@@ -37,8 +37,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Meilisearch\Client;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
     use LivewireSort;
     use TorrentMeta;
@@ -278,9 +277,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Category>
+     * @var Illuminate\Database\Eloquent\Collection<int, Category>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $categories {
+    final protected Illuminate\Database\Eloquent\Collection $categories {
         get => cache()->flexible(
             'categories',
             [3600, 3600 * 2],
@@ -289,9 +288,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Type>
+     * @var Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $types {
+    final protected Illuminate\Database\Eloquent\Collection $types {
         get => cache()->flexible(
             'types',
             [3600, 3600 * 2],
@@ -300,9 +299,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     * @var Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $resolutions {
+    final protected Illuminate\Database\Eloquent\Collection $resolutions {
         get => cache()->flexible(
             'resolutions',
             [3600, 3600 * 2],
@@ -311,9 +310,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, TmdbGenre>
+     * @var Illuminate\Database\Eloquent\Collection<int, TmdbGenre>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $genres {
+    final protected Illuminate\Database\Eloquent\Collection $genres {
         get => cache()->flexible(
             'genres',
             [3600, 3600 * 2],
@@ -322,9 +321,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Region>
+     * @var Illuminate\Database\Eloquent\Collection<int, Region>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $regions {
+    final protected Illuminate\Database\Eloquent\Collection $regions {
         get => cache()->flexible(
             'regions',
             [3600, 3600 * 2],
@@ -333,9 +332,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Distributor>
+     * @var Illuminate\Database\Eloquent\Collection<int, Distributor>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $distributors {
+    final protected Illuminate\Database\Eloquent\Collection $distributors {
         get => cache()->flexible(
             'distributors',
             [3600, 3600 * 2],
@@ -344,9 +343,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, string|null>
+     * @var Illuminate\Support\Collection<int, string|null>
      */
-    final protected \Illuminate\Support\Collection $primaryLanguages {
+    final protected Illuminate\Support\Collection $primaryLanguages {
         get => cache()->flexible(
             'original-languages',
             [3600, 3600 * 2],
@@ -413,9 +412,9 @@ new class extends Component
                 default              => null,
             },
             userSeeder: match (true) {
-                $this->seeding                     => true,
+                $this->seeding => true,
                 $this->leeching, $this->incomplete => false,
-                default                            => null,
+                default => null,
             },
             userActive: match (true) {
                 $this->seeding    => true,
@@ -427,9 +426,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
+     * @var Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
      */
-    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents {
+    final protected Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents {
         get {
             $user = auth()->user()->load('group');
 
@@ -810,7 +809,7 @@ new class extends Component
         }
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'categories'        => $this->categories,

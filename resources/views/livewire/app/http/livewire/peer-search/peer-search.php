@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -95,9 +94,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
+     * @var Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
      */
-    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $peers {
+    final protected Illuminate\Contracts\Pagination\LengthAwarePaginator $peers {
         get => Peer::query()
             ->when(
                 $this->groupBy === 'none',
@@ -235,7 +234,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'peers' => $this->peers,

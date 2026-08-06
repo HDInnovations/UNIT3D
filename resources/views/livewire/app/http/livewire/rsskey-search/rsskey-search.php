@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -44,9 +43,9 @@ new class extends Component
     public int $perPage = 25;
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Rsskey>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Rsskey>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $rsskeys {
+    final protected Illuminate\Pagination\LengthAwarePaginator $rsskeys {
         get => Rsskey::query()
             ->with([
                 'user' => fn ($query) => $query->withTrashed()->with('group'),
@@ -57,7 +56,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\View|Illuminate\Foundation\Application|Illuminate\Contracts\View\Factory|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'rsskeys' => $this->rsskeys,

@@ -28,8 +28,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Throwable;
 
-new class extends Component
-{
+new class () extends Component {
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
     #[Url(history: true)]
@@ -297,7 +296,7 @@ new class extends Component
         HTML;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'user'  => auth()->user(),

@@ -19,8 +19,7 @@ use App\Models\TmdbTv;
 use Illuminate\Support\Facades\Redis;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     /**
      * Pick random IDs from appropriate Redis set (adult aware) with fallback.
      *
@@ -44,9 +43,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, TmdbMovie>
+     * @var Illuminate\Support\Collection<int, TmdbMovie>
      */
-    final protected \Illuminate\Support\Collection $movies {
+    final protected Illuminate\Support\Collection $movies {
         get {
             $movieIds = $this->pickIds('movie');
 
@@ -63,9 +62,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, TmdbTv>
+     * @var Illuminate\Support\Collection<int, TmdbTv>
      */
-    final protected \Illuminate\Support\Collection $tvs {
+    final protected Illuminate\Support\Collection $tvs {
         get {
             $tvIds = $this->pickIds('tv');
 
@@ -81,7 +80,7 @@ new class extends Component
         }
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory | Illuminate\Contracts\View\View | Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'movies'  => $this->movies,

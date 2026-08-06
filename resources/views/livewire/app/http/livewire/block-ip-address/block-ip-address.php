@@ -20,8 +20,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use WithPagination;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
@@ -74,9 +73,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, BlockedIp>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, BlockedIp>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $ipAddresses {
+    final protected Illuminate\Pagination\LengthAwarePaginator $ipAddresses {
         get => BlockedIp::query()
             ->when($this->ipSearch, fn ($query) => $query->where('ip_address', 'LIKE', '%'.$this->ipSearch.'%'))
             ->when($this->reasonSearch, fn ($query) => $query->where('reason', 'LIKE', '%'.$this->reasonSearch.'%'))
@@ -84,7 +83,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\View|Illuminate\Foundation\Application|Illuminate\Contracts\View\Factory|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'ipAddresses' => $this->ipAddresses,

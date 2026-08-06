@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
     use LivewireSort;
     use WithPagination;
@@ -55,9 +54,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, TorrentReseed>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, TorrentReseed>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $torrentReseeds {
+    final protected Illuminate\Pagination\LengthAwarePaginator $torrentReseeds {
         get => TorrentReseed::query()
             ->with([
                 'user:id,username,group_id,deleted_at',
@@ -69,7 +68,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'torrentReseeds' => $this->torrentReseeds,

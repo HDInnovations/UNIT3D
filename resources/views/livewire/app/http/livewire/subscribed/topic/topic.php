@@ -18,14 +18,13 @@ use App\Models\Topic;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use WithPagination;
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Topic>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Topic>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $topics {
+    final protected Illuminate\Pagination\LengthAwarePaginator $topics {
         get => Topic::query()
             ->select('topics.*')
             ->with([
@@ -45,7 +44,7 @@ new class extends Component
         $this->dispatch('paginationChanged');
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'topics' => $this->topics,

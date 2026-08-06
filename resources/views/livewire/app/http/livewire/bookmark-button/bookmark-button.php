@@ -18,8 +18,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     public Torrent $torrent;
 
     public User $user;
@@ -53,5 +52,4 @@ new class extends Component
 
         Torrent::query()->whereKey($this->torrent->id)->searchable();
     }
-
-    };
+};

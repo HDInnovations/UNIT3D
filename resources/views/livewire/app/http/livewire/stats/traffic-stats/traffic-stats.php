@@ -18,8 +18,7 @@ use App\Models\History;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
-new #[Lazy(isolate: true)] class extends Component
-{
+new #[Lazy(isolate: true)] class extends Component {
     final protected int $actualUpload {
         get => (int) cache()->flexible(
             'traffic-stats:actual-upload',
@@ -62,7 +61,7 @@ new #[Lazy(isolate: true)] class extends Component
         HTML;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.stats.traffic-stats', [
             'actual_upload'     => $this->actualUpload,

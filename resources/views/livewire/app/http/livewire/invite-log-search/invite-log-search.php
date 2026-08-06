@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -84,9 +83,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Invite>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Invite>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $invites {
+    final protected Illuminate\Pagination\LengthAwarePaginator $invites {
         get => Invite::query()
             ->withTrashed()
             ->with([
@@ -167,7 +166,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\View|Illuminate\Foundation\Application|Illuminate\Contracts\View\Factory|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'invites' => $this->invites,

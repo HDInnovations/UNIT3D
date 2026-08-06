@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -52,7 +51,7 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Playlist>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Playlist>
      */
     final protected $playlists {
         get => Playlist::query()
@@ -77,9 +76,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
+     * @var Illuminate\Database\Eloquent\Collection<int, PlaylistCategory>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $playlistCategories {
+    final protected Illuminate\Database\Eloquent\Collection $playlistCategories {
         get => cache()->flexible(
             'playlist-categories',
             [3600, 3600 * 2],
@@ -87,7 +86,7 @@ new class extends Component
         );
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'playlists'          => $this->playlists,

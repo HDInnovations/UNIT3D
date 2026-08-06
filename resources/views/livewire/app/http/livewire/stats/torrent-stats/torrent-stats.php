@@ -20,8 +20,7 @@ use App\Models\Torrent;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
 
-new #[Lazy(isolate: true)] class extends Component
-{
+new #[Lazy(isolate: true)] class extends Component {
     final protected int $totalCount {
         get => (int) cache()->flexible(
             'torrent-stats:total-count',
@@ -31,9 +30,9 @@ new #[Lazy(isolate: true)] class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     * @var Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $resolutions {
+    final protected Illuminate\Database\Eloquent\Collection $resolutions {
         get => cache()->flexible(
             'torrent-stats:resolutions',
             [10 * 60, 30 * 60],
@@ -42,9 +41,9 @@ new #[Lazy(isolate: true)] class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Category>
+     * @var Illuminate\Database\Eloquent\Collection<int, Category>
      */
-    final protected \Illuminate\Database\Eloquent\Collection $categories {
+    final protected Illuminate\Database\Eloquent\Collection $categories {
         get => cache()->flexible(
             'torrent-stats:categories',
             [10 * 60, 30 * 60],
@@ -70,7 +69,7 @@ new #[Lazy(isolate: true)] class extends Component
         HTML;
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.stats.torrent-stats', [
             'num_torrent'  => $this->totalCount,

@@ -20,8 +20,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -52,9 +51,9 @@ new class extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Warning>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $warnings {
+    final protected Illuminate\Pagination\LengthAwarePaginator $warnings {
         get => Warning::query()
             ->with(['user.group', 'staff.group', 'torrent'])
             ->when($this->sender, fn ($query) => $query->whereRelation('staff', 'username', '=', $this->sender))
@@ -66,7 +65,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\View|Illuminate\Foundation\Application|Illuminate\Contracts\View\Factory|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'warnings' => $this->warnings,

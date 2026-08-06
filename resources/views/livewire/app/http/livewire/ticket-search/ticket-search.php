@@ -21,8 +21,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -65,9 +64,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Ticket>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Ticket>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $tickets {
+    final protected Illuminate\Pagination\LengthAwarePaginator $tickets {
         get => Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])
             ->when(!$this->user->group->is_modo, fn ($query) => $query->where('user_id', '=', $this->user->id))
@@ -82,7 +81,7 @@ new class extends Component
             ->paginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'tickets' => $this->tickets,

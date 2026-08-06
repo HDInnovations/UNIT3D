@@ -21,8 +21,7 @@ use Laravel\Fortify\Actions\GenerateNewRecoveryCodes;
 use Laravel\Fortify\Features;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     /**
      * Indicates if two-factor authentication QR code is being displayed.
      */
@@ -73,7 +72,7 @@ new class extends Component
     /**
      * Confirm two-factor authentication for the user.
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws Illuminate\Validation\ValidationException
      */
     final public function confirmTwoFactorAuthentication(ConfirmTwoFactorAuthentication $confirm): void
     {
@@ -123,7 +122,7 @@ new class extends Component
     /**
      * Get the current user of the application.
      */
-    final protected ?\Illuminate\Contracts\Auth\Authenticatable $user {
+    final protected ?Illuminate\Contracts\Auth\Authenticatable $user {
         get => auth()->user();
     }
 
@@ -137,5 +136,4 @@ new class extends Component
     /**
      * Render the component.
      */
-    
 };

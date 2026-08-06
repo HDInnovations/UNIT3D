@@ -23,8 +23,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -58,9 +57,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, BonEarning>
+     * @var Illuminate\Database\Eloquent\Collection<int, BonEarning>
      */
-    final protected \Illuminate\Support\Collection $bonEarnings {
+    final protected Illuminate\Support\Collection $bonEarnings {
         get {
             $outerQuery = DB::query()->select(DB::raw(1));
             $innerQuery = Peer::query()
@@ -112,9 +111,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Query\Builder
+     * @var Illuminate\Database\Query\Builder
      */
-    final protected \Illuminate\Database\Query\Builder $query {
+    final protected Illuminate\Database\Query\Builder $query {
         get {
             $bonEarnings = BonEarning::query()->with('conditions')->orderBy('position')->get();
 
@@ -203,9 +202,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
+     * @var Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
      */
-    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents {
+    final protected Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents {
         get => $this
             ->query
             ->orderBy($this->sortField, $this->sortDirection)
@@ -219,7 +218,7 @@ new class extends Component
         get => DB::query()->fromSub($this->query, 'earnings_per_torrent')->sum('hourly_earnings');
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'user'        => $this->user,

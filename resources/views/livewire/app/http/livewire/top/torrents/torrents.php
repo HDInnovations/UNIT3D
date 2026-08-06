@@ -20,8 +20,7 @@ use App\Models\User;
 use App\Traits\TorrentMeta;
 use Livewire\Component;
 
-new class extends Component
-{
+new class () extends Component {
     use TorrentMeta;
 
     public ?User $user = null;
@@ -34,9 +33,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, Torrent>
+     * @var Illuminate\Support\Collection<int, Torrent>
      */
-    final protected \Illuminate\Support\Collection $torrents {
+    final protected Illuminate\Support\Collection $torrents {
         get {
             $torrents = Torrent::query()
                 ->with(['user.group', 'category', 'type', 'resolution'])
@@ -111,7 +110,7 @@ new class extends Component
         get => PersonalFreeleech::query()->where('user_id', '=', $this->user->id)->exists();
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory | \Illuminate\Contracts\View\View | \Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory | Illuminate\Contracts\View\View | Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'personal_freeleech' => $this->personalFreeleech,

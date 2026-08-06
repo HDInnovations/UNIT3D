@@ -20,8 +20,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use WithPagination;
 
@@ -53,9 +52,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Pagination\Paginator<int, Announce>
+     * @var Illuminate\Pagination\Paginator<int, Announce>
      */
-    protected \Illuminate\Pagination\Paginator $announces {
+    protected Illuminate\Pagination\Paginator $announces {
         get => Announce::query()
             ->when($this->torrentId !== '', fn ($query) => $query->where('torrent_id', '=', $this->torrentId))
             ->when($this->userId !== '', fn ($query) => $query->where('user_id', '=', $this->userId))
@@ -63,7 +62,7 @@ new class extends Component
             ->simplePaginate(min($this->perPage, 100));
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'announces' => $this->announces,

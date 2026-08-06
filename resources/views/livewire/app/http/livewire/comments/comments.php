@@ -47,8 +47,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
 
     use WithPagination;
@@ -214,9 +213,9 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Comment>
+     * @var Illuminate\Contracts\Pagination\LengthAwarePaginator<int, App\Models\Comment>
      */
-    final protected \Illuminate\Contracts\Pagination\LengthAwarePaginator $comments {
+    final protected Illuminate\Contracts\Pagination\LengthAwarePaginator $comments {
         get => $this->model
             ->comments()
             ->with(['user:id,username,group_id,image,title', 'user.group', 'children.user:id,username,group_id,image,title', 'children.user.group'])
@@ -225,7 +224,7 @@ new class extends Component
             ->paginate($this->perPage);
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'comments' => $this->comments,

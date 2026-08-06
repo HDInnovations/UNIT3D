@@ -27,8 +27,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new class extends Component
-{
+new class () extends Component {
     use LivewireSort;
     use LivewireSort;
     use WithPagination;
@@ -54,9 +53,9 @@ new class extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
+     * @var Illuminate\Pagination\LengthAwarePaginator<int, Warning>
      */
-    final protected \Illuminate\Pagination\LengthAwarePaginator $warnings {
+    final protected Illuminate\Pagination\LengthAwarePaginator $warnings {
         get => $this->user
             ->warnings()
             ->when(
@@ -228,7 +227,7 @@ new class extends Component
         $this->dispatch('success', type: 'success', message: 'Warning was successfully restored');
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'warnings'               => $this->warnings,

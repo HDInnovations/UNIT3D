@@ -22,8 +22,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use SplFileInfo;
 
-new class extends Component
-{
+new class () extends Component {
     use CastLivewireProperties;
     use WithPagination;
 
@@ -48,16 +47,16 @@ new class extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, \Symfony\Component\Finder\SplFileInfo>
+     * @var Illuminate\Support\Collection<int, Symfony\Component\Finder\SplFileInfo>
      */
-    final protected \Illuminate\Support\Collection $logFiles {
+    final protected Illuminate\Support\Collection $logFiles {
         get => collect(File::allFiles(storage_path('logs')))
             ->sortByDesc(fn (SplFileInfo $file) => $file->getMTime())
             ->values();
     }
 
     /**
-     * @var LengthAwarePaginator<string, \Illuminate\Support\Collection<int, mixed>>
+     * @var LengthAwarePaginator<string, Illuminate\Support\Collection<int, mixed>>
      */
     final protected LengthAwarePaginator $entries {
         get {
@@ -126,7 +125,7 @@ new class extends Component
         }
     }
 
-    final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    final public function render(): Illuminate\Contracts\View\Factory|Illuminate\Contracts\View\View|Illuminate\Contracts\Foundation\Application
     {
         return $this->view([
             'files'   => $this->logFiles,
