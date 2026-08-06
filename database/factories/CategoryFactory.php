@@ -24,11 +24,6 @@ use Override;
 class CategoryFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Category::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

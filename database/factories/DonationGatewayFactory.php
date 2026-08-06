@@ -24,11 +24,6 @@ use Override;
 class DonationGatewayFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = DonationGateway::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

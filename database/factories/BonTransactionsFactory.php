@@ -26,11 +26,6 @@ use Override;
 class BonTransactionsFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = BonTransactions::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

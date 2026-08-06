@@ -25,11 +25,6 @@ use Override;
 class ArticleFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Article::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

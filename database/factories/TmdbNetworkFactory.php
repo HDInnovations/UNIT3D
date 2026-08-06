@@ -24,11 +24,6 @@ use Override;
 class TmdbNetworkFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = TmdbNetwork::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

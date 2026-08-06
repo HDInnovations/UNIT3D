@@ -26,11 +26,6 @@ use Override;
 class ResurrectionFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Resurrection::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]
