@@ -38,7 +38,9 @@ class SendMassEmail implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(public User $user, public string $subject, public string $message) {}
+    public function __construct(public User $user, public string $subject, public string $message)
+    {
+    }
 
     /**
      * Get the middleware the job should pass through.

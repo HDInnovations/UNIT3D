@@ -46,7 +46,9 @@ class ProcessTvJob implements ShouldQueue
     /**
      * ProcessTvJob Constructor.
      */
-    public function __construct(public int $id) {}
+    public function __construct(public int $id)
+    {
+    }
 
     /**
      * Get the middleware the job should pass through.

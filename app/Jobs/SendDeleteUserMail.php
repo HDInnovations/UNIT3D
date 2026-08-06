@@ -39,7 +39,9 @@ class SendDeleteUserMail implements ShouldQueue
     /**
      * SendDeleteUserMail Constructor.
      */
-    public function __construct(public User $user) {}
+    public function __construct(public User $user)
+    {
+    }
 
     /**
      * Get the middleware the job should pass through.

@@ -33,7 +33,9 @@ class UserWarning extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user) {}
+    public function __construct(public User $user)
+    {
+    }
 
     /**
      * Get the notification's delivery channels.

@@ -36,5 +36,4 @@ final class GitUpdate extends Model
 {
     /** @use HasFactory<\Database\Factories\GitUpdateFactory> */
     use HasFactory;
-
 }

@@ -33,7 +33,9 @@ class UserEmailChange extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user, public string $oldEmail, public string $newEmail) {}
+    public function __construct(public User $user, public string $oldEmail, public string $newEmail)
+    {
+    }
 
     /**
      * Get the notification's delivery channels.

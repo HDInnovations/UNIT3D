@@ -34,7 +34,9 @@ class UserManualWarningExpire extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public User $user, public Warning $warning) {}
+    public function __construct(public User $user, public Warning $warning)
+    {
+    }
 
     /**
      * Get the notification's delivery channels.

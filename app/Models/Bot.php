@@ -74,5 +74,4 @@ final class Bot extends Model
             'is_systembot' => 'bool',
         ];
     }
-
 }

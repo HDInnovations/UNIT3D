@@ -33,7 +33,9 @@ class UserBan extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Ban $ban) {}
+    public function __construct(public Ban $ban)
+    {
+    }
 
     /**
      * Get the notification's delivery channels.

@@ -55,7 +55,9 @@ class ProcessCreditJob implements ShouldQueue
      * }> $credits
      * @return void
      */
-    public function __construct(public array $credits) {}
+    public function __construct(public array $credits)
+    {
+    }
 
     /**
      * Get the middleware the job should pass through.

@@ -38,5 +38,4 @@ final class PersonalFreeleech extends Model
 
     /** @use HasFactory<\Database\Factories\PersonalFreeleechFactory> */
     use HasFactory;
-
 }

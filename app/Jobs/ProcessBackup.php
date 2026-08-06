@@ -31,7 +31,9 @@ class ProcessBackup implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
 
-    public function __construct(protected string $option = '') {}
+    public function __construct(protected string $option = '')
+    {
+    }
 
     public function handle(): void
     {

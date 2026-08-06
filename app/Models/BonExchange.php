@@ -58,5 +58,4 @@ final class BonExchange extends Model
             'invite'             => 'bool',
         ];
     }
-
 }

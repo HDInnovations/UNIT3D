@@ -39,7 +39,9 @@ class SendDisableUserMail implements ShouldQueue
     /**
      * SendDisableUserMail Constructor.
      */
-    public function __construct(public User $user) {}
+    public function __construct(public User $user)
+    {
+    }
 
     /**
      * Get the middleware the job should pass through.

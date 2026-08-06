@@ -32,7 +32,9 @@ class MassEmail extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public string $subject, public string $message) {}
+    public function __construct(public string $subject, public string $message)
+    {
+    }
 
     /**
      * Get the notification's delivery channels.

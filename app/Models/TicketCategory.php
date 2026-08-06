@@ -39,5 +39,4 @@ final class TicketCategory extends Model
 
     /** @use HasFactory<\Database\Factories\TicketCategoryFactory> */
     use HasFactory;
-
 }

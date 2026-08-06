@@ -33,7 +33,9 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * FailedLogin Constructor.
      */
-    public function __construct(public string $ip) {}
+    public function __construct(public string $ip)
+    {
+    }
 
     /**
      * Get the notification's delivery channels.

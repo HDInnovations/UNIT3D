@@ -32,5 +32,4 @@ use Illuminate\Database\Eloquent\Model;
 final class WhitelistedImageUrl extends Model
 {
     use Auditable;
-
 }

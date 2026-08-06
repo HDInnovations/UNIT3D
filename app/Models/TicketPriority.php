@@ -41,5 +41,4 @@ final class TicketPriority extends Model
 
     /** @use HasFactory<\Database\Factories\TicketPriorityFactory> */
     use HasFactory;
-
 }

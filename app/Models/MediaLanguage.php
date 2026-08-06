@@ -39,5 +39,4 @@ final class MediaLanguage extends Model
 
     /** @use HasFactory<\Database\Factories\MediaLanguageFactory> */
     use HasFactory;
-
 }
