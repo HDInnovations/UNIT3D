@@ -22,22 +22,17 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\Attributes\MaxExceptions;
 
+#[MaxExceptions(1)]
 class MassEmail extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-     * The maximum number of unhandled exceptions to allow before failing.
-     */
-    public int $maxExceptions = 1;
-
-    /**
      * Create a new notification instance.
      */
-    public function __construct(public string $subject, public string $message)
-    {
-    }
+    public function __construct(public string $subject, public string $message) {}
 
     /**
      * Get the notification's delivery channels.

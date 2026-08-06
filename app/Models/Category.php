@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -37,6 +39,8 @@ use Override;
  * @property bool        $tv_meta
  * @property bool        $movie_meta
  */
+#[WithoutTimestamps]
+#[Guarded('id')]
 #[AllowDynamicProperties]
 final class Category extends Model
 {
@@ -44,13 +48,6 @@ final class Category extends Model
 
     /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Get the attributes that should be cast.
@@ -67,13 +64,6 @@ final class Category extends Model
             'movie_meta' => 'bool',
         ];
     }
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id'];
 
     /**
      * Get the torrents for the category.

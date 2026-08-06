@@ -17,26 +17,16 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\User;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:cache_user_leech_counts')]
+#[Description('Caches user leech counts')]
 class AutoCacheUserLeechCounts extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:cache_user_leech_counts';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Caches user leech counts';
-
     /**
      * Execute the console command.
      *

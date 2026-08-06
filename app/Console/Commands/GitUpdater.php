@@ -19,16 +19,20 @@ namespace App\Console\Commands;
 use App\Console\ConsoleTools;
 use Exception;
 use FilesystemIterator;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use RuntimeException;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use RuntimeException;
 use Throwable;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 
+#[Signature('git:update')]
+#[Description('Update UNIT3D using Git')]
 class GitUpdater extends Command
 {
     use ConsoleTools;
@@ -37,20 +41,6 @@ class GitUpdater extends Command
      * The copy command.
      */
     private string $copyCommand = 'cp -Rfp';
-
-    /**
-     * The console command signature.
-     *
-     * @var string
-     */
-    protected $signature = 'git:update';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Update UNIT3D using Git';
 
     /**
      * Files that should be backed up and restored.

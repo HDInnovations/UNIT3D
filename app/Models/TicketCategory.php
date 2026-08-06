@@ -16,10 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TicketCategory.
@@ -30,6 +31,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class TicketCategory extends Model
 {
@@ -38,10 +40,4 @@ final class TicketCategory extends Model
     /** @use HasFactory<\Database\Factories\TicketCategoryFactory> */
     use HasFactory;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 }

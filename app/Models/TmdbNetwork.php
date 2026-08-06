@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TmdbNetwork.
@@ -32,15 +34,13 @@ use AllowDynamicProperties;
  * @property string|null $headquarters
  * @property string|null $origin_country
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class TmdbNetwork extends Model
 {
     /** @use HasFactory<\Database\Factories\TmdbNetworkFactory> */
     use HasFactory;
-
-    protected $guarded = [];
-
-    public $timestamps = false;
 
     /**
      * Get the tv shows that belong to the network.

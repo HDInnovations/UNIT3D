@@ -23,22 +23,17 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\Attributes\MaxExceptions;
 
+#[MaxExceptions(1)]
 class FailedLogin extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
-     * The maximum number of unhandled exceptions to allow before failing.
-     */
-    public int $maxExceptions = 1;
-
-    /**
      * FailedLogin Constructor.
      */
-    public function __construct(public string $ip)
-    {
-    }
+    public function __construct(public string $ip) {}
 
     /**
      * Get the notification's delivery channels.

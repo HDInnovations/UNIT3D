@@ -16,10 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Thank.
@@ -30,13 +31,12 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Thank extends Model
 {
     /** @use HasFactory<\Database\Factories\ThankFactory> */
     use HasFactory;
-
-    protected $guarded = [];
 
     /**
      * Get the torrent that was thanked.

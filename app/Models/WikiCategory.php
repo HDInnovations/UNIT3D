@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\WikiCategory.
@@ -29,19 +31,12 @@ use AllowDynamicProperties;
  * @property string $icon
  * @property int    $position
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class WikiCategory extends Model
 {
     use Auditable;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    protected $guarded = [];
 
     /**
      * Get the wikis for the wiki category.

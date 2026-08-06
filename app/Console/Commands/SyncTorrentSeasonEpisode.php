@@ -19,25 +19,15 @@ namespace App\Console\Commands;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:sync_torrent_season_episode')]
+#[Description('Syncs season and episode numbers from torrent titles to database')]
 class SyncTorrentSeasonEpisode extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:sync_torrent_season_episode';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Syncs season and episode numbers from torrent titles to database';
-
     /**
      * Execute the console command.
      *

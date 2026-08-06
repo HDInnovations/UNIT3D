@@ -16,13 +16,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AllowDynamicProperties;
 use App\Enums\Occupation;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TmdbPerson.
@@ -43,15 +45,13 @@ use AllowDynamicProperties;
  * @property string|null $gender
  * @property string|null $homepage
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class TmdbPerson extends Model
 {
     /** @use HasFactory<\Database\Factories\TmdbPersonFactory> */
     use HasFactory;
-
-    protected $guarded = [];
-
-    public $timestamps = false;
 
     /**
      * Get the credits for the person.

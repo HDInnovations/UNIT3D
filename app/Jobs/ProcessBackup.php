@@ -19,21 +19,19 @@ namespace App\Jobs;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Attributes\Timeout;
 use Illuminate\Queue\InteractsWithQueue;
 use Spatie\Backup\Config\Config;
 use Spatie\Backup\Tasks\Backup\BackupJobFactory;
 
+#[Timeout(0)]
 class ProcessBackup implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
 
-    public int $timeout = 0;
-
-    public function __construct(protected string $option = '')
-    {
-    }
+    public function __construct(protected string $option = '') {}
 
     public function handle(): void
     {

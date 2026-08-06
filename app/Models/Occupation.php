@@ -16,12 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Occupation.
@@ -30,6 +31,7 @@ use AllowDynamicProperties;
  * @property int    $position
  * @property string $name
  */
+#[WithoutTimestamps]
 #[AllowDynamicProperties]
 final class Occupation extends Model
 {
@@ -37,13 +39,6 @@ final class Occupation extends Model
 
     /** @use HasFactory<\Database\Factories\OccupationFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Get the the people that belong to the occupation.

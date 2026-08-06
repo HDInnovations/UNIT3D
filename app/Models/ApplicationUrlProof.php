@@ -16,11 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\ApplicationUrlProof.
@@ -31,6 +32,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Fillable('application_id', 'url')]
 #[AllowDynamicProperties]
 final class ApplicationUrlProof extends Model
 {
@@ -38,16 +40,6 @@ final class ApplicationUrlProof extends Model
 
     /** @use HasFactory<\Database\Factories\ApplicationUrlProofFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'application_id',
-        'url',
-    ];
 
     /**
      * Get the application that owns the URL proof.

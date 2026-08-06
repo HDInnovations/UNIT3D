@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -33,18 +35,13 @@ use Override;
  * @property bool        $personal_freeleech
  * @property bool        $invite
  */
+#[WithoutTimestamps]
+#[Guarded('id')]
 #[AllowDynamicProperties]
 final class BonExchange extends Model
 {
     /** @use HasFactory<\Database\Factories\BonExchangeFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Get the attributes that should be cast.
@@ -62,10 +59,4 @@ final class BonExchange extends Model
         ];
     }
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id'];
 }

@@ -20,26 +20,16 @@ use App\Jobs\SendDisableUserMail;
 use App\Models\Group;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:disable_inactive_users')]
+#[Description('User account must be at least x days old & user account x days Of inactivity to be disabled')]
 class AutoDisableInactiveUsers extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:disable_inactive_users';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'User account must be at least x days old & user account x days Of inactivity to be disabled';
-
     /**
      * Execute the console command.
      *

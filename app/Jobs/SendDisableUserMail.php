@@ -23,10 +23,12 @@ use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Attributes\MaxExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
+#[MaxExceptions(1)]
 class SendDisableUserMail implements ShouldQueue
 {
     use Dispatchable;
@@ -35,16 +37,9 @@ class SendDisableUserMail implements ShouldQueue
     use SerializesModels;
 
     /**
-     * The maximum number of unhandled exceptions to allow before failing.
-     */
-    public int $maxExceptions = 1;
-
-    /**
      * SendDisableUserMail Constructor.
      */
-    public function __construct(public User $user)
-    {
-    }
+    public function __construct(public User $user) {}
 
     /**
      * Get the middleware the job should pass through.

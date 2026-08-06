@@ -17,25 +17,15 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('set:all_cache')]
+#[Description("Sets Several Common Cache's ...")]
 class SetCache extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'set:all_cache';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = "Sets Several Common Cache's ...";
-
     /**
      * Execute the console command.
      *

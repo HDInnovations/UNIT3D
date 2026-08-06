@@ -18,11 +18,13 @@ namespace App\Console\Commands;
 
 use App\Bots\IRCAnnounceBot;
 use Exception;
+use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Command;
 use Override;
 use Symfony\Component\Console\Input\InputArgument;
 use Throwable;
 
+#[Description('Messages an IRC Channel')]
 class IrcMessage extends Command
 {
     /**
@@ -31,13 +33,6 @@ class IrcMessage extends Command
      * @var string
      */
     protected $name = 'irc:message';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Messages an IRC Channel';
 
     /**
      * Execute the console command.

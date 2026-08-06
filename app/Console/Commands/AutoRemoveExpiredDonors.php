@@ -20,26 +20,16 @@ use App\Models\User;
 use App\Notifications\DonationExpired;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 use Throwable;
 
+#[Signature('auto:remove_expired_donors')]
+#[Description('Automatically remove expired donors.')]
 class AutoRemoveExpiredDonors extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:remove_expired_donors';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically remove expired donors.';
-
     /**
      * Execute the console command.
      *

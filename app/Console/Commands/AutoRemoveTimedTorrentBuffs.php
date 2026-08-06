@@ -19,26 +19,16 @@ namespace App\Console\Commands;
 use App\Models\Torrent;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:remove_torrent_buffs')]
+#[Description('Automatically removes torrent buffs if expired')]
 class AutoRemoveTimedTorrentBuffs extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:remove_torrent_buffs';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically removes torrent buffs if expired';
-
     /**
      * Execute the console command.
      *

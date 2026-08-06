@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Models\Torrent;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Meilisearch\Client;
 
+#[Signature('auto:sync_torrents_to_meilisearch {--wipe}')]
+#[Description('Syncs torrents and their relations to meilisearch')]
 class AutoSyncTorrentsToMeilisearch extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:sync_torrents_to_meilisearch {--wipe}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Syncs torrents and their relations to meilisearch';
-
     /**
      * Execute the console command.
      *

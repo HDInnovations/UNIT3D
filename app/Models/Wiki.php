@@ -16,12 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Helpers\Bbcode;
 use App\Traits\Auditable;
 use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Wiki.
@@ -33,12 +34,11 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Wiki extends Model
 {
     use Auditable;
-
-    protected $guarded = [];
 
     /**
      * Get the category associated with the wiki.

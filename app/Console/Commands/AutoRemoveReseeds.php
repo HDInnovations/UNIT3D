@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Models\TorrentReseed;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:remove_reseeds')]
+#[Description('Automatically remove reseeds that are no longer being leeched or have sufficient seeders')]
 class AutoRemoveReseeds extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:remove_reseeds';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically remove reseeds that are no longer being leeched or have sufficient seeders';
-
     /**
      * Execute the console command.
      *

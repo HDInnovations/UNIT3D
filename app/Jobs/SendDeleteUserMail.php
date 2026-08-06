@@ -19,14 +19,16 @@ namespace App\Jobs;
 use App\Http\Middleware\RateLimitOutboundMail;
 use App\Mail\DeleteUser;
 use App\Models\User;
+use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Attributes\MaxExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use DateTime;
 
+#[MaxExceptions(1)]
 class SendDeleteUserMail implements ShouldQueue
 {
     use Dispatchable;
@@ -35,16 +37,9 @@ class SendDeleteUserMail implements ShouldQueue
     use SerializesModels;
 
     /**
-     * The maximum number of unhandled exceptions to allow before failing.
-     */
-    public int $maxExceptions = 1;
-
-    /**
      * SendDeleteUserMail Constructor.
      */
-    public function __construct(public User $user)
-    {
-    }
+    public function __construct(public User $user) {}
 
     /**
      * Get the middleware the job should pass through.

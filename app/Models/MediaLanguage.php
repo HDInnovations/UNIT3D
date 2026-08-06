@@ -16,10 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Model;
 use AllowDynamicProperties;
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\MediaLanguage.
@@ -30,6 +31,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class MediaLanguage extends Model
 {
@@ -38,10 +40,4 @@ final class MediaLanguage extends Model
     /** @use HasFactory<\Database\Factories\MediaLanguageFactory> */
     use HasFactory;
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 }

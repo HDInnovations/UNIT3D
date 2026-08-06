@@ -21,25 +21,15 @@ use App\Models\Group;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:group {user_ids?*}')]
+#[Description('Automatically change a users group class if requirements met')]
 class AutoGroup extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:group {user_ids?*}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically change a users group class if requirements met';
-
     /**
      * Execute the console command.
      *

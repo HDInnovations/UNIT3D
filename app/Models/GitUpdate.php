@@ -16,9 +16,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use AllowDynamicProperties;
 
 /**
  * App\Models\GitUpdate.
@@ -29,11 +30,11 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Guarded('id')]
 #[AllowDynamicProperties]
 final class GitUpdate extends Model
 {
     /** @use HasFactory<\Database\Factories\GitUpdateFactory> */
     use HasFactory;
 
-    protected $guarded = ['id'];
 }

@@ -21,9 +21,13 @@ use App\Notifications\ResurrectionCompleted;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:reward_resurrection')]
+#[Description('Automatically hands out rewards for successful resurrections')]
 class AutoRewardResurrection extends Command
 {
     /**
@@ -33,20 +37,6 @@ class AutoRewardResurrection extends Command
     {
         parent::__construct();
     }
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:reward_resurrection';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically hands out rewards for successful resurrections';
 
     /**
      * Execute the console command.
