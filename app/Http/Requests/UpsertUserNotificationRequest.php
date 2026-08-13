@@ -45,6 +45,7 @@ class UpsertUserNotificationRequest extends FormRequest
             'show_torrent_comment'         => 'required|boolean',
             'show_torrent_thank'           => 'required|boolean',
             'show_torrent_tip'             => 'required|boolean',
+            'show_torrent_deleted'         => 'required|boolean',
             'show_mention_torrent_comment' => 'required|boolean',
             'show_mention_request_comment' => 'required|boolean',
             'show_mention_article_comment' => 'required|boolean',
