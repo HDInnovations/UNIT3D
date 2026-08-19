@@ -883,6 +883,16 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the upload bon transactions made by the user.
+     *
+     * @return HasMany<Gift, $this>
+     */
+    public function uploadBonTransactions(): HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'sender_id')->whereRelation('exchange', 'upload', '=', true);
+    }
+
+    /**
      * Get the seedboxes owned by the user.
      *
      * @return HasMany<Seedbox, $this>
