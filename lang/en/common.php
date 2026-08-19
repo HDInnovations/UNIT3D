@@ -175,6 +175,7 @@ return [
     'reason' => 'Reason',
     'remove' => 'Remove',
     'report' => 'Report',
+    'reports' => 'Reports',
     'resend' => 'Resend',
     'resolution' => 'Resolution',
     'resolutions' => 'Resolutions',

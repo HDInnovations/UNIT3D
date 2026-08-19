@@ -126,7 +126,7 @@ class TorrentController extends Controller
                 'thanks',
                 'seeds'                      => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                 'leeches'                    => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
-                'reports as unsolvedReports' => fn ($query) => $query->whereNull('solved_by'),
+                'reports as unsolvedReports' => fn ($query) => $query->whereNull('solved_at'),
             ])
             ->withExists([
                 'featured as featured',

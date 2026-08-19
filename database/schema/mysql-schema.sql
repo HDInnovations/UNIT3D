@@ -1410,6 +1410,23 @@ CREATE TABLE `regions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `report_replies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `report_replies` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `report_id` int unsigned NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `report_replies_user_id_foreign` (`user_id`),
+  KEY `report_replies_report_id_foreign` (`report_id`),
+  CONSTRAINT `report_replies_report_id_foreign` FOREIGN KEY (`report_id`) REFERENCES `reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `report_replies_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `reports`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1422,25 +1439,24 @@ CREATE TABLE `reports` (
   `reported_torrent_id` int unsigned DEFAULT NULL,
   `reported_request_id` int unsigned DEFAULT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `assigned_to` int unsigned DEFAULT NULL,
-  `verdict` text COLLATE utf8mb4_unicode_ci,
+  `staff_id` int unsigned DEFAULT NULL,
   `snoozed_until` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `solved_by` int unsigned DEFAULT NULL,
   `solved_at` timestamp NULL DEFAULT NULL,
+  `user_read` tinyint(1) NOT NULL DEFAULT '0',
+  `staff_read` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `reports_reporter_id_foreign` (`reporter_id`),
   KEY `reports_reported_user_id_index` (`reported_user_id`),
   KEY `reports_reported_torrent_id_index` (`reported_torrent_id`),
-  KEY `reports_solved_by_assigned_to_snoozed_until_index` (`solved_by`,`assigned_to`,`snoozed_until`),
   KEY `reports_reported_request_id_foreign` (`reported_request_id`),
-  KEY `reports_assigned_to_foreign` (`assigned_to`),
-  CONSTRAINT `reports_assigned_to_foreign` FOREIGN KEY (`assigned_to`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  KEY `reports_assigned_to_foreign` (`staff_id`),
+  KEY `reports_solved_at_assigned_to_snoozed_until_index` (`solved_at`,`staff_id`,`snoozed_until`),
+  CONSTRAINT `reports_assigned_to_foreign` FOREIGN KEY (`staff_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `reports_reported_request_id_foreign` FOREIGN KEY (`reported_request_id`) REFERENCES `requests` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `reports_reported_user_id_foreign` FOREIGN KEY (`reported_user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `reports_reporter_id_foreign` FOREIGN KEY (`reporter_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `reports_solved_by_foreign` FOREIGN KEY (`solved_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `reports_torrent_id_foreign` FOREIGN KEY (`reported_torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -3144,3 +3160,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (382,'2026_06_27_06
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (383,'2026_06_27_193400_add_apikey_permissions',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (384,'2026_07_15_070539_remove_unused_ticket_columns',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (385,'2026_08_15_075513_add_min_actual_uploaded_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (386,'2026_08_16_075837_create_report_replies_table',1);
