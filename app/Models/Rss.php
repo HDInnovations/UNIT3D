@@ -16,14 +16,16 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use stdClass;
-use AllowDynamicProperties;
 use Override;
+use stdClass;
 
 /**
  * App\Models\Rss.
@@ -39,6 +41,8 @@ use Override;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Table('rss')]
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class Rss extends Model
 {
@@ -47,13 +51,6 @@ final class Rss extends Model
     /** @use HasFactory<\Database\Factories\RssFactory> */
     use HasFactory;
     use SoftDeletes;
-
-    /**
-     * The table associated with the mode.
-     *
-     * @var string
-     */
-    protected $table = 'rss';
 
     /**
      * Get the attributes that should be cast.
@@ -70,13 +67,6 @@ final class Rss extends Model
             'is_private'      => 'bool',
         ];
     }
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the user that owns the rss feed.

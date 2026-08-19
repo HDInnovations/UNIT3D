@@ -20,26 +20,16 @@ use App\Models\Warning;
 use App\Notifications\UserWarningExpired;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:deactivate_warning')]
+#[Description('Automatically deactivates user warnings if expired')]
 class AutoDeactivateWarning extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:deactivate_warning';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically deactivates user warnings if expired';
-
     /**
      * Execute the console command.
      *

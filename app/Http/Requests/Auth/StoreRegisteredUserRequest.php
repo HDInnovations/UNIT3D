@@ -18,18 +18,13 @@ namespace App\Http\Requests\Auth;
 
 use App\Rules\EmailBlacklist;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Attributes\StopOnFirstFailure;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
+#[StopOnFirstFailure]
 class StoreRegisteredUserRequest extends FormRequest
 {
-    /**
-     * Indicates if the validator should stop on the first rule failure.
-     *
-     * @var bool
-     */
-    protected $stopOnFirstFailure = true;
-
     /**
      * Get the validation rules that apply to the request.
      *

@@ -21,19 +21,21 @@ use App\Models\TmdbCompany;
 use App\Models\TmdbCredit;
 use App\Models\TmdbGenre;
 use App\Models\TmdbNetwork;
-use App\Models\Torrent;
 use App\Models\TmdbTv;
+use App\Models\Torrent;
 use App\Services\Tmdb\Client;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Attributes\FailOnTimeout;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 
+#[FailOnTimeout]
 class ProcessTvJob implements ShouldQueue
 {
     use Dispatchable;
@@ -47,13 +49,6 @@ class ProcessTvJob implements ShouldQueue
     public function __construct(public int $id)
     {
     }
-
-    /**
-     * Indicate if the job should be marked as failed on timeout.
-     *
-     * @var bool
-     */
-    public $failOnTimeout = true;
 
     /**
      * Get the middleware the job should pass through.

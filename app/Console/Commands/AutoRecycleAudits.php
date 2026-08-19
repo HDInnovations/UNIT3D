@@ -18,26 +18,16 @@ namespace App\Console\Commands;
 
 use App\Models\Audit;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Throwable;
 
+#[Signature('auto:recycle_audits')]
+#[Description('Recycle audits once X days old.')]
 class AutoRecycleAudits extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:recycle_audits';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Recycle audits once X days old.';
-
     /**
      * Execute the console command.
      *

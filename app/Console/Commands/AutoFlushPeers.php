@@ -18,27 +18,17 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Models\Peer;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:flush_peers')]
+#[Description('Flushes ghost peers')]
 class AutoFlushPeers extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:flush_peers';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Flushes ghost peers';
-
     /**
      * Execute the console command.
      *

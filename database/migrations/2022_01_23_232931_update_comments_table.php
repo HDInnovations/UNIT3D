@@ -35,21 +35,21 @@ return new class () extends Migration {
             ->whereNotNull('torrent_id')
             ->update([
                 'commentable_id'   => DB::raw('torrent_id'),
-                'commentable_type' => 'App\Models\Torrent',
+                'commentable_type' => App\Models\Torrent::class,
             ]);
 
         DB::table('comments')
             ->whereNotNull('article_id')
             ->update([
                 'commentable_id'   => DB::raw('article_id'),
-                'commentable_type' => 'App\Models\Article',
+                'commentable_type' => App\Models\Article::class,
             ]);
 
         DB::table('comments')
             ->whereNotNull('requests_id')
             ->update([
                 'commentable_id'   => DB::raw('requests_id'),
-                'commentable_type' => 'App\Models\TorrentRequest',
+                'commentable_type' => App\Models\TorrentRequest::class,
             ]);
 
         DB::table('comments')
@@ -63,14 +63,14 @@ return new class () extends Migration {
             ->whereNotNull('playlist_id')
             ->update([
                 'commentable_id'   => DB::raw('playlist_id'),
-                'commentable_type' => 'App\Models\Playlist',
+                'commentable_type' => App\Models\Playlist::class,
             ]);
 
         DB::table('comments')
             ->whereNotNull('ticket_id')
             ->update([
                 'commentable_id'   => DB::raw('ticket_id'),
-                'commentable_type' => 'App\Models\Ticket',
+                'commentable_type' => App\Models\Ticket::class,
             ]);
 
         Schema::table('comments', function (Blueprint $table): void {

@@ -18,27 +18,17 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use App\Notifications\UserPreWarning;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:prewarning')]
+#[Description('Automatically sends pre warning notifications to users')]
 class AutoPreWarning extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:prewarning';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically sends pre warning notifications to users';
-
     /**
      * Execute the console command.
      *

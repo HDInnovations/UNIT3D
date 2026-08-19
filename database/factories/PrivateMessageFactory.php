@@ -26,11 +26,6 @@ use Override;
 class PrivateMessageFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = PrivateMessage::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

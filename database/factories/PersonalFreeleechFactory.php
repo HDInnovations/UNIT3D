@@ -25,11 +25,6 @@ use Override;
 class PersonalFreeleechFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = PersonalFreeleech::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

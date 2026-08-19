@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -31,13 +33,11 @@ use Override;
  * @property string                     $message
  * @property \Illuminate\Support\Carbon $created_at
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Gift extends Model
 {
-    protected $guarded = [];
-
-    public $timestamps = false;
-
     /**
      * Get the attributes that should be cast.
      *

@@ -21,26 +21,16 @@ use App\Models\User;
 use App\Notifications\PersonalFreeleechDeleted;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Notification;
 use Throwable;
 
+#[Signature('auto:remove_personal_freeleech')]
+#[Description('Automatically removes a users personal freeleech if it has expired')]
 class AutoRemovePersonalFreeleech extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:remove_personal_freeleech';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically removes a users personal freeleech if it has expired';
-
     /**
      * Execute the console command.
      *

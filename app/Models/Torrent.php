@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Enums\ModerationStatus;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -85,6 +86,7 @@ use Override;
  * @property int                             $balance_offset
  * @property int|null                        $balance_reset_at
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Torrent extends Model
 {
@@ -94,8 +96,6 @@ final class Torrent extends Model
     use HasFactory;
     use Searchable;
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.

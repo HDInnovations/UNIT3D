@@ -16,11 +16,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -33,7 +36,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -81,6 +83,8 @@ use Override;
  * @property int                             $own_flushes
  * @property string|null                     $email_verified_at
  */
+#[Hidden('email', 'password', 'passkey', 'rsskey', 'remember_token', 'two_factor_secret', 'two_factor_recovery_codes', 'two_factor_confirmed_at')]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class User extends Authenticatable implements MustVerifyEmail
 {
@@ -92,29 +96,6 @@ final class User extends Authenticatable implements MustVerifyEmail
     use SoftDeletes;
     use TwoFactorAuthenticatable;
     use UsersOnlineTrait;
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'email',
-        'password',
-        'passkey',
-        'rsskey',
-        'remember_token',
-        'two_factor_secret',
-        'two_factor_recovery_codes',
-        'two_factor_confirmed_at',
-    ];
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.

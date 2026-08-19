@@ -24,11 +24,6 @@ use Override;
 class OccupationFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Occupation::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

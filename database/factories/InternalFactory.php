@@ -24,11 +24,6 @@ use Override;
 class InternalFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Internal::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

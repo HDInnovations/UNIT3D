@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TmdbCompany.
@@ -32,15 +34,13 @@ use AllowDynamicProperties;
  * @property string|null $logo
  * @property string|null $origin_country
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class TmdbCompany extends Model
 {
     /** @use HasFactory<\Database\Factories\TmdbCompanyFactory> */
     use HasFactory;
-
-    protected $guarded = [];
-
-    public $timestamps = false;
 
     /**
      * Get the movies that belong to the company.

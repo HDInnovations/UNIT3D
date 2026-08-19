@@ -25,11 +25,6 @@ use Override;
 class RssFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Rss::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

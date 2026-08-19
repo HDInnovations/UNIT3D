@@ -16,32 +16,22 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Models\Torrent;
 use App\Jobs\ProcessIgdbGameJob;
 use App\Jobs\ProcessMovieJob;
 use App\Jobs\ProcessTvJob;
+use App\Models\Torrent;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('fetch:meta {--only= : Comma-separated list of types to fetch (movie,tv,game)}')]
+#[Description('Fetches meta data for new system on preexisting torrents')]
 class FetchMeta extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'fetch:meta {--only= : Comma-separated list of types to fetch (movie,tv,game)}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Fetches meta data for new system on preexisting torrents';
-
     /**
      * Execute the console command.
      *

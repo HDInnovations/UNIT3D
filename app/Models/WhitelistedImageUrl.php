@@ -16,9 +16,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-use Illuminate\Database\Eloquent\Model;
 use AllowDynamicProperties;
+use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\WhitelistedImageUrl.
@@ -26,15 +27,9 @@ use AllowDynamicProperties;
  * @property int    $id
  * @property string $pattern
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class WhitelistedImageUrl extends Model
 {
     use Auditable;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 }

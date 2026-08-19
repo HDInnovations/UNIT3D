@@ -25,11 +25,6 @@ use Override;
 class UserPrivacyFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = UserPrivacy::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

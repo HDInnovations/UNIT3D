@@ -25,11 +25,6 @@ use Override;
 class CommentFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Comment::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

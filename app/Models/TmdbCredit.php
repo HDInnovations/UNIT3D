@@ -16,10 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TmdbCredit.
@@ -32,18 +33,12 @@ use AllowDynamicProperties;
  * @property int|null    $order
  * @property string|null $character
  */
+#[WithoutTimestamps]
 #[AllowDynamicProperties]
 final class TmdbCredit extends Model
 {
     /** @use HasFactory<\Database\Factories\TmdbCreditFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * Get the occupation associated with the credit.

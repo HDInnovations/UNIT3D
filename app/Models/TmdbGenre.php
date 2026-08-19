@@ -16,10 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TmdbGenre.
@@ -27,15 +29,13 @@ use AllowDynamicProperties;
  * @property int    $id
  * @property string $name
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class TmdbGenre extends Model
 {
     /** @use HasFactory<\Database\Factories\TmdbGenreFactory> */
     use HasFactory;
-
-    protected $guarded = [];
-
-    public $timestamps = false;
 
     /**
      * Get the movies that belong to the genre.

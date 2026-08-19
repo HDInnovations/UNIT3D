@@ -16,11 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Audit.
@@ -34,6 +35,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Fillable('user_id', 'auditable_type', 'auditable_id', 'action', 'record')]
 #[AllowDynamicProperties]
 final class Audit extends Model
 {
@@ -44,15 +46,6 @@ final class Audit extends Model
      * @var string[]
      */
     public array $values = [];
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'user_id', 'auditable_type', 'auditable_id', 'action', 'record',
-    ];
 
     /**
      * Get the user who triggered the audit.

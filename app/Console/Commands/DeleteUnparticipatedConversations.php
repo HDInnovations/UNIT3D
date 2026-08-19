@@ -19,24 +19,14 @@ namespace App\Console\Commands;
 use App\Models\Conversation;
 use App\Models\Participant;
 use App\Models\User;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('auto:delete_unparticipated_conversations')]
+#[Description('Deletes conversation where all users have deleted their participation')]
 class DeleteUnparticipatedConversations extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:delete_unparticipated_conversations';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Deletes conversation where all users have deleted their participation';
-
     /**
      * Execute the console command.
      */
