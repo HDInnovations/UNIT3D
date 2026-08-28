@@ -13,6 +13,12 @@ parameters:
 			path: app/Console/Commands/AutoDeactivateWarning.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$metric\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/AutoAchievementEvaluation.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\User\:\:\$avg_seedtime\.$#'
 			identifier: property.notFound
 			count: 1
@@ -515,12 +521,6 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 2
-			path: app/Listeners/AchievementUnlocked.php
 
 		-
 			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'

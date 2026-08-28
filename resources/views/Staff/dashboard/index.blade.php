@@ -199,6 +199,15 @@
                     <p class="form__group form__group--horizontal">
                         <a
                             class="form__button form__button--text"
+                            href="{{ route('staff.achievements.index') }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-trophy"></i>
+                            {{ __('user.achievements') }}
+                        </a>
+                    </p>
+                    <p class="form__group form__group--horizontal">
+                        <a
+                            class="form__button form__button--text"
                             href="{{ route('staff.forum_categories.index') }}"
                         >
                             <i class="fab fa-wpforms"></i>

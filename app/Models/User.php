@@ -18,7 +18,6 @@ namespace App\Models;
 
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
-use Assada\Achievements\Achiever;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -84,8 +83,6 @@ use AllowDynamicProperties;
 #[AllowDynamicProperties]
 final class User extends Authenticatable implements MustVerifyEmail
 {
-    use Achiever;
-
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use Notifiable;
@@ -273,6 +270,29 @@ final class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Torrent::class, 'peers')
             ->wherePivot('seeder', '=', 1)
             ->wherePivot('connectable', '=', true);
+    }
+
+    /**
+     * Get the torrents on which the user is currently the last remaining seeder.
+     *
+     * @return BelongsToMany<Torrent, $this>
+     */
+    public function lastSeederTorrents(): BelongsToMany
+    {
+        return $this->belongsToMany(Torrent::class, 'peers')
+            ->wherePivot('seeder', '=', 1)
+            ->wherePivot('active', '=', 1)
+            ->where('torrents.seeders', '=', 1);
+    }
+
+    /**
+     * Get the bonus transactions the user has sent.
+     *
+     * @return HasMany<BonTransactions, $this>
+     */
+    public function sentBonTransactions(): HasMany
+    {
+        return $this->hasMany(BonTransactions::class, 'sender_id');
     }
 
     /**
@@ -508,6 +528,16 @@ final class User extends Authenticatable implements MustVerifyEmail
     public function playlists(): HasMany
     {
         return $this->hasMany(Playlist::class);
+    }
+
+    /**
+     * Get the user's achievement awards.
+     *
+     * @return HasMany<UserAchievement, $this>
+     */
+    public function userAchievements(): HasMany
+    {
+        return $this->hasMany(UserAchievement::class);
     }
 
     /**

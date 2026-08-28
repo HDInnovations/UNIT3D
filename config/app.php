@@ -182,7 +182,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Assada\Achievements\AchievementsServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 

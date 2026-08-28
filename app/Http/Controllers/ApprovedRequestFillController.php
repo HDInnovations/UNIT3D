@@ -16,10 +16,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Achievements\UserFilled100Requests;
-use App\Achievements\UserFilled25Requests;
-use App\Achievements\UserFilled50Requests;
-use App\Achievements\UserFilled75Requests;
 use App\Models\TorrentRequest;
 use App\Notifications\NewRequestFillApprove;
 use App\Repositories\ChatRepository;
@@ -54,14 +50,6 @@ class ApprovedRequestFillController extends Controller
         ]);
 
         $filler->increment('seedbonus', (float) $torrentRequest->bounty);
-
-        // Achievements
-        if (!$torrentRequest->filled_anon) {
-            $filler->addProgress(new UserFilled25Requests(), 1);
-            $filler->addProgress(new UserFilled50Requests(), 1);
-            $filler->addProgress(new UserFilled75Requests(), 1);
-            $filler->addProgress(new UserFilled100Requests(), 1);
-        }
 
         // Auto Shout
         if ($torrentRequest->filled_anon) {

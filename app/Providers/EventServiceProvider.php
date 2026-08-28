@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Listeners\AchievementUnlocked;
+use App\Events\AchievementTierReached;
+use App\Listeners\AchievementTierReachedListener;
 use App\Listeners\LoginListener;
 use App\Listeners\RegisteredListener;
-use Assada\Achievements\Event\Unlocked;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -42,8 +42,8 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // Achievements System
-        Unlocked::class => [
-            AchievementUnlocked::class,
+        AchievementTierReached::class => [
+            AchievementTierReachedListener::class,
         ],
     ];
 

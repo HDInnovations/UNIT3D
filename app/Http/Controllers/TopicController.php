@@ -16,18 +16,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Achievements\UserMade100Posts;
-use App\Achievements\UserMade200Posts;
-use App\Achievements\UserMade25Posts;
-use App\Achievements\UserMade300Posts;
-use App\Achievements\UserMade400Posts;
-use App\Achievements\UserMade500Posts;
-use App\Achievements\UserMade50Posts;
-use App\Achievements\UserMade600Posts;
-use App\Achievements\UserMade700Posts;
-use App\Achievements\UserMade800Posts;
-use App\Achievements\UserMade900Posts;
-use App\Achievements\UserMadeFirstPost;
 use App\Models\Forum;
 use App\Models\ForumPermission;
 use App\Models\Post;
@@ -188,20 +176,6 @@ class TopicController extends Controller
             foreach ($subscribers as $subscriber) {
                 $subscriber->notify(new NewTopic('forum', $user, $topic, $post));
             }
-
-            //Achievements
-            $user->unlock(new UserMadeFirstPost());
-            $user->addProgress(new UserMade25Posts(), 1);
-            $user->addProgress(new UserMade50Posts(), 1);
-            $user->addProgress(new UserMade100Posts(), 1);
-            $user->addProgress(new UserMade200Posts(), 1);
-            $user->addProgress(new UserMade300Posts(), 1);
-            $user->addProgress(new UserMade400Posts(), 1);
-            $user->addProgress(new UserMade500Posts(), 1);
-            $user->addProgress(new UserMade600Posts(), 1);
-            $user->addProgress(new UserMade700Posts(), 1);
-            $user->addProgress(new UserMade800Posts(), 1);
-            $user->addProgress(new UserMade900Posts(), 1);
         }
 
         return to_route('topics.show', ['id' => $topic->id])

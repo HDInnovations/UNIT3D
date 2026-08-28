@@ -174,19 +174,73 @@
         </section>
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_achievement'))
             <section class="panelV2">
-                <h2 class="panel__heading">{{ __('user.recent-achievements') }}</h2>
-                <div class="panel__body">
-                    @forelse ($achievements->take(25) as $achievement)
-                        <img
-                            src="/img/badges/{{ $achievement->details->name }}.png"
-                            title="{{ $achievement->details->name }}"
-                            height="50px"
-                            alt="{{ $achievement->details->name }}"
-                        />
-                    @empty
-                        No recent achievements.
-                    @endforelse
-                </div>
+                <header class="panel__header">
+                    <h2 class="panel__heading">
+                        {{ __('user.achievements') }}
+                        <small>{{ $achievementsEarned }}/{{ $achievementsTotal }}</small>
+                    </h2>
+                </header>
+                @if ($earnedAchievements->isNotEmpty())
+                    <div class="achievement-grid">
+                        @foreach ($earnedAchievements as $card)
+                            <article class="achievement-card {{ $card['isMaxed'] ? 'achievement-card--maxed' : '' }}">
+                                <div class="achievement-card__icon">
+                                    @if ($card['iconRoute'])
+                                        <img
+                                            src="{{ $card['iconRoute'] }}"
+                                            alt="{{ $card['name'] }}"
+                                        />
+                                    @else
+                                        <span>@if ($card['isMaxed']) &#9733; @else {{ mb_substr($card['name'], 0, 1) }} @endif</span>
+                                    @endif
+                                </div>
+                                <div class="achievement-card__info">
+                                    <h3 class="achievement-card__name">
+                                        {{ $card['name'] }}
+                                    </h3>
+                                    <div class="achievement-card__meta">
+                                        {{ $card['achievement'] }}
+                                        @if ($card['maxTier'] > 1)
+                                            &middot; {{ __('user.tier') }} {{ $card['currentTier'] }}/{{ $card['maxTier'] }}
+                                        @endif
+                                        @if ($card['isMaxed'])
+                                            &middot; <span class="achievement-card__max-label">{{ __('user.max') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if ($lockedAchievements->isNotEmpty() || $secretLockedCount > 0)
+                    <div class="achievement-locked">
+                        <div class="achievement-locked__label">
+                            {{ __('user.locked') }} ({{ $lockedAchievements->count() + $secretLockedCount }})
+                        </div>
+                        <div class="achievement-locked__grid">
+                            @foreach ($lockedAchievements as $card)
+                                <div class="achievement-locked__item" title="{{ $card['achievement'] }}">
+                                    @if ($card['iconRoute'])
+                                        <img
+                                            src="{{ $card['iconRoute'] }}"
+                                            alt="{{ $card['achievement'] }}"
+                                        />
+                                    @else
+                                        <i class="{{ config('other.font-awesome') }} fa-lock"></i>
+                                    @endif
+                                </div>
+                            @endforeach
+                            @if ($secretLockedCount > 0)
+                                @foreach (range(1, $secretLockedCount) as $i)
+                                    <div class="achievement-locked__item achievement-locked__item--secret">
+                                        <i class="{{ config('other.font-awesome') }} fa-question"></i>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                @endif
             </section>
         @endif
 

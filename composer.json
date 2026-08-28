@@ -14,7 +14,6 @@
         "ext-libxml": "*",
         "ext-zend-opcache": "*",
         "ext-zip": "*",
-        "assada/laravel-achievements": "^2.8",
         "bjeavons/zxcvbn-php": "^1.4.2",
         "doctrine/dbal": "^3.10.1",
         "gabrielelana/byte-units": "^0.5.0",
