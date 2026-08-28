@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\AchievementConditionType;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -30,7 +29,7 @@ use AllowDynamicProperties;
  * @property string                          $category
  * @property AchievementConditionType        $type
  * @property string|null                     $icon_path
- * @property int                             $positions
+ * @property int                             $position
  * @property bool                            $is_hidden
  * @property bool                            $enabled
  * @property int|null                        $filter_type_id
@@ -43,13 +42,10 @@ use AllowDynamicProperties;
 #[AllowDynamicProperties]
 final class Achievement extends Model
 {
-    /** @use HasFactory<\Database\Factories\AchievementFactory> */
-    use HasFactory;
-
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute<array<string, string>, never>
+     * @return array<string, string>
      */
     protected function casts(): array
     {

@@ -99,7 +99,6 @@ class SubtitleController extends Controller
                     $subtitle->torrent->name
                 )
             );
-
         } else {
             $this->chatRepository->systemMessage(
                 \sprintf(

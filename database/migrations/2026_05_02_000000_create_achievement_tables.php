@@ -26,7 +26,7 @@ return new class () extends Migration {
             $table->string('category');
             $table->string('type');
             $table->string('icon_path')->nullable();
-            $table->integer('positions')->default(0);
+            $table->integer('position')->default(0);
             $table->boolean('is_hidden')->default(false);
             $table->boolean('enabled')->default(true);
             $table->smallInteger('filter_type_id')->unsigned()->nullable();

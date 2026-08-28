@@ -162,7 +162,6 @@ class Comments extends Component
 
                     break;
             }
-
         }
 
         $this->reset('newCommentState');

@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
@@ -36,9 +35,6 @@ use AllowDynamicProperties;
 #[AllowDynamicProperties]
 final class AchievementTier extends Model
 {
-    /** @use HasFactory<\Database\Factories\AchievementTierFactory> */
-    use HasFactory;
-
     protected $guarded = [];
 
     /**

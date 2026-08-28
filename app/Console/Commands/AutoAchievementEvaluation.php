@@ -16,169 +16,203 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Enums\AchievementConditionType;
-use App\Enums\ModerationStatus;
 use App\Events\AchievementTierReached;
 use App\Models\Achievement;
+use App\Models\Torrent;
 use App\Models\User;
 use App\Models\UserAchievement;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use Closure;
 
 class AutoAchievementEvaluation extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'auto:achievement_evaluation';
 
-    protected $description = 'Evaluates all enabled achievements and awards tiers to qualifying users.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Automatically award achievement tiers to users who meet the requirements';
 
-    public function handle(): void
+    /**
+     * Execute the console command.
+     */
+    final public function handle(): void
     {
         $now = now();
-        $totalAwards = 0;
+        $awards = 0;
 
         $achievements = Achievement::query()
             ->with('tiers')
             ->where('enabled', '=', true)
-            ->orderBy('positions')
-            ->get()
-            ->filter(fn (Achievement $achievement): bool => $achievement->tiers->isNotEmpty());
-
-        if ($achievements->isEmpty()) {
-            $this->comment('No enabled achievements with tiers.');
-
-            return;
-        }
-
-        $playlistTotals = [];
+            ->whereHas('tiers')
+            ->orderBy('position')
+            ->get();
 
         foreach ($achievements as $achievement) {
-            if (
-                $achievement->type === AchievementConditionType::PLAYLIST_SEEDING_PERCENT
-                && $achievement->filter_playlist_id !== null
-            ) {
-                $playlistTotals[$achievement->id] = (int) DB::table('playlist_torrents')
-                    ->where('playlist_id', '=', $achievement->filter_playlist_id)
-                    ->count();
-            }
+            $awards += $this->evaluate($achievement, $now);
         }
 
-        $existing = UserAchievement::query()
-            ->whereIn('achievement_id', $achievements->pluck('id'))
-            ->get(['user_id', 'achievement_id', 'current_tier'])
-            ->groupBy('achievement_id')
-            ->map(fn ($rows) => $rows->pluck('current_tier', 'user_id'));
+        $elapsed = (int) $now->diffInSeconds(now(), true);
+        $this->comment('Automated achievement evaluation command complete, '.$awards.' tiers awarded ('.$elapsed.' s)');
+    }
 
-        $query = User::query()
-            ->select(['id', 'uploaded', 'downloaded', 'seedbonus', 'created_at'])
-            ->whereNull('deleted_at');
+    /**
+     * Award every tier of a single achievement that its users now qualify for.
+     */
+    private function evaluate(Achievement $achievement, \Illuminate\Support\Carbon $now): int
+    {
+        $playlistId = $achievement->filter_playlist_id;
 
-        foreach ($achievements as $achievement) {
-            $spec = $achievement->type->aggregateSpec();
+        if ($playlistId === null && \in_array($achievement->type, [
+            AchievementConditionType::PLAYLIST_SEEDING_COUNT,
+            AchievementConditionType::PLAYLIST_SEEDING_PERCENT,
+        ], true)) {
+            $this->warn('Skipping achievement '.$achievement->id.' ('.$achievement->name.'): no playlist selected.');
 
-            if ($spec === null) {
-                continue;
-            }
-
-            $alias = 'ach_metric_'.$achievement->id;
-            $constraint = $this->metricConstraint($achievement);
-
-            match ($spec['fn']) {
-                'count' => $query->withCount([$spec['relation'].' as '.$alias => $constraint]),
-                'sum'   => $query->withSum([$spec['relation'].' as '.$alias => $constraint], $spec['column']),
-                'avg'   => $query->withAvg([$spec['relation'].' as '.$alias => $constraint], $spec['column']),
-            };
+            return 0;
         }
 
-        $query->each(function (User $user) use ($achievements, $existing, $playlistTotals, &$totalAwards): void {
-            foreach ($achievements as $achievement) {
-                $awarded = $existing->get($achievement->id);
-                $currentTier = (int) ($awarded?->get($user->id) ?? 0);
-                $maxTier = (int) $achievement->tiers->max('tier');
+        $users = $this->metricQuery($achievement);
 
-                if ($currentTier >= $maxTier) {
-                    continue;
-                }
+        $playlistTotal = $achievement->type === AchievementConditionType::PLAYLIST_SEEDING_PERCENT
+            ? Torrent::query()->whereHas('playlists', function ($query) use ($playlistId): void {
+                $query->where('playlists.id', '=', $playlistId);
+            })->count()
+            : 0;
 
-                $alias = 'ach_metric_'.$achievement->id;
+        $awards = 0;
+
+        $users->chunkById(100, function ($users) use ($achievement, $playlistTotal, $now, &$awards): void {
+            foreach ($users as $user) {
+                $currentTier = (int) ($user->userAchievements->first()?->current_tier ?? 0);
+
                 $metric = match ($achievement->type) {
                     AchievementConditionType::UPLOADED_TOTAL           => (float) $user->uploaded,
                     AchievementConditionType::DOWNLOADED_TOTAL         => (float) $user->downloaded,
                     AchievementConditionType::BONUS_POINTS             => (float) $user->seedbonus,
-                    AchievementConditionType::ACCOUNT_AGE_DAYS         => (float) (int) $user->created_at->diffInDays(now()),
-                    AchievementConditionType::PLAYLIST_SEEDING_PERCENT => (float) ($user->{$alias} ?? 0) * 100.0
-                        / max($playlistTotals[$achievement->id] ?? 1, 1),
-                    default => (float) ($user->{$alias} ?? 0),
+                    AchievementConditionType::ACCOUNT_AGE_DAYS         => (float) (int) $user->created_at->diffInDays($now),
+                    AchievementConditionType::PLAYLIST_SEEDING_PERCENT => $playlistTotal > 0
+                        ? (float) $user->metric * 100 / $playlistTotal
+                        : 0.0,
+                    default => (float) ($user->metric ?? 0),
                 };
 
                 $newTier = $currentTier;
 
-                foreach ($achievement->tiers->sortBy('tier') as $tier) {
+                // Tiers are ordered by tier number and their thresholds increase (enforced by
+                // the form requests), so the first unmet threshold ends the climb.
+                foreach ($achievement->tiers as $tier) {
                     if ($tier->tier <= $currentTier) {
                         continue;
                     }
 
-                    if ($metric >= (float) $tier->threshold) {
-                        $newTier = $tier->tier;
-                    } else {
+                    if ($metric < (float) $tier->threshold) {
                         break;
                     }
+
+                    $newTier = $tier->tier;
                 }
 
-                if ($newTier > $currentTier) {
-                    UserAchievement::query()->updateOrCreate(
-                        ['user_id' => $user->id, 'achievement_id' => $achievement->id],
-                        ['current_tier' => $newTier, 'achieved_at' => now()],
-                    );
+                if ($newTier === $currentTier) {
+                    continue;
+                }
 
-                    for ($tierLevel = $currentTier + 1; $tierLevel <= $newTier; $tierLevel++) {
-                        $totalAwards++;
+                UserAchievement::query()->updateOrCreate(
+                    ['user_id' => $user->id, 'achievement_id' => $achievement->id],
+                    ['current_tier' => $newTier, 'achieved_at' => $now],
+                );
 
-                        event(new AchievementTierReached($user->id, $achievement->id, $tierLevel));
-                    }
+                for ($tierLevel = $currentTier + 1; $tierLevel <= $newTier; $tierLevel++) {
+                    $awards++;
+
+                    event(new AchievementTierReached($user->id, $achievement->id, $tierLevel));
                 }
             }
-        }, 100);
+        });
 
-        $elapsed = (int) now()->diffInMilliseconds($now, true);
-
-        $this->comment(\sprintf(
-            'Achievement evaluation complete: %d achievements evaluated, %d new awards (%d ms)',
-            $achievements->count(),
-            $totalAwards,
-            $elapsed,
-        ));
+        return $awards;
     }
 
-    private function metricConstraint(Achievement $achievement): Closure
+    /**
+     * Users still in the running for this achievement, with its metric loaded as `metric`.
+     *
+     * Each metric is one relationship aggregate. The four metrics that are plain columns
+     * on `users` need no aggregate and are read straight off the model in evaluate().
+     *
+     * @return Builder<User>
+     */
+    private function metricQuery(Achievement $achievement): Builder
     {
-        $type = $achievement->type;
+        $playlistId = $achievement->filter_playlist_id;
 
-        return function ($query) use ($achievement, $type): void {
-            if ($type === AchievementConditionType::SEEDTIME_AVG) {
-                $query->withTrashed();
-            }
-
-            if ($type === AchievementConditionType::UPLOAD_COUNT) {
-                $query->where('status', '=', ModerationStatus::APPROVED->value);
-            }
-
-            if ($type === AchievementConditionType::REQUESTS_FILLED) {
-                $query->whereNotNull('approved_by');
-            }
-
-            if ($type->honorsTorrentFilters()) {
+        $users = User::query()
+            ->select(['id', 'uploaded', 'downloaded', 'seedbonus', 'created_at'])
+            ->with([
+                'userAchievements' => fn ($query) => $query->where('achievement_id', '=', $achievement->id),
+            ])
+            ->whereDoesntHave('userAchievements', function ($query) use ($achievement): void {
                 $query
-                    ->when($achievement->filter_type_id, fn ($query, $value) => $query->where('type_id', '=', $value))
-                    ->when($achievement->filter_category_id, fn ($query, $value) => $query->where('category_id', '=', $value))
-                    ->when($achievement->filter_resolution_id, fn ($query, $value) => $query->where('resolution_id', '=', $value));
-            }
+                    ->where('achievement_id', '=', $achievement->id)
+                    ->where('current_tier', '>=', $achievement->tiers->max('tier'));
+            });
 
-            if (\in_array($type, [AchievementConditionType::PLAYLIST_SEEDING_COUNT, AchievementConditionType::PLAYLIST_SEEDING_PERCENT], true)) {
-                $query->whereExists(fn ($sub) => $sub->selectRaw('1')
-                    ->from('playlist_torrents')
-                    ->whereColumn('playlist_torrents.torrent_id', 'torrents.id')
-                    ->where('playlist_torrents.playlist_id', '=', $achievement->filter_playlist_id ?? 0));
-            }
+        return match ($achievement->type) {
+            AchievementConditionType::UPLOAD_COUNT => $users->withCount([
+                'torrents as metric' => fn (Builder $query) => $this->applyTorrentFilters($query, $achievement),
+            ]),
+            AchievementConditionType::SEEDING_COUNT => $users->withCount([
+                'seedingTorrents as metric' => fn (Builder $query) => $this->applyTorrentFilters($query, $achievement),
+            ]),
+            // A user may seed one torrent from several clients, so `peers` can hold more than
+            // one row per torrent. Count the torrents, not the peer rows.
+            AchievementConditionType::LAST_SEEDER_COUNT => $users->withAggregate([
+                'lastSeederTorrents as metric' => fn (Builder $query) => $this->applyTorrentFilters($query, $achievement),
+            ], DB::raw('distinct torrents.id'), 'count'),
+            AchievementConditionType::PLAYLIST_SEEDING_COUNT,
+            AchievementConditionType::PLAYLIST_SEEDING_PERCENT => $users->withCount([
+                'seedingTorrents as metric' => fn (Builder $query) => $query->whereHas(
+                    'playlists',
+                    function ($query) use ($playlistId): void {
+                        $query->where('playlists.id', '=', $playlistId);
+                    }
+                ),
+            ]),
+            AchievementConditionType::SEEDSIZE_SUM => $users->withSum('seedingTorrents as metric', 'size'),
+            AchievementConditionType::BONUS_SPENT  => $users->withSum('sentBonTransactions as metric', 'cost'),
+            // Seedtime is a lifetime figure, so soft-deleted history still counts.
+            AchievementConditionType::SEEDTIME_AVG => $users->withAvg([
+                'history as metric' => fn ($query) => $query->withTrashed(),
+            ], 'seedtime'),
+            AchievementConditionType::COMMENT_COUNT   => $users->withCount('comments as metric'),
+            AchievementConditionType::REQUESTS_FILLED => $users->withCount([
+                'filledRequests as metric' => fn (Builder $query) => $query->whereNotNull('approved_by'),
+            ]),
+            AchievementConditionType::UPLOADED_TOTAL,
+            AchievementConditionType::DOWNLOADED_TOTAL,
+            AchievementConditionType::BONUS_POINTS,
+            AchievementConditionType::ACCOUNT_AGE_DAYS => $users,
         };
+    }
+
+    /**
+     * Restrict a torrent aggregate to the achievement's configured torrent filters.
+     *
+     * @param  Builder<Torrent> $query
+     * @return Builder<Torrent>
+     */
+    private function applyTorrentFilters(Builder $query, Achievement $achievement): Builder
+    {
+        return $query
+            ->when($achievement->filter_type_id, fn (Builder $query, int $value) => $query->where('torrents.type_id', '=', $value))
+            ->when($achievement->filter_category_id, fn (Builder $query, int $value) => $query->where('torrents.category_id', '=', $value))
+            ->when($achievement->filter_resolution_id, fn (Builder $query, int $value) => $query->where('torrents.resolution_id', '=', $value));
     }
 }

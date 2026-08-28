@@ -140,7 +140,6 @@ class PostController extends Controller
             foreach ($subscribers as $subscriber) {
                 $subscriber->notify(new NewPost('subscription', $user, $post));
             }
-
         }
 
         // User Tagged Notification

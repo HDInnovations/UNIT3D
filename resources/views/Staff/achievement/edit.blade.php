@@ -103,16 +103,16 @@
                 </p>
                 <p class="form__group">
                     <input
-                        id="positions"
+                        id="position"
                         class="form__text"
                         inputmode="numeric"
-                        name="achievement[positions]"
+                        name="achievement[position]"
                         pattern="[0-9]*"
                         required
                         type="text"
-                        value="{{ $achievement->positions }}"
+                        value="{{ $achievement->position }}"
                     />
-                    <label class="form__label form__label--floating" for="positions">
+                    <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>
                 </p>

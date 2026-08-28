@@ -51,42 +51,4 @@ enum AchievementConditionType: string
             self::PLAYLIST_SEEDING_PERCENT => 'Playlist Seeding Percent',
         };
     }
-
-    public function scalarColumn(): ?string
-    {
-        return match ($this) {
-            self::UPLOADED_TOTAL   => 'uploaded',
-            self::DOWNLOADED_TOTAL => 'downloaded',
-            self::BONUS_POINTS     => 'seedbonus',
-            default                => null,
-        };
-    }
-
-    public function honorsTorrentFilters(): bool
-    {
-        return match ($this) {
-            self::UPLOAD_COUNT, self::SEEDING_COUNT, self::LAST_SEEDER_COUNT => true,
-            default => false,
-        };
-    }
-
-    /**
-     * @return array{relation: string, column: ?string, fn: 'avg'|'count'|'sum'}|null
-     */
-    public function aggregateSpec(): ?array
-    {
-        return match ($this) {
-            self::UPLOAD_COUNT      => ['relation' => 'torrents',            'column' => null,       'fn' => 'count'],
-            self::COMMENT_COUNT     => ['relation' => 'comments',            'column' => null,       'fn' => 'count'],
-            self::REQUESTS_FILLED   => ['relation' => 'filledRequests',      'column' => null,       'fn' => 'count'],
-            self::SEEDTIME_AVG      => ['relation' => 'history',             'column' => 'seedtime', 'fn' => 'avg'],
-            self::SEEDSIZE_SUM      => ['relation' => 'seedingTorrents',     'column' => 'size',     'fn' => 'sum'],
-            self::SEEDING_COUNT     => ['relation' => 'seedingTorrents',     'column' => null,       'fn' => 'count'],
-            self::BONUS_SPENT       => ['relation' => 'sentBonTransactions', 'column' => 'cost',     'fn' => 'sum'],
-            self::LAST_SEEDER_COUNT => ['relation' => 'lastSeederTorrents',  'column' => null,       'fn' => 'count'],
-            self::PLAYLIST_SEEDING_COUNT,
-            self::PLAYLIST_SEEDING_PERCENT => ['relation' => 'seedingTorrents',     'column' => null,       'fn' => 'count'],
-            self::UPLOADED_TOTAL, self::DOWNLOADED_TOTAL, self::BONUS_POINTS, self::ACCOUNT_AGE_DAYS => null,
-        };
-    }
 }

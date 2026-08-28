@@ -176,7 +176,6 @@ class TopicController extends Controller
             foreach ($subscribers as $subscriber) {
                 $subscriber->notify(new NewTopic('forum', $user, $topic, $post));
             }
-
         }
 
         return to_route('topics.show', ['id' => $topic->id])

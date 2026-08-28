@@ -30,17 +30,17 @@ class AchievementsController extends Controller
      */
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $userAchievements = UserAchievement::query()
-            ->with(['achievement.tiers'])
-            ->where('user_id', '=', $user->id)
-            ->get()
-            ->keyBy('achievement_id');
-
         $achievements = Achievement::query()
             ->with('tiers')
             ->where('enabled', '=', true)
-            ->orderBy('positions')
+            ->orderBy('position')
             ->get();
+
+        $userAchievements = UserAchievement::query()
+            ->where('user_id', '=', $user->id)
+            ->whereIn('achievement_id', $achievements->pluck('id'))
+            ->get()
+            ->keyBy('achievement_id');
 
         $achievementRows = $achievements->map(function (Achievement $achievement) use ($userAchievements): array {
             $userAchievement = $userAchievements->get($achievement->id);
@@ -70,17 +70,17 @@ class AchievementsController extends Controller
 
         $grouped = $achievementRows->groupBy('category');
 
-        $completedCount = $userAchievements
-            ->filter(fn (UserAchievement $userAchievement) => $userAchievement->current_tier >= $userAchievement->achievement->tiers->max('tier'))
-            ->count();
+        // A hidden achievement only becomes visible — and so only counts towards the
+        // totals — once the user has earned a tier in it.
+        $visibleRows = $achievementRows->reject(fn (array $row): bool => $row['isHidden']);
 
         return view('user.achievement.index', [
             'route'          => 'achievement',
             'user'           => $user,
             'grouped'        => $grouped,
-            'earnedCount'    => $userAchievements->count(),
-            'completedCount' => $completedCount,
-            'availableCount' => $achievements->where('is_hidden', '=', false)->count(),
+            'earnedCount'    => $visibleRows->where('currentTier', '>', 0)->count(),
+            'completedCount' => $visibleRows->where('isCompleted', '=', true)->count(),
+            'availableCount' => $visibleRows->count(),
         ]);
     }
 }

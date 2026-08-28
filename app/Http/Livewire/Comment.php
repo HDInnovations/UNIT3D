@@ -204,7 +204,6 @@ class Comment extends Component
 
                     break;
             }
-
         }
 
         $this->reset('replyState', 'isReplying');

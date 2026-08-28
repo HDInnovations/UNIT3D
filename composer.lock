@@ -4,67 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e70fafa44e1c2ea5b0107b90be81c4a",
+    "content-hash": "dc2001c1def6444d43abca99e54decd5",
     "packages": [
-        {
-            "name": "assada/laravel-achievements",
-            "version": "v2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/assada/laravel-achievements.git",
-                "reference": "b18678fedc86c57ece8cf6d9a072dcc001fc3ae0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/assada/laravel-achievements/zipball/b18678fedc86c57ece8cf6d9a072dcc001fc3ae0",
-                "reference": "b18678fedc86c57ece8cf6d9a072dcc001fc3ae0",
-                "shasum": ""
-            },
-            "require": {
-                "ramsey/uuid": "^3 || ^4"
-            },
-            "require-dev": {
-                "laravel/laravel": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-                "phpunit/phpunit": "^8"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Assada\\Achievements\\AchievementsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Assada\\Tests\\": "tests/",
-                    "Assada\\Achievements\\": "src/"
-                },
-                "classmap": [
-                    "src/Migrations"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gabriel Simonetti",
-                    "email": "simonettigo@gmail.com"
-                },
-                {
-                    "name": "Alex Ilyenko",
-                    "email": "assada.ua@gmail.com"
-                }
-            ],
-            "description": "Achievements for Laravel 6+",
-            "support": {
-                "issues": "https://github.com/assada/laravel-achievements/issues",
-                "source": "https://github.com/assada/laravel-achievements/tree/v2.8.0"
-            },
-            "time": "2025-04-16T09:25:57+00:00"
-        },
         {
             "name": "bacon/bacon-qr-code",
             "version": "v3.0.1",
@@ -13126,5 +13067,5 @@
     "platform-overrides": {
         "ext-mcrypt": "1.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

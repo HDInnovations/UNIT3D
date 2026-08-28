@@ -18,6 +18,7 @@ namespace App\Http\Requests\Staff;
 use App\Enums\AchievementConditionType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Closure;
 
 class StoreAchievementRequest extends FormRequest
 {
@@ -31,7 +32,7 @@ class StoreAchievementRequest extends FormRequest
             'achievement.category'             => ['required', 'string', 'max:255'],
             'achievement.type'                 => ['required', Rule::enum(AchievementConditionType::class)],
             'achievement.icon'                 => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
-            'achievement.positions'            => ['required', 'integer'],
+            'achievement.position'             => ['required', 'integer'],
             'achievement.is_hidden'            => ['nullable', 'boolean'],
             'achievement.enabled'              => ['nullable', 'boolean'],
             'achievement.filter_type_id'       => ['nullable', 'exists:types,id'],
@@ -43,6 +44,38 @@ class StoreAchievementRequest extends FormRequest
             'tiers.*.description'              => ['required', 'string', 'max:1000'],
             'tiers.*.threshold'                => ['required', 'numeric', 'min:0'],
             'tiers.*.icon'                     => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,webp', 'max:2048'],
+        ];
+    }
+
+    /**
+     * Tier thresholds must increase with the tier number: evaluation climbs the tiers in
+     * order and stops at the first unmet threshold.
+     *
+     * @return array<int, Closure>
+     */
+    public function after(): array
+    {
+        return [
+            function (\Illuminate\Validation\Validator $validator): void {
+                $previous = null;
+
+                foreach ((array) $this->input('tiers', []) as $index => $tier) {
+                    $threshold = $tier['threshold'] ?? null;
+
+                    if (!is_numeric($threshold)) {
+                        continue;
+                    }
+
+                    if ($previous !== null && (float) $threshold <= $previous) {
+                        $validator->errors()->add(
+                            "tiers.{$index}.threshold",
+                            'Each tier threshold must be greater than the previous tier.'
+                        );
+                    }
+
+                    $previous = (float) $threshold;
+                }
+            },
         ];
     }
 }

@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
@@ -34,13 +33,10 @@ use AllowDynamicProperties;
 #[AllowDynamicProperties]
 final class UserAchievement extends Model
 {
-    /** @use HasFactory<\Database\Factories\UserAchievementFactory> */
-    use HasFactory;
-
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute<array<string, string>, never>
+     * @return array<string, string>
      */
     protected function casts(): array
     {
@@ -64,5 +60,4 @@ final class UserAchievement extends Model
     {
         return $this->belongsTo(Achievement::class);
     }
-
 }

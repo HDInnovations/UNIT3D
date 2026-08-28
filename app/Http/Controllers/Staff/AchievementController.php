@@ -35,7 +35,7 @@ class AchievementController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.achievement.index', [
-            'achievements' => Achievement::query()->with('tiers')->orderBy('positions')->get(),
+            'achievements' => Achievement::query()->with('tiers')->orderBy('position')->get(),
         ]);
     }
 
@@ -52,42 +52,44 @@ class AchievementController extends Controller
 
     public function store(StoreAchievementRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $data = $request->validated('achievement');
+        return DB::transaction(function () use ($request): \Illuminate\Http\RedirectResponse {
+            $data = $request->validated('achievement');
 
-        if ($request->hasFile('achievement.icon')) {
-            $file = $request->file('achievement.icon');
+            if ($request->hasFile('achievement.icon')) {
+                $icon = $request->file('achievement.icon');
 
-            abort_if(\is_array($file), 400);
+                abort_if(\is_array($icon), 400);
 
-            $data['icon_path'] = $this->storeIcon($file);
-        }
-
-        unset($data['icon']);
-
-        $achievement = Achievement::query()->create($data);
-
-        foreach ($request->validated('tiers', []) as $index => $tierData) {
-            $tierAttributes = [
-                'achievement_id' => $achievement->id,
-                'tier'           => $index + 1,
-                'name'           => $tierData['name'],
-                'description'    => $tierData['description'],
-                'threshold'      => $tierData['threshold'],
-            ];
-
-            if (isset($tierData['icon']) && $request->hasFile("tiers.{$index}.icon")) {
-                $file = $request->file("tiers.{$index}.icon");
-
-                abort_if(\is_array($file), 400);
-
-                $tierAttributes['icon_path'] = $this->storeIcon($file);
+                $data['icon_path'] = $this->storeIcon($icon);
             }
 
-            $achievement->tiers()->create($tierAttributes);
-        }
+            unset($data['icon']);
 
-        return to_route('staff.achievements.index')
-            ->with('success', 'Achievement successfully created.');
+            $achievement = Achievement::query()->create($data);
+
+            foreach ($request->validated('tiers', []) as $index => $tierData) {
+                $tierAttributes = [
+                    'achievement_id' => $achievement->id,
+                    'tier'           => $index + 1,
+                    'name'           => $tierData['name'],
+                    'description'    => $tierData['description'],
+                    'threshold'      => $tierData['threshold'],
+                ];
+
+                if (isset($tierData['icon']) && $request->hasFile("tiers.{$index}.icon")) {
+                    $tierIcon = $request->file("tiers.{$index}.icon");
+
+                    abort_if(\is_array($tierIcon), 400);
+
+                    $tierAttributes['icon_path'] = $this->storeIcon($tierIcon);
+                }
+
+                $achievement->tiers()->create($tierAttributes);
+            }
+
+            return to_route('staff.achievements.index')
+                ->with('success', 'Achievement successfully created.');
+        });
     }
 
     public function edit(Achievement $achievement): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -108,13 +110,13 @@ class AchievementController extends Controller
             $data = $request->validated('achievement');
 
             if ($request->hasFile('achievement.icon')) {
-                $file = $request->file('achievement.icon');
+                $icon = $request->file('achievement.icon');
 
-                abort_if(\is_array($file), 400);
+                abort_if(\is_array($icon), 400);
 
                 $oldIconPath = $achievement->icon_path;
 
-                $data['icon_path'] = $this->storeIcon($file);
+                $data['icon_path'] = $this->storeIcon($icon);
             }
 
             unset($data['icon']);
@@ -133,6 +135,10 @@ class AchievementController extends Controller
                     $tier->delete();
                 });
 
+            $achievement->tiers()
+                ->whereIn('id', array_filter($submittedTierIds))
+                ->increment('tier', 32768);
+
             foreach ($request->validated('tiers', []) as $index => $tierData) {
                 $tierAttributes = [
                     'achievement_id' => $achievement->id,
@@ -143,9 +149,9 @@ class AchievementController extends Controller
                 ];
 
                 if (isset($tierData['icon']) && $request->hasFile("tiers.{$index}.icon")) {
-                    $file = $request->file("tiers.{$index}.icon");
+                    $tierIcon = $request->file("tiers.{$index}.icon");
 
-                    abort_if(\is_array($file), 400);
+                    abort_if(\is_array($tierIcon), 400);
 
                     $existingTier = !empty($tierData['id'])
                         ? $achievement->tiers()->where('id', '=', $tierData['id'])->first()
@@ -155,7 +161,7 @@ class AchievementController extends Controller
                         Storage::disk('achievement-images')->delete($existingTier->icon_path);
                     }
 
-                    $tierAttributes['icon_path'] = $this->storeIcon($file);
+                    $tierAttributes['icon_path'] = $this->storeIcon($tierIcon);
                 }
 
                 if (!empty($tierData['id'])) {
@@ -172,15 +178,6 @@ class AchievementController extends Controller
             return to_route('staff.achievements.index')
                 ->with('success', 'Achievement successfully updated.');
         });
-    }
-
-    private function storeIcon(\Illuminate\Http\UploadedFile $file): string
-    {
-        $filename = 'achievement-'.uniqid('', true).'.jpg';
-        $path = Storage::disk('achievement-images')->path($filename);
-        Image::make($file->getRealPath())->fit(100, 100)->encode('jpg', 100)->save($path);
-
-        return $filename;
     }
 
     /**
@@ -202,5 +199,14 @@ class AchievementController extends Controller
 
         return to_route('staff.achievements.index')
             ->with('success', 'Achievement successfully deleted.');
+    }
+
+    private function storeIcon(\Illuminate\Http\UploadedFile $file): string
+    {
+        $filename = 'achievement-'.uniqid('', true).'.jpg';
+        $path = Storage::disk('achievement-images')->path($filename);
+        Image::make($file->getRealPath())->fit(100, 100)->encode('jpg', 100)->save($path);
+
+        return $filename;
     }
 }

@@ -47,7 +47,7 @@ class UserController extends Controller
             ->with('tiers')
             ->where('enabled', '=', true)
             ->where('is_hidden', '=', false)
-            ->orderBy('positions')
+            ->orderBy('position')
             ->get();
 
         $userAchievements = UserAchievement::query()
@@ -62,7 +62,7 @@ class UserController extends Controller
         $hiddenEarned = UserAchievement::query()
             ->where('user_id', '=', $user->id)
             ->whereHas('achievement', function ($query): void {
-                $query->where('is_hidden', '=', true);
+                $query->where('enabled', '=', true)->where('is_hidden', '=', true);
             })
             ->count();
 
