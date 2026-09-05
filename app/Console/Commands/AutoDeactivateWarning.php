@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\Warning;
 use App\Notifications\UserWarningExpired;
 use App\Services\Unit3dAnnounce;
@@ -69,8 +70,17 @@ class AutoDeactivateWarning extends Command
                 $usersWithExpiredWarnings[$warning->user_id] = $warning->user;
             }, 100);
 
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
         // Send a single notification for each user with expired warnings
         foreach ($usersWithExpiredWarnings as $user) {
+            if (\in_array($user->group_id, $inactiveGroupIds, true)) {
+                continue;
+            }
+
             $user->notify(new UserWarningExpired($user));
         }
 
