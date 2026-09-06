@@ -55,6 +55,12 @@ parameters:
 			path: app/Console/Commands/AutoRecycleClaimedTorrentRequests.php
 
 		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRemovePersonalFreeleech.php
+
+		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
 			identifier: return.type
 			count: 1

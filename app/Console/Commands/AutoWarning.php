@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\History;
 use App\Models\User;
 use App\Models\Warning;
@@ -95,8 +96,17 @@ class AutoWarning extends Command
             $usersWithWarnings[$hr->user->id] = $hr->user;
         }
 
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
         // Send a single notification for each user with warnings
         foreach ($usersWithWarnings as $user) {
+            if (\in_array($user->group_id, $inactiveGroupIds, true)) {
+                continue;
+            }
+
             $user->notify(new UserWarning($user));
         }
 

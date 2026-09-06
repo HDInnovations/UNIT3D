@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\User;
 use App\Notifications\DonationExpired;
 use App\Services\Unit3dAnnounce;
@@ -55,7 +56,16 @@ class AutoRemoveExpiredDonors extends Command
                 $query->where('ends_at', '>', now());
             })->get();
 
-        Notification::send($expiredDonors, new DonationExpired());
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
+        // Notify active users only; donor status is still removed below.
+        Notification::send(
+            $expiredDonors->whereNotIn('group_id', $inactiveGroupIds),
+            new DonationExpired()
+        );
 
         foreach ($expiredDonors as $user) {
             $user->is_donor = false;
