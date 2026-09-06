@@ -65,6 +65,15 @@ final class AnnounceController extends Controller
         6699,
     ];
 
+    /**
+     * Maximum accepted value for the uploaded/downloaded/left announce fields (1 PiB).
+     *
+     * These fields are cumulative per-session client totals. A legitimate
+     * session never approaches 1 PiB; anything larger indicates a tampered
+     * client attempting to forge transfer statistics.
+     */
+    private const int MAX_ANNOUNCE_VALUE = 1_024 ** 5;
+
     private const array HEADERS = [
         'Content-Type'  => 'text/plain; charset=utf-8',
         'Cache-Control' => 'private, no-cache, no-store, must-revalidate, max-age=0',
@@ -245,12 +254,24 @@ final class AnnounceController extends Controller
             }
         }
 
+        // Require plain non-negative decimal integers within a sane range.
+        // is_numeric() and (int) casts are not sufficient here: they accept
+        // floats and scientific notation (e.g. "1e19"), which overflow to a
+        // platform-dependent value when cast, and without an upper bound a
+        // client can credit itself exabytes of transfer in a single announce.
         foreach (['port', 'uploaded', 'downloaded', 'left'] as $item) {
-            $itemData = $queries[$item];
+            // Values originate from the query string; InputBag rejects arrays, so this is always a scalar.
+            $itemData = (string) $queries[$item];
 
-            if (!is_numeric($itemData) || $itemData < 0) {
+            if (
+                !ctype_digit($itemData)
+                || \strlen($itemData) > 16
+                || (int) $itemData > self::MAX_ANNOUNCE_VALUE
+            ) {
                 throw new TrackerException(134, [':attribute' => $item]);
             }
+
+            $queries[$item] = (int) $itemData;
         }
 
         // Part.2 Extract optional announce fields
@@ -264,9 +285,18 @@ final class AnnounceController extends Controller
         }
 
         foreach (['numwant', 'corrupt'] as $item) {
-            if (!is_numeric($queries[$item]) || $queries[$item] < 0) {
+            // Values originate from the query string or the integer defaults above.
+            $itemData = (string) $queries[$item];
+
+            if (
+                !ctype_digit($itemData)
+                || \strlen($itemData) > 16
+                || (int) $itemData > self::MAX_ANNOUNCE_VALUE
+            ) {
                 throw new TrackerException(134, [':attribute' => $item]);
             }
+
+            $queries[$item] = (int) $itemData;
         }
 
         $queries['event'] = strtolower((string) $queries['event']);
@@ -275,12 +305,11 @@ final class AnnounceController extends Controller
             throw new TrackerException(136, [':event' => $queries['event']]);
         }
 
-        // Part.3 check Port is Valid and Allowed
+        // Part.3 check Port is Valid and Allowed (digit-only format is already guaranteed above)
         if (
-            !ctype_digit($queries['port'])
             // Block system-reserved ports since 99.9% of the time they're fake and thus not connectable
             // Some clients will send port of 0 on 'stopped' events. Let them through as they won't receive peers anyway.
-            || ($queries['port'] < 1024 && $queries['event'] !== 'stopped')
+            ($queries['port'] < 1024 && $queries['event'] !== 'stopped')
             || $queries['port'] > 0xFFFF
             || \in_array($queries['port'], self::BLACK_PORTS, true)
         ) {
