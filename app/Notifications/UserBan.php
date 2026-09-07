@@ -18,6 +18,7 @@ namespace App\Notifications;
 
 use App\Http\Middleware\RateLimitOutboundMail;
 use App\Models\Ban;
+use App\Models\User;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -61,6 +62,14 @@ class UserBan extends Notification implements ShouldQueue
             'mail'  => [new RateLimitOutboundMail()],
             default => [],
         };
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
     }
 
     /**

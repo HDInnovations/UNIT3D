@@ -66,8 +66,12 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * Determine if the notification should be sent.
      */
-    public function shouldSend(User $notifiable): bool
+    public function shouldSend(User $notifiable, string $channel): bool
     {
+        if ($channel === 'mail' && !$notifiable->hasVerifiedEmail()) {
+            return false;
+        }
+
         return !\in_array($notifiable->group->slug, ['banned', 'validating', 'pruned']);
     }
 
