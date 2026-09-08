@@ -572,8 +572,8 @@ Route::middleware(SetLanguage::class)->group(function (): void {
 
             // Email
             Route::prefix('email')->name('email.')->group(function (): void {
-                Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class]);
-                Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class]);
+                Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class])->withoutMiddleware(EnsureEmailIsVerified::class);
+                Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class])->withoutMiddleware(EnsureEmailIsVerified::class);
             });
 
             // Password
