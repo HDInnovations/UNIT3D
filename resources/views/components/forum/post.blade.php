@@ -6,7 +6,7 @@
     class="post"
     id="post-{{ $post->id }}"
     x-data="post(
-                {{ Js::from($post->anon ? 'Anonymous' : $post->user->username) }},
+                {{ Js::from($post->anon ? 'Anonymous' : '@' . $post->user->username) }},
                 {{ Js::from($post->content) }}
             )"
 >
