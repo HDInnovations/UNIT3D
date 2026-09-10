@@ -149,7 +149,7 @@ class HistorySearch extends Component
             ->when($this->seeder === 'include', fn ($query) => $query->where('seeder', '=', true))
             ->when($this->seeder === 'exclude', fn ($query) => $query->where('seeder', '=', false))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

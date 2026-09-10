@@ -38,7 +38,7 @@ class NewRequestBounty extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -71,14 +71,14 @@ class NewRequestBounty extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         $this->bounty->load('user');
 
         return [
-            'title' => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' Has Added A Bounty Of '.$this->bounty->seedbonus.' To A Requested Torrent',
-            'body'  => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' has added a bounty to one of your Requested Torrents '.$this->bounty->request->name,
-            'url'   => \sprintf('/requests/%s', $this->bounty->requests_id),
+            'title' => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' added a bounty of '.$this->bounty->seedbonus.' to a requested torrent',
+            'body'  => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' added a bounty to one of your requested torrents: '.$this->bounty->request->name,
+            'url'   => route('requests.show', ['torrentRequest' => $this->bounty->request_id], false),
         ];
     }
 }

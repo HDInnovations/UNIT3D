@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Poll.
@@ -55,6 +56,7 @@ final class Poll extends Model
      *
      * @return array{expires_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

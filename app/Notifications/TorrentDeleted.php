@@ -23,6 +23,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class TorrentDeleted extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -37,7 +38,7 @@ class TorrentDeleted extends Notification implements ShouldQueue, SystemNotifica
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -47,16 +48,17 @@ class TorrentDeleted extends Notification implements ShouldQueue, SystemNotifica
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => "Torrent Deleted! - {$this->torrent->name}",
+            'subject' => "Torrent deleted: {$this->torrent->name}",
             'message' => <<<BBCODE
-            [b]Attention:[/b] Torrent {$this->torrent->name} has been removed from our site.
+            [b]Torrent removed:[/b] {$this->torrent->name} was removed from the site.
 
-            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-            
-            [b]Removal Reason:[/b] {$this->reason}
+            You were listed as an uploader, seeder, or leecher on this torrent. You can remove it from your client.
+
+            [b]Reason:[/b] {$this->reason}
             BBCODE
         ];
     }

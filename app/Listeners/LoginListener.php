@@ -18,7 +18,6 @@ namespace App\Listeners;
 
 use App\Models\User;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Support\Carbon;
 
 class LoginListener
 {
@@ -29,7 +28,7 @@ class LoginListener
     {
         // Update Login Timestamp
         if ($event->user instanceof User) {
-            $event->user->last_login = Carbon::now();
+            $event->user->last_login = now();
             $event->user->save();
         }
     }

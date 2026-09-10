@@ -79,17 +79,16 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.members') }}</h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data="dialog">
-                    <button class="form__button form__button--text" x-bind="showDialog">
+                <div class="panel__action">
+                    <button class="form__button form__button--text" popovertarget="user-add">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="user-add" class="dialog" popover>
                         <h3 class="dialog__heading">Add user to {{ $internal->name }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.internal_users.store') }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             <input type="hidden" name="internal_id" value="{{ $internal->id }}" />
@@ -126,9 +125,9 @@
                                     {{ __('common.add') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="user-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>
@@ -163,20 +162,23 @@
                             </td>
                             <td>
                                 <menu class="data-table__actions">
-                                    <li class="data-table__action" x-data="dialog">
+                                    <li class="data-table__action">
                                         <button
                                             class="form__button form__button--text"
-                                            x-bind="showDialog"
+                                            popovertarget="user-edit-{{ $user->username }}"
                                         >
                                             {{ __('common.edit') }}
                                         </button>
-                                        <dialog class="dialog" x-bind="dialogElement">
+                                        <dialog
+                                            id="user-edit-{{ $user->username }}"
+                                            class="dialog"
+                                            popover
+                                        >
                                             <h3 class="dialog__heading">Edit internal user</h3>
                                             <form
                                                 class="dialog__form"
                                                 method="POST"
                                                 action="{{ route('staff.internal_users.update', ['internalUser' => $user->pivot->id]) }}"
-                                                x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('PATCH')
@@ -211,9 +213,9 @@
                                                         {{ __('common.add') }}
                                                     </button>
                                                     <button
-                                                        formmethod="dialog"
-                                                        formnovalidate
                                                         class="form__button form__button--outlined"
+                                                        type="button"
+                                                        popovertarget="user-edit-{{ $user->username }}"
                                                     >
                                                         {{ __('common.cancel') }}
                                                     </button>

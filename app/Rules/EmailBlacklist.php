@@ -19,6 +19,7 @@ namespace App\Rules;
 use Illuminate\Support\Str;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Override;
 
 class EmailBlacklist implements ValidationRule
 {
@@ -32,6 +33,7 @@ class EmailBlacklist implements ValidationRule
     /**
      * Determine if the validation rule passes.
      */
+    #[Override]
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // Load blacklisted domains

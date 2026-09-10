@@ -192,7 +192,7 @@ class PeerSearch extends Component
                         'peers.ip',
                         Peer::query()
                             ->select('ip')
-                            ->fromSub(Peer::select('ip', 'user_id')->distinct(), 'distinct_ips')
+                            ->fromSub(Peer::query()->select('ip', 'user_id')->distinct(), 'distinct_ips')
                             ->groupBy('ip')
                             ->havingRaw('COUNT(*) > 1')
                     )
@@ -204,7 +204,7 @@ class PeerSearch extends Component
                         DB::raw('(peers.ip, peers.port)'),
                         Peer::query()
                             ->select('ip', 'port')
-                            ->fromSub(Peer::select('ip', 'port', 'user_id')->distinct(), 'distinct_sockets')
+                            ->fromSub(Peer::query()->select('ip', 'port', 'user_id')->distinct(), 'distinct_sockets')
                             ->groupBy('ip', 'port')
                             ->havingRaw('COUNT(*) > 1')
                     )
@@ -234,7 +234,7 @@ class PeerSearch extends Component
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', true))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Keyword;
+use Override;
 
 /** @extends Factory<Keyword> */
 class KeywordFactory extends Factory
@@ -30,6 +31,7 @@ class KeywordFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

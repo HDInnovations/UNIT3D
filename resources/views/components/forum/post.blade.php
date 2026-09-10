@@ -2,8 +2,22 @@
     'post',
 ])
 
-<article class="post" id="post-{{ $post->id }}" x-data>
+<article
+    class="post"
+    id="post-{{ $post->id }}"
+    x-data="post(
+                {{ Js::from($post->anon ? 'Anonymous' : '@' . $post->user->username) }},
+                {{ Js::from($post->content) }}
+            )"
+>
     <header class="post__header">
+        @if ($post->pinned)
+            <i
+                class="{{ config('other.font-awesome') }} fa-thumbtack post__pin"
+                title="Pinned"
+            ></i>
+        @endif
+
         <time
             class="post__datetime"
             datetime="{{ $post->created_at }}"
@@ -70,7 +84,7 @@
             </li>
             <li
                 class="post__toolbar-item"
-                x-data="likeButton({{ $post->id }}, {{ $post->likes_count }}, {{ $post->likes_exists }})"
+                x-data="likeButton({{ $post->id }}, {{ $post->likes_count }}, {{ Js::from($post->likes_exists) }})"
             >
                 <button class="votes__like" x-bind="button">
                     <i
@@ -82,7 +96,11 @@
             </li>
             <li
                 class="post__toolbar-item"
-                x-data="dislikeButton({{ $post->id }}, {{ $post->dislikes_count }}, {{ $post->dislikes_exists }})"
+                x-data="dislikeButton(
+                            {{ $post->id }},
+                            {{ $post->dislikes_count }},
+                            {{ Js::from($post->dislikes_exists) }}
+                        )"
             >
                 <button class="votes__dislike" x-bind="button">
                     <i
@@ -106,18 +124,7 @@
                     <button
                         class="post__quote"
                         title="{{ __('forum.quote') }}"
-                        x-on:click="
-                            document.getElementById('forum_reply_form').style.display = 'block';
-                            input = document.getElementById('bbcode-content');
-                            if (input.value !== '') {
-                                input.value += '\n\n';
-                            }
-                            input.value += '[quote={{ \htmlspecialchars('@' . $post->user->username) }}]\n';
-                            input.value += decodeURIComponent(escape(atob('{{ base64_encode($post->content) }}')));
-                            input.value += '\n[/quote]\n\n';
-                            input.dispatchEvent(new Event('input'));
-                            input.focus();
-                        "
+                        x-bind="quoteButton"
                     >
                         <i class="{{ \config('other.font-awesome') }} fa-quote-left"></i>
                     </button>
@@ -164,6 +171,7 @@
                 class="post__avatar"
                 src="{{ $post->anon && auth()->user()->isNot($post->user) &&! auth()->user()->group->is_modo ? url('img/profile.png') : ($post->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $post->user])) }}"
                 alt=""
+                loading="lazy"
             />
         </figure>
         <x-user-tag class="post__author" :anon="$post->anon" :user="$post->user">
@@ -225,11 +233,7 @@
             </dl>
         @endif
     </aside>
-    <div
-        class="post__content bbcode-rendered"
-        x-ref="content"
-        data-base64-bbcode="{{ base64_encode($post->content) }}"
-    >
+    <div class="post__content bbcode-rendered">
         @bbcode($post->content)
     </div>
     @if (! empty($post->user->signature) &&(! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo))
@@ -239,4 +243,27 @@
             </p>
         </footer>
     @endif
+
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('post', (username, content) => ({
+                username: username,
+                content: content,
+                quoteButton: {
+                    ['x-on:click']() {
+                        document.getElementById('forum_reply_form').style.display = 'block';
+                        input = document.getElementById('bbcode-content');
+                        if (input.value !== '') {
+                            input.value += '\n\n';
+                        }
+                        input.value += '[quote=' + this.username + ']\n';
+                        input.value += this.content;
+                        input.value += '\n[/quote]\n\n';
+                        input.dispatchEvent(new Event('input'));
+                        input.focus();
+                    },
+                },
+            }));
+        });
+    </script>
 </article>

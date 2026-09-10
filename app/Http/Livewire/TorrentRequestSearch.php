@@ -113,7 +113,7 @@ class TorrentRequestSearch extends Component
     public int $perPage = 25;
 
     #[Url(history: true)]
-    public string $sortField = 'created_at';
+    public string $sortField = 'bumped_at';
 
     #[Url(history: true)]
     public string $sortDirection = 'desc';
@@ -213,7 +213,7 @@ class TorrentRequestSearch extends Component
                 && $field[-1] === '/'
                 && @preg_match($field, 'Validate regex') !== false;
 
-            return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+            return TorrentRequest::query()->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
                 ->withCount(['comments', 'bounties'])
                 ->withExists('claim')
                 ->when(
@@ -322,7 +322,7 @@ class TorrentRequestSearch extends Component
                     $query->where('filled_by', '=', $user->id);
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage);
+                ->paginate(min($this->perPage, 100));
         }
     }
 

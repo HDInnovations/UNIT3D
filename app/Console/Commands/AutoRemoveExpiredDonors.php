@@ -16,12 +16,12 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\User;
 use App\Notifications\DonationExpired;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Throwable;
 
@@ -48,14 +48,24 @@ class AutoRemoveExpiredDonors extends Command
      */
     final public function handle(): void
     {
-        $expiredDonors = User::where('is_donor', '=', true)
+        $expiredDonors = User::query()
+            ->where('is_donor', '=', true)
             ->where('is_lifetime', '=', false)
             ->whereHas('donations')
             ->whereDoesntHave('donations', function ($query): void {
-                $query->where('ends_at', '>', Carbon::now());
+                $query->where('ends_at', '>', now());
             })->get();
 
-        Notification::send($expiredDonors, new DonationExpired());
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
+        // Notify active users only; donor status is still removed below.
+        Notification::send(
+            $expiredDonors->whereNotIn('group_id', $inactiveGroupIds),
+            new DonationExpired()
+        );
 
         foreach ($expiredDonors as $user) {
             $user->is_donor = false;

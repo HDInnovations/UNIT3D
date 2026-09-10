@@ -368,37 +368,7 @@
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Block order</legend>
                         <ul
-                            x-data="{
-            blocks: [
-                @foreach ([
-                    'news' => __('blocks.check-news'),
-                    'chat' => __('blocks.chatbox'),
-                    'featured' => __('blocks.featured-torrents'),
-                    'random_media' => 'Random media',
-                    'poll' => 'Polls',
-                    'top_torrents' => __('blocks.top-torrents'),
-                    'top_users' => 'Top users',
-                    'latest_topics' => __('blocks.latest-topics'),
-                    'latest_posts' => __('blocks.latest-posts'),
-                    'latest_comments' => __('blocks.latest-comments'),
-                    'online' => 'Online users'
-                ] as $block => $label)
-                    {
-                        key: '{{ $block }}',
-                        label: '{{ $label }}',
-                        position: {{ (int) $user->settings->{$block . '_block_position'} }},
-                    },
-                @endforeach
-            ].sort((a, b) => a.position - b.position),
-            dragging: null,
-            dragOver: null,
-            move(from, to) {
-                if (from === to) return;
-                const moved = this.blocks.splice(from, 1)[0];
-                this.blocks.splice(to, 0, moved);
-                this.blocks.forEach((block, index) => block.position = index);
-            }
-        }"
+                            x-data="generalSettings"
                             class="order__list"
                             style="
                                 padding-inline-start: 0;
@@ -409,13 +379,10 @@
                             <template x-for="(block, index) in blocks" :key="block.key">
                                 <li
                                     class="order__item"
-                                    :data-block="block.key"
+                                    x-bind:data-block="block.key"
+                                    x-bind:data-index="index"
                                     draggable="true"
-                                    @dragstart="dragging = index"
-                                    @dragover.prevent="dragOver = index"
-                                    @dragleave="dragOver = null"
-                                    @drop="move(dragging, index); dragging = null; dragOver = null"
-                                    :class="{'drag-over': dragOver === index}"
+                                    x-bind="listItem"
                                     style="
                                         cursor: move;
                                         user-select: none;
@@ -564,7 +531,40 @@
                             </label>
                         </p>
                     </div>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input type="hidden" name="auto_freeleech_apply" value="0" />
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                name="auto_freeleech_apply"
+                                value="1"
+                                @checked($user->settings->auto_freeleech_apply)
+                            />
+                            Automatically apply freeleech tokens when applicable
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="auto_freeleech_min_tokens"
+                            class="form__text"
+                            inputmode="numeric"
+                            name="auto_freeleech_min_tokens"
+                            pattern="[0-9]*"
+                            placeholder=" "
+                            type="text"
+                            required
+                            value="{{ $user->settings->auto_freeleech_min_tokens }}"
+                        />
+                        <label
+                            class="form__label form__label--floating"
+                            for="auto_freeleech_min_tokens"
+                        >
+                            Minimum tokens to keep when auto-applying freeleech
+                        </label>
+                    </p>
                 </fieldset>
+
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}
@@ -572,5 +572,68 @@
                 </p>
             </form>
         </div>
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('generalSettings', () => ({
+                    blocks: {{
+                        Js::from(
+                            array_map(
+                                fn ($item) => [
+                                    'key' => $item[0],
+                                    'label' => $item[1],
+                                    'position' => (int) $user->settings->{$item[0] . '_block_position'},
+                                ],
+                                [
+                                    ['news', __('blocks.check-news')],
+                                    ['chat', __('blocks.chatbox')],
+                                    ['featured', __('blocks.featured-torrents')],
+                                    ['random_media', 'Random media'],
+                                    ['poll', 'Polls'],
+                                    ['top_torrents', __('blocks.top-torrents')],
+                                    ['top_users', 'Top users'],
+                                    ['latest_topics', __('blocks.latest-topics')],
+                                    ['latest_posts', __('blocks.latest-posts')],
+                                    ['latest_comments', __('blocks.latest-comments')],
+                                    ['online', 'Online users'],
+                                ]
+                            )
+                        )
+                    }}.sort(
+                        (a, b) => a.position - b.position,
+                    ),
+                    dragging: null,
+                    dragOver: null,
+                    move(from, to) {
+                        if (from === to) return;
+
+                        const moved = this.blocks.splice(from, 1)[0];
+
+                        this.blocks.splice(to, 0, moved);
+                        this.blocks.forEach((block, index) => (block.position = index));
+                    },
+                    listItem: {
+                        ['x-on:dragstart']() {
+                            this.dragging = this.$el.dataset.index;
+                        },
+                        ['x-on:dragover.prevent']() {
+                            this.dragOver = this.$el.dataset.index;
+                        },
+                        ['x-on:dragleave']() {
+                            this.dragOver = null;
+                        },
+                        ['x-on:drop']() {
+                            this.move(this.dragging, this.$el.dataset.index);
+                            this.dragging = null;
+                            this.dragOver = null;
+                        },
+                        ['x-bind:class']() {
+                            return {
+                                'drag-over': this.dragOver === this.$el.dataset.index,
+                            };
+                        },
+                    },
+                }));
+            });
+        </script>
     </section>
 @endsection

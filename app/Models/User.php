@@ -34,6 +34,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\User.
@@ -69,7 +70,6 @@ use AllowDynamicProperties;
  * @property bool                            $is_donor
  * @property bool                            $is_lifetime
  * @property string|null                     $remember_token
- * @property string|null                     $api_token
  * @property \Illuminate\Support\Carbon|null $last_login
  * @property \Illuminate\Support\Carbon|null $last_action
  * @property \Illuminate\Support\Carbon|null $disabled_at
@@ -104,7 +104,6 @@ final class User extends Authenticatable implements MustVerifyEmail
         'passkey',
         'rsskey',
         'remember_token',
-        'api_token',
         'two_factor_secret',
         'two_factor_recovery_codes',
         'two_factor_confirmed_at',
@@ -135,6 +134,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      *     is_lifetime: 'bool'
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -339,6 +339,8 @@ final class User extends Authenticatable implements MustVerifyEmail
             'torrent_sort_field'                => 'bumped_at',
             'torrent_search_autofocus'          => false,
             'show_adult_content'                => true,
+            'auto_freeleech_apply'              => false,
+            'auto_freeleech_min_tokens'         => 0,
         ]);
     }
 
@@ -431,23 +433,13 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the echo settings for the user.
-     *
-     * @return HasMany<UserEcho, $this>
-     */
-    public function echoes(): HasMany
-    {
-        return $this->hasMany(UserEcho::class);
-    }
-
-    /**
      * Get the audible settings for the user.
      *
-     * @return HasMany<UserAudible, $this>
+     * @return HasMany<ChatConversation, $this>
      */
-    public function audibles(): HasMany
+    public function chatConversations(): HasMany
     {
-        return $this->hasMany(UserAudible::class);
+        return $this->hasMany(ChatConversation::class);
     }
 
     /**
@@ -983,11 +975,11 @@ final class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the prizes claimed by the user.
      *
-     * @return HasMany<ClaimedPrize, $this>
+     * @return HasMany<GiveawayClaimedPrize, $this>
      */
     public function claimedPrizes(): HasMany
     {
-        return $this->hasMany(ClaimedPrize::class);
+        return $this->hasMany(GiveawayClaimedPrize::class);
     }
 
     /**
@@ -1117,13 +1109,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFormattedUploadedAttribute(): string
     {
-        $bytes = $this->uploaded;
-
-        if ($bytes > 0) {
-            return StringHelper::formatBytes((float) $bytes, 2);
-        }
-
-        return StringHelper::formatBytes(0, 2);
+        return StringHelper::formatBytes((float) $this->uploaded, 2);
     }
 
     /**
@@ -1131,13 +1117,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFormattedDownloadedAttribute(): string
     {
-        $bytes = $this->downloaded;
-
-        if ($bytes > 0) {
-            return StringHelper::formatBytes((float) $bytes, 2);
-        }
-
-        return StringHelper::formatBytes(0, 2);
+        return StringHelper::formatBytes((float) $this->downloaded, 2);
     }
 
     /**
@@ -1167,18 +1147,27 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Return the size (in bytes) which can be safely downloaded
+     * without falling under the minimum ratio.
+     */
+    public function getBufferAttribute(): float
+    {
+        if (config('other.ratio') === 0) {
+            return INF;
+        }
+
+        $bytes = round(($this->uploaded / config('other.ratio')) - $this->downloaded);
+
+        return $bytes;
+    }
+
+    /**
      * Return the size (pretty formatted) which can be safely downloaded
      * without falling under the minimum ratio.
      */
     public function getFormattedBufferAttribute(): string
     {
-        if (config('other.ratio') === 0) {
-            return '∞';
-        }
-
-        $bytes = round(($this->uploaded / config('other.ratio')) - $this->downloaded);
-
-        return StringHelper::formatBytes($bytes);
+        return StringHelper::formatBytes($this->buffer);
     }
 
     /**
@@ -1197,6 +1186,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      * @param       $token
      * @return void
      */
+    #[Override]
     public function sendPasswordResetNotification($token): void
     {
         dispatch(fn () => $this->notify(new ResetPassword($token)))->afterResponse();

@@ -19,6 +19,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\BonExchange.
@@ -50,6 +51,7 @@ final class BonExchange extends Model
      *
      * @return array{upload: 'bool', download: 'bool', personal_freeleech: 'bool', invite: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

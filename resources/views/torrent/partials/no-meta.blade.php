@@ -9,7 +9,7 @@
 
     <span class="meta__poster-link">
         <img
-            src="{{ Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg") ? route('authenticated_images.torrent_cover', ['id' => $torrent->id]) : 'https://via.placeholder.com/400x600' }}"
+            src="{{ Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg") ? route('authenticated_images.torrent_cover', ['id' => $torrent->id]) : url('img/poster-placeholder.svg') }}"
             class="meta__poster"
         />
     </span>

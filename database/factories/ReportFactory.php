@@ -21,6 +21,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Report;
+use Override;
 
 /** @extends Factory<Report> */
 class ReportFactory extends Factory
@@ -33,6 +34,7 @@ class ReportFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

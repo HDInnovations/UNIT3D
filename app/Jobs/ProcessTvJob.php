@@ -21,7 +21,6 @@ use App\Models\TmdbCompany;
 use App\Models\TmdbCredit;
 use App\Models\TmdbGenre;
 use App\Models\TmdbNetwork;
-use App\Models\TmdbPerson;
 use App\Models\Torrent;
 use App\Models\TmdbTv;
 use App\Services\Tmdb\Client;
@@ -48,15 +47,6 @@ class ProcessTvJob implements ShouldQueue
     public function __construct(public int $id)
     {
     }
-
-    /**
-     * The number of seconds the job can run before timing out.
-     *
-     * Some shows have 2000+ credits requiring more than the default of 60 seconds.
-     *
-     * @var int
-     */
-    public $timeout = 300;
 
     /**
      * Indicate if the job should be marked as failed on timeout.
@@ -97,7 +87,7 @@ class ProcessTvJob implements ShouldQueue
             return;
         }
 
-        $tv = TmdbTv::updateOrCreate(['id' => $this->id], $tvScraper->getTv());
+        $tv = TmdbTv::query()->updateOrCreate(['id' => $this->id], $tvScraper->getTv());
 
         // Companies
 
@@ -107,7 +97,7 @@ class ProcessTvJob implements ShouldQueue
             $companies[] = (new Client\Company($company['id']))->getCompany();
         }
 
-        TmdbCompany::upsert($companies, 'id');
+        TmdbCompany::query()->upsert($companies, 'id');
         $tv->companies()->sync(array_unique(array_column($companies, 'id')));
 
         // Networks
@@ -118,44 +108,23 @@ class ProcessTvJob implements ShouldQueue
             $networks[] = (new Client\Network($network['id']))->getNetwork();
         }
 
-        TmdbNetwork::upsert($networks, 'id');
+        TmdbNetwork::query()->upsert($networks, 'id');
         $tv->networks()->sync(array_unique(array_column($networks, 'id')));
 
         // Genres
 
-        TmdbGenre::upsert($tvScraper->getGenres(), 'id');
+        TmdbGenre::query()->upsert($tvScraper->getGenres(), 'id');
         $tv->genres()->sync(array_unique(array_column($tvScraper->getGenres(), 'id')));
 
         // People
 
         $credits = $tvScraper->getCredits();
-        $people = [];
-        $cache = [];
 
-        foreach (array_unique(array_column($credits, 'tmdb_person_id')) as $personId) {
-            // TMDB caches their api responses for 8 hours, so don't abuse them
+        TmdbCredit::query()->where('tmdb_tv_id', '=', $this->id)->delete();
 
-            $cacheKey = "tmdb-person-scraper:{$personId}";
-
-            if (cache()->has($cacheKey)) {
-                continue;
-            }
-
-            $people[] = (new Client\Person($personId))->getPerson();
-
-            $cache[$cacheKey] = now();
+        foreach (array_chunk($credits, 50) as $creditBatch) {
+            ProcessCreditJob::dispatch($creditBatch);
         }
-
-        foreach (collect($people)->chunk(intdiv(65_000, 13)) as $people) {
-            TmdbPerson::upsert($people->toArray(), 'id');
-        }
-
-        if ($cache !== []) {
-            cache()->put($cache, 8 * 3600);
-        }
-
-        TmdbCredit::where('tmdb_tv_id', '=', $this->id)->delete();
-        TmdbCredit::upsert($credits, ['tmdb_person_id', 'tmdb_movie_id', 'tmdb_tv_id', 'occupation_id', 'character']);
 
         // Recommendations
 

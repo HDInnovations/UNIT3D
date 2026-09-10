@@ -12,7 +12,7 @@
 !/resources/js/
 /resources/js/vendor
 
-# except resources/scss, but ignores resoruces/scss/vendor
+# except resources/scss, but ignores resources/scss/vendor
 !/resources/sass/
 /resources/sass/vendor
 
@@ -20,4 +20,3 @@
 resources/views/emails
 resources/views/rss/show.blade.php
 resources/views/vendor
-resources/views/components/user_tag.blade.php

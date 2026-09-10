@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\History;
 use App\Notifications\UserPreWarning;
 use Illuminate\Console\Command;
@@ -50,7 +51,8 @@ class AutoPreWarning extends Command
             return;
         }
 
-        $prewarn = History::with(['user'])
+        $prewarn = History::query()
+            ->with(['user'])
             ->whereNull('prewarned_at')
             ->where('hitrun', '=', 0)
             ->where('immune', '=', 0)
@@ -80,8 +82,17 @@ class AutoPreWarning extends Command
             $usersWithPreWarnings[$pre->user_id] = $pre->user;
         }
 
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
         // Send a single notification for each user with warnings
         foreach ($usersWithPreWarnings as $user) {
+            if (\in_array($user->group_id, $inactiveGroupIds, true)) {
+                continue;
+            }
+
             $user->notify(new UserPreWarning($user));
         }
 

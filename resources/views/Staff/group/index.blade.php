@@ -58,6 +58,7 @@
                         <th>Upload</th>
                         <th>Autogroup</th>
                         <th>Min upload</th>
+                        <th>Min actual upload</th>
                         <th>Min ratio</th>
                         <th>Min age</th>
                         <th>Min avg seedtime</th>
@@ -314,6 +315,9 @@
                                 <td>
                                     {{ \App\Helpers\StringHelper::formatBytes($group->min_uploaded ?? 0) }}
                                 </td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_actual_uploaded ?? 0) }}
+                                </td>
                                 <td>{{ $group->min_ratio }}</td>
                                 <td>
                                     {{ \App\Helpers\StringHelper::timeElapsed($group->min_age ?? 0) }}
@@ -326,6 +330,7 @@
                                 </td>
                                 <td>{{ $group->min_uploads }}</td>
                             @else
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

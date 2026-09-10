@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Forum;
 use App\Models\ForumPermission;
 use App\Models\Group;
@@ -38,9 +37,6 @@ test('post in a topic creates a notification for the topic subscriber', function
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create();
@@ -112,9 +108,6 @@ test('post in a topic creates a notification for the topic subscriber when subsc
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create();
@@ -189,9 +182,6 @@ test('post in a topic does not create a notification for the topic subscriber wh
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $group = Group::factory()->create();
 
@@ -260,9 +250,6 @@ test('post in a topic does not create a notification for the topic subscriber wh
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $group = Group::factory()->create();
 
@@ -330,9 +317,6 @@ test('post in a topic does not create a notification for the topic subscriber wh
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create();

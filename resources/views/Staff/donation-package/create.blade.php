@@ -28,7 +28,7 @@
                             <th>Position</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Cost</th>
+                            <th>Cost ({{ config('donation.currency') }})</th>
                             <th>Upload (Bytes)</th>
                             <th>Invite (#)</th>
                             <th>Bonus (#)</th>
@@ -40,8 +40,11 @@
                         <tr>
                             <td>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]+"
                                     name="position"
+                                    required
                                     value=""
                                     placeholder="0"
                                     class="form__text"
@@ -51,6 +54,7 @@
                                 <input
                                     type="text"
                                     name="name"
+                                    required
                                     value=""
                                     placeholder="Name"
                                     class="form__text"
@@ -59,15 +63,18 @@
                             <td>
                                 <textarea
                                     name="description"
+                                    required
                                     placeholder="Description"
                                     class="form__textarea"
                                 ></textarea>
                             </td>
                             <td>
                                 <input
-                                    type="number"
-                                    step="1.00"
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]+(?:\.[0-9]{1,2})?"
                                     name="cost"
+                                    required
                                     value=""
                                     placeholder="Cost"
                                     class="form__text"
@@ -75,7 +82,9 @@
                             </td>
                             <td>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
                                     name="upload_value"
                                     value=""
                                     placeholder="nullable"
@@ -84,7 +93,9 @@
                             </td>
                             <td>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
                                     name="invite_value"
                                     value=""
                                     placeholder="nullable"
@@ -93,7 +104,9 @@
                             </td>
                             <td>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
                                     name="bonus_value"
                                     value=""
                                     placeholder="nullable"
@@ -102,7 +115,9 @@
                             </td>
                             <td>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]*"
                                     name="donor_value"
                                     value=""
                                     placeholder="(empty for lifetime)"

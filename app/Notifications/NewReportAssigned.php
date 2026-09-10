@@ -37,7 +37,7 @@ class NewReportAssigned extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -47,10 +47,10 @@ class NewReportAssigned extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'New Torrent Report Assigned!',
+            'title' => 'Torrent report assigned',
             'body'  => 'You have been assigned a new torrent report.',
             'url'   => route('staff.reports.show', ['report' => $this->report]),
         ];

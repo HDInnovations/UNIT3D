@@ -62,7 +62,7 @@ class AnnounceSearch extends Component
             ->when($this->torrentId !== '', fn ($query) => $query->where('torrent_id', '=', $this->torrentId))
             ->when($this->userId !== '', fn ($query) => $query->where('user_id', '=', $this->userId))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
-            ->simplePaginate($this->perPage);
+            ->simplePaginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

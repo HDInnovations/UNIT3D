@@ -19,6 +19,7 @@ namespace App\Helpers;
 
 use DOMDocument;
 use DOMElement;
+use Override;
 
 /**
  * @deprecated Use \GrahamCampbell\Markdown\Facades\Markdown instead
@@ -37,6 +38,7 @@ class MarkdownExtra extends Markdown
         array_unshift($this->InlineTypes['['], 'FootnoteMarker');
     }
 
+    #[Override]
     public function text($text)
     {
         $Elements = $this->textElements($text);
@@ -185,6 +187,7 @@ class MarkdownExtra extends Markdown
     //
     // Header
 
+    #[Override]
     protected function blockHeader($Line)
     {
         $Block = parent::blockHeader($Line);
@@ -203,6 +206,7 @@ class MarkdownExtra extends Markdown
     //
     // Markup
 
+    #[Override]
     protected function blockMarkup($Line)
     {
         if ($this->markupEscaped || $this->safeMode) {
@@ -247,6 +251,7 @@ class MarkdownExtra extends Markdown
         }
     }
 
+    #[Override]
     protected function blockMarkupContinue($Line, array $Block)
     {
         if (isset($Block['closed'])) {
@@ -287,6 +292,7 @@ class MarkdownExtra extends Markdown
     //
     // Setext
 
+    #[Override]
     protected function blockSetextHeader($Line, ?array $Block = null)
     {
         $Block = parent::blockSetextHeader($Line, $Block);
@@ -346,6 +352,7 @@ class MarkdownExtra extends Markdown
     //
     // Link
 
+    #[Override]
     protected function inlineLink($Excerpt)
     {
         $Link = parent::inlineLink($Excerpt);
@@ -392,6 +399,7 @@ class MarkdownExtra extends Markdown
         return $Element;
     }
 
+    #[Override]
     protected function inlineText($text)
     {
         $Inline = parent::inlineText($text);

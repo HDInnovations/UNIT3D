@@ -22,6 +22,7 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\History.
@@ -69,6 +70,7 @@ final class History extends Model
      *
      * @return array{completed_at: 'datetime', hitrun: 'bool', prewarned_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -104,6 +106,7 @@ final class History extends Model
     /**
      * Prepare a date for array / JSON serialization.
      */
+    #[Override]
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');

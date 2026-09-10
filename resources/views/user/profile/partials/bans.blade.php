@@ -2,18 +2,17 @@
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('user.bans') }}</h2>
         <div class="panel__actions">
-            <div class="panel__action" x-data="dialog">
-                @if ($user->group->id === 5)
-                    <button class="form__button form__button--text" x-bind="showDialog">
+            <div class="panel__action">
+                @if ($user->group->slug === 'banned')
+                    <button class="form__button form__button--text" popovertarget="unban-add">
                         {{ __('user.unban') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="unban-add" class="dialog" popover>
                         <h3 class="dialog__heading">Unban user: {{ $user->username }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.unbans.store') }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             <input type="hidden" name="owned_by" value="{{ $user->id }}" />
@@ -32,28 +31,13 @@
                                 </span>
                             </p>
                             <p class="form__group">
-                                <select id="group_id" class="form__select" name="group_id" required>
-                                    <option value="{{ $user->group->id }}">
-                                        {{ $user->group->name }} (Default)
-                                    </option>
-                                    @foreach (App\Models\Group::orderByDesc('position')->get() as $group)
-                                        <option value="{{ $group->id }}">
-                                            {{ $group->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                <label class="form__label form__label--floating" for="group_id">
-                                    New group
-                                </label>
-                            </p>
-                            <p class="form__group">
                                 <button class="form__button form__button--filled">
                                     {{ __('user.unban') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="unban-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>
@@ -61,16 +45,15 @@
                         </form>
                     </dialog>
                 @else
-                    <button class="form__button form__button--text" x-bind="showDialog">
+                    <button class="form__button form__button--text" popovertarget="unban-add">
                         {{ __('user.ban') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="unban-add" class="dialog" popover>
                         <h3 class="dialog__heading">Ban user: {{ $user->username }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.bans.store') }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             <p class="form__group">
@@ -93,9 +76,9 @@
                                     {{ __('user.ban') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="unban-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>

@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationUrlProof;
+use Override;
 
 /** @extends Factory<ApplicationUrlProof> */
 class ApplicationUrlProofFactory extends Factory
@@ -31,6 +32,7 @@ class ApplicationUrlProofFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -41,7 +41,7 @@ class StoreTorrentRequestBountyRequest extends FormRequest
                 'required',
                 'numeric',
                 'integer',
-                'min:100',
+                'min:'.config('other.bon.min-bounty'),
                 'max:'.$request->user()->seedbonus,
             ],
             'anon' => [

@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationImageProof;
+use Override;
 
 /** @extends Factory<ApplicationImageProof> */
 class ApplicationImageProofFactory extends Factory
@@ -31,6 +32,7 @@ class ApplicationImageProofFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

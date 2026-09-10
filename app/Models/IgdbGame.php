@@ -18,7 +18,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\IgdbGame.
@@ -51,6 +53,7 @@ final class IgdbGame extends Model
      *
      * @return array{first_release_date: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -86,5 +89,15 @@ final class IgdbGame extends Model
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(IgdbGenre::class);
+    }
+
+    /**
+     * Get the comments for the game.
+     *
+     * @return MorphMany<Comment, $this>
+     */
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

@@ -50,7 +50,7 @@ class ChatStatusController extends Controller
      */
     public function store(StoreChatStatusRequest $request): \Illuminate\Http\RedirectResponse
     {
-        ChatStatus::create($request->validated());
+        ChatStatus::query()->create($request->validated());
 
         return to_route('staff.statuses.index')
             ->with('success', 'Chat status successfully added');

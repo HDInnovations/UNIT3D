@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Warning;
+use Override;
 
 /** @extends Factory<Warning> */
 class WarningFactory extends Factory
@@ -32,12 +33,13 @@ class WarningFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
             'user_id'    => User::factory(),
             'warned_by'  => User::factory(),
-            'torrent'    => Torrent::factory(),
+            'torrent_id' => Torrent::factory(),
             'reason'     => $this->faker->text(),
             'expires_on' => $this->faker->dateTime(),
             'active'     => $this->faker->boolean(),

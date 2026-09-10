@@ -8,6 +8,7 @@ use App\Enums\UserGroup;
 use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Override;
 
 class UpsertUserNotificationRequest extends FormRequest
 {
@@ -72,17 +73,18 @@ class UpsertUserNotificationRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'json_account_groups'      => array_map('intval', $this->json_account_groups ?? []),
-            'json_bon_groups'          => array_map('intval', $this->json_bon_groups ?? []),
-            'json_following_groups'    => array_map('intval', $this->json_following_groups ?? []),
-            'json_forum_groups'        => array_map('intval', $this->json_forum_groups ?? []),
-            'json_request_groups'      => array_map('intval', $this->json_request_groups ?? []),
-            'json_subscription_groups' => array_map('intval', $this->json_subscription_groups ?? []),
-            'json_torrent_groups'      => array_map('intval', $this->json_torrent_groups ?? []),
-            'json_mention_groups'      => array_map('intval', $this->json_mention_groups ?? []),
+            'json_account_groups'      => array_map(intval(...), $this->json_account_groups ?? []),
+            'json_bon_groups'          => array_map(intval(...), $this->json_bon_groups ?? []),
+            'json_following_groups'    => array_map(intval(...), $this->json_following_groups ?? []),
+            'json_forum_groups'        => array_map(intval(...), $this->json_forum_groups ?? []),
+            'json_request_groups'      => array_map(intval(...), $this->json_request_groups ?? []),
+            'json_subscription_groups' => array_map(intval(...), $this->json_subscription_groups ?? []),
+            'json_torrent_groups'      => array_map(intval(...), $this->json_torrent_groups ?? []),
+            'json_mention_groups'      => array_map(intval(...), $this->json_mention_groups ?? []),
         ]);
     }
 }

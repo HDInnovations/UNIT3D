@@ -22,7 +22,6 @@ use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Throwable;
 
 class AutoRewardResurrection extends Command
@@ -66,40 +65,36 @@ class AutoRewardResurrection extends Command
                     ->whereColumn('resurrections.user_id', '=', 'history.user_id')
                     ->whereColumn('history.seedtime', '>=', 'resurrections.seedtime')
             )
-            ->chunk(100, function ($resurrections): void {
-                foreach ($resurrections as $resurrection) {
-                    $resurrection->update(['rewarded' => true]);
+            ->each(function ($resurrection): void {
+                $resurrection->update(['rewarded' => true]);
 
-                    $resurrection->user->increment('fl_tokens', (int) config('graveyard.reward'));
+                $resurrection->user->increment('fl_tokens', (int) config('graveyard.reward'));
 
-                    // Auto Shout
-                    $appurl = config('app.url');
+                // Auto Shout
+                $this->chatRepository->systemMessage(
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has successfully resurrected [url=%s]%s[/url].', href_profile($resurrection->user), $resurrection->user->username, href_torrent($resurrection->torrent), $resurrection->torrent->name)
+                );
 
-                    $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url].', $appurl, $resurrection->user->username, $resurrection->user->username, $appurl, $resurrection->torrent->id, $resurrection->torrent->name)
-                    );
+                // Bump Torrent With FL
+                $torrentUrl = href_torrent($resurrection->torrent);
 
-                    // Bump Torrent With FL
-                    $torrentUrl = href_torrent($resurrection->torrent);
+                $resurrection->torrent->update([
+                    'bumped_at' => now(),
+                    'free'      => 100,
+                    'fl_until'  => now()->addDays(3),
+                ]);
 
-                    $resurrection->torrent->update([
-                        'bumped_at' => Carbon::now(),
-                        'free'      => 100,
-                        'fl_until'  => Carbon::now()->addDays(3),
-                    ]);
+                $this->chatRepository->systemMessage(
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top.', $torrentUrl, $resurrection->torrent->name)
+                );
 
-                    $this->chatRepository->systemMessage(
-                        \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top.', $torrentUrl, $resurrection->torrent->name)
-                    );
+                cache()->forget('announce-torrents:by-infohash:'.$resurrection->torrent->info_hash);
 
-                    cache()->forget('announce-torrents:by-infohash:'.$resurrection->torrent->info_hash);
+                Unit3dAnnounce::addTorrent($resurrection->torrent);
 
-                    Unit3dAnnounce::addTorrent($resurrection->torrent);
-
-                    // Send Private Message
-                    $resurrection->user->notify(new ResurrectionCompleted($resurrection->torrent));
-                }
-            });
+                // Send Private Message
+                $resurrection->user->notify(new ResurrectionCompleted($resurrection->torrent));
+            }, 100);
 
         $this->comment('Automated reward resurrections command complete');
     }

@@ -67,7 +67,10 @@
                                 href="{{ route('staff.donations.index') }}"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
-                                Donations
+                                Donations ({{ $pendingDonationsCount }})
+                                @if ($pendingDonationsCount > 0)
+                                    <x-animation.notification />
+                                @endif
                             </a>
                         </p>
                         <p class="form__group form__group--horizontal">
@@ -162,10 +165,19 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
-                        href="{{ route('staff.events.index') }}"
+                        href="{{ route('staff.giveaways.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-calendar-star"></i>
-                        {{ __('event.events') }}
+                        {{ __('event.giveaways') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.upload_contests.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-calendar-star"></i>
+                        {{ __('common.upload') }} {{ __('common.contests') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -556,7 +568,7 @@
                 </p>
                 <div class="form__group form__group--horizontal">
                     <form
-                        method="GET"
+                        method="POST"
                         action="{{ route('staff.mass-actions.validate') }}"
                         x-data="confirmation"
                     >

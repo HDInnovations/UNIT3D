@@ -1,5 +1,5 @@
 <div class="panel__body">
-    <section class="also-downloaded" style="max-height: 330px !important" x-ref="posters">
+    <section class="also-downloaded" x-ref="posters">
         @switch(true)
             @case($torrent->category->movie_meta)
                 @forelse ($alsoDownloaded ?? [] as $movie)

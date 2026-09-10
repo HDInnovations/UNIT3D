@@ -22,6 +22,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class WarningsDeactivated extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -36,7 +37,7 @@ class WarningsDeactivated extends Notification implements ShouldQueue, SystemNot
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -46,11 +47,12 @@ class WarningsDeactivated extends Notification implements ShouldQueue, SystemNot
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'All Hit and Run Warnings Deactivated',
-            'message' => "{$this->staff->username} has decided to deactivate all of your warnings. You lucked out!",
+            'subject' => 'All hit and run warnings deactivated',
+            'message' => "{$this->staff->username} deactivated all of your hit and run warnings.",
         ];
     }
 }

@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Peer.
@@ -52,6 +53,7 @@ final class Peer extends Model
      *
      * @return array{active: 'bool', seeder: 'bool', connectable: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -64,6 +66,7 @@ final class Peer extends Model
     /**
      * Prepare a date for array / JSON serialization.
      */
+    #[Override]
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');

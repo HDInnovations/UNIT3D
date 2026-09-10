@@ -2,7 +2,7 @@
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('Two Factor Authentication') }}</h2>
     </header>
-    <div class="panel__body">
+    <div class="panel__body" x-data="clipboardButton">
         @if ($this->enabled)
             @if ($showingConfirmation)
                 <span class="text-warning">
@@ -74,11 +74,7 @@
                         {{ __('Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.') }}
                     </span>
                     {{-- format-ignore-start --}}
-                    <pre>
-                        @foreach (json_decode(decrypt($this->user->two_factor_recovery_codes), true) as $code)
-                            <div>{{ $code }}</div>
-                        @endforeach
-                    </pre>
+                    <pre><code>{{ implode("\n", json_decode(decrypt($this->user->two_factor_recovery_codes), true)) }}</code></pre>
                     {{-- format-ignore-end --}}
                 </div>
             @endif
@@ -100,6 +96,10 @@
                         wire:click="regenerateRecoveryCodes"
                     >
                         {{ __('Regenerate Recovery Codes') }}
+                    </button>
+
+                    <button class="form__button form__button--filled" x-bind="button">
+                        {{ __('Copy Recovery Codes') }}
                     </button>
                 @elseif ($showingConfirmation)
                     <button

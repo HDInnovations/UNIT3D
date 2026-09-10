@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use App\Models\Conversation;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<Conversation> */
 class ConversationFactory extends Factory
@@ -30,10 +31,11 @@ class ConversationFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
-            'subject'    => $this->faker->text,
+            'subject'    => $this->faker->text(),
             'created_at' => $this->faker->optional()->dateTime(),
             'updated_at' => $this->faker->optional()->dateTime(),
         ];

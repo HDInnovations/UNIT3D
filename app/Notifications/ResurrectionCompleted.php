@@ -23,6 +23,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class ResurrectionCompleted extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -37,7 +38,7 @@ class ResurrectionCompleted extends Notification implements ShouldQueue, SystemN
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -47,13 +48,12 @@ class ResurrectionCompleted extends Notification implements ShouldQueue, SystemN
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
-        $appurl = config('app.url');
-
         return [
-            'subject' => 'Successful Graveyard Resurrection',
-            'message' => "You have successfully resurrected [url={$appurl}/torrents/{$this->torrent->id}]{$this->torrent->name}[/url]! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!",
+            'subject' => 'Graveyard resurrection complete',
+            'message' => 'You resurrected [url='.href_torrent($this->torrent)."]{$this->torrent->name}[/url]. Enjoy your freeleech tokens.",
         ];
     }
 }

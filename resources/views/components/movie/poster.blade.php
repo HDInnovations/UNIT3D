@@ -11,7 +11,7 @@
             class="torrent-search--poster__poster"
         >
             <img
-                src="{{ isset($movie->poster) ? tmdb_image('poster_mid', $movie->poster) : 'https://via.placeholder.com/90x135' }}"
+                src="{{ isset($movie->poster) ? tmdb_image('poster_mid', $movie->poster) : url('img/poster-placeholder.svg') }}"
                 alt="{{ __('torrent.similar') }}"
                 loading="lazy"
             />

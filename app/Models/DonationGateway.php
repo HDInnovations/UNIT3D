@@ -19,6 +19,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\DonationGateway.
@@ -49,6 +50,7 @@ final class DonationGateway extends Model
      *
      * @return array{position: 'int', name: 'string', address: 'string', is_active: 'bool', created_at: 'datetime', updated_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

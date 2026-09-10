@@ -21,7 +21,6 @@ use App\Http\Requests\Staff\StoreReportAssigneeRequest;
 use App\Models\Report;
 use App\Models\User;
 use App\Notifications\NewReportAssigned;
-use Illuminate\Http\Request;
 
 class ReportAssigneeController extends Controller
 {
@@ -29,7 +28,7 @@ class ReportAssigneeController extends Controller
     {
         $report->update($request->validated());
 
-        $assignedStaff = User::findOrFail($request->integer('assigned_to'));
+        $assignedStaff = User::query()->findOrFail($request->integer('assigned_to'));
 
         $assignedStaff->notify(new NewReportAssigned($report));
 
@@ -37,7 +36,7 @@ class ReportAssigneeController extends Controller
             ->with('success', trans('ticket.assigned-success'));
     }
 
-    final public function destroy(Request $request, Report $report): \Illuminate\Http\RedirectResponse
+    final public function destroy(Report $report): \Illuminate\Http\RedirectResponse
     {
         $report->update([
             'assigned_to' => null,

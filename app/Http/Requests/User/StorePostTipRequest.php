@@ -21,6 +21,7 @@ use App\Models\Topic;
 use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Override;
 
 class StorePostTipRequest extends FormRequest
 {
@@ -36,9 +37,9 @@ class StorePostTipRequest extends FormRequest
         return [
             'post_id' => [
                 'required',
-                function ($attribute, $value, $fail): void {
+                function ($_attribute, $value, $fail): void {
                     if (
-                        Post::whereKey($value)->whereNotIn(
+                        Post::query()->whereKey($value)->whereNotIn(
                             'topic_id',
                             Topic::query()
                                 ->whereRelation(
@@ -78,6 +79,7 @@ class StorePostTipRequest extends FormRequest
      *
      * @return array<string, string>
      */
+    #[Override]
     public function messages(): array
     {
         return [
@@ -90,11 +92,13 @@ class StorePostTipRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
             'sender_id'    => auth()->id(),
-            'recipient_id' => Post::whereKey($this->post_id)
+            'recipient_id' => Post::query()
+                ->whereKey($this->post_id)
                 ->whereNotIn(
                     'topic_id',
                     Topic::query()

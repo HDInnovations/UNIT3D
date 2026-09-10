@@ -4,5 +4,6 @@ inet6_ntoa
 innodb
 mysqld
 mysqldump
+sqlstate
 timestampadd
 timestampdiff

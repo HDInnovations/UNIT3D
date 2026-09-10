@@ -2,5 +2,6 @@ asciify
 dontBackupDatabases
 dontBackupFilesystem
 lexify
+regexify
 swal
 CURLOPT

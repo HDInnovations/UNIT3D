@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Rss;
+use Override;
 
 /** @extends Factory<Rss> */
 class RssFactory extends Factory
@@ -31,6 +32,7 @@ class RssFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -40,7 +42,6 @@ class RssFactory extends Factory
             'is_private'   => $this->faker->boolean(),
             'is_torrent'   => $this->faker->boolean(),
             'json_torrent' => $this->faker->word(),
-            'staff_id'     => User::factory(),
         ];
     }
 }

@@ -53,10 +53,10 @@ class PasskeySearch extends Component
             ->with([
                 'user' => fn ($query) => $query->withTrashed()->with('group'),
             ])
-            ->when($this->username, fn ($query) => $query->whereIn('user_id', User::withTrashed()->select('id')->where('username', '=', $this->username)))
+            ->when($this->username, fn ($query) => $query->whereIn('user_id', User::query()->withTrashed()->select('id')->where('username', '=', $this->username)))
             ->when($this->passkey, fn ($query) => $query->where('content', 'LIKE', '%'.$this->passkey.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

@@ -38,7 +38,7 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -71,12 +71,12 @@ class NewRequestUnclaim extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => $this->sender.' Has Unclaimed One Of Your Requested Torrents',
-            'body'  => $this->sender.' has unclaimed your Requested Torrent '.$this->torrentRequestClaim->request->name,
-            'url'   => \sprintf('/requests/%s', $this->torrentRequestClaim->request->id),
+            'title' => $this->sender.' unclaimed one of your requested torrents',
+            'body'  => $this->sender.' unclaimed your requested torrent: '.$this->torrentRequestClaim->request->name,
+            'url'   => route('requests.show', ['torrentRequest' => $this->torrentRequestClaim->request], false),
         ];
     }
 }

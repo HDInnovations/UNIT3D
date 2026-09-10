@@ -15,11 +15,19 @@ declare(strict_types=1);
  */
 
 use App\Enums\GlobalRateLimit;
+use App\Http\Middleware\CheckForAdmin;
+use App\Http\Middleware\CheckForModo;
+use App\Http\Middleware\CheckForOwner;
+use App\Http\Middleware\CheckIfBanned;
+use App\Http\Middleware\ConfirmTwoFactor;
+use App\Http\Middleware\SetLanguage;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
+use Illuminate\Routing\Middleware\ThrottleRequestsWithRedis;
+use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\Http\Controllers\RegisteredUserController;
-use Laravel\Fortify\RoutePath;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,46 +46,55 @@ if (config('unit3d.proxy_scheme')) {
 if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
-Route::middleware('language')->group(function (): void {
-    /*
-    |---------------------------------------------------------------------------------
-    | Laravel Fortify Route Overrides
-    | Don't update Fortify without first making sure this override works.
-    |---------------------------------------------------------------------------------
-    */
-
-    Route::middleware('guest:'.config('fortify.guard'))->group(function (): void {
-        Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-login-get')])
-            ->name('login');
-
-        Route::get(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'create'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-register-get')])
-            ->name('register');
-
-        Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
-            ->middleware(['throttle:'.config('fortify.limiters.fortify-register-post')]);
-    });
-
+Route::middleware(SetLanguage::class)->group(function (): void {
     /*
     |---------------------------------------------------------------------------------
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware('guest')->group(function (): void {
+    Route::middleware(RedirectIfAuthenticated::class)->group(function (): void {
         // Application Signup
         Route::get('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'create'])->name('application.create');
         Route::post('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'store'])->name('application.store');
 
         // Password resets
-        Route::get('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'create'])->middleware('throttle:'.GlobalRateLimit::FORGOT_PASSWORD->value)->name('password.request');
-        Route::post('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'store'])->middleware(['throttle:'.GlobalRateLimit::FORGOT_PASSWORD->value])->name('password.email');
-        Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->middleware('throttle:'.GlobalRateLimit::RESET_PASSWORD->value)->name('password.reset');
-        Route::post('/reset-password', [App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->middleware('throttle:'.GlobalRateLimit::RESET_PASSWORD->value)->name('password.update');
+        Route::get('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'create'])->name('password.request');
+        Route::post('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::FORGOT_PASSWORD))->name('password.email');
+        Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->name('password.reset');
+        Route::post('/reset-password', [App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::RESET_PASSWORD))->name('password.update');
 
+        // Login
+        Route::get('/login', [Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('/login', [Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'store'])->name('login.store')->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::LOGIN));
+
+        // Two factor
+        Route::get('/two-factor-challenge', [Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController::class, 'create'])->name('two-factor.login');
+        Route::post('/two-factor-challenge', [Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::TWO_FACTOR))->name('two-factor.login.store');
+
+        // Registration
+        Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->name('registration.create');
+        Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::REGISTER))->name('registration.store');
         // This redirect must be kept until all invite emails that use the old syntax have expired
         // Hack so that Fortify can be used (allows query parameters but not route parameters)
-        Route::get('/register/{code?}', fn (string $code) => to_route('register', ['code' => $code]));
+        Route::get('/register/{code?}', fn (string $code) => to_route('registration.create', ['code' => $code]));
+    });
+
+    Route::middleware([Authenticate::class, CheckIfBanned::class])->group(function (): void {
+        // Email verification
+        Route::get('/email/verify', [App\Http\Controllers\Auth\EmailVerificationController::class, 'create'])->name('verification.notice');
+        Route::get('/email/verify/{id}/{hash}', [App\Http\Controllers\Auth\EmailVerificationController::class, 'show'])->middleware(ValidateSignature::class)->name('verification.verify');
+        Route::post('/email/verification-notification', [App\Http\Controllers\Auth\EmailVerificationController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::EMAIL_VERIFICATION))->name('verification.send');
+
+        // Password confirmation
+        Route::get('/confirm-password', [App\Http\Controllers\Auth\ConfirmablePasswordController::class, 'show'])->name('password.confirm');
+        Route::post('/confirm-password', [App\Http\Controllers\Auth\ConfirmablePasswordController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::CONFIRM_PASSWORD))->name('password.confirm.store');
+
+        // Two factor confirmation
+        Route::get('/confirm-two-factor', [App\Http\Controllers\Auth\ConfirmableTwoFactorController::class, 'show'])->name('two-factor.confirm');
+        Route::post('/confirm-two-factor', [App\Http\Controllers\Auth\ConfirmableTwoFactorController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::CONFIRM_TWO_FACTOR))->name('two-factor.confirm.store');
+
+        // Logout
+        Route::post('/logout', [Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'destroy'])->name('logout');
     });
 
     /*
@@ -85,7 +102,7 @@ Route::middleware('language')->group(function (): void {
     | Website (When Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
-    Route::middleware(['auth', 'banned', 'verified'])->group(function (): void {
+    Route::middleware([Authenticate::class, CheckIfBanned::class, EnsureEmailIsVerified::class])->group(function (): void {
         // General
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
@@ -96,7 +113,7 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Authenticated Images
-        Route::prefix('authenticated-images')->name('authenticated_images.')->middleware('throttle:'.GlobalRateLimit::AUTHENTICATED_IMAGES->value)->withoutMiddleware('throttle:'.GlobalRateLimit::WEB->value)->group(function (): void {
+        Route::prefix('authenticated-images')->name('authenticated_images.')->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::AUTHENTICATED_IMAGES))->withoutMiddleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::WEB))->group(function (): void {
             Route::get('/article-images/{article}', [App\Http\Controllers\AuthenticatedImageController::class, 'articleImage'])->name('article_image');
             Route::get('/category-images/{category}', [App\Http\Controllers\AuthenticatedImageController::class, 'categoryImage'])->name('category_image');
             Route::get('/playlist-images/{playlist}', [App\Http\Controllers\AuthenticatedImageController::class, 'playlistImage'])->name('playlist_image');
@@ -112,16 +129,26 @@ Route::middleware('language')->group(function (): void {
             Route::post('/store', [App\Http\Controllers\DonationController::class, 'store'])->name('store');
         });
 
-        // Events
-        Route::prefix('events')->name('events.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\EventController::class, 'index'])->name('index');
-            Route::prefix('{event}')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\EventController::class, 'show'])->name('show');
+        // Giveaways
+        Route::prefix('giveaways')->name('giveaways.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\GiveawayController::class, 'index'])->name('index');
+            Route::prefix('{giveaway}')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\GiveawayController::class, 'show'])->name('show');
 
                 //Claims
                 Route::prefix('claims')->name('claims.')->group(function (): void {
-                    Route::post('/', [App\Http\Controllers\ClaimedPrizeController::class, 'store'])->name('store');
+                    Route::post('/', [App\Http\Controllers\GiveawayClaimedPrizeController::class, 'store'])->name('store');
                 });
+            });
+        });
+
+        Route::get('/groups', [App\Http\Controllers\GroupController::class, 'index'])->name('groups.index');
+
+        // Upload Contests
+        Route::prefix('upload-contests')->name('upload_contests.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\UploadContestController::class, 'index'])->name('index');
+            Route::prefix('{uploadContest}')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\UploadContestController::class, 'show'])->name('show');
             });
         });
 
@@ -129,23 +156,21 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('rss')->name('rss.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\RssController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\RssController::class, 'create'])->name('create');
-            Route::post('/store', [App\Http\Controllers\RssController::class, 'store'])->name('store');
+            Route::post('/', [App\Http\Controllers\RssController::class, 'store'])->name('store');
             Route::get('/{id}/edit', [App\Http\Controllers\RssController::class, 'edit'])->name('edit')->whereNumber('id');
-            Route::patch('/{id}/update', [App\Http\Controllers\RssController::class, 'update'])->name('update')->whereNumber('id');
-            Route::delete('/{id}/destroy', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy')->whereNumber('id');
+            Route::patch('/{id}', [App\Http\Controllers\RssController::class, 'update'])->name('update')->whereNumber('id');
+            Route::delete('/{id}', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy')->whereNumber('id');
         });
 
         // Reports System
-        Route::prefix('reports')->group(function (): void {
-            Route::post('/torrent/{id}', [App\Http\Controllers\ReportController::class, 'torrent'])->name('report_torrent')->whereNumber('id');
-            Route::post('/request/{id}', [App\Http\Controllers\ReportController::class, 'request'])->name('report_request')->whereNumber('id');
-            Route::post('/user/{username}', [App\Http\Controllers\ReportController::class, 'user'])->name('report_user');
+        Route::prefix('reports')->name('reports.')->group(function (): void {
+            Route::post('/', [App\Http\Controllers\ReportController::class, 'store'])->name('store');
         });
 
         // Contact Us System
         Route::prefix('contact')->name('contact.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ContactController::class, 'index'])->name('index');
-            Route::post('/store', [App\Http\Controllers\ContactController::class, 'store'])->name('store');
+            Route::post('/', [App\Http\Controllers\ContactController::class, 'store'])->name('store');
         });
 
         // Pages System
@@ -185,7 +210,6 @@ Route::middleware('language')->group(function (): void {
             Route::get('/torrent/dead', [App\Http\Controllers\StatsController::class, 'dead'])->name('dead');
             Route::get('/request/bountied', [App\Http\Controllers\StatsController::class, 'bountied'])->name('bountied');
             Route::get('/groups', [App\Http\Controllers\StatsController::class, 'groups'])->name('groups');
-            Route::get('/groups/requirements', [App\Http\Controllers\StatsController::class, 'groupsRequirements'])->name('groups_requirements');
             Route::get('/languages', [App\Http\Controllers\StatsController::class, 'languages'])->name('languages');
             Route::get('/themes', [App\Http\Controllers\StatsController::class, 'themes'])->name('themes');
         });
@@ -207,7 +231,7 @@ Route::middleware('language')->group(function (): void {
 
             Route::prefix('{torrentRequest}/approved-fills')->name('approved_fills.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\ApprovedRequestFillController::class, 'store'])->name('store');
-                Route::delete('/', [App\Http\Controllers\ApprovedRequestFillController::class, 'destroy'])->name('destroy')->middleware('modo');
+                Route::delete('/', [App\Http\Controllers\ApprovedRequestFillController::class, 'destroy'])->name('destroy')->middleware(CheckForModo::class);
             });
 
             Route::prefix('{torrentRequest}/bounties')->name('bounties.')->group(function (): void {
@@ -245,7 +269,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('torrents')->group(function (): void {
             Route::get('/{id}/peers', [App\Http\Controllers\TorrentPeerController::class, 'index'])->name('peers')->whereNumber('id');
             Route::get('/{id}/history', [App\Http\Controllers\TorrentHistoryController::class, 'index'])->name('history')->whereNumber('id');
-            Route::get('/{id}/external-tracker', [App\Http\Controllers\ExternalTorrentController::class, 'show'])->name('torrents.external_tracker')->whereNumber('id')->middleware('modo');
+            Route::get('/{id}/external-tracker', [App\Http\Controllers\ExternalTorrentController::class, 'show'])->name('torrents.external_tracker')->whereNumber('id')->middleware(CheckForModo::class);
             Route::get('/download_check/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'show'])->name('download_check')->whereNumber('id');
             Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download')->whereNumber('id');
             Route::post('/{id}/reseed', [App\Http\Controllers\TorrentReseedController::class, 'store'])->name('reseed')->whereNumber('id');
@@ -332,7 +356,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/create', [App\Http\Controllers\TicketController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\TicketController::class, 'store'])->name('store');
             Route::get('/{ticket}', [App\Http\Controllers\TicketController::class, 'show'])->name('show');
-            Route::delete('/{ticket}', [App\Http\Controllers\TicketController::class, 'destroy'])->name('destroy')->middleware('modo');
+            Route::delete('/{ticket}', [App\Http\Controllers\TicketController::class, 'destroy'])->name('destroy')->middleware(CheckForModo::class);
             Route::post('/{ticket}/note', [App\Http\Controllers\TicketNoteController::class, 'store'])->name('note.store');
             Route::delete('/{ticket}/note', [App\Http\Controllers\TicketNoteController::class, 'destroy'])->name('note.destroy');
             Route::post('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'store'])->name('assignee.store');
@@ -391,15 +415,15 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{id}', [App\Http\Controllers\TopicController::class, 'show'])->name('show')->whereNumber('id');
                 Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit')->whereNumber('id');
                 Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update')->whereNumber('id');
-                Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->whereNumber('id')->middleware('modo');
-                Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'close'])->name('close')->whereNumber('id')->middleware('modo');
-                Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'open'])->name('open')->whereNumber('id')->middleware('modo');
-                Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pin'])->name('pin')->whereNumber('id')->middleware('modo');
-                Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpin'])->name('unpin')->whereNumber('id')->middleware('modo');
+                Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->whereNumber('id')->middleware(CheckForModo::class);
+                Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'close'])->name('close')->whereNumber('id')->middleware(CheckForModo::class);
+                Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'open'])->name('open')->whereNumber('id')->middleware(CheckForModo::class);
+                Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pin'])->name('pin')->whereNumber('id')->middleware(CheckForModo::class);
+                Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpin'])->name('unpin')->whereNumber('id')->middleware(CheckForModo::class);
             });
 
             // Topic Label System
-            Route::prefix('topics')->name('topics.')->middleware('modo')->group(function (): void {
+            Route::prefix('topics')->name('topics.')->middleware(CheckForModo::class)->group(function (): void {
                 Route::patch('/{topic}/labels', [App\Http\Controllers\TopicLabelController::class, 'update'])->name('labels');
             });
 
@@ -483,7 +507,7 @@ Route::middleware('language')->group(function (): void {
             // Invites
             Route::prefix('invites')->name('invites.')->group(function (): void {
                 Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
                 Route::post('/{sentInvite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
                 Route::delete('/{sentInvite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy')->withTrashed();
                 Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index')->withTrashed();
@@ -543,13 +567,13 @@ Route::middleware('language')->group(function (): void {
 
             // Two-Factor Authentication
             Route::prefix('two-factor-auth')->name('two_factor_auth.')->group(function (): void {
-                Route::get('/edit', [App\Http\Controllers\User\TwoFactorAuthController::class, 'edit'])->name('edit');
+                Route::get('/edit', [App\Http\Controllers\User\TwoFactorAuthController::class, 'edit'])->name('edit')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class]);
             });
 
             // Email
             Route::prefix('email')->name('email.')->group(function (): void {
-                Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit');
-                Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update');
+                Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class])->withoutMiddleware(EnsureEmailIsVerified::class);
+                Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class])->withoutMiddleware(EnsureEmailIsVerified::class);
             });
 
             // Password
@@ -573,7 +597,8 @@ Route::middleware('language')->group(function (): void {
             // Apikey
             Route::prefix('apikeys')->name('apikeys.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\User\ApikeyController::class, 'index'])->name('index');
-                Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
+                Route::post('/', [App\Http\Controllers\User\ApikeyController::class, 'store'])->name('store');
+                Route::delete('/{apikey}', [App\Http\Controllers\User\ApikeyController::class, 'destroy'])->name('destroy');
             });
 
             // Post tips
@@ -635,7 +660,7 @@ Route::middleware('language')->group(function (): void {
         | Staff Dashboard Routes Group (When Authorized And A Staff Group) (Alpha Ordered)
         |---------------------------------------------------------------------------------
         */
-        Route::prefix('dashboard')->middleware(['modo'])->name('staff.')->group(function (): void {
+        Route::prefix('dashboard')->middleware(CheckForModo::class)->name('staff.')->group(function (): void {
             // Staff Dashboard
             Route::name('dashboard.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\HomeController::class, 'index'])->name('index');
@@ -655,7 +680,7 @@ Route::middleware('language')->group(function (): void {
             Route::prefix('articles')->name('articles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ArticleController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ArticleController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
                 Route::get('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
                 Route::post('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
                 Route::delete('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
@@ -691,7 +716,7 @@ Route::middleware('language')->group(function (): void {
             });
 
             // Backup System
-            Route::prefix('backups')->name('backups.')->middleware('owner')->group(function (): void {
+            Route::prefix('backups')->name('backups.')->middleware(CheckForOwner::class)->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BackupController::class, 'index'])->name('index');
             });
 
@@ -794,13 +819,8 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/ghost-leechers', [App\Http\Controllers\Staff\CheaterController::class, 'index'])->name('index');
             });
 
-            // Codebase Version Check
-            Route::prefix('UNIT3D')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\VersionController::class, 'checkVersion']);
-            });
-
             // Commands
-            Route::prefix('commands')->middleware('owner')->group(function (): void {
+            Route::prefix('commands')->middleware(CheckForOwner::class)->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('commands.index');
                 Route::post('/maintenance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintenanceEnable']);
                 Route::post('/maintenance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintenanceDisable']);
@@ -829,21 +849,21 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\EmailUpdateController::class, 'index'])->name('index');
             });
 
-            // Events
-            Route::prefix('events')->name('events.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\EventController::class, 'index'])->name('index');
-                Route::get('/create', [App\Http\Controllers\Staff\EventController::class, 'create'])->name('create');
-                Route::post('/', [App\Http\Controllers\Staff\EventController::class, 'store'])->name('store');
-                Route::prefix('{event}')->group(function (): void {
-                    Route::get('/edit', [App\Http\Controllers\Staff\EventController::class, 'edit'])->name('edit');
-                    Route::patch('/', [App\Http\Controllers\Staff\EventController::class, 'update'])->name('update');
-                    Route::delete('/', [App\Http\Controllers\Staff\EventController::class, 'destroy'])->name('destroy');
+            // Giveaways
+            Route::prefix('giveaways')->name('giveaways.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\GiveawayController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\GiveawayController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\GiveawayController::class, 'store'])->name('store');
+                Route::prefix('{giveaway}')->group(function (): void {
+                    Route::get('/edit', [App\Http\Controllers\Staff\GiveawayController::class, 'edit'])->name('edit');
+                    Route::patch('/', [App\Http\Controllers\Staff\GiveawayController::class, 'update'])->name('update');
+                    Route::delete('/', [App\Http\Controllers\Staff\GiveawayController::class, 'destroy'])->name('destroy');
 
                     // Prizes
                     Route::prefix('prizes')->name('prizes.')->group(function (): void {
-                        Route::post('/', [App\Http\Controllers\Staff\PrizeController::class, 'store'])->name('store');
-                        Route::patch('/{prize}', [App\Http\Controllers\Staff\PrizeController::class, 'update'])->name('update');
-                        Route::delete('/{prize}', [App\Http\Controllers\Staff\PrizeController::class, 'destroy'])->name('destroy');
+                        Route::post('/', [App\Http\Controllers\Staff\GiveawayPrizeController::class, 'store'])->name('store');
+                        Route::patch('/{prize}', [App\Http\Controllers\Staff\GiveawayPrizeController::class, 'update'])->name('update');
+                        Route::delete('/{prize}', [App\Http\Controllers\Staff\GiveawayPrizeController::class, 'destroy'])->name('destroy');
                     });
                 });
             });
@@ -855,7 +875,7 @@ Route::middleware('language')->group(function (): void {
             });
 
             // Forums System
-            Route::prefix('forum-categories')->name('forum_categories.')->middleware('admin')->group(function (): void {
+            Route::prefix('forum-categories')->name('forum_categories.')->middleware(CheckForAdmin::class)->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ForumCategoryController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ForumCategoryController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\ForumCategoryController::class, 'store'])->name('store');
@@ -864,7 +884,7 @@ Route::middleware('language')->group(function (): void {
                 Route::delete('/{forumCategory}', [App\Http\Controllers\Staff\ForumCategoryController::class, 'destroy'])->name('destroy');
             });
 
-            Route::prefix('forums')->name('forums.')->middleware('admin')->group(function (): void {
+            Route::prefix('forums')->name('forums.')->middleware(CheckForAdmin::class)->group(function (): void {
                 Route::get('/create', [App\Http\Controllers\Staff\ForumController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\ForumController::class, 'store'])->name('store');
                 Route::get('/{forum}/edit', [App\Http\Controllers\Staff\ForumController::class, 'edit'])->name('edit');
@@ -873,7 +893,7 @@ Route::middleware('language')->group(function (): void {
             });
 
             // Groups System
-            Route::prefix('groups')->name('groups.')->middleware('admin')->group(function (): void {
+            Route::prefix('groups')->name('groups.')->middleware(CheckForAdmin::class)->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\GroupController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\GroupController::class, 'create'])->name('create');
                 Route::post('/', [App\Http\Controllers\Staff\GroupController::class, 'store'])->name('store');
@@ -898,7 +918,7 @@ Route::middleware('language')->group(function (): void {
             });
 
             // Laravel Log Viewer
-            Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('laravel-log.index');
+            Route::livewire('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware(CheckForOwner::class)->name('laravel-log.index');
 
             // Leakers
             Route::prefix('leakers')->name('leakers.')->group(function (): void {
@@ -907,7 +927,7 @@ Route::middleware('language')->group(function (): void {
 
             // Mass Actions
             Route::prefix('mass-actions')->group(function (): void {
-                Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('mass-actions.validate');
+                Route::post('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('mass-actions.validate');
             });
 
             // Mass Email
@@ -1055,10 +1075,10 @@ Route::middleware('language')->group(function (): void {
             });
 
             // Torrent Downloads
-            Route::get('/torrent-downloads', App\Http\Livewire\TorrentDownloadSearch::class)->name('torrent_downloads.index');
+            Route::livewire('/torrent-downloads', App\Http\Livewire\TorrentDownloadSearch::class)->name('torrent_downloads.index');
 
             // Torrent Trump Search
-            Route::get('/torrent-trump-search', App\Http\Livewire\TorrentTrumpSearch::class)->name('torrent_trumps.index');
+            Route::livewire('/torrent-trump-search', App\Http\Livewire\TorrentTrumpSearch::class)->name('torrent_trumps.index');
 
             // Types
             Route::prefix('types')->name('types.')->group(function (): void {
@@ -1075,9 +1095,29 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\UnregisteredInfoHashController::class, 'index'])->name('index');
             });
 
+            // Upload Contests
+            Route::prefix('upload-contests')->name('upload_contests.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\UploadContestController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\UploadContestController::class, 'create'])->name('create');
+                Route::post('/', [App\Http\Controllers\Staff\UploadContestController::class, 'store'])->name('store');
+                Route::prefix('{uploadContest}')->group(function (): void {
+                    Route::get('/edit', [App\Http\Controllers\Staff\UploadContestController::class, 'edit'])->name('edit');
+                    Route::patch('/', [App\Http\Controllers\Staff\UploadContestController::class, 'update'])->name('update');
+                    Route::delete('/', [App\Http\Controllers\Staff\UploadContestController::class, 'destroy'])->name('destroy');
+
+                    // Prizes
+                    Route::prefix('prizes')->name('prizes.')->group(function (): void {
+                        Route::post('/', [App\Http\Controllers\Staff\UploadContestPrizeController::class, 'store'])->name('store');
+                        Route::patch('/{prize}', [App\Http\Controllers\Staff\UploadContestPrizeController::class, 'update'])->name('update');
+                        Route::delete('/{prize}', [App\Http\Controllers\Staff\UploadContestPrizeController::class, 'destroy'])->name('destroy');
+                    });
+                });
+            });
+
             // User Staff Notes
             Route::prefix('notes')->name('notes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
+                Route::patch('/{note}', [App\Http\Controllers\Staff\NoteController::class, 'update'])->name('update');
             });
 
             // User Tools TODO: Leaving since we will be refactoring users and roles
@@ -1126,28 +1166,28 @@ Route::middleware('language')->group(function (): void {
             // Whitelisted Image URL Patterns
             Route::prefix('whitelisted-image-urls')->name('whitelisted_image_urls.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'store'])->name('store');
-                Route::patch('/{whitelistedImageUrl}/update', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'update'])->name('update');
-                Route::delete('/{whitelistedImageUrl}/destroy', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'store'])->name('store');
+                Route::patch('/{whitelistedImageUrl}', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'update'])->name('update');
+                Route::delete('/{whitelistedImageUrl}', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'destroy'])->name('destroy');
             });
 
             // Wiki Categories System
             Route::prefix('wiki_categories')->name('wiki_categories.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WikiCategoryController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\WikiCategoryController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\WikiCategoryController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\Staff\WikiCategoryController::class, 'store'])->name('store');
                 Route::get('/{wikiCategory}/edit', [App\Http\Controllers\Staff\WikiCategoryController::class, 'edit'])->name('edit');
-                Route::patch('/{wikiCategory}/update', [App\Http\Controllers\Staff\WikiCategoryController::class, 'update'])->name('update');
-                Route::delete('/{wikiCategory}/destroy', [App\Http\Controllers\Staff\WikiCategoryController::class, 'destroy'])->name('destroy');
+                Route::patch('/{wikiCategory}', [App\Http\Controllers\Staff\WikiCategoryController::class, 'update'])->name('update');
+                Route::delete('/{wikiCategory}', [App\Http\Controllers\Staff\WikiCategoryController::class, 'destroy'])->name('destroy');
             });
 
             // Wiki System
             Route::prefix('wikis')->name('wikis.')->group(function (): void {
                 Route::get('/create', [App\Http\Controllers\Staff\WikiController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\WikiController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\Staff\WikiController::class, 'store'])->name('store');
                 Route::get('/{wiki}/edit', [App\Http\Controllers\Staff\WikiController::class, 'edit'])->name('edit');
-                Route::patch('/{wiki}/update', [App\Http\Controllers\Staff\WikiController::class, 'update'])->name('update');
-                Route::delete('/{wiki}/destroy', [App\Http\Controllers\Staff\WikiController::class, 'destroy'])->name('destroy');
+                Route::patch('/{wiki}', [App\Http\Controllers\Staff\WikiController::class, 'update'])->name('update');
+                Route::delete('/{wiki}', [App\Http\Controllers\Staff\WikiController::class, 'destroy'])->name('destroy');
             });
 
             // Donation System

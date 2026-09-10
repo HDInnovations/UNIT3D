@@ -37,7 +37,7 @@ class PlaylistSuggestionCreated extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -47,10 +47,10 @@ class PlaylistSuggestionCreated extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'New Playlist Suggestion',
+            'title' => 'Playlist suggestion',
             'body'  => 'A user has suggested a torrent for your playlist: '.$this->playlistSuggestion->playlist->name,
             'url'   => '/playlists/'.$this->playlistSuggestion->playlist_id.'#playlist_suggestions',
         ];

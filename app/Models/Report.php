@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Report.
@@ -63,6 +64,7 @@ final class Report extends Model
      *
      * @return array{snoozed_until: 'datetime', solved_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

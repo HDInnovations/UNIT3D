@@ -38,7 +38,7 @@ class RssController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.rss.index', [
-            'public_rss' => Rss::where('is_private', '=', false)->oldest('position')->get(),
+            'public_rss' => Rss::query()->where('is_private', '=', false)->oldest('position')->get(),
         ]);
     }
 
@@ -48,10 +48,10 @@ class RssController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.rss.create', [
-            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'genres'      => TmdbGenre::orderBy('name')->get(),
+            'categories'  => Category::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => TmdbGenre::query()->orderBy('name')->get(),
             'user'        => $request->user(),
         ]);
     }
@@ -81,10 +81,10 @@ class RssController extends Controller
         abort_if($rss->is_private, 403);
 
         return view('Staff.rss.edit', [
-            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'genres'      => TmdbGenre::orderBy('name')->get(),
+            'categories'  => Category::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => TmdbGenre::query()->orderBy('name')->get(),
             'user'        => $request->user(),
             'rss'         => $rss,
         ]);

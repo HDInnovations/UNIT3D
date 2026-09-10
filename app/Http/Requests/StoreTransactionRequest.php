@@ -37,7 +37,7 @@ class StoreTransactionRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'exchange' => [

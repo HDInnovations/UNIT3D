@@ -20,6 +20,7 @@ use App\Models\Poll;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Override;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
@@ -63,6 +64,7 @@ class StorePollVoteRequest extends FormRequest
      *
      * @return array<string, string>
      */
+    #[Override]
     public function messages(): array
     {
         return [

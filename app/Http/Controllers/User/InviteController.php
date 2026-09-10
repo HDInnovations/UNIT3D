@@ -121,7 +121,7 @@ class InviteController extends Controller
 
         $user->decrement('invites');
 
-        $invite = Invite::create([
+        $invite = Invite::query()->create([
             'user_id'       => $user->id,
             'email'         => $request->input('email'),
             'code'          => Uuid::uuid4()->toString(),

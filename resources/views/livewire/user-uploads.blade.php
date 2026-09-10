@@ -25,17 +25,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('personalRelease').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('personalRelease').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-uploads__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.downloaded') }}
                                 </label>
@@ -364,21 +359,4 @@
         </div>
         {{ $uploads->links('partials.pagination') }}
     </section>
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        function ternaryCheckbox() {
-            return {
-                updateTernaryCheckboxProperties(el, state) {
-                    el.indeterminate = state === 'exclude';
-                    el.checked = state === 'include';
-                },
-                getNextTernaryCheckboxState(state) {
-                    return state === 'include'
-                        ? 'exclude'
-                        : state === 'exclude'
-                          ? 'any'
-                          : 'include';
-                },
-            };
-        }
-    </script>
 </div>

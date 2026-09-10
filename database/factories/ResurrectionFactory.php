@@ -20,6 +20,7 @@ use App\Models\Resurrection;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<Resurrection> */
 class ResurrectionFactory extends Factory
@@ -32,6 +33,7 @@ class ResurrectionFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -20,6 +20,7 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserNotification;
+use Override;
 
 /** @extends Factory<UserNotification> */
 class UserNotificationFactory extends Factory
@@ -32,6 +33,7 @@ class UserNotificationFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

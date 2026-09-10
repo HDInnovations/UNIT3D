@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Type;
+use Override;
 
 /** @extends Factory<Type> */
 class TypeFactory extends Factory
@@ -30,6 +31,7 @@ class TypeFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

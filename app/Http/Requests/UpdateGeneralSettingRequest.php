@@ -146,6 +146,15 @@ class UpdateGeneralSettingRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'auto_freeleech_apply' => [
+                'required',
+                'boolean',
+            ],
+            'auto_freeleech_min_tokens' => [
+                'required',
+                'integer',
+                'min:0',
+            ],
             'show_adult_content' => [
                 'required',
                 'boolean',

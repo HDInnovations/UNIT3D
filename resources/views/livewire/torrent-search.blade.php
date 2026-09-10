@@ -70,7 +70,7 @@
             </div>
             <div class="form__group--short-horizontal">
                 <div class="form__group--short-horizontal">
-                    <p class="form__group" x-data="{ startYear: @entangle('startYear') }">
+                    <p class="form__group" x-data="{ startYear: $wire.entangle('startYear') }">
                         <input
                             id="startYear"
                             x-on:input.debounce.150ms="
@@ -89,7 +89,7 @@
                             {{ __('torrent.start-year') }}
                         </label>
                     </p>
-                    <p class="form__group" x-data="{ endYear: @entangle('endYear') }">
+                    <p class="form__group" x-data="{ endYear: $wire.entangle('endYear') }">
                         <input
                             id="endYear"
                             x-on:input.debounce.150ms="

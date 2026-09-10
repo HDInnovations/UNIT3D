@@ -631,7 +631,9 @@ return [
 
             'unsafe-inline' => false,
 
-            'unsafe-eval' => true,
+            'unsafe-eval' => false,
+
+            'wasm-unsafe-eval' => false,
 
             // https://www.w3.org/TR/CSP3/#unsafe-hashes-usage
             'unsafe-hashes' => false,

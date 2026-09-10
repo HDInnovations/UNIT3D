@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentFile;
+use Override;
 
 /** @extends Factory<TorrentFile> */
 class TorrentFileFactory extends Factory
@@ -31,6 +32,7 @@ class TorrentFileFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

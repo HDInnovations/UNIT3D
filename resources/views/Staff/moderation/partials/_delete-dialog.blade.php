@@ -1,9 +1,12 @@
-<li class="data-table__action" x-data="dialog">
-    <button class="form__button form__button--filled" x-bind="showDialog">
+<li class="data-table__action">
+    <button
+        class="form__button form__button--filled"
+        popovertarget="torrent-delete-{{ $torrent->id }}"
+    >
         <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
         {{ __('common.delete') }}
     </button>
-    <dialog class="dialog" x-bind="dialogElement">
+    <dialog id="torrent-delete-{{ $torrent->id }}" class="dialog" popover>
         <h4 class="dialog__heading">
             {{ __('common.delete') }} {{ __('torrent.torrent') }}: {{ $torrent->name }}
         </h4>
@@ -11,7 +14,6 @@
             class="dialog__form"
             method="POST"
             action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
-            x-bind="dialogForm"
         >
             @csrf
             @method('DELETE')
@@ -30,9 +32,9 @@
                     {{ __('common.delete') }}
                 </button>
                 <button
-                    formmethod="dialog"
-                    formnovalidate
                     class="form__button form__button--outlined"
+                    type="button"
+                    popovertarget="torrent-delete-{{ $torrent->id }}"
                 >
                     {{ __('common.cancel') }}
                 </button>

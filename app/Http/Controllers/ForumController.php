@@ -63,7 +63,7 @@ class ForumController extends Controller
     /**
      * Show Forums And Topics Inside.
      */
-    public function show(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+    public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
         return view('forum.forum-topic.index', [
             'forum' => Forum::query()

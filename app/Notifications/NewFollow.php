@@ -37,7 +37,7 @@ class NewFollow extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -65,11 +65,11 @@ class NewFollow extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => $this->follower->username.' Has Followed You!',
-            'body'  => $this->follower->username.' has started to follow you so they will get notifications about your activities.',
+            'title' => $this->follower->username.' followed you',
+            'body'  => $this->follower->username.' started following you.',
             'url'   => '/users/'.$this->follower->username,
         ];
     }

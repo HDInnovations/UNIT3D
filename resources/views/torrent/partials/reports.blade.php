@@ -22,12 +22,12 @@
                         {{ __('common.reporter') }}
                     </th>
                     <th>
-                        {{ __('common.created_at') }}
+                        {{ __('ticket.assigned-staff') }}
                     </th>
                     <th>
-                        {{ __('common.staff') }}
+                        {{ __('common.created_at') }}
                     </th>
-                    <th>{{ __('forum.solved') }}</th>
+                    <th>{{ __('user.judge') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +45,13 @@
                             <x-user-tag :anon="false" :user="$report->reporter" />
                         </td>
                         <td>
+                            @if ($report->assignee)
+                                <x-user-tag :anon="false" :user="$report->assignee" />
+                            @else
+                                Unassigned
+                            @endif
+                        </td>
+                        <td>
                             <time
                                 datetime="{{ $report->created_at }}"
                                 title="{{ $report->created_at }}"
@@ -53,23 +60,12 @@
                             </time>
                         </td>
                         <td>
-                            @if ($report->staff_id !== null)
-                                <x-user-tag :anon="false" :user="$report->staff" />
-                            @else
-                                Unassigned
-                            @endif
-                        </td>
-                        <td>
-                            @if ($report->solved)
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-check text-green"
-                                ></i>
-                                {{ __('common.yes') }}
+                            @if ($report->judge)
+                                <x-user-tag :anon="false" :user="$report->judge" />
                             @else
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-times text-red"
                                 ></i>
-                                {{ __('common.no') }}
                             @endif
                         </td>
                     </tr>

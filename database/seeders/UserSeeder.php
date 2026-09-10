@@ -16,17 +16,24 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Models\Chatroom;
+use App\Models\ChatStatus;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::upsert([
+        $this->call([
+            ChatStatusSeeder::class,
+            ChatroomSeeder::class,
+            GroupSeeder::class,
+        ]);
+
+        User::query()->upsert([
             [
                 'id'                => User::SYSTEM_USER_ID,
                 'username'          => 'System',
@@ -36,7 +43,14 @@ class UserSeeder extends Seeder
                 'password'          => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
-                'api_token'         => Str::random(100),
+                'chatroom_id'       => Chatroom::query()
+                    ->when(
+                        \is_int(config('chat.system_chatroom')),
+                        fn ($query) => $query->where('id', '=', config('chat.system_chatroom')),
+                        fn ($query) => $query->where('name', '=', config('chat.system_chatroom')),
+                    )
+                    ->soleValue('id'),
+                'chat_status_id' => ChatStatus::query()->value('id'),
             ],
             [
                 'id'                => 2,
@@ -47,7 +61,14 @@ class UserSeeder extends Seeder
                 'password'          => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
-                'api_token'         => Str::random(100),
+                'chatroom_id'       => Chatroom::query()
+                    ->when(
+                        \is_int(config('chat.system_chatroom')),
+                        fn ($query) => $query->where('id', '=', config('chat.system_chatroom')),
+                        fn ($query) => $query->where('name', '=', config('chat.system_chatroom')),
+                    )
+                    ->soleValue('id'),
+                'chat_status_id' => ChatStatus::query()->value('id'),
             ],
             [
                 'id'                => 3,
@@ -58,7 +79,14 @@ class UserSeeder extends Seeder
                 'password'          => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
-                'api_token'         => Str::random(100),
+                'chatroom_id'       => Chatroom::query()
+                    ->when(
+                        \is_int(config('chat.system_chatroom')),
+                        fn ($query) => $query->where('id', '=', config('chat.system_chatroom')),
+                        fn ($query) => $query->where('name', '=', config('chat.system_chatroom')),
+                    )
+                    ->soleValue('id'),
+                'chat_status_id' => ChatStatus::query()->value('id'),
             ],
         ], ['username'], ['updated_at' => DB::raw('updated_at')]);
     }

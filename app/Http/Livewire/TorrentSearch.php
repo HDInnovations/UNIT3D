@@ -19,10 +19,12 @@ namespace App\Http\Livewire;
 use App\DTO\TorrentSearchFiltersDTO;
 use App\Models\Category;
 use App\Models\Distributor;
+use App\Models\PersonalFreeleech;
 use App\Models\TmdbGenre;
 use App\Models\TmdbMovie;
 use App\Models\Region;
 use App\Models\Resolution;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\TmdbTv;
 use App\Models\Type;
@@ -36,7 +38,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
-use Illuminate\Support\Facades\DB;
 
 class TorrentSearch extends Component
 {
@@ -237,8 +238,8 @@ class TorrentSearch extends Component
         get => cache()->flexible(
             'torrent-search:health',
             [3600, 3600 * 2],
-            fn () => DB::table('torrents')
-                ->whereNull('deleted_at')
+            fn () => Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
                 ->selectRaw('COUNT(*) AS total')
                 ->selectRaw('SUM(seeders > 0) AS alive')
                 ->selectRaw('SUM(seeders = 0) AS dead')
@@ -275,7 +276,7 @@ class TorrentSearch extends Component
     }
 
     final protected bool $personalFreeleech {
-        get => cache()->get('personal_freeleech:'.auth()->id()) ?? false;
+        get => PersonalFreeleech::query()->where('user_id', '=', auth()->id())->exists();
     }
 
     /**
@@ -312,7 +313,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     * @var \Illuminate\Database\Eloquent\Collection<int, TmdbGenre>
      */
     final protected \Illuminate\Database\Eloquent\Collection $genres {
         get => cache()->flexible(
@@ -345,7 +346,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @var \Illuminate\Support\Collection<int, TmdbMovie>
+     * @var \Illuminate\Support\Collection<int, string|null>
      */
     final protected \Illuminate\Support\Collection $primaryLanguages {
         get => cache()->flexible(
@@ -366,7 +367,7 @@ class TorrentSearch extends Component
             description: $this->description,
             mediainfo: $this->mediainfo,
             uploader: $this->uploader,
-            keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
+            keywords: $this->keywords ? array_map(trim(...), explode(',', $this->keywords)) : [],
             startYear: $this->startYear,
             endYear: $this->endYear,
             minSize: $this->minSize === null ? null : $this->minSize * $this->minSizeMultiplier,
@@ -414,9 +415,9 @@ class TorrentSearch extends Component
                 default              => null,
             },
             userSeeder: match (true) {
-                $this->seeding => true,
+                $this->seeding                     => true,
                 $this->leeching, $this->incomplete => false,
-                default => null,
+                default                            => null,
             },
             userActive: match (true) {
                 $this->seeding    => true,
@@ -469,18 +470,10 @@ class TorrentSearch extends Component
                         ->where('seeder', '=', 0),
                     'history as completed' => fn ($query) => $query->where('user_id', '=', $user->id)
                         ->where('active', '=', 0)
-                        ->where('seeder', '=', 0),
+                        ->where('seeder', '=', 1),
                     'trump',
                 ])
-                ->selectRaw(<<<'SQL'
-                CASE
-                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
-                    WHEN category_id IN (SELECT id FROM categories WHERE game_meta = 1) THEN 'game'
-                    WHEN category_id IN (SELECT id FROM categories WHERE music_meta = 1) THEN 'music'
-                    WHEN category_id IN (SELECT id FROM categories WHERE no_meta = 1) THEN 'no'
-                END AS meta
-            SQL);
+                ->selectRaw(self::META_TYPE_CASE.' AS meta');
 
             if ($isSqlAllowed) {
                 $torrents = Torrent::query()
@@ -525,7 +518,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
+     * @var LengthAwarePaginator<int, TmdbMovie|TmdbTv|null>
      */
     final protected $groupedTorrents {
         get {
@@ -548,12 +541,7 @@ class TorrentSearch extends Component
                 ->selectRaw('MAX(bumped_at) as bumped_at')
                 ->selectRaw('MAX(created_at) as created_at')
                 ->selectRaw('SUM(times_completed) as times_completed')
-                ->selectRaw(<<<'SQL'
-                MIN(CASE
-                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
-                END) AS meta
-            SQL)
+                ->selectRaw('MIN('.self::META_TYPE_CASE_MOVIE_TV.') AS meta')
                 ->havingNotNull('meta')
                 ->where(fn ($query) => $query->whereNotNull('tmdb_movie_id')->orWhereNotNull('tmdb_tv_id'))
                 ->whereNotNull('imdb')
@@ -593,12 +581,7 @@ class TorrentSearch extends Component
                     'resolution_id',
                     'personal_release',
                 ])
-                ->selectRaw(<<<'SQL'
-                CASE
-                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
-                END AS meta
-            SQL)
+                ->selectRaw(self::META_TYPE_CASE_MOVIE_TV.' AS meta')
                 ->withCount([
                     'comments',
                 ])
@@ -667,8 +650,8 @@ class TorrentSearch extends Component
             $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb_movie_id');
             $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb_tv_id');
 
-            $movies = TmdbMovie::with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-            $tv = TmdbTv::with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+            $movies = TmdbMovie::query()->with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+            $tv = TmdbTv::query()->with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
             if ($isSqlAllowed) {
                 $torrents = Torrent::query()
@@ -754,7 +737,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @var \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
+     * @var LengthAwarePaginator<int, Torrent>
      */
     final protected $groupedPosters {
         get {
@@ -772,12 +755,7 @@ class TorrentSearch extends Component
                 ->selectRaw('MAX(bumped_at) as bumped_at')
                 ->selectRaw('SUM(times_completed) as times_completed')
                 ->selectRaw('MIN(category_id) as category_id')
-                ->selectRaw(<<<'SQL'
-                MIN(CASE
-                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
-                END) AS meta
-            SQL)
+                ->selectRaw('MIN('.self::META_TYPE_CASE_MOVIE_TV.') AS meta')
                 ->havingNotNull('meta')
                 ->where(fn ($query) => $query->whereNotNull('tmdb_movie_id')->orWhereNotNull('tmdb_tv_id'))
                 ->where($this->filters()->toSqlQueryBuilder())
@@ -789,17 +767,17 @@ class TorrentSearch extends Component
             $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb_movie_id');
             $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb_tv_id');
 
-            $movies = TmdbMovie::with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
-            $tv = TmdbTv::with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+            $movies = TmdbMovie::query()->with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+            $tv = TmdbTv::query()->with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
             $groups = $groups->through(function ($group) use ($movies, $tv) {
                 switch ($group->meta) {
                     case 'movie':
-                        $group->movie = $movies[$group->tmdb_movie_id] ?? null;
+                        $group->setAttribute('movie', $movies[$group->tmdb_movie_id] ?? null);
 
                         break;
                     case 'tv':
-                        $group->tv = $tv[$group->tmdb_tv_id] ?? null;
+                        $group->setAttribute('tv', $tv[$group->tmdb_tv_id] ?? null);
 
                         break;
                 }

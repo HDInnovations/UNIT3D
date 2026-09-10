@@ -32,6 +32,10 @@ class StringHelper
 
     public static function formatBytes(int|float $bytes = 0, int $precision = 2): string
     {
+        if ($bytes === INF) {
+            return '∞';
+        }
+
         $minus = false;
 
         if ($bytes < 0) {

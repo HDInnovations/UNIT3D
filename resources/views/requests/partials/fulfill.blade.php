@@ -1,11 +1,11 @@
-<li class="form__group form__group--short-horizontal" x-data="dialog">
+<li class="form__group form__group--short-horizontal">
     <button
         class="form__button form__button--outlined form__button--centered"
-        x-bind="showDialog"
+        popovertarget="request-fulfill"
     >
         {{ __('request.fulfill') }}
     </button>
-    <dialog class="dialog" x-bind="dialogElement">
+    <dialog id="request-fulfill" class="dialog" popover>
         <h3 class="dialog__heading">
             {{ __('request.fill-request') }}
         </h3>
@@ -13,7 +13,6 @@
             class="dialog__form"
             method="POST"
             action="{{ route('requests.fills.store', ['torrentRequest' => $torrentRequest]) }}"
-            x-bind="dialogForm"
         >
             @csrf
             <p class="form__group">
@@ -44,9 +43,9 @@
                     {{ __('request.fulfill') }}
                 </button>
                 <button
-                    formmethod="dialog"
-                    formnovalidate
                     class="form__button form__button--outlined"
+                    popovertarget="request-fulfill"
+                    type="button"
                 >
                     {{ __('common.cancel') }}
                 </button>

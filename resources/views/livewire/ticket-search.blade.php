@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: @entangle('tab').live }">
+<section class="panelV2" x-data="tabs($wire.entangle('tab').live)">
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('ticket.helpdesk') }}</h2>
         <div class="panel__actions">
@@ -51,22 +51,8 @@
         </div>
     </header>
     <menu class="panel__tabs panel__tabs--centered">
-        <li
-            class="panel__tab panel__tab--full-width"
-            role="tab"
-            x-bind:class="tab === 'open' && 'panel__tab--active'"
-            x-on:click="tab = 'open'"
-        >
-            Open
-        </li>
-        <li
-            class="panel__tab panel__tab--full-width"
-            role="tab"
-            x-bind:class="tab === 'closed' && 'panel__tab--active'"
-            x-on:click="tab = 'closed'"
-        >
-            Closed
-        </li>
+        <li class="panel__tab--full-width" x-bind="tabButton" data-tab="open">Open</li>
+        <li class="panel__tab--full-width" x-bind="tabButton" data-tab="closed">Closed</li>
     </menu>
     <div class="data-table-wrapper">
         <table class="data-table">
