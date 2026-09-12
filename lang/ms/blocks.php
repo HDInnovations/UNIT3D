@@ -17,7 +17,7 @@ return [
     'featured-by' => 'Disediakan oleh',
     'featured-torrents' => 'Torrents yang ditonjolkan',
     'featured-torrents-intro' => 'Dapatkan Mereka Walaupun Anda Boleh!',
-    'featured-until' => 'Ini adalah tajuk utama sehingga',
+    'featured-until' => 'Torrent Ini Ditonjolkan Sehingga',
     'top-torrents' => 'Torrents Teratas',
     'latest-posts' => 'Pos Terkini',
     'latest-topics' => 'Topik Terkini',

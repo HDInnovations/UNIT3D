@@ -4,7 +4,7 @@ return [
     'account' => 'konto',
     'achievement-title' => 'Grymt bra',
     'achievement-unlocked' => 'Du låste upp &quot;: namn&quot; prestation',
-    'active' => 'Aktiva',
+    'active' => 'Aktiv',
     'active-warning' => 'Aktiv varning',
     'add' => 'Lägg till',
     'added' => 'Lagt till',
@@ -174,4 +174,5 @@ return [
     'yes' => 'Ja',
     'your' => 'Din',
     'your-comment' => 'Din kommentar',
+    'abbrev-days' => 'D ',
 ];

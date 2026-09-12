@@ -229,4 +229,9 @@ return [
     'total' => 'Toplam',
     'test' => 'test',
     'deleted_at' => 'Tarihinde silindi',
+    'awarded' => 'Ödül verildi',
+    'contest' => 'Yarışma',
+    'contests' => 'Yarışmalar',
+    'ends-at' => 'Bitiş',
+    'starts-at' => 'Başlangıç',
 ];

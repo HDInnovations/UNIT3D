@@ -84,4 +84,6 @@ return [
     'welcome' => 'Tekrar hoş geldin!',
     'veteran' => 'Özel takipçiler konusunda deneyimli',
     'welcome-restore' => 'Tekrar hoş geldiniz! Hesabınız artık devre dışı değil!',
+    'two-factor-confirm-desc' => 'İlerlemeden önce İki yollu doğrulama kodunuzu onaylayın lütfen.',
+    'two-factor-confirmation' => 'İkili doğrulama onayı',
 ];

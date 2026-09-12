@@ -35,4 +35,5 @@ return [
     'subject' => 'Teema',
     'to' => 'Et',
     'unread' => 'Lugemata',
+    'all-marked-read' => 'Kõik sinu teavitused on märgitud loetuks!',
 ];

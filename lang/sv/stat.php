@@ -47,4 +47,5 @@ return [
     'total-upload' => 'Total uppladdning',
     'users-in-group' => 'Användare i gruppen',
     'users-per-group' => 'Användare per grupp',
+    'active' => 'Aktiv',
 ];

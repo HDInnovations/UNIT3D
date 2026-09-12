@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'about' => 'Acerca de',
-    'about-me' => 'Sobre mi',
+    'about-me' => 'Sobre mí',
     'accepted-at' => 'Aceptado hace',
     'accepted-by' => 'Aceptado por',
     'account-notification' => 'Configuración de notificación de cuenta',
@@ -41,8 +41,8 @@ Estos ajustes se anulan si no permites que ningún grupo envíe notificaciones s
     'badges' => 'Insignias',
     'ban' => 'Bloquear usuario',
     'bans' => 'Bloquear',
-    'ban-log' => 'Registro de Bloqueos',
-    'become-hidden' => 'Hazte oculto',
+    'ban-log' => 'Registro de baneos',
+    'become-hidden' => 'Quédate oculto',
     'become-visible' => 'Hazte visible',
     'bon' => 'BON',
     'bon-notification' => 'Configuración de notificaciones BON',
@@ -343,7 +343,7 @@ Estos ajustes se anulan si no permites que ningún grupo envíe notificaciones s
     'tips-received' => 'Consejos recibidos',
     'title' => 'Título',
     'top-bankers' => 'Los más ricos',
-    'top-bountied' => 'Top recompensado',
+    'top-bountied' => 'Más recompensados',
     'top-completed' => 'Los más completados',
     'top-downloaders-data' => 'Los más descargadores (datos)',
     'top-dead' => 'Los más muertos',
@@ -374,7 +374,7 @@ Estos ajustes se anulan si no permites que ningún grupo envíe notificaciones s
     'torrent-privacy-upload' => 'Permitir que los usuarios vean una lista de torrents que has cargado',
     'torrent-privacy-peer' => 'Permitir que los usuarios te vean en la tabla de historial de torrent peer',
     'torrents' => 'Torrents',
-    'torrents-history' => 'Historia de los torrents',
+    'torrents-history' => 'Historial de torrents',
     'total-download' => 'Descarga total',
     'total-downloads' => 'Descargas totales',
     'total-leeching' => 'Descargas en curso totales',
@@ -456,4 +456,5 @@ Estos ajustes se anulan si <strong>activas el modo privado</strong> o si <strong
     'homepage-block-top-users-visible' => 'Mostrar los mejores usuarios',
     'unregistered-info-hashes' => 'Hashes de información no registrados',
     'show-adult-content' => 'Mostrar contenido para adultos enel buscador de torrents y en la página de inicio',
+    'profile-is-private' => 'Tu perfil está establecido como privado',
 ];

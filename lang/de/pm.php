@@ -16,7 +16,7 @@ return [
     'delete' => 'Löschen',
     'delete-success' => 'Nachricht wurde erfolgreich gelöscht!',
     'enter-subject' => 'Betreff eingeben',
-    'error' => 'Was versuchst du hier zu machen?!',
+    'error' => 'Was versuchst du hier zu machen?',
     'from' => 'Von',
     'inbox' => 'Posteingang',
     'mark-all-read' => 'Alle Nachrichten als gelesen markieren',

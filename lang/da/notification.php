@@ -34,7 +34,7 @@ return [
     'reseed-requests' => 'Reseed Request',
     'title' => 'Titel',
     'unfollows' => 'Affølger',
-    'already-marked-read' => 'Notifikation er allerede markeret som læst!',
+    'already-marked-read' => 'Notifikationen er allerede markeret som læst!',
     'all-deleted' => 'Alle notifikationer slettet!',
     'all-marked-read' => 'Alle notifikationer markeret som læst!',
     'deleted' => 'Notifikation slettet!',

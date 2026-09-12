@@ -23,7 +23,7 @@ return [
     'poll' => '投票',
     'polls' => '投票',
     'results' => '结果',
-    'title' => '标题',
+    'title' => '称谓',
     'total' => '目前总投票数',
     'vote' => '票',
     'vote-counted' => '你的投票已被计入。',

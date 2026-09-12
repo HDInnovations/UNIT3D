@@ -36,4 +36,5 @@ return [
     'tv-credits' => 'קרדיטים לטלוויזיה:',
     'view-collection' => 'צפה באוסף',
     'wiki-read' => 'קרא את הביוגרפיה המלאה בויקיפדיה:',
+    'collection' => 'אוסף',
 ];

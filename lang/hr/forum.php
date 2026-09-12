@@ -11,7 +11,7 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'action' => 'Radnja',
+    'action' => 'Akcija',
     'activity' => 'Aktivnost',
     'approved' => 'Odobren',
     'author' => 'Autor',
@@ -20,12 +20,12 @@ return [
     'close-topic' => 'Zaključaj temu',
     'closed' => 'Zatvoreno',
     'create-new-topic' => 'Izradite novu temu',
-    'created' => 'stvoren',
+    'created' => 'Kreirano',
     'current' => 'Trenutno',
     'delete-topic' => 'Izbriši ovu temu',
     'denied' => 'odbijen',
     'dislike-post' => 'Ne sviđa mi se ovaj post',
-    'display-forum' => 'Prikaži teme na',
+    'display-forum' => 'Prikaži teme u ',
     'edit-post' => 'Uredi post',
     'edit-topic' => 'Uredi temu',
     'forum' => 'Forum',
@@ -40,7 +40,7 @@ return [
     'latest' => 'Najnoviji',
     'like-post' => 'Kao ovaj post',
     'meta-category' => 'Popis foruma u kategoriji',
-    'moderation' => 'Umjerenost',
+    'moderation' => 'Moderacija',
     'name' => 'Ime',
     'not-connected' => 'Morate biti povezani',
     'not-subscribed' => 'Nije pretplaćeno',

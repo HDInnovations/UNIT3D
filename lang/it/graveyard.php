@@ -22,7 +22,7 @@ return [
     'pending' => 'in attesa di',
     'resurrect' => 'riesumare',
     'reward' => 'Token Freeleech',
-    'current-seedtime' => 'Tempo di semina attuale',
+    'current-seedtime' => 'Seedtime attuale',
     'not-rewarded' => 'Non ricompensato',
     'resurrect-canceled' => 'Resurrezione annullata con successo!',
     'resurrect-complete' => 'Resurrezione del Torrent completata! Sarai ricompensato automaticamente una volta soddisfatti i requisiti di seed time.',
@@ -30,5 +30,6 @@ return [
     'resurrect-failed-own' => 'Resurrezione del torrent fallita! Non puoi resuscitare i tuoi uploads.',
     'resurrect-failed-pending' => 'Resurrezione del torrent fallita! Questo torrent è già in attesa di essere resuscitato.',
     'rewarded' => 'Premiato',
-    'seedtime-goal' => 'Obiettivo di semina',
+    'seedtime-goal' => 'Obiettivo di tempo di seed',
+    'howto-desc' => 'Devi tenere in seed questo torrent per 30 giorni per completare la riesumazione. Quando il tuo seedtime di :currentSeedtime raggiunge :requiredSeedtime, sarai ricompensato con :tokens token freelech.',
 ];

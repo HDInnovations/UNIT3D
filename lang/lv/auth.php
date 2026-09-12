@@ -23,7 +23,7 @@ return [
     */
     'failed' => 'Šie dati neatbilst mūsu reģistram.',
     'throttle' => 'Pārāk daudz pieteikšanās mēģinājumu. Lūdzu mēģiniet vēlreiz pēc :seconds sekundēm.',
-    'activation-error' => 'Konts ir slēgts vai jau apstiprināts.',
+    'activation-error' => 'Liegta pieeja vai nederīga pilnvaras atslēga, vai arī lietotāja konts jau ticis apstiprināts!',
     'activation-success' => 'Konts apstiprināts! Tagad varat pieteikties!',
     'add-image' => 'Pievienojiet citu attēla saiti',
     'application' => 'Pieteikšanās',
