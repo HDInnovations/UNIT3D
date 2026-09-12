@@ -55,4 +55,5 @@ return [
     'chat-tools' => 'Chattverktyg',
     'flush-chat' => 'Flush Chatbox',
     'seedboxes' => 'Registrerade fröer',
+    'application' => 'Ansökan',
 ];

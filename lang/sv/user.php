@@ -24,7 +24,7 @@ return [
     'achievement-privacy-list' => 'Tillåt användare att visa en lista över dina prestationer',
     'achievement-help' => 'Kontrollera delningen av specifik prestationsrelaterad information med grupper som får komma åt din profil. Dessa inställningar överrätts om du inte tillåter några grupper att få tillgång till dina prestationer eller om du <strong>går privat</strong>',
     'achievements' => 'Prestationer',
-    'active' => 'Aktiva',
+    'active' => 'Aktiv',
     'active-table' => 'Mitt aktiva bord',
     'active-torrents' => 'Aktiva torrenter',
     'active-warning' => 'Aktiv varning',

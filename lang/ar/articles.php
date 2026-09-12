@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'articles' => 'مقالات',
-    'meta-articles' => 'المقالات والأخبار على تعقب والمجتمع',
-    'published-at' => 'نشرت على',
+    'meta-articles' => 'مقالات و أخبار بخصوص التراكر و المنتدى',
+    'published-at' => 'نُشر في . ',
     'read-more' => 'قراءة المزيد',
 ];

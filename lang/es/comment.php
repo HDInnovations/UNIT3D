@@ -14,7 +14,7 @@ return [
     'added' => '¡Tu comentario ha sido añadido!',
     'deleted' => 'El comentario ha sido eliminado.',
     'edited' => 'El comentario ha sido editado.',
-    'rights-revoked' => '¡Se te han revocado los derechos de comentar!',
-    'slow-down' => 'Despacio - ¡Demasiados comentarios!',
+    'rights-revoked' => '¡Se han revocado tus derechos para comentar!',
+    'slow-down' => 'Ve más despacio - Demasiados comentarios.',
     'torrent-status' => 'El torrent necesita ser moderado antes de que puedas comentarlo.',
 ];

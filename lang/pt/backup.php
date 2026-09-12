@@ -28,7 +28,7 @@ return [
     'date' => 'Data',
     'file_size' => 'Tamanho do ficheiro',
     'actions' => 'Ações',
-    'download' => 'Transferir',
+    'download' => 'Descarregar',
     'delete' => 'Apagar',
     'delete_confirm' => 'Tem a certeza que quer apagar este backup?',
     'delete_confirmation_title' => 'Concluído',

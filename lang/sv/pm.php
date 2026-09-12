@@ -36,4 +36,5 @@ return [
     'to' => 'Till',
     'unread' => 'Oläst',
     'empty-inbox' => 'Tom inkorg',
+    'all-marked-read' => 'Dina meddelanden har markerats som lästa!',
 ];

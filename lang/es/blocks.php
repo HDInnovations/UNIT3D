@@ -30,7 +30,7 @@ return [
     'active-in-last' => 'Activo en el último',
     'users-online' => 'Usuarios en línea',
     // News/Articles
-    'check-news' => 'Noticias (Click para leer)',
+    'check-news' => 'Últimas noticias',
     'new-news' => 'Nuevas noticias',
     // Top Torrents
     'new-torrents' => 'Nuevos torrents',
