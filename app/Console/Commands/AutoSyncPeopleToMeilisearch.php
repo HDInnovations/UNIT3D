@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Models\TmdbPerson;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Meilisearch\Client;
 
+#[Signature('auto:sync_people_to_meilisearch')]
+#[Description('Syncs people to Meilisearch')]
 class AutoSyncPeopleToMeilisearch extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:sync_people_to_meilisearch';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Syncs people to Meilisearch';
-
     /**
      * Execute the console command.
      *

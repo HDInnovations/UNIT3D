@@ -16,27 +16,17 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:delete_stopped_peers')]
+#[Description('Deletes all stopped peers')]
 class AutoDeleteStoppedPeers extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:delete_stopped_peers';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Deletes all stopped peers';
-
     /**
      * Execute the console command.
      *

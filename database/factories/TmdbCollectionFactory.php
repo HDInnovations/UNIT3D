@@ -24,11 +24,6 @@ use Override;
 class TmdbCollectionFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = TmdbCollection::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

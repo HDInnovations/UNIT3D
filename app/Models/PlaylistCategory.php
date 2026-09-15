@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\PlaylistCategory.
@@ -30,6 +32,8 @@ use AllowDynamicProperties;
  * @property int    $position
  * @property string $description
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class PlaylistCategory extends Model
 {
@@ -37,20 +41,6 @@ final class PlaylistCategory extends Model
 
     /** @use HasFactory<\Database\Factories\PlaylistCategoryFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $guarded = [];
 
     /**
      * Get the playlists for this category.

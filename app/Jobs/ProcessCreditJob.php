@@ -24,10 +24,14 @@ use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Attributes\FailOnTimeout;
+use Illuminate\Queue\Attributes\Timeout;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\SerializesModels;
 
+#[Timeout(300)]
+#[FailOnTimeout]
 class ProcessCreditJob implements ShouldQueue
 {
     use Dispatchable;
@@ -54,22 +58,6 @@ class ProcessCreditJob implements ShouldQueue
     public function __construct(public array $credits)
     {
     }
-
-    /**
-     * The number of seconds the job can run before timing out.
-     *
-     * Some shows have 2000+ credits requiring more than the default of 60 seconds.
-     *
-     * @var int
-     */
-    public $timeout = 300;
-
-    /**
-     * Indicate if the job should be marked as failed on timeout.
-     *
-     * @var bool
-     */
-    public $failOnTimeout = true;
 
     /**
      * Get the middleware the job should pass through.

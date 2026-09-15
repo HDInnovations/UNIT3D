@@ -25,11 +25,6 @@ use Override;
 class TopicFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Topic::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

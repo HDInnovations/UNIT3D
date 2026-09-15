@@ -16,13 +16,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use AllowDynamicProperties;
-use App\Models\Scopes\ApprovedScope;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -41,6 +42,7 @@ use Illuminate\Support\Facades\DB;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Invite extends Model
 {
@@ -49,8 +51,6 @@ final class Invite extends Model
     /** @use HasFactory<\Database\Factories\InviteFactory> */
     use HasFactory;
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * The user that sent the invite.

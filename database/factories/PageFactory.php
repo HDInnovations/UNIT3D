@@ -24,11 +24,6 @@ use Override;
 class PageFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Page::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

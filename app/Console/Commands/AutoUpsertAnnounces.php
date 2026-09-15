@@ -17,28 +17,18 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Announce;
+use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use Exception;
 use Throwable;
 
+#[Signature('auto:upsert_announces')]
+#[Description('Upserts announces in batches')]
 class AutoUpsertAnnounces extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:upsert_announces';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Upserts announces in batches';
-
     /**
      * Execute the console command.
      *

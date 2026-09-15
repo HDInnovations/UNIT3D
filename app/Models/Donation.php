@@ -16,11 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Enums\ModerationStatus;
 use App\Traits\Encryptable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -38,6 +39,7 @@ use Override;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Guarded('id')]
 #[AllowDynamicProperties]
 final class Donation extends Model
 {
@@ -68,13 +70,6 @@ final class Donation extends Model
             'updated_at'     => 'datetime',
         ];
     }
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id'];
 
     /**
      * The attributes that are encrypted.

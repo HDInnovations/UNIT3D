@@ -17,11 +17,15 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Repositories\ChatRepository;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:nerdstat')]
+#[Description('Automatically posts daily nerd stat to shoutbox')]
 class AutoNerdStat extends Command
 {
     /**
@@ -31,20 +35,6 @@ class AutoNerdStat extends Command
     {
         parent::__construct();
     }
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:nerdstat';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically posts daily nerd stat to shoutbox';
 
     /**
      * Execute the console command.

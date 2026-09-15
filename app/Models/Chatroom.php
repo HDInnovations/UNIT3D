@@ -16,12 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Chatroom.
@@ -31,6 +32,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Fillable('name')]
 #[AllowDynamicProperties]
 final class Chatroom extends Model
 {
@@ -39,15 +41,6 @@ final class Chatroom extends Model
     /** @use HasFactory<\Database\Factories\ChatroomFactory> */
     use HasFactory;
     use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-    ];
 
     /**
      * Get the messages in the chat room.

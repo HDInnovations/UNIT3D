@@ -26,11 +26,6 @@ use Override;
 class AuditFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Audit::class;
-
-    /**
      * Define the model's default state.
      *
      * @throws JsonException

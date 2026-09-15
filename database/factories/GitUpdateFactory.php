@@ -24,11 +24,6 @@ use Override;
 class GitUpdateFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = GitUpdate::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

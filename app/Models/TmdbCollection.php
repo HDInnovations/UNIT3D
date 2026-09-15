@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TmdbCollection.
@@ -35,15 +37,13 @@ use AllowDynamicProperties;
  * @property string|null $created_at
  * @property string|null $updated_at
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class TmdbCollection extends Model
 {
     /** @use HasFactory<\Database\Factories\TmdbCollectionFactory> */
     use HasFactory;
-
-    protected $guarded = [];
-
-    public $timestamps = false;
 
     /**
      * Get the comments for the collection.

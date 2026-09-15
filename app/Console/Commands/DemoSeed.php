@@ -22,9 +22,11 @@ use App\Services\Tmdb\Client\Movie;
 use App\Services\Tmdb\Client\TV;
 use App\Services\Tmdb\TMDBScraper;
 use Exception;
+use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Description('Seeds fake data for demonstration or testing purposes')]
 class DemoSeed extends Command
 {
     /**
@@ -33,13 +35,6 @@ class DemoSeed extends Command
      * @var string
      */
     protected $name = 'demo:seed';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Seeds fake data for demonstration or testing purposes';
 
     /**
      * Execute the console command.

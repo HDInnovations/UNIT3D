@@ -17,27 +17,17 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\History;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:correct_history')]
+#[Description('Corrects history records said to be active even though really are not due to not receiving a stopped event from client.')]
 class AutoCorrectHistory extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:correct_history';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Corrects history records said to be active even though really are not due to not receiving a stopped event from client.';
-
     /**
      * Execute the console command.
      *

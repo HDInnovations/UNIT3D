@@ -89,7 +89,7 @@ class SetLanguage
     public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         if ($request->has('lang')) {
-            $this->setLocale($request->get('lang'));
+            $this->setLocale($request->input('lang'));
         } elseif (auth()->check()) {
             $this->setUserLocale();
         } else {

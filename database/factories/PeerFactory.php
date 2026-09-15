@@ -26,11 +26,6 @@ use Override;
 class PeerFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Peer::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

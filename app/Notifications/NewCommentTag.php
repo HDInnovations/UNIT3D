@@ -75,11 +75,11 @@ class NewCommentTag extends Notification implements ShouldQueue
 
         // Evaluate model-specific notification settings
         $modelSpecificDisabled = match ($this->model::class) {
-            Torrent::class                  => $notifiable->notification?->show_mention_torrent_comment === 0,
-            TorrentRequest::class           => $notifiable->notification?->show_mention_request_comment === 0,
-            Ticket::class                   => $this->model->staff_id === $this->comment->id,
+            Torrent::class        => $notifiable->notification?->show_mention_torrent_comment === 0,
+            TorrentRequest::class => $notifiable->notification?->show_mention_request_comment === 0,
+            Ticket::class         => $this->model->staff_id === $this->comment->id,
             Playlist::class, Article::class => $notifiable->notification?->show_mention_article_comment === 0,
-            default                         => false,
+            default => false,
         };
 
         if ($modelSpecificDisabled) {

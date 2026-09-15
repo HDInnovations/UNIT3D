@@ -16,13 +16,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Article.
@@ -35,6 +36,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int                             $user_id
  */
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class Article extends Model
 {
@@ -42,13 +44,6 @@ final class Article extends Model
 
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the author of the article.

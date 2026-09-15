@@ -16,13 +16,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -36,6 +37,7 @@ use Override;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Poll extends Model
 {
@@ -43,13 +45,6 @@ final class Poll extends Model
 
     /** @use HasFactory<\Database\Factories\PollFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.

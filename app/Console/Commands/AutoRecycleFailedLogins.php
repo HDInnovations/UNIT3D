@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Models\FailedLoginAttempt;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:recycle_failed_logins')]
+#[Description('Recycle failed logins once 30 days old.')]
 class AutoRecycleFailedLogins extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:recycle_failed_logins';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Recycle failed logins once 30 days old.';
-
     /**
      * Execute the console command.
      *

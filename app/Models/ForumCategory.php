@@ -16,12 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Forum.
@@ -34,6 +35,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Guarded('id', 'created_at')]
 #[AllowDynamicProperties]
 final class ForumCategory extends Model
 {
@@ -41,13 +43,6 @@ final class ForumCategory extends Model
 
     /** @use HasFactory<\Database\Factories\ForumCategoryFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at'];
 
     /**
      * Has the topics for the category.

@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Helpers\EmailBlacklistUpdater;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:email-blacklist-update')]
+#[Description('Update cache for email domains blacklist.')]
 class EmailBlacklistUpdate extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:email-blacklist-update';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Update cache for email domains blacklist.';
-
     /**
      * Execute the console command.
      *

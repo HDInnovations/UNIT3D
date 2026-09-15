@@ -25,11 +25,6 @@ use Override;
 class ApplicationUrlProofFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = ApplicationUrlProof::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

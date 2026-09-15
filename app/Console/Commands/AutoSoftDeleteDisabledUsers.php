@@ -34,26 +34,16 @@ use App\Models\Topic;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:softdelete_disabled_users')]
+#[Description('User account must be In disabled group for at least x days')]
 class AutoSoftDeleteDisabledUsers extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:softdelete_disabled_users';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'User account must be In disabled group for at least x days';
-
     /**
      * Execute the console command.
      *

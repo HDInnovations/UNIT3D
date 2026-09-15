@@ -18,26 +18,16 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:refund_download')]
+#[Description('Refunds download to users based on seed time.')]
 class AutoRefundDownload extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:refund_download';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Refunds download to users based on seed time.';
-
     /**
      * Execute the console command.
      *

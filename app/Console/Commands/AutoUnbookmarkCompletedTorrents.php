@@ -17,24 +17,14 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Bookmark;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('auto:unbookmark_completed_torrents')]
+#[Description('Unbookmark user torrents automatically upon completion')]
 class AutoUnbookmarkCompletedTorrents extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:unbookmark_completed_torrents';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Unbookmark user torrents automatically upon completion';
-
     /**
      * Execute the console command.
      */

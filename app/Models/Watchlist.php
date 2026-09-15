@@ -16,11 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Watchlist.
@@ -32,6 +33,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class Watchlist extends Model
 {
@@ -39,13 +41,6 @@ final class Watchlist extends Model
 
     /** @use HasFactory<\Database\Factories\WatchlistFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the watched user.

@@ -17,24 +17,14 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\TmdbPerson;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+#[Signature('auto:delete_orphaned_people')]
+#[Description('Deletes people who aren\'t credited')]
 class DeleteOrphanedPeople extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:delete_orphaned_people';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Deletes people who aren\'t credited';
-
     /**
      * Execute the console command.
      */

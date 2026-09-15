@@ -16,10 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\BlockedIp.
@@ -32,18 +33,12 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class BlockedIp extends Model
 {
     /** @use HasFactory<\Database\Factories\BlockedIpFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the user that owns the BlockedIp.

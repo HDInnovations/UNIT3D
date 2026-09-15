@@ -15,11 +15,6 @@ use Override;
 class UserSettingFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = UserSetting::class;
-
-    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>

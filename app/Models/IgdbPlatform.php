@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\IgdbPlatform.
@@ -27,23 +29,11 @@ use AllowDynamicProperties;
  * @property string  $name
  * @property ?string $platform_logo_image_id
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class IgdbPlatform extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
     /**
      * Get the games that belong to the platform.
      *

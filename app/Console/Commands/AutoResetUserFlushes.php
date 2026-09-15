@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:reset_user_flushes')]
+#[Description('Resets the daily limit for users to flush their own peers.')]
 class AutoResetUserFlushes extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:reset_user_flushes';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Resets the daily limit for users to flush their own peers.';
-
     /**
      * Execute the console command.
      *

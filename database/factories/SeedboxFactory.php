@@ -25,11 +25,6 @@ use Override;
 class SeedboxFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Seedbox::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

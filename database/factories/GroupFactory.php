@@ -24,11 +24,6 @@ use Override;
 class GroupFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Group::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

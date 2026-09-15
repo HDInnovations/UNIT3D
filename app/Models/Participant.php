@@ -16,23 +16,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use AllowDynamicProperties;
 
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Participant extends Model
 {
     use SoftDeletes;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 
     /**
      * Get the user associated the participant.

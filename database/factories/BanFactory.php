@@ -25,11 +25,6 @@ use Override;
 class BanFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Ban::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

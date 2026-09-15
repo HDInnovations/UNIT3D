@@ -15,13 +15,16 @@
     <ini name="display_errors" value="true"/>
     <env name="DB_CONNECTION" value="mysql"/>
     <env name="APP_ENV" value="testing"/>
-    <env name="QUEUE_CONNECTION" value="sync" />
+    <env name="QUEUE_CONNECTION" value="sync"/>
     <!--
     <env name="REDIS_HOST" value="127.0.0.1" />
     <env name="REDIS_PORT" value="6379" />
     -->
     <env name="TELESCOPE_ENABLED" value="false"/>
     <env name="SCOUT_DRIVER" value="null"/>
+    <env name="BROADCAST_CONNECTION" value="null"/>
+    <env name="PULSE_ENABLED" value="false"/>
+    <env name="NIGHTWATCH_ENABLED" value="false"/>
   </php>
   <coverage/>
   <source>

@@ -19,10 +19,12 @@ namespace App\Console\Commands;
 use App\Helpers\Bencode;
 use App\Models\Torrent;
 use Exception;
+use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
 
+#[Description('Cleans torrent files to remove extra unneeded data')]
 class CleanTorrentFiles extends Command
 {
     /**
@@ -31,13 +33,6 @@ class CleanTorrentFiles extends Command
      * @var string
      */
     protected $name = 'clean:torrent_files';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Cleans torrent files to remove extra unneeded data';
 
     /**
      * Execute the console command.

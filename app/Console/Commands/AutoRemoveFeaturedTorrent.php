@@ -21,9 +21,13 @@ use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:remove_featured_torrent')]
+#[Description('Automatically removes featured torrents if expired')]
 class AutoRemoveFeaturedTorrent extends Command
 {
     /**
@@ -33,20 +37,6 @@ class AutoRemoveFeaturedTorrent extends Command
     {
         parent::__construct();
     }
-
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:remove_featured_torrent';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically removes featured torrents if expired';
 
     /**
      * Execute the console command.

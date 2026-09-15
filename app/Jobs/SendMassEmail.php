@@ -23,20 +23,17 @@ use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Attributes\MaxExceptions;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
+#[MaxExceptions(1)]
 class SendMassEmail implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
-
-    /**
-     * The maximum number of unhandled exceptions to allow before failing.
-     */
-    public int $maxExceptions = 1;
 
     /**
      * Create a new job instance.

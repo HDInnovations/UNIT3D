@@ -18,28 +18,18 @@ namespace App\Console\Commands;
 
 use App\Models\BonEarning;
 use App\Models\User;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Unit\Console\Commands\AutoBonAllocationTest
  */
+#[Signature('auto:bon_allocation')]
+#[Description('Allocates bonus points to users based on peer activity.')]
 class AutoBonAllocation extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:bon_allocation';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Allocates bonus points to users based on peer activity.';
-
     /**
      * Execute the console command.
      */

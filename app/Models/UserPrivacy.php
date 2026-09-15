@@ -16,10 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -69,32 +72,14 @@ use Override;
  * @property list<int> $json_request_groups
  * @property list<int> $json_other_groups
  */
+#[Table('user_privacy')]
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class UserPrivacy extends Model
 {
     /** @use HasFactory<\Database\Factories\UserPrivacyFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'user_privacy';
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.

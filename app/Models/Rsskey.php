@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -30,23 +32,11 @@ use Override;
  * @property string                          $created_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  */
+#[WithoutTimestamps]
+#[Guarded('id')]
 #[AllowDynamicProperties]
 final class Rsskey extends Model
 {
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id'];
-
     /**
      * Get the attributes that should be cast.
      *

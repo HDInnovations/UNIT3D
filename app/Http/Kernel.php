@@ -31,7 +31,7 @@ use Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Foundation\Http\Middleware\TrimStrings;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
@@ -72,7 +72,7 @@ class Kernel extends HttpKernel
             AuthenticateSession::class,
             ShareErrorsFromSession::class,
             SubstituteBindings::class,
-            VerifyCsrfToken::class,
+            PreventRequestForgery::class,
             UpdateLastAction::class,
             SecureHeadersMiddleware::class,
             ThrottleRequestsWithRedis::class.':'.GlobalRateLimit::WEB->value,
@@ -84,7 +84,7 @@ class Kernel extends HttpKernel
             AuthenticateSession::class,
             ShareErrorsFromSession::class,
             SubstituteBindings::class,
-            VerifyCsrfToken::class,
+            PreventRequestForgery::class,
             UpdateLastAction::class,
             SecureHeadersMiddleware::class,
             ThrottleRequestsWithRedis::class.':'.GlobalRateLimit::CHAT->value,

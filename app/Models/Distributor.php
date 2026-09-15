@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Distributor.
@@ -28,6 +30,8 @@ use AllowDynamicProperties;
  * @property int    $id
  * @property string $name
  */
+#[WithoutTimestamps]
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class Distributor extends Model
 {
@@ -35,20 +39,6 @@ final class Distributor extends Model
 
     /** @use HasFactory<\Database\Factories\DistributorFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the torrents for this distributor.

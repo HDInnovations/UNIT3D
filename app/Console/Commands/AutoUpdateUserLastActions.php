@@ -16,28 +16,18 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use Exception;
 use Throwable;
 
+#[Signature('auto:update_user_last_actions')]
+#[Description('Updates user last actions in batches')]
 class AutoUpdateUserLastActions extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:update_user_last_actions';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Updates user last actions in batches';
-
     /**
      * Execute the console command.
      *

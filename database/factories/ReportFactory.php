@@ -27,11 +27,6 @@ use Override;
 class ReportFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Report::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Models\Invite;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:recycle_invites')]
+#[Description('Recycle invites that are expired.')]
 class AutoRecycleInvites extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:recycle_invites';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Recycle invites that are expired.';
-
     /**
      * Execute the console command.
      *

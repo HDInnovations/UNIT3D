@@ -29,11 +29,6 @@ use Override;
 class TorrentFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Torrent::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

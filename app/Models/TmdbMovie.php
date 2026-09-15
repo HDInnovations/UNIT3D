@@ -16,13 +16,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AllowDynamicProperties;
 use App\Enums\Occupation;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -53,13 +54,12 @@ use Override;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $trailer
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class TmdbMovie extends Model
 {
     /** @use HasFactory<\Database\Factories\TmdbMovieFactory> */
     use HasFactory;
-
-    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.

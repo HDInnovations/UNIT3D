@@ -16,10 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -38,16 +39,10 @@ use Override;
  * @property ?\Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class IgdbGame extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
-
     /**
      * Get the attributes that should be cast.
      *

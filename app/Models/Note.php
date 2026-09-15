@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Note.
@@ -32,6 +34,8 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[Table('user_notes')]
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class Note extends Model
 {
@@ -39,20 +43,6 @@ final class Note extends Model
 
     /** @use HasFactory<\Database\Factories\NoteFactory> */
     use HasFactory;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'user_notes';
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the user that was noted.

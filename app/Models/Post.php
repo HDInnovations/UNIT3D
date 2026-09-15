@@ -16,12 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -36,6 +37,7 @@ use Override;
  * @property int                             $user_id
  * @property int                             $topic_id
  */
+#[Fillable('content', 'anon', 'pinned', 'topic_id', 'user_id')]
 #[AllowDynamicProperties]
 final class Post extends Model
 {
@@ -43,19 +45,6 @@ final class Post extends Model
 
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'content',
-        'anon',
-        'pinned',
-        'topic_id',
-        'user_id',
-    ];
 
     /**
      * Get the attributes that should be cast.

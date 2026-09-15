@@ -17,28 +17,18 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use Exception;
 use Throwable;
 
+#[Signature('auto:upsert_peers')]
+#[Description('Upserts peers in batches')]
 class AutoUpsertPeers extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:upsert_peers';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Upserts peers in batches';
-
     /**
      * Execute the console command.
      *

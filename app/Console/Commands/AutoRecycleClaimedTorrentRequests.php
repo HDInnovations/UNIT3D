@@ -18,26 +18,16 @@ namespace App\Console\Commands;
 
 use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:recycle_claimed_torrent_requests')]
+#[Description('Recycle torrent requests that were claimed but not filled within 7 days.')]
 class AutoRecycleClaimedTorrentRequests extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:recycle_claimed_torrent_requests';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Recycle torrent requests that were claimed but not filled within 7 days.';
-
     /**
      * AutoRecycleClaimedTorrentRequests Constructor.
      */

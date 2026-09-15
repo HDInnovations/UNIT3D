@@ -25,11 +25,6 @@ use Override;
 class WatchlistFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Watchlist::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

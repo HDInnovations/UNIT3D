@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\Type.
@@ -29,6 +31,8 @@ use AllowDynamicProperties;
  * @property string $name
  * @property int    $position
  */
+#[WithoutTimestamps]
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class Type extends Model
 {
@@ -36,20 +40,6 @@ final class Type extends Model
 
     /** @use HasFactory<\Database\Factories\TypeFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the torrents for the type.

@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
 
 /**
  * App\Models\BonEarning.
@@ -31,23 +33,11 @@ use AllowDynamicProperties;
  * @property string                                                                                                         $name
  * @property string                                                                                                         $description
  */
+#[WithoutTimestamps]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class BonEarning extends Model
 {
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
-
     /**
      * Get the conditions for the bon earning.
      *

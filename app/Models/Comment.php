@@ -16,14 +16,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -39,6 +40,7 @@ use Override;
  * @property string                          $commentable_type
  * @property int                             $commentable_id
  */
+#[Unguarded]
 #[AllowDynamicProperties]
 final class Comment extends Model
 {
@@ -46,13 +48,6 @@ final class Comment extends Model
 
     /** @use HasFactory<\Database\Factories\CommentFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.

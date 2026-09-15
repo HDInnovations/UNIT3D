@@ -18,25 +18,15 @@ namespace App\Console\Commands;
 
 use App\Models\BlockedIp;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:remove_expired_blocked_ips')]
+#[Description('Automatically remove expired blocked IPs.')]
 class AutoRemoveExpiredBlockedIps extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:remove_expired_blocked_ips';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically remove expired blocked IPs.';
-
     /**
      * Execute the console command.
      *

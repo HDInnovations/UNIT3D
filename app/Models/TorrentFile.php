@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Helpers\StringHelper;
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
 /**
  * App\Models\TorrentFile.
@@ -30,24 +32,13 @@ use AllowDynamicProperties;
  * @property int    $size
  * @property int    $torrent_id
  */
+#[Table('files')]
+#[WithoutTimestamps]
 #[AllowDynamicProperties]
 final class TorrentFile extends Model
 {
     /** @use HasFactory<\Database\Factories\TorrentFileFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The table associated with the model.
-     * @var string
-     */
-    protected $table = 'files';
 
     /**
      * The torrent that owns the file.

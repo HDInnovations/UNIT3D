@@ -16,17 +16,17 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 
+#[Unguarded]
 #[AllowDynamicProperties]
 final class AutomaticTorrentFreeleech extends Model
 {
     use Auditable;
-
-    protected $guarded = [];
 
     /**
      * Get the category that owns automatic torrent freeleech.

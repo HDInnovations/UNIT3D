@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Override;
 
@@ -39,22 +41,12 @@ use Override;
  * @property string|null                     $created_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  */
+#[WithoutTimestamps]
+#[Guarded('id')]
 #[AllowDynamicProperties]
 final class Apikey extends Model
 {
     use SoftDeletes;
-
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id'];
 
     /**
      * Get the attributes that should be cast.

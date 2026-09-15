@@ -16,11 +16,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -44,6 +45,7 @@ use Override;
  * @property int|null                        $request_id
  * @property \Illuminate\Support\Carbon|null $snoozed_until
  */
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class Report extends Model
 {
@@ -51,13 +53,6 @@ final class Report extends Model
 
     /** @use HasFactory<\Database\Factories\ReportFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the attributes that should be cast.

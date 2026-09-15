@@ -16,10 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Attributes\DateFormat;
+use Illuminate\Database\Eloquent\Attributes\Guarded;
+use Illuminate\Database\Eloquent\Attributes\WithoutTimestamps;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -36,32 +39,14 @@ use Override;
  * @property string   $comment
  * @property string   $created_at
  */
+#[WithoutTimestamps]
+#[DateFormat('U')]
+#[Guarded('id', 'created_at', 'updated_at')]
 #[AllowDynamicProperties]
 final class BonTransactions extends Model
 {
     /** @use HasFactory<\Database\Factories\BonTransactionsFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
-     * The storage format of the model's date columns.
-     *
-     * @var string
-     */
-    protected $dateFormat = 'U';
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * Get the attributes that should be cast.

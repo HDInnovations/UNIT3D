@@ -19,26 +19,16 @@ namespace App\Console\Commands;
 use App\Models\Apikey;
 use App\Notifications\ApikeyExpire;
 use App\Notifications\ApikeyExpireReminder;
-use Illuminate\Console\Command;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
+use Illuminate\Console\Command;
 use Throwable;
 
+#[Signature('auto:expire_apikeys')]
+#[Description('Reminds and expires apikeys')]
 class AutoExpireApikeys extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:expire_apikeys';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Reminds and expires apikeys';
-
     /**
      * Execute the console command.
      *

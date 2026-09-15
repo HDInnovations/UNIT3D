@@ -24,11 +24,6 @@ use Override;
 class UploadContestFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = UploadContest::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

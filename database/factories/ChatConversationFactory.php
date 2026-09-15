@@ -27,11 +27,6 @@ use Override;
 class ChatConversationFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = ChatConversation::class;
-
-    /**
      * Define the model's default state.
      */
     #[Override]

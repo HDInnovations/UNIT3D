@@ -16,31 +16,21 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Notifications\NewUploadContestWinner;
 use App\Models\Torrent;
 use App\Models\UploadContest;
 use App\Models\UploadContestWinner;
+use App\Notifications\NewUploadContestWinner;
 use Exception;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
+#[Signature('auto:reward_upload_contest_prize')]
+#[Description('Automatically hands out rewards for upload contests')]
 class AutoRewardUploadContestPrize extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'auto:reward_upload_contest_prize';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Automatically hands out rewards for upload contests';
-
     /**
      * Execute the console command.
      *

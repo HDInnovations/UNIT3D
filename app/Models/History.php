@@ -16,12 +16,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
+use DateTimeInterface;
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use AllowDynamicProperties;
 use Override;
 
 /**
@@ -44,26 +46,14 @@ use Override;
  * @property bool                            $hitrun
  * @property \Illuminate\Support\Carbon|null $prewarned_at
  */
+#[Table('history')]
+#[Unguarded]
 #[AllowDynamicProperties]
 final class History extends Model
 {
     /** @use HasFactory<\Database\Factories\HistoryFactory> */
     use HasFactory;
     use SoftDeletes;
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'history';
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var string[]
-     */
-    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.
