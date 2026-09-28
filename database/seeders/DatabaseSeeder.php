@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             ForumSeeder::class,
             ForumPermissionSeeder::class,
             ChatroomSeeder::class,
+            CommunityContentSeeder::class,
             ChatStatusSeeder::class,
             BotSeeder::class,
             MediaLanguageSeeder::class,

@@ -81,7 +81,7 @@
                 </li>
                 <li>
                     <a
-                        href="https://github.com/HDInnovations/UNIT3D/wiki/Torrent-API-(UNIT3D-v8.x.x)"
+                        href="{{ route('pages.show', ['page' => 7]) }}"
                     >
                         API documentation
                     </a>

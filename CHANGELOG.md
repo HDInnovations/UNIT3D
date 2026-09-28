@@ -10,6 +10,7 @@ All notable changes to this fork are documented in this file.
 - Laravel Reverb service, Reverb broadcast connection, and Echo 2 browser client.
 - A Torznab adapter plus optional local Prowlarr, Sonarr, Radarr, and qBittorrent compose stack.
 - Local production runbook, ARR integration instructions, upgrade research, and fork-maintenance roadmap.
+- Czech default content for community forums, chat, wikis, information pages, and local API documentation.
 
 ### Changed
 
