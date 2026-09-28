@@ -78,12 +78,14 @@ class FortifyServiceProvider extends ServiceProvider
                 if ($rootUrlOverride = config('unit3d.root_url_override')) {
                     $url = redirect()->getIntendedUrl();
 
-                    return $url === null ? $rootUrlOverride : redirect(
-                        rtrim(
-                            rtrim($rootUrlOverride, '/')
-                            .parse_url($url, PHP_URL_PATH)
-                            .'?'.parse_url($url, PHP_URL_QUERY),
-                        )
+                    return redirect()->to(
+                        $url === null
+                            ? $rootUrlOverride
+                            : rtrim(
+                                rtrim($rootUrlOverride, '/')
+                                .parse_url($url, PHP_URL_PATH)
+                                .'?'.parse_url($url, PHP_URL_QUERY),
+                            )
                     );
                 }
 

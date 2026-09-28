@@ -374,7 +374,7 @@
                 showCloseButton: true,
                 background: 'rgb(35,35,35)',
                 width: 970,
-                html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
                 title: '<i style="color: #a5a5a5;">{{ $meta->name }} trailer</i>',
                 text: '',
             });

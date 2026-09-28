@@ -184,7 +184,6 @@ return [
          */
         Assada\Achievements\AchievementsServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,7 +209,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'CacheUser' => App\Helpers\CacheUser::class,
-        'Image'     => Intervention\Image\Facades\Image::class,
         'Irc'       => App\Bots\IRCAnnounceBot::class,
         'Redis'     => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),

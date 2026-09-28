@@ -22,7 +22,7 @@ use App\Http\Requests\Staff\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\UnreadArticle;
 use App\Models\User;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Image;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
@@ -63,8 +63,7 @@ class ArticleController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = Storage::disk('article-images')->path($filename);
-            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            Storage::disk('article-images')->put($filename, Image::fromUpload($image)->cover(75, 75)->toPng()->quality(100)->toBytes());
         }
 
         $article = Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
@@ -102,8 +101,7 @@ class ArticleController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = Storage::disk('article-images')->path($filename);
-            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            Storage::disk('article-images')->put($filename, Image::fromUpload($image)->cover(75, 75)->toPng()->quality(100)->toBytes());
 
             if ($article->image !== null) {
                 Storage::disk('article-images')->delete($article->image);

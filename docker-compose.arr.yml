@@ -1,0 +1,69 @@
+services:
+    prowlarr:
+        image: lscr.io/linuxserver/prowlarr:2.6.5.5623-ls162
+        environment:
+            PUID: '${WWWUSER}'
+            PGID: '${WWWGROUP}'
+            TZ: Europe/Prague
+        volumes:
+            - './data/prowlarr:/config'
+        ports:
+            - '127.0.0.1:9696:9696'
+        depends_on:
+            - torznab-adapter
+        networks:
+            - sail
+
+    sonarr:
+        image: lscr.io/linuxserver/sonarr:latest
+        environment:
+            PUID: '${WWWUSER}'
+            PGID: '${WWWGROUP}'
+            TZ: Europe/Prague
+        volumes:
+            - './data/sonarr:/config'
+            - './data/downloads:/downloads'
+            - './data/media/tv:/tv'
+        ports:
+            - '127.0.0.1:8989:8989'
+        networks:
+            - sail
+
+    radarr:
+        image: lscr.io/linuxserver/radarr:latest
+        environment:
+            PUID: '${WWWUSER}'
+            PGID: '${WWWGROUP}'
+            TZ: Europe/Prague
+        volumes:
+            - './data/radarr:/config'
+            - './data/downloads:/downloads'
+            - './data/media/movies:/movies'
+        ports:
+            - '127.0.0.1:7878:7878'
+        networks:
+            - sail
+
+    qbittorrent:
+        image: lscr.io/linuxserver/qbittorrent:latest
+        environment:
+            PUID: '${WWWUSER}'
+            PGID: '${WWWGROUP}'
+            TZ: Europe/Prague
+            WEBUI_PORT: 8085
+            TORRENTING_PORT: 6881
+        volumes:
+            - './data/qbittorrent:/config'
+            - './data/downloads:/downloads'
+            - '/mnt/storage/media/movies:/media/movies:ro'
+        ports:
+            - '127.0.0.1:8085:8085'
+            - '127.0.0.1:6881:6881/tcp'
+            - '127.0.0.1:6881:6881/udp'
+        networks:
+            - sail
+
+networks:
+    sail:
+        external: true
+        name: unit3d_sail

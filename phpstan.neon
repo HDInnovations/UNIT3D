@@ -1,7 +1,6 @@
 includes:
-    - ./vendor/calebdw/larastan/extension.neon
+    - ./vendor/calebdw/phpstan-laravel/extension.neon
     - ./vendor/calebdw/larastan-livewire/extension.neon
-    #- ./vendor/tomasvotruba/bladestan/config/extension.neon
     - ./phpstan-baseline.neon
 parameters:
     tmpDir: .phpstan.cache
@@ -21,7 +20,10 @@ parameters:
         - app/Http/Livewire/TorrentSearch.php
         - bootstrap/cache
     level: 7
-    checkOctaneCompatibility: true
+    laravel:
+        rules:
+            octaneCompatibility: true
+            unnecessaryEnumerableToArrayCall: false
     ignoreErrors:
         -
             message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\:\:searchable\(\)\.$#'

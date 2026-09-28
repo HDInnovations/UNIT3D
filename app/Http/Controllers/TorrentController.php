@@ -44,7 +44,7 @@ use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Image;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -175,7 +175,6 @@ class TorrentController extends Controller
             for ($i = 0; $i < \count($parts) - 1; $i++) {
                 $part = $parts[$i];
 
-                /** @phpstan-ignore function.impossibleType (PHPStan doesn't recognize that $current might not be empty in subsequent loops)*/
                 if (!\array_key_exists($part, $current)) {
                     $current[$part] = [
                         'type'     => 'directory',
@@ -380,8 +379,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+            Storage::disk('torrent-covers')->put($filename_cover, Image::fromUpload($image_cover)->cover(400, 600)->toJpg()->quality(90)->toBytes());
         }
 
         // Banner Image for No-Meta Torrents
@@ -391,8 +389,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+            Storage::disk('torrent-banners')->put($filename_cover, Image::fromUpload($image_cover)->cover(960, 540)->toJpg()->quality(90)->toBytes());
         }
 
         // Torrent Keywords System
@@ -577,8 +574,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+            Storage::disk('torrent-covers')->put($filename_cover, Image::fromUpload($image_cover)->cover(400, 600)->toJpg()->quality(90)->toBytes());
         }
 
         // Banner Image for No-Meta Torrents
@@ -588,8 +584,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+            Storage::disk('torrent-banners')->put($filename_cover, Image::fromUpload($image_cover)->cover(960, 540)->toJpg()->quality(90)->toBytes());
         }
 
         // Tracker updates come after initial database updates in case tracker's offline

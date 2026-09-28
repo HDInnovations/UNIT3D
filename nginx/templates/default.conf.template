@@ -1,0 +1,62 @@
+server {
+    listen 80 default_server;
+    server_name ${SERVER_NAME};
+
+    # qBittorrent reaches this route over the private Docker network while
+    # seeding local source media. All host-facing tracker access remains HTTPS.
+    location ^~ /announce/ {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+        proxy_pass http://${APP_SERVICE};
+    }
+
+    location / {
+        return 301 https://$host:${SSL_PORT}$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl default_server;
+    server_name ${SERVER_NAME};
+
+    # Self-signed certificate for local development only.
+    ssl_certificate /etc/nginx/certs/server.pem;
+    ssl_certificate_key /etc/nginx/certs/server.key;
+
+    # Torznab clients transmit their personal UNIT3D API token as `apikey`.
+    # Do not retain that query string in nginx access logs.
+    resolver 127.0.0.11 valid=10s ipv6=off;
+    set $torznab_adapter torznab-adapter;
+    location = /torznab/api {
+        access_log off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+        proxy_pass http://$torznab_adapter:9117/api$is_args$args;
+    }
+
+    location ~ ^/(app|apps)/ {
+        proxy_http_version 1.1;
+        proxy_set_header Host $http_host;
+        proxy_set_header Scheme $scheme;
+        proxy_set_header SERVER_PORT $server_port;
+        proxy_set_header REMOTE_ADDR $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass http://reverb:8080;
+    }
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $http_host;
+        proxy_set_header X-Forwarded-Port 443;
+        proxy_pass http://${APP_SERVICE};
+    }
+}

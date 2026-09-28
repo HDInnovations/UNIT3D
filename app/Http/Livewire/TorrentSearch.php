@@ -36,6 +36,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
+use Meilisearch\Exceptions\ApiException;
 use Illuminate\Support\Facades\DB;
 
 class TorrentSearch extends Component
@@ -448,7 +449,22 @@ class TorrentSearch extends Component
                 $this->reset('sortField');
             }
 
-            $isSqlAllowed = (($user->group->is_modo || $user->group->is_torrent_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
+            $useSql = (($user->group->is_modo || $user->group->is_torrent_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
+            $index = null;
+
+            if (!$useSql) {
+                $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
+
+                try {
+                    $index = $client->getIndex(config('scout.prefix').'torrents');
+                } catch (ApiException $exception) {
+                    if ($exception->getCode() !== 404) {
+                        throw $exception;
+                    }
+
+                    $useSql = true;
+                }
+            }
 
             $eagerLoads = fn (Builder $query) => $query
                 ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
@@ -482,7 +498,7 @@ class TorrentSearch extends Component
                 END AS meta
             SQL);
 
-            if ($isSqlAllowed) {
+            if ($useSql) {
                 $torrents = Torrent::query()
                     ->where($this->filters()->toSqlQueryBuilder())
                     ->latest('sticky')
@@ -491,9 +507,6 @@ class TorrentSearch extends Component
                 $eagerLoads($torrents);
                 $torrents = $torrents->paginate(min($this->perPage, 100));
             } else {
-                $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-                $index = $client->getIndex(config('scout.prefix').'torrents');
-
                 $results = $index->search($this->name, [
                     'sort' => [
                         'sticky:desc',

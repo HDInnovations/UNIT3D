@@ -12,24 +12,22 @@
     "chartjs-adapter-date-fns": "^3.0.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
-    "laravel-echo": "^1.17.1",
-    "laravel-echo-server": "^1.6.3",
-    "laravel-mix-purgecss": "^6.0.0",
+    "laravel-echo": "^2.5.0",
+    "lodash": "^4.18.1",
     "postcss": "^8.4.49",
+    "pusher-js": "^8.6.0",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.83.0",
     "sass-loader": "^16.0.4",
-    "socket.io": "2.4.0",
-    "socket.io-client": "2.3.1",
     "sweetalert2": "^11.15.10",
     "virtual-select-plugin": "^1.0.46"
   },
   "devDependencies": {
-    "laravel-vite-plugin": "^1.1.1",
+    "laravel-vite-plugin": "^3.2.0",
     "prettier": "3.3.3",
     "prettier-plugin-blade": "2.0.0",
-    "vite": "^6.0.6",
-    "vite-plugin-static-copy": "^2.2.0"
+    "vite": "^8.3.1",
+    "vite-plugin-static-copy": "^4.1.1"
   },
   "type": "module"
 }

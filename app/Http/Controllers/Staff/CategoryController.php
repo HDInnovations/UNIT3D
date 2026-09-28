@@ -20,7 +20,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreCategoryRequest;
 use App\Http\Requests\Staff\UpdateCategoryRequest;
 use App\Models\Category;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Image;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
@@ -58,8 +58,7 @@ class CategoryController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = Storage::disk('category-images')->path($filename);
-            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
+            Storage::disk('category-images')->put($filename, Image::fromUpload($image)->cover(50, 50)->toPng()->quality(100)->toBytes());
         }
 
         Category::create([
@@ -96,8 +95,7 @@ class CategoryController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = Storage::disk('category-images')->path($filename);
-            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
+            Storage::disk('category-images')->put($filename, Image::fromUpload($image)->cover(50, 50)->toPng()->quality(100)->toBytes());
 
             if ($category->image !== null) {
                 Storage::disk('category-images')->delete($category->image);

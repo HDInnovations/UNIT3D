@@ -3,8 +3,8 @@ services:
     nginx:
         image: 'nginx:latest'
         ports:
-            - '${HTTP_PORT:-8000}:80'
-            - '${SSL_PORT:-443}:443'
+            - '127.0.0.1:${HTTP_PORT:-8000}:80'
+            - '${TRACKER_BIND_ADDRESS:-127.0.0.1}:${SSL_PORT:-443}:443'
         environment:
             - SSL_PORT=${SSL_PORT:-443}
             - APP_SERVICE=${APP_SERVICE:-laravel.test}
@@ -13,7 +13,7 @@ services:
             - SSL_ALT_NAME=${SSL_ALT_NAME:-DNS:localhost}
         volumes:
             - 'sail-nginx:/etc/nginx/certs'
-            - './vendor/ryoluo/sail-ssl/nginx/templates:/etc/nginx/templates'
+            - './nginx/templates:/etc/nginx/templates'
             - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
         depends_on:
             - ${APP_SERVICE:-laravel.test}
@@ -28,9 +28,6 @@ services:
         image: sail-8.4/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
@@ -45,10 +42,48 @@ services:
             - meilisearch
             - mysql
             - redis
+    queue:
+        image: sail-8.4/app
+        command: php artisan queue:work redis --sleep=1 --tries=3 --timeout=120
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - meilisearch
+            - mysql
+            - redis
+    schedule:
+        image: sail-8.4/app
+        command: php artisan schedule:work
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - meilisearch
+            - mysql
+            - redis
+    reverb:
+        image: sail-8.4/app
+        command: php artisan reverb:start --host=0.0.0.0 --port=8080
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - redis
     mysql:
-        image: 'mysql/mysql-server:8.0'
-        ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+        image: 'mysql:8.4'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ROOT_HOST: '%'
@@ -57,7 +92,7 @@ services:
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
-            - 'sail-mysql:/var/lib/mysql'
+            - 'sail-mysql-8-4:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
@@ -71,8 +106,6 @@ services:
             timeout: 5s
     redis:
         image: 'redis:alpine'
-        ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
             - 'sail-redis:/data'
         networks:
@@ -87,24 +120,32 @@ services:
     mailpit:
         image: 'axllent/mailpit:latest'
         ports:
-            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
-            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+            - '127.0.0.1:${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
     meilisearch:
         image: 'getmeili/meilisearch:latest'
-        ports:
-            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
         environment:
+            MEILI_MASTER_KEY: '${MEILISEARCH_KEY}'
             MEILI_NO_ANALYTICS: '${MEILISEARCH_NO_ANALYTICS:-false}'
         volumes:
             - 'sail-meilisearch:/meili_data'
         networks:
             - sail
         healthcheck:
-            test: [ "CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health" ]
+            test: [ "CMD", "wget", "--no-verbose", "--spider",  "http://127.0.0.1:7700/health" ]
             retries: 3
             timeout: 5s
+    torznab-adapter:
+        build:
+            context: ./arr-adapter
+        environment:
+            PORT: 9117
+            UNIT3D_URL: http://laravel.test
+        depends_on:
+            - nginx
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
@@ -112,6 +153,8 @@ volumes:
     sail-nginx:
         driver: local
     sail-mysql:
+        driver: local
+    sail-mysql-8-4:
         driver: local
     sail-redis:
         driver: local

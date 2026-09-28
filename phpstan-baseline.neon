@@ -7,10 +7,28 @@ parameters:
 			path: app/Actions/Fortify/UpdateUserProfileInformation.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
+			message: '#^Access to an undefined property App\\Models\\IgdbGame\|App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\:\:\$first_air_date\.$#'
+			identifier: property.notFound
 			count: 1
-			path: app/Console/Commands/AutoDeactivateWarning.php
+			path: app/Bots/IRCAnnounceBotExternal.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\IgdbGame\|App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\:\:\$first_release_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Bots/IRCAnnounceBotExternal.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\IgdbGame\|App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\:\:\$release_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Bots/IRCAnnounceBotExternal.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Database\\Connection\:\:raw\(\) expects float\|int\|literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Console/Commands/AutoBonAllocation.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\User\:\:\$avg_seedtime\.$#'
@@ -43,40 +61,10 @@ parameters:
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Database\\Connection\:\:raw\(\) expects float\|int\|literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Console/Commands/AutoPreWarning.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequest\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRecycleClaimedTorrentRequests.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRemoveReseeds.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRemoveReseeds.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRewardResurrection.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoWarning.php
+			path: app/Console/Commands/AutoRefundDownload.php
 
 		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, ''strlen'' given\.$#'
@@ -211,6 +199,24 @@ parameters:
 			path: app/Helpers/CacheUser.php
 
 		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Helpers/Language.php
+
+		-
+			message: '#^Offset 1 might not exist on array\{\}\|array\{non\-falsy\-string, ''''\|numeric\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: app/Helpers/SystemInformation.php
+
+		-
+			message: '#^Argument of an invalid type array\<mixed\>\|Countable supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: app/Helpers/TorrentTools.php
+
+		-
 			message: '#^Method App\\Http\\Controllers\\API\\BaseController\:\:sendError\(\) has parameter \$code with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -241,28 +247,58 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
+			message: '#^Call to an undefined method object\:\:explode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/API/QuickSearchController.php
+
+		-
+			message: '#^Argument of an invalid type App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: '#^Access to an undefined property object\:\:\$banned_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			message: '#^Argument of an invalid type array\<string, array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\>\>\>\|int supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: '#^Access to an undefined property object\:\:\$disabled_id\.$#'
-			identifier: property.notFound
+			message: '#^PHPDoc tag @throws with type JsonException\|MarcReichel\\IGDBLaravel\\Exceptions\\InvalidParamsException\|MarcReichel\\IGDBLaravel\\Exceptions\\MissingEndpointException\|ReflectionException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
 			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: '#^Access to an undefined property object\:\:\$validating_id\.$#'
-			identifier: property.notFound
+			message: '#^Parameter \#1 \$array of function krsort expects array, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Controllers\\API\\TorrentController\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Controllers\\API\\TorrentController\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Controllers\\API\\TorrentController\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
 			message: '#^Method App\\Http\\Controllers\\AnnounceController\:\:index\(\) never returns null so it can be removed from the return type\.$#'
@@ -277,16 +313,58 @@ parameters:
 			path: app/Http/Controllers/DonationController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequestBounty\>\.$#'
-			identifier: return.type
-			count: 3
-			path: app/Http/Controllers/RequestController.php
+			message: '#^Argument of an invalid type App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
+			message: '#^Argument of an invalid type array\<string, array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\>\>\>\|int supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^PHPDoc tag @throws with type JsonException\|MarcReichel\\IGDBLaravel\\Exceptions\\InvalidParamsException\|MarcReichel\\IGDBLaravel\\Exceptions\\MissingEndpointException\|ReflectionException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
 			count: 1
-			path: app/Http/Controllers/Staff/ArticleController.php
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Parameter \#1 \$array of function krsort expects array, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Controllers\\PlaylistController\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Controllers\\PlaylistController\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Controllers\\PlaylistController\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Parameter \#1 \$torrents of method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) expects Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Torrent\>\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Torrent\>\|Illuminate\\Pagination\\CursorPaginator\<int, App\\Models\\Torrent\>, Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Torrent&object\{pivot\: App\\Models\\PlaylistTorrent\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:decrement\(\) expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/RequestController.php
 
 		-
 			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
@@ -295,34 +373,16 @@ parameters:
 			path: app/Http/Controllers/Staff/ChatRoomController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Controllers/Staff/CheatedTorrentController.php
-
-		-
 			message: '#^Binary operation "\+\=" between string and int results in an error\.$#'
 			identifier: assignOp.invalid
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Group\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Group\>\:\:\$level\.$#'
-			identifier: property.notFound
+			message: '#^Property App\\Models\\Rss\:\:\$position \(int\) does not accept int\<min, 9999\>\|string\.$#'
+			identifier: assign.propertyType
 			count: 1
-			path: app/Http/Controllers/Staff/UserController.php
-
-		-
-			message: '#^Offset 0 does not exist on Illuminate\\Http\\Client\\Response\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: app/Http/Controllers/Staff/VersionController.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
-			count: 4
-			path: app/Http/Controllers/StatsController.php
+			path: app/Http/Controllers/Staff/RssController.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Post\:\:\$post_count\.$#'
@@ -331,10 +391,28 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
+			message: '#^Property App\\Models\\Torrent\:\:\$free \(int\) does not accept float\|int\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
+			message: '#^PHPDoc tag @throws with type JsonException\|MarcReichel\\IGDBLaravel\\Exceptions\\InvalidParamsException\|MarcReichel\\IGDBLaravel\\Exceptions\\MissingEndpointException\|ReflectionException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
 			count: 1
 			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:decrement\(\) expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/User/GiftController.php
+
+		-
+			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:increment\(\) expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/User/GiftController.php
 
 		-
 			message: '#^Binary operation "\+" between string\|null and int results in an error\.$#'
@@ -347,6 +425,24 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 2
 			path: app/Http/Controllers/User/UserController.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Announce\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/AnnounceSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Apikey\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/ApikeySearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Application\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/ApplicationSearch.php
 
 		-
 			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$attachment has no type specified\.$#'
@@ -367,40 +463,52 @@ parameters:
 			path: app/Http/Livewire/BbcodeInput.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Participant\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Conversation\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Http/Livewire/ConversationSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\PrivateMessage\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\EmailUpdate\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Livewire/ConversationSearch.php
+			path: app/Http/Livewire/EmailUpdateSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
-			identifier: return.type
-			count: 3
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\FailedLoginAttempt\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/FailedLoginSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Topic\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
 			path: app/Http/Livewire/ForumCategoryTopicSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Topic\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
-			identifier: return.type
-			count: 3
 			path: app/Http/Livewire/ForumTopicSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Gift\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
+			path: app/Http/Livewire/GiftLogSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Invite\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
 			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
@@ -415,70 +523,304 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/LeakerSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbMovie\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/MissingMediaSearch.php
+
+		-
 			message: '#^Property App\\Http\\Livewire\\MissingMediaSearch\:\:\$categories type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Notifications\\DatabaseNotification\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Livewire/Stats/UserStats.php
+			path: app/Http/Livewire/NotificationSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Passkey\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/PasskeySearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\PasswordResetHistory\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/PasswordResetHistorySearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Peer\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/PeerSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Playlist\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/PlaylistSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Report\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/ReportSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Rsskey\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/RsskeySearch.php
+
+		-
+			message: '#^Argument of an invalid type App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Argument of an invalid type array\<string, array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\>\>\>\|int supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^PHPDoc tag @throws with type JsonException\|MarcReichel\\IGDBLaravel\\Exceptions\\InvalidParamsException\|MarcReichel\\IGDBLaravel\\Exceptions\\MissingEndpointException\|ReflectionException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Parameter \#1 \$array of function krsort expects array, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Livewire\\SimilarTorrent\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Livewire\\SimilarTorrent\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Livewire\\SimilarTorrent\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\SimilarTorrent\:\:\$checked \(array\<int, bool\>\) does not accept array\<int, int\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Subtitle\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Http/Livewire/SubtitleSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbCredit\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Ticket\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TicketSearch.php
+
+		-
+			message: '#^Argument of an invalid type App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Argument of an invalid type array\<string, array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\>\>\>\|int supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
 			count: 2
-			path: app/Http/Livewire/TmdbPersonSearch.php
+			path: app/Http/Livewire/TopTorrents.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
-			count: 4
-			path: app/Http/Livewire/TopUsers.php
+			message: '#^PHPDoc tag @throws with type JsonException\|MarcReichel\\IGDBLaravel\\Exceptions\\InvalidParamsException\|MarcReichel\\IGDBLaravel\\Exceptions\\MissingEndpointException\|ReflectionException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
-			identifier: return.type
-			count: 3
-			path: app/Http/Livewire/TopicSearch.php
+			message: '#^Parameter \#1 \$array of function krsort expects array, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|array\<int\|string, App\\Models\\Torrent\|list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Livewire\\TopTorrents\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Livewire\\TopTorrents\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Parameter \#1 \$torrentTypeTorrents of static method App\\Http\\Livewire\\TopTorrents\:\:sortTorrentTypes\(\) expects non\-empty\-array\<string, non\-empty\-list\<App\\Models\\Torrent\>\>, array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-array\<int\<0, max\>\|string, App\\Models\\Torrent\|non\-empty\-list\<App\\Models\\Torrent\>\>\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Topic\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Http/Livewire/TopicSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbMovie\>\.$#'
-			identifier: return.type
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentDownload\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
+			path: app/Http/Livewire/TorrentDownloadSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbTv\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, string\|null\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) expects callable\(\)\: Illuminate\\Support\\Collection\<int, string\|null\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, string\|null\> given\.$#'
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequest\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentReseed\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TorrentReseedSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentTrump\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/TorrentTrumpSearch.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Trending\:\:\$from \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Http/Livewire/Trending.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\Trending\:\:\$until \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: app/Http/Livewire/Trending.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\UnregisteredInfoHash\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UnregisteredInfoHashSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Peer\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Bookmark\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserBookmarks.php
+
+		-
+			message: '#^Parameter \#1 \$expression of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Peer\>\:\:selectRaw\(\) expects literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserEarnings.php
+
+		-
+			message: '#^Parameter \#1 \$expression of method Illuminate\\Database\\Query\\Builder\:\:selectRaw\(\) expects literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserEarnings.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Database\\Connection\:\:raw\(\) expects float\|int\|literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserEarnings.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Query\\Builder\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserEarnings.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Resurrection\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Http/Livewire/UserResurrections.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserTorrents.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\UnregisteredInfoHash\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserUnregisteredInfoHashSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserUploads.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Warning\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/UserWarnings.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Warning\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/WarningLogSearch.php
+
+		-
+			message: '#^Parameter \#2 \$direction of method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Watchlist\>\:\:orderBy\(\) expects ''asc''\|''desc''\|SortDirection, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: '#^Method App\\Http\\Middleware\\SetLanguage\:\:setSystemLocale\(\) has parameter \$request with no type specified\.$#'
@@ -517,22 +859,34 @@ parameters:
 			path: app/Http/Resources/TorrentResource.php
 
 		-
+			message: '#^Parameter \#1 \$value of static method Illuminate\\Database\\Connection\:\:raw\(\) expects float\|int\|literal\-string, non\-falsy\-string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Jobs/ProcessAnnounce.php
+
+		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
 			identifier: property.notFound
 			count: 2
 			path: app/Listeners/AchievementUnlocked.php
 
 		-
-			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/Helpers/Language.php
-
-		-
 			message: '#^Class App\\Models\\Rss has PHPDoc tag @property for property \$json_torrent with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Models/Rss.php
+
+		-
+			message: '#^Class App\\Models\\Scopes\\ApprovedScope implements generic interface Illuminate\\Database\\Eloquent\\Scope but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Scopes/ApprovedScope.php
+
+		-
+			message: '#^Parameter \#1 \$builder \(Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\) of method App\\Models\\Scopes\\ApprovedScope\:\:apply\(\) should be compatible with parameter \$builder \(Illuminate\\Database\\Eloquent\\Builder\<covariant Illuminate\\Database\\Eloquent\\Model\>\) of method Illuminate\\Database\\Eloquent\\Scope\<Illuminate\\Database\\Eloquent\\Model\>\:\:apply\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: app/Models/Scopes/ApprovedScope.php
 
 		-
 			message: '#^Strict comparison using \=\=\= between float\|null and 0 will always evaluate to false\.$#'
@@ -559,26 +913,14 @@ parameters:
 			path: app/Providers/AppServiceProvider.php
 
 		-
-			message: '#^Method Laravel\\Fortify\\Contracts\\LoginResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:51\:\:toResponse\(\) should return Illuminate\\Http\\RedirectResponse but returns Illuminate\\Http\\RedirectResponse\|true\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Providers/FortifyServiceProvider.php
-
-		-
-			message: '#^Method Laravel\\Fortify\\Contracts\\RegisterViewResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:96\:\:toResponse\(\) never returns Illuminate\\Http\\RedirectResponse so it can be removed from the return type\.$#'
+			message: '#^Method Laravel\\Fortify\\Contracts\\RegisterViewResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:98\:\:toResponse\(\) never returns Illuminate\\Http\\RedirectResponse so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
 
 		-
-			message: '#^Method Laravel\\Fortify\\Contracts\\VerifyEmailResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:107\:\:toResponse\(\) never returns Illuminate\\View\\View so it can be removed from the return type\.$#'
+			message: '#^Method Laravel\\Fortify\\Contracts\\VerifyEmailResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:109\:\:toResponse\(\) never returns Illuminate\\View\\View so it can be removed from the return type\.$#'
 			identifier: return.unusedType
-			count: 1
-			path: app/Providers/FortifyServiceProvider.php
-
-		-
-			message: '#^Parameter \#1 \$string of function rtrim expects string, true given\.$#'
-			identifier: argument.type
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
 
@@ -613,8 +955,20 @@ parameters:
 			path: app/Services/Tmdb/Client/Movie.php
 
 		-
+			message: '#^Parameter \$when of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:retry\(\) expects \(callable\(Throwable, Illuminate\\Http\\Client\\PendingRequest, string\|null\)\: bool\)\|null, Closure\(Exception\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/Tmdb/Client/Movie.php
+
+		-
 			message: '#^Call to function array_key_exists\(\) with ''job'' and array\{credit_id\: string\|null, job\: string\|null, episode_count\: int\|null\} will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Services/Tmdb/Client/TV.php
+
+		-
+			message: '#^Parameter \$when of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:retry\(\) expects \(callable\(Throwable, Illuminate\\Http\\Client\\PendingRequest, string\|null\)\: bool\)\|null, Closure\(Exception\)\: bool given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Services/Tmdb/Client/TV.php
 
@@ -623,6 +977,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: config/cache.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: config/reverb.php
 
 		-
 			message: '#^Parameter \#1 \$url of function parse_url expects string, bool\|string\|null given\.$#'
@@ -661,151 +1021,7 @@ parameters:
 			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
 
 		-
-			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
-			identifier: property.notFound
-			count: 3
-			path: database/migrations/2023_02_09_113903_clean_torrent_files.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$content\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$description\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 2
-			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
-			identifier: property.notFound
-			count: 2
-			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_12_223126_create_passkeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$passkey\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_12_223126_create_passkeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$api_token\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_15_170525_create_apikeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_15_170525_create_apikeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_16_084506_create_rsskeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$rsskey\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2023_11_16_084506_create_rsskeys.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_01_15_151522_update_groups_table.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_01_21_062125_create_email_updates.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_02_14_022118_fix_subtitle_filepaths.php
-
-		-
-			message: '#^Access to an undefined property object\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: database/migrations/2024_11_26_170256_add_is_torrent_modo_to_groups_table.php
-
-		-
 			message: '#^Variable \$level might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: resources/views/vendor/notifications/email.blade.php
-
-		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/announce.php
-
-		-
-			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/announce.php
-
-		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/api.php
-
-		-
-			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/api.php
-
-		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/rss.php
-
-		-
-			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/rss.php
-
-		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/web.php
-
-		-
-			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: routes/web.php

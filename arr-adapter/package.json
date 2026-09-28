@@ -1,0 +1,6 @@
+{
+  "name": "unit3d-torznab-adapter",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "bun run server.ts" }
+}
