@@ -5,7 +5,7 @@
             type="text"
             placeholder="Search"
             x-model="searchText"
-            x-on:input.debounce.100ms="performSearch"
+            x-on:input.debounce.300ms="performSearch"
             x-ref="quickSearch"
             x-on:keydown.down.prevent="focusFirstResult"
             x-on:keydown.up.prevent="focusLastResult"
@@ -64,20 +64,38 @@
                 searchText: '',
                 searchResults: null,
                 searchPerformed: false,
-                performSearch() {
+                searchAbortController: null,
+                async performSearch() {
                     this.searchPerformed = true;
-                    if (this.searchText.length === 0) {
+                    if (this.searchText.length < 3) {
+                        this.searchAbortController?.abort();
                         this.searchResults = null;
                         return;
                     }
 
-                    fetch(`/api/quicksearch?query=${encodeURIComponent(this.searchText)}`)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            this.searchResults = data.results.map((result) => {
-                                return result;
-                            });
+                    this.searchAbortController?.abort();
+                    const controller = new AbortController();
+                    this.searchAbortController = controller;
+
+                    try {
+                        const response = await fetch(`/api/quicksearch?query=${encodeURIComponent(this.searchText)}`, {
+                            signal: controller.signal,
                         });
+
+                        if (!response.ok) {
+                            throw new Error(`Quick search failed with HTTP ${response.status}`);
+                        }
+
+                        const data = await response.json();
+
+                        if (this.searchAbortController === controller) {
+                            this.searchResults = data.results;
+                        }
+                    } catch (error) {
+                        if (error.name !== 'AbortError') {
+                            this.searchResults = [];
+                        }
+                    }
                 },
                 clearSearch() {
                     this.searchText = '';

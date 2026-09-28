@@ -39,7 +39,8 @@ export default defineConfig({
           'resources/js/vendor/imgbb.js',
           'resources/js/vendor/virtual-select.js',
         ],
-        dest: 'unit3d'
+        dest: 'unit3d',
+        rename: { stripBase: true },
       }]
     }),
 
