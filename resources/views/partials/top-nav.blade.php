@@ -139,9 +139,21 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('pages.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-file-lines"></i>
+                        Informace a dokumentace
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('wikis.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-list-alt"></i>
                         Wiki
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('pages.show', ['page' => 7]) }}">
+                        <i class="{{ config('other.font-awesome') }} fa-code"></i>
+                        API dokumentace
                     </a>
                 </li>
                 <li>

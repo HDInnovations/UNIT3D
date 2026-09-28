@@ -56,6 +56,8 @@ class CommunityContentSeeder extends Seeder
             ['id' => 1, 'name' => 'Průvodce trackerem', 'icon' => 'fa-book', 'position' => 1],
         ], ['id'], ['name', 'icon', 'position']);
 
+        cache()->forget('cached-pages');
+
         foreach ([
             ['name' => 'Začínáme', 'content' => "[b]Začínáme[/b]\n\nPřečtěte pravidla, nastavte podporovaný klient a udržujte aktivní seeding. Potřebujete-li pomoc, napište do komunitního fóra."],
             ['name' => 'Vyhledávání a filtry', 'content' => "[b]Vyhledávání[/b]\n\nGlobální vyhledávání najde filmy, seriály a osoby. Na stránce torrentů lze výsledek zpřesnit kategorií, typem, rozlišením a dalšími filtry."],
