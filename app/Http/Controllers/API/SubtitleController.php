@@ -248,6 +248,7 @@ class SubtitleController extends BaseController
         return Subtitle::query()
             ->with([
                 'language:id,name,code',
+                'user:id,username',
                 'torrent:id,name,tmdb_movie_id,tmdb_tv_id,imdb,tvdb,season_number,episode_number',
             ])
             ->whereIn('torrent_id', Torrent::query()->select('id')->where($torrentConstraint))

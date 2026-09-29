@@ -140,6 +140,7 @@ curl -X GET "https://unit3d.site/api/subtitles?tmdb_id=278&language=en,fr" \
       "filename": "[English.Subtitle]The.Shawshank.Redemption.1994.1080p.BluRay.x264-GRP.srt",
       "size": 12345,
       "downloads": 42,
+      "uploader": "subber",
       "forced": null,
       "hearing_impaired": null,
       "torrent_id": 456,
@@ -179,7 +180,7 @@ curl -X GET "https://unit3d.site/api/subtitles?tmdb_id=278&language=en,fr" \
 }
 ```
 
-`release` is the name of the torrent the subtitle belongs to. For episodes, `type` is `episode`, `tmdb_id` is the TMDB
+`release` is the name of the torrent the subtitle belongs to, and `uploader` is `Anonymous` for anonymous uploads. For episodes, `type` is `episode`, `tmdb_id` is the TMDB
 TV show ID, and `season`, `episode` and `pack` describe the torrent: a single episode has a `season` and an `episode`,
 a season pack has `pack: "season"` and no `episode`, and a complete series pack has `pack: "series"` and neither.
 

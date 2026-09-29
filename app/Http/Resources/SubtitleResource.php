@@ -33,7 +33,8 @@ class SubtitleResource extends JsonResource
      * impaired, so those flags are always null (unknown).
      *
      * Episode subtitles attached to a season pack or complete series pack have
-     * a null episode and their pack type in `pack`.
+     * a null episode and their pack type in `pack`. Anonymous uploaders are
+     * returned as `Anonymous`, like in the torrent API.
      *
      * @param  Request              $request
      * @return array<string, mixed>
@@ -59,6 +60,7 @@ class SubtitleResource extends JsonResource
             'filename'         => app(SubtitleDownloadService::class)->downloadFilename($this->resource, $torrent),
             'size'             => $this->file_size,
             'downloads'        => $this->downloads ?? 0,
+            'uploader'         => $this->anon ? 'Anonymous' : $this->user->username,
             'forced'           => null,
             'hearing_impaired' => null,
             'torrent_id'       => $this->torrent_id,

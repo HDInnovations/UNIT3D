@@ -138,7 +138,8 @@ test('deleted api keys are rejected', function (): void {
 // Search
 
 test('search by tmdb id returns only that movie\'s subtitles', function (): void {
-    $subtitle = apiSubtitle($this->torrent, $this->english);
+    $uploader = User::factory()->create(['username' => 'subber']);
+    $subtitle = apiSubtitle($this->torrent, $this->english, ['user_id' => $uploader->id, 'anon' => false]);
     $otherMovie = Torrent::factory()->create(['tmdb_movie_id' => 680, 'imdb' => 110912, 'status' => ModerationStatus::APPROVED]);
     apiSubtitle($otherMovie, $this->english);
 
@@ -155,6 +156,7 @@ test('search by tmdb id returns only that movie\'s subtitles', function (): void
             'filename'         => '[English.Subtitle]The.Shawshank.Redemption.1994.1080p.BluRay.x264-GRP.srt',
             'size'             => $subtitle->file_size,
             'downloads'        => 0,
+            'uploader'         => 'subber',
             'forced'           => null,
             'hearing_impaired' => null,
             'torrent_id'       => $this->torrent->id,
@@ -171,7 +173,7 @@ test('search by tmdb id returns only that movie\'s subtitles', function (): void
         ]);
 });
 
-test('search does not expose internal storage or uploader details', function (): void {
+test('search does not expose internal storage or moderation details', function (): void {
     apiSubtitle($this->torrent, $this->english, ['anon' => false, 'note' => 'private note']);
 
     $response = $this->withToken($this->apikey)
@@ -180,6 +182,18 @@ test('search does not expose internal storage or uploader details', function ():
 
     expect($response->json('data.0'))
         ->not->toHaveKeys(['file_name', 'user_id', 'user', 'note', 'status', 'moderated_by']);
+});
+
+test('anonymous uploaders are not revealed', function (): void {
+    $uploader = User::factory()->create(['username' => 'secret-subber']);
+    apiSubtitle($this->torrent, $this->english, ['user_id' => $uploader->id, 'anon' => true]);
+
+    $response = $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['tmdb_id' => 278]))
+        ->assertOk()
+        ->assertJsonPath('data.0.uploader', 'Anonymous');
+
+    expect($response->getContent())->not->toContain('secret-subber');
 });
 
 test('search by imdb id works when no tmdb id is given', function (string $imdbId): void {
