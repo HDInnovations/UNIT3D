@@ -21,6 +21,7 @@ use App\Models\Apikey;
 use App\Models\MediaLanguage;
 use App\Models\Subtitle;
 use App\Models\TmdbMovie;
+use App\Models\TmdbTv;
 use App\Models\Torrent;
 use App\Services\SubtitleDownloadService;
 use Illuminate\Database\Eloquent\Builder;
@@ -75,30 +76,42 @@ class SubtitleController extends BaseController
     }
 
     /**
-     * Search subtitles for a movie.
+     * Search subtitles for a movie or a TV episode.
      *
-     * Movies are matched by TMDB id first, then by IMDb id (only when the TMDB
-     * id is absent or matches nothing). Exact title and release year are used
-     * only when neither id is given.
+     * The media is matched by TMDB id first, then by TVDB id (episodes only),
+     * then by IMDb id; each id is only used when the previous ones are absent
+     * or match nothing. Exact title and year are used only when no id is
+     * given. Episodes also match their season pack and complete series pack.
      */
     public function index(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $validated = $request->validate([
+            'type' => [
+                'nullable',
+                'in:movie,episode',
+            ],
             'tmdb_id' => [
-                'required_without_all:imdb_id,title',
+                'required_without_all:tvdb_id,imdb_id,title',
+                'nullable',
+                'integer',
+                'min:1',
+                'max:4294967295',
+            ],
+            'tvdb_id' => [
+                'prohibited_unless:type,episode',
                 'nullable',
                 'integer',
                 'min:1',
                 'max:4294967295',
             ],
             'imdb_id' => [
-                'required_without_all:tmdb_id,title',
+                'required_without_all:tmdb_id,tvdb_id,title',
                 'nullable',
                 'string',
                 'regex:/^(tt)?0*[1-9]\d{0,9}$/',
             ],
             'title' => [
-                'required_without_all:tmdb_id,imdb_id',
+                'required_without_all:tmdb_id,tvdb_id,imdb_id',
                 'nullable',
                 'string',
                 'max:255',
@@ -108,6 +121,20 @@ class SubtitleController extends BaseController
                 'nullable',
                 'integer',
                 'between:1870,2100',
+            ],
+            'season' => [
+                'required_if:type,episode',
+                'prohibited_unless:type,episode',
+                'nullable',
+                'integer',
+                'between:0,65535',
+            ],
+            'episode' => [
+                'required_if:type,episode',
+                'prohibited_unless:type,episode',
+                'nullable',
+                'integer',
+                'between:1,65535',
             ],
             'language' => [
                 'nullable',
@@ -125,18 +152,20 @@ class SubtitleController extends BaseController
             ? array_values(array_unique(explode(',', strtolower((string) $validated['language']))))
             : [];
         $perPage = (int) ($validated['perPage'] ?? self::PER_PAGE);
+        $isEpisode = ($validated['type'] ?? 'movie') === 'episode';
 
-        $matchedBy = match (true) {
-            isset($validated['tmdb_id']) => 'tmdb',
-            isset($validated['imdb_id']) => 'imdb',
-            default                      => 'title',
-        };
-        $subtitles = $this->search($this->movieConstraint($matchedBy, $validated), $languages, $perPage);
+        // Ids in order of preference, title and year only when no id is given
+        $strategies = array_values(array_filter(
+            ['tmdb', 'tvdb', 'imdb'],
+            fn (string $strategy) => isset($validated[$strategy.'_id']),
+        )) ?: ['title'];
 
-        // IMDb is only used when the TMDB id matches nothing
-        if ($matchedBy === 'tmdb' && isset($validated['imdb_id']) && $subtitles->total() === 0) {
-            $matchedBy = 'imdb';
-            $subtitles = $this->search($this->movieConstraint($matchedBy, $validated), $languages, $perPage);
+        foreach ($strategies as $matchedBy) {
+            $subtitles = $this->search($this->mediaConstraint($matchedBy, $validated, $isEpisode), $languages, $perPage);
+
+            if ($subtitles->total() > 0) {
+                break;
+            }
         }
 
         return SubtitleResource::collection($subtitles->withQueryString())
@@ -158,33 +187,59 @@ class SubtitleController extends BaseController
     }
 
     /**
-     * Get the torrent constraint matching the requested movie.
+     * Get the torrent constraint matching the requested movie or episode.
      *
      * Title and year are only used when no id is known, and must match exactly.
      *
-     * @param  'tmdb'|'imdb'|'title'            $matchedBy
-     * @param  array<string, mixed>             $validated
-     * @return Closure(Builder<Torrent>): mixed
+     * @param  'tmdb'|'tvdb'|'imdb'|'title'    $matchedBy
+     * @param  array<string, mixed>            $validated
+     * @return Closure(Builder<Torrent>): void
      */
-    private function movieConstraint(string $matchedBy, array $validated): Closure
+    private function mediaConstraint(string $matchedBy, array $validated, bool $isEpisode): Closure
     {
-        return match ($matchedBy) {
-            'tmdb'  => fn (Builder $query) => $query->where('tmdb_movie_id', '=', (int) $validated['tmdb_id']),
-            'imdb'  => fn (Builder $query) => $query->where('imdb', '=', (int) ltrim((string) $validated['imdb_id'], 't')),
-            'title' => fn (Builder $query) => $query->whereIn(
-                'tmdb_movie_id',
-                TmdbMovie::query()
-                    ->select('id')
-                    ->where('title', '=', $validated['title'])
-                    ->whereYear('release_date', '=', (int) $validated['year'])
-            ),
+        return function (Builder $query) use ($matchedBy, $validated, $isEpisode): void {
+            match ($matchedBy) {
+                'tmdb'  => $query->where($isEpisode ? 'tmdb_tv_id' : 'tmdb_movie_id', '=', (int) $validated['tmdb_id']),
+                'tvdb'  => $query->where('tvdb', '=', (int) $validated['tvdb_id']),
+                'imdb'  => $query->where('imdb', '=', (int) ltrim((string) $validated['imdb_id'], 't')),
+                'title' => $isEpisode
+                    ? $query->whereIn(
+                        'tmdb_tv_id',
+                        TmdbTv::query()
+                            ->select('id')
+                            ->where('name', '=', $validated['title'])
+                            ->where('first_air_date', 'like', (int) $validated['year'].'-%')
+                    )
+                    : $query->whereIn(
+                        'tmdb_movie_id',
+                        TmdbMovie::query()
+                            ->select('id')
+                            ->where('title', '=', $validated['title'])
+                            ->whereYear('release_date', '=', (int) $validated['year'])
+                    ),
+            };
+
+            if (!$isEpisode) {
+                $query->whereNull('season_number');
+
+                return;
+            }
+
+            // The episode itself, its season pack, or a complete series pack
+            $query->where(fn (Builder $query) => $query
+                ->where(fn (Builder $query) => $query
+                    ->where('season_number', '=', (int) $validated['season'])
+                    ->whereIn('episode_number', [(int) $validated['episode'], 0]))
+                ->orWhere(fn (Builder $query) => $query
+                    ->where('season_number', '=', 0)
+                    ->where('episode_number', '=', 0)));
         };
     }
 
     /**
      * Paginate approved subtitles of the approved torrents matching the constraint.
      *
-     * @param  Closure(Builder<Torrent>): mixed                           $torrentConstraint
+     * @param  Closure(Builder<Torrent>): void                            $torrentConstraint
      * @param  list<string>                                               $languages
      * @return \Illuminate\Pagination\LengthAwarePaginator<int, Subtitle>
      */
@@ -193,7 +248,7 @@ class SubtitleController extends BaseController
         return Subtitle::query()
             ->with([
                 'language:id,name,code',
-                'torrent:id,name,tmdb_movie_id,imdb',
+                'torrent:id,name,tmdb_movie_id,tmdb_tv_id,imdb,tvdb,season_number,episode_number',
             ])
             ->whereIn('torrent_id', Torrent::query()->select('id')->where($torrentConstraint))
             ->when($languages !== [], fn (Builder $query) => $query->whereIn(

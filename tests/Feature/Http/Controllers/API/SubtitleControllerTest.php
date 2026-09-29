@@ -19,6 +19,7 @@ use App\Models\Apikey;
 use App\Models\MediaLanguage;
 use App\Models\Subtitle;
 use App\Models\TmdbMovie;
+use App\Models\TmdbTv;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -158,7 +159,12 @@ test('search by tmdb id returns only that movie\'s subtitles', function (): void
             'hearing_impaired' => null,
             'torrent_id'       => $this->torrent->id,
             'release'          => 'The.Shawshank.Redemption.1994.1080p.BluRay.x264-GRP',
+            'type'             => 'movie',
+            'season'           => null,
+            'episode'          => null,
+            'pack'             => null,
             'tmdb_id'          => 278,
+            'tvdb_id'          => null,
             'imdb_id'          => 'tt0111161',
             'created_at'       => $subtitle->created_at->toIso8601String(),
             'download_url'     => '/api/subtitles/'.$subtitle->id.'/download',
@@ -279,16 +285,21 @@ test('search validates its parameters', function (array $query): void {
         ->getJson(route('api.subtitles.index', $query))
         ->assertUnprocessable();
 })->with([
-    'no movie identifier'   => [[]],
-    'only a language'       => [['language' => 'en']],
-    'title without year'    => [['title' => 'The Shawshank Redemption']],
-    'non numeric tmdb id'   => [['tmdb_id' => '278 OR 1=1']],
-    'malformed imdb id'     => [['imdb_id' => '../../etc/passwd']],
-    'zero imdb id'          => [['imdb_id' => 'tt0000000']],
-    'zero tmdb id'          => [['tmdb_id' => 0]],
-    'three letter language' => [['tmdb_id' => 278, 'language' => 'eng']],
-    'sql in language'       => [['tmdb_id' => 278, 'language' => "en') OR ('1'='1"]],
-    'too many per page'     => [['tmdb_id' => 278, 'perPage' => 51]],
+    'no movie identifier'    => [[]],
+    'only a language'        => [['language' => 'en']],
+    'title without year'     => [['title' => 'The Shawshank Redemption']],
+    'non numeric tmdb id'    => [['tmdb_id' => '278 OR 1=1']],
+    'malformed imdb id'      => [['imdb_id' => '../../etc/passwd']],
+    'zero imdb id'           => [['imdb_id' => 'tt0000000']],
+    'zero tmdb id'           => [['tmdb_id' => 0]],
+    'three letter language'  => [['tmdb_id' => 278, 'language' => 'eng']],
+    'sql in language'        => [['tmdb_id' => 278, 'language' => "en') OR ('1'='1"]],
+    'too many per page'      => [['tmdb_id' => 278, 'perPage' => 51]],
+    'episode without season' => [['type' => 'episode', 'tmdb_id' => 1396, 'episode' => 5]],
+    'episode without number' => [['type' => 'episode', 'tmdb_id' => 1396, 'season' => 1]],
+    'season for a movie'     => [['tmdb_id' => 278, 'season' => 1, 'episode' => 1]],
+    'tvdb id for a movie'    => [['tvdb_id' => 81189]],
+    'unknown type'           => [['type' => 'series', 'tmdb_id' => 1396]],
 ]);
 
 // Moderation
@@ -373,4 +384,120 @@ test('the download route only accepts numeric subtitle ids', function (): void {
     $this->withToken($this->apikey)
         ->getJson('api/subtitles/..%2F..%2F.env/download')
         ->assertNotFound();
+});
+
+// TV episodes
+
+function showTorrent(int $season, int $episode, array $attributes = []): Torrent
+{
+    return Torrent::factory()->create([
+        'name'           => \sprintf('Breaking.Bad.S%02dE%02d.1080p.WEB-DL.x264-GRP', $season, $episode),
+        'tmdb_movie_id'  => null,
+        'tmdb_tv_id'     => 1396,
+        'tvdb'           => 81189,
+        'imdb'           => 903747,
+        'season_number'  => $season,
+        'episode_number' => $episode,
+        'status'         => ModerationStatus::APPROVED,
+        ...$attributes,
+    ]);
+}
+
+test('episode search returns the episode, its season pack and complete series packs', function (): void {
+    $episode = apiSubtitle(showTorrent(1, 5), $this->english);
+    $seasonPack = apiSubtitle(showTorrent(1, 0), $this->english, ['extension' => '.zip']);
+    $seriesPack = apiSubtitle(showTorrent(0, 0), $this->english, ['extension' => '.zip']);
+    apiSubtitle(showTorrent(1, 6), $this->english);
+    apiSubtitle(showTorrent(2, 0), $this->english);
+    apiSubtitle(showTorrent(2, 5), $this->english);
+    apiSubtitle(showTorrent(1, 5, ['tmdb_tv_id' => 1399, 'tvdb' => 121361, 'imdb' => 944947]), $this->english);
+
+    $response = $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['type' => 'episode', 'tmdb_id' => 1396, 'season' => 1, 'episode' => 5]))
+        ->assertOk()
+        ->assertJsonCount(3, 'data')
+        ->assertJsonPath('meta.matched_by', 'tmdb');
+
+    $results = collect($response->json('data'))->keyBy('id');
+
+    expect($results->keys()->sort()->values()->all())->toBe(collect([$episode->id, $seasonPack->id, $seriesPack->id])->sort()->values()->all())
+        ->and($results[$episode->id])->toMatchArray([
+            'type'    => 'episode',
+            'season'  => 1,
+            'episode' => 5,
+            'pack'    => null,
+            'tmdb_id' => 1396,
+            'tvdb_id' => 81189,
+            'imdb_id' => 'tt0903747',
+            'release' => 'Breaking.Bad.S01E05.1080p.WEB-DL.x264-GRP',
+        ])
+        ->and($results[$seasonPack->id])->toMatchArray(['season' => 1, 'episode' => null, 'pack' => 'season'])
+        ->and($results[$seriesPack->id])->toMatchArray(['season' => null, 'episode' => null, 'pack' => 'series']);
+});
+
+test('episode search by tvdb id', function (): void {
+    $subtitle = apiSubtitle(showTorrent(1, 5, ['tmdb_tv_id' => null]), $this->english);
+
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['type' => 'episode', 'tvdb_id' => 81189, 'season' => 1, 'episode' => 5]))
+        ->assertOk()
+        ->assertJsonPath('meta.matched_by', 'tvdb')
+        ->assertJsonCount(1, 'data')
+        ->assertJsonPath('data.0.id', $subtitle->id);
+});
+
+test('episode search falls back from tvdb to imdb id', function (): void {
+    $subtitle = apiSubtitle(showTorrent(1, 5, ['tmdb_tv_id' => null, 'tvdb' => null]), $this->english);
+
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['type' => 'episode', 'tvdb_id' => 81189, 'imdb_id' => 'tt0903747', 'season' => 1, 'episode' => 5]))
+        ->assertOk()
+        ->assertJsonPath('meta.matched_by', 'imdb')
+        ->assertJsonPath('data.0.id', $subtitle->id);
+});
+
+test('episode search by exact show name and first air year', function (): void {
+    TmdbTv::factory()->create(['id' => 1396, 'name' => 'Breaking Bad', 'first_air_date' => '2008-01-20', 'last_air_date' => '2013-09-29']);
+    $subtitle = apiSubtitle(showTorrent(1, 5), $this->english);
+
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['type' => 'episode', 'title' => 'Breaking Bad', 'year' => 2008, 'season' => 1, 'episode' => 5]))
+        ->assertOk()
+        ->assertJsonPath('meta.matched_by', 'title')
+        ->assertJsonPath('data.0.id', $subtitle->id);
+
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['type' => 'episode', 'title' => 'Breaking Bad', 'year' => 2009, 'season' => 1, 'episode' => 5]))
+        ->assertOk()
+        ->assertJsonCount(0, 'data');
+});
+
+test('special episodes match season zero', function (): void {
+    $special = apiSubtitle(showTorrent(0, 2), $this->english);
+    $seriesPack = apiSubtitle(showTorrent(0, 0), $this->english, ['extension' => '.zip']);
+    apiSubtitle(showTorrent(0, 3), $this->english);
+
+    $response = $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['type' => 'episode', 'tmdb_id' => 1396, 'season' => 0, 'episode' => 2]))
+        ->assertOk()
+        ->assertJsonCount(2, 'data');
+
+    expect(collect($response->json('data'))->pluck('id')->sort()->values()->all())
+        ->toBe(collect([$special->id, $seriesPack->id])->sort()->values()->all());
+});
+
+test('movie and episode searches do not mix', function (): void {
+    apiSubtitle(showTorrent(1, 5, ['imdb' => 111161]), $this->english);
+    $movie = apiSubtitle($this->torrent, $this->english);
+
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['imdb_id' => 'tt0111161']))
+        ->assertOk()
+        ->assertJsonCount(1, 'data')
+        ->assertJsonPath('data.0.id', $movie->id);
+
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['type' => 'episode', 'tmdb_id' => 278, 'season' => 1, 'episode' => 5]))
+        ->assertOk()
+        ->assertJsonCount(0, 'data');
 });

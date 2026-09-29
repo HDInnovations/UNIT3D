@@ -11,7 +11,7 @@ subtitles uploaded to your tracker. It is a thin layer over the existing subtitl
   uploaded the subtitle), and every download increments the subtitle's download count.
 - The API is limited by the API rate limit (30 requests per minute per user).
 
-Currently only **movies** are supported.
+Both **movies** and **TV episodes** are supported.
 
 ## Setup
 
@@ -47,6 +47,10 @@ Brazilian Portuguese.
 UNIT3D does not record whether a subtitle is **forced** or for the **hearing impaired**, so both fields are always
 `null` (unknown). Bitmap (`.sup`) subtitles are returned by the API but ignored by Bazarr, and `.zip` subtitles are
 archives that Bazarr extracts.
+
+A subtitle attached to a **season pack** or a **complete series pack** is returned for every episode it may cover
+(with a `pack` value). UNIT3D does not keep the name of the uploaded file, so the episode of a single subtitle file on a
+pack is unknown: Bazarr only uses pack subtitles uploaded as a `.zip` archive, from which it extracts the episode.
 
 ## Endpoints
 
@@ -86,20 +90,29 @@ curl -X GET "https://unit3d.site/api/subtitles/status" \
 
 `GET /api/subtitles`
 
-Search the subtitles of a movie. At least one of `tmdb_id`, `imdb_id` or `title` is required.
+Search the subtitles of a movie or a TV episode. At least one of `tmdb_id`, `tvdb_id`, `imdb_id` or `title` is
+required.
 
-The movie is matched by its TMDB id first. The IMDb id is only used when no TMDB id is given, or when the TMDB id
-matches nothing. The exact title and release year are only used when neither id is given. The strategy that was used is
-returned in `meta.matched_by` (`tmdb`, `imdb` or `title`).
+The movie or show is matched by its TMDB id first, then by its TVDB id (episodes only), then by its IMDb id. Each id is
+only used when the previous ones are not given or match nothing. The exact title (show name for episodes) and year
+(first air year for episodes) are only used when no id is given. The strategy that was used is returned in
+`meta.matched_by` (`tmdb`, `tvdb`, `imdb` or `title`).
+
+An episode search returns the subtitles of the episode's torrents, of its season packs, and of complete series packs.
+Specials are season `0`.
 
 #### Query Parameters
 
 | Parameter  | Type    | Description                                                      | Default |
 |------------|---------|------------------------------------------------------------------|---------|
-| `tmdb_id`  | integer | TMDB movie ID                                                    | -       |
-| `imdb_id`  | string  | IMDb ID, with or without the `tt` prefix (e.g. `tt0111161`)      | -       |
-| `title`    | string  | Exact movie title, only used when no ID is given                 | -       |
-| `year`     | integer | Movie release year, required with `title`                        | -       |
+| `type`     | string  | `movie` or `episode`                                             | `movie` |
+| `tmdb_id`  | integer | TMDB movie ID, or TMDB TV show ID for episodes                   | -       |
+| `tvdb_id`  | integer | TVDB show ID (episodes only)                                     | -       |
+| `imdb_id`  | string  | IMDb ID of the movie or show, with or without the `tt` prefix    | -       |
+| `title`    | string  | Exact movie title or show name, only used when no ID is given    | -       |
+| `year`     | integer | Release year, or first air year for episodes; required with `title` | -    |
+| `season`   | integer | Season number, `0` for specials (episodes only, required)        | -       |
+| `episode`  | integer | Episode number (episodes only, required)                         | -       |
 | `language` | string  | Comma-separated language codes (e.g. `en,fr`)                    | all     |
 | `perPage`  | integer | Items per page (max: 50)                                         | 25      |
 | `page`     | integer | Page number                                                      | 1       |
@@ -131,7 +144,12 @@ curl -X GET "https://unit3d.site/api/subtitles?tmdb_id=278&language=en,fr" \
       "hearing_impaired": null,
       "torrent_id": 456,
       "release": "The.Shawshank.Redemption.1994.1080p.BluRay.x264-GRP",
+      "type": "movie",
+      "season": null,
+      "episode": null,
+      "pack": null,
       "tmdb_id": 278,
+      "tvdb_id": null,
       "imdb_id": "tt0111161",
       "created_at": "2025-08-01T11:02:22+00:00",
       "download_url": "/api/subtitles/123/download"
@@ -161,7 +179,17 @@ curl -X GET "https://unit3d.site/api/subtitles?tmdb_id=278&language=en,fr" \
 }
 ```
 
-`release` is the name of the torrent the subtitle belongs to.
+`release` is the name of the torrent the subtitle belongs to. For episodes, `type` is `episode`, `tmdb_id` is the TMDB
+TV show ID, and `season`, `episode` and `pack` describe the torrent: a single episode has a `season` and an `episode`,
+a season pack has `pack: "season"` and no `episode`, and a complete series pack has `pack: "series"` and neither.
+
+#### Example Episode Request
+
+```bash
+curl -X GET "https://unit3d.site/api/subtitles?type=episode&tvdb_id=81189&season=1&episode=5&language=en" \
+-H "Authorization: Bearer YOUR_API_KEY_HERE" \
+-H "Accept: application/json"
+```
 
 ### Download Subtitle
 
