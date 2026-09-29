@@ -21,6 +21,7 @@ use App\Models\Subtitle;
 use App\Models\TmdbMovie;
 use App\Models\TmdbTv;
 use App\Models\Torrent;
+use App\Models\TorrentFile;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
@@ -168,6 +169,7 @@ test('search by tmdb id returns only that movie\'s subtitles', function (): void
             'tmdb_id'          => 278,
             'tvdb_id'          => null,
             'imdb_id'          => 'tt0111161',
+            'release_match'    => null,
             'created_at'       => $subtitle->created_at->toIso8601String(),
             'download_url'     => '/api/subtitles/'.$subtitle->id.'/download',
         ]);
@@ -515,3 +517,64 @@ test('movie and episode searches do not mix', function (): void {
         ->assertOk()
         ->assertJsonCount(0, 'data');
 });
+
+// Exact release
+
+test('release match is only reported when a file size or name is given', function (): void {
+    apiSubtitle($this->torrent, $this->english);
+
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['tmdb_id' => 278]))
+        ->assertOk()
+        ->assertJsonPath('data.0.release_match', null);
+});
+
+test('release match reports torrents containing a file of the same size or name', function (): void {
+    TorrentFile::factory()->create(['torrent_id' => $this->torrent->id, 'name' => 'Shawshank/Shawshank.1994.1080p.mkv', 'size' => 8_589_934_592]);
+    TorrentFile::factory()->create(['torrent_id' => $this->torrent->id, 'name' => 'Shawshank/Sample/sample.mkv', 'size' => 1_024]);
+    $exact = apiSubtitle($this->torrent, $this->english);
+
+    $otherRelease = Torrent::factory()->create(['tmdb_movie_id' => 278, 'status' => ModerationStatus::APPROVED]);
+    TorrentFile::factory()->create(['torrent_id' => $otherRelease->id, 'name' => 'Shawshank.1994.720p.mkv', 'size' => 4_294_967_296]);
+    $other = apiSubtitle($otherRelease, $this->english);
+
+    $response = $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['tmdb_id' => 278, 'file_size' => 8_589_934_592, 'file_name' => 'The Shawshank Redemption (1994).mkv']))
+        ->assertOk();
+    $results = collect($response->json('data'))->keyBy('id');
+
+    expect($results[$exact->id]['release_match'])->toBe(['file_size' => true, 'file_name' => false])
+        ->and($results[$other->id]['release_match'])->toBe(['file_size' => false, 'file_name' => false]);
+
+    $response = $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['tmdb_id' => 278, 'file_name' => 'shawshank.1994.1080p.MKV']))
+        ->assertOk();
+    $results = collect($response->json('data'))->keyBy('id');
+
+    expect($results[$exact->id]['release_match'])->toBe(['file_size' => null, 'file_name' => true])
+        ->and($results[$other->id]['release_match'])->toBe(['file_size' => null, 'file_name' => false]);
+});
+
+test('release match treats file name wildcards literally', function (): void {
+    TorrentFile::factory()->create(['torrent_id' => $this->torrent->id, 'name' => 'Folder/Shawshank.1994.1080p.mkv', 'size' => 1_000]);
+    apiSubtitle($this->torrent, $this->english);
+
+    foreach (['%.mkv', 'Shawshank.1994.1080p.mk_', '%'] as $fileName) {
+        $this->withToken($this->apikey)
+            ->getJson(route('api.subtitles.index', ['tmdb_id' => 278, 'file_name' => $fileName]))
+            ->assertOk()
+            ->assertJsonPath('data.0.release_match.file_name', false);
+    }
+});
+
+test('release match validates the file size and name', function (array $query): void {
+    $this->withToken($this->apikey)
+        ->getJson(route('api.subtitles.index', ['tmdb_id' => 278, ...$query]))
+        ->assertUnprocessable();
+})->with([
+    'zero size'       => [['file_size' => 0]],
+    'text size'       => [['file_size' => 'big']],
+    'path in name'    => [['file_name' => 'Movies/Shawshank.mkv']],
+    'windows path'    => [['file_name' => 'C:\\Movies\\Shawshank.mkv']],
+    'too long a name' => [['file_name' => str_repeat('a', 256)]],
+]);

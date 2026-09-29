@@ -113,6 +113,8 @@ Specials are season `0`.
 | `year`     | integer | Release year, or first air year for episodes; required with `title` | -    |
 | `season`   | integer | Season number, `0` for specials (episodes only, required)        | -       |
 | `episode`  | integer | Episode number (episodes only, required)                         | -       |
+| `file_size` | integer | Size in bytes of the client's video file, to find its exact release | -    |
+| `file_name` | string  | Name of the client's video file (without folders), to find its exact release | - |
 | `language` | string  | Comma-separated language codes (e.g. `en,fr`)                    | all     |
 | `perPage`  | integer | Items per page (max: 50)                                         | 25      |
 | `page`     | integer | Page number                                                      | 1       |
@@ -152,6 +154,7 @@ curl -X GET "https://unit3d.site/api/subtitles?tmdb_id=278&language=en,fr" \
       "tmdb_id": 278,
       "tvdb_id": null,
       "imdb_id": "tt0111161",
+      "release_match": null,
       "created_at": "2025-08-01T11:02:22+00:00",
       "download_url": "/api/subtitles/123/download"
     }
@@ -183,6 +186,12 @@ curl -X GET "https://unit3d.site/api/subtitles?tmdb_id=278&language=en,fr" \
 `release` is the name of the torrent the subtitle belongs to, and `uploader` is `Anonymous` for anonymous uploads. For episodes, `type` is `episode`, `tmdb_id` is the TMDB
 TV show ID, and `season`, `episode` and `pack` describe the torrent: a single episode has a `season` and an `episode`,
 a season pack has `pack: "season"` and no `episode`, and a complete series pack has `pack: "series"` and neither.
+
+When `file_size` or `file_name` is given, `release_match` tells whether the subtitle's torrent contains a file of
+that exact size (`file_size`) or name (`file_name`, compared case-insensitively, including files inside folders of
+multi-file torrents); a key is `null` when that value was not given. A match means the subtitle was uploaded for the
+exact release of the client's video, so it is very likely to be in sync. Bazarr sends both by default, which can be
+turned off in its provider settings.
 
 #### Example Episode Request
 

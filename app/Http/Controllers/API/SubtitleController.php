@@ -141,6 +141,17 @@ class SubtitleController extends BaseController
                 'string',
                 'regex:/^[a-z]{2}(,[a-z]{2}){0,49}$/i',
             ],
+            'file_size' => [
+                'nullable',
+                'integer',
+                'min:1',
+            ],
+            'file_name' => [
+                'nullable',
+                'string',
+                'max:255',
+                'not_regex:/[\/\\\\]/',
+            ],
             'perPage' => [
                 'nullable',
                 'integer',
@@ -161,7 +172,13 @@ class SubtitleController extends BaseController
         )) ?: ['title'];
 
         foreach ($strategies as $matchedBy) {
-            $subtitles = $this->search($this->mediaConstraint($matchedBy, $validated, $isEpisode), $languages, $perPage);
+            $subtitles = $this->search(
+                $this->mediaConstraint($matchedBy, $validated, $isEpisode),
+                $languages,
+                $perPage,
+                isset($validated['file_size']) ? (int) $validated['file_size'] : null,
+                isset($validated['file_name']) ? (string) $validated['file_name'] : null,
+            );
 
             if ($subtitles->total() > 0) {
                 break;
@@ -239,17 +256,30 @@ class SubtitleController extends BaseController
     /**
      * Paginate approved subtitles of the approved torrents matching the constraint.
      *
+     * When a file size or name is given, each torrent also reports whether it
+     * contains a file of that exact size or name (the exact release).
+     *
      * @param  Closure(Builder<Torrent>): void                            $torrentConstraint
      * @param  list<string>                                               $languages
      * @return \Illuminate\Pagination\LengthAwarePaginator<int, Subtitle>
      */
-    private function search(Closure $torrentConstraint, array $languages, int $perPage): \Illuminate\Pagination\LengthAwarePaginator
+    private function search(Closure $torrentConstraint, array $languages, int $perPage, ?int $fileSize, ?string $fileName): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Subtitle::query()
             ->with([
                 'language:id,name,code',
                 'user:id,username',
-                'torrent:id,name,tmdb_movie_id,tmdb_tv_id,imdb,tvdb,season_number,episode_number',
+                'torrent' => fn ($query) => $query
+                    ->select(['id', 'name', 'tmdb_movie_id', 'tmdb_tv_id', 'imdb', 'tvdb', 'season_number', 'episode_number'])
+                    ->when($fileSize !== null, fn (Builder $query) => $query->withExists([
+                        'files as file_size_match' => fn (Builder $query) => $query->where('size', '=', $fileSize),
+                    ]))
+                    ->when($fileName !== null, fn (Builder $query) => $query->withExists([
+                        // Multi-file torrents store the path of the file inside the torrent
+                        'files as file_name_match' => fn (Builder $query) => $query->where(fn (Builder $query) => $query
+                            ->where('name', '=', $fileName)
+                            ->orWhere('name', 'like', '%/'.addcslashes((string) $fileName, '%_\\'))),
+                    ])),
             ])
             ->whereIn('torrent_id', Torrent::query()->select('id')->where($torrentConstraint))
             ->when($languages !== [], fn (Builder $query) => $query->whereIn(

@@ -36,6 +36,9 @@ class SubtitleResource extends JsonResource
      * a null episode and their pack type in `pack`. Anonymous uploaders are
      * returned as `Anonymous`, like in the torrent API.
      *
+     * `release_match` is only set when the search was given a file size or
+     * name, and tells whether the torrent contains a file of that size or name.
+     *
      * @param  Request              $request
      * @return array<string, mixed>
      */
@@ -51,6 +54,13 @@ class SubtitleResource extends JsonResource
             $season === 0                 => 'series',
             default                       => 'season',
         };
+        $attributes = $torrent->getAttributes();
+        $releaseMatch = \array_key_exists('file_size_match', $attributes) || \array_key_exists('file_name_match', $attributes)
+            ? [
+                'file_size' => isset($attributes['file_size_match']) ? (bool) $attributes['file_size_match'] : null,
+                'file_name' => isset($attributes['file_name_match']) ? (bool) $attributes['file_name_match'] : null,
+            ]
+            : null;
 
         return [
             'id'               => $this->id,
@@ -72,6 +82,7 @@ class SubtitleResource extends JsonResource
             'tmdb_id'          => ($isEpisode ? $torrent->tmdb_tv_id : $torrent->tmdb_movie_id) ?: null,
             'tvdb_id'          => $isEpisode ? ($torrent->tvdb ?: null) : null,
             'imdb_id'          => $torrent->imdb ? \sprintf('tt%07d', $torrent->imdb) : null,
+            'release_match'    => $releaseMatch,
             'created_at'       => $this->created_at?->toIso8601String(),
             'download_url'     => route('api.subtitles.download', ['id' => $this->id], false),
         ];
