@@ -31,7 +31,7 @@ return [
     'description' => 'Açıklama',
     'dont-have-bps' => 'Yeterli bonusunuz yok',
     'edit-request' => 'İsteği düzenle',
-    'enter-bp' => 'Bonus puanları girin (minimum 100)',
+    'enter-bp' => 'Bonus puanları girin (en az :min)',
     'enter-hash' => 'Yüklenen torrentin ID\'sini girin',
     'fill' => 'Doldur',
     'fill-request' => 'Bu isteği doldur',

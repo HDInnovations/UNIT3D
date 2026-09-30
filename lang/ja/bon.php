@@ -35,7 +35,7 @@ return [
     'per-month' => '1ヶ月あたりのポイント',
     'per-second' => '1秒あたりのポイント',
     'per-week' => '1週間あたりの得点',
-    'per-year' => '年間ポイント',
+    'per-year' => '1年間あたりのポイント',
     'points' => 'ポイント',
     'receiver' => '受信機',
     'review-seeds' => 'すべてのシード急流の見直し',

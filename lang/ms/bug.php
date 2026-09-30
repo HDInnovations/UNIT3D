@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'bug-report' => 'Laporan bug',
-    'bug-report-description' => 'Laporkan bug tapak',
+    'bug-report-description' => 'Laporkan bug tracker ini',
     'enter-description' => 'Terangkan masalah sebaik mungkin',
     'enter-email' => 'Sila masukkan e-mel anda',
     'enter-title' => 'Sila pilih tajuk yang betul',

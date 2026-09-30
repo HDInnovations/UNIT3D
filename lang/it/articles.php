@@ -11,8 +11,8 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'articles' => 'articoli',
+    'articles' => 'Articoli',
     'meta-articles' => 'Articoli e notizie sul tracker e sulla community',
-    'published-at' => 'Pubblicato su',
+    'published-at' => 'Pubblicato su ',
     'read-more' => 'Leggi di più',
 ];

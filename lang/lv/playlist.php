@@ -1,0 +1,23 @@
+<?php
+return [
+    'attached-success' => 'Torrents veiksmīgi pievienots jūsu atskaņošanas sarakstam.',
+    'add-to-playlist' => 'Pievienot torrentu atskaņošanas sarakstam',
+    'add-torrent' => 'Pievienot torrentu',
+    'cover' => 'Atlasiet vāka attēlu',
+    'create' => 'Izveidot jaunu atskaņošanas sarakstu',
+    'delete-playlist' => 'Dzēst atskaņošanas sarakstu',
+    'deleted' => 'Atskaņošanas saraksts izdzēsts!',
+    'detached-success' => 'Torrents veiksmīgi noņemts no jūsu atskaņošanas saraksta.',
+    'desc' => 'Atskaņošanas saraksta apraksts',
+    'download-all' => 'Lejupielādēt visus atskaņošanas saraksta torrentus',
+    'edit-playlist' => 'Rediģēt atskaņošanas sarakstu',
+    'list-by' => 'Sarakstu izveidoja:',
+    'playlists' => 'Atskaņošanas saraksti',
+    'private-error' => 'Šis ir privāts atskaņošanas saraksts! Jums nav piekļuves citu lietotāju privātajiem atskaņošanas sarakstiem!',
+    'published-success' => 'Jūsu atskaņošanas saraksts veiksmīgi izveidots!',
+    'suggest-torrent' => 'Ieteikt torrentu',
+    'suggestion-review' => 'Jūsu ieteikums nosūtīts atskaņošanas saraksta veidotājam pārskatīšanai',
+    'suggestion-approved' => 'Atskaņošanas saraksta ieteikums apstiprināts',
+    'suggestion-rejected' => 'Atskaņošanas saraksta ieteikums noraidīts',
+    'update-success' => 'Jūsu atskaņošanas saraksts veiksmīgi atjaunināts!',
+];

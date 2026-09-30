@@ -13,7 +13,7 @@ return [
  */
     'assign' => 'Asignar',
     'assigned-staff' => 'Staff asignado',
-    'assigned-success' => '¡El Ticket del servicio de ayuda fue asignado con éxito!',
+    'assigned-success' => '¡El ticket de asistencia técnica se ha asignado correctamente!',
     'attachment-limit' => '(máx. 1MB por imagen)',
     'attachments' => 'Adjuntos',
     'attachments-save' => 'Guardar Adjuntos',

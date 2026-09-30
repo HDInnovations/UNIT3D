@@ -34,7 +34,7 @@ return [
     'titles' => 'Titel',
     'update-success' => 'Deine Playlist wurde erfolgreich aktualisiert!',
     'playlist-suggestions' => 'Playlist Vorschläge',
-    'playlist-suggestion-rejections' => 'Abgelehnte Playlist Vorschläge',
+    'playlist-suggestion-rejections' => 'Abgelehnte Playlistvorschläge',
     'suggest-torrent' => 'Torrent vorschlagen',
     'suggestion-review' => 'Dein Vorschlag wurde zur Prüfung an den Playlistersteller geschickt',
     'suggestion-approved' => 'Playlist Vorschlag angenommen',
