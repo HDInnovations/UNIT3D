@@ -29,10 +29,11 @@ Both **movies** and **TV episodes** are supported.
 1. In Bazarr, go to **Settings → Providers**, add the **UNIT3D** provider and fill in:
     - **UNIT3D URL**: the address of the tracker, e.g. `https://tracker.example.com` (a trailing slash is fine).
     - **API Key**: the API key of the UNIT3D account Bazarr should use.
-2. Click **Test Connection**. It shows the UNIT3D version on success, or the reason of the failure (invalid or
-   expired API key, API key without the Search or Download permission, denied access, unreachable server, a UNIT3D
-   version without the subtitle API, server error).
-3. Save. UNIT3D can be ordered among the other providers like any other provider.
+    - **Match the exact release** (on by default): sends the video's file name and size so the subtitles of its exact
+      release are preferred.
+2. Save. UNIT3D can be ordered among the other providers like any other provider. If the URL or API key is wrong,
+   Bazarr reports the error (invalid or expired API key, API key without the Search or Download permission,
+   unreachable server, a UNIT3D version without the subtitle API) in its provider status and logs.
 
 Bazarr only sees the subtitles that UNIT3D allows the configured account to access.
 
