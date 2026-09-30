@@ -23,7 +23,7 @@ return [
     */
     'password' => 'Parolanız en az altı karakter olmalı ve doğrulama ile eşleşmelidir.',
     'reset' => 'Parolanız sıfırlandı!',
-    'sent' => 'Teşekkürler! Eğer bu eposta adresi bir hesapla eşleşiyorsa, parola sıfırlama bağlantısı gönderilecektir.',
+    'sent' => 'Başarılı: Eğer bu eposta adresi bir hesapla eşleşiyorsa, parola sıfırlama bağlantısı gönderilecektir.',
     'token' => 'Bu parola sıfırlama tokeni geçersiz.',
     'user' => 'Bu e-posta adresi ile kayıtlı bir kullanıcı bulunmuyor.',
 ];

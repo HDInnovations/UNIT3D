@@ -202,4 +202,5 @@ return [
     'view-more' => 'Vaata veel',
     'view-trailer' => 'Vaata haagist',
     'votes' => 'Hääled',
+    'add-to-playlist' => 'Lisa esitlusloendisse',
 ];

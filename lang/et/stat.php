@@ -47,4 +47,6 @@ return [
     'total-upload' => 'Üleslaadimine kokku',
     'users-in-group' => 'Kasutajad grupis',
     'users-per-group' => 'Kasutajad grupi kohta',
+    'active' => 'Aktiivne',
+    'all' => 'Kõik',
 ];

@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'articles' => 'Articles',
-    'meta-articles' => 'Articles i notícies sobre el seguidor i la comunitat',
-    'published-at' => 'Publicat el',
-    'read-more' => 'Llegeix més',
+    'meta-articles' => 'Articles i notícies sobre el tracker i la comunitat',
+    'published-at' => 'Publicat el ',
+    'read-more' => 'Llegeix-ne més',
 ];

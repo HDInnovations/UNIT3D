@@ -11,7 +11,7 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'articles' => 'Новини',
+    'articles' => 'Статті',
     'meta-articles' => 'Статті та новини на трекері та в спільноті',
     'published-at' => 'Дата публікації ',
     'read-more' => 'Докладніше',

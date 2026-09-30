@@ -15,7 +15,7 @@ return [
     'bot' => 'Bot',
     'bots' => 'Bot',
     'color' => 'Warna',
-    'command' => '"Command"',
+    'command' => 'Arahan',
     'edit-bot' => 'Edit Bot',
     'emoji-code' => 'Kod Emoji',
     'help' => 'Bantuan',

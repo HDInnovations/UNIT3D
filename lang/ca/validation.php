@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,8 +11,6 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -24,111 +21,111 @@ return [
     | as the size rules. Feel free to tweak each of these messages.
     |
     */
-
-    'accepted'        => ':attribute ha de ser acceptat.',
-    'active_url'      => ':attribute no és un URL vàlid.',
-    'after'           => ':attribute ha de ser una data posterior a :date.',
-    'after_or_equal'  => ':attribute ha de ser una data posterior o igual a :date.',
-    'alpha'           => ':attribute només pot contenir lletres.',
-    'alpha_dash'      => ':attribute només pot contenir lletres, números i guions.',
-    'alpha_num'       => ':attribute només pot contenir lletres i números.',
-    'array'           => ':attribute ha de ser una matriu.',
-    'before'          => ':attribute ha de ser una data anterior a :date.',
-    'before_or_equal' => ':attribute ha de ser una data anterior o igual a :date.',
-    'between'         => [
-        'numeric' => ":attribute ha d'estar entre :min - :max.",
-        'file'    => ':attribute ha de pesar entre :min - :max kilobytes.',
-        'string'  => ':attribute ha de tenir entre :min - :max caràcters.',
-        'array'   => ':attribute ha de tenir entre :min - :max ítems.',
+    'accepted' => 'El camp :attribute s\'ha d\'acceptar.',
+    'active_url' => 'El camp :attribute no és un URL vàlid.',
+    'after' => 'El camp :attribute ha de ser una data posterior a :date.',
+    'after_or_equal' => 'El camp :attribute ha de ser una data posterior o igual a :date.',
+    'alpha' => 'El camp :attribute només pot contenir lletres.',
+    'alpha_dash' => 'El camp :attribute només pot contenir lletres, números, guions i guions baixos.',
+    'alpha_num' => 'El camp :attribute només pot contenir lletres i números.',
+    'array' => 'El camp :attribute ha de ser una matriu.',
+    'before' => 'El camp :attribute ha de ser una data anterior a :date.',
+    'before_or_equal' => 'El camp :attribute ha de ser una data anterior o igual a :date.',
+    'between' => [
+        'numeric' => "El camp :attribute ha d'estar entre :min i :max.",
+        'file' => 'El camp :attribute ha de tenir entre :min i :max kilobytes.',
+        'string' => 'El camp :attribute ha de tenir entre :min i :max caràcters.',
+        'array' => 'El camp :attribute ha de tenir entre :min i :max elements.',
     ],
-    'boolean'        => 'El camp :attribute ha de ser verdader o fals',
-    'confirmed'      => 'La confirmació de :attribute no coincideix.',
-    'date'           => ':attribute no és una data vàlida.',
-    'date_equals'    => 'The :attribute must be a date equal to :date.',
-    'date_format'    => 'El camp :attribute no concorda amb el format :format.',
-    'different'      => ':attribute i :other han de ser diferents.',
-    'digits'         => ':attribute ha de tenir :digits dígits.',
-    'digits_between' => ':attribute ha de tenir entre :min i :max dígits.',
-    'dimensions'     => 'Les dimensions de la imatge :attribute no són vàlides.',
-    'distinct'       => 'El camp :attribute té un valor duplicat.',
-    'email'          => ':attribute no és un e-mail vàlid',
-    'exists'         => ':attribute és invàlid.',
-    'file'           => 'El camp :attribute ha de ser un arxiu.',
-    'filled'         => 'El camp :attribute és obligatori.',
-    'gt'             => [
-        'numeric' => 'The :attribute must be greater than :value.',
-        'file'    => 'The :attribute must be greater than :value kilobytes.',
-        'string'  => 'The :attribute must be greater than :value characters.',
-        'array'   => 'The :attribute must have more than :value items.',
+    'boolean' => 'El camp :attribute ha de ser vertader o fals.',
+    'confirmed' => 'La confirmació del camp :attribute no coincideix.',
+    'date' => 'El camp :attribute no és una data vàlida.',
+    'date_equals' => 'El camp :attribute ha de ser una data igual a :date.',
+    'date_format' => 'El camp :attribute no coincideix amb el format :format.',
+    'different' => 'Els camps :attribute i :other han de ser diferents.',
+    'digits' => 'El camp :attribute ha de tenir :digits dígits.',
+    'digits_between' => 'El camp :attribute ha de tenir entre :min i :max dígits.',
+    'dimensions' => 'El camp :attribute té unes dimensions d\'imatge no vàlides.',
+    'distinct' => 'El camp :attribute té un valor duplicat.',
+    'email' => 'El camp :attribute ha de ser una adreça electrònica vàlida.',
+    'exists' => 'El valor seleccionat de :attribute no és vàlid.',
+    'file' => 'El camp :attribute ha de ser un fitxer.',
+    'filled' => 'El camp :attribute ha de tenir un valor.',
+    'gt' => [
+        'numeric' => 'El camp :attribute ha de ser més gran que :value.',
+        'file' => 'El camp :attribute ha de tenir més de :value kilobytes.',
+        'string' => 'El camp :attribute ha de tenir més de :value caràcters.',
+        'array' => 'El camp :attribute ha de tenir més de :value elements.',
     ],
     'gte' => [
-        'numeric' => 'The :attribute must be greater than or equal :value.',
-        'file'    => 'The :attribute must be greater than or equal :value kilobytes.',
-        'string'  => 'The :attribute must be greater than or equal :value characters.',
-        'array'   => 'The :attribute must have :value items or more.',
+        'numeric' => 'El camp :attribute ha de ser més gran o igual que :value.',
+        'file' => 'El camp :attribute ha de tenir :value kilobytes o més.',
+        'string' => 'El camp :attribute ha de tenir :value caràcters o més.',
+        'array' => 'El camp :attribute ha de tenir :value elements o més.',
     ],
-    'image'    => ':attribute ha de ser una imatge.',
-    'in'       => ':attribute és invàlid',
-    'in_array' => 'El camp :attribute no existeix dintre de :other.',
-    'integer'  => ':attribute ha de ser un nombre enter.',
-    'ip'       => ':attribute ha de ser una adreça IP vàlida.',
-    'ipv4'     => ':attribute ha de ser una adreça IPv4 vàlida.',
-    'ipv6'     => ':attribute ha de ser una adreça IPv6 vàlida.',
-    'json'     => 'El camp :attribute ha de ser una cadena JSON vàlida.',
-    'lt'       => [
-        'numeric' => 'The :attribute must be less than :value.',
-        'file'    => 'The :attribute must be less than :value kilobytes.',
-        'string'  => 'The :attribute must be less than :value characters.',
-        'array'   => 'The :attribute must have less than :value items.',
+    'image' => 'El camp :attribute ha de ser una imatge.',
+    'in' => 'El valor seleccionat de :attribute no és vàlid.',
+    'in_array' => 'El camp :attribute no existeix a :other.',
+    'integer' => 'El camp :attribute ha de ser un nombre enter.',
+    'ip' => 'El camp :attribute ha de ser una adreça IP vàlida.',
+    'ipv4' => 'El camp :attribute ha de ser una adreça IPv4 vàlida.',
+    'ipv6' => 'El camp :attribute ha de ser una adreça IPv6 vàlida.',
+    'json' => 'El camp :attribute ha de ser una cadena JSON vàlida.',
+    'lt' => [
+        'numeric' => 'El camp :attribute ha de ser més petit que :value.',
+        'file' => 'El camp :attribute ha de tenir menys de :value kilobytes.',
+        'string' => 'El camp :attribute ha de tenir menys de :value caràcters.',
+        'array' => 'El camp :attribute ha de tenir menys de :value elements.',
     ],
     'lte' => [
-        'numeric' => 'The :attribute must be less than or equal :value.',
-        'file'    => 'The :attribute must be less than or equal :value kilobytes.',
-        'string'  => 'The :attribute must be less than or equal :value characters.',
-        'array'   => 'The :attribute must not have more than :value items.',
+        'numeric' => 'El camp :attribute ha de ser més petit o igual que :value.',
+        'file' => 'El camp :attribute ha de tenir :value kilobytes o menys.',
+        'string' => 'El camp :attribute ha de tenir :value caràcters o menys.',
+        'array' => 'El camp :attribute no pot tenir més de :value elements.',
     ],
     'max' => [
-        'numeric' => ':attribute no pot ser més gran que :max.',
-        'file'    => ':attribute no pot ser més gran que :max kilobytes.',
-        'string'  => ':attribute no pot ser més gran que :max caràcters.',
-        'array'   => ':attribute no pot tenir més de :max ítems.',
+        'numeric' => 'El camp :attribute no pot ser més gran que :max.',
+        'file' => 'El camp :attribute no pot tenir més de :max kilobytes.',
+        'string' => 'El camp :attribute no pot tenir més de :max caràcters.',
+        'array' => 'El camp :attribute no pot tenir més de :max elements.',
     ],
-    'mimes'     => ':attribute ha de ser un arxiu amb format: :values.',
-    'mimetypes' => ':attribute ha de ser un arxiu amb format: :values.',
-    'min'       => [
-        'numeric' => "El tamany de :attribute ha de ser d'almenys :min.",
-        'file'    => "El tamany de :attribute ha de ser d'almenys :min kilobytes.",
-        'string'  => ':attribute ha de contenir almenys :min caràcters.',
-        'array'   => ':attribute ha de tenir almenys :min ítems.',
+    'mimes' => 'El camp :attribute ha de ser un fitxer de tipus: :values.',
+    'mimetypes' => 'El camp :attribute ha de ser un fitxer de tipus: :values.',
+    'min' => [
+        'numeric' => "El camp :attribute ha de ser com a mínim :min.",
+        'file' => "El camp :attribute ha de tenir com a mínim :min kilobytes.",
+        'string' => 'El camp :attribute ha de tenir com a mínim :min caràcters.',
+        'array' => 'El camp :attribute ha de tenir com a mínim :min elements.',
     ],
-    'not_in'               => ':attribute és invàlid.',
-    'not_regex'            => 'The :attribute format is invalid.',
-    'numeric'              => ':attribute ha de ser numèric.',
-    'present'              => 'El camp :attribute ha d\'existir.',
-    'regex'                => 'El format de :attribute és invàlid.',
-    'required'             => 'El camp :attribute és obligatori.',
-    'required_if'          => 'El camp :attribute és obligatori quan :other és :value.',
-    'required_unless'      => 'El camp :attribute és obligatori a no ser que :other sigui a :values.',
-    'required_with'        => 'El camp :attribute és obligatori quan hi ha :values.',
-    'required_with_all'    => 'El camp :attribute és obligatori quan hi ha :values.',
-    'required_without'     => 'El camp :attribute és obligatori quan no hi ha :values.',
-    'required_without_all' => 'El camp :attribute és obligatori quan no hi ha cap valor dels següents: :values.',
-    'same'                 => ':attribute i :other han de coincidir.',
-    'size'                 => [
-        'numeric' => 'El tamany de :attribute ha de ser :size.',
-        'file'    => 'El tamany de :attribute ha de ser :size kilobytes.',
-        'string'  => ':attribute ha de contenir :size caràcters.',
-        'array'   => ':attribute ha de contenir :size ítems.',
+    'not_in' => 'El valor seleccionat de :attribute no és vàlid.',
+    'not_regex' => 'El format del camp :attribute no és vàlid.',
+    'numeric' => 'El camp :attribute ha de ser un número.',
+    'present' => 'El camp :attribute ha d\'estar present.',
+    'regex' => 'El format del camp :attribute no és vàlid.',
+    'required' => 'El camp :attribute és obligatori.',
+    'required_if' => 'El camp :attribute és obligatori quan :other és :value.',
+    'required_unless' => 'El camp :attribute és obligatori tret que :other sigui a :values.',
+    'required_with' => 'El camp :attribute és obligatori quan :values és present.',
+    'required_with_all' => 'El camp :attribute és obligatori quan :values són presents.',
+    'required_without' => 'El camp :attribute és obligatori quan :values no és present.',
+    'required_without_all' => 'El camp :attribute és obligatori quan cap de :values és present.',
+    'same' => 'Els camps :attribute i :other han de coincidir.',
+    'size' => [
+        'numeric' => 'El camp :attribute ha de ser :size.',
+        'file' => 'El camp :attribute ha de tenir :size kilobytes.',
+        'string' => 'El camp :attribute ha de tenir :size caràcters.',
+        'array' => 'El camp :attribute ha de contenir :size elements.',
     ],
-    'starts_with' => 'The :attribute must start with one of the following: :values',
-    'string'      => 'El camp :attribute ha de ser una cadena.',
-    'timezone'    => 'El camp :attribute ha de ser una zona vàlida.',
-    'unique'      => ':attribute ja està registrat i no es pot repetir.',
-    'uploaded'    => ':attribute ha fallat al pujar.',
-    'url'         => ':attribute no és una adreça web vàlida.',
-    'uuid'        => 'The :attribute must be a valid UUID.',
-
-    /*
+    'starts_with' => 'El camp :attribute ha de començar amb un d\'aquests valors: :values.',
+    'string' => 'El camp :attribute ha de ser una cadena de text.',
+    'timezone' => 'El camp :attribute ha de ser una zona horària vàlida.',
+    'unique' => 'El valor de :attribute ja està en ús.',
+    'uploaded' => 'No s\'ha pogut pujar el fitxer :attribute.',
+    'url' => 'El camp :attribute ha de ser un URL vàlid.',
+    'uuid' => 'El camp :attribute ha de ser un UUID vàlid.',
+    'custom' => [
+        'attribute-name' => [
+            /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
     |--------------------------------------------------------------------------
@@ -138,14 +135,11 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
-    'custom' => [
-        'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
-
-    /*
+    'attributes' => [
+        /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
     |--------------------------------------------------------------------------
@@ -155,36 +149,55 @@ return [
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-
-    'attributes' => [
-        'name'                  => 'nom',
-        'username'              => 'usuari',
-        'email'                 => 'correu electrònic',
-        'first_name'            => 'nom',
-        'last_name'             => 'cognom',
-        'password'              => 'contrasenya',
+        'name' => 'nom',
+        'username' => 'usuari',
+        'email' => 'correu electrònic',
+        'first_name' => 'nom',
+        'last_name' => 'cognom',
+        'password' => 'contrasenya',
         'password_confirmation' => 'confirmació de la contrasenya',
-        'city'                  => 'ciutat',
-        'country'               => 'país',
-        'address'               => 'adreça',
-        'phone'                 => 'telèfon',
-        'mobile'                => 'mòbil',
-        'age'                   => 'edat',
-        'sex'                   => 'sexe',
-        'gender'                => 'gènere',
-        'year'                  => 'any',
-        'month'                 => 'mes',
-        'day'                   => 'dia',
-        'hour'                  => 'hora',
-        'minute'                => 'minut',
-        'second'                => 'segon',
-        'title'                 => 'títol',
-        'body'                  => 'contingut',
-        'description'           => 'descripció',
-        'excerpt'               => 'extracte',
-        'date'                  => 'data',
-        'time'                  => 'hora',
-        'subject'               => 'assumpte',
-        'message'               => 'missatge',
+        'city' => 'ciutat',
+        'country' => 'país',
+        'address' => 'adreça',
+        'phone' => 'telèfon',
+        'mobile' => 'mòbil',
+        'age' => 'edat',
+        'sex' => 'sexe',
+        'gender' => 'gènere',
+        'year' => 'any',
+        'month' => 'mes',
+        'day' => 'dia',
+        'hour' => 'hora',
+        'minute' => 'minut',
+        'second' => 'segon',
+        'title' => 'títol',
+        'body' => 'contingut',
+        'description' => 'descripció',
+        'excerpt' => 'extracte',
+        'date' => 'data',
+        'time' => 'hora',
+        'subject' => 'assumpte',
+        'message' => 'missatge',
     ],
+    'accepted_if' => 'El camp :attribute s\'ha d\'acceptar quan :other és :value.',
+    'current_password' => 'La contrasenya no és correcta.',
+    'declined' => 'El camp :attribute s\'ha de rebutjar.',
+    'declined_if' => 'El camp :attribute s\'ha de rebutjar quan :other és :value.',
+    'ends_with' => 'El camp :attribute ha d\'acabar amb un d\'aquests valors: :values.',
+    'enum' => 'El valor seleccionat de :attribute no és vàlid.',
+    'mac_address' => 'El camp :attribute ha de ser una adreça MAC vàlida.',
+    'multiple_of' => 'El camp :attribute ha de ser múltiple de :value.',
+    'password' => [
+        'letters' => 'El camp :attribute ha de contenir com a mínim una lletra.',
+        'mixed' => 'El camp :attribute ha de contenir com a mínim una lletra majúscula i una de minúscula.',
+        'numbers' => 'El camp :attribute ha de contenir com a mínim un número.',
+        'symbols' => 'El camp :attribute ha de contenir com a mínim un símbol.',
+        'uncompromised' => 'El valor indicat a :attribute ha aparegut en una filtració de dades. Tria un altre valor per a :attribute.',
+    ],
+    'prohibited_if' => 'El camp :attribute està prohibit quan :other és :value.',
+    'prohibited' => 'El camp :attribute està prohibit.',
+    'prohibited_unless' => 'El camp :attribute està prohibit tret que :other sigui a :values.',
+    'prohibits' => 'El camp :attribute impedeix que :other sigui present.',
+    'email_list' => 'Aquest domini de correu electrònic no es pot fer servir en aquest lloc. Consulta la llista blanca de correus electrònics del lloc.',
+    'recaptcha' => 'Completa el reCAPTCHA.',
 ];

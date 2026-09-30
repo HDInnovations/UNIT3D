@@ -11,8 +11,8 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'bug-report' => 'Buggrapport',
-    'bug-report-description' => 'Rapportera en webbplatsfel',
+    'bug-report' => 'Felrapport',
+    'bug-report-description' => 'Rapportera ett fel på webbplatsen',
     'enter-description' => 'Beskriv problemet så bra som möjligt',
     'enter-email' => 'Vänligen ange ditt e-postmeddelande',
     'enter-title' => 'Vänligen välj en riktig titel',
@@ -21,5 +21,5 @@ return [
     'low' => 'Låg',
     'priority' => 'Prioritet',
     'priority-description' => 'Välj bara mycket högt om felet verkligen är ett problem för att använda webbplatsen.',
-    'very-high' => 'Väldigt högt',
+    'very-high' => 'Mycket hög',
 ];

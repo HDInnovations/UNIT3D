@@ -21,7 +21,7 @@ return [
     'closed' => 'Tutup',
     'create-new-topic' => 'Buat Topik Baru',
     'created' => 'Dibuat',
-    'current' => 'Arus',
+    'current' => 'Saat ini',
     'delete-topic' => 'Hapus Topik Ini',
     'denied' => 'Ditolak',
     'dislike-post' => 'Tidak Suka Posting Ini',

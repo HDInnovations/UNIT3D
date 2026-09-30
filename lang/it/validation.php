@@ -34,7 +34,7 @@ return [
     'between' => [
         'numeric' => ':attribute deve trovarsi tra :min - :max.',
         'file' => ':attribute deve trovarsi tra :min - :max kilobyte.',
-        'string' => ':attribute di :min - :max caratteri',
+        'string' => ':attribute deve essere compreso tra :min e :max caratteri.',
         'array' => ':attribute deve avere tra :min - :max elementi.',
     ],
     'boolean' => 'Il campo :attribute deve essere vero o falso.',
@@ -75,7 +75,7 @@ return [
         'numeric' => ':attribute deve essere minore di :value.',
         'file' => ':attribute deve essere minore di :value kilobyte.',
         'string' => ':attribute deve contenere meno di :value caratteri.',
-        'array' => ':attribute deve contenere meno di :value elementi.',
+        'array' => ':attribute deve avere meno di :value elementi.',
     ],
     'lte' => [
         'numeric' => ':attribute deve essere minore o uguale a :value.',
@@ -116,10 +116,10 @@ return [
         'string' => ':attribute deve contenere :size caratteri.',
         'array' => ':attribute deve contenere :size elementi.',
     ],
-    'starts_with' => ':attribute deve iniziare con uno dei seguenti: :values',
+    'starts_with' => ':attribute deve iniziare con uno dei seguenti: :values.',
     'string' => ':attribute deve essere una stringa.',
     'timezone' => ':attribute deve essere una zona valida.',
-    'unique' => ':attribute già utilizzato',
+    'unique' => ':attribute già utilizzato.',
     'uploaded' => ':attribute non è stato caricato.',
     'url' => 'Il formato del campo :attribute non è valido.',
     'uuid' => ':attribute deve essere un UUID valido.',
@@ -135,7 +135,7 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-            'rule-name' => 'custom-message',
+            'rule-name' => 'messaggio-personalizzato',
         ],
     ],
     'attributes' => [
@@ -182,7 +182,7 @@ return [
     'declined' => ':attribute deve essere rifiutato.',
     'declined_if' => ':attribute deve essere rifiutato quando :other è :value.',
     'ends_with' => ':attribute deve terminare con uno dei seguenti: :values.',
-    'enum' => ':attribute selezionato non è valido',
+    'enum' => ':attribute selezionato non è valido.',
     'mac_address' => ':attribute deve essere un indirizzo MAC valido.',
     'multiple_of' => ':attribute deve essere un multiplo di :value.',
     'password' => [
@@ -197,4 +197,5 @@ return [
     'prohibited_unless' => 'Il campo :attribute è proibito a meno che :other non sia in :values.',
     'prohibits' => 'Il campo :attribute impedisce la presenza di :other.',
     'recaptcha' => 'Si prega di compilare il ReCaptcha.',
+    'email_list' => 'Spiacenti, questo dominio email non è ammesso su questo sito. Si prega di consultare la whitelist email.',
 ];

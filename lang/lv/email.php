@@ -16,7 +16,7 @@ return [
     'banned-footer' => 'Tas, ko jūs saņemat, lai neievērotu noteikumus',
     'banned-header' => 'Jūs esat aizliegts',
     'bug-description' => 'Problēma',
-    'bug-footer' => 'Fix šo sūdi',
+    'bug-footer' => 'Salabo šo sūdu!',
     'bug-header' => 'Jauns kļūdas ziņojums no',
     'bug-priority' => 'Prioritāte',
     'bug-title' => 'Kļūdas nosaukums',
