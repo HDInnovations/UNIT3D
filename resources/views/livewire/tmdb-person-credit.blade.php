@@ -9,7 +9,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::CREATOR->value }}"
             x-show="{{ $createdCount }} > 0"
         >
-            Creator ({{ $createdCount }})
+            {{ __('livewire-interface.occupation-creator', ['count' => $createdCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -19,7 +19,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::DIRECTOR->value }}"
             x-show="{{ $directedCount }} > 0"
         >
-            Director ({{ $directedCount }})
+            {{ __('livewire-interface.occupation-director', ['count' => $directedCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -29,7 +29,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::WRITER->value }}"
             x-show="{{ $writtenCount }} > 0"
         >
-            Writer ({{ $writtenCount }})
+            {{ __('livewire-interface.occupation-writer', ['count' => $writtenCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -39,7 +39,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::PRODUCER->value }}"
             x-show="{{ $producedCount }} > 0"
         >
-            Producer ({{ $producedCount }})
+            {{ __('livewire-interface.occupation-producer', ['count' => $producedCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -49,7 +49,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::COMPOSER->value }}"
             x-show="{{ $composedCount }} > 0"
         >
-            Composer ({{ $composedCount }})
+            {{ __('livewire-interface.occupation-composer', ['count' => $composedCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -59,7 +59,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::CINEMATOGRAPHER->value }}"
             x-show="{{ $cinematographedCount }} > 0"
         >
-            Cinematographer ({{ $cinematographedCount }})
+            {{ __('livewire-interface.occupation-cinematographer', ['count' => $cinematographedCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -69,7 +69,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::EDITOR->value }}"
             x-show="{{ $editedCount }} > 0"
         >
-            Editor ({{ $editedCount }})
+            {{ __('livewire-interface.occupation-editor', ['count' => $editedCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -79,7 +79,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::PRODUCTION_DESIGNER->value }}"
             x-show="{{ $productionDesignedCount }} > 0"
         >
-            Production designer ({{ $productionDesignedCount }})
+            {{ __('livewire-interface.occupation-production-designer', ['count' => $productionDesignedCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -89,7 +89,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::ART_DIRECTOR->value }}"
             x-show="{{ $artDirectedCount }} > 0"
         >
-            Art director ({{ $artDirectedCount }})
+            {{ __('livewire-interface.occupation-art-director', ['count' => $artDirectedCount]) }}
         </li>
         <li
             class="panel__tab"
@@ -99,7 +99,7 @@
             x-on:click="tab = {{ App\Enums\Occupation::ACTOR->value }}"
             x-show="{{ $actedCount }} > 0"
         >
-            Actor ({{ $actedCount }})
+            {{ __('livewire-interface.occupation-actor', ['count' => $actedCount]) }}
         </li>
     </menu>
     <div class="panel__body">
@@ -115,7 +115,7 @@
                     @break
             @endswitch
         @empty
-            No media
+            {{ __('common.no-result') }}
         @endforelse
     </div>
 </section>

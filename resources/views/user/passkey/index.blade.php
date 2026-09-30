@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ $user->username }} - {{ __('user.security') }} - {{ __('common.members') }} -
         {{ config('other.title') }}
     </title>
 @endsection
@@ -62,7 +62,7 @@
                                     datetime="{{ $passkey->deleted_at }}"
                                     title="{{ $passkey->deleted_at }}"
                                 >
-                                    {{ $passkey->deleted_at ?? 'Currently in use' }}
+                                    {{ $passkey->deleted_at ?? __('member-interface.settings.currently-in-use') }}
                                 </time>
                             </td>
                             <td>
@@ -81,7 +81,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No passkey history</td>
+                            <td colspan="4">{{ __('member-interface.settings.no-passkey-history') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -104,7 +104,7 @@
                 <p>{{ __('user.reset-passkey-help') }}.</p>
                 <p class="form__group--horizontal">
                     <button class="form__button form__button--filled form__button--centered">
-                        Reset
+                        {{ __('request.reset') }}
                     </button>
                 </p>
             </form>

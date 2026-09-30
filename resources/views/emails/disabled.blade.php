@@ -1,7 +1,8 @@
 @component('mail::message')
 # {{ __('email.disabled-header') }}!
-Your account has been flagged as inactive and placed within the disabled group. In order to keep your account you MUST
-log in within {{ config('pruning.soft_delete') }} days of receiving this email. Failure to do so will result in your account
-being permanently pruned from use on {{ config('other.title') }}! To avoid this in the future please log in at least one time
-every {{ config('pruning.last_login') }} days.
+{{ __('application-messages.mail.disabled-body', [
+    'softDelete' => config('pruning.soft_delete'),
+    'site'       => config('other.title'),
+    'lastLogin'  => config('pruning.last_login'),
+]) }}
 @endcomponent

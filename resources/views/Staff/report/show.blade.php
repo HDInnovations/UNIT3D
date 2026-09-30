@@ -1,11 +1,17 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    <title>Reports - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('staff.reports-log') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Reports - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('staff.reports-log') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -19,7 +25,7 @@
             {{ __('staff.reports-log') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.report') }} details</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.report-details') }}</li>
 @endsection
 
 @section('page', 'page__staff-report--show')
@@ -55,7 +61,7 @@
     </section>
     @if (count($urls) > 0)
         <section class="panelV2">
-            <h2 class="panel__heading">Referenced links:</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.referenced-links') }}:</h2>
             <div class="panel__body">
                 <ul style="margin: 0; padding-left: 20px">
                     @foreach ($urls as $url)
@@ -70,12 +76,12 @@
 
     @if ($report->solved)
         <section class="panelV2">
-            <h2 class="panel__heading">Verdict</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.verdict') }}</h2>
             {{-- format-ignore-start --}}<div class="panel__body" style="white-space: pre-wrap">{{ $report->verdict }}</div>{{-- format-ignore-end --}}
         </section>
     @else
         <section class="panelV2">
-            <h2 class="panel__heading">Resolve {{ __('common.report') }}</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.resolve-report') }}</h2>
             <div class="panel__body">
                 <form
                     class="form"
@@ -84,7 +90,7 @@
                 >
                     @csrf
                     @method('PATCH')
-                    @livewire('bbcode-input', ['name' => 'verdict', 'label' => 'Verdict', 'required' => true])
+                    @livewire('bbcode-input', ['name' => 'verdict', 'label' => __('staff-interface.verdict'), 'required' => true])
                     <p class="form__group">
                         <button class="form__button form__button--filled">
                             {{ __('common.submit') }}
@@ -110,7 +116,7 @@
             </div>
             <div class="key-value__group">
                 <dt>{{ __('common.created_at') }}</dt>
-                <dd>{{ $report->created_at->format('Y-m-d') }}</dd>
+                <dd>{{ $report->created_at->toDisplayTimezone()->format('Y-m-d') }}</dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('common.reporter') }}</dt>
@@ -119,14 +125,14 @@
                 </dd>
             </div>
             <div class="key-value__group">
-                <dt>Reported</dt>
+                <dt>{{ __('vltava.torrent.reported') }}</dt>
                 <dd>
                     <x-user-tag :anon="false" :user="$report->reported" />
                 </dd>
             </div>
             @if ($report->solved_by !== null)
                 <div class="key-value__group">
-                    <dt>Solved by</dt>
+                    <dt>{{ __('staff-interface.solved-by') }}</dt>
                     <dd>
                         <x-user-tag :anon="false" :user="$report->judge" />
                     </dd>
@@ -138,7 +144,7 @@
                             datetime="{{ $report->solved_at }}"
                             title="{{ $report->solved_at }}"
                         >
-                            {{ $report->solved_at?->format('Y-m-d') }}
+                            {{ $report->solved_at?->toDisplayTimezone()->format('Y-m-d') }}
                         </time>
                     </dd>
                 </div>
@@ -195,11 +201,11 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Snooze</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.snooze') }}</h2>
         @if ($report->snoozed_until !== null)
             <dl class="key-value">
                 <div class="key-value__group">
-                    <dt>Snoozed until</dt>
+                    <dt>{{ __('staff-interface.snoozed-until') }}</dt>
                     <dd>{{ $report->snoozed_until }}</dd>
                 </div>
             </dl>
@@ -226,7 +232,7 @@
                             type="text"
                         />
                         <label for="snoozed_days" class="form__label form__label--floating">
-                            Custom days
+                            {{ __('staff-interface.custom-days') }}
                         </label>
                     </p>
                     <div class="form__group--short-horizontal">
@@ -236,7 +242,7 @@
                                 value="{{ now()->addDays(1) }}"
                                 class="form__button form__button--outlined form__button--centered"
                             >
-                                1 day
+                                {{ __('staff-interface.snooze-1-day') }}
                             </button>
                         </p>
                         <p class="form__group form__group--short-horizontal">
@@ -245,7 +251,7 @@
                                 value="{{ now()->addDays(3) }}"
                                 class="form__button form__button--outlined form__button--centered"
                             >
-                                3 days
+                                {{ __('staff-interface.snooze-3-days') }}
                             </button>
                         </p>
                         <p class="form__group form__group--short-horizontal">
@@ -254,7 +260,7 @@
                                 value="{{ now()->addDays(7) }}"
                                 class="form__button form__button--outlined form__button--centered"
                             >
-                                1 week
+                                {{ __('staff-interface.snooze-1-week') }}
                             </button>
                         </p>
                         <p class="form__group form__group--short-horizontal">
@@ -263,7 +269,7 @@
                                 value="{{ now()->addDays(14) }}"
                                 class="form__button form__button--outlined form__button--centered"
                             >
-                                2 weeks
+                                {{ __('staff-interface.snooze-2-weeks') }}
                             </button>
                         </p>
                         <p class="form__group form__group--short-horizontal">
@@ -272,7 +278,7 @@
                                 value="{{ now()->addDays(28) }}"
                                 class="form__button form__button--outlined form__button--centered"
                             >
-                                4 weeks
+                                {{ __('staff-interface.snooze-4-weeks') }}
                             </button>
                         </p>
                         <p class="form__group form__group--short-horizontal">
@@ -281,7 +287,7 @@
                                 value="{{ now()->addDays(56) }}"
                                 class="form__button form__button--outlined form__button--centered"
                             >
-                                8 weeks
+                                {{ __('staff-interface.snooze-8-weeks') }}
                             </button>
                         </p>
                     </div>
@@ -298,7 +304,7 @@
                     <p class="form__group form__group--horizontal">
                         <button class="form__button form__button--centered form__button--filled">
                             <i class="{{ config('other.font-awesome') }} fa-clock"></i>
-                            Unsnooze
+                            {{ __('staff-interface.unsnooze') }}
                         </button>
                     </p>
                 </form>

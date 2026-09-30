@@ -10,7 +10,7 @@
 @section('meta')
     <meta
         name="description"
-        content="User {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }}"
+        content="{{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
@@ -75,7 +75,7 @@
                         value="{{ $user->uploaded }}"
                     />
                     <label class="form__label form__label--floating" for="uploaded">
-                        {{ __('user.total-upload') }} (Bytes)
+                        {{ __('user.total-upload') }} ({{ __('staff-interface.bytes') }})
                     </label>
                 </p>
                 <p class="form__group">
@@ -91,7 +91,7 @@
                         value="{{ $user->downloaded }}"
                     />
                     <label class="form__label form__label--floating" for="downloaded">
-                        {{ __('user.total-download') }} (Bytes)
+                        {{ __('user.total-download') }} ({{ __('staff-interface.bytes') }})
                     </label>
                 </p>
                 <p class="form__group">
@@ -111,7 +111,7 @@
                 <p class="form__group">
                     <select id="group_id" class="form__select" name="group_id">
                         <option class="form__option" value="{{ $user->group->id }}">
-                            {{ $user->group->name }} (Default)
+                            {{ $user->group->name }} ({{ __('staff-interface.default-suffix') }})
                         </option>
                         @foreach ($groups as $group)
                             <option class="form__option" value="{{ $group->id }}">
@@ -208,7 +208,9 @@
                         x-bind:checked="override_can_chat"
                         x-model="override_can_chat"
                     />
-                    <label for="override_can_chat">Override group can chat</label>
+                    <label for="override_can_chat">
+                        {{ __('staff-interface.override-group-can-chat') }}
+                    </label>
                 </p>
                 <div class="form__group" x-show="override_can_chat" x-cloak>
                     <fieldset class="form__fieldset">
@@ -226,7 +228,7 @@
                             x-bind:checked="override_can_chat && $el.checked"
                             @checked($user->can_chat)
                         />
-                        <label for="can_chat">{{ __('user.can-comment') }}?</label>
+                        <label for="can_chat">{{ __('user.can-chat') }}?</label>
                     </fieldset>
                 </div>
                 <p class="form__group">
@@ -238,7 +240,9 @@
                         x-bind:checked="override_can_comment"
                         x-model="override_can_comment"
                     />
-                    <label for="override_can_comment">Override group can comment</label>
+                    <label for="override_can_comment">
+                        {{ __('staff-interface.override-group-can-comment') }}
+                    </label>
                 </p>
                 <div class="form__group" x-show="override_can_comment" x-cloak>
                     <fieldset class="form__fieldset">
@@ -267,7 +271,9 @@
                         x-bind:checked="override_can_invite"
                         x-model="override_can_invite"
                     />
-                    <label for="override_can_invite">Override group can invite</label>
+                    <label for="override_can_invite">
+                        {{ __('staff-interface.override-group-can-invite') }}
+                    </label>
                 </p>
                 <div class="form__group" x-show="override_can_invite" x-cloak>
                     <fieldset class="form__fieldset">
@@ -296,7 +302,9 @@
                         x-bind:checked="override_can_request"
                         x-model="override_can_request"
                     />
-                    <label for="override_can_request">Override group can request</label>
+                    <label for="override_can_request">
+                        {{ __('staff-interface.override-group-can-request') }}
+                    </label>
                 </p>
                 <div class="form__group" x-show="override_can_request" x-cloak>
                     <fieldset class="form__fieldset">
@@ -325,7 +333,9 @@
                         x-bind:checked="override_can_upload"
                         x-model="override_can_upload"
                     />
-                    <label for="override_can_upload">Override group can upload</label>
+                    <label for="override_can_upload">
+                        {{ __('staff-interface.override-group-can-upload') }}
+                    </label>
                 </p>
                 <div class="form__group" x-show="override_can_upload" x-cloak>
                     <fieldset class="form__fieldset">
@@ -356,7 +366,7 @@
                         value="1"
                         @checked($user->is_donor)
                     />
-                    <label for="is_donor">Active donor?</label>
+                    <label for="is_donor">{{ __('staff-interface.active-donor') }}?</label>
                 </p>
                 <p class="form__group">
                     <input type="hidden" name="is_lifetime" value="0" />
@@ -368,7 +378,7 @@
                         value="1"
                         @checked($user->is_lifetime)
                     />
-                    <label for="is_donor">Lifetime donor?</label>
+                    <label for="is_donor">{{ __('staff-interface.lifetime-donor') }}?</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

@@ -73,7 +73,7 @@
                         @empty
                             <tr>
                                 <td colspan="{{ 3 + (int) auth()->id() === $user->id }}">
-                                    Not following
+                                    {{ __('member-interface.account.not-following') }}
                                 </td>
                             </tr>
                         @endforelse

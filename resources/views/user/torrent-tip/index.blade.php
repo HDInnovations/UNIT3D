@@ -45,14 +45,14 @@
                         <tr>
                             <td>
                                 @if ($tip->sender === null)
-                                    Deleted user
+                                    {{ __('member-interface.account.deleted-user') }}
                                 @else
                                     <x-user-tag :user="$tip->sender" :anon="false" />
                                 @endif
                             </td>
                             <td>
                                 @if ($tip->torrent === null)
-                                    Torrent deleted
+                                    {{ __('member-interface.account.torrent-deleted') }}
                                 @else
                                     <x-user-tag
                                         :user="$tip->recipient"
@@ -63,7 +63,7 @@
                             <td>{{ $tip->bon }}</td>
                             <td>
                                 @if ($tip->torrent === null)
-                                    Torrent deleted
+                                    {{ __('member-interface.account.torrent-deleted') }}
                                 @else
                                     <a
                                         href="{{ route('torrents.show', ['id' => $tip->torrent->id]) }}"
@@ -77,7 +77,7 @@
                                     datetime="{{ $tip->created_at }}"
                                     title="{{ $tip->created_at }}"
                                 >
-                                    {{ $tip->created_at->format('Y-m-d') }}
+                                    {{ $tip->created_at->toDisplayTimezone()->format('Y-m-d') }}
                                 </time>
                             </td>
                         </tr>

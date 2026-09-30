@@ -89,7 +89,7 @@ class CheatedTorrentController extends Controller
         ]);
 
         return to_route('staff.cheated_torrents.index')
-            ->with('success', 'Balance successfully reset');
+            ->with('success', __('application-messages.flash.balance-reset'));
     }
 
     /**
@@ -103,6 +103,6 @@ class CheatedTorrentController extends Controller
         ]);
 
         return to_route('staff.cheated_torrents.index')
-            ->with('success', 'All balances successfully reset');
+            ->with('success', __('application-messages.flash.all-balances-reset'));
     }
 }

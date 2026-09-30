@@ -72,7 +72,7 @@ class StorePoll extends FormRequest
     public function messages(): array
     {
         return [
-            'options.*.required' => 'You must fill in all options fields',
+            'options.*.required' => __('application-messages.validation.poll-options-required'),
         ];
     }
 }

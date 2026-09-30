@@ -57,14 +57,14 @@
                         <tr>
                             <td>
                                 @if ($gift->sender === null)
-                                    Deleted user
+                                    {{ __('member-interface.account.deleted-user') }}
                                 @else
                                     <x-user-tag :user="$gift->sender" :anon="false" />
                                 @endif
                             </td>
                             <td>
                                 @if ($gift->recipient === null)
-                                    Deleted user
+                                    {{ __('member-interface.account.deleted-user') }}
                                 @else
                                     <x-user-tag :user="$gift->recipient" :anon="false" />
                                 @endif
@@ -76,7 +76,7 @@
                                     datetime="{{ $gift->created_at }}"
                                     title="{{ $gift->created_at }}"
                                 >
-                                    {{ $gift->created_at->format('Y-m-d') }}
+                                    {{ $gift->created_at->toDisplayTimezone()->format('Y-m-d') }}
                                 </time>
                             </td>
                         </tr>

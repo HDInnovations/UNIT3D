@@ -43,10 +43,6 @@ use Illuminate\Support\Facades\Redis;
 
 final class AnnounceController extends Controller
 {
-    // Announce Intervals
-    private const int MIN = 1_800;
-    private const int MAX = 3_600;
-
     // Port Blacklist
     private const array BLACK_PORTS = [
         // Hyper Text Transfer Protocol (HTTP) - port used for web traffic
@@ -72,6 +68,22 @@ final class AnnounceController extends Controller
         'Expires'       => 0,
         'Connection'    => 'close'
     ];
+
+    /**
+     * Minimum announce interval in seconds (config `announce.interval.min`).
+     */
+    private function minInterval(): int
+    {
+        return (int) config('announce.interval.min');
+    }
+
+    /**
+     * Maximum announce interval in seconds (config `announce.interval.max`).
+     */
+    private function maxInterval(): int
+    {
+        return (int) config('announce.interval.max');
+    }
 
     /**
      * Announce Code.
@@ -188,9 +200,17 @@ final class AnnounceController extends Controller
         $peerId = $request->query->getString('peer_id');
 
         foreach ($blacklistedPeerIdPrefixes as $blacklistedPeerIdPrefix) {
-            if (str_starts_with($peerId, $blacklistedPeerIdPrefix)) {
-                throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
+            if (! str_starts_with($peerId, $blacklistedPeerIdPrefix)) {
+                continue;
             }
+
+            foreach (config("announce.blacklisted_client_prefix_exceptions.{$blacklistedPeerIdPrefix}", []) as $allowedPeerIdPrefix) {
+                if (str_starts_with($peerId, $allowedPeerIdPrefix)) {
+                    continue 2;
+                }
+            }
+
+            throw new TrackerException(128, [':ua' => $request->header('User-Agent')]);
         }
     }
 
@@ -486,7 +506,7 @@ final class AnnounceController extends Controller
 
         $lastAnnouncedKey = config('cache.prefix').'peer-last-announced:'.$user->id.'-'.$torrent->id.'-'.$queries->getPeerId();
 
-        $randomMinInterval = random_int(intdiv(self::MIN * 85, 100), intdiv(self::MIN * 95, 100));
+        $randomMinInterval = random_int(intdiv($this->minInterval() * 85, 100), intdiv($this->minInterval() * 95, 100));
 
         $lastAnnouncedAt = Redis::connection('announce')->command('SET', [$lastAnnouncedKey, $now, ['NX', 'GET', 'EX' => $randomMinInterval]]);
 
@@ -653,9 +673,9 @@ final class AnnounceController extends Controller
             .'e10:incompletei'
             .$leecherCount
             .'e8:intervali'
-            .random_int(self::MIN, self::MAX)
+            .random_int($this->minInterval(), $this->maxInterval())
             .'e12:min intervali'
-            .random_int(intdiv(self::MIN * 95, 100), self::MIN)
+            .random_int(intdiv($this->minInterval() * 95, 100), $this->minInterval())
             .'e';
 
         if ($peersIpv6 === '') {
@@ -682,9 +702,9 @@ final class AnnounceController extends Controller
             .'e10:incompletei'
             .$torrent->leechers
             .'e8:intervali'
-            .random_int(self::MIN, self::MAX)
+            .random_int($this->minInterval(), $this->maxInterval())
             .'e12:min intervali'
-            .random_int(intdiv(self::MIN * 95, 100), self::MIN)
+            .random_int(intdiv($this->minInterval() * 95, 100), $this->minInterval())
             .'e15:warning message'
             .\strlen($message)
             .':'
@@ -714,7 +734,7 @@ final class AnnounceController extends Controller
             return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali30e12:min intervali30ee';
         }
 
-        return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali'.self::MIN.'e12:min intervali'.self::MIN.'ee';
+        return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali'.$this->minInterval().'e12:min intervali'.$this->minInterval().'ee';
     }
 
     /**

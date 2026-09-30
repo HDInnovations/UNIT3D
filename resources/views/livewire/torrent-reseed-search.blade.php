@@ -26,7 +26,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrentName">
-                            {{ __('torrent.torrent') }} {{ __('common.name') }}
+                            {{ __('livewire-interface.torrent-name') }}
                         </label>
                     </div>
                 </div>

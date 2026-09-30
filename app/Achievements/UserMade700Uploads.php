@@ -16,23 +16,16 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserMade700Uploads extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.made700-uploads';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = '700Uploads';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'You have made 700 torrent uploads!';
 
     /**
      * The amount of "points" this user need to obtain in order to complete this achievement.

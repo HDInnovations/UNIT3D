@@ -8,7 +8,7 @@ document.addEventListener('alpine:init', () => {
                 this.like();
             },
             ['x-bind:title']() {
-                return this.isLiked ? 'Liked' : 'Like this post';
+                return this.isLiked ? window.i18n.liked : window.i18n.likeThisPost;
             },
         },
         icon: {
@@ -31,13 +31,13 @@ document.addEventListener('alpine:init', () => {
                             timer: 3000,
                         }).fire({
                             icon: 'success',
-                            title: 'Your like was successfully applied!',
+                            title: window.i18n.likeApplied,
                         });
                     }
                 })
                 .catch((error) => {
                     Swal.fire({
-                        title: '<strong style="color: rgb(17,17,17);">Error</strong>',
+                        title: `<strong style="color: rgb(17,17,17);">${window.i18n.errorTitle}</strong>`,
                         icon: 'error',
                         html: error.response.data.message || error.message,
                         showCloseButton: true,

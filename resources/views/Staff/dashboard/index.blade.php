@@ -56,7 +56,7 @@
                             href="{{ route('staff.commands.index') }}"
                         >
                             <i class="fab fa-laravel"></i>
-                            Commands
+                            {{ __('staff-interface.commands') }}
                         </a>
                     </p>
 
@@ -67,7 +67,7 @@
                                 href="{{ route('staff.donations.index') }}"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
-                                Donations
+                                {{ __('staff-interface.donations') }}
                             </a>
                         </p>
                         <p class="form__group form__group--horizontal">
@@ -76,7 +76,7 @@
                                 href="{{ route('staff.gateways.index') }}"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
-                                Gateways
+                                {{ __('staff-interface.gateways') }}
                             </a>
                         </p>
                         <p class="form__group form__group--horizontal">
@@ -85,7 +85,7 @@
                                 href="{{ route('staff.packages.index') }}"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
-                                Packages
+                                {{ __('staff-interface.packages') }}
                             </a>
                         </p>
                     @endif
@@ -134,7 +134,7 @@
                         @csrf
                         <button
                             x-on:click.prevent="confirmAction"
-                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all chatbox messages in all chatrooms (including private chatbox messages)?') }}"
+                            data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-all-chatbox-messages-confirm')) }}"
                             class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-broom"></i>
@@ -249,7 +249,7 @@
                         href="{{ route('staff.whitelisted_image_urls.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-globe"></i>
-                        Whitelisted image URLs
+                        {{ __('staff-interface.whitelisted-image-urls') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -258,7 +258,7 @@
                         href="{{ route('staff.wiki_categories.index') }}"
                     >
                         <i class="fab fa-wikipedia-w"></i>
-                        Wikis
+                        {{ __('staff-interface.wikis') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -276,7 +276,7 @@
                         href="{{ route('staff.playlist_categories.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-list"></i>
-                        Playlist categories
+                        {{ __('staff-interface.playlist-categories') }}
                     </a>
                 </p>
             </div>
@@ -329,7 +329,7 @@
                         href="{{ route('staff.regions.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Torrent regions
+                        {{ __('staff-interface.torrent-regions') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -338,7 +338,7 @@
                         href="{{ route('staff.distributors.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Torrent distributors
+                        {{ __('staff-interface.torrent-distributors') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -347,7 +347,7 @@
                         href="{{ route('staff.automatic_torrent_freeleeches.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Automatic torrent freeleeches
+                        {{ __('vltava.staff.automatic_freeleeches') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -356,7 +356,7 @@
                         href="{{ route('staff.peers.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Peers
+                        {{ __('torrent.peers') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -365,7 +365,7 @@
                         href="{{ route('staff.histories.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Histories
+                        {{ __('staff-interface.histories') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -374,7 +374,7 @@
                         href="{{ route('staff.torrent_downloads.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Downloads
+                        {{ __('user.downloads') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -383,7 +383,7 @@
                         href="{{ route('staff.torrent_trumps.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Trumps
+                        {{ __('staff-interface.trumps') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -392,7 +392,7 @@
                         href="{{ route('staff.unregistered_info_hashes.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-columns"></i>
-                        Unregistered info hashes
+                        {{ __('staff-interface.unregistered-info-hashes') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -419,7 +419,7 @@
                         href="{{ route('staff.cheated_torrents.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-question"></i>
-                        Cheated torrents
+                        {{ __('staff-interface.cheated-torrents') }}
                     </a>
                 </p>
                 @if (config('announce.log_announces'))
@@ -429,7 +429,7 @@
                             href="{{ route('staff.announces.index') }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-chart-bar"></i>
-                            Announces
+                            {{ __('staff-interface.announces') }}
                         </a>
                     </p>
                 @endif
@@ -444,7 +444,7 @@
                             @csrf
                             <button
                                 x-on:click.prevent="confirmAction"
-                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all ghost peers?') }}"
+                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-all-ghost-peers-confirm')) }}"
                                 class="form__button form__button--text"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-ghost"></i>
@@ -533,7 +533,7 @@
                         href="{{ route('staff.watchlist.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
-                        Watchlist
+                        {{ __('staff-interface.watchlist') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -563,7 +563,7 @@
                         @csrf
                         <button
                             x-on:click.prevent="confirmAction"
-                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to automatically validate all users even if their email address isn\'t confirmed?') }}"
+                            data-b64-deletion-message="{{ base64_encode(__('staff-interface.mass-validate-users-confirm')) }}"
                             class="form__button form__button--text"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-history"></i>
@@ -586,7 +586,7 @@
                         href="{{ route('staff.leakers.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-faucet-drip"></i>
-                        Leakers
+                        {{ __('staff-interface.leakers') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -613,7 +613,7 @@
                         href="{{ route('staff.internals.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-magic"></i>
-                        Internals
+                        {{ __('staff-interface.internals') }}
                     </a>
                 </p>
                 @if (auth()->user()->group->is_admin)
@@ -729,52 +729,52 @@
 
 @section('sidebar')
     <section class="panelV2">
-        <h2 class="panel__heading">SSL certificate</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.ssl-certificate') }}</h2>
         <dl class="key-value">
             <div class="key-value__group">
-                <dt>URL</dt>
+                <dt>{{ __('staff-interface.url') }}</dt>
                 <dd>{{ config('app.url') }}</dd>
             </div>
             @if (request()->secure())
                 <div class="key-value__group">
-                    <dt>Connection</dt>
-                    <dd>Secure</dd>
+                    <dt>{{ __('staff-interface.connection') }}</dt>
+                    <dd>{{ __('staff-interface.secure') }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Issued by</dt>
+                    <dt>{{ __('staff-interface.issued-by') }}</dt>
                     <dd>
-                        {{ ! is_string($certificate) ? $certificate->getIssuer() : 'No certificate info found' }}
+                        {{ ! is_string($certificate) ? $certificate->getIssuer() : __('staff-interface.no-certificate-info-found') }}
                     </dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Expires</dt>
+                    <dt>{{ __('staff-interface.expires') }}</dt>
                     <dd>
-                        {{ ! is_string($certificate) ? $certificate->expirationDate()->diffForHumans() : 'No certificate info found' }}
+                        {{ ! is_string($certificate) ? $certificate->expirationDate()->diffForHumans() : __('staff-interface.no-certificate-info-found') }}
                     </dd>
                 </div>
             @else
                 <div class="key-value__group">
-                    <dt>Connection</dt>
+                    <dt>{{ __('staff-interface.connection') }}</dt>
                     <dd>
-                        <strong>Not secure</strong>
+                        <strong>{{ __('staff-interface.not-secure') }}</strong>
                     </dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Issued by</dt>
-                    <dd>N/A</dd>
+                    <dt>{{ __('staff-interface.issued-by') }}</dt>
+                    <dd>{{ __('vltava.staff.not_available') }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Expires</dt>
-                    <dd>N/A</dd>
+                    <dt>{{ __('staff-interface.expires') }}</dt>
+                    <dd>{{ __('vltava.staff.not_available') }}</dd>
                 </div>
             @endif
         </dl>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Server information</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.server-information') }}</h2>
         <dl class="key-value">
             <div class="key-value__group">
-                <dt>OS</dt>
+                <dt>{{ __('staff-interface.os') }}</dt>
                 <dd>{{ $basic['os'] }}</dd>
             </div>
             <div class="key-value__group">
@@ -782,7 +782,7 @@
                 <dd>{{ $basic['php'] }}</dd>
             </div>
             <div class="key-value__group">
-                <dt>Database</dt>
+                <dt>{{ __('staff-interface.database') }}</dt>
                 <dd>{{ $basic['database'] }}</dd>
             </div>
             <div class="key-value__group">
@@ -797,133 +797,137 @@
     </section>
     <div class="dashboard__stats">
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">Torrents</h2>
+            <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
             <dl class="key-value">
                 <div class="key-value__group">
-                    <dt>Total</dt>
+                    <dt>{{ __('common.total') }}</dt>
                     <dd>{{ $torrents->total }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Pending</dt>
+                    <dt>{{ __('torrent.pending') }}</dt>
                     <dd>{{ $torrents->pending }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Approved</dt>
+                    <dt>{{ __('torrent.approved') }}</dt>
                     <dd>{{ $torrents->approved }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Postponed</dt>
+                    <dt>{{ __('torrent.postponed') }}</dt>
                     <dd>{{ $torrents->postponed }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Rejected</dt>
+                    <dt>{{ __('torrent.rejected') }}</dt>
                     <dd>{{ $torrents->rejected }}</dd>
                 </div>
             </dl>
         </section>
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">Peers</h2>
+            <h2 class="panel__heading">{{ __('torrent.peers') }}</h2>
             <dl class="key-value">
                 <div class="key-value__group">
-                    <dt>Total</dt>
+                    <dt>{{ __('common.total') }}</dt>
                     <dd>{{ $peers->total }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Active</dt>
+                    <dt>{{ __('common.active') }}</dt>
                     <dd>{{ $peers->active }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Inactive</dt>
+                    <dt>{{ __('staff-interface.inactive') }}</dt>
                     <dd>{{ $peers->inactive }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Seeds</dt>
+                    <dt>{{ __('staff-interface.seeds') }}</dt>
                     <dd>{{ $peers->seeders }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Leeches</dt>
+                    <dt>{{ __('staff-interface.leeches') }}</dt>
                     <dd>{{ $peers->leechers }}</dd>
                 </div>
             </dl>
         </section>
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">Users</h2>
+            <h2 class="panel__heading">{{ __('common.users') }}</h2>
             <dl class="key-value">
                 <div class="key-value__group">
-                    <dt>Total</dt>
+                    <dt>{{ __('common.total') }}</dt>
                     <dd>{{ $users->total }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Validating</dt>
+                    <dt>{{ __('staff-interface.validating') }}</dt>
                     <dd>{{ $users->validating }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Banned</dt>
+                    <dt>{{ __('staff-interface.banned') }}</dt>
                     <dd>{{ $users->banned }}</dd>
                 </div>
             </dl>
         </section>
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">RAM</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.ram') }}</h2>
             <dl class="key-value">
                 <div class="key-value__group">
-                    <dt>Total</dt>
+                    <dt>{{ __('common.total') }}</dt>
                     <dd>{{ $ram['total'] }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Used</dt>
+                    <dt>{{ __('staff-interface.used') }}</dt>
                     <dd>{{ $ram['used'] }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Free</dt>
+                    <dt>{{ __('staff-interface.free-space') }}</dt>
                     <dd>{{ $ram['available'] }}</dd>
                 </div>
             </dl>
         </section>
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">Disk</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.disk') }}</h2>
             <dl class="key-value">
                 <div class="key-value__group">
-                    <dt>Total</dt>
+                    <dt>{{ __('common.total') }}</dt>
                     <dd>{{ $disk['total'] }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Used</dt>
+                    <dt>{{ __('staff-interface.used') }}</dt>
                     <dd>{{ $disk['used'] }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>Free</dt>
+                    <dt>{{ __('staff-interface.free-space') }}</dt>
                     <dd>{{ $disk['free'] }}</dd>
                 </div>
             </dl>
         </section>
         <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">Load average</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.load-average') }}</h2>
             <dl class="key-value">
                 <div class="key-value__group">
-                    <dt>1 minute</dt>
-                    <dd>{{ $avg['1-minute'] ?? 'N/A' }}</dd>
+                    <dt>{{ __('staff-interface.avg-1-minute') }}</dt>
+                    <dd>{{ $avg['1-minute'] ?? __('vltava.staff.not_available') }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>5 minutes</dt>
-                    <dd>{{ $avg['5-minute'] ?? 'N/A' }}</dd>
+                    <dt>{{ __('staff-interface.avg-5-minutes') }}</dt>
+                    <dd>{{ $avg['5-minute'] ?? __('vltava.staff.not_available') }}</dd>
                 </div>
                 <div class="key-value__group">
-                    <dt>15 minutes</dt>
-                    <dd>{{ $avg['15-minute'] ?? 'N/A' }}</dd>
+                    <dt>{{ __('staff-interface.avg-15-minutes') }}</dt>
+                    <dd>{{ $avg['15-minute'] ?? __('vltava.staff.not_available') }}</dd>
                 </div>
             </dl>
         </section>
     </div>
     <section class="panelV2">
-        <h2 class="panel__heading">Directory permissions</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.directory-permissions') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Directory</th>
-                        <th>Current</th>
-                        <th><abbr title="Recommended">Rec.</abbr></th>
+                        <th>{{ __('staff-interface.directory') }}</th>
+                        <th>{{ __('torrent.current') }}</th>
+                        <th>
+                            <abbr title="{{ __('staff-interface.recommended') }}">
+                                {{ __('staff-interface.rec-abbr') }}
+                            </abbr>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -953,22 +957,28 @@
     @if (config('announce.external_tracker.is_enabled'))
         @if ($externalTrackerStats === true)
             <section class="panelV2">
-                <h2 class="panel__heading">External tracker stats</h2>
-                <div class="panel__body">External tracker not enabled.</div>
+                <h2 class="panel__heading">{{ __('staff-interface.external-tracker-stats') }}</h2>
+                <div class="panel__body">
+                    {{ __('staff-interface.external-tracker-not-enabled') }}
+                </div>
             </section>
         @elseif ($externalTrackerStats === false)
             <section class="panelV2">
-                <h2 class="panel__heading">External tracker stats</h2>
-                <div class="panel__body">Stats endpoint not found.</div>
+                <h2 class="panel__heading">{{ __('staff-interface.external-tracker-stats') }}</h2>
+                <div class="panel__body">
+                    {{ __('staff-interface.external-tracker-stats-endpoint-not-found') }}
+                </div>
             </section>
         @elseif ($externalTrackerStats === [])
             <section class="panelV2">
-                <h2 class="panel__heading">External tracker stats</h2>
-                <div class="panel__body">Tracker returned an error.</div>
+                <h2 class="panel__heading">{{ __('staff-interface.external-tracker-stats') }}</h2>
+                <div class="panel__body">
+                    {{ __('staff-interface.external-tracker-returned-error') }}
+                </div>
             </section>
         @else
             <section class="panelV2">
-                <h2 class="panel__heading">External tracker stats</h2>
+                <h2 class="panel__heading">{{ __('staff-interface.external-tracker-stats') }}</h2>
                 <dl class="key-value">
                     @php
                         $createdAt = \Illuminate\Support\Carbon::createFromTimestampUTC($externalTrackerStats['created_at']);
@@ -980,30 +990,30 @@
                         <dt>{{ __('torrent.started') }}</dt>
                         <dd>
                             <time
-                                title="{{ $createdAt->format('Y-m-d h:i:s') }}"
-                                datetime="{{ $createdAt->format('Y-m-d h:i:s') }}"
+                                title="{{ $createdAt }}"
+                                datetime="{{ $createdAt }}"
                             >
                                 {{ $createdAt->diffForHumans() }}
                             </time>
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Last request at</dt>
+                        <dt>{{ __('staff-interface.last-request-at') }}</dt>
                         <dd>
                             <time
-                                title="{{ $lastRequestAt->format('Y-m-d h:i:s') }}"
-                                datetime="{{ $lastRequestAt->format('Y-m-d h:i:s') }}"
+                                title="{{ $lastRequestAt }}"
+                                datetime="{{ $lastRequestAt }}"
                             >
                                 {{ $lastRequestAt->diffForHumans() }}
                             </time>
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Last successful response at</dt>
+                        <dt>{{ __('staff-interface.last-successful-response-at') }}</dt>
                         <dd>
                             <time
-                                title="{{ $lastAnnounceResponseAt->format('Y-m-d h:i:s') }}"
-                                datetime="{{ $lastAnnounceResponseAt->format('Y-m-d h:i:s') }}"
+                                title="{{ $lastAnnounceResponseAt }}"
+                                datetime="{{ $lastAnnounceResponseAt }}"
                             >
                                 {{ $lastAnnounceResponseAt->diffForHumans() }}
                             </time>
@@ -1013,9 +1023,15 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th style="text-align: right">Interval (s)</th>
-                            <th style="text-align: right">In (req/s)</th>
-                            <th style="text-align: right">Out (req/s)</th>
+                            <th style="text-align: right">
+                                {{ __('staff-interface.interval-seconds') }}
+                            </th>
+                            <th style="text-align: right">
+                                {{ __('staff-interface.requests-per-second-in') }}
+                            </th>
+                            <th style="text-align: right">
+                                {{ __('staff-interface.requests-per-second-out') }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

@@ -55,7 +55,7 @@
                         type="submit"
                         title="{{ __('forum.tip-this-post') }}"
                     >
-                        Tip
+                        {{ __('media-interface.components.tip') }}
                     </button>
                     <datalist id="quick-tip-values">
                         <option value="1000"></option>
@@ -149,7 +149,7 @@
                             type="submit"
                             title="{{ __('common.delete') }}"
                             x-on:click.prevent="confirmAction"
-                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this post?') }}"
+                            data-b64-deletion-message="{{ base64_encode(__('media-interface.components.delete-post-confirmation')) }}"
                         >
                             <i class="{{ \config('other.font-awesome') }} fa-trash"></i>
                         </button>
@@ -172,12 +172,12 @@
                     @if ($post->user->isOnline())
                         <i
                             class="{{ config('other.font-awesome') }} fa-circle text-green"
-                            title="Online"
+                            title="{{ __('user.online') }}"
                         ></i>
                     @else
                         <i
                             class="{{ config('other.font-awesome') }} fa-circle text-red"
-                            title="Offline"
+                            title="{{ __('user.offline') }}"
                         ></i>
                     @endif
                     <a
@@ -196,7 +196,7 @@
             @endif
 
             <dl class="post__author-join">
-                <dt>Joined</dt>
+                <dt>{{ __('user.member-since') }}</dt>
                 <dd>
                     <time
                         class="post__author-join-datetime"

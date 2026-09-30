@@ -16,23 +16,16 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserMade900Posts extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.made900-posts';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = '900Posts';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'Wow! You have already made 900 posts!';
 
     /**
      * The amount of "points" this user need to obtain in order to complete this achievement.

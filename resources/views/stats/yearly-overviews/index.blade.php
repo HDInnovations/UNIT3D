@@ -21,7 +21,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Yearly overviews</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.yearly-overviews') }}</h2>
         <div class="panel__body">
             <ul class="mediahub-card__list">
                 @foreach ($siteYears as $siteYear)
@@ -31,7 +31,7 @@
                             class="mediahub-card"
                         >
                             <h2 class="mediahub-card__heading">{{ $siteYear }}</h2>
-                            <h3 class="mediahub-card__subheading">Overview</h3>
+                            <h3 class="mediahub-card__subheading">{{ __('common.overview') }}</h3>
                         </a>
                     </li>
                 @endforeach

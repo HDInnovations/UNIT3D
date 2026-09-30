@@ -62,17 +62,6 @@ class TopNavComposer
 
                 return $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
             }),
-            // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
-            'peerCount' => cache()->flexible(
-                "users:{$user->id}:peer-count",
-                [60, 60 * 2],
-                fn () => $user->peers()->where('active', '=', 1)->count(),
-            ),
-            'leechCount' => cache()->flexible(
-                "users:{$user->id}:leech-count",
-                [60, 60 * 2],
-                fn () => $user->peers()->where('active', '=', 1)->where('seeder', '=', false)->count(),
-            ),
             'hasActiveWarning'    => $user->warnings()->where('active', '=', true)->exists(),
             'hasUnresolvedReport' => $user->group->is_modo && Report::query()
                 ->whereNull('snoozed_until')

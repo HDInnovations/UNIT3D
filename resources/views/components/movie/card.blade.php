@@ -31,7 +31,7 @@
         </h2>
         <address class="torrent-search--grouped__directors">
             @if ($media->directors->isNotEmpty())
-                <span class="torrent-search-grouped__directors-by">by</span>
+                <span class="torrent-search-grouped__directors-by">{{ __('media-interface.components.by') }}</span>
                 @foreach ($media->directors as $director)
                     <a
                         href="{{ route('mediahub.persons.show', ['id' => $director->id, 'occupationId' => App\Enums\Occupation::DIRECTOR->value]) }}"

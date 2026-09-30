@@ -66,7 +66,7 @@ class TopicReadController extends Controller
                         last_read_post_id = last_post_id
                 ', [$request->user()->id, $request->user()->id, $request->user()->group_id]);
 
-                return back()->with('success', 'All caught up!');
+                return back()->with('success', __('application-messages.flash.caught-up'));
             case 'forum':
                 $forum = Forum::authorized(canStartTopic: true)->findOrFail($request->integer('forum_id'));
 
@@ -95,7 +95,7 @@ class TopicReadController extends Controller
                 ', [$request->user()->id, $request->user()->id, $forum->id]);
 
                 return to_route('forums.show', ['id' => $request->integer('forum_id')])
-                    ->with('success', 'All caught up!');
+                    ->with('success', __('application-messages.flash.caught-up'));
 
             case 'forum_category':
                 DB::insert('
@@ -145,7 +145,7 @@ class TopicReadController extends Controller
                 ]);
 
                 return to_route('forums.categories.show', ['id' => $request->integer('forum_category_id')])
-                    ->with('success', 'All caught up!');
+                    ->with('success', __('application-messages.flash.caught-up'));
             case 'subscriptions':
                 DB::insert('
                     INSERT INTO
@@ -196,10 +196,10 @@ class TopicReadController extends Controller
                 ]);
 
                 return to_route('subscriptions.index')
-                    ->with('success', 'All caught up!');
+                    ->with('success', __('application-messages.flash.caught-up'));
             default:
                 return to_route('forums.index')
-                    ->withErrors(['Failed to catchup.']);
+                    ->withErrors([__('application-messages.validation.catchup-failed')]);
         }
     }
 }

@@ -37,7 +37,7 @@ class WhitelistedImageUrlController extends Controller
         cache()->forget('whitelisted-image-urls');
 
         return to_route('staff.whitelisted_image_urls.index')
-            ->with('success', 'Image url pattern updated successfully.');
+            ->with('success', __('application-messages.flash.image-url-pattern-updated'));
     }
 
     public function store(StoreWhitelistedImageUrlRequest $request): \Illuminate\Http\RedirectResponse
@@ -47,7 +47,7 @@ class WhitelistedImageUrlController extends Controller
         cache()->forget('whitelisted-image-urls');
 
         return to_route('staff.whitelisted_image_urls.index')
-            ->with('success', 'New image url pattern whitelisted.');
+            ->with('success', __('application-messages.flash.image-url-pattern-added'));
     }
 
     public function destroy(WhitelistedImageUrl $whitelistedImageUrl): \Illuminate\Http\RedirectResponse
@@ -57,6 +57,6 @@ class WhitelistedImageUrlController extends Controller
         cache()->forget('whitelisted-image-urls');
 
         return to_route('staff.whitelisted_image_urls.index')
-            ->with('success', 'Image url pattern removed from whitelist.');
+            ->with('success', __('application-messages.flash.image-url-pattern-removed'));
     }
 }

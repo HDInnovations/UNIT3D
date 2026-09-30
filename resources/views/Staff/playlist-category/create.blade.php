@@ -8,7 +8,7 @@
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.playlist_categories.index') }}" class="breadcrumb__link">
-            Playlist categories
+            {{ __('staff-interface.playlist-categories') }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -20,7 +20,10 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Add playlist category</h2>
+        <h2 class="panel__heading">
+            {{ __('common.add') }}
+            {{ __('staff-interface.playlist-category') }}
+        </h2>
         <div class="panel__body">
             <form
                 class="form"

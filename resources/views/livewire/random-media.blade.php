@@ -2,7 +2,7 @@
     <header class="panel__header">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-user-astronaut"></i>
-            Random media
+            {{ __('livewire-interface.random-media') }}
         </h2>
         <div class="panel__actions">
             <div class="panel__action">
@@ -27,7 +27,7 @@
                         background-size: cover;
                     "
                 >
-                    <span style="padding-left: 6px">MOVIE</span>
+                    <span style="padding-left: 6px">{{ __('livewire-interface.movie-badge') }}</span>
                     <div class="media__title">
                         {{ $movie->title }} ({{ $movie->release_date?->format('Y') }})
                     </div>
@@ -46,7 +46,7 @@
                         background-size: cover;
                     "
                 >
-                    <span style="padding-left: 6px">TV</span>
+                    <span style="padding-left: 6px">{{ __('livewire-interface.tv-badge') }}</span>
                     <div class="media__title">
                         {{ $tv->name }} ({{ $tv->first_air_date?->format('Y') }})
                     </div>
@@ -65,7 +65,7 @@
                         background-size: cover;
                     "
                 >
-                    <span style="padding-left: 6px">MOVIE</span>
+                    <span style="padding-left: 6px">{{ __('livewire-interface.movie-badge') }}</span>
                     <div class="media__title">
                         {{ $movie->title }} ({{ $movie->release_date?->format('Y') }})
                     </div>

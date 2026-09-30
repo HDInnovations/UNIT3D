@@ -11,7 +11,6 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'a-an-art' => '{0}|[1,*]',
     // 冠词 article , a an 占位用
     'abbrev-days' => '日',
     'abbrev-hours' => '时',
@@ -69,7 +68,8 @@ return [
     'direction' => '序向',
     'disable' => '停用',
     'doubleup_activated' => '全站双倍上传收益已启动',
-    'download' => '下载',
+    'download-action' => '下载',
+    'downloaded' => '已下载',
     'magnet' => '磁力链接',
     'edit' => '编辑',
     'edit-your-comment' => '编辑你的评论',
@@ -203,8 +203,6 @@ return [
     'system-message' => '这是一条自动系统消息，请不要回复！',
     'teams' => '团队',
     'terms' => '使用条款',
-    'the' => '这',
-    'this' => '该',
     'times' => '人',
     'title' => '标题',
     'top-bountied' => '顶级赏金猎人',
@@ -220,7 +218,8 @@ return [
     'actions' => '操作',
     'unknown' => '未知',
     'unlocked-achievement' => '你已解锁 :achievement 成就',
-    'upload' => '上传',
+    'upload-action' => '上传',
+    'uploaded' => '已发布',
     'upload-guide' => '发种指引',
     'user' => '用户',
     'username' => '用户名',

@@ -19,6 +19,58 @@ namespace App\Services\Tmdb;
 class TMDB
 {
     /**
+     * Merge a localized TMDB response with an English response only when a
+     * user-facing localized field is absent. The primary locale always wins.
+     *
+     * @param  array<string, mixed> $localized
+     * @param  array<string, mixed> $english
+     * @return array<string, mixed>
+     */
+    public function withEnglishFallback(array $localized, array $english): array
+    {
+        foreach ($english as $key => $value) {
+            if (!\array_key_exists($key, $localized) || $this->isBlank($localized[$key])) {
+                $localized[$key] = $value;
+
+                continue;
+            }
+
+            if (
+                \is_array($localized[$key])
+                && \is_array($value)
+                && !array_is_list($localized[$key])
+                && !array_is_list($value)
+            ) {
+                $localized[$key] = $this->withEnglishFallback($localized[$key], $value);
+            }
+        }
+
+        return $localized;
+    }
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function needsEnglishFallback(array $data): bool
+    {
+        foreach (['name', 'title', 'overview'] as $key) {
+            if (\array_key_exists($key, $data) && $this->isBlank($data[$key])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    private function isBlank(mixed $value): bool
+    {
+        return $value === null || $value === '' || $value === [];
+    }
+
+    /**
      * @param array<mixed> $array
      */
     public function image(string $type, array $array): ?string

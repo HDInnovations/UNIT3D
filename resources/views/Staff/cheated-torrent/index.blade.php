@@ -2,12 +2,16 @@
 
 @section('title')
     <title>
-        Cheated torrents - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('staff-interface.cheated-torrents') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Cheated torrents - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('staff-interface.cheated-torrents') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -16,7 +20,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Cheated torrents</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.cheated-torrents') }}</li>
 @endsection
 
 @section('page', 'page__staff-cheated-torrent--index')
@@ -24,7 +28,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Cheated torrents</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.cheated-torrents') }}</h2>
             <div class="panel__actions">
                 <form
                     class="panel__action"
@@ -36,10 +40,10 @@
                     @method('DELETE')
                     <button
                         x-on:click.prevent="confirmAction"
-                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to reset all torrent balances? This will allow you to start tracking cheated torrents from scratch, but you will no longer have data for previous cheated torrents.') }}"
+                        data-b64-deletion-message="{{ base64_encode(__('staff-interface.reset-all-torrent-balances-confirm')) }}"
                         class="form__button form__button--text"
                     >
-                        Reset all torrent balances
+                        {{ __('staff-interface.reset-all-torrent-balances') }}
                     </button>
                 </form>
             </div>
@@ -59,8 +63,8 @@
                             <i class="fas fa-check-circle"></i>
                         </th>
                         <th>{{ __('torrent.size') }}</th>
-                        <th>Balance</th>
-                        <th>Times cheated</th>
+                        <th>{{ __('common.balance') }}</th>
+                        <th>{{ __('staff-interface.times-cheated') }}</th>
                         <th>{{ __('torrent.uploaded') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
@@ -109,7 +113,7 @@
                                     datetime="{{ $torrent->created_at }}"
                                     title="{{ $torrent->created_at }}"
                                 >
-                                    {{ $torrent->created_at ?? 'N/A' }}
+                                    {{ $torrent->created_at ?? __('vltava.staff.not_available') }}
                                 </time>
                             </td>
                             <td>
@@ -122,7 +126,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button class="form__button form__button--text">
-                                                Reset balance
+                                                {{ __('staff-interface.reset-balance') }}
                                             </button>
                                         </form>
                                     </li>
@@ -131,7 +135,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9">No cheated torrents</td>
+                            <td colspan="9">{{ __('staff-interface.no-cheated-torrents') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

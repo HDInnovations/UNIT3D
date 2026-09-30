@@ -287,7 +287,7 @@
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Mentions</legend>
+                    <legend class="form__legend">{{ __('member-interface.settings.mentions') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_mention_article_comment" value="0" />
@@ -341,7 +341,7 @@
                         </label>
                     </p>
                 </fieldset>
-                <h3>Block all notifications from the selected groups.</h3>
+                <h3>{{ __('member-interface.settings.block-notifications-from-groups') }}</h3>
                 <div class="form__group">
                     <div class="data-table-wrapper">
                         <table
@@ -360,7 +360,7 @@
                                         {{ __('common.subscriptions') }}
                                     </th>
                                     <th x-bind="columnHeader">{{ __('torrent.torrents') }}</th>
-                                    <th x-bind="columnHeader">Mentions</th>
+                                    <th x-bind="columnHeader">{{ __('member-interface.settings.mentions') }}</th>
                                 </tr>
                             </thead>
                             <tbody x-ref="tbody">
@@ -395,7 +395,7 @@
                         </table>
                     </div>
                 </div>
-                <h3>Override all notifications.</h3>
+                <h3>{{ __('member-interface.settings.override-all-notifications') }}</h3>
                 <p class="form__group">
                     <label class="form__label">
                         <input type="hidden" name="block_notifications" value="0" />
@@ -406,7 +406,7 @@
                             name="block_notifications"
                             @checked($user->notification?->block_notifications)
                         />
-                        Block all notifications.
+                        {{ __('member-interface.settings.block-all-notifications') }}
                     </label>
                 </p>
                 <p class="form__group">

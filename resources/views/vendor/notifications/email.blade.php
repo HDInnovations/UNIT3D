@@ -4,9 +4,9 @@
 # {{ $greeting }}
 @else
 @if ($level === 'error')
-# {{ __('Whoops!') }}
+# {{ __('application-messages.mail.whoops') }}
 @else
-# {{ __('Hello!') }}
+# {{ __('application-messages.mail.hello') }}
 @endif
 @endif
 
@@ -43,7 +43,7 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-{{ __('Regards') }},<br>
+{{ __('application-messages.mail.regards') }},<br>
 {{ config('app.name') }}
 @endif
 
@@ -52,8 +52,7 @@
 @isset($actionText)
 @slot('subcopy')
 {{ __(
-    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser:',
+    'email.footer-link',
     [
         'actionText' => $actionText,
     ]

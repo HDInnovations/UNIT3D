@@ -68,8 +68,8 @@ class NewFollow extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->follower->username.' Has Followed You!',
-            'body'  => $this->follower->username.' has started to follow you so they will get notifications about your activities.',
+            'title' => __('application-messages.notification.new-follow-title', ['username' => $this->follower->username]),
+            'body'  => __('application-messages.notification.new-follow-body', ['username' => $this->follower->username]),
             'url'   => '/users/'.$this->follower->username,
         ];
     }

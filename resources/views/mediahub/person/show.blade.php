@@ -36,10 +36,10 @@
                 <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>
             </div>
             <div class="key-value__group">
-                <dt>Place of Birth</dt>
+                <dt>{{ __('media-interface.mediahub.place-of-birth') }}</dt>
                 <dd>{{ $person->place_of_birth ?? __('common.unknown') }}</dd>
             </div>
         </dl>
-        <div class="panel__body">{{ $person->biography ?? 'No biography' }}</div>
+        <div class="panel__body">{{ $person->biography ?? __('media-interface.mediahub.no-biography') }}</div>
     </section>
 @endsection

@@ -126,10 +126,10 @@
                     <li x-data="dialog">
                         <button class="form__button form__button--outlined" x-bind="showDialog">
                             <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                            Freeleech
+                            {{ __('torrent.freeleech') }}
                         </button>
                         <dialog class="dialog" x-bind="dialogElement">
-                            <h4 class="dialog__heading">Edit freeleech</h4>
+                            <h4 class="dialog__heading">{{ __('vltava.torrent.edit_freeleech') }}</h4>
                             <div x-bind="dialogForm">
                                 <form
                                     class="dialog__form"
@@ -163,26 +163,26 @@
                                             class="form__label form__label--floating"
                                             for="freeleech"
                                         >
-                                            Freeleech
+                                            {{ __('torrent.freeleech') }}
                                         </label>
                                     </p>
                                     <p class="form__group">
                                         <select id="fl_until" class="form__select" name="fl_until">
-                                            <option value="">No limit</option>
-                                            <option value="1">1 Day</option>
-                                            <option value="2">2 Days</option>
-                                            <option value="3">3 Days</option>
-                                            <option value="4">4 Days</option>
-                                            <option value="5">5 Days</option>
-                                            <option value="6">6 Days</option>
-                                            <option value="7">7 Days</option>
+                                            <option value="">{{ __('vltava.torrent.no_limit') }}</option>
+                                            <option value="1">{{ trans_choice('media-interface.torrent.tools-buff-days', 1, ['count' => 1]) }}</option>
+                                            <option value="2">{{ trans_choice('media-interface.torrent.tools-buff-days', 2, ['count' => 2]) }}</option>
+                                            <option value="3">{{ trans_choice('media-interface.torrent.tools-buff-days', 3, ['count' => 3]) }}</option>
+                                            <option value="4">{{ trans_choice('media-interface.torrent.tools-buff-days', 4, ['count' => 4]) }}</option>
+                                            <option value="5">{{ trans_choice('media-interface.torrent.tools-buff-days', 5, ['count' => 5]) }}</option>
+                                            <option value="6">{{ trans_choice('media-interface.torrent.tools-buff-days', 6, ['count' => 6]) }}</option>
+                                            <option value="7">{{ trans_choice('media-interface.torrent.tools-buff-days', 7, ['count' => 7]) }}</option>
                                         </select>
                                         <label
                                             for="fl_until"
                                             class="form__label form__label--floating"
                                             for="fl_until"
                                         >
-                                            Buff time
+                                            {{ __('media-interface.torrent.tools-buff-time') }}
                                         </label>
                                     </p>
                                     <p class="form__group">
@@ -204,10 +204,10 @@
                     <li x-data="dialog">
                         <button class="form__button form__button--outlined" x-bind="showDialog">
                             <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i>
-                            Double upload
+                            {{ __('torrent.double-upload') }}
                         </button>
                         <dialog class="dialog" x-bind="dialogElement">
-                            <h4 class="dialog__heading">Edit double upload</h4>
+                            <h4 class="dialog__heading">{{ __('vltava.torrent.edit_double_upload') }}</h4>
                             <div x-bind="dialogForm">
                                 <form
                                     class="dialog__form"
@@ -217,20 +217,20 @@
                                     @csrf
                                     <p class="form__group">
                                         <select id="du_until" class="form__select" name="du_until">
-                                            <option value="">No limit</option>
-                                            <option value="1">1 Day</option>
-                                            <option value="2">2 Days</option>
-                                            <option value="3">3 Days</option>
-                                            <option value="4">4 Days</option>
-                                            <option value="5">5 Days</option>
-                                            <option value="6">6 Days</option>
-                                            <option value="7">7 Days</option>
+                                            <option value="">{{ __('vltava.torrent.no_limit') }}</option>
+                                            <option value="1">{{ trans_choice('media-interface.torrent.tools-buff-days', 1, ['count' => 1]) }}</option>
+                                            <option value="2">{{ trans_choice('media-interface.torrent.tools-buff-days', 2, ['count' => 2]) }}</option>
+                                            <option value="3">{{ trans_choice('media-interface.torrent.tools-buff-days', 3, ['count' => 3]) }}</option>
+                                            <option value="4">{{ trans_choice('media-interface.torrent.tools-buff-days', 4, ['count' => 4]) }}</option>
+                                            <option value="5">{{ trans_choice('media-interface.torrent.tools-buff-days', 5, ['count' => 5]) }}</option>
+                                            <option value="6">{{ trans_choice('media-interface.torrent.tools-buff-days', 6, ['count' => 6]) }}</option>
+                                            <option value="7">{{ trans_choice('media-interface.torrent.tools-buff-days', 7, ['count' => 7]) }}</option>
                                         </select>
                                         <label
                                             class="form__label form__label--floating"
                                             for="du_until"
                                         >
-                                            Buff time
+                                            {{ __('media-interface.torrent.tools-buff-time') }}
                                         </label>
                                     </p>
                                     <p class="form__group">
@@ -539,22 +539,22 @@
                     <li>
                         @switch($torrent->status)
                             @case(\App\Enums\ModerationStatus::APPROVED)
-                                Approved by:
+                                {{ __('media-interface.torrent.tools-approved-by') }}
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
 
                                 @break
                             @case(\App\Enums\ModerationStatus::POSTPONED)
-                                Postponed by:
+                                {{ __('media-interface.torrent.tools-postponed-by') }}
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
 
                                 @break
                             @case(\App\Enums\ModerationStatus::REJECTED)
-                                Rejected by:
+                                {{ __('media-interface.torrent.tools-rejected-by') }}
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
 
                                 @break
                             @default
-                                Unmoderated
+                                {{ __('media-interface.torrent.tools-unmoderated') }}
                         @endswitch
                     </li>
                 </menu>

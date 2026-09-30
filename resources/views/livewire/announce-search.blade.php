@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: column; row-gap: 1rem">
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Announces</h2>
+            <h2 class="panel__heading">{{ __('livewire-interface.announces') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
@@ -14,7 +14,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
-                            Torrent ID
+                            {{ __('livewire-interface.torrent-id') }}
                         </label>
                     </div>
                 </div>
@@ -28,7 +28,9 @@
                             class="form__text"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="user">User ID</label>
+                        <label class="form__label form__label--floating" for="user">
+                            {{ __('livewire-interface.user-id') }}
+                        </label>
                     </div>
                 </div>
                 <div class="panel__action">
@@ -50,21 +52,21 @@
                 </div>
             </div>
         </header>
-        <div class="panel__body" wire:loading.block>Loading...</div>
+        <div class="panel__body" wire:loading.block>{{ __('livewire-interface.loading') }}</div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
                         <th wire:click="sortBy('id')" role="columnheader button">
-                            ID
+                            {{ __('livewire-interface.id') }}
                             @include('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
                         <th wire:click="sortBy('user_id')" role="columnheader button">
-                            User ID
+                            {{ __('livewire-interface.user-id') }}
                             @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                         </th>
                         <th wire:click="sortBy('torrent_id')" role="columnheader button">
-                            Torrent ID
+                            {{ __('livewire-interface.torrent-id') }}
                             @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                         </th>
                         <th wire:click="sortBy('uploaded')" role="columnheader button">
@@ -80,11 +82,11 @@
                             @include('livewire.includes._sort-icon', ['field' => 'left'])
                         </th>
                         <th wire:click="sortBy('corrupt')" role="columnheader button">
-                            Corrupt
+                            {{ __('livewire-interface.corrupt') }}
                             @include('livewire.includes._sort-icon', ['field' => 'corrupt'])
                         </th>
                         <th wire:click="sortBy('peer_id')" role="columnheader button">
-                            Peer ID
+                            {{ __('livewire-interface.peer-id') }}
                             @include('livewire.includes._sort-icon', ['field' => 'peer_id'])
                         </th>
                         <th wire:click="sortBy('port')" role="columnheader button">
@@ -92,15 +94,15 @@
                             @include('livewire.includes._sort-icon', ['field' => 'port'])
                         </th>
                         <th wire:click="sortBy('numwant')" role="columnheader button">
-                            Numwant
+                            {{ __('livewire-interface.numwant') }}
                             @include('livewire.includes._sort-icon', ['field' => 'numwant'])
                         </th>
                         <th wire:click="sortBy('event')" role="columnheader button">
-                            Event
+                            {{ __('livewire-interface.event') }}
                             @include('livewire.includes._sort-icon', ['field' => 'event'])
                         </th>
                         <th wire:click="sortBy('key')" role="columnheader button">
-                            Key
+                            {{ __('common.code') }}
                             @include('livewire.includes._sort-icon', ['field' => 'key'])
                         </th>
                         <th wire:click="sortBy('created_at')" role="columnheader button">

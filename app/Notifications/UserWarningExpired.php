@@ -50,10 +50,11 @@ class UserWarningExpired extends Notification
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Warning Expired')
-            ->line('One or more of your warnings have expired or been seeded off.')
-            ->action('View Profile!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.warning-expired-greeting'))
+            ->greeting(__('application-messages.notification.warning-expired-greeting'))
+            ->line(__('application-messages.notification.warning-expired-line'))
+            ->action(__('application-messages.notification.view-profile'), $profileUrl)
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 
     /**
@@ -64,8 +65,8 @@ class UserWarningExpired extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Warning Expired',
-            'body'  => 'One or more of your warnings have expired or been seeded off',
+            'title' => __('application-messages.notification.warning-expired-greeting'),
+            'body'  => __('application-messages.notification.warning-expired-body'),
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }

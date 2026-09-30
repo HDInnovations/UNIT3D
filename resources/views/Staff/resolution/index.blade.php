@@ -66,7 +66,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this resolution: ' . $resolution->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-resolution-confirmation', ['name' => $resolution->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
@@ -78,7 +78,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">No resolution</td>
+                            <td colspan="3">{{ __('staff-interface.no-resolutions') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

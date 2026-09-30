@@ -112,7 +112,7 @@ const channelHandler = {
 
         context.channel.error((error) => {
             console.error('Socket error:', error);
-            context.state.ui.error = 'Connection lost. Trying to reconnect...';
+            context.state.ui.error = window.i18n.chatConnectionLost;
 
             setTimeout(() => {
                 this.setupRoom(context.state.chat.room, context);
@@ -198,7 +198,7 @@ document.addEventListener('alpine:init', () => {
                 })
                 .catch((error) => {
                     console.error('Error initializing chat:', error);
-                    this.state.ui.error = 'Error loading chat. Please try again.';
+                    this.state.ui.error = window.i18n.chatLoadingError;
                     this.state.ui.loading = false;
                 });
 

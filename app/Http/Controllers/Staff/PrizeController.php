@@ -34,7 +34,7 @@ class PrizeController extends Controller
         return to_route('staff.events.edit', [
             'event' => $event
         ])
-            ->with('success', 'Prize added to event.');
+            ->with('success', __('application-messages.flash.prize-added'));
     }
 
     /**
@@ -47,7 +47,7 @@ class PrizeController extends Controller
         return to_route('staff.events.edit', [
             'event' => $event
         ])
-            ->with('success', 'Prize updated.');
+            ->with('success', __('application-messages.flash.prize-updated'));
     }
 
     /**
@@ -60,6 +60,6 @@ class PrizeController extends Controller
         return to_route('staff.events.edit', [
             'event' => $event
         ])
-            ->with('success', 'Prize removed from event.');
+            ->with('success', __('application-messages.flash.prize-removed'));
     }
 }

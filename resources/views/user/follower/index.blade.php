@@ -51,7 +51,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">No followers</td>
+                                <td colspan="3">{{ __('member-interface.account.no-followers') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

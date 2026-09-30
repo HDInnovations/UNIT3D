@@ -98,18 +98,28 @@ class ModerationController extends Controller
                 // Announce To Shoutbox
                 if (!$torrent->anon) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('User [url=%s/users/', config('app.url')).$torrent->user->username.']'.$torrent->user->username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
+                        trans('application-messages.bot.torrent-uploaded', [
+                            'userUrl'  => \sprintf('%s/users/%s', config('app.url'), $torrent->user->username),
+                            'username' => $torrent->user->username,
+                            'category' => $torrent->category->name,
+                            'url'      => \sprintf('%s/torrents/%s', config('app.url'), $id),
+                            'name'     => $torrent->name,
+                        ], config('app.locale'))
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
+                        trans('application-messages.bot.torrent-uploaded-anon', [
+                            'category' => $torrent->category->name,
+                            'url'      => \sprintf('%s/torrents/%s', config('app.url'), $id),
+                            'name'     => $torrent->name,
+                        ], config('app.locale'))
                     );
                 }
 
                 TorrentHelper::approveHelper($id);
 
                 return to_route('staff.moderation.index')
-                    ->with('success', 'Torrent approved');
+                    ->with('success', __('application-messages.flash.torrent-approved'));
 
             case ModerationStatus::REJECTED:
                 $torrent->update([
@@ -118,14 +128,24 @@ class ModerationController extends Controller
                     'moderated_by' => $staff->id,
                 ]);
 
-                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been rejected by '.$staff->username]);
+                $rejectRecipientLocale = $torrent->user->preferredLocale();
+
+                $conversation = Conversation::create(['subject' => trans('application-messages.mail.torrent-rejected-subject', [
+                    'name'     => $torrent->name,
+                    'username' => $staff->username,
+                ], $rejectRecipientLocale)]);
 
                 $conversation->users()->sync([$staff->id => ['read' => true], $torrent->user_id]);
 
                 PrivateMessage::create([
                     'conversation_id' => $conversation->id,
                     'sender_id'       => $staff->id,
-                    'message'         => "Greetings, \n\nYour upload, [url=/torrents/".$id.']'.$torrent->name."[/url], has been rejected. Please see below the message from the staff member.\n\n[quote=".$staff->username.']'.$request->message.'[/quote]',
+                    'message'         => trans('application-messages.mail.torrent-rejected-message', [
+                        'id'       => $id,
+                        'name'     => $torrent->name,
+                        'username' => $staff->username,
+                        'note'     => $request->message,
+                    ], $rejectRecipientLocale),
                 ]);
 
                 cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
@@ -133,7 +153,7 @@ class ModerationController extends Controller
                 Unit3dAnnounce::addTorrent($torrent);
 
                 return to_route('staff.moderation.index')
-                    ->with('success', 'Torrent rejected');
+                    ->with('success', __('application-messages.flash.torrent-rejected'));
 
             case ModerationStatus::POSTPONED:
                 $torrent->update([
@@ -142,14 +162,24 @@ class ModerationController extends Controller
                     'moderated_by' => $staff->id,
                 ]);
 
-                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been postponed by '.$staff->username]);
+                $postponeRecipientLocale = $torrent->user->preferredLocale();
+
+                $conversation = Conversation::create(['subject' => trans('application-messages.mail.torrent-postponed-subject', [
+                    'name'     => $torrent->name,
+                    'username' => $staff->username,
+                ], $postponeRecipientLocale)]);
 
                 $conversation->users()->sync([$staff->id => ['read' => true], $torrent->user_id]);
 
                 PrivateMessage::create([
                     'conversation_id' => $conversation->id,
                     'sender_id'       => $staff->id,
-                    'message'         => "Greetings, \n\nYour upload, [url=/torrents/".$id.']'.$torrent->name."[/url], has been postponed. Please see below the message from the staff member.\n\n[quote=".$staff->username.']'.$request->message.'[/quote]',
+                    'message'         => trans('application-messages.mail.torrent-postponed-message', [
+                        'id'       => $id,
+                        'name'     => $torrent->name,
+                        'username' => $staff->username,
+                        'note'     => $request->message,
+                    ], $postponeRecipientLocale),
                 ]);
 
                 cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
@@ -157,7 +187,7 @@ class ModerationController extends Controller
                 Unit3dAnnounce::addTorrent($torrent);
 
                 return to_route('staff.moderation.index')
-                    ->with('success', 'Torrent postponed');
+                    ->with('success', __('application-messages.flash.torrent-postponed'));
 
             default: // Undefined status
                 return to_route('torrents.show', ['id' => $id])

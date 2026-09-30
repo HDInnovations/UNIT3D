@@ -10,7 +10,9 @@
                         type="checkbox"
                         wire:model.live="show"
                     />
-                    <label class="form__label" for="show">Show soft deletes</label>
+                    <label class="form__label" for="show">
+                        {{ __('livewire-interface.show-soft-deletes') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -131,7 +133,7 @@
                                 {{ $warning->torrent->name }}
                             </a>
                         @else
-                            n/a
+                            {{ __('livewire-interface.not-applicable') }}
                         @endisset
                     </td>
                     <td>{{ $warning->reason }}</td>
@@ -161,7 +163,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7">No warnings</td>
+                    <td colspan="7">{{ __('livewire-interface.no-warnings') }}</td>
                 </tr>
             @endforelse
         </tbody>

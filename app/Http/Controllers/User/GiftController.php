@@ -93,14 +93,13 @@ class GiftController extends Controller
         });
 
         $this->chatRepository->systemMessage(
-            \sprintf(
-                '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
-                href_profile($sender),
-                $sender->username,
-                $request->bon,
-                href_profile($receiver),
-                $receiver->username
-            )
+            trans('application-messages.bot.gift-broadcast', [
+                'senderUrl' => href_profile($sender),
+                'sender' => $sender->username,
+                'amount' => $request->bon,
+                'recipientUrl' => href_profile($receiver),
+                'recipient' => $receiver->username,
+            ], config('app.locale'))
         );
 
         return redirect()->back()->with('success', trans('bon.gift-sent'));

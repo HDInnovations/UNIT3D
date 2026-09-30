@@ -92,14 +92,14 @@
                     <tr>
                         <td>
                             @if ($gift->sender === null)
-                                Deleted user
+                                {{ __('livewire-interface.deleted-user') }}
                             @else
                                 <x-user-tag :user="$gift->sender" :anon="false" />
                             @endif
                         </td>
                         <td>
                             @if ($gift->recipient === null)
-                                Deleted user
+                                {{ __('livewire-interface.deleted-user') }}
                             @else
                                 <x-user-tag :user="$gift->recipient" :anon="false" />
                             @endif
@@ -117,7 +117,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No gifts</td>
+                        <td colspan="5">{{ __('common.no-result') }}</td>
                     </tr>
                 @endforelse
             </tbody>

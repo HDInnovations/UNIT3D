@@ -21,9 +21,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('bon.bon') }} {{ __('bon.earning') }}
+            {{ __('staff-interface.bon-earning-edit-heading') }}
         </h2>
         <div class="panel__body">
             <form
@@ -89,7 +87,7 @@
                             value="1"
                             @selected($bonEarning->variable === '1')
                         >
-                            1 (Constant)
+                            {{ __('staff-interface.bon-earning-constant') }}
                         </option>
                         <option
                             class="form__option"
@@ -148,7 +146,7 @@
                             {{ __('common.internal') }} (1 (true) or 0 (false))
                         </option>
                     </select>
-                    <label class="form__label form__label--floating" for="variable">Variable</label>
+                    <label class="form__label form__label--floating" for="variable">{{ __('staff-interface.bon-earning-variable') }}</label>
                 </p>
                 <p class="form__group">
                     <input
@@ -162,7 +160,7 @@
                         value="{{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}"
                     />
                     <label class="form__label form__label--floating" for="multiplier">
-                        Multiplier
+                        {{ __('staff-interface.bon-earning-multiplier') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -179,21 +177,21 @@
                             value="append"
                             @selected($bonEarning->operation === 'append')
                         >
-                            Append
+                            {{ __('staff-interface.bon-earning-operation-append') }}
                         </option>
                         <option
                             class="form__option"
                             value="multiply"
                             @selected($bonEarning->operation === 'multiply')
                         >
-                            Multiply
+                            {{ __('staff-interface.bon-earning-operation-multiply') }}
                         </option>
                     </select>
                     <label class="form__label form__label--floating" for="operation">
-                        Operation
+                        {{ __('staff-interface.bon-earning-operation') }}
                     </label>
                 </p>
-                <h3>Conditions</h3>
+                <h3>{{ __('staff-interface.bon-earning-conditions') }}</h3>
                 <template x-for="(condition, i) in conditions">
                     <div class="form__group--horizontal">
                         <input
@@ -214,7 +212,7 @@
                                     value="1"
                                     x-bind:selected="condition['operand1'] === '1'"
                                 >
-                                    1 (Constant)
+                                    {{ __('staff-interface.bon-earning-constant') }}
                                 </option>
                                 <option
                                     class="form__option"
@@ -284,14 +282,14 @@
                                     value="connectable"
                                     x-bind:selected="condition['operand1'] === 'connectable'"
                                 >
-                                    Connectable (1 (true) or 0 (false))
+                                    {{ __('staff-interface.bon-earning-connectable-flag') }}
                                 </option>
                             </select>
                             <label
                                 class="form__label form__label--floating"
                                 x-bind:for="'condition' + i + 'operand1'"
                             >
-                                Operand 1
+                                {{ __('staff-interface.bon-earning-condition-operand1') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -349,7 +347,7 @@
                                 class="form__label form__label--floating"
                                 x-bind:for="'condition' + i + 'operator'"
                             >
-                                Operator
+                                {{ __('staff-interface.bon-earning-condition-operator') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -365,7 +363,7 @@
                                 class="form__label form__label--floating"
                                 x-bind:for="'condition' + i + 'operand2'"
                             >
-                                Operand 2
+                                {{ __('staff-interface.bon-earning-condition-operand2') }}
                             </label>
                         </p>
                     </div>
@@ -375,13 +373,13 @@
                         x-on:click.prevent="conditions.push({ 'id': 0, 'operand1': '', 'operator': '', 'operand2': '' })"
                         class="form__button form__button--outlined"
                     >
-                        Add condition
+                        {{ __('staff-interface.bon-earning-condition-add') }}
                     </button>
                     <button
                         class="form__button form__button--outlined"
                         x-on:click.prevent="conditions.length > 0 ? conditions.pop() : null"
                     >
-                        Delete condition
+                        {{ __('staff-interface.bon-earning-condition-delete') }}
                     </button>
                 </p>
                 <p class="form__group">
@@ -398,15 +396,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.information') }}</h2>
         <div class="panel__body">
-            Every hour, earnings are calculated and distributed to each user. Each earning is
-            calculated as "variable * multiplier". There exist two types of earnings: "append", and
-            "multiply". If the earning is of the type "append", then it is added onto previous
-            earnings. If the earning is of the type "multiply", then it multiplies all previous
-            earnings (denoted by a position lower than this earning). For example, if the order of
-            the earnings was "append", "append", "multiply", "append", then the sum of the first two
-            earnings will be multiplied by the third earning before being added to the fourth
-            earning. Conditions can also be added to specify if an earning should be calculated or
-            not.
+            {{ __('staff-interface.bon-earning-info') }}
         </div>
     </section>
 @endsection

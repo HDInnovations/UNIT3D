@@ -28,7 +28,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'UNIT3D',
+    'name' => env('APP_NAME', 'Vltava'),
 
     /*
     |--------------------------------------------------------------------------
@@ -86,6 +86,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Display Timezone
+    |--------------------------------------------------------------------------
+    |
+    | Timestamps are stored and processed in the application timezone (UTC).
+    | Blade output converts every Carbon instance to this timezone; use
+    | `->toDisplayTimezone()` before formatting a timestamp in a view.
+    |
+    */
+
+    'display_timezone' => env('APP_DISPLAY_TIMEZONE', 'Europe/Prague'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |
@@ -95,7 +108,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'cs',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,11 +141,13 @@ return [
     | Meta Data Locale
     |--------------------------------------------------------------------------
     |
-    | This locale will be used by service providers like TMDB API.
+    | This locale is requested from metadata providers such as TMDB. If a
+    | localized title or overview is missing, the fallback locale is used.
     |
     */
 
-    'meta_locale' => 'en_US',
+    'meta_locale'          => 'cs-CZ',
+    'meta_fallback_locale' => 'en-US',
 
     /*
     |--------------------------------------------------------------------------

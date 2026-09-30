@@ -67,7 +67,7 @@ class GroupController extends Controller
         Unit3dAnnounce::addGroup($group);
 
         return to_route('staff.groups.index')
-            ->with('success', 'Group was created successfully!');
+            ->with('success', __('application-messages.flash.group-created'));
     }
 
     /**
@@ -100,7 +100,7 @@ class GroupController extends Controller
         Unit3dAnnounce::addGroup($group);
 
         return to_route('staff.groups.index')
-            ->with('success', 'Group was updated successfully!');
+            ->with('success', __('application-messages.flash.group-updated'));
     }
 
     /**
@@ -110,7 +110,7 @@ class GroupController extends Controller
     {
         if ($group->system_required) {
             return to_route('staff.groups.index')
-                ->with('error', 'Cannot delete system required group: '.$group->name);
+                ->with('error', __('application-messages.flash.group-system-required', ['name' => $group->name]));
         }
 
         if ($group->users()->exists()) {
@@ -123,7 +123,7 @@ class GroupController extends Controller
 
             if ($defaultGroup === null) {
                 return to_route('staff.groups.index')
-                    ->with('error', 'Cannot find default User group to reassign users.');
+                    ->with('error', __('application-messages.flash.group-reassign-default-missing'));
             }
 
             $group->users()->update(['group_id' => $defaultGroup->id]);
@@ -135,6 +135,6 @@ class GroupController extends Controller
         $group->delete();
 
         return to_route('staff.groups.index')
-            ->with('success', "Group deleted successfully.");
+            ->with('success', __('application-messages.flash.group-deleted'));
     }
 }

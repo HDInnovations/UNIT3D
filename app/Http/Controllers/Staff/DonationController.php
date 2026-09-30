@@ -103,7 +103,7 @@ class DonationController extends Controller
         Unit3dAnnounce::addUser($donation->user);
 
         return redirect()->route('staff.donations.index')
-            ->with('success', 'Donation approved!');
+            ->with('success', __('application-messages.flash.donation-approved'));
     }
 
     /**
@@ -116,18 +116,23 @@ class DonationController extends Controller
         $donation = Donation::findOrFail($id);
         $donation->status = ModerationStatus::REJECTED;
 
-        $conversation = Conversation::create(['subject' => 'Your donation from '.$donation->created_at.', has been rejected by '.$request->user()->username]);
+        $recipientLocale = $donation->user->preferredLocale();
+
+        $conversation = Conversation::create(['subject' => trans('application-messages.mail.donation-rejected-subject', [
+            'date'     => $donation->created_at,
+            'username' => $request->user()->username,
+        ], $recipientLocale)]);
         $conversation->users()->sync([$request->user()->id => ['read' => true], $donation->user_id]);
 
         PrivateMessage::create([
             'conversation_id' => $conversation->id,
             'sender_id'       => $request->user()->id,
-            'message'         => 'Your donation could not be approved at this time. Please contact us for more information by replying to this private message.',
+            'message'         => trans('application-messages.mail.donation-rejected-message', [], $recipientLocale),
         ]);
 
         $donation->save();
 
         return redirect()->route('staff.donations.index')
-            ->with('success', 'Donation rejected!');
+            ->with('success', __('application-messages.flash.donation-rejected'));
     }
 }

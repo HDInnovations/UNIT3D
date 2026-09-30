@@ -21,11 +21,11 @@
     </figure>
     <dl class="subforum-listing__topic-stats">
         <dt>{{ __('forum.topics') }}</dt>
-        <dd>{{ $subforum->num_topic ?: 0 }}</dd>
+        <dd data-label="{{ __('media-interface.components.topic-stat-prefix') }}">{{ $subforum->num_topic ?: 0 }}</dd>
     </dl>
     <dl class="subforum-listing__post-stats">
         <dt>{{ __('forum.posts') }}</dt>
-        <dd>{{ $subforum->num_post ?: 0 }}</dd>
+        <dd data-label="{{ __('media-interface.components.post-stat-prefix') }}">{{ $subforum->num_post ?: 0 }}</dd>
     </dl>
     <article class="subforum-listing__latest-topic">
         @if ($subforum->lastRepliedTopic !== null)
@@ -56,7 +56,10 @@
             @endif
         </time>
         @if ($subforum->lastRepliedTopic !== null && $subforum->latestPoster !== null)
-            <address class="subforum-listing__latest-author">
+            <address
+                class="subforum-listing__latest-author"
+                data-label="{{ __('media-interface.components.by-prefix') }}"
+            >
                 <a
                     class="subforum-listing__latest-author-link"
                     href="{{ route('users.show', ['user' => $subforum->latestPoster]) }}"

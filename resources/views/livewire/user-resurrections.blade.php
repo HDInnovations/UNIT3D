@@ -218,7 +218,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to cancel this resurrection: ' . $resurrection->torrent->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-cancel-resurrection', ['name' => $resurrection->torrent->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.cancel') }}

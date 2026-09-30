@@ -13,7 +13,7 @@
         </time>
 
         <span class="comment__topic">
-            On
+            {{ __('media-interface.components.on') }}
 
             @switch($comment->commentable_type)
                 @case(\App\Models\Torrent::class)
@@ -43,12 +43,12 @@
                 @if ($comment->user->isOnline())
                     <i
                         class="{{ config('other.font-awesome') }} fa-circle text-green"
-                        title="Online"
+                        title="{{ __('user.online') }}"
                     ></i>
                 @else
                     <i
                         class="{{ config('other.font-awesome') }} fa-circle text-red"
-                        title="Offline"
+                        title="{{ __('user.offline') }}"
                     ></i>
                 @endif
                 <a

@@ -7,7 +7,9 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">Wikis</a>
+        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">
+            {{ __('staff-interface.wikis') }}
+        </a>
     </li>
     <li class="breadcrumb--active">
         {{ __('common.new-adj') }}
@@ -18,12 +20,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('common.new-adj') }}
-            Wiki
-        </h2>
+        <h2 class="panel__heading">{{ __('staff-interface.add-new-wiki-heading') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.wikis.store') }}">
                 @csrf

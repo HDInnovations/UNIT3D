@@ -50,8 +50,8 @@ class NewWishListNotice extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Wish List Notice!',
-            'body'  => $this->torrent->name.' from your wishlist has been uploaded',
+            'title' => __('application-messages.notification.new-wishlist-notice-title'),
+            'body'  => __('application-messages.notification.new-wishlist-notice-body', ['name' => $this->torrent->name]),
             'url'   => '/torrents/'.$this->torrent->id,
         ];
     }

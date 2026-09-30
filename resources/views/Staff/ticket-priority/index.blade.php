@@ -66,7 +66,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this ticket priority: ' . $ticketPriority->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-ticket-priority-confirmation', ['name' => $ticketPriority->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

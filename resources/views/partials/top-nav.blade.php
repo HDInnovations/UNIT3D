@@ -1,7 +1,7 @@
 <nav class="top-nav" x-data="{ expanded: false }" x-bind:class="expanded && 'mobile'">
     <div class="top-nav__left">
         <a class="top-nav__branding" href="{{ route('home.index') }}">
-            <img src="{{ url('/favicon.ico') }}" style="height: 35px" />
+            <img src="{{ url('/img/vltava-mark.svg') }}" alt="" style="height: 35px" />
             <span class="top-nav__site-logo">{{ \config('other.title') }}</span>
         </a>
         @include('partials.quick-search-dropdown')
@@ -34,7 +34,7 @@
                 <li>
                     <a href="{{ route('torrents.create') }}">
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                        {{ __('common.upload') }}
+                        {{ __('common.upload-action') }}
                     </a>
                 </li>
                 <li>
@@ -58,7 +58,7 @@
                 <li>
                     <a href="{{ route('mediahub.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-database"></i>
-                        MediaHub
+                        {{ __('mediahub.title') }}
                     </a>
                 </li>
             </ul>
@@ -141,19 +141,25 @@
                 <li>
                     <a href="{{ route('pages.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-file-lines"></i>
-                        Informace a dokumentace
+                        {{ __('interface.documentation') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('pages.show', ['page' => 8]) }}">
+                        <i class="{{ config('other.font-awesome') }} fa-water"></i>
+                        {{ __('interface.about-site', ['site' => config('other.title')]) }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('wikis.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-list-alt"></i>
-                        Wiki
+                        {{ __('interface.wiki') }}
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('pages.show', ['page' => 7]) }}">
                         <i class="{{ config('other.font-awesome') }} fa-code"></i>
-                        API dokumentace
+                        {{ __('interface.api-documentation') }}
                     </a>
                 </li>
                 <li>
@@ -223,13 +229,13 @@
         </li>
         @if (config('donation.is_enabled'))
             <li class="top-nav__dropdown">
-                <a tabindex="0" title="{{ $donationPercentage }}% filled">
+                <a tabindex="0" title="{{ __('interface.donate-filled', ['percent' => $donationPercentage]) }}">
                     <div class="top-nav--left__container">
                         <span
                             class="{{ $donationPercentage < 100 ? 'fa-fade' : '' }}"
                             style="color: lightcoral"
                         >
-                            Donate
+                            {{ __('interface.donate') }}
                         </span>
                         <div class="progress" style="background-color: slategray">
                             <div
@@ -252,13 +258,13 @@
                     <li>
                         <a href="{{ route('donations.index') }}">
                             <i class="fas fa-display-chart-up-circle-dollar"></i>
-                            Support {{ config('other.title') }} ({{ $donationPercentage }}%)
+                            {{ __('interface.support-site', ['site' => config('other.title'), 'percent' => $donationPercentage]) }}
                         </a>
                     </li>
                     <li>
                         <a href="https://square.link/u/VjB1CNfm" target="_blank">
                             <i class="fas fa-handshake"></i>
-                            Support UNIT3D
+                            {{ __('interface.support-brand', ['brand' => 'UNIT3D']) }}
                         </a>
                     </li>
                 </ul>
@@ -266,61 +272,7 @@
         @endif
     </ul>
     <div class="top-nav__right" x-bind:class="expanded && 'mobile'">
-        <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
-            <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
-                <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                    {{ $user->formatted_uploaded }}
-                </a>
-            </li>
-            <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
-                <a
-                    href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}"
-                >
-                    <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                    {{ $user->formatted_downloaded }}
-                </a>
-            </li>
-
-            <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
-                <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ $peerCount - $leechCount }}
-                </a>
-            </li>
-            <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
-                <a
-                    href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}"
-                >
-                    <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ $leechCount }}
-                </a>
-            </li>
-            <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
-                <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
-                    {{ $user->formatted_buffer }}
-                </a>
-            </li>
-            <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
-                <a href="{{ route('users.earnings.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-coins"></i>
-                    {{ $user->formatted_seedbonus }}
-                </a>
-            </li>
-            <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
-                <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                    {{ $user->formatted_ratio }}
-                </a>
-            </li>
-            <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
-                <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                    {{ $user->fl_tokens }}
-                </a>
-            </li>
-        </ul>
+        @livewire('ratio-bar')
         <a
             class="top-nav__username--highresolution"
             href="{{ route('users.show', ['user' => auth()->user()]) }}"
@@ -550,5 +502,8 @@
         class="top-nav__toggle {{ \config('other.font-awesome') }}"
         x-bind:class="expanded ? 'fa-times mobile' : 'fa-bars'"
         x-on:click="expanded = !expanded"
+        x-bind:aria-expanded="expanded"
+        aria-label="{{ __('common.navigation') }}"
+        type="button"
     ></button>
 </nav>

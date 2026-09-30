@@ -53,7 +53,7 @@ class PageController extends Controller
         Page::create($request->validated());
 
         return to_route('staff.pages.index')
-            ->with('success', 'Page has been created successfully');
+            ->with('success', __('application-messages.flash.page-created'));
     }
 
     /**
@@ -74,7 +74,7 @@ class PageController extends Controller
         $page->update($request->validated());
 
         return to_route('staff.pages.index')
-            ->with('success', 'Page has been edited successfully');
+            ->with('success', __('application-messages.flash.page-edited'));
     }
 
     /**
@@ -87,6 +87,6 @@ class PageController extends Controller
         $page->delete();
 
         return to_route('staff.pages.index')
-            ->with('success', 'Page has been deleted successfully');
+            ->with('success', __('application-messages.flash.page-deleted'));
     }
 }

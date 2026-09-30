@@ -12,7 +12,7 @@
         href="{{ $igdb ? route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $igdb]) : '#' }}"
     >
         <h1 class="meta__title">
-            {{ $meta->name ?? 'No meta found' }}
+            {{ $meta->name ?? __('torrent.no-meta') }}
             ({{ substr($meta->first_release_date ?? '', 0, 4) ?? '' }})
         </h1>
     </a>
@@ -45,7 +45,7 @@
                         ])
                     }}"
                 >
-                    {{ __('common.upload') }}
+                    {{ __('common.upload-action') }}
                 </a>
             </li>
             <li>
@@ -63,7 +63,7 @@
                         ])
                     }}"
                 >
-                    Request similar
+                    {{ __('media-interface.torrent.request-similar') }}
                 </a>
             </li>
             @if ($meta?->id || $torrent?->igdb ?? null)
@@ -78,11 +78,11 @@
                         <button
                             @if (cache()->has('igdb-game-scraper:' . ($meta?->id ?? $torrent->igdb)))
                                 disabled
-                                title="This item was recently updated. Try again tomorrow."
+                                title="{{ __('media-interface.torrent.meta-recently-updated') }}"
                             @endif
                             style="cursor: pointer"
                         >
-                            Update metadata
+                            {{ __('media-interface.torrent.meta-update-metadata-action') }}
                         </button>
                     </form>
                 </li>
@@ -106,7 +106,7 @@
     <p class="meta__description">{{ $meta?->summary ?? '' }}</p>
     <div class="meta__chips">
         <section class="meta__chip-container">
-            <h2 class="meta__heading">Platforms</h2>
+            <h2 class="meta__heading">{{ __('vltava.media.platforms') }}</h2>
             @foreach ($meta?->platforms ?? [] as $platform)
                 <article class="meta-chip-wrapper meta-chip">
                     @if ($platform->image_id)
@@ -118,13 +118,13 @@
                     @else
                         <i class="{{ config('other.font-awesome') }} fa-user meta-chip__icon"></i>
                     @endif
-                    <h2 class="meta-chip__name">Platform</h2>
+                    <h2 class="meta-chip__name">{{ __('vltava.media.platform') }}</h2>
                     <h3 class="meta-chip__value">{{ $platform->name }}</h3>
                 </article>
             @endforeach
         </section>
         <section class="meta__chip-container">
-            <h2 class="meta__heading">Companies</h2>
+            <h2 class="meta__heading">{{ __('vltava.media.companies') }}</h2>
             @foreach ($meta?->companies ?? [] as $company)
                 <article class="meta__company">
                     <a class="meta-chip" href="{{ $company->url }}" target="_blank">
@@ -140,14 +140,14 @@
                                 class="{{ config('other.font-awesome') }} fa-camera-movie meta-chip__icon"
                             ></i>
                         @endif
-                        <h2 class="meta-chip__name">Company</h2>
+                        <h2 class="meta-chip__name">{{ __('vltava.media.company') }}</h2>
                         <h3 class="meta-chip__value">{{ $company->name }}</h3>
                     </a>
                 </article>
             @endforeach
         </section>
         <section class="meta__chip-container">
-            <h2 class="meta__heading">Extra information</h2>
+            <h2 class="meta__heading">{{ __('vltava.media.extra') }}</h2>
             <article class="meta-chip-wrapper meta-chip">
                 <i class="{{ config('other.font-awesome') }} fa-star meta-chip__icon"></i>
                 <h2 class="meta-chip__name">{{ __('torrent.rating') }}</h2>
@@ -162,8 +162,8 @@
                         <i
                             class="{{ config('other.font-awesome') }} fa-external-link meta-chip__icon"
                         ></i>
-                        <h2 class="meta-chip__name">Trailer</h2>
-                        <h3 class="meta-chip__value">View</h3>
+                        <h2 class="meta-chip__name">{{ __('vltava.media.trailer') }}</h2>
+                        <h3 class="meta-chip__value">{{ __('vltava.media.watch') }}</h3>
                     </a>
                 </article>
             @endisset
@@ -173,7 +173,7 @@
                     <i
                         class="{{ config('other.font-awesome') }} fa-theater-masks meta-chip__icon"
                     ></i>
-                    <h2 class="meta-chip__name">Genres</h2>
+                    <h2 class="meta-chip__name">{{ __('vltava.media.genres') }}</h2>
                     <h3 class="meta-chip__value">
                         {{ $meta->genres->pluck('name')->join(' / ') }}
                     </h3>
@@ -193,7 +193,7 @@
                 background: 'rgb(35,35,35)',
                 width: 970,
                 html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                title: '<i style="color: #a5a5a5;">{{ $meta->title }} trailer</i>',
+                title: '<i style="color: #a5a5a5;">{{ $meta->title }} {{ mb_strtolower(__('vltava.media.trailer')) }}</i>',
                 text: '',
             });
         });

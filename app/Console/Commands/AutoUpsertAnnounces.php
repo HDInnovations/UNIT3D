@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Announce;
+use App\Traits\FiltersOrphanedAnnounceRows;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -25,6 +26,8 @@ use Throwable;
 
 class AutoUpsertAnnounces extends Command
 {
+    use FiltersOrphanedAnnounceRows;
+
     /**
      * The name and signature of the console command.
      *
@@ -74,7 +77,11 @@ class AutoUpsertAnnounces extends Command
                 break;
             }
 
-            $announces = array_map('unserialize', $announces);
+            $announces = $this->withoutOrphanedRows(array_map('unserialize', $announces));
+
+            if ($announces === []) {
+                continue;
+            }
 
             DB::transaction(static fn () => Announce::insert($announces), 5);
         }

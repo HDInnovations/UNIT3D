@@ -58,7 +58,7 @@
                         value="{{ $chatstatus->color }}"
                     />
                     <label class="form__label form__label--floating" for="color">
-                        {{ __('common.color') }} (e.g. #ff0000)
+                        {{ __('staff-interface.color-hex-example') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -66,13 +66,13 @@
                         id="icon"
                         class="form__text"
                         name="icon"
-                        placeholder="Enter Font Awesome code here..."
+                        placeholder="{{ __('staff-interface.enter-font-awesome-code-placeholder') }}"
                         required
                         type="text"
                         value="{{ $chatstatus->icon }}"
                     />
                     <label class="form__label form__label--floating" for="icon">
-                        Font Awesome icon code (e.g. fas fa-comment-smile)
+                        {{ __('staff-interface.font-awesome-icon-code-example') }}
                     </label>
                 </p>
                 <p class="form__group">

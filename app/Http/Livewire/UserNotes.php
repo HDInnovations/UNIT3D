@@ -102,7 +102,7 @@ class UserNotes extends Component
 
         $this->message = '';
 
-        $this->dispatch('success', type: 'success', message: 'Note has successfully been posted!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.note-posted'));
     }
 
     /**
@@ -121,7 +121,7 @@ class UserNotes extends Component
             'updated_at' => now(),
         ]);
 
-        $this->dispatch('success', type: 'success', message: 'Note has successfully been updated!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.note-updated'));
     }
 
     final public function destroy(int $id): void
@@ -130,6 +130,6 @@ class UserNotes extends Component
 
         Note::findOrFail($id)->delete();
 
-        $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.note-deleted'));
     }
 }

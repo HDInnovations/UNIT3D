@@ -48,10 +48,11 @@ class UserPreWarning extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Hit and Run Pre Warning Received!')
-            ->line('You have received an automated hit and run PRE WARNING on one or more torrents!')
-            ->action('View your unsatisfied torrents and start seeding before you are issued a permanent WARNING!', route('users.history.index', ['user' => $this->user]))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.pre-warning-greeting'))
+            ->greeting(__('application-messages.notification.pre-warning-greeting'))
+            ->line(__('application-messages.notification.pre-warning-line'))
+            ->action(__('application-messages.notification.pre-warning-action'), route('users.history.index', ['user' => $this->user]))
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 
     /**
@@ -62,8 +63,8 @@ class UserPreWarning extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Hit and Run Pre Warning Received!',
-            'body'  => 'You have received an automated hit and run PRE WARNING on one or more torrents! View your unsatisfied torrents and start seeding before you are issued a permanent WARNING!!',
+            'title' => __('application-messages.notification.pre-warning-greeting'),
+            'body'  => __('application-messages.notification.pre-warning-body'),
             'url'   => route('users.history.index', ['user' => $this->user]),
         ];
     }

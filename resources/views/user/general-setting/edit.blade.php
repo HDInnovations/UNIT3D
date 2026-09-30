@@ -26,7 +26,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">General {{ __('user.settings') }}</h2>
+        <h2 class="panel__heading">{{ __('user.general-settings') }}</h2>
         <div class="panel__body">
             <form
                 class="form"
@@ -48,127 +48,27 @@
                             </option>
                         @endforeach
                     </select>
-                    <label class="form__label form__label--floating" for="locale">Language</label>
+                    <label class="form__label form__label--floating" for="locale">{{ __('common.language') }}</label>
                 </p>
                 <fieldset class="form form__fieldset">
-                    <legend class="form__legend">Style</legend>
+                    <legend class="form__legend">{{ __('member-interface.settings.style') }}</legend>
                     <p class="form__group">
                         <select id="style" class="form__select" name="style" required>
-                            <option
-                                class="form__option"
-                                value="0"
-                                @selected($user->settings->style === 0)
-                            >
-                                Light
-                            </option>
-                            <option
-                                class="form__option"
-                                value="1"
-                                @selected($user->settings->style === 1)
-                            >
-                                Galactic
-                            </option>
-                            <option
-                                class="form__option"
-                                value="2"
-                                @selected($user->settings->style === 2)
-                            >
-                                Dark blue
-                            </option>
-                            <option
-                                class="form__option"
-                                value="3"
-                                @selected($user->settings->style === 3)
-                            >
-                                Dark green
-                            </option>
-                            <option
-                                class="form__option"
-                                value="4"
-                                @selected($user->settings->style === 4)
-                            >
-                                Dark pink
-                            </option>
-                            <option
-                                class="form__option"
-                                value="5"
-                                @selected($user->settings->style === 5)
-                            >
-                                Dark purple
-                            </option>
-                            <option
-                                class="form__option"
-                                value="6"
-                                @selected($user->settings->style === 6)
-                            >
-                                Dark red
-                            </option>
-                            <option
-                                class="form__option"
-                                value="7"
-                                @selected($user->settings->style === 7)
-                            >
-                                Dark teal
-                            </option>
-                            <option
-                                class="form__option"
-                                value="8"
-                                @selected($user->settings->style === 8)
-                            >
-                                Dark yellow
-                            </option>
-                            <option
-                                class="form__option"
-                                value="9"
-                                @selected($user->settings->style === 9)
-                            >
-                                Cosmic void
-                            </option>
-                            <option
-                                class="form__option"
-                                value="10"
-                                @selected($user->settings->style === 10)
-                            >
-                                Nord
-                            </option>
-                            <option
-                                class="form__option"
-                                value="11"
-                                @selected($user->settings->style === 11)
-                            >
-                                Revel (Desktop only)
-                            </option>
-                            <option
-                                class="form__option"
-                                value="12"
-                                @selected($user->settings->style === 12)
-                            >
-                                Material design 3 light
-                            </option>
-                            <option
-                                class="form__option"
-                                value="13"
-                                @selected($user->settings->style === 13)
-                            >
-                                Material design 3 dark
-                            </option>
-                            <option
-                                class="form__option"
-                                value="15"
-                                @selected($user->settings->style === 15)
-                            >
-                                Material design 3 navy
-                            </option>
-
-                            <option
-                                class="form__option"
-                                value="14"
-                                @selected($user->settings->style === 14)
-                            >
-                                Material design 3 amoled
-                            </option>
+                            @foreach (\App\Enums\Theme::grouped() as $group => $themes)
+                                <optgroup label="{{ $group }}">
+                                    @foreach ($themes as $theme)
+                                        <option
+                                            class="form__option"
+                                            value="{{ $theme->value }}"
+                                            @selected($user->settings->style === $theme->value)
+                                        >
+                                            {{ $theme->label() }}
+                                        </option>
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
                         </select>
-                        <label class="form__label form__label--floating" for="style">Theme</label>
+                        <label class="form__label form__label--floating" for="style">{{ __('member-interface.settings.style') }}</label>
                     </p>
                     <p class="form__group">
                         <input
@@ -180,7 +80,7 @@
                             value="{{ $user->settings->custom_css }}"
                         />
                         <label class="form__label form__label--floating" for="custom_css">
-                            External CSS stylesheet (stacks on top of above theme)
+                            {{ __('member-interface.settings.external-css') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -193,12 +93,12 @@
                             value="{{ $user->settings->standalone_css }}"
                         />
                         <label class="form__label form__label--floating" for="standalone_css">
-                            Standalone CSS stylesheet (no site theme used)
+                            {{ __('member-interface.settings.standalone-css') }}
                         </label>
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Chat</legend>
+                    <legend class="form__legend">{{ __('common.chat') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="censor" value="0" />
@@ -209,14 +109,14 @@
                                 value="1"
                                 @checked($user->settings->censor)
                             />
-                            Language censor chat
+                            {{ __('member-interface.settings.language-censor-chat') }}
                         </label>
                     </p>
                 </fieldset>
                 <fieldset class="form form__fieldset">
                     <legend class="form__legend">{{ __('user.homepage-blocks') }}</legend>
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Block visibility</legend>
+                        <legend class="form__legend">{{ __('member-interface.settings.block-visibility') }}</legend>
                         <p class="form__group">
                             <label class="form__label">
                                 <input type="hidden" name="news_block_visible" value="0" />
@@ -366,7 +266,7 @@
                         </p>
                     </fieldset>
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Block order</legend>
+                        <legend class="form__legend">{{ __('member-interface.settings.block-order') }}</legend>
                         <ul
                             x-data="{
             blocks: [
@@ -374,14 +274,14 @@
                     'news' => __('blocks.check-news'),
                     'chat' => __('blocks.chatbox'),
                     'featured' => __('blocks.featured-torrents'),
-                    'random_media' => 'Random media',
-                    'poll' => 'Polls',
+                    'random_media' => __('member-interface.settings.random-media'),
+                    'poll' => __('member-interface.settings.polls'),
                     'top_torrents' => __('blocks.top-torrents'),
-                    'top_users' => 'Top users',
+                    'top_users' => __('member-interface.settings.top-users'),
                     'latest_topics' => __('blocks.latest-topics'),
                     'latest_posts' => __('blocks.latest-posts'),
                     'latest_comments' => __('blocks.latest-comments'),
-                    'online' => 'Online users'
+                    'online' => __('member-interface.settings.online-users')
                 ] as $block => $label)
                     {
                         key: '{{ $block }}',
@@ -435,11 +335,11 @@
                                 </li>
                             </template>
                         </ul>
-                        <small class="text-info">Drag and drop to reorder blocks.</small>
+                        <small class="text-info">{{ __('member-interface.settings.drag-drop-reorder') }}</small>
                     </fieldset>
                 </fieldset>
                 <fieldset class="form form__fieldset">
-                    <legend class="form__legend">Torrent</legend>
+                    <legend class="form__legend">{{ __('member-interface.settings.torrent') }}</legend>
                     <p class="form__group">
                         <select
                             id="torrent_layout"
@@ -452,32 +352,32 @@
                                 value="0"
                                 @selected($user->settings->torrent_layout === 0)
                             >
-                                Torrent list
+                                {{ __('member-interface.settings.torrent-list') }}
                             </option>
                             <option
                                 class="form__option"
                                 value="1"
                                 @selected($user->settings->torrent_layout === 1)
                             >
-                                Torrent cards
+                                {{ __('member-interface.settings.torrent-cards') }}
                             </option>
                             <option
                                 class="form__option"
                                 value="2"
                                 @selected($user->settings->torrent_layout === 2)
                             >
-                                Torrent groupings
+                                {{ __('member-interface.settings.torrent-groupings') }}
                             </option>
                             <option
                                 class="form__option"
                                 value="3"
                                 @selected($user->settings->torrent_layout === 3)
                             >
-                                Torrent posters
+                                {{ __('member-interface.settings.torrent-posters') }}
                             </option>
                         </select>
                         <label class="form__label form__label--floating" for="torrent_layout">
-                            Default torrent layout
+                            {{ __('member-interface.settings.default-torrent-layout') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -492,18 +392,18 @@
                                 value="bumped_at"
                                 @selected($user->settings->torrent_sort_field === 'bumped_at')
                             >
-                                Most recently bumped
+                                {{ __('member-interface.settings.most-recently-bumped') }}
                             </option>
                             <option
                                 class="form__option"
                                 value="created_at"
                                 @selected($user->settings->torrent_sort_field === 'created_at')
                             >
-                                Most recently uploaded
+                                {{ __('member-interface.settings.most-recently-uploaded') }}
                             </option>
                         </select>
                         <label class="form__label form__label--floating" for="torrent_sort_field">
-                            Default torrent sort field
+                            {{ __('member-interface.settings.default-torrent-sort-field') }}
                         </label>
                     </p>
                     <div>
@@ -517,7 +417,7 @@
                                     value="1"
                                     @checked($user->settings->show_poster)
                                 />
-                                Show posters on torrent list view
+                                {{ __('member-interface.settings.show-posters-torrent-list') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -530,7 +430,7 @@
                                     value="1"
                                     @checked($user->settings->torrent_search_autofocus)
                                 />
-                                Autofocus torrent search on page load
+                                {{ __('member-interface.settings.autofocus-torrent-search') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -547,7 +447,7 @@
                                     value="1"
                                     @checked($user->settings->unbookmark_torrents_on_completion)
                                 />
-                                Automatically unbookmark torrents upon completion
+                                {{ __('member-interface.settings.unbookmark-on-completion') }}
                             </label>
                         </p>
                         <p class="form__group">

@@ -23,15 +23,15 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Top users by message count</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-messages') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>{{ __('common.user') }}</th>
-                        <th>Messages</th>
-                        <th>Characters typed</th>
+                        <th>{{ __('member-interface.stats.messages-count') }}</th>
+                        <th>{{ __('member-interface.stats.characters-typed') }}</th>
                     </tr>
                 </thead>
                 <tbody>

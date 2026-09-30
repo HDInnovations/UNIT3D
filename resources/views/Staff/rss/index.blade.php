@@ -154,7 +154,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this public RSS feed: ' . $rss->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-public-rss-feed-confirmation', ['name' => $rss->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

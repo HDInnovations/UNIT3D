@@ -31,7 +31,7 @@
         </h2>
         <address class="torrent-search--grouped__directors">
             @if ($media->creators->isNotEmpty())
-                <span class="torrent-search-grouped__directors-by">by</span>
+                <span class="torrent-search-grouped__directors-by">{{ __('media-interface.components.by') }}</span>
                 @foreach ($media->creators as $creator)
                     <a
                         href="{{ route('mediahub.persons.show', ['id' => $creator->id, 'occupationId' => App\Enums\Occupation::CREATOR->value]) }}"
@@ -60,7 +60,7 @@
     <section>
         @if (array_key_exists('Complete Pack', $media->torrents))
             <details class="torrent-search--grouped__dropdown" open>
-                <summary x-bind="complete">Complete pack</summary>
+                <summary x-bind="complete">{{ __('livewire-interface.complete-pack') }}</summary>
                 <table class="torrent-search--grouped__torrents">
                     <tbody>
                         @foreach ($media->torrents['Complete Pack'] as $type => $torrents)
@@ -92,7 +92,7 @@
                     open
                 @endif
             >
-                <summary x-bind="specials">Specials</summary>
+                <summary x-bind="specials">{{ __('livewire-interface.specials') }}</summary>
                 @foreach ($media->torrents['Specials'] as $specialName => $special)
                     <details
                         class="torrent-search--grouped__dropdown"
@@ -159,7 +159,7 @@
                     </table>
                 @elseif (array_key_exists('Season Pack', $season))
                     <details open class="torrent-search--grouped__dropdown">
-                        <summary x-bind="pack">Season pack</summary>
+                        <summary x-bind="pack">{{ __('livewire-interface.season-pack') }}</summary>
                         <table class="torrent-search--grouped__torrents">
                             @foreach ($season['Season Pack'] as $type => $torrents)
                                 <tbody>

@@ -55,23 +55,21 @@ class BountyController extends Controller
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(
-                \sprintf(
-                    '[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]',
-                    href_profile($user),
-                    $user->username,
-                    $request->input('seedbonus'),
-                    href_request($torrentRequest),
-                    $torrentRequest->name
-                )
+                trans('application-messages.bot.bounty-added', [
+                    'userUrl' => href_profile($user),
+                    'username' => $user->username,
+                    'bon' => $request->input('seedbonus'),
+                    'requestUrl' => href_request($torrentRequest),
+                    'name' => $torrentRequest->name,
+                ], config('app.locale'))
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf(
-                    'An anonymous user added %s BON bounty to request [url=%s]%s[/url]',
-                    $request->input('seedbonus'),
-                    href_request($torrentRequest),
-                    $torrentRequest->name
-                )
+                trans('application-messages.bot.bounty-added-anon', [
+                    'bon' => $request->input('seedbonus'),
+                    'requestUrl' => href_request($torrentRequest),
+                    'name' => $torrentRequest->name,
+                ], config('app.locale'))
             );
         }
 

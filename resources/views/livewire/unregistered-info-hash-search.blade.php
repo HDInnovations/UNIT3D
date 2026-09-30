@@ -1,6 +1,6 @@
 <section class="panelV2">
     <header class="panel__header">
-        <h2 class="panel__heading">Unregistered info hashes</h2>
+        <h2 class="panel__heading">{{ __('livewire-interface.unregistered-info-hashes') }}</h2>
         <div class="panel__actions">
             <div class="panel__action">
                 <div class="form__group">
@@ -12,7 +12,9 @@
                         autocomplete="off"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="username">Username</label>
+                    <label class="form__label form__label--floating" for="username">
+                        {{ __('common.username') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -23,10 +25,12 @@
                         class="form__select"
                         placeholder=" "
                     >
-                        <option value="none">None</option>
-                        <option value="info_hash">Info hash</option>
+                        <option value="none">{{ __('livewire-interface.none') }}</option>
+                        <option value="info_hash">{{ __('torrent.info-hash') }}</option>
                     </select>
-                    <label class="form__label form__label--floating" for="groupBy">Group by</label>
+                    <label class="form__label form__label--floating" for="groupBy">
+                        {{ __('livewire-interface.group-by') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -37,13 +41,13 @@
                             type="checkbox"
                             class="form__checkbox"
                         />
-                        Exclude soft-deleted torrents
+                        {{ __('livewire-interface.exclude-soft-deleted-torrents') }}
                     </label>
                 </div>
             </div>
         </div>
     </header>
-    <div class="panel__body" wire:loading.block>Loading...</div>
+    <div class="panel__body" wire:loading.block>{{ __('livewire-interface.loading') }}</div>
     <div class="data-table-wrapper">
         <table class="data-table">
             @switch($groupBy)
@@ -55,7 +59,7 @@
                                 @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                             </th>
                             <th wire:click="sortBy('info_hash')" role="columnheader button">
-                                {{ __('torrent.info-hash') }} (Hex-encoded)
+                                {{ __('torrent.info-hash') }} {{ __('livewire-interface.hex-encoded') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'info_hash'])
                             </th>
                             <th wire:click="sortBy('created_at')" role="columnheader button">
@@ -83,7 +87,7 @@
                                         datetime="{{ $unregisteredInfoHash->created_at }}"
                                         title="{{ $unregisteredInfoHash->created_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->created_at?->diffForHumans() ?? 'N/A' }}
+                                        {{ $unregisteredInfoHash->created_at?->diffForHumans() ?? __('livewire-interface.not-applicable') }}
                                     </time>
                                 </td>
                                 <td>
@@ -91,7 +95,7 @@
                                         datetime="{{ $unregisteredInfoHash->updated_at }}"
                                         title="{{ $unregisteredInfoHash->updated_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? 'N/A' }}
+                                        {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? __('livewire-interface.not-applicable') }}
                                     </time>
                                 </td>
                             </tr>
@@ -103,7 +107,7 @@
                     <thead>
                         <tr>
                             <th wire:click="sortBy('info_hash')" role="columnheader button">
-                                {{ __('torrent.info-hash') }} (Hex-encoded)
+                                {{ __('torrent.info-hash') }} {{ __('livewire-interface.hex-encoded') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'info_hash'])
                             </th>
                             <th wire:click="sortBy('created_at')" role="columnheader button">
@@ -115,7 +119,7 @@
                                 @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
                             </th>
                             <th wire:click="sortBy('amount')" role="columnheader button">
-                                User count
+                                {{ __('livewire-interface.user-count') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'amount'])
                             </th>
                         </tr>
@@ -129,7 +133,7 @@
                                         datetime="{{ $unregisteredInfoHash->created_at }}"
                                         title="{{ $unregisteredInfoHash->created_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->created_at?->diffForHumans() ?? 'N/A' }}
+                                        {{ $unregisteredInfoHash->created_at?->diffForHumans() ?? __('livewire-interface.not-applicable') }}
                                     </time>
                                 </td>
                                 <td>
@@ -137,7 +141,7 @@
                                         datetime="{{ $unregisteredInfoHash->updated_at }}"
                                         title="{{ $unregisteredInfoHash->updated_at }}"
                                     >
-                                        {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? 'N/A' }}
+                                        {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? __('livewire-interface.not-applicable') }}
                                     </time>
                                 </td>
                                 <td>{{ $unregisteredInfoHash->amount }}</td>

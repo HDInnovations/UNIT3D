@@ -55,20 +55,20 @@ class TorrentBuffController extends Controller
         $profileUrl = href_profile($user);
 
         $this->chatRepository->systemMessage(
-            \sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
+            trans('application-messages.bot.torrent-bumped', ['torrentUrl' => $torrentUrl, 'name' => $torrent->name, 'userUrl' => $profileUrl, 'username' => $user->username], config('app.locale'))
         );
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {
             (new IRCAnnounceBot())
                 ->to(config('irc-bot.channel'))
-                ->say('['.config('app.name').'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!')
-                ->say('[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']')
-                ->say(\sprintf('[Link: %s]', $torrentUrl));
+                ->say(trans('application-messages.bot.irc-bump', ['app' => config('app.name'), 'username' => $user->username, 'name' => $torrent->name], config('app.locale')))
+                ->say(trans('application-messages.bot.irc-bump-meta', ['category' => $torrent->category->name, 'type' => $torrent->type->name, 'size' => $torrent->getSize()], config('app.locale')))
+                ->say(trans('application-messages.bot.irc-upload-link', ['url' => $torrentUrl], config('app.locale')));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent has been bumped to the top successfully!');
+            ->with('success', __('application-messages.flash.torrent-bumped'));
     }
 
     /**
@@ -84,7 +84,7 @@ class TorrentBuffController extends Controller
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent sticky status has been adjusted!');
+            ->with('success', __('application-messages.flash.torrent-sticky-adjusted'));
     }
 
     /**
@@ -107,16 +107,16 @@ class TorrentBuffController extends Controller
             if ($request->fl_until !== null) {
                 $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
+                    trans('application-messages.bot.freeleech-granted-until', ['url' => $torrentUrl, 'name' => $torrent->name, 'percent' => $request->freeleech, 'until' => $request->fl_until], config('app.locale'))
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->freeleech)
+                    trans('application-messages.bot.freeleech-granted', ['url' => $torrentUrl, 'name' => $torrent->name, 'percent' => $request->freeleech], config('app.locale'))
                 );
             }
         } elseif ($torrent->free != 0) {
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech!', $torrentUrl, $torrent->name, $torrent->free)
+                trans('application-messages.bot.freeleech-revoked', ['url' => $torrentUrl, 'name' => $torrent->name, 'percent' => $torrent->free], config('app.locale'))
             );
         }
 
@@ -128,7 +128,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent FL has been adjusted!');
+            ->with('success', __('application-messages.flash.torrent-fl-adjusted'));
     }
 
     /**
@@ -154,11 +154,11 @@ class TorrentBuffController extends Controller
             $torrentUrl = href_torrent($torrent);
             $profileUrl = href_profile($user);
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
+                trans('application-messages.bot.torrent-featured', ['url' => $torrentUrl, 'name' => $torrent->name, 'userUrl' => $profileUrl, 'username' => $user->username], config('app.locale'))
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->with('success', 'Torrent is now featured!');
+                ->with('success', __('application-messages.flash.torrent-featured'));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -183,7 +183,7 @@ class TorrentBuffController extends Controller
         $appurl = config('app.url');
 
         $this->chatRepository->systemMessage(
-            \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
+            trans('application-messages.bot.torrent-unfeatured', ['url' => \sprintf('%s/torrents/%s', $appurl, $torrent->id), 'name' => $torrent->name], config('app.locale'))
         );
 
         $featured_torrent->delete();
@@ -191,7 +191,7 @@ class TorrentBuffController extends Controller
         cache()->forget('featured-torrent-ids');
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Revoked featured from Torrent!');
+            ->with('success', __('application-messages.flash.torrent-unfeatured'));
     }
 
     /**
@@ -212,17 +212,17 @@ class TorrentBuffController extends Controller
             if ($du_until !== null) {
                 $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days.', $torrentUrl, $torrent->name)
+                    trans('application-messages.bot.double-upload-granted-until', ['url' => $torrentUrl, 'name' => $torrent->name, 'until' => $request->input('du_until')], config('app.locale'))
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can!', $torrentUrl, $torrent->name)
+                    trans('application-messages.bot.double-upload-granted', ['url' => $torrentUrl, 'name' => $torrent->name], config('app.locale'))
                 );
             }
         } else {
             $torrent->doubleup = false;
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload!', $torrentUrl, $torrent->name)
+                trans('application-messages.bot.double-upload-revoked', ['url' => $torrentUrl, 'name' => $torrent->name], config('app.locale'))
             );
         }
 
@@ -233,7 +233,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent DoubleUpload has been adjusted!');
+            ->with('success', __('application-messages.flash.torrent-du-adjusted'));
     }
 
     /**
@@ -262,7 +262,7 @@ class TorrentBuffController extends Controller
             $torrent->searchable();
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->with('success', 'You have successfully activated a freeleech token for this torrent!');
+                ->with('success', __('application-messages.flash.freeleech-token-activated'));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -284,19 +284,19 @@ class TorrentBuffController extends Controller
             $torrent->refundable = true;
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can!', $torrent_url, $torrent->name)
+                trans('application-messages.bot.torrent-refundable', ['url' => $torrent_url, 'name' => $torrent->name], config('app.locale'))
             );
         } else {
             $torrent->refundable = false;
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable!', $torrent_url, $torrent->name)
+                trans('application-messages.bot.torrent-not-refundable', ['url' => $torrent_url, 'name' => $torrent->name], config('app.locale'))
             );
         }
 
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->with('success', 'Torrent\'s Refundable Status Has Been Adjusted!');
+            ->with('success', __('application-messages.flash.torrent-refundable-adjusted'));
     }
 }

@@ -1,11 +1,16 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    <title>Forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('staff.forums') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forums - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('staff.forums') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -54,7 +59,7 @@
                         <button
                             class="form__button form__button--text"
                             x-on:click.prevent="confirmAction"
-                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this forum category (' . $category->name . ') and all forums, topics, and posts within?') }}"
+                            data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-forum-category-confirm', ['name' => $category->name])) }}"
                         >
                             {{ __('common.delete') }}
                         </button>
@@ -101,7 +106,7 @@
                                                 @method('DELETE')
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this forum (' . $forum->name . ') including all topics and posts within?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-forum-confirm', ['name' => $forum->name])) }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.delete') }}
@@ -128,7 +133,7 @@
                     href="{{ route('staff.forum_categories.create') }}"
                     class="form__button form__button--filled form__button--centered"
                 >
-                    Create new category
+                    {{ __('staff-interface.create-new-category') }}
                 </a>
             </p>
             <p class="form__group form__group--horizontal">
@@ -136,7 +141,7 @@
                     href="{{ route('staff.forums.create') }}"
                     class="form__button form__button--filled form__button--centered"
                 >
-                    Create new forum
+                    {{ __('staff-interface.create-new-forum') }}
                 </a>
             </p>
         </div>

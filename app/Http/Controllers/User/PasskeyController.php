@@ -70,6 +70,6 @@ class PasskeyController extends Controller
         }, 5);
 
         return to_route('users.passkeys.index', ['user' => $user])
-            ->with('success', 'Your passkey was changed successfully.');
+            ->with('success', __('application-messages.flash.passkey-changed'));
     }
 }

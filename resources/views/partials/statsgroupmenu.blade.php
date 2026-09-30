@@ -11,6 +11,6 @@
         class="{{ Route::is('groups_requirements') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
         href="{{ route('groups_requirements') }}"
     >
-        {{ __('common.groups') }} requirements
+        {{ __('interface.group-requirements') }}
     </a>
 </li>

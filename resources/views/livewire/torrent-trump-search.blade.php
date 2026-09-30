@@ -1,11 +1,14 @@
 @section('title')
     <title>
-        Torrent trumps - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('livewire-interface.torrent-trumps') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Torrent trumps - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('livewire-interface.torrent-trumps') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -14,14 +17,14 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Torrent trumps</li>
+    <li class="breadcrumb--active">{{ __('livewire-interface.torrent-trumps') }}</li>
 @endsection
 
 @section('page', 'page__staff-torrent-trump--index')
 
 <section class="panelV2">
     <header class="panel__header">
-        <h2 class="panel__heading">Torrent trumps</h2>
+        <h2 class="panel__heading">{{ __('livewire-interface.torrent-trumps') }}</h2>
         <div class="panel__actions">
             <div class="panel__action">
                 <div class="form__group">
@@ -31,7 +34,9 @@
                         class="form__text"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="username">Username</label>
+                    <label class="form__label form__label--floating" for="username">
+                        {{ __('common.username') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -42,7 +47,9 @@
                         class="form__text"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="torrent">Torrent</label>
+                    <label class="form__label form__label--floating" for="torrent">
+                        {{ __('torrent.torrent') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -59,25 +66,25 @@
             </div>
         </div>
     </header>
-    <div class="panel__body" wire:loading.block>Loading...</div>
+    <div class="panel__body" wire:loading.block>{{ __('livewire-interface.loading') }}</div>
     <div class="data-table-wrapper">
         <table class="data-table">
             <thead>
                 <tr>
                     <th wire:click="sortBy('id')" role="columnheader button">
-                        ID
+                        {{ __('livewire-interface.id') }}
                         @include('livewire.includes._sort-icon', ['field' => 'id'])
                     </th>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
-                        User
+                        {{ __('user.user') }}
                         @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                     </th>
                     <th wire:click="sortBy('torrent_id')" role="columnheader button">
-                        Torrent
+                        {{ __('torrent.torrent') }}
                         @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                     </th>
                     <th wire:click="sortBy('reason')" role="columnheader button">
-                        Reason
+                        {{ __('common.reason') }}
                         @include('livewire.includes._sort-icon', ['field' => 'reason'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
@@ -115,7 +122,7 @@
                                 datetime="{{ $torrentTrump->created_at }}"
                                 title="{{ $torrentTrump->created_at }}"
                             >
-                                {{ $torrentTrump->created_at->format('Y-m-d') }}
+                                {{ $torrentTrump->created_at->toDisplayTimezone()->format('Y-m-d') }}
                             </time>
                         </td>
                     </tr>

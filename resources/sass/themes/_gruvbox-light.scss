@@ -1,0 +1,77 @@
+@use './material-design-v3-light';
+
+:root {
+    --body-bg: #fbf1c7;
+    --body-fg: #3c3836;
+    --panel-bg: #f2e5bc;
+    --panel-fg: #3c3836;
+    --panel-head-bg: #f2e5bc;
+    --panel-head-fg: #282828;
+    --article-card-bg: #f2e5bc;
+    --article-card-fg: #3c3836;
+    --data-table-fg: #3c3836;
+    --data-table-th-bg: #ebdbb2;
+    --data-table-tr-even-bg: #f2e5bc;
+    --data-table-tr-odd-bg: #f2e5bc;
+    --data-table-tr-hover-bg: #ebdbb2;
+    --data-table-tr-border: 1px solid #d5c4a1;
+    --top-nav-bg: #504945;
+    --top-nav-dropdown-menu-bg: #f2e5bc;
+    --top-nav-dropdown-fg: #fbf1c7;
+    --top-nav-dropdown-hover-bg: #665c54;
+    --top-nav-dropdown-menu-item-fg: #3c3836;
+    --top-nav-dropdown-menu-item-hover-bg: #ebdbb2;
+    --top-nav-dropdown-menu-item-icon-bg: #d5c4a1;
+    --secondary-nav-bg: #ebdbb2;
+    --secondary-nav-tab-fg: #665c54;
+    --secondary-nav-tab-hover-fg: #af3a03;
+    --quick-search-bg: #f2e5bc;
+    --quick-search-fg: #3c3836;
+    --quick-search-result-bg: #f2e5bc;
+    --quick-search-result-fg: #3c3836;
+    --quick-search-result-hover-bg: #ebdbb2;
+    --dialog-bg: #f2e5bc;
+    --dialog-fg: #3c3836;
+    --dialog-head-bg: #f2e5bc;
+    --dialog-head-fg: #282828;
+    --message-bubble-bg: #ebdbb2;
+    --message-bubble-fg: #3c3836;
+    --bbcode-input-header-bg: #ebdbb2;
+    --bbcode-input-body-bg: #f2e5bc;
+    --bbcode-input-border: 1px solid #d5c4a1;
+    --bbcode-rendered-fg-default: #3c3836;
+    --bbcode-rendered-fg-muted: #665c54;
+    --bbcode-rendered-canvas-subtle: #ebdbb2;
+    --bbcode-rendered-accent-fg: #076678;
+    --bbcode-rendered-quote-border: #af3a03;
+    --input-text-border: 1px solid #bdae93;
+    --input-text-border-active: 2px solid #af3a03;
+    --input-text-fg: #3c3836;
+    --select-border: 1px solid #bdae93;
+    --select-border-active: 2px solid #af3a03;
+    --select-fg: #3c3836;
+    --textarea-border: 1px solid #bdae93;
+    --textarea-border-active: 2px solid #af3a03;
+    --textarea-fg: #3c3836;
+    --button-filled-bg: #af3a03;
+    --button-filled-fg: #fbf1c7;
+    --button-outlined-border: 1px solid #af3a03;
+    --torrent-card-bg: #f2e5bc;
+    --torrent-card-fg: #3c3836;
+    --torrent-group-bg: #f2e5bc;
+    --torrent-group-header-bg: #ebdbb2;
+    --torrent-row-fg: #3c3836;
+    --torrent-row-seeders-fg: #79740e;
+    --torrent-row-leechers-fg: #9d0006;
+    --torrent-row-completed-fg: #076678;
+    --torrent-row-freeleech-fg: #b57614;
+    --footer-bg: #ebdbb2;
+    --breadcrumb-fg: #076678;
+    --breadcrumb-active-fg: #af3a03;
+    --notification-unread: #79740e;
+}
+
+a,
+a:hover {
+    color: #076678;
+}

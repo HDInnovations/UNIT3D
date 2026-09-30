@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
-@section('title', 'Error 502: Bad gateway!')
+@section('title', __('interface.error-502-title'))
 
-@section('description', $exception->getMessage() ?: 'The server, while acting as a gateway or proxy, received an invalid response from the upstream server it accessed in attempting to fulfill the request.')
+@section('description', $exception->getMessage() ?: __('interface.error-502-description'))

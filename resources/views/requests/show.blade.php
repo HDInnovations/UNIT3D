@@ -1,7 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Request - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
+    <title>{{ __('request.request') }} - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -86,7 +86,7 @@
                 @if ($torrentRequest->season_number !== null && $torrentRequest->episode_number !== null)
                     @if ($torrentRequest->season_number === 0 && $torrentRequest->episode_number === 0)
                         <li class="request__season">
-                            <span>Complete pack</span>
+                            <span>{{ __('media-interface.requests.complete-pack') }}</span>
                         </li>
                     @elseif ($torrentRequest->season_number === 0 && $torrentRequest->episode_number !== 0)
                         <li class="request__season">
@@ -112,12 +112,12 @@
 
             <li class="request__resolution">
                 <span>
-                    {{ $torrentRequest->resolution->name ?? 'Any' }}
+                    {{ $torrentRequest->resolution->name ?? __('media-interface.requests.any') }}
                 </span>
             </li>
             <li class="request__type">
                 <span>
-                    {{ $torrentRequest->type->name ?? 'Any' }}
+                    {{ $torrentRequest->type->name ?? __('media-interface.requests.any') }}
                 </span>
             </li>
             <li class="request__requester">
@@ -173,7 +173,7 @@
                 <h2 class="panel__heading">{{ __('request.claimed') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
-                        <dt>{{ __('request.claimed') }} by</dt>
+                        <dt>{{ __('media-interface.requests.claimed-by') }}</dt>
                         <dd>
                             <x-user-tag
                                 :user="$torrentRequest->claim->user"
@@ -182,7 +182,7 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('request.claimed') }} at</dt>
+                        <dt>{{ __('media-interface.requests.claimed-at') }}</dt>
                         <dd>
                             <time
                                 datetime="{{ $torrentRequest->claim->created_at }}"
@@ -201,7 +201,7 @@
                 <h2 class="panel__heading">{{ __('request.filled') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
-                        <dt>{{ __('request.filled') }} by</dt>
+                        <dt>{{ __('request.filled-by') }}</dt>
                         <dd>
                             <x-user-tag
                                 :user="$torrentRequest->filler"
@@ -210,7 +210,7 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('request.filled') }} at</dt>
+                        <dt>{{ __('media-interface.requests.filled-at') }}</dt>
                         <dd>
                             <time
                                 datetime="{{ $torrentRequest->filled_when }}"
@@ -221,10 +221,10 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('request.filled') }} with</dt>
+                        <dt>{{ __('media-interface.requests.filled-with') }}</dt>
                         <dd>
                             @if ($torrentRequest->torrent === null)
-                                Filled torrent has been deleted
+                                {{ __('media-interface.requests.filled-torrent-deleted') }}
                             @else
                                 <a
                                     href="{{ route('torrents.show', ['id' => $torrentRequest->torrent->id]) }}"
@@ -277,13 +277,13 @@
                         <i
                             class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
                         ></i>
-                        Show more
+                        {{ __('media-interface.requests.show-more') }}
                     </div>
                     <div x-show="isToggledOn" x-cloak>
                         <i
                             class="{{ config('other.font-awesome') }} fa-minus-circle fa-pull-right"
                         ></i>
-                        Show less
+                        {{ __('media-interface.requests.show-less') }}
                     </div>
                 @endif
             </header>

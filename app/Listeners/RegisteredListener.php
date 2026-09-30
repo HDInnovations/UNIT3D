@@ -32,14 +32,17 @@ readonly class RegisteredListener
         // Select A Random Welcome Message
         $profileUrl = href_profile($user);
 
+        $locale = config('app.locale');
+        $replace = ['url' => $profileUrl, 'username' => $user->username, 'site' => config('other.title')];
+
         return Arr::random([
-            \sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
-            \sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
-            \sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
-            \sprintf("It's a bird! It's a plane! Never mind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
-            \sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
-            \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
+            trans('application-messages.bot.welcome-1', $replace, $locale),
+            trans('application-messages.bot.welcome-2', $replace, $locale),
+            trans('application-messages.bot.welcome-3', $replace, $locale),
+            trans('application-messages.bot.welcome-4', $replace, $locale),
+            trans('application-messages.bot.welcome-5', $replace, $locale),
+            trans('application-messages.bot.welcome-6', $replace, $locale),
+            trans('application-messages.bot.welcome-7', $replace, $locale),
         ]);
     }
 }

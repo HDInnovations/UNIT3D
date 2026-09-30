@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Create playlist" />
+    <meta name="description" content="{{ __('playlist.create') }}" />
 @endsection
 
 @section('breadcrumbs')

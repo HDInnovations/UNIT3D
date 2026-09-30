@@ -97,7 +97,7 @@ class WishController extends Controller
         }
 
         return to_route('users.wishes.index', ['user' => $user])
-            ->with('success', 'Wish successfully added!');
+            ->with('success', __('application-messages.flash.wish-added'));
     }
 
     /**
@@ -110,6 +110,6 @@ class WishController extends Controller
         $wish->delete();
 
         return to_route('users.wishes.index', ['user' => $user])
-            ->with('success', 'Wish successfully removed!');
+            ->with('success', __('application-messages.flash.wish-removed'));
     }
 }

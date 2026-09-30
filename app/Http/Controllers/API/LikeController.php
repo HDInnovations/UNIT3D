@@ -28,11 +28,11 @@ class LikeController extends Controller
         $post = Post::findOrFail($postId);
 
         if ($user->id === $post->user_id) {
-            abort(400, 'You cannot like your own post!');
+            abort(400, __('application-messages.validation.cannot-like-own-post'));
         }
 
         if (Like::where('user_id', '=', $user->id)->where('post_id', '=', $post->id)->exists()) {
-            abort(400, 'You have already liked or disliked this post!');
+            abort(400, __('application-messages.validation.already-liked-or-disliked'));
         }
 
         Like::create([

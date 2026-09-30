@@ -50,8 +50,8 @@ class PlaylistSuggestionCreated extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'New Playlist Suggestion',
-            'body'  => 'A user has suggested a torrent for your playlist: '.$this->playlistSuggestion->playlist->name,
+            'title' => __('application-messages.notification.playlist-suggestion-created-title'),
+            'body'  => __('application-messages.notification.playlist-suggestion-created-body', ['name' => $this->playlistSuggestion->playlist->name]),
             'url'   => '/playlists/'.$this->playlistSuggestion->playlist_id.'#playlist_suggestions',
         ];
     }

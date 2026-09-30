@@ -244,6 +244,7 @@ Route::middleware('language')->group(function (): void {
 
         Route::prefix('torrents')->group(function (): void {
             Route::get('/{id}/peers', [App\Http\Controllers\TorrentPeerController::class, 'index'])->name('peers')->whereNumber('id');
+            Route::get('/{id}/peers/counts', [App\Http\Controllers\TorrentPeerController::class, 'counts'])->name('peers.counts')->whereNumber('id');
             Route::get('/{id}/history', [App\Http\Controllers\TorrentHistoryController::class, 'index'])->name('history')->whereNumber('id');
             Route::get('/{id}/external-tracker', [App\Http\Controllers\ExternalTorrentController::class, 'show'])->name('torrents.external_tracker')->whereNumber('id')->middleware('modo');
             Route::get('/download_check/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'show'])->name('download_check')->whereNumber('id');

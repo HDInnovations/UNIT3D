@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html class="no-js" lang="{{ config('app.locale') }}">
+<html class="no-js" lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8" />
-        <title>Application - {{ config('other.title') }}</title>
+        <title>{{ __('interface.application-title') }} - {{ config('other.title') }}</title>
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Application" />
+        <meta name="description" content="{{ __('interface.application-description') }}" />
         <meta property="og:title" content="{{ __('auth.login') }}" />
         <meta property="og:site_name" content="{{ config('other.title') }}" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="{{ url('/img/og.png') }}" />
-        <meta property="og:description" content="{{ config('unit3d.powered-by') }}" />
+        <meta property="og:description" content="{{ config('other.meta_description') }}" />
         <meta property="og:url" content="{{ url('/') }}" />
-        <meta property="og:locale" content="{{ config('app.locale') }}" />
+        <meta property="og:locale" content="{{ app()->getLocale() }}" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
-        <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
+        <link rel="icon" href="{{ url('/img/vltava-mark.svg') }}" type="image/svg+xml" />
         @vite('resources/sass/pages/_auth.scss')
     </head>
     <body>
@@ -28,7 +27,7 @@
                 >
                     @csrf
                     <a class="auth-form__branding" href="{{ route('home.index') }}">
-                        <i class="fal fa-tv-retro"></i>
+                        <img src="{{ url('/img/vltava-mark.svg') }}" alt="" style="height: 42px" />
                         <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
                     </a>
                     @if (config('other.application_signups'))
@@ -38,19 +37,19 @@
                             </li>
                             @if (Session::has('warning'))
                                 <li class="auth-form__important-info">
-                                    Warning: {{ Session::get('warning') }}
+                                    {{ __('interface.flash-warning', ['message' => Session::get('warning')]) }}
                                 </li>
                             @endif
 
                             @if (Session::has('info'))
                                 <li class="auth-form__important-info">
-                                    Info: {{ Session::get('info') }}
+                                    {{ __('interface.flash-info', ['message' => Session::get('info')]) }}
                                 </li>
                             @endif
 
                             @if (Session::has('success'))
                                 <li class="auth-form__important-info">
-                                    Success: {{ Session::get('success') }}
+                                    {{ __('interface.flash-success', ['message' => Session::get('success')]) }}
                                 </li>
                             @endif
                         </ul>
@@ -99,12 +98,12 @@
                                 required
                             ></textarea>
                         </p>
-                        <label class="auth-form__label">Proofs</label>
+                        <label class="auth-form__label">{{ __('interface.proofs') }}</label>
                         <template x-for="proof in proofs">
                             <fieldset class="auth-form__fieldset">
                                 <legend
                                     class="auth-form__legend"
-                                    x-text="'Proof ' + proof"
+                                    x-text="window.i18n.proofNumber.replace(':number', proof)"
                                 ></legend>
                                 <p class="auth-form__text-input-group">
                                     <label
@@ -176,6 +175,12 @@
                 </form>
             </section>
         </main>
+        @php
+            $clientTranslations = ['proofNumber' => __('interface.proof-number')];
+        @endphp
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            window.i18n = @json($clientTranslations);
+        </script>
         @vite('resources/js/app.js')
         @livewireScriptConfig(['nonce' => HDVinnie\SecureHeaders\SecureHeaders::nonce()])
     </body>

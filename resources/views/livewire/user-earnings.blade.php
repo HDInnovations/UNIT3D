@@ -8,7 +8,7 @@
                         <tr>
                             <th>{{ __('common.name') }}</th>
                             <th>{{ __('common.description') }}</th>
-                            <th>Per torrent per hour</th>
+                            <th>{{ __('livewire-interface.per-torrent-per-hour') }}</th>
                             <th>{{ __('torrent.torrents') }}</th>
                         </tr>
                     </thead>
@@ -137,7 +137,7 @@
                             >
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-wifi"
-                                    title="Connectable"
+                                    title="{{ __('livewire-interface.connectable') }}"
                                 ></i>
                                 @include('livewire.includes._sort-icon', ['field' => 'connectable'])
                             </th>
@@ -161,25 +161,25 @@
                                 class="user-earnings__hourly-header"
                                 wire:click="sortBy('hourly_earnings')"
                             >
-                                Hourly
+                                {{ __('bon.per-hour') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'hourly_earnings'])
                             </th>
                             <th class="user-earnings__daily-header" x-cloak x-show="isToggledOn">
-                                Daily
+                                {{ __('bon.per-day') }}
                             </th>
                             <th
                                 class="user-earnings__weekly-header"
                                 x-cloak
                                 x-show="isToggledOn"
                             >
-                                Weekly
+                                {{ __('bon.per-week') }}
                             </th>
                             <th
                                 class="user-earnings__monthly-header"
                                 x-cloak
                                 x-show="isToggledOn"
                             >
-                                Monthly
+                                {{ __('bon.per-month') }}
                             </th>
                         </tr>
                     </thead>
@@ -232,7 +232,7 @@
                                             title="{{ __('torrent.internal') }}"
                                         ></i>
                                     @else
-                                        <span title="Not {{ __('torrent.internal') }}">-</span>
+                                        <span title="{{ __('livewire-interface.not-internal') }}">-</span>
                                     @endif
                                 </td>
                                 <td class="user-earnings__personal-release">
@@ -252,10 +252,10 @@
                                     @if ($torrent->connectable)
                                         <i
                                             class="{{ config('other.font-awesome') }} text-green fa-wifi"
-                                            title="Connectable"
+                                            title="{{ __('livewire-interface.connectable') }}"
                                         ></i>
                                     @else
-                                        <span title="Not connectable">-</span>
+                                        <span title="{{ __('livewire-interface.not-connectable') }}">-</span>
                                     @endif
                                 </td>
                                 <td class="user-earnings__seedtime">

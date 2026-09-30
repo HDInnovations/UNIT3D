@@ -84,7 +84,7 @@ class InternalController extends Controller
         $internal->update($request->validated());
 
         return to_route('staff.internals.index')
-            ->with('success', 'Internal group was updated successfully!');
+            ->with('success', __('application-messages.flash.internal-group-updated'));
     }
 
     /**
@@ -103,7 +103,7 @@ class InternalController extends Controller
         Internal::create($request->validated());
 
         return to_route('staff.internals.index')
-            ->with('success', 'New internal group added!');
+            ->with('success', __('application-messages.flash.internal-group-added'));
     }
 
     /**
@@ -114,6 +114,6 @@ class InternalController extends Controller
         $internal->delete();
 
         return to_route('staff.internals.index')
-            ->with('success', 'Group has been removed.');
+            ->with('success', __('application-messages.flash.internal-group-removed'));
     }
 }

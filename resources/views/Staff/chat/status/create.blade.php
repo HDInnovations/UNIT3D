@@ -21,9 +21,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('staff.chat') }} {{ __('staff.status') }}
+            {{ __('staff-interface.add-chat-status-heading') }}
         </h2>
         <div class="panel__body">
             <form
@@ -43,13 +41,13 @@
                 <p class="form__group">
                     <input id="color" class="form__text" name="color" required type="text" />
                     <label class="form__label form__label--floating" for="color">
-                        {{ __('common.color') }} (e.g. #ff0000)
+                        {{ __('staff-interface.color-hex-example') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <input id="icon" class="form__text" name="icon" required type="text" />
                     <label class="form__label form__label--floating" for="icon">
-                        Font Awesome icon code (e.g. fas fa-comment-smile)
+                        {{ __('staff-interface.font-awesome-icon-code-example') }}
                     </label>
                 </p>
                 <p class="form__group">

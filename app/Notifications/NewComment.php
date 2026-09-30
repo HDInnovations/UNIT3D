@@ -103,32 +103,32 @@ class NewComment extends Notification
      */
     public function toArray(object $notifiable): array
     {
-        $username = $this->comment->anon ? 'Anonymous' : $this->comment->user->username;
+        $username = $this->comment->anon ? __('application-messages.notification.anonymous-user') : $this->comment->user->username;
 
         return match ($this->model::class) {
             Torrent::class => [
-                'title' => 'New Torrent Comment Received',
-                'body'  => $username.' has left a comment on torrent '.$this->model->name,
+                'title' => __('application-messages.notification.new-torrent-comment-title'),
+                'body'  => __('application-messages.notification.new-torrent-comment-body', ['username' => $username, 'name' => $this->model->name]),
                 'url'   => '/torrents/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             TorrentRequest::class => [
-                'title' => 'New Request Comment Received',
-                'body'  => $username.' has left a comment on torrent request '.$this->model->name,
+                'title' => __('application-messages.notification.new-request-comment-title'),
+                'body'  => __('application-messages.notification.new-request-comment-body', ['username' => $username, 'name' => $this->model->name]),
                 'url'   => '/requests/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             Ticket::class => [
-                'title' => 'New Ticket Comment Received',
-                'body'  => $username.' has left a comment on ticket '.$this->model->subject,
+                'title' => __('application-messages.notification.new-ticket-comment-title'),
+                'body'  => __('application-messages.notification.new-ticket-comment-body', ['username' => $username, 'subject' => $this->model->subject]),
                 'url'   => '/tickets/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             Playlist::class => [
-                'title' => 'New Playlist Comment Received',
-                'body'  => $username.' has left a comment on playlist '.$this->model->name,
+                'title' => __('application-messages.notification.new-playlist-comment-title'),
+                'body'  => __('application-messages.notification.new-playlist-comment-body', ['username' => $username, 'name' => $this->model->name]),
                 'url'   => '/playlists/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             Article::class => [
-                'title' => 'New Article Comment Received',
-                'body'  => $username.' has left a comment on article '.$this->model->title,
+                'title' => __('application-messages.notification.new-article-comment-title'),
+                'body'  => __('application-messages.notification.new-article-comment-body', ['username' => $username, 'title' => $this->model->title]),
                 'url'   => '/articles/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
         };

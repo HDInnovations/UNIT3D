@@ -58,7 +58,7 @@ class ClaimController extends Controller
     {
         abort_unless($request->user()->group->is_modo || $request->user()->id == $claim->user_id, 403);
 
-        $claimer = $claim->anon ? 'Anonymous' : $request->user()->username;
+        $claimer = $claim->anon ? __('application-messages.notification.anonymous-user') : $request->user()->username;
         $requester = $torrentRequest->user;
 
         $requester->notify((new NewRequestUnclaim('torrent', $claimer, $claim)));

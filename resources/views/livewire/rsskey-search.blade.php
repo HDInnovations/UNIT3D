@@ -86,13 +86,13 @@
                                 datetime="{{ $rsskey->deleted_at }}"
                                 title="{{ $rsskey->deleted_at }}"
                             >
-                                {{ $rsskey->deleted_at ?? 'Currently in use' }}
+                                {{ $rsskey->deleted_at ?? __('livewire-interface.currently-in-use') }}
                             </time>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No rsskeys</td>
+                        <td colspan="4">{{ __('common.no-result') }}</td>
                     </tr>
                 @endforelse
             </tbody>

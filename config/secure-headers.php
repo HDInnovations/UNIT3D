@@ -487,8 +487,8 @@ return [
             'self' => true,
 
             'allow' => [
-                'https://'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
-                'wss://'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_HOST).(parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT) === null ? '' : ':'.parse_url(env('VITE_ECHO_ADDRESS'), PHP_URL_PORT)).'/socket.io/',
+                // Reverb WebSocket endpoint used by resources/js/unit3d/chat.js.
+                'wss://'.env('VITE_REVERB_HOST', 'localhost').':'.env('VITE_REVERB_PORT', 443),
                 'https://api.themoviedb.org/',
             ],
         ],

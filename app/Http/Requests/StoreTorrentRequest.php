@@ -226,6 +226,38 @@ class StoreTorrentRequest extends FormRequest
                     $mustBeNull,
                 ]),
             ],
+            'musicbrainz_release_id' => [
+                Rule::when($category->music_meta, [
+                    'nullable',
+                    'uuid',
+                ]),
+                Rule::when(!$category->music_meta, [
+                    $mustBeNull,
+                ]),
+            ],
+            'open_library_edition_id' => [
+                Rule::when($category->book_meta, [
+                    'nullable',
+                    'string',
+                    'max:32',
+                    'regex:/^(?:OL\d+M|[0-9X-]{10,17})$/i',
+                ]),
+                Rule::when(!$category->book_meta, [
+                    $mustBeNull,
+                ]),
+            ],
+            'edition_kind' => [
+                Rule::when($category->movie_meta || $category->tv_meta, ['nullable', Rule::in(['standard', 'director_cut', 'extended_cut', 'restored', 'fan_edit'])]),
+                Rule::when(!($category->movie_meta || $category->tv_meta), [$mustBeNull]),
+            ],
+            'edition_name' => [
+                Rule::when($category->movie_meta || $category->tv_meta, ['nullable', 'string', 'max:255']),
+                Rule::when(!($category->movie_meta || $category->tv_meta), [$mustBeNull]),
+            ],
+            'edition_provenance' => [
+                Rule::when($category->movie_meta || $category->tv_meta, ['nullable', 'string', 'max:2000']),
+                Rule::when(!($category->movie_meta || $category->tv_meta), [$mustBeNull]),
+            ],
             'season_number' => [
                 Rule::when($category->tv_meta, [
                     'required',
@@ -249,6 +281,11 @@ class StoreTorrentRequest extends FormRequest
             'personal_release' => [
                 'required',
                 'boolean',
+            ],
+            'mod_queue_opt_in' => [
+                'sometimes',
+                'boolean',
+                Rule::excludeIf(! $user->group->is_trusted),
             ],
             'internal' => [
                 'sometimes',

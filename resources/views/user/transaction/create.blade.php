@@ -30,7 +30,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('bon.item') }}</th>
-                        <th>Cost</th>
+                        <th>{{ __('member-interface.account.cost') }}</th>
                         <th>{{ __('bon.exchange') }}</th>
                     </tr>
                 </thead>
@@ -46,7 +46,7 @@
                                     </button>
                                 @elseif ($item->upload && config('other.bon.max-buffer-to-buy-upload') !== null && $user->uploaded - $user->downloaded > config('other.bon.max-buffer-to-buy-upload'))
                                     <button disabled class="form__button form__button--filled">
-                                        Too much buffer!
+                                        {{ __('member-interface.account.too-much-buffer') }}
                                     </button>
                                 @else
                                     <form

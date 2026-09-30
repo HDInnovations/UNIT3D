@@ -30,7 +30,7 @@
                 @endforeach
             </ul>
         @else
-            No posts.
+            {{ __('common.no-result') }}
         @endif
     </div>
     {{ $posts->links('partials.pagination') }}

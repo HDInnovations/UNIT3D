@@ -117,7 +117,7 @@
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="minSize">
-                                Minimum size
+                                {{ __('livewire-interface.minimum-size') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -127,7 +127,7 @@
                                 class="form__select"
                                 placeholder=" "
                             >
-                                <option value="1" selected>Bytes</option>
+                                <option value="1" selected>{{ __('livewire-interface.bytes') }}</option>
                                 <option value="1000">KB</option>
                                 <option value="1024">KiB</option>
                                 <option value="1000000">MB</option>
@@ -141,7 +141,7 @@
                                 class="form__label form__label--floating"
                                 for="minSizeMultiplier"
                             >
-                                Unit
+                                {{ __('livewire-interface.unit') }}
                             </label>
                         </p>
                     </div>
@@ -156,7 +156,7 @@
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="maxSize">
-                                Maximum size
+                                {{ __('livewire-interface.maximum-size') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -166,7 +166,7 @@
                                 class="form__select"
                                 placeholder=" "
                             >
-                                <option value="1" selected>Bytes</option>
+                                <option value="1" selected>{{ __('livewire-interface.bytes') }}</option>
                                 <option value="1000">KB</option>
                                 <option value="1024">KiB</option>
                                 <option value="1000000">MB</option>
@@ -180,7 +180,7 @@
                                 class="form__label form__label--floating"
                                 for="maxSizeMultiplier"
                             >
-                                Unit
+                                {{ __('livewire-interface.unit') }}
                             </label>
                         </p>
                     </div>
@@ -196,7 +196,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="playlistId">
-                            Playlist ID
+                            {{ __('livewire-interface.playlist-id') }}
                         </label>
                     </p>
                 </div>
@@ -245,7 +245,7 @@
                     </div>
                     <div class="form__group">
                         <fieldset class="form__fieldset">
-                            <legend class="form__legend">Buff</legend>
+                            <legend class="form__legend">{{ __('livewire-interface.buff') }}</legend>
                             <div class="form__fieldset-checkbox-container">
                                 <p class="form__group">
                                     <label class="form__label">
@@ -255,7 +255,7 @@
                                             value="0"
                                             wire:model.live="free"
                                         />
-                                        0% Freeleech
+                                        {{ __('livewire-interface.freeleech-percent', ['percent' => 0]) }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -266,7 +266,7 @@
                                             value="25"
                                             wire:model.live="free"
                                         />
-                                        25% Freeleech
+                                        {{ __('livewire-interface.freeleech-percent', ['percent' => 25]) }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -277,7 +277,7 @@
                                             value="50"
                                             wire:model.live="free"
                                         />
-                                        50% Freeleech
+                                        {{ __('livewire-interface.freeleech-percent', ['percent' => 50]) }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -288,7 +288,7 @@
                                             value="75"
                                             wire:model.live="free"
                                         />
-                                        75% Freeleech
+                                        {{ __('livewire-interface.freeleech-percent', ['percent' => 75]) }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -299,7 +299,7 @@
                                             value="100"
                                             wire:model.live="free"
                                         />
-                                        100% Freeleech
+                                        {{ __('livewire-interface.freeleech-percent', ['percent' => 100]) }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -310,7 +310,7 @@
                                             value="1"
                                             wire:model.live="doubleup"
                                         />
-                                        Double upload
+                                        {{ __('torrent.double-upload') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -321,7 +321,7 @@
                                             value="1"
                                             wire:model.live="featured"
                                         />
-                                        Featured
+                                        {{ __('torrent.featured') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -332,7 +332,7 @@
                                             value="1"
                                             wire:model.live="refundable"
                                         />
-                                        Refundable
+                                        {{ __('torrent.refundable') }}
                                     </label>
                                 </p>
                             </div>
@@ -340,7 +340,7 @@
                     </div>
                     <div class="form__group">
                         <fieldset class="form__fieldset">
-                            <legend class="form__legend">Tags</legend>
+                            <legend class="form__legend">{{ __('livewire-interface.tags') }}</legend>
                             <div class="form__fieldset-checkbox-container">
                                 <p class="form__group">
                                     <label class="form__label">
@@ -372,7 +372,7 @@
                                             value="1"
                                             wire:model.live="trumpable"
                                         />
-                                        Trumpable
+                                        {{ __('livewire-interface.trumpable') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -434,7 +434,7 @@
                                             value="1"
                                             wire:model.live="dying"
                                         />
-                                        Dying
+                                        {{ __('livewire-interface.dying') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -445,7 +445,7 @@
                                             value="1"
                                             wire:model.live="dead"
                                         />
-                                        Dead
+                                        {{ __('common.dead') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -474,7 +474,7 @@
                                             value="1"
                                             wire:model.live="notDownloaded"
                                         />
-                                        Not downloaded
+                                        {{ __('torrent.not-downloaded') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -485,7 +485,7 @@
                                             value="1"
                                             wire:model.live="downloaded"
                                         />
-                                        Downloaded
+                                        {{ __('torrent.downloaded') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -496,7 +496,7 @@
                                             value="1"
                                             wire:model.live="seeding"
                                         />
-                                        Seeding
+                                        {{ __('torrent.seeding') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -507,7 +507,7 @@
                                             value="1"
                                             wire:model.live="leeching"
                                         />
-                                        Leeching
+                                        {{ __('torrent.leeching') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -518,7 +518,7 @@
                                             value="1"
                                             wire:model.live="incomplete"
                                         />
-                                        Incomplete
+                                        {{ __('livewire-interface.incomplete') }}
                                     </label>
                                 </p>
                             </div>
@@ -537,7 +537,7 @@
                                 class="form__button form__button--filled"
                                 wire:click="alertConfirm()"
                             >
-                                Delete ({{ count($checked) }})
+                                {{ __('livewire-interface.delete-count', ['count' => count($checked)]) }}
                             </button>
                         </div>
                     @endif
@@ -545,7 +545,7 @@
                     @if ($user->group->is_modo)
                         <div class="panel__action" title="{{ __('common.select') }}">
                             <label class="form__label">
-                                Select all
+                                {{ __('livewire-interface.select-all') }}
                                 <input
                                     class="form__checkbox"
                                     type="checkbox"
@@ -557,7 +557,7 @@
 
                     <div class="panel__action">
                         <button class="form__button form__button--text" x-bind="all">
-                            Expand all
+                            {{ __('livewire-interface.expand-all') }}
                         </button>
                     </div>
                 </div>
@@ -571,7 +571,7 @@
                                 open
                                 wire:ignore.self
                             >
-                                <summary x-bind="complete">Complete pack</summary>
+                                <summary x-bind="complete">{{ __('livewire-interface.complete-pack') }}</summary>
                                 <table class="similar-torrents__torrents">
                                     <tbody>
                                         @foreach ($similarTorrents['Complete Pack'] as $type => $torrents)
@@ -617,7 +617,7 @@
                                 @endif
                                 wire:ignore.self
                             >
-                                <summary x-bind="specials">Specials</summary>
+                                <summary x-bind="specials">{{ __('livewire-interface.specials') }}</summary>
                                 @foreach ($similarTorrents['Specials'] as $specialName => $special)
                                     <details
                                         class="torrent-search--grouped__dropdown"
@@ -716,7 +716,7 @@
                                         class="torrent-search--grouped__dropdown"
                                         wire:ignore.self
                                     >
-                                        <summary x-bind="pack">Season pack</summary>
+                                        <summary x-bind="pack">{{ __('livewire-interface.season-pack') }}</summary>
                                         <table class="similar-torrents__torrents">
                                             @foreach ($season['Season Pack'] as $type => $torrents)
                                                 <tbody>
@@ -983,7 +983,7 @@
                 <div class="panel__actions">
                     <div class="panel__action">
                         <label class="form__label">
-                            Hide filled requests
+                            {{ __('livewire-interface.hide-filled-requests') }}
                             <input
                                 class="form__checkbox"
                                 type="checkbox"
@@ -1028,8 +1028,8 @@
                                     </a>
                                 </td>
                                 <td>{{ $torrentRequest->category->name }}</td>
-                                <td>{{ $torrentRequest->type->name ?? 'Any' }}</td>
-                                <td>{{ $torrentRequest->resolution->name ?? 'Any' }}</td>
+                                <td>{{ $torrentRequest->type->name ?? __('livewire-interface.any') }}</td>
+                                <td>{{ $torrentRequest->resolution->name ?? __('livewire-interface.any') }}</td>
                                 <td>
                                     <x-user-tag
                                         :user="$torrentRequest->user"
@@ -1172,14 +1172,14 @@
             window.addEventListener('swal:confirm', event => {
               const { value: text } = Swal.fire({
                 input: 'textarea',
-                inputLabel: 'Delete reason',
-                inputPlaceholder: 'Type your reason here...',
+                inputLabel: @js(__('livewire-interface.delete-reason')),
+                inputPlaceholder: @js(__('livewire-interface.type-your-reason-here')),
                 inputAttributes: {
-                  'aria-label': 'Type your reason here'
+                  'aria-label': @js(__('livewire-interface.type-your-reason-here'))
                 },
                 inputValidator: (value) => {
                   if (!value) {
-                    return 'You need to write something!'
+                    return @js(__('livewire-interface.you-need-to-write-something'))
                   }
                 },
                 title: event.detail.message,
@@ -1188,7 +1188,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: @js(__('livewire-interface.yes-delete-it')),
               }).then((result) => {
                 if (result.isConfirmed) {
                 @this.set('reason', result.value);

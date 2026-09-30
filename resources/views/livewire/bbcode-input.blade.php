@@ -8,7 +8,7 @@
             wire:model.live="isPreviewEnabled"
         />
         <label class="bbcode-input__tab-label" for="{{ $name }}-bbcode-preview-disabled">
-            Write
+            {{ __('livewire-interface.write') }}
         </label>
         <input
             class="bbcode-input__tab-input"
@@ -27,20 +27,20 @@
             class="form__button form__button--text"
             x-on:click="toggleButtonVisibility"
         >
-            BBCode
+            {{ __('livewire-interface.bbcode-toggle') }}
         </button>
     </p>
     <menu class="bbcode-input__icon-bar" x-cloak x-show="showButtons">
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertBold">
-                <abbr title="Bold">
+                <abbr title="{{ __('livewire-interface.bold') }}">
                     <i class="{{ config('other.font-awesome') }} fa-bold"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertItalic">
-                <abbr title="Italics">
+                <abbr title="{{ __('livewire-interface.italics') }}">
                     <i class="{{ config('other.font-awesome') }} fa-italic"></i>
                 </abbr>
             </button>
@@ -51,7 +51,7 @@
                 class="form__standard-icon-button"
                 x-on:click="insertUnderline"
             >
-                <abbr title="Underline">
+                <abbr title="{{ __('livewire-interface.underline') }}">
                     <i class="{{ config('other.font-awesome') }} fa-underline"></i>
                 </abbr>
             </button>
@@ -62,7 +62,7 @@
                 class="form__standard-icon-button"
                 x-on:click="insertStrikethrough"
             >
-                <abbr title="Strikethrough">
+                <abbr title="{{ __('livewire-interface.strikethrough') }}">
                     <i class="{{ config('other.font-awesome') }} fa-strikethrough"></i>
                 </abbr>
             </button>
@@ -70,21 +70,21 @@
         <hr class="bbcode-input__icon-separator" />
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertImage">
-                <abbr title="Insert image">
+                <abbr title="{{ __('livewire-interface.insert-image') }}">
                     <i class="{{ config('other.font-awesome') }} fa-image"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertYoutube">
-                <abbr title="Insert YouTube">
+                <abbr title="{{ __('livewire-interface.insert-youtube') }}">
                     <i class="fab fa-youtube"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertUrl">
-                <abbr title="Link">
+                <abbr title="{{ __('livewire-interface.link') }}">
                     <i class="{{ config('other.font-awesome') }} fa-link"></i>
                 </abbr>
             </button>
@@ -96,7 +96,7 @@
                 class="form__standard-icon-button"
                 x-on:click="insertUnorderedList"
             >
-                <abbr title="Unordered list">
+                <abbr title="{{ __('livewire-interface.unordered-list') }}">
                     <i class="{{ config('other.font-awesome') }} fa-list"></i>
                 </abbr>
             </button>
@@ -107,7 +107,7 @@
                 class="form__standard-icon-button"
                 x-on:click="insertOrderedList"
             >
-                <abbr title="Ordered list">
+                <abbr title="{{ __('livewire-interface.ordered-list') }}">
                     <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
                 </abbr>
             </button>
@@ -115,14 +115,14 @@
         <hr class="bbcode-input__icon-separator" />
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertColor">
-                <abbr title="Font color">
+                <abbr title="{{ __('livewire-interface.font-color') }}">
                     <i class="{{ config('other.font-awesome') }} fa-palette"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertSize">
-                <abbr title="Font size">
+                <abbr title="{{ __('livewire-interface.font-size') }}">
                     <i class="{{ config('other.font-awesome') }} fa-text-size"></i>
                 </abbr>
             </button>
@@ -133,27 +133,29 @@
                 class="form__button form__button--text"
                 x-on:click="insertFont"
             >
-                <abbr title="Font family">Font</abbr>
+                <abbr title="{{ __('livewire-interface.font-family') }}">
+                    {{ __('livewire-interface.font') }}
+                </abbr>
             </button>
         </li>
         <hr class="bbcode-input__icon-separator" />
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertLeft">
-                <abbr title="Align left">
+                <abbr title="{{ __('livewire-interface.align-left') }}">
                     <i class="{{ config('other.font-awesome') }} fa-align-left"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertCenter">
-                <abbr title="Align center">
+                <abbr title="{{ __('livewire-interface.align-center') }}">
                     <i class="{{ config('other.font-awesome') }} fa-align-center"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertRight">
-                <abbr title="Align right">
+                <abbr title="{{ __('livewire-interface.align-right') }}">
                     <i class="{{ config('other.font-awesome') }} fa-align-right"></i>
                 </abbr>
             </button>
@@ -161,42 +163,42 @@
         <hr class="bbcode-input__icon-separator" />
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertQuote">
-                <abbr title="Quote">
+                <abbr title="{{ __('livewire-interface.quote') }}">
                     <i class="{{ config('other.font-awesome') }} fa-quote-right"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertCode">
-                <abbr title="Code">
+                <abbr title="{{ __('common.code') }}">
                     <i class="{{ config('other.font-awesome') }} fa-code"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertSpoiler">
-                <abbr title="Spoiler">
+                <abbr title="{{ __('livewire-interface.spoiler') }}">
                     <i class="{{ config('other.font-awesome') }} fa-eye-slash"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertNote">
-                <abbr title="Note">
+                <abbr title="{{ __('livewire-interface.note') }}">
                     <i class="{{ config('other.font-awesome') }} fa-sticky-note"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertAlert">
-                <abbr title="Alert">
+                <abbr title="{{ __('livewire-interface.alert') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file-exclamation"></i>
                 </abbr>
             </button>
         </li>
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertTable">
-                <abbr title="Table">
+                <abbr title="{{ __('livewire-interface.table') }}">
                     <i class="{{ config('other.font-awesome') }} fa-table"></i>
                 </abbr>
             </button>
@@ -204,7 +206,7 @@
         <li>
             <button type="button" class="form__standard-icon-button" x-on:click="insertEmoji">
                 <abbr
-                    title="If using MacOS, press Ctrl + Cmd + Space bar&NewLine;If using Windows or Linux, press Windows logo key + ."
+                    title="{{ __('livewire-interface.emoji-picker-shortcut-hint') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-face-smile"></i>
                 </abbr>
@@ -344,8 +346,8 @@
                 },
                 insertEmoji() {
                     Swal.fire({
-                        title: 'Emoji picker',
-                        html: 'If using macOS, press Ctrl + Cmd + Space bar<br>If using Windows or Linux, press Windows logo key + .',
+                        title: @js(__('livewire-interface.emoji-picker')),
+                        html: @js(__('livewire-interface.emoji-picker-shortcut-hint-html')),
                         icon: 'info',
                         showConfirmButton: true,
                     });

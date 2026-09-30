@@ -39,6 +39,6 @@ class Contact extends Mailable
     {
         return $this->markdown('emails.contact')
             ->from($this->email, config('other.title'))
-            ->subject('New contact mail');
+            ->subject(__('application-messages.mail.contact-subject'));
     }
 }

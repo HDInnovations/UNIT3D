@@ -53,7 +53,7 @@ class BonEarningController extends Controller
         $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
 
         return to_route('staff.bon_earnings.index')
-            ->with('success', 'Bon exchange successfully added');
+            ->with('success', __('application-messages.flash.bon-exchange-added'));
     }
 
     /**
@@ -80,7 +80,7 @@ class BonEarningController extends Controller
         $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
 
         return to_route('staff.bon_earnings.index')
-            ->with('success', 'Bon exchange successfully modified');
+            ->with('success', __('application-messages.flash.bon-exchange-modified'));
     }
 
     /**
@@ -93,6 +93,6 @@ class BonEarningController extends Controller
         $bonEarning->delete();
 
         return to_route('staff.bon_earnings.index')
-            ->with('success', 'Bon exchange successfully deleted');
+            ->with('success', __('application-messages.flash.bon-exchange-deleted'));
     }
 }

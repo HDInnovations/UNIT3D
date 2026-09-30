@@ -37,7 +37,7 @@ if (config('unit3d.proxy_scheme')) {
 if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
-Route::middleware(['auth:'.AuthGuard::API->value, 'banned'])->group(function (): void {
+Route::middleware(['auth:'.AuthGuard::API->value, 'language', 'banned'])->group(function (): void {
     // Torrents System
     Route::prefix('torrents')->group(function (): void {
         Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('api.torrents.index');
@@ -57,7 +57,7 @@ Route::middleware(['auth:'.AuthGuard::API->value, 'banned'])->group(function ():
 });
 
 // Internal front-end web API routes
-Route::name('api.')->middleware([MiddlewareGroup::WEB->value, 'auth', 'banned', 'verified'])->group(function (): void {
+Route::name('api.')->middleware([MiddlewareGroup::WEB->value, 'auth', 'language', 'banned', 'verified'])->group(function (): void {
     Route::prefix('bookmarks')->name('bookmarks.')->group(function (): void {
         Route::post('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'store'])->name('store');
         Route::delete('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'destroy'])->name('destroy');

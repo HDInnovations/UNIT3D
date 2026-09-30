@@ -7,7 +7,9 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">Internals</a>
+        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">
+            {{ __('common.internal') }} {{ __('common.groups') }}
+        </a>
     </li>
     <li class="breadcrumbV2">
         {{ $internal->name }}
@@ -22,7 +24,8 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} internal group: {{ $internal->name }}
+            {{ __('common.edit') }} {{ __('common.internal') }} {{ __('common.group') }}:
+            {{ $internal->name }}
         </h2>
         <div class="panel__body">
             <form
@@ -54,7 +57,9 @@
                         type="text"
                         value="{{ $internal->icon }}"
                     />
-                    <label class="form__label form__label--floating" for="icon">Icon</label>
+                    <label class="form__label form__label--floating" for="icon">
+                        {{ __('common.icon') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -65,7 +70,9 @@
                         type="text"
                         value="{{ $internal->effect }}"
                     />
-                    <label class="form__label form__label--floating" for="effect">Effect</label>
+                    <label class="form__label form__label--floating" for="effect">
+                        {{ __('staff-interface.effect') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
@@ -84,7 +91,9 @@
                         {{ __('common.add') }}
                     </button>
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h3 class="dialog__heading">Add user to {{ $internal->name }}</h3>
+                        <h3 class="dialog__heading">
+                            {{ __('staff-interface.add-user-to-internal-group', ['name' => $internal->name]) }}
+                        </h3>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -143,7 +152,7 @@
                 <thead>
                     <th>{{ __('common.position') }}</th>
                     <th>{{ __('user.user') }}</th>
-                    <th>Join date</th>
+                    <th>{{ __('user.registration-date') }}</th>
                     <th>{{ __('common.actions') }}</th>
                 </thead>
                 <tbody>
@@ -171,7 +180,9 @@
                                             {{ __('common.edit') }}
                                         </button>
                                         <dialog class="dialog" x-bind="dialogElement">
-                                            <h3 class="dialog__heading">Edit internal user</h3>
+                                            <h3 class="dialog__heading">
+                                                {{ __('staff-interface.edit-internal-user') }}
+                                            </h3>
                                             <form
                                                 class="dialog__form"
                                                 method="POST"
@@ -232,7 +243,7 @@
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 class="form__button form__button--text"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to remove this user (' . $user->username . ') from this internal group (.' . $internal->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.remove-user-from-internal-group-confirmation', ['username' => $user->username, 'name' => $internal->name])) }}"
                                             >
                                                 {{ __('common.delete') }}
                                             </button>
@@ -243,7 +254,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No members.</td>
+                            <td colspan="4">{{ __('staff-interface.no-members') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -38,6 +38,6 @@ class DisableUser extends Mailable
     public function build(): static
     {
         return $this->markdown('emails.disabled')
-            ->subject('Your Account Has Been Disabled - '.config('other.title'));
+            ->subject(__('application-messages.mail.disable-user-subject', ['site' => config('other.title')]));
     }
 }

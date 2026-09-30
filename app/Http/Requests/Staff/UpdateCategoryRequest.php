@@ -51,7 +51,7 @@ class UpdateCategoryRequest extends FormRequest
             'meta' => [
                 'required',
                 'string',
-                'in:movie,tv,game,music,no',
+                'in:movie,tv,game,music,book,no',
                 'exclude',
             ],
             'image' => [

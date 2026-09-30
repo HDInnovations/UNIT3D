@@ -5,7 +5,7 @@
                 @forelse ($meta->recommendedMovies ?? [] as $movie)
                     <x-movie.poster :$movie :categoryId="$movie->torrents_min_category_id" />
                 @empty
-                    No recommendations found!
+                    {{ __('media-interface.torrent.recommendations-empty') }}
                 @endforelse
 
                 @break
@@ -13,12 +13,12 @@
                 @forelse ($meta->recommendedTv ?? [] as $tv)
                     <x-tv.poster :$tv :categoryId="$tv->torrents_min_category_id" />
                 @empty
-                    No recommendations found!
+                    {{ __('media-interface.torrent.recommendations-empty') }}
                 @endforelse
 
                 @break
             @default
-                No recommendations Found!
+                {{ __('media-interface.torrent.recommendations-empty') }}
         @endswitch
     </section>
 </div>

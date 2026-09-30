@@ -12,7 +12,9 @@
             value="{{ old('new_password') }}"
             wire:model.live="password"
         />
-        <label class="form__label form__label--floating" for="new_password">New password</label>
+        <label class="form__label form__label--floating" for="new_password">
+            {{ __('livewire-interface.new-password') }}
+        </label>
     </p>
     <p class="form__group">
         <input
@@ -27,13 +29,21 @@
             value="{{ old('new_password') }}"
         />
         <label class="form__label form__label--floating" for="new_password_confirmation">
-            Repeat password
+            {{ __('livewire-interface.repeat-password') }}
         </label>
     </p>
+    @php
+        $strengthKey = match (true) {
+            $strengthScore >= 4 => 'livewire-interface.password-strength-strong',
+            $strengthScore === 3 => 'livewire-interface.password-strength-good',
+            $strengthScore === 2 => 'livewire-interface.password-strength-fair',
+            default => 'livewire-interface.password-strength-weak',
+        };
+    @endphp
     <p class="form__group">
         <label class="form__label" for="password_strength">
-            Password strength:
-            <b>{{ $strengthLevels[$strengthScore] ?? 'Weak' }}</b>
+            {{ __('livewire-interface.password-strength-label') }}
+            <b>{{ __($strengthKey) }}</b>
         </label>
         <meter
             id="password_strength"
@@ -42,7 +52,7 @@
             max="4"
             value="{{ $strengthScore }}"
         >
-            {{ $strengthLevels[$strengthScore] ?? 'Weak' }}
+            {{ __($strengthKey) }}
         </meter>
     </p>
 </div>

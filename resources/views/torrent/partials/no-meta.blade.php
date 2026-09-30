@@ -22,14 +22,14 @@
                 <a
                     href="{{ route('torrents.create', ['category_id' => $category->id, 'title' => rawurlencode($meta->title ?? '') ?? 'Unknown', 'imdb' => $torrent?->imdb ?? '', 'tmdb' => $meta?->id ?? '']) }}"
                 >
-                    {{ __('common.upload') }}
+                    {{ __('common.upload-action') }}
                 </a>
             </li>
             <li>
                 <a
                     href="{{ route('requests.create', ['title' => rawurlencode($meta?->title ?? '') ?? 'Unknown', 'imdb' => $torrent?->imdb ?? '', 'tmdb' => $meta?->id ?? '']) }}"
                 >
-                    Request similar
+                    {{ __('media-interface.torrent.request-similar') }}
                 </a>
             </li>
         </ul>
@@ -97,7 +97,7 @@
                         href="{{ route('torrents.index', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
-                        <h2 class="meta-chip__name">Keywords</h2>
+                        <h2 class="meta-chip__name">{{ __('vltava.media.keywords') }}</h2>
                         <h3 class="meta-chip__value">
                             {{ $torrent->keywords->pluck('name')->join(', ') }}
                         </h3>

@@ -117,7 +117,7 @@
             <div class="torrent-search--list__resolution-and-type">
                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <span class="torrent-search--list__resolution">
-                        {{ $torrent->resolution->name ?? 'No res' }}
+                        {{ $torrent->resolution->name ?? __('media-interface.components.no-resolution') }}
                     </span>
                 @endif
 
@@ -167,7 +167,7 @@
                 <a
                     class="torrent-search--list__file form__standard-icon-button"
                     href="{{ route('download_check', ['id' => $torrent->id]) }}"
-                    title="{{ __('common.download') }}"
+                    title="{{ __('common.download-action') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                 </a>
@@ -175,7 +175,7 @@
                 <a
                     class="torrent-search--list__file form__standard-icon-button"
                     href="{{ route('download', ['id' => $torrent->id]) }}"
-                    title="{{ __('common.download') }}"
+                    title="{{ __('common.download-action') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
                 </a>
@@ -200,13 +200,16 @@
             <span>{{ round($meta->rating ?? 0) }}%</span>
         </td>
     @elseif ($torrent->category->movie_meta || $torrent->category->tv_meta)
-        <td class="torrent-search--list__rating" title="{{ $meta->vote_count ?? 0 }} votes">
+        <td
+            class="torrent-search--list__rating"
+            title="{{ $meta->vote_count ?? 0 }} {{ __('torrent.votes') }}"
+        >
             <span class="{{ rating_color($meta->vote_average ?? 0) ?? 'text-white' }}">
                 {{ round(($meta->vote_average ?? 0) * 10) }}%
             </span>
         </td>
     @else
-        <td class="torrent-search--list__rating">N/A</td>
+        <td class="torrent-search--list__rating">{{ __('vltava.staff.not_available') }}</td>
     @endif
     <td class="torrent-search--list__size">
         <span>{{ $torrent->getSize() }}</span>

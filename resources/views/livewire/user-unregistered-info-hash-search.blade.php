@@ -1,5 +1,5 @@
 <section class="panelV2">
-    <h2 class="panel__heading">Unregistered info hashes</h2>
+    <h2 class="panel__heading">{{ __('livewire-interface.unregistered-info-hashes') }}</h2>
     <div class="data-table-wrapper">
         <table class="data-table">
             <thead>
@@ -13,7 +13,7 @@
                         @include('livewire.includes._sort-icon', ['field' => 'torrents.size'])
                     </th>
                     <th wire:click="sortBy('torrents.info_hash')" role="columnheader button">
-                        {{ __('torrent.info-hash') }} (Hex-encoded)
+                        {{ __('livewire-interface.info-hash-hex-encoded') }}
                         @include('livewire.includes._sort-icon', ['field' => 'torrents.info_hash'])
                     </th>
                     <th wire:click="sortBy('torrents.deleted_at')" role="columnheader button">
@@ -48,7 +48,7 @@
                                 datetime="{{ $unregisteredInfoHash->deleted_at }}"
                                 title="{{ $unregisteredInfoHash->deleted_at }}"
                             >
-                                {{ $unregisteredInfoHash->deleted_at?->diffForHumans() ?? 'N/A' }}
+                                {{ $unregisteredInfoHash->deleted_at?->diffForHumans() ?? __('livewire-interface.not-available') }}
                             </time>
                         </td>
                         <td>
@@ -56,7 +56,7 @@
                                 datetime="{{ $unregisteredInfoHash->updated_at }}"
                                 title="{{ $unregisteredInfoHash->updated_at }}"
                             >
-                                {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? 'N/A' }}
+                                {{ $unregisteredInfoHash->updated_at?->diffForHumans() ?? __('livewire-interface.not-available') }}
                             </time>
                         </td>
                     </tr>

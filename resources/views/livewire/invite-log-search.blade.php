@@ -29,7 +29,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="soundexSender">
-                            Soundex {{ __('user.sender') }}
+                            {{ __('livewire-interface.soundex-field', ['field' => __('user.sender')]) }}
                         </label>
                     </div>
                     <div class="form__group">
@@ -55,7 +55,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="soundexReceiver">
-                            Soundex {{ __('bon.receiver') }}
+                            {{ __('livewire-interface.soundex-field', ['field' => __('bon.receiver')]) }}
                         </label>
                     </div>
                     <div class="form__group">
@@ -81,7 +81,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="soundexEmail">
-                            Soundex {{ __('common.email') }}
+                            {{ __('livewire-interface.soundex-field', ['field' => __('common.email')]) }}
                         </label>
                     </div>
 
@@ -96,10 +96,10 @@
                                 max="100"
                                 wire:model.live="threshold"
                                 placeholder=" "
-                                title="Colors 'Percent inactive' red if above this threshold"
+                                title="{{ __('livewire-interface.percent-inactive-threshold-hint') }}"
                             />
                             <label class="form__label form__label--floating" for="threshold">
-                                Threshold
+                                {{ __('livewire-interface.threshold') }}
                             </label>
                         </div>
                     @endif
@@ -111,11 +111,11 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="none">None</option>
-                            <option value="user_id">Sender</option>
+                            <option value="none">{{ __('livewire-interface.none') }}</option>
+                            <option value="user_id">{{ __('user.sender') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="groupBy">
-                            Group by
+                            {{ __('livewire-interface.group-by') }}
                         </label>
                     </div>
                     <div class="form__group">
@@ -179,46 +179,46 @@
                                     wire:click="sortBy('created_at_min')"
                                     role="columnheader button"
                                 >
-                                    First sent at
+                                    {{ __('livewire-interface.first-sent-at') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at_min'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_avg')"
                                     role="columnheader button"
                                 >
-                                    Average sent at
+                                    {{ __('livewire-interface.average-sent-at') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at_avg'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_max')"
                                     role="columnheader button"
                                 >
-                                    Last sent at
+                                    {{ __('livewire-interface.last-sent-at') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at_max'])
                                 </th>
                                 <th wire:click="sortBy('sent_count')" role="columnheader button">
-                                    Invites sent
+                                    {{ __('livewire-interface.invites-sent') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'sent_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('accepted_by_count')"
                                     role="columnheader button"
                                 >
-                                    Invites accepted
+                                    {{ __('livewire-interface.invites-accepted') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'accepted_by_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('inactive_count')"
                                     role="columnheader button"
                                 >
-                                    Inactive count
+                                    {{ __('livewire-interface.inactive-count') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'banned_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('inactive_ratio')"
                                     role="columnheader button"
                                 >
-                                    Percent inactive
+                                    {{ __('livewire-interface.percent-inactive') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'inactive_ratio'])
                                 </th>
                             </tr>
@@ -234,7 +234,7 @@
                                             datetime="{{ $invite->created_at_min }}"
                                             title="{{ $invite->created_at_min }}"
                                         >
-                                            {{ $invite->created_at_min->format('Y-m-d') }}
+                                            {{ $invite->created_at_min->toDisplayTimezone()->format('Y-m-d') }}
                                         </time>
                                     </td>
                                     <td>
@@ -242,7 +242,7 @@
                                             datetime="{{ $invite->created_at_avg }}"
                                             title="{{ $invite->created_at_avg }}"
                                         >
-                                            {{ $invite->created_at_avg->format('Y-m-d') }}
+                                            {{ $invite->created_at_avg->toDisplayTimezone()->format('Y-m-d') }}
                                         </time>
                                     </td>
                                     <td>
@@ -250,7 +250,7 @@
                                             datetime="{{ $invite->created_at_max }}"
                                             title="{{ $invite->created_at_max }}"
                                         >
-                                            {{ $invite->created_at_max->format('Y-m-d') }}
+                                            {{ $invite->created_at_max->toDisplayTimezone()->format('Y-m-d') }}
                                         </time>
                                     </td>
                                     <td>
@@ -270,7 +270,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8">No invites</td>
+                                    <td colspan="8">{{ __('common.no-result') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -282,7 +282,7 @@
                         <thead>
                             <tr>
                                 <th wire:click="sortBy('id')" role="columnheader button">
-                                    ID
+                                    {{ __('livewire-interface.id') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'id'])
                                 </th>
                                 <th wire:click="sortBy('user_id')" role="columnheader button">
@@ -294,7 +294,7 @@
                                     @include('livewire.includes._sort-icon', ['field' => 'email'])
                                 </th>
                                 <th wire:click="sortBy('code')" role="columnheader button">
-                                    Code
+                                    {{ __('common.code') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'code'])
                                 </th>
                                 <th wire:click="sortBy('custom')" role="columnheader button">
@@ -351,7 +351,7 @@
                                     </td>
                                     <td>
                                         @if ($invite->accepted_by === null)
-                                            N/A
+                                            {{ __('livewire-interface.not-applicable') }}
                                         @else
                                             <x-user-tag :anon="false" :user="$invite->receiver" />
                                         @endif
@@ -361,7 +361,7 @@
                                             datetime="{{ $invite->accepted_at }}"
                                             title="{{ $invite->accepted_at }}"
                                         >
-                                            {{ $invite->accepted_at ?? 'N/A' }}
+                                            {{ $invite->accepted_at ?? __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
                                     <td>
@@ -369,13 +369,13 @@
                                             datetime="{{ $invite->deleted_at }}"
                                             title="{{ $invite->deleted_at }}"
                                         >
-                                            {{ $invite->deleted_at ?? 'N/A' }}
+                                            {{ $invite->deleted_at ?? __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10">No invites</td>
+                                    <td colspan="10">{{ __('common.no-result') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>

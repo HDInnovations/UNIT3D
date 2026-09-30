@@ -409,7 +409,7 @@ class ChatController extends Controller
         $user = $request->user();
         $status = ChatStatus::findOrFail($request->integer('status_id'));
 
-        $this->chatRepository->systemMessage('[url=/users/'.$user->username.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]');
+        $this->chatRepository->systemMessage(trans('application-messages.bot.status-updated', ['username' => $user->username, 'status' => $status->name], config('app.locale')));
 
         $user->chatStatus()->dissociate();
         $user->chatStatus()->associate($status);

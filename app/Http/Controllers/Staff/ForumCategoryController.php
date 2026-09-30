@@ -43,7 +43,7 @@ class ForumCategoryController extends Controller
         ForumCategory::create($request->validated());
 
         return to_route('staff.forum_categories.index')
-            ->with('success', 'Forum has been created successfully');
+            ->with('success', __('application-messages.flash.forum-created'));
     }
 
     public function edit(ForumCategory $forumCategory): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -58,7 +58,7 @@ class ForumCategoryController extends Controller
         $forumCategory->update($request->validated());
 
         return to_route('staff.forum_categories.index')
-            ->with('success', 'Forum has been edited successfully');
+            ->with('success', __('application-messages.flash.forum-edited'));
     }
 
     public function destroy(ForumCategory $forumCategory): \Illuminate\Http\RedirectResponse
@@ -66,6 +66,6 @@ class ForumCategoryController extends Controller
         $forumCategory->delete();
 
         return to_route('staff.forum_categories.index')
-            ->with('success', 'Forum has been deleted successfully');
+            ->with('success', __('application-messages.flash.forum-deleted'));
     }
 }

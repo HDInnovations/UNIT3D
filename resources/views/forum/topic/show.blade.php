@@ -38,8 +38,7 @@
     @livewire('topic-post-search', ['topic' => $topic])
     @if ($topic->state === 'close' && auth()->user()->group->is_modo)
         <p>
-            This topic is closed, but you can still reply due to you being
-            {{ auth()->user()->group->name }}.
+            {{ __('member-interface.forum.topic-closed-reply-notice', ['group' => auth()->user()->group->name]) }}
         </p>
     @endif
 
@@ -191,7 +190,7 @@
                             <button
                                 class="form__button form__button--filled form__button--centered"
                                 x-on:click.prevent="confirmAction"
-                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this topic: ' . $topic->name . '?') }}"
+                                data-b64-deletion-message="{{ base64_encode(__('member-interface.forum.delete-topic-confirm', ['name' => $topic->name])) }}"
                             >
                                 {{ __('common.delete') }}
                             </button>
@@ -306,7 +305,7 @@
             </div>
         </section>
         <section class="panelV2">
-            <h2 class="panel__heading">Edit topic priority</h2>
+            <h2 class="panel__heading">{{ __('member-interface.forum.edit-topic-priority') }}</h2>
             <div class="panel__body">
                 <form
                     class="form"
@@ -325,7 +324,7 @@
                             value="{{ $topic->priority }}"
                         />
                         <label class="form__label form__label--floating" for="season_number">
-                            Priority
+                            {{ __('ticket.priority') }}
                         </label>
                     </p>
                     <p class="form__group">

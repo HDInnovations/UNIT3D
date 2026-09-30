@@ -24,7 +24,9 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} torrent resolution: {{ $resolution->name }}
+            {{ __('common.edit') }}
+            {{ __('torrent.torrent') }}
+            {{ __('common.resolution') }}: {{ $resolution->name }}
         </h2>
         <div class="panel__body">
             <form

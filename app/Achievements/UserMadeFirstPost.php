@@ -16,21 +16,14 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserMadeFirstPost extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.made-first-post';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = 'FirstPost';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'Congratulations! You have made your first post!';
 }

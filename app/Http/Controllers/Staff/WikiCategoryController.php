@@ -52,7 +52,7 @@ class WikiCategoryController extends Controller
         WikiCategory::create($request->validated());
 
         return to_route('staff.wiki_categories.index')
-            ->with('success', 'Wiki category successfully added');
+            ->with('success', __('application-messages.flash.wiki-category-added'));
     }
 
     /**
@@ -73,7 +73,7 @@ class WikiCategoryController extends Controller
         $wikiCategory->update($request->validated());
 
         return to_route('staff.wiki_categories.index')
-            ->with('success', 'Wiki category successfully modified');
+            ->with('success', __('application-messages.flash.wiki-category-modified'));
     }
 
     /**
@@ -84,6 +84,6 @@ class WikiCategoryController extends Controller
         $wikiCategory->delete();
 
         return to_route('staff.wiki_categories.index')
-            ->with('success', 'Wiki category successfully deleted');
+            ->with('success', __('application-messages.flash.wiki-category-deleted'));
     }
 }

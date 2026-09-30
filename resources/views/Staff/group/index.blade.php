@@ -16,7 +16,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Groups</h2>
+            <h2 class="panel__heading">{{ __('staff.groups') }}</h2>
             <div class="panel__actions">
                 <a
                     href="{{ route('staff.groups.create') }}"
@@ -30,39 +30,39 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>{{ __('staff-interface.id') }}</th>
                         <th>{{ __('common.name') }}</th>
                         <th>{{ __('common.position') }}</th>
-                        <th>Level</th>
-                        <th>DL slots</th>
-                        <th>Color</th>
-                        <th>Icon</th>
-                        <th>Effect</th>
-                        <th>Uploader</th>
-                        <th>Internal</th>
-                        <th>Editor</th>
-                        <th>Torrent modo</th>
-                        <th>Modo</th>
-                        <th>Admin</th>
-                        <th>Owner</th>
-                        <th>Trusted</th>
-                        <th>Immune</th>
-                        <th>Freeleech</th>
-                        <th>Double upload</th>
-                        <th>Refundable</th>
-                        <th>Incognito</th>
-                        <th>Chat</th>
-                        <th>Comment</th>
-                        <th>Invite</th>
-                        <th>Request</th>
-                        <th>Upload</th>
-                        <th>Autogroup</th>
-                        <th>Min upload</th>
-                        <th>Min ratio</th>
-                        <th>Min age</th>
-                        <th>Min avg seedtime</th>
-                        <th>Min seedsize</th>
-                        <th>Min uploads</th>
+                        <th>{{ __('staff-interface.group-level') }}</th>
+                        <th>{{ __('staff-interface.group-dl-slots') }}</th>
+                        <th>{{ __('common.color') }}</th>
+                        <th>{{ __('common.icon') }}</th>
+                        <th>{{ __('staff-interface.group-effect') }}</th>
+                        <th>{{ __('staff-interface.group-uploader') }}</th>
+                        <th>{{ __('common.internal') }}</th>
+                        <th>{{ __('staff-interface.group-editor') }}</th>
+                        <th>{{ __('staff-interface.group-torrent-modo') }}</th>
+                        <th>{{ __('staff-interface.group-modo') }}</th>
+                        <th>{{ __('staff-interface.group-admin') }}</th>
+                        <th>{{ __('staff-interface.group-owner') }}</th>
+                        <th>{{ __('staff-interface.group-trusted') }}</th>
+                        <th>{{ __('staff-interface.group-immune') }}</th>
+                        <th>{{ __('torrent.freeleech') }}</th>
+                        <th>{{ __('torrent.double-upload') }}</th>
+                        <th>{{ __('torrent.refundable') }}</th>
+                        <th>{{ __('staff-interface.group-incognito') }}</th>
+                        <th>{{ __('common.chat') }}</th>
+                        <th>{{ __('common.comment') }}</th>
+                        <th>{{ __('staff-interface.group-invite') }}</th>
+                        <th>{{ __('staff-interface.group-request') }}</th>
+                        <th>{{ __('staff-interface.group-can-upload') }}</th>
+                        <th>{{ __('staff-interface.group-autogroup') }}</th>
+                        <th>{{ __('staff-interface.group-min-uploaded-index') }}</th>
+                        <th>{{ __('staff-interface.group-min-ratio-index') }}</th>
+                        <th>{{ __('staff-interface.group-min-age-index') }}</th>
+                        <th>{{ __('staff-interface.group-min-avg-seedtime-index') }}</th>
+                        <th>{{ __('staff-interface.group-min-seedsize-index') }}</th>
+                        <th>{{ __('staff-interface.group-min-uploads-index') }}</th>
                         <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
@@ -77,7 +77,9 @@
                             </td>
                             <td>{{ $group->position }}</td>
                             <td>{{ $group->level }}</td>
-                            <td>{{ $group->download_slots ?? 'Unlimited' }}</td>
+                            <td>
+                                {{ $group->download_slots ?? __('staff-interface.unlimited') }}
+                            </td>
                             <td>
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-circle"
@@ -354,7 +356,7 @@
                                                 @method('DELETE')
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this group: ' . $group->name . '? All users in this group will be moved to their appropriate groups.') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-group-confirm', ['name' => $group->name])) }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.delete') }}

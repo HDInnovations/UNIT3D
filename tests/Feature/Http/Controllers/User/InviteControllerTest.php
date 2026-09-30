@@ -19,6 +19,41 @@ use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
+test('administrator bypasses the invite two-factor delay', function (): void {
+    $group = Group::factory()->create(['is_admin' => true, 'is_modo' => true]);
+    $user = User::factory()->for($group)->create([
+        'can_invite'              => 1,
+        'invites'                 => 1,
+        'two_factor_confirmed_at' => null,
+    ]);
+    $inviteEmail = fake()->freeEmail;
+
+    config([
+        'other.invite-only'                  => true,
+        'other.invites_restriced'            => false,
+        'other.hours-until-invite-after-2fa' => 24,
+        'email-blacklist.enabled'            => false,
+    ]);
+    Mail::fake();
+
+    $this->actingAs($user)
+        ->get(route('users.invites.create', [$user]))
+        ->assertOk();
+
+    $this->actingAs($user)
+        ->post(route('users.invites.store', [$user]), [
+            'email'         => $inviteEmail,
+            'message'       => 'Administrative invitation',
+            'internal_note' => 'Two-factor delay bypass',
+        ])
+        ->assertRedirect(route('users.invites.create', [$user]));
+
+    $this->assertDatabaseHas('invites', [
+        'user_id' => $user->id,
+        'email'   => $inviteEmail,
+    ]);
+});
+
 test('create returns an ok response', function (): void {
     $group = Group::factory()->create([]);
 

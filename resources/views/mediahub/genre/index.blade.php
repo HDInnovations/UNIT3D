@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Genres" />
+    <meta name="description" content="{{ __('common.genres') }}" />
 @endsection
 
 @section('breadcrumbs')

@@ -9,10 +9,10 @@
         @method('DELETE')
         <button
             x-on:click.prevent="confirmAction"
-            data-b64-deletion-message="{{ base64_encode('Are you sure you want revoke the torrent request fill\'s approval and revert the filler\'s bon reward?') }}"
+            data-b64-deletion-message="{{ base64_encode(__('media-interface.requests.revoke-approval-confirmation')) }}"
             class="form__button form__button--outlined form__button--centered"
         >
-            Revoke approval
+            {{ __('media-interface.requests.revoke-approval') }}
         </button>
     </form>
 </li>

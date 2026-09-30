@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: column; row-gap: 1rem">
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Leakers</h2>
+            <h2 class="panel__heading">{{ __('livewire-interface.leakers') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
@@ -14,7 +14,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
-                            Torrent IDs (comma-separated)
+                            {{ __('livewire-interface.torrent-ids-comma-separated') }}
                         </label>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
-                            Minutes leaked within
+                            {{ __('livewire-interface.minutes-leaked-within') }}
                         </label>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </header>
-        <div class="panel__body" wire:loading.block>Loading...</div>
+        <div class="panel__body" wire:loading.block>{{ __('livewire-interface.loading') }}</div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -64,11 +64,11 @@
                             @include('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
                         <th wire:click="sortBy('leak_count')" role="columnheader button">
-                            Torrents matched
+                            {{ __('livewire-interface.torrents-matched') }}
                             @include('livewire.includes._sort-icon', ['field' => 'leak_count'])
                         </th>
-                        <th>User agents</th>
-                        <th>IPs</th>
+                        <th>{{ __('livewire-interface.user-agents') }}</th>
+                        <th>{{ __('livewire-interface.ips') }}</th>
                     </tr>
                 </thead>
                 <tbody>

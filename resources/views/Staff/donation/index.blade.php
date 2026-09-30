@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Donations</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.donations') }}</li>
 @endsection
 
 @section('page', 'page__staff-donation--index')
@@ -14,7 +14,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Donation statistics</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.donation-statistics') }}</h2>
         </header>
         <div class="chart-wrapper">
             <div>
@@ -28,21 +28,21 @@
 
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Donations</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.donations') }}</h2>
         </header>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>User</th>
-                        <th>Transaction</th>
-                        <th>Cost</th>
-                        <th>Upload #</th>
-                        <th>Invite #</th>
-                        <th>Bonus #</th>
-                        <th>Length</th>
-                        <th>Status</th>
+                        <th>{{ __('common.date') }}</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('staff-interface.transaction-header') }}</th>
+                        <th>{{ __('staff-interface.cost') }}</th>
+                        <th>{{ __('staff-interface.upload-number-header') }}</th>
+                        <th>{{ __('staff-interface.invite-number-header') }}</th>
+                        <th>{{ __('staff-interface.bonus-number-header') }}</th>
+                        <th>{{ __('staff-interface.length-header') }}</th>
+                        <th>{{ __('common.status') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
                 </thead>
@@ -58,45 +58,45 @@
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
-                                title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
+                                title="{{ $donation->package->trashed() ? __('staff-interface.package-deleted') : '' }}"
                             >
                                 $ {{ $donation->package->cost }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
-                                title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
+                                title="{{ $donation->package->trashed() ? __('staff-interface.package-deleted') : '' }}"
                             >
                                 {{ App\Helpers\StringHelper::formatBytes($donation->package->upload_value ?? 0) }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
-                                title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
+                                title="{{ $donation->package->trashed() ? __('staff-interface.package-deleted') : '' }}"
                             >
                                 {{ $donation->package->invite_value ?? 0 }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
-                                title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
+                                title="{{ $donation->package->trashed() ? __('staff-interface.package-deleted') : '' }}"
                             >
                                 {{ $donation->package->bonus_value ?? 0 }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
-                                title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
+                                title="{{ $donation->package->trashed() ? __('staff-interface.package-deleted') : '' }}"
                             >
                                 @if ($donation->package->donor_value === null)
-                                    Lifetime
+                                    {{ __('staff-interface.lifetime') }}
                                 @else
-                                    {{ $donation->package->donor_value }} days
+                                    {{ $donation->package->donor_value }} {{ __('vltava.torrent.days') }}
                                 @endif
                             </td>
                             <td>
                                 @if ($donation->status === App\Enums\ModerationStatus::PENDING)
-                                    <span class="text-warning">Pending</span>
+                                    <span class="text-warning">{{ __('torrent.pending') }}</span>
                                 @elseif ($donation->status === App\Enums\ModerationStatus::APPROVED)
-                                    <span class="text-success">Approved</span>
+                                    <span class="text-success">{{ __('torrent.approved') }}</span>
                                 @else
-                                    <span class="text-danger">Rejected</span>
+                                    <span class="text-danger">{{ __('torrent.rejected') }}</span>
                                 @endif
                             </td>
 
@@ -112,10 +112,10 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to approve this donation: ' . $donation->id . '?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('staff-interface.approve-donation-confirmation', ['id' => $donation->id])) }}"
                                                     class="form__button form__button--filled"
                                                 >
-                                                    Approve
+                                                    {{ __('staff-interface.approve') }}
                                                 </button>
                                             </form>
                                         </li>
@@ -129,10 +129,10 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to reject this donation: ' . $donation->id . '?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('staff-interface.reject-donation-confirmation', ['id' => $donation->id])) }}"
                                                     class="form__button form__button--filled"
                                                 >
-                                                    Reject
+                                                    {{ __('staff-interface.reject') }}
                                                 </button>
                                             </form>
                                         </li>
@@ -163,7 +163,7 @@
                     labels: dailyDonations.map((donation) => donation.date),
                     datasets: [
                         {
-                            label: 'Daily donations',
+                            label: @js(__('staff-interface.daily-donations')),
                             data: dailyDonations.map((donation) => donation.total),
                             backgroundColor: getComputedStyle(
                                 document.documentElement,
@@ -194,7 +194,7 @@
                     ),
                     datasets: [
                         {
-                            label: 'Monthly donations',
+                            label: @js(__('staff-interface.monthly-donations')),
                             data: monthlyDonations.map((donation) => donation.total),
                             backgroundColor: getComputedStyle(
                                 document.documentElement,

@@ -20,7 +20,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Add a torrent resolution</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.add-torrent-resolution') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.resolutions.store') }}">
                 @csrf

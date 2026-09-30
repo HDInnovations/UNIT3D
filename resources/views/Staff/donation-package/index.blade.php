@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Packages</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.packages') }}</li>
 @endsection
 
 @section('page', 'page__staff-donation-package--index')
@@ -14,7 +14,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Packages</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.packages') }}</h2>
             <div class="panel__actions">
                 <a
                     class="panel__action form__button form__button--text"
@@ -28,15 +28,15 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Position</th>
-                        <th>Name</th>
-                        <th>Cost</th>
-                        <th>Upload (GiB)</th>
-                        <th>Invite (#)</th>
-                        <th>Bonus (#)</th>
-                        <th>Supporter (Days)</th>
-                        <th>Active</th>
-                        <th>Action</th>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('staff-interface.cost') }}</th>
+                        <th>{{ __('staff-interface.upload-gib-header') }}</th>
+                        <th>{{ __('staff-interface.invite-count-header') }}</th>
+                        <th>{{ __('staff-interface.bonus-count-header') }}</th>
+                        <th>{{ __('staff-interface.supporter-days-header') }}</th>
+                        <th>{{ __('common.active') }}</th>
+                        <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,9 +58,9 @@
                             <td>{{ $package->bonus_value ?? 0 }}</td>
                             <td>
                                 @if ($package->donor_value === null)
-                                    Lifetime
+                                    {{ __('staff-interface.lifetime') }}
                                 @else
-                                    {{ $package->donor_value }} day(s)
+                                    {{ $package->donor_value }} {{ __('vltava.torrent.days') }}
                                 @endif
                             </td>
                             <td class="{{ $package->is_active ? 'text-green' : 'text-red' }}">
@@ -90,7 +90,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this page: ' . $package->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-package-confirmation', ['name' => $package->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

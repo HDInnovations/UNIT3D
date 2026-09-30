@@ -1,7 +1,7 @@
 <div class="panelV2" x-data="toggle">
     <h2 class="panel__heading" style="cursor: pointer" x-on:click="toggle">
         <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
-        Audits
+        {{ __('media-interface.torrent.audits-heading') }}
         <i
             class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
             x-show="isToggledOff"
@@ -16,10 +16,10 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>User</th>
+                    <th>{{ __('vltava.torrent.user') }}</th>
                     <th>{{ __('common.action') }}</th>
-                    <th>Date</th>
-                    <th>Modifications</th>
+                    <th>{{ __('vltava.torrent.date') }}</th>
+                    <th>{{ __('vltava.torrent.modifications') }}</th>
                 </tr>
             </thead>
             <tbody>

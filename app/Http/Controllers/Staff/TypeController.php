@@ -53,7 +53,7 @@ class TypeController extends Controller
         Type::create($request->validated());
 
         return to_route('staff.types.index')
-            ->with('success', 'Type successfully added');
+            ->with('success', __('application-messages.flash.type-added'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TypeController extends Controller
         $type->update($request->validated());
 
         return to_route('staff.types.index')
-            ->with('success', 'Type successfully modified');
+            ->with('success', __('application-messages.flash.type-modified'));
     }
 
     /**
@@ -87,6 +87,6 @@ class TypeController extends Controller
         $type->delete();
 
         return to_route('staff.types.index')
-            ->with('success', 'Type successfully deleted');
+            ->with('success', __('application-messages.flash.type-deleted'));
     }
 }

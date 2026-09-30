@@ -7,7 +7,9 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">Torrent regions</a>
+        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">
+            {{ __('staff-interface.torrent-regions') }}
+        </a>
     </li>
     <li class="breadcrumb--active">
         {{ __('common.new-adj') }}
@@ -18,7 +20,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Add a torrent region</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.add-torrent-region') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.regions.store') }}">
                 @csrf

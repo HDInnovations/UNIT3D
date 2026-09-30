@@ -44,7 +44,9 @@
                         autocomplete="off"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="tmdbId">TMDb ID</label>
+                    <label class="form__label form__label--floating" for="tmdbId">
+                        TMDb {{ __('livewire-interface.id') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -56,7 +58,9 @@
                         pattern="[0-9]+|tt0*\d{7,}"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="imdbId">IMDb ID</label>
+                    <label class="form__label form__label--floating" for="imdbId">
+                        IMDb {{ __('livewire-interface.id') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -67,7 +71,9 @@
                         autocomplete="off"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="tvdbId">TVDb ID</label>
+                    <label class="form__label form__label--floating" for="tvdbId">
+                        TVDb {{ __('livewire-interface.id') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -78,7 +84,9 @@
                         autocomplete="off"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="malId">MAL ID</label>
+                    <label class="form__label form__label--floating" for="malId">
+                        MAL {{ __('livewire-interface.id') }}
+                    </label>
                 </p>
             </div>
             <div class="form__group--short-horizontal">
@@ -164,7 +172,7 @@
                 </div>
                 <div class="form__group">
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Primary language</legend>
+                        <legend class="form__legend">{{ __('livewire-interface.primary-language') }}</legend>
                         <div class="form__fieldset-checkbox-container">
                             @foreach ($primaryLanguages as $primaryLanguage)
                                 <p class="form__group">
@@ -354,8 +362,8 @@
                                 </a>
                             </td>
                             <td>{{ $torrentRequest->category->name }}</td>
-                            <td>{{ $torrentRequest->type->name ?? 'Any' }}</td>
-                            <td>{{ $torrentRequest->resolution->name ?? 'Any' }}</td>
+                            <td>{{ $torrentRequest->type->name ?? __('livewire-interface.any') }}</td>
+                            <td>{{ $torrentRequest->resolution->name ?? __('livewire-interface.any') }}</td>
                             <td>
                                 <x-user-tag
                                     :user="$torrentRequest->user"

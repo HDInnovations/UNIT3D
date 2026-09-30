@@ -1,7 +1,7 @@
 <div class="panelV2" x-data="toggle">
     <h2 class="panel__heading" style="cursor: pointer" x-on:click="toggle">
         <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
-        Reports
+        {{ __('media-interface.torrent.reports-heading') }}
         <i
             class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
             x-show="isToggledOff"
@@ -17,7 +17,7 @@
             <thead>
                 <tr>
                     <th>{{ __('common.title') }}</th>
-                    <th>Reported</th>
+                    <th>{{ __('vltava.torrent.reported') }}</th>
                     <th>
                         {{ __('common.reporter') }}
                     </th>
@@ -49,14 +49,14 @@
                                 datetime="{{ $report->created_at }}"
                                 title="{{ $report->created_at }}"
                             >
-                                {{ $report->created_at->toDayDateTimeString() }}
+                                {{ $report->created_at->toDisplayTimezone()->toDayDateTimeString() }}
                             </time>
                         </td>
                         <td>
                             @if ($report->staff_id !== null)
                                 <x-user-tag :anon="false" :user="$report->staff" />
                             @else
-                                Unassigned
+                                {{ __('media-interface.torrent.reports-unassigned') }}
                             @endif
                         </td>
                         <td>
@@ -75,7 +75,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">No reports</td>
+                        <td colspan="8">{{ __('vltava.torrent.no_reports') }}</td>
                     </tr>
                 @endforelse
             </tbody>

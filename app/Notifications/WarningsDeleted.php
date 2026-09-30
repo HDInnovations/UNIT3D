@@ -49,8 +49,8 @@ class WarningsDeleted extends Notification implements ShouldQueue, SystemNotific
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'All Hit and Run Warnings Deleted',
-            'message' => "{$this->staff->username} has decided to delete all of your warnings. You lucked out!",
+            'subject' => __('application-messages.notification.warnings-deleted-subject'),
+            'message' => __('application-messages.notification.warnings-deleted-message', ['staff' => $this->staff->username]),
         ];
     }
 }

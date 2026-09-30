@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
-@section('title', 'Error 401: Unauthorized!')
+@section('title', __('interface.error-401-title'))
 
-@section('description', $exception->getMessage() ?: 'Error code response for missing or invalid authentication token.')
+@section('description', $exception->getMessage() ?: __('interface.error-401-description'))

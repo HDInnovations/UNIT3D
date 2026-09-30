@@ -19,10 +19,31 @@ namespace App\Http\Controllers;
 use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class TorrentPeerController extends Controller
 {
+    /**
+     * Live seeder/leecher/completed counts for the torrent page, counted the same way as the page itself.
+     */
+    public function counts(int $id): JsonResponse
+    {
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
+            ->select(['id', 'times_completed'])
+            ->withCount([
+                'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+            ])
+            ->findOrFail($id);
+
+        return response()->json([
+            'seeders'         => $torrent->seeds_count,
+            'leechers'        => $torrent->leeches_count,
+            'times_completed' => $torrent->times_completed,
+        ]);
+    }
+
     /**
      * Display Peers Of A Torrent.
      */

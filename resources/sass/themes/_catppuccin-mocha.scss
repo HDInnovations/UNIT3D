@@ -1,0 +1,77 @@
+@use './material-design-v3-dark';
+
+:root {
+    --body-bg: #1e1e2e;
+    --body-fg: #cdd6f4;
+    --panel-bg: #313244;
+    --panel-fg: #cdd6f4;
+    --panel-head-bg: #313244;
+    --panel-head-fg: #f5e0dc;
+    --article-card-bg: #313244;
+    --article-card-fg: #cdd6f4;
+    --data-table-fg: #cdd6f4;
+    --data-table-th-bg: #45475a;
+    --data-table-tr-even-bg: #313244;
+    --data-table-tr-odd-bg: #313244;
+    --data-table-tr-hover-bg: #45475a;
+    --data-table-tr-border: 1px solid #585b70;
+    --top-nav-bg: #181825;
+    --top-nav-dropdown-menu-bg: #313244;
+    --top-nav-dropdown-fg: #cdd6f4;
+    --top-nav-dropdown-hover-bg: #45475a;
+    --top-nav-dropdown-menu-item-fg: #cdd6f4;
+    --top-nav-dropdown-menu-item-hover-bg: #45475a;
+    --top-nav-dropdown-menu-item-icon-bg: #585b70;
+    --secondary-nav-bg: #181825;
+    --secondary-nav-tab-fg: #bac2de;
+    --secondary-nav-tab-hover-fg: #cba6f7;
+    --quick-search-bg: #313244;
+    --quick-search-fg: #cdd6f4;
+    --quick-search-result-bg: #313244;
+    --quick-search-result-fg: #cdd6f4;
+    --quick-search-result-hover-bg: #45475a;
+    --dialog-bg: #313244;
+    --dialog-fg: #cdd6f4;
+    --dialog-head-bg: #313244;
+    --dialog-head-fg: #f5e0dc;
+    --message-bubble-bg: #45475a;
+    --message-bubble-fg: #cdd6f4;
+    --bbcode-input-header-bg: #313244;
+    --bbcode-input-body-bg: #1e1e2e;
+    --bbcode-input-border: 1px solid #585b70;
+    --bbcode-rendered-fg-default: #cdd6f4;
+    --bbcode-rendered-fg-muted: #a6adc8;
+    --bbcode-rendered-canvas-subtle: #45475a;
+    --bbcode-rendered-accent-fg: #89b4fa;
+    --bbcode-rendered-quote-border: #cba6f7;
+    --input-text-border: 1px solid #6c7086;
+    --input-text-border-active: 2px solid #89b4fa;
+    --input-text-fg: #cdd6f4;
+    --select-border: 1px solid #6c7086;
+    --select-border-active: 2px solid #89b4fa;
+    --select-fg: #cdd6f4;
+    --textarea-border: 1px solid #6c7086;
+    --textarea-border-active: 2px solid #89b4fa;
+    --textarea-fg: #cdd6f4;
+    --button-filled-bg: #cba6f7;
+    --button-filled-fg: #1e1e2e;
+    --button-outlined-border: 1px solid #cba6f7;
+    --torrent-card-bg: #313244;
+    --torrent-card-fg: #cdd6f4;
+    --torrent-group-bg: #313244;
+    --torrent-group-header-bg: #45475a;
+    --torrent-row-fg: #cdd6f4;
+    --torrent-row-seeders-fg: #a6e3a1;
+    --torrent-row-leechers-fg: #f38ba8;
+    --torrent-row-completed-fg: #89b4fa;
+    --torrent-row-freeleech-fg: #f9e2af;
+    --footer-bg: #181825;
+    --breadcrumb-fg: #89b4fa;
+    --breadcrumb-active-fg: #cba6f7;
+    --notification-unread: #a6e3a1;
+}
+
+a,
+a:hover {
+    color: #89b4fa;
+}

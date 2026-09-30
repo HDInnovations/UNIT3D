@@ -33,7 +33,7 @@
                     datetime="{{ $article->created_at }}"
                     title="{{ $article->created_at }}"
                 >
-                    {{ $article->created_at->toDayDateTimeString() }}
+                    {{ $article->created_at->toDisplayTimezone()->toDayDateTimeString() }}
                 </time>
             </div>
         </header>

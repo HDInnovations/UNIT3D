@@ -10,14 +10,14 @@
             {{ __('stat.stats') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Themes</li>
+    <li class="breadcrumb--active">{{ __('member-interface.stats.themes') }}</li>
 @endsection
 
 @section('page', 'page__stats--themes')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Site stylesheets</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.site-stylesheets') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 @forelse ($siteThemes as $siteTheme)
@@ -26,76 +26,76 @@
                         <td>
                             @switch($siteTheme->total_style)
                                 @case('0')
-                                    Light theme
+                                    {{ __('member-interface.stats.theme-light') }}
 
                                     @break
                                 @case('1')
-                                    Galactic theme
+                                    {{ __('member-interface.stats.theme-galactic') }}
 
                                     @break
                                 @case('2')
-                                    Dark blue theme
+                                    {{ __('member-interface.stats.theme-dark-blue') }}
 
                                     @break
                                 @case('3')
-                                    Dark green theme
+                                    {{ __('member-interface.stats.theme-dark-green') }}
 
                                     @break
                                 @case('4')
-                                    Dark pink theme
+                                    {{ __('member-interface.stats.theme-dark-pink') }}
 
                                     @break
                                 @case('5')
-                                    Dark purple theme
+                                    {{ __('member-interface.stats.theme-dark-purple') }}
 
                                     @break
                                 @case('6')
-                                    Dark red theme
+                                    {{ __('member-interface.stats.theme-dark-red') }}
 
                                     @break
                                 @case('7')
-                                    Dark teal theme
+                                    {{ __('member-interface.stats.theme-dark-teal') }}
 
                                     @break
                                 @case('8')
-                                    Dark yellow theme
+                                    {{ __('member-interface.stats.theme-dark-yellow') }}
 
                                     @break
                                 @case('9')
-                                    Cosmic void theme
+                                    {{ __('member-interface.stats.theme-cosmic-void') }}
 
                                     @break
                                 @case('10')
-                                    Nord theme
+                                    {{ __('member-interface.stats.theme-nord') }}
 
                                     @break
                                 @case('11')
-                                    Revel theme
+                                    {{ __('member-interface.stats.theme-revel') }}
 
                                     @break
                                 @case('12')
-                                    Material design 3 light theme
+                                    {{ __('member-interface.stats.theme-md3-light') }}
 
                                     @break
                                 @case('13')
-                                    Material design 3 dark theme
+                                    {{ __('member-interface.stats.theme-md3-dark') }}
 
                                     @break
                                 @case('14')
-                                    Material design 3 amoled theme
+                                    {{ __('member-interface.stats.theme-md3-amoled') }}
 
                                     @break
                                 @case('15')
-                                    Material design 3 navy theme
+                                    {{ __('member-interface.stats.theme-md3-navy') }}
 
                                     @break
                             @endswitch
                         </td>
-                        <td>Used by {{ $siteTheme->value }} users</td>
+                        <td>{{ __('member-interface.stats.theme-used-by-count', ['count' => $siteTheme->value]) }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3">None used</td>
+                        <td colspan="3">{{ __('member-interface.stats.theme-none-used') }}</td>
                     </tr>
                 @endforelse
             </table>
@@ -103,18 +103,18 @@
     </section>
 
     <section class="panelV2">
-        <h2 class="panel__heading">External CSS stylesheets (stacks on top of above site theme)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.external-stylesheets') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 @forelse ($customThemes as $customTheme)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $customTheme->custom_css }}</td>
-                        <td>Used by {{ $customTheme->value }} users</td>
+                        <td>{{ __('member-interface.stats.theme-used-by-count', ['count' => $customTheme->value]) }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3">None used</td>
+                        <td colspan="3">{{ __('member-interface.stats.theme-none-used') }}</td>
                     </tr>
                 @endforelse
             </table>
@@ -122,18 +122,18 @@
     </section>
 
     <section class="panelV2">
-        <h2 class="panel__heading">Standalone CSS stylesheets (no site theme used)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.standalone-stylesheets') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 @forelse ($standaloneThemes as $standaloneTheme)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $standaloneTheme->standalone_css }}</td>
-                        <td>Used by {{ $standaloneTheme->value }} users</td>
+                        <td>{{ __('member-interface.stats.theme-used-by-count', ['count' => $standaloneTheme->value]) }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3">None used</td>
+                        <td colspan="3">{{ __('member-interface.stats.theme-none-used') }}</td>
                     </tr>
                 @endforelse
             </table>

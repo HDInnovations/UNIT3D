@@ -50,7 +50,7 @@ class WarningController extends Controller
         $user->notify(new WarningCreated($request->string('message')->toString()));
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Warning issued successfully!');
+            ->with('success', __('application-messages.flash.warning-issued'));
     }
 
     /**
@@ -74,7 +74,7 @@ class WarningController extends Controller
         $warning->delete();
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Warning was successfully deleted');
+            ->with('success', __('application-messages.flash.warning-deleted'));
     }
 
     /**
@@ -95,7 +95,7 @@ class WarningController extends Controller
         $user->notify(new WarningsDeleted($staff));
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'All warnings were successfully deleted');
+            ->with('success', __('application-messages.flash.all-warnings-deleted'));
     }
 
     /**
@@ -108,6 +108,6 @@ class WarningController extends Controller
         $warning->restore();
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Warning was successfully restored');
+            ->with('success', __('application-messages.flash.warning-restored'));
     }
 }

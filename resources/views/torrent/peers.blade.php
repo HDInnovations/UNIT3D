@@ -41,7 +41,7 @@
                 class="nav-tab__link"
                 href="{{ route('torrents.external_tracker', ['id' => $torrent]) }}"
             >
-                External tracker
+                {{ __('media-interface.torrent.external-tracker') }}
             </a>
         </li>
     @endif
@@ -58,20 +58,20 @@
                     <tr>
                         <th>{{ __('common.user') }}</th>
                         <th>{{ __('torrent.progress') }}</th>
-                        <th>{{ __('common.upload') }}</th>
-                        <th>{{ __('common.download') }}</th>
+                        <th>{{ __('common.uploaded') }}</th>
+                        <th>{{ __('common.downloaded') }}</th>
                         <th>{{ __('torrent.left') }}</th>
                         <th>{{ __('torrent.client') }}</th>
                         <th>{{ __('common.ip') }}</th>
                         <th>{{ __('common.port') }}</th>
                         @if (\config('announce.connectable_check') == true)
-                            <th>Connectable</th>
+                            <th>{{ __('vltava.media.connectable') }}</th>
                         @endif
 
                         <th>{{ __('torrent.started') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
                         <th>{{ __('common.status') }}</th>
-                        <th>Visible</th>
+                        <th>{{ __('vltava.media.visible') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,7 +124,7 @@
                                     datetime="{{ $peer->created_at }}"
                                     title="{{ $peer->created_at }}"
                                 >
-                                    {{ $peer->created_at ? $peer->created_at->diffForHumans() : 'N/A' }}
+                                    {{ $peer->created_at ? $peer->created_at->diffForHumans() : __('media-interface.torrent.na') }}
                                 </time>
                             </td>
                             <td>
@@ -132,7 +132,7 @@
                                     datetime="{{ $peer->updated_at }}"
                                     title="{{ $peer->updated_at }}"
                                 >
-                                    {{ $peer->updated_at ? $peer->updated_at->diffForHumans() : 'N/A' }}
+                                    {{ $peer->updated_at ? $peer->updated_at->diffForHumans() : __('media-interface.torrent.na') }}
                                 </time>
                             </td>
                             <td
@@ -145,7 +145,7 @@
                                         {{ __('torrent.leecher') }}
                                     @endif
                                 @else
-                                        Inactive
+                                        {{ __('media-interface.torrent.inactive') }}
                                 @endif
                             </td>
                             <td class="{{ $peer->visible ? 'text-green' : 'text-red' }}">

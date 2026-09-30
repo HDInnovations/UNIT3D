@@ -16,7 +16,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
-                            Torrent name
+                            {{ __('torrent.name') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -28,7 +28,9 @@
                             autocomplete="off"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="user">Username</label>
+                        <label class="form__label form__label--floating" for="user">
+                            {{ __('common.username') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <input
@@ -39,7 +41,9 @@
                             autocomplete="off"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="agent">Agent</label>
+                        <label class="form__label form__label--floating" for="agent">
+                            {{ __('torrent.agent') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <select
@@ -48,12 +52,12 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="any">Any</option>
-                            <option value="include">Completed</option>
-                            <option value="exclude">Incomplete</option>
+                            <option value="any">{{ __('livewire-interface.any') }}</option>
+                            <option value="include">{{ __('livewire-interface.completed') }}</option>
+                            <option value="exclude">{{ __('livewire-interface.incomplete') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="seeder">
-                            Completed
+                            {{ __('livewire-interface.completed') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -63,11 +67,13 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="any">Any</option>
-                            <option value="exclude">Inactive</option>
-                            <option value="include">Active</option>
+                            <option value="any">{{ __('livewire-interface.any') }}</option>
+                            <option value="exclude">{{ __('livewire-interface.inactive') }}</option>
+                            <option value="include">{{ __('livewire-interface.active') }}</option>
                         </select>
-                        <label class="form__label form__label--floating" for="active">Active</label>
+                        <label class="form__label form__label--floating" for="active">
+                            {{ __('livewire-interface.active') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <select
@@ -76,11 +82,11 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="none">None</option>
-                            <option value="user_id">User</option>
+                            <option value="none">{{ __('livewire-interface.none') }}</option>
+                            <option value="user_id">{{ __('user.user') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="groupBy">
-                            Group by
+                            {{ __('livewire-interface.group-by') }}
                         </label>
                     </p>
                 </div>
@@ -88,8 +94,8 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Histories</h2>
-        <div class="panel__body" wire:loading.block>Loading...</div>
+        <h2 class="panel__heading">{{ __('livewire-interface.histories') }}</h2>
+        <div class="panel__body" wire:loading.block>{{ __('livewire-interface.loading') }}</div>
         <div class="data-table-wrapper">
             @switch($groupBy)
                 @case('user_id')
@@ -122,7 +128,7 @@
                                     wire:click="sortBy('client_uploaded_sum')"
                                     role="columnheader button"
                                 >
-                                    Client upload
+                                    {{ __('livewire-interface.client-upload') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'history.client_uploaded_sum'])
                                 </th>
                                 <th
@@ -143,7 +149,7 @@
                                     wire:click="sortBy('client_downloaded_sum')"
                                     role="columnheader button"
                                 >
-                                    Client download
+                                    {{ __('livewire-interface.client-download') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'history.client_downloaded_sum'])
                                 </th>
                                 <th
@@ -164,7 +170,7 @@
                                     wire:click="sortBy('updated_at_max')"
                                     role="columnheader button"
                                 >
-                                    Announced
+                                    {{ __('livewire-interface.announced') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'history.updated_at_max'])
                                 </th>
                                 <th wire:click="sortBy('seedtime_avg')" role="columnheader button">
@@ -240,7 +246,7 @@
                                             datetime="{{ $history->created_at_min }}"
                                             title="{{ $history->created_at_min }}"
                                         >
-                                            {{ $history->created_at_min ? $history->created_at_min->diffForHumans() : 'N/A' }}
+                                            {{ $history->created_at_min ? $history->created_at_min->diffForHumans() : __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
                                     <td>
@@ -248,7 +254,7 @@
                                             datetime="{{ $history->updated_at_max }}"
                                             title="{{ $history->updated_at_max }}"
                                         >
-                                            {{ $history->updated_at_max ? $history->updated_at_max->diffForHumans() : 'N/A' }}
+                                            {{ $history->updated_at_max ? $history->updated_at_max->diffForHumans() : __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
 
@@ -320,7 +326,7 @@
                                     wire:click="sortBy('history.client_uploaded')"
                                     role="columnheader button"
                                 >
-                                    Client upload
+                                    {{ __('livewire-interface.client-upload') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'history.client_uploaded'])
                                 </th>
                                 <th
@@ -341,7 +347,7 @@
                                     wire:click="sortBy('history.client_downloaded')"
                                     role="columnheader button"
                                 >
-                                    Client download
+                                    {{ __('livewire-interface.client-download') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'history.client_downloaded'])
                                 </th>
                                 <th
@@ -362,7 +368,7 @@
                                     wire:click="sortBy('history.updated_at')"
                                     role="columnheader button"
                                 >
-                                    Announced
+                                    {{ __('livewire-interface.announced') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'history.updated_at'])
                                 </th>
                                 <th
@@ -450,7 +456,7 @@
                                             datetime="{{ $history->created_at }}"
                                             title="{{ $history->created_at }}"
                                         >
-                                            {{ $history->created_at ? $history->created_at->diffForHumans() : 'N/A' }}
+                                            {{ $history->created_at ? $history->created_at->diffForHumans() : __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
                                     <td>
@@ -458,7 +464,7 @@
                                             datetime="{{ $history->updated_at }}"
                                             title="{{ $history->updated_at }}"
                                         >
-                                            {{ $history->updated_at ? $history->updated_at->diffForHumans() : 'N/A' }}
+                                            {{ $history->updated_at ? $history->updated_at->diffForHumans() : __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
                                     <td>
@@ -466,7 +472,7 @@
                                             datetime="{{ $history->completed_at }}"
                                             title="{{ $history->completed_at }}"
                                         >
-                                            {{ $history->completed_at ? $history->completed_at->diffForHumans() : 'N/A' }}
+                                            {{ $history->completed_at ? $history->completed_at->diffForHumans() : __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
                                     <td>
@@ -474,7 +480,7 @@
                                             datetime="{{ $history->prewarned_at }}"
                                             title="{{ $history->prewarned_at }}"
                                         >
-                                            {{ $history->prewarned_at ? $history->prewarned_at->diffForHumans() : 'N/A' }}
+                                            {{ $history->prewarned_at ? $history->prewarned_at->diffForHumans() : __('livewire-interface.not-applicable') }}
                                         </time>
                                     </td>
 
@@ -499,12 +505,12 @@
                                         @if ($history->active)
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-green fa-check"
-                                                title="Active"
+                                                title="{{ __('livewire-interface.active') }}"
                                             ></i>
                                         @else
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-red fa-times"
-                                                title="Inactive"
+                                                title="{{ __('livewire-interface.inactive') }}"
                                             ></i>
                                         @endif
                                     </td>
@@ -512,12 +518,12 @@
                                         @if ($history->seeder)
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-green fa-check"
-                                                title="Seeder"
+                                                title="{{ __('torrent.seeder') }}"
                                             ></i>
                                         @else
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-red fa-times"
-                                                title="Leecher"
+                                                title="{{ __('torrent.leecher') }}"
                                             ></i>
                                         @endif
                                     </td>
@@ -525,12 +531,12 @@
                                         @if ($history->immune)
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-green fa-check"
-                                                title="Immune"
+                                                title="{{ __('torrent.immune') }}"
                                             ></i>
                                         @else
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-red fa-times"
-                                                title="Not immune"
+                                                title="{{ __('livewire-interface.not-immune') }}"
                                             ></i>
                                         @endif
                                     </td>
@@ -538,12 +544,12 @@
                                         @if ($history->hitrun)
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-green fa-check"
-                                                title="Warned"
+                                                title="{{ __('livewire-interface.warned') }}"
                                             ></i>
                                         @else
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-red fa-times"
-                                                title="Not warned"
+                                                title="{{ __('livewire-interface.not-warned') }}"
                                             ></i>
                                         @endif
                                     </td>

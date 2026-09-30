@@ -8,7 +8,7 @@ document.addEventListener('alpine:init', () => {
                 this.dislike();
             },
             ['x-bind:title']() {
-                return this.isDisliked ? 'Disliked' : 'Dislike this post';
+                return this.isDisliked ? window.i18n.disliked : window.i18n.dislikeThisPost;
             },
         },
         icon: {
@@ -31,13 +31,13 @@ document.addEventListener('alpine:init', () => {
                             timer: 3000,
                         }).fire({
                             icon: 'success',
-                            title: 'Your dislike was successfully applied!',
+                            title: window.i18n.dislikeApplied,
                         });
                     }
                 })
                 .catch((error) => {
                     Swal.fire({
-                        title: '<strong style="color: rgb(17,17,17);">Error</strong>',
+                        title: `<strong style="color: rgb(17,17,17);">${window.i18n.errorTitle}</strong>`,
                         icon: 'error',
                         html: error.response.data.message || error.message,
                         showCloseButton: true,

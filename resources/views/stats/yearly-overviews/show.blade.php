@@ -35,21 +35,19 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Yearly overview</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.yearly-overview') }}</h2>
         <div class="panel__body">
             <div class="overview__opening">
-                <h1 class="overview__opening-heading">That's a wrap!</h1>
+                <h1 class="overview__opening-heading">{{ __('member-interface.stats.overview-wrap') }}</h1>
                 <h2 class="overview__opening-subheading">{{ $year }}</h2>
                 <p class="overview__opening-text">
-                    Another strong year here at {{ config('app.name') }}. To every user who made a
-                    contribution big or small please accept our sincere thanks. Now, without further
-                    ado, here's the best and worst of the year!
+                    {{ __('member-interface.stats.overview-opening-text', ['site' => config('app.name')]) }}
                 </p>
             </div>
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 Movies (Based on downloads count)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-movies-by-downloads') }}</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($topMovies as $work)
                 <figure class="trending-poster overview__poster">
@@ -69,7 +67,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">5 worst movies (based on downloads count)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.worst-movies-by-downloads') }}</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($bottomMovies as $work)
                 <figure class="trending-poster overview__poster">
@@ -89,7 +87,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 TV shows (based on downloads count)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-tv-by-downloads') }}</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($topTv as $work)
                 <figure class="trending-poster overview__poster">
@@ -109,7 +107,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">5 worst TV shows (based on downloads count)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.worst-tv-by-downloads') }}</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($bottomTv as $work)
                 <figure class="trending-poster overview__poster">
@@ -129,7 +127,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 Users (Based on number of torrent uploads made)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-users-by-uploads') }}</h2>
         <div class="panel__body user-stat-card-container">
             @foreach ($uploaders as $uploader)
                 <article class="user-stat-card">
@@ -149,7 +147,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 Users (Based on number of torrent requests made)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-users-by-requests') }}</h2>
         <div class="panel__body user-stat-card-container">
             @foreach ($requesters as $requester)
                 <article class="user-stat-card">
@@ -169,7 +167,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 Users (Based on number of torrent requests filled)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-users-by-fills') }}</h2>
         <div class="panel__body user-stat-card-container">
             @foreach ($fillers as $filler)
                 <article class="user-stat-card">
@@ -189,7 +187,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 Users (Based on number of comments made)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-users-by-comments') }}</h2>
         <div class="panel__body user-stat-card-container">
             @foreach ($commenters as $commenter)
                 <article class="user-stat-card">
@@ -209,7 +207,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 Users (Based on number of posts made)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-users-by-posts') }}</h2>
         <div class="panel__body user-stat-card-container">
             @foreach ($posters as $poster)
                 <article class="user-stat-card">
@@ -229,7 +227,7 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Top 10 Users (Based on number of thanks given)</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.top-users-by-thanks') }}</h2>
         <div class="panel__body user-stat-card-container">
             @foreach ($thankers as $thanker)
                 <article class="user-stat-card">
@@ -249,38 +247,38 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Overall</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.overall') }}</h2>
         <dl class="key-value">
             <div class="key-value__group">
-                <dt>New users this year</dt>
+                <dt>{{ __('member-interface.stats.new-users-this-year') }}</dt>
                 <dd>{{ $newUsers }}</dd>
             </div>
             <div class="key-value__group">
-                <dt>Movies uploaded this year</dt>
+                <dt>{{ __('member-interface.stats.movies-uploaded-this-year') }}</dt>
                 <dd>{{ $movieUploads }}</dd>
             </div>
             <div class="key-value__group">
-                <dt>TV shows uploaded this year</dt>
+                <dt>{{ __('member-interface.stats.tv-shows-uploaded-this-year') }}</dt>
                 <dd>{{ $tvUploads }}</dd>
             </div>
             <div class="key-value__group">
-                <dt>Total torrents uploaded this year</dt>
+                <dt>{{ __('member-interface.stats.total-torrents-uploaded-year') }}</dt>
                 <dd>{{ $totalUploads }}</dd>
             </div>
             <div class="key-value__group">
-                <dt>Total torrents downloaded this year</dt>
+                <dt>{{ __('member-interface.stats.total-torrents-downloaded-year') }}</dt>
                 <dd>{{ $totalDownloads }}</dd>
             </div>
         </dl>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Closing remarks</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.closing-remarks') }}</h2>
         <div class="panel__body overview__closing">
-            <h3 class="overview__closing-heading">Thank you!</h3>
+            <h3 class="overview__closing-heading">{{ __('member-interface.stats.thank-you') }}</h3>
             <h4 class="overview__closing-subheading">
-                For a wonderful {{ $year }} at {{ config('app.name') }}
+                {{ __('member-interface.stats.wonderful-year-at-site', ['year' => $year, 'site' => config('app.name')]) }}
             </h4>
-            <span class="overview__closing-thanks">Special thanks from,</span>
+            <span class="overview__closing-thanks">{{ __('member-interface.stats.special-thanks-from') }}</span>
             @foreach ($staffers as $group)
                 <ul class="overview__staff-list">
                     @foreach ($group->users as $user)

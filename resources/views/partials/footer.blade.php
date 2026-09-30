@@ -2,7 +2,7 @@
     <div class="footer__wrapper">
         <section class="footer__section">
             <h2 class="footer__section-title">
-                <img src="{{ url('/favicon.ico') }}" style="height: 30px; vertical-align: sub" />
+                <img src="{{ url('/img/vltava-mark.svg') }}" alt="" style="height: 30px; vertical-align: sub" />
                 <span class="top-nav__site-logo">{{ \config('other.title') }}</span>
             </h2>
             <p>{{ config('other.meta_description') }}</p>
@@ -42,7 +42,7 @@
                 <li>
                     <a href="{{ route('articles.index') }}">{{ __('common.news') }}</a>
                 </li>
-                <li><a href="{{ route('wikis.index') }}">Wikis</a></li>
+                <li><a href="{{ route('wikis.index') }}">{{ __('interface.wikis') }}</a></li>
             </ul>
         </section>
         @if ($pages->isNotEmpty())
@@ -58,7 +58,7 @@
                     @endforeach
 
                     <li>
-                        <a href="{{ route('pages.index') }}">[View all]</a>
+                        <a href="{{ route('pages.index') }}">{{ __('interface.view-all') }}</a>
                     </li>
                 </ul>
             </section>
@@ -83,7 +83,7 @@
                     <a
                         href="{{ route('pages.show', ['page' => 7]) }}"
                     >
-                        API documentation
+                        {{ __('interface.api-documentation') }}
                     </a>
                 </li>
             </ul>
@@ -91,7 +91,7 @@
     </div>
     <div class="footer__sub-footer">
         <p class="footer__icons">
-            Built using:
+            {{ __('interface.built-using') }}
             <a href="https://laravel.com" target="_blank">
                 <svg height="22" viewBox="0 0 50 52" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -238,24 +238,22 @@
             </a>
         </p>
         <p class="footer__stats">
-            <strong>Time:</strong>
+            <strong>{{ __('interface.response-time') }}</strong>
             <span>
                 {{ number_format((microtime(true) - (defined('LARAVEL_START') ? LARAVEL_START : request()->server('REQUEST_TIME_FLOAT'))) * 1000, 5) }}
                 ms
             </span>
-            <strong>Used:</strong>
+            <strong>{{ __('interface.memory-used') }}</strong>
             <span>{{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MiB</span>
-            <strong>Load:</strong>
+            <strong>{{ __('interface.system-load') }}</strong>
             <span>
                 {{ implode(' ', array_map(fn ($n) => number_format($n, 2), sys_getloadavg())) }}
             </span>
-            <strong>Date:</strong>
+            <strong>{{ __('common.date') }}</strong>
             <span>{{ now() }}</span>
         </p>
         <p class="footer__copyright">
-            Site and design &copy;
-            {{ date('Y', strtotime(config('other.birthdate'))) }}-{{ date('Y') }}
-            {{ config('other.title') }} |
+            {{ __('interface.site-design-copyright', ['site' => config('other.title'), 'years' => date('Y', strtotime(config('other.birthdate'))).'-'.date('Y')]) }} |
             <a href="https://github.com/HDInnovations/UNIT3D">
                 UNIT3D {{ config('unit3d.version') }}
             </a>

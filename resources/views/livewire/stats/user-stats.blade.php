@@ -22,15 +22,15 @@
             <dd>
                 <dl class="key-value">
                     <div class="key-value__group">
-                        <dt>Today</dt>
+                        <dt>{{ __('livewire-interface.today') }}</dt>
                         <dd>{{ $users_active_today }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>This week</dt>
+                        <dt>{{ __('livewire-interface.this-week') }}</dt>
                         <dd>{{ $users_active_this_week }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>This month</dt>
+                        <dt>{{ __('livewire-interface.this-month') }}</dt>
                         <dd>{{ $users_active_this_month }}</dd>
                     </div>
                     <div class="key-value__group">

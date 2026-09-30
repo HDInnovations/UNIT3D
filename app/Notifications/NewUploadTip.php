@@ -52,8 +52,8 @@ class NewUploadTip extends Notification implements ShouldQueue
         $this->tip->load('sender');
 
         return [
-            'title' => $this->tip->sender->username.' Has Tipped You '.$this->tip->bon.' BON For An Uploaded Torrent',
-            'body'  => $this->tip->sender->username.' has tipped one of your Uploaded Torrents '.$this->tip->torrent->name,
+            'title' => __('application-messages.notification.new-upload-tip-title', ['username' => $this->tip->sender->username, 'bon' => $this->tip->bon]),
+            'body'  => __('application-messages.notification.new-upload-tip-body', ['username' => $this->tip->sender->username, 'name' => $this->tip->torrent->name]),
             'url'   => \sprintf('/torrents/%s', $this->tip->torrent_id),
         ];
     }

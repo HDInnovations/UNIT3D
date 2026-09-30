@@ -1,6 +1,6 @@
 <section class="panelV2">
     <header class="panel__header">
-        <h2 class="panel__heading">Missing media</h2>
+        <h2 class="panel__heading">{{ __('livewire-interface.missing-media') }}</h2>
         <div class="panel__actions">
             <div class="panel__action">
                 <div class="form__group">
@@ -82,7 +82,7 @@
                                     font-weight: bold;
                                 "
                             >
-                                Missing
+                                {{ __('common.missing') }}
                             </td>
                         @else
                             <td

@@ -12,7 +12,7 @@
                     @endforeach
                 </ul>
             @else
-                <div class="panel__body">No topics.</div>
+                <div class="panel__body">{{ __('livewire-interface.no-topics') }}</div>
             @endif
             {{ $topics->links('partials.pagination') }}
         </section>
@@ -30,9 +30,9 @@
                     <p class="form__group form__group--horizontal">
                         <button
                             class="form__button form__button--filled form__button--centered"
-                            title="Mark all topics as read"
+                            title="{{ __('livewire-interface.mark-all-topics-as-read') }}"
                         >
-                            Mark all read
+                            {{ __('livewire-interface.mark-all-read') }}
                         </button>
                     </p>
                 </form>
@@ -62,7 +62,7 @@
                             class="form__select"
                             wire:model.live="forumId"
                         >
-                            <option value="">Any</option>
+                            <option value="">{{ __('livewire-interface.any') }}</option>
 
                             @foreach ($forumCategories as $category)
                                 <optgroup label="{{ $category->name }}">
@@ -80,12 +80,14 @@
                     </p>
                     <p class="form__group">
                         <select id="read" class="form__select" name="read" wire:model.live="read">
-                            <option value="" selected default>Any</option>
-                            <option value="some">With unread posts</option>
-                            <option value="none">Newly added</option>
-                            <option value="all">Fully read</option>
+                            <option value="" selected default>{{ __('livewire-interface.any') }}</option>
+                            <option value="some">{{ __('livewire-interface.with-unread-posts') }}</option>
+                            <option value="none">{{ __('livewire-interface.newly-added') }}</option>
+                            <option value="all">{{ __('livewire-interface.fully-read') }}</option>
                         </select>
-                        <label class="form__label form__label--floating" for="read">Activity</label>
+                        <label class="form__label form__label--floating" for="read">
+                            {{ __('livewire-interface.activity') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <select
@@ -94,7 +96,7 @@
                             name="sorting"
                             wire:model.live="label"
                         >
-                            <option value="" selected default>Any</option>
+                            <option value="" selected default>{{ __('livewire-interface.any') }}</option>
                             <option value="approved">
                                 {{ __('forum.approved') }}
                             </option>
@@ -166,7 +168,7 @@
                             name="direction"
                             wire:model.live="state"
                         >
-                            <option value="" selected default>Any</option>
+                            <option value="" selected default>{{ __('livewire-interface.any') }}</option>
                             <option value="open">
                                 {{ __('forum.open') }}
                             </option>
@@ -185,7 +187,7 @@
                             name="direction"
                             wire:model.live="subscribed"
                         >
-                            <option value="" selected default>Any</option>
+                            <option value="" selected default>{{ __('livewire-interface.any') }}</option>
                             <option value="include">
                                 {{ __('forum.subscribed') }}
                             </option>

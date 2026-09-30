@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
-@section('title', 'Error 444')
+@section('title', __('interface.error-444-title'))
 
-@section('description', $exception->getMessage() ?: 'CONNECTION CLOSED WITHOUT RESPONSE.')
+@section('description', $exception->getMessage() ?: __('interface.error-444-description'))

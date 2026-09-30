@@ -41,12 +41,12 @@
                         </h2>
                         <h3 class="mediahub-card__subheading">
                             <i class="{{ config('other.font-awesome') }} fa-tv-retro"></i>
-                            {{ $company->tv_count }} shows | {{ $company->movie_count }} movies
+                            {{ __('livewire-interface.company-show-movie-count', ['shows' => $company->tv_count, 'movies' => $company->movie_count]) }}
                         </h3>
                     </a>
                 </li>
             @empty
-                No {{ __('mediahub.companies') }}
+                {{ __('livewire-interface.no-companies') }}
             @endforelse
         </ul>
     </div>

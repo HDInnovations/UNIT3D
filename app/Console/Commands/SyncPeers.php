@@ -17,9 +17,9 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\History;
-use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use App\Services\TorrentPeerCountSync;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -46,29 +46,11 @@ class SyncPeers extends Command
      *
      * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    final public function handle(): void
+    final public function handle(TorrentPeerCountSync $torrentPeerCountSync): void
     {
-        DB::transaction(function (): void {
-            Torrent::withoutGlobalScope(ApprovedScope::class)
-                ->leftJoinSub(
-                    Peer::query()
-                        ->select('torrent_id')
-                        ->addSelect(DB::raw('SUM(peers.left = 0 AND peers.active = TRUE AND peers.visible = TRUE) AS updated_seeders'))
-                        ->addSelect(DB::raw('SUM(peers.left != 0 AND peers.active = TRUE AND peers.visible = TRUE) AS updated_leechers'))
-                        ->groupBy('torrent_id'),
-                    'seeders_leechers',
-                    fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
-                )
-                ->where(
-                    fn ($query) => $query
-                        ->where('seeders', '!=', DB::raw('COALESCE(updated_seeders, 0)'))
-                        ->orWhere('leechers', '!=', DB::raw('COALESCE(updated_leechers, 0)'))
-                )
-                ->update([
-                    'seeders'  => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
-                    'leechers' => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
-                ]);
-        }, 5);
+        // Full pass; announce batches already sync their own torrents (see AutoUpsertPeers),
+        // this catches peers that expired without announcing.
+        $torrentPeerCountSync->sync();
 
         DB::transaction(function (): void {
             Torrent::withoutGlobalScope(ApprovedScope::class)

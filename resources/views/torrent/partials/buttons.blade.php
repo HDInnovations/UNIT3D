@@ -8,7 +8,7 @@
                     role="button"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ __('common.download') }}
+                    {{ __('common.download-action') }}
                 </a>
             @else
                 <a
@@ -16,7 +16,7 @@
                     href="{{ route('download', ['id' => $torrent->id]) }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ __('common.download') }}
+                    {{ __('common.download-action') }}
                 </a>
             @endif
         @elseif (config('torrent.magnet'))
@@ -52,16 +52,16 @@
                         Alpine.data('freeleechTokenConfirmation', () => ({
                             confirmAction() {
                                 Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: 'This will use one of your freeleech tokens!',
+                                    title: @js(__('media-interface.torrent.buttons-confirm-title')),
+                                    text: @js(__('media-interface.torrent.buttons-use-fl-token-confirm-text')),
                                     icon: 'warning',
                                     showConfirmButton: true,
                                     showCloseButton: true,
                                 }).then((result) => {
                                     if (result.isConfirmed && {{ $torrent->seeders }} == 0) {
                                         Swal.fire({
-                                            title: 'Are you sure?',
-                                            text: 'This torrent has 0 seeders!',
+                                            title: @js(__('media-interface.torrent.buttons-confirm-title')),
+                                            text: @js(__('media-interface.torrent.buttons-zero-seeders-confirm-text')),
                                             icon: 'warning',
                                             showConfirmButton: true,
                                             showCancelButton: true,
@@ -194,8 +194,8 @@
             </header>
             <div x-bind="dialogForm" x-data="tabs" data-default-tab="hierarchy">
                 <menu class="panel__tabs">
-                    <li x-bind="tabButton" data-tab="hierarchy">Hierarchy</li>
-                    <li x-bind="tabButton" data-tab="list">List</li>
+                    <li x-bind="tabButton" data-tab="hierarchy">{{ __('vltava.torrent.hierarchy') }}</li>
+                    <li x-bind="tabButton" data-tab="list">{{ __('vltava.torrent.list') }}</li>
                 </menu>
                 <div class="dialog__form" x-bind="tabPanel" data-tab="hierarchy" style="gap: 0">
                     @if ($torrent->folder !== null)
@@ -276,7 +276,7 @@
                 {{ __('torrent.add-to-playlist') }}
             </button>
             <dialog class="dialog" x-bind="dialogElement">
-                <h4 class="dialog__heading">Add torrent to playlist</h4>
+                <h4 class="dialog__heading">{{ __('vltava.torrent.add_to_playlist') }}</h4>
                 <form
                     class="dialog__form"
                     method="POST"
@@ -292,7 +292,7 @@
                             @endforeach
                         </select>
                         <label for="playlist_id" class="form__label form__label--floating">
-                            Your playlists
+                            {{ __('media-interface.torrent.buttons-your-playlists') }}
                         </label>
                     </p>
                     <p class="form__group" style="text-align: left">
@@ -389,7 +389,7 @@
             <button
                 class="form__button form__button--outlined form__button--centered"
                 x-bind="showDialog"
-                title="This torrent currently has {{ $torrent->unsolvedReports }} unsolved report(s)"
+                title="{{ __('media-interface.torrent.buttons-unsolved-reports-tooltip', ['count' => $torrent->unsolvedReports]) }}"
             >
                 <i class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i>
                 {{ __('common.report') }} ({{ $torrent->unsolvedReports }})
@@ -447,11 +447,11 @@
                     x-bind="showDialog"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-skull-crossbones"></i>
-                    Mark trumpable
+                    {{ __('media-interface.torrent.buttons-mark-trumpable') }}
                 </button>
                 <dialog class="dialog" x-bind="dialogElement">
                     <h4 class="dialog__heading">
-                        Trump {{ strtolower(__('torrent.torrent')) }}:
+                        {{ __('media-interface.torrent.buttons-trump-action') }} {{ strtolower(__('torrent.torrent')) }}:
                         {{ $torrent->name }}
                     </h4>
                     <form
@@ -503,7 +503,7 @@
                     @method('DELETE')
                     <button class="form__button form__button--outlined form__button--centered">
                         <i class="{{ config('other.font-awesome') }} fa-skull-crossbones"></i>
-                        Unmark trumpable
+                        {{ __('media-interface.torrent.buttons-unmark-trumpable') }}
                     </button>
                 </form>
             </li>

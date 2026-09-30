@@ -1,6 +1,6 @@
 <section class="panelV2">
     <header class="panel__header">
-        <h2 class="panel__heading">Also downloaded</h2>
+        <h2 class="panel__heading">{{ __('livewire-interface.also-downloaded') }}</h2>
         <div class="panel__actions" x-data="posterRow">
             <div class="panel__action">
                 <button class="form__standard-icon-button" x-bind="scrollLeft">
@@ -35,7 +35,7 @@
 
                         @break
                 @endswitch
-                <figcaption class="trending-poster__download-count" title="Times downloaded">
+                <figcaption class="trending-poster__download-count" title="{{ __('livewire-interface.times-downloaded-count') }}">
                     {{ $alsoDownloadedWork->total }}
                 </figcaption>
             </figure>

@@ -1,7 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>History - {{ config('other.title') }}</title>
+    <title>{{ __('staff-interface.histories') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -10,7 +10,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">History</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.histories') }}</li>
 @endsection
 
 @section('page', 'page__staff-history--index')

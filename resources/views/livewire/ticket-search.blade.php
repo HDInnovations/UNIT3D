@@ -38,7 +38,9 @@
                             type="checkbox"
                             wire:model.live="show"
                         />
-                        <label class="form__label" for="show">My assigned tickets</label>
+                        <label class="form__label" for="show">
+                            {{ __('livewire-interface.my-assigned-tickets') }}
+                        </label>
                     </div>
                 </div>
             @endif
@@ -57,7 +59,7 @@
             x-bind:class="tab === 'open' && 'panel__tab--active'"
             x-on:click="tab = 'open'"
         >
-            Open
+            {{ __('forum.open') }}
         </li>
         <li
             class="panel__tab panel__tab--full-width"
@@ -65,7 +67,7 @@
             x-bind:class="tab === 'closed' && 'panel__tab--active'"
             x-on:click="tab = 'closed'"
         >
-            Closed
+            {{ __('ticket.closed') }}
         </li>
     </menu>
     <div class="data-table-wrapper">
@@ -139,7 +141,7 @@
                             @if ($ticket->staff)
                                 <x-user-tag :user="$ticket->staff" :anon="false" />
                             @else
-                                Unassigned
+                                {{ __('livewire-interface.unassigned') }}
                             @endif
                         </td>
                         <td>
@@ -163,7 +165,7 @@
                                 datetime="{{ $ticket->closed_at }}"
                                 title="{{ $ticket->closed_at }}"
                             >
-                                {{ $ticket->closed_at?->diffForHumans() ?? 'N/A' }}
+                                {{ $ticket->closed_at?->diffForHumans() ?? __('livewire-interface.not-applicable') }}
                             </time>
                         </td>
                         <td>

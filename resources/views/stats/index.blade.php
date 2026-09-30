@@ -42,10 +42,10 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('themes') }}">Themes</a>
+        <a class="nav-tab__link" href="{{ route('themes') }}">{{ __('member-interface.stats.themes') }}</a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('yearly_overviews.index') }}">Overview</a>
+        <a class="nav-tab__link" href="{{ route('yearly_overviews.index') }}">{{ __('common.overview') }}</a>
     </li>
 @endsection
 

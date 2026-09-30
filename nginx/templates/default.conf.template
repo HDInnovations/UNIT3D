@@ -1,3 +1,7 @@
+# http context: do not advertise nginx or PHP versions to clients.
+server_tokens off;
+proxy_hide_header X-Powered-By;
+
 server {
     listen 80 default_server;
     server_name ${SERVER_NAME};

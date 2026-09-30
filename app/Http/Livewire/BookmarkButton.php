@@ -33,7 +33,7 @@ class BookmarkButton extends Component
     final public function store(): void
     {
         if ($this->user->bookmarks()->where('torrent_id', '=', $this->torrent->id)->exists()) {
-            $this->dispatch('error', type: 'error', message: 'Torrent has already been bookmarked!');
+            $this->dispatch('error', type: 'error', message: __('application-messages.flash.torrent-already-bookmarked'));
 
             return;
         }
@@ -41,7 +41,7 @@ class BookmarkButton extends Component
         $this->user->bookmarks()->attach($this->torrent->id);
         $this->isBookmarked = true;
         $this->bookmarksCount++;
-        $this->dispatch('success', type: 'success', message: 'Torrent has been bookmarked successfully!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.torrent-bookmarked'));
 
         Torrent::query()->whereKey($this->torrent->id)->searchable();
     }
@@ -51,7 +51,7 @@ class BookmarkButton extends Component
         $this->user->bookmarks()->detach($this->torrent->id);
         $this->isBookmarked = false;
         $this->bookmarksCount--;
-        $this->dispatch('success', type: 'success', message: 'Torrent has been unbookmarked successfully!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.torrent-unbookmarked'));
 
         Torrent::query()->whereKey($this->torrent->id)->searchable();
     }

@@ -23,7 +23,7 @@ return [
     'aboutus-rules2' => 'Kuralları eksiksiz okuyun ve lütfen saygı gösterin!',
     'aboutus-rules3' => 'Önerilerde bulunun! :title\'ı her geçen gün daha iyi hale getirmek için çabalıyoruz. Her önerinin kullanılacağını söylemiyoruz, ancak yeni fikirler görmekten zarar gelmez.',
     'aboutus-welcome' => 'Hadi şunun hakkında konuşalım',
-    'aboutus-welcome-desc' => ':title, topluluk tarafından oluşturulmuş bir Film/TV/FANRES veritabanıdır. Her veri parçası, harika üyelerimiz tarafından eklenmiştir. :titles\'ın odak noktası, HD içerik, proaktif bir kullanıcı tabanı, harika/güvenli bir kod tabanı ve yardımsever ve güler yüzlü bir ekiptir.',
+    'aboutus-welcome-desc' => ':title, topluluk tarafından oluşturulmuş bir Film/TV/FANRES veritabanıdır. Her veri parçası, harika üyelerimiz tarafından eklenmiştir. :title\'ın odak noktası, HD içerik, proaktif bir kullanıcı tabanı, harika/güvenli bir kod tabanı ve yardımsever ve güler yüzlü bir ekiptir.',
     'blacklist-browsers' => 'Tarayıcılar',
     'blacklist-btclient' => 'BitTorrent istemcisi',
     'blacklist-clients' => 'İstemciler',

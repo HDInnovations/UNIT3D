@@ -117,7 +117,7 @@
                                             @csrf
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to resend the email to: ' . $invite->email . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('member-interface.account.confirm-resend-invite', ['email' => $invite->email])) }}"
                                                 class="form__button form__button--text"
                                                 @disabled($invite->accepted_at !== null || $invite->expires_on < now())
                                             >
@@ -135,7 +135,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to retract the invite to: ' . $invite->email . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('member-interface.account.confirm-retract-invite', ['email' => $invite->email])) }}"
                                                 class="form__button form__button--text"
                                                 @disabled($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
                                             >
@@ -149,7 +149,7 @@
                     @empty
                         <tr>
                             <td colspan="{{ auth()->user()->group->is_modo ? 10 : 8 }}">
-                                No invitees
+                                {{ __('member-interface.account.no-invitees') }}
                             </td>
                         </tr>
                     @endforelse

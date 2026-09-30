@@ -124,9 +124,9 @@ class PostController extends Controller
 
             if ($isChatboxPrivy) {
                 if ($post->anon) {
-                    $this->chatRepository->systemMessage(\sprintf('An anonymous user has left a reply on topic [url=%s]%s[/url]', $postUrl, $topic->name));
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.reply-created-anon', ['url' => $postUrl, 'name' => $topic->name], config('app.locale')));
                 } else {
-                    $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.reply-created', ['userUrl' => $profileUrl, 'username' => $user->username, 'url' => $postUrl, 'name' => $topic->name], config('app.locale')));
                 }
             }
 

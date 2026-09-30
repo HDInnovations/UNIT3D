@@ -2,14 +2,15 @@
 
 @section('title')
     <title>
-        Possible leech cheaters - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('staff.possible-leech-cheaters') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
 @section('meta')
     <meta
         name="description"
-        content="Possible leech cheaters - {{ __('staff.staff-dashboard') }}"
+        content="{{ __('staff.possible-leech-cheaters') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
@@ -28,7 +29,10 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('staff.possible-leech-cheaters') }} (Ghost leechers)</h2>
+        <h2 class="panel__heading">
+            {{ __('staff.possible-leech-cheaters') }}
+            ({{ __('staff-interface.ghost-leechers') }})
+        </h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -49,7 +53,7 @@
                                     datetime="{{ $cheater->created_at }}"
                                     title="{{ $cheater->created_at }}"
                                 >
-                                    {{ $cheater->created_at ?? 'N/A' }}
+                                    {{ $cheater->created_at ?? __('vltava.staff.not_available') }}
                                 </time>
                             </td>
                             <td>
@@ -57,7 +61,7 @@
                                     datetime="{{ $cheater->last_login }}"
                                     title="{{ $cheater->last_login }}"
                                 >
-                                    {{ $cheater->last_login ?? 'N/A' }}
+                                    {{ $cheater->last_login ?? __('vltava.staff.not_available') }}
                                 </time>
                             </td>
                         </tr>

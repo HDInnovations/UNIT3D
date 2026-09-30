@@ -50,8 +50,11 @@ class WarningTorrentDeleted extends Notification implements ShouldQueue, SystemN
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'Hit and Run Warning Deleted',
-            'message' => "{$this->staff->username} has decided to delete your warning for torrent {$this->warning->torrent}. You lucked out!",
+            'subject' => __('application-messages.notification.warning-torrent-deleted-subject'),
+            'message' => __('application-messages.notification.warning-torrent-deleted-message', [
+                'staff'   => $this->staff->username,
+                'torrent' => $this->warning->torrent,
+            ]),
         ];
     }
 }

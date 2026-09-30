@@ -91,28 +91,28 @@ class NewPost extends Notification implements ShouldQueue
     public function toArray(User $notifiable): array
     {
         $username = ($this->post->anon && !$notifiable->group->is_modo && !$notifiable->is($this->user))
-            ? 'Anonymous'
+            ? __('application-messages.notification.anonymous-user')
             : $this->user->username;
 
         if ($this->type == 'subscription') {
             return [
-                'title' => $username.' Has Posted In A Subscribed Topic',
-                'body'  => $username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
+                'title' => __('application-messages.notification.new-post-subscription-title', ['username' => $username]),
+                'body'  => __('application-messages.notification.new-post-subscription-body', ['username' => $username, 'name' => $this->post->topic->name]),
                 'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
             ];
         }
 
         if ($this->type == 'staff') {
             return [
-                'title' => $username.' Has Posted In A Staff Forum Topic',
-                'body'  => $username.' has left a new post in Staff Topic '.$this->post->topic->name,
+                'title' => __('application-messages.notification.new-post-staff-title', ['username' => $username]),
+                'body'  => __('application-messages.notification.new-post-staff-body', ['username' => $username, 'name' => $this->post->topic->name]),
                 'url'   => \sprintf('%s/posts/%s', route('topics.show', ['id' => $this->post->topic->id]), $this->post->id),
             ];
         }
 
         return [
-            'title' => $username.' Has Posted In A Topic You Started',
-            'body'  => $username.' has left a new post in Your Topic '.$this->post->topic->name,
+            'title' => __('application-messages.notification.new-post-own-topic-title', ['username' => $username]),
+            'body'  => __('application-messages.notification.new-post-own-topic-body', ['username' => $username, 'name' => $this->post->topic->name]),
             'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
         ];
     }

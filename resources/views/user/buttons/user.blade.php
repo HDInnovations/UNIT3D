@@ -150,7 +150,7 @@
                     class="{{ Route::is('users.passkeys.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                     href="{{ route('users.passkeys.index', ['user' => $user]) }}"
                 >
-                    Passkey
+                    {{ __('user.passkey') }}
                 </a>
             </li>
             <li class="{{ Route::is('users.rsskeys.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
@@ -307,17 +307,23 @@
                 @endif
 
                 <li class="nav-tabV2" x-data="dialog">
-                    <a class="nav-tab__link" x-bind="showDialog">Download torrent files</a>
+                    <a class="nav-tab__link" x-bind="showDialog">
+                        {{ __('member-interface.profile.download-torrent-files-action') }}
+                    </a>
 
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h3 class="dialog__heading">Download torrent files</h3>
+                        <h3 class="dialog__heading">
+                            {{ __('member-interface.profile.download-torrent-files-action') }}
+                        </h3>
                         <form
                             class="dialog__form"
                             action="{{ route('users.torrent_zip.show', ['user' => $user]) }}"
                             x-bind="dialogForm"
                         >
                             <fieldset class="form__fieldset">
-                                <legend class="form__legend">Select download type:</legend>
+                                <legend class="form__legend">
+                                    {{ __('member-interface.profile.select-download-type') }}
+                                </legend>
                                 <div class="form__group">
                                     <input
                                         class="form__radio"
@@ -327,7 +333,9 @@
                                         value="false"
                                         checked
                                     />
-                                    <label for="history" class="form__label">All history</label>
+                                    <label for="history" class="form__label">
+                                        {{ __('member-interface.profile.all-history') }}
+                                    </label>
                                 </div>
                                 <div class="form__group">
                                     <input
@@ -337,12 +345,14 @@
                                         name="type"
                                         value="true"
                                     />
-                                    <label for="peer" class="form__label">Active peers</label>
+                                    <label for="peer" class="form__label">
+                                        {{ __('member-interface.profile.active-peers-option') }}
+                                    </label>
                                 </div>
                             </fieldset>
                             <p class="form__group">
                                 <button class="form__button form__button--filled">
-                                    {{ __('common.download') }}
+                                    {{ __('common.download-action') }}
                                 </button>
                                 <button
                                     formmethod="dialog"

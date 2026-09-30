@@ -294,12 +294,9 @@ class uploadExtensionBuilder {
                 if (release.type === 'Movie') {
                     if (data.results && data.results.length > 0) {
                         document.getElementById('auto_tmdb_movie').value = data.results[0].id;
-                        document.getElementById('apimatch').value =
-                            'Found Match: ' +
-                            data.results[0].title +
-                            ' (' +
-                            data.results[0].release_date +
-                            ')';
+                        document.getElementById('apimatch').value = window.i18n.foundMatch
+                            .replace(':title', data.results[0].title)
+                            .replace(':year', data.results[0].release_date);
                         theMovieDb.movies.getKeywords(
                             {
                                 id: data.results[0].id,
@@ -318,12 +315,9 @@ class uploadExtensionBuilder {
                 } else if (release.type === 'TV Show') {
                     if (data.results && data.results.length > 0) {
                         document.getElementById('auto_tmdb_tv').value = data.results[0].id;
-                        document.getElementById('apimatch').value =
-                            'Found Match: ' +
-                            data.results[0].name +
-                            ' (' +
-                            data.results[0].first_air_date +
-                            ')';
+                        document.getElementById('apimatch').value = window.i18n.foundMatch
+                            .replace(':title', data.results[0].name)
+                            .replace(':year', data.results[0].first_air_date);
                         theMovieDb.tv.getKeywords(
                             {
                                 id: data.results[0].id,

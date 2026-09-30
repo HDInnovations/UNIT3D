@@ -25,17 +25,17 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Invite tree</h2>
+        <h2 class="panel__heading">{{ __('user.invite-tree') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
                         <th>{{ __('common.user') }}</th>
                         <th style="text-align: right">
-                            {{ __('common.account') }} {{ __('common.upload') }}
+                            {{ __('common.account') }} {{ __('common.uploaded') }}
                         </th>
                         <th style="text-align: right">
-                            {{ __('common.account') }} {{ __('common.download') }}
+                            {{ __('common.account') }} {{ __('common.downloaded') }}
                         </th>
                         <th style="text-align: right">
                             {{ __('common.account') }} {{ __('common.ratio') }}
@@ -138,7 +138,7 @@
                     @empty
                         <tr>
                             <td colspan="{{ auth()->user()->group->is_modo ? 9 : 6 }}">
-                                No invitees
+                                {{ __('member-interface.account.no-invitees') }}
                             </td>
                         </tr>
                     @endforelse
@@ -153,17 +153,17 @@
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
             <div class="key-value__group">
-                <dt>Height</dt>
+                <dt>{{ __('member-interface.account.height') }}</dt>
                 <dd>{{ $invites->max('depth') + 1 }}</dd>
             </div>
             <div class="key-value__group">
-                <dt>Count</dt>
+                <dt>{{ __('member-interface.account.count') }}</dt>
                 <dd>{{ $invites->count() }}</dd>
             </div>
         </dl>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Ancestors</h2>
+        <h2 class="panel__heading">{{ __('member-interface.account.ancestors') }}</h2>
         <dl class="key-value">
             <div class="data-table-wrapper">
                 <table class="data-table">
@@ -242,9 +242,9 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Stat</th>
-                        <th style="text-align: right">Average</th>
-                        <th style="text-align: right">Total</th>
+                        <th>{{ __('member-interface.account.stat') }}</th>
+                        <th style="text-align: right">{{ __('member-interface.account.average') }}</th>
+                        <th style="text-align: right">{{ __('common.total') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -302,7 +302,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.group') }}</th>
-                        <th style="text-align: right">Count</th>
+                        <th style="text-align: right">{{ __('member-interface.account.count') }}</th>
                         <th style="text-align: right">%</th>
                     </tr>
                 </thead>

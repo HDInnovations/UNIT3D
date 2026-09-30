@@ -28,7 +28,7 @@
 {{ old('message') }}</textarea
                 >
                 <label for="message" class="form__label form__label__floating">
-                    Rejection message
+                    {{ __('vltava.staff.rejection_message') }}
                 </label>
             </p>
             <p class="form__group">

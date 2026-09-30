@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
-@section('title', 'Error 500: Internal server error')
+@section('title', __('interface.error-500-title'))
 
-@section('description', 'Our server encountered an internal error. Sorry for the inconvenience')
+@section('description', __('interface.error-500-description'))

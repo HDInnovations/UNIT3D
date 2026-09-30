@@ -54,7 +54,7 @@ class DonationGatewayController extends Controller
         DonationGateway::create($request->validated());
 
         return redirect()->route('staff.gateways.index')
-            ->with('success', 'Donation gateway added successfully!');
+            ->with('success', __('application-messages.flash.donation-gateway-added'));
     }
 
     /**
@@ -77,7 +77,7 @@ class DonationGatewayController extends Controller
         $gateway->update($request->validated());
 
         return redirect()->route('staff.gateways.index')
-            ->with('success', 'Donation gateway edited successfully!');
+            ->with('success', __('application-messages.flash.donation-gateway-edited'));
     }
 
     /**
@@ -90,6 +90,6 @@ class DonationGatewayController extends Controller
         $gateway->delete();
 
         return redirect()->route('staff.gateways.index')
-            ->with('success', 'Donation gateway deleted successfully!');
+            ->with('success', __('application-messages.flash.donation-gateway-deleted'));
     }
 }

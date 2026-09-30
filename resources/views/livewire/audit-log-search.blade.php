@@ -12,18 +12,22 @@
                         wire:model.live="username"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="username">Username</label>
+                    <label class="form__label form__label--floating" for="username">
+                        {{ __('common.username') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
                 <div class="form__group">
                     <select id="model" class="form__select" wire:model.live="modelName">
-                        <option selected value="">All</option>
+                        <option selected value="">{{ __('livewire-interface.all') }}</option>
                         @foreach ($modelNames as $modelName)
                             <option value="{{ $modelName }}">{{ $modelName }}</option>
                         @endforeach
                     </select>
-                    <label class="form__label form__label--floating" for="model">Model name</label>
+                    <label class="form__label form__label--floating" for="model">
+                        {{ __('livewire-interface.model-name') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -36,18 +40,22 @@
                         wire:model.live="modelId"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="modelId">Model ID</label>
+                    <label class="form__label form__label--floating" for="modelId">
+                        {{ __('livewire-interface.model-id') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
                 <div class="form__group">
                     <select id="action" class="form__select" wire:model.live="action">
-                        <option selected value="">All</option>
-                        <option value="create">Create</option>
-                        <option value="update">Update</option>
-                        <option value="delete">Delete</option>
+                        <option selected value="">{{ __('livewire-interface.all') }}</option>
+                        <option value="create">{{ __('common.create') }}</option>
+                        <option value="update">{{ __('livewire-interface.update') }}</option>
+                        <option value="delete">{{ __('common.delete') }}</option>
                     </select>
-                    <label class="form__label form__label--floating" for="action">Action</label>
+                    <label class="form__label form__label--floating" for="action">
+                        {{ __('common.action') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -60,7 +68,9 @@
                         wire:model.live="record"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="record">Record</label>
+                    <label class="form__label form__label--floating" for="record">
+                        {{ __('livewire-interface.record') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -83,10 +93,10 @@
                 <tr>
                     <th>#</th>
                     <th>{{ __('common.action') }}</th>
-                    <th>Model</th>
-                    <th>Model ID</th>
-                    <th>By</th>
-                    <th>Changes</th>
+                    <th>{{ __('livewire-interface.model') }}</th>
+                    <th>{{ __('livewire-interface.model-id') }}</th>
+                    <th>{{ __('livewire-interface.by') }}</th>
+                    <th>{{ __('livewire-interface.changes') }}</th>
                     <th>{{ __('user.created-on') }}</th>
                     <th>{{ __('common.action') }}</th>
                 </tr>
@@ -147,7 +157,7 @@
                                         @method('DELETE')
                                         <button
                                             x-on:click.prevent="confirmAction"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this audit log entry?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.delete-audit-confirmation')) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}
@@ -159,7 +169,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">No audits</td>
+                        <td colspan="8">{{ __('livewire-interface.no-audits') }}</td>
                     </tr>
                 @endforelse
             </tbody>

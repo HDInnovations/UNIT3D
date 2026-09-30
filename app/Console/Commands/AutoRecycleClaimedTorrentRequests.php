@@ -68,7 +68,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
                     $trUrl = href_request($claim->request);
 
                     $this->chatRepository->systemMessage(
-                        \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $claim->request->name)
+                        trans('application-messages.bot.claim-reset', ['url' => $trUrl, 'name' => $claim->request->name], config('app.locale'))
                     );
 
                     $claim->delete();

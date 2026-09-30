@@ -73,8 +73,8 @@ class NewUpload extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',
-            'body'  => \sprintf('%s, whom you are following has uploaded Torrent %s', $this->torrent->user->username, $this->torrent->name),
+            'title' => __('application-messages.notification.new-upload-title', ['username' => $this->torrent->user->username]),
+            'body'  => __('application-messages.notification.new-upload-body', ['username' => $this->torrent->user->username, 'name' => $this->torrent->name]),
             'url'   => \sprintf('/torrents/%s', $this->torrent->id),
         ];
     }

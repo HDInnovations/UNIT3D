@@ -68,7 +68,7 @@ class TorrentReseedController extends Controller
                 $existingReseed->save();
 
                 return to_route('torrents.show', ['id' => $torrent->id])
-                    ->with('success', 'A reseed request already exists. Your request has been counted.');
+                    ->with('success', __('application-messages.flash.reseed-request-counted'));
             }
             TorrentReseed::create([
                 'torrent_id'     => $torrent->id,
@@ -86,11 +86,11 @@ class TorrentReseedController extends Controller
             $torrentUrl = href_torrent($torrent);
 
             $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out?', $torrentUrl, $torrent->name)
+                trans('application-messages.bot.reseed-requested', ['url' => $torrentUrl, 'name' => $torrent->name], config('app.locale'))
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->with('success', 'A notification has been sent to all users that downloaded this torrent along with original uploader!');
+                ->with('success', __('application-messages.flash.reseed-notified'));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])

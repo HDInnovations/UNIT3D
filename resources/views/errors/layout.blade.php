@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="no-js page__error" lang="{{ config('app.locale') }}">
+<html class="no-js page__error" lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8" />
         <title>@yield('title') - {{ config('other.title') }}</title>
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Error" />
+        <meta name="description" content="{{ __('common.error') }}" />
         <meta property="og:title" content="{{ config('other.title') }}" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="{{ url('/img/og.png') }}" />
@@ -23,7 +23,7 @@
                     <div class="error__body">@yield('description')</div>
                     <a href="{{ url('/') }}" class="error__home-link">
                         <i class="{{ config('other.font-awesome') }} fa-home"></i>
-                        Go home
+                        {{ __('interface.error-go-home') }}
                     </a>
                 </section>
             </article>

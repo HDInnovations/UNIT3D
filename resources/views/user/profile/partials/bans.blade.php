@@ -8,7 +8,9 @@
                         {{ __('user.unban') }}
                     </button>
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h3 class="dialog__heading">Unban user: {{ $user->username }}</h3>
+                        <h3 class="dialog__heading">
+                            {{ __('member-interface.profile.unban-user-heading', ['username' => $user->username]) }}
+                        </h3>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -25,16 +27,16 @@
                                     required
                                 ></textarea>
                                 <label class="form__label form__label--floating" for="unban_reason">
-                                    Reason
+                                    {{ __('common.reason') }}
                                 </label>
                                 <span class="form__hint">
-                                    The reason is only visible for staff.
+                                    {{ __('member-interface.profile.unban-reason-hint') }}
                                 </span>
                             </p>
                             <p class="form__group">
                                 <select id="group_id" class="form__select" name="group_id" required>
                                     <option value="{{ $user->group->id }}">
-                                        {{ $user->group->name }} (Default)
+                                        {{ __('member-interface.profile.default-group-option', ['name' => $user->group->name]) }}
                                     </option>
                                     @foreach (App\Models\Group::orderByDesc('position')->get() as $group)
                                         <option value="{{ $group->id }}">
@@ -43,7 +45,7 @@
                                     @endforeach
                                 </select>
                                 <label class="form__label form__label--floating" for="group_id">
-                                    New group
+                                    {{ __('member-interface.profile.new-group') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -65,7 +67,9 @@
                         {{ __('user.ban') }}
                     </button>
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h3 class="dialog__heading">Ban user: {{ $user->username }}</h3>
+                        <h3 class="dialog__heading">
+                            {{ __('member-interface.profile.ban-user-heading', ['username' => $user->username]) }}
+                        </h3>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -81,10 +85,10 @@
                                     required
                                 ></textarea>
                                 <label class="form__label form__label--floating" for="ban_reason">
-                                    Reason
+                                    {{ __('common.reason') }}
                                 </label>
                                 <span class="form__hint">
-                                    The reason will be emailed to the user.
+                                    {{ __('member-interface.profile.ban-reason-hint') }}
                                 </span>
                             </p>
                             <input type="hidden" name="owned_by" value="{{ $user->id }}" />

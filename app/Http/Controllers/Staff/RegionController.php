@@ -51,7 +51,7 @@ class RegionController extends Controller
         Region::create($request->validated());
 
         return to_route('staff.regions.index')
-            ->with('success', 'Region successfully added');
+            ->with('success', __('application-messages.flash.region-added'));
     }
 
     /**
@@ -72,7 +72,7 @@ class RegionController extends Controller
         $region->update($request->validated());
 
         return to_route('staff.regions.index')
-            ->with('success', 'Region successfully modified');
+            ->with('success', __('application-messages.flash.region-modified'));
     }
 
     /**
@@ -86,6 +86,6 @@ class RegionController extends Controller
         $region->delete();
 
         return to_route('staff.regions.index')
-            ->with('success', 'Region successfully deleted');
+            ->with('success', __('application-messages.flash.region-deleted'));
     }
 }

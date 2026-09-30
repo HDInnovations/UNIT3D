@@ -23,7 +23,7 @@ return [
     'aboutus-rules2' => 'Å lese reglene i sin helhet og respekter dem!',
     'aboutus-rules3' => 'Komme med forslag! Vi streber etter å gjøre :title bedre hver dag. Vi sier ikke at alle forslag vil bli brukt, men det gjør aldri vondt å se nye ideer.',
     'aboutus-welcome' => 'La oss snakke om',
-    'aboutus-welcome-desc' => ':title er en community-built Movie / TV / FANRES database. Alle dataene har blitt lagt til av vårt fantastiske samfunn siden 2017. :titles Sterkt fokus er på HD-innhold, en proaktiv brukerbase, en fantastisk / sikker kodebase og et hjelpsomt og vennlig personale team.',
+    'aboutus-welcome-desc' => ':title er en community-built Movie / TV / FANRES database. Alle dataene har blitt lagt til av vårt fantastiske samfunn siden 2017. :title Sterkt fokus er på HD-innhold, en proaktiv brukerbase, en fantastisk / sikker kodebase og et hjelpsomt og vennlig personale team.',
     'blacklist-btclient' => 'BitTorrent Client',
     'blacklist-clients' => 'Klienter',
     'blacklist-desc' => 'Følgende nettlesere og Bittorrent-klienter er svartelistet / forbudt fra å annonsere til :title ',

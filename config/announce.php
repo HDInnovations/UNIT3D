@@ -16,6 +16,23 @@ declare(strict_types=1);
 return [
     /*
     |--------------------------------------------------------------------------
+    | Announce interval
+    |--------------------------------------------------------------------------
+    |
+    | Seconds between client announces. Clients receive a random interval in
+    | [min, max]; announcing sooner than ~90 % of min is rejected. Shorter
+    | intervals make peers, transfer totals and ratios on the site fresher at
+    | the cost of more announce requests. libtorrent-based clients (qBittorrent,
+    | Deluge) never announce more often than every 300 seconds.
+    |
+    */
+    'interval' => [
+        'min' => (int) env('ANNOUNCE_INTERVAL_MIN', 1_800),
+        'max' => (int) env('ANNOUNCE_INTERVAL_MAX', 3_600),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | External tracker
     |--------------------------------------------------------------------------
     |
@@ -90,6 +107,20 @@ return [
     */
 
     'rate_limit' => 3,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Blacklisted client exceptions
+    |--------------------------------------------------------------------------
+    |
+    | A blacklist prefix normally rejects every matching peer ID. These narrow
+    | exceptions keep tracker-approved legacy clients usable. Peer IDs identify
+    | a client family only; they do not authenticate a binary or a build.
+    |
+    */
+    'blacklisted_client_prefix_exceptions' => [
+        '-UT' => ['-UT2210-'],
+    ],
 
     /*
     |--------------------------------------------------------------------------

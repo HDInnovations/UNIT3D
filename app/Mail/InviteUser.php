@@ -39,6 +39,6 @@ class InviteUser extends Mailable
     public function build(): static
     {
         return $this->markdown('emails.invite')
-            ->subject('Invite Received '.config('other.title'));
+            ->subject(__('application-messages.mail.invite-received-subject', ['site' => config('other.title')]));
     }
 }

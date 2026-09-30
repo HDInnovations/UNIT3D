@@ -1,5 +1,5 @@
 <section class="panelV2 blocks__uploaders" x-data="{ tab: @entangle('tab').live }">
-    <h2 class="panel__heading">Top users</h2>
+    <h2 class="panel__heading">{{ __('livewire-interface.top-users') }}</h2>
     <menu class="panel__tabs">
         <li
             class="panel__tab"
@@ -7,7 +7,7 @@
             x-bind:class="tab === 'uploaders' && 'panel__tab--active'"
             x-on:click="tab = 'uploaders'"
         >
-            Uploaders
+            {{ __('livewire-interface.tab-uploaders') }}
         </li>
         <li
             class="panel__tab"
@@ -15,7 +15,7 @@
             x-bind:class="tab === 'downloaders' && 'panel__tab--active'"
             x-on:click="tab = 'downloaders'"
         >
-            Downloaders
+            {{ __('livewire-interface.tab-downloaders') }}
         </li>
         <li
             class="panel__tab"
@@ -23,7 +23,7 @@
             x-bind:class="tab === 'uploaded' && 'panel__tab--active'"
             x-on:click="tab = 'uploaded'"
         >
-            Uploaded
+            {{ __('common.uploaded') }}
         </li>
         <li
             class="panel__tab"
@@ -31,7 +31,7 @@
             x-bind:class="tab === 'downloaded' && 'panel__tab--active'"
             x-on:click="tab = 'downloaded'"
         >
-            Downloaded
+            {{ __('common.downloaded') }}
         </li>
         <li
             class="panel__tab"
@@ -39,7 +39,7 @@
             x-bind:class="tab === 'seeders' && 'panel__tab--active'"
             x-on:click="tab = 'seeders'"
         >
-            Seeders
+            {{ __('torrent.seeders') }}
         </li>
         <li
             class="panel__tab"
@@ -47,7 +47,7 @@
             x-bind:class="tab === 'seedtime' && 'panel__tab--active'"
             x-on:click="tab = 'seedtime'"
         >
-            Seedtime
+            {{ __('torrent.seed-time') }}
         </li>
         <li
             class="panel__tab"
@@ -55,7 +55,7 @@
             x-bind:class="tab === 'served' && 'panel__tab--active'"
             x-on:click="tab = 'served'"
         >
-            Users served
+            {{ __('livewire-interface.tab-users-served') }}
         </li>
         <li
             class="panel__tab"
@@ -63,7 +63,7 @@
             x-bind:class="tab === 'commenters' && 'panel__tab--active'"
             x-on:click="tab = 'commenters'"
         >
-            Commenters
+            {{ __('livewire-interface.tab-commenters') }}
         </li>
         <li
             class="panel__tab"
@@ -71,7 +71,7 @@
             x-bind:class="tab === 'posters' && 'panel__tab--active'"
             x-on:click="tab = 'posters'"
         >
-            Posters
+            {{ __('livewire-interface.tab-posters') }}
         </li>
         @if (config('other.thanks-system.is-enabled'))
             <li
@@ -80,7 +80,7 @@
                 x-bind:class="tab === 'thanked' && 'panel__tab--active'"
                 x-on:click="tab = 'thanked'"
             >
-                Thanked
+                {{ __('livewire-interface.tab-thanked') }}
             </li>
             <li
                 class="panel__tab"
@@ -88,7 +88,7 @@
                 x-bind:class="tab === 'thankers' && 'panel__tab--active'"
                 x-on:click="tab = 'thankers'"
             >
-                Thankers
+                {{ __('livewire-interface.tab-thankers') }}
             </li>
         @endif
 
@@ -98,10 +98,12 @@
             x-bind:class="tab === 'personals' && 'panel__tab--active'"
             x-on:click="tab = 'personals'"
         >
-            Personal releases
+            {{ __('livewire-interface.tab-personal-releases') }}
         </li>
     </menu>
-    <div class="panel__body" wire:loading.block>Loading...</div>
+    <div class="panel__body" wire:loading.block>
+        {{ __('livewire-interface.loading') }}
+    </div>
     <div class="panel__body" wire:loading.remove>
         <div class="user-stat-card-container">
             @switch($this->tab)
@@ -113,11 +115,16 @@
                                     :user="$uploader->user"
                                     :anon="$uploader->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
-                            <h4 class="user-stat-card__stat">{{ $uploader->value }} uploads</h4>
+                            <h4 class="user-stat-card__stat">
+                                {{ __('livewire-interface.uploads-count', ['count' => $uploader->value]) }}
+                            </h4>
 
                             @if ($uploader->user->privacy?->private_profile)
                                 <img
@@ -144,12 +151,15 @@
                                     :user="$downloader->user"
                                     :anon="$downloader->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ $downloader->value }} downloads
+                                {{ __('livewire-interface.downloads-count', ['count' => $downloader->value]) }}
                             </h4>
 
                             @if ($downloader->user->privacy?->private_profile)
@@ -177,13 +187,15 @@
                                     :user="$upload"
                                     :anon="$upload->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ App\Helpers\StringHelper::formatBytes($upload->uploaded, 2) }}
-                                Uploaded
+                                {{ __('livewire-interface.amount-uploaded', ['amount' => App\Helpers\StringHelper::formatBytes($upload->uploaded, 2)]) }}
                             </h4>
 
                             @if ($upload->privacy?->private_profile)
@@ -211,13 +223,15 @@
                                     :user="$download"
                                     :anon="$download->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ App\Helpers\StringHelper::formatBytes($download->downloaded, 2) }}
-                                Downloaded
+                                {{ __('livewire-interface.amount-downloaded', ['amount' => App\Helpers\StringHelper::formatBytes($download->downloaded, 2)]) }}
                             </h4>
 
                             @if ($download->privacy?->private_profile)
@@ -245,11 +259,16 @@
                                     :user="$seeder->user"
                                     :anon="$seeder->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
-                            <h4 class="user-stat-card__stat">{{ $seeder->value }} seeds</h4>
+                            <h4 class="user-stat-card__stat">
+                                {{ __('livewire-interface.seeds-count', ['count' => $seeder->value]) }}
+                            </h4>
 
                             @if ($seeder->user->privacy?->private_profile)
                                 <img
@@ -276,7 +295,10 @@
                                     :user="$seedtime"
                                     :anon="$seedtime->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
@@ -310,12 +332,15 @@
                                     :user="$serve"
                                     :anon="$serve->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ $serve->upload_snatches_count }} users served
+                                {{ __('livewire-interface.users-served-count', ['count' => $serve->upload_snatches_count]) }}
                             </h4>
 
                             @if ($serve->privacy?->private_profile)
@@ -343,12 +368,15 @@
                                     :user="$commenter->user"
                                     :anon="$commenter->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ $commenter->value }} comments made
+                                {{ __('livewire-interface.comments-made-count', ['count' => $commenter->value]) }}
                             </h4>
 
                             @if ($commenter->user->privacy?->private_profile)
@@ -376,11 +404,16 @@
                                     :user="$poster->user"
                                     :anon="$poster->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
-                            <h4 class="user-stat-card__stat">{{ $poster->value }} posts made</h4>
+                            <h4 class="user-stat-card__stat">
+                                {{ __('livewire-interface.posts-made-count', ['count' => $poster->value]) }}
+                            </h4>
 
                             @if ($poster->user->privacy?->private_profile)
                                 <img
@@ -407,12 +440,15 @@
                                     :user="$thanked->user"
                                     :anon="$thanked->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ $thanked->value }} thanks received
+                                {{ __('livewire-interface.thanks-received-count', ['count' => $thanked->value]) }}
                             </h4>
 
                             @if ($thanked->user->privacy?->private_profile)
@@ -440,12 +476,15 @@
                                     :user="$thanker->user"
                                     :anon="$thanker->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ $thanker->value }} thanks given
+                                {{ __('livewire-interface.thanks-given-count', ['count' => $thanker->value]) }}
                             </h4>
 
                             @if ($thanker->user->privacy?->private_profile)
@@ -473,12 +512,15 @@
                                     :user="$personal->user"
                                     :anon="$personal->user->privacy?->private_profile"
                                 />
-                                <div title="Place" class="top-users__place">
+                                <div
+                                    title="{{ __('livewire-interface.place') }}"
+                                    class="top-users__place"
+                                >
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ $personal->value }} personal releases
+                                {{ __('livewire-interface.personal-releases-count', ['count' => $personal->value]) }}
                             </h4>
 
                             @if ($personal->user->privacy?->private_profile)

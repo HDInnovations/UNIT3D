@@ -8,7 +8,7 @@
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.distributors.index') }}" class="breadcrumb__link">
-            Torrent distributors
+            {{ __('staff-interface.torrent-distributors') }}
         </a>
     </li>
     <li class="breadcrumbV2">
@@ -24,7 +24,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.delete') }} torrent distributor: {{ $distributor->name }}
+            {{ __('staff-interface.delete-torrent-distributor-heading', ['name' => $distributor->name]) }}
         </h2>
         <div class="panel__body">
             <form
@@ -36,8 +36,7 @@
                 @csrf
                 @method('DELETE')
                 <p class="form__group">
-                    An existing torrent on site may already use this distributor. Would you like to
-                    change it?
+                    {{ __('staff-interface.distributor-delete-warning') }}
                 </p>
                 <p class="form__group">
                     <select
@@ -56,13 +55,13 @@
                         @endforeach
                     </select>
                     <label class="form__label form__label--floating" for="autoreg">
-                        Replacement distributor
+                        {{ __('staff-interface.replacement-distributor') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <button
                         x-on:click.prevent="confirmAction"
-                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this distributor: ' . $distributor->name . '?') }}"
+                        data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-distributor-confirmation', ['name' => $distributor->name])) }}"
                         class="form__button form__button--filled"
                     >
                         {{ __('common.delete') }}

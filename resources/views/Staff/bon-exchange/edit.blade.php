@@ -21,9 +21,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('bon.bon') }} {{ __('bon.exchange') }}
+            {{ __('staff-interface.bon-exchange-edit-heading') }}
         </h2>
         <div class="panel__body">
             <form
@@ -60,7 +58,7 @@
                         required
                     />
                     <label class="form__label form__label--floating" for="value">
-                        {{ __('value') }}
+                        {{ __('staff-interface.value') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -86,14 +84,14 @@
                             value="upload"
                             @selected($bonExchange->upload)
                         >
-                            {{ __('common.add') }} {{ __('common.upload') }}
+                            {{ __('staff-interface.bon-exchange-add-upload') }}
                         </option>
                         <option
                             class="form__option"
                             value="download"
                             @selected($bonExchange->download)
                         >
-                            {{ __('common.remove') }} {{ __('common.download') }}
+                            {{ __('staff-interface.bon-exchange-remove-download') }}
                         </option>
                         <option
                             class="form__option"

@@ -39,14 +39,18 @@ class AchievementUnlocked
         $user = User::findOrFail($unlocked->progress->achiever_id);
 
         if (auth()->id() === $user->id) {
-            Session::flash('achievement', $unlocked->progress->details->name);
+            Session::flash('achievement', $unlocked->progress->details);
         }
 
         if ($user->privacy?->private_profile == 0) {
             $profileUrl = href_profile($user);
 
             $this->chatRepository->systemMessage(
-                \sprintf('User [url=%s]%s[/url] has unlocked the %s achievement!', $profileUrl, $user->username, $unlocked->progress->details->name)
+                trans('application-messages.bot.achievement-unlocked', [
+                    'userUrl'  => $profileUrl,
+                    'username' => $user->username,
+                    'name'     => \App\Achievements\Achievement::descriptionFor($unlocked->progress->details, config('app.locale')),
+                ], config('app.locale'))
             );
         }
     }

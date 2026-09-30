@@ -7,9 +7,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.packages.index') }}" class="breadcrumb__link">Packages</a>
+        <a href="{{ route('staff.packages.index') }}" class="breadcrumb__link">
+            {{ __('staff-interface.packages') }}
+        </a>
     </li>
-    <li class="breadcrumb--active">Create package</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.create-package') }}</li>
 @endsection
 
 @section('page', 'page__staff-donation-package--create')
@@ -17,7 +19,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Add new package</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.add-new-package') }}</h2>
         </header>
         <div class="data-table-wrapper">
             <form role="form" method="POST" action="{{ route('staff.packages.store') }}">
@@ -25,15 +27,15 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Position</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Cost</th>
-                            <th>Upload (Bytes)</th>
-                            <th>Invite (#)</th>
-                            <th>Bonus (#)</th>
-                            <th>Supporter (Days)</th>
-                            <th>Active</th>
+                            <th>{{ __('common.position') }}</th>
+                            <th>{{ __('common.name') }}</th>
+                            <th>{{ __('common.description') }}</th>
+                            <th>{{ __('staff-interface.cost') }}</th>
+                            <th>{{ __('staff-interface.upload-bytes-header') }}</th>
+                            <th>{{ __('staff-interface.invite-count-header') }}</th>
+                            <th>{{ __('staff-interface.bonus-count-header') }}</th>
+                            <th>{{ __('staff-interface.supporter-days-header') }}</th>
+                            <th>{{ __('common.active') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,14 +54,14 @@
                                     type="text"
                                     name="name"
                                     value=""
-                                    placeholder="Name"
+                                    placeholder="{{ __('common.name') }}"
                                     class="form__text"
                                 />
                             </td>
                             <td>
                                 <textarea
                                     name="description"
-                                    placeholder="Description"
+                                    placeholder="{{ __('common.description') }}"
                                     class="form__textarea"
                                 ></textarea>
                             </td>
@@ -69,7 +71,7 @@
                                     step="1.00"
                                     name="cost"
                                     value=""
-                                    placeholder="Cost"
+                                    placeholder="{{ __('staff-interface.cost') }}"
                                     class="form__text"
                                 />
                             </td>
@@ -78,7 +80,7 @@
                                     type="number"
                                     name="upload_value"
                                     value=""
-                                    placeholder="nullable"
+                                    placeholder="{{ __('staff-interface.nullable-placeholder') }}"
                                     class="form__text"
                                 />
                             </td>
@@ -87,7 +89,7 @@
                                     type="number"
                                     name="invite_value"
                                     value=""
-                                    placeholder="nullable"
+                                    placeholder="{{ __('staff-interface.nullable-placeholder') }}"
                                     class="form__text"
                                 />
                             </td>
@@ -96,7 +98,7 @@
                                     type="number"
                                     name="bonus_value"
                                     value=""
-                                    placeholder="nullable"
+                                    placeholder="{{ __('staff-interface.nullable-placeholder') }}"
                                     class="form__text"
                                 />
                             </td>
@@ -105,7 +107,7 @@
                                     type="number"
                                     name="donor_value"
                                     value=""
-                                    placeholder="(empty for lifetime)"
+                                    placeholder="{{ __('staff-interface.empty-for-lifetime-placeholder') }}"
                                     class="form__text"
                                 />
                             </td>
@@ -122,7 +124,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="submit" class="form__button form__button--filled">Create</button>
+                <button type="submit" class="form__button form__button--filled">
+                    {{ __('common.create') }}
+                </button>
             </form>
         </div>
     </section>

@@ -1,15 +1,15 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Wikis - {{ config('other.title') }}</title>
+    <title>{{ __('member-interface.wiki.wikis') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ config('other.title') }} - Wikis" />
+    <meta name="description" content="{{ config('other.title') }} - {{ __('member-interface.wiki.wikis') }}" />
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">Wikis</li>
+    <li class="breadcrumb--active">{{ __('member-interface.wiki.wikis') }}</li>
 @endsection
 
 @section('page', 'page__wiki--index')
@@ -33,7 +33,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td>No wikis in category.</td>
+                                <td>{{ __('member-interface.wiki.no-wikis-in-category') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

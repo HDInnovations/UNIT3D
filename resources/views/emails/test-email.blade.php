@@ -1,6 +1,5 @@
 @component('mail::message')
-# Test email
-Your test email has been successfully delivered! Looks like your mail configs are on point!
-Thanks,
-{{ config('other.title') }}
+# {{ __('application-messages.mail.test-email-heading') }}
+{{ __('application-messages.mail.test-email-body') }}
+{{ __('application-messages.mail.signature', ['site' => config('other.title')]) }}
 @endcomponent

@@ -2,12 +2,12 @@
     <header class="panel__header">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-compact-disc"></i>
-            BDInfo
+            {{ __('media-interface.torrent.bdinfo-heading') }}
         </h2>
         <div class="panel__actions">
             <div class="panel__action">
                 <button class="form__button form__button--text" x-data x-on:click.stop="copy">
-                    Copy
+                    {{ __('media-interface.torrent.clipboard-copy-action') }}
                 </button>
             </div>
         </div>
@@ -28,7 +28,7 @@
                         showConfirmButton: false,
                         timer: 3000,
                         icon: 'success',
-                        title: 'Copied to clipboard!',
+                        title: @js(__('media-interface.torrent.clipboard-copied-message')),
                     });
                 },
             }));

@@ -431,38 +431,47 @@ class TorrentController extends BaseController
             // Announce To Shoutbox
             if (!$anon) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    trans('application-messages.bot.torrent-uploaded', [
+                        'userUrl'  => \sprintf('%s/users/%s', $appurl, $username),
+                        'username' => $username,
+                        'category' => $torrent->category->name,
+                        'url'      => \sprintf('%s/torrents/%s', $appurl, $torrent->id),
+                        'name'     => $torrent->name,
+                    ], config('app.locale'))
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    trans('application-messages.bot.torrent-uploaded-anon', [
+                        'category' => $torrent->category->name,
+                        'url'      => \sprintf('%s/torrents/%s', $appurl, $torrent->id),
+                        'name'     => $torrent->name,
+                    ], config('app.locale'))
                 );
             }
 
             if ($anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can!'
+                    trans('application-messages.bot.torrent-featured-anon', ['url' => \sprintf('%s/torrents/%s', $appurl, $torrent->id), 'name' => $torrent->name], config('app.locale'))
                 );
             } elseif (!$anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can!'
+                    trans('application-messages.bot.torrent-featured', [
+                        'url'      => \sprintf('%s/torrents/%s', $appurl, $torrent->id),
+                        'name'     => $torrent->name,
+                        'userUrl'  => \sprintf('%s/users/%s', $appurl, $username),
+                        'username' => $username,
+                    ], config('app.locale'))
                 );
             }
 
             if ($free >= 1 && $featured == 0) {
                 if ($torrent->fl_until === null) {
                     $this->chatRepository->systemMessage(
-                        \sprintf(
-                            'Ladies and Gents, [url=%s/torrents/',
-                            $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can!'
+                        trans('application-messages.bot.freeleech-granted', ['url' => \sprintf('%s/torrents/%s', $appurl, $torrent->id), 'name' => $torrent->name, 'percent' => $free], config('app.locale'))
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf(
-                            'Ladies and Gents, [url=%s/torrents/',
-                            $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days.'
+                        trans('application-messages.bot.freeleech-granted-until', ['url' => \sprintf('%s/torrents/%s', $appurl, $torrent->id), 'name' => $torrent->name, 'percent' => $free, 'until' => $request->input('fl_until')], config('app.locale'))
                     );
                 }
             }
@@ -470,17 +479,11 @@ class TorrentController extends BaseController
             if ($doubleup == 1 && $featured == 0) {
                 if ($torrent->du_until === null) {
                     $this->chatRepository->systemMessage(
-                        \sprintf(
-                            'Ladies and Gents, [url=%s/torrents/',
-                            $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can!'
+                        trans('application-messages.bot.double-upload-granted', ['url' => \sprintf('%s/torrents/%s', $appurl, $torrent->id), 'name' => $torrent->name], config('app.locale'))
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf(
-                            'Ladies and Gents, [url=%s/torrents/',
-                            $appurl
-                        ).$torrent->id.']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days.'
+                        trans('application-messages.bot.double-upload-granted-until', ['url' => \sprintf('%s/torrents/%s', $appurl, $torrent->id), 'name' => $torrent->name, 'until' => $request->input('du_until')], config('app.locale'))
                     );
                 }
             }

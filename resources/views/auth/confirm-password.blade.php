@@ -1,13 +1,13 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>{{ __('auth.password-confirm.title') }} - {{ config('other.title') }}</title>
+    <title>{{ __('auth.password-confirmation') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
     <meta
         name="description"
-        content="{{ __('auth.password-confirm.title') }} - {{ config('other.title') }}"
+        content="{{ __('auth.password-confirmation') }} - {{ config('other.title') }}"
     />
 @endsection
 

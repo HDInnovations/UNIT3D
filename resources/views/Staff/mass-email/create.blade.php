@@ -40,7 +40,7 @@
                 @csrf
                 <div class="form__group">
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Groups</legend>
+                        <legend class="form__legend">{{ __('common.groups') }}</legend>
                         <div class="form__fieldset-checkbox-container">
                             @foreach ($groups as $group)
                                 <p class="form__group">
@@ -77,7 +77,7 @@
                     <button
                         x-on:click.prevent="confirmAction"
                         class="form__button form__button--filled"
-                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to send this email?') }}"
+                        data-b64-deletion-message="{{ base64_encode(__('staff-interface.confirm-send-email')) }}"
                     >
                         {{ __('common.send') }}
                     </button>

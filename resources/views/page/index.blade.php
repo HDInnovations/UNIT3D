@@ -1,14 +1,14 @@
 @extends('layout.with-main')
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">Pages</li>
+    <li class="breadcrumb--active">{{ __('common.pages') }}</li>
 @endsection
 
 @section('page', 'page__page--index')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Pages</h2>
+        <h2 class="panel__heading">{{ __('common.pages') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <tbody>

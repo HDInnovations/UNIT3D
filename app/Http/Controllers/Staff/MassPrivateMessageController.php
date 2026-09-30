@@ -42,6 +42,6 @@ class MassPrivateMessageController extends Controller
         }
 
         return to_route('staff.dashboard.index')
-            ->with('success', 'Private messages have been queued for processing.');
+            ->with('success', __('application-messages.flash.mass-pm-queued'));
     }
 }

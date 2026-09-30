@@ -88,7 +88,7 @@
                                         value="{{ \App\Enums\ModerationStatus::POSTPONED }}"
                                         wire:model.live="status"
                                     />
-                                    Postponed
+                                    {{ __('torrent.postponed') }}
                                 </label>
                             </p>
                         </div>
@@ -96,7 +96,9 @@
                 </div>
                 <div class="form__group">
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Precision</legend>
+                        <legend class="form__legend">
+                            {{ __('livewire-interface.precision') }}
+                        </legend>
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
                                 <label class="form__label">
@@ -105,7 +107,7 @@
                                         class="user-uploads__checkbox"
                                         wire:model.live="showMorePrecision"
                                     />
-                                    Show more precision
+                                    {{ __('livewire-interface.show-more-precision') }}
                                 </label>
                             </p>
                         </div>
@@ -350,7 +352,7 @@
                                         @break
                                     @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
-                                            title="Postponed"
+                                            title="{{ __('torrent.postponed') }}"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
 

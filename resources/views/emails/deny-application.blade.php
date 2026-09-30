@@ -1,7 +1,6 @@
 @component('mail::message')
-# Your {{ config('other.title') }} application
-Your application has been denied for the following reason:
+# {{ __('application-messages.mail.deny-application-heading', ['site' => config('other.title')]) }}
+{{ __('application-messages.mail.deny-application-body') }}
 {{ $deniedMessage }}
-Thanks,
-{{ config('other.title') }}
+{{ __('application-messages.mail.signature', ['site' => config('other.title')]) }}
 @endcomponent

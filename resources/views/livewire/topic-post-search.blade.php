@@ -65,7 +65,7 @@
                 @endforeach
             </ol>
         @else
-            No topics.
+            {{ __('common.no-result') }}
         @endif
     </div>
     {{ $posts->links('partials.pagination') }}

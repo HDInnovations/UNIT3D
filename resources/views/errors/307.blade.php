@@ -1,6 +1,6 @@
 @extends('errors.layout')
 
-@section('title', 'Error 307: Temporary redirect!')
+@section('title', __('interface.error-307-title'))
 
 @section('description')
     <svg
@@ -70,7 +70,7 @@
             ></animateTransform>
         </g>
     </svg>
-    <p>Please forgive the inconvenience.</p>
-    <p>We are currently building or revamping this feature.</p>
-    <p>It's okay, we're excited too!</p>
+    <p>{{ __('interface.error-307-description-1') }}</p>
+    <p>{{ __('interface.error-307-description-2') }}</p>
+    <p>{{ __('interface.error-307-description-3') }}</p>
 @endsection

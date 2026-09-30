@@ -12,7 +12,7 @@
 @endphp
 
 @if ($paginator->hasPages())
-    <nav class="pagination" role="navigation" aria-label="Pagination navigation">
+    <nav class="pagination" role="navigation" aria-label="{{ __('interface.pagination-navigation') }}">
         <ul class="pagination__items">
             @if ($paginator->onFirstPage())
                 <li class="pagination__previous pagination__previous--disabled">

@@ -7,7 +7,9 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">Torrent regions</a>
+        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">
+            {{ __('staff-interface.torrent-regions') }}
+        </a>
     </li>
     <li class="breadcrumbV2">
         {{ $region->name }}
@@ -22,7 +24,9 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} torrent region: {{ $region->name }}
+            {{ __('common.edit') }}
+            {{ __('torrent.torrent') }}
+            {{ __('torrent.region') }}: {{ $region->name }}
         </h2>
         <div class="panel__body">
             <form

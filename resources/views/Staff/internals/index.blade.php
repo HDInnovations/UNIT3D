@@ -6,7 +6,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Internals</li>
+    <li class="breadcrumb--active">
+        {{ __('common.internal') }} {{ __('common.groups') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-internal--index')
@@ -14,7 +16,9 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Internal groups</h2>
+            <h2 class="panel__heading">
+                {{ __('common.internal') }} {{ __('common.groups') }}
+            </h2>
             <div class="panel__actions">
                 <a
                     href="{{ route('staff.internals.create') }}"
@@ -30,8 +34,8 @@
                     <tr>
                         <th>ID</th>
                         <th>{{ __('common.name') }}</th>
-                        <th>Icon</th>
-                        <th>Effect</th>
+                        <th>{{ __('common.icon') }}</th>
+                        <th>{{ __('staff-interface.effect') }}</th>
                         <th width="15%">{{ __('common.action') }}</th>
                     </tr>
                 </thead>
@@ -68,7 +72,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this internal group: ' . $internalGroup->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-internal-group-confirmation', ['name' => $internalGroup->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

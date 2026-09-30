@@ -24,7 +24,9 @@
                         wire:model.live="search"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating" for="search">Message</label>
+                    <label class="form__label form__label--floating" for="search">
+                        {{ __('common.message') }}
+                    </label>
                 </div>
             </div>
         </div>
@@ -66,7 +68,7 @@
                                     <form>
                                         <button
                                             x-on:click.prevent="destroy"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this note: ' . $note->message . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-delete-note', ['message' => $note->message])) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}
@@ -78,7 +80,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6">No notes</td>
+                        <td colspan="6">{{ __('livewire-interface.no-notes') }}</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -90,7 +92,7 @@
             Alpine.data('note', () => ({
                 destroy() {
                     Swal.fire({
-                        title: 'Are you sure?',
+                        title: @js(__('livewire-interface.are-you-sure')),
                         text: atob(this.$el.dataset.b64DeletionMessage),
                         icon: 'warning',
                         showConfirmButton: true,

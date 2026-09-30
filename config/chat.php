@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'system_chatroom' => 'General',
+    'system_chatroom' => 'Obecná diskuze',
 
     /*
     |--------------------------------------------------------------------------

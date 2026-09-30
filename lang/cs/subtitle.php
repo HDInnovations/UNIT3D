@@ -21,9 +21,9 @@ return [
                                         <li>Povoleny jsou pouze správné titulky (správná snímková frekvence, překlad, pravopis, časování)</li>
                                         <li>Žádné titulky přeložené Googlem, strojově přeložené a nesprávné titulky</li>
                                         <li>Titulky musí být synchronizovány s videem</li>
-                                        <li>Archivy ZIP jsou povoleny pouze pro SUB+IDX nebo jako balíčky stejného jazyka pro balíček televizní sezóny</li>.
-                                        <li>Pakované nahrávání nevyžádaných subverzí bude považováno za porušení předpisů a bude předmětem disciplinárního řízení</li>.
-                                        <li>Udržujte poznámku k titulkům krátkou, ŽÁDNÉ url/odkazy nejsou povoleny</li>.
+                                        <li>Archivy ZIP jsou povoleny pouze pro SUB+IDX nebo jako balíčky stejného jazyka pro balíček televizní sezóny</li>
+                                        <li>Pakované nahrávání nevyžádaných subverzí bude považováno za porušení předpisů a bude předmětem disciplinárního řízení</li>
+                                        <li>Udržujte poznámku k titulkům krátkou, ŽÁDNÉ url/odkazy nejsou povoleny</li>
                                       </ul>',
     'size' => 'Velikost',
     'subtitle-file' => 'Soubor s titulky',

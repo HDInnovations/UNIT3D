@@ -14,16 +14,14 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">{{ __('bon.bon') }} {{ __('bon.exchange') }}</h2>
+            <h2 class="panel__heading">{{ __('bon.bon') }} {{ __('bon.earning') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <a
                         href="{{ route('staff.bon_earnings.create') }}"
                         class="form__button form__button--text"
                     >
-                        {{ __('common.add') }}
-                        {{ trans_choice('common.a-an-art', true) }}
-                        {{ __('bon.earning') }}
+                        {{ __('staff-interface.bon-earning-add-action') }}
                     </a>
                 </div>
             </div>
@@ -34,10 +32,10 @@
                     <tr>
                         <th>{{ __('common.name') }}</th>
                         <th>{{ __('common.position') }}</th>
-                        <th>Variable</th>
-                        <th>Operation</th>
-                        <th>Multiplier</th>
-                        <th>Conditions</th>
+                        <th>{{ __('staff-interface.bon-earning-variable') }}</th>
+                        <th>{{ __('staff-interface.bon-earning-operation') }}</th>
+                        <th>{{ __('staff-interface.bon-earning-multiplier') }}</th>
+                        <th>{{ __('staff-interface.bon-earning-conditions') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
                 </thead>
@@ -55,7 +53,7 @@
                             <td>
                                 @switch($bonEarning->variable)
                                     @case('1')
-                                        1 (Constant)
+                                        {{ __('staff-interface.bon-earning-constant') }}
 
                                         @break
                                     @case('age')
@@ -91,7 +89,7 @@
 
                                         @break
                                     @case('connectable')
-                                        Connectable
+                                        {{ __('staff-interface.bon-earning-connectable') }}
 
                                         @break
                                     @default
@@ -101,11 +99,11 @@
                             <td>
                                 @switch($bonEarning->operation)
                                     @case('append')
-                                        Append
+                                        {{ __('staff-interface.bon-earning-operation-append') }}
 
                                         @break
                                     @case('multiply')
-                                        Multiply
+                                        {{ __('staff-interface.bon-earning-operation-multiply') }}
 
                                         @break
                                     @default
@@ -131,7 +129,7 @@
                                             }}
                                         </li>
                                     @empty
-                                        <li>No conditions</li>
+                                        <li>{{ __('staff-interface.bon-earning-no-conditions') }}</li>
                                     @endforelse
                                 </ul>
                             </td>
@@ -156,8 +154,8 @@
                                             <button
                                                 x-on:click.prevent="
                                                     Swal.fire({
-                                                        title: 'Delete?',
-                                                        text: 'Are you sure you want to delete this bon earning?',
+                                                        title: @js(__('staff-interface.bon-earning-delete-confirm-title')),
+                                                        text: @js(__('staff-interface.bon-earning-delete-confirm-text')),
                                                         icon: 'warning',
                                                         showConfirmButton: true,
                                                         showCancelButton: true,

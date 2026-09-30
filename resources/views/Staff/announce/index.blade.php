@@ -1,7 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Announces - {{ config('other.title') }}</title>
+    <title>{{ __('vltava.staff.announcements') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -10,7 +10,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Announces</li>
+    <li class="breadcrumb--active">{{ __('vltava.staff.announcements') }}</li>
 @endsection
 
 @section('page', 'page__staff-announce--index')

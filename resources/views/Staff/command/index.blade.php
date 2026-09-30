@@ -1,11 +1,17 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Commands - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('staff-interface.commands') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Commands - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('staff-interface.commands') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -14,7 +20,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Commands</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.commands') }}</li>
 @endsection
 
 @section('page', 'page__staff-command--index')
@@ -28,7 +34,7 @@
         "
     >
         <section class="panelV2">
-            <h2 class="panel__heading">Maintenance mode</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.maintenance-mode') }}</h2>
             <div class="panel__body">
                 <div class="form__group form__group--horizontal">
                     <form
@@ -39,9 +45,9 @@
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands enables maintenance mode while whitelisting only your IP Address."
+                            title="{{ __('staff-interface.maintenance-enable-hint') }}"
                         >
-                            Enable maintenance mode
+                            {{ __('staff-interface.enable-maintenance-mode') }}
                         </button>
                     </form>
                 </div>
@@ -54,25 +60,25 @@
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands disables maintenance mode. Bringing the site backup for all to access."
+                            title="{{ __('staff-interface.maintenance-disable-hint') }}"
                         >
-                            Disable maintenance mode
+                            {{ __('staff-interface.disable-maintenance-mode') }}
                         </button>
                     </form>
                 </div>
             </div>
         </section>
         <section class="panelV2">
-            <h2 class="panel__heading">Caching</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.caching') }}</h2>
             <div class="panel__body">
                 <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ url('/dashboard/commands/clear-cache') }}">
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands clears your sites cache. This cache depends on what driver you are using."
+                            title="{{ __('staff-interface.clear-cache-hint') }}"
                         >
-                            Clear cache
+                            {{ __('staff-interface.clear-cache') }}
                         </button>
                     </form>
                 </div>
@@ -81,9 +87,9 @@
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands clears your sites compiled views cache."
+                            title="{{ __('staff-interface.clear-view-cache-hint') }}"
                         >
-                            Clear view cache
+                            {{ __('staff-interface.clear-view-cache') }}
                         </button>
                     </form>
                 </div>
@@ -95,9 +101,9 @@
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands clears your sites compiled routes cache."
+                            title="{{ __('staff-interface.clear-route-cache-hint') }}"
                         >
-                            Clear route cache
+                            {{ __('staff-interface.clear-route-cache') }}
                         </button>
                     </form>
                 </div>
@@ -109,9 +115,9 @@
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands clears your sites compiled configs cache."
+                            title="{{ __('staff-interface.clear-config-cache-hint') }}"
                         >
-                            Clear config cache
+                            {{ __('staff-interface.clear-config-cache') }}
                         </button>
                     </form>
                 </div>
@@ -120,9 +126,9 @@
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands clears ALL of your sites cache."
+                            title="{{ __('staff-interface.clear-all-cache-hint') }}"
                         >
-                            Clear all cache
+                            {{ __('staff-interface.clear-all-cache') }}
                         </button>
                     </form>
                 </div>
@@ -131,25 +137,25 @@
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands sets ALL of your sites cache."
+                            title="{{ __('staff-interface.set-all-cache-hint') }}"
                         >
-                            Set all cache
+                            {{ __('staff-interface.set-all-cache') }}
                         </button>
                     </form>
                 </div>
             </div>
         </section>
         <section class="panelV2">
-            <h2 class="panel__heading">Email</h2>
+            <h2 class="panel__heading">{{ __('common.email') }}</h2>
             <div class="panel__body">
                 <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ url('/dashboard/commands/test-email') }}">
                         @csrf
                         <button
                             class="form__button form__button--text"
-                            title="This commands tests your email configuration."
+                            title="{{ __('staff-interface.test-email-hint') }}"
                         >
-                            Send test email
+                            {{ __('staff-interface.send-test-email') }}
                         </button>
                     </form>
                 </div>

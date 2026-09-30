@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ $user->username }} - {{ __('user.security') }} - {{ __('common.members') }} -
         {{ config('other.title') }}
     </title>
 @endsection
@@ -44,10 +44,7 @@
                 @csrf
                 @method('PATCH')
                 <p>{{ __('user.change-password-help') }}.</p>
-                <p>
-                    We strongly recommend you use a password manager (such as the free version of
-                    Bitwarden) to generate a secure random password
-                </p>
+                <p>{{ __('member-interface.settings.password-manager-recommendation') }}</p>
                 @if (auth()->id() == $user->id)
                     <p class="form__group">
                         <input
@@ -60,7 +57,7 @@
                             type="password"
                         />
                         <label class="form__label form__label--floating" for="current_password">
-                            Current password
+                            {{ __('member-interface.settings.current-password') }}
                         </label>
                     </p>
                 @endif
@@ -100,7 +97,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td>No password reset history</td>
+                            <td>{{ __('member-interface.settings.no-password-reset-history') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

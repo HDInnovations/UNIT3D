@@ -46,6 +46,7 @@ import './components/alpine/dialog';
 import './components/alpine/dislikeButton';
 import './components/alpine/likeButton';
 import './components/alpine/livewireDialog';
+import './components/alpine/peerCounts';
 import './components/alpine/posterRow';
 import './components/alpine/smallBookmarkButton';
 import './components/alpine/tabs';

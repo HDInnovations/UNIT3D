@@ -15,6 +15,6 @@
             @endforeach
         </ul>
     @else
-        <div class="panel__body">No topics.</div>
+        <div class="panel__body">{{ __('interface.no-topics') }}</div>
     @endif
 </section>

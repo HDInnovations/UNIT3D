@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Client blacklist</li>
+    <li class="breadcrumb--active">{{ __('vltava.staff.client_blacklist') }}</li>
 @endsection
 
 @section('page', 'page__staff-blacklisted-client--index')
@@ -14,7 +14,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Blacklisted clients</h2>
+            <h2 class="panel__heading">{{ __('vltava.staff.blacklisted_clients') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <a
@@ -31,7 +31,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.name') }}</th>
-                        <th>Peer ID prefix</th>
+                        <th>{{ __('vltava.staff.peer_id_prefix') }}</th>
                         <th>{{ __('common.reason') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
@@ -62,7 +62,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this blacklisted client: ' . $client->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('vltava.staff.delete_blacklisted_client', ['name' => $client->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

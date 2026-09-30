@@ -40,7 +40,7 @@
                         wire:model.live.debounce.250ms="playlistCategoryId"
                         required
                     >
-                        <option selected value="__any">Any</option>
+                        <option selected value="__any">{{ __('livewire-interface.any') }}</option>
                         @foreach ($playlistCategories as $playlistCategory)
                             <option class="form__option" value="{{ $playlistCategory->id }}">
                                 {{ $playlistCategory->name }}

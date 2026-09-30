@@ -191,6 +191,6 @@ class UserTorrents extends Component
                 'immune' => $immune,
             ]);
 
-        $this->dispatch('success', type: 'success', message: 'Immunity has successfully been updated!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.immunity-updated'));
     }
 }

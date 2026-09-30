@@ -51,7 +51,7 @@ class DistributorController extends Controller
         Distributor::create($request->validated());
 
         return to_route('staff.distributors.index')
-            ->with('success', 'Distributor successfully added');
+            ->with('success', __('application-messages.flash.distributor-added'));
     }
 
     /**
@@ -72,7 +72,7 @@ class DistributorController extends Controller
         $distributor->update($request->validated());
 
         return to_route('staff.distributors.index')
-            ->with('success', 'Distributor successfully modified');
+            ->with('success', __('application-messages.flash.distributor-modified'));
     }
 
     /**
@@ -97,6 +97,6 @@ class DistributorController extends Controller
         $distributor->delete();
 
         return to_route('staff.distributors.index')
-            ->with('success', 'Distributor successfully deleted');
+            ->with('success', __('application-messages.flash.distributor-deleted'));
     }
 }

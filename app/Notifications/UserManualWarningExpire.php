@@ -51,10 +51,11 @@ class UserManualWarningExpire extends Notification
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Manual Warning Expired!')
-            ->line('Your Warning has expired!')
-            ->action('View Profile!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.manual-warning-expired-greeting'))
+            ->greeting(__('application-messages.notification.manual-warning-expired-greeting'))
+            ->line(__('application-messages.notification.manual-warning-expired-line'))
+            ->action(__('application-messages.notification.view-profile'), $profileUrl)
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 
     /**
@@ -65,8 +66,8 @@ class UserManualWarningExpire extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Manual Warning Expired',
-            'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
+            'title' => __('application-messages.notification.manual-warning-expired-title'),
+            'body'  => __('application-messages.notification.manual-warning-expired-body', ['reason' => $this->warning->reason]),
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }

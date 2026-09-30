@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Gateways</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.gateways') }}</li>
 @endsection
 
 @section('page', 'page__staff-donation-gateway--index')
@@ -14,7 +14,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Gateways</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.gateways') }}</h2>
             <div class="panel__actions">
                 <a
                     class="panel__action form__button form__button--text"
@@ -28,11 +28,11 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Position</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Active</th>
-                        <th>Action</th>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('staff-interface.address') }}</th>
+                        <th>{{ __('common.active') }}</th>
+                        <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,7 +74,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this page: ' . $gateway->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-gateway-confirmation', ['name' => $gateway->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

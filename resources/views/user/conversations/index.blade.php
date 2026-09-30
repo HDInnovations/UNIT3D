@@ -55,7 +55,7 @@
                 <p class="form__group form__group--horizontal">
                     <button
                         x-on:click.prevent="confirmAction"
-                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all private messages?') }}"
+                        data-b64-deletion-message="{{ base64_encode(__('member-interface.account.confirm-delete-all-messages')) }}"
                         class="form__button form__button--filled form__button--centered"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>

@@ -66,11 +66,11 @@ class ApprovedRequestFillController extends Controller
         // Auto Shout
         if ($torrentRequest->filled_anon) {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has filled request, [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
+                trans('application-messages.bot.request-filled-anon', ['url' => href_request($torrentRequest), 'name' => $torrentRequest->name], config('app.locale'))
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', href_profile($filler), $filler->username, href_request($torrentRequest), $torrentRequest->name)
+                trans('application-messages.bot.request-filled', ['userUrl' => href_profile($filler), 'username' => $filler->username, 'requestUrl' => href_request($torrentRequest), 'name' => $torrentRequest->name], config('app.locale'))
             );
         }
 

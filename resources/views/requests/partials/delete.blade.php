@@ -10,7 +10,7 @@
             @method('DELETE')
             <button
                 x-on:click.prevent="confirmAction"
-                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this torrent request and lose the BON?') }}"
+                data-b64-deletion-message="{{ base64_encode(__('media-interface.requests.delete-confirmation-bon')) }}"
                 class="form__button form__button--outlined form__button--centered"
             >
                 {{ __('common.delete') }}

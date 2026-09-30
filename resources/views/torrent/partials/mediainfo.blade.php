@@ -11,12 +11,12 @@
                 x-show="isExpanded"
                 x-cloak
             ></i>
-            MediaInfo
+            {{ __('torrent.media-info') }}
         </h2>
         <div class="panel__actions">
             <div class="panel__action">
                 <button class="form__button form__button--text" x-data x-on:click.stop="copy">
-                    Copy
+                    {{ __('media-interface.torrent.clipboard-copy-action') }}
                 </button>
             </div>
         </div>
@@ -27,19 +27,19 @@
         </div>
         <section class="mediainfo">
             <section class="mediainfo__filename">
-                <h3>Filename</h3>
+                <h3>{{ __('vltava.media.filename') }}</h3>
                 {{ $mediaInfo['general']['file_name'] ?? __('common.unknown') }}
             </section>
             <section class="mediainfo__general">
-                <h3>General</h3>
+                <h3>{{ __('vltava.media.general') }}</h3>
                 <dl>
-                    <dt>Format</dt>
+                    <dt>{{ __('vltava.media.format') }}</dt>
                     <dd>{{ $mediaInfo['general']['format'] ?? __('common.unknown') }}</dd>
-                    <dt>Duration</dt>
+                    <dt>{{ __('vltava.media.duration') }}</dt>
                     <dd>{{ $mediaInfo['general']['duration'] ?? __('common.unknown') }}</dd>
-                    <dt>Bitrate</dt>
+                    <dt>{{ __('vltava.edition.bitrate') }}</dt>
                     <dd>{{ $mediaInfo['general']['bit_rate'] ?? __('common.unknown') }}</dd>
-                    <dt>Size</dt>
+                    <dt>{{ __('vltava.media.size') }}</dt>
                     <dd>
                         {{ App\Helpers\StringHelper::formatBytes($mediaInfo['general']['file_size'] ?? 0, 2) }}
                     </dd>
@@ -48,27 +48,27 @@
             @if ($mediaInfo !== null)
                 @isset($mediaInfo['video'])
                     <section class="mediainfo__video">
-                        <h3>Video</h3>
+                        <h3>{{ __('vltava.edition.video') }}</h3>
                         @foreach ($mediaInfo['video'] as $key => $videoElement)
                             <article>
                                 <h4>#{{ ++$key }}</h4>
                                 <dl>
-                                    <dt>Format</dt>
+                                    <dt>{{ __('vltava.media.format') }}</dt>
                                     <dd>
                                         {{ $videoElement['format'] ?? __('common.unknown') }}
                                         ({{ $videoElement['bit_depth'] ?? __('common.unknown') }})
                                     </dd>
-                                    <dt>Resolution</dt>
+                                    <dt>{{ __('vltava.media.resolution') }}</dt>
                                     <dd>
                                         {{ $videoElement['width'] ?? __('common.unknown') }}
                                         &times;
                                         {{ $videoElement['height'] ?? __('common.unknown') }}
                                     </dd>
-                                    <dt>Aspect ratio</dt>
+                                    <dt>{{ __('vltava.media.aspect_ratio') }}</dt>
                                     <dd>
                                         {{ $videoElement['aspect_ratio'] ?? __('common.unknown') }}
                                     </dd>
-                                    <dt>Frame rate</dt>
+                                    <dt>{{ __('vltava.media.frame_rate') }}</dt>
                                     <dd>
                                         @if (isset($videoElement['framerate_mode']) && $videoElement['framerate_mode'] === 'Variable')
                                             VFR
@@ -76,7 +76,7 @@
                                             {{ $videoElement['frame_rate'] ?? __('common.unknown') }}
                                         @endif
                                     </dd>
-                                    <dt>Bit rate</dt>
+                                    <dt>{{ __('vltava.torrent.bit_rate') }}</dt>
                                     <dd>
                                         {{ $videoElement['bit_rate'] ?? __('common.unknown') }}
                                     </dd>
@@ -113,7 +113,7 @@
 
                 @isset($mediaInfo['audio'])
                     <section class="mediainfo__audio">
-                        <h3>Audio</h3>
+                        <h3>{{ __('vltava.edition.audio') }}</h3>
                         <dl>
                             @foreach ($mediaInfo['audio'] as $key => $audioElement)
                                 <dt>{{ $loop->iteration }}.</dt>
@@ -138,7 +138,7 @@
 
                 @isset($mediaInfo['text'])
                     <section class="mediainfo__subtitles">
-                        <h3>Subtitles</h3>
+                        <h3>{{ __('vltava.edition.subtitles') }}</h3>
                         <ul>
                             @foreach ($mediaInfo['text'] as $key => $textElement)
                                 <li>
@@ -157,7 +157,7 @@
 
                 @isset($mediaInfo['video'], array_merge(... $mediaInfo['video'])['encoding_settings'])
                     <section class="mediainfo__encode-settings">
-                        <h3>Encode settings</h3>
+                        <h3>{{ __('vltava.media.encode_settings') }}</h3>
                         @foreach ($mediaInfo['video'] as $key => $videoElement)
                             @isset($videoElement['encoding_settings'])
                                 <article>
@@ -192,7 +192,7 @@
                         showConfirmButton: false,
                         timer: 3000,
                         icon: 'success',
-                        title: 'Copied to clipboard!',
+                        title: @js(__('media-interface.torrent.clipboard-copied-message')),
                     });
                 },
             }));

@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ $user->username }} - {{ __('user.security') }} - {{ __('common.members') }} -
         {{ config('other.title') }}
     </title>
 @endsection
@@ -54,12 +54,12 @@
                         value="{{ $user->email }}"
                     />
                     <label class="form__label form__label--floating" for="current_email">
-                        Current email
+                        {{ __('member-interface.settings.current-email') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <input id="email" class="form__text" name="email" required type="email" />
-                    <label class="form__label form__label--floating" for="email">New email</label>
+                    <label class="form__label form__label--floating" for="email">{{ __('member-interface.settings.new-email') }}</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
@@ -91,7 +91,7 @@
                                     datetime="{{ $emailUpdate->created_at }}"
                                     title="{{ $emailUpdate->created_at }}"
                                 >
-                                    {{ $emailUpdate->created_at->format('Y-m-d') }}
+                                    {{ $emailUpdate->created_at->toDisplayTimezone()->format('Y-m-d') }}
                                 </time>
                             </td>
                             <td>
@@ -99,7 +99,7 @@
                                     datetime="{{ $emailUpdate->deleted_at }}"
                                     title="{{ $emailUpdate->deleted_at }}"
                                 >
-                                    {{ $emailUpdate->deleted_at?->format('Y-m-d') ?? 'Currently in use' }}
+                                    {{ $emailUpdate->deleted_at?->toDisplayTimezone()->format('Y-m-d') ?? __('member-interface.settings.currently-in-use') }}
                                 </time>
                             </td>
                             <td>
@@ -118,7 +118,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">No email update history</td>
+                            <td colspan="3">{{ __('member-interface.settings.no-email-update-history') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

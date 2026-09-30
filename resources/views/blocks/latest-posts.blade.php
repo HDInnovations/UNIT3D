@@ -16,7 +16,7 @@
                 @endforeach
             </ul>
         @else
-            No posts.
+            {{ __('interface.no-posts') }}
         @endif
     </div>
 </section>

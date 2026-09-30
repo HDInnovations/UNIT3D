@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ $user->username }} - {{ __('user.security') }} - {{ __('common.members') }} -
         {{ config('other.title') }}
     </title>
 @endsection
@@ -22,7 +22,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('Two Factor Authentication') }}
+        {{ __('interface.two-factor-title') }}
     </li>
 @endsection
 

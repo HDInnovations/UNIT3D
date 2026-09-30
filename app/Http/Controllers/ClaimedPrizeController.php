@@ -86,7 +86,7 @@ class ClaimedPrizeController extends Controller
                 'fl_tokens' => $fl_tokens_won,
             ]);
 
-            return to_route('events.show', ['event' => $event])->with('success', 'Congrats! You have won a prize!');
+            return to_route('events.show', ['event' => $event])->with('success', __('application-messages.flash.prize-won'));
         });
     }
 }

@@ -13,6 +13,7 @@ return [
  */
     'actions' => 'Akce',
     'backup' => 'Zálohování',
+    'backup_process_started' => 'Byl zahájen nový proces zálohování',
     'backup_doesnt_exist' => 'Záložní soubor neexistuje.',
     'create_a_new_backup' => 'Vytvořit plnou zálohu',
     'create_a_new_files_backup' => 'Vytvoření záloh souborů',
@@ -23,7 +24,7 @@ return [
     'create_error_title' => 'Chyba zálohování',
     'create_warning_message' => 'Vaše záloha nemusí být vytvořena. Podrobnosti naleznete v souborech protokolu.',
     'create_warning_title' => 'Neznámá chyba',
-    'date' => 'datum',
+    'date' => 'Datum',
     'delete' => 'Smazat',
     'delete_cancel_message' => 'Záložní soubor nebyl odstraněn.',
     'delete_cancel_title' => 'To je v pořádku',

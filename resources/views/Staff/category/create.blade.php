@@ -21,9 +21,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('torrent.category') }}
+            {{ __('staff-interface.category-add-heading') }}
         </h2>
         <div class="panel__body">
             <form
@@ -54,28 +52,25 @@
                 <p class="form__group">
                     <input id="icon" class="form__text" type="text" name="icon" placeholder=" " />
                     <label class="form__label form__label--floating" for="icon">
-                        {{ __('common.icon') }} (FontAwesome)
+                        {{ __('staff-interface.category-icon-hint') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <label for="image">
-                        {{ __('common.select') }}
-                        {{ trans_choice('common.a-an-art', false) }}
-                        {{ __('common.image') }}
-                        (If not using a FontAwesome icon)
+                        {{ __('staff-interface.category-image-hint') }}
                     </label>
                     <input id="file" class="form__file" type="file" name="image" />
                 </p>
                 <p class="form__group">
                     <select name="meta" id="meta" class="form__select" required>
                         <option hidden selected disabled value=""></option>
-                        <option class="form__option" value="movie">Movie metadata</option>
-                        <option class="form__option" value="tv">TV metadata</option>
-                        <option class="form__option" value="game">Game metadata</option>
-                        <option class="form__option" value="music">Music metadata</option>
-                        <option class="form__option" value="no">No metadata</option>
+                        <option class="form__option" value="movie">{{ __('vltava.staff.movie_metadata') }}</option>
+                        <option class="form__option" value="tv">{{ __('vltava.staff.tv_metadata') }}</option>
+                        <option class="form__option" value="game">{{ __('vltava.staff.game_metadata') }}</option>
+                        <option class="form__option" value="music">{{ __('vltava.staff.music_metadata') }}</option>
+                        <option class="form__option" value="no">{{ __('vltava.staff.no_metadata') }}</option>
                     </select>
-                    <label class="form__label form__label--floating" for="meta">Meta</label>
+                    <label class="form__label form__label--floating" for="meta">{{ __('staff-interface.category-meta-label') }}</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

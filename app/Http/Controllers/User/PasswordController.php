@@ -63,7 +63,7 @@ class PasswordController extends Controller
         });
 
         return to_route('users.password.edit', ['user' => $user])
-            ->with('success', 'Your new password has been saved successfully.');
+            ->with('success', __('application-messages.flash.password-saved'));
     }
 
     /**

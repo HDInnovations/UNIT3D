@@ -66,7 +66,7 @@ class StorePollVoteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'options.required' => 'You must select an answer',
+            'options.required' => __('application-messages.validation.poll-answer-required'),
         ];
     }
 }

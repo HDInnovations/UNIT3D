@@ -48,10 +48,11 @@ class UserWarning extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Hit and Run Warning Received!')
-            ->line('You have received an automated hit and run WARNING on one or more torrents!')
-            ->action('View your unsatisfied torrents and seed off your warnings or wait until they expire!', route('users.history.index', ['user' => $this->user]))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.warning-received-greeting'))
+            ->greeting(__('application-messages.notification.warning-received-greeting'))
+            ->line(__('application-messages.notification.warning-received-line'))
+            ->action(__('application-messages.notification.warning-received-action'), route('users.history.index', ['user' => $this->user]))
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 
     /**
@@ -62,8 +63,8 @@ class UserWarning extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Hit and Run Warning Received!',
-            'body'  => 'You have received an automated hit and run WARNING on one or more torrents! View your unsatisfied torrents and seed off your warnings or wait until they expire!',
+            'title' => __('application-messages.notification.warning-received-greeting'),
+            'body'  => __('application-messages.notification.warning-received-body'),
             'url'   => route('users.history.index', ['user' => $this->user]),
         ];
     }

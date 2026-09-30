@@ -1,11 +1,11 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Bans - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>{{ __('user.bans') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Bans - {{ __('staff.staff-dashboard') }}" />
+    <meta name="description" content="{{ __('user.bans') }} - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -72,7 +72,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7">No bans</td>
+                            <td colspan="7">{{ __('vltava.staff.no_bans') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -8,7 +8,9 @@
                         {{ __('common.add') }}
                     </button>
                     <dialog class="dialog" x-bind="dialogElement">
-                        <h3 class="dialog__heading">Warn user: {{ $user->username }}</h3>
+                        <h3 class="dialog__heading">
+                            {{ __('livewire-interface.warn-user', ['username' => $user->username]) }}
+                        </h3>
                         <form class="dialog__form" x-bind="dialogForm">
                             <p class="form__group">
                                 <textarea
@@ -20,7 +22,7 @@
                                     wire:model="message"
                                 ></textarea>
                                 <label class="form__label form__label--floating" for="warn_reason">
-                                    Reason
+                                    {{ __('common.reason') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -46,7 +48,7 @@
                     @csrf
                     <button
                         x-on:click.prevent="massDestroy"
-                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all warnings?') }}"
+                        data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-delete-all-warnings')) }}"
                         class="form__button form__button--text"
                     >
                         {{ __('user.delete-all') }}
@@ -56,7 +58,7 @@
                     @csrf
                     <button
                         x-on:click.prevent="massDeactivate"
-                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to deactivate all warnings?') }}"
+                        data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-deactivate-all-warnings')) }}"
                         class="form__button form__button--text"
                     >
                         {{ __('user.deactivate-all') }}
@@ -72,7 +74,7 @@
             x-bind:class="tab === 'automated' && 'panel__tab--active'"
             x-on:click="tab = 'automated'"
         >
-            Automated ({{ $automatedWarningsCount ?? 0 }})
+            {{ __('livewire-interface.automated-count', ['count' => $automatedWarningsCount ?? 0]) }}
         </li>
         <li
             class="panel__tab"
@@ -80,7 +82,7 @@
             x-bind:class="tab === 'manual' && 'panel__tab--active'"
             x-on:click="tab = 'manual'"
         >
-            Manual ({{ $manualWarningsCount ?? 0 }})
+            {{ __('livewire-interface.manual-count', ['count' => $manualWarningsCount ?? 0]) }}
         </li>
         <li
             class="panel__tab"
@@ -88,7 +90,7 @@
             x-bind:class="tab === 'deleted' && 'panel__tab--active'"
             x-on:click="tab = 'deleted'"
         >
-            Soft deleted ({{ $deletedWarningsCount ?? 0 }})
+            {{ __('livewire-interface.soft-deleted-count', ['count' => $deletedWarningsCount ?? 0]) }}
         </li>
     </menu>
     <div class="data-table-wrapper">
@@ -140,7 +142,7 @@
                                         {{ $warning->torrent->name }}
                                     </a>
                                 @else
-                                    n/a
+                                    {{ __('livewire-interface.not-available') }}
                                 @endisset
                             </td>
                         @endif
@@ -183,7 +185,7 @@
                                                 @method('PATCH')
                                                 <button
                                                     x-on:click.prevent="restoreWarning"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to restore this warning: ' . $warning->reason . '?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-restore-warning', ['reason' => $warning->reason])) }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('user.restore') }}
@@ -198,7 +200,7 @@
                                                         @csrf
                                                         <button
                                                             x-on:click.prevent="deactivateWarning"
-                                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to deactivate this warning: ' . $warning->reason . '?') }}"
+                                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-deactivate-warning', ['reason' => $warning->reason])) }}"
                                                             class="form__button form__button--text"
                                                         >
                                                             {{ __('user.deactivate') }}
@@ -211,7 +213,7 @@
                                                         @csrf
                                                         <button
                                                             x-on:click.prevent="reactivateWarning"
-                                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to reactivate this warning: ' . $warning->reason . '?') }}"
+                                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-reactivate-warning', ['reason' => $warning->reason])) }}"
                                                             class="form__button form__button--text"
                                                         >
                                                             {{ __('user.reactivate') }}
@@ -226,7 +228,7 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="destroyWarning"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this warning: ' . $warning->reason . '?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-delete-warning', ['reason' => $warning->reason])) }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.delete') }}
@@ -274,7 +276,7 @@
                 },
                 confirmAction(onConfirm) {
                     Swal.fire({
-                        title: 'Are you sure?',
+                        title: @js(__('livewire-interface.are-you-sure')),
                         text: atob(this.$el.dataset.b64DeletionMessage),
                         icon: 'warning',
                         showConfirmButton: true,

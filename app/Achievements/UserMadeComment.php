@@ -16,21 +16,14 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserMadeComment extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.made-comment';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = 'FirstComment';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'Congratulations! You have made your first comment!';
 }

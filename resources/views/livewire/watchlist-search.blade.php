@@ -1,6 +1,6 @@
 <section class="panelV2">
     <header class="panel__header">
-        <h2 class="panel__heading">Watchlist</h2>
+        <h2 class="panel__heading">{{ __('livewire-interface.watchlist') }}</h2>
         <div class="panel__actions">
             <div class="panel__action">
                 <p class="form__group">
@@ -25,7 +25,7 @@
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="search">
-                        Search by message
+                        {{ __('livewire-interface.search-by-message') }}
                     </label>
                 </p>
             </div>
@@ -36,19 +36,19 @@
             <tbody>
                 <tr>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
-                        Watching
+                        {{ __('livewire-interface.watching') }}
                         @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                     </th>
                     <th wire:click="sortBy('staff_id')" role="columnheader button">
-                        Watched by
+                        {{ __('livewire-interface.watched-by') }}
                         @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
                     </th>
                     <th wire:click="sortBy('message')" role="columnheader button">
-                        Message
+                        {{ __('common.message') }}
                         @include('livewire.includes._sort-icon', ['field' => 'message'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
-                        Created at
+                        {{ __('common.created_at') }}
                         @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th>{{ __('common.action') }}</th>
@@ -82,10 +82,10 @@
                                         @method('DELETE')
                                         <button
                                             x-on:click.prevent="confirmAction"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to unwatch this user: ' . $watching->user->username . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.unwatch-user-confirmation', ['username' => $watching->user->username])) }}"
                                             class="form__button form__button--text"
                                         >
-                                            Unwatch
+                                            {{ __('livewire-interface.unwatch') }}
                                         </button>
                                     </form>
                                 </li>
@@ -94,7 +94,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5">No watched users</td>
+                        <td colspan="5">{{ __('livewire-interface.no-watched-users') }}</td>
                     </tr>
                 @endforelse
             </tbody>

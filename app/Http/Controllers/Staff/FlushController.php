@@ -69,7 +69,7 @@ class FlushController extends Controller
         }
 
         return to_route('staff.dashboard.index')
-            ->with('success', 'Ghost peers have been flushed');
+            ->with('success', __('application-messages.flash.ghost-peers-flushed'));
     }
 
     /**
@@ -85,10 +85,10 @@ class FlushController extends Controller
         }
 
         $this->chatRepository->systemMessage(
-            'Chatbox Has Been Flushed! :broom:'
+            trans('application-messages.bot.chatbox-flushed', [], config('app.locale'))
         );
 
         return to_route('staff.dashboard.index')
-            ->with('success', 'Chatbox has been flushed');
+            ->with('success', __('application-messages.flash.chatbox-flushed'));
     }
 }

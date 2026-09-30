@@ -103,14 +103,13 @@ class SubtitleController extends Controller
         // Announce To Shoutbox
         if (!$subtitle->anon) {
             $this->chatRepository->systemMessage(
-                \sprintf(
-                    '[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]',
-                    href_profile($user),
-                    $user->username,
-                    $subtitle->language->name,
-                    href_torrent($torrent),
-                    $subtitle->torrent->name
-                )
+                trans('application-messages.bot.subtitle-uploaded', [
+                    'userUrl' => href_profile($user),
+                    'username' => $user->username,
+                    'language' => $subtitle->language->name,
+                    'torrentUrl' => href_torrent($torrent),
+                    'name' => $subtitle->torrent->name,
+                ], config('app.locale'))
             );
 
             // Achievements
@@ -129,17 +128,16 @@ class SubtitleController extends Controller
             $user->addProgress(new UserUploaded1000Subtitles(), 1);
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf(
-                    'An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]',
-                    $subtitle->language->name,
-                    href_torrent($torrent),
-                    $subtitle->torrent->name
-                )
+                trans('application-messages.bot.subtitle-uploaded-anon', [
+                    'language' => $subtitle->language->name,
+                    'torrentUrl' => href_torrent($torrent),
+                    'name' => $subtitle->torrent->name,
+                ], config('app.locale'))
             );
         }
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
-            ->with('success', 'Subtitle successfully added');
+            ->with('success', __('application-messages.flash.subtitle-added'));
     }
 
     /**
@@ -152,7 +150,7 @@ class SubtitleController extends Controller
         $subtitle->update($request->validated());
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
-            ->with('success', 'Subtitle successfully updated');
+            ->with('success', __('application-messages.flash.subtitle-updated'));
     }
 
     /**
@@ -173,7 +171,7 @@ class SubtitleController extends Controller
         $subtitle->delete();
 
         return to_route('torrents.show', ['id' => $request->integer('torrent_id')])
-            ->with('success', 'Subtitle successfully deleted');
+            ->with('success', __('application-messages.flash.subtitle-deleted'));
     }
 
     /**

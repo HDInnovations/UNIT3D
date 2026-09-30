@@ -11,7 +11,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ __('common.upload') }}
+        {{ __('common.upload-action') }}
     </li>
 @endsection
 
@@ -33,7 +33,7 @@
     </li>
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('torrents.create') }}">
-            {{ __('common.upload') }}
+            {{ __('common.upload-action') }}
         </a>
     </li>
 @endsection
@@ -70,7 +70,7 @@
                 @csrf
                 <p class="form__group">
                     <label for="torrent" class="form__label">
-                        Torrent {{ __('torrent.file') }}
+                        {{ __('media-interface.torrent.torrent-file') }}
                     </label>
                     <input
                         class="upload-form-file form__file"
@@ -84,7 +84,7 @@
                 </p>
                 <p class="form__group">
                     <label for="nfo" class="form__label">
-                        NFO {{ __('torrent.file') }} ({{ __('torrent.optional') }})
+                        {{ __('media-interface.torrent.nfo-file') }}
                     </label>
                     <input
                         id="nfo"
@@ -94,9 +94,9 @@
                         name="nfo"
                     />
                 </p>
-                <p class="form__group" x-show="cats[cat].type === 'no'">
+                <p class="form__group" x-show="cats[cat].type === 'no' || cats[cat].type === 'book'">
                     <label for="torrent-cover" class="form__label">
-                        Cover {{ __('torrent.file') }} ({{ __('torrent.optional') }})
+                        {{ __('media-interface.torrent.cover-file') }}
                     </label>
                     <input
                         id="torrent-cover"
@@ -106,9 +106,9 @@
                         name="torrent-cover"
                     />
                 </p>
-                <p class="form__group" x-show="cats[cat].type === 'no'">
+                <p class="form__group" x-show="cats[cat].type === 'no' || cats[cat].type === 'book'">
                     <label for="torrent-banner" class="form__label">
-                        Banner {{ __('torrent.file') }} ({{ __('torrent.optional') }})
+                        {{ __('media-interface.torrent.banner-file') }}
                     </label>
                     <input
                         id="torrent-banner"
@@ -217,7 +217,7 @@
                             @endforeach
                         </select>
                         <label class="form__label form__label--floating" for="autodis">
-                            {{ __('torrent.distributor') }} (only for full disc)
+                            {{ __('media-interface.torrent.distributor-full-disc-hint') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -241,7 +241,7 @@
                             @endforeach
                         </select>
                         <label class="form__label form__label--floating" for="autoreg">
-                            {{ __('torrent.region') }} (only for full disc)
+                            {{ __('media-interface.torrent.region-full-disc-hint') }}
                         </label>
                     </p>
                 </div>
@@ -261,7 +261,7 @@
                             {{ __('torrent.season-number') }}
                         </label>
                         <span class="form__hint">
-                            Numeric digits only. Use 0 only for specials and complete packs.
+                            {{ __('media-interface.torrent.season-number-hint') }}
                         </span>
                     </p>
                     <p class="form__group">
@@ -279,7 +279,7 @@
                             {{ __('torrent.episode-number') }}
                         </label>
                         <span class="form__hint">
-                            Numeric digits only. Use 0 only for season packs and complete packs.
+                            {{ __('media-interface.torrent.episode-number-hint') }}
                         </span>
                     </p>
                 </div>
@@ -299,7 +299,7 @@
                                 x-model="tmdb_movie_exists"
                             />
                             <label class="form__label" for="movie_exists_on_tmdb">
-                                This movie exists on TMDB
+                                {{ __('media-interface.torrent.movie-exists-on-tmdb') }}
                             </label>
                             <output name="apimatch" id="apimatch" for="torrent"></output>
                         </p>
@@ -317,9 +317,9 @@
                                 x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
                             />
                             <label class="form__label form__label--floating" for="auto_tmdb_movie">
-                                TMDB movie ID
+                                {{ __('media-interface.torrent.tmdb-movie-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div class="form__group--vertical" x-show="cats[cat].type === 'tv'">
@@ -334,7 +334,7 @@
                                 x-model="tmdb_tv_exists"
                             />
                             <label class="form__label" for="tv_exists_on_tmdb">
-                                This TV show exists on TMDB
+                                {{ __('media-interface.torrent.tv-exists-on-tmdb') }}
                             </label>
                             <output name="apimatch" id="apimatch" for="torrent"></output>
                         </p>
@@ -352,9 +352,9 @@
                                 x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="auto_tmdb_tv">
-                                TMDB TV ID
+                                {{ __('media-interface.torrent.tmdb-tv-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div
@@ -372,7 +372,7 @@
                                 x-model="imdb_title_exists"
                             />
                             <label class="form__label" for="title_exists_on_imdb">
-                                This title exists on IMDB
+                                {{ __('media-interface.torrent.title-exists-on-imdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="imdb_title_exists">
@@ -401,9 +401,9 @@
                                 "
                             />
                             <label class="form__label form__label--floating" for="autoimdb">
-                                IMDB ID
+                                {{ __('media-interface.torrent.imdb-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div class="form__group--vertical" x-show="cats[cat].type === 'tv'">
@@ -418,7 +418,7 @@
                                 x-model="tvdb_tv_exists"
                             />
                             <label class="form__label" for="tv_exists_on_tvdb">
-                                This TV show exists on TVDB
+                                {{ __('media-interface.torrent.tv-exists-on-tvdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="tvdb_tv_exists">
@@ -435,9 +435,9 @@
                                 x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="autotvdb">
-                                TVDB ID
+                                {{ __('media-interface.torrent.tvdb-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div
@@ -455,7 +455,7 @@
                                 x-model="mal_anime_exists"
                             />
                             <label class="form__label" for="anime_exists_on_mal">
-                                This anime exists on MAL
+                                {{ __('media-interface.torrent.anime-exists-on-mal') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="mal_anime_exists">
@@ -476,9 +476,9 @@
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="automal">
-                                MAL ID
+                                {{ __('media-interface.torrent.mal-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div class="form__group--vertical" x-show="cats[cat].type === 'game'">
@@ -493,7 +493,7 @@
                                 x-model="igdb_game_exists"
                             />
                             <label class="form__label" for="game_exists_on_igdb">
-                                This game exists on IGDB
+                                {{ __('media-interface.torrent.game-exists-on-igdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="igdb_game_exists">
@@ -508,9 +508,57 @@
                                 x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                             />
                             <label class="form__label form__label--floating" for="autoigdb">
-                                IGDB ID
+                                {{ __('media-interface.torrent.igdb-id') }}
                                 <b>({{ __('torrent.required-games') }})</b>
                             </label>
+                        </p>
+                    </div>
+                    <div class="form__group--vertical" x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'">
+                        <p class="form__group">
+                            <select class="form__select" name="edition_kind" x-bind:disabled="cats[cat].type !== 'movie' && cats[cat].type !== 'tv'">
+                                <option value="standard">{{ __('vltava.edition.standard') }}</option>
+                                <option value="director_cut">{{ __('vltava.edition.director') }}</option>
+                                <option value="extended_cut">{{ __('vltava.edition.extended') }}</option>
+                                <option value="restored">{{ __('vltava.edition.restored') }}</option>
+                                <option value="fan_edit">{{ __('vltava.edition.fan') }}</option>
+                            </select>
+                            <label class="form__label">{{ __('vltava.edition.type') }}</label>
+                        </p>
+                        <p class="form__group"><input class="form__text" name="edition_name" value="{{ old('edition_name') }}" placeholder=" " /><label class="form__label form__label--floating">{{ __('vltava.edition.name') }}</label></p>
+                        <p class="form__group"><textarea class="form__textarea" name="edition_provenance" placeholder="{{ __('vltava.edition.provenance') }}">{{ old('edition_provenance') }}</textarea></p>
+                    </div>
+                    <div class="form__group--vertical" x-show="cats[cat].type === 'music'">
+                        <p class="form__group">
+                            <input
+                                type="text"
+                                name="musicbrainz_release_id"
+                                id="musicbrainz_release_id"
+                                class="form__text"
+                                value="{{ old('musicbrainz_release_id') }}"
+                                placeholder=" "
+                                x-bind:disabled="cats[cat].type !== 'music'"
+                            />
+                            <label class="form__label form__label--floating" for="musicbrainz_release_id">
+                                {{ __('media-interface.torrent.musicbrainz-release-id') }}
+                            </label>
+                            <span class="form__hint">{{ __('media-interface.torrent.musicbrainz-hint') }}</span>
+                        </p>
+                    </div>
+                    <div class="form__group--vertical" x-show="cats[cat].type === 'book'">
+                        <p class="form__group">
+                            <input
+                                type="text"
+                                name="open_library_edition_id"
+                                id="open_library_edition_id"
+                                class="form__text"
+                                value="{{ old('open_library_edition_id') }}"
+                                placeholder=" "
+                                x-bind:disabled="cats[cat].type !== 'book'"
+                            />
+                            <label class="form__label form__label--floating" for="open_library_edition_id">
+                                {{ __('media-interface.torrent.open-library-id-label') }}
+                            </label>
+                            <span class="form__hint">{{ __('media-interface.torrent.open-library-hint') }}</span>
                         </p>
                     </div>
                 </div>
@@ -559,102 +607,112 @@
 {{ old('bdinfo') }}</textarea
                     >
                     <label class="form__label form__label--floating" for="upload-form-bdinfo">
-                        BDInfo (quick summary)
+                        {{ __('media-interface.torrent.bdinfo-quick-summary') }}
                     </label>
                 </p>
-                <p class="form__group">
-                    <input type="hidden" name="anon" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="anon"
-                        name="anon"
-                        value="1"
-                        @checked(old('anon'))
-                    />
-                    <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
-                </p>
-                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
+                <fieldset class="form form__fieldset">
+                    <legend class="form__legend">{{ __('media-interface.torrent.publish-visibility-legend') }}</legend>
+                    <p class="form__hint">
+                        {{ __('media-interface.torrent.publish-visibility-hint') }}
+                    </p>
                     <p class="form__group">
-                        <input type="hidden" name="internal" value="0" />
+                        <input type="hidden" name="anon" value="0" />
                         <input
                             type="checkbox"
                             class="form__checkbox"
-                            id="internal"
-                            name="internal"
+                            id="anon"
+                            name="anon"
                             value="1"
-                            @checked(old('internal'))
+                            @checked(old('anon'))
                         />
-                        <label class="form__label" for="internal">
-                            {{ __('torrent.internal') }}?
-                        </label>
+                        <label class="form__label" for="anon">{{ __('media-interface.torrent.upload-anon-label') }}</label>
+                        <span class="form__hint">{{ __('media-interface.torrent.upload-anon-hint') }}</span>
                     </p>
-                @endif
-
-                <p class="form__group">
-                    <input type="hidden" name="personal_release" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="personal_release"
-                        name="personal_release"
-                        value="1"
-                        @checked(old('personal_release'))
-                    />
-                    <label class="form__label" for="personal_release">Personal release?</label>
-                </p>
-                @if ($user->group->is_trusted)
                     <p class="form__group">
-                        <input type="hidden" name="mod_queue_opt_in" value="0" />
+                        <input type="hidden" name="personal_release" value="0" />
                         <input
                             type="checkbox"
                             class="form__checkbox"
-                            id="mod_queue_opt_in"
-                            name="mod_queue_opt_in"
+                            id="personal_release"
+                            name="personal_release"
                             value="1"
-                            @checked(old('mod_queue_opt_in'))
+                            @checked(old('personal_release'))
                         />
-                        <label class="form__label" for="mod_queue_opt_in">
-                            Opt in to moderation queue?
-                        </label>
+                        <label class="form__label" for="personal_release">{{ __('torrent.personal-release') }}</label>
+                        <span class="form__hint">{{ __('media-interface.torrent.personal-release-hint') }}</span>
                     </p>
-                @endif
+                    @if ($user->group->is_trusted)
+                        <p class="form__group">
+                            <input type="hidden" name="mod_queue_opt_in" value="0" />
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="mod_queue_opt_in"
+                                name="mod_queue_opt_in"
+                                value="1"
+                                @checked(old('mod_queue_opt_in'))
+                            />
+                            <label class="form__label" for="mod_queue_opt_in">
+                                {{ __('media-interface.torrent.mod-queue-opt-in-label') }}
+                            </label>
+                            <span class="form__hint">
+                                {{ __('media-interface.torrent.mod-queue-opt-in-hint') }}
+                            </span>
+                        </p>
+                    @endif
+                </fieldset>
 
-                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
-                    <p class="form__group">
-                        <input type="hidden" name="refundable" value="0" />
-                        <input
-                            type="checkbox"
-                            class="form__checkbox"
-                            id="refundable"
-                            name="refundable"
-                            value="1"
-                            @checked(old('refundable'))
-                        />
-                        <label class="form__label" for="refundable">
-                            {{ __('torrent.refundable') }}?
-                        </label>
-                    </p>
-                @endif
-
-                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
-                    <p class="form__group">
-                        <select name="free" id="free" class="form__select">
-                            <option
-                                value="0"
-                                @selected(old('free') === '0' || old('free') === null)
-                            >
-                                {{ __('common.no') }}
-                            </option>
-                            <option value="25" @selected(old('free') === '25')>25%</option>
-                            <option value="50" @selected(old('free') === '50')>50%</option>
-                            <option value="75" @selected(old('free') === '75')>75%</option>
-                            <option value="100" @selected(old('free') === '100')>100%</option>
-                        </select>
-                        <label class="form__label form__label--floating" for="free">
-                            {{ __('torrent.freeleech') }}
-                        </label>
-                    </p>
+                @if (auth()->user()->group->is_modo || auth()->user()->internals()->exists())
+                    <fieldset class="form form__fieldset">
+                        <legend class="form__legend">Správcovské nastavení vydání</legend>
+                        <p class="form__hint">
+                            Tyto volby jsou dostupné pouze správě a členům interní skupiny.
+                        </p>
+                        <p class="form__group">
+                            <input type="hidden" name="internal" value="0" />
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="internal"
+                                name="internal"
+                                value="1"
+                                @checked(old('internal'))
+                            />
+                            <label class="form__label" for="internal">{{ __('torrent.internal') }}</label>
+                            <span class="form__hint">{{ __('media-interface.torrent.internal-hint') }}</span>
+                        </p>
+                        <p class="form__group">
+                            <input type="hidden" name="refundable" value="0" />
+                            <input
+                                type="checkbox"
+                                class="form__checkbox"
+                                id="refundable"
+                                name="refundable"
+                                value="1"
+                                @checked(old('refundable'))
+                            />
+                            <label class="form__label" for="refundable">{{ __('torrent.refundable') }}</label>
+                            <span class="form__hint">{{ __('media-interface.torrent.refundable-hint') }}</span>
+                        </p>
+                        <p class="form__group">
+                            <select name="free" id="free" class="form__select">
+                                <option
+                                    value="0"
+                                    @selected(old('free') === '0' || old('free') === null)
+                                >
+                                    {{ __('common.no') }}
+                                </option>
+                                <option value="25" @selected(old('free') === '25')>25%</option>
+                                <option value="50" @selected(old('free') === '50')>50%</option>
+                                <option value="75" @selected(old('free') === '75')>75%</option>
+                                <option value="100" @selected(old('free') === '100')>100%</option>
+                            </select>
+                            <label class="form__label form__label--floating" for="free">
+                                {{ __('torrent.freeleech') }}
+                            </label>
+                            <span class="form__hint">{{ __('media-interface.torrent.freeleech-hint') }}</span>
+                        </p>
+                    </fieldset>
                 @endif
 
                 <p class="form__group">
@@ -719,7 +777,7 @@
                         showConfirmButton: false,
                         timer: 3000,
                         icon: 'success',
-                        title: 'Copied to clipboard!',
+                        title: @js(__('media-interface.torrent.clipboard-copied-message')),
                     });
                 },
             }));

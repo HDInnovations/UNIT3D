@@ -53,7 +53,7 @@ class TicketPriorityController extends Controller
         TicketPriority::create($request->validated());
 
         return to_route('staff.ticket_priorities.index')
-            ->with('success', 'Ticket priority successfully added');
+            ->with('success', __('application-messages.flash.ticket-priority-added'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TicketPriorityController extends Controller
         $ticketPriority->update($request->validated());
 
         return to_route('staff.ticket_priorities.index')
-            ->with('success', 'Ticket priority successfully modified');
+            ->with('success', __('application-messages.flash.ticket-priority-modified'));
     }
 
     /**
@@ -87,6 +87,6 @@ class TicketPriorityController extends Controller
         $ticketPriority->delete();
 
         return to_route('staff.ticket_priorities.index')
-            ->with('success', 'Ticket priority successfully deleted');
+            ->with('success', __('application-messages.flash.ticket-priority-deleted'));
     }
 }

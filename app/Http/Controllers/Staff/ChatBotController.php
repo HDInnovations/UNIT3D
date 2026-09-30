@@ -56,7 +56,7 @@ class ChatBotController extends Controller
         $bot->update($request->validated());
 
         return to_route('staff.bots.index')
-            ->with('success', "The bot has been updated");
+            ->with('success', __('application-messages.flash.bot-updated'));
     }
 
     /**
@@ -71,7 +71,7 @@ class ChatBotController extends Controller
         $bot->delete();
 
         return to_route('staff.bots.index')
-            ->with('success', 'The Humans Vs Machines War has begun! Humans: 1 and Bots: 0');
+            ->with('success', __('application-messages.flash.bot-war-started'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ChatBotController extends Controller
         ]);
 
         return to_route('staff.bots.index')
-            ->with('success', 'The bot has been disabled');
+            ->with('success', __('application-messages.flash.bot-disabled'));
     }
 
     /**
@@ -97,6 +97,6 @@ class ChatBotController extends Controller
         ]);
 
         return to_route('staff.bots.index')
-            ->with('success', 'The bot has been enabled');
+            ->with('success', __('application-messages.flash.bot-enabled'));
     }
 }

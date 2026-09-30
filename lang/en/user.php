@@ -459,4 +459,8 @@ return [
     'warnings'    => 'Warnings',
     'warning-log' => 'Warning log',
     'wishlist'    => 'Wishlist',
+    'actual-upload' => 'Actual uploaded data',
+    'actual-download' => 'Actual downloaded data',
+    'gifts' => 'Gifts',
+    'tips' => 'Tips',
 ];

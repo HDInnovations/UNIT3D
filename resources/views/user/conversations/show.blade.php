@@ -45,7 +45,7 @@
         <h2 class="panel__heading">{{ __('pm.reply') }}</h2>
         <div class="panel__body">
             @if ($conversation->users->contains(fn ($user) => $user->id === \App\Models\User::SYSTEM_USER_ID))
-                You can not reply to the system user.
+                {{ __('member-interface.account.cannot-reply-system-user') }}
             @else
                 <form
                     method="POST"

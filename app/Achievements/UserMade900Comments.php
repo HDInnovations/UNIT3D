@@ -16,23 +16,16 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserMade900Comments extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.made900-comments';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = '900Comments';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'DAMN BRO! You have made 900 comments!';
 
     /**
      * The amount of "points" this user need to obtain in order to complete this achievement.

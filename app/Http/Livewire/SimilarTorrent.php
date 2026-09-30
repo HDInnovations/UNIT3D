@@ -400,7 +400,7 @@ class SimilarTorrent extends Component
     final public function alertConfirm(): void
     {
         if (!auth()->user()->group->is_modo) {
-            $this->dispatch('error', type: 'error', message: 'Permission denied!');
+            $this->dispatch('error', type: 'error', message: __('application-messages.flash.permission-denied'));
 
             return;
         }
@@ -410,8 +410,8 @@ class SimilarTorrent extends Component
         $this->dispatch(
             'swal:confirm',
             type: 'warning',
-            message: 'Are you sure?',
-            body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
+            message: __('application-messages.flash.are-you-sure'),
+            body: __('application-messages.flash.cannot-recover-files').nl2br("\n")
                         .nl2br(implode("\n", $names)),
         );
     }
@@ -419,7 +419,7 @@ class SimilarTorrent extends Component
     final public function deleteRecords(): void
     {
         if (!auth()->user()->group->is_modo) {
-            $this->dispatch('error', type: 'error', message: 'Permission denied!');
+            $this->dispatch('error', type: 'error', message: __('application-messages.flash.permission-denied'));
 
             return;
         }
@@ -484,8 +484,8 @@ class SimilarTorrent extends Component
         $this->dispatch(
             'swal:modal',
             type: 'success',
-            message: 'Torrents deleted successfully!',
-            text: 'A personal message has been sent to all users that have downloaded these torrents.',
+            message: __('application-messages.flash.torrents-deleted'),
+            text: __('application-messages.flash.torrents-deleted-message-sent'),
         );
     }
 

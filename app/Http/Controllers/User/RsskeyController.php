@@ -50,7 +50,7 @@ class RsskeyController extends Controller
         });
 
         return to_route('users.rsskeys.index', ['user' => $user])
-            ->with('success', 'Your RSS key was changed successfully.');
+            ->with('success', __('application-messages.flash.rsskey-changed'));
     }
 
     /**

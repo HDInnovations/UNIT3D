@@ -30,8 +30,8 @@
                     <tr>
                         <th>#</th>
                         <th>{{ __('common.user') }}</th>
-                        <th>{{ __('common.upload') }}</th>
-                        <th>{{ __('common.download') }}</th>
+                        <th>{{ __('common.uploaded') }}</th>
+                        <th>{{ __('common.downloaded') }}</th>
                         <th>{{ __('common.ratio') }}</th>
                     </tr>
                 </thead>

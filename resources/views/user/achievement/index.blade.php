@@ -28,6 +28,9 @@
         <section class="panelV2 achievements__unlocked">
             <h2 class="panel__heading">{{ __('user.unlocked-achievements') }}</h2>
             @foreach ($achievements->load('details') as $achievement)
+                @php
+                    $achievementDescription = \App\Achievements\Achievement::descriptionFor($achievement->details);
+                @endphp
                 <article
                     class="achievement"
                     title="{{ $achievement->points }}/{{ $achievement->details->points }}"
@@ -35,11 +38,11 @@
                     <figure class="achievement__badge">
                         <img
                             src="/img/badges/{{ $achievement->details->name }}.png"
-                            alt="{{ $achievement->details->name }}"
-                            title="{{ $achievement->details->name }}"
+                            alt="{{ $achievementDescription }}"
+                            title="{{ $achievementDescription }}"
                         />
                         <figcaption class="achievement__description">
-                            {{ $achievement->details->description }}
+                            {{ $achievementDescription }}
                         </figcaption>
                     </figure>
                     <progress
@@ -53,6 +56,9 @@
         <section class="panelV2 achievements__pending">
             <h2 class="panel__heading">{{ __('user.pending-achievements') }}</h2>
             @foreach ($pending->load('details') as $achievement)
+                @php
+                    $achievementDescription = \App\Achievements\Achievement::descriptionFor($achievement->details);
+                @endphp
                 <article
                     class="achievement"
                     title="{{ $achievement->points }}/{{ $achievement->details->points }}"
@@ -60,11 +66,11 @@
                     <figure class="achievement__badge">
                         <img
                             src="/img/badges/{{ $achievement->details->name }}.png"
-                            alt="{{ $achievement->details->name }}"
-                            title="{{ $achievement->details->name }}"
+                            alt="{{ $achievementDescription }}"
+                            title="{{ $achievementDescription }}"
                         />
                         <figcaption class="achievement__description">
-                            {{ $achievement->details->description }}
+                            {{ $achievementDescription }}
                         </figcaption>
                     </figure>
                     <progress

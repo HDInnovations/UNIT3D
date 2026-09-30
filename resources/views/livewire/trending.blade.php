@@ -17,17 +17,19 @@
                         name="interval"
                         wire:model.live="interval"
                     >
-                        <option value="day">Past day</option>
-                        <option value="week">Past week</option>
-                        <option value="month">Past month</option>
-                        <option value="year">Past year</option>
-                        <option value="all">All-time</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="release_year">Release year</option>
-                        <option value="custom">Custom</option>
+                        <option value="day">{{ __('livewire-interface.past-day') }}</option>
+                        <option value="week">{{ __('livewire-interface.past-week') }}</option>
+                        <option value="month">{{ __('livewire-interface.past-month') }}</option>
+                        <option value="year">{{ __('livewire-interface.past-year') }}</option>
+                        <option value="all">{{ __('livewire-interface.all-time') }}</option>
+                        <option value="weekly">{{ __('livewire-interface.weekly') }}</option>
+                        <option value="monthly">{{ __('livewire-interface.monthly') }}</option>
+                        <option value="release_year">{{ __('livewire-interface.release-year') }}</option>
+                        <option value="custom">{{ __('livewire-interface.custom') }}</option>
                     </select>
-                    <label class="form__label form__label--floating" for="interval">Interval</label>
+                    <label class="form__label form__label--floating" for="interval">
+                        {{ __('livewire-interface.interval') }}
+                    </label>
                 </div>
             </div>
             @if ($this->interval === 'custom')
@@ -40,7 +42,9 @@
                             type="date"
                             wire:model.live="from"
                         />
-                        <label class="form__label form__label--floating" for="from">From</label>
+                        <label class="form__label form__label--floating" for="from">
+                            {{ __('livewire-interface.from') }}
+                        </label>
                     </div>
                 </div>
                 <div class="panel__action">
@@ -52,7 +56,9 @@
                             type="date"
                             wire:model.live="until"
                         />
-                        <label class="form__label form__label--floating" for="until">Until</label>
+                        <label class="form__label form__label--floating" for="until">
+                            {{ __('livewire-interface.until') }}
+                        </label>
                     </div>
                 </div>
             @endif
@@ -69,20 +75,22 @@
                             <option value="{{ $type }}">{{ $name }}</option>
                         @endforeach
                     </select>
-                    <label class="form__label form__label--floating" for="metaType">Category</label>
+                    <label class="form__label form__label--floating" for="metaType">
+                        {{ __('torrent.category') }}
+                    </label>
                 </div>
             </div>
         </div>
     </header>
     @if ($this->interval === 'weekly')
         <div class="data-table-wrapper">
-            <div wire:loading.delay class="panel__body">Computing...</div>
+            <div wire:loading.delay class="panel__body">{{ __('livewire-interface.computing') }}</div>
 
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Week</th>
-                        <th>Rankings</th>
+                        <th>{{ __('livewire-interface.week') }}</th>
+                        <th>{{ __('livewire-interface.rankings') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,13 +136,13 @@
         </div>
     @elseif ($this->interval === 'monthly')
         <div class="data-table-wrapper">
-            <div wire:loading.delay class="panel__body">Computing...</div>
+            <div wire:loading.delay class="panel__body">{{ __('livewire-interface.computing') }}</div>
 
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Month</th>
-                        <th>Rankings</th>
+                        <th>{{ __('common.month') }}</th>
+                        <th>{{ __('livewire-interface.rankings') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -180,13 +188,13 @@
         </div>
     @elseif ($this->interval === 'release_year')
         <div class="data-table-wrapper">
-            <div wire:loading.delay class="panel__body">Computing...</div>
+            <div wire:loading.delay class="panel__body">{{ __('livewire-interface.computing') }}</div>
 
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Year</th>
-                        <th>Rankings</th>
+                        <th>{{ __('common.year') }}</th>
+                        <th>{{ __('livewire-interface.rankings') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -230,7 +238,7 @@
         </div>
     @else
         <div class="panel__body torrent-search--poster__results">
-            <div wire:loading.delay>Computing...</div>
+            <div wire:loading.delay>{{ __('livewire-interface.computing') }}</div>
 
             @switch($this->metaType)
                 @case('movie_meta')

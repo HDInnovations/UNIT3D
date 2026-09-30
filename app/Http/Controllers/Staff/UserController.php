@@ -84,7 +84,7 @@ class UserController extends Controller
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Account was updated successfully!');
+            ->with('success', __('application-messages.flash.account-updated-staff'));
     }
 
     /**
@@ -107,7 +107,7 @@ class UserController extends Controller
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.show', ['user' => $user])
-            ->with('success', 'Account permissions successfully edited');
+            ->with('success', __('application-messages.flash.account-permissions-edited'));
     }
 
     /**
@@ -171,7 +171,7 @@ class UserController extends Controller
             Unit3dAnnounce::removeUser($user);
 
             return to_route('staff.dashboard.index')
-                ->with('success', 'Account has been removed');
+                ->with('success', __('application-messages.flash.account-removed'));
         }
 
         return to_route('staff.dashboard.index')

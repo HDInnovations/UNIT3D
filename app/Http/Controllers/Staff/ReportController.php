@@ -80,6 +80,6 @@ class ReportController extends Controller
         ]);
 
         return to_route('staff.reports.index')
-            ->with('success', 'Report has been successfully resolved');
+            ->with('success', __('application-messages.flash.report-resolved'));
     }
 }

@@ -98,7 +98,7 @@ class ConversationSearch extends Component
     {
         $conversation->participants()->whereBelongsTo(auth()->user())->delete();
 
-        $this->dispatch('success', type: 'success', message: 'Conversation deleted');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.conversation-deleted'));
     }
 
     /**
@@ -110,7 +110,7 @@ class ConversationSearch extends Component
             'read' => true,
         ]);
 
-        $this->dispatch('success', type: 'success', message: 'Conversation marked read');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.conversation-marked-read'));
     }
 
     /**
@@ -122,7 +122,7 @@ class ConversationSearch extends Component
             'read' => false,
         ]);
 
-        $this->dispatch('success', type: 'success', message: 'Conversation marked unread');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.conversation-marked-unread'));
     }
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

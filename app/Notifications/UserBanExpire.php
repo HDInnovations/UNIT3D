@@ -47,8 +47,9 @@ class UserBanExpire extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('You have been unbanned 🤩')
-            ->line('You have been unbanned from '.config('other.title'))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.user-ban-expire-greeting'))
+            ->greeting(__('application-messages.notification.user-ban-expire-greeting'))
+            ->line(__('application-messages.notification.user-ban-expire-line', ['site' => config('other.title')]))
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 }

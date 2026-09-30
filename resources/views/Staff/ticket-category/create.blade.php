@@ -20,11 +20,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('staff.ticket-category') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('staff-interface.add-ticket-category-heading') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.ticket_categories.store') }}">
                 @csrf

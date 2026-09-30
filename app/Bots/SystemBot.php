@@ -87,7 +87,7 @@ class SystemBot
             $recipient = User::where('username', 'LIKE', $receiver)->first();
 
             if (!$recipient || $recipient->id === $this->target->id) {
-                return 'Your BON gift could not be sent.';
+                return trans('application-messages.bot.gift-failed', [], config('app.locale'));
             }
 
             $amount = (float) $amount;
@@ -110,13 +110,19 @@ class SystemBot
             $recipientUrl = href_profile($recipient);
 
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $amount, $recipientUrl, $recipient->username)
+                trans('application-messages.bot.gift-broadcast', [
+                    'senderUrl'    => $profileUrl,
+                    'sender'       => $this->target->username,
+                    'amount'       => $amount,
+                    'recipientUrl' => $recipientUrl,
+                    'recipient'    => $recipient->username,
+                ], config('app.locale'))
             );
 
-            return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';
+            return trans('application-messages.bot.gift-sent', ['recipient' => $recipient->username, 'amount' => $amount], config('app.locale'));
         }
 
-        return 'Your BON gift could not be sent.';
+        return trans('application-messages.bot.gift-failed', [], config('app.locale'));
     }
 
     /**
@@ -144,7 +150,7 @@ class SystemBot
 
                 break;
             default:
-                $this->log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
+                $this->log = trans('application-messages.bot.command-usage', ['bot' => $this->bot->name, 'command' => $this->bot->command], config('app.locale'));
         }
 
         $this->type = $type;

@@ -11,7 +11,7 @@
                     x-data="description"
                     x-on:click.stop="copy"
                 >
-                    Copy
+                    {{ __('media-interface.torrent.clipboard-copy-action') }}
                 </button>
             </div>
         </div>
@@ -34,7 +34,7 @@
                         showConfirmButton: false,
                         timer: 3000,
                         icon: 'success',
-                        title: 'Copied to clipboard!',
+                        title: @js(__('media-interface.torrent.clipboard-copied-message')),
                     });
                 },
             }));

@@ -1,7 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Leakers - {{ config('other.title') }}</title>
+    <title>{{ __('staff-interface.leakers') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -10,7 +10,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Leakers</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.leakers') }}</li>
 @endsection
 
 @section('page', 'page__staff-leaker--index')

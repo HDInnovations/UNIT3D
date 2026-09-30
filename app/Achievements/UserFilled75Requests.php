@@ -16,23 +16,16 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserFilled75Requests extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.filled75-requests';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = 'Filled75Requests';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'Woot! You have already filled 75 requests!';
 
     /**
      * The amount of "points" this user need to obtain in order to complete this achievement.

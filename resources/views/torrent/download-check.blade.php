@@ -153,7 +153,7 @@
                         class="form__button form__button--filled form__button--centered"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                        {{ __('common.download') }}
+                        {{ __('common.download-action') }}
                     </a>
                 </p>
             @endif

@@ -68,15 +68,12 @@
                         value="{{ $category->icon }}"
                     />
                     <label class="form__label form__label--floating" for="icon">
-                        {{ __('common.icon') }} (FontAwesome)
+                        {{ __('staff-interface.category-icon-hint') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <label for="image">
-                        {{ __('common.select') }}
-                        {{ trans_choice('common.a-an-art', false) }}
-                        {{ __('common.image') }}
-                        (If not using a FontAwesome icon)
+                        {{ __('staff-interface.category-image-hint') }}
                     </label>
                     <input id="file" class="form__file" type="file" name="image" />
                 </p>
@@ -87,26 +84,29 @@
                             value="movie"
                             @selected($category->movie_meta)
                         >
-                            Movie metadata
+                            {{ __('vltava.staff.movie_metadata') }}
                         </option>
                         <option class="form__option" value="tv" @selected($category->tv_meta)>
-                            TV metadata
+                            {{ __('vltava.staff.tv_metadata') }}
                         </option>
                         <option class="form__option" value="game" @selected($category->game_meta)>
-                            Game metadata
+                            {{ __('vltava.staff.game_metadata') }}
                         </option>
                         <option
                             class="form__option"
                             value="music"
                             @selected($category->music_meta)
                         >
-                            Music metadata
+                            {{ __('vltava.staff.music_metadata') }}
+                        </option>
+                        <option class="form__option" value="book" @selected($category->book_meta)>
+                            {{ __('staff-interface.category-book-metadata') }}
                         </option>
                         <option class="form__option" value="no" @selected($category->no_meta)>
-                            No metadata
+                            {{ __('vltava.staff.no_metadata') }}
                         </option>
                     </select>
-                    <label class="form__label form__label--floating" for="meta">Meta</label>
+                    <label class="form__label form__label--floating" for="meta">{{ __('staff-interface.category-meta-label') }}</label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

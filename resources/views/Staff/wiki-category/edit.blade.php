@@ -8,7 +8,7 @@
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">
-            Wiki categories
+            {{ __('staff-interface.wiki-categories') }}
         </a>
     </li>
     <li class="breadcrumbV2">
@@ -24,7 +24,9 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} wiki category: {{ $wikiCategory->name }}
+            {{ __('common.edit') }}
+            {{ __('staff-interface.wiki-category') }}:
+            {{ $wikiCategory->name }}
         </h2>
         <div class="panel__body">
             <form
@@ -70,7 +72,7 @@
                         value="{{ $wikiCategory->icon }}"
                     />
                     <label class="form__label form__label--floating" for="icon">
-                        {{ __('common.icon') }} (E.g. "fas fa-rocket")
+                        {{ __('common.icon') }} ({{ __('staff-interface.icon-example-hint') }})
                     </label>
                 </p>
                 <p class="form__group">

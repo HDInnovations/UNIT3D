@@ -69,7 +69,7 @@
                             "
                             x-bind:checked="state === 'include'"
                         />
-                        Visible
+                        {{ __('livewire-interface.visible') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -79,7 +79,7 @@
                             class="user-peers__checkbox"
                             wire:model.live="showMorePrecision"
                         />
-                        Show more precision
+                        {{ __('livewire-interface.show-more-precision') }}
                     </label>
                 </p>
             </form>
@@ -169,7 +169,7 @@
                         <th class="user-active__connectable-header">
                             <i
                                 class="{{ config('other.font-awesome') }} fa-wifi"
-                                title="Connectable"
+                                title="{{ __('livewire-interface.connectable') }}"
                             ></i>
                         </th>
                     @endif
@@ -178,7 +178,7 @@
                         class="user-active__visible-header"
                         wire:click="sortBy('visible')"
                         role="columnheader button"
-                        title="Visible"
+                        title="{{ __('livewire-interface.visible') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                         @include('livewire.includes._sort-icon', ['field' => 'visible'])
@@ -314,18 +314,18 @@
                                     @if ($connectable === null)
                                         <i
                                             class="{{ config('other.font-awesome') }} text-blue fa-question"
-                                            title="Unknown connectable status"
+                                            title="{{ __('livewire-interface.unknown-connectable-status') }}"
                                         ></i>
                                     @else
                                         @if ($connectable)
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-green fa-wifi"
-                                                title="Connectable"
+                                                title="{{ __('livewire-interface.connectable') }}"
                                             ></i>
                                         @else
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-red fa-wifi-slash"
-                                                title="Not connectable"
+                                                title="{{ __('livewire-interface.not-connectable') }}"
                                             ></i>
                                         @endif
                                     @endif
@@ -338,12 +338,12 @@
                                 @if ($active->visible)
                                     <i
                                         class="{{ config('other.font-awesome') }} text-green fa-eye"
-                                        title="Visible"
+                                        title="{{ __('livewire-interface.visible') }}"
                                     ></i>
                                 @else
                                     <i
                                         class="{{ config('other.font-awesome') }} text-red fa-eye-slash"
-                                        title="Invisible"
+                                        title="{{ __('livewire-interface.invisible') }}"
                                     ></i>
                                 @endif
                             </td>
@@ -361,7 +361,7 @@
                             </td>
                             <td
                                 class="user-active__progress"
-                                title="{{ __('torrent.progress') }}: {{ $active->progress * 100 }}%"
+                                title="{{ __('livewire-interface.progress-percent', ['percent' => $active->progress * 100]) }}"
                             >
                                 {{ $active->progress < 100 ? \floor($active->progress * 10000) / 100 : INF }}%
                             </td>
@@ -371,7 +371,7 @@
                                         datetime="{{ $active->created_at }}"
                                         title="{{ $active->created_at }}"
                                     >
-                                        {{ $active->created_at ?? 'N/A' }}
+                                        {{ $active->created_at ?? __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                                 <td class="user-active__updated-at">
@@ -379,7 +379,7 @@
                                         datetime="{{ $active->updated_at }}"
                                         title="{{ $active->updated_at }}"
                                     >
-                                        {{ $active->updated_at ?? 'N/A' }}
+                                        {{ $active->updated_at ?? __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                             @else
@@ -388,7 +388,7 @@
                                         datetime="{{ $active->created_at }}"
                                         title="{{ $active->created_at }}"
                                     >
-                                        {{ isset($active->created_at) ? \explode(' ', $active->created_at)[0] : 'N/A' }}
+                                        {{ isset($active->created_at) ? \explode(' ', $active->created_at)[0] : __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                                 <td class="user-active__updated-at">
@@ -396,7 +396,7 @@
                                         datetime="{{ $active->updated_at }}"
                                         title="{{ $active->updated_at }}"
                                     >
-                                        {{ isset($active->updated_at) ? \explode(' ', $active->updated_at)[0] : 'N/A' }}
+                                        {{ isset($active->updated_at) ? \explode(' ', $active->updated_at)[0] : __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                             @endif

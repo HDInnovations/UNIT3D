@@ -15,7 +15,7 @@
             {{ __('stat.groups') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.groups') }} requirements</li>
+    <li class="breadcrumb--active">{{ __('member-interface.stats.group-requirements') }}</li>
 @endsection
 
 @section('nav-tabs')
@@ -32,8 +32,8 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.group') }}</th>
-                        <th>Requirement</th>
-                        <th>Perks</th>
+                        <th>{{ __('member-interface.stats.requirement') }}</th>
+                        <th>{{ __('member-interface.stats.perks') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,13 +56,13 @@
                                         <thead>
                                             <tr>
                                                 <td></td>
-                                                <td>Requirement</td>
-                                                <td>To advance</td>
+                                                <td>{{ __('member-interface.stats.requirement') }}</td>
+                                                <td>{{ __('member-interface.stats.to-advance') }}</td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Min. Upload</td>
+                                                <td>{{ __('member-interface.stats.min-upload') }}</td>
                                                 <td>
                                                     {{ \App\Helpers\StringHelper::formatBytes($group->min_uploaded ?? 0) }}
                                                 </td>
@@ -81,7 +81,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Min. Ratio</td>
+                                                <td>{{ __('member-interface.stats.min-ratio') }}</td>
                                                 <td>{{ $group->min_ratio ?? 0 }}</td>
                                                 <td>
                                                     @if ($user->ratio >= $group->min_ratio ?? 0)
@@ -97,7 +97,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Min. account age</td>
+                                                <td>{{ __('member-interface.stats.min-account-age') }}</td>
                                                 <td>
                                                     @if ($group->min_age > 0)
                                                         {{ \App\Helpers\StringHelper::timeElapsed($group->min_age ?? 0) }}
@@ -120,7 +120,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Min. average seedtime</td>
+                                                <td>{{ __('member-interface.stats.min-average-seedtime') }}</td>
                                                 <td>
                                                     {{ \App\Helpers\StringHelper::timeElapsed($group->min_avg_seedtime ?? 0) }}
                                                 </td>
@@ -139,7 +139,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Min. Seedsize</td>
+                                                <td>{{ __('member-interface.stats.min-seedsize') }}</td>
                                                 <td>
                                                     {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
                                                 </td>
@@ -158,7 +158,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Min. Uploads</td>
+                                                <td>{{ __('member-interface.stats.min-uploads') }}</td>
                                                 <td>
                                                     {{ $group->min_uploads ?? 0 }}
                                                 </td>
@@ -190,7 +190,7 @@
                                                 <i
                                                     class="{{ config('other.font-awesome') }} fa-arrow-down-short-wide text-blue"
                                                 ></i>
-                                                DL slots: {{ $group->download_slots ?? '∞' }}
+                                                {{ __('member-interface.stats.download-slots-count', ['count' => $group->download_slots ?? '∞']) }}
                                             </td>
                                         </tr>
 
@@ -200,7 +200,7 @@
                                                     <i
                                                         class="{{ config('other.font-awesome') }} fa-upload text-success"
                                                     ></i>
-                                                    {{ __('common.upload') }}
+                                                    {{ __('common.upload-action') }}
                                                     {{ __('torrent.torrents') }}
                                                 </td>
                                             </tr>
@@ -254,7 +254,7 @@
                                                     <i
                                                         class="{{ config('other.font-awesome') }} fa-syringe"
                                                     ></i>
-                                                    Immune to automated HnR warnings
+                                                    {{ __('member-interface.stats.immune-to-hnr') }}
                                                 </td>
                                             </tr>
                                         @endif
@@ -263,7 +263,7 @@
                                             <tr>
                                                 <td>
                                                     <i class="fas fa-tasks"></i>
-                                                    {{ __('staff.torrent-moderation') }} bypass
+                                                    {{ __('member-interface.stats.moderation-bypass') }}
                                                 </td>
                                             </tr>
                                         @endif

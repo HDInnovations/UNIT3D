@@ -7,7 +7,9 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">Wikis</a>
+        <a href="{{ route('staff.wiki_categories.index') }}" class="breadcrumb__link">
+            {{ __('staff-interface.wikis') }}
+        </a>
     </li>
     <li class="breadcrumbV2">
         {{ $wiki->name }}
@@ -21,7 +23,11 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('common.edit') }} wiki: {{ $wiki->name }}</h2>
+        <h2 class="panel__heading">
+            {{ __('common.edit') }}
+            {{ __('staff-interface.wiki') }}:
+            {{ $wiki->name }}
+        </h2>
         <div class="panel__body">
             <form
                 class="form"
@@ -46,7 +52,7 @@
                 <p class="form__group">
                     <select id="category_id" name="category_id" class="form__select">
                         <option value="{{ $wiki->category_id }}" selected>
-                            {{ $wiki->category->name }} (Current)
+                            {{ $wiki->category->name }} ({{ __('staff-interface.current-suffix') }})
                         </option>
                         @foreach ($wikiCategories as $wikiCategory)
                             <option value="{{ $wikiCategory->id }}">

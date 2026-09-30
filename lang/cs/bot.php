@@ -21,5 +21,5 @@ return [
     'help' => 'Pomoc',
     'icon' => 'Ikona',
     'info' => 'Informace',
-    'name' => 'název',
+    'name' => 'Název',
 ];

@@ -15,8 +15,8 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Client name</th>
-                        <th>Reason</th>
+                        <th>{{ __('page.blacklist-btclient') }}</th>
+                        <th>{{ __('common.reason') }}</th>
                     </tr>
                 </thead>
                 @foreach ($clients as $client)

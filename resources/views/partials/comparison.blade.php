@@ -5,7 +5,7 @@
                 {{ $comparate }}:
             @else
                 {{ $comparate }}
-                <span class="comparison__divider">vs</span>
+                <span class="comparison__divider">{{ __('interface.versus') }}</span>
             @endif
         @endforeach
 
@@ -17,7 +17,7 @@
             "
             x-on:keydown.escape.window="show = false"
         >
-            Show
+            {{ __('interface.show') }}
         </button>
     </div>
     <ul

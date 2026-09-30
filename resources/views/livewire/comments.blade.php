@@ -20,7 +20,7 @@
                         <strong>{{ __('common.error') }}:</strong>
                     @enderror
 
-                    Add a comment...
+                    {{ __('livewire-interface.add-a-comment') }}
                 </label>
                 @error('newCommentState')
                     <span class="form__hint" id="new-comment__textarea-hint">{{ $message }}</span>
@@ -31,7 +31,9 @@
                 <label for="anon" class="form__label">{{ __('common.anonymous') }}?</label>
             </p>
             <p class="form__group" x-show="isToggledOn" x-cloak>
-                <button type="submit" class="form__button form__button--filled">Comment</button>
+                <button type="submit" class="form__button form__button--filled">
+                    {{ __('livewire-interface.comment') }}
+                </button>
                 <button
                     type="reset"
                     class="form__button form__button--text"
@@ -53,8 +55,8 @@
         </ol>
         @if ($comments->hasMorePages())
             <div class="text-center">
-                <button class="form__button form__button--filled" wire:click.prevent="loadMore">
-                    Load more comments
+                    <button class="form__button form__button--filled" wire:click.prevent="loadMore">
+                    {{ __('livewire-interface.load-more-comments') }}
                 </button>
             </div>
         @endif

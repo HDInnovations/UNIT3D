@@ -199,14 +199,14 @@ class Bbcode
             'alert' => [
                 'openBbcode'  => '/^\[alert\]/i',
                 'closeBbcode' => '[/alert]',
-                'openHtml'    => '<div class="bbcode-rendered__alert">',
+                'openHtml'    => '<div class="bbcode-rendered__alert" data-label="'.e(__('application-messages.bbcode.alert-label')).'">',
                 'closeHtml'   => '</div>',
                 'block'       => true,
             ],
             'note' => [
                 'openBbcode'  => '/^\[note\]/i',
                 'closeBbcode' => '[/note]',
-                'openHtml'    => '<div class="bbcode-rendered__note">',
+                'openHtml'    => '<div class="bbcode-rendered__note" data-label="'.e(__('application-messages.bbcode.note-label')).'">',
                 'closeHtml'   => '</div>',
                 'block'       => true,
             ],

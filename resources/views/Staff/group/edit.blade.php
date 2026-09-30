@@ -23,7 +23,9 @@
 
 @section('main')
     <section class="panelV2" x-data="{ autogroup: {{ Js::from($group->autogroup) }} }">
-        <h2 class="panel__heading">Edit group: {{ $group->name }}</h2>
+        <h2 class="panel__heading">
+            {{ __('staff-interface.group-heading-edit', ['name' => $group->name]) }}
+        </h2>
         <div class="panel__body">
             <form
                 class="form"
@@ -80,7 +82,9 @@
                         placeholder=" "
                         value="{{ $group->level }}"
                     />
-                    <label class="form__label form__label--floating" for="level">Level</label>
+                    <label class="form__label form__label--floating" for="level">
+                        {{ __('staff-interface.group-level') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -92,7 +96,7 @@
                         value="{{ $group->download_slots }}"
                     />
                     <label class="form__label form__label--floating" for="download_slots">
-                        DL slots
+                        {{ __('staff-interface.group-dl-slots') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -105,7 +109,7 @@
                         value="{{ $group->color }}"
                     />
                     <label class="form__label form__label--floating" for="color">
-                        Color (e.g. #ff0000)
+                        {{ __('staff-interface.group-color-hint') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -118,7 +122,7 @@
                         value="{{ $group->icon }}"
                     />
                     <label class="form__label form__label--floating" for="icon">
-                        FontAwesome icon (e.g. fas fa-user)
+                        {{ __('staff-interface.group-icon-hint') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -127,11 +131,11 @@
                         class="form__text"
                         type="text"
                         name="group[effect]"
-                        placeholder="GIF effect"
+                        placeholder="{{ __('staff-interface.group-effect-placeholder') }}"
                         value="{{ $group->effect }}"
                     />
                     <label class="form__label form__label--floating" for="effect">
-                        Effect (e.g. url(/img/sparkels.gif))
+                        {{ __('staff-interface.group-effect-hint') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -144,7 +148,9 @@
                         value="1"
                         @checked($group->is_uploader)
                     />
-                    <label class="form__label" for="is_uploader">Uploader</label>
+                    <label class="form__label" for="is_uploader">
+                        {{ __('staff-interface.group-uploader') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_internal]" type="hidden" value="0" />
@@ -156,7 +162,7 @@
                         value="1"
                         @checked($group->is_internal)
                     />
-                    <label class="form__label" for="is_internal">Internal</label>
+                    <label class="form__label" for="is_internal">{{ __('common.internal') }}</label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_editor]" type="hidden" value="0" />
@@ -168,7 +174,9 @@
                         value="1"
                         @checked($group->is_editor)
                     />
-                    <label class="form__label" for="is_editor">Editor</label>
+                    <label class="form__label" for="is_editor">
+                        {{ __('staff-interface.group-editor') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_torrent_modo]" type="hidden" value="0" />
@@ -180,7 +188,9 @@
                         value="1"
                         @checked($group->is_torrent_modo)
                     />
-                    <label class="form__label" for="is_torrent_modo">Torrent modo</label>
+                    <label class="form__label" for="is_torrent_modo">
+                        {{ __('staff-interface.group-torrent-modo') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_modo]" type="hidden" value="0" />
@@ -192,7 +202,9 @@
                         value="1"
                         @checked($group->is_modo)
                     />
-                    <label class="form__label" for="is_modo">Modo</label>
+                    <label class="form__label" for="is_modo">
+                        {{ __('staff-interface.group-modo') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_admin]" type="hidden" value="0" />
@@ -204,7 +216,9 @@
                         value="1"
                         @checked($group->is_admin)
                     />
-                    <label class="form__label" for="is_admin">Admin</label>
+                    <label class="form__label" for="is_admin">
+                        {{ __('staff-interface.group-admin') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_owner]" type="hidden" value="0" />
@@ -216,7 +230,9 @@
                         value="1"
                         @checked($group->is_owner)
                     />
-                    <label class="form__label" for="is_owner">Owner</label>
+                    <label class="form__label" for="is_owner">
+                        {{ __('staff-interface.group-owner') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_trusted]" type="hidden" value="0" />
@@ -228,7 +244,9 @@
                         value="1"
                         @checked($group->is_trusted)
                     />
-                    <label class="form__label" for="is_trusted">Trusted</label>
+                    <label class="form__label" for="is_trusted">
+                        {{ __('staff-interface.group-trusted') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_immune]" type="hidden" value="0" />
@@ -240,7 +258,9 @@
                         value="1"
                         @checked($group->is_immune)
                     />
-                    <label class="form__label" for="is_immune">Immune</label>
+                    <label class="form__label" for="is_immune">
+                        {{ __('staff-interface.group-immune') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_freeleech]" type="hidden" value="0" />
@@ -252,7 +272,9 @@
                         value="1"
                         @checked($group->is_freeleech)
                     />
-                    <label class="form__label" for="is_freeleech">Freeleech</label>
+                    <label class="form__label" for="is_freeleech">
+                        {{ __('torrent.freeleech') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_double_upload]" type="hidden" value="0" />
@@ -264,7 +286,9 @@
                         value="1"
                         @checked($group->is_double_upload)
                     />
-                    <label class="form__label" for="is_double_upload">Double upload</label>
+                    <label class="form__label" for="is_double_upload">
+                        {{ __('torrent.double-upload') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_refundable]" type="hidden" value="0" />
@@ -276,7 +300,9 @@
                         value="1"
                         @checked($group->is_refundable)
                     />
-                    <label class="form__label" for="is_refundable">Refundable download</label>
+                    <label class="form__label" for="is_refundable">
+                        {{ __('staff-interface.group-refundable-download') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[is_incognito]" type="hidden" value="0" />
@@ -288,7 +314,9 @@
                         value="1"
                         @checked($group->is_incognito)
                     />
-                    <label class="form__label" for="is_incognito">Incognito</label>
+                    <label class="form__label" for="is_incognito">
+                        {{ __('staff-interface.group-incognito') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[can_chat]" type="hidden" value="0" />
@@ -300,7 +328,7 @@
                         value="1"
                         @checked($group->can_chat)
                     />
-                    <label class="form__label" for="can_chat">Chat</label>
+                    <label class="form__label" for="can_chat">{{ __('common.chat') }}</label>
                 </p>
                 <p class="form__group">
                     <input name="group[can_comment]" type="hidden" value="0" />
@@ -312,7 +340,9 @@
                         value="1"
                         @checked($group->can_comment)
                     />
-                    <label class="form__label" for="can_comment">Comment</label>
+                    <label class="form__label" for="can_comment">
+                        {{ __('common.comment') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[can_invite]" type="hidden" value="0" />
@@ -324,7 +354,9 @@
                         value="1"
                         @checked($group->can_invite)
                     />
-                    <label class="form__label" for="can_invite">Invite</label>
+                    <label class="form__label" for="can_invite">
+                        {{ __('staff-interface.group-invite') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[can_request]" type="hidden" value="0" />
@@ -336,7 +368,9 @@
                         value="1"
                         @checked($group->can_request)
                     />
-                    <label class="form__label" for="can_request">Request</label>
+                    <label class="form__label" for="can_request">
+                        {{ __('staff-interface.group-request') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[can_upload]" type="hidden" value="0" />
@@ -348,7 +382,9 @@
                         value="1"
                         @checked($group->can_upload)
                     />
-                    <label class="form__label" for="can_upload">Upload</label>
+                    <label class="form__label" for="can_upload">
+                        {{ __('staff-interface.group-can-upload') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input name="group[autogroup]" type="hidden" value="0" />
@@ -361,11 +397,15 @@
                         x-model="autogroup"
                         @checked($group->autogroup)
                     />
-                    <label class="form__label" for="autogroup">Autogroup</label>
+                    <label class="form__label" for="autogroup">
+                        {{ __('staff-interface.group-autogroup') }}
+                    </label>
                 </p>
                 <div class="form__group" x-show="autogroup">
                     <fieldset class="form form__fieldset">
-                        <legend class="form__legend">Autogroup requirements</legend>
+                        <legend class="form__legend">
+                            {{ __('staff-interface.group-autogroup-requirements') }}
+                        </legend>
                         <p class="form__group">
                             <input
                                 id="min_uploaded"
@@ -376,7 +416,7 @@
                                 value="{{ $group->min_uploaded }}"
                             />
                             <label class="form__label form__label--floating" for="min_uploaded">
-                                Minimum upload
+                                {{ __('staff-interface.group-min-uploaded') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -389,7 +429,7 @@
                                 value="{{ $group->min_ratio }}"
                             />
                             <label class="form__label form__label--floating" for="min_ratio">
-                                Minimum ratio
+                                {{ __('staff-interface.group-min-ratio') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -402,7 +442,7 @@
                                 value="{{ $group->min_age }}"
                             />
                             <label class="form__label form__label--floating" for="min_age">
-                                Minimum age
+                                {{ __('staff-interface.group-min-age') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -415,7 +455,7 @@
                                 value="{{ $group->min_avg_seedtime }}"
                             />
                             <label class="form__label form__label--floating" for="min_avg_seedtime">
-                                Minimum average seedtime
+                                {{ __('staff-interface.group-min-avg-seedtime') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -428,7 +468,7 @@
                                 value="{{ $group->min_seedsize }}"
                             />
                             <label class="form__label form__label--floating" for="min_seedsize">
-                                Minimum seedsize
+                                {{ __('staff-interface.group-min-seedsize') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -441,13 +481,13 @@
                                 value="{{ $group->min_uploads }}"
                             />
                             <label class="form__label form__label--floating" for="min_uploads">
-                                Minimum uploads
+                                {{ __('staff-interface.group-min-uploads') }}
                             </label>
                         </p>
                     </fieldset>
                 </div>
                 <div class="form__group">
-                    <label class="form__label">Permissions</label>
+                    <label class="form__label">{{ __('staff-interface.permissions') }}</label>
                     <div class="data-table-wrapper">
                         <table
                             class="data-table data-table--checkbox-grid"
@@ -455,11 +495,19 @@
                         >
                             <thead>
                                 <tr>
-                                    <th x-bind="columnHeader">Forum category</th>
-                                    <th x-bind="columnHeader">Forum</th>
-                                    <th x-bind="columnHeader">Read topics</th>
-                                    <th x-bind="columnHeader">Start new topic</th>
-                                    <th x-bind="columnHeader">Reply to topics</th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.forum-category') }}
+                                    </th>
+                                    <th x-bind="columnHeader">{{ __('common.forum') }}</th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.read-topics') }}
+                                    </th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.start-new-topic') }}
+                                    </th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.reply-to-topics') }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody x-ref="tbody">

@@ -23,6 +23,9 @@ use App\Models\User;
 use App\Observers\UserObserver;
 use App\View\Composers\FooterComposer;
 use App\View\Composers\TopNavComposer;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Foundation\Http\Middleware\TrimStrings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,6 +70,20 @@ class AppServiceProvider extends ServiceProvider
         // Linkify
         Blade::directive('linkify', fn (?string $contentString) => "<?php echo (new \App\Helpers\Linkify)->linky(e({$contentString})); ?>");
 
+        // Timestamps stay in UTC; everything echoed in Blade is shown in the display timezone.
+        // Returns a converted copy, so the model attribute (and what gets saved) is never touched.
+        foreach ([Carbon::class, CarbonImmutable::class] as $carbonClass) {
+            $carbonClass::macro('toDisplayTimezone', function (): CarbonInterface {
+                /** @var CarbonInterface $this */
+                return $this->copy()->setTimezone(config('app.display_timezone'));
+            });
+        }
+
+        // Blade matches echo handlers by exact class, so register every Carbon class in use.
+        foreach ([Carbon::class, CarbonImmutable::class, \Illuminate\Support\Carbon::class, \Illuminate\Support\CarbonImmutable::class] as $carbonClass) {
+            Blade::stringable($carbonClass, fn (CarbonInterface $date): string => $date->copy()->setTimezone(config('app.display_timezone'))->toDateTimeString());
+        }
+
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
             function ($attribute, $value, $parameters, $validator) {
@@ -74,7 +91,7 @@ class AppServiceProvider extends ServiceProvider
                 $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
 
                 if (!HiddenCaptcha::check($validator, $minLimit, $maxLimit)) {
-                    $validator->setCustomMessages(['hiddencaptcha' => 'Captcha error']);
+                    $validator->setCustomMessages(['hiddencaptcha' => __('validation.hiddencaptcha')]);
 
                     return false;
                 }

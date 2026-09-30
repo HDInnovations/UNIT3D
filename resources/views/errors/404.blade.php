@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
-@section('title', 'Error 404: Page not found')
+@section('title', __('interface.error-404-title'))
 
-@section('description', $exception->getMessage() ?: 'The requested page cannot be found! Not sure what you\'re looking for but check the address and try again!')
+@section('description', $exception->getMessage() ?: __('interface.error-404-description'))

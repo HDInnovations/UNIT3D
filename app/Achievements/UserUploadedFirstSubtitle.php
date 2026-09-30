@@ -16,23 +16,16 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserUploadedFirstSubtitle extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.uploaded-first-subtitle';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = 'UserUploadedFirstSubtitle';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'Congratulations! You have made your first subtitle upload!';
 
     //    /**
     //     * A small description for the award.

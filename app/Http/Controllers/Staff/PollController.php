@@ -74,11 +74,11 @@ class PollController extends Controller
         $poll->options()->upsert($request->validated('options'), ['id'], []);
 
         $this->chatRepository->systemMessage(
-            \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
+            trans('application-messages.bot.poll-created', ['url' => href_poll($poll), 'title' => $poll->title], config('app.locale'))
         );
 
         return to_route('staff.polls.index')
-            ->with('success', 'Your poll has been created.');
+            ->with('success', __('application-messages.flash.poll-created'));
     }
 
     /**
@@ -107,11 +107,11 @@ class PollController extends Controller
         $poll->options()->upsert($request->validated('options'), ['id'], ['name']);
 
         $this->chatRepository->systemMessage(
-            \sprintf('A poll has been updated [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
+            trans('application-messages.bot.poll-updated', ['url' => href_poll($poll), 'title' => $poll->title], config('app.locale'))
         );
 
         return to_route('staff.polls.index')
-            ->with('success', 'Your poll has been edited.');
+            ->with('success', __('application-messages.flash.poll-edited'));
     }
 
     /**
@@ -125,6 +125,6 @@ class PollController extends Controller
         $poll->delete();
 
         return to_route('staff.polls.index')
-            ->with('success', 'Poll has successfully been deleted');
+            ->with('success', __('application-messages.flash.poll-deleted'));
     }
 }

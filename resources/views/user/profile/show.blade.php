@@ -29,7 +29,7 @@
     @section('main')
         <section class="panelV2">
             <header class="panel__header">
-                <h2 class="panel__heading">{{ __('user.user') }} {{ __('user.information') }}</h2>
+                <h2 class="panel__heading">{{ __('member-interface.profile.user-information') }}</h2>
                 <div class="panel__actions">
                     @if (auth()->user()->is($user))
                         <div class="panel__action">
@@ -59,7 +59,7 @@
                                 @method('DELETE')
                                 <button
                                     x-on:click.prevent="confirmAction"
-                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this user and all their associated records: ' . $user->username . '?') }}"
+                                    data-b64-deletion-message="{{ base64_encode(__('member-interface.profile.confirm-delete-user', ['username' => $user->username])) }}"
                                     class="form__button form__button--text"
                                 >
                                     {{ __('common.delete') }}
@@ -70,10 +70,12 @@
                     @if (auth()->id() !== $user->id)
                         <div class="panel__action" x-data="dialog">
                             <button class="form__button form__button--text" x-bind="showDialog">
-                                Report
+                                {{ __('common.report') }}
                             </button>
                             <dialog class="dialog" x-bind="dialogElement">
-                                <h3 class="dialog__heading">Report user: {{ $user->username }}</h3>
+                                <h3 class="dialog__heading">
+                                    {{ __('member-interface.profile.report-user-heading', ['username' => $user->username]) }}
+                                </h3>
                                 <form
                                     class="dialog__form"
                                     method="POST"
@@ -92,7 +94,7 @@
                                             class="form__label form__label--floating"
                                             for="report_reason"
                                         >
-                                            Reason
+                                            {{ __('common.reason') }}
                                         </label>
                                     </p>
                                     <p class="form__group">
@@ -150,7 +152,7 @@
                         class="profile__registration"
                     >
                         {{ __('user.registration-date') }}:
-                        {{ $user->created_at?->format('Y-m-d') ?? 'N/A' }}
+                        {{ $user->created_at?->toDisplayTimezone()->format('Y-m-d') ?? 'N/A' }}
                     </time>
                     <img
                         src="{{ $user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $user]) }}"
@@ -177,14 +179,17 @@
                 <h2 class="panel__heading">{{ __('user.recent-achievements') }}</h2>
                 <div class="panel__body">
                     @forelse ($achievements->take(25) as $achievement)
+                        @php
+                            $achievementDescription = \App\Achievements\Achievement::descriptionFor($achievement->details);
+                        @endphp
                         <img
                             src="/img/badges/{{ $achievement->details->name }}.png"
-                            title="{{ $achievement->details->name }}"
+                            title="{{ $achievementDescription }}"
                             height="50px"
-                            alt="{{ $achievement->details->name }}"
+                            alt="{{ $achievementDescription }}"
                         />
                     @empty
-                        No recent achievements.
+                        {{ __('member-interface.profile.no-recent-achievements') }}
                     @endforelse
                 </div>
             </section>
@@ -239,7 +244,7 @@
                             />
                         </a>
                     @empty
-                        No recent followers
+                        {{ __('member-interface.profile.no-recent-followers') }}
                     @endforelse
                 </div>
             </section>
@@ -260,7 +265,7 @@
                                 <th>{{ __('torrent.peers') }}</th>
                                 <th>{{ __('torrent.size') }}</th>
                                 @if (\config('announce.connectable_check') === true)
-                                    <th>Connectable</th>
+                                    <th>{{ __('member-interface.profile.connectable') }}</th>
                                 @endif
                             </tr>
                         </thead>
@@ -326,7 +331,7 @@
                                     <td
                                         colspan="{{ \config('announce.connectable_check') === true ? 8 : 7 }}"
                                     >
-                                        No clients
+                                        {{ __('member-interface.profile.no-clients') }}
                                     </td>
                                 </tr>
                             @endforelse
@@ -334,11 +339,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="{{ 7 + (int) config('announce.connectable_check') }}">
-                                    If you don't recognize a torrent client or IP address in the
-                                    list, please
-                                    <a href="{{ route('tickets.index') }}">
-                                        create a helpdesk ticket
-                                    </a>
+                                    {!! __('member-interface.profile.unrecognized-client-notice', ['link' => '<a href="' . route('tickets.index') . '">' . __('member-interface.profile.create-helpdesk-ticket') . '</a>']) !!}
                                 </td>
                             </tr>
                         </tfoot>
@@ -377,19 +378,19 @@
                                 <td>
                                     @switch($user->application->status)
                                         @case(\App\Enums\ModerationStatus::PENDING)
-                                            <span class="application--pending">Pending</span>
+                                            <span class="application--pending">{{ __('torrent.pending') }}</span>
 
                                             @break
                                         @case(\App\Enums\ModerationStatus::APPROVED)
-                                            <span class="application--approved">Approved</span>
+                                            <span class="application--approved">{{ __('torrent.approved') }}</span>
 
                                             @break
                                         @case(\App\Enums\ModerationStatus::REJECTED)
-                                            <span class="application--rejected">Rejected</span>
+                                            <span class="application--rejected">{{ __('torrent.rejected') }}</span>
 
                                             @break
                                         @default
-                                            <span class="application--unknown">Unknown</span>
+                                            <span class="application--unknown">{{ __('common.unknown') }}</span>
                                     @endswitch
                                 </td>
                                 <td>
@@ -436,10 +437,10 @@
                                     <td>
                                         @if ($ticket->closed_at)
                                             <i class="fas fa-circle text-danger"></i>
-                                            Closed
+                                            {{ __('ticket.closed') }}
                                         @else
                                             <i class="fas fa-circle text-success"></i>
-                                            Open
+                                            {{ __('forum.open') }}
                                         @endif
                                     </td>
                                     <td>{{ $ticket->created_at }}</td>
@@ -462,7 +463,7 @@
         @if (auth()->user()->group->is_modo)
             <section class="panelV2">
                 <header class="panel__header">
-                    <h2 class="panel__heading">Watchlist</h2>
+                    <h2 class="panel__heading">{{ __('member-interface.profile.watchlist') }}</h2>
                     <div class="panel__actions">
                         @if ($watch === null)
                             <div class="panel__action" x-data="dialog">
@@ -470,11 +471,11 @@
                                     class="form__button form__button--text"
                                     x-bind="showDialog"
                                 >
-                                    Watch
+                                    {{ __('member-interface.profile.watch-action') }}
                                 </button>
                                 <dialog class="dialog" x-bind="dialogElement">
                                     <h3 class="dialog__heading">
-                                        Watch user: {{ $user->username }}
+                                        {{ __('member-interface.profile.watch-user-heading', ['username' => $user->username]) }}
                                     </h3>
                                     <form
                                         class="dialog__form"
@@ -499,7 +500,7 @@
                                                 class="form__label form__label--floating"
                                                 for="watchlist_reason"
                                             >
-                                                Reason
+                                                {{ __('common.reason') }}
                                             </label>
                                         </p>
                                         <p class="form__group">
@@ -525,7 +526,9 @@
                             >
                                 @csrf
                                 @method('DELETE')
-                                <button class="form__button form__button--text">Unwatch</button>
+                                <button class="form__button form__button--text">
+                                    {{ __('member-interface.profile.unwatch-action') }}
+                                </button>
                             </form>
                         @endif
                     </div>
@@ -534,16 +537,16 @@
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Watched by</th>
-                                <th>Message</th>
-                                <th>Created at</th>
+                                <th>{{ __('member-interface.profile.watched-by') }}</th>
+                                <th>{{ __('common.message') }}</th>
+                                <th>{{ __('common.created_at') }}</th>
                                 <th>{{ __('common.action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if ($watch === null)
                                 <tr>
-                                    <td colspan="4">Not watched</td>
+                                    <td colspan="4">{{ __('member-interface.profile.not-watched') }}</td>
                                 </tr>
                             @else
                                 <tr>
@@ -571,10 +574,10 @@
                                                     @method('DELETE')
                                                     <button
                                                         x-on:click.prevent="confirmAction"
-                                                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to unwatch this user: ' . $watch->user->username . '?') }}"
+                                                        data-b64-deletion-message="{{ base64_encode(__('member-interface.profile.confirm-unwatch-user', ['username' => $watch->user->username])) }}"
                                                         class="form__button form__button--text"
                                                     >
-                                                        Unwatch
+                                                        {{ __('member-interface.profile.unwatch-action') }}
                                                     </button>
                                                 </form>
                                             </li>
@@ -592,10 +595,10 @@
     @section('sidebar')
         @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
             <section class="panelV2">
-                <h2 class="panel__heading">Donations</h2>
+                <h2 class="panel__heading">{{ __('member-interface.profile.donations') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
-                        <dt>Active donor</dt>
+                        <dt>{{ __('member-interface.profile.active-donor') }}</dt>
                         <dd>
                             @if ($user->is_donor)
                                 <i
@@ -609,7 +612,7 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Lifetime donor</dt>
+                        <dt>{{ __('member-interface.profile.lifetime-donor') }}</dt>
                         <dd>
                             @if ($user->is_lifetime)
                                 <i
@@ -623,25 +626,29 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Latest donation amount</dt>
+                        <dt>{{ __('member-interface.profile.latest-donation-amount') }}</dt>
                         <dd>
-                            {{ $donation->package->cost ?? 'N/A' }}
+                            {{ $donation->package->cost ?? __('member-interface.profile.na') }}
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Latest donation date</dt>
+                        <dt>{{ __('member-interface.profile.latest-donation-date') }}</dt>
                         <dd>
-                            {{ $donation->starts_at ?? 'N/A' }}
+                            {{ $donation->starts_at ?? __('member-interface.profile.na') }}
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Donation expire date</dt>
+                        <dt>{{ __('member-interface.profile.donation-expire-date') }}</dt>
                         <dd>
                             @if ($user->is_lifetime)
-                                Lifetime donor
-                                <i class="fal fa-star" id="lifeline" title="Lifetime donor"></i>
+                                {{ __('member-interface.profile.lifetime-donor') }}
+                                <i
+                                    class="fal fa-star"
+                                    id="lifeline"
+                                    title="{{ __('member-interface.profile.lifetime-donor') }}"
+                                ></i>
                             @else
-                                {{ $donation->ends_at ?? 'N/A' }}
+                                {{ $donation->ends_at ?? __('member-interface.profile.na') }}
                             @endif
                         </dd>
                     </div>
@@ -667,7 +674,7 @@
 
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_seed'))
             <section class="panelV2">
-                <h2 class="panel__heading">Seed {{ __('user.statistics') }}</h2>
+                <h2 class="panel__heading">{{ __('member-interface.profile.seed-statistics') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
                         <dt>
@@ -713,13 +720,12 @@
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_count'))
             @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
                 <section class="panelV2">
-                    <h2 class="panel__heading">Torrent count</h2>
+                    <h2 class="panel__heading">{{ __('member-interface.profile.torrent-count') }}</h2>
                     <dl class="key-value">
                         <div class="key-value__group">
                             <dt>
                                 <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
-                                    {{ __('user.total-uploads') }}
-                                    (Non-{{ __('common.anonymous') }})
+                                    {{ __('member-interface.profile.total-uploads-non-anonymous') }}
                                 </a>
                             </dt>
                             <dd>{{ $user->non_anon_uploads_count ?? 0 }}</dd>
@@ -727,7 +733,7 @@
                         <div class="key-value__group">
                             <dt>
                                 <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
-                                    {{ __('user.total-uploads') }} ({{ __('common.anonymous') }})
+                                    {{ __('member-interface.profile.total-uploads-anonymous') }}
                                 </a>
                             </dt>
                             <dd>{{ $user->anon_uploads_count ?? 0 }}</dd>
@@ -767,7 +773,7 @@
                                 <a
                                     href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}"
                                 >
-                                    Total inactive peers
+                                    {{ __('member-interface.profile.total-inactive-peers') }}
                                 </a>
                             </dt>
                             <dd>{{ $peers->inactive ?? 0 }}</dd>
@@ -776,7 +782,7 @@
                 </section>
             @else
                 <section class="panelV2">
-                    <h2 class="panel__heading">Torrent count</h2>
+                    <h2 class="panel__heading">{{ __('member-interface.profile.torrent-count') }}</h2>
                     <dl class="key-value">
                         <div class="key-value__group">
                             <dt>
@@ -801,7 +807,7 @@
                             <dd>{{ $peers->leeching ?? 0 }}</dd>
                         </div>
                         <div class="key-value__group">
-                            <dt>Total inactive peers</dt>
+                            <dt>{{ __('member-interface.profile.total-inactive-peers') }}</dt>
                             <dd>{{ $peers->inactive ?? 0 }}</dd>
                         </div>
                     </dl>
@@ -811,14 +817,14 @@
 
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_torrent_ratio'))
             <section class="panelV2">
-                <h2 class="panel__heading">Traffic {{ __('torrent.statistics') }}</h2>
+                <h2 class="panel__heading">{{ __('member-interface.profile.traffic-statistics') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
                         <dt>{{ __('common.ratio') }}</dt>
                         <dd>{{ $user->formatted_ratio }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Real {{ __('common.ratio') }}</dt>
+                        <dt>{{ __('member-interface.profile.real-ratio') }}</dt>
                         <dd>
                             {{ $history->download_sum ? round(($history->upload_sum ?? 0) / $history->download_sum, 2) : "\u{221E}" }}
                         </dd>
@@ -828,22 +834,22 @@
                         <dd>{{ $user->formatted_buffer }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('common.account') }} {{ __('common.upload') }} (Total)</dt>
+                        <dt>{{ __('common.account') }} {{ __('common.uploaded') }} ({{ __('common.total') }})</dt>
                         <dd>{{ $user->formatted_uploaded }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('common.account') }} {{ __('common.download') }} (Total)</dt>
+                        <dt>{{ __('common.account') }} {{ __('common.downloaded') }} ({{ __('common.total') }})</dt>
                         <dd>{{ $user->formatted_downloaded }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('torrent.torrent') }} {{ __('common.upload') }}</dt>
+                        <dt>{{ __('torrent.torrent') }} {{ __('torrent.uploaded') }}</dt>
                         <dd>
                             {{ App\Helpers\StringHelper::formatBytes($history->upload_sum ?? 0, 2) }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.upload') }}
+                            {{ __('torrent.torrent') }} {{ __('torrent.uploaded') }}
                             ({{ __('torrent.credited') }})
                         </dt>
                         <dd>
@@ -851,14 +857,14 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('torrent.torrent') }} {{ __('common.download') }}</dt>
+                        <dt>{{ __('torrent.torrent') }} {{ __('torrent.downloaded') }}</dt>
                         <dd>
                             {{ App\Helpers\StringHelper::formatBytes($history->download_sum ?? 0, 2) }}
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.download') }}
+                            {{ __('torrent.torrent') }} {{ __('torrent.downloaded') }}
                             ({{ __('torrent.credited') }})
                         </dt>
                         <dd>
@@ -867,7 +873,7 @@
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.download') }}
+                            {{ __('torrent.torrent') }} {{ __('torrent.downloaded') }}
                             ({{ __('torrent.refunded') }})
                         </dt>
                         <dd>
@@ -875,7 +881,7 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('bon.bon') }} {{ __('common.upload') }}</dt>
+                        <dt>{{ __('bon.bon') }} {{ __('common.uploaded') }}</dt>
                         <dd>{{ App\Helpers\StringHelper::formatBytes($boughtUpload, 2) }}</dd>
                     </div>
                 </dl>
@@ -885,22 +891,26 @@
         @if (config('announce.external_tracker.is_enabled') && auth()->user()->group->is_modo)
             @if ($externalUser === true)
                 <section class="panelV2">
-                    <h2 class="panel__heading">External tracker</h2>
-                    <div class="panel__body">External tracker not enabled.</div>
+                    <h2 class="panel__heading">{{ __('member-interface.profile.external-tracker') }}</h2>
+                    <div class="panel__body">
+                        {{ __('member-interface.profile.external-tracker-not-enabled') }}
+                    </div>
                 </section>
             @elseif ($externalUser === false)
                 <section class="panelV2">
-                    <h2 class="panel__heading">External tracker</h2>
-                    <div class="panel__body">User not found.</div>
+                    <h2 class="panel__heading">{{ __('member-interface.profile.external-tracker') }}</h2>
+                    <div class="panel__body">
+                        {{ __('member-interface.profile.external-user-not-found') }}
+                    </div>
                 </section>
             @elseif ($externalUser === [])
                 <section class="panelV2">
-                    <h2 class="panel__heading">External tracker</h2>
-                    <div class="panel__body">Tracker returned an error.</div>
+                    <h2 class="panel__heading">{{ __('member-interface.profile.external-tracker') }}</h2>
+                    <div class="panel__body">{{ __('member-interface.profile.tracker-error') }}</div>
                 </section>
             @else
                 <section class="panelV2">
-                    <h2 class="panel__heading">External tracker</h2>
+                    <h2 class="panel__heading">{{ __('member-interface.profile.external-tracker') }}</h2>
                     <dl class="key-value">
                         <div class="key-value__group">
                             <dt>{{ __('common.group') }}</dt>
@@ -916,7 +926,7 @@
                                         </span>
                                     </span>
                                 @else
-                                    Unrecognized group_id: {{ $externalUser['group_id'] }}
+                                    {{ __('member-interface.profile.unrecognized-group-id', ['id' => $externalUser['group_id']]) }}
                                 @endif
                             </dd>
                         </div>
@@ -949,17 +959,17 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Seed lists</th>
-                                    <th>Window</th>
-                                    <th>Max</th>
-                                    <th>Lists/h</th>
+                                    <th>{{ __('member-interface.profile.seed-lists') }}</th>
+                                    <th>{{ __('member-interface.profile.window') }}</th>
+                                    <th>{{ __('member-interface.profile.max') }}</th>
+                                    <th>{{ __('member-interface.profile.lists-per-hour') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($externalUser['receive_seed_list_rates']['rates'] as $rate)
                                     <tr>
                                         <td
-                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
+                                            title="{{ __('member-interface.profile.updated-at-tooltip', ['date' => ($lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at'])), 'relative' => $lastUpdatedAt->diffForHumans()]) }}"
                                         >
                                             {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
                                         </td>
@@ -975,17 +985,17 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Leech lists</th>
-                                    <th>Window</th>
-                                    <th>Max</th>
-                                    <th>Lists/h</th>
+                                    <th>{{ __('member-interface.profile.leech-lists') }}</th>
+                                    <th>{{ __('member-interface.profile.window') }}</th>
+                                    <th>{{ __('member-interface.profile.max') }}</th>
+                                    <th>{{ __('member-interface.profile.lists-per-hour') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($externalUser['receive_leech_list_rates']['rates'] as $rate)
                                     <tr>
                                         <td
-                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
+                                            title="{{ __('member-interface.profile.updated-at-tooltip', ['date' => ($lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at'])), 'relative' => $lastUpdatedAt->diffForHumans()]) }}"
                                         >
                                             {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
                                         </td>
@@ -1040,7 +1050,7 @@
                         <dd>{{ $user->email }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>2FA enabled</dt>
+                        <dt>{{ __('member-interface.profile.two-factor-enabled') }}</dt>
                         <dd>
                             @if ($user->two_factor_confirmed_at !== null)
                                 <i
@@ -1057,7 +1067,7 @@
                         <dt>{{ __('user.last-login') }}</dt>
                         <dd>
                             @if ($user->last_login === null)
-                                N/A
+                                {{ __('member-interface.profile.na') }}
                             @else
                                 <time
                                     class="{{ $user->last_login }}"
@@ -1070,10 +1080,10 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Last action</dt>
+                        <dt>{{ __('member-interface.profile.last-action') }}</dt>
                         <dd>
                             @if ($user->last_action === null)
-                                N/A
+                                {{ __('member-interface.profile.na') }}
                             @else
                                 <time
                                     class="{{ $user->last_action }}"
@@ -1192,11 +1202,11 @@
                                     class="form__button form__button--text"
                                     x-bind="showDialog"
                                 >
-                                    Gift BON
+                                    {{ __('member-interface.profile.gift-bon-action') }}
                                 </button>
                                 <dialog class="dialog" x-bind="dialogElement">
                                     <h3 class="dialog__heading">
-                                        Gift BON to: {{ $user->username }}
+                                        {{ __('member-interface.profile.gift-bon-heading', ['username' => $user->username]) }}
                                     </h3>
                                     <form
                                         class="dialog__form"

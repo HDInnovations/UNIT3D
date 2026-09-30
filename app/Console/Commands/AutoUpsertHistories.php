@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\History;
+use App\Traits\FiltersOrphanedAnnounceRows;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -25,6 +26,8 @@ use Throwable;
 
 class AutoUpsertHistories extends Command
 {
+    use FiltersOrphanedAnnounceRows;
+
     /**
      * The name and signature of the console command.
      *
@@ -69,6 +72,8 @@ class AutoUpsertHistories extends Command
          */
         $historiesPerCycle = intdiv(65_000, 16);
 
+        $seedtimeGraceSeconds = max(5_400, intdiv(3 * (int) config('announce.interval.max'), 2));
+
         $key = config('cache.prefix').':histories:batch';
         $historyCount = Redis::connection('announce')->command('LLEN', [$key]);
 
@@ -79,9 +84,15 @@ class AutoUpsertHistories extends Command
                 break;
             }
 
-            $histories = array_map('unserialize', $histories);
+            $histories = $this->withoutOrphanedRows(array_map('unserialize', $histories));
 
-            DB::transaction(function () use ($histories): void {
+            if ($histories === []) {
+                Redis::connection('announce')->command('LTRIM', [$key, $historiesPerCycle, -1]);
+
+                continue;
+            }
+
+            DB::transaction(function () use ($histories, $seedtimeGraceSeconds): void {
                 History::upsert(
                     $histories,
                     ['user_id', 'torrent_id'],
@@ -93,11 +104,13 @@ class AutoUpsertHistories extends Command
                         'downloaded'        => DB::raw('downloaded + VALUES(downloaded)'),
                         'actual_downloaded' => DB::raw('actual_downloaded + VALUES(actual_downloaded)'),
                         'client_downloaded',
-                        // 5400 is the max announce interval defined in the announce controller
+                        // Seedtime accrues only when consecutive announces are closer than the grace window:
+                        // 1.5x the configured max announce interval, never below 5400 s so clients that ignore
+                        // a short tracker interval (fixed 30-60 min announces) keep accruing seedtime.
                         // We need to make sure seeder and active are updated after seedtime, otherwise the seedtime logic for ensuring it's not a new announce and the left was 0 in the last announce breaks.
                         // Unfortunately, laravel sorts the keys in this array alphabetically when inserting so reordering the keys themselves in this array doesn't work.
                         // This leaves us with this hacky fix.
-                        'seedtime'     => DB::raw('CASE WHEN updated_at + INTERVAL 5400 SECOND > VALUES(updated_at) AND seeder = TRUE AND active = TRUE AND VALUES(seeder) = TRUE THEN seedtime + TIMESTAMPDIFF(SECOND, updated_at, VALUES(updated_at)) ELSE seedtime END, seeder = VALUES(seeder), active = VALUES(active)'),
+                        'seedtime'     => DB::raw('CASE WHEN updated_at + INTERVAL '.$seedtimeGraceSeconds.' SECOND > VALUES(updated_at) AND seeder = TRUE AND active = TRUE AND VALUES(seeder) = TRUE THEN seedtime + TIMESTAMPDIFF(SECOND, updated_at, VALUES(updated_at)) ELSE seedtime END, seeder = VALUES(seeder), active = VALUES(active)'),
                         'immune'       => DB::raw('immune AND VALUES(immune)'),
                         'completed_at' => DB::raw('COALESCE(completed_at, VALUES(completed_at))'),
                     ],

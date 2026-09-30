@@ -76,8 +76,8 @@ class NewRequestFill extends Notification implements ShouldQueue
         $this->torrentRequest->load('filler');
 
         return [
-            'title' => ($this->torrentRequest->filled_anon ? 'Anonymous' : $this->torrentRequest->filler->username).' Has Filled One Of Your Torrent Requests',
-            'body'  => ($this->torrentRequest->filled_anon ? 'Anonymous' : $this->torrentRequest->filler->username).' has filled one of your Requested Torrents '.$this->torrentRequest->name,
+            'title' => __('application-messages.notification.request-filled-title', ['username' => $this->torrentRequest->filled_anon ? __('application-messages.notification.anonymous-user') : $this->torrentRequest->filler->username]),
+            'body'  => __('application-messages.notification.request-filled-body', ['username' => $this->torrentRequest->filled_anon ? __('application-messages.notification.anonymous-user') : $this->torrentRequest->filler->username, 'name' => $this->torrentRequest->name]),
             'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
         ];
     }

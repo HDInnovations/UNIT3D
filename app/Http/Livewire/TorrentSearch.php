@@ -237,7 +237,8 @@ class TorrentSearch extends Component
     final protected object $torrentHealth {
         get => cache()->flexible(
             'torrent-search:health',
-            [3600, 3600 * 2],
+            // Short-lived: the results panel polls, and alive/dead follows announces within seconds.
+            [15, 30],
             fn () => DB::table('torrents')
                 ->whereNull('deleted_at')
                 ->selectRaw('COUNT(*) AS total')

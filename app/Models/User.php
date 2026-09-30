@@ -16,11 +16,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Helpers\Language;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -82,7 +84,7 @@ use AllowDynamicProperties;
  * @property string|null                     $email_verified_at
  */
 #[AllowDynamicProperties]
-final class User extends Authenticatable implements MustVerifyEmail
+final class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     use Achiever;
 
@@ -295,6 +297,22 @@ final class User extends Authenticatable implements MustVerifyEmail
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    /**
+     * Get the locale this user should receive notifications and queued mail in.
+     *
+     * Consulted automatically by Laravel for queued/deferred notifications and
+     * mailables (see Illuminate\Mail\PendingMail::to() and
+     * Illuminate\Notifications\NotificationSender::preferredLocale()), so
+     * background jobs render in the recipient's language instead of the
+     * process' ambient locale.
+     */
+    public function preferredLocale(): string
+    {
+        $locale = $this->settings->locale;
+
+        return $locale && Language::allowed($locale) ? $locale : config('app.locale');
     }
 
     /**

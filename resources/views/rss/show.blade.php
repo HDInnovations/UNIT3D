@@ -9,12 +9,12 @@
         <title>{{ config('other.title') }}: {{ $rss->name }}</title>
         <link>{{ config('app.url') }}</link>
         <description>
-            {{ __('This feed contains your secure rsskey, please do not share with anyone.') }}
+            {{ __('media-interface.rss.feed-disclaimer') }}
         </description>
         <atom:link href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => $user->rsskey]) }}"
                    type="application/rss+xml" rel="self"></atom:link>
         <copyright>{{ config('other.title') }} {{ now()->year }}</copyright>
-        <language>en-us</language>
+        <language>{{ app()->getLocale() }}</language>
         <lastBuildDate>{{ now()->toRssString() }}</lastBuildDate>
         <ttl>5</ttl>
         @if($torrents)
@@ -27,42 +27,42 @@
                     <guid>{{ $torrent['id'] }}</guid>
                     <description>
                         <![CDATA[<p>
-                            <strong>Name</strong>: {{ $torrent['name'] }}<br>
-                            <strong>Category</strong>: {{ $torrent['category']['name'] }}<br>
-                            <strong>Type</strong>: {{ $torrent['type']['name'] }}<br>
-                            <strong>Resolution</strong>: {{ $torrent['resolution']['name'] ?? 'No res' }}<br>
-                            <strong>Size</strong>: {{ App\Helpers\StringHelper::formatBytes($torrent['size'], 2) }}<br>
-                            <strong>Uploaded</strong>: {{ \Illuminate\Support\Carbon::createFromTimestampUTC($torrent['created_at'])->diffForHumans() }}<br>
-                            <strong>Seeders</strong>: {{ $torrent['seeders'] }} |
-                            <strong>Leechers</strong>: {{ $torrent['leechers'] }} |
-                            <strong>Completed</strong>: {{ $torrent['times_completed'] }}<br>
-                            <strong>Uploader</strong>:
+                            <strong>{{ __('common.name') }}</strong>: {{ $torrent['name'] }}<br>
+                            <strong>{{ __('common.category') }}</strong>: {{ $torrent['category']['name'] }}<br>
+                            <strong>{{ __('common.type') }}</strong>: {{ $torrent['type']['name'] }}<br>
+                            <strong>{{ __('common.resolution') }}</strong>: {{ $torrent['resolution']['name'] ?? __('media-interface.rss.no-resolution') }}<br>
+                            <strong>{{ __('torrent.size') }}</strong>: {{ App\Helpers\StringHelper::formatBytes($torrent['size'], 2) }}<br>
+                            <strong>{{ __('common.uploaded') }}</strong>: {{ \Illuminate\Support\Carbon::createFromTimestampUTC($torrent['created_at'])->diffForHumans() }}<br>
+                            <strong>{{ __('torrent.seeders') }}</strong>: {{ $torrent['seeders'] }} |
+                            <strong>{{ __('torrent.leechers') }}</strong>: {{ $torrent['leechers'] }} |
+                            <strong>{{ __('torrent.completed-times') }}</strong>: {{ $torrent['times_completed'] }}<br>
+                            <strong>{{ __('torrent.uploader') }}</strong>:
                             @if(!$torrent['anon'] && $torrent['user'])
                                 {{ __('torrent.uploaded-by') }} {{ $torrent['user']['username'] }}
                             @else
                                 {{ __('common.anonymous') }} {{ __('torrent.uploader') }}
                             @endif<br>
                             @if (($torrent['category']['movie_meta'] || $torrent['category']['tv_meta']) && $torrent['imdb'] != 0)
-                                IMDB link:<a href="https://anon.to?http://www.imdb.com/title/tt{{ \str_pad((string) $torrent['imdb'], 7, '0', STR_PAD_LEFT) }}"
+                                {{ __('media-interface.rss.imdb-link') }}<a href="https://anon.to?http://www.imdb.com/title/tt{{ \str_pad((string) $torrent['imdb'], 7, '0', STR_PAD_LEFT) }}"
                                              target="_blank">tt{{ $torrent['imdb'] }}</a><br>
                             @endif
                             @if ($torrent['category']['movie_meta'] && $torrent['tmdb_movie_id'] > 0)
-                                TMDB link: <a href="https://anon.to?https://www.themoviedb.org/movie/{{ $torrent['tmdb_movie_id'] }}"
+                                {{ __('media-interface.rss.tmdb-link') }} <a href="https://anon.to?https://www.themoviedb.org/movie/{{ $torrent['tmdb_movie_id'] }}"
                                               target="_blank">{{ $torrent['tmdb_movie_id'] }}</a><br>
                             @elseif ($torrent['category']['tv_meta'] && $torrent['tmdb_tv_id'] > 0)
-                                TMDB link: <a href="https://anon.to?https://www.themoviedb.org/tv/{{ $torrent['tmdb_tv_id'] }}"
+                                {{ __('media-interface.rss.tmdb-link') }} <a href="https://anon.to?https://www.themoviedb.org/tv/{{ $torrent['tmdb_tv_id'] }}"
                                               target="_blank">{{ $torrent['tmdb_tv_id'] }}</a><br>
                             @endif
                             @if (($torrent['category']['tv_meta']) && $torrent['tvdb'] != 0)
-                                TVDB link:<a href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $torrent['tvdb'] }}"
+                                {{ __('media-interface.rss.tvdb-link') }}<a href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $torrent['tvdb'] }}"
                                              target="_blank">{{ $torrent['tvdb'] }}</a><br>
                             @endif
                             @if (($torrent['category']['movie_meta'] || $torrent['category']['tv_meta']) && $torrent['mal'] != 0)
-                                MAL link:<a href="https://anon.to?https://myanimelist.net/anime/{{ $torrent['mal'] }}"
+                                {{ __('media-interface.rss.mal-link') }}<a href="https://anon.to?https://myanimelist.net/anime/{{ $torrent['mal'] }}"
                                              target="_blank">{{ $torrent['mal'] }}</a><br>
                             @endif
                             @if ($torrent['internal'] == 1)
-                                <comments>This is a high quality internal release!</comments>
+                                <comments>{{ __('torrent.internal-release') }}</comments>
                             @endif
                         </p>]]>
                     </description>

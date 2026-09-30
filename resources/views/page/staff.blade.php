@@ -39,14 +39,16 @@
 @section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
-        <div class="panel__body">Please contact staff via the helpdesk for account support.</div>
+        <div class="panel__body">
+            {{ __('member-interface.misc.page.staff-contact-hint') }}
+        </div>
         <div class="panel__body">
             <p class="form__group form__group--horizontal">
                 <a
                     class="form__button form__button--filled form__button--centered"
                     href="{{ route('tickets.index') }}"
                 >
-                    Open helpdesk
+                    {{ __('member-interface.misc.page.open-helpdesk') }}
                 </a>
             </p>
         </div>

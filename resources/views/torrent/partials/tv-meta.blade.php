@@ -8,7 +8,7 @@
         href="{{ $tmdb ? route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdb]) : '#' }}"
     >
         <h1 class="meta__title">
-            {{ $meta->name ?? 'No meta found' }}
+            {{ $meta->name ?? __('torrent.no-meta') }}
             ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})
         </h1>
     </a>
@@ -40,7 +40,7 @@
                         ])
                     }}"
                 >
-                    {{ __('common.upload') }}
+                    {{ __('common.upload-action') }}
                 </a>
             </li>
             <li>
@@ -57,7 +57,7 @@
                         ])
                     }}"
                 >
-                    Request similar
+                    {{ __('media-interface.torrent.request-similar') }}
                 </a>
             </li>
             @if ($meta?->id)
@@ -71,9 +71,9 @@
                         <input type="hidden" name="tmdb_tv_id" value="{{ $meta->id }}" />
                         <button
                             style="cursor: pointer"
-                            title="Receive notifications every time a new torrent is uploaded."
+                            title="{{ __('media-interface.torrent.meta-notify-uploads-tooltip') }}"
                         >
-                            Notify of new uploads
+                            {{ __('media-interface.torrent.meta-notify-uploads-action') }}
                         </button>
                     </form>
                 </li>
@@ -90,11 +90,11 @@
                         <button
                             @if (cache()->has('tmdb-tv-scraper:' . ($meta?->id ?? $torrent->tmdb_tv_id)))
                                 disabled
-                                title="This item was recently updated. Try again tomorrow."
+                                title="{{ __('media-interface.torrent.meta-recently-updated') }}"
                             @endif
                             style="cursor: pointer"
                         >
-                            Update metadata
+                            {{ __('media-interface.torrent.meta-update-metadata-action') }}
                         </button>
                     </form>
                 </li>
@@ -229,7 +229,7 @@
     <p class="meta__description">{{ $meta?->overview }}</p>
     <div class="meta__chips">
         <section class="meta__chip-container">
-            <h2 class="meta__heading">Cast</h2>
+            <h2 class="meta__heading">{{ __('vltava.media.cast') }}</h2>
             @foreach ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupation::ACTOR->value)?->sortBy('order') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
                     <a
@@ -254,8 +254,8 @@
                 </article>
             @endforeach
         </section>
-        <section class="meta__chip-container" title="Crew">
-            <h2 class="meta__heading">Crew</h2>
+        <section class="meta__chip-container" title="{{ __('vltava.media.crew') }}">
+            <h2 class="meta__heading">{{ __('vltava.media.crew') }}</h2>
             @foreach ($meta?->credits?->where('occupation_id', '!=', App\Enums\Occupation::ACTOR->value)?->sortBy('occupation.position') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
                     <a
@@ -281,7 +281,7 @@
             @endforeach
         </section>
         <section class="meta__chip-container">
-            <h2 class="meta__heading">Extra information</h2>
+            <h2 class="meta__heading">{{ __('vltava.media.extra') }}</h2>
             @if ($meta?->genres?->isNotEmpty())
                 <article class="meta__genres">
                     <a
@@ -291,7 +291,7 @@
                         <i
                             class="{{ config('other.font-awesome') }} fa-theater-masks meta-chip__icon"
                         ></i>
-                        <h2 class="meta-chip__name">Genres</h2>
+                        <h2 class="meta-chip__name">{{ __('vltava.media.genres') }}</h2>
                         <h3 class="meta-chip__value">
                             {{ $meta->genres->pluck('name')->join(' / ') }}
                         </h3>
@@ -317,7 +317,7 @@
                                 class="{{ config('other.font-awesome') }} fa-signal-stream meta-chip__icon"
                             ></i>
                         @endif
-                        <h2 class="meta-chip__name">Network</h2>
+                        <h2 class="meta-chip__name">{{ __('vltava.media.network') }}</h2>
                         <h3 class="meta-chip__value">{{ $network->name }}</h3>
                     </a>
                 </article>
@@ -341,7 +341,7 @@
                                 class="{{ config('other.font-awesome') }} fa-camera-movie meta-chip__icon"
                             ></i>
                         @endif
-                        <h2 class="meta-chip__name">Company</h2>
+                        <h2 class="meta-chip__name">{{ __('vltava.media.company') }}</h2>
                         <h3 class="meta-chip__value">{{ $company->name }}</h3>
                     </a>
                 </article>
@@ -354,7 +354,7 @@
                         href="{{ route('torrents.index', ['view' => 'group', 'keywords' => $torrent->keywords->pluck('name')->join(', ')]) }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-tag meta-chip__icon"></i>
-                        <h2 class="meta-chip__name">Keywords</h2>
+                        <h2 class="meta-chip__name">{{ __('vltava.media.keywords') }}</h2>
                         <h3 class="meta-chip__value">
                             {{ $torrent->keywords->pluck('name')->join(', ') }}
                         </h3>
@@ -375,7 +375,7 @@
                 background: 'rgb(35,35,35)',
                 width: 970,
                 html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                title: '<i style="color: #a5a5a5;">{{ $meta->name }} trailer</i>',
+                title: '<i style="color: #a5a5a5;">{{ $meta->name }} {{ mb_strtolower(__('vltava.media.trailer')) }}</i>',
                 text: '',
             });
         });

@@ -70,20 +70,20 @@ class NewTopic extends Notification implements ShouldQueue
     public function toArray(User $notifiable): array
     {
         $username = ($this->firstPost?->anon && !$notifiable->group->is_modo && !$notifiable->is($this->user))
-            ? 'Anonymous'
+            ? __('application-messages.notification.anonymous-user')
             : $this->user->username;
 
         if ($this->type == 'staff') {
             return [
-                'title' => $username.' Has Posted In A Staff Forum',
-                'body'  => $username.' has started a new staff topic in '.$this->topic->forum->name,
+                'title' => __('application-messages.notification.new-topic-staff-title', ['username' => $username]),
+                'body'  => __('application-messages.notification.new-topic-staff-body', ['username' => $username, 'name' => $this->topic->forum->name]),
                 'url'   => route('topics.show', ['id' => $this->topic->id]),
             ];
         }
 
         return [
-            'title' => $username.' Has Posted In A Subscribed Forum',
-            'body'  => $username.' has started a new topic in '.$this->topic->forum->name,
+            'title' => __('application-messages.notification.new-topic-subscription-title', ['username' => $username]),
+            'body'  => __('application-messages.notification.new-topic-subscription-body', ['username' => $username, 'name' => $this->topic->forum->name]),
             'url'   => \sprintf('/forums/topics/%s', $this->topic->id),
         ];
     }

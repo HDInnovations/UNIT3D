@@ -61,14 +61,14 @@
     @if (config('torrent.download_check_page') == 1)
         <a
             href="{{ route('download_check', ['id' => $torrent->id]) }}"
-            title="{{ __('common.download') }}"
+            title="{{ __('common.download-action') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-download"></i>
         </a>
     @else
         <a
             href="{{ route('download', ['id' => $torrent->id]) }}"
-            title="{{ __('common.download') }}"
+            title="{{ __('common.download-action') }}"
         >
             <i class="{{ config('other.font-awesome') }} fa-download"></i>
         </a>

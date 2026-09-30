@@ -1,7 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Polls - {{ config('other.title') }}</title>
+    <title>{{ __('poll.polls') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -86,7 +86,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this poll: ' . $poll->title . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-poll-confirmation', ['title' => $poll->title])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

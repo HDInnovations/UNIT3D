@@ -38,18 +38,18 @@
                                     ->getName() !== 'users.show',
                             'vertical-align: text-bottom',
                         ])
-                        title="Custom user icon"
+                        title="{{ __('interface.custom-user-icon') }}"
                         src="{{ route('authenticated_images.user_icon', ['user' => $user]) }}"
                     />
                 </i>
             @endif
 
             @if ($user->is_lifetime == 1)
-                <i class="fal fa-star" id="lifeline" title="Lifetime donor"></i>
+                <i class="fal fa-star" id="lifeline" title="{{ __('interface.lifetime-donor') }}"></i>
             @endif
 
             @if ($user->is_donor == 1 && $user->is_lifetime == 0)
-                <i class="fal fa-star text-gold" title="Donor"></i>
+                <i class="fal fa-star text-gold" title="{{ __('interface.donor') }}"></i>
             @endif
 
             {{ $appendedIcons ?? '' }}
@@ -91,18 +91,18 @@
                                 ->getName() !== 'users.show',
                         'vertical-align: text-bottom',
                     ])
-                    title="Custom user icon"
+                    title="{{ __('interface.custom-user-icon') }}"
                     src="{{ route('authenticated_images.user_icon', ['user' => $user]) }}"
                 />
             </i>
         @endif
 
         @if ($user->is_lifetime == 1)
-            <i class="fal fa-star" id="lifeline" title="Lifetime donor"></i>
+            <i class="fal fa-star" id="lifeline" title="{{ __('interface.lifetime-donor') }}"></i>
         @endif
 
         @if ($user->is_donor == 1 && $user->is_lifetime == 0)
-            <i class="fal fa-star text-gold" title="Donor"></i>
+            <i class="fal fa-star text-gold" title="{{ __('interface.donor') }}"></i>
         @endif
 
         {{ $appendedIcons ?? '' }}

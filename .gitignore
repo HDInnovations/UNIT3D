@@ -39,6 +39,7 @@ laravel-echo-server.lock
 .*.swp
 
 # Miscellaneous
+/comeback-test/
 /.vagrant
 Homestead.json
 Homestead.yaml

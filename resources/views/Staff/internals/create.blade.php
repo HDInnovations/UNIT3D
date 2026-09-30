@@ -7,7 +7,9 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">Internals</a>
+        <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">
+            {{ __('common.internal') }} {{ __('common.groups') }}
+        </a>
     </li>
     <li class="breadcrumb--active">
         {{ __('common.new-adj') }}
@@ -18,7 +20,9 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('common.add') }} internal group</h2>
+        <h2 class="panel__heading">
+            {{ __('common.add') }} {{ __('common.internal') }} {{ __('common.group') }}
+        </h2>
         <div class="panel__body">
             <form
                 class="form"
@@ -42,7 +46,9 @@
                         type="text"
                         value="fa-magic"
                     />
-                    <label class="form__label form__label--floating" for="icon">Icon</label>
+                    <label class="form__label form__label--floating" for="icon">
+                        {{ __('common.icon') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -53,7 +59,9 @@
                         type="text"
                         value="none"
                     />
-                    <label class="form__label form__label--floating" for="effect">Effect</label>
+                    <label class="form__label form__label--floating" for="effect">
+                        {{ __('staff-interface.effect') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">

@@ -3,7 +3,7 @@
         <input
             class="quick-search__input"
             type="text"
-            placeholder="Search"
+            placeholder="{{ __('interface.quick-search-placeholder') }}"
             x-model="searchText"
             x-on:input.debounce.300ms="performSearch"
             x-ref="quickSearch"
@@ -14,14 +14,14 @@
         <template x-if="searchResults === null">
             <div class="quick-search__results">
                 <article class="quick-search__result--default">
-                    <p class="quick-search__result-text">Search movies, tv series, or people</p>
+                    <p class="quick-search__result-text">{{ __('interface.quick-search-prompt') }}</p>
                 </article>
             </div>
         </template>
         <template x-if="Array.isArray(searchResults) && searchResults.length === 0">
             <div class="quick-search__results">
                 <article class="quick-search__result--empty">
-                    <p class="quick-search__result-text">No results found</p>
+                    <p class="quick-search__result-text">{{ __('interface.quick-search-no-results') }}</p>
                 </article>
             </div>
         </template>

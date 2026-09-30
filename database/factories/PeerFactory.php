@@ -46,7 +46,6 @@ class PeerFactory extends Factory
             'torrent_id'  => Torrent::factory(),
             'user_id'     => User::factory(),
             'connectable' => $this->faker->boolean(),
-            'torrents.id' => Torrent::factory(),
         ];
     }
 }

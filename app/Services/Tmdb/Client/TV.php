@@ -330,9 +330,26 @@ class TV
             );
         }
 
+        $this->tmdb = new TMDB();
         $this->data = $response->json();
 
-        $this->tmdb = new TMDB();
+        if (
+            config('app.meta_locale') !== config('app.meta_fallback_locale')
+            && $this->tmdb->needsEnglishFallback($this->data)
+        ) {
+            $fallback = Http::acceptJson()
+                ->retry([1000, 5000, 15000], throw: false)
+                ->withUrlParameters(['id' => $id])
+                ->get('https://api.TheMovieDB.org/3/tv/{id}', [
+                    'api_key'            => config('api-keys.tmdb'),
+                    'language'           => config('app.meta_fallback_locale'),
+                    'append_to_response' => 'videos,images,aggregate_credits,external_ids,keywords,recommendations,alternative_titles',
+                ]);
+
+            if ($fallback->successful()) {
+                $this->data = $this->tmdb->withEnglishFallback($this->data, $fallback->json());
+            }
+        }
     }
 
     /**

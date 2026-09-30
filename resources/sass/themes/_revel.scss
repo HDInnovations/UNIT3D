@@ -626,7 +626,7 @@ a:hover {
 }
 
 .ratio-bar__uploaded i:before {
-    content: 'Upload: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -645,7 +645,7 @@ a:hover {
 }
 
 .ratio-bar__downloaded i:before {
-    content: 'Download: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -664,7 +664,7 @@ a:hover {
 }
 
 .ratio-bar__seeding i:before {
-    content: 'Seeding: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -683,7 +683,7 @@ a:hover {
 }
 
 .ratio-bar__leeching i:before {
-    content: 'Leeching: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -702,7 +702,7 @@ a:hover {
 }
 
 .ratio-bar__buffer i:before {
-    content: 'Buffer: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -721,7 +721,7 @@ a:hover {
 }
 
 .ratio-bar__points i:before {
-    content: 'BON: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -740,7 +740,7 @@ a:hover {
 }
 
 .ratio-bar__ratio i:before {
-    content: 'Ratio: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -759,7 +759,7 @@ a:hover {
 }
 
 .ratio-bar__tokens i:before {
-    content: 'FL Tokens: ';
+    content: attr(data-label);
     font-family:
         'Roboto',
         -apple-system,
@@ -978,7 +978,7 @@ a:hover {
 }
 
 .subforum-listing__latest-author::before {
-    content: 'by ';
+    content: attr(data-label);
 }
 
 .subforum-listing__latest-author::after {
@@ -996,7 +996,7 @@ a:hover {
 }
 
 .subforum-listing__topic-stats dd::before {
-    content: 'T: ';
+    content: attr(data-label);
 }
 
 .subforum-listing__post-stats dt {
@@ -1004,7 +1004,7 @@ a:hover {
 }
 
 .subforum-listing__post-stats dd::before {
-    content: 'P: ';
+    content: attr(data-label);
 }
 
 /* Topic listing */
@@ -1051,7 +1051,7 @@ a:hover {
 }
 
 .topic-listing__view-stats dd::before {
-    content: 'T: ';
+    content: attr(data-label);
 }
 
 .topic-listing__post-stats dt {
@@ -1059,7 +1059,7 @@ a:hover {
 }
 
 .topic-listing__post-stats dd::before {
-    content: 'P: ';
+    content: attr(data-label);
 }
 
 .topic-listing__latest-post {
@@ -1067,7 +1067,7 @@ a:hover {
 }
 
 .topic-listing__latest-author::before {
-    content: 'by ';
+    content: attr(data-label);
 }
 
 .topic-listing__latest-author::after {

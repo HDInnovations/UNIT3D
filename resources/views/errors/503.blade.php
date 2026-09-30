@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
-@section('title', 'Error 503: Service unavailable!')
+@section('title', __('interface.error-503-title'))
 
-@section('description', 'Sorry, we are doing some maintenance. Please check back soon.')
+@section('description', __('interface.error-503-description'))

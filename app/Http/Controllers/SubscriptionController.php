@@ -52,7 +52,7 @@ class SubscriptionController extends Controller
                 $request->user()->subscribedForums()->attach($request->forum_id);
 
                 return back()
-                    ->with('success', 'You are now subscribed to this forum. You will now receive site notifications when a topic is started.');
+                    ->with('success', __('application-messages.flash.forum-subscribed'));
 
             case $request->has('topic_id') === true:
                 abort_unless(
@@ -66,10 +66,10 @@ class SubscriptionController extends Controller
                 $request->user()->subscribedTopics()->attach($request->topic_id);
 
                 return back()
-                    ->with('success', 'You are now subscribed to this topic. You will now receive site notifications when a reply is left.');
+                    ->with('success', __('application-messages.flash.topic-subscribed'));
 
             default:
-                return back()->withErrors(['Failed to subscribe.']);
+                return back()->withErrors([__('application-messages.validation.subscribe-failed')]);
         }
     }
 
@@ -82,6 +82,6 @@ class SubscriptionController extends Controller
 
         $subscription->delete();
 
-        return back()->with('success', 'You are now unsubscribed.');
+        return back()->with('success', __('application-messages.flash.unsubscribed'));
     }
 }

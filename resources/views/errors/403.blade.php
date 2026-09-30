@@ -1,5 +1,5 @@
 @extends('errors.layout')
 
-@section('title', 'Error 403: Forbidden!')
+@section('title', __('interface.error-403-title'))
 
-@section('description', $exception->getMessage() ?: 'You do not have permission to perform this action!')
+@section('description', $exception->getMessage() ?: __('interface.error-403-description'))

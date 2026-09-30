@@ -213,7 +213,7 @@ class SystemInformation
         try {
             return substr(\sprintf('%o', fileperms(base_path($path))), -4);
         } catch (Exception) {
-            return trans('site.error');
+            return trans('common.error');
         }
     }
 }

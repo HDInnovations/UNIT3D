@@ -7,9 +7,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.packages.index') }}" class="breadcrumb__link">Packages</a>
+        <a href="{{ route('staff.packages.index') }}" class="breadcrumb__link">
+            {{ __('staff-interface.packages') }}
+        </a>
     </li>
-    <li class="breadcrumb--active">Edit package</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.edit-package') }}</li>
 @endsection
 
 @section('page', 'page__staff-donation-package--edit')
@@ -17,7 +19,9 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Edit: {{ $package->name }}</h2>
+            <h2 class="panel__heading">
+                {{ __('staff-interface.edit-name-heading', ['name' => $package->name]) }}
+            </h2>
         </header>
         <div class="data-table-wrapper">
             <form
@@ -31,15 +35,15 @@
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Position</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Cost</th>
-                                <th>Upload (GiB)</th>
-                                <th>Invite (#)</th>
-                                <th>Bonus (#)</th>
-                                <th>Supporter (Days)</th>
-                                <th>Active</th>
+                                <th>{{ __('common.position') }}</th>
+                                <th>{{ __('common.name') }}</th>
+                                <th>{{ __('common.description') }}</th>
+                                <th>{{ __('staff-interface.cost') }}</th>
+                                <th>{{ __('staff-interface.upload-gib-header') }}</th>
+                                <th>{{ __('staff-interface.invite-count-header') }}</th>
+                                <th>{{ __('staff-interface.bonus-count-header') }}</th>
+                                <th>{{ __('staff-interface.supporter-days-header') }}</th>
+                                <th>{{ __('common.active') }}</th>
                             </tr>
                         </thead>
 
@@ -123,7 +127,9 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" class="form__button form__button--filled">Update</button>
+                <button type="submit" class="form__button form__button--filled">
+                    {{ __('common.submit') }}
+                </button>
             </form>
         </div>
     </section>

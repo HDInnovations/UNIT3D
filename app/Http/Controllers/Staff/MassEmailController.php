@@ -40,6 +40,6 @@ class MassEmailController extends Controller
         }
 
         return to_route('staff.dashboard.index')
-            ->with('success', 'Emails have been queued for processing to avoid spamming the mail server');
+            ->with('success', __('application-messages.flash.mass-email-queued'));
     }
 }

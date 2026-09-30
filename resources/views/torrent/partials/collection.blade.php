@@ -4,6 +4,6 @@
             <x-movie.poster :$movie :categoryId="$movie->torrents_min_category_id" />
         @endforeach
     @else
-        No collection found!
+        {{ __('media-interface.torrent.collection-empty') }}
     @endif
 </div>

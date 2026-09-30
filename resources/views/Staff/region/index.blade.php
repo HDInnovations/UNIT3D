@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Torrent regions</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.torrent-regions') }}</li>
 @endsection
 
 @section('page', 'page__staff-region--index')
@@ -14,7 +14,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Torrent regions</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.torrent-regions') }}</h2>
             <div class="panel__actions">
                 <a
                     href="{{ route('staff.regions.create') }}"
@@ -61,7 +61,9 @@
                                         </button>
                                         <dialog class="dialog" x-bind="dialogElement">
                                             <h4 class="dialog__heading">
-                                                Delete torrent region: {{ $region->name }}
+                                                {{ __('common.delete') }}
+                                                {{ __('torrent.torrent') }}
+                                                {{ __('torrent.region') }}: {{ $region->name }}
                                             </h4>
                                             <form
                                                 class="dialog__form"
@@ -72,8 +74,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <p class="form__group">
-                                                    An existing torrent on site may already use this
-                                                    region. Would you like to change it?
+                                                    {{ __('staff-interface.region-in-use-warning') }}
                                                 </p>
                                                 <p class="form__group" x-data>
                                                     <select
@@ -100,7 +101,7 @@
                                                         class="form__label form__label--floating"
                                                         for="autoreg"
                                                     >
-                                                        Replacement region
+                                                        {{ __('staff-interface.replacement-region') }}
                                                     </label>
                                                 </p>
                                                 <p class="form__group">
@@ -125,7 +126,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3">No regions</td>
+                            <td colspan="3">{{ __('staff-interface.no-regions') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

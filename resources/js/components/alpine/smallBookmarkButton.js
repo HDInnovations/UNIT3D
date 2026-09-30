@@ -7,7 +7,7 @@ document.addEventListener('alpine:init', () => {
                 this.bookmarked ? this.deleteBookmark() : this.createBookmark();
             },
             ['x-bind:title']() {
-                return this.bookmarked ? 'Unbookmark' : 'Bookmark';
+                return this.bookmarked ? window.i18n.unbookmark : window.i18n.bookmark;
             },
         },
         icon: {
@@ -27,12 +27,12 @@ document.addEventListener('alpine:init', () => {
                         timer: 3000,
                     }).fire({
                         icon: 'success',
-                        title: 'Torrent has been bookmarked successfully!',
+                        title: window.i18n.bookmarkApplied,
                     });
                 })
                 .catch((error) => {
                     Swal.fire({
-                        title: '<strong style="color: rgb(17,17,17);">Error</strong>',
+                        title: `<strong style="color: rgb(17,17,17);">${window.i18n.errorTitle}</strong>`,
                         icon: 'error',
                         html: error.response.data.message,
                         showCloseButton: true,
@@ -51,12 +51,12 @@ document.addEventListener('alpine:init', () => {
                         timer: 3000,
                     }).fire({
                         icon: 'success',
-                        title: 'Torrent has been unbookmarked successfully!',
+                        title: window.i18n.unbookmarkApplied,
                     });
                 })
                 .catch((error) => {
                     Swal.fire({
-                        title: '<strong style="color: rgb(17,17,17);">Error</strong>',
+                        title: `<strong style="color: rgb(17,17,17);">${window.i18n.errorTitle}</strong>`,
                         icon: 'error',
                         html: error.response.data.message,
                         showCloseButton: true,

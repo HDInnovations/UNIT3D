@@ -39,7 +39,7 @@ class SimilarTorrentController extends Controller
             case $category->movie_meta:
                 $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb_movie_id', '=', $tmdbId)->exists();
 
-                abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
+                abort_unless($hasTorrents, 404, __('application-messages.validation.no-similar-torrents-found'));
 
                 $meta = TmdbMovie::with([
                     'genres',
@@ -54,7 +54,7 @@ class SimilarTorrentController extends Controller
             case $category->tv_meta:
                 $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb_tv_id', '=', $tmdbId)->exists();
 
-                abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
+                abort_unless($hasTorrents, 404, __('application-messages.validation.no-similar-torrents-found'));
 
                 $meta = TmdbTv::with([
                     'genres',
@@ -69,7 +69,7 @@ class SimilarTorrentController extends Controller
             case $category->game_meta:
                 $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('igdb', '=', $tmdbId)->exists();
 
-                abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
+                abort_unless($hasTorrents, 404, __('application-messages.validation.no-similar-torrents-found'));
 
                 $meta = IgdbGame::with([
                     'genres',
@@ -82,7 +82,7 @@ class SimilarTorrentController extends Controller
 
                 break;
             default:
-                abort(404, 'No Similar Torrents Found');
+                abort(404, __('application-messages.validation.no-similar-torrents-found'));
         }
 
         $personalFreeleech = cache()->get('personal_freeleech:'.auth()->id());
@@ -132,6 +132,6 @@ class SimilarTorrentController extends Controller
             $category->game_meta  => new IgdbScraper()->game($metaId),
         };
 
-        return back()->with('success', 'Metadata update queued successfully.');
+        return back()->with('success', __('application-messages.flash.metadata-queued'));
     }
 }

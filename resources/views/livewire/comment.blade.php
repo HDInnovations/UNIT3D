@@ -18,9 +18,12 @@
                         @endif
                         class="comment__reply"
                     >
-                        <abbr class="comment__reply-abbr" title="Reply to this comment">
+                        <abbr
+                            class="comment__reply-abbr"
+                            title="{{ __('livewire-interface.reply-to-comment') }}"
+                        >
                             <i class="{{ config('other.font-awesome') }} fa-reply"></i>
-                            <span class="sr-only">__('pm.reply')</span>
+                            <span class="sr-only">{{ __('pm.reply') }}</span>
                         </abbr>
                     </button>
                 </li>
@@ -37,7 +40,7 @@
                                 input.value += '\n\n';
                             }
                             input.value +=
-                                '[quote={{ $comment->anon ? 'Anonymous' : '@' . $comment->user->username }}]\n';
+                                '[quote={{ $comment->anon ? __('common.anonymous') : '@' . $comment->user->username }}]\n';
                             input.value += decodeURIComponent(
                                 escape(atob('{{ base64_encode($comment->content) }}'))
                             );
@@ -57,7 +60,7 @@
                                 title="{{ __('common.edit-your-comment') }}"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-pencil"></i>
-                                <span class="sr-only">__('common.edit')</span>
+                                <span class="sr-only">{{ __('common.edit') }}</span>
                             </abbr>
                         </button>
                     </li>
@@ -67,7 +70,7 @@
                             x-on:click="confirmCommentDeletion"
                             x-data="{
                                confirmCommentDeletion () {
-                                   if (window.confirm('You sure?')) {
+                                   if (window.confirm(@js(__('livewire-interface.are-you-sure')))) {
                                         @this.call('deleteComment')
                                    }
                                }
@@ -121,7 +124,7 @@
                             <strong>{{ __('common.error') }}:</strong>
                         @enderror
 
-                        Edit your comment...
+                        {{ __('livewire-interface.edit-your-comment-placeholder') }}
                     </label>
                     @error('editState')
                         <span class="form__hint" id="edit-comment__textarea-hint">
@@ -151,7 +154,7 @@
 
     @if ($comment->isParent())
         <section class="comment__replies">
-            <h5 class="sr-only">Replies</h5>
+            <h5 class="sr-only">{{ __('livewire-interface.replies') }}</h5>
             @if ($comment->children()->exists())
                 <ul class="comment__reply-list">
                     @foreach ($comment->children as $child)
@@ -177,7 +180,7 @@
                                 <strong>{{ __('common.error') }}:</strong>
                             @enderror
 
-                            Reply to parent comment...
+                            {{ __('livewire-interface.reply-to-parent-comment-placeholder') }}
                         </label>
                         @error('replyState')
                             <span class="form__hint" id="reply-comment__textarea-hint">

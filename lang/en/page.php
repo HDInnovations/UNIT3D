@@ -26,7 +26,7 @@ return [
     'aboutus-rules2'        => 'To read the rules in full and please respect them!',
     'aboutus-rules3'        => 'Make suggestions! We are striving to make :title better each day. We aren\'t saying that every suggestion will be used, but it never hurts to see new ideas.',
     'aboutus-welcome'       => 'Lets talk about',
-    'aboutus-welcome-desc' => ':title is a community-built Movie/TV/FANRES database. Every piece of data has been added by our amazing members. :titles strong focus is on HD content, a proactive userbase, an awesome/secure codebase and a helpful and friendly staff team.',
+    'aboutus-welcome-desc' => ':title is a community-built Movie/TV/FANRES database. Every piece of data has been added by our amazing members. At :title, we focus on HD content, a proactive userbase, an awesome/secure codebase and a helpful and friendly staff team.',
     'blacklist-btclient'    => 'BitTorrent client',
     'blacklist-clients'     => 'Clients',
     'blacklist-desc'        => 'These BitTorrent clients are blacklisted/forbidden from announcing to :title',

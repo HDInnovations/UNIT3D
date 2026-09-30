@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ $user->username }} - {{ __('user.security') }} - {{ __('common.members') }} -
         {{ config('other.title') }}
     </title>
 @endsection
@@ -62,7 +62,7 @@
                                     datetime="{{ $apikey->deleted_at }}"
                                     title="{{ $apikey->deleted_at }}"
                                 >
-                                    {{ $apikey->deleted_at ?? 'Currently in use' }}
+                                    {{ $apikey->deleted_at ?? __('member-interface.settings.currently-in-use') }}
                                 </time>
                             </td>
                             <td>
@@ -81,7 +81,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No apikey history</td>
+                            <td colspan="4">{{ __('member-interface.settings.no-apikey-history') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -103,16 +103,16 @@
                 @method('PATCH')
                 <p>{{ __('user.reset-api-help') }}.</p>
                 @if ($user->api_token === null)
-                    <p>You currently do not have an API key.</p>
+                    <p>{{ __('member-interface.settings.no-api-key') }}</p>
                     <p class="form__group--horizontal">
                         <button class="form__button form__button--filled form__button--centered">
-                            Generate API key
+                            {{ __('member-interface.settings.generate-api-key') }}
                         </button>
                     </p>
                 @else
                     <p class="form__group--horizontal">
                         <button class="form__button form__button--filled form__button--centered">
-                            Reset
+                            {{ __('request.reset') }}
                         </button>
                     </p>
                 @endif

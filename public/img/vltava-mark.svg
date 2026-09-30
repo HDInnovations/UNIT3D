@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Vltava</title>
+  <defs>
+    <linearGradient id="river" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8" />
+      <stop offset="1" stop-color="#0e7490" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0f172a" />
+  <path d="M13 17h10l9 26 9-26h10L36.5 50h-9L13 17Z" fill="url(#river)" />
+  <path d="M16 49c6-3 10-3 16 0s10 3 16 0" fill="none" stroke="#e0f2fe" stroke-linecap="round" stroke-width="3" />
+</svg>

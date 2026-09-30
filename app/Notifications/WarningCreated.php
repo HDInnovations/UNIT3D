@@ -49,8 +49,8 @@ class WarningCreated extends Notification implements ShouldQueue, SystemNotifica
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'Received warning',
-            'message' => "You have received a [b]warning[/b]. Reason: {$this->message}",
+            'subject' => __('application-messages.notification.warning-created-subject'),
+            'message' => __('application-messages.notification.warning-created-message', ['reason' => $this->message]),
         ];
     }
 }

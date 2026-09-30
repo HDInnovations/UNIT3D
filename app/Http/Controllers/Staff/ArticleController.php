@@ -77,7 +77,7 @@ class ArticleController extends Controller
         );
 
         return to_route('staff.articles.index')
-            ->with('success', 'Your article has successfully published!');
+            ->with('success', __('application-messages.flash.article-published'));
     }
 
     /**
@@ -111,7 +111,7 @@ class ArticleController extends Controller
         $article->update(['image' => $filename ?? null,] + $request->validated());
 
         return to_route('staff.articles.index')
-            ->with('success', 'Your article changes have successfully published!');
+            ->with('success', __('application-messages.flash.article-changes-published'));
     }
 
     /**
@@ -125,6 +125,6 @@ class ArticleController extends Controller
         $article->delete();
 
         return to_route('staff.articles.index')
-            ->with('success', 'Article has successfully been deleted');
+            ->with('success', __('application-messages.flash.article-deleted'));
     }
 }

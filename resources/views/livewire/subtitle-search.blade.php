@@ -90,7 +90,7 @@
                                                 class="form__button form__button--text"
                                                 href="{{ route('subtitles.download', ['subtitle' => $subtitle]) }}"
                                             >
-                                                {{ __('common.download') }}
+                                                {{ __('common.download-action') }}
                                             </a>
                                         </li>
                                     </menu>

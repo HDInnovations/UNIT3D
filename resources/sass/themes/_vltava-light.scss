@@ -1,0 +1,85 @@
+@use './material-design-v3-light';
+@use './vltava-ui';
+
+:root {
+    color-scheme: light;
+    --vltava-accent: #0369a1;
+    --vltava-muted: #53677d;
+    --vltava-border: #dce5ee;
+    --body-bg: #f1f7fb;
+    --body-fg: #172033;
+    --panel-bg: #ffffff;
+    --panel-fg: #1e293b;
+    --panel-head-bg: #ffffff;
+    --panel-head-fg: #0f172a;
+    --article-card-bg: #ffffff;
+    --article-card-fg: #1e293b;
+    --data-table-fg: #1e293b;
+    --data-table-th-bg: #e8f3fa;
+    --data-table-tr-even-bg: #ffffff;
+    --data-table-tr-odd-bg: #ffffff;
+    --data-table-tr-hover-bg: #dff2fc;
+    --data-table-tr-border: 1px solid #c8dce8;
+    --top-nav-bg: #0f3b56;
+    --top-nav-dropdown-menu-bg: #ffffff;
+    --top-nav-dropdown-fg: #eff8ff;
+    --top-nav-dropdown-hover-bg: #14577d;
+    --top-nav-dropdown-menu-item-fg: #1e293b;
+    --top-nav-dropdown-menu-item-hover-bg: #dff2fc;
+    --top-nav-dropdown-menu-item-icon-bg: #ccebf9;
+    --secondary-nav-bg: #e8f3fa;
+    --secondary-nav-tab-fg: #1e4d6b;
+    --secondary-nav-tab-hover-fg: #0369a1;
+    --quick-search-bg: #ffffff;
+    --quick-search-fg: #1e293b;
+    --quick-search-result-bg: #ffffff;
+    --quick-search-result-fg: #1e293b;
+    --quick-search-result-hover-bg: #dff2fc;
+    --quick-search-selector-hover-bg: #dff2fc;
+    --dialog-bg: #ffffff;
+    --dialog-fg: #1e293b;
+    --dialog-head-bg: #ffffff;
+    --dialog-head-fg: #0f172a;
+    --message-bubble-bg: #dff2fc;
+    --message-bubble-fg: #172033;
+    --chatbox-users-bg: #e8f3fa;
+    --bbcode-input-header-bg: #e8f3fa;
+    --bbcode-input-body-bg: #ffffff;
+    --bbcode-input-border: 1px solid #a9c6d8;
+    --bbcode-rendered-fg-default: #172033;
+    --bbcode-rendered-fg-muted: #496478;
+    --bbcode-rendered-canvas-subtle: #e8f3fa;
+    --bbcode-rendered-accent-fg: #0369a1;
+    --bbcode-rendered-quote-border: #0284c7;
+    --input-text-border: 1px solid #8eb1c7;
+    --input-text-border-active: 2px solid #0284c7;
+    --input-text-border-hover: 2px solid #0ea5e9;
+    --input-text-fg: #172033;
+    --select-border: 1px solid #8eb1c7;
+    --select-border-active: 2px solid #0284c7;
+    --select-fg: #172033;
+    --textarea-border: 1px solid #8eb1c7;
+    --textarea-border-active: 2px solid #0284c7;
+    --textarea-fg: #172033;
+    --button-filled-bg: #0369a1;
+    --button-filled-fg: #ffffff;
+    --button-outlined-border: 1px solid #0369a1;
+    --torrent-card-bg: #ffffff;
+    --torrent-card-fg: #1e293b;
+    --torrent-group-bg: #ffffff;
+    --torrent-group-header-bg: #e8f3fa;
+    --torrent-row-fg: #1e293b;
+    --torrent-row-seeders-fg: #15803d;
+    --torrent-row-leechers-fg: #b91c1c;
+    --torrent-row-completed-fg: #0369a1;
+    --torrent-row-freeleech-fg: #a16207;
+    --footer-bg: #dcecf5;
+    --breadcrumb-fg: #0369a1;
+    --breadcrumb-active-fg: #075985;
+    --notification-unread: #0284c7;
+}
+
+a,
+a:hover {
+    color: #0369a1;
+}

@@ -57,7 +57,7 @@
 {{ old('torrent_urls') }}</textarea
                                 >
                                 <label class="form__label form__label--floating" for="torrent_urls">
-                                    Torrent IDs/URLs (one per line)
+                                    {{ __('media-interface.playlist.torrent-ids-urls-label') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -94,7 +94,7 @@
                     <p class="form__group form__group--horizontal">
                         <button
                             x-on:click.prevent="confirmAction"
-                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this playlist: ' . $playlist->name . '?') }}"
+                            data-b64-deletion-message="{{ base64_encode(__('media-interface.playlist.delete-confirm', ['name' => $playlist->name])) }}"
                             class="form__button form__button--filled form__button--centered"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-trash"></i>
@@ -137,7 +137,7 @@
                                     class="form__label form__label--floating"
                                     for="suggest_torrent_urls"
                                 >
-                                    Torrent ID/URL
+                                    {{ __('media-interface.playlist.torrent-id-url-label') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -177,7 +177,7 @@
     </section>
 
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('common.download') }}</h2>
+        <h2 class="panel__heading">{{ __('common.download-action') }}</h2>
         <div class="panel__body">
             <p class="form__group form__group--horizontal">
                 <a
@@ -194,7 +194,7 @@
                     class="form__button form__button--filled form__button--centered"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-eye"></i>
-                    Playlist torrents list
+                    {{ __('media-interface.playlist.torrents-list-link') }}
                 </a>
             </p>
         </div>
@@ -316,7 +316,7 @@
         {{ $torrents->links('partials.pagination') }}
     </section>
     <section class="panelV2" id="playlist_suggestions">
-        <h2 class="panel__heading">Suggestions</h2>
+        <h2 class="panel__heading">{{ __('playlist.playlist-suggestions') }}</h2>
         <table class="data-table">
             <thead>
                 <tr>
@@ -410,10 +410,10 @@
                                                         for="rejection_message{{ $playlistSuggestion->id }}"
                                                         class="form__label form__label--floating"
                                                     >
-                                                        Rejection message
+                                                        {{ __('media-interface.playlist.rejection-message-label') }}
                                                     </label>
                                                     <span class="form__hint">
-                                                        This message is sent to the suggester
+                                                        {{ __('media-interface.playlist.rejection-message-hint') }}
                                                     </span>
                                                 </div>
                                                 <p class="form__group">
@@ -442,8 +442,7 @@
                         <td
                             colspan="{{ 4 + (int) (auth()->id() === $playlist->user_id || auth()->user()->group->is_modo) }}"
                         >
-                            This is where you'll approve or deny playlist suggestions. None at the
-                            moment.
+                            {{ __('media-interface.playlist.suggestions-empty') }}
                         </td>
                     </tr>
                 @endforelse

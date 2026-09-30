@@ -65,13 +65,14 @@ class CategoryController extends Controller
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',
+            'book_meta'  => $request->meta === 'book',
             'game_meta'  => $request->meta === 'game',
             'tv_meta'    => $request->meta === 'tv',
             'movie_meta' => $request->meta === 'movie',
         ] + $request->validated());
 
         return to_route('staff.categories.index')
-            ->with('success', 'Category successfully added');
+            ->with('success', __('application-messages.flash.category-added'));
     }
 
     /**
@@ -106,13 +107,14 @@ class CategoryController extends Controller
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',
+            'book_meta'  => $request->meta === 'book',
             'game_meta'  => $request->meta === 'game',
             'tv_meta'    => $request->meta === 'tv',
             'movie_meta' => $request->meta === 'movie',
         ] + $request->validated());
 
         return to_route('staff.categories.index')
-            ->with('success', 'Category successfully modified');
+            ->with('success', __('application-messages.flash.category-modified'));
     }
 
     /**
@@ -125,6 +127,6 @@ class CategoryController extends Controller
         $category->delete();
 
         return to_route('staff.categories.index')
-            ->with('success', 'Category successfully deleted');
+            ->with('success', __('application-messages.flash.category-deleted'));
     }
 }

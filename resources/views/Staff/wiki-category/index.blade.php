@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Wiki categories</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.wiki-categories') }}</li>
 @endsection
 
 @section('page', 'page__staff-wiki-category--index')
@@ -44,7 +44,7 @@
                         <button
                             class="form__button form__button--text"
                             x-on:click.prevent="confirmAction"
-                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this wiki category (' . $category->name . ') and all wikis within?') }}"
+                            data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-wiki-category-confirmation', ['name' => $category->name])) }}"
                         >
                             {{ __('common.delete') }}
                         </button>
@@ -91,7 +91,7 @@
                                                 @method('DELETE')
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this wiki: ' . $wiki->name . '?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-wiki-confirmation', ['name' => $wiki->name])) }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.delete') }}
@@ -103,7 +103,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">No wikis</td>
+                                <td colspan="4">{{ __('staff-interface.no-wikis') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -122,7 +122,7 @@
                     href="{{ route('staff.wiki_categories.create') }}"
                     class="form__button form__button--filled form__button--centered"
                 >
-                    Create new category
+                    {{ __('staff-interface.create-new-category') }}
                 </a>
             </p>
             <p class="form__group form__group--horizontal">
@@ -130,7 +130,7 @@
                     href="{{ route('staff.wikis.create') }}"
                     class="form__button form__button--filled form__button--centered"
                 >
-                    Create new wiki
+                    {{ __('staff-interface.create-new-wiki') }}
                 </a>
             </p>
         </div>

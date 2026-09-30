@@ -33,8 +33,8 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.name') }}</th>
-                        <th>Starts at</th>
-                        <th>Ends at</th>
+                        <th>{{ __('event.starts-at') }}</th>
+                        <th>{{ __('event.ends-at') }}</th>
                         <th>{{ __('common.active') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
@@ -94,7 +94,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this event: ' . $event->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-event-confirm', ['name' => $event->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

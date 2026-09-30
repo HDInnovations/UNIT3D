@@ -33,11 +33,11 @@
                         <th>{{ __('common.name') }}</th>
                         <th>{{ __('common.icon') }}</th>
                         <th>{{ __('common.image') }}</th>
-                        <th>Movie meta</th>
-                        <th>TV meta</th>
-                        <th>Game meta</th>
-                        <th>Music meta</th>
-                        <th>No meta</th>
+                        <th>{{ __('vltava.staff.movie_metadata') }}</th>
+                        <th>{{ __('vltava.staff.tv_metadata') }}</th>
+                        <th>{{ __('vltava.staff.game_metadata') }}</th>
+                        <th>{{ __('vltava.staff.music_metadata') }}</th>
+                        <th>{{ __('vltava.staff.no_metadata') }}</th>
                         <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
@@ -62,7 +62,7 @@
                                         src="{{ route('authenticated_images.category_image', ['category' => $category]) }}"
                                     />
                                 @else
-                                    <span>N/A</span>
+                                    <span>{{ __('vltava.staff.not_available') }}</span>
                                 @endif
                             </td>
                             <td>
@@ -140,7 +140,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this category: ' . $category->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('vltava.staff.delete_category', ['name' => $category->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

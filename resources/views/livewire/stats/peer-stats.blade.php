@@ -10,7 +10,7 @@
             <dd>{{ $num_leechers }}</dd>
         </div>
         <div class="key-value__group">
-            <dt>Total</dt>
+            <dt>{{ __('common.total') }}</dt>
             <dd>{{ $num_peers }}</dd>
         </div>
         <div class="key-value__group">

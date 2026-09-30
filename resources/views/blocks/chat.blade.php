@@ -17,14 +17,14 @@
             <div class="dot"></div>
             <div class="dot"></div>
         </div>
-        <div class="spinner__text">Chatbox loading</div>
+        <div class="spinner__text">{{ __('interface.chatbox-loading') }}</div>
     </div>
 
     <div x-show="!state.ui.loading">
         <header class="panel__header" id="chatbox_header">
             <h2 class="panel__heading">
                 <i class="fas fa-comment-dots"></i>
-                Chatbox
+                {{ __('interface.chatbox') }}
             </h2>
             <div class="panel__actions">
                 <div class="panel__action">
@@ -36,7 +36,7 @@
                 <div class="panel__action" x-show="state.chat.target < 1 && state.chat.bot < 1">
                     <button class="form__button form__button--text" @click.prevent="toggleUserList">
                         <i class="fa fa-users"></i>
-                        Users:
+                        {{ __('interface.users-count') }}
                         <span x-text="users.size"></span>
                     </button>
                 </div>
@@ -84,7 +84,7 @@
                 <div class="panel__action">
                     <button
                         class="form__button form__standard-icon-button form__standard-icon-button--skinny"
-                        title="Toggle typing notifications"
+                        title="{{ __('interface.toggle-typing-notifications') }}"
                         @click.prevent="changeWhispers()"
                         :style="'color: ' + (state.chat.showWhispers ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
                     >
@@ -105,7 +105,7 @@
                             </template>
                         </select>
                         <label class="form__label form__label--floating" for="currentChatroom">
-                            Room
+                            {{ __('interface.room') }}
                         </label>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                             </template>
                         </select>
                         <label class="form__label form__label--floating" for="currentChatstatus">
-                            Status
+                            {{ __('interface.status') }}
                         </label>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                     <button
                         id="panel-fullscreen"
                         class="form__button form__standard-icon-button"
-                        title="Toggle fullscreen"
+                        title="{{ __('interface.toggle-fullscreen') }}"
                         @click.prevent="changeFullscreen()"
                     >
                         <i :class="state.ui.fullscreen ? 'fas fa-compress' : 'fas fa-expand'"></i>
@@ -235,17 +235,17 @@
                                                 <span
                                                     x-show="message.user && message.user.id > 1"
                                                     style="padding-right: 5px"
-                                                    x-text="message.user?.username || 'Unknown'"
+                                                    x-text="message.user?.username || window.i18n.unknownUser"
                                                 ></span>
                                                 <span
                                                     x-show="message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2)"
-                                                    x-text="message.bot?.name || 'Unknown'"
+                                                    x-text="message.bot?.name || window.i18n.unknownUser"
                                                 ></span>
                                                 <template x-if="message.user?.icon">
                                                     <i>
                                                         <img
                                                             :style="'max-height: 16px; vertical-align: text-bottom;'"
-                                                            title="Custom user icon"
+                                                            title="{{ __('interface.custom-user-icon') }}"
                                                             :src="'/authenticated-images/user-icons/' + message.user.username"
                                                             loading="lazy"
                                                         />
@@ -255,12 +255,12 @@
                                                     x-show="message.user?.is_lifetime == 1"
                                                     class="fal fa-star"
                                                     id="lifeline"
-                                                    title="Lifetime donor"
+                                                    title="{{ __('interface.lifetime-donor') }}"
                                                 ></i>
                                                 <i
                                                     x-show="message.user?.is_donor == 1 && message.user?.is_lifetime == 0"
                                                     class="fal fa-star text-gold"
-                                                    title="Donor"
+                                                    title="{{ __('interface.donor') }}"
                                                 ></i>
                                             </a>
                                         </address>
@@ -298,7 +298,7 @@
                                         <figure class="chatbox-message__figure">
                                             <i
                                                 class="fa fa-bell"
-                                                title="System notification"
+                                                title="{{ __('interface.system-notification') }}"
                                                 x-show="message.bot && message.bot.id >= 1 && (! message.user || message.user.id < 2)"
                                             ></i>
                                             <a
@@ -330,7 +330,7 @@
                                         <li class="chatbox-message__menu-item">
                                             <button
                                                 class="chatbox-message__delete-button"
-                                                title="Delete message"
+                                                title="{{ __('interface.delete-message') }}"
                                                 @click.prevent="deleteMessage(message.id)"
                                                 style="
                                                     cursor: pointer;
@@ -346,7 +346,7 @@
                             </li>
                         </template>
                         <li x-show="messages.size === 0">
-                            There is no chat history here. Send a message!
+                            {{ __('interface.no-chat-history') }}
                         </li>
                     </ul>
                 </div>
@@ -355,7 +355,7 @@
                 class="chatroom__users"
                 x-show="state.chat.showUserList && state.chat.target < 1 && state.chat.bot < 1"
             >
-                <h2 class="chatroom-users__heading">Users</h2>
+                <h2 class="chatroom-users__heading">{{ __('interface.users') }}</h2>
                 <ul class="chatroom-users__list">
                     <template x-for="user in [...users.values()]" :key="user.id">
                         <li class="chatroom-users__list-item">
@@ -371,7 +371,7 @@
                                 <li>
                                     <button
                                         class="chatroom-users__button"
-                                        title="Gift user bon"
+                                        title="{{ __('interface.gift-user-bon') }}"
                                         @click.prevent="forceGift(user.username)"
                                     >
                                         <i class="fas fa-gift"></i>
@@ -380,7 +380,7 @@
                                 <li>
                                     <button
                                         class="chatroom-users__button"
-                                        title="Send chat PM"
+                                        title="{{ __('interface.send-chat-pm') }}"
                                         @click.prevent="forceMessage(user.username)"
                                     >
                                         <i class="fas fa-envelope"></i>
@@ -396,13 +396,13 @@
                     x-show="state.chat.target < 1 && state.chat.bot < 1 && activePeer && activePeer.size > 0"
                     x-text="
                         activePeer.size > 3
-                            ? 'Several people are typing...'
+                            ? window.i18n.typingSeveral
                             : activePeer.size === 1
-                              ? [...activePeer.keys()][0] + ' is typing...'
-                              : [...activePeer.keys()].slice(0, -1).join(', ') +
-                                ' and ' +
-                                [...activePeer.keys()][activePeer.size - 1] +
-                                ' are typing...'
+                              ? window.i18n.typingOne.replace(':name', () => [...activePeer.keys()][0])
+                              : window.i18n.typingMultiple.replace(':names', () =>
+                                  new Intl.ListFormat(document.documentElement.lang, { type: 'conjunction' })
+                                      .format([...activePeer.keys()])
+                                )
                     "
                 ></span>
             </section>
@@ -421,7 +421,7 @@
                         @keyup="isTyping(auth)"
                     ></textarea>
                     <label class="form__label form__label--floating" for="chatbox__messages-create">
-                        Write your message...
+                        {{ __('interface.write-your-message') }}
                     </label>
                 </p>
             </form>

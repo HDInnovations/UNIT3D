@@ -1,11 +1,15 @@
 @section('title')
     <title>
-        Torrent downloads - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('livewire-interface.torrent-downloads') }} -
+        {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Torrent downloads - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('livewire-interface.torrent-downloads') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -14,7 +18,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Torrent downloads</li>
+    <li class="breadcrumb--active">{{ __('livewire-interface.torrent-downloads') }}</li>
 @endsection
 
 @section('page', 'page__staff-torrent-download--index')
@@ -35,7 +39,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="username">
-                            Username
+                            {{ __('common.username') }}
                         </label>
                     </div>
                     <div class="form__group">
@@ -48,7 +52,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrentName">
-                            Torrent name
+                            {{ __('livewire-interface.torrent-name') }}
                         </label>
                     </div>
                     <div class="form__group">
@@ -59,7 +63,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrentDownloadType">
-                            Type
+                            {{ __('common.type') }}
                         </label>
                     </div>
                     <div class="form__group">
@@ -70,7 +74,9 @@
                             class="form__text"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="from">From</label>
+                        <label class="form__label form__label--floating" for="from">
+                            {{ __('livewire-interface.from') }}
+                        </label>
                     </div>
                     <div class="form__group">
                         <input
@@ -80,7 +86,9 @@
                             class="form__text"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="until">Until</label>
+                        <label class="form__label form__label--floating" for="until">
+                            {{ __('livewire-interface.until') }}
+                        </label>
                     </div>
                     <div class="form__group">
                         <select
@@ -89,11 +97,11 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="none">None</option>
-                            <option value="user_id">User</option>
+                            <option value="none">{{ __('livewire-interface.none') }}</option>
+                            <option value="user_id">{{ __('common.user') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="groupBy">
-                            Group by
+                            {{ __('livewire-interface.group-by') }}
                         </label>
                     </div>
                 </div>
@@ -102,7 +110,7 @@
     </section>
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Torrent downloads</h2>
+            <h2 class="panel__heading">{{ __('livewire-interface.torrent-downloads') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <div class="form__group">
@@ -123,7 +131,9 @@
                 </div>
             </div>
         </header>
-        <div class="panel__body" wire:loading.block>Loading...</div>
+        <div class="panel__body" wire:loading.block>
+            {{ __('livewire-interface.loading') }}
+        </div>
         <div class="data-table-wrapper">
             @switch($this->groupBy)
                 @case('user_id')
@@ -131,35 +141,35 @@
                         <thead>
                             <tr>
                                 <th wire:click="sortBy('user_id')" role="columnheader button">
-                                    User
+                                    {{ __('common.user') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                                 </th>
                                 <th
                                     wire:click="sortBy('download_count')"
                                     role="columnheader button"
                                 >
-                                    Download count
+                                    {{ __('livewire-interface.download-count') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'download_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('distinct_torrent_count')"
                                     role="columnheader button"
                                 >
-                                    Distinct torrent count
+                                    {{ __('livewire-interface.distinct-torrent-count') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'distinct_torrent_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_min')"
                                     role="columnheader button"
                                 >
-                                    First downloaded At
+                                    {{ __('livewire-interface.first-downloaded-at') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at_min'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_max')"
                                     role="columnheader button"
                                 >
-                                    Last downloaded At
+                                    {{ __('livewire-interface.last-downloaded-at') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at_max'])
                                 </th>
                             </tr>
@@ -206,19 +216,19 @@
                                     @include('livewire.includes._sort-icon', ['field' => 'id'])
                                 </th>
                                 <th wire:click="sortBy('user_id')" role="columnheader button">
-                                    User
+                                    {{ __('common.user') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                                 </th>
                                 <th wire:click="sortBy('torrent_id')" role="columnheader button">
-                                    Torrent ID
+                                    {{ __('livewire-interface.torrent-id') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                                 </th>
                                 <th wire:click="sortBy('torrent_id')" role="columnheader button">
-                                    Torrent
+                                    {{ __('torrent.torrent') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                                 </th>
                                 <th wire:click="sortBy('type')" role="columnheader button">
-                                    Type
+                                    {{ __('common.type') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'type'])
                                 </th>
                                 <th wire:click="sortBy('created_at')" role="columnheader button">
@@ -237,16 +247,18 @@
                                             :anon="false"
                                         />
                                     </td>
-                                    <td>{{ $torrentDownload->torrent?->id ?? 'Not found' }}</td>
+                                    <td>
+                                        {{ $torrentDownload->torrent?->id ?? __('livewire-interface.not-found') }}
+                                    </td>
                                     <td>
                                         @if ($torrentDownload->torrent !== null)
                                             <a
                                                 href="{{ route('torrents.show', ['id' => $torrentDownload->torrent->id]) }}"
                                             >
-                                                {{ $torrentDownload->torrent->name ?? 'Not found' }}
+                                                {{ $torrentDownload->torrent->name ?? __('livewire-interface.not-found') }}
                                             </a>
                                         @else
-                                                Not found
+                                            {{ __('livewire-interface.not-found') }}
                                         @endif
                                     </td>
                                     <td>{{ $torrentDownload->type }}</td>

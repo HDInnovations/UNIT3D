@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('wikis.index') }}" class="breadcrumb__link">Wikis</a>
+        <a href="{{ route('wikis.index') }}" class="breadcrumb__link">{{ __('member-interface.wiki.wikis') }}</a>
     </li>
     <li class="breadcrumb--active">
         {{ $wiki->name }}

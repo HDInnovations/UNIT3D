@@ -2,7 +2,9 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('pages.index') }}" class="breadcrumb__link">Pages</a>
+        <a href="{{ route('pages.index') }}" class="breadcrumb__link">
+            {{ __('common.pages') }}
+        </a>
     </li>
     <li class="breadcrumb--active">
         {{ $page->name }}
@@ -54,10 +56,11 @@
 
                 if (totalHeight >= scrollHeight) {
                     Swal.fire({
-                        title: '<strong>Read the <u>rules?</u></strong>',
-                        text: 'Do you fully understand our rules?',
+                        title: '<strong><u>{{ __('member-interface.misc.page.read-the-rules') }}</u></strong>',
+                        text: @js(__('member-interface.misc.page.understand-rules-question')),
                         icon: 'question',
-                        confirmButtonText: '<i class="fa fa-thumbs-up"></i> I do!',
+                        confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> {{ __('member-interface.misc.page.i-do') }}',
                     }).then((result) => {
                         if (result.isConfirmed) {
                             axios.post(
@@ -74,7 +77,7 @@
 
                             Toast.fire({
                                 icon: 'success',
-                                title: 'Thanks for accepting our rules!',
+                                title: @js(__('member-interface.misc.page.rules-accepted-success')),
                             });
                         } else {
                             const Toast = Swal.mixin({
@@ -86,7 +89,7 @@
 
                             Toast.fire({
                                 icon: 'error',
-                                title: 'Something went wrong!',
+                                title: @js(__('common.something-went-wrong')),
                             });
                         }
                     });

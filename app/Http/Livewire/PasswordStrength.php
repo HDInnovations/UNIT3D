@@ -23,19 +23,7 @@ class PasswordStrength extends Component
 {
     public string $password = '';
 
-    public string $passwordStrength = 'Weak';
-
     public int $strengthScore = 0;
-
-    /**
-     * @var array<int, string>
-     */
-    public array $strengthLevels = [
-        1 => 'Weak',
-        2 => 'Fair',
-        3 => 'Good',
-        4 => 'Strong',
-    ];
 
     final public function updatedPassword(string $password): void
     {

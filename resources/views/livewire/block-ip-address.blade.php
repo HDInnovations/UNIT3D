@@ -7,7 +7,7 @@
                     {{ __('common.add') }}
                 </button>
                 <dialog class="dialog" x-bind="dialogElement">
-                    <h3 class="dialog__heading">Block IP Address</h3>
+                    <h3 class="dialog__heading">{{ __('livewire-interface.block-ip-address') }}</h3>
                     <form class="dialog__form" x-bind="dialogForm">
                         <p class="form__group">
                             <input
@@ -20,7 +20,7 @@
                                 wire:model="ipAddress"
                             />
                             <label class="form__label form__label--floating" for="ipAddress">
-                                Ip address
+                                {{ __('common.ip') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -32,7 +32,7 @@
                                 wire:model="reason"
                             ></textarea>
                             <label class="form__label form__label--floating" for="reason">
-                                Reason
+                                {{ __('common.reason') }}
                             </label>
                         </p>
                         <p class="form__group">
@@ -128,10 +128,10 @@
                         </td>
                         <td>
                             <time
-                                datetime="{{ $ipAddress->expires_at ?? 'Never' }}"
+                                datetime="{{ $ipAddress->expires_at ?? __('livewire-interface.never') }}"
                                 title="{{ $ipAddress->expires_at }}"
                             >
-                                {{ $ipAddress->expires_at ?? 'Never' }}
+                                {{ $ipAddress->expires_at ?? __('livewire-interface.never') }}
                             </time>
                         </td>
                         <td>
@@ -140,7 +140,7 @@
                                     <form>
                                         <button
                                             x-on:click.prevent="destroy"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this ip: ' . $ipAddress->ip_address . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-delete-ip', ['ip' => $ipAddress->ip_address])) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}
@@ -152,7 +152,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7">No blocked ip addresses</td>
+                        <td colspan="7">{{ __('common.no-result') }}</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -164,7 +164,7 @@
             Alpine.data('blockedIp', () => ({
                 destroy() {
                     Swal.fire({
-                        title: 'Are you sure?',
+                        title: @js(__('livewire-interface.are-you-sure')),
                         text: atob(this.$el.dataset.b64DeletionMessage),
                         icon: 'warning',
                         showConfirmButton: true,

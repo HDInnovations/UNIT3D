@@ -29,7 +29,7 @@
                         <figcaption>{{ $person->name }}</figcaption>
                     </figure>
                 @empty
-                    No persons.
+                    {{ __('livewire-interface.no-persons') }}
                 @endforelse
             </div>
             {{ $persons->links('partials.pagination') }}
@@ -71,7 +71,7 @@
                             @endforeach
                         </select>
                         <label for="firstCharacter" class="form__label form__label--floating">
-                            Starts with
+                            {{ __('livewire-interface.starts-with') }}
                         </label>
                     </p>
                     <div class="form__group">

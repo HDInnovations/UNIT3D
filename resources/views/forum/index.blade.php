@@ -40,7 +40,7 @@
                     @endforeach
                 </ul>
             @else
-                <div class="panel__body">No forums in category.</div>
+                <div class="panel__body">{{ __('member-interface.forum.no-forums-in-category') }}</div>
             @endif
         </section>
     @endforeach
@@ -76,9 +76,9 @@
                 <p class="form__group form__group--horizontal">
                     <button
                         class="form__button form__button--filled form__button--centered"
-                        title="Mark all topics as read"
+                        title="{{ __('member-interface.forum.mark-all-read-title') }}"
                     >
-                        Mark all read
+                        {{ __('member-interface.forum.mark-all-read') }}
                     </button>
                 </p>
             </form>

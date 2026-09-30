@@ -221,7 +221,7 @@
                                         value="{{ \App\Enums\ModerationStatus::POSTPONED }}"
                                         wire:model.live="status"
                                     />
-                                    Postponed
+                                    {{ __('torrent.postponed') }}
                                 </label>
                             </p>
                         </div>
@@ -229,7 +229,9 @@
                 </div>
                 <div class="form__group">
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Precision</legend>
+                        <legend class="form__legend">
+                            {{ __('livewire-interface.precision') }}
+                        </legend>
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
                                 <label class="form__label">
@@ -238,7 +240,7 @@
                                         class="user-torrents__checkbox"
                                         wire:model.live="showMorePrecision"
                                     />
-                                    Show more precision
+                                    {{ __('livewire-interface.show-more-precision') }}
                                 </label>
                             </p>
                         </div>
@@ -308,7 +310,7 @@
                         wire:click="sortBy('actual_uploaded')"
                         role="columnheader button"
                     >
-                        {{ __('common.upload') }}
+                        {{ __('common.uploaded') }}
                         @include('livewire.includes._sort-icon', ['field' => 'actual_uploaded'])
                     </th>
                     <th
@@ -316,7 +318,7 @@
                         wire:click="sortBy('actual_downloaded')"
                         role="columnheader button"
                     >
-                        {{ __('common.download') }}
+                        {{ __('common.downloaded') }}
                         @include('livewire.includes._sort-icon', ['field' => 'actual_downloaded'])
                     </th>
                     <th
@@ -332,7 +334,7 @@
                         wire:click="sortBy('leechtime')"
                         role="columnheader button"
                     >
-                        Leeched
+                        {{ __('livewire-interface.leeched') }}
                         @include('livewire.includes._sort-icon', ['field' => 'leechtime'])
                     </th>
                     <th
@@ -340,7 +342,7 @@
                         wire:click="sortBy('seedtime')"
                         role="columnheader button"
                     >
-                        Seeded
+                        {{ __('torrent.seed-time') }}
                         @include('livewire.includes._sort-icon', ['field' => 'seedtime'])
                     </th>
                     <th
@@ -510,7 +512,7 @@
                                     @elseif ($ratio <= INF)
                                         class="ratio-50"
                                     @endif
-                                    title="Actual ratio: {{ $history->actual_ratio }}"
+                                    title="{{ __('livewire-interface.actual-ratio-value', ['ratio' => $history->actual_ratio]) }}"
                                 >
                                     {{ $ratio }}
                                 </span>
@@ -526,7 +528,7 @@
                                     @elseif ($ratio <= INF)
                                         class="ratio-50"
                                     @endif
-                                    title="Credited ratio: {{ $history->ratio }}"
+                                    title="{{ __('livewire-interface.credited-ratio-value', ['ratio' => $history->ratio]) }}"
                                 >
                                     {{ $ratio }}
                                 </span>
@@ -544,7 +546,7 @@
                                         class="{{ ($history->seedtime ?? 0) < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}"
                                     >
                                         @if ($history->seedtime === null)
-                                            N/A
+                                            {{ __('livewire-interface.not-available') }}
                                         @else
                                             {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
                                         @endif
@@ -555,7 +557,7 @@
                                         datetime="{{ $history->created_at }}"
                                         title="{{ $history->created_at }}"
                                     >
-                                        {{ $history->created_at ?? 'N/A' }}
+                                        {{ $history->created_at ?? __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                                 <td class="user-torrents__updated-at">
@@ -563,7 +565,7 @@
                                         datetime="{{ $history->updated_at }}"
                                         title="{{ $history->updated_at }}"
                                     >
-                                        {{ $history->updated_at ?? 'N/A' }}
+                                        {{ $history->updated_at ?? __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                                 <td class="user-torrents__completed-at">
@@ -571,7 +573,7 @@
                                         datetime="{{ $history->completed_at }}"
                                         title="{{ $history->completed_at }}"
                                     >
-                                        {{ $history->completed_at ?? 'N/A' }}
+                                        {{ $history->completed_at ?? __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                                 <td class="user-torrents__prewarned-at">
@@ -579,20 +581,20 @@
                                         datetime="{{ $history->prewarned_at }}"
                                         title="{{ $history->prewarned_at }}"
                                     >
-                                        {{ $history->prewarned_at ?? 'N/A' }}
+                                        {{ $history->prewarned_at ?? __('livewire-interface.not-available') }}
                                     </time>
                                 </td>
                             @else
                                 <td class="user-torrents__leechtime">
                                     @if ($history->leechtime === null)
-                                        N/A
+                                        {{ __('livewire-interface.not-available') }}
                                     @else
                                         {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($history->leechtime)), 0, 2)) }}
                                     @endif
                                 </td>
                                 <td class="user-torrents__seedtime">
                                     @if ($history->seedtime === null)
-                                        N/A
+                                        {{ __('livewire-interface.not-available') }}
                                     @else
                                         <span
                                             class="{{ $history->seedtime < config('hitrun.seedtime') ? 'text-red' : 'text-green' }}"
@@ -606,7 +608,7 @@
                                         datetime="{{ $history->created_at }}"
                                         title="{{ $history->created_at }}"
                                     >
-                                        {{ $history->created_at === null ? 'N/A' : \explode(' ', $history->created_at)[0] }}
+                                        {{ $history->created_at === null ? __('livewire-interface.not-available') : \explode(' ', $history->created_at)[0] }}
                                     </time>
                                 </td>
                                 <td class="user-torrents__updated-at">
@@ -614,7 +616,7 @@
                                         datetime="{{ $history->updated_at }}"
                                         title="{{ $history->updated_at }}"
                                     >
-                                        {{ $history->updated_at === null ? 'N/A' : \explode(' ', $history->updated_at)[0] }}
+                                        {{ $history->updated_at === null ? __('livewire-interface.not-available') : \explode(' ', $history->updated_at)[0] }}
                                     </time>
                                 </td>
                                 <td class="user-torrents__completed-at">
@@ -622,7 +624,7 @@
                                         datetime="{{ $history->completed_at }}"
                                         title="{{ $history->completed_at }}"
                                     >
-                                        {{ $history->completed_at === null ? 'N/A' : \explode(' ', $history->completed_at)[0] }}
+                                        {{ $history->completed_at === null ? __('livewire-interface.not-available') : \explode(' ', $history->completed_at)[0] }}
                                     </time>
                                 </td>
 
@@ -631,7 +633,7 @@
                                         datetime="{{ $history->prewarned_at }}"
                                         title="{{ $history->prewarned_at }}"
                                     >
-                                        {{ $history->prewarned_at === null ? 'N/A' : \explode(' ', $history->prewarned_at)[0] }}
+                                        {{ $history->prewarned_at === null ? __('livewire-interface.not-available') : \explode(' ', $history->prewarned_at)[0] }}
                                     </time>
                                 </td>
                             @endif
@@ -639,12 +641,12 @@
                                 @if ($history->hitrun == 1)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        title="Warned"
+                                        title="{{ __('livewire-interface.warned') }}"
                                     ></i>
                                 @else
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        title="Not warned"
+                                        title="{{ __('livewire-interface.not-warned') }}"
                                     ></i>
                                 @endif
                             </td>
@@ -652,20 +654,20 @@
                                 @if ($history->immune)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        title="Immune"
+                                        title="{{ __('livewire-interface.immune') }}"
                                         @if (auth()->user()->group->is_modo)
                                             x-on:click.prevent="updateImmune(false)"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to set this history record to not immune: ' . $history->name . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-set-not-immune', ['name' => $history->name])) }}"
                                             style="cursor: pointer"
                                         @endif
                                     ></i>
                                 @else
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        title="Not immune"
+                                        title="{{ __('livewire-interface.not-immune') }}"
                                         @if (auth()->user()->group->is_modo)
                                             x-on:click.prevent="updateImmune(true)"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to set this history record to immune: ' . $history->name . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-set-immune', ['name' => $history->name])) }}"
                                             style="cursor: pointer"
                                         @endif
                                     ></i>
@@ -680,7 +682,7 @@
                                 @else
                                     <i
                                         class="{{ config('other.font-awesome') }} text-red fa-times"
-                                        title="Not {{ __('torrent.uploaded') }}"
+                                        title="{{ __('livewire-interface.not-uploaded') }}"
                                     ></i>
                                 @endif
                             </td>
@@ -709,7 +711,7 @@
                                         @break
                                     @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
-                                            title="Postponed"
+                                            title="{{ __('torrent.postponed') }}"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
 
@@ -749,7 +751,7 @@
                 },
                 confirmAction(onConfirm) {
                     Swal.fire({
-                        title: 'Are you sure?',
+                        title: @js(__('livewire-interface.are-you-sure')),
                         text: atob(this.$el.dataset.b64DeletionMessage),
                         icon: 'warning',
                         showConfirmButton: true,

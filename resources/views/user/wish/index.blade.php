@@ -37,10 +37,10 @@
                             required
                         >
                             <option selected value="movie">{{ __('mediahub.movie') }}</option>
-                            <option value="tv">TV</option>
+                            <option value="tv">{{ __('member-interface.account.tv') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="model">
-                            {{ __('mediahub.movie') }}/TV
+                            {{ __('mediahub.movie') }}/{{ __('member-interface.account.tv') }}
                         </label>
                     </div>
                 </div>
@@ -95,13 +95,13 @@
                                     <a
                                         href="{{ route('torrents.index', ['categoryIds' => $movieCategoryIds, 'tmdbId' => $wish->tmdb_movie_id, 'view' => 'group']) }}"
                                     >
-                                        Torrents ({{ $wish->movie_torrents_count }})
+                                        {{ __('torrent.torrents') }} ({{ $wish->movie_torrents_count }})
                                     </a>
                                 @elseif ($wish->tmdb_tv_id !== null)
                                     <a
                                         href="{{ route('torrents.index', ['categoryIds' => $tvCategoryIds, 'tmdbId' => $wish->tmdb_tv_id, 'view' => 'group']) }}"
                                     >
-                                        Torrents ({{ $wish->tv_torrents_count }})
+                                        {{ __('torrent.torrents') }} ({{ $wish->tv_torrents_count }})
                                     </a>
                                 @endif
                             </td>
@@ -110,24 +110,24 @@
                                     @if ($wish->movie_torrents_count === 0)
                                         <i
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
-                                            title="Not yet uploaded"
+                                            title="{{ __('member-interface.account.not-yet-uploaded') }}"
                                         ></i>
                                     @else
                                         <i
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
-                                            title="Already uploaded"
+                                            title="{{ __('member-interface.account.already-uploaded') }}"
                                         ></i>
                                     @endif
                                 @elseif ($wish->tmdb_tv_id !== null)
                                     @if ($wish->tv_torrents_count === 0)
                                         <i
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
-                                            title="Not yet uploaded"
+                                            title="{{ __('member-interface.account.not-yet-uploaded') }}"
                                         ></i>
                                     @else
                                         <i
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
-                                            title="Already uploaded"
+                                            title="{{ __('member-interface.account.already-uploaded') }}"
                                         ></i>
                                     @endif
                                 @endif
@@ -162,7 +162,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this wish: ' . $wish->title . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('member-interface.account.confirm-delete-wish', ['title' => $wish->title])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
@@ -174,7 +174,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No wishes</td>
+                            <td colspan="4">{{ __('member-interface.account.no-wishes') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -25,7 +25,7 @@ if (config('unit3d.root_url_override')) {
     URL::forceRootUrl(config('unit3d.root_url_override'));
 }
 
-Route::middleware(['auth:rss', 'banned', 'verified'])->group(function (): void {
+Route::middleware(['auth:rss', 'language', 'banned', 'verified'])->group(function (): void {
     // RSS (RSS Key Auth)
     Route::get('/rss/{id}.{rsskey}', [App\Http\Controllers\RssController::class, 'show'])->name('rss.show.rsskey');
     Route::get('/torrent/download/{id}.{rsskey}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('torrent.download.rsskey');

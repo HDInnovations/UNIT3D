@@ -49,7 +49,7 @@ class MassEmail extends Notification
         return (new MailMessage())
             ->subject($this->subject)
             ->line($this->message)
-            ->action('Login Now', route('login'))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->action(__('application-messages.notification.login-now'), route('login'))
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 }

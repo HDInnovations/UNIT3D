@@ -16,7 +16,7 @@
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.forum_categories.index') }}" class="breadcrumb__link">
-            Forum categories
+            {{ __('staff-interface.forum-categories') }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -28,13 +28,15 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Add a new forum category</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.forum-category-heading-create') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.forum_categories.store') }}">
                 @csrf
                 <p class="form__group">
                     <input id="name" class="form__text" type="text" name="name" required />
-                    <label class="form__label form__label--floating" for="name">Title</label>
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.title') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -58,11 +60,13 @@
                         required
                     ></textarea>
                     <label class="form__label form__label--floating" for="description">
-                        Description
+                        {{ __('common.description') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <button class="form__button form__button--filled">Save forum</button>
+                    <button class="form__button form__button--filled">
+                        {{ __('staff-interface.save-category') }}
+                    </button>
                 </p>
             </form>
         </div>

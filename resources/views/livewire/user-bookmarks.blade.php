@@ -7,7 +7,7 @@
                     class="form__button form__button--text"
                     href="{{ route('torrents.index', ['bookmarked' => 1]) }}"
                 >
-                    Torrents list
+                    {{ __('livewire-interface.torrents-list') }}
                 </a>
             </div>
         </div>
@@ -63,7 +63,7 @@
                     wire:click="sortBy('torrents.created_at')"
                     role="columnheader button"
                 >
-                    Uploaded at
+                    {{ __('livewire-interface.uploaded-at') }}
                     @include('livewire.includes._sort-icon', ['field' => 'torrents.created_at'])
                 </th>
                 <th
@@ -71,7 +71,7 @@
                     wire:click="sortBy('bookmarks.created_at')"
                     role="columnheader button"
                 >
-                    Bookmarked at
+                    {{ __('livewire-interface.bookmarked-at') }}
                     @include('livewire.includes._sort-icon', ['field' => 'bookmarks.created_at'])
                 </th>
                 <th class="user-bookmarks__actions-header">
@@ -174,7 +174,7 @@
                                         <a
                                             class="form__standard-icon-button"
                                             href="{{ route('download_check', ['id' => $bookmark->torrent_id]) }}"
-                                            title="{{ __('common.download') }}"
+                                            title="{{ __('common.download-action') }}"
                                         >
                                             <i
                                                 class="{{ config('other.font-awesome') }} fa-download"
@@ -184,7 +184,7 @@
                                         <a
                                             class="form__standard-icon-button"
                                             href="{{ route('download', ['id' => $bookmark->torrent_id]) }}"
-                                            title="{{ __('common.download') }}"
+                                            title="{{ __('common.download-action') }}"
                                         >
                                             <i
                                                 class="{{ config('other.font-awesome') }} fa-download"

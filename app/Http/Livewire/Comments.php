@@ -150,27 +150,27 @@ class Comments extends Component
 
         if (!$this->model instanceof Ticket) {
             // Auto Shout
-            $username = $comment->anon ? 'An anonymous user' : '[url='.href_profile($this->user).']'.$this->user->username.'[/url]';
+            $username = $comment->anon ? trans('application-messages.bot.anonymous-user-phrase', [], config('app.locale')) : '[url='.href_profile($this->user).']'.$this->user->username.'[/url]';
 
             switch ($this->model::class) {
                 case Article::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Article [url='.href_article($this->model).']'.$this->model->title.'[/url]');
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.comment-on-article', ['username' => $username, 'url' => href_article($this->model), 'title' => $this->model->title], config('app.locale')));
 
                     break;
                 case TmdbCollection::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Collection [url='.href_collection($this->model).']'.$this->model->name.'[/url]');
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.comment-on-collection', ['username' => $username, 'url' => href_collection($this->model), 'name' => $this->model->name], config('app.locale')));
 
                     break;
                 case Playlist::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Playlist [url='.href_playlist($this->model).']'.$this->model->name.'[/url]');
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.comment-on-playlist', ['username' => $username, 'url' => href_playlist($this->model), 'name' => $this->model->name], config('app.locale')));
 
                     break;
                 case TorrentRequest::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Torrent Request [url='.href_request($this->model).']'.$this->model->name.'[/url]');
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.comment-on-request', ['username' => $username, 'url' => href_request($this->model), 'name' => $this->model->name], config('app.locale')));
 
                     break;
                 case Torrent::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Torrent [url='.href_torrent($this->model).']'.$this->model->name.'[/url]');
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.comment-on-torrent', ['username' => $username, 'url' => href_torrent($this->model), 'name' => $this->model->name], config('app.locale')));
 
                     break;
             }

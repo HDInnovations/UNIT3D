@@ -50,7 +50,7 @@ class ResolutionController extends Controller
         Resolution::create($request->validated());
 
         return to_route('staff.resolutions.index')
-            ->with('success', 'Resolution successfully added');
+            ->with('success', __('application-messages.flash.resolution-added'));
     }
 
     /**
@@ -71,7 +71,7 @@ class ResolutionController extends Controller
         $resolution->update($request->validated());
 
         return to_route('staff.resolutions.index')
-            ->with('success', 'Resolution successfully modified');
+            ->with('success', __('application-messages.flash.resolution-modified'));
     }
 
     /**
@@ -84,6 +84,6 @@ class ResolutionController extends Controller
         $resolution->delete();
 
         return to_route('staff.resolutions.index')
-            ->with('success', 'Resolution successfully deleted');
+            ->with('success', __('application-messages.flash.resolution-deleted'));
     }
 }

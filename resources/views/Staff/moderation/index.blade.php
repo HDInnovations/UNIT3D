@@ -1,7 +1,10 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Moderation - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('staff.moderation') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -53,11 +56,11 @@
                             <td>
                                 <i
                                     class="{{ $torrent->category->icon }} category__icon"
-                                    data-original-title="{{ $torrent->category->name }} torrent"
+                                    data-original-title="{{ $torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                 ></i>
                             </td>
                             <td>{{ $torrent->type->name }}</td>
-                            <td>{{ $torrent->resolution->name ?? 'No res' }}</td>
+                            <td>{{ $torrent->resolution->name ?? __('staff-interface.no-resolution') }}</td>
                             <td>{{ $torrent->getSize() }}</td>
                             <td>
                                 <x-user-tag :anon="false" :user="$torrent->user" />
@@ -95,7 +98,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8">No pending torrents</td>
+                            <td colspan="8">{{ __('staff-interface.no-pending-torrents') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -138,11 +141,11 @@
                             <td>
                                 <i
                                     class="{{ $torrent->category->icon }} category__icon"
-                                    title="{{ $torrent->category->name }} torrent"
+                                    title="{{ $torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                 ></i>
                             </td>
                             <td>{{ $torrent->type->name }}</td>
-                            <td>{{ $torrent->resolution->name ?? 'No res' }}</td>
+                            <td>{{ $torrent->resolution->name ?? __('staff-interface.no-resolution') }}</td>
                             <td>{{ $torrent->getSize() }}</td>
                             <td>
                                 <x-user-tag :anon="false" :user="$torrent->user" />
@@ -193,7 +196,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9">No postponed torrents</td>
+                            <td colspan="9">{{ __('staff-interface.no-postponed-torrents') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -236,11 +239,11 @@
                             <td>
                                 <i
                                     class="{{ $torrent->category->icon }} category__icon"
-                                    title="{{ $torrent->category->name }} torrent"
+                                    title="{{ $torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                 ></i>
                             </td>
                             <td>{{ $torrent->type->name }}</td>
-                            <td>{{ $torrent->resolution->name ?? 'No res' }}</td>
+                            <td>{{ $torrent->resolution->name ?? __('staff-interface.no-resolution') }}</td>
                             <td>{{ $torrent->getSize() }}</td>
                             <td>
                                 <x-user-tag :anon="false" :user="$torrent->user" />
@@ -292,7 +295,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9">No rejected torrents</td>
+                            <td colspan="9">{{ __('staff-interface.no-rejected-torrents') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

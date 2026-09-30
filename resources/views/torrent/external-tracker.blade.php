@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        External tracker - {{ $torrent?->name ?? 'Not found' }} - {{ config('other.title') }}
+        {{ __('media-interface.torrent.external-tracker') }} - {{ $torrent?->name ?? __('media-interface.torrent.not-found') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -18,7 +18,7 @@
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('torrents.show', ['id' => $id]) }}" class="breadcrumb__link">
-            {{ $torrent?->name ?? 'Not found' }}
+            {{ $torrent?->name ?? __('media-interface.torrent.not-found') }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -42,7 +42,7 @@
             class="nav-tab--active__link"
             href="{{ route('torrents.external_tracker', ['id' => $id]) }}"
         >
-            External tracker
+            {{ __('media-interface.torrent.external-tracker') }}
         </a>
     </li>
 @endsection
@@ -53,17 +53,17 @@
     @if ($externalTorrent === true)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
-            <div class="panel__body">External tracker not enabled.</div>
+            <div class="panel__body">{{ __('media-interface.torrent.external-tracker-disabled') }}</div>
         </section>
     @elseif ($externalTorrent === false)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
-            <div class="panel__body">Torrent not found.</div>
+            <div class="panel__body">{{ __('media-interface.torrent.torrent-not-found') }}</div>
         </section>
     @elseif ($externalTorrent === [])
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
-            <div class="panel__body">Tracker returned an error.</div>
+            <div class="panel__body">{{ __('media-interface.torrent.tracker-error') }}</div>
         </section>
     @else
         <section class="panelV2">
@@ -73,16 +73,16 @@
                     <thead>
                         <tr>
                             <th>{{ __('common.user') }}</th>
-                            <th>Peer ID</th>
+                            <th>{{ __('vltava.media.peer_id') }}</th>
                             <th>{{ __('torrent.progress') }}</th>
-                            <th>{{ __('common.upload') }}</th>
-                            <th>{{ __('common.download') }}</th>
+                            <th>{{ __('common.uploaded') }}</th>
+                            <th>{{ __('common.downloaded') }}</th>
                             <th>{{ __('torrent.left') }}</th>
                             <th>{{ __('common.ip') }}</th>
                             <th>{{ __('common.port') }}</th>
                             <th>{{ __('torrent.last-update') }}</th>
                             <th>{{ __('common.status') }}</th>
-                            <th>Visible</th>
+                            <th>{{ __('vltava.media.visible') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +103,7 @@
                                             />
                                         @endif
                                     @else
-                                            User not found
+                                            {{ __('media-interface.torrent.user-not-found') }}
                                     @endif
                                 </td>
                                 <td>
@@ -111,7 +111,7 @@
                                 </td>
                                 <td>
                                     @if ($torrent === null)
-                                        Torrent size not available
+                                        {{ __('media-interface.torrent.size-not-available') }}
                                     @else
                                         @php
                                             $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size;
@@ -149,7 +149,7 @@
                                     @endphp
 
                                     <time datetime="{{ $updatedAt }}" title="{{ $updatedAt }}">
-                                        {{ $updatedAt ? $updatedAt->diffForHumans() : 'N/A' }}
+                                        {{ $updatedAt ? $updatedAt->diffForHumans() : __('media-interface.torrent.na') }}
                                     </time>
                                 </td>
                                 <td
@@ -162,7 +162,7 @@
                                             {{ __('torrent.leecher') }}
                                         @endif
                                     @else
-                                            Inactive
+                                            {{ __('media-interface.torrent.inactive') }}
                                     @endif
                                 </td>
                                 <td class="{{ $peer['is_visible'] ? 'text-green' : 'text-red' }}">
@@ -199,15 +199,15 @@
                         <dd>{{ $externalTorrent['times_completed'] }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Download factor</dt>
+                        <dt>{{ __('vltava.media.download_factor') }}</dt>
                         <dd>{{ $externalTorrent['download_factor'] }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Upload factor</dt>
+                        <dt>{{ __('vltava.media.upload_factor') }}</dt>
                         <dd>{{ $externalTorrent['upload_factor'] }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>Deleted</dt>
+                        <dt>{{ __('vltava.media.deleted') }}</dt>
                         <dd>
                             {{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}
                         </dd>

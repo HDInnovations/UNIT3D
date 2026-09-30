@@ -8,7 +8,7 @@
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.distributors.index') }}" class="breadcrumb__link">
-            Torrent distributors
+            {{ __('staff-interface.torrent-distributors') }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -20,7 +20,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Add a torrent distributor</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.add-torrent-distributor') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.distributors.store') }}">
                 @csrf

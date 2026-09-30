@@ -105,14 +105,17 @@
     </figure>
     <dl class="topic-listing__post-stats">
         <dt>{{ __('forum.replies') }}</dt>
-        <dd>{{ $topic->num_post - 1 }}</dd>
+        <dd data-label="{{ __('media-interface.components.post-stat-prefix') }}">{{ $topic->num_post - 1 }}</dd>
     </dl>
     <dl class="topic-listing__view-stats">
         <dt>{{ __('forum.views') }}</dt>
-        <dd>{{ $topic->views }}</dd>
+        <dd data-label="{{ __('media-interface.components.topic-stat-prefix') }}">{{ $topic->views }}</dd>
     </dl>
     <article class="topic-listing__latest-post">
-        <address class="topic-listing__latest-author">
+        <address
+            class="topic-listing__latest-author"
+            data-label="{{ __('media-interface.components.by-prefix') }}"
+        >
             @if ($topic->latestPoster === null)
                 {{ __('common.unknown') }}
             @else

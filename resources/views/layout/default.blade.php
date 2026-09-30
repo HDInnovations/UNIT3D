@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ auth()->user()->settings->locale }}">
+<html lang="{{ app()->getLocale() }}">
     <head>
         @include('partials.head')
     </head>
@@ -48,6 +48,32 @@
         </main>
         @include('partials.footer')
 
+        @php
+            $clientTranslations = [
+                'errorTitle' => __('interface.error-title'),
+                'confirmActionTitle' => __('interface.confirm-action-title'),
+                'liked' => __('interface.liked'),
+                'likeThisPost' => __('interface.like-this-post'),
+                'likeApplied' => __('interface.like-applied'),
+                'disliked' => __('interface.disliked'),
+                'dislikeThisPost' => __('interface.dislike-this-post'),
+                'dislikeApplied' => __('interface.dislike-applied'),
+                'unbookmark' => __('interface.unbookmark'),
+                'bookmark' => __('interface.bookmark'),
+                'bookmarkApplied' => __('interface.bookmark-applied'),
+                'unbookmarkApplied' => __('interface.unbookmark-applied'),
+                'chatConnectionLost' => __('interface.chat-connection-lost'),
+                'chatLoadingError' => __('interface.chat-loading-error'),
+                'foundMatch' => __('interface.found-match'),
+                'typingSeveral' => __('interface.typing-several'),
+                'typingOne' => __('interface.typing-one'),
+                'typingMultiple' => __('interface.typing-multiple'),
+                'unknownUser' => __('interface.unknown-user'),
+            ];
+        @endphp
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            window.i18n = @json($clientTranslations);
+        </script>
         @vite('resources/js/app.js')
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
@@ -118,8 +144,8 @@
                     });
 
                     Toast.fire({
-                        icon: '{{ $key }}',
-                        title: '{{ Session::get($key) }}',
+                        icon: @js($key),
+                        title: @js(Session::get($key)),
                     });
                 </script>
             @endif
@@ -131,7 +157,7 @@
                 type="module"
             >
                 Swal.fire({
-                    title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
+                    title: `<strong style=" color: rgb(17,17,17);">${@js(__('common.error'))}</strong>`,
                     icon: 'error',
                     html: document.getElementById('ERROR_COPY').innerHTML,
                     showCloseButton: true,
@@ -161,7 +187,7 @@
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
             window.addEventListener('error', (event) => {
                 Swal.fire({
-                    title: '<strong style=" color: rgb(17,17,17);">Error</strong>',
+                    title: `<strong style=" color: rgb(17,17,17);">${@js(__('common.error'))}</strong>`,
                     icon: 'error',
                     html: event.detail.message,
                     showCloseButton: true,
@@ -174,7 +200,7 @@
                 Alpine.data('confirmation', () => ({
                     confirmAction() {
                         Swal.fire({
-                            title: 'Are you sure?',
+                            title: @js(__('interface.confirm-action-title')),
                             text: atob(this.$el.dataset.b64DeletionMessage),
                             icon: 'warning',
                             showConfirmButton: true,

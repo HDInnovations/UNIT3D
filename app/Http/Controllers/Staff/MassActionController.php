@@ -50,6 +50,6 @@ class MassActionController extends Controller
         }
 
         return to_route('staff.dashboard.index')
-            ->with('success', 'Unvalidated accounts are now validated');
+            ->with('success', __('application-messages.flash.accounts-validated'));
     }
 }

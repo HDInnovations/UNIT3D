@@ -49,6 +49,8 @@
         {{ $torrent->name }}
     </h1>
     @include('torrent.partials.general')
+    @include('torrent.partials.media-variant', ['variant' => $torrent->mediaVariant])
+    @include('torrent.partials.source-metadata', ['metadata' => $torrent->metadata])
     @include('torrent.partials.buttons')
 
     {{-- Tools block --}}

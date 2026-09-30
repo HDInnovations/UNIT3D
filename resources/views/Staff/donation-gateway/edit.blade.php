@@ -7,9 +7,11 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.gateways.index') }}" class="breadcrumb__link">Gateways</a>
+        <a href="{{ route('staff.gateways.index') }}" class="breadcrumb__link">
+            {{ __('staff-interface.gateways') }}
+        </a>
     </li>
-    <li class="breadcrumb--active">Edit gateway</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.edit-gateway') }}</li>
 @endsection
 
 @section('page', 'page__staff-donation-gateway--edit')
@@ -17,7 +19,9 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Edit: {{ $gateway->name }}</h2>
+            <h2 class="panel__heading">
+                {{ __('staff-interface.edit-name-heading', ['name' => $gateway->name]) }}
+            </h2>
         </header>
         <div class="data-table-wrapper">
             <form
@@ -30,10 +34,10 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Position</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Active</th>
+                            <th>{{ __('common.position') }}</th>
+                            <th>{{ __('common.name') }}</th>
+                            <th>{{ __('staff-interface.address') }}</th>
+                            <th>{{ __('common.active') }}</th>
                         </tr>
                     </thead>
 
@@ -77,7 +81,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="submit" class="form__button form__button--filled">Update</button>
+                <button type="submit" class="form__button form__button--filled">
+                    {{ __('common.submit') }}
+                </button>
             </form>
         </div>
     </section>

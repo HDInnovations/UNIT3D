@@ -88,7 +88,7 @@
                     </p>
                     <p class="form__group">
                         <select id="type_id" class="form__select" name="type_id">
-                            <option selected value="">Any</option>
+                            <option selected value="">{{ __('media-interface.requests.any') }}</option>
                             @foreach ($types as $type)
                                 <option
                                     value="{{ $type->id }}"
@@ -105,7 +105,7 @@
                     </p>
                     <p class="form__group">
                         <select id="resolution_id" class="form__select" name="resolution_id">
-                            <option selected value="">Any</option>
+                            <option selected value="">{{ __('media-interface.requests.any') }}</option>
                             @foreach ($resolutions as $resolution)
                                 <option
                                     value="{{ $resolution->id }}"
@@ -135,7 +135,7 @@
                                 {{ __('torrent.season-number') }}
                             </label>
                             <span class="form__hint">
-                                Numeric digits only. Use 0 only for specials and complete packs.
+                                {{ __('media-interface.requests.season-number-hint') }}
                             </span>
                         </p>
                         <p class="form__group">
@@ -153,7 +153,7 @@
                                 {{ __('torrent.episode-number') }}
                             </label>
                             <span class="form__hint">
-                                Numeric digits only. Use 0 only for season packs and complete packs.
+                                {{ __('media-interface.requests.episode-number-hint') }}
                             </span>
                         </p>
                     </div>
@@ -172,7 +172,7 @@
                                     x-model="tmdb_movie_exists"
                                 />
                                 <label class="form__label" for="movie_exists_on_tmdb">
-                                    This movie exists on TMDB
+                                    {{ __('media-interface.requests.movie-exists-tmdb') }}
                                 </label>
                             </p>
                             <p class="form__group" x-show="tmdb_movie_exists">
@@ -196,9 +196,9 @@
                                     class="form__label form__label--floating"
                                     for="tmdb_movie_id"
                                 >
-                                    TMDB movie ID
+                                    {{ __('media-interface.requests.tmdb-movie-id') }}
                                 </label>
-                                <span class="form__hint">Numeric digits only.</span>
+                                <span class="form__hint">{{ __('media-interface.requests.numeric-digits-only') }}</span>
                             </p>
                         </div>
                         <div class="form__group--vertical" x-show="cats[cat].type === 'tv'">
@@ -212,7 +212,7 @@
                                     x-model="tmdb_tv_exists"
                                 />
                                 <label class="form__label" for="tv_exists_on_tmdb">
-                                    This TV show exists on TMDB
+                                    {{ __('media-interface.requests.tv-exists-tmdb') }}
                                 </label>
                             </p>
                             <p class="form__group" x-show="tmdb_tv_exists">
@@ -234,9 +234,9 @@
                                     x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                                 />
                                 <label class="form__label form__label--floating" for="tmdb_tv_id">
-                                    TMDB TV ID
+                                    {{ __('media-interface.requests.tmdb-tv-id') }}
                                 </label>
-                                <span class="form__hint">Numeric digits only.</span>
+                                <span class="form__hint">{{ __('media-interface.requests.numeric-digits-only') }}</span>
                             </p>
                         </div>
                         <div
@@ -253,7 +253,7 @@
                                     x-model="imdb_title_exists"
                                 />
                                 <label class="form__label" for="title_exists_on_imdb">
-                                    This title exists on IMDB
+                                    {{ __('media-interface.requests.title-exists-imdb') }}
                                 </label>
                             </p>
                             <p class="form__group" x-show="imdb_title_exists">
@@ -275,9 +275,9 @@
                                     x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
                                 />
                                 <label class="form__label form__label--floating" for="autoimdb">
-                                    IMDB ID
+                                    {{ __('media-interface.requests.imdb-id') }}
                                 </label>
-                                <span class="form__hint">Numeric digits only.</span>
+                                <span class="form__hint">{{ __('media-interface.requests.numeric-digits-only') }}</span>
                             </p>
                         </div>
                         <div class="form__group--vertical" x-show="cats[cat].type === 'tv'">
@@ -291,7 +291,7 @@
                                     x-model="tvdb_tv_exists"
                                 />
                                 <label class="form__label" for="tv_exists_on_tvdb">
-                                    This TV show exists on TVDB
+                                    {{ __('media-interface.requests.tv-exists-tvdb') }}
                                 </label>
                             </p>
                             <p class="form__group" x-show="tvdb_tv_exists">
@@ -309,9 +309,9 @@
                                     x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                                 />
                                 <label class="form__label form__label--floating" for="autotvdb">
-                                    TVDB ID
+                                    {{ __('media-interface.requests.tvdb-id') }}
                                 </label>
-                                <span class="form__hint">Numeric digits only.</span>
+                                <span class="form__hint">{{ __('media-interface.requests.numeric-digits-only') }}</span>
                             </p>
                         </div>
                         <div
@@ -328,7 +328,7 @@
                                     x-model:checked="mal_anime_exists"
                                 />
                                 <label class="form__label" for="anime_exists_on_mal">
-                                    This anime exists on MAL
+                                    {{ __('media-interface.requests.anime-exists-mal') }}
                                 </label>
                             </p>
                             <p class="form__group" x-show="mal_anime_exists">
@@ -350,7 +350,7 @@
                                     x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
                                 />
                                 <label class="form__label form__label--floating" for="automal">
-                                    MAL ID
+                                    {{ __('media-interface.requests.mal-id') }} ({{ __('torrent.required-anime') }})
                                 </label>
                             </p>
                         </div>
@@ -365,7 +365,7 @@
                                     x-model="igdb_game_exists"
                                 />
                                 <label class="form__label" for="game_exists_on_igdb">
-                                    This game exists on IGDB
+                                    {{ __('media-interface.requests.game-exists-igdb') }}
                                 </label>
                             </p>
                             <p class="form__group" x-show="igdb_game_exists">
@@ -382,7 +382,7 @@
                                     x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                                 />
                                 <label class="form__label form__label--floating" for="igdb">
-                                    IGDB ID
+                                    {{ __('media-interface.requests.igdb-id') }} ({{ __('torrent.required-games') }})
                                 </label>
                             </p>
                         </div>

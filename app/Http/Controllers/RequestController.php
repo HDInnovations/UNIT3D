@@ -146,11 +146,11 @@ class RequestController extends Controller
         // Auto Shout
         if (!$torrentRequest->anon) {
             $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
+                trans('application-messages.bot.request-created', ['userUrl' => href_profile($user), 'username' => $user->username, 'url' => href_request($torrentRequest), 'name' => $torrentRequest->name], config('app.locale'))
             );
         } else {
             $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
+                trans('application-messages.bot.request-created-anon', ['url' => href_request($torrentRequest), 'name' => $torrentRequest->name], config('app.locale'))
             );
         }
 

@@ -513,7 +513,7 @@
         border: 2px solid var(--bbcode-rendered-danger-fg);
 
         &::before {
-            content: 'Alert: ';
+            content: attr(data-label);
             color: var(--bbcode-rendered-danger-fg);
             display: inline-block;
             padding-right: 1ch;
@@ -528,7 +528,7 @@
         border: 2px solid var(--bbcode-rendered-attention-subtle);
 
         &::before {
-            content: 'Note: ';
+            content: attr(data-label);
             color: var(--bbcode-rendered-attention-subtle);
             display: inline-block;
             padding-right: 1ch;

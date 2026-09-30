@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="UTF-8" />
         <title>{{ __('auth.login') }} - {{ config('other.title') }}</title>
@@ -13,13 +13,12 @@
         <meta property="og:site_name" content="{{ config('other.title') }}" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="{{ url('/img/og.png') }}" />
-        <meta property="og:description" content="{{ config('unit3d.powered-by') }}" />
+        <meta property="og:description" content="{{ config('other.meta_description') }}" />
         <meta property="og:url" content="{{ url('/') }}" />
-        <meta property="og:locale" content="{{ config('app.locale') }}" />
+        <meta property="og:locale" content="{{ app()->getLocale() }}" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         @show
-        <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
-        <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
+        <link rel="icon" href="{{ url('/img/vltava-mark.svg') }}" type="image/svg+xml" />
         @vite('resources/sass/pages/_auth.scss')
     </head>
     <body>
@@ -31,26 +30,26 @@
                 <form class="auth-form__form" method="POST" action="{{ route('login') }}">
                     @csrf
                     <a class="auth-form__branding" href="{{ route('home.index') }}">
-                        <i class="fal fa-tv-retro"></i>
+                        <img src="{{ url('/img/vltava-mark.svg') }}" alt="" style="height: 42px" />
                         <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
                     </a>
                     @if (Session::has('warning') || Session::has('success') || Session::has('info'))
                         <ul class="auth-form__important-infos">
                             @if (Session::has('warning'))
                                 <li class="auth-form__important-info">
-                                    Warning: {{ Session::get('warning') }}
+                                    {{ __('interface.flash-warning', ['message' => Session::get('warning')]) }}
                                 </li>
                             @endif
 
                             @if (Session::has('info'))
                                 <li class="auth-form__important-info">
-                                    Info: {{ Session::get('info') }}
+                                    {{ __('interface.flash-info', ['message' => Session::get('info')]) }}
                                 </li>
                             @endif
 
                             @if (Session::has('success'))
                                 <li class="auth-form__important-info">
-                                    Success: {{ Session::get('success') }}
+                                    {{ __('interface.flash-success', ['message' => Session::get('success')]) }}
                                 </li>
                             @endif
                         </ul>

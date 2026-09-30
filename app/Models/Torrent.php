@@ -577,6 +577,26 @@ final class Torrent extends Model
     }
 
     /**
+     * Get the external music or book metadata associated with the torrent.
+     *
+     * @return HasOne<TorrentMetadata, $this>
+     */
+    public function metadata(): HasOne
+    {
+        return $this->hasOne(TorrentMetadata::class);
+    }
+
+    /**
+     * Get the edition variant associated with the torrent.
+     *
+     * @return BelongsTo<MediaVariant, $this>
+     */
+    public function mediaVariant(): BelongsTo
+    {
+        return $this->belongsTo(MediaVariant::class);
+    }
+
+    /**
      * Get the playlists that belong to the torrent.
      *
      * @return BelongsToMany<Playlist, $this, PlaylistTorrent>

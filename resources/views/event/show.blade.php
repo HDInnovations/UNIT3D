@@ -54,14 +54,14 @@
                                         @endif
                                     </ul>
                                 @else
-                                    <i class="events__prize-message">No winnings :(</i>
+                                    <i class="events__prize-message">{{ __('member-interface.misc.event.no-winnings') }}</i>
                                 @endif
                             @else
                                 @if (now()->isBefore($date))
                                     <i
                                         class="events__prize-icon events__prize-icon--future fad {{ $event->icon }}"
                                     ></i>
-                                    <i class="events__prize-message">Check back later!</i>
+                                    <i class="events__prize-message">{{ __('member-interface.misc.event.check-back-later') }}</i>
                                 @elseif (now()->isAfter($date->addDay(1)))
                                     <i
                                         class="events__prize-icon events__prize-icon--past fad {{ $event->icon }}"

@@ -67,7 +67,7 @@
         class="{{ Route::is('upload_snatches') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
         href="{{ route('upload_snatches') }}"
     >
-        Most upload snatches
+        {{ __('interface.top-upload-snatches') }}
     </a>
 </li>
 <li class="{{ Route::is('messages') ? 'nav-tab--active' : 'nav-tabV2' }}">
@@ -75,6 +75,6 @@
         class="{{ Route::is('messages') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
         href="{{ route('messages') }}"
     >
-        Most messages
+        {{ __('interface.top-messages') }}
     </a>
 </li>

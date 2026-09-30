@@ -1,7 +1,9 @@
 <div style="display: flex; flex-direction: column; gap: 1rem">
     <section class="panelV2" x-data>
         <header class="panel__header">
-            <h2 class="panel__heading">UNIT3D backup manager</h2>
+            <h2 class="panel__heading">
+                {{ config('other.title') }} — {{ __('livewire-interface.backups') }}
+            </h2>
             <div class="panel__actions">
                 <button
                     id="create-backup"
@@ -40,11 +42,11 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th scope="col">Disk</th>
-                        <th scope="col">Healthy</th>
-                        <th scope="col">Amount of backups</th>
-                        <th scope="col">Newest backup</th>
-                        <th scope="col">Used storage</th>
+                        <th scope="col">{{ __('livewire-interface.disk') }}</th>
+                        <th scope="col">{{ __('livewire-interface.healthy') }}</th>
+                        <th scope="col">{{ __('livewire-interface.amount-of-backups') }}</th>
+                        <th scope="col">{{ __('livewire-interface.newest-backup') }}</th>
+                        <th scope="col">{{ __('livewire-interface.used-storage') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,7 +101,7 @@
                                             target="_blank"
                                             wire:click.prevent="downloadBackup('{{ $backup['path'] }}')"
                                         >
-                                            {{ __('common.download') }}
+                                            {{ __('common.download-action') }}
                                         </a>
                                     </li>
                                     <li class="data-table__action" x-data="dialog">
@@ -110,12 +112,13 @@
                                             {{ __('common.delete') }}
                                         </button>
                                         <dialog class="dialog" x-bind="dialogElement">
-                                            <h3 class="dialog__heading">Delete backup</h3>
+                                            <h3 class="dialog__heading">
+                                                {{ __('livewire-interface.delete-backup') }}
+                                            </h3>
                                             <form class="dialog__form" x-bind="dialogForm">
                                                 @csrf
                                                 <p class="form__group">
-                                                    Are you sure you want to delete the backup
-                                                    created at {{ $backup['date'] }} ?
+                                                    {{ __('livewire-interface.confirm-delete-backup-at', ['date' => $backup['date']]) }}
                                                 </p>
                                                 <p class="form__group">
                                                     <button
@@ -142,7 +145,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No backups present</td>
+                            <td colspan="4">{{ __('livewire-interface.no-backups-present') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -170,9 +173,9 @@
         function backup(option = '') {
           @this.createBackup(option)
           Swal.fire({
-            title: '<strong style=" color: rgb(17,17,17);">Success</strong>',
+            title: '<strong style=" color: rgb(17,17,17);">' + @js(__('livewire-interface.success')) + '</strong>',
             icon: 'success',
-            html: 'Creating a new backup in the background...' + (option ? ' (' + option + ')' : ''),
+            html: @js(__('livewire-interface.creating-backup-in-background')) + (option ? ' (' + option + ')' : ''),
             showCloseButton: true,
           })
         }

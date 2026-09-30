@@ -37,7 +37,7 @@ class UpdateUserPassword implements UpdatesUserPasswords
             'current_password' => ['required', 'string', 'current_password:'.AuthGuard::WEB->value],
             'password'         => $this->passwordRules(),
         ], [
-            'current_password.current_password' => __('The provided password does not match your current password.'),
+            'current_password.current_password' => __('application-messages.validation.current-password-mismatch'),
         ])->validateWithBag('updatePassword');
 
         $user->forceFill([

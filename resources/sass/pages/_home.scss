@@ -1,3 +1,97 @@
+.home-welcome {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: clamp(24px, 4vw, 48px);
+    border: 1px solid var(--vltava-border, var(--body-fg));
+    border-radius: 16px;
+    background: linear-gradient(115deg, var(--panel-bg) 35%, var(--secondary-nav-bg));
+    color: var(--body-fg);
+}
+
+.home-welcome__content {
+    min-width: 0;
+}
+
+.home-welcome__eyebrow {
+    margin: 0 0 12px;
+    color: var(--vltava-accent, var(--body-fg));
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.home-welcome h1 {
+    margin: 0;
+    font-size: clamp(25px, 3vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    overflow-wrap: anywhere;
+}
+
+.home-welcome__description {
+    margin: 12px 0 24px;
+    color: var(--vltava-muted, var(--body-fg));
+    font-size: 15px;
+}
+
+.home-welcome__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.home-welcome__primary,
+.home-welcome__secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid var(--vltava-border, currentColor);
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.home-welcome a.home-welcome__primary {
+    background: var(--button-filled-bg);
+    color: var(--button-filled-fg);
+    border-color: transparent;
+}
+
+.home-welcome a.home-welcome__secondary {
+    background: var(--panel-bg);
+    color: var(--body-fg);
+}
+
+.home-welcome__actions a:hover {
+    box-shadow: 0 0 0 2px var(--vltava-accent, currentColor);
+}
+
+.home-welcome__mark {
+    width: 120px;
+    height: 120px;
+    margin-right: 24px;
+    opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+    .home-welcome__mark {
+        display: none;
+    }
+
+    .home-welcome__actions > a {
+        flex: 1 1 180px;
+    }
+}
+
 .top-users__place {
     border-radius: 50%;
     background: #212125;

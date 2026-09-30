@@ -1,11 +1,11 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('title')
-    <title>Application - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>{{ __('vltava.staff.application') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Application - {{ __('staff.staff-dashboard') }}" />
+    <meta name="description" content="{{ __('vltava.staff.application') }} - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -91,19 +91,19 @@
                 <dd>
                     @switch($application->status)
                         @case(\App\Enums\ModerationStatus::PENDING)
-                            <span class="application--pending">Pending</span>
+                            <span class="application--pending">{{ __('torrent.pending') }}</span>
 
                             @break
                         @case(\App\Enums\ModerationStatus::APPROVED)
-                            <span class="application--approved">Approved</span>
+                            <span class="application--approved">{{ __('torrent.approved') }}</span>
 
                             @break
                         @case(\App\Enums\ModerationStatus::REJECTED)
-                            <span class="application--rejected">Rejected</span>
+                            <span class="application--rejected">{{ __('torrent.rejected') }}</span>
 
                             @break
                         @default
-                            <span class="application--unknown">Unknown</span>
+                            <span class="application--unknown">{{ __('common.unknown') }}</span>
                     @endswitch
                 </dd>
             </div>
@@ -130,9 +130,7 @@
                     </p>
                     <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">
-                            {{ __('request.approve') }}
-                            {{ __('common.this') }}
-                            {{ __('staff.application') }}
+                            {{ __('staff-interface.application-approve-this') }}
                         </h3>
                         <form
                             class="dialog__form"
@@ -154,10 +152,10 @@
                                     name="approve"
                                     placeholder=" "
                                 >
-Application approved!</textarea
+{{ __('vltava.staff.application_approved') }}</textarea
                                 >
                                 <label class="form__label form__label--floating" for="approve">
-                                    Invitation message
+                                    {{ __('vltava.staff.invitation_message') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -187,9 +185,7 @@ Application approved!</textarea
                     </p>
                     <dialog class="dialog" x-bind="dialogElement">
                         <h3 class="dialog__heading">
-                            {{ __('request.reject') }}
-                            {{ __('common.this') }}
-                            {{ __('staff.application') }}
+                            {{ __('staff-interface.application-reject-this') }}
                         </h3>
                         <form
                             class="dialog__form"
@@ -206,10 +202,10 @@ Application approved!</textarea
                             />
                             <p class="form__group">
                                 <textarea id="message" class="form__textarea" name="deny" required>
-Insufficient proofs.</textarea
+{{ __('vltava.staff.insufficient_proofs') }}</textarea
                                 >
                                 <label class="form__label form__label--floating" for="message">
-                                    Rejection message
+                                    {{ __('vltava.staff.rejection_message') }}
                                 </label>
                             </p>
                             <p class="form__group">

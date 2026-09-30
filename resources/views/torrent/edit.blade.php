@@ -47,7 +47,7 @@
                 @method('PATCH')
                 <p class="form__group" x-show="cats[cat].type === 'no'">
                     <label class="form__label" for="torrent-cover">
-                        Cover {{ __('torrent.file') }} ({{ __('torrent.optional') }})
+                        {{ __('media-interface.torrent.cover-file') }}
                     </label>
                     <input
                         id="torrent-cover"
@@ -59,7 +59,7 @@
                 </p>
                 <p class="form__group" x-show="cats[cat].type === 'no'">
                     <label class="form__label" for="torrent-banner">
-                        Banner {{ __('torrent.file') }} ({{ __('torrent.optional') }})
+                        {{ __('media-interface.torrent.banner-file') }}
                     </label>
                     <input
                         id="torrent-banner"
@@ -133,7 +133,7 @@
                     <select id="resolution_id" name="resolution_id" class="form__select">
                         @if (! $torrent->resolution)
                             <option hidden="" disabled="disabled" selected="selected" value="">
-                                --Select resolution--
+                                {{ __('media-interface.torrent.select-resolution') }}
                             </option>
                             )
                         @else
@@ -165,7 +165,7 @@
                         <select id="distributor_id" name="distributor_id" class="form__select">
                             @if (! $torrent->distributor)
                                 <option hidden="" disabled="disabled" selected="selected" value="">
-                                    --Select distributor--
+                                    {{ __('media-interface.torrent.select-distributor') }}
                                 </option>
                                 )
                             @else
@@ -181,7 +181,7 @@
                                     ({{ __('torrent.current') }})
                                 </option>
                             @endif
-                            <option value="">No distributor</option>
+                            <option value="">{{ __('vltava.media.distributor_none') }}</option>
                             @foreach ($distributors as $distributor)
                                 <option
                                     x-bind:value="
@@ -204,7 +204,7 @@
                         <select id="region_id" name="region_id" class="form__select">
                             @if (! $torrent->region)
                                 <option hidden="" disabled="disabled" selected="selected" value="">
-                                    --Select region--
+                                    {{ __('media-interface.torrent.select-region') }}
                                 </option>
                                 )
                             @else
@@ -219,7 +219,7 @@
                                     {{ $torrent->region->name }} ({{ __('torrent.current') }})
                                 </option>
                             @endif
-                            <option value="">No region</option>
+                            <option value="">{{ __('vltava.media.region_none') }}</option>
                             @foreach ($regions as $region)
                                 <option
                                     x-bind:value="
@@ -251,7 +251,7 @@
                             value="{{ old('season_number') ?? $torrent->season_number }}"
                         />
                         <label class="form__label form__label--floating" for="season_number">
-                            {{ __('torrent.season-number') }} ({{ __('common.required') }} for TV)
+                            {{ __('media-interface.torrent.season-number-edit-label') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -266,8 +266,7 @@
                             value="{{ old('episode_number') ?? $torrent->episode_number }}"
                         />
                         <label class="form__label form__label--floating" for="episode_number">
-                            {{ __('torrent.episode-number') }} ({{ __('common.required') }} for
-                            TV. Use "0" for season packs.)
+                            {{ __('media-interface.torrent.episode-number-edit-label') }}
                         </label>
                     </p>
                 </div>
@@ -287,7 +286,7 @@
                                 x-model="tmdb_movie_exists"
                             />
                             <label class="form__label" for="movie_exists_on_tmdb">
-                                This movie exists on TMDB
+                                {{ __('media-interface.torrent.movie-exists-on-tmdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="tmdb_movie_exists">
@@ -309,9 +308,9 @@
                                 x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
                             />
                             <label class="form__label form__label--floating" for="tmdb_movie_id">
-                                TMDB movie ID
+                                {{ __('media-interface.torrent.tmdb-movie-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div class="form__group--vertical" x-show="cats[cat].type === 'tv'">
@@ -326,7 +325,7 @@
                                 x-model="tmdb_tv_exists"
                             />
                             <label class="form__label" for="tv_exists_on_tmdb">
-                                This TV show exists on TMDB
+                                {{ __('media-interface.torrent.tv-exists-on-tmdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="tmdb_tv_exists">
@@ -344,9 +343,9 @@
                                 x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="tmdb_tv_id">
-                                TMDB TV ID
+                                {{ __('media-interface.torrent.tmdb-tv-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div
@@ -364,7 +363,7 @@
                                 x-model="imdb_title_exists"
                             />
                             <label class="form__label" for="title_exists_on_imdb">
-                                This title exists on IMDB
+                                {{ __('media-interface.torrent.title-exists-on-imdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="imdb_title_exists">
@@ -394,9 +393,9 @@
                                 "
                             />
                             <label class="form__label form__label--floating" for="imdb">
-                                IMDB ID
+                                {{ __('media-interface.torrent.imdb-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div class="form__group--vertical" x-show="cats[cat].type === 'tv'">
@@ -411,7 +410,7 @@
                                 x-model="tvdb_tv_exists"
                             />
                             <label class="form__label" for="tv_exists_on_tvdb">
-                                This TV show exists on TVDB
+                                {{ __('media-interface.torrent.tv-exists-on-tvdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="tvdb_tv_exists">
@@ -429,9 +428,9 @@
                                 x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="tvdb">
-                                TVDB ID
+                                {{ __('media-interface.torrent.tvdb-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div
@@ -449,7 +448,7 @@
                                 x-model="mal_anime_exists"
                             />
                             <label class="form__label" for="anime_exists_on_mal">
-                                This anime exists on MAL
+                                {{ __('media-interface.torrent.anime-exists-on-mal') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="mal_anime_exists">
@@ -471,9 +470,9 @@
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
                             />
                             <label class="form__label form__label--floating" for="mal">
-                                MAL ID
+                                {{ __('media-interface.torrent.mal-id') }}
                             </label>
-                            <span class="form__hint">Numeric digits only.</span>
+                            <span class="form__hint">{{ __('media-interface.torrent.numeric-digits-only') }}</span>
                         </p>
                     </div>
                     <div class="form__group--vertical" x-show="cats[cat].type === 'game'">
@@ -488,7 +487,7 @@
                                 x-model="igdb_game_exists"
                             />
                             <label class="form__label" for="game_exists_on_igdb">
-                                This game exists on IGDB
+                                {{ __('media-interface.torrent.game-exists-on-igdb') }}
                             </label>
                         </p>
                         <p class="form__group" x-show="igdb_game_exists">
@@ -506,7 +505,7 @@
                                 x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                             />
                             <label class="form__label form__label--floating" for="igdb">
-                                IGDB ID
+                                {{ __('media-interface.torrent.igdb-id') }}
                             </label>
                         </p>
                     </div>
@@ -551,7 +550,7 @@
 {{ old('bdinfo') ?? $torrent->bdinfo }}</textarea
                     >
                     <label class="form__label form__label--floating" for="bdinfo">
-                        BDInfo (quick summary)
+                        {{ __('media-interface.torrent.bdinfo-quick-summary') }}
                     </label>
                 </p>
 
@@ -598,7 +597,7 @@
                             value="1"
                             @checked(old('personal_release') ?? $torrent->personal_release)
                         />
-                        <label class="form__label" for="personal_release">Personal release?</label>
+                        <label class="form__label" for="personal_release">{{ __('torrent.personal-release') }}?</label>
                     </p>
                 @endif
 

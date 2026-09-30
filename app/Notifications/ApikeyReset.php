@@ -45,8 +45,8 @@ class ApikeyReset extends Notification implements ShouldQueue, SystemNotificatio
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'Your API key has been reset by staff',
-            'message' => "You will need to update your API key in all your scripts to continue using the API.\n\nFor more information, please create a helpdesk ticket.",
+            'subject' => __('application-messages.notification.apikey-reset-subject'),
+            'message' => __('application-messages.notification.apikey-reset-message'),
         ];
     }
 }

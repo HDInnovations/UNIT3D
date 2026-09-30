@@ -69,7 +69,7 @@ class InviteController extends Controller
 
         $minHours = config('other.hours-until-invite-after-2fa');
 
-        if ($user->two_factor_confirmed_at === null || $user->two_factor_confirmed_at->addHours($minHours)->isFuture()) {
+        if (!$this->canBypassTwoFactorInviteDelay($user) && ($user->two_factor_confirmed_at === null || $user->two_factor_confirmed_at->addHours($minHours)->isFuture())) {
             return to_route('home.index')
                 ->withErrors("Two-factor authentication must be enabled for {$minHours} hours to send invites");
         }
@@ -98,7 +98,7 @@ class InviteController extends Controller
 
         $minHours = config('other.hours-until-invite-after-2fa');
 
-        if ($user->two_factor_confirmed_at === null || $user->two_factor_confirmed_at->addHours($minHours)->isFuture()) {
+        if (!$this->canBypassTwoFactorInviteDelay($user) && ($user->two_factor_confirmed_at === null || $user->two_factor_confirmed_at->addHours($minHours)->isFuture())) {
             return to_route('home.index')
                 ->withErrors("Two-factor authentication must be enabled for {$minHours} hours to send invites");
         }
@@ -136,6 +136,11 @@ class InviteController extends Controller
             ->with('success', trans('user.invite-sent-success'));
     }
 
+    private function canBypassTwoFactorInviteDelay(User $user): bool
+    {
+        return $user->group->is_owner || $user->group->is_admin;
+    }
+
     /**
      * Retract a sent invite.
      */
@@ -156,7 +161,7 @@ class InviteController extends Controller
         $sentInvite->delete();
 
         return to_route('users.invites.index', ['user' => $user])
-            ->with('success', 'Invite deleted successfully.');
+            ->with('success', __('application-messages.flash.invite-deleted'));
     }
 
     /**

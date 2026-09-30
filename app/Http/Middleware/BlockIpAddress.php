@@ -34,7 +34,7 @@ class BlockIpAddress
         );
 
         if (\in_array($request->getClientIp(), $ipAddresses)) {
-            abort(403, 'Your access to '.config('app.name').' has been restricted.');
+            abort(403, __('application-messages.validation.access-restricted', ['app' => config('app.name')]));
         }
 
         return $next($request);

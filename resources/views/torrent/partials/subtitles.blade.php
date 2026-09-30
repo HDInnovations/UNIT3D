@@ -20,7 +20,7 @@
             <thead>
                 <tr>
                     <th>{{ __('common.language') }}</th>
-                    <th>Note</th>
+                    <th>{{ __('vltava.torrent.note') }}</th>
                     <th>{{ __('subtitle.extension') }}</th>
                     <th>{{ __('subtitle.size') }}</th>
                     <th>{{ __('subtitle.downloads') }}</th>
@@ -54,9 +54,9 @@
                                     <a
                                         href="{{ route('subtitles.download', ['subtitle' => $subtitle]) }}"
                                         class="form__button form__button--text"
-                                        title="{{ __('common.download') }}"
+                                        title="{{ __('common.download-action') }}"
                                     >
-                                        {{ __('common.download') }}
+                                        {{ __('common.download-action') }}
                                     </a>
                                 </li>
                                 @if (auth()->user()->group->is_modo || auth()->id() == $subtitle->user_id)
@@ -187,7 +187,7 @@
                                             />
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this subtitle: ' . $subtitle->language->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('media-interface.torrent.subtitles-delete-confirmation', ['language' => $subtitle->language->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
@@ -200,7 +200,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">No external subtitles available</td>
+                        <td colspan="8">{{ __('vltava.torrent.no_external_subtitles') }}</td>
                     </tr>
                 @endforelse
             </tbody>

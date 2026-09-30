@@ -5,12 +5,14 @@
             <div class="panel__action">
                 <div class="form__group">
                     <select id="status" class="form__select" wire:model.live="status">
-                        <option selected value="">All</option>
-                        <option value="1">Approved</option>
-                        <option value="0">Pending</option>
-                        <option value="2">Rejected</option>
+                        <option selected value="">{{ __('livewire-interface.status-all') }}</option>
+                        <option value="1">{{ __('livewire-interface.status-approved') }}</option>
+                        <option value="0">{{ __('livewire-interface.status-pending') }}</option>
+                        <option value="2">{{ __('livewire-interface.status-rejected') }}</option>
                     </select>
-                    <label class="form__label form__label--floating" for="status">Status</label>
+                    <label class="form__label form__label--floating" for="status">
+                        {{ __('common.status') }}
+                    </label>
                 </div>
             </div>
             <div class="panel__action">
@@ -64,7 +66,7 @@
                         <td>{{ $application->id }}</td>
                         <td>
                             @if ($application->user === null)
-                                N/A
+                                {{ __('livewire-interface.not-available') }}
                             @else
                                 <x-user-tag :anon="false" :user="$application->user" />
                             @endif
@@ -84,24 +86,32 @@
                         <td>
                             @switch($application->status)
                                 @case(\App\Enums\ModerationStatus::PENDING)
-                                    <span class="application--pending">Pending</span>
+                                    <span class="application--pending">
+                                        {{ __('livewire-interface.status-pending') }}
+                                    </span>
 
                                     @break
                                 @case(\App\Enums\ModerationStatus::APPROVED)
-                                    <span class="application--approved">Approved</span>
+                                    <span class="application--approved">
+                                        {{ __('livewire-interface.status-approved') }}
+                                    </span>
 
                                     @break
                                 @case(\App\Enums\ModerationStatus::REJECTED)
-                                    <span class="application--rejected">Rejected</span>
+                                    <span class="application--rejected">
+                                        {{ __('livewire-interface.status-rejected') }}
+                                    </span>
 
                                     @break
                                 @default
-                                    <span class="application--unknown">Unknown</span>
+                                    <span class="application--unknown">
+                                        {{ __('common.unknown') }}
+                                    </span>
                             @endswitch
                         </td>
                         <td>
                             @if ($application->moderated === null)
-                                N/A
+                                {{ __('livewire-interface.not-available') }}
                             @else
                                 <x-user-tag :anon="false" :user="$application->moderated" />
                             @endif
@@ -120,7 +130,7 @@
                                     <form>
                                         <button
                                             x-on:click.prevent="destroy"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this application from: ' . $application->email . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('livewire-interface.confirm-delete-application', ['email' => $application->email])) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}
@@ -132,7 +142,7 @@
                     </tr>
                 @empty
                     <tr class="applications--empty">
-                        <td colspan="10">{{ __('common.no') }} {{ __('staff.applications') }}</td>
+                        <td colspan="10">{{ __('livewire-interface.no-applications') }}</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -144,7 +154,7 @@
             Alpine.data('application', () => ({
                 destroy() {
                     Swal.fire({
-                        title: 'Are you sure?',
+                        title: @js(__('livewire-interface.are-you-sure')),
                         text: atob(this.$el.dataset.b64DeletionMessage),
                         icon: 'warning',
                         showConfirmButton: true,

@@ -84,7 +84,7 @@
             <table class="data-table">
                 <tr>
                     <th>{{ __('torrent.agent') }}</th>
-                    <th>IP</th>
+                    <th>{{ __('member-interface.settings.ip') }}</th>
                     <th>{{ __('common.added') }}</th>
                     <th>{{ __('common.actions') }}</th>
                 </tr>
@@ -112,7 +112,7 @@
                                         @method('DELETE')
                                         <button
                                             x-on:click.prevent="confirmAction"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this seedbox: ' . $seedbox->name . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('member-interface.settings.confirm-delete-seedbox', ['name' => $seedbox->name])) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.delete') }}

@@ -54,7 +54,7 @@
         <header class="panel__header">
             <h2 class="panel__heading">
                 <i class="{{ config('other.font-awesome') }} fa-film"></i>
-                Movies
+                {{ __('mediahub.movies') }}
             </h2>
             <div class="panel__actions">
                 <div class="panel__action">
@@ -64,7 +64,7 @@
                         class="form__button form__button--text"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
-                        Collection torrents list
+                        {{ __('media-interface.mediahub.collection-torrents-list') }}
                     </a>
                 </div>
             </div>

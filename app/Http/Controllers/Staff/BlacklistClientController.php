@@ -64,7 +64,7 @@ class BlacklistClientController extends Controller
         cache()->forget('client_blacklist');
 
         return to_route('staff.blacklisted_clients.index')
-            ->with('success', 'Blacklisted client was updated successfully!');
+            ->with('success', __('application-messages.flash.blacklist-client-updated'));
     }
 
     /**
@@ -90,7 +90,7 @@ class BlacklistClientController extends Controller
         cache()->forget('client_blacklist');
 
         return to_route('staff.blacklisted_clients.index')
-            ->with('success', 'Blacklisted client stored successfully!');
+            ->with('success', __('application-messages.flash.blacklist-client-stored'));
     }
 
     /**
@@ -105,6 +105,6 @@ class BlacklistClientController extends Controller
         cache()->forget('client_blacklist');
 
         return to_route('staff.blacklisted_clients.index')
-            ->with('success', 'Blacklisted client destroyed successfully!');
+            ->with('success', __('application-messages.flash.blacklist-client-destroyed'));
     }
 }

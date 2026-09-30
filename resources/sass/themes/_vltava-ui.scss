@@ -1,0 +1,250 @@
+:root {
+    --panel-border: 1px solid var(--vltava-border);
+    --panel-border-radius: 14px;
+    --panel-head-border-radius: 14px 14px 0 0;
+    --panel-body-border-radius: 0 0 14px 14px;
+    --panel-box-shadow: 0 4px 20px #00000008;
+    --data-table-border-radius: 14px;
+    --data-table-thead-border: 1px solid var(--vltava-border);
+    --top-nav-box-shadow: none;
+    --top-nav-dropdown-menu-border: 1px solid var(--vltava-border);
+    --top-nav-dropdown-menu-border-radius: 12px;
+    --top-nav-dropdown-menu-box-shadow: 0 12px 32px #00000030;
+    --top-nav-dropdown-hover-fg: var(--top-nav-dropdown-fg);
+    --top-nav-ratio-bar-fg: var(--top-nav-dropdown-fg);
+    --top-nav-icon-bar-icon-bg: var(--top-nav-dropdown-hover-bg);
+    --top-nav-icon-bar-icon-fg: var(--top-nav-dropdown-fg);
+    --top-nav-toggle-fg: var(--top-nav-dropdown-fg);
+    --secondary-nav-box-shadow: none;
+    --secondary-nav-tab-menu-bg: var(--panel-bg);
+    --quick-search-border: 1px solid var(--vltava-border);
+    --quick-search-border-radius: 10px;
+    --quick-search-box-shadow: none;
+    --compact-search-bg: var(--panel-bg);
+    --compact-search-fg: var(--body-fg);
+    --compact-search-border-radius: 14px;
+    --compact-search-box-shadow: var(--panel-box-shadow);
+    --compact-search-padding: 16px;
+    --input-text-border-radius: 9px;
+    --select-border-radius: 9px;
+    --textarea-border-radius: 9px;
+    --label-fg: var(--vltava-muted);
+    --label-fg-active: var(--vltava-accent);
+    --label-fg-hover: var(--body-fg);
+    --button-filled-border-radius: 9px;
+    --button-outlined-border-radius: 9px;
+    --button-text-border-radius: 9px;
+    --button-outlined-fg: var(--vltava-accent);
+    --dialog-border: 1px solid var(--vltava-border);
+    --dialog-border-radius: 14px;
+    --fieldset-border: 1px solid var(--vltava-border);
+    --fieldset-border-radius: 12px;
+    --fieldset-fg: var(--body-fg);
+    --legend-fg: var(--vltava-muted);
+    --chatbox-message-bg: var(--message-bubble-bg);
+    --chatbox-button-fg: var(--vltava-muted);
+    --chatbox-button-hover-fg: var(--vltava-accent);
+    --bbcode-input-border-radius: 12px;
+    --post-bg: var(--panel-bg);
+    --post-fg: var(--body-fg);
+    --post-toolbar-bg: var(--panel-bg);
+    --post-aside-bg: var(--panel-bg);
+    --post-aside-fg: var(--vltava-muted);
+    --torrent-card-box-shadow: var(--panel-box-shadow);
+    --alert-bg: var(--panel-bg);
+    --alert-fg: var(--vltava-muted);
+}
+
+body {
+    line-height: 1.5;
+}
+
+main {
+    max-width: 1440px;
+    margin: 24px auto;
+    padding: 0 24px;
+}
+
+// The legacy catalog cancels the old fluid main margins; this layout has fixed gutters.
+.page__torrents:not(:has(.torrent-search--grouped__results)) {
+    margin: 0;
+}
+
+.page__torrents .torrent-search__filters,
+.page__torrents .torrent-search__filters:has(+ .torrent-search__results .torrent-search--grouped__results),
+.page__torrents .torrent-search__results {
+    margin: 0;
+}
+
+main > article,
+.sidebar2 > div,
+.sidebar2 > aside {
+    gap: 24px;
+    min-width: 0;
+}
+
+.top-nav {
+    position: relative;
+    border-bottom: 1px solid var(--vltava-border);
+    padding: 8px 24px;
+}
+
+.top-nav__site-logo {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--top-nav-dropdown-fg);
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-shadow: none;
+}
+
+.top-nav__branding {
+    gap: 10px;
+}
+
+.footer .top-nav__site-logo {
+    color: var(--body-fg);
+}
+
+.top-nav__dropdown {
+    position: relative;
+}
+
+.top-nav__dropdown > ul {
+    top: 100%;
+    min-width: 220px;
+}
+
+.top-nav__dropdown > a {
+    padding: 10px 12px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.top-nav__dropdown > ul > li > a,
+.top-nav__dropdown > ul > li > form > button {
+    padding: 10px 16px 10px 10px;
+    line-height: 1.4;
+}
+
+.top-nav__toggle {
+    min-width: 44px;
+    min-height: 44px;
+    cursor: pointer;
+}
+
+.secondary-nav {
+    border-bottom: 1px solid var(--vltava-border);
+}
+
+.secondary-nav:has(.breadcrumbsV2:empty):has(.nav-tabsV2:empty) {
+    display: none;
+}
+
+.nav-tab__link,
+.nav-tab--active__link {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.nav-tab-menu {
+    position: relative;
+}
+
+.nav-tab-menu__items {
+    top: 100%;
+}
+
+.panel__heading {
+    padding: 18px 20px;
+    font-size: 16px;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+}
+
+.panel__header {
+    border-bottom: 1px solid var(--vltava-border);
+}
+
+.panel__actions {
+    padding-right: 16px;
+}
+
+.data-table:not(.data-table--checkbox-grid) {
+    --data-table-padding: 12px 10px;
+}
+
+.data-table > thead > tr > th {
+    color: var(--vltava-muted);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.form__button {
+    padding: 11px 16px;
+    min-height: 38px;
+}
+
+.chatbox-message {
+    border-radius: 8px;
+    color: var(--body-fg);
+    padding: 4px 8px;
+}
+
+.chatbox__chatroom,
+.article-preview,
+.torrent-card,
+.torrent-search--grouped__result,
+.post,
+.user-card {
+    border-radius: 14px;
+}
+
+.text-muted {
+    color: var(--vltava-muted);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--vltava-accent);
+    outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+    main {
+        margin: 16px auto;
+        padding: 0 12px;
+    }
+
+    .top-nav {
+        padding: 8px 12px;
+        grid-template: 'left toggle' auto / minmax(0, 1fr) auto;
+    }
+
+    .top-nav__left {
+        min-width: 0;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .top-nav.mobile {
+        grid-template: 'left toggle' 'menus menus' 'right right' auto / minmax(0, 1fr) auto;
+    }
+
+    .top-nav__main-menus.mobile {
+        margin-top: 12px;
+    }
+
+    .top-nav__dropdown > ul {
+        min-width: 0;
+    }
+
+    .top-nav__ratio-bar.top-nav__ratio-bar.mobile {
+        gap: 12px;
+        padding: 16px 0;
+    }
+
+    .panel__heading {
+        padding: 16px;
+    }
+}

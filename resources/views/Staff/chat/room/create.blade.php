@@ -21,9 +21,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('common.chat-room') }}
+            {{ __('staff-interface.add-chat-room-heading') }}
         </h2>
         <div class="panel__body">
             <form

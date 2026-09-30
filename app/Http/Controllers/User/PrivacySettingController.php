@@ -40,7 +40,7 @@ class PrivacySettingController extends Controller
         cache()->forget('user-privacy:by-user-id:'.$user->id);
 
         return to_route('users.privacy_settings.edit', ['user' => $user])
-            ->with('success', 'Your privacy settings have been successfully saved.');
+            ->with('success', __('application-messages.flash.privacy-settings-saved'));
     }
 
     /**

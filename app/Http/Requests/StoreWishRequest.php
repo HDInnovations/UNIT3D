@@ -70,8 +70,8 @@ class StoreWishRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'tmdb_movie_id.unique' => 'You are already receiving notifications for this movie.',
-            'tmdb_tv_id.unique'    => 'You are already receiving notifications for this tv.',
+            'tmdb_movie_id.unique' => __('application-messages.validation.wish-movie-duplicate'),
+            'tmdb_tv_id.unique'    => __('application-messages.validation.wish-tv-duplicate'),
         ];
     }
 }

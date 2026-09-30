@@ -45,8 +45,8 @@ class PersonalFreeleechDeleted extends Notification implements ShouldQueue, Syst
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'Personal 24 Hour Freeleech Expired',
-            'message' => 'Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BON Store!',
+            'subject' => __('application-messages.notification.personal-freeleech-expired-subject'),
+            'message' => __('application-messages.notification.personal-freeleech-expired-message'),
         ];
     }
 }

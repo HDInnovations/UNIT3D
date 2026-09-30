@@ -165,9 +165,9 @@ class TopicController extends Controller
 
             if ($isChatboxPrivy) {
                 if ($post->anon) {
-                    $this->chatRepository->systemMessage(\sprintf('An anonymous user has created a new topic [url=%s]%s[/url]', $topicUrl, $topic->name));
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.topic-created-anon', ['url' => $topicUrl, 'name' => $topic->name], config('app.locale')));
                 } else {
-                    $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+                    $this->chatRepository->systemMessage(trans('application-messages.bot.topic-created', ['userUrl' => $profileUrl, 'username' => $user->username, 'url' => $topicUrl, 'name' => $topic->name], config('app.locale')));
                 }
             }
 
@@ -205,7 +205,7 @@ class TopicController extends Controller
         }
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->with('success', 'Topic created successfully!');
+            ->with('success', __('application-messages.flash.topic-created'));
     }
 
     /**
@@ -293,7 +293,7 @@ class TopicController extends Controller
         }
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->with('success', 'Topic successfully edited');
+            ->with('success', __('application-messages.flash.topic-edited'));
     }
 
     /**
@@ -323,7 +323,7 @@ class TopicController extends Controller
         ]);
 
         return to_route('forums.show', ['id' => $forum->id])
-            ->with('success', 'This topic is now deleted!');
+            ->with('success', __('application-messages.flash.topic-deleted'));
     }
 
     /**
@@ -336,7 +336,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->with('success', 'This topic is now closed!');
+            ->with('success', __('application-messages.flash.topic-closed'));
     }
 
     /**
@@ -349,7 +349,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->with('success', 'This topic is now open!');
+            ->with('success', __('application-messages.flash.topic-opened'));
     }
 
     /**
@@ -362,7 +362,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->with('success', 'This topic is now pinned!');
+            ->with('success', __('application-messages.flash.topic-pinned'));
     }
 
     /**
@@ -375,7 +375,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->with('success', 'This topic is now unpinned!');
+            ->with('success', __('application-messages.flash.topic-unpinned'));
     }
 
     /**

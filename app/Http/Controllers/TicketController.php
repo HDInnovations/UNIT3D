@@ -122,6 +122,6 @@ class TicketController extends Controller
         ]);
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->with('success', trans('ticket.reopened-success'));
+            ->with('success', trans('ticket.reopen-success'));
     }
 }

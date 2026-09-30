@@ -27,10 +27,10 @@ class SetLanguage
     /**
      * This function checks if language to set is an allowed lang of config.
      */
-    private function setLocale(string $locale): void
+    private function setLocale(mixed $locale): void
     {
-        // Check if is allowed and set default locale if not
-        if (!Language::allowed($locale)) {
+        // Query parameters and stored session preferences are not necessarily strings.
+        if (!is_string($locale) || !Language::allowed($locale)) {
             $locale = config('app.locale');
         }
 

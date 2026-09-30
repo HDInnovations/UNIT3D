@@ -76,7 +76,7 @@
                                     datetime="{{ $feature->created_at->addDay(7) }}"
                                     title="{{ $feature->created_at->addDay(7) }}"
                                 >
-                                    {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
+                                    {{ $feature->created_at->addDay(7)->toDisplayTimezone()->toFormattedDateString() }}
                                     ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)
                                 </time>
                             </p>

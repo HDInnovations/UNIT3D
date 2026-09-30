@@ -45,8 +45,8 @@ class PasskeyReset extends Notification implements ShouldQueue, SystemNotificati
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'ATTENTION - Your passkey has been reset',
-            'message' => "Your passkey has been reset by staff. You will need to update your passkey in all your torrent clients to continue seeding.\n\nFor more information, please create a helpdesk ticket.",
+            'subject' => __('application-messages.notification.passkey-reset-subject'),
+            'message' => __('application-messages.notification.passkey-reset-message'),
         ];
     }
 }

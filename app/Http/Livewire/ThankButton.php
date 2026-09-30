@@ -36,13 +36,13 @@ class ThankButton extends Component
     final public function store(): void
     {
         if ($this->user->id === $this->torrent->user_id) {
-            $this->dispatch('error', type: 'error', message: 'You cannot thank your own content!');
+            $this->dispatch('error', type: 'error', message: __('application-messages.flash.cannot-thank-own-content'));
 
             return;
         }
 
         if (Thank::query()->whereBelongsTo($this->user)->whereBelongsTo($this->torrent)->exists()) {
-            $this->dispatch('error', type: 'error', message: 'You have already thanked!');
+            $this->dispatch('error', type: 'error', message: __('application-messages.flash.already-thanked'));
 
             return;
         }
@@ -58,7 +58,7 @@ class ThankButton extends Component
             $uploader->notify(new NewThank('torrent', $thank));
         }
 
-        $this->dispatch('success', type: 'success', message: 'Your thank was successfully applied!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.thank-applied'));
 
         $this->torrent->loadCount('thanks');
     }

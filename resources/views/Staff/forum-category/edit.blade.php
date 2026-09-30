@@ -55,7 +55,9 @@
                         required
                         value="{{ $forumCategory->name }}"
                     />
-                    <label class="form__label form__label--floating" for="name">Title</label>
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.title') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -78,11 +80,13 @@
 {{ $forumCategory->description }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
-                        Description
+                        {{ __('common.description') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <button class="form__button form__button--filled">Save forum</button>
+                    <button class="form__button form__button--filled">
+                        {{ __('staff-interface.save-category') }}
+                    </button>
                 </p>
             </form>
         </div>

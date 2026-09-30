@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Enums\Theme;
 use App\Helpers\Language;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -116,7 +117,7 @@ class UpdateGeneralSettingRequest extends FormRequest
             ],
             'style' => [
                 'required',
-                'numeric',
+                Rule::in(Theme::values()),
             ],
             'custom_css' => [
                 'nullable',

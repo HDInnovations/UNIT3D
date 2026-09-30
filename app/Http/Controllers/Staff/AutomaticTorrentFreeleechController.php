@@ -47,7 +47,7 @@ class AutomaticTorrentFreeleechController extends Controller
         AutomaticTorrentFreeleech::create($request->validated());
 
         return to_route('staff.automatic_torrent_freeleeches.index')
-            ->with('success', 'Resolution successfully added');
+            ->with('success', __('application-messages.flash.resolution-added'));
     }
 
     public function edit(AutomaticTorrentFreeleech $automaticTorrentFreeleech): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -65,7 +65,7 @@ class AutomaticTorrentFreeleechController extends Controller
         $automaticTorrentFreeleech->update($request->validated());
 
         return to_route('staff.automatic_torrent_freeleeches.index')
-            ->with('success', 'Resolution successfully modified');
+            ->with('success', __('application-messages.flash.resolution-modified'));
     }
 
     public function destroy(AutomaticTorrentFreeleech $automaticTorrentFreeleech): \Illuminate\Http\RedirectResponse
@@ -73,6 +73,6 @@ class AutomaticTorrentFreeleechController extends Controller
         $automaticTorrentFreeleech->delete();
 
         return to_route('staff.automatic_torrent_freeleeches.index')
-            ->with('success', 'Resolution successfully deleted');
+            ->with('success', __('application-messages.flash.resolution-deleted'));
     }
 }

@@ -16,23 +16,16 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserUploaded900Subtitles extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.uploaded900-subtitles';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = 'UserUploaded900Subtitles';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'You have made 900 subtitle uploads!';
 
     /**
      * The amount of "points" this user need to obtain in order to complete this achievement.

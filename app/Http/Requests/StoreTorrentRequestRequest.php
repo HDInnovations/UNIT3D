@@ -189,7 +189,7 @@ class StoreTorrentRequestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'bounty.max' => 'You do not have enough BON to make this request.',
+            'bounty.max' => __('application-messages.validation.bounty-insufficient-bon'),
         ];
     }
 }

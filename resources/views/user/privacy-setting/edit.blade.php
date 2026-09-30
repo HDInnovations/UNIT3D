@@ -45,7 +45,7 @@
                 @csrf
                 @method('PATCH')
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Profile</legend>
+                    <legend class="form__legend">{{ __('user.profile') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_profile_torrent_count" value="0" />
@@ -230,7 +230,7 @@
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Achievements</legend>
+                    <legend class="form__legend">{{ __('user.achievements') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_achievement" value="0" />
@@ -246,7 +246,7 @@
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Followers</legend>
+                    <legend class="form__legend">{{ __('user.followers') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_follower" value="0" />
@@ -262,7 +262,7 @@
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Forums</legend>
+                    <legend class="form__legend">{{ __('user.forums') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_topic" value="0" />
@@ -291,7 +291,7 @@
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Requests</legend>
+                    <legend class="form__legend">{{ __('user.requests') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_requested" value="0" />
@@ -307,7 +307,7 @@
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Torrents</legend>
+                    <legend class="form__legend">{{ __('user.torrents') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_upload" value="0" />
@@ -349,7 +349,7 @@
                     </p>
                 </fieldset>
                 <fieldset class="form__fieldset">
-                    <legend class="form__legend">Other</legend>
+                    <legend class="form__legend">{{ __('common.other') }}</legend>
                     <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_online" value="0" />
@@ -364,7 +364,7 @@
                         </label>
                     </p>
                 </fieldset>
-                <h3>Hide your profile options from the selected groups.</h3>
+                <h3>{{ __('member-interface.settings.hide-profile-options-from-groups') }}</h3>
                 <div class="form__group">
                     <div class="data-table-wrapper">
                         <table
@@ -374,13 +374,13 @@
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">{{ __('common.group') }}</th>
-                                    <th x-bind="columnHeader">Profile</th>
-                                    <th x-bind="columnHeader">Achievements</th>
-                                    <th x-bind="columnHeader">Followers</th>
-                                    <th x-bind="columnHeader">Forums</th>
-                                    <th x-bind="columnHeader">Requests</th>
-                                    <th x-bind="columnHeader">Torrents</th>
-                                    <th x-bind="columnHeader">Other</th>
+                                    <th x-bind="columnHeader">{{ __('user.profile') }}</th>
+                                    <th x-bind="columnHeader">{{ __('user.achievements') }}</th>
+                                    <th x-bind="columnHeader">{{ __('user.followers') }}</th>
+                                    <th x-bind="columnHeader">{{ __('user.forums') }}</th>
+                                    <th x-bind="columnHeader">{{ __('user.requests') }}</th>
+                                    <th x-bind="columnHeader">{{ __('user.torrents') }}</th>
+                                    <th x-bind="columnHeader">{{ __('common.other') }}</th>
                                 </tr>
                             </thead>
                             <tbody x-ref="tbody">

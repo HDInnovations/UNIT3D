@@ -57,6 +57,14 @@ Please read [CONTRIBUTING.md](https://github.com/HDInnovations/UNIT3D/blob/maste
 
 ## <a name="translations"></a> 🌎 Translations
 
+Vltava defaults to Czech (`cs`) with English (`en`) as the fallback for missing translations in other locales. An explicit `?lang=` override takes precedence over the account language, then the guest session language; request overrides do not change saved preferences. Invalid or non-string locale values fall back to the configured default.
+
+Keep action labels separate from transfer totals and completed states: `common.upload-action` / `common.download-action`, `common.uploaded` / `common.downloaded`. Translate complete sentences with named placeholders, not English grammar fragments. Use the existing `interface`, `member-interface`, `media-interface`, `livewire-interface`, `staff-interface`, and `application-messages` catalogues for first-party text. JavaScript receives escaped JSON from Blade; generated CSS labels use localized `data-label` attributes.
+
+Notifications and queued mail use the recipient's account language. Shared chat and IRC broadcasts use the site's default language. User-authored content, metadata titles, protocol values, and identifiers are not translated. Achievement descriptions must be rendered with `App\Achievements\Achievement::descriptionFor()`; do not instantiate achievements for presentation, because the vendor constructor synchronizes shared database metadata.
+
+Run `docker compose exec -T laravel.test php scripts/audit-i18n.php` to check literal translation references (including achievement description constants), Czech catalogue completeness, duplicate English/Czech keys, and matching named placeholders. It exits nonzero on defects and does not boot Laravel or access the database. This structural check does not replace reviewing translation meaning or exercising dynamic translation paths.
+
 We use Weblate for translations. You can easily contribute to translations at https://hosted.weblate.org/engage/unit3d/. Use the following graphic to see if your native language could use some work.
 
 <a href="https://hosted.weblate.org/engage/unit3d/">

@@ -148,7 +148,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="minSize">
-                            Minimum size
+                            {{ __('livewire-interface.minimum-size') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -158,7 +158,7 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="1" selected>Bytes</option>
+                            <option value="1" selected>{{ __('livewire-interface.bytes') }}</option>
                             <option value="1000">KB</option>
                             <option value="1024">KiB</option>
                             <option value="1000000">MB</option>
@@ -169,7 +169,7 @@
                             <option value="1099511627776">TiB</option>
                         </select>
                         <label class="form__label form__label--floating" for="minSizeMultiplier">
-                            Unit
+                            {{ __('livewire-interface.unit') }}
                         </label>
                     </p>
                 </div>
@@ -184,7 +184,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="maxSize">
-                            Maximum size
+                            {{ __('livewire-interface.maximum-size') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -194,7 +194,7 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="1" selected>Bytes</option>
+                            <option value="1" selected>{{ __('livewire-interface.bytes') }}</option>
                             <option value="1000">KB</option>
                             <option value="1024">KiB</option>
                             <option value="1000000">MB</option>
@@ -205,7 +205,7 @@
                             <option value="1099511627776">TiB</option>
                         </select>
                         <label class="form__label form__label--floating" for="maxSizeMultiplier">
-                            Unit
+                            {{ __('livewire-interface.unit') }}
                         </label>
                     </p>
                 </div>
@@ -219,11 +219,13 @@
                 </div>
                 <p class="form__group">
                     <select id="adult" wire:model.live="adult" class="form__select" placeholder=" ">
-                        <option value="any" selected>Any</option>
-                        <option value="include">Include</option>
-                        <option value="exclude">Exclude</option>
+                        <option value="any" selected>{{ __('livewire-interface.any') }}</option>
+                        <option value="include">{{ __('livewire-interface.include') }}</option>
+                        <option value="exclude">{{ __('livewire-interface.exclude') }}</option>
                     </select>
-                    <label class="form__label form__label--floating" for="adult">Adult</label>
+                    <label class="form__label form__label--floating" for="adult">
+                        {{ __('livewire-interface.adult') }}
+                    </label>
                 </p>
             </div>
             <div class="form__group--short-horizontal">
@@ -237,7 +239,7 @@
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="playlistId">
-                        Playlist ID
+                        {{ __('livewire-interface.playlist-id') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -250,7 +252,7 @@
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="collectionId">
-                        Collection ID
+                        {{ __('livewire-interface.collection-id') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -263,7 +265,7 @@
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="companyId">
-                        Company ID
+                        {{ __('livewire-interface.company-id') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -276,7 +278,7 @@
                         placeholder=" "
                     />
                     <label class="form__label form__label--floating" for="networkId">
-                        Network ID
+                        {{ __('livewire-interface.network-id') }}
                     </label>
                 </p>
             </div>
@@ -409,7 +411,7 @@
                 </div>
                 <div class="form__group">
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Buff</legend>
+                        <legend class="form__legend">{{ __('livewire-interface.buff') }}</legend>
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
                                 <label class="form__label">
@@ -419,7 +421,7 @@
                                         value="0"
                                         wire:model.live="free"
                                     />
-                                    0% Freeleech
+                                    {{ __('livewire-interface.percent-freeleech', ['percent' => 0]) }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -430,7 +432,7 @@
                                         value="25"
                                         wire:model.live="free"
                                     />
-                                    25% Freeleech
+                                    {{ __('livewire-interface.percent-freeleech', ['percent' => 25]) }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -441,7 +443,7 @@
                                         value="50"
                                         wire:model.live="free"
                                     />
-                                    50% Freeleech
+                                    {{ __('livewire-interface.percent-freeleech', ['percent' => 50]) }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -452,7 +454,7 @@
                                         value="75"
                                         wire:model.live="free"
                                     />
-                                    75% Freeleech
+                                    {{ __('livewire-interface.percent-freeleech', ['percent' => 75]) }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -463,7 +465,7 @@
                                         value="100"
                                         wire:model.live="free"
                                     />
-                                    100% Freeleech
+                                    {{ __('livewire-interface.percent-freeleech', ['percent' => 100]) }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -474,7 +476,7 @@
                                         value="1"
                                         wire:model.live="doubleup"
                                     />
-                                    Double upload
+                                    {{ __('torrent.double-upload') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -485,7 +487,7 @@
                                         value="1"
                                         wire:model.live="featured"
                                     />
-                                    Featured
+                                    {{ __('torrent.featured') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -496,7 +498,7 @@
                                         value="1"
                                         wire:model.live="refundable"
                                     />
-                                    Refundable
+                                    {{ __('torrent.refundable') }}
                                 </label>
                             </p>
                         </div>
@@ -504,7 +506,7 @@
                 </div>
                 <div class="form__group">
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Tags</legend>
+                        <legend class="form__legend">{{ __('livewire-interface.tags') }}</legend>
                         <div class="form__fieldset-checkbox-container">
                             <p class="form__group">
                                 <label class="form__label">
@@ -536,7 +538,7 @@
                                         value="1"
                                         wire:model.live="trumpable"
                                     />
-                                    Trumpable
+                                    {{ __('livewire-interface.trumpable') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -598,7 +600,7 @@
                                         value="1"
                                         wire:model.live="dying"
                                     />
-                                    Dying
+                                    {{ __('livewire-interface.dying') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -609,7 +611,7 @@
                                         value="1"
                                         wire:model.live="dead"
                                     />
-                                    Dead
+                                    {{ __('livewire-interface.dead') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -638,7 +640,7 @@
                                         value="1"
                                         wire:model.live="notDownloaded"
                                     />
-                                    Not downloaded
+                                    {{ __('torrent.have-not-downloaded') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -649,7 +651,7 @@
                                         value="1"
                                         wire:model.live="downloaded"
                                     />
-                                    Downloaded
+                                    {{ __('torrent.have-downloaded') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -660,7 +662,7 @@
                                         value="1"
                                         wire:model.live="seeding"
                                     />
-                                    Seeding
+                                    {{ __('torrent.seeding') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -671,7 +673,7 @@
                                         value="1"
                                         wire:model.live="leeching"
                                     />
-                                    Leeching
+                                    {{ __('torrent.leeching') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -682,7 +684,7 @@
                                         value="1"
                                         wire:model.live="incomplete"
                                     />
-                                    Incomplete
+                                    {{ __('livewire-interface.incomplete') }}
                                 </label>
                             </p>
                         </div>
@@ -690,7 +692,9 @@
                 </div>
                 <div class="form__group">
                     <fieldset class="form__fieldset">
-                        <legend class="form__legend">Primary language</legend>
+                        <legend class="form__legend">
+                            {{ __('livewire-interface.primary-language') }}
+                        </legend>
                         <div class="form__fieldset-checkbox-container">
                             @foreach ($primaryLanguages as $primaryLanguage)
                                 <p class="form__group">
@@ -711,7 +715,8 @@
             </div>
         </form>
     </search>
-    <section class="panelV2 torrent-search__results">
+    {{-- Refresh seeders/leechers live; Livewire pauses polling in background tabs. --}}
+    <section class="panelV2 torrent-search__results" wire:poll.15s.visible>
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
             <div class="panel__actions">
@@ -730,7 +735,9 @@
                             <option value="group">{{ __('torrent.groupings') }}</option>
                             <option value="poster">{{ __('torrent.poster') }}</option>
                         </select>
-                        <label class="form__label form__label--floating" for="view">Layout</label>
+                        <label class="form__label form__label--floating" for="view">
+                            {{ __('livewire-interface.layout') }}
+                        </label>
                     </div>
                 </div>
                 <div class="panel__action">
@@ -774,10 +781,14 @@
                                 ])
                             >
                                 @if (auth()->user()->settings->show_poster)
-                                    <th class="torrent-search--list__poster-header">Poster</th>
+                                    <th class="torrent-search--list__poster-header">
+                                        {{ __('torrent.poster') }}
+                                    </th>
                                 @endif
 
-                                <th class="torrent-search--list__format-header">Format</th>
+                                <th class="torrent-search--list__format-header">
+                                    {{ __('livewire-interface.format') }}
+                                </th>
                                 <th
                                     class="torrent-search--list__name-header"
                                     wire:click="sortBy('name')"
@@ -794,7 +805,7 @@
                                     wire:click="sortBy('rating')"
                                     role="columnheader button"
                                 >
-                                    Rating
+                                    {{ __('torrent.rating') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'rating'])
                                 </th>
                                 <th
@@ -1034,7 +1045,7 @@
         document.addEventListener('livewire:init', function () {
           let myRegions = [
               {
-                  label: "No region", value: "0"
+                  label: @js(__('livewire-interface.no-region')), value: "0"
               },
               ... {{
                   Js::from(
@@ -1053,8 +1064,8 @@
             options: myRegions,
             multiple: true,
             search: true,
-            placeholder: "{{ __('Select Regions') }}",
-            noOptionsText: "{{ __('No results found') }}",
+            placeholder: @js(__('livewire-interface.select-regions')),
+            noOptionsText: @js(__('livewire-interface.no-results-found')),
           })
 
           let regions = document.querySelector('#regions')
@@ -1065,7 +1076,7 @@
 
           let myDistributors = [
               {
-                  label: "No distributor", value: "0"
+                  label: @js(__('livewire-interface.no-distributor')), value: "0"
               },
               ... {{
                   Js::from(
@@ -1084,8 +1095,8 @@
             options: myDistributors,
             multiple: true,
             search: true,
-            placeholder: "{{ __('Select Distributor') }}",
-            noOptionsText: "{{ __('No results found') }}",
+            placeholder: @js(__('livewire-interface.select-distributor')),
+            noOptionsText: @js(__('livewire-interface.no-results-found')),
           })
 
           let distributors = document.querySelector('#distributors')

@@ -10,7 +10,7 @@
             @endforeach
         </ul>
     @else
-        <div class="panel__body">No topics.</div>
+        <div class="panel__body">{{ __('livewire-interface.no-topics') }}</div>
     @endif
     {{ $topics->links('partials.pagination') }}
 </section>

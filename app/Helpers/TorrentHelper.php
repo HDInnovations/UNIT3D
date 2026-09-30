@@ -137,15 +137,19 @@ class TorrentHelper
 
             (new IRCAnnounceBot())
                 ->to(config('irc-bot.channel'))
-                ->say('['.config('app.name').'] '.($anon ? 'An anonymous user' : $username).' has uploaded '.$torrent->name.' grab it now!')
-                ->say(
-                    '[Category: '.$category->name.'] '
-                    .'[Type: '.$torrent->type->name.'] '
-                    .'[Size: '.$torrent->getSize().'] '
-                    .'[TMDB vote average: '.($meta->vote_average ?? 0).'] '
-                    .'[TMDB vote count: '.($meta->vote_count ?? 0).']'
-                )
-                ->say(\sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                ->say(trans('application-messages.bot.irc-new-upload', [
+                    'app'      => config('app.name'),
+                    'username' => $anon ? trans('application-messages.notification.anonymous-user', [], config('app.locale')) : $username,
+                    'name'     => $torrent->name,
+                ], config('app.locale')))
+                ->say(trans('application-messages.bot.irc-upload-meta', [
+                    'category'   => $category->name,
+                    'type'       => $torrent->type->name,
+                    'size'       => $torrent->getSize(),
+                    'voteAvg'    => $meta->vote_average ?? 0,
+                    'voteCount'  => $meta->vote_count ?? 0,
+                ], config('app.locale')))
+                ->say(trans('application-messages.bot.irc-upload-link', ['url' => \sprintf('%s/torrents/%s', $appurl, $id)], config('app.locale')));
         }
 
         // Announce to external IRC service

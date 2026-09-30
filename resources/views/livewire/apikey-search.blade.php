@@ -86,13 +86,13 @@
                                 datetime="{{ $apikey->deleted_at }}"
                                 title="{{ $apikey->deleted_at }}"
                             >
-                                {{ $apikey->deleted_at ?? 'Currently in use' }}
+                                {{ $apikey->deleted_at ?? __('livewire-interface.currently-in-use') }}
                             </time>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No API keys</td>
+                        <td colspan="4">{{ __('livewire-interface.no-api-keys') }}</td>
                     </tr>
                 @endforelse
             </tbody>

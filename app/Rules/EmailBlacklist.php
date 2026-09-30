@@ -40,7 +40,7 @@ class EmailBlacklist implements ValidationRule
 
         // Fail if the domain blacklist cache is empty
         if (empty($this->domains)) {
-            $fail('The email blacklist cache is currently empty. Please try again later or contact staff.');
+            $fail(__('application-messages.validation.email-blacklist-cache-empty'));
 
             return;
         }
@@ -50,7 +50,7 @@ class EmailBlacklist implements ValidationRule
 
         // Run validation check
         if (\in_array($domain, $this->domains)) {
-            $fail('Email domain is not allowed. Throwaway email providers are blacklisted.');
+            $fail(__('application-messages.validation.email-domain-blacklisted'));
         }
     }
 

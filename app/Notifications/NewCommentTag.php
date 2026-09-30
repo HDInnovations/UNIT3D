@@ -111,38 +111,40 @@ class NewCommentTag extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        $username = $this->comment->anon ? 'Anonymous' : $this->comment->user->username;
-        $title = $this->comment->anon ? 'You Have Been Tagged' : $username.' Has Tagged You';
+        $username = $this->comment->anon ? __('application-messages.notification.anonymous-user') : $this->comment->user->username;
+        $title = $this->comment->anon
+            ? __('application-messages.notification.tagged-title-anonymous')
+            : __('application-messages.notification.tagged-title', ['username' => $username]);
 
         return match ($this->model::class) {
             Torrent::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent '.$this->model->name,
+                'body'  => __('application-messages.notification.tagged-comment-torrent-body', ['username' => $username, 'name' => $this->model->name]),
                 'url'   => '/torrents/'.$this->model->id,
             ],
             TorrentRequest::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent Request '.$this->model->name,
+                'body'  => __('application-messages.notification.tagged-comment-request-body', ['username' => $username, 'name' => $this->model->name]),
                 'url'   => '/requests/'.$this->model->id,
             ],
             Ticket::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Ticket '.$this->model->subject,
+                'body'  => __('application-messages.notification.tagged-comment-ticket-body', ['username' => $username, 'subject' => $this->model->subject]),
                 'url'   => '/tickets/'.$this->model->id,
             ],
             Playlist::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Playlist '.$this->model->name,
+                'body'  => __('application-messages.notification.tagged-comment-playlist-body', ['username' => $username, 'name' => $this->model->name]),
                 'url'   => '/playlists/'.$this->model->id,
             ],
             TmdbCollection::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Collection '.$this->model->name,
+                'body'  => __('application-messages.notification.tagged-comment-collection-body', ['username' => $username, 'name' => $this->model->name]),
                 'url'   => '/mediahub/collections/'.$this->model->id,
             ],
             Article::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Article '.$this->model->title,
+                'body'  => __('application-messages.notification.tagged-comment-article-body', ['username' => $username, 'title' => $this->model->title]),
                 'url'   => '/articles/'.$this->model->id,
             ],
         };

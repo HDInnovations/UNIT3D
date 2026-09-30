@@ -22,7 +22,7 @@
             <p class="form__group">
                 <textarea class="form__textarea" name="message" id="message"></textarea>
                 <label class="form__label form__label--floating" for="message">
-                    Deletion reason
+                    {{ __('staff-interface.deletion-reason') }}
                 </label>
             </p>
             <p class="form__group">

@@ -1,11 +1,17 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Add forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('staff-interface.add-forums') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Add forums - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('staff-interface.add-forums') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -19,20 +25,24 @@
             {{ __('staff.forums') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-forum--create')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Add a new Forum</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.forum-heading-create') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.forums.store') }}">
                 @csrf
                 <p class="form__group">
                     <input id="name" class="form__text" type="text" name="forum[name]" required />
-                    <label class="form__label form__label--floating" for="name">Title</label>
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.title') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -56,7 +66,7 @@
                         required
                     ></textarea>
                     <label class="form__label form__label--floating" for="description">
-                        Description
+                        {{ __('common.description') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -80,7 +90,7 @@
                         @endforeach
                     </select>
                     <label class="form__label form__label--floating" for="forum_category_id">
-                        Forum category
+                        {{ __('staff-interface.forum-category') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -89,7 +99,7 @@
                         name="forum[default_topic_state_filter]"
                         class="form__select"
                     >
-                        <option value="" selected>None</option>
+                        <option value="" selected>{{ __('staff-interface.none') }}</option>
                         <option value="open">{{ __('forum.open') }}</option>
                         <option value="close">{{ __('forum.closed') }}</option>
                     </select>
@@ -97,19 +107,25 @@
                         class="form__label form__label--floating"
                         for="default_topic_state_filter"
                     >
-                        Default topic state filter
+                        {{ __('staff-interface.default-topic-state-filter') }}
                     </label>
                 </p>
                 <div class="form__group">
-                    <h3>Permissions</h3>
+                    <h3>{{ __('staff-interface.permissions') }}</h3>
                     <div class="data-table-wrapper" x-data="checkboxGrid">
                         <table class="data-table data-table--checkbox-grid">
                             <thead>
                                 <tr>
-                                    <th x-bind="columnHeader">Groups</th>
-                                    <th x-bind="columnHeader">Read topics</th>
-                                    <th x-bind="columnHeader">Start new topic</th>
-                                    <th x-bind="columnHeader">Reply to topics</th>
+                                    <th x-bind="columnHeader">{{ __('common.groups') }}</th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.read-topics') }}
+                                    </th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.start-new-topic') }}
+                                    </th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.reply-to-topics') }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -169,7 +185,9 @@
                     </div>
                 </div>
                 <p class="form__group">
-                    <button class="form__button form__button--filled">Save forum</button>
+                    <button class="form__button form__button--filled">
+                        {{ __('staff-interface.save-forum') }}
+                    </button>
                 </p>
             </form>
         </div>

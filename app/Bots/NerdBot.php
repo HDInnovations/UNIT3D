@@ -82,7 +82,7 @@ class NerdBot
             fn () => User::orderByDesc('seedbonus')->first()
         );
 
-        return "Currently [url=/users/{$banker->username}]{$banker->username}[/url] is the top BON holder on {$this->site}!";
+        return trans('application-messages.bot.top-bon-holder', ['username' => $banker->username, 'site' => $this->site], config('app.locale'));
     }
 
     public function getSnatched(): string
@@ -93,7 +93,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('times_completed')->first()
         );
 
-        return "Currently [url=/torrents/{$snatched->id}]{$snatched->name}[/url] is the most snatched torrent on {$this->site}!";
+        return trans('application-messages.bot.most-snatched', ['id' => $snatched->id, 'name' => $snatched->name, 'site' => $this->site], config('app.locale'));
     }
 
     public function getLeeched(): string
@@ -104,7 +104,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('leechers')->first()
         );
 
-        return "Currently [url=/torrents/{$leeched->id}]{$leeched->name}[/url] is the most leeched torrent on {$this->site}!";
+        return trans('application-messages.bot.most-leeched', ['id' => $leeched->id, 'name' => $leeched->name, 'site' => $this->site], config('app.locale'));
     }
 
     public function getSeeded(): string
@@ -115,7 +115,7 @@ class NerdBot
             fn () => Torrent::orderByDesc('seeders')->first()
         );
 
-        return "Currently [url=/torrents/{$seeded->id}]{$seeded->name}[/url] is the most seeded torrent on {$this->site}!";
+        return trans('application-messages.bot.most-seeded', ['id' => $seeded->id, 'name' => $seeded->name, 'site' => $this->site], config('app.locale'));
     }
 
     public function getFreeleech(): string
@@ -126,7 +126,7 @@ class NerdBot
             fn () => Torrent::where('free', '=', 1)->count()
         );
 
-        return "There are currently {$freeleech} freeleech torrents on {$this->site}!";
+        return trans('application-messages.bot.freeleech-count', ['count' => $freeleech, 'site' => $this->site], config('app.locale'));
     }
 
     public function getDoubleUpload(): string
@@ -137,7 +137,7 @@ class NerdBot
             fn () => Torrent::where('doubleup', '=', 1)->count()
         );
 
-        return "There are currently {$doubleUpload} double upload torrents on {$this->site}!";
+        return trans('application-messages.bot.double-upload-count', ['count' => $doubleUpload, 'site' => $this->site], config('app.locale'));
     }
 
     public function getPeers(): string
@@ -148,7 +148,7 @@ class NerdBot
             fn () => Peer::where('active', '=', 1)->count()
         );
 
-        return "Currently there are {$peers} peers on {$this->site}!";
+        return trans('application-messages.bot.peer-count', ['count' => $peers, 'site' => $this->site], config('app.locale'));
     }
 
     public function getBans(): string
@@ -160,7 +160,7 @@ class NerdBot
                 ->where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$bans} users have been banned from {$this->site}";
+        return trans('application-messages.bot.bans-count', ['count' => $bans, 'site' => $this->site], config('app.locale'));
     }
 
     public function getUnbans(): string
@@ -172,7 +172,7 @@ class NerdBot
                 ->where('removed_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$unbans} users have been unbanned from {$this->site}";
+        return trans('application-messages.bot.unbans-count', ['count' => $unbans, 'site' => $this->site], config('app.locale'));
     }
 
     public function getWarnings(): string
@@ -183,7 +183,7 @@ class NerdBot
             fn () => Warning::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$warnings} hit and run warnings have been issued on {$this->site}!";
+        return trans('application-messages.bot.warnings-count', ['count' => $warnings, 'site' => $this->site], config('app.locale'));
     }
 
     public function getUploads(): string
@@ -194,7 +194,7 @@ class NerdBot
             fn () => Torrent::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$uploads} torrents have been uploaded to {$this->site}!";
+        return trans('application-messages.bot.uploads-count', ['count' => $uploads, 'site' => $this->site], config('app.locale'));
     }
 
     public function getLogins(): string
@@ -205,7 +205,7 @@ class NerdBot
             fn () => User::whereNotNull('last_login')->where('last_login', '>', $this->current->subDay())->count()
         );
 
-        return "In The Last 24 Hours, {$logins} Unique Users Have Logged Into {$this->site}!";
+        return trans('application-messages.bot.logins-count', ['count' => $logins, 'site' => $this->site], config('app.locale'));
     }
 
     public function getRegistrations(): string
@@ -216,7 +216,7 @@ class NerdBot
             fn () => User::where('created_at', '>', $this->current->subDay())->count()
         );
 
-        return "In the last 24 hours, {$registrations} users have registered to {$this->site}!";
+        return trans('application-messages.bot.registrations-count', ['count' => $registrations, 'site' => $this->site], config('app.locale'));
     }
 
     public function getHelp(): string
@@ -226,7 +226,7 @@ class NerdBot
 
     public function getKing(): string
     {
-        return config('other.title').' Is King!';
+        return trans('application-messages.bot.site-is-king', ['site' => config('other.title')], config('app.locale'));
     }
 
     /**
@@ -258,7 +258,7 @@ class NerdBot
             'seeded'        => $this->getSeeded(),
             'leeched'       => $this->getLeeched(),
             'snatched'      => $this->getSnatched(),
-            default         => 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.',
+            default         => trans('application-messages.bot.command-usage', ['bot' => $this->bot->name, 'command' => $this->bot->command], config('app.locale')),
         };
 
         $this->type = $type;

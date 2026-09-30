@@ -24,9 +24,13 @@ class TrustProxies extends Middleware
     /**
      * The trusted proxies for this application.
      *
+     * Only the in-stack nginx container and its Docker gateway hop are trusted;
+     * the edge proxy (Caddy) overwrites X-Forwarded-For with the verified client
+     * address, so every earlier, client-supplied entry is ignored.
+     *
      * @var array<int, string>|string|null
      */
-    protected $proxies = '*';
+    protected $proxies = ['172.16.0.0/12'];
 
     /**
      * The headers that should be used to detect proxies.

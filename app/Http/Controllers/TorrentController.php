@@ -22,6 +22,8 @@ use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
 use App\Http\Requests\StoreTorrentRequest;
+use App\Jobs\ProcessMusicBrainzReleaseJob;
+use App\Jobs\ProcessOpenLibraryEditionJob;
 use App\Http\Requests\UpdateTorrentRequest;
 use App\Models\Category;
 use App\Models\Distributor;
@@ -40,6 +42,7 @@ use App\Models\User;
 use App\Notifications\TorrentDeleted;
 use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
+use App\Services\Media\MediaVariantExtractor;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
@@ -99,6 +102,8 @@ class TorrentController extends Controller
                 ],
                 'history' => fn ($query) => $query->where('user_id', '=', $user->id),
                 'keywords',
+                'metadata',
+                'mediaVariant.edition',
                 'movie' => [
                     'genres',
                     'credits' => ['person', 'occupation'],
@@ -415,7 +420,7 @@ class TorrentController extends Controller
         };
 
         return to_route('torrents.show', ['id' => $id])
-            ->with('success', 'Successfully edited!');
+            ->with('success', __('application-messages.flash.torrent-edited'));
     }
 
     /**
@@ -475,7 +480,7 @@ class TorrentController extends Controller
         $torrent->delete();
 
         return to_route('torrents.index')
-            ->with('success', 'Torrent has been deleted!');
+            ->with('success', __('application-messages.flash.torrent-deleted'));
     }
 
     /**
@@ -496,6 +501,7 @@ class TorrentController extends Controller
                         $category->tv_meta    => 'tv',
                         $category->game_meta  => 'game',
                         $category->music_meta => 'music',
+                        $category->book_meta  => 'book',
                         $category->no_meta    => 'no',
                         default               => 'no',
                     },
@@ -547,7 +553,7 @@ class TorrentController extends Controller
             'user_id'      => $user->id,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except(['torrent']));
+        ] + $request->safe()->except(['torrent', 'musicbrainz_release_id', 'open_library_edition_id', 'edition_kind', 'edition_name', 'edition_provenance']));
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
@@ -601,6 +607,22 @@ class TorrentController extends Controller
             default                          => null,
         };
 
+        if ($request->filled('musicbrainz_release_id')) {
+            ProcessMusicBrainzReleaseJob::dispatch($torrent->id, $request->string('musicbrainz_release_id')->toString());
+        }
+
+        if ($request->filled('open_library_edition_id')) {
+            ProcessOpenLibraryEditionJob::dispatch($torrent->id, $request->string('open_library_edition_id')->toString());
+        }
+
+        (new MediaVariantExtractor())->store(
+            $torrent,
+            $request->string('edition_kind', 'standard')->toString(),
+            $request->string('edition_name')->toString() ?: null,
+            null,
+            $request->string('edition_provenance')->toString() ?: null,
+        );
+
         // Torrent Keywords System
         $keywords = [];
 
@@ -622,17 +644,27 @@ class TorrentController extends Controller
             // Announce To Shoutbox
             if (!$anon) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    trans('application-messages.bot.torrent-uploaded', [
+                        'userUrl'  => \sprintf('%s/users/%s', $appurl, $username),
+                        'username' => $username,
+                        'category' => $torrent->category->name,
+                        'url'      => \sprintf('%s/torrents/%s', $appurl, $torrent->id),
+                        'name'     => $torrent->name,
+                    ], config('app.locale'))
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    trans('application-messages.bot.torrent-uploaded-anon', [
+                        'category' => $torrent->category->name,
+                        'url'      => \sprintf('%s/torrents/%s', $appurl, $torrent->id),
+                        'name'     => $torrent->name,
+                    ], config('app.locale'))
                 );
             }
 
             if ($torrent->free >= 1) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can!'
+                    trans('application-messages.bot.freeleech-granted', ['url' => \sprintf('%s/torrents/%s', $appurl, $torrent->id), 'name' => $torrent->name, 'percent' => $torrent->free], config('app.locale'))
                 );
             }
 
@@ -640,6 +672,6 @@ class TorrentController extends Controller
         }
 
         return to_route('download_check', ['id' => $torrent->id])
-            ->with('success', 'Your torrent file is ready to be downloaded and seeded!');
+            ->with('success', __('application-messages.flash.torrent-file-ready'));
     }
 }

@@ -74,7 +74,7 @@ class ApplicationSearch extends Component
         $application->imageProofs()->delete();
         $application->delete();
 
-        $this->dispatch('success', type: 'success', message: 'Application has successfully been deleted!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.application-deleted'));
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

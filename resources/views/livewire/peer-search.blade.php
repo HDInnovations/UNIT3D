@@ -16,12 +16,14 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
-                            Torrent name
+                            {{ __('torrent.name') }}
                         </label>
                     </p>
                     <p class="form__group">
                         <input id="ip" wire:model.live="ip" class="form__text" placeholder=" " />
-                        <label class="form__label form__label--floating" for="ip">IP address</label>
+                        <label class="form__label form__label--floating" for="ip">
+                            {{ __('livewire-interface.ip-address') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <input
@@ -32,7 +34,9 @@
                             autocomplete="off"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="port">Port</label>
+                        <label class="form__label form__label--floating" for="port">
+                            {{ __('common.port') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <input
@@ -43,7 +47,9 @@
                             autocomplete="off"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="agent">Agent</label>
+                        <label class="form__label form__label--floating" for="agent">
+                            {{ __('torrent.agent') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <select
@@ -52,12 +58,12 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="any">Any</option>
-                            <option value="connectable">Connectable</option>
-                            <option value="unconnectable">Unconnectable</option>
+                            <option value="any">{{ __('livewire-interface.any') }}</option>
+                            <option value="connectable">{{ __('livewire-interface.connectable') }}</option>
+                            <option value="unconnectable">{{ __('livewire-interface.unconnectable') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="connectivity">
-                            Connectivity
+                            {{ __('livewire-interface.connectivity') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -67,11 +73,13 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="any">Any</option>
-                            <option value="exclude">Inactive</option>
-                            <option value="include">Active</option>
+                            <option value="any">{{ __('livewire-interface.any') }}</option>
+                            <option value="exclude">{{ __('livewire-interface.inactive') }}</option>
+                            <option value="include">{{ __('livewire-interface.active') }}</option>
                         </select>
-                        <label class="form__label form__label--floating" for="active">Active</label>
+                        <label class="form__label form__label--floating" for="active">
+                            {{ __('livewire-interface.active') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <select
@@ -80,13 +88,13 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="none">None</option>
-                            <option value="user_session">User session</option>
-                            <option value="user_ip">User IP</option>
-                            <option value="user">User</option>
+                            <option value="none">{{ __('livewire-interface.none') }}</option>
+                            <option value="user_session">{{ __('livewire-interface.user-session') }}</option>
+                            <option value="user_ip">{{ __('livewire-interface.user-ip') }}</option>
+                            <option value="user">{{ __('user.user') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="groupBy">
-                            Group by
+                            {{ __('livewire-interface.group-by') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -96,7 +104,7 @@
                                 type="checkbox"
                                 class="form__checkbox"
                             />
-                            Shared IPs only
+                            {{ __('livewire-interface.shared-ips-only') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -106,7 +114,7 @@
                                 type="checkbox"
                                 class="form__checkbox"
                             />
-                            Shared sockets only
+                            {{ __('livewire-interface.shared-sockets-only') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -116,7 +124,7 @@
                                 type="checkbox"
                                 class="form__checkbox"
                             />
-                            Include seedsize
+                            {{ __('livewire-interface.include-seedsize') }}
                         </label>
                     </p>
                 </div>
@@ -124,8 +132,8 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Peers</h2>
-        <div class="panel__body" wire:loading.block>Loading...</div>
+        <h2 class="panel__heading">{{ __('torrent.peers') }}</h2>
+        <div class="panel__body" wire:loading.block>{{ __('livewire-interface.loading') }}</div>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -155,7 +163,7 @@
                         </th>
                         <th wire:click="sortBy('agent')" role="columnheader button">
                             @if ($groupBy === 'user_ip' || $groupBy === 'user')
-                                Agents
+                                {{ __('livewire-interface.agents') }}
                             @else
                                 {{ __('torrent.agent') }}
                             @endif
@@ -167,9 +175,9 @@
                             style="text-align: right"
                         >
                             @if ($groupBy === 'none' || $groupBy === 'user_ip' || $groupBy === 'user_session')
-                                IP
+                                {{ __('common.ip') }}
                             @else
-                                IPs
+                                {{ __('livewire-interface.ips') }}
                             @endif
                             @include('livewire.includes._sort-icon', ['field' => 'ip'])
                         </th>
@@ -179,9 +187,9 @@
                             style="text-align: right"
                         >
                             @if ($groupBy === 'user_ip' || $groupBy === 'user')
-                                Ports
+                                {{ __('livewire-interface.ports') }}
                             @else
-                                Port
+                                {{ __('common.port') }}
                             @endif
                             @include('livewire.includes._sort-icon', ['field' => 'port'])
                         </th>
@@ -239,7 +247,7 @@
                                         role="columnheader button"
                                         style="text-align: right"
                                     >
-                                        Connectable {{ __('torrent.size') }}
+                                        {{ __('livewire-interface.connectable') }} {{ __('torrent.size') }}
                                         @include('livewire.includes._sort-icon', ['field' => 'connectable_size'])
                                     </th>
                                     <th
@@ -247,7 +255,7 @@
                                         role="columnheader button"
                                         style="text-align: right"
                                     >
-                                        Unconnectable {{ __('torrent.size') }}
+                                        {{ __('livewire-interface.unconnectable') }} {{ __('torrent.size') }}
                                         @include('livewire.includes._sort-icon', ['field' => 'unconnectable_size'])
                                     </th>
                                 @endif
@@ -260,7 +268,7 @@
                                     role="columnheader button"
                                     style="text-align: right"
                                 >
-                                    Connectable
+                                    {{ __('livewire-interface.connectable') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'connectable'])
                                 </th>
                             @else
@@ -269,7 +277,7 @@
                                     role="columnheader button"
                                     style="text-align: right"
                                 >
-                                    Connectable {{ __('torrent.peers') }}
+                                    {{ __('livewire-interface.connectable') }} {{ __('torrent.peers') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'connectable_count'])
                                 </th>
                                 <th
@@ -277,7 +285,7 @@
                                     role="columnheader button"
                                     style="text-align: right"
                                 >
-                                    Unconnectable {{ __('torrent.peers') }}
+                                    {{ __('livewire-interface.unconnectable') }} {{ __('torrent.peers') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'unconnectable_count'])
                                 </th>
                             @endif
@@ -306,7 +314,7 @@
                                 role="columnheader button"
                                 style="text-align: right"
                             >
-                                Inactive {{ __('torrent.peers') }}
+                                {{ __('livewire-interface.inactive') }} {{ __('torrent.peers') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'inactive_count'])
                             </th>
                             <th
@@ -314,7 +322,7 @@
                                 role="columnheader button"
                                 style="text-align: right"
                             >
-                                Inactive/active ratio
+                                {{ __('livewire-interface.inactive-active-ratio') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'inactive_ratio'])
                             </th>
                         @endif
@@ -323,7 +331,7 @@
                             role="columnheader button"
                             style="text-align: right"
                         >
-                            Started
+                            {{ __('torrent.started') }}
                             @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                         </th>
                         <th
@@ -331,7 +339,7 @@
                             role="columnheader button"
                             style="text-align: right"
                         >
-                            Announced
+                            {{ __('livewire-interface.announced') }}
                             @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
                         </th>
                     </tr>
@@ -409,12 +417,12 @@
                                         @if ($peer->connectable)
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-green fa-check"
-                                                title="Connectable"
+                                                title="{{ __('livewire-interface.connectable') }}"
                                             ></i>
                                         @else
                                             <i
                                                 class="{{ config('other.font-awesome') }} text-red fa-times"
-                                                title="Not connectable"
+                                                title="{{ __('livewire-interface.not-connectable') }}"
                                             ></i>
                                         @endif
                                     </td>
@@ -433,12 +441,12 @@
                                     @if ($peer->active)
                                         <i
                                             class="{{ config('other.font-awesome') }} text-green fa-check"
-                                            title="Active"
+                                            title="{{ __('livewire-interface.active') }}"
                                         ></i>
                                     @else
                                         <i
                                             class="{{ config('other.font-awesome') }} text-red fa-times"
-                                            title="Inactive"
+                                            title="{{ __('livewire-interface.inactive') }}"
                                         ></i>
                                     @endif
                                 </td>
@@ -452,7 +460,7 @@
                                     datetime="{{ $peer->created_at }}"
                                     title="{{ $peer->created_at }}"
                                 >
-                                    {{ $peer->created_at?->diffForHumans() ?? 'N/A' }}
+                                    {{ $peer->created_at?->diffForHumans() ?? __('livewire-interface.not-applicable') }}
                                 </time>
                             </td>
                             <td style="text-align: right">
@@ -460,7 +468,7 @@
                                     datetime="{{ $peer->updated_at }}"
                                     title="{{ $peer->updated_at }}"
                                 >
-                                    {{ $peer->updated_at?->diffForHumans() ?? 'N/A' }}
+                                    {{ $peer->updated_at?->diffForHumans() ?? __('livewire-interface.not-applicable') }}
                                 </time>
                             </td>
                         </tr>

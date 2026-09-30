@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'title' => 'UNIT3D',
+    'title' => env('APP_NAME', 'Vltava'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'subTitle' => 'Built On Laravel',
+    'subTitle' => 'Český soukromý tracker',
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'meta_description' => 'Built On Laravel',
+    'meta_description' => 'Český soukromý BitTorrent tracker postavený na komunitě, kvalitě a dlouhodobém seedingu.',
 
     /*
     |--------------------------------------------------------------------------
@@ -149,21 +149,11 @@ return [
     |--------------------------------------------------------------------------
     | Default Site Style
     |--------------------------------------------------------------------------
-    | 0 = Classic Light Theme
-    | 1 = Galactic Theme
-    | 2 = Dark Blue Theme
-    | 3 = Dark Green Theme
-    | 4 = Dark Pink Theme
-    | 5 = Dark Purple Theme
-    | 6 = Dark Red Theme
-    | 7 = Dark Teal Theme
-    | 8 = Dark Yellow Theme
-    | 9 = Cosmic Void
-    | 10 = Nord
-    | 11 = Revel
-    | 12 = Material Design v3 Light
+    | Theme values are defined by App\Enums\Theme. Existing users retain their
+    | saved style; this value is used only when creating a new user setting.
+    |
     */
-    'default_style' => 12,
+    'default_style' => App\Enums\Theme::VltavaDark->value,
 
     /*
     |--------------------------------------------------------------------------

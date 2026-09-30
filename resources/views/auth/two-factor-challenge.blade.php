@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="UTF-8" />
-        <title>{{ __('Two Factor Authentication') }} - {{ config('other.title') }}</title>
-        <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
-        <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon" />
+        <title>{{ __('interface.two-factor-title') }} - {{ config('other.title') }}</title>
+        <link rel="icon" href="{{ url('/img/vltava-mark.svg') }}" type="image/svg+xml" />
         @vite('resources/sass/pages/_auth.scss')
     </head>
     <body>
@@ -41,7 +40,7 @@
                 >
                     @csrf
                     <a class="auth-form__branding" href="{{ route('home.index') }}">
-                        <i class="fal fa-tv-retro"></i>
+                        <img src="{{ url('/img/vltava-mark.svg') }}" alt="" style="height: 42px" />
                         <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
                     </a>
                     <ul class="auth-form__important-infos">
@@ -53,19 +52,19 @@
                         </li>
                         @if (Session::has('warning'))
                             <li class="auth-form__important-info">
-                                Warning: {{ Session::get('warning') }}
+                                {{ __('interface.flash-warning', ['message' => Session::get('warning')]) }}
                             </li>
                         @endif
 
                         @if (Session::has('info'))
                             <li class="auth-form__important-info">
-                                Info: {{ Session::get('info') }}
+                                {{ __('interface.flash-info', ['message' => Session::get('info')]) }}
                             </li>
                         @endif
 
                         @if (Session::has('success'))
                             <li class="auth-form__important-info">
-                                Success: {{ Session::get('success') }}
+                                {{ __('interface.flash-success', ['message' => Session::get('success')]) }}
                             </li>
                         @endif
                     </ul>
@@ -97,7 +96,7 @@
                     </p>
                     <p class="auth-form__text-input-group" x-cloak x-show="recovery">
                         <label class="auth-form__label" for="recovery_code">
-                            {{ __('Use a recovery code') }}
+                            {{ __('interface.use-recovery-code') }}
                         </label>
                         <input
                             id="recovery_code"

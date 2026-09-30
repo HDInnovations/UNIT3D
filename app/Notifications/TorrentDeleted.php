@@ -50,14 +50,11 @@ class TorrentDeleted extends Notification implements ShouldQueue, SystemNotifica
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => "Torrent Deleted! - {$this->torrent->name}",
-            'message' => <<<BBCODE
-            [b]Attention:[/b] Torrent {$this->torrent->name} has been removed from our site.
-
-            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-            
-            [b]Removal Reason:[/b] {$this->reason}
-            BBCODE
+            'subject' => __('application-messages.notification.torrent-deleted-subject', ['name' => $this->torrent->name]),
+            'message' => __('application-messages.notification.torrent-deleted-message', [
+                'name'   => $this->torrent->name,
+                'reason' => $this->reason,
+            ]),
         ];
     }
 }

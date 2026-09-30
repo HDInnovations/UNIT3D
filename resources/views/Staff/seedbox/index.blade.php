@@ -69,7 +69,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this seedbox: ' . $seedbox->ip . '? (owned by ' . $seedbox->user->username . ')') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-seedbox-confirmation', ['ip' => $seedbox->ip, 'username' => $seedbox->user->username])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
@@ -81,7 +81,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">No seedboxes</td>
+                            <td colspan="5">{{ __('staff-interface.no-seedboxes') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

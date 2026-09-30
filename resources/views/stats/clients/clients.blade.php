@@ -10,22 +10,22 @@
             {{ __('stat.stats') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Clients</li>
+    <li class="breadcrumb--active">{{ __('member-interface.stats.clients') }}</li>
 @endsection
 
 @section('page', 'page__stats--clients')
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Clients</h2>
+        <h2 class="panel__heading">{{ __('member-interface.stats.clients') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Client</th>
+                        <th>{{ __('member-interface.stats.client') }}</th>
                         <th>{{ __('common.users') }}</th>
                         <th>{{ __('torrent.torrents') }}</th>
-                        <th>Single Seeds</th>
+                        <th>{{ __('member-interface.stats.single-seeds') }}</th>
                         <th>{{ __('torrent.peers') }}</th>
                     </tr>
                 </thead>

@@ -1,7 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Peers - {{ config('other.title') }}</title>
+    <title>{{ __('torrent.peers') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -10,7 +10,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Peers</li>
+    <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
 @endsection
 
 @section('nav-tabs')

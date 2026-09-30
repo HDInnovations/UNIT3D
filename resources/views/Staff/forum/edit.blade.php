@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }} -
+        {{ __('staff-interface.edit-forums') }} - {{ __('staff.staff-dashboard') }} -
         {{ config('other.title') }}
     </title>
 @endsection
@@ -10,7 +10,7 @@
 @section('meta')
     <meta
         name="description"
-        content="{{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }}"
+        content="{{ __('staff-interface.edit-forums') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
@@ -22,7 +22,7 @@
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.forum_categories.index') }}" class="breadcrumb__link">
-            Forum categories
+            {{ __('staff-interface.forum-categories') }}
         </a>
     </li>
     <li class="breadcrumbV2">
@@ -63,7 +63,9 @@
                         value="{{ $forum->name }}"
                         required
                     />
-                    <label class="form__label form__label--floating" for="name">Title</label>
+                    <label class="form__label form__label--floating" for="name">
+                        {{ __('common.title') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -91,7 +93,7 @@
 {{ $forum->description }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
-                        Description
+                        {{ __('common.description') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -110,7 +112,7 @@
                         @endforeach
                     </select>
                     <label class="form__label form__label--floating" for="forum_category_id">
-                        Forum category
+                        {{ __('staff-interface.forum-category') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -119,7 +121,7 @@
                         name="forum[default_topic_state_filter]"
                         class="form__select"
                     >
-                        <option default selected value="">None</option>
+                        <option default selected value="">{{ __('staff-interface.none') }}</option>
                         <option
                             value="open"
                             @selected($forum->default_topic_state_filter === 'open')
@@ -137,11 +139,11 @@
                         class="form__label form__label--floating"
                         for="default_topic_state_filter"
                     >
-                        Topic state filter
+                        {{ __('staff-interface.topic-state-filter') }}
                     </label>
                 </p>
                 <div class="form__group">
-                    <label class="form__label">Permissions</label>
+                    <label class="form__label">{{ __('staff-interface.permissions') }}</label>
                     <div class="data-table-wrapper">
                         <table
                             class="data-table data-table--checkbox-grid"
@@ -149,10 +151,16 @@
                         >
                             <thead>
                                 <tr>
-                                    <th x-bind="columnHeader">Groups</th>
-                                    <th x-bind="columnHeader">Read topics</th>
-                                    <th x-bind="columnHeader">Start new topic</th>
-                                    <th x-bind="columnHeader">Reply to topics</th>
+                                    <th x-bind="columnHeader">{{ __('common.groups') }}</th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.read-topics') }}
+                                    </th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.start-new-topic') }}
+                                    </th>
+                                    <th x-bind="columnHeader">
+                                        {{ __('staff-interface.reply-to-topics') }}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody x-ref="tbody">
@@ -212,7 +220,9 @@
                     </div>
                 </div>
                 <p class="form__group">
-                    <button class="form__button form__button--filled">Save forum</button>
+                    <button class="form__button form__button--filled">
+                        {{ __('staff-interface.save-forum') }}
+                    </button>
                 </p>
             </form>
         </div>

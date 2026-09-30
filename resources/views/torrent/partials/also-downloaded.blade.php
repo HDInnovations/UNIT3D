@@ -7,13 +7,13 @@
                         <x-movie.poster :$movie :categoryId="$movie->category_id" />
                         <figcaption
                             class="trending-poster__download-count"
-                            title="Times downloaded"
+                            title="{{ __('media-interface.torrent.also-downloaded-times-tooltip') }}"
                         >
                             {{ $movie->total }}
                         </figcaption>
                     </figure>
                 @empty
-                    No other downloads found!
+                    {{ __('media-interface.torrent.also-downloaded-empty') }}
                 @endforelse
 
                 @break
@@ -23,13 +23,13 @@
                         <x-tv.poster :$tv :categoryId="$tv->category_id" />
                         <figcaption
                             class="trending-poster__download-count"
-                            title="Times downloaded"
+                            title="{{ __('media-interface.torrent.also-downloaded-times-tooltip') }}"
                         >
                             {{ $tv->total }}
                         </figcaption>
                     </figure>
                 @empty
-                    No other downloads found!
+                    {{ __('media-interface.torrent.also-downloaded-empty') }}
                 @endforelse
 
                 @break
@@ -39,18 +39,18 @@
                         <x-game.poster :$game :categoryId="$game->category_id" />
                         <figcaption
                             class="trending-poster__download-count"
-                            title="Times downloaded"
+                            title="{{ __('media-interface.torrent.also-downloaded-times-tooltip') }}"
                         >
                             {{ $game->total }}
                         </figcaption>
                     </figure>
                 @empty
-                    No other downloads found!
+                    {{ __('media-interface.torrent.also-downloaded-empty') }}
                 @endforelse
 
                 @break
             @default
-                No other downloads found!
+                {{ __('media-interface.torrent.also-downloaded-empty') }}
         @endswitch
     </section>
 </div>

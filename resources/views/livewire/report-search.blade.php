@@ -29,7 +29,7 @@
                             wire:model.live="reported"
                         />
                         <label class="form__label form__label--floating" for="reported">
-                            Reported
+                            {{ __('livewire-interface.reported') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -55,7 +55,7 @@
                             wire:model.live="verdict"
                         />
                         <label class="form__label form__label--floating" for="verdict">
-                            Verdict
+                            {{ __('livewire-interface.verdict') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -91,10 +91,10 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="">Any</option>
-                            <option value="Torrent">Torrent</option>
-                            <option value="Request">Request</option>
-                            <option value="User">User</option>
+                            <option value="">{{ __('livewire-interface.any') }}</option>
+                            <option value="Torrent">{{ __('torrent.torrent') }}</option>
+                            <option value="Request">{{ __('request.request') }}</option>
+                            <option value="User">{{ __('common.user') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="type">
                             {{ __('common.type') }}
@@ -107,11 +107,11 @@
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="open">Open</option>
-                            <option value="snoozed">Snoozed</option>
-                            <option value="closed">Closed</option>
-                            <option value="all">All</option>
-                            <option value="all_open">All open</option>
+                            <option value="open">{{ __('livewire-interface.open') }}</option>
+                            <option value="snoozed">{{ __('livewire-interface.snoozed') }}</option>
+                            <option value="closed">{{ __('livewire-interface.closed') }}</option>
+                            <option value="all">{{ __('livewire-interface.all') }}</option>
+                            <option value="all_open">{{ __('livewire-interface.all-open') }}</option>
                         </select>
                         <label class="form__label form__label--floating" for="status">
                             {{ __('common.status') }}
@@ -147,7 +147,7 @@
                             @include('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
                         <th wire:click="sortBy('type')" role="columnheader button">
-                            Type
+                            {{ __('common.type') }}
                             @include('livewire.includes._sort-icon', ['field' => 'type'])
                         </th>
                         <th wire:click="sortBy('title')" role="columnheader button">
@@ -155,7 +155,7 @@
                             @include('livewire.includes._sort-icon', ['field' => 'title'])
                         </th>
                         <th wire:click="sortBy('reported_user')" role="columnheader button">
-                            Reported
+                            {{ __('livewire-interface.reported') }}
                             @include('livewire.includes._sort-icon', ['field' => 'reported_user'])
                         </th>
                         <th wire:click="sortBy('reporter_id')" role="columnheader button">
@@ -180,7 +180,24 @@
                     @forelse ($reports as $report)
                         <tr>
                             <td>{{ $report->id }}</td>
-                            <td>{{ $report->type }}</td>
+                            <td>
+                                @switch($report->type)
+                                    @case('Torrent')
+                                        {{ __('torrent.torrent') }}
+
+                                        @break
+                                    @case('Request')
+                                        {{ __('request.request') }}
+
+                                        @break
+                                    @case('User')
+                                        {{ __('common.user') }}
+
+                                        @break
+                                    @default
+                                        {{ $report->type }}
+                                @endswitch
+                            </td>
                             <td>
                                 <a href="{{ route('staff.reports.show', ['report' => $report]) }}">
                                     {{ $report->title }}
@@ -196,7 +213,7 @@
                                 @if ($report->assignee)
                                     <x-user-tag :anon="false" :user="$report->assignee" />
                                 @else
-                                        Unassigned
+                                    {{ __('livewire-interface.unassigned') }}
                                 @endif
                             </td>
                             <td>
@@ -204,7 +221,7 @@
                                     datetime="{{ $report->created_at }}"
                                     title="{{ $report->created_at }}"
                                 >
-                                    {{ $report->created_at->toDayDateTimeString() }}
+                                    {{ $report->created_at->toDisplayTimezone()->toDayDateTimeString() }}
                                 </time>
                             </td>
                             <td>
@@ -219,7 +236,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8">No reports</td>
+                            <td colspan="8">{{ __('livewire-interface.no-reports') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

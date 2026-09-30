@@ -11,15 +11,20 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
+    'current-seedtime' => 'Aktuální doba seedování',
     'dead' => 'Mrtvý',
     'graveyard' => 'Hřbitov',
     'guidelines' => 'Pokyny',
-    'guidelines-content' => '1) Nemůžete znovu načíst vlastní nahrání. <br> 2) Nenechte se vzkřísit.',
-    'howto' => 'Zde je pravidlo',
-    'howto-desc1' => 'Musíte osivo <span class=\"text-green\"><em>: jméno</em></span> po dobu <span class="text-red text-bold">30 dnů</span> pro úspěšnou regeneraci. V takovém případě, kdy je aktuální čas osiva',
-    'howto-desc2' => 'Budete odměněni',
-    'howto-hits' => 'Hity',
-    'pending' => 'čekající',
+    'guidelines-content' => '1) Nemůžete vzkřísit vlastní nahrání.<br>2) Nevzkřišujte nic, co nejste schopni dodržet.',
+    'howto-desc' => 'Pro úspěšné vzkříšení musíte tento torrent seedovat po dobu 30 dní. Jakmile vaše aktuální doba seedování :currentSeedtime dosáhne :requiredSeedtime, obdržíte :tokens freeleech token(y).',
+    'not-rewarded' => 'Neodměněno',
+    'pending' => 'Čeká',
     'resurrect' => 'Vzkřísit',
-    'reward' => 'Freeleech žetony',
+    'resurrect-canceled' => 'Vzkříšení bylo úspěšně zrušeno!',
+    'resurrect-complete' => 'Vzkříšení torrentu dokončeno! Jakmile splníte požadavky na dobu seedování, budete odměněni automaticky.',
+    'resurrect-date' => 'Datum vzkříšení',
+    'resurrect-failed-own' => 'Vzkříšení torrentu se nezdařilo! Nemůžete vzkřísit vlastní nahrání.',
+    'resurrect-failed-pending' => 'Vzkříšení torrentu se nezdařilo! Tento torrent již čeká na vzkříšení.',
+    'rewarded' => 'Odměněno',
+    'seedtime-goal' => 'Cílová doba seedování',
 ];

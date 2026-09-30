@@ -48,9 +48,14 @@ class UserEmailChange extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Your Email Address Has Been Changed!')
-            ->line('Your email address regarding account '.$this->user->username.' has been changed from '.$this->oldEmail.' to '.$this->newEmail.'. If you feel this was done in error, please create a helpdesk ticket.')
-            ->action('Helpdesk', route('tickets.index'))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.user-email-change-greeting'))
+            ->greeting(__('application-messages.notification.user-email-change-greeting'))
+            ->line(__('application-messages.notification.user-email-change-line', [
+                'username' => $this->user->username,
+                'old'      => $this->oldEmail,
+                'new'      => $this->newEmail,
+            ]))
+            ->action(__('application-messages.notification.helpdesk'), route('tickets.index'))
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 }

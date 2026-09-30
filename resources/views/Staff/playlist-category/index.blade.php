@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Playlist categories</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.playlist-categories') }}</li>
 @endsection
 
 @section('page', 'page__staff-playlist-category--index')
@@ -14,7 +14,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Playlist categories</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.playlist-categories') }}</h2>
             <div class="panel__actions">
                 <form
                     class="panel__action"
@@ -70,7 +70,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this playlist category: ' . $playlistCategory->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-playlist-category-confirmation', ['name' => $playlistCategory->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

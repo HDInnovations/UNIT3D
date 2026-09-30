@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use App\Services\TorrentPeerCountSync;
+use App\Traits\FiltersOrphanedAnnounceRows;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -25,6 +27,8 @@ use Throwable;
 
 class AutoUpsertPeers extends Command
 {
+    use FiltersOrphanedAnnounceRows;
+
     /**
      * The name and signature of the console command.
      *
@@ -44,8 +48,10 @@ class AutoUpsertPeers extends Command
      *
      * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    final public function handle(): void
+    final public function handle(TorrentPeerCountSync $torrentPeerCountSync): void
     {
+        $announcedTorrentIds = [];
+
         /**
          * MySql can handle a max of 65k placeholders per query,
          * and there are 15 fields on each peer that are updated.
@@ -63,7 +69,13 @@ class AutoUpsertPeers extends Command
                 break;
             }
 
-            $peers = array_map('unserialize', $peers);
+            $peers = $this->withoutOrphanedRows(array_map('unserialize', $peers));
+
+            if ($peers === []) {
+                Redis::connection('announce')->command('LTRIM', [$key, $peerPerCycle, -1]);
+
+                continue;
+            }
 
             DB::transaction(function () use ($peers): void {
                 Peer::upsert(
@@ -88,7 +100,14 @@ class AutoUpsertPeers extends Command
             }, 5);
 
             Redis::connection('announce')->command('LTRIM', [$key, $peerPerCycle, -1]);
+
+            foreach ($peers as $peer) {
+                $announcedTorrentIds[(int) $peer['torrent_id']] = true;
+            }
         }
+
+        // Refresh counters and the search index for the torrents that just announced.
+        $torrentPeerCountSync->sync(array_keys($announcedTorrentIds));
 
         $this->comment('Automated insert peers command complete');
     }

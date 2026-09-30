@@ -29,7 +29,7 @@
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.create') }}">
-            {{ __('common.upload') }}
+            {{ __('common.upload-action') }}
         </a>
     </li>
 @endsection
@@ -144,7 +144,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8">No public RSS feeds</td>
+                            <td colspan="8">{{ __('media-interface.rss.no-public-feeds') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -284,7 +284,7 @@
                                                 @method('DELETE')
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this private RSS feed: ' . $rss->name . '?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode(__('media-interface.rss.delete-confirm', ['name' => $rss->name])) }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.delete') }}
@@ -297,7 +297,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9">No private RSS feeds</td>
+                            <td colspan="9">{{ __('media-interface.rss.no-private-feeds') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

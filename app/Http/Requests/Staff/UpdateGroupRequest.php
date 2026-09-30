@@ -222,7 +222,7 @@ class UpdateGroupRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.prohibited' => 'You cannot change the name of a system required group.',
+            'name.prohibited' => __('application-messages.validation.group-name-prohibited'),
         ];
     }
 }

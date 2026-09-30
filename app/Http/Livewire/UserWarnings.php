@@ -112,7 +112,7 @@ class UserWarnings extends Component
 
         $this->message = '';
 
-        $this->dispatch('success', type: 'success', message: 'Warning issued successfully!');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.warning-issued'));
     }
 
     /**
@@ -131,7 +131,7 @@ class UserWarnings extends Component
 
         $this->user->notify(new WarningDeactivated($staff, $warning));
 
-        $this->dispatch('success', type: 'success', message: 'Warning was successfully deactivated');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.warning-deactivated'));
     }
 
     /**
@@ -146,7 +146,7 @@ class UserWarnings extends Component
             'active'     => true,
         ]);
 
-        $this->dispatch('success', type: 'success', message: 'Warning was successfully reactivated');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.warning-reactivated'));
     }
 
     /**
@@ -168,7 +168,7 @@ class UserWarnings extends Component
 
         $this->user->notify(new WarningsDeactivated($staff));
 
-        $this->dispatch('success', type: 'success', message: 'All warnings were successfully deactivated');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.all-warnings-deactivated'));
     }
 
     /**
@@ -190,7 +190,7 @@ class UserWarnings extends Component
 
         $this->user->notify(new WarningTorrentDeleted($staff, $warning));
 
-        $this->dispatch('success', type: 'success', message: 'Warning was successfully deleted');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.warning-deleted'));
     }
 
     /**
@@ -212,7 +212,7 @@ class UserWarnings extends Component
 
         $this->user->notify(new WarningsDeleted($staff));
 
-        $this->dispatch('success', type: 'success', message: 'All warnings were successfully deleted');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.all-warnings-deleted'));
     }
 
     /**
@@ -224,7 +224,7 @@ class UserWarnings extends Component
 
         Warning::withTrashed()->findOrFail($id)->restore();
 
-        $this->dispatch('success', type: 'success', message: 'Warning was successfully restored');
+        $this->dispatch('success', type: 'success', message: __('application-messages.flash.warning-restored'));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

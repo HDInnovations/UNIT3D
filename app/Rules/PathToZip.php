@@ -25,7 +25,7 @@ class PathToZip implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!Str::endsWith($value, '.zip')) {
-            $fail('It must be a zip file');
+            $fail(__('application-messages.validation.must-be-zip-file'));
         }
     }
 }

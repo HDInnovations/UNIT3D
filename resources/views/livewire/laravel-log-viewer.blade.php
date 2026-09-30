@@ -1,11 +1,14 @@
 @section('title')
     <title>
-        Laravel log viewer - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('livewire-interface.laravel-log-viewer') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Laravel log viewer - {{ __('staff.staff-dashboard') }}" />
+    <meta
+        name="description"
+        content="{{ __('livewire-interface.laravel-log-viewer') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -14,7 +17,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Laravel log viewer</li>
+    <li class="breadcrumb--active">{{ __('livewire-interface.laravel-log-viewer') }}</li>
 @endsection
 
 @section('page', 'page__staff-laravel-log--index')
@@ -31,17 +34,17 @@
         <header class="panel__header">
             <h2 class="panel__heading">
                 <i class="{{ config('other.font-awesome') }} fa-list"></i>
-                Laravel log viewer
+                {{ __('livewire-interface.laravel-log-viewer') }}
             </h2>
             <div class="panel__actions">
                 <div class="panel__action">
                     <button class="form__button form__button--text" wire:click="clearLatestLog">
-                        Clear latest log
+                        {{ __('livewire-interface.clear-latest-log') }}
                     </button>
                 </div>
                 <div class="panel__action">
                     <button class="form__button form__button--text" wire:click="deleteAllLogs">
-                        Delete all logs
+                        {{ __('livewire-interface.delete-all-logs') }}
                     </button>
                 </div>
             </div>
@@ -50,13 +53,13 @@
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Level</th>
-                        <th>Message</th>
-                        <th>Exception</th>
-                        <th>In</th>
-                        <th>Line</th>
-                        <th>Count</th>
+                        <th>{{ __('common.date') }}</th>
+                        <th>{{ __('livewire-interface.level') }}</th>
+                        <th>{{ __('common.message') }}</th>
+                        <th>{{ __('livewire-interface.exception') }}</th>
+                        <th>{{ __('livewire-interface.in') }}</th>
+                        <th>{{ __('livewire-interface.line') }}</th>
+                        <th>{{ __('livewire-interface.count') }}</th>
                     </tr>
                 </thead>
                 @forelse ($entries as $message => $groupedEntry)
@@ -104,9 +107,9 @@
                                 <table class="data-table">
                                     <thead>
                                         <tr>
-                                            <th>Date</th>
-                                            <th>Environment</th>
-                                            <th>Stacktrace</th>
+                                            <th>{{ __('common.date') }}</th>
+                                            <th>{{ __('livewire-interface.environment') }}</th>
+                                            <th>{{ __('livewire-interface.stacktrace') }}</th>
                                         </tr>
                                     </thead>
                                     @foreach ($groupedEntry as $entry)
@@ -119,7 +122,7 @@
                                                         class="form__button form__button--text"
                                                         x-on:click.stop="navigator.clipboard.writeText($refs.stacktrace.textContent)"
                                                     >
-                                                        Copy
+                                                        {{ __('livewire-interface.copy') }}
                                                     </button>
                                                 </td>
                                             </tr>
@@ -139,7 +142,7 @@
                 @empty
                     <tbody>
                         <tr>
-                            <td colspan="7">No logs have been created yet.</td>
+                            <td colspan="7">{{ __('livewire-interface.no-logs-created-yet') }}</td>
                         </tr>
                     </tbody>
                 @endforelse
@@ -148,13 +151,13 @@
         @if ($entries->hasMorePages())
             <div class="text-center">
                 <button class="form__button form__button--filled" wire:click.prevent="loadMore">
-                    Load more entries
+                    {{ __('livewire-interface.load-more-entries') }}
                 </button>
             </div>
         @endif
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">Entries</h2>
+        <h2 class="panel__heading">{{ __('livewire-interface.entries') }}</h2>
         <select
             multiple
             wire:model.live="logs"

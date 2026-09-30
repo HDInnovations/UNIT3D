@@ -41,7 +41,7 @@ class WatchlistController extends Controller
     {
         Watchlist::create(['staff_id' => $request->user()->id] + $request->validated());
 
-        return back()->with('success', 'User successfully being watched');
+        return back()->with('success', __('application-messages.flash.user-watched'));
     }
 
     /**
@@ -53,6 +53,6 @@ class WatchlistController extends Controller
     {
         $watchlist->delete();
 
-        return back()->with('success', 'Successfully stopped watching user');
+        return back()->with('success', __('application-messages.flash.user-unwatched'));
     }
 }

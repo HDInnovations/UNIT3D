@@ -49,8 +49,8 @@ class NewThank extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',
-            'body'  => $this->thank->user->username.' has left you a thanks on Uploaded Torrent '.$this->thank->torrent->name,
+            'title' => __('application-messages.notification.new-thank-title', ['username' => $this->thank->user->username]),
+            'body'  => __('application-messages.notification.new-thank-body', ['username' => $this->thank->user->username, 'name' => $this->thank->torrent->name]),
             'url'   => '/torrents/'.$this->thank->torrent->id,
         ];
     }

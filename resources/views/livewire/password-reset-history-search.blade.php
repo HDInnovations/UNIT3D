@@ -59,7 +59,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No password resets</td>
+                        <td colspan="4">{{ __('common.no-result') }}</td>
                     </tr>
                 @endforelse
             </tbody>

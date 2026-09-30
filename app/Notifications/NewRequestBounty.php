@@ -76,8 +76,8 @@ class NewRequestBounty extends Notification implements ShouldQueue
         $this->bounty->load('user');
 
         return [
-            'title' => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' Has Added A Bounty Of '.$this->bounty->seedbonus.' To A Requested Torrent',
-            'body'  => ($this->bounty->anon ? 'Anonymous' : $this->bounty->user->username).' has added a bounty to one of your Requested Torrents '.$this->bounty->request->name,
+            'title' => __('application-messages.notification.request-bounty-title', ['username' => $this->bounty->anon ? __('application-messages.notification.anonymous-user') : $this->bounty->user->username, 'bon' => $this->bounty->seedbonus]),
+            'body'  => __('application-messages.notification.request-bounty-body', ['username' => $this->bounty->anon ? __('application-messages.notification.anonymous-user') : $this->bounty->user->username, 'name' => $this->bounty->request->name]),
             'url'   => \sprintf('/requests/%s', $this->bounty->requests_id),
         ];
     }

@@ -43,7 +43,7 @@
                 class="nav-tab__link"
                 href="{{ route('torrents.external_tracker', ['id' => $torrent]) }}"
             >
-                External tracker
+                {{ __('media-interface.torrent.external-tracker') }}
             </a>
         </li>
     @endif
@@ -76,8 +76,8 @@
                         <th>{{ __('torrent.agent') }}</th>
                         <th>{{ __('common.connected') }}</th>
                         <th>{{ __('torrent.completed') }}</th>
-                        <th>{{ __('common.upload') }}</th>
-                        <th>{{ __('common.download') }}</th>
+                        <th>{{ __('common.uploaded') }}</th>
+                        <th>{{ __('common.downloaded') }}</th>
                         <th>{{ __('torrent.refunded') }}</th>
                         <th>{{ __('common.added') }}</th>
                         <th>{{ __('torrent.last-update') }}</th>
@@ -121,7 +121,7 @@
                                     {{ App\Helpers\StringHelper::formatBytes($history->actual_uploaded, 2) }}
                                     <span
                                         class="text-blue"
-                                        title="{{ __('torrent.credited') }} {{ strtolower(__('common.upload')) }}"
+                                        title="{{ __('torrent.credited') }} {{ strtolower(__('common.uploaded')) }}"
                                     >
                                         ({{ App\Helpers\StringHelper::formatBytes($history->uploaded, 2) }})
                                     </span>
@@ -132,7 +132,7 @@
                                     {{ App\Helpers\StringHelper::formatBytes($history->actual_downloaded, 2) }}
                                     <span
                                         class="text-orange"
-                                        title="{{ __('torrent.credited') }} {{ strtolower(__('common.download')) }}"
+                                        title="{{ __('torrent.credited') }} {{ strtolower(__('common.downloaded')) }}"
                                     >
                                         ({{ App\Helpers\StringHelper::formatBytes($history->downloaded, 2) }})
                                     </span>
@@ -141,7 +141,7 @@
                             <td>
                                 <span
                                     class="text-info"
-                                    title="{{ __('torrent.refunded') }} {{ strtolower(__('common.download')) }}"
+                                    title="{{ __('torrent.refunded') }} {{ strtolower(__('common.downloaded')) }}"
                                 >
                                     ({{ App\Helpers\StringHelper::formatBytes($history->refunded_download, 2) }})
                                 </span>
@@ -151,7 +151,7 @@
                                     datetime="{{ $history->created_at }}"
                                     title="{{ $history->created_at }}"
                                 >
-                                    {{ $history->created_at ? $history->created_at->diffForHumans() : 'N/A' }}
+                                    {{ $history->created_at ? $history->created_at->diffForHumans() : __('media-interface.torrent.na') }}
                                 </time>
                             </td>
                             <td>
@@ -159,7 +159,7 @@
                                     datetime="{{ $history->updated_at }}"
                                     title="{{ $history->updated_at }}"
                                 >
-                                    {{ $history->updated_at ? $history->updated_at->diffForHumans() : 'N/A' }}
+                                    {{ $history->updated_at ? $history->updated_at->diffForHumans() : __('media-interface.torrent.na') }}
                                 </time>
                             </td>
                             <td>
@@ -167,7 +167,7 @@
                                     datetime="{{ $history->completed_at }}"
                                     title="{{ $history->completed_at }}"
                                 >
-                                    {{ $history->completed_at ? $history->completed_at->diffForHumans() : 'N/A' }}
+                                    {{ $history->completed_at ? $history->completed_at->diffForHumans() : __('media-interface.torrent.na') }}
                                 </time>
                             </td>
 

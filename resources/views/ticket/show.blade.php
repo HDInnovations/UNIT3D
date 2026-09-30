@@ -32,7 +32,7 @@
                             {{ __('common.add') }}
                         </button>
                         <dialog class="dialog" x-bind="dialogElement">
-                            <h4 class="dialog__heading">Add staff note</h4>
+                            <h4 class="dialog__heading">{{ __('member-interface.ticket.add-staff-note') }}</h4>
                             <form
                                 class="dialog__form"
                                 method="POST"
@@ -49,7 +49,7 @@
                                         required
                                     ></textarea>
                                     <label class="form__label form__label--floating" for="message">
-                                        Message
+                                        {{ __('common.message') }}
                                     </label>
                                 </p>
                                 <p class="form__group">
@@ -107,7 +107,7 @@
                                                 <p class="form__group form__group--horizontal">
                                                     <button
                                                         x-on:click.prevent="confirmAction"
-                                                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this note: ' . $note->message . '?') }}"
+                                                        data-b64-deletion-message="{{ base64_encode(__('member-interface.ticket.delete-note-confirm', ['message' => $note->message])) }}"
                                                         class="form__button form__button--text form__button--centered"
                                                     >
                                                         {{ __('ticket.delete') }}
@@ -120,7 +120,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">No notes</td>
+                                <td colspan="4">{{ __('member-interface.ticket.no-notes') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -142,7 +142,7 @@
             </div>
             <div class="key-value__group">
                 <dt>{{ __('common.created_at') }}</dt>
-                <dd>{{ $ticket->created_at->format('Y-m-d') }}</dd>
+                <dd>{{ $ticket->created_at->toDisplayTimezone()->format('Y-m-d') }}</dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('ticket.opened-by') }}</dt>
@@ -172,7 +172,7 @@
                             datetime="{{ $ticket->closed_at }}"
                             title="{{ $ticket->closed_at }}"
                         >
-                            {{ $ticket->closed_at->format('Y-m-d') }}
+                            {{ $ticket->closed_at->toDisplayTimezone()->format('Y-m-d') }}
                         </time>
                     </dd>
                 </div>
@@ -265,7 +265,7 @@
     @livewire('attachment-upload', ['id' => $ticket->id])
     @if ($pastUserTickets->count() > 0)
         <section class="panelV2">
-            <h2 class="panel__heading">Other tickets</h2>
+            <h2 class="panel__heading">{{ __('member-interface.ticket.other-tickets') }}</h2>
             <div class="data-table-wrapper">
                 <table class="data-table">
                     <thead>
@@ -291,7 +291,7 @@
                                         title="{{ $ticket->created_at }}"
                                         datetime="{{ $ticket->created_at }}"
                                     >
-                                        {{ $ticket->created_at->format('Y-m') }}
+                                        {{ $ticket->created_at->toDisplayTimezone()->format('Y-m') }}
                                     </time>
                                 </td>
                             </tr>

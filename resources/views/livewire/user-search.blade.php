@@ -27,7 +27,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="soundexUsername">
-                            Soundex {{ __('common.username') }}
+                            {{ __('livewire-interface.soundex-field', ['field' => __('common.username')]) }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -51,7 +51,7 @@
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="soundexEmail">
-                            Soundex {{ __('common.email') }}
+                            {{ __('livewire-interface.soundex-field', ['field' => __('common.email')]) }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -117,7 +117,9 @@
                             type="checkbox"
                             wire:model.live="show"
                         />
-                        <label class="form__label" for="show">Include soft deletes</label>
+                        <label class="form__label" for="show">
+                            {{ __('livewire-interface.include-soft-deletes') }}
+                        </label>
                     </p>
                     <p class="form__group">
                         <select
@@ -145,7 +147,7 @@
                 <table class="data-table">
                     <tbody>
                         <tr>
-                            <th>Avatar</th>
+                            <th>{{ __('user.avatar') }}</th>
                             <th wire:click="sortBy('username')" role="columnheader button">
                                 {{ __('common.username') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'username'])
@@ -198,7 +200,7 @@
                                         datetime="{{ $user->last_login }}"
                                         title="{{ $user->last_login }}"
                                     >
-                                        {{ $user->last_login ?? 'Never' }}
+                                        {{ $user->last_login ?? __('livewire-interface.never') }}
                                     </time>
                                 </td>
                                 <td>
@@ -206,7 +208,7 @@
                                         datetime="{{ $user->last_action }}"
                                         title="{{ $user->last_action }}"
                                     >
-                                        {{ $user->last_action ?? 'Never' }}
+                                        {{ $user->last_action ?? __('livewire-interface.never') }}
                                     </time>
                                 </td>
                                 <td>
@@ -224,7 +226,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8">No users</td>
+                                <td colspan="8">{{ __('common.no-result') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

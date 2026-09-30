@@ -27,7 +27,7 @@
     @if ($torrent->personal_release)
         <i
             class="{{ config('other.font-awesome') }} fa-user-plus torrent-icons__personal-release"
-            title="Personal release"
+            title="{{ __('torrent.personal-release') }}"
         ></i>
     @endif
 
@@ -43,17 +43,17 @@
                     "\n",
                     array_keys(
                         [
-                            'Currently:' => true,
+                            __('media-interface.components.currently') => true,
                             __('torrent.featured') . ' - 100% ' . __('torrent.freeleech') . ' + ' . __('torrent.double-upload') => true,
-                            "\nAfter feature expires:" => true,
+                            "\n" . __('media-interface.components.after-feature-expires') => true,
                             __('torrent.personal-freeleech') => $personalFreeleech,
                             __('torrent.freeleech-token') => $torrent->freeleech_tokens_exists,
                             __('torrent.special-freeleech') => auth()->user()->group->is_freeleech || auth()->user()->is_donor,
                             __('torrent.global-freeleech') => config('other.freeleech'),
-                            $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
+                            $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' ' . __('media-interface.components.expires-on', ['date' => $torrent->fl_until->diffForHumans()]) : '') => $torrent->free > 0,
                             __('torrent.global-double-upload') => config('other.doubleup'),
                             __('torrent.special-double_upload') => auth()->user()->group->is_double_upload,
-                            '100% ' . __('torrent.double-upload') . ($torrent->du_until !== null ? ' (expires ' . $torrent->du_until->diffForHumans() . ')' : '') => $torrent->doubleup > 0,
+                            '100% ' . __('torrent.double-upload') . ($torrent->du_until !== null ? ' ' . __('media-interface.components.expires-on', ['date' => $torrent->du_until->diffForHumans()]) : '') => $torrent->doubleup > 0,
                         ],
                         true
                     )
@@ -79,7 +79,7 @@
                                 __('torrent.special-freeleech') => auth()->user()->group->is_freeleech,
                                 __('torrent.global-freeleech') => config('other.freeleech'),
                                 __('torrent.featured') . ' - 100% ' . __('torrent.freeleech') => $torrent->featured,
-                                $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
+                                $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' ' . __('media-interface.components.expires-on', ['date' => $torrent->fl_until->diffForHumans()]) : '') => $torrent->free > 0,
                             ],
                             true
                         )
@@ -99,7 +99,7 @@
                                 __('torrent.global-double-upload') => config('other.doubleup'),
                                 __('torrent.special-double_upload') => auth()->user()->group->is_double_upload,
                                 __('torrent.featured') . ' - ' . __('torrent.double-upload') => $torrent->featured,
-                                '100% ' . __('torrent.double-upload') . ($torrent->du_until !== null ? ' (expires ' . $torrent->du_until->diffForHumans() . ')' : '') => $torrent->doubleup > 0,
+                                '100% ' . __('torrent.double-upload') . ($torrent->du_until !== null ? ' ' . __('media-interface.components.expires-on', ['date' => $torrent->du_until->diffForHumans()]) : '') => $torrent->doubleup > 0,
                             ],
                             true
                         )
@@ -141,7 +141,7 @@
         <i
             class="{{ config('other.font-awesome') }} fa-skull-crossbones torrent-icons__torrent-trump"
             style="color: lightcoral"
-            title="This torrent is trumpable for the following reason: {{ $torrent->trump->reason }}"
+            title="{{ __('media-interface.components.trumpable-reason', ['reason' => $torrent->trump->reason]) }}"
         ></i>
     @endif
 </span>

@@ -17,9 +17,7 @@
             <h2 class="panel__heading">{{ __('bon.bon') }} {{ __('bon.exchange') }}</h2>
             <div class="panel__actions">
                 <a href="{{ route('staff.bon_exchanges.create') }}" class="panel__action">
-                    {{ __('common.add') }}
-                    {{ trans_choice('common.a-an-art', true) }}
-                    {{ __('bon.exchange') }}
+                    {{ __('staff-interface.bon-exchange-add-action') }}
                 </a>
             </div>
         </header>
@@ -28,7 +26,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.name') }}</th>
-                        <th>{{ __('value') }}</th>
+                        <th>{{ __('staff-interface.value') }}</th>
                         <th>{{ __('bon.points') }}</th>
                         <th>{{ __('common.type') }}</th>
                         <th>{{ __('common.actions') }}</th>
@@ -43,11 +41,11 @@
                             <td>
                                 @switch(1)
                                     @case($bonExchange->upload)
-                                        {{ __('common.add') }} {{ __('common.upload') }}
+                                        {{ __('staff-interface.bon-exchange-add-upload') }}
 
                                         @break
                                     @case($bonExchange->download)
-                                        {{ __('common.remove') }} {{ __('common.download') }}
+                                        {{ __('staff-interface.bon-exchange-remove-download') }}
 
                                         @break
                                     @case($bonExchange->personal_freeleech)
@@ -76,7 +74,7 @@
                                     </a>
                                     <button
                                         x-on:click.prevent="confirmAction"
-                                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this bon exchange: ' . $bonExchange->description . '?') }}"
+                                        data-b64-deletion-message="{{ base64_encode(__('staff-interface.bon-exchange-delete-confirm', ['description' => $bonExchange->description])) }}"
                                         class="form__button form__button--filled"
                                     >
                                         {{ __('common.delete') }}

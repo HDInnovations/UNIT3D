@@ -16,9 +16,9 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Downloaded at</th>
-                    <th>Client</th>
+                    <th>{{ __('vltava.torrent.user') }}</th>
+                    <th>{{ __('vltava.torrent.downloaded_at') }}</th>
+                    <th>{{ __('vltava.torrent.client') }}</th>
                 </tr>
             </thead>
             <tbody>

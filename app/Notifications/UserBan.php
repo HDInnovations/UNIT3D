@@ -50,9 +50,10 @@ class UserBan extends Notification
         $chatUrl = config('unit3d.chat-link-url');
 
         return (new MailMessage())
-            ->greeting('You have been banned 😭')
-            ->line('You have been banned from '.config('other.title').' for '.$this->ban->ban_reason)
-            ->action('Need Support?', $chatUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.user-ban-greeting'))
+            ->greeting(__('application-messages.notification.user-ban-greeting'))
+            ->line(__('application-messages.notification.user-ban-line', ['site' => config('other.title'), 'reason' => $this->ban->ban_reason]))
+            ->action(__('application-messages.notification.need-support'), $chatUrl)
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 }

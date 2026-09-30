@@ -52,8 +52,8 @@
                     <tr>
                         <th>ID</th>
                         <th>{{ __('common.name') }}</th>
-                        <th>Color</th>
-                        <th>Icon</th>
+                        <th>{{ __('common.color') }}</th>
+                        <th>{{ __('common.icon') }}</th>
                         <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
@@ -99,7 +99,7 @@
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this chat status: ' . $chatstatus->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-chat-status-confirm', ['name' => $chatstatus->name])) }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

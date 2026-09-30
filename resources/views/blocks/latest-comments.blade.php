@@ -9,7 +9,7 @@
                     <x-torrent.comment-listing :comment="$comment" />
                 </li>
             @empty
-                No comments.
+                {{ __('common.no-comments') }}
             @endforelse
         </ul>
     </div>

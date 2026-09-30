@@ -20,12 +20,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('common.new-adj') }}
-            {{ __('staff.page') }}
-        </h2>
+        <h2 class="panel__heading">{{ __('staff-interface.add-new-page-heading') }}</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.pages.store') }}">
                 @csrf

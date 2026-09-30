@@ -1,4 +1,10 @@
-<ul class="torrent__tags">
+<ul
+    class="torrent__tags"
+    x-data="peerCounts(
+        @js(route('peers.counts', ['id' => $torrent->id])),
+        @js(['seeders' => $torrent->seeds_count, 'leechers' => $torrent->leeches_count, 'times_completed' => $torrent->times_completed])
+    )"
+>
     <li class="torrent__category">
         <a
             class="torrent__category-link"
@@ -66,9 +72,10 @@
             class="torrent__seeders-link torrent__seeder-count"
             href="{{ route('peers', ['id' => $torrent->id]) }}"
             title="{{ $torrent->seeds_count }} {{ __('torrent.seeders') }}"
+            x-bind:title="`${counts.seeders} {{ __('torrent.seeders') }}`"
         >
             <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-            {{ $torrent->seeds_count }}
+            <span x-text="counts.seeders">{{ $torrent->seeds_count }}</span>
         </a>
     </li>
     <li
@@ -81,9 +88,10 @@
             class="torrent__leechers-link torrent__leecher-count"
             href="{{ route('peers', ['id' => $torrent->id]) }}"
             title="{{ $torrent->leeches_count }} {{ __('torrent.leechers') }}"
+            x-bind:title="`${counts.leechers} {{ __('torrent.leechers') }}`"
         >
             <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-            {{ $torrent->leeches_count }}
+            <span x-text="counts.leechers">{{ $torrent->leeches_count }}</span>
         </a>
     </li>
     <li
@@ -96,9 +104,10 @@
             class="torrent__completed-link torrent__times-completed-count"
             href="{{ route('history', ['id' => $torrent->id]) }}"
             title="{{ $torrent->times_completed }} {{ __('torrent.times') }}"
+            x-bind:title="`${counts.times_completed} {{ __('torrent.times') }}`"
         >
             <i class="{{ config('other.font-awesome') }} fa-check"></i>
-            {{ $torrent->times_completed }}
+            <span x-text="counts.times_completed">{{ $torrent->times_completed }}</span>
         </a>
     </li>
     <li class="torrent__uploader">

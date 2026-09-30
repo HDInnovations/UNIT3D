@@ -1,7 +1,7 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>Articles - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>{{ __('staff.articles') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumbs')
@@ -33,9 +33,9 @@
         <table class="data-table articles-table">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Date</th>
+                    <th>{{ __('common.title') }}</th>
+                    <th>{{ __('common.author') }}</th>
+                    <th>{{ __('vltava.torrent.date') }}</th>
                     <th>{{ __('common.comments') }}</th>
                     <th>{{ __('common.action') }}</th>
                 </tr>
@@ -91,7 +91,7 @@
                                         <button
                                             x-on:click.prevent="confirmAction"
                                             class="form__button form__button--text"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this article: ' . $article->title . '?') }}"
+                                            data-b64-deletion-message="{{ base64_encode(__('vltava.staff.delete_article_confirmation', ['title' => $article->title])) }}"
                                         >
                                             {{ __('common.delete') }}
                                         </button>

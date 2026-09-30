@@ -58,6 +58,6 @@ class AuditController extends Controller
         $audit->delete();
 
         return to_route('staff.audits.index')
-            ->with('success', 'Audit record has successfully been deleted');
+            ->with('success', __('application-messages.flash.audit-deleted'));
     }
 }

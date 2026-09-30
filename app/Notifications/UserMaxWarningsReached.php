@@ -50,10 +50,11 @@ class UserMaxWarningsReached extends Notification
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Max Hit and Run Warnings Reached!')
-            ->line('You have hit the limit on active Hit and Run Warnings! Your download privileges have been revoked!')
-            ->action('View Unsatisfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->subject(__('application-messages.notification.max-warnings-reached-greeting'))
+            ->greeting(__('application-messages.notification.max-warnings-reached-greeting'))
+            ->line(__('application-messages.notification.max-warnings-reached-line'))
+            ->action(__('application-messages.notification.max-warnings-reached-action'), $profileUrl)
+            ->line(__('application-messages.notification.thank-you-footer', ['site' => config('other.title')]));
     }
 
     /**
@@ -64,8 +65,8 @@ class UserMaxWarningsReached extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'title' => 'Max Hit and Run Warnings Reached!',
-            'body'  => 'You have hit the limit on active Hit and Run Warnings! Your download privileges have been revoked!',
+            'title' => __('application-messages.notification.max-warnings-reached-greeting'),
+            'body'  => __('application-messages.notification.max-warnings-reached-line'),
             'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }

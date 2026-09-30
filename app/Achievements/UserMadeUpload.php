@@ -16,21 +16,14 @@ declare(strict_types=1);
 
 namespace App\Achievements;
 
-use Assada\Achievements\Achievement;
-
 class UserMadeUpload extends Achievement
 {
+    public const string DESCRIPTION_KEY = 'application-messages.achievement.made-upload';
+
     /**
      * The achievement name.
      *
      * @var string
      */
     public $name = 'FirstUpload';
-
-    /**
-     * A small description for the achievement.
-     *
-     * @var string
-     */
-    public $description = 'Congratulations! You have made your first torrent upload!';
 }

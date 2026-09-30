@@ -26,9 +26,7 @@
                     <tr>
                         <td>{{ $name }}</td>
                         <td>
-                            Used by
-                            {{ App\Models\UserSetting::where('locale', '=', $code)->count() }}
-                            Users
+                            {{ __('member-interface.stats.language-used-by-count', ['count' => App\Models\UserSetting::where('locale', '=', $code)->count()]) }}
                         </td>
                     </tr>
                 @endforeach

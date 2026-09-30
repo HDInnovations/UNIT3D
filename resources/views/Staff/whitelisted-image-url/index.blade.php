@@ -6,7 +6,7 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">Whitelisted image URLs</li>
+    <li class="breadcrumb--active">{{ __('staff-interface.whitelisted-image-urls') }}</li>
 @endsection
 
 @section('page', 'page__staff-whitelisted-image-url--index')
@@ -14,7 +14,7 @@
 @section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">Whitelisted image URLs</h2>
+            <h2 class="panel__heading">{{ __('staff-interface.whitelisted-image-urls') }}</h2>
             <div class="panel__actions">
                 <div class="panel__action" x-data="dialog">
                     <button class="form__button form__button--text" x-bind="showDialog">
@@ -39,7 +39,7 @@
                                     type="text"
                                 />
                                 <label class="form__label form__label--floating" for="pattern">
-                                    URL pattern
+                                    {{ __('staff-interface.url-pattern') }}
                                 </label>
                             </p>
                             <p class="form__group">
@@ -62,9 +62,9 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                    <th>ID</th>
-                    <th>URL pattern</th>
-                    <th>Example bypassed URL</th>
+                    <th>{{ __('staff-interface.id') }}</th>
+                    <th>{{ __('staff-interface.url-pattern') }}</th>
+                    <th>{{ __('staff-interface.example-bypassed-url') }}</th>
                     <th>{{ __('common.created_at') }}</th>
                     <th>{{ __('forum.updated-at') }}</th>
                     <th>{{ __('common.actions') }}</th>
@@ -128,7 +128,7 @@
                                                         class="form__label form__label--floating"
                                                         for="pattern"
                                                     >
-                                                        URL pattern
+                                                        {{ __('staff-interface.url-pattern') }}
                                                     </label>
                                                 </p>
                                                 <p class="form__group">
@@ -159,7 +159,7 @@
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 class="form__button form__button--text"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to remove this whitelisted image url: ' . $whitelistedImageUrl->pattern . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode(__('staff-interface.delete-whitelisted-image-url-confirmation', ['pattern' => $whitelistedImageUrl->pattern])) }}"
                                             >
                                                 {{ __('common.delete') }}
                                             </button>
@@ -170,7 +170,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">No whitelisted image urls.</td>
+                            <td colspan="5">{{ __('staff-interface.no-whitelisted-image-urls') }}</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -184,45 +184,28 @@
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
             <p>
-                When users add images via BBCode, other users will load the image on page load. This
-                means whoever operates the website of the image URL can view the connecting IPs.
-                Therefore, all images entered via BBCode are proxied.
+                {{ __('staff-interface.image-proxy-explanation') }}
             </p>
             <p>
-                In exception cases where the proxy blocks a popular image host, that image URL
-                should be whitelisted here. This will bypass the proxy and directly link the image.
-                Any trusted image URLs can also be included here to increase client image loading
-                speeds.
+                {{ __('staff-interface.image-whitelist-exception-explanation') }}
             </p>
             <p>
-                You can use
-                <code>*</code>
-                as a wildcard when matching URLs. A
-                <code>*</code>
-                wildcard will match everything except for
-                <code>/</code>
-                and
-                <code>.</code>
-                in the URL. You can also use
-                <code>**</code>
-                to match any character. You must never use
-                <code>**</code>
-                for matching subdomains as any user can register their own domain and link
-                <code>https://evil.example/subdomain.whitelisted-domain.example/image.png</code>
-                to bypass the proxy.
+                {!! __('staff-interface.image-whitelist-wildcard-explanation', [
+                    'star' => '<code>*</code>',
+                    'slash' => '<code>/</code>',
+                    'dot' => '<code>.</code>',
+                    'double_star' => '<code>**</code>',
+                    'url' => '<code>https://evil.example/subdomain.whitelisted-domain.example/image.png</code>',
+                ]) !!}
             </p>
             <p>
-                To match a url with a variable subdomain, make sure to manually specify the
-                <code>.</code>
-                otherwise a user can register
-                <code>https://evilimgur.com</code>
-                if you use
-                <code>https://*imgur.com/**</code>
-                (bad) instead of
-                <code>https://*.imgur.com/**</code>
-                (good) or
-                <code>https://i.imgur.com/**</code>
-                (best).
+                {!! __('staff-interface.image-whitelist-subdomain-explanation', [
+                    'dot' => '<code>.</code>',
+                    'bad_example' => '<code>https://evilimgur.com</code>',
+                    'bad_pattern' => '<code>https://*imgur.com/**</code>',
+                    'good_pattern' => '<code>https://*.imgur.com/**</code>',
+                    'best_pattern' => '<code>https://i.imgur.com/**</code>',
+                ]) !!}
             </p>
         </div>
     </section>

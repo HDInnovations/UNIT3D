@@ -53,7 +53,7 @@ class TicketCategoryController extends Controller
         TicketCategory::create($request->validated());
 
         return to_route('staff.ticket_categories.index')
-            ->with('success', 'Ticket category successfully added');
+            ->with('success', __('application-messages.flash.ticket-category-added'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TicketCategoryController extends Controller
         $ticketCategory->update($request->validated());
 
         return to_route('staff.ticket_categories.index')
-            ->with('success', 'Ticket category successfully modified');
+            ->with('success', __('application-messages.flash.ticket-category-modified'));
     }
 
     /**
@@ -87,6 +87,6 @@ class TicketCategoryController extends Controller
         $ticketCategory->delete();
 
         return to_route('staff.ticket_categories.index')
-            ->with('success', 'Ticket category successfully deleted');
+            ->with('success', __('application-messages.flash.ticket-category-deleted'));
     }
 }

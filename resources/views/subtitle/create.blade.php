@@ -2,7 +2,7 @@
 
 @section('title')
     <title>
-        {{ __('common.upload') }} {{ __('common.subtitle') }} - {{ config('other.title') }}
+        {{ __('common.upload-action') }} {{ __('common.subtitle') }} - {{ config('other.title') }}
     </title>
 @endsection
 
@@ -21,7 +21,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('common.upload') }} {{ __('common.subtitle') }}</h2>
+        <h2 class="panel__heading">{{ __('common.upload-action') }} {{ __('common.subtitle') }}</h2>
         <div class="panel__body">
             <form
                 id="form_upload_subtitle"
@@ -89,7 +89,7 @@
                 </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
-                        {{ __('common.upload') }}
+                        {{ __('common.upload-action') }}
                     </button>
                 </p>
             </form>

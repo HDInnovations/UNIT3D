@@ -59,7 +59,7 @@
                                 <img
                                     class="chat-bots__icon"
                                     src="/vendor/joypixels/png/64/{{ $bot->emoji }}.png"
-                                    alt="emoji"
+                                    alt="{{ __('staff-interface.emoji-alt') }}"
                                 />
                             </td>
                             <td>{{ $bot->command }}</td>

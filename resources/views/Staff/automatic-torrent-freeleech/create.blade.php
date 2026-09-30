@@ -11,7 +11,7 @@
             href="{{ route('staff.automatic_torrent_freeleeches.index') }}"
             class="breadcrumb__link"
         >
-            Automatic torrent freeleeches
+            {{ __('vltava.staff.automatic_freeleeches') }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -23,7 +23,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Add an automatic torrent freeleech</h2>
+        <h2 class="panel__heading">{{ __('staff-interface.automatic-torrent-freeleech-add-heading') }}</h2>
         <div class="panel__body">
             <form
                 class="form"
@@ -56,7 +56,7 @@
                         value="{{ old('name_regex') }}"
                     />
                     <label class="form__label form__label--floating" for="name_regex">
-                        Regex torrent name
+                        {{ __('vltava.staff.name_regex') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -71,12 +71,12 @@
                         value="{{ old('size') }}"
                     />
                     <label class="form__label form__label--floating" for="size">
-                        Minimum torrent size (bytes)
+                        {{ __('staff-interface.minimum-torrent-size-bytes') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <select id="category_id" name="category_id" class="form__select">
-                        <option hidden selected disabled value="">Any</option>
+                        <option hidden selected disabled value="">{{ __('vltava.staff.any') }}</option>
                         @foreach ($categories as $category)
                             <option
                                 class="form__option"
@@ -93,7 +93,7 @@
                 </p>
                 <p class="form__group">
                     <select id="type_id" name="type_id" class="form__select">
-                        <option hidden disabled selected value="">Any</option>
+                        <option hidden disabled selected value="">{{ __('vltava.staff.any') }}</option>
                         @foreach ($types as $type)
                             <option
                                 value="{{ $type->id }}"
@@ -109,7 +109,7 @@
                 </p>
                 <p class="form__group">
                     <select id="resolution_id" name="resolution_id" class="form__select">
-                        <option hidden disabled selected value="">Any</option>
+                        <option hidden disabled selected value="">{{ __('vltava.staff.any') }}</option>
                         @foreach ($resolutions as $resolution)
                             <option
                                 value="{{ $resolution->id }}"
@@ -135,7 +135,7 @@
                         value="{{ old('freeleech_percentage') }}"
                     />
                     <label class="form__label form__label--floating" for="freeleech_percentage">
-                        Freeleech percentage
+                        {{ __('vltava.staff.freeleech_percentage') }}
                     </label>
                 </p>
                 <p class="form__group">
@@ -152,8 +152,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">
-            When a torrent is uploaded that meets the given criteria, the specified freeleech
-            percentage will be automatically applied.
+            {{ __('vltava.staff.automatic_freeleech_explanation') }}
         </div>
     </section>
 @endsection
