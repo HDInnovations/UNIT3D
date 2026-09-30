@@ -47,6 +47,6 @@ test('messages', function (): void {
     $actual = $this->subject->messages();
 
     expect($actual)->toEqual([
-        'options.required' => 'You must select an answer',
+        'options.required' => trans('application-messages.validation.poll-answer-required'),
     ]);
 });

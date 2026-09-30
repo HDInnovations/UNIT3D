@@ -36,7 +36,7 @@ test('user registration is not available when disabled', function (): void {
 
     $this->get('/register')
         ->assertOk()
-        ->assertSeeText('Open registration is disabled');
+        ->assertSeeText(trans('auth.need-invite'));
     Event::assertNotDispatched(Registered::class);
 });
 

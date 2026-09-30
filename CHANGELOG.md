@@ -22,6 +22,7 @@ All notable changes to this fork are documented in this file.
 ### Changed
 
 - Modernized both Vltava themes with consistent panel borders, compact corner radii, clearer navigation, roomier tables, and visible keyboard focus. The home page now offers localized browse/upload shortcuts; authentication forms follow the system light/dark preference. Fixed catalog gutters and added an accessible mobile-menu label and expanded state.
+- Rebuilt the torrent history page: aligned page layout, four summary cards (uploaded, downloaded, overall ratio, actively seeding), a compact filter toolbar with removable filter chips, advanced include/exclude filters, and optional columns remembered per browser. Rows show readable transfer, ratio, and state labels with a per-row detail panel for client, timestamps, swarm, moderation, and immunity. Narrow viewports render the same rows as cards.
 - Named the Compose project `vltava` explicitly; local volume overrides preserve the deployed database, Redis, search index, and TLS certificates across the rename.
 
 - Upgraded the application stack to Laravel 13, Livewire 4, Scout 11, Intervention Image 4, Vite 8, Laravel Echo 2, and MySQL 8.4.
@@ -43,6 +44,7 @@ All notable changes to this fork are documented in this file.
 - Reject malformed locale values without HTTP 500 responses; request language overrides preserve account/session preferences. Recipient notifications and queued mail honor the account locale, while shared broadcasts use the site default.
 - Render achievement descriptions in the viewer's locale without instantiating achievements or rewriting shared metadata; canonical stored descriptions and badge filenames remain stable. Added locale-precedence and achievement-storage regression coverage plus a standalone translation catalogue audit.
 
+- Seed the system chatroom under the name configured by `chat.system_chatroom`, so system messages no longer fail on a freshly seeded database.
 - Removed the ARR override's hardcoded `unit3d_sail` network so the full stack uses the `vltava` project network; documented the PVE-specific UFW forwarding allowance needed for browser ingress.
 
 - Redirect unauthenticated browser requests to the login route under Laravel 13 while preserving JSON 401 responses.

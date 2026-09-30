@@ -54,7 +54,7 @@ test('approve returns an ok response', function (): void {
         'email'        => $application->email,
     ]);
     $response->assertRedirect(route('staff.applications.index'));
-    $response->assertSessionHas('success', 'Application approved');
+    $response->assertSessionHas('success', trans('application-messages.flash.application-approved'));
 });
 
 test('index returns an ok response', function (): void {
@@ -84,7 +84,7 @@ test('reject returns an ok response', function (): void {
         'deny'         => 'Denied',
     ]);
     $response->assertRedirect(route('staff.applications.index'));
-    $response->assertSessionHas('success', 'Application rejected');
+    $response->assertSessionHas('success', trans('application-messages.flash.application-rejected'));
 });
 
 test('show returns an ok response', function (): void {

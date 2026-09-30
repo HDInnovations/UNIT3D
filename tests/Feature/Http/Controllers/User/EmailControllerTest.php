@@ -52,7 +52,7 @@ test('update returns an ok response', function (): void {
     ]);
 
     $response->assertRedirect(route('users.email.edit', ['user' => $user]))
-        ->assertSessionHas('success', 'Your email was updated successfully.');
+        ->assertSessionHas('success', trans('application-messages.flash.email-updated'));
 });
 
 test('update aborts with a 403', function (): void {

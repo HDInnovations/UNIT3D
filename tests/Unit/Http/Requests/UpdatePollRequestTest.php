@@ -36,6 +36,6 @@ test('messages', function (): void {
     $actual = $this->subject->messages();
 
     expect($actual)->toEqual([
-        'options.*.required' => 'You must fill in all options fields',
+        'options.*.required' => trans('application-messages.validation.poll-options-required'),
     ]);
 });

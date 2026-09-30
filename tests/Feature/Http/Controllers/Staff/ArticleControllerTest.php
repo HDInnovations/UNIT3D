@@ -42,7 +42,7 @@ test('destroy returns an ok response', function (): void {
 
     $response = $this->actingAs($this->staffUser)->delete(route('staff.articles.destroy', [$article]));
     $response->assertRedirect(route('staff.articles.index'));
-    $response->assertSessionHas('success', 'Article has successfully been deleted');
+    $response->assertSessionHas('success', trans('application-messages.flash.article-deleted'));
 
     $this->assertModelMissing($article);
 });
@@ -77,7 +77,7 @@ test('store returns an ok response', function (): void {
         'content' => 'Test Content',
     ]);
     $response->assertRedirect(route('staff.articles.index'));
-    $response->assertSessionHas('success', 'Your article has successfully published!');
+    $response->assertSessionHas('success', trans('application-messages.flash.article-published'));
 });
 
 test('update validates with a form request', function (): void {
@@ -96,5 +96,5 @@ test('update returns an ok response', function (): void {
         'content' => 'Test Content Updated',
     ]);
     $response->assertRedirect(route('staff.articles.index'));
-    $response->assertSessionHas('success', 'Your article changes have successfully published!');
+    $response->assertSessionHas('success', trans('application-messages.flash.article-changes-published'));
 });

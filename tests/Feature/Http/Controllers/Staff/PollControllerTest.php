@@ -161,8 +161,8 @@ test('index returns an ok response', function (): void {
 
     $response->assertOk();
     $response->assertViewIs('Staff.poll.index');
-    $response->assertSee('Closed');
-    $response->assertSee('Open');
+    $response->assertSee(trans('forum.closed'));
+    $response->assertSee(trans('forum.open'));
 });
 
 test('show returns an ok response', function (): void {

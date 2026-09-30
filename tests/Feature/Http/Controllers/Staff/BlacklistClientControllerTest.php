@@ -42,7 +42,7 @@ test('destroy returns an ok response', function (): void {
 
     $response = $this->actingAs($this->staffUser)->delete(route('staff.blacklisted_clients.destroy', [$blacklistClient]));
     $response->assertRedirect(route('staff.blacklisted_clients.index'));
-    $response->assertSessionHas('success', 'Blacklisted client destroyed successfully!');
+    $response->assertSessionHas('success', trans('application-messages.flash.blacklist-client-destroyed'));
 
     $this->assertModelMissing($blacklistClient);
 });
@@ -79,7 +79,7 @@ test('store returns an ok response', function (): void {
         'peer_id_prefix' => 'Test Peer ID Prefix',
     ]);
     $response->assertRedirect(route('staff.blacklisted_clients.index'));
-    $response->assertSessionHas('success', 'Blacklisted client stored successfully!');
+    $response->assertSessionHas('success', trans('application-messages.flash.blacklist-client-stored'));
 });
 
 test('update validates with a form request', function (): void {
@@ -99,5 +99,5 @@ test('update returns an ok response', function (): void {
         'peer_id_prefix' => 'Test Peer ID Prefix Updated',
     ]);
     $response->assertRedirect(route('staff.blacklisted_clients.index'));
-    $response->assertSessionHas('success', 'Blacklisted client was updated successfully!');
+    $response->assertSessionHas('success', trans('application-messages.flash.blacklist-client-updated'));
 });

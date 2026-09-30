@@ -51,7 +51,7 @@ class FollowController extends Controller
         // verify if user is following the target user already
         if ($user->followers()->where('user_id', $request->user()->id)->exists()) {
             return to_route('users.show', ['user' => $user])
-                ->withErrors(\sprintf('You are already following %s', $user->username));
+                ->withErrors(trans('user.follow-already'));
         }
 
         $user->followers()->attach($request->user()->id);
@@ -70,7 +70,7 @@ class FollowController extends Controller
         // verify if user is following the target user already
         if (!$user->followers()->where('user_id', $request->user()->id)->exists()) {
             return to_route('users.show', ['user' => $user])
-                ->withErrors(\sprintf('You\'re not following %s', $user->username));
+                ->withErrors(trans('user.follow-not-to-begin-with'));
         }
 
         $user->followers()->detach($request->user()->id);

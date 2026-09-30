@@ -45,7 +45,7 @@ test('destroy returns an ok response', function (): void {
 
     $response = $this->actingAs($this->staffUser)->delete(route('staff.chatrooms.destroy', [$chatroom]));
     $response->assertRedirect(route('staff.chatrooms.index'));
-    $response->assertSessionHas('success', 'Chatroom successfully deleted');
+    $response->assertSessionHas('success', trans('application-messages.flash.chatroom-deleted'));
 
     $this->assertModelMissing($chatroom);
 });
@@ -79,7 +79,7 @@ test('store returns an ok response', function (): void {
         'name' => 'Test Chatroom',
     ]);
     $response->assertRedirect(route('staff.chatrooms.index'));
-    $response->assertSessionHas('success', 'Chatroom successfully added');
+    $response->assertSessionHas('success', trans('application-messages.flash.chatroom-added'));
 });
 
 test('update validates with a form request', function (): void {
@@ -97,5 +97,5 @@ test('update returns an ok response', function (): void {
         'name' => 'Test Chatroom Updated',
     ]);
     $response->assertRedirect(route('staff.chatrooms.index'));
-    $response->assertSessionHas('success', 'Chatroom successfully modified');
+    $response->assertSessionHas('success', trans('application-messages.flash.chatroom-modified'));
 });

@@ -15,8 +15,6 @@
     </li>
 @endsection
 
-@section('page', 'page__user-torrents--index')
-
 @section('nav-tabs')
     @include('user.buttons.user')
 @endsection
@@ -24,30 +22,61 @@
 @section('page', 'page__user-history--index')
 
 @section('main')
-    @livewire('user-torrents', ['userId' => $user->id])
-    <section class="panelV2">
-        <h2 class="panel__heading">{{ __('user.statistics') }}</h2>
-        <dl class="key-value">
-            <div class="key-value__group">
-                <dt>{{ __('user.total-download') }}</dt>
-                <dd>{{ App\Helpers\StringHelper::formatBytes($history->download ?? 0, 2) }}</dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('user.total-download') }} ({{ __('user.credited-download') }})</dt>
-                <dd>
-                    {{ App\Helpers\StringHelper::formatBytes($history->credited_download ?? 0, 2) }}
-                </dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('user.total-upload') }}</dt>
-                <dd>{{ App\Helpers\StringHelper::formatBytes($history->upload ?? 0, 2) }}</dd>
-            </div>
-            <div class="key-value__group">
-                <dt>{{ __('user.total-upload') }} ({{ __('user.credited-upload') }})</dt>
-                <dd>
-                    {{ App\Helpers\StringHelper::formatBytes($history->credited_upload ?? 0, 2) }}
-                </dd>
-            </div>
-        </dl>
+    @php
+        $totalUpload = $history->upload ?? 0;
+        $totalDownload = $history->download ?? 0;
+        $overallRatio = $totalDownload > 0 ? $totalUpload / $totalDownload : null;
+    @endphp
+
+    <header class="history-page__heading">
+        <h1>{{ __('user.torrents-history') }}</h1>
+        <p>{{ __('livewire-interface.history.subtitle', ['username' => $user->username]) }}</p>
+    </header>
+
+    <section class="history-summary" aria-label="{{ __('user.statistics') }}">
+        <article class="history-summary__card">
+            <span class="history-summary__label">
+                {{ __('livewire-interface.history.upload-total') }}
+            </span>
+            <span class="history-summary__value">
+                {{ App\Helpers\StringHelper::formatBytes($totalUpload, 2) }}
+            </span>
+            <span class="history-summary__caption">
+                {{ __('livewire-interface.history.credited', ['value' => App\Helpers\StringHelper::formatBytes($history->credited_upload ?? 0, 2)]) }}
+            </span>
+        </article>
+        <article class="history-summary__card">
+            <span class="history-summary__label">
+                {{ __('livewire-interface.history.download-total') }}
+            </span>
+            <span class="history-summary__value">
+                {{ App\Helpers\StringHelper::formatBytes($totalDownload, 2) }}
+            </span>
+            <span class="history-summary__caption">
+                {{ __('livewire-interface.history.credited', ['value' => App\Helpers\StringHelper::formatBytes($history->credited_download ?? 0, 2)]) }}
+            </span>
+        </article>
+        <article class="history-summary__card">
+            <span class="history-summary__label">
+                {{ __('livewire-interface.history.total-ratio') }}
+            </span>
+            <span class="history-summary__value">
+                {{ $overallRatio === null ? '∞' : \number_format($overallRatio, 2) }}
+            </span>
+            <span class="history-summary__caption">
+                {{ __('livewire-interface.history.summary-scope') }}
+            </span>
+        </article>
+        <article class="history-summary__card">
+            <span class="history-summary__label">
+                {{ __('livewire-interface.history.active-seeding') }}
+            </span>
+            <span class="history-summary__value">{{ $history->seeding ?? 0 }}</span>
+            <span class="history-summary__caption">
+                {{ __('livewire-interface.history.seeding') }}
+            </span>
+        </article>
     </section>
+
+    @livewire('user-torrents', ['userId' => $user->id])
 @endsection

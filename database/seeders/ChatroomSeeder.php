@@ -24,9 +24,11 @@ class ChatroomSeeder extends Seeder
 {
     public function run(): void
     {
+        // System messages are routed to the room named by `chat.system_chatroom`,
+        // so the seeded room must carry exactly that name.
         Chatroom::upsert([
             [
-                'name' => 'General',
+                'name' => config('chat.system_chatroom'),
             ],
         ], ['name'], ['updated_at' => DB::raw('updated_at')]);
     }

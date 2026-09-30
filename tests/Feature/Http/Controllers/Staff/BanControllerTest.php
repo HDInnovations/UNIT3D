@@ -45,7 +45,7 @@ test('store returns an ok response', function (): void {
         'ban_reason' => 'Test Ban Reason',
     ]);
     $response->assertRedirect(route('users.show', $user));
-    $response->assertSessionHas('success', 'User is now banned!');
+    $response->assertSessionHas('success', trans('application-messages.flash.user-banned'));
 });
 
 test('store aborts with a 403', function (): void {

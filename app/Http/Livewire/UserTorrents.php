@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\Enums\ModerationStatus;
 use App\Models\History;
 use App\Models\User;
 use App\Traits\LivewireSort;
@@ -83,9 +84,135 @@ class UserTorrents extends Component
         $this->user = User::find($userId);
     }
 
-    final public function updatingSearch(): void
+    /**
+     * @var string[]
+     */
+    private const array RESETTABLE_FILTERS = [
+        'name',
+        'unsatisfied',
+        'active',
+        'completed',
+        'uploaded',
+        'hitrun',
+        'prewarn',
+        'immune',
+        'downloaded',
+        'status',
+        'perPage',
+    ];
+
+    final public function updated(string $property): void
     {
+        $base = str_contains($property, '.') ? strstr($property, '.', true) : $property;
+
+        if (\in_array($base, self::RESETTABLE_FILTERS, true)) {
+            $this->resetPage();
+        }
+    }
+
+    /**
+     * Reset all filters (excluding sorting, perPage and precision) to their defaults.
+     */
+    final public function clearFilters(): void
+    {
+        $this->name = '';
+        $this->unsatisfied = 'any';
+        $this->active = 'any';
+        $this->completed = 'any';
+        $this->uploaded = 'any';
+        $this->hitrun = 'any';
+        $this->prewarn = 'any';
+        $this->immune = 'any';
+        $this->downloaded = 'any';
+        $this->status = [];
+
         $this->resetPage();
+    }
+
+    /**
+     * Remove a single filter (or a single value from the status filter) while
+     * preserving the state of all other filters.
+     */
+    final public function removeFilter(string $filter, ?string $value = null): void
+    {
+        match ($filter) {
+            'name' => $this->name = '',
+            'unsatisfied' => $this->unsatisfied = 'any',
+            'active' => $this->active = 'any',
+            'completed' => $this->completed = 'any',
+            'uploaded' => $this->uploaded = 'any',
+            'hitrun' => $this->hitrun = 'any',
+            'prewarn' => $this->prewarn = 'any',
+            'immune' => $this->immune = 'any',
+            'downloaded' => $this->downloaded = 'any',
+            'status' => $this->status = array_values(
+                array_filter($this->status, fn ($status): bool => (string) $status !== (string) $value)
+            ),
+            default => null,
+        };
+
+        $this->resetPage();
+    }
+
+    /**
+     * The filters currently narrowing the list, as removable chips.
+     *
+     * @var list<array{filter: string, value: null|string, label: string}>
+     */
+    final protected array $activeFilters {
+        get {
+            $chips = [];
+
+            if ($this->name !== '') {
+                $chips[] = [
+                    'filter' => 'name',
+                    'value'  => null,
+                    'label'  => trans('livewire-interface.history.search-chip', ['name' => $this->name]),
+                ];
+            }
+
+            $labels = [
+                'active'      => trans('livewire-interface.history.active'),
+                'unsatisfied' => trans('livewire-interface.history.unsatisfied'),
+                'completed'   => trans('livewire-interface.history.completed-filter'),
+                'prewarn'     => trans('livewire-interface.history.prewarn'),
+                'hitrun'      => trans('livewire-interface.history.hitrun'),
+                'immune'      => trans('livewire-interface.history.immune'),
+                'uploaded'    => trans('livewire-interface.history.uploaded-filter'),
+                'downloaded'  => trans('livewire-interface.history.downloaded-filter'),
+            ];
+
+            foreach ($labels as $filter => $label) {
+                if ($this->{$filter} === 'any') {
+                    continue;
+                }
+
+                $chips[] = [
+                    'filter' => $filter,
+                    'value'  => null,
+                    'label'  => $this->{$filter} === 'include'
+                        ? $label
+                        : trans('livewire-interface.history.exclude-chip', ['filter' => $label]),
+                ];
+            }
+
+            $moderationLabels = [
+                (string) ModerationStatus::PENDING->value   => trans('torrent.pending'),
+                (string) ModerationStatus::APPROVED->value  => trans('torrent.approved'),
+                (string) ModerationStatus::REJECTED->value  => trans('torrent.rejected'),
+                (string) ModerationStatus::POSTPONED->value => trans('torrent.postponed'),
+            ];
+
+            foreach ($this->status as $status) {
+                $chips[] = [
+                    'filter' => 'status',
+                    'value'  => (string) $status,
+                    'label'  => $moderationLabels[(string) $status] ?? (string) $status,
+                ];
+            }
+
+            return $chips;
+        }
     }
 
     /**
@@ -105,6 +232,7 @@ class UserTorrents extends Component
                 'history.uploaded',
                 'history.downloaded',
                 'history.seeder',
+                'history.active',
                 'history.actual_uploaded',
                 'history.actual_downloaded',
                 'history.seedtime',
@@ -173,7 +301,8 @@ class UserTorrents extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.user-torrents', [
-            'histories' => $this->history,
+            'histories'     => $this->history,
+            'activeFilters' => $this->activeFilters,
         ]);
     }
 

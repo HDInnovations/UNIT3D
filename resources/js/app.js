@@ -52,5 +52,6 @@ import './components/alpine/smallBookmarkButton';
 import './components/alpine/tabs';
 import './components/alpine/toggle';
 import './components/alpine/torrentGrouping';
+import './components/alpine/userHistory';
 
 Livewire.start();

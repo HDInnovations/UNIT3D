@@ -78,6 +78,6 @@ test('messages', function (): void {
     $actual = $this->subject->messages();
 
     expect($actual)->toEqual([
-        'bounty.max' => 'You do not have enough BON to make this request.',
+        'bounty.max' => trans('application-messages.validation.bounty-insufficient-bon'),
     ]);
 });

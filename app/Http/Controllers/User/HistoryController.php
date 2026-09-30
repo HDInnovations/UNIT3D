@@ -39,6 +39,7 @@ class HistoryController extends Controller
                 ->selectRaw('sum(uploaded) as credited_upload')
                 ->selectRaw('sum(actual_downloaded) as download')
                 ->selectRaw('sum(downloaded) as credited_download')
+                ->selectRaw('coalesce(sum(active = 1 and seeder = 1), 0) as seeding')
                 ->first(),
         ]);
     }

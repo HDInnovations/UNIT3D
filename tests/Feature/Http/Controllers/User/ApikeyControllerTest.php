@@ -53,7 +53,7 @@ test('update returns an ok response', function (): void {
     ]);
 
     $response->assertRedirect(route('users.apikeys.index', ['user' => $user]))
-        ->assertSessionHas('success', 'Your API key was changed successfully.');
+        ->assertSessionHas('success', trans('application-messages.flash.apikey-changed'));
 });
 
 test('update aborts with a 403', function (): void {

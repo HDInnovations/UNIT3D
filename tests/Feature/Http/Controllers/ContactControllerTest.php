@@ -42,5 +42,5 @@ test('store returns an ok response', function (): void {
 
     Mail::assertSent(Contact::class);
 
-    $response->assertRedirect(route('home.index'))->assertSessionHas('success', 'Your message was successfully sent');
+    $response->assertRedirect(route('home.index'))->assertSessionHas('success', trans('application-messages.flash.contact-sent'));
 });
