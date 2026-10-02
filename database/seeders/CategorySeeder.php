@@ -108,6 +108,18 @@ class CategorySeeder extends Seeder
                 'music_meta' => 0,
                 'no_meta'    => 1,
             ],
+            [
+                'id'         => 8,
+                'name'       => 'XXX',
+                'position'   => 7,
+                'icon'       => config('other.font-awesome').' fa-triangle-exclamation',
+                'image'      => null,
+                'movie_meta' => 0,
+                'tv_meta'    => 0,
+                'game_meta'  => 0,
+                'music_meta' => 0,
+                'no_meta'    => 1,
+            ],
         ], ['id'], ['name', 'position', 'icon', 'image', 'movie_meta', 'tv_meta', 'game_meta', 'music_meta', 'no_meta']);
     }
 }

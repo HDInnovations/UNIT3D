@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# Mirrors vendor/laravel/sail/runtimes/8.4/start-container: remap the `sail`
+# user to the host UID so bind-mounted storage/bootstrap-cache stay writable,
+# then either run the requested CLI command (queue/schedule/Reverb workers)
+# or, with no arguments, start PHP-FPM in the foreground.
+
+set -euo pipefail
+
+if [ -n "${WWWUSER:-}" ]; then
+    usermod -u "$WWWUSER" sail
+fi
+
+if [ ! -d /.composer ]; then
+    mkdir /.composer
+fi
+
+chmod -R ugo+rw /.composer
+
+if [ $# -gt 0 ]; then
+    exec gosu sail "$@"
+fi
+
+# FPM pool sizing: conservative single-host defaults for the `web` and
+# `tracker` pools, tunable per environment without rebuilding the image.
+# Start conservative; widen `*_FPM_MAX_CHILDREN` only after measuring actual
+# saturation (see the status listeners below) under the pool's own load, not
+# the other pool's.
+: "${WEB_FPM_MAX_CHILDREN:=20}"
+: "${WEB_FPM_START_SERVERS:=4}"
+: "${WEB_FPM_MIN_SPARE_SERVERS:=2}"
+: "${WEB_FPM_MAX_SPARE_SERVERS:=8}"
+
+: "${TRACKER_FPM_MAX_CHILDREN:=8}"
+: "${TRACKER_FPM_START_SERVERS:=2}"
+: "${TRACKER_FPM_MIN_SPARE_SERVERS:=1}"
+: "${TRACKER_FPM_MAX_SPARE_SERVERS:=4}"
+
+export WEB_FPM_MAX_CHILDREN WEB_FPM_START_SERVERS WEB_FPM_MIN_SPARE_SERVERS WEB_FPM_MAX_SPARE_SERVERS \
+    TRACKER_FPM_MAX_CHILDREN TRACKER_FPM_START_SERVERS TRACKER_FPM_MIN_SPARE_SERVERS TRACKER_FPM_MAX_SPARE_SERVERS
+
+for template in /etc/php/8.4/fpm/pool.d.templates/*.conf.template; do
+    target="/etc/php/8.4/fpm/pool.d/$(basename "${template%.template}")"
+    envsubst '${WEB_FPM_MAX_CHILDREN} ${WEB_FPM_START_SERVERS} ${WEB_FPM_MIN_SPARE_SERVERS} ${WEB_FPM_MAX_SPARE_SERVERS} ${TRACKER_FPM_MAX_CHILDREN} ${TRACKER_FPM_START_SERVERS} ${TRACKER_FPM_MIN_SPARE_SERVERS} ${TRACKER_FPM_MAX_SPARE_SERVERS}' \
+        < "$template" > "$target"
+done
+
+exec /usr/sbin/php-fpm8.4 --nodaemonize --force-stderr

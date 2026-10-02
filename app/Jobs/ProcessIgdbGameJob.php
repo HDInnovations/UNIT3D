@@ -21,7 +21,11 @@ use App\Models\IgdbCompany;
 use App\Models\IgdbGame;
 use App\Models\IgdbGenre;
 use App\Models\IgdbPlatform;
+use App\Models\Scopes\ApprovedScope;
+use App\Models\Torrent;
 use App\Services\Igdb\IgdbClient;
+use App\Services\Media\MediaWorkCatalog;
+use Carbon\CarbonImmutable;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -77,12 +81,15 @@ class ProcessIgdbGameJob implements ShouldQueue
             'name'                   => $fetchedGame['name'] ?? null,
             'summary'                => $fetchedGame['summary'] ?? '',
             'first_artwork_image_id' => $fetchedGame['artworks'][0]['image_id'] ?? null,
-            'first_release_date'     => $fetchedGame['first_release_date'] ?? null,
+            'first_release_date'     => is_int($fetchedGame['first_release_date'] ?? null)
+                ? CarbonImmutable::createFromTimestampUTC($fetchedGame['first_release_date'])->format('Y-m-d H:i:s')
+                : null,
             'cover_image_id'         => $fetchedGame['cover']['image_id'] ?? null,
             'url'                    => $fetchedGame['url'] ?? null,
             'rating'                 => $fetchedGame['rating'] ?? null,
             'rating_count'           => $fetchedGame['rating_count'] ?? null,
             'first_video_video_id'   => $fetchedGame['videos'][0]['video_id'] ?? null,
+            'raw'                    => json_encode($fetchedGame, JSON_THROW_ON_ERROR),
         ]], ['id']);
 
         $game = IgdbGame::query()->findOrFail($this->id);
@@ -90,13 +97,20 @@ class ProcessIgdbGameJob implements ShouldQueue
         $genres = [];
 
         foreach ($fetchedGame['genres'] ?? [] as $genre) {
-            if ($genre['id'] === null || $genre['name'] === null) {
+            if (!is_array($genre)) {
+                continue;
+            }
+
+            $id = $genre['id'] ?? null;
+            $name = $genre['name'] ?? null;
+
+            if ($id === null || $name === null) {
                 continue;
             }
 
             $genres[] = [
-                'id'   => $genre['id'],
-                'name' => $genre['name'],
+                'id'   => $id,
+                'name' => $name,
             ];
         }
 
@@ -106,13 +120,20 @@ class ProcessIgdbGameJob implements ShouldQueue
         $platforms = [];
 
         foreach ($fetchedGame['platforms'] ?? [] as $platform) {
-            if ($platform['id'] === null || $platform['name'] === null) {
+            if (!is_array($platform)) {
+                continue;
+            }
+
+            $id = $platform['id'] ?? null;
+            $name = $platform['name'] ?? null;
+
+            if ($id === null || $name === null) {
                 continue;
             }
 
             $platforms[] = [
-                'id'                     => $platform['id'],
-                'name'                   => $platform['name'],
+                'id'                     => $id,
+                'name'                   => $name,
                 'platform_logo_image_id' => $platform['platform_logo']['image_id'] ?? null,
             ];
         }
@@ -123,20 +144,50 @@ class ProcessIgdbGameJob implements ShouldQueue
         $companies = [];
 
         foreach ($fetchedGame['involved_companies'] ?? [] as $company) {
-            if ($company['company']['id'] === null || $company['company']['name'] === null) {
+            if (!is_array($company)) {
+                continue;
+            }
+
+            $companyData = $company['company'] ?? [];
+
+            if (!is_array($companyData)) {
+                continue;
+            }
+
+            $id = $companyData['id'] ?? null;
+            $name = $companyData['name'] ?? null;
+
+            if ($id === null || $name === null) {
                 continue;
             }
 
             $companies[] = [
-                'id'            => $company['company']['id'],
-                'name'          => $company['company']['name'],
-                'url'           => $company['company']['url'] ?? null,
-                'logo_image_id' => $company['company']['logo']['image_id'] ?? null,
+                'id'            => $id,
+                'name'          => $name,
+                'url'           => $companyData['url'] ?? null,
+                'logo_image_id' => $companyData['logo']['image_id'] ?? null,
             ];
         }
 
         IgdbCompany::query()->upsert($companies, ['id']);
         $game->companies()->sync(array_unique(array_column($companies, 'id')));
+
+        $torrents = Torrent::query()
+            ->withoutGlobalScope(ApprovedScope::class)
+            ->where('igdb', '=', $this->id)
+            ->whereRelation('category', 'game_meta', '=', true)
+            ->with('category')
+            ->get();
+
+        $catalog = app(MediaWorkCatalog::class);
+
+        foreach ($torrents as $torrent) {
+            $catalog->sync($torrent);
+        }
+
+        Torrent::query()
+            ->whereIntegerInRaw('id', $torrents->pluck('id'))
+            ->searchable();
 
         // Although IGDB doesn't publicly state they cache their api responses,
         // use the same value as tmdb to not abuse them with too many requests

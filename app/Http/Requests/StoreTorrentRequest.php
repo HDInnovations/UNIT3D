@@ -19,12 +19,17 @@ namespace App\Http\Requests;
 use App\Enums\ModerationStatus;
 use App\Helpers\Bencode;
 use App\Helpers\TorrentTools;
+use App\Helpers\UploadKinds;
 use App\Models\Category;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Validator;
+use App\Services\Media\MediaWorkCatalog;
+use App\Services\Metadata\MetadataSelectionStore;
 use Closure;
 use Exception;
 
@@ -35,7 +40,9 @@ class StoreTorrentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user = $this->user();
+
+        return (bool) ($user?->can_upload ?? $user?->group?->can_upload ?? false);
     }
 
     /**
@@ -43,6 +50,29 @@ class StoreTorrentRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
+        $category = Category::find($this->integer('category_id'));
+        $kind = $category ? UploadKinds::categoryKind($category) : 'no';
+        $fieldsByKind = [
+            'tmdb_movie_id' => ['movie'], 'movie_exists_on_tmdb' => ['movie'],
+            'tmdb_tv_id' => ['tv'], 'tv_exists_on_tmdb' => ['tv'],
+            'imdb' => ['movie', 'tv'], 'title_exists_on_imdb' => ['movie', 'tv'],
+            'tvdb' => ['tv'], 'tv_exists_on_tvdb' => ['tv'],
+            'mal' => ['movie', 'tv'], 'anime_exists_on_mal' => ['movie', 'tv'],
+            'igdb' => ['game'], 'game_exists_on_igdb' => ['game'],
+            'musicbrainz_id' => ['music'], 'open_library_edition_id' => ['book'],
+            'season_number' => ['tv'], 'episode_number' => ['tv'],
+            'resolution_id' => ['movie', 'tv', 'xxx'],
+            'region_id' => ['movie', 'tv', 'xxx'], 'distributor_id' => ['movie', 'tv', 'xxx'],
+            'mediainfo' => ['movie', 'tv', 'music', 'xxx'], 'bdinfo' => ['movie', 'tv', 'xxx'],
+            'edition_kind' => ['movie', 'tv'], 'edition_name' => ['movie', 'tv'],
+            'edition_provenance' => ['movie', 'tv'],
+        ];
+        foreach ($fieldsByKind as $field => $kinds) {
+            if (!in_array($kind, $kinds, true)) {
+                $this->request->remove($field);
+            }
+        }
+
         $this->merge([
             'tmdb_movie_id' => $this->has('movie_exists_on_tmdb') ? ($this->input('tmdb_movie_id') ?: null) : null,
             'tmdb_tv_id'    => $this->has('tv_exists_on_tmdb') ? ($this->input('tmdb_tv_id') ?: null) : null,
@@ -61,7 +91,21 @@ class StoreTorrentRequest extends FormRequest
     public function rules(Request $request): array
     {
         $user = $request->user()->loadExists('internals');
-        $category = Category::findOrFail($request->integer('category_id'));
+
+        // Look the category up without aborting: an invalid/missing category_id
+        // must surface as a normal validation error on the `category_id` field
+        // (via the `exists:categories,id` rule below), not a 404. When the
+        // category can't be found, fall back to a blank in-memory category so
+        // every metadata rule below degrades to its "no metadata" branch.
+        $category = Category::find($request->integer('category_id')) ?? new Category([
+            'name'       => '',
+            'movie_meta' => false,
+            'tv_meta'    => false,
+            'game_meta'  => false,
+            'music_meta' => false,
+            'book_meta'  => false,
+            'no_meta'    => true,
+        ]);
 
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {
             if ($value !== null) {
@@ -70,6 +114,13 @@ class StoreTorrentRequest extends FormRequest
         };
 
         return [
+            'metadata_selection_token' => ['nullable', 'uuid'],
+            'media_work_id' => ['nullable', 'integer', 'exists:media_works,id'],
+            'upload_draft_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('upload_drafts', 'id')->where('user_id', $user->id),
+            ],
             'torrent' => [
                 'required',
                 'file',
@@ -122,7 +173,6 @@ class StoreTorrentRequest extends FormRequest
             ],
             'name' => [
                 'required',
-                Rule::unique('torrents')->whereNull('deleted_at'),
                 'max:255',
             ],
             'description' => [
@@ -130,14 +180,18 @@ class StoreTorrentRequest extends FormRequest
                 'max:65535'
             ],
             'mediainfo' => [
-                'nullable',
-                'sometimes',
-                'max:65535',
+                Rule::when(
+                    \in_array(UploadKinds::categoryKind($category), ['movie', 'tv', 'music', 'xxx'], true),
+                    ['nullable', 'sometimes', 'max:65535'],
+                    [$mustBeNull],
+                ),
             ],
             'bdinfo' => [
-                'nullable',
-                'sometimes',
-                'max:2097152',
+                Rule::when(
+                    \in_array(UploadKinds::categoryKind($category), ['movie', 'tv', 'xxx'], true),
+                    ['nullable', 'sometimes', 'max:2097152'],
+                    [$mustBeNull],
+                ),
             ],
             'category_id' => [
                 'required',
@@ -146,6 +200,13 @@ class StoreTorrentRequest extends FormRequest
             'type_id' => [
                 'required',
                 'exists:types,id',
+                function (string $attribute, mixed $value, Closure $fail) use ($category): void {
+                    $type = \App\Models\Type::find($value);
+
+                    if ($type !== null && !UploadKinds::typeAppliesToKind($type->name, UploadKinds::categoryKind($category))) {
+                        $fail('The selected type is not applicable to this category.');
+                    }
+                },
             ],
             'resolution_id' => [
                 Rule::when($category->movie_meta || $category->tv_meta, 'required'),
@@ -226,7 +287,7 @@ class StoreTorrentRequest extends FormRequest
                     $mustBeNull,
                 ]),
             ],
-            'musicbrainz_release_id' => [
+            'musicbrainz_id' => [
                 Rule::when($category->music_meta, [
                     'nullable',
                     'uuid',
@@ -314,5 +375,75 @@ class StoreTorrentRequest extends FormRequest
                 Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
         ];
+    }
+
+    /** @return array<Closure(Validator): void> */
+    public function after(): array
+    {
+        return [function (Validator $validator): void {
+            if ($validator->errors()->isNotEmpty()) {
+                return;
+            }
+
+            $category = Category::findOrFail($this->integer('category_id'));
+            $lookup = null;
+
+            try {
+                if ($this->filled('metadata_selection_token')) {
+                    $lookup = app(MetadataSelectionStore::class)->retrieve(
+                        $this->user(), $category, $this->string('metadata_selection_token')->toString(),
+                    );
+
+                    foreach (['tmdb_movie_id', 'tmdb_tv_id', 'igdb', 'musicbrainz_id', 'open_library_edition_id'] as $field) {
+                        if (!\array_key_exists($field, $lookup['identifiers'] ?? [])) {
+                            continue;
+                        }
+
+                        $expected = $this->normalizedIdentifier($field, (string) $lookup['identifiers'][$field]);
+                        $actual = $this->normalizedIdentifier($field, (string) $this->input($field, ''));
+
+                        if ($expected !== $actual) {
+                            throw ValidationException::withMessages([
+                                'metadata_selection_token' => __('metadata.errors.selection-mismatch'),
+                            ]);
+                        }
+                    }
+                }
+
+                if ($this->filled('media_work_id')) {
+                    $prospective = new Torrent();
+                    foreach (['category_id', 'tmdb_movie_id', 'tmdb_tv_id', 'igdb', 'musicbrainz_id', 'open_library_edition_id'] as $field) {
+                        $prospective->setAttribute($field, $this->input($field));
+                    }
+                    $prospective->user_id = $this->user()->id;
+
+                    app(MediaWorkCatalog::class)->validateSelection($prospective, $lookup, $this->integer('media_work_id'));
+                }
+            } catch (ValidationException $exception) {
+                foreach ($exception->errors() as $field => $messages) {
+                    foreach ($messages as $message) {
+                        $validator->errors()->add($field, $message);
+                    }
+                }
+            }
+        }];
+    }
+
+    /** @return array<string, string> */
+    public function messages(): array
+    {
+        return [
+            'upload_draft_id.exists' => __('metadata.errors.draft-unavailable'),
+            'media_work_id.exists' => __('metadata.errors.work-mismatch'),
+        ];
+    }
+
+    private function normalizedIdentifier(string $field, string $identifier): string
+    {
+        if (\in_array($field, ['tmdb_movie_id', 'tmdb_tv_id', 'igdb'], true)) {
+            return $identifier === '' ? '' : (string) (int) $identifier;
+        }
+
+        return strtolower(str_replace([' ', '-'], '', trim($identifier)));
     }
 }

@@ -365,6 +365,18 @@
     </div>
 </section>
 
+@if (filled($meta?->raw ?? null))
+    <section class="panelV2 rich-metadata-panel">
+        <h2 class="panel__heading">
+            <i class="{{ config('other.font-awesome') }} fa-database"></i>
+            {{ __('media-interface.torrent.source-metadata-heading') }}
+        </h2>
+        <div class="panel__body">
+            @include('torrent.partials.rich-metadata', ['source' => 'tmdb', 'raw' => $meta->raw])
+        </div>
+    </section>
+@endif
+
 @if ($meta?->trailer)
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
         document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {

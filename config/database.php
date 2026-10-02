@@ -154,6 +154,22 @@ return [
     'redis' => [
         'client' => env('REDIS_CLIENT', 'phpredis'),
 
+        /*
+         * Every request touches several of the connections below (cache,
+         * session, queue, announce). Without persistent sockets each one is a
+         * fresh TCP connect per request, and an announce-rate workload
+         * exhausts the local ephemeral port range ("Cannot assign requested
+         * address") long before Redis itself is busy.
+         *
+         * phpredis pools persistent sockets by host:port:persistent_id, so
+         * each connection below MUST carry its own id: sharing one would hand
+         * two logical connections the same socket and let their `SELECT`
+         * calls clobber each other's database.
+         */
+        'options' => [
+            'persistent' => env('REDIS_PERSISTENT', true),
+        ],
+
         'default' => [
             'url'                => env('REDIS_URL'),
             'host'               => env('REDIS_HOST', '127.0.0.1'),
@@ -161,6 +177,7 @@ return [
             'password'           => env('REDIS_PASSWORD'),
             'port'               => env('REDIS_PORT', '6379'),
             'database'           => env('REDIS_DB', '0'),
+            'persistent_id'      => 'default',
             'read_write_timeout' => -1,
         ],
 
@@ -171,6 +188,7 @@ return [
             'password'           => env('REDIS_PASSWORD'),
             'port'               => env('REDIS_PORT', '6379'),
             'database'           => env('REDIS_CACHE_DB', '1'),
+            'persistent_id'      => 'cache',
             'read_write_timeout' => -1,
         ],
 
@@ -181,6 +199,7 @@ return [
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_JOB_DB', 2),
+            'persistent_id'      => 'job',
             'read_write_timeout' => -1,
         ],
 
@@ -191,6 +210,7 @@ return [
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_BROADCAST_DB', 3),
+            'persistent_id'      => 'broadcast',
             'read_write_timeout' => -1,
         ],
 
@@ -201,6 +221,7 @@ return [
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_SESSION_DB', 4),
+            'persistent_id'      => 'session',
             'read_write_timeout' => -1,
         ],
 
@@ -211,6 +232,7 @@ return [
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
             'database'           => env('REDIS_ANNOUNCE_DB', 5),
+            'persistent_id'      => 'announce',
             'read_write_timeout' => -1,
         ],
     ],

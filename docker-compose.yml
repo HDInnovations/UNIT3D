@@ -9,36 +9,56 @@ services:
             - '${TRACKER_BIND_ADDRESS:-127.0.0.1}:${SSL_PORT:-443}:443'
         environment:
             - SSL_PORT=${SSL_PORT:-443}
-            - APP_SERVICE=${APP_SERVICE:-laravel.test}
             - SERVER_NAME=${SERVER_NAME:-localhost}
             - SSL_DOMAIN=${SSL_DOMAIN:-localhost}
             - SSL_ALT_NAME=${SSL_ALT_NAME:-DNS:localhost}
         volumes:
             - 'sail-nginx:/etc/nginx/certs'
             - './nginx/templates:/etc/nginx/templates'
+            - './nginx/fastcgi-params.conf:/etc/nginx/vltava-fastcgi-params.conf:ro'
             - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
+            - './public:/var/www/html/public:ro'
         depends_on:
-            - ${APP_SERVICE:-laravel.test}
+            - laravel.test
         networks:
             - sail
-    laravel.test:
+    sail-runtime:
+        # Build-only reuse of Sail's extensions/tooling; never starts in the live stack.
+        profiles: [build]
         build:
             context: ./vendor/laravel/sail/runtimes/8.4
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
         image: sail-8.4/app
+    laravel.test:
+        build:
+            context: ./docker/php-fpm
+            additional_contexts:
+                # Build sail-runtime first via the build profile (see LOCAL_PRODUCTION.md).
+                sail: 'docker-image://sail-8.4/app'
+        image: sail-8.4/fpm
         restart: unless-stopped
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
-            # `artisan serve` otherwise handles one request at a time.
-            PHP_CLI_SERVER_WORKERS: '${PHP_CLI_SERVER_WORKERS:-4}'
+            XDEBUG_MODE: 'off'
+            # Sized from the isolated capacity benchmark (see
+            # docker-compose.capacity.yml and README "Měření kapacity"), not
+            # guessed: one announce costs ~41ms and one member roundtrip
+            # ~152ms of PHP time, and the two pools are deliberately given the
+            # same ceiling so a saturated member site cannot take the CPU the
+            # announce path needs. Re-measure before widening either.
+            WEB_FPM_MAX_CHILDREN: '${WEB_FPM_MAX_CHILDREN:-24}'
+            WEB_FPM_START_SERVERS: '${WEB_FPM_START_SERVERS:-10}'
+            WEB_FPM_MIN_SPARE_SERVERS: '${WEB_FPM_MIN_SPARE_SERVERS:-6}'
+            WEB_FPM_MAX_SPARE_SERVERS: '${WEB_FPM_MAX_SPARE_SERVERS:-16}'
+            TRACKER_FPM_MAX_CHILDREN: '${TRACKER_FPM_MAX_CHILDREN:-24}'
+            TRACKER_FPM_START_SERVERS: '${TRACKER_FPM_START_SERVERS:-8}'
+            TRACKER_FPM_MIN_SPARE_SERVERS: '${TRACKER_FPM_MIN_SPARE_SERVERS:-6}'
+            TRACKER_FPM_MAX_SPARE_SERVERS: '${TRACKER_FPM_MAX_SPARE_SERVERS:-12}'
         volumes:
             - '.:/var/www/html'
         networks:
@@ -48,9 +68,40 @@ services:
             - mysql
             - redis
     queue:
-        image: sail-8.4/app
+        image: sail-8.4/fpm
         restart: unless-stopped
-        command: php artisan queue:work redis --sleep=1 --tries=3 --timeout=120
+        # Metadata/background jobs only; announce traffic no longer shares
+        # this worker or queue (see `tracker-queue` below).
+        command: php artisan queue:work redis --queue=default --sleep=1 --tries=3 --timeout=120
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - meilisearch
+            - mysql
+            - redis
+    tracker-queue:
+        image: sail-8.4/fpm
+        restart: unless-stopped
+        # Dedicated consumers for the `tracker` queue so announce-driven jobs
+        # never queue behind metadata/background work on `default` (or vice
+        # versa). Timeout stays comfortably under config/queue.php's redis
+        # `retry_after` so a slow job is never picked up twice.
+        #
+        # `ProcessAnnounce` measured ~41ms per job under load and a worker is
+        # single-threaded, so one worker tops out near 24 announces/s; six
+        # cover the benchmark's 121/s with headroom for retries.
+        deploy:
+            replicas: 6
+        command: php artisan queue:work redis --queue=tracker --sleep=1 --tries=3 --timeout=90
+        # Bounded shutdown: let `queue:work` finish (or time out) whatever
+        # job it's on before Compose sends SIGKILL.
+        stop_signal: SIGTERM
+        stop_grace_period: 100s
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
@@ -63,7 +114,7 @@ services:
             - mysql
             - redis
     schedule:
-        image: sail-8.4/app
+        image: sail-8.4/fpm
         restart: unless-stopped
         command: php artisan schedule:work
         environment:
@@ -78,7 +129,7 @@ services:
             - mysql
             - redis
     reverb:
-        image: sail-8.4/app
+        image: sail-8.4/fpm
         restart: unless-stopped
         command: php artisan reverb:start --host=0.0.0.0 --port=8080
         environment:
@@ -155,7 +206,11 @@ services:
         restart: unless-stopped
         environment:
             PORT: 9117
-            UNIT3D_URL: http://laravel.test
+            # `laravel.test` no longer runs a web server; nginx's internal
+            # (unpublished) port 8081 serves the app over plain HTTP for
+            # trusted container-to-container callers.
+            UNIT3D_URL: http://nginx:8081
+            UNIT3D_PUBLIC_URL: '${APP_URL}'
         depends_on:
             - nginx
         networks:

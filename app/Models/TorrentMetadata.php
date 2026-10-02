@@ -15,12 +15,13 @@ class TorrentMetadata extends Model
     protected $guarded = [];
 
     /**
-     * @return array{raw: 'array'}
+     * @return array{raw: 'array', facets: 'array'}
      */
     protected function casts(): array
     {
         return [
-            'raw' => 'array',
+            'raw'    => 'array',
+            'facets' => 'array',
         ];
     }
 

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Enums\GlobalRateLimit;
+use App\Models\Scopes\ApprovedScope;
 use App\Models\TmdbCollection;
 use App\Models\TmdbCompany;
 use App\Models\TmdbCredit;
@@ -24,6 +25,7 @@ use App\Models\TmdbGenre;
 use App\Models\TmdbMovie;
 use App\Models\TmdbPerson;
 use App\Models\Torrent;
+use App\Services\Media\MediaWorkCatalog;
 use App\Services\Tmdb\Client;
 use DateTime;
 use Illuminate\Bus\Queueable;
@@ -141,9 +143,21 @@ class ProcessMovieJob implements ShouldQueue
 
         $movie->recommendedMovies()->sync(array_unique(array_column($movieScraper->getRecommendations(), 'recommended_tmdb_movie_id')));
 
-        Torrent::query()
+        $torrents = Torrent::query()
+            ->withoutGlobalScope(ApprovedScope::class)
             ->where('tmdb_movie_id', '=', $this->id)
             ->whereRelation('category', 'movie_meta', '=', true)
+            ->with('category')
+            ->get();
+
+        $catalog = app(MediaWorkCatalog::class);
+
+        foreach ($torrents as $torrent) {
+            $catalog->sync($torrent);
+        }
+
+        Torrent::query()
+            ->whereIntegerInRaw('id', $torrents->pluck('id'))
             ->searchable();
 
         // TMDB caches their api responses for 8 hours, so don't abuse them

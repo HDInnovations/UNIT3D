@@ -201,7 +201,7 @@
                     confirmAction() {
                         Swal.fire({
                             title: @js(__('interface.confirm-action-title')),
-                            text: atob(this.$el.dataset.b64DeletionMessage),
+                            text: new TextDecoder().decode(Uint8Array.from(atob(this.$el.dataset.b64DeletionMessage), (character) => character.charCodeAt(0))),
                             icon: 'warning',
                             showConfirmButton: true,
                             showCancelButton: true,

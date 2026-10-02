@@ -50,6 +50,7 @@ use AllowDynamicProperties;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null                     $trailer
+ * @property array<string, mixed>|null       $raw
  */
 #[AllowDynamicProperties]
 final class TmdbMovie extends Model
@@ -62,12 +63,13 @@ final class TmdbMovie extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{release_date: 'datetime'}
+     * @return array{release_date: 'datetime', raw: 'array'}
      */
     protected function casts(): array
     {
         return [
             'release_date' => 'datetime',
+            'raw'          => 'array',
         ];
     }
 

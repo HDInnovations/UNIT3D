@@ -83,6 +83,18 @@ readonly class TorrentSearchFiltersDTO
         private ?bool $userDownloaded = null,
         private ?bool $userSeeder = null,
         private ?bool $userActive = null,
+        // Category-specific normalized-fact filters (see App\Services\Media\MediaWorkCatalog
+        // facets): only meaningful for, and only ever sent by the UI for, their own category kind.
+        private ?string $musicArtist = null,
+        private ?string $musicLabel = null,
+        private ?string $musicFormat = null,
+        private ?int $musicYear = null,
+        private ?string $gamePlatform = null,
+        private ?string $gameGenre = null,
+        private ?string $gameDeveloper = null,
+        private ?string $bookAuthor = null,
+        private ?string $bookLanguage = null,
+        private ?string $bookPublisher = null,
     ) {
         $this->user = auth()->user();
     }
@@ -107,8 +119,19 @@ readonly class TorrentSearchFiltersDTO
                 fn ($query) => $query
                     ->when(
                         $isRegex($this->name),
-                        fn ($query) => $query->where('name', 'REGEXP', substr($this->name, 1, -1)),
-                        fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%')
+                        // Torrent filenames don't exist for every kind (e.g. a music/book/game
+                        // Work may be renamed on disk); also match the canonical Work title so
+                        // the main text search finds every kind, not just movie/tv filenames.
+                        fn ($query) => $query->where(
+                            fn ($query) => $query
+                                ->where('name', 'REGEXP', substr($this->name, 1, -1))
+                                ->orWhereRelation('mediaWork', 'title', 'REGEXP', substr($this->name, 1, -1))
+                        ),
+                        fn ($query) => $query->where(
+                            fn ($query) => $query
+                                ->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%')
+                                ->orWhereRelation('mediaWork', 'title', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%')
+                        )
                     )
             )
             ->when(
@@ -445,6 +468,49 @@ readonly class TorrentSearchFiltersDTO
                             ->where('seeder', '=', 0)
                             ->where('seedtime', '=', 0)
                     )
+            )
+            // Shared artist/platform/genre/developer/author facts belong to the Work.
+            // Labels, release years, formats, languages and publishers belong to
+            // each accessible edition, not whichever sibling was refreshed last.
+            ->when(
+                $this->musicArtist !== null,
+                fn ($query) => $query->whereRelation('mediaWork', 'facets->artists', 'LIKE', '%'.$this->musicArtist.'%')
+            )
+            ->when(
+                $this->musicLabel !== null,
+                fn ($query) => $query->whereRelation('metadata', 'facets->labels', 'LIKE', '%'.$this->musicLabel.'%')
+            )
+            ->when(
+                $this->musicYear !== null,
+                fn ($query) => $query->whereRelation('metadata', 'facets->year', '=', $this->musicYear)
+            )
+            ->when(
+                $this->musicFormat !== null,
+                fn ($query) => $query->whereRelation('metadata', 'facets->formats', 'LIKE', '%'.$this->musicFormat.'%')
+            )
+            ->when(
+                $this->gamePlatform !== null,
+                fn ($query) => $query->whereRelation('mediaWork', 'facets->platforms', 'LIKE', '%'.$this->gamePlatform.'%')
+            )
+            ->when(
+                $this->gameGenre !== null,
+                fn ($query) => $query->whereRelation('mediaWork', 'facets->genres', 'LIKE', '%'.$this->gameGenre.'%')
+            )
+            ->when(
+                $this->gameDeveloper !== null,
+                fn ($query) => $query->whereRelation('mediaWork', 'facets->developers', 'LIKE', '%'.$this->gameDeveloper.'%')
+            )
+            ->when(
+                $this->bookAuthor !== null,
+                fn ($query) => $query->whereRelation('mediaWork', 'facets->authors', 'LIKE', '%'.$this->bookAuthor.'%')
+            )
+            ->when(
+                $this->bookLanguage !== null,
+                fn ($query) => $query->whereRelation('metadata', 'facets->languages', 'LIKE', '%'.$this->bookLanguage.'%')
+            )
+            ->when(
+                $this->bookPublisher !== null,
+                fn ($query) => $query->whereRelation('metadata', 'facets->publishers', 'LIKE', '%'.$this->bookPublisher.'%')
             );
     }
 
@@ -733,6 +799,50 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->userActive === false) {
             $filters[] = 'history_inactive.user_id = '.$this->user->id;
+        }
+
+        // Category-specific normalized-fact filters, mirrored from
+        // toSqlQueryBuilder(): common facets live on work_facets, edition-
+        // varying ones (format/language/publisher) on metadata_facets so
+        // any accessible edition, not just the last-synced one, matches.
+        if ($this->musicArtist !== null) {
+            $filters[] = 'work_facets.artists = '.json_encode($this->musicArtist);
+        }
+
+        if ($this->musicLabel !== null) {
+            $filters[] = 'metadata_facets.labels = '.json_encode($this->musicLabel);
+        }
+
+        if ($this->musicYear !== null) {
+            $filters[] = 'metadata_facets.year = '.$this->musicYear;
+        }
+
+        if ($this->musicFormat !== null) {
+            $filters[] = 'metadata_facets.formats = '.json_encode($this->musicFormat);
+        }
+
+        if ($this->gamePlatform !== null) {
+            $filters[] = 'work_facets.platforms = '.json_encode($this->gamePlatform);
+        }
+
+        if ($this->gameGenre !== null) {
+            $filters[] = 'work_facets.genres = '.json_encode($this->gameGenre);
+        }
+
+        if ($this->gameDeveloper !== null) {
+            $filters[] = 'work_facets.developers = '.json_encode($this->gameDeveloper);
+        }
+
+        if ($this->bookAuthor !== null) {
+            $filters[] = 'work_facets.authors = '.json_encode($this->bookAuthor);
+        }
+
+        if ($this->bookLanguage !== null) {
+            $filters[] = 'metadata_facets.languages = '.json_encode($this->bookLanguage);
+        }
+
+        if ($this->bookPublisher !== null) {
+            $filters[] = 'metadata_facets.publishers = '.json_encode($this->bookPublisher);
         }
 
         return $filters;

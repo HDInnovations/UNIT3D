@@ -1072,3 +1072,187 @@ th.similar-torrents__type {
 .torrent--rejected {
     color: red;
 }
+
+/* Media Work (catalogue Work detail) page
+---------------------------------------------------------------------------- */
+
+.work__header {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.work__cover {
+    width: 150px;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.work__summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.work__title {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.work__year {
+    display: inline-block;
+    margin-inline-start: 0.4em;
+    white-space: nowrap;
+    font-weight: normal;
+    opacity: 0.75;
+}
+
+.work__description {
+    margin: 0;
+    white-space: pre-line;
+}
+
+.work__facets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin: 0;
+}
+
+.work__facet {
+    display: flex;
+    gap: 6px;
+}
+
+.work__facet dt {
+    font-weight: bold;
+}
+
+.work__facet dd {
+    margin: 0;
+}
+
+.work__source-link {
+    align-self: flex-start;
+}
+
+.work__variant-table {
+    .work__variant-scope { width: 150px; }
+    .work__variant-action { width: 36px; }
+    .work__variant-size { width: 100px; }
+    .work__variant-peers { width: 70px; }
+    .work__variant-completed { width: 88px; }
+    .work__variant-age { width: 112px; }
+
+    > thead > tr > th {
+        padding: 12px 8px;
+        text-align: left;
+        white-space: normal;
+    }
+
+    > thead > tr > th:nth-child(3) {
+        text-align: center;
+    }
+
+    > thead > tr > th:nth-child(n + 4) {
+        text-align: right;
+    }
+
+    > tbody > tr > td,
+    > tbody > tr > th {
+        width: auto;
+        padding: 12px 8px;
+    }
+
+    .torrent-search--grouped__type {
+        white-space: normal;
+        text-align: left;
+    }
+
+    .torrent-search--grouped__overview {
+        display: table-cell;
+        overflow-wrap: anywhere;
+    }
+
+    .torrent-search--grouped__overview > div {
+        display: block;
+    }
+
+    .torrent-search--grouped__name,
+    .torrent-search--grouped__name a {
+        display: block;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .work__variant-table {
+        > colgroup,
+        > thead {
+            display: none;
+        }
+
+        > tbody {
+            display: block;
+        }
+
+        > tbody > tr {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            grid-template-areas:
+                'type type type type type type'
+                'overview overview overview overview overview overview'
+                'size size size age age age'
+                'seeders seeders leechers leechers completed completed'
+                'edit edit bookmark bookmark download download';
+            gap: 8px;
+            padding: 16px;
+            border-top: 1px solid var(--torrent-group-header-bg);
+        }
+
+        > tbody > tr > td,
+        > tbody > tr > th {
+            padding: 0;
+            height: auto;
+            min-width: 0;
+        }
+
+        .torrent-search--grouped__type {
+            justify-self: start;
+            font-weight: bold;
+        }
+
+        .torrent-search--grouped__overview,
+        .torrent-search--grouped__overview > div {
+            display: block;
+        }
+
+        td[data-label]::before {
+            content: attr(data-label);
+            display: block;
+            font-size: 11px;
+            line-height: 1.5;
+            color: var(--torrent-group-text-muted);
+        }
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .work__header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .work__facets {
+        justify-content: center;
+    }
+
+    .work__source-link {
+        align-self: center;
+    }
+}

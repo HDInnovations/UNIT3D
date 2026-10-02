@@ -89,6 +89,16 @@ Route::middleware('language')->group(function (): void {
         // General
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
+        Route::get('/works/search', [App\Http\Controllers\MediaWorkController::class, 'search'])->name('works.search');
+        Route::get('/works/{work}', [App\Http\Controllers\MediaWorkController::class, 'show'])->name('works.show')->whereNumber('work');
+
+        // These controllers also check editor/moderator privileges on every action.
+        Route::prefix('staff/metadata-quality')->name('staff.metadata-quality.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\Staff\MetadataQualityController::class, 'index'])->name('index');
+            Route::post('/{work}/preview', [App\Http\Controllers\Staff\MetadataQualityController::class, 'preview'])->name('preview')->whereNumber('work');
+            Route::patch('/{work}', [App\Http\Controllers\Staff\MetadataQualityController::class, 'update'])->name('update')->whereNumber('work');
+        });
+
         // Articles System
         Route::prefix('articles')->name('articles.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ArticleController::class, 'index'])->name('index');
@@ -235,6 +245,14 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('torrents')->name('torrents.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\TorrentController::class, 'create'])->name('create');
+            Route::get('/metadata/search', [App\Http\Controllers\TorrentMetadataSearchController::class, 'index'])->name('metadata.search');
+            Route::get('/metadata/music-releases', [App\Http\Controllers\TorrentMetadataSearchController::class, 'musicReleases'])->name('metadata.music-releases');
+            Route::get('/metadata', [App\Http\Controllers\TorrentMetadataController::class, 'show'])->name('metadata');
+            Route::post('/preview', [App\Http\Controllers\TorrentPreviewController::class, 'store'])->name('preview');
+            Route::get('/drafts', [App\Http\Controllers\UploadDraftController::class, 'index'])->name('drafts.index');
+            Route::post('/drafts', [App\Http\Controllers\UploadDraftController::class, 'store'])->name('drafts.store');
+            Route::get('/drafts/{draft}', [App\Http\Controllers\UploadDraftController::class, 'show'])->name('drafts.show')->whereNumber('draft');
+            Route::delete('/drafts/{draft}', [App\Http\Controllers\UploadDraftController::class, 'destroy'])->name('drafts.destroy')->whereNumber('draft');
             Route::post('/', [App\Http\Controllers\TorrentController::class, 'store'])->name('store');
             Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'show'])->name('show')->whereNumber('id');
             Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit')->whereNumber('id');

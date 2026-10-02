@@ -319,7 +319,7 @@ class TV
             ->get('https://api.TheMovieDB.org/3/tv/{id}', [
                 'api_key'            => config('api-keys.tmdb'),
                 'language'           => config('app.meta_locale'),
-                'append_to_response' => 'videos,images,aggregate_credits,external_ids,keywords,recommendations,alternative_titles',
+                'append_to_response' => 'videos,images,aggregate_credits,external_ids,keywords,recommendations,alternative_titles,content_ratings',
             ])
             ->throwIf(fn (Response $response) => !$response->notFound());
 
@@ -343,7 +343,7 @@ class TV
                 ->get('https://api.TheMovieDB.org/3/tv/{id}', [
                     'api_key'            => config('api-keys.tmdb'),
                     'language'           => config('app.meta_fallback_locale'),
-                    'append_to_response' => 'videos,images,aggregate_credits,external_ids,keywords,recommendations,alternative_titles',
+                    'append_to_response' => 'videos,images,aggregate_credits,external_ids,keywords,recommendations,alternative_titles,content_ratings',
                 ]);
 
             if ($fallback->successful()) {
@@ -376,6 +376,7 @@ class TV
      *     status: ?string,
      *     vote_average: ?float,
      *     vote_count: ?int,
+     *     raw: array<string, mixed>,
      * }
      */
     public function getTv(): ?array
@@ -388,7 +389,7 @@ class TV
                 'first_air_date'     => $this->tmdb->ifExists('first_air_date', $this->data),
                 'homepage'           => $this->data['homepage'] ?? null,
                 'imdb_id'            => substr($this->data['external_ids']['imdb_id'] ?? '', 2),
-                'tvdb_id'            => (string) $this->data['external_ids']['tvdb_id'],
+                'tvdb_id'            => (string) ($this->data['external_ids']['tvdb_id'] ?? ''),
                 'in_production'      => $this->data['in_production'] ?? null,
                 'last_air_date'      => $this->data['last_air_date'] ?? null,
                 'name'               => Str::limit($this->data['name'], 200),
@@ -405,6 +406,7 @@ class TV
                 'vote_average'       => $this->data['vote_average'] ?? null,
                 'vote_count'         => $this->data['vote_count'] ?? null,
                 'trailer'            => $this->data['videos']['results'][0]['key'] ?? null,
+                'raw'                => $this->data,
             ];
         }
 

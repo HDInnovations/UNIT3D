@@ -62,7 +62,7 @@ class ArticleController extends Controller
 
             abort_if(\is_array($image), 400);
 
-            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $filename = 'article-'.uniqid('', true).'.png';
             Storage::disk('article-images')->put($filename, Image::fromUpload($image)->cover(75, 75)->toPng()->quality(100)->toBytes());
         }
 
@@ -100,7 +100,7 @@ class ArticleController extends Controller
 
             abort_if(\is_array($image), 400);
 
-            $filename = 'article-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+            $filename = 'article-'.uniqid('', true).'.png';
             Storage::disk('article-images')->put($filename, Image::fromUpload($image)->cover(75, 75)->toPng()->quality(100)->toBytes());
 
             if ($article->image !== null) {
@@ -108,7 +108,7 @@ class ArticleController extends Controller
             }
         }
 
-        $article->update(['image' => $filename ?? null,] + $request->validated());
+        $article->update(['image' => $filename ?? $article->image] + $request->validated());
 
         return to_route('staff.articles.index')
             ->with('success', __('application-messages.flash.article-changes-published'));

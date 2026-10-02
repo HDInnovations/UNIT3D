@@ -1,0 +1,45 @@
+[web]
+user = sail
+group = sail
+
+listen = 9000
+listen.owner = sail
+listen.group = sail
+listen.mode = 0660
+
+pm = dynamic
+pm.max_children = ${WEB_FPM_MAX_CHILDREN}
+pm.start_servers = ${WEB_FPM_START_SERVERS}
+pm.min_spare_servers = ${WEB_FPM_MIN_SPARE_SERVERS}
+pm.max_spare_servers = ${WEB_FPM_MAX_SPARE_SERVERS}
+pm.max_requests = 500
+
+; Dedicated status/ping listener for this pool (PHP 8.2+): FPM spawns a
+; separate hidden pool to answer /status and /ping here, so a check never
+; queues behind this pool's own saturated workers. Not published to the
+; host; reachable only from sibling containers on the private network.
+pm.status_listen = 9100
+pm.status_path = /status
+ping.path = /ping
+ping.response = pong
+
+; Low CPU/plentiful RAM host: keep workers warm rather than respawning often.
+request_terminate_timeout = 120s
+
+; `sail`'s UID is remapped to the host user at container start; inherit the
+; container's environment (APP_*, DB_*, REDIS_* etc.) the same way the CLI
+; and queue/schedule/Reverb containers already do.
+clear_env = no
+
+catch_workers_output = yes
+decorate_workers_output = no
+
+; Surface requests that stall this pool (separate from the tracker pool
+; below) without waiting for the full request_terminate_timeout.
+slowlog = /proc/self/fd/2
+request_slowlog_timeout = 5s
+
+php_admin_value[error_log] = /proc/self/fd/2
+php_admin_flag[log_errors] = on
+php_admin_flag[display_errors] = off
+php_admin_value[error_reporting] = E_ALL & ~E_DEPRECATED

@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Enums\GlobalRateLimit;
+use App\Models\Scopes\ApprovedScope;
+use App\Models\Torrent;
 use App\Models\TorrentMetadata;
+use App\Services\Media\MediaWorkCatalog;
 use App\Services\MusicBrainz\MusicBrainzClient;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,23 +38,54 @@ class ProcessMusicBrainzReleaseJob implements ShouldQueue
 
     public function handle(MusicBrainzClient $musicBrainz): void
     {
-        $release = $musicBrainz->release($this->mbid);
+        $metadata = $musicBrainz->lookup($this->mbid);
+        $release = $metadata['data'];
+        $entity = $metadata['entity'];
         $artists = collect($release['artist-credit'] ?? [])
             ->pluck('name')
             ->filter(fn (mixed $name): bool => \is_string($name) && $name !== '')
             ->join(', ');
+
+        $itemCount = $entity === 'release'
+            ? collect($release['media'] ?? [])
+                ->sum(fn (mixed $medium): int => \is_array($medium) ? \count($medium['tracks'] ?? []) : 0)
+            : null;
+
+        $publishers = collect($release['label-info'] ?? [])
+            ->map(fn (mixed $labelInfo): ?string => \is_array($labelInfo) && \is_string($labelInfo['label']['name'] ?? null) ? $labelInfo['label']['name'] : null)
+            ->filter()
+            ->unique()
+            ->join(', ');
+
+        $catalog = app(MediaWorkCatalog::class);
 
         TorrentMetadata::query()->updateOrCreate(['torrent_id' => $this->torrentId], [
             'source'      => 'musicbrainz',
             'source_id'   => $release['id'],
             'title'       => $release['title'],
             'subtitle'    => $artists === '' ? null : $artists,
-            'released_on' => $release['date'] ?? null,
-            'publisher'   => $release['label-info'][0]['label']['name'] ?? null,
-            'item_count'  => \count($release['media'][0]['tracks'] ?? []),
+            'released_on' => $release['date'] ?? $release['first-release-date'] ?? null,
+            'publisher'   => $publishers === '' ? null : $publishers,
+            'item_count'  => $itemCount,
             'summary'     => null,
-            'source_url'  => "https://musicbrainz.org/release/{$release['id']}",
+            'source_url'  => "https://musicbrainz.org/{$entity}/{$release['id']}",
             'raw'         => $release,
+            // This release's own facets (format in particular legitimately
+            // differs between editions of the same album, e.g. CD vs
+            // Vinyl); category filters match on this, not the Work's shared
+            // last-synced snapshot, so every accessible edition stays findable.
+            'facets' => $catalog->computeFacets('music', $release),
         ]);
+
+        $torrent = Torrent::query()
+            ->withoutGlobalScope(ApprovedScope::class)
+            ->with(['category', 'metadata'])
+            ->find($this->torrentId);
+
+        if ($torrent !== null) {
+            $catalog->sync($torrent);
+
+            Torrent::query()->whereKey($torrent->id)->searchable();
+        }
     }
 }

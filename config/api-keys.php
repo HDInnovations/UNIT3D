@@ -24,4 +24,16 @@ return [
     */
 
     'tmdb' => env('TMDB_API_KEY', ''),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Google Books (Book metadata lookup)
+    |--------------------------------------------------------------------------
+    |
+    | Optional. The Google Books API works unauthenticated but is subject to
+    | a low shared per-IP daily quota. Supplying a key raises that quota.
+    |
+    */
+
+    'google-books' => env('GOOGLE_BOOKS_API_KEY', ''),
 ];

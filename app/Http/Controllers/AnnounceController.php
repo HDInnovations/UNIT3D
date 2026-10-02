@@ -93,6 +93,8 @@ final class AnnounceController extends Controller
      */
     public function index(Request $request, string $passkey): ?Response
     {
+        $receivedAt = \Illuminate\Support\Carbon::createFromTimestamp($request->server('REQUEST_TIME_FLOAT') ?? microtime(true), config('app.timezone'));
+
         try {
             // Check client.
             $this->checkClient($request);
@@ -129,7 +131,7 @@ final class AnnounceController extends Controller
             }
 
             // Process Announce Job.
-            $this->processAnnounceJob($queries, $user, $group, $torrent, $visible);
+            $this->processAnnounceJob($queries, $user, $group, $torrent, $visible, $receivedAt);
 
             if ($visible) {
                 // Generate A Response For The Torrent Client.
@@ -715,13 +717,13 @@ final class AnnounceController extends Controller
     /**
      * Process Announce Database Queries.
      */
-    private function processAnnounceJob(AnnounceQueryDTO $queries, User $user, Group $group, Torrent $torrent, bool $visible): void
+    private function processAnnounceJob(AnnounceQueryDTO $queries, User $user, Group $group, Torrent $torrent, bool $visible, \Illuminate\Support\Carbon $receivedAt): void
     {
         $groupDto = new AnnounceGroupDTO((bool) $group->is_freeleech, (bool) $group->is_double_upload, (bool) $group->is_immune);
         $userDto = new AnnounceUserDTO($user->id, $user->is_donor, $groupDto);
         $torrentDto = new AnnounceTorrentDTO($torrent->id, $torrent->free, $torrent->doubleup);
 
-        ProcessAnnounce::dispatch($queries, $userDto, $torrentDto, $visible);
+        ProcessAnnounce::dispatch($queries, $userDto, $torrentDto, $visible, $receivedAt);
     }
 
     private function generateFailedAnnounceResponse(TrackerException $trackerException): string

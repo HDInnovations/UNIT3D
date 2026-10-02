@@ -3,6 +3,12 @@
         $scrollTo = '.panelV2';
     }
 
+    // Pass island: '<name>' to scope every page/next/previous link's action
+    // to a named Livewire 4 island (see livewire/torrent-search.blade.php)
+    // instead of re-rendering the whole component. Omitted by every other
+    // caller, which keeps today's full-component re-render.
+    $island ??= null;
+
     $scrollIntoViewJsSnippet =
         $scrollTo !== false
             ? <<<JS
@@ -24,6 +30,7 @@
                         class="pagination__previous"
                         href="{{ $paginator->previousPageUrl() }}"
                         wire:click.prevent="previousPage"
+                        @if ($island) wire:island="{{ $island }}" @endif
                         x-on:click="{{ $scrollIntoViewJsSnippet }}"
                         rel="prev"
                     >
@@ -41,6 +48,7 @@
                                 class="pagination__link"
                                 href="{{ $paginator->url(1) }}"
                                 wire:click.prevent="gotoPage(1, '{{ $paginator->getPageName() }}')"
+                                @if ($island) wire:island="{{ $island }}" @endif
                                 x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                 rel="prev"
                             >
@@ -55,6 +63,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url(2) }}"
                                     wire:click.prevent="gotoPage(2, '{{ $paginator->getPageName() }}')"
+                                    @if ($island) wire:island="{{ $island }}" @endif
                                     x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                 >
                                     2
@@ -75,6 +84,7 @@
                                         class="pagination__link"
                                         href="{{ $paginator->url($page) }}"
                                         wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                        @if ($island) wire:island="{{ $island }}" @endif
                                         x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                     >
                                         {{ $page }}
@@ -90,6 +100,7 @@
                                         class="pagination__link"
                                         href="{{ $paginator->url($paginator->currentPage() + 4) }}"
                                         wire:click.prevent="gotoPage({{ $paginator->currentPage() + 4 }}, '{{ $paginator->getPageName() }}')"
+                                        @if ($island) wire:island="{{ $island }}" @endif
                                         x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                     >
                                         {{ $paginator->currentPage() + 4 }}
@@ -106,6 +117,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url($paginator->lastPage()) }}"
                                     wire:click.prevent="gotoPage({{ $paginator->lastPage() }}, '{{ $paginator->getPageName() }}')"
+                                    @if ($island) wire:island="{{ $island }}" @endif
                                     x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                     rel="next"
                                 >
@@ -125,6 +137,7 @@
                                         class="pagination__link"
                                         href="{{ $paginator->url($page) }}"
                                         wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                        @if ($island) wire:island="{{ $island }}" @endif
                                         x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                     >
                                         {{ $page }}
@@ -139,6 +152,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url($paginator->currentPage() + 1) }}"
                                     wire:click.prevent="gotoPage({{ $paginator->currentPage() + 1 }}, '{{ $paginator->getPageName() }}')"
+                                    @if ($island) wire:island="{{ $island }}" @endif
                                     x-on:click="{{ $scrollIntoViewJsSnippet }}"
                                     rel="next"
                                 >
@@ -156,6 +170,7 @@
                         class="pagination__next"
                         href="{{ $paginator->nextPageUrl() }}"
                         wire:click.prevent="nextPage"
+                        @if ($island) wire:island="{{ $island }}" @endif
                         x-on:click="{{ $scrollIntoViewJsSnippet }}"
                         rel="next"
                     >

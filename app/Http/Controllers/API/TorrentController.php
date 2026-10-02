@@ -34,6 +34,7 @@ use App\Models\TmdbTv;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
+use App\Services\Media\MediaWorkCatalog;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use App\Traits\TorrentMeta;
@@ -210,7 +211,6 @@ class TorrentController extends BaseController
         $v = validator($torrent->toArray(), [
             'name' => [
                 'required',
-                Rule::unique('torrents')->whereNull('deleted_at'),
                 'max:255',
             ],
             'description' => [
@@ -365,6 +365,7 @@ class TorrentController extends BaseController
 
         // Save The Torrent
         $torrent->save();
+        app(MediaWorkCatalog::class)->sync($torrent);
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();

@@ -203,6 +203,13 @@ class uploadExtensionBuilder {
                 name.value = this.removeDots(newValue);
             }
 
+            // A filename must not turn an explicitly selected game/audio/adult upload
+            // into a movie or send its title to a movie metadata provider.
+            const selectedKind = document.querySelector('#autocat').selectedOptions[0]?.dataset.uploadKind;
+            if (selectedKind && selectedKind !== 'movie' && selectedKind !== 'tv') {
+                return;
+            }
+
             /* PARSING */
             release = title_parser.parse(name.value, {
                 strict: true, // if no main tags found, will throw an exception
@@ -215,11 +222,8 @@ class uploadExtensionBuilder {
 
             let matcher = name.value.toLowerCase();
 
-            // Torrent Category
-            if (release.type === 'Movie') {
-                document.getElementById('autocat').value = 1;
-            } else if (release.type === 'TV Show') {
-                document.getElementById('autocat').value = 2;
+            if (selectedKind && release.type !== (selectedKind === 'movie' ? 'Movie' : 'TV Show')) {
+                return;
             }
 
             // Torrent Type

@@ -31,6 +31,12 @@ class TorrentTools
     {
         $result = Bencode::bdecode_file($torrentFile->getRealPath());
 
+        if (!\is_array($result) || !\is_array($result['info'] ?? null)) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'torrent' => 'You Must Provide A Valid Torrent File For Upload!',
+            ]);
+        }
+
         // Whitelisted keys
         $result = array_intersect_key($result, [
             'comment'    => '',

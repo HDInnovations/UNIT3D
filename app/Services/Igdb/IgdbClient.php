@@ -15,12 +15,43 @@ final class IgdbClient
     public function game(int $id): array
     {
         $games = Http::acceptJson()
+            ->connectTimeout(5)
+            ->timeout(15)
             ->withHeaders([
                 'Client-ID' => $this->clientId(),
             ])
             ->withToken($this->accessToken())
             ->withBody(<<<'APICALYPSE'
-fields id,name,summary,first_release_date,url,rating,rating_count,cover.image_id,artworks.image_id,genres.id,genres.name,videos.video_id,videos.name,involved_companies.company.id,involved_companies.company.name,involved_companies.company.url,involved_companies.company.logo.image_id,platforms.id,platforms.name,platforms.platform_logo.image_id;
+fields *,
+    genres.*,
+    game_engines.*,game_engines.logo.*,
+    involved_companies.*,involved_companies.company.*,involved_companies.company.logo.*,
+    platforms.*,platforms.platform_logo.*,
+    themes.*,
+    game_modes.*,
+    player_perspectives.*,
+    release_dates.*,release_dates.platform.id,release_dates.platform.name,release_dates.release_region.id,release_dates.release_region.region,release_dates.status.id,release_dates.status.name,
+    age_ratings.*,age_ratings.organization.id,age_ratings.organization.name,age_ratings.rating_category.id,age_ratings.rating_category.rating,age_ratings.rating_content_descriptions.id,age_ratings.rating_content_descriptions.description,
+    alternative_names.*,
+    keywords.*,
+    websites.*,websites.type.id,websites.type.type,
+    artworks.*,
+    screenshots.*,
+    videos.*,
+    collections.*,
+    franchises.*,
+    game_type.*,
+    game_status.*,
+    multiplayer_modes.*,multiplayer_modes.platform.id,multiplayer_modes.platform.name,
+    language_supports.*,language_supports.language.id,language_supports.language.name,language_supports.language.native_name,language_supports.language.locale,language_supports.language_support_type.id,language_supports.language_support_type.name,
+    dlcs.id,dlcs.name,dlcs.slug,
+    expansions.id,expansions.name,expansions.slug,
+    standalone_expansions.id,standalone_expansions.name,standalone_expansions.slug,
+    parent_game.id,parent_game.name,parent_game.slug,
+    version_parent.id,version_parent.name,version_parent.slug,
+    remakes.id,remakes.name,remakes.slug,
+    remasters.id,remasters.name,remasters.slug,
+    similar_games.id,similar_games.name,similar_games.slug,similar_games.cover.image_id;
 APICALYPSE
                 ."where id = {$id};\nlimit 1;", 'text/plain')
             ->post('https://api.igdb.com/v4/games')
@@ -32,6 +63,36 @@ APICALYPSE
         }
 
         return $games[0];
+    }
+
+    /**
+     * Bounded title search. The query is embedded in an APICALYPSE `search`
+     * clause, so double quotes/backslashes are escaped to keep user input
+     * from breaking out of the string literal into the query language.
+     *
+     * @return list<array<string, mixed>>
+     */
+    public function search(string $query, int $limit = 12): array
+    {
+        $escaped = str_replace(['\\', '"'], ['\\\\', '\\"'], $query);
+        $limit = max(1, min($limit, 12));
+
+        $games = Http::acceptJson()
+            ->connectTimeout(3)
+            ->timeout(8)
+            ->withHeaders([
+                'Client-ID' => $this->clientId(),
+            ])
+            ->withToken($this->accessToken())
+            ->withBody(
+                "search \"{$escaped}\";\nfields name,cover.image_id,first_release_date,platforms.name;\nlimit {$limit};",
+                'text/plain'
+            )
+            ->post('https://api.igdb.com/v4/games')
+            ->throw()
+            ->json();
+
+        return is_array($games) ? $games : [];
     }
 
     private function accessToken(): string

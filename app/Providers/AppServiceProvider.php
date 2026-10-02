@@ -58,6 +58,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Request $request): void
     {
+        if (config('capacity.metrics_enabled')) {
+            app(\App\Services\CapacityMetrics::class)->register();
+        }
+
         // User Observer For Cache
         User::observe(UserObserver::class);
 
@@ -122,6 +126,6 @@ class AppServiceProvider extends ServiceProvider
 
         Auth::viaRequest('rsskey', fn (Request $request) => User::query()->where('rsskey', '=', $request->route('rsskey'))->first());
 
-        Context::add('url', $request->url());
+        Context::add('url', $request->is('announce/*') ? $request->root().'/announce/[redacted]' : $request->url());
     }
 }

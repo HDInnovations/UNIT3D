@@ -258,7 +258,7 @@ class Movie
             ->get('https://api.TheMovieDB.org/3/movie/{id}', [
                 'api_key'            => config('api-keys.tmdb'),
                 'language'           => config('app.meta_locale'),
-                'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
+                'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles,release_dates',
             ])
             ->throwIf(fn (Response $response) => !$response->notFound());
 
@@ -282,7 +282,7 @@ class Movie
                 ->get('https://api.TheMovieDB.org/3/movie/{id}', [
                     'api_key'            => config('api-keys.tmdb'),
                     'language'           => config('app.meta_fallback_locale'),
-                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles',
+                    'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles,release_dates',
                 ]);
 
             if ($fallback->successful()) {
@@ -313,6 +313,7 @@ class Movie
      *     title_sort: ?string,
      *     vote_average: ?float,
      *     vote_count: ?int,
+     *     raw: array<string, mixed>,
      * }
      */
     public function getMovie(): ?array
@@ -320,7 +321,7 @@ class Movie
         if ($this->data !== null && \array_key_exists('title', $this->data) && \is_string($this->data['title'])) {
             $titleSort = null;
 
-            if ($this->data['release_date'] !== null) {
+            if (($this->data['release_date'] ?? null) !== null) {
                 $re = '/((?<nameSort>.*)(?<separator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
                 preg_match($re, $this->data['title'], $matches);
 
@@ -354,6 +355,7 @@ class Movie
                 'vote_average'      => $this->data['vote_average'] ?? null,
                 'vote_count'        => $this->data['vote_count'] ?? null,
                 'trailer'           => $this->data['videos']['results'][0]['key'] ?? null,
+                'raw'               => $this->data,
             ];
         }
 

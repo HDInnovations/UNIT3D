@@ -1,0 +1,65 @@
+# Isolated capacity-benchmark nginx config. Mirrors the production FPM pool
+# split (web:9000 for everything except the tracker, tracker:9001 for
+# /announce/) so FPM saturation measured here matches production routing.
+# No public ports are published for this stack; every listener here is only
+# reachable from sibling containers on the private `capacitynet` network.
+server_tokens off;
+fastcgi_hide_header X-Powered-By;
+
+client_max_body_size 16m;
+
+resolver 127.0.0.11 valid=10s ipv6=off;
+
+server {
+    listen 80 default_server;
+    server_name ${SERVER_NAME};
+
+    location ^~ /announce/ {
+        include /etc/nginx/vltava-fastcgi-params.conf;
+        fastcgi_param SCRIPT_FILENAME /var/www/html/public/index.php;
+        fastcgi_param SCRIPT_NAME /index.php;
+        fastcgi_param HTTP_X_FORWARDED_FOR $http_x_forwarded_for;
+        fastcgi_param HTTP_X_FORWARDED_PROTO http;
+        fastcgi_param HTTP_X_FORWARDED_HOST $http_host;
+        fastcgi_param HTTP_X_FORWARDED_PORT $server_port;
+        fastcgi_pass capacity-app:9001;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl default_server;
+    server_name ${SERVER_NAME};
+
+    ssl_certificate /etc/nginx/certs/server.pem;
+    ssl_certificate_key /etc/nginx/certs/server.key;
+
+    root /var/www/html/public;
+    index index.php;
+
+    location ~* \.(?:css|js|mjs|map|svg|ico|png|jpe?g|gif|webp|woff2?|ttf|eot|txt|xml|webmanifest)$ {
+        access_log off;
+        try_files $uri =404;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /index.php {
+        include /etc/nginx/vltava-fastcgi-params.conf;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param HTTP_X_FORWARDED_FOR $http_x_forwarded_for;
+        fastcgi_param HTTP_X_FORWARDED_PROTO $scheme;
+        fastcgi_param HTTP_X_FORWARDED_HOST $http_host;
+        fastcgi_param HTTP_X_FORWARDED_PORT 443;
+        fastcgi_pass capacity-app:9000;
+    }
+
+    location ~ \.php$ {
+        return 404;
+    }
+}

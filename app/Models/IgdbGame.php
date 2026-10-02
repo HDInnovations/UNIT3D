@@ -33,6 +33,7 @@ use AllowDynamicProperties;
  * @property ?float                      $rating
  * @property ?int                        $rating_count
  * @property ?string                     $first_video_video_id
+ * @property ?array<string, mixed>       $raw
  * @property ?\Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  */
@@ -49,12 +50,13 @@ final class IgdbGame extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{first_release_date: 'datetime'}
+     * @return array{first_release_date: 'datetime', raw: 'array'}
      */
     protected function casts(): array
     {
         return [
             'first_release_date' => 'datetime',
+            'raw'                => 'array',
         ];
     }
 

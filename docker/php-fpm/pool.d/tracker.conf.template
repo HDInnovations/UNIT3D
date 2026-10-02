@@ -1,0 +1,45 @@
+[tracker]
+user = sail
+group = sail
+
+; Dedicated announce pool: isolated from `web` so a saturated tracker never
+; starves the member-facing site, and vice versa.
+listen = 9001
+listen.owner = sail
+listen.group = sail
+listen.mode = 0660
+
+pm = dynamic
+pm.max_children = ${TRACKER_FPM_MAX_CHILDREN}
+pm.start_servers = ${TRACKER_FPM_START_SERVERS}
+pm.min_spare_servers = ${TRACKER_FPM_MIN_SPARE_SERVERS}
+pm.max_spare_servers = ${TRACKER_FPM_MAX_SPARE_SERVERS}
+pm.max_requests = 500
+
+; Dedicated status/ping listener for this pool (PHP 8.2+): FPM spawns a
+; separate hidden pool to answer /status and /ping here, so a check never
+; queues behind this pool's own saturated workers. Not published to the
+; host; reachable only from sibling containers on the private network.
+pm.status_listen = 9101
+pm.status_path = /status
+ping.path = /ping
+ping.response = pong
+
+; Announce requests are expected to be short; terminate stuck workers faster
+; than the web pool so a slow peer/DB blip can't pin an entire worker.
+request_terminate_timeout = 30s
+
+clear_env = no
+
+catch_workers_output = yes
+decorate_workers_output = no
+
+; Announce latency is the primary signal this pool exists to observe; log
+; anything slower than a well-behaved announce round trip.
+slowlog = /proc/self/fd/2
+request_slowlog_timeout = 1s
+
+php_admin_value[error_log] = /proc/self/fd/2
+php_admin_flag[log_errors] = on
+php_admin_flag[display_errors] = off
+php_admin_value[error_reporting] = E_ALL & ~E_DEPRECATED

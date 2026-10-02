@@ -53,6 +53,14 @@
                 </p>
                 <p class="form__group">
                     <label for="image" class="form__label">{{ __('common.image') }}</label>
+                    @if ($article->image !== null)
+                        <img
+                            src="{{ route('authenticated_images.article_image', ['article' => $article]) }}"
+                            alt="{{ __('common.image') }}"
+                            width="75"
+                            height="75"
+                        />
+                    @endif
                     <input class="form__file" type="file" name="image" id="image" />
                 </p>
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('content'), 'required' => true, 'content' => $article->content ])

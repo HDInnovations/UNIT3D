@@ -125,3 +125,213 @@
 .torrent__times-completed-count.torrent__times-completed-count {
     color: var(--torrent-row-completed-fg);
 }
+
+/* Upload form category section
+---------------------------------------------------------------------------- */
+
+.page__torrent--create {
+    .upload-category-section {
+        margin-bottom: 20px;
+        border-width: 2px;
+    }
+
+    .upload-category-section > .form__legend {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .upload-category-section > .form__hint {
+        margin: 0 0 12px;
+    }
+
+    .upload-form .form__label--floating {
+        max-width: calc(100% - 24px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .upload-form,
+    .upload-form * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .upload-metadata-fetch {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .upload-metadata-fields {
+        margin: 8px 0;
+        min-width: 0;
+        padding: 16px;
+    }
+
+    .upload-metadata-fields > .form__hint {
+        margin: 0 0 16px;
+    }
+
+    .upload-metadata-fields__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .upload-metadata-fields__field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin: 0;
+        min-width: 0;
+    }
+
+    .upload-metadata-fields__field > .form__textarea {
+        width: 100%;
+        min-width: 0;
+        resize: vertical;
+    }
+
+    @media screen and (max-width: 767px) {
+        .upload-metadata-fields__grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    .upload-metadata-fetch__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+    }
+
+    .upload-metadata-fetch__hint {
+        margin: 0;
+    }
+
+    .upload-metadata-fetch__error {
+        color: var(--form-error-fg, #d33);
+        margin: 0;
+    }
+
+    .upload-metadata-fetch__result {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 12px;
+        border: 1px solid var(--panel-border, currentcolor);
+        border-radius: 4px;
+    }
+
+    .upload-metadata-fetch__cover {
+        max-width: 100px;
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .upload-metadata-fetch__details {
+        margin: 0;
+        flex: 1 1 200px;
+        min-width: 0;
+    }
+
+    .upload-metadata-fetch__row {
+        display: flex;
+        gap: 6px;
+        margin: 0 0 4px;
+    }
+
+    .upload-metadata-fetch__row > dt {
+        font-weight: bold;
+    }
+
+    .upload-metadata-fetch__row > dd {
+        margin: 0;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    .upload-metadata-fetch__raw {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+
+    .upload-metadata-fetch__raw-toggle {
+        margin-bottom: 8px;
+    }
+
+    .upload-metadata-fetch__raw-json {
+        max-width: 100%;
+        max-height: 360px;
+        overflow: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        padding: 8px;
+        border: 1px solid var(--panel-border, currentcolor);
+        border-radius: 4px;
+    }
+
+    .upload-metadata-fetch__warning {
+        flex-basis: 100%;
+        margin: 0;
+        font-style: italic;
+        opacity: 0.85;
+    }
+}
+
+.rich-metadata-panel {
+    margin: 10px 0;
+}
+
+.rich-metadata {
+    min-width: 0;
+}
+
+.rich-metadata__heading {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+.rich-metadata__list {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 6px 12px;
+    margin: 0 0 16px;
+}
+
+.rich-metadata__list > dt {
+    font-weight: bold;
+}
+
+.rich-metadata__list > dd {
+    margin: 0;
+    min-width: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.rich-metadata__summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.rich-metadata__json {
+    max-width: 100%;
+    max-height: 520px;
+    overflow: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    padding: 8px;
+    border: 1px solid var(--panel-border, currentcolor);
+    border-radius: 4px;
+}
+
+@media screen and (max-width: 767px) {
+    .rich-metadata__list {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

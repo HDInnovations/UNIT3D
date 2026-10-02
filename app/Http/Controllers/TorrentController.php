@@ -21,6 +21,7 @@ use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
+use App\Helpers\UploadKinds;
 use App\Http\Requests\StoreTorrentRequest;
 use App\Jobs\ProcessMusicBrainzReleaseJob;
 use App\Jobs\ProcessOpenLibraryEditionJob;
@@ -43,6 +44,9 @@ use App\Notifications\TorrentDeleted;
 use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Media\MediaVariantExtractor;
+use App\Services\Media\MediaWorkCatalog;
+use App\Services\Metadata\MetadataSelectionStore;
+use App\Models\UploadDraft;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
@@ -103,6 +107,7 @@ class TorrentController extends Controller
                 'history' => fn ($query) => $query->where('user_id', '=', $user->id),
                 'keywords',
                 'metadata',
+                'mediaWork',
                 'mediaVariant.edition',
                 'movie' => [
                     'genres',
@@ -419,6 +424,8 @@ class TorrentController extends Controller
             default                          => null,
         };
 
+        app(MediaWorkCatalog::class)->sync($torrent);
+
         return to_route('torrents.show', ['id' => $id])
             ->with('success', __('application-messages.flash.torrent-edited'));
     }
@@ -491,23 +498,38 @@ class TorrentController extends Controller
         $user = $request->user();
         abort_unless($user->can_upload ?? $user->group->can_upload, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
+        // Localized labels for the built-in categories seeded by CategorySeeder.
+        // Custom/admin-created categories fall back to their raw name.
+        $defaultCategoryLabels = [
+            'Movies'   => 'torrent.category-movies',
+            'TV'       => 'torrent.category-tv',
+            'Music'    => 'torrent.category-music',
+            'Games'    => 'torrent.category-games',
+            'Software' => 'torrent.category-software',
+            'Books'    => 'torrent.category-books',
+            'Other'    => 'torrent.category-other',
+            'XXX'      => 'torrent.category-xxx',
+        ];
+
         return view('torrent.create', [
             'categories' => Category::orderBy('position')
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
-                    'name' => $category->name,
-                    'type' => match (true) {
-                        $category->movie_meta => 'movie',
-                        $category->tv_meta    => 'tv',
-                        $category->game_meta  => 'game',
-                        $category->music_meta => 'music',
-                        $category->book_meta  => 'book',
-                        $category->no_meta    => 'no',
-                        default               => 'no',
-                    },
+                    'name'  => $category->name,
+                    'label' => \array_key_exists($category->name, $defaultCategoryLabels)
+                        ? __($defaultCategoryLabels[$category->name])
+                        : $category->name,
+                    'type' => UploadKinds::categoryKind($category),
                 ]])
                 ->toArray(),
-            'types'        => Type::orderBy('position')->get(),
+            'types' => Type::orderBy('position')->get()->map(function ($type) {
+                // setAttribute (rather than a plain dynamic property) so this
+                // shows up when the collection is serialized to JSON/array for
+                // the view's front-end script.
+                $type->setAttribute('upload_kinds', UploadKinds::typeKinds($type->name));
+
+                return $type;
+            }),
             'resolutions'  => Resolution::orderBy('position')->get(),
             'regions'      => Region::orderBy('position')->get(),
             'distributors' => Distributor::orderBy('name')->get(),
@@ -535,6 +557,11 @@ class TorrentController extends Controller
 
         abort_if(\is_array($request->file('nfo')), 400);
 
+        $category = Category::findOrFail($request->integer('category_id'));
+        $lookup = $request->filled('metadata_selection_token')
+            ? app(MetadataSelectionStore::class)->retrieve($user, $category, $request->string('metadata_selection_token')->toString())
+            : null;
+
         $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
 
         $meta = Bencode::get_meta($decodedTorrent);
@@ -553,12 +580,21 @@ class TorrentController extends Controller
             'user_id'      => $user->id,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except(['torrent', 'musicbrainz_release_id', 'open_library_edition_id', 'edition_kind', 'edition_name', 'edition_provenance']));
+        ] + $request->safe()->except([
+            'torrent', 'musicbrainz_id', 'open_library_edition_id',
+            'edition_kind', 'edition_name', 'edition_provenance',
+            'metadata_selection_token', 'media_work_id', 'upload_draft_id',
+        ]));
+
+        $catalog = app(MediaWorkCatalog::class);
+        $catalog->attach($torrent, $lookup, $request->filled('media_work_id') ? $request->integer('media_work_id') : null);
+
+        if ($lookup === null && !$request->filled('media_work_id')) {
+            $catalog->sync($torrent);
+        }
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
-
-        $category = Category::findOrFail($request->integer('category_id'));
 
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
@@ -607,8 +643,8 @@ class TorrentController extends Controller
             default                          => null,
         };
 
-        if ($request->filled('musicbrainz_release_id')) {
-            ProcessMusicBrainzReleaseJob::dispatch($torrent->id, $request->string('musicbrainz_release_id')->toString());
+        if ($request->filled('musicbrainz_id')) {
+            ProcessMusicBrainzReleaseJob::dispatch($torrent->id, $request->string('musicbrainz_id')->toString());
         }
 
         if ($request->filled('open_library_edition_id')) {
@@ -669,6 +705,13 @@ class TorrentController extends Controller
             }
 
             TorrentHelper::approveHelper($torrent->id);
+        }
+
+        if ($request->filled('upload_draft_id')) {
+            UploadDraft::query()
+                ->whereKey($request->integer('upload_draft_id'))
+                ->where('user_id', $request->user()->id)
+                ->delete();
         }
 
         return to_route('download_check', ['id' => $torrent->id])

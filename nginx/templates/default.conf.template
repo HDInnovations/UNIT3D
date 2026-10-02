@@ -1,19 +1,72 @@
 # http context: do not advertise nginx or PHP versions to clients.
 server_tokens off;
 proxy_hide_header X-Powered-By;
+fastcgi_hide_header X-Powered-By;
+
+# Match PHP's 100 MiB request limit; application validators enforce per-file limits.
+client_max_body_size 100m;
+
+# Compress text-based responses in-flight; binary/image assets below are
+# served as-is since they are already compressed formats.
+gzip on;
+gzip_vary on;
+gzip_comp_level 5;
+gzip_min_length 256;
+gzip_proxied any;
+gzip_types text/plain text/css text/xml text/javascript application/json
+    application/javascript application/xml+rss application/atom+xml
+    image/svg+xml font/ttf font/otf application/manifest+json;
+
+# Services referenced below can be recreated independently of nginx; resolve
+# their Docker DNS names per-request instead of caching the IP at startup.
+resolver 127.0.0.11 valid=10s ipv6=off;
+
+# Only the unpublished internal listener honors the adapter's canonical origin.
+map $http_x_forwarded_proto $internal_proto {
+    default http;
+    https https;
+}
+map $http_x_forwarded_port $internal_port {
+    default 80;
+    ~^[0-9]+$ $http_x_forwarded_port;
+}
+
+# Announce passkeys (and, for symmetry, any apikey query string) live in the
+# request path/args, which the default "combined" access-log format would
+# otherwise record verbatim. Log a sanitized route label instead so slow
+# requests stay observable without leaking credentials into access logs.
+map $uri $log_route {
+    default         $uri;
+    ~^/announce/    "/announce/[redacted]";
+}
+
+# Slow-request timing without raw URI/args for sensitive routes: method,
+# sanitized route, status, bytes sent, total request time and upstream
+# (fastcgi) response time.
+log_format timed '$remote_addr - [$time_local] "$request_method $log_route" '
+    '$status $body_bytes_sent rt=$request_time uct=$upstream_connect_time '
+    'urt=$upstream_response_time';
 
 server {
     listen 80 default_server;
     server_name ${SERVER_NAME};
+    access_log /var/log/nginx/access.log timed;
+
+    set $php_fpm_tracker_backend laravel.test;
 
     # qBittorrent reaches this route over the private Docker network while
     # seeding local source media. All host-facing tracker access remains HTTPS.
+    # Served by the dedicated `tracker` FPM pool (isolated from member-facing
+    # `web` traffic); see docker/php-fpm/pool.d/tracker.conf.template.
     location ^~ /announce/ {
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header Host $host;
-        proxy_pass http://${APP_SERVICE};
+        include /etc/nginx/vltava-fastcgi-params.conf;
+        fastcgi_param SCRIPT_FILENAME /var/www/html/public/index.php;
+        fastcgi_param SCRIPT_NAME /index.php;
+        fastcgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+        fastcgi_param HTTP_X_FORWARDED_PROTO http;
+        fastcgi_param HTTP_X_FORWARDED_HOST $http_host;
+        fastcgi_param HTTP_X_FORWARDED_PORT $server_port;
+        fastcgi_pass $php_fpm_tracker_backend:9001;
     }
 
     location / {
@@ -21,17 +74,68 @@ server {
     }
 }
 
+# Internal-only plain HTTP entry point for backend-to-backend calls (the
+# Torznab adapter fetching data back from the app). Not published to the
+# host; only reachable from sibling containers on the private Docker network.
+server {
+    listen 8081;
+    server_name _;
+    access_log /var/log/nginx/access.log timed;
+
+    set $php_fpm_web_backend laravel.test;
+
+    root /var/www/html/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /index.php {
+        include /etc/nginx/vltava-fastcgi-params.conf;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+        fastcgi_param HTTP_X_FORWARDED_PROTO $internal_proto;
+        fastcgi_param HTTP_X_FORWARDED_HOST $http_host;
+        fastcgi_param HTTP_X_FORWARDED_PORT $internal_port;
+        fastcgi_pass $php_fpm_web_backend:9000;
+    }
+
+    location ~ \.php$ {
+        return 404;
+    }
+}
+
 server {
     listen 443 ssl default_server;
     server_name ${SERVER_NAME};
+    access_log /var/log/nginx/access.log timed;
 
     # Self-signed certificate for local development only.
     ssl_certificate /etc/nginx/certs/server.pem;
     ssl_certificate_key /etc/nginx/certs/server.key;
 
+    set $php_fpm_web_backend laravel.test;
+    set $php_fpm_tracker_backend laravel.test;
+
+    root /var/www/html/public;
+    index index.php;
+
+    # Some private trackers/clients announce over HTTPS directly; served by
+    # the dedicated `tracker` FPM pool, same as the HTTP(80) announce route.
+    location ^~ /announce/ {
+        include /etc/nginx/vltava-fastcgi-params.conf;
+        fastcgi_param SCRIPT_FILENAME /var/www/html/public/index.php;
+        fastcgi_param SCRIPT_NAME /index.php;
+        fastcgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+        fastcgi_param HTTP_X_FORWARDED_PROTO $scheme;
+        fastcgi_param HTTP_X_FORWARDED_HOST $http_host;
+        fastcgi_param HTTP_X_FORWARDED_PORT 443;
+        fastcgi_pass $php_fpm_tracker_backend:9001;
+    }
+
     # Torznab clients transmit their personal UNIT3D API token as `apikey`.
     # Do not retain that query string in nginx access logs.
-    resolver 127.0.0.11 valid=10s ipv6=off;
     set $torznab_adapter torznab-adapter;
     location = /torznab/api {
         access_log off;
@@ -54,13 +158,44 @@ server {
         proxy_pass http://reverb:8080;
     }
 
+    # Content-hashed build output (Vite `/build/assets/...`): the filename
+    # changes whenever the content does, so caching it forever is safe.
+    location ~ /\.(?!well-known(?:/|$)) {
+        deny all;
+    }
+
+    location ~ ^/build/assets/.+-[A-Za-z0-9_-]+\.(?:css|js|mjs|svg|png|jpe?g|gif|webp|avif|woff2?|ttf|otf|eot)$ {
+        access_log off;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # Other static files are not content-hashed and can change in place
+    # (e.g. favicon, manifest, fonts copied verbatim); serve them directly
+    # without handing the request to a PHP worker, but avoid long/implicit
+    # caching that would go stale after a deploy.
+    location ~* \.(?:css|js|mjs|map|svg|ico|png|jpe?g|gif|webp|woff2?|ttf|eot|txt|xml|webmanifest)$ {
+        access_log off;
+        add_header Cache-Control "no-cache";
+        try_files $uri =404;
+    }
+
     location / {
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $http_host;
-        proxy_set_header X-Forwarded-Port 443;
-        proxy_pass http://${APP_SERVICE};
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /index.php {
+        include /etc/nginx/vltava-fastcgi-params.conf;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
+        fastcgi_param HTTP_X_FORWARDED_PROTO $scheme;
+        fastcgi_param HTTP_X_FORWARDED_HOST $http_host;
+        fastcgi_param HTTP_X_FORWARDED_PORT 443;
+        fastcgi_pass $php_fpm_web_backend:9000;
+    }
+
+    location ~ \.php$ {
+        return 404;
     }
 }

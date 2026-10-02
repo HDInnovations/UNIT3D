@@ -1,0 +1,270 @@
+# cspell:ignore meili capacitynet
+#
+# Isolated, disposable capacity-benchmark stack. NEVER points at production
+# credentials, the production MySQL/Redis/Meilisearch endpoints, or any
+# publicly reachable port. Run only via scripts/capacity/*.sh.
+#
+# Resource caps: this shares the live host, not dedicated hardware. Every
+# service sets `cpus`/`mem_limit`; the sum across all services (including the
+# one-off k6 driver) is capped at 26.625 logical CPUs / 27GiB, under the
+# host's 32 threads / 128GiB, so results must be read as "this capped slice's
+# capacity", never extrapolated to the full machine.
+#
+# The split follows measurement, not guesswork: at an unqueued rate the PHP
+# request path costs 40.7ms per announce and 152ms per web roundtrip, so
+# 121 announce/s + 60 web/s needs ~14 CPU-seconds per second of request work;
+# `ProcessAnnounce` measured 20.4ms per job, so 121 announces/s needs ~2.5
+# CPU-seconds per second of worker work, spread over 6 single-threaded
+# workers because one worker can only ever use one core.
+#
+# `capacity-meilisearch` holds 4 CPUs because every catalogue page and search
+# island hits it: at 20 web/s it pinned a 0.75-CPU cap at 76% while
+# `capacity-app` sat at 1.4 cores, i.e. the search engine -- not PHP -- was
+# the member-facing ceiling.
+#
+# Usage:
+#   docker compose -p capacity -f docker-compose.capacity.yml build
+#   scripts/capacity/bootstrap.sh
+#   scripts/capacity/run-scenario.sh baseline
+#   docker compose -p capacity -f docker-compose.capacity.yml down -v
+name: capacity
+services:
+    capacity-mysql:
+        image: 'mysql:8.4.11'
+        restart: 'no'
+        cpus: 2
+        mem_limit: 8g
+        environment:
+            MYSQL_ROOT_PASSWORD: 'capacity_root_local_only'
+            MYSQL_DATABASE: 'capacity'
+            MYSQL_USER: 'capacity'
+            MYSQL_PASSWORD: 'capacity_local_only'
+        command:
+            - '--innodb-buffer-pool-size=2G'
+            - '--max-connections=400'
+        volumes:
+            - 'capacity_mysql:/var/lib/mysql'
+        networks:
+            - capacitynet
+        healthcheck:
+            test: ['CMD', 'mysqladmin', 'ping', '-uroot', '-pcapacity_root_local_only']
+            interval: 5s
+            retries: 20
+            timeout: 5s
+    capacity-redis:
+        image: 'redis:8.10.2-alpine'
+        restart: 'no'
+        cpus: 0.5
+        mem_limit: 2g
+        volumes:
+            - 'capacity_redis:/data'
+        networks:
+            - capacitynet
+        healthcheck:
+            test: ['CMD', 'redis-cli', 'ping']
+            interval: 5s
+            retries: 20
+            timeout: 5s
+    capacity-meilisearch:
+        image: 'getmeili/meilisearch:v1.54.1'
+        restart: 'no'
+        cpus: 4
+        mem_limit: 4g
+        environment:
+            MEILI_MASTER_KEY: 'capacity_meili_local_only_key'
+            MEILI_NO_ANALYTICS: 'true'
+        volumes:
+            - 'capacity_meilisearch:/meili_data'
+        networks:
+            - capacitynet
+        healthcheck:
+            test: ['CMD', 'wget', '--no-verbose', '--spider', 'http://127.0.0.1:7700/health']
+            interval: 5s
+            retries: 20
+            timeout: 5s
+    capacity-app:
+        build:
+            context: ./docker/php-fpm
+            additional_contexts:
+                sail: 'docker-image://sail-8.4/app'
+        image: sail-8.4/fpm
+        restart: 'no'
+        cpus: 12
+        mem_limit: 4g
+        env_file:
+            - .env.capacity
+        environment:
+            WWWUSER: '${WWWUSER:-1000}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: 'off'
+            # Sweep these to find the pool sizes the measurement then justifies.
+            WEB_FPM_MAX_CHILDREN: '${WEB_FPM_MAX_CHILDREN:-24}'
+            WEB_FPM_START_SERVERS: '${WEB_FPM_START_SERVERS:-10}'
+            WEB_FPM_MIN_SPARE_SERVERS: '${WEB_FPM_MIN_SPARE_SERVERS:-6}'
+            WEB_FPM_MAX_SPARE_SERVERS: '${WEB_FPM_MAX_SPARE_SERVERS:-16}'
+            TRACKER_FPM_MAX_CHILDREN: '${TRACKER_FPM_MAX_CHILDREN:-24}'
+            TRACKER_FPM_START_SERVERS: '${TRACKER_FPM_START_SERVERS:-8}'
+            TRACKER_FPM_MIN_SPARE_SERVERS: '${TRACKER_FPM_MIN_SPARE_SERVERS:-6}'
+            TRACKER_FPM_MAX_SPARE_SERVERS: '${TRACKER_FPM_MAX_SPARE_SERVERS:-12}'
+        volumes:
+            - '.:/var/www/html:ro'
+            - 'capacity_storage:/var/www/html/storage'
+            - 'capacity_bootstrap_cache:/var/www/html/bootstrap/cache'
+            - 'capacity_config_cache:/tmp'
+            - './scripts/capacity/results:/var/www/capacity-results'
+        networks:
+            - capacitynet
+        depends_on:
+            capacity-mysql:
+                condition: service_healthy
+            capacity-redis:
+                condition: service_healthy
+            capacity-meilisearch:
+                condition: service_healthy
+    capacity-queue-default:
+        image: sail-8.4/fpm
+        restart: 'no'
+        cpus: 0.125
+        mem_limit: 1g
+        env_file:
+            - .env.capacity
+        environment:
+            WWWUSER: '${WWWUSER:-1000}'
+            LARAVEL_SAIL: 1
+        command: php artisan queue:work redis --queue=default --sleep=1 --tries=3 --timeout=120 --max-jobs=0
+        volumes:
+            - '.:/var/www/html:ro'
+            - 'capacity_storage:/var/www/html/storage'
+            - 'capacity_bootstrap_cache:/var/www/html/bootstrap/cache'
+            - 'capacity_config_cache:/tmp'
+        networks:
+            - capacitynet
+        depends_on:
+            capacity-mysql:
+                condition: service_healthy
+            capacity-redis:
+                condition: service_healthy
+    capacity-queue-tracker:
+        image: sail-8.4/fpm
+        restart: 'no'
+        deploy:
+            replicas: 6
+        cpus: 1
+        mem_limit: 512m
+        env_file:
+            - .env.capacity
+        environment:
+            WWWUSER: '${WWWUSER:-1000}'
+            LARAVEL_SAIL: 1
+        command: php artisan queue:work redis --queue=tracker --sleep=1 --tries=3 --timeout=90 --max-jobs=0
+        stop_grace_period: 100s
+        volumes:
+            - '.:/var/www/html:ro'
+            - 'capacity_storage:/var/www/html/storage'
+            - 'capacity_bootstrap_cache:/var/www/html/bootstrap/cache'
+            - 'capacity_config_cache:/tmp'
+        networks:
+            - capacitynet
+        depends_on:
+            capacity-mysql:
+                condition: service_healthy
+            capacity-redis:
+                condition: service_healthy
+    # Without this, `auto:upsert_peers`/`auto:upsert_histories`/
+    # `auto:upsert_announces` (and the rest of app/Console/Kernel.php's
+    # schedule) never run, so `peers`/`history` would never be flushed from
+    # the Redis batch lists at all -- only the synchronous
+    # `peer_announce_cursors` write and the `users` credit would ever update.
+    #
+    # Measured: one flush of a 64k-row backlog takes ~12s and peaks at ~210MiB.
+    # Several flushes can run concurrently, so a 0.125-CPU/512MiB cap made them
+    # run for minutes, overlap and get OOM-killed (exit 137) -- the backlog
+    # then never drained even though no data was lost.
+    capacity-schedule:
+        image: sail-8.4/fpm
+        restart: 'no'
+        cpus: 1
+        mem_limit: 1g
+        env_file:
+            - .env.capacity
+        environment:
+            WWWUSER: '${WWWUSER:-1000}'
+            LARAVEL_SAIL: 1
+        command: php artisan schedule:work
+        volumes:
+            - '.:/var/www/html:ro'
+            - 'capacity_storage:/var/www/html/storage'
+            - 'capacity_bootstrap_cache:/var/www/html/bootstrap/cache'
+            - 'capacity_config_cache:/tmp'
+        networks:
+            - capacitynet
+        depends_on:
+            capacity-mysql:
+                condition: service_healthy
+            capacity-redis:
+                condition: service_healthy
+    capacity-nginx:
+        image: 'nginx:1.31.6'
+        restart: 'no'
+        cpus: 0.25
+        mem_limit: 512m
+        environment:
+            - SERVER_NAME=capacity.test
+            - SSL_DOMAIN=capacity.test
+            - SSL_ALT_NAME=DNS:capacity.test
+        volumes:
+            - 'capacity_nginx_certs:/etc/nginx/certs'
+            - './scripts/capacity/nginx/templates:/etc/nginx/templates'
+            - './nginx/fastcgi-params.conf:/etc/nginx/vltava-fastcgi-params.conf:ro'
+            - './public:/var/www/html/public:ro'
+            - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
+        networks:
+            - capacitynet
+        depends_on:
+            - capacity-app
+    # One-off driver: `docker compose -p capacity run --rm capacity-k6 run /scripts/<file>.js`.
+    # Never started by `up`; has no dependency on the live host network.
+    capacity-k6:
+        profiles: ['load']
+        image: 'grafana/k6:1.3.0'
+        user: '${WWWUSER:-1000}:${WWWGROUP:-1000}'
+        restart: 'no'
+        cpus: 1
+        mem_limit: 2g
+        environment:
+            - K6_INSECURE_SKIP_TLS_VERIFY=true
+        volumes:
+            - './scripts/capacity/k6:/scripts:ro'
+            - './scripts/capacity/results:/results'
+        networks:
+            - capacitynet
+networks:
+    capacitynet:
+        driver: bridge
+        # No route to the internet at all: besides "no public ports", this
+        # guarantees the isolated stack can never make an outbound
+        # TMDB/MusicBrainz/Open Library/etc. metadata call even by accident
+        # (images are already built/pulled before this network exists).
+        internal: true
+volumes:
+    capacity_mysql:
+        name: 'capacity_mysql'
+        driver: local
+    capacity_redis:
+        name: 'capacity_redis'
+        driver: local
+    capacity_meilisearch:
+        name: 'capacity_meilisearch'
+        driver: local
+    capacity_storage:
+        name: 'capacity_storage'
+        driver: local
+    capacity_bootstrap_cache:
+        name: 'capacity_bootstrap_cache'
+        driver: local
+    capacity_config_cache:
+        name: 'capacity_config_cache'
+        driver: local
+    capacity_nginx_certs:
+        name: 'capacity_nginx_certs'
+        driver: local

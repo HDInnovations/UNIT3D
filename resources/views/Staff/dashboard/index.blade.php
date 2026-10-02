@@ -296,6 +296,17 @@
                         {{ __('staff.torrent-moderation') }}
                     </a>
                 </p>
+                @if (auth()->user()->group->is_modo || auth()->user()->group->is_editor || auth()->user()->group->is_torrent_modo)
+                    <p class="form__group form__group--horizontal">
+                        <a
+                            class="form__button form__button--text"
+                            href="{{ route('staff.metadata-quality.index') }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-check"></i>
+                            {{ __('metadata-quality.nav.link') }}
+                        </a>
+                    </p>
+                @endif
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"

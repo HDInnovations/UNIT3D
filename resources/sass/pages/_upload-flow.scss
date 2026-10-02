@@ -1,0 +1,229 @@
+/* Upload flow: drafts, provider/title discovery, existing-title search, and
+   preview panel on the torrent create form.
+---------------------------------------------------------------------------- */
+
+.page__torrent--create {
+    .upload-drafts,
+    .upload-discovery,
+    .upload-work-search,
+    .upload-preview-panel {
+        margin-bottom: 20px;
+        border-width: 2px;
+    }
+
+    .upload-drafts > .form__legend,
+    .upload-discovery > .form__legend,
+    .upload-work-search > .form__legend {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .upload-drafts > .form__hint,
+    .upload-discovery > .form__hint,
+    .upload-work-search > .form__hint {
+        margin: 0 0 12px;
+    }
+
+    .upload-drafts__actions,
+    .upload-discovery__actions,
+    .upload-work-search__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    .upload-drafts__actions .form__group,
+    .upload-discovery__actions .form__group,
+    .upload-work-search__actions .form__group {
+        flex: 1 1 220px;
+        min-width: 0;
+    }
+
+    .upload-drafts__status,
+    .upload-discovery__status,
+    .upload-work-search__status {
+        margin: 8px 0 0;
+    }
+
+    .upload-drafts__error,
+    .upload-discovery__error,
+    .upload-work-search__error {
+        color: var(--form-error-fg, #d33);
+        margin: 8px 0 0;
+    }
+
+    .upload-drafts__list {
+        list-style: none;
+        margin: 12px 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .upload-drafts__row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 4px;
+        background-color: var(--key-value-odd-bg);
+    }
+
+    .upload-drafts__row-name {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+
+    .upload-drafts__row-meta {
+        font-size: 12px;
+        opacity: 0.8;
+    }
+
+    .upload-discovery__results,
+    .upload-work-search__results {
+        list-style: none;
+        margin: 12px 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 12px;
+    }
+
+    .upload-discovery__result,
+    .upload-work-search__result {
+        display: flex;
+        gap: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: var(--key-value-odd-bg);
+    }
+
+    .upload-discovery__result-cover {
+        width: 46px;
+        height: 64px;
+        object-fit: cover;
+        flex: 0 0 auto;
+        border-radius: 2px;
+    }
+
+    .upload-discovery__result-body,
+    .upload-work-search__result-body {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .upload-discovery__result-title,
+    .upload-work-search__result-title {
+        font-weight: bold;
+        overflow-wrap: anywhere;
+    }
+
+    .upload-discovery__result-subtitle {
+        font-size: 12px;
+        opacity: 0.85;
+    }
+
+    .upload-discovery__editions {
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid var(--panel-border, rgba(128, 128, 128, 0.3));
+    }
+
+    .upload-discovery__selected,
+    .upload-work-search__selected {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-top: 12px;
+        padding: 8px 10px;
+        border-radius: 4px;
+        background-color: var(--key-value-even-bg);
+    }
+
+    .upload-preview-panel__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .upload-preview-panel__error {
+        color: var(--form-error-fg, #d33);
+        margin: 8px 0 0;
+    }
+
+    .upload-preview-panel__error-list {
+        margin: 4px 0 0;
+        padding-left: 18px;
+    }
+
+    .upload-preview-panel__body {
+        margin-top: 12px;
+    }
+
+    .upload-preview__body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .upload-preview__cover {
+        max-width: 140px;
+        max-height: 200px;
+        object-fit: cover;
+        flex: 0 0 auto;
+    }
+
+    .upload-preview__main {
+        flex: 1 1 260px;
+        min-width: 0;
+    }
+
+    .upload-preview__title {
+        margin: 0 0 8px;
+    }
+
+    .upload-preview__facts {
+        max-width: 480px;
+    }
+
+    .upload-preview__keywords {
+        margin: 10px 0 0;
+    }
+
+    @media screen and (max-width: 767px) {
+        .upload-discovery__results,
+        .upload-work-search__results {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .upload-preview__cover {
+            max-width: 100px;
+            max-height: 150px;
+        }
+    }
+
+    @media screen and (max-width: 390px) {
+        .upload-drafts__actions .form__group,
+        .upload-discovery__actions .form__group,
+        .upload-work-search__actions .form__group {
+            flex-basis: 100%;
+        }
+
+        .upload-drafts__row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+}

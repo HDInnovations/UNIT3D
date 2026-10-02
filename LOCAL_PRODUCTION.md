@@ -41,13 +41,66 @@ Registration is invite-only (`config/other.php`). Members use a personal UNIT3D 
 
 Mail uses the internal Mailpit SMTP service. Meilisearch uses a generated master key in `.env`; do not publish either service.
 
+`laravel.test` runs PHP-FPM with OPcache; queue, scheduler, and Reverb use the same `sail-8.4/fpm` image for CLI work. nginx serves `public/` files directly, gzip-compresses text responses, marks only content-hashed `/build/assets/*` files immutable for one year, and revalidates mutable static files. It sends application requests over FastCGI with nginx's Docker address as `REMOTE_ADDR`, preserving the `TrustProxies` boundary. The unpublished internal listener `nginx:8081` lets the Torznab adapter call the API without exposing HTTP; the adapter forwards `APP_URL`'s origin so returned links stay public.
+
+Build or rebuild the runtime after changing Sail or `docker/php-fpm/*`:
+
+```sh
+docker compose --profile build build laravel.test
+docker compose up -d --no-deps --force-recreate laravel.test nginx queue schedule reverb torznab-adapter
+docker compose exec -T nginx nginx -t
+```
+
+Recreate containers after moving the checkout; `restart` retains stale absolute bind mounts. Keep the existing named-volume overrides intact. Frontend builds run as the app user: `docker compose exec -T -u sail laravel.test npm run build`.
+
+nginx's `client_max_body_size` is explicitly 100 MiB, matching PHP-FPM's `post_max_size`/`upload_max_filesize`. Laravel keeps its stricter per-file limits (article images: 10 MiB). An nginx HTTP 413 never reaches application validation; the stock 1 MiB default rejects ordinary images.
+
 `TMDB_API_KEY` is configured locally for metadata. Never commit `.env`.
 
-The internal `queue` worker fetches TMDb metadata and processes tracker jobs. The `schedule` worker applies peer, history, and announce batches every five seconds. Reverb serves private and presence WebSockets internally on port 8080; nginx proxies only `/app` and `/apps` over the tracker HTTPS origin. qBittorrent has the movie library mounted read-only at `/media/movies` so it can become the initial seed without changing source media.
+The internal `queue` worker fetches TMDb metadata and other background jobs; six `tracker-queue` workers consume announce jobs on their own queue, so metadata work can never delay peer accounting. The `schedule` worker applies peer, history, and announce batches every five seconds. Reverb serves private and presence WebSockets internally on port 8080; nginx proxies only `/app` and `/apps` over the tracker HTTPS origin. qBittorrent has the movie library mounted read-only at `/media/movies` so it can become the initial seed without changing source media.
+
+### Capacity measurement
+
+`docker-compose.capacity.yml` plus `scripts/capacity/*` run a disposable benchmark stack (own MySQL, Redis, Meilisearch, nginx, PHP-FPM, queue workers, scheduler) on an internal network with no route to the internet and no published port. It never reads or writes the live database, Redis or search index.
+
+```sh
+scripts/capacity/bootstrap.sh --fresh          # schema + 10 000 users / 10 000 torrents / 40 000 peers
+scripts/capacity/run-scenario.sh baseline      # 121 announces/s + 60 member requests/s for 5 minutes
+scripts/capacity/run-scenario.sh sustained     # same rates for 15 minutes plus worker restart and ≤5 s MySQL pause
+scripts/capacity/teardown.sh                   # removes the stack and its volumes
+```
+
+Pass `--build` to `bootstrap.sh` after changing `docker/php-fpm/*`; otherwise it reuses the local runtime image and needs no registry access. Each run writes `scripts/capacity/results/<timestamp>-<scenario>/` with the k6 summary, a `capacity:status` timeline, the canary verification log and `report.json`. Errors and latency are reported per phase (`steady`, `worker_restart`, `db_outage`, `recovery`), so an injected fault is never averaged into the steady-state result, and the run fails if the tracker queue and Redis batches do not drain.
+
+Measured on this workstation with the live stack running beside it (benchmark slice capped at 26.625 of 32 threads, `capacity-app` 12 CPUs, Meilisearch 4, six tracker workers, both FPM pools 24 workers):
+
+| Signal | Result |
+| --- | --- |
+| Announce | 85.6/s sustained, median 3.1 s, p95 3.3 s, 0 failures |
+| Member requests | 24.9/s sustained, median 8.8 s, p95 11.2 s, 0 failures |
+| Tracker queue | peak 2 978 jobs, oldest 27 s, fully drained after the run |
+| Canary accounting | credited bytes exactly equal to what was sent |
+
+Both FPM pools stay pinned at their ceiling for the whole run, so this is the slice's throughput limit, not a healthy operating point: the benchmark's 121 + 60 requests/s demand exceeds what 12 CPUs of PHP can serve at the measured per-request cost. Real traffic is far below this — announce intervals are 300–360 s, so 85 announces/s corresponds to roughly 25 000 active peers. The two pools are deliberately given the same worker ceiling so a saturated member site cannot take the CPU the announce path needs; raise `WEB_FPM_MAX_CHILDREN`/`TRACKER_FPM_MAX_CHILDREN` only after re-measuring.
+
+The 15-minute `sustained` run (restart of all six tracker workers at t+300 s, MySQL paused for 5 s at t+600 s) at the same rates:
+
+| Phase | Announces (failed) | Member requests (failed) |
+| --- | --- | --- |
+| Worker restart | 1 022 (0) | 492 (0) |
+| MySQL pause | 327 (209 hit the 8 s client timeout) | 269 (0, median 13.7 s) |
+| 30 s recovery | 3 968 (0) | 968 (0) |
+| Steady | 61 233 (406, all saturation timeouts) | 19 329 (0) |
+
+A worker restart costs nothing: jobs stay in Redis and the new workers pick them up. Announces arriving during the database pause time out, and clients simply re-announce; the first announces afterwards succeed. The tracker queue peaked at 570 jobs (oldest 10 s) and drained, MySQL never exceeded 43 connections, and the canary's credited bytes, `history` row and cursor matched exactly what was sent. The run still exits non-zero, deliberately, because the steady-state demand exceeds the slice's throughput (see above).
+
+The flush scheduler needs real CPU. When it was capped at 0.125 CPU, each flush took 2–9 minutes, outlived its two-minute `withoutOverlapping(2)` mutex, piled up concurrent processes, got OOM-killed and pushed MySQL to its 400-connection limit. Batches then stopped draining, although nothing was lost: the backlog flushed in 12 s at about 210 MiB once given a full CPU. The live `schedule` container is not CPU-capped; never cap it below one core.
+
+Meilisearch, not PHP, was the member-facing ceiling at low rates: at 20 requests/s it pinned a 0.75-CPU cap while PHP used 1.4 cores. Keep it on real CPU.
 
 ### Freshness of tracker statistics
 
-Clients announce every `ANNOUNCE_INTERVAL_MIN`–`ANNOUNCE_INTERVAL_MAX` seconds (300–360 s here; libtorrent clients never go below 300 s). An announce reaches the peer and history tables within one 5-second flush; the same flush recomputes seeders/leechers for the announced torrents and re-indexes them in Meilisearch (`App\Services\TorrentPeerCountSync`). `auto:sync_peers` still runs every five minutes as a full pass for peers that expire without announcing (ghost peers are marked inactive after two hours by `auto:flush_peers`). In the browser, the ratio bar polls every 10 s, the torrent page polls `/torrents/{id}/peers/counts` every 10 s, and the torrent list polls every 15 s while visible. Upstream caches that remain: statistics pages 10–30 min, home page blocks 5–10 min, RSS and the torrent API 5 min.
+Clients announce every `ANNOUNCE_INTERVAL_MIN`–`ANNOUNCE_INTERVAL_MAX` seconds (300–360 s here; libtorrent clients never go below 300 s). An announce reaches the peer and history tables within one 5-second flush; the same flush recomputes seeders/leechers for the announced torrents and re-indexes them in Meilisearch (`App\Services\TorrentPeerCountSync`). `auto:sync_peers` still runs every five minutes as a full pass for peers that expire without announcing (ghost peers are marked inactive after two hours by `auto:flush_peers`). In the browser, the ratio bar polls every 10 s, the torrent page polls `/torrents/{id}/peers/counts` every 10 s, and the visible torrent list refreshes only seeder, leecher, completion, and health counters every 15 s. That poll returns no HTML and rechecks moderation/soft-deletion for already displayed torrents. Upstream caches that remain: statistics pages 10–30 min, home page blocks 5–10 min, RSS and the torrent API 5 min.
 
 Timestamps are stored and processed in UTC (`app.timezone`); Blade renders every Carbon instance in `APP_DISPLAY_TIMEZONE` (Europe/Prague). Use `->toDisplayTimezone()` before `->format()` on a timestamp in a view. Date-only values (release dates, event days) are intentionally not converted. After changing the display handler, recompile views (`php artisan optimize`), because Blade inserts echo handlers at compile time.
 

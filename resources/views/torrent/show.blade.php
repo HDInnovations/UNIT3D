@@ -19,6 +19,13 @@
             {{ __('torrent.torrents') }}
         </a>
     </li>
+    @if ($torrent->media_work_id !== null)
+        <li class="breadcrumbV2">
+            <a href="{{ route('works.show', ['work' => $torrent->media_work_id]) }}" class="breadcrumb__link">
+                {{ $torrent->mediaWork->title }}
+            </a>
+        </li>
+    @endif
     <li class="breadcrumb--active">
         {{ $torrent->name }}
     </li>

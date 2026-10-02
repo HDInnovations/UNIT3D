@@ -164,12 +164,23 @@ return [
             App\Models\Torrent::class => [
                 'searchableAttributes' => [
                     'name',
+                    // Canonical Work title (see App\Models\MediaWork::$title): makes the main
+                    // text search find music/game/book/etc. Works even when the torrent's own
+                    // filename doesn't contain the title, not just movie/tv torrents/TMDB data.
+                    'work_title',
                     'tmdb_movie.name',
                     'tmdb_tv.name',
                     'tmdb_movie.year',
                     'tmdb_tv.year',
                     'type.name',
                     'resolution.name',
+                    // Common/edition facets (see App\Services\Media\MediaWorkCatalog::computeFacets)
+                    // carrying searchable proper nouns for non-video kinds.
+                    'work_facets.artists',
+                    'work_facets.authors',
+                    'work_facets.developers',
+                    'metadata_facets.labels',
+                    'metadata_facets.publishers',
                 ],
                 'filterableAttributes' => [
                     [
@@ -239,6 +250,16 @@ return [
                             'keywords',
                             'distributor_id',
                             'region_id',
+                            'media_work_id',
+                            'work_facets.artists',
+                            'work_facets.platforms',
+                            'work_facets.genres',
+                            'work_facets.developers',
+                            'work_facets.authors',
+                            'metadata_facets.labels',
+                            'metadata_facets.formats',
+                            'metadata_facets.languages',
+                            'metadata_facets.publishers',
                         ],
                         "features" => [
                             "facetSearch" => false,
@@ -255,6 +276,7 @@ return [
                             'created_at',
                             'tmdb_movie.year',
                             'tmdb_tv.year',
+                            'metadata_facets.year',
                         ],
                         "features" => [
                             "facetSearch" => false,

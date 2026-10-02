@@ -1,5 +1,6 @@
 const port = Number(Bun.env.PORT ?? 9117);
 const unit3dUrl = required("UNIT3D_URL").replace(/\/$/, "");
+const unit3dPublicUrl = new URL(required("UNIT3D_PUBLIC_URL"));
 
 
 type TorrentAttributes = {
@@ -56,7 +57,13 @@ async function search(query: URL, type: string, unit3dToken: string): Promise<Un
   if (category) params.append("categories[]", category);
 
   const response = await fetch(`${unit3dUrl}/api/torrents/filter?${params}`, {
-    headers: { Authorization: `Bearer ${unit3dToken}`, Accept: "application/json" },
+    headers: {
+      Authorization: `Bearer ${unit3dToken}`,
+      Accept: "application/json",
+      Host: unit3dPublicUrl.host,
+      "X-Forwarded-Proto": unit3dPublicUrl.protocol.slice(0, -1),
+      "X-Forwarded-Port": unit3dPublicUrl.port || (unit3dPublicUrl.protocol === "https:" ? "443" : "80"),
+    },
   });
   if (response.status === 401 || response.status === 403) throw new Unit3dAuthorizationError();
   if (!response.ok) throw new Error(`UNIT3D returned ${response.status}`);

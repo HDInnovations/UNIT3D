@@ -186,7 +186,23 @@ final class Torrent extends Model
             torrents.distributor_id,
             torrents.region_id,
             torrents.personal_release,
+            torrents.media_work_id,
             LOWER(HEX(torrents.info_hash)) AS info_hash,
+            (
+                SELECT title
+                FROM media_works
+                WHERE media_works.id = torrents.media_work_id
+            ) AS work_title,
+            (
+                SELECT facets
+                FROM media_works
+                WHERE media_works.id = torrents.media_work_id
+            ) AS json_work_facets,
+            (
+                SELECT facets
+                FROM torrent_metadata
+                WHERE torrent_metadata.torrent_id = torrents.id
+            ) AS json_metadata_facets,
             (
                 SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
                     'user_id', history.user_id
@@ -597,6 +613,18 @@ final class Torrent extends Model
     }
 
     /**
+     * Get the canonical catalogue Work (see CONTEXT.md: Work -> Edition ->
+     * Variant -> Torrent) this torrent belongs to, shared by every quality
+     * variant of the same title across every category.
+     *
+     * @return BelongsTo<MediaWork, $this>
+     */
+    public function mediaWork(): BelongsTo
+    {
+        return $this->belongsTo(MediaWork::class);
+    }
+
+    /**
      * Get the playlists that belong to the torrent.
      *
      * @return BelongsToMany<Playlist, $this, PlaylistTorrent>
@@ -872,6 +900,10 @@ final class Torrent extends Model
             'distributor_id',
             'region_id',
             'personal_release',
+            'media_work_id',
+            'work_title',
+            'json_work_facets',
+            'json_metadata_facets',
             'info_hash',
             'trumpable',
             'rating',
@@ -943,6 +975,10 @@ final class Torrent extends Model
             'distributor_id'     => $torrent->distributor_id,
             'region_id'          => $torrent->region_id,
             'personal_release'   => (bool) $torrent->personal_release,
+            'media_work_id'      => $torrent->media_work_id,
+            'work_title'         => $torrent->work_title,
+            'work_facets'        => json_decode($torrent->json_work_facets ?? 'null'),
+            'metadata_facets'    => json_decode($torrent->json_metadata_facets ?? 'null'),
             'info_hash'          => bin2hex($torrent->info_hash),
             'rating'             => (float) $torrent->rating, /** @phpstan-ignore property.notFound (This property is selected in the query but doesn't exist on the model) */
             'trumpable'          => (bool) $torrent->trumpable, /** @phpstan-ignore property.notFound (This property is selected in the query but doesn't exist on the model) */

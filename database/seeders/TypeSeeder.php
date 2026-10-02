@@ -54,6 +54,31 @@ class TypeSeeder extends Seeder
                 'name'     => 'HDTV',
                 'position' => 6,
             ],
+            [
+                'id'       => 7,
+                'name'     => 'PC',
+                'position' => 7,
+            ],
+            [
+                'id'       => 8,
+                'name'     => 'Console',
+                'position' => 8,
+            ],
+            [
+                'id'       => 9,
+                'name'     => 'Lossless',
+                'position' => 9,
+            ],
+            [
+                'id'       => 10,
+                'name'     => 'Lossy',
+                'position' => 10,
+            ],
+            [
+                'id'       => 11,
+                'name'     => 'Other',
+                'position' => 11,
+            ],
         ], ['id'], []);
     }
 }
