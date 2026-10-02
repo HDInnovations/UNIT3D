@@ -164,7 +164,15 @@ Route::middleware(SetLanguage::class)->group(function (): void {
 
         // Reports System
         Route::prefix('reports')->name('reports.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\ReportController::class, 'index'])->name('index');
             Route::post('/', [App\Http\Controllers\ReportController::class, 'store'])->name('store');
+            Route::get('/{report}', [App\Http\Controllers\ReportController::class, 'show'])->name('show');
+            Route::patch('/{report}', [App\Http\Controllers\ReportController::class, 'update'])->name('update');
+            Route::post('/{report}/replies', [App\Http\Controllers\ReportController::class, 'reply'])->name('replies.store');
+            Route::post('/{report}/assignee', [App\Http\Controllers\ReportAssigneeController::class, 'store'])->name('assignee.store');
+            Route::delete('/{report}/assignee', [App\Http\Controllers\ReportAssigneeController::class, 'destroy'])->name('assignee.destroy');
+            Route::post('/{report}/snooze', [App\Http\Controllers\SnoozedReportController::class, 'store'])->name('snooze.store');
+            Route::delete('/{report}/snooze', [App\Http\Controllers\SnoozedReportController::class, 'destroy'])->name('snooze.destroy');
         });
 
         // Contact Us System
@@ -1012,21 +1020,6 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             Route::prefix('seedboxes')->name('seedboxes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\SeedboxController::class, 'index'])->name('index');
                 Route::delete('/{seedbox}', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
-            });
-
-            // Reports
-            Route::prefix('reports')->name('reports.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
-                Route::get('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->name('show');
-                Route::patch('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
-                Route::post('/{report}/assignee', [App\Http\Controllers\Staff\ReportAssigneeController::class, 'store'])->name('assignee.store');
-                Route::delete('/{report}/assignee', [App\Http\Controllers\Staff\ReportAssigneeController::class, 'destroy'])->name('assignee.destroy');
-            });
-
-            // Snoozed Reports
-            Route::prefix('snoozed-reports')->name('snoozed_reports.')->group(function (): void {
-                Route::post('/{report}', [App\Http\Controllers\Staff\SnoozedReportController::class, 'store'])->name('store');
-                Route::delete('/{report}', [App\Http\Controllers\Staff\SnoozedReportController::class, 'destroy'])->name('destroy');
             });
 
             // Resolutions

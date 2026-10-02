@@ -39,16 +39,13 @@ class ReportSearch extends Component
     public ?string $staff = null;
 
     #[Url(history: true)]
-    public ?string $judge = null;
-
-    #[Url(history: true)]
     public ?string $title = null;
 
     #[Url(history: true)]
     public ?string $message = null;
 
     #[Url(history: true)]
-    public ?string $verdict = null;
+    public ?string $reply = null;
 
     #[Url(history: true)]
     public ?string $type = null;
@@ -69,28 +66,39 @@ class ReportSearch extends Component
      * @var \Illuminate\Pagination\LengthAwarePaginator<int, Report>
      */
     final protected \Illuminate\Pagination\LengthAwarePaginator $reports {
-        get => Report::query()
-            ->with('reported.group', 'reporter.group', 'assignee.group')
-            ->when($this->type !== null, fn ($query) => $query->where('type', '=', $this->type))
-            ->when($this->reporter !== null, fn ($query) => $query->whereRelation('reporter', 'username', 'LIKE', '%'.$this->reporter.'%'))
-            ->when($this->reported !== null, fn ($query) => $query->whereRelation('reported', 'username', 'LIKE', '%'.$this->reported.'%'))
-            ->when($this->staff !== null, fn ($query) => $query->whereRelation('assignee', 'username', 'LIKE', '%'.$this->staff.'%'))
-            ->when($this->judge !== null, fn ($query) => $query->whereRelation('judge', 'username', 'LIKE', '%'.$this->judge.'%'))
-            ->when($this->title !== null, fn ($query) => $query->where('title', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->title.'%')))
-            ->when($this->message !== null, fn ($query) => $query->where('message', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->message.'%')))
-            ->when($this->verdict !== null, fn ($query) => $query->where('verdict', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->verdict.'%')))
-            ->when($this->status === 'open', fn ($query) => $query->whereNull('solved_by')->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now())))
-            ->when($this->status === 'snoozed', fn ($query) => $query->whereNull('solved_by')->where('snoozed_until', '>', now()))
-            ->when($this->status === 'closed', fn ($query) => $query->whereNotNull('solved_by'))
-            ->when($this->status === 'all_open', fn ($query) => $query->whereNull('solved_by'))
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(min($this->perPage, 100));
+        get {
+            if (!$this->isModo && $this->sortField === 'reported_user_id') {
+                $this->reset('sortField');
+            }
+
+            return Report::query()
+                ->with('reported.group', 'reporter.group', 'staff.group')
+                ->when(!auth()->user()->group->is_modo, fn ($query) => $query->where('reporter_id', '=', auth()->id()))
+                ->when($this->type !== null, fn ($query) => $query->where('type', '=', $this->type))
+                ->when($this->reporter !== null, fn ($query) => $query->whereRelation('reporter', 'username', 'LIKE', '%'.$this->reporter.'%'))
+                ->when($this->reported !== null, fn ($query) => $query->whereRelation('reported', 'username', 'LIKE', '%'.$this->reported.'%'))
+                ->when($this->staff !== null, fn ($query) => $query->whereRelation('staff', 'username', 'LIKE', '%'.$this->staff.'%'))
+                ->when($this->title !== null, fn ($query) => $query->where('title', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->title.'%')))
+                ->when($this->message !== null, fn ($query) => $query->where('message', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->message.'%')))
+                ->when($this->reply !== null, fn ($query) => $query->whereRelation('replies', 'content', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->reply.'%')))
+                ->when($this->status === 'open', fn ($query) => $query->whereNull('solved_at')->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now())))
+                ->when($this->status === 'snoozed', fn ($query) => $query->whereNull('solved_at')->where('snoozed_until', '>', now()))
+                ->when($this->status === 'closed', fn ($query) => $query->whereNotNull('solved_at'))
+                ->when($this->status === 'all_open', fn ($query) => $query->whereNull('solved_at'))
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate(min($this->perPage, 100));
+        }
+    }
+
+    final protected bool $isModo {
+        get => auth()->user()->group->is_modo;
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.report-search', [
             'reports' => $this->reports,
+            'isModo'  => $this->isModo,
         ]);
     }
 }

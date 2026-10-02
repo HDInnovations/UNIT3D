@@ -52,7 +52,7 @@ class NewReportAssigned extends Notification implements ShouldQueue
         return [
             'title' => 'Torrent report assigned',
             'body'  => 'You have been assigned a new torrent report.',
-            'url'   => route('staff.reports.show', ['report' => $this->report]),
+            'url'   => route('reports.show', ['report' => $this->report]),
         ];
     }
 }

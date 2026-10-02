@@ -120,7 +120,7 @@
                 <div class="top-nav--left__container">
                     {{ __('common.support') }}
 
-                    @if ($hasUnreadTicket)
+                    @if ($hasUnreadTicket || $hasUnreadReport)
                         <x-animation.notification />
                     @endif
                 </div>
@@ -149,6 +149,15 @@
                         <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
                         {{ __('ticket.helpdesk') }}
                         @if ($hasUnreadTicket)
+                            <x-animation.notification />
+                        @endif
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('reports.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-flag"></i>
+                        {{ __('common.reports') }}
+                        @if ($hasUnreadReport)
                             <x-animation.notification />
                         @endif
                     </a>
@@ -361,9 +370,6 @@
                         title="{{ __('staff.staff-dashboard') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
-                        @if ($hasUnresolvedReport)
-                            <x-animation.notification />
-                        @endif
                     </a>
                 </li>
             @endif
