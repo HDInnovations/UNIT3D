@@ -63,6 +63,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware(MiddlewareGroup::RSS->value)
                 ->group(base_path('routes/rss.php'));
+
+            // No session, CSRF or member throttle: polled by the PVE healthcheck.
+            Route::get('health/tracker', \App\Http\Controllers\TrackerHealthController::class)
+                ->name('health.tracker');
         });
 
         RedirectIfAuthenticated::redirectUsing(fn () => self::HOME);

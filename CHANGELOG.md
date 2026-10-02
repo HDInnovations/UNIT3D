@@ -12,6 +12,7 @@ All notable changes to this fork are documented in this file.
 - Staff metadata-quality dashboard and source-targeted, field-selective refresh with an old/new review, concurrency checks and single-use tokens. Empty raw arrays count as missing data; missing music annotations do not.
 
 - Isolated capacity benchmark (`docker-compose.capacity.yml`, `scripts/capacity/*`): a disposable stack with its own database, Redis and search index, deterministic fixtures (10 000 users, 10 000 torrents, 40 000 peers), a k6 driver that speaks the real announce and Livewire protocols, injectable worker-restart/database-pause faults, per-phase (steady/fault/recovery) latency and error metrics, and a canary peer whose credited bytes are verified against what the driver actually sent. It never touches the live deployment.
+- Token-protected `GET /health/tracker` for the PVE healthcheck: HTTP 503 with named failing checks when the tracker queue lags, a batch flush or the scheduler stalls, the database is down or failed tracker jobs exist; 404 without a configured `TRACKER_HEALTH_TOKEN`.
 - `capacity:status` reports tracker/default queue depth and age, Redis batch depth, PHP-FPM pool saturation and flush-command timings as JSON for monitoring.
 - Native IGDB client using Twitch OAuth; removes the unsupported IGDB Laravel wrapper.
 - Laravel Reverb service, Reverb broadcast connection, and Echo 2 browser client.
