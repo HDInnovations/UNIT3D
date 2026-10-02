@@ -25,7 +25,7 @@ class TorrentPendingController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('torrent.pending', [
-            'torrents' => Torrent::withoutGlobalScope(ApprovedScope::class)
+            'torrents' => Torrent::query()->withoutGlobalScope(ApprovedScope::class)
                 ->with(['category', 'type', 'resolution'])
                 ->where('status', '=', ModerationStatus::PENDING)
                 ->orWhere('status', '=', ModerationStatus::POSTPONED)

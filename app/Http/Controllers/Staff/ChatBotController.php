@@ -33,7 +33,7 @@ class ChatBotController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.chat.bot.index', [
-            'bots' => Bot::oldest('position')->get(),
+            'bots' => Bot::query()->oldest('position')->get(),
         ]);
     }
 

@@ -24,7 +24,7 @@ class ArticleSeeder extends Seeder
 {
     public function run(): void
     {
-        Article::upsert([
+        Article::query()->upsert([
             [
                 'id'         => 1,
                 'title'      => 'Welcome To '.config('other.title').' .',

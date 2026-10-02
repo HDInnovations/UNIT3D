@@ -1,4 +1,12 @@
-<li class="comment__list-item">
+<li
+    class="comment__list-item"
+    x-data="comment(
+                $wire,
+                {{ Js::from($comment->isParent()) }},
+                {{ Js::from($comment->anon ? 'Anonymous' : '@' . $comment->user->username) }},
+                {{ Js::from($comment->content) }}
+            )"
+>
     <article id="comment-{{ $comment->id }}" class="comment">
         <header class="comment__header">
             <time
@@ -29,22 +37,7 @@
                     <button
                         class="post__quote"
                         title="{{ __('forum.quote') }}"
-                        x-on:click="
-                            input = document.getElementById(
-                                '{{ $comment->isParent() ? 'new-comment__textarea' : 'reply-comment' }}'
-                            );
-                            if (input.value !== '') {
-                                input.value += '\n\n';
-                            }
-                            input.value +=
-                                '[quote={{ $comment->anon ? 'Anonymous' : '@' . $comment->user->username }}]\n';
-                            input.value += decodeURIComponent(
-                                escape(atob('{{ base64_encode($comment->content) }}'))
-                            );
-                            input.value += '\n[/quote]\n\n';
-                            input.dispatchEvent(new Event('input'));
-                            input.focus();
-                        "
+                        x-bind="quoteButton"
                     >
                         <i class="{{ \config('other.font-awesome') }} fa-quote-left"></i>
                     </button>
@@ -62,17 +55,7 @@
                         </button>
                     </li>
                     <li class="comment__toolbar-item">
-                        <button
-                            class="comment__delete-button"
-                            x-on:click="confirmCommentDeletion"
-                            x-data="{
-                               confirmCommentDeletion () {
-                                   if (window.confirm('You sure?')) {
-                                        @this.call('deleteComment')
-                                   }
-                               }
-                           }"
-                        >
+                        <button class="comment__delete-button" x-bind="deleteButton">
                             <abbr
                                 class="comment__delete-abbr"
                                 title="{{ __('common.delete-your-comment') }}"
@@ -212,4 +195,37 @@
             @endif
         </section>
     @endif
+
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('comment', (wire, isParent, username, content) => ({
+                wire: wire,
+                isParent: isParent,
+                username: username,
+                content: content,
+                deleteButton: {
+                    ['x-on:click']() {
+                        if (window.confirm('You sure?')) {
+                            this.wire.deleteComment();
+                        }
+                    },
+                },
+                quoteButton: {
+                    ['x-on:click']() {
+                        input = document.getElementById(
+                            this.isParent ? 'new-comment__textarea' : 'reply-comment',
+                        );
+                        if (input.value !== '') {
+                            input.value += '\n\n';
+                        }
+                        input.value += '[quote=' + this.username + ']\n';
+                        input.value += this.content;
+                        input.value += '\n[/quote]\n\n';
+                        input.dispatchEvent(new Event('input'));
+                        input.focus();
+                    },
+                },
+            }));
+        });
+    </script>
 </li>

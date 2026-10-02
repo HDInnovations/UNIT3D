@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\UserNotification;
@@ -32,9 +31,6 @@ test('gift a user creates a notification for the gifted user', function (): void
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     Notification::fake();
@@ -77,9 +73,6 @@ test('gift a user creates a notification for the gifted user when gift notificat
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     Notification::fake();
@@ -130,9 +123,6 @@ test('staff gifts a user creates a notification for the gifted user even when gi
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     Notification::fake();
 
@@ -182,9 +172,6 @@ test('gift a user does not create a notification for the gifted user when all no
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     Notification::fake();
 
@@ -223,9 +210,6 @@ test('gift a user does not create a notification for the gifted user when gift n
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     Notification::fake();
 
@@ -263,9 +247,6 @@ test('gift a user does not create a notification for the gifted user when gift n
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     Notification::fake();

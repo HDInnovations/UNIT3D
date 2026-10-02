@@ -16,14 +16,23 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Http\Middleware\RateLimitOutboundMail;
 use App\Models\Ban;
+use App\Models\User;
+use DateTime;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserBan extends Notification
+class UserBan extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 1;
 
     /**
      * Create a new notification instance.
@@ -37,22 +46,58 @@ class UserBan extends Notification
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['mail'];
     }
 
     /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(object $_notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail'  => [new RateLimitOutboundMail()],
+            default => [],
+        };
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         $chatUrl = config('unit3d.chat-link-url');
 
         return (new MailMessage())
-            ->greeting('You have been banned 😭')
-            ->line('You have been banned from '.config('other.title').' for '.$this->ban->ban_reason)
-            ->action('Need Support?', $chatUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->greeting('Account suspended')
+            ->line(
+                'Your account on '.config(
+                    'other.title'
+                ).' was suspended for this reason: '.$this->ban->ban_reason.'.'
+            )
+            ->action('Contact support', $chatUrl)
+            ->line(
+                'If you think this was a mistake, contact support and we will review it.'
+            )
+            ->line('Use the support link above if you need help.');
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(2);
     }
 }

@@ -19,9 +19,11 @@ namespace App\Rules;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Str;
+use Override;
 
 class PathToZip implements ValidationRule
 {
+    #[Override]
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!Str::endsWith($value, '.zip')) {

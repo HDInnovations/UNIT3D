@@ -30,7 +30,7 @@
                 class="form"
                 method="POST"
                 action="{{ route('staff.bon_earnings.update', ['bonEarning' => $bonEarning]) }}"
-                x-data="{ conditions: {{ Js::from($bonEarning->conditions) }} }"
+                x-data="conditions"
             >
                 @csrf
                 @method('patch')
@@ -359,7 +359,7 @@
                                 x-bind:name="'conditions[' + i + '][operand2]'"
                                 required
                                 type="text"
-                                x-bind:value="condition['operand2'].replace(/(\.\d+?)0+$/, '$1')"
+                                x-bind:value="removeZeroes(condition['operand2'])"
                             />
                             <label
                                 class="form__label form__label--floating"
@@ -391,6 +391,16 @@
                 </p>
             </form>
         </div>
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('conditions', () => ({
+                    conditions: {{ Js::from($bonEarning->conditions) }},
+                    removeZeroes(value) {
+                        return value.replace(/(\.\d+?)0+$/, '$1');
+                    },
+                }));
+            });
+        </script>
     </section>
 @endsection
 

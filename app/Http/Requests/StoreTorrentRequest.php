@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
 use Exception;
+use Override;
 
 class StoreTorrentRequest extends FormRequest
 {
@@ -41,6 +42,7 @@ class StoreTorrentRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
@@ -61,7 +63,7 @@ class StoreTorrentRequest extends FormRequest
     public function rules(Request $request): array
     {
         $user = $request->user()->loadExists('internals');
-        $category = Category::findOrFail($request->integer('category_id'));
+        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {
             if ($value !== null) {
@@ -73,7 +75,7 @@ class StoreTorrentRequest extends FormRequest
             'torrent' => [
                 'required',
                 'file',
-                function (string $attribute, mixed $value, Closure $fail): void {
+                function (string $_attribute, mixed $value, Closure $fail): void {
                     if ($value->getClientOriginalExtension() !== 'torrent') {
                         $fail('The torrent file uploaded does not have a ".torrent" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }
@@ -98,7 +100,7 @@ class StoreTorrentRequest extends FormRequest
                         }
                     }
 
-                    $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
+                    $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
 
                     if ($torrent !== null) {
                         match ($torrent->status) {
@@ -114,7 +116,7 @@ class StoreTorrentRequest extends FormRequest
                 'nullable',
                 'sometimes',
                 'file',
-                function (string $attribute, mixed $value, Closure $fail): void {
+                function (string $_attribute, mixed $value, Closure $fail): void {
                     if ($value->getClientOriginalExtension() !== 'nfo') {
                         $fail('The NFO uploaded does not have a ".nfo" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }
@@ -132,7 +134,7 @@ class StoreTorrentRequest extends FormRequest
             'mediainfo' => [
                 'nullable',
                 'sometimes',
-                'max:65535',
+                'max:2097152',
             ],
             'bdinfo' => [
                 'nullable',

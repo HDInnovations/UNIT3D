@@ -15,10 +15,6 @@
     </li>
 @endsection
 
-@section('nav-tabs')
-    @include('partials.statsgroupmenu')
-@endsection
-
 @section('page', 'page__stats--groups')
 
 @section('main')

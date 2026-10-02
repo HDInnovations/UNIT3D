@@ -21,7 +21,6 @@ use App\Models\Group;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Exception;
 use Throwable;
 
@@ -52,31 +51,27 @@ class AutoDisableInactiveUsers extends Command
             return;
         }
 
-        $disabledGroupId = Group::where('slug', '=', 'disabled')->soleValue('id');
-
-        $current = Carbon::now();
+        $disabledGroupId = Group::query()->where('slug', '=', 'disabled')->soleValue('id');
 
         User::query()
             ->whereIntegerInRaw('group_id', config('pruning.group_ids'))
-            ->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
-            ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login')))
+            ->where('created_at', '<', now()->subDays(config('pruning.account_age')))
+            ->where('last_login', '<', now()->subDays(config('pruning.last_login')))
             ->whereDoesntHave('seedingTorrents')
-            ->chunk(100, function ($users) use ($disabledGroupId): void {
-                foreach ($users as $user) {
-                    $user->update([
-                        'group_id'     => $disabledGroupId,
-                        'can_download' => false,
-                        'disabled_at'  => Carbon::now(),
-                    ]);
+            ->each(function ($user) use ($disabledGroupId): void {
+                $user->update([
+                    'group_id'     => $disabledGroupId,
+                    'can_download' => false,
+                    'disabled_at'  => now(),
+                ]);
 
-                    cache()->forget('user:'.$user->passkey);
+                cache()->forget('user:'.$user->passkey);
 
-                    Unit3dAnnounce::addUser($user);
+                Unit3dAnnounce::addUser($user);
 
-                    // Send Email
-                    dispatch(new SendDisableUserMail($user));
-                }
-            });
+                // Send Email
+                dispatch(new SendDisableUserMail($user));
+            }, 100);
 
         $this->comment('Automated user disable command complete');
     }

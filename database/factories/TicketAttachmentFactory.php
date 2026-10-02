@@ -20,6 +20,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TicketAttachment;
+use Override;
 
 /** @extends Factory<TicketAttachment> */
 class TicketAttachmentFactory extends Factory
@@ -32,6 +33,7 @@ class TicketAttachmentFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

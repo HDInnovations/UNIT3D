@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Comment.
@@ -58,6 +59,7 @@ final class Comment extends Model
      *
      * @return array{anon: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

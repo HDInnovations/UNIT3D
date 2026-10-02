@@ -23,7 +23,7 @@ class TypeSeeder extends Seeder
 {
     public function run(): void
     {
-        Type::upsert([
+        Type::query()->upsert([
             [
                 'id'       => 1,
                 'name'     => 'Full Disc',

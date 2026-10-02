@@ -23,6 +23,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class WarningTorrentDeleted extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -37,7 +38,7 @@ class WarningTorrentDeleted extends Notification implements ShouldQueue, SystemN
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -47,11 +48,12 @@ class WarningTorrentDeleted extends Notification implements ShouldQueue, SystemN
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'Hit and Run Warning Deleted',
-            'message' => "{$this->staff->username} has decided to delete your warning for torrent {$this->warning->torrent}. You lucked out!",
+            'subject' => 'Hit and run warning deleted',
+            'message' => "{$this->staff->username} deleted your hit and run warning for torrent {$this->warning->torrent->name}",
         ];
     }
 }

@@ -16,12 +16,12 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\History;
 use App\Models\User;
 use App\Models\Warning;
 use App\Notifications\UserWarning;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -54,15 +54,15 @@ class AutoWarning extends Command
             return;
         }
 
-        $carbon = new Carbon();
-        $hitrun = History::with(['user', 'torrent'])
+        $hitrun = History::query()
+            ->with(['user', 'torrent'])
             ->where('actual_downloaded', '>', 0)
             ->where('prewarned_at', '<=', now()->subDays(config('hitrun.prewarn')))
             ->where('hitrun', '=', 0)
             ->where('immune', '=', 0)
             ->where('active', '=', 0)
             ->where('seedtime', '<', config('hitrun.seedtime'))
-            ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace')))
+            ->where('updated_at', '<', now()->subDays(config('hitrun.grace')))
             ->whereRelation('user.group', 'is_immune', '=', false)
             ->whereRelation('user', 'is_donor', '=', false)
             ->whereHas('torrent', fn ($query) => $query->whereRaw('history.actual_downloaded > torrents.size * ?', [config('hitrun.buffer') / 100]))
@@ -72,12 +72,12 @@ class AutoWarning extends Command
         $usersWithWarnings = [];
 
         foreach ($hitrun as $hr) {
-            Warning::create([
+            Warning::query()->create([
                 'user_id'    => $hr->user->id,
                 'warned_by'  => User::SYSTEM_USER_ID,
                 'torrent_id' => $hr->torrent->id,
                 'reason'     => \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name),
-                'expires_on' => $carbon->copy()->addDays(config('hitrun.expire')),
+                'expires_on' => now()->addDays(config('hitrun.expire')),
                 'active'     => true,
             ]);
 
@@ -96,8 +96,17 @@ class AutoWarning extends Command
             $usersWithWarnings[$hr->user->id] = $hr->user;
         }
 
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
         // Send a single notification for each user with warnings
         foreach ($usersWithWarnings as $user) {
+            if (\in_array($user->group_id, $inactiveGroupIds, true)) {
+                continue;
+            }
+
             $user->notify(new UserWarning($user));
         }
 
@@ -109,15 +118,13 @@ class AutoWarning extends Command
             ->groupBy('user_id')
             ->having('value', '>=', config('hitrun.max_warnings'))
             ->whereRelation('user', 'can_download', '=', true)
-            ->chunkById(100, function ($warnings): void {
-                foreach ($warnings as $warning) {
-                    $warning->user->update(['can_download' => 0]);
+            ->eachById(function ($warning): void {
+                $warning->user->update(['can_download' => 0]);
 
-                    cache()->forget('user:'.$warning->user->passkey);
+                cache()->forget('user:'.$warning->user->passkey);
 
-                    Unit3dAnnounce::addUser($warning->user);
-                }
-            }, 'user_id');
+                Unit3dAnnounce::addUser($warning->user);
+            }, 100, 'user_id');
 
         $this->comment('Automated user warning command complete');
     }

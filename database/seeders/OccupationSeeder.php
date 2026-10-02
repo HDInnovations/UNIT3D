@@ -23,7 +23,7 @@ class OccupationSeeder extends Seeder
 {
     public function run(): void
     {
-        Occupation::upsert([
+        Occupation::query()->upsert([
             [
                 'id'       => 1,
                 'position' => 1,

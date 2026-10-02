@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Forum;
 use App\Models\ForumPermission;
 use App\Models\Group;
@@ -36,9 +35,6 @@ test('create a topic in a subscribed forum creates a notification for the subscr
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create();
@@ -100,9 +96,6 @@ test('create a topic in a subscribed forum creates a notification for the subscr
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create();
@@ -167,9 +160,6 @@ test('create a topic in a subscribed forum does not create a notification for th
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $group = Group::factory()->create();
 
@@ -227,9 +217,6 @@ test('create a topic in a subscribed forum does not create a notification for th
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $group = Group::factory()->create();
 
@@ -286,9 +273,6 @@ test('create a topic in a subscribed forum does not create a notification for th
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create();

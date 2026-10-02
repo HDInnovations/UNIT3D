@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Bot;
+use Override;
 
 /** @extends Factory<Bot> */
 class BotFactory extends Factory
@@ -30,6 +31,7 @@ class BotFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -22,6 +22,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class DonationExpired extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -32,7 +33,7 @@ class DonationExpired extends Notification implements ShouldQueue, SystemNotific
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -42,11 +43,12 @@ class DonationExpired extends Notification implements ShouldQueue, SystemNotific
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'Your Donor Status Has Expired',
-            'message' => 'Your donor status has expired. Feel free to donate again to regain your donor status. Thank you for your support!'
+            'subject' => 'Your donor status has expired',
+            'message' => 'Your donor status expired. Donate anytime to get it back.'
         ];
     }
 }

@@ -24,7 +24,7 @@ class BotSeeder extends Seeder
 {
     public function run(): void
     {
-        Bot::upsert([
+        Bot::query()->upsert([
             [
                 'name'     => 'SystemBot',
                 'emoji'    => '1f916',

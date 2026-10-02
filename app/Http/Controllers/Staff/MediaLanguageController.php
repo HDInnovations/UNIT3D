@@ -30,7 +30,7 @@ class MediaLanguageController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.media-language.index', [
-            'media_languages' => MediaLanguage::orderBy('name')->get(),
+            'media_languages' => MediaLanguage::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -47,7 +47,7 @@ class MediaLanguageController extends Controller
      */
     public function store(StoreMediaLanguageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        MediaLanguage::create($request->validated());
+        MediaLanguage::query()->create($request->validated());
 
         return to_route('staff.media_languages.index')
             ->with('success', 'Media language successfully added');

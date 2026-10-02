@@ -18,9 +18,11 @@ namespace App\Helpers;
 
 use App\Interfaces\ByteUnitsInterface;
 use ByteUnits as ByteUnitsLibrary;
+use Override;
 
 class ByteUnits implements ByteUnitsInterface
 {
+    #[Override]
     public function bytesFromUnit(string $units): int|string
     {
         return ByteUnitsLibrary\parse($units)->numberOfBytes();

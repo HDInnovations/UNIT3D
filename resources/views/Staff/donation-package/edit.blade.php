@@ -34,8 +34,8 @@
                                 <th>Position</th>
                                 <th>Name</th>
                                 <th>Description</th>
-                                <th>Cost</th>
-                                <th>Upload (GiB)</th>
+                                <th>Cost ({{ config('donation.currency') }})</th>
+                                <th>Upload (Bytes)</th>
                                 <th>Invite (#)</th>
                                 <th>Bonus (#)</th>
                                 <th>Supporter (Days)</th>
@@ -48,7 +48,10 @@
                                 <td>
                                     <input
                                         type="text"
+                                        inputmode="numeric"
+                                        pattern="[0-9]+"
                                         name="position"
+                                        required
                                         value="{{ $package->position }}"
                                         class="form__text"
                                     />
@@ -57,28 +60,33 @@
                                     <input
                                         type="text"
                                         name="name"
+                                        required
                                         value="{{ $package->name }}"
                                         class="form__text"
                                     />
                                 </td>
                                 <td>
-                                    <textarea name="description" class="form__textarea">
+                                    <textarea name="description" required class="form__textarea">
 {{ $package->description }}</textarea
                                     >
                                 </td>
 
                                 <td>
                                     <input
-                                        type="number"
-                                        step="0.01"
+                                        type="text"
+                                        inputmode="numeric"
+                                        pattern="[0-9]+(?:\.[0-9]{1,2})?"
                                         name="cost"
+                                        required
                                         value="{{ $package->cost }}"
                                         class="form__text"
                                     />
                                 </td>
                                 <td>
                                     <input
-                                        type="number"
+                                        type="text"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
                                         name="upload_value"
                                         value="{{ $package->upload_value }}"
                                         class="form__text"
@@ -86,7 +94,9 @@
                                 </td>
                                 <td>
                                     <input
-                                        type="number"
+                                        type="text"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
                                         name="invite_value"
                                         value="{{ $package->invite_value }}"
                                         class="form__text"
@@ -94,7 +104,9 @@
                                 </td>
                                 <td>
                                     <input
-                                        type="number"
+                                        type="text"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
                                         name="bonus_value"
                                         value="{{ $package->bonus_value }}"
                                         class="form__text"
@@ -102,7 +114,9 @@
                                 </td>
                                 <td>
                                     <input
-                                        type="number"
+                                        type="text"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
                                         name="donor_value"
                                         value="{{ $package->donor_value }}"
                                         class="form__text"

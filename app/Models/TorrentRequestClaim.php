@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\TorrentRequestClaim.
@@ -59,6 +60,7 @@ final class TorrentRequestClaim extends Model
      *
      * @return array{anon: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

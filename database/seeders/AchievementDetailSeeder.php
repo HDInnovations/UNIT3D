@@ -24,7 +24,7 @@ class AchievementDetailSeeder extends Seeder
 {
     public function run(): void
     {
-        AchievementDetail::upsert([
+        AchievementDetail::query()->upsert([
             [
                 'id'          => 2,
                 'name'        => 'FirstComment',

@@ -38,7 +38,7 @@ class NewBon extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -71,14 +71,14 @@ class NewBon extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         $this->gift->load('sender');
 
         return [
-            'title' => $this->gift->sender->username.' Has Gifted You '.$this->gift->bon.' BON',
-            'body'  => $this->gift->sender->username.' has gifted you '.$this->gift->bon.' BON with the following note: '.$this->gift->message,
-            'url'   => \sprintf('/users/%s', $this->gift->sender->username),
+            'title' => $this->gift->sender->username.' gifted you '.$this->gift->bon.' BON',
+            'body'  => $this->gift->sender->username.' gifted you '.$this->gift->bon.' BON. Note: '.$this->gift->message,
+            'url'   => route('users.show', ['user' => $this->gift->sender], false),
         ];
     }
 }

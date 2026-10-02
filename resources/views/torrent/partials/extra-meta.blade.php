@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="tabs" data-default-tab="also-downloaded" id="tab_wrapper">
+<section class="panelV2" x-data="tabs('also-downloaded')" id="tab_wrapper">
     <header class="panel__header">
         <h2 class="panel__heading">Relations</h2>
         <div class="panel__actions" x-data="posterRow">

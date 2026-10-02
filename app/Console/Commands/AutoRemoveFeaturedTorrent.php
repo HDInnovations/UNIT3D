@@ -22,7 +22,6 @@ use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Throwable;
 
 class AutoRemoveFeaturedTorrent extends Command
@@ -56,8 +55,7 @@ class AutoRemoveFeaturedTorrent extends Command
      */
     final public function handle(): void
     {
-        $current = Carbon::now();
-        $featuredTorrents = FeaturedTorrent::with('torrent')->where('created_at', '<', $current->copy()->subDays(7))->get();
+        $featuredTorrents = FeaturedTorrent::query()->with('torrent')->where('created_at', '<', now()->subDays(7))->get();
 
         foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
@@ -66,10 +64,8 @@ class AutoRemoveFeaturedTorrent extends Command
                 $featuredTorrent->delete();
 
                 // Auto Announce Featured Expired
-                $appurl = config('app.url');
-
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $featuredTorrent->torrent_id, $featuredTorrent->torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer featured.', route('torrents.show', ['id' => $featuredTorrent->torrent_id]), $featuredTorrent->torrent->name)
                 );
 
                 Unit3dAnnounce::removeFeaturedTorrent($featuredTorrent->torrent_id);

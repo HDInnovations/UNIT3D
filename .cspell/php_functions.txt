@@ -33,6 +33,7 @@ rawurlencode
 rtrim
 scandir
 strcasecmp
+strnatcasecmp
 strpos
 strrchr
 strspn
@@ -42,6 +43,7 @@ strtotime
 strtoupper
 sys_getloadavg
 uasort
+uksort
 usort
 uniqid
 unserialize

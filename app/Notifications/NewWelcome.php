@@ -22,6 +22,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class NewWelcome extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -32,7 +33,7 @@ class NewWelcome extends Notification implements ShouldQueue, SystemNotification
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -42,6 +43,7 @@ class NewWelcome extends Notification implements ShouldQueue, SystemNotification
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [

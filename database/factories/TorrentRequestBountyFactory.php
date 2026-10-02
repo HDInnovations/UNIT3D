@@ -20,6 +20,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentRequestBounty;
+use Override;
 
 /** @extends Factory<TorrentRequestBounty> */
 class TorrentRequestBountyFactory extends Factory
@@ -32,14 +33,14 @@ class TorrentRequestBountyFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
-            'user_id'     => User::factory(),
-            'seedbonus'   => $this->faker->randomFloat(),
-            'requests_id' => $this->faker->randomDigitNotNull(),
-            'anon'        => $this->faker->boolean(),
-            'request_id'  => TorrentRequest::factory(),
+            'user_id'    => User::factory(),
+            'seedbonus'  => $this->faker->randomFloat(),
+            'anon'       => $this->faker->boolean(),
+            'request_id' => TorrentRequest::factory(),
         ];
     }
 }

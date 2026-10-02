@@ -49,7 +49,7 @@ class BlockIpAddress extends Component
 
         $this->validate();
 
-        BlockedIp::create([
+        BlockedIp::query()->create([
             'ip_address' => $this->ipAddress,
             'reason'     => $this->reason,
             'user_id'    => auth()->user()->id,
@@ -83,7 +83,7 @@ class BlockIpAddress extends Component
             ->when($this->ipSearch, fn ($query) => $query->where('ip_address', 'LIKE', '%'.$this->ipSearch.'%'))
             ->when($this->reasonSearch, fn ($query) => $query->where('reason', 'LIKE', '%'.$this->reasonSearch.'%'))
             ->latest()
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

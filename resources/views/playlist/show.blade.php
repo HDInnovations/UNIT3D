@@ -18,15 +18,15 @@
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
             @if (auth()->id() === $playlist->user_id || auth()->user()->group->is_modo)
-                <div class="form__group form__group--horizontal" x-data="dialog">
+                <div class="form__group form__group--horizontal">
                     <button
                         class="form__button form__button--filled form__button--centered"
-                        x-bind="showDialog"
+                        popovertarget="playlist-item-add"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
                         {{ __('playlist.add-torrent') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="playlist-item-add" class="dialog" popover>
                         <h4 class="dialog__heading">
                             {{ __('playlist.add-to-playlist') }}
                         </h4>
@@ -34,7 +34,6 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('playlist_torrents.massUpsert') }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             @method('PUT')
@@ -65,9 +64,9 @@
                                     {{ __('common.add') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="playlist-item-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>
@@ -105,15 +104,15 @@
             @endif
 
             @if (auth()->id() !== $playlist->user_id)
-                <div class="form__group form__group--horizontal" x-data="dialog">
+                <div class="form__group form__group--horizontal">
                     <button
                         class="form__button form__button--filled form__button--centered"
-                        x-bind="showDialog"
+                        popovertarget="playlist-suggestion-add"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-search-plus"></i>
                         {{ __('playlist.suggest-torrent') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="playlist-suggestion-add" class="dialog" popover>
                         <h4 class="dialog__heading">
                             {{ __('playlist.suggest-torrent') }}
                         </h4>
@@ -121,7 +120,6 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('playlists.suggestions.store', ['playlist' => $playlist]) }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             <p class="form__group">
@@ -162,9 +160,9 @@
                                     {{ __('playlist.suggest-torrent') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="playlist-suggestion-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>
@@ -247,7 +245,7 @@
         @php
             $tmdb_backdrop = isset($meta->backdrop)
                 ? tmdb_image('back_big', $meta->backdrop)
-                : 'https://via.placeholder.com/1280x350';
+                : url('img/backdrop-placeholder.svg');
         @endphp
 
         <div class="playlist__backdrop" style="background-image: url('{{ $tmdb_backdrop }}')">
@@ -371,14 +369,18 @@
                                             </button>
                                         </form>
                                     </li>
-                                    <li class="data-table__action" x-data="dialog">
+                                    <li class="data-table__action">
                                         <button
                                             class="form__button form__button--text"
-                                            x-bind="showDialog"
+                                            popovertarget="playlist-suggestion-reject-{{ $playlistSuggestion->id }}"
                                         >
                                             {{ __('common.moderation-reject') }}
                                         </button>
-                                        <dialog class="dialog" x-bind="dialogElement">
+                                        <dialog
+                                            id="playlist-suggestion-reject-{{ $playlistSuggestion->id }}"
+                                            class="dialog"
+                                            popover
+                                        >
                                             <h3 class="dialog__heading">
                                                 {{ __('common.moderation-reject') }}
                                                 {{ __('torrent.torrent') }}:
@@ -388,7 +390,6 @@
                                                 class="dialog__form"
                                                 method="POST"
                                                 action="{{ route('playlists.suggestions.update', ['playlist' => $playlist, 'playlistSuggestion' => $playlistSuggestion]) }}"
-                                                x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('PATCH')
@@ -423,9 +424,9 @@
                                                         {{ __('common.moderation-reject') }}
                                                     </button>
                                                     <button
-                                                        formmethod="dialog"
-                                                        formnovalidate
                                                         class="form__button form__button--outlined"
+                                                        type="button"
+                                                        popovertarget="playlist-suggestion-reject-{{ $playlistSuggestion->id }}"
                                                     >
                                                         {{ __('common.cancel') }}
                                                     </button>

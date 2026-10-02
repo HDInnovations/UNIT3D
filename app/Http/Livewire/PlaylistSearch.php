@@ -75,7 +75,7 @@ class PlaylistSearch extends Component
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', '%'.$this->username.'%'))
             ->when($this->playlistCategoryId !== "__any", fn ($query) => $query->where('playlist_category_id', '=', $this->playlistCategoryId))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(min($this->perPage, 100));
+            ->paginate(min(min($this->perPage, 100), 100));
     }
 
     /**

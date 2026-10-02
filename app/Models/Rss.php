@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use stdClass;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Rss.
@@ -59,6 +60,7 @@ final class Rss extends Model
      *
      * @return array{name: 'string', json_torrent: 'array', expected_fields: 'array', is_private: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

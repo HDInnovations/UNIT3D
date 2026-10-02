@@ -35,7 +35,7 @@ class TmdbPersonController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('mediahub.person.show', [
-            'person' => TmdbPerson::findOrFail($id),
+            'person' => TmdbPerson::query()->findOrFail($id),
         ]);
     }
 }

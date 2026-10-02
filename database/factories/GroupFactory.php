@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<Group> */
 class GroupFactory extends Factory
@@ -30,6 +31,7 @@ class GroupFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -66,7 +68,7 @@ class GroupFactory extends Factory
 
     public function owner(): GroupFactory
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $_attributes) => [
             'is_owner' => true,
             'is_admin' => true,
             'is_modo'  => true,

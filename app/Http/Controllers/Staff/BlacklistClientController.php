@@ -33,7 +33,7 @@ class BlacklistClientController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.blacklist.clients.index', [
-            'clients' => BlacklistClient::latest()->get(),
+            'clients' => BlacklistClient::query()->latest()->get(),
         ]);
     }
 
@@ -55,9 +55,10 @@ class BlacklistClientController extends Controller
         Unit3dAnnounce::removeBlacklistedAgent($blacklistClient);
 
         $blacklistClient->update([
+            ...$request->validated(),
             // Overriding is necessary to cast empty strings (converted to null by middleware) back into strings
             'peer_id_prefix' => $request->string('peer_id_prefix'),
-        ] + $request->validated());
+        ]);
 
         Unit3dAnnounce::addBlacklistedAgent($blacklistClient);
 
@@ -80,10 +81,11 @@ class BlacklistClientController extends Controller
      */
     public function store(StoreBlacklistClientRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $client = BlacklistClient::create([
+        $client = BlacklistClient::query()->create([
+            ...$request->validated(),
             // Overriding is necessary to cast empty strings (converted to null by middleware) back into strings
             'peer_id_prefix' => $request->string('peer_id_prefix'),
-        ] + $request->validated());
+        ]);
 
         Unit3dAnnounce::addBlacklistedAgent($client);
 

@@ -19,6 +19,7 @@ class uploadExtensionBuilder {
         title = title.replace(/( DTS-?X ?)(\d)( )(\d)/i, ' DTS:X $2.$4');
         title = title.replace(/( DTS-?X)(-?[^ ]*)$/i, ' DTS:X 7.1$2');
         title = title.replace(/( DTS-?H?D? ?HRA? ?)(\d)( )(\d)/i, ' DTS-HD HRA $2.$4');
+        title = title.replace(/( DTS ?)(\d)( )(\d)/i, ' DTS $2.$4');
         title = title.replace(/( FLAC ?)(\d)( )(\d)/i, '$1 $2.$4');
         title = title.replace(/( L?PCM ?)(\d)( )(\d)/i, '$1 $2.$4');
         title = title.replace(/( DD[P+]? ?)(\d)( )(\d)/i, '$1 $2.$4');
@@ -183,11 +184,8 @@ class uploadExtensionBuilder {
     }
     hook() {
         let name = document.querySelector('#title');
-        let tmdb_movie = document.querySelector('#auto_tmdb_movie');
-        let tmdb_tv = document.querySelector('#auto_tmdb_tv');
-        let imdb = document.querySelector('#autoimdb');
 
-        if (!name.value.trim() && (!tmdb_movie.value.trim() || !tmdb_tv.value.trim())) {
+        if (!name.value.trim()) {
             let torrent = document.querySelector('#torrent');
             let release;
             if (!name.value) {

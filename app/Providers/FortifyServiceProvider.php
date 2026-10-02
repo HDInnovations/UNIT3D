@@ -16,27 +16,21 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\BlockedIp;
 use App\Models\FailedLoginAttempt;
 use App\Models\Group;
 use App\Models\User;
 use App\Notifications\FailedLogin;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\LoginResponse;
-use Laravel\Fortify\Contracts\RegisterViewResponse;
-use Laravel\Fortify\Contracts\VerifyEmailResponse;
 use Laravel\Fortify\Fortify;
+use Override;
 
 use function Illuminate\Support\defer;
 
@@ -45,10 +39,14 @@ class FortifyServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+    #[Override]
     public function register(): void
     {
+        Fortify::ignoreRoutes();
+
         // Handle redirects after successful login
         $this->app->instance(LoginResponse::class, new class () implements LoginResponse {
+            #[Override]
             public function toResponse($request): \Illuminate\Http\RedirectResponse
             {
                 $user = $request->user()->load('group:id,slug');
@@ -69,7 +67,7 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 // Check if user has read the rules
-                if ($request->user()->read_rules == 0) {
+                if ($user->read_rules == 0 && $user->hasVerifiedEmail()) {
                     return redirect()->to(config('other.rules_url'))
                         ->with('warning', trans('auth.require-rules'));
                 }
@@ -91,50 +89,6 @@ class FortifyServiceProvider extends ServiceProvider
                     ->with('success', trans('auth.welcome'));
             }
         });
-
-        // Handle redirects before the registration form is shown
-        $this->app->instance(RegisterViewResponse::class, new class () implements RegisterViewResponse {
-            public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
-            {
-                if ($request->missing('code')) {
-                    return view('auth.register');
-                }
-
-                return view('auth.register', ['code' => $request->query('code')]);
-            }
-        });
-
-        $this->app->instance(VerifyEmailResponse::class, new class () implements VerifyEmailResponse {
-            public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
-            {
-                $user = $request->user()->load('group:id,slug');
-
-                if ($user->group->slug !== 'banned') {
-                    if ($user->group->slug === 'validating') {
-                        $user->can_download = true;
-                        $user->group_id = Group::query()->where('slug', '=', 'user')->soleValue('id');
-                        $user->save();
-
-                        cache()->forget('user:'.$user->passkey);
-
-                        Unit3dAnnounce::addUser($user);
-                    }
-
-                    // Check if user has read the rules
-                    if ($user->read_rules == 0) {
-                        return redirect()->to(config('other.rules_url'))
-                            ->with('success', trans('auth.activation-success'))
-                            ->with('warning', trans('auth.require-rules'));
-                    }
-
-                    return to_route('login')
-                        ->with('success', trans('auth.activation-success'));
-                }
-
-                return to_route('login')
-                    ->withErrors(trans('auth.activation-error'));
-            }
-        });
     }
 
     /**
@@ -142,20 +96,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by('fortify-login'.$request->ip()));
-        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(5)->by('fortify-login'.$request->ip()));
-        RateLimiter::for('fortify-register-get', fn (Request $request) => Limit::perMinute(5)->by('fortify-register'.$request->ip()));
-        RateLimiter::for('fortify-register-post', fn (Request $request) => Limit::perMinute(5)->by('fortify-register'.$request->ip()));
-        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by('fortify-two-factor'.$request->session()->get('login.id')));
-
         Fortify::loginView(fn () => view('auth.login'));
-        Fortify::confirmPasswordView(fn () => view('auth.confirm-password'));
         Fortify::twoFactorChallengeView(fn () => view('auth.two-factor-challenge'));
-        Fortify::verifyEmailView(fn () => view('auth.verify-email'));
-
-        Fortify::createUsersUsing(CreateNewUser::class);
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
 
         Fortify::authenticateUsing(function (Request $request): \Illuminate\Database\Eloquent\Model {
             $request->validate([
@@ -178,7 +120,7 @@ class FortifyServiceProvider extends ServiceProvider
                 defer(function () use ($user, $request): void {
                     $ip = $request->ip();
 
-                    FailedLoginAttempt::create([
+                    FailedLoginAttempt::query()->create([
                         'user_id'    => $user->id,
                         'username'   => $request->username,
                         'ip_address' => $ip,
@@ -188,15 +130,15 @@ class FortifyServiceProvider extends ServiceProvider
                         ->select('username')
                         ->distinct()
                         ->where('ip_address', '=', $ip)
-                        ->where('created_at', '>', now()->subDay())
+                        ->where('created_at', '>', now()->subSeconds(config('other.auth.multi-account.interval')))
                         ->pluck('username');
 
-                    if ($otherUsernamesAttempted->count() > 1) {
+                    if ($otherUsernamesAttempted->count() >= config('other.auth.multi-account.max-usernames')) {
                         BlockedIp::query()->upsert([[
                             'ip_address' => $ip,
                             'user_id'    => User::SYSTEM_USER_ID,
                             'reason'     => 'Multi-account abuse: Attempted '.$otherUsernamesAttempted->count().' separate usernames: '.$otherUsernamesAttempted->join(', '),
-                            'expires_at' => now()->addDay(),
+                            'expires_at' => now()->addSeconds(config('other.auth.multi-account.blocked-for')),
                         ]], ['ip_address']);
 
                         cache()->forget('blocked-ips');
@@ -204,15 +146,15 @@ class FortifyServiceProvider extends ServiceProvider
 
                     $ipAttemptCount = FailedLoginAttempt::query()
                         ->where('ip_address', '=', $ip)
-                        ->where('created_at', '>', now()->subDay())
+                        ->where('created_at', '>', now()->subSeconds(config('other.auth.brute-force.interval')))
                         ->count();
 
-                    if ($ipAttemptCount > 5) {
-                        BlockedIp::upsert([[
+                    if ($ipAttemptCount >= config('other.auth.brute-force.max-attempts')) {
+                        BlockedIp::query()->upsert([[
                             'ip_address' => $ip,
                             'user_id'    => User::SYSTEM_USER_ID,
-                            'reason'     => 'Brute-force attempt: 6 failed attempts in last 4h',
-                            'expires_at' => now()->addHours(4),
+                            'reason'     => 'Brute-force attempt: 6 failed attempts in last '.config('other.auth.brute-force.interval').' s',
+                            'expires_at' => now()->addSeconds(config('other.auth.brute-force.blocked-for')),
                         ]], ['ip_address'], ['expires_at' => DB::raw('expires_at')]);
 
                         cache()->forget('blocked-ips');
@@ -228,15 +170,6 @@ class FortifyServiceProvider extends ServiceProvider
 
             if ($password === true) {
                 $user->load('group:id,slug');
-
-                // Check if user is activated
-                if ($user->email_verified_at === null || $user->group->slug === 'validating') {
-                    $request->session()->invalidate();
-
-                    throw ValidationException::withMessages([
-                        Fortify::username() => __('auth.not-activated'),
-                    ]);
-                }
 
                 // Check if user is banned
                 if ($user->group->slug === 'banned') {

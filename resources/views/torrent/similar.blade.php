@@ -49,4 +49,5 @@
             @break
     @endswitch
     @livewire('similar-torrent', ['category' => $category, 'tmdbId' => $tmdb, 'igdbId' => $igdb, 'work' => $meta])
+    <livewire:comments :model="$meta" :category="$category" />
 @endsection

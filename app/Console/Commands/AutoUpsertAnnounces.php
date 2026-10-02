@@ -74,9 +74,9 @@ class AutoUpsertAnnounces extends Command
                 break;
             }
 
-            $announces = array_map('unserialize', $announces);
+            $announces = array_map(unserialize(...), $announces);
 
-            DB::transaction(static fn () => Announce::insert($announces), 5);
+            DB::transaction(static fn () => Announce::query()->insert($announces), 5);
         }
 
         $this->comment('Automated upsert announce command complete');

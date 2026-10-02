@@ -19,22 +19,7 @@
 @section('page', 'page__torrent--edit')
 
 @section('main')
-    <section
-        class="panelV2"
-        x-data="{
-            cat: {{ (int) $torrent->category_id }},
-            cats: JSON.parse(atob('{{ base64_encode(json_encode($categories)) }}')),
-            type: {{ (int) $torrent->type_id }},
-            types: JSON.parse(atob('{{ base64_encode(json_encode($types)) }}')),
-            tmdb_movie_exists:
-                {{ Js::from(old('movie_exists_on_tmdb', $torrent->tmdb_movie_id) !== null) }},
-            tmdb_tv_exists: {{ Js::from(old('tv_exists_on_tmdb', $torrent->tmdb_tv_id) !== null) }},
-            imdb_title_exists: {{ Js::from(old('title_exists_on_imdb', $torrent->imdb) !== null) }},
-            tvdb_tv_exists: {{ Js::from(old('tv_exists_on_tvdb', $torrent->tvdb) !== null) }},
-            mal_anime_exists: {{ Js::from(old('anime_exists_on_mal', $torrent->mal) !== null) }},
-            igdb_game_exists: {{ Js::from(old('game_exists_on_igdb', $torrent->igdb) !== null) }},
-        }"
-    >
+    <section class="panelV2" x-data="torrentEdit">
         <h2 class="panel__heading">{{ __('common.edit') }}: {{ $torrent->name }}</h2>
         <div class="panel__body">
             <form
@@ -89,7 +74,7 @@
                         name="category_id"
                         x-model="cat"
                         x-ref="catId"
-                        @change="cats[cat].type = cats[$event.target.value].type;"
+                        x-bind="categorySelect"
                     >
                         <option value="{{ old('category_id') ?? $torrent->category_id }}" selected>
                             {{ $torrent->category->name }} ({{ __('torrent.current') }})
@@ -111,7 +96,7 @@
                         name="type_id"
                         x-model="type"
                         x-ref="typeId"
-                        @change="types[type].name = types[$event.target.value].name"
+                        x-bind="typeSelect"
                     >
                         <option value="{{ old('type_id') ?? $torrent->type->id }}" selected>
                             {{ $torrent->type->name }} ({{ __('torrent.current') }})
@@ -229,7 +214,7 @@
                                     "
                                     @selected(old('region_id') === $region->id)
                                 >
-                                    {{ $region->name }}
+                                    {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
                                 </option>
                             @endforeach
                         </select>
@@ -303,7 +288,7 @@
                                 value="{{ old('tmdb_movie_id', $torrent->tmdb_movie_id) }}"
                                 x-bind:value="
                                     cats[cat].type === 'movie' && tmdb_movie_exists
-                                        ? '{{ old('tmdb_movie_id', $torrent->tmdb_movie_id) }}'
+                                        ? {{ Js::from(old('tmdb_movie_id', $torrent->tmdb_movie_id)) }}
                                         : ''
                                 "
                                 x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
@@ -340,7 +325,11 @@
                                 placeholder=" "
                                 type="text"
                                 value="{{ old('tmdb_tv_id', $torrent->tmdb_tv_id) }}"
-                                x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? '{{ old('tmdb_tv_id', $torrent->tmdb_tv_id) }}' : ''"
+                                x-bind:value="
+                                    cats[cat].type === 'tv' && tmdb_tv_exists
+                                        ? {{ Js::from(old('tmdb_tv_id', $torrent->tmdb_tv_id)) }}
+                                        : ''
+                                "
                                 x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="tmdb_tv_id">
@@ -380,7 +369,7 @@
                                 value="{{ old('imdb', $torrent->imdb) }}"
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists
-                                        ? '{{ old('imdb', $torrent->imdb) }}'
+                                        ? {{ Js::from(old('imdb', $torrent->imdb)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
@@ -425,7 +414,7 @@
                                 placeholder=" "
                                 type="text"
                                 value="{{ old('tvdb', $torrent->tvdb) }}"
-                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? '{{ old('tvdb', $torrent->tvdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? {{ Js::from(old('tvdb', $torrent->tvdb)) }} : ''"
                                 x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="tvdb">
@@ -465,7 +454,7 @@
                                 value="{{ old('mal', $torrent->mal) }}"
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists
-                                        ? '{{ old('mal', $torrent->mal) }}'
+                                        ? {{ Js::from(old('mal', $torrent->mal)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
@@ -502,7 +491,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? '{{ old('igdb', $torrent->igdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? {{ Js::from(old('igdb', $torrent->igdb)) }} : ''"
                                 x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                             />
                             <label class="form__label form__label--floating" for="igdb">
@@ -609,5 +598,37 @@
                 </p>
             </form>
         </div>
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('torrentEdit', () => ({
+                    cat: {{ (int) $torrent->category_id }},
+                    cats: {{ Js::from($categories) }},
+                    type: {{ (int) $torrent->type_id }},
+                    types: {{ Js::from($types) }},
+                    tmdb_movie_exists:
+                        {{ Js::from(old('movie_exists_on_tmdb', $torrent->tmdb_movie_id) !== null) }},
+                    tmdb_tv_exists:
+                        {{ Js::from(old('tv_exists_on_tmdb', $torrent->tmdb_tv_id) !== null) }},
+                    imdb_title_exists:
+                        {{ Js::from(old('title_exists_on_imdb', $torrent->imdb) !== null) }},
+                    tvdb_tv_exists:
+                        {{ Js::from(old('tv_exists_on_tvdb', $torrent->tvdb) !== null) }},
+                    mal_anime_exists:
+                        {{ Js::from(old('anime_exists_on_mal', $torrent->mal) !== null) }},
+                    igdb_game_exists:
+                        {{ Js::from(old('game_exists_on_igdb', $torrent->igdb) !== null) }},
+                    typeSelect: {
+                        ['x-on:change']() {
+                            this.types[this.type].name = this.types[this.$event.target.value].name;
+                        },
+                    },
+                    categorySelect: {
+                        ['x-on:change']() {
+                            this.cats[this.cat].type = this.cats[this.$event.target.value].type;
+                        },
+                    },
+                }));
+            });
+        </script>
     </section>
 @endsection

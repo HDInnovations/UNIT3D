@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReportRequest;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\ReportControllerTest
@@ -28,91 +28,51 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     /**
-     * Create A Request Report.
+     * Create A Report.
      */
-    public function request(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    public function store(StoreReportRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $torrentRequest = TorrentRequest::findOrFail($id);
-        $reportedBy = $request->user();
-        $reportedUser = $torrentRequest->user;
+        switch (true) {
+            case $request->reported_request_id !== null:
+                $torrentRequest = TorrentRequest::query()->whereKey($request->reported_request_id)->sole();
 
-        $request->validate([
-            'message' => [
-                'required',
-                'max:65535',
-            ],
-        ]);
+                Report::query()->create([
+                    'type'                => 'Request',
+                    'reported_request_id' => $torrentRequest->id,
+                    'reporter_id'         => $request->user()->id,
+                    'reported_user_id'    => $torrentRequest->user_id,
+                    'title'               => $torrentRequest->name,
+                    'message'             => $request->string('message'),
+                ]);
 
-        Report::create([
-            'type'                => 'Request',
-            'reported_request_id' => $torrentRequest->id,
-            'reported_torrent_id' => null,
-            'reporter_id'         => $reportedBy->id,
-            'reported_user_id'    => $reportedUser->id,
-            'title'               => $torrentRequest->name,
-            'message'             => $request->string('message'),
-        ]);
+                break;
+            case $request->reported_torrent_id !== null:
+                $torrent = Torrent::query()->whereKey($request->reported_torrent_id)->sole();
 
-        return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->with('success', trans('user.report-sent'));
-    }
+                Report::query()->create([
+                    'type'                => 'Torrent',
+                    'reported_torrent_id' => $torrent->id,
+                    'reporter_id'         => $request->user()->id,
+                    'reported_user_id'    => $torrent->user_id,
+                    'title'               => $torrent->name,
+                    'message'             => $request->string('message'),
+                ]);
 
-    /**
-     * Create A Torrent Report.
-     */
-    public function torrent(Request $request, int $id): \Illuminate\Http\RedirectResponse
-    {
-        $torrent = Torrent::findOrFail($id);
-        $reportedBy = $request->user();
-        $reportedUser = $torrent->user;
+                break;
+            case $request->reported_user_username !== null:
+                $user = User::query()->where('username', '=', $request->reported_user_username)->sole();
 
-        $request->validate([
-            'message' => [
-                'required',
-                'max:65535',
-            ],
-        ]);
+                Report::query()->create([
+                    'type'             => 'User',
+                    'reporter_id'      => $request->user()->id,
+                    'reported_user_id' => $user->id,
+                    'title'            => $user->username,
+                    'message'          => $request->string('message'),
+                ]);
 
-        Report::create([
-            'type'                => 'Torrent',
-            'reported_torrent_id' => $torrent->id,
-            'reported_request_id' => null,
-            'reporter_id'         => $reportedBy->id,
-            'reported_user_id'    => $reportedUser->id,
-            'title'               => $torrent->name,
-            'message'             => $request->string('message'),
-        ]);
+                break;
+        }
 
-        return to_route('torrents.show', ['id' => $id])
-            ->with('success', trans('user.report-sent'));
-    }
-
-    /**
-     * Create A User Report.
-     */
-    public function user(Request $request, string $username): \Illuminate\Http\RedirectResponse
-    {
-        $reportedUser = User::where('username', '=', $username)->sole();
-        $reportedBy = $request->user();
-
-        $request->validate([
-            'message' => [
-                'required',
-                'max:65535',
-            ],
-        ]);
-
-        Report::create([
-            'type'                => 'User',
-            'reported_torrent_id' => null,
-            'reported_request_id' => null,
-            'reporter_id'         => $reportedBy->id,
-            'reported_user_id'    => $reportedUser->id,
-            'title'               => $reportedUser->username,
-            'message'             => $request->string('message'),
-        ]);
-
-        return to_route('users.show', ['user' => $reportedUser])
-            ->with('success', trans('user.report-sent'));
+        return back()->with('success', __('user.report-sent'));
     }
 }

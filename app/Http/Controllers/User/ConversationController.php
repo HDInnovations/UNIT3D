@@ -79,13 +79,13 @@ class ConversationController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        $recipient = User::where('username', '=', $request->validated('receiver_username'))->sole();
+        $recipient = User::query()->where('username', '=', $request->validated('receiver_username'))->sole();
 
         abort_if($recipient->id === User::SYSTEM_USER_ID, 403);
 
-        $conversation = Conversation::create($request->validated('conversation'));
+        $conversation = Conversation::query()->create($request->validated('conversation'));
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'conversation_id' => $conversation->id,
             'message'         => $request->validated('message'),
             'sender_id'       => $user->id,
@@ -106,7 +106,7 @@ class ConversationController extends Controller
 
         abort_if($conversation->participants()->withTrashed()->where('user_id', '=', User::SYSTEM_USER_ID)->exists(), 403, 'You cannot reply to the system');
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'sender_id'       => $user->id,
             'conversation_id' => $conversation->id,
             'message'         => $request->validated('message'),

@@ -2,13 +2,13 @@
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('staff.blocked-ips') }}</h2>
         <div class="panel__actions">
-            <div class="panel__action" x-data="dialogLivewire">
-                <button class="form__button form__button--outlined" x-bind="showDialog">
+            <div class="panel__action">
+                <button class="form__button form__button--outlined" popovertarget="ip-block">
                     {{ __('common.add') }}
                 </button>
-                <dialog class="dialog" x-bind="dialogElement">
+                <dialog id="ip-block" class="dialog" popover>
                     <h3 class="dialog__heading">Block IP Address</h3>
-                    <form class="dialog__form" x-bind="dialogForm">
+                    <form class="dialog__form">
                         <p class="form__group">
                             <input
                                 id="ipAddress"
@@ -39,14 +39,15 @@
                             <button
                                 class="form__button form__button--filled"
                                 wire:click="store"
-                                x-bind="submitDialogForm"
+                                type="button"
+                                popovertarget="ip-block"
                             >
                                 {{ __('common.save') }}
                             </button>
                             <button
-                                formmethod="dialog"
-                                formnovalidate
                                 class="form__button form__button--outlined"
+                                type="button"
+                                popovertarget="ip-block"
                             >
                                 {{ __('common.cancel') }}
                             </button>

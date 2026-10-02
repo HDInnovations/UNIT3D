@@ -19,19 +19,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Override;
 
 /**
  * App\Models\Apikey.
  *
  * @property int                             $id
  * @property int                             $user_id
+ * @property string                          $name
  * @property string                          $content
+ * @property bool                            $can_search
+ * @property bool                            $can_upload
+ * @property bool                            $can_download
+ * @property bool                            $can_view_user
+ * @property \Illuminate\Support\Carbon      $expires_at
+ * @property \Illuminate\Support\Carbon|null $reminded_expiry_at
+ * @property \Illuminate\Support\Carbon|null $last_used_at
  * @property string|null                     $created_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  */
 #[AllowDynamicProperties]
 final class Apikey extends Model
 {
+    use SoftDeletes;
+
     /**
      * @var bool
      */
@@ -49,10 +61,15 @@ final class Apikey extends Model
      *
      * @return array{deleted_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
-            'deleted_at' => 'datetime',
+            'created_at'         => 'datetime',
+            'deleted_at'         => 'datetime',
+            'expires_at'         => 'datetime',
+            'reminded_expiry_at' => 'datetime',
+            'last_used_at'       => 'datetime',
         ];
     }
 

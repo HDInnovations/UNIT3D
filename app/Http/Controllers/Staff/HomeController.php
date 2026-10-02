@@ -20,11 +20,13 @@ use App\Enums\ModerationStatus;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\Scopes\ApprovedScope;
+use App\Models\Torrent;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\SslCertificate\SslCertificate;
-use Exception;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\HomeControllerTest
@@ -51,11 +53,11 @@ class HomeController extends Controller
         return view('Staff.dashboard.index', [
             'users' => cache()->flexible('dashboard_users', [60 * 5, 60 * 10], fn () => DB::table('users')
                 ->selectRaw('COUNT(*) AS total')
-                ->selectRaw('SUM(group_id = ?) AS banned', [Group::where('slug', '=', 'banned')->soleValue('id')])
-                ->selectRaw('SUM(group_id = ?) AS validating', [Group::where('slug', '=', 'validating')->soleValue('id')])
+                ->selectRaw('SUM(group_id = ?) AS banned', [Group::query()->where('slug', '=', 'banned')->soleValue('id')])
+                ->selectRaw('SUM(group_id = ?) AS validating', [Group::query()->where('slug', '=', 'validating')->soleValue('id')])
                 ->first()),
-            'torrents' => cache()->flexible('dashboard_torrents', [60 * 5, 60 * 10], fn () => DB::table('torrents')
-                ->whereNull('deleted_at')
+            'torrents' => cache()->flexible('dashboard_torrents', [60 * 5, 60 * 10], fn () => Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
                 ->selectRaw('COUNT(*) AS total')
                 ->selectRaw('SUM(status = 0) AS pending')
                 ->selectRaw('SUM(status = 1) AS approved')
@@ -75,6 +77,7 @@ class HomeController extends Controller
                 ->where(fn ($query) => $query->whereNull('assigned_to')->orWhere('assigned_to', '=', auth()->id()))
                 ->count(),
             'pendingApplicationsCount' => DB::table('applications')->where('status', '=', ModerationStatus::PENDING)->count(),
+            'pendingDonationsCount'    => DB::table('donations')->where('status', '=', ModerationStatus::PENDING)->count(),
             'certificate'              => $certificate,
             'uptime'                   => $systemInformation->uptime(),
             'ram'                      => $systemInformation->memory(),

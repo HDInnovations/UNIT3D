@@ -18,6 +18,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Override;
 
 /**
  * @mixin \App\Models\Bot
@@ -44,6 +45,7 @@ class BotResource extends JsonResource
      *     updated_at: \Illuminate\Support\Carbon|null,
      * }
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [

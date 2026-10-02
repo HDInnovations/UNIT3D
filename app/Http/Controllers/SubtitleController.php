@@ -65,8 +65,8 @@ class SubtitleController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('subtitle.create', [
-            'torrent'         => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id')),
-            'media_languages' => MediaLanguage::orderBy('name')->get(),
+            'torrent'         => Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id')),
+            'media_languages' => MediaLanguage::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -82,9 +82,10 @@ class SubtitleController extends Controller
 
         $filename = uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
 
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'));
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'));
 
-        $subtitle = Subtitle::create([
+        $subtitle = Subtitle::query()->create([
+            ...$request->safe()->except('subtitle_file'),
             'title'        => $torrent->name,
             'file_name'    => $filename,
             'file_size'    => $subtitleFile->getSize(),
@@ -95,7 +96,7 @@ class SubtitleController extends Controller
             'status'       => ModerationStatus::APPROVED,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except('subtitle_file'));
+        ]);
 
         // Save Subtitle
         Storage::disk('subtitle-files')->putFileAs('', $subtitleFile, $filename);

@@ -20,6 +20,7 @@ use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Post;
+use Override;
 
 /** @extends Factory<Post> */
 class PostFactory extends Factory
@@ -32,6 +33,7 @@ class PostFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

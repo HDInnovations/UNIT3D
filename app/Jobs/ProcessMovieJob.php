@@ -22,7 +22,6 @@ use App\Models\TmdbCompany;
 use App\Models\TmdbCredit;
 use App\Models\TmdbGenre;
 use App\Models\TmdbMovie;
-use App\Models\TmdbPerson;
 use App\Models\Torrent;
 use App\Services\Tmdb\Client;
 use DateTime;
@@ -81,11 +80,11 @@ class ProcessMovieJob implements ShouldQueue
             return;
         }
 
-        $movie = TmdbMovie::updateOrCreate(['id' => $this->id], $movieScraper->getMovie());
+        $movie = TmdbMovie::query()->updateOrCreate(['id' => $this->id], $movieScraper->getMovie());
 
         // Genres
 
-        TmdbGenre::upsert($movieScraper->getGenres(), 'id');
+        TmdbGenre::query()->upsert($movieScraper->getGenres(), 'id');
         $movie->genres()->sync(array_unique(array_column($movieScraper->getGenres(), 'id')));
 
         // Companies
@@ -96,7 +95,7 @@ class ProcessMovieJob implements ShouldQueue
             $companies[] = (new Client\Company($company['id']))->getCompany();
         }
 
-        TmdbCompany::upsert($companies, 'id');
+        TmdbCompany::query()->upsert($companies, 'id');
         $movie->companies()->sync(array_unique(array_column($companies, 'id')));
 
         // Collection
@@ -104,38 +103,19 @@ class ProcessMovieJob implements ShouldQueue
         if ($movieScraper->data['belongs_to_collection'] !== null) {
             $collection = (new Client\Collection($movieScraper->data['belongs_to_collection']['id']))->getCollection();
 
-            TmdbCollection::upsert($collection, 'id');
+            TmdbCollection::query()->upsert($collection, 'id');
             $movie->collections()->sync([$collection['id']]);
         }
 
         // People
 
         $credits = $movieScraper->getCredits();
-        $people = [];
-        $cache = [];
 
-        foreach (array_unique(array_column($credits, 'tmdb_person_id')) as $personId) {
-            // TMDB caches their api responses for 8 hours, so don't abuse them
+        TmdbCredit::query()->where('tmdb_movie_id', '=', $this->id)->delete();
 
-            $cacheKey = "tmdb-person-scraper:{$personId}";
-
-            if (cache()->has($cacheKey)) {
-                continue;
-            }
-
-            $people[] = (new Client\Person($personId))->getPerson();
-
-            $cache[$cacheKey] = now();
+        foreach (array_chunk($credits, 50) as $creditBatch) {
+            ProcessCreditJob::dispatch($creditBatch);
         }
-
-        TmdbPerson::upsert($people, 'id');
-
-        if ($cache !== []) {
-            cache()->put($cache, 8 * 3600);
-        }
-
-        TmdbCredit::where('tmdb_movie_id', '=', $this->id)->delete();
-        TmdbCredit::upsert($credits, ['tmdb_person_id', 'tmdb_movie_id', 'tmdb_tv_id', 'occupation_id', 'character']);
 
         // Recommendations
 

@@ -1,105 +1,21 @@
-<section class="panelV2 blocks__uploaders" x-data="{ tab: @entangle('tab').live }">
+<section class="panelV2 blocks__uploaders" x-data="tabs($wire.entangle('tab').live)">
     <h2 class="panel__heading">Top users</h2>
     <menu class="panel__tabs">
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'uploaders' && 'panel__tab--active'"
-            x-on:click="tab = 'uploaders'"
-        >
-            Uploaders
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'downloaders' && 'panel__tab--active'"
-            x-on:click="tab = 'downloaders'"
-        >
-            Downloaders
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'uploaded' && 'panel__tab--active'"
-            x-on:click="tab = 'uploaded'"
-        >
-            Uploaded
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'downloaded' && 'panel__tab--active'"
-            x-on:click="tab = 'downloaded'"
-        >
-            Downloaded
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'seeders' && 'panel__tab--active'"
-            x-on:click="tab = 'seeders'"
-        >
-            Seeders
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'seedtime' && 'panel__tab--active'"
-            x-on:click="tab = 'seedtime'"
-        >
-            Seedtime
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'served' && 'panel__tab--active'"
-            x-on:click="tab = 'served'"
-        >
-            Users served
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'commenters' && 'panel__tab--active'"
-            x-on:click="tab = 'commenters'"
-        >
-            Commenters
-        </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'posters' && 'panel__tab--active'"
-            x-on:click="tab = 'posters'"
-        >
-            Posters
-        </li>
+        <li x-bind="tabButton" data-tab="uploaders">Uploaders</li>
+        <li x-bind="tabButton" data-tab="downloaders">Downloaders</li>
+        <li x-bind="tabButton" data-tab="uploaded">Uploaded</li>
+        <li x-bind="tabButton" data-tab="downloaded">Downloaded</li>
+        <li x-bind="tabButton" data-tab="seeders">Seeders</li>
+        <li x-bind="tabButton" data-tab="seedtime">Seedtime</li>
+        <li x-bind="tabButton" data-tab="served">Users served</li>
+        <li x-bind="tabButton" data-tab="commenters">Commenters</li>
+        <li x-bind="tabButton" data-tab="posters">Posters</li>
         @if (config('other.thanks-system.is-enabled'))
-            <li
-                class="panel__tab"
-                role="tab"
-                x-bind:class="tab === 'thanked' && 'panel__tab--active'"
-                x-on:click="tab = 'thanked'"
-            >
-                Thanked
-            </li>
-            <li
-                class="panel__tab"
-                role="tab"
-                x-bind:class="tab === 'thankers' && 'panel__tab--active'"
-                x-on:click="tab = 'thankers'"
-            >
-                Thankers
-            </li>
+            <li x-bind="tabButton" data-tab="thanked">Thanked</li>
+            <li x-bind="tabButton" data-tab="thankers">Thankers</li>
         @endif
 
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'personals' && 'panel__tab--active'"
-            x-on:click="tab = 'personals'"
-        >
-            Personal releases
-        </li>
+        <li x-bind="tabButton" data-tab="personals">Personal releases</li>
     </menu>
     <div class="panel__body" wire:loading.block>Loading...</div>
     <div class="panel__body" wire:loading.remove>
@@ -124,6 +40,7 @@
                                     class="user-stat-card__avatar"
                                     alt=""
                                     src="{{ url('img/profile.png') }}"
+                                    loading="lazy"
                                 />
                             @else
                                 <img

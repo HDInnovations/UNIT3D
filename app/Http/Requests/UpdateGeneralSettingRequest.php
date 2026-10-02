@@ -18,10 +18,6 @@ class UpdateGeneralSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'censor' => [
-                'required',
-                'boolean',
-            ],
             'news_block_visible' => [
                 'required',
                 'boolean',
@@ -145,6 +141,15 @@ class UpdateGeneralSettingRequest extends FormRequest
             'unbookmark_torrents_on_completion' => [
                 'required',
                 'boolean',
+            ],
+            'auto_freeleech_apply' => [
+                'required',
+                'boolean',
+            ],
+            'auto_freeleech_min_tokens' => [
+                'required',
+                'integer',
+                'min:0',
             ],
             'show_adult_content' => [
                 'required',

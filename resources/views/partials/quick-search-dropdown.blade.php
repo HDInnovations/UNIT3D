@@ -1,14 +1,15 @@
-<div class="quick-search" x-data="quickSearch()" x-on:keydown.escape.window="clearSearch()">
+<div class="quick-search" x-data="quickSearch" x-on:keydown.escape.window="clearSearch()">
     <div class="quick-search__inputs">
         <input
             class="quick-search__input"
             type="text"
             placeholder="Search"
             x-model="searchText"
-            x-on:input.debounce.100ms="performSearch"
+            x-on:input.debounce="performSearch"
             x-ref="quickSearch"
             x-on:keydown.down.prevent="focusFirstResult"
             x-on:keydown.up.prevent="focusLastResult"
+            x-on:keydown.enter="navigateToFirstResult"
             x-on:focus="searchPerformed = true"
         />
         <template x-if="searchResults === null">
@@ -18,14 +19,14 @@
                 </article>
             </div>
         </template>
-        <template x-if="Array.isArray(searchResults) && searchResults.length === 0">
+        <template x-if="showEmptyResults">
             <div class="quick-search__results">
                 <article class="quick-search__result--empty">
                     <p class="quick-search__result-text">No results found</p>
                 </article>
             </div>
         </template>
-        <template x-if="Array.isArray(searchResults) && searchResults.length > 0">
+        <template x-if="showNonEmptyResults">
             <div class="quick-search__results" x-ref="searchResults">
                 <template x-for="result in searchResults" :key="result.id">
                     <article
@@ -33,7 +34,11 @@
                         x-on:keydown.down.prevent="focusNextResult"
                         x-on:keydown.up.prevent="focusPreviousResult"
                     >
-                        <a class="quick-search__result-link" :href="result.url">
+                        <a
+                            class="quick-search__result-link"
+                            :href="result.url"
+                            x-on:mousedown.prevent
+                        >
                             <img class="quick-search__image" :src="getSrc(result.image)" alt="" />
                             <h2 class="quick-search__result-text">
                                 <span
@@ -59,8 +64,8 @@
         </template>
     </div>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        function quickSearch() {
-            return {
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('quickSearch', () => ({
                 searchText: '',
                 searchResults: null,
                 searchPerformed: false,
@@ -79,19 +84,32 @@
                             });
                         });
                 },
+                get showEmptyResults() {
+                    return Array.isArray(this.searchResults) && this.searchResults.length === 0;
+                },
+                get showNonEmptyResults() {
+                    return Array.isArray(this.searchResults) && this.searchResults.length > 0;
+                },
                 clearSearch() {
                     this.searchText = '';
                     this.searchResults = [];
                     this.searchPerformed = false;
                 },
+                navigateToFirstResult() {
+                    if (Array.isArray(this.searchResults) && this.searchResults.length > 0) {
+                        window.location.href = this.searchResults[0].url;
+                    } else if (this.searchText.length > 0) {
+                        window.location.href = `/torrents?name=${encodeURIComponent(this.searchText)}`;
+                    }
+                },
                 focusFirstResult() {
-                    document.querySelector('[x-ref="searchResults"]').querySelector('a').focus();
+                    document.querySelector('[x-ref="searchResults"]')?.querySelector('a')?.focus();
                 },
                 focusLastResult() {
                     document
                         .querySelector('[x-ref="searchResults"]')
-                        .querySelector('article:last-child > a')
-                        .focus();
+                        ?.querySelector('article:last-child > a')
+                        ?.focus();
                 },
                 focusNextResult() {
                     const el = this.$el;
@@ -134,7 +152,7 @@
                                 </text>
                             </svg>`;
                 },
-            };
-        }
+            }));
+        });
     </script>
 </div>

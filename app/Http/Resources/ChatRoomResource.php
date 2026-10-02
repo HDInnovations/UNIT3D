@@ -18,6 +18,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Override;
 
 /**
  * @mixin \App\Models\Chatroom
@@ -36,6 +37,7 @@ class ChatRoomResource extends JsonResource
      *     updated_at: string,
      * }
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [

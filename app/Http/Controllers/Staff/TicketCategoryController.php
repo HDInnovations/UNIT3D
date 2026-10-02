@@ -33,7 +33,7 @@ class TicketCategoryController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.ticket-category.index', [
-            'ticketCategories' => TicketCategory::orderBy('position')->get(),
+            'ticketCategories' => TicketCategory::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -50,7 +50,7 @@ class TicketCategoryController extends Controller
      */
     public function store(StoreTicketCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
-        TicketCategory::create($request->validated());
+        TicketCategory::query()->create($request->validated());
 
         return to_route('staff.ticket_categories.index')
             ->with('success', 'Ticket category successfully added');
