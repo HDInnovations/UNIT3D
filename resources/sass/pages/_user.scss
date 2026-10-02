@@ -1,21 +1,94 @@
+.profile__container {
+    container: user-profile / inline-size;
+    min-width: 0;
+    max-width: 100%;
+}
+
 .profileV2 {
     display: grid;
-    grid-template-columns: 200px minmax(min-content, auto) 1fr;
-    grid-template-areas: 'avatar username .' 'avatar registration .' 'avatar title .' 'avatar about .';
+    grid-template-columns: 200px minmax(0, 1fr);
+    grid-template-areas: 'avatar username' 'avatar registration' 'avatar title' 'avatar about';
     align-items: center;
     row-gap: 1rem;
+    min-width: 0;
+    max-width: 100%;
+}
+
+@container user-profile (max-width: 500px) {
+    .profileV2 {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: 'avatar' 'username' 'registration' 'title' 'about';
+    }
 }
 
 @media screen and (max-width: 500px) {
     .profileV2 {
-        grid-template-columns: auto 1fr;
-        grid-template-areas: 'avatar .' 'username .' 'registration .' 'title .' 'about .';
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: 'avatar' 'username' 'registration' 'title' 'about';
     }
 }
 
 .profile__username {
+    container: profile-username / inline-size;
     grid-area: username;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 0.5ch;
+    min-width: 0;
+    max-width: 100%;
     font-size: 22px;
+}
+
+.profile__username-viewport {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+}
+
+.profile__username-identity {
+    --user-tag-custom-icon-size: 1em;
+
+    font-size: var(--profile-username-fluid-size, 22px);
+    background-size: auto 3em;
+}
+
+.profile__username-identity img {
+    max-width: var(--user-tag-custom-icon-size);
+}
+
+.profile__username-actions {
+    display: inline-flex;
+    align-items: baseline;
+    column-gap: 0.5ch;
+    white-space: nowrap;
+}
+
+@container profile-username (max-width: 760px) {
+    .profile__username-viewport {
+        grid-column: 1 / -1;
+    }
+
+    .profile__username-actions {
+        grid-column: 1;
+        grid-row: 2;
+        margin-block-start: 0.5rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .profile__username-viewport {
+        grid-column: 1 / -1;
+    }
+
+    .profile__username-actions {
+        grid-column: 1;
+        grid-row: 2;
+        margin-block-start: 0.5rem;
+    }
 }
 
 .profile__avatar {
@@ -24,6 +97,13 @@
     border-radius: 10%;
     width: 180px;
     height: 180px;
+}
+
+.profile__registration,
+.profile__title,
+.profile__about {
+    min-width: 0;
+    max-width: 100%;
 }
 
 .profile__registration {
@@ -36,6 +116,7 @@
 
 .profile__about {
     grid-area: about;
+    overflow-wrap: anywhere;
 }
 
 .twoStep__qrCode {
