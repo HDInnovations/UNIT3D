@@ -58,6 +58,13 @@ Route::middleware([Authenticate::using(AuthGuard::API->value), CheckIfBanned::cl
         Route::get('/{id}', [App\Http\Controllers\API\TorrentRequestController::class, 'show'])->where('id', '[0-9]+');
     });
 
+    // Subtitles System
+    Route::prefix('subtitles')->name('api.subtitles.')->group(function (): void {
+        Route::get('/', [App\Http\Controllers\API\SubtitleController::class, 'index'])->name('index')->middleware(CheckApiScope::with(ApiScope::CAN_SEARCH));
+        Route::get('/status', [App\Http\Controllers\API\SubtitleController::class, 'status'])->name('status');
+        Route::get('/{id}/download', [App\Http\Controllers\API\SubtitleController::class, 'download'])->where('id', '[0-9]+')->name('download')->middleware(CheckApiScope::with(ApiScope::CAN_DOWNLOAD));
+    });
+
     // User
     Route::get('/user', [App\Http\Controllers\API\UserController::class, 'show'])->middleware(CheckApiScope::with(ApiScope::CAN_VIEW_USER));
 });

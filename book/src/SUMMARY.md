@@ -35,3 +35,4 @@
 
 - [Torrent API](torrent_api.md)
 - [Torrent Request API](torrent_request_api.md)
+- [Subtitle API](subtitle_api.md)
