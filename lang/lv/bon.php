@@ -38,7 +38,7 @@ return [
     'per-year' => 'Punkti gadā',
     'points' => 'Punkti',
     'receiver' => 'Uztvērējs',
-    'review-seeds' => 'Pārskatiet visas sēklas',
+    'review-seeds' => 'Pārskatīt visus torrentus, kurus šobrīd aktīvi dotu',
     'send-gift' => 'Sūtīt dāvanu',
     'sender' => 'Sūtītājs',
     'store' => 'Veikals',

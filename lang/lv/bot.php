@@ -12,12 +12,12 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'about' => 'Par',
-    'bot' => 'Bot',
+    'bot' => 'Bots',
     'bots' => 'Boti',
     'color' => 'Krāsa',
     'command' => 'Komanda',
-    'edit-bot' => 'Rediģēt Bot',
-    'emoji-code' => 'Emociju kods',
+    'edit-bot' => 'Rediģēt botu',
+    'emoji-code' => 'Emocijzīmju kods',
     'help' => 'Palīdzība',
     'icon' => 'Ikona',
     'info' => 'Informācija',

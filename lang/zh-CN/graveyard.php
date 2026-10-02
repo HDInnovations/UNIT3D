@@ -31,4 +31,5 @@ return [
     'reward' => '免费令',
     'rewarded' => '已奖励',
     'seedtime-goal' => '续种期',
+    'howto-desc' => '你必须为这个种子做种满 30 天，才能成功“复活”它。当前你的的做种时间:currentSeedtime达到要求时间:requiredSeedtime时，你将获得 :tokens 个免费下载（Freeleech）令牌作为奖励。',
 ];

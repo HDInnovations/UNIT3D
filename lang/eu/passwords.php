@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,8 +11,6 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
     /*
     |--------------------------------------------------------------------------
     | Password Reset Language Lines
@@ -24,10 +21,9 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
     'password' => 'Pasahitzak gutxienez sei karaktere eduki behar dituzte eta bat etorri behar dira.',
-    'reset'    => 'Zure pasahitza berrezarri da!',
-    'sent'     => 'Zure pasahitza berrezartzeko esteka postaz bidali dizugu!',
-    'token'    => 'Pasahitza berreskuratzeko tokena baliogabea da.',
-    'user'     => 'Ezin izan dugu helbide elektroniko horrekin bat datorren erabiltzailerik aurkitu.',
+    'reset' => 'Zure pasahitza berrezarri da!',
+    'sent' => 'Zure pasahitza berrezartzeko esteka postaz bidali dizugu!',
+    'token' => 'Pasahitza berreskuratzeko tokena baliogabea da.',
+    'user' => 'Ezin izan dugu helbide elektroniko horrekin bat datorren erabiltzailerik aurkitu.',
 ];

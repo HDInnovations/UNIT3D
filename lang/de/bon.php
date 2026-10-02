@@ -57,7 +57,7 @@ return [
     'tips' => 'Trinkgeld',
     'total' => 'Gesamteinnahmen',
     'total-gifts' => 'Verschenkte Bonuspunkte',
-    'total-tips' => 'Verschenktes Trinkgeld',
+    'total-tips' => 'Verschenktes Trinkgeld insgesamt',
     'you-have-received-gifts' => 'Erhalten',
     'you-have-sent-gifts' => 'Gesendet',
     'you-have-received-tips' => 'Erhalten',

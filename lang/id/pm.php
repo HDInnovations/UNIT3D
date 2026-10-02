@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'create' => 'Membuat',
-    'delete' => 'Menghapus',
+    'delete' => 'Hapus',
     'enter-subject' => 'Masukkan subjek',
     'from' => 'Dari',
     'inbox' => 'Kotak masuk',
@@ -22,7 +22,7 @@ return [
     'new' => 'Pesan baru',
     'outbox' => 'Kotak keluar',
     'private' => 'Pribadi',
-    'read' => 'Baca baca',
+    'read' => 'Dibaca',
     'received-at' => 'Diterima Di',
     'refresh' => 'Menyegarkan',
     'reply' => 'Balasan',
@@ -32,7 +32,7 @@ return [
     'send-to' => 'Kirim PM Ke',
     'sent' => 'Terkirim',
     'sent-at' => 'Terkirim Di',
-    'subject' => 'Subyek',
+    'subject' => 'Subjek',
     'to' => 'Untuk',
     'unread' => 'Belum dibaca',
 ];

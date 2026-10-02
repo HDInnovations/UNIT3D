@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,8 +11,6 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
     /*
     |--------------------------------------------------------------------------
     | Password Reminder Language Lines
@@ -24,10 +21,9 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
-    'password' => 'Les contrasenyes han de contenir almenys 6 caràcters i coincidir.',
-    'reset'    => 'La contrasenya s\'ha restablert!',
-    'sent'     => 'T\'hem enviat per e-mail un enllaç per a reiniciar la teva contrasenya!',
-    'token'    => 'Aquest token de recuperació de contrasenya és invàlid.',
-    'user'     => 'No existeix cap usuari amb aquest correu.',
+    'password' => 'Les contrasenyes han de tenir com a mínim sis caràcters i coincidir amb la confirmació.',
+    'reset' => 'S\'ha restablert la contrasenya!',
+    'sent' => 'Fet: si l\'adreça electrònica correspon a un compte, s\'hi enviarà un enllaç per restablir la contrasenya.',
+    'token' => 'Aquest token de restabliment de contrasenya no és vàlid.',
+    'user' => 'No trobem cap usuari amb aquesta adreça electrònica.',
 ];

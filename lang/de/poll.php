@@ -24,7 +24,7 @@ return [
     'polls' => 'Umfragen',
     'results' => 'Umfrage-Ergebnisse',
     'title' => 'Titel',
-    'total' => 'Gesamtstimmen bisher',
+    'total' => 'Gesamtstimmen',
     'vote' => 'Abstimmung',
     'vote-counted' => 'Deine Stimme wurde gezählt.',
     'vote-now' => 'Stimme jetzt ab!',

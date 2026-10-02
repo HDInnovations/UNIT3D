@@ -15,7 +15,7 @@ return [
     'click' => 'Klikšķis',
     'to-enable-editor' => 'lai iespējotu redaktoru',
     'featured-by' => 'Piedāvā',
-    'featured-torrents' => 'Featured torrents',
+    'featured-torrents' => 'Izceltie torrenti',
     'featured-torrents-intro' => 'Get Them, kamēr jūs varat!',
     'featured-until' => 'Tas ir redzams torrent līdz',
     'top-torrents' => 'Populārākie torrenti',

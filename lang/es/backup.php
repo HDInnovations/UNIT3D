@@ -21,7 +21,7 @@ return [
     |
     */
     'backup' => 'Copia de seguridad',
-    'backup_process_started' => 'Proceso de copia de seguridad iniciado',
+    'backup_process_started' => 'Nuevo proceso de copia de seguridad iniciado',
     'create_a_new_backup' => 'Crear copia de seguridad completa',
     'create_a_new_files_backup' => 'Crear copia de seguridad de archivos',
     'create_a_new_db_backup' => 'Crear copia de seguridad de la base de datos',
