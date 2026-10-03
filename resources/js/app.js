@@ -38,6 +38,11 @@ import.meta.glob(['/public/img/pipes/**', '/resources/sass/vendor/webfonts/font-
 // Livewire + AlpineJS
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.csp.esm.js';
 
+// Alpine plugins
+import morph from '@alpinejs/morph';
+
+Alpine.plugin(morph);
+
 // Custom AlpineJS Components
 import './components/alpine/chatbox';
 import checkboxGrid from './components/alpine/checkboxGrid';
@@ -47,6 +52,7 @@ import dislikeButton from './components/alpine/dislikeButton';
 import formSubmit from './components/alpine/formSubmit';
 import likeButton from './components/alpine/likeButton';
 import posterRow from './components/alpine/posterRow';
+import searchPanel from './components/alpine/searchPanel';
 import smallBookmarkButton from './components/alpine/smallBookmarkButton';
 import tabs from './components/alpine/tabs';
 import ternaryCheckMark from './components/alpine/ternaryCheckMark';
@@ -60,6 +66,7 @@ Alpine.data('dislikeButton', dislikeButton);
 Alpine.data('formSubmit', formSubmit);
 Alpine.data('likeButton', likeButton);
 Alpine.data('posterRow', posterRow);
+Alpine.data('searchPanel', searchPanel);
 Alpine.data('bookmark', smallBookmarkButton);
 Alpine.data('tabs', tabs);
 Alpine.data('ternaryCheckMark', ternaryCheckMark);
