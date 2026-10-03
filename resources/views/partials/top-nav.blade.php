@@ -8,17 +8,25 @@
     </div>
     <ul class="top-nav__main-menus" x-bind:class="expanded && 'mobile'">
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a class="top-nav__dropdown--nontouch" href="{{ route('torrents.index') }}">
+            <a
+                class="top-nav__dropdown--nontouch"
+                href="{{ route('torrents.index') }}"
+                interestfor="top-nav__torrents-dropdown"
+            >
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
                 </div>
             </a>
-            <a class="top-nav__dropdown--touch" tabindex="0">
+            <button
+                class="top-nav__dropdown--touch"
+                popovertarget="top-nav__torrents-dropdown"
+                popovertargetaction="toggle"
+            >
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
                 </div>
-            </a>
-            <ul>
+            </button>
+            <ul id="top-nav__torrents-dropdown" popover>
                 <li>
                     <a href="{{ route('torrents.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -64,17 +72,25 @@
             </ul>
         </li>
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a class="top-nav__dropdown--nontouch" href="{{ route('forums.index') }}">
+            <a
+                class="top-nav__dropdown--nontouch"
+                href="{{ route('forums.index') }}"
+                interestfor="top-nav__community-dropdown"
+            >
                 <div class="top-nav--left__container">
                     {{ __('common.community') }}
                 </div>
             </a>
-            <a class="top-nav__dropdown--touch" tabindex="0">
+            <button
+                class="top-nav__dropdown--touch"
+                popovertarget="top-nav__torrents-dropdown"
+                popovertargetaction="toggle"
+            >
                 <div class="top-nav--left__container">
                     {{ __('common.community') }}
                 </div>
-            </a>
-            <ul>
+            </button>
+            <ul id="top-nav__community-dropdown" popover>
                 <li>
                     <a href="{{ route('forums.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-comments"></i>
@@ -116,7 +132,7 @@
             </ul>
         </li>
         <li class="top-nav__dropdown">
-            <a tabindex="0">
+            <button class="top-nav__dropdown--nontouch" interestfor="top-nav__support-dropdown">
                 <div class="top-nav--left__container">
                     {{ __('common.support') }}
 
@@ -124,8 +140,21 @@
                         <x-animation.notification />
                     @endif
                 </div>
-            </a>
-            <ul>
+            </button>
+            <button
+                class="top-nav__dropdown--touch"
+                popovertarget="top-nav__support-dropdown"
+                popovertargetaction="toggle"
+            >
+                <div class="top-nav--left__container">
+                    {{ __('common.support') }}
+
+                    @if ($hasUnreadTicket)
+                        <x-animation.notification />
+                    @endif
+                </div>
+            </button>
+            <ul id="top-nav__support-dropdown" popover>
                 <li>
                     <a href="{{ config('other.rules_url') }}">
                         <i class="{{ config('other.font-awesome') }} fa-info"></i>
@@ -162,15 +191,27 @@
             </ul>
         </li>
         <li class="top-nav__dropdown">
-            <a tabindex="0">
+            <button class="top-nav__dropdown--nontouch" interestfor="top-nav__other-dropdown">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
                     @if ($giveaways->contains(fn ($giveaway) => ! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture()))
                         <x-animation.notification />
                     @endif
                 </div>
-            </a>
-            <ul>
+            </button>
+            <button
+                class="top-nav__dropdown--touch"
+                popovertarget="top-nav__other-dropdown"
+                popovertargetaction="toggle"
+            >
+                <div class="top-nav--left__container">
+                    {{ __('common.other') }}
+                    @if ($giveaways->contains(fn ($giveaway) => ! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture()))
+                        <x-animation.notification />
+                    @endif
+                </div>
+            </button>
+            <ul id="top-nav__other-dropdown" popover>
                 @foreach ($giveaways as $giveaway)
                     <li>
                         <a href="{{ route('giveaways.show', ['giveaway' => $giveaway]) }}">
@@ -230,7 +271,11 @@
         </li>
         @if (config('donation.is_enabled'))
             <li class="top-nav__dropdown">
-                <a tabindex="0" title="{{ $donationPercentage }}% filled">
+                <button
+                    title="{{ $donationPercentage }}% filled"
+                    class="top-nav__dropdown--nontouch"
+                    interestfor="top-nav__donations-dropdown"
+                >
                     <div class="top-nav--left__container">
                         <span
                             class="{{ $donationPercentage < 100 ? 'fa-fade' : '' }}"
@@ -254,8 +299,38 @@
                             ></div>
                         </div>
                     </div>
-                </a>
-                <ul>
+                </button>
+                <button
+                    title="{{ $donationPercentage }}% filled"
+                    class="top-nav__dropdown--touch"
+                    popovertarget="top-nav__donations-dropdown"
+                    popovertargetaction="toggle"
+                >
+                    <div class="top-nav--left__container">
+                        <span
+                            class="{{ $donationPercentage < 100 ? 'fa-fade' : '' }}"
+                            style="color: lightcoral"
+                        >
+                            Donate
+                        </span>
+                        <div class="progress" style="background-color: slategray">
+                            <div
+                                class="progress-bar"
+                                role="progressbar"
+                                style="
+                                    width: {{ $donationPercentage }}%;
+                                    background-color: slategray;
+                                    border-bottom: 2px solid lightcoral !important;
+                                    max-width: 100%;
+                                "
+                                aria-valuenow="{{ $donationPercentage }}"
+                                aria-valuemin="0"
+                                aria-valuemax="{{ config('donation.monthly_goal') }}"
+                            ></div>
+                        </div>
+                    </div>
+                </button>
+                <ul id="top-nav__donations-dropdown" popover>
                     <li>
                         <a href="{{ route('donations.index') }}">
                             <i class="fas fa-display-chart-up-circle-dollar"></i>
@@ -412,6 +487,7 @@
                 <a
                     class="top-nav__dropdown--nontouch"
                     href="{{ route('users.show', ['user' => auth()->user()]) }}"
+                    interestfor="top-nav__user-dropdown"
                 >
                     <img
                         src="{{ $user->image ? route('authenticated_images.user_avatar', ['user' => $user]) : url('img/profile.png') }}"
@@ -425,7 +501,7 @@
                         ></i>
                     @endif
                 </a>
-                <a class="top-nav__dropdown--touch" tabindex="0">
+                <a class="top-nav__dropdown--touch">
                     <img
                         src="{{ $user->image ? route('authenticated_images.user_avatar', ['user' => $user]) : url('img/profile.png') }}"
                         alt="{{ __('user.my-profile') }}"
@@ -438,7 +514,7 @@
                         ></i>
                     @endif
                 </a>
-                <ul>
+                <ul id="top-nav__user-dropdown" popover>
                     <li>
                         <a
                             class="top-nav__username"
