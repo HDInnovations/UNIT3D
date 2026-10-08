@@ -9,15 +9,18 @@
     <a
         class="nav-tab--nontouch {{ Route::is('users.show', 'users.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
         href="{{ route('users.show', ['user' => $user]) }}"
+        interestfor="nav-tab-menu--user__profile"
     >
         {{ __('user.profile') }}
     </a>
     <button
         class="nav-tab--touch {{ Route::is('users.show', 'users.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        popovertarget="nav-tab-menu--user__profile"
+        popovertargetaction="toggle"
     >
         {{ __('user.profile') }}
     </button>
-    <ul class="nav-tab-menu__items">
+    <ul id="nav-tab-menu--user__profile" class="nav-tab-menu__items" popover>
         <li class="{{ Route::is('users.show') ? 'nav-tab--active' : 'nav-tavV2' }}">
             <a
                 class="{{ Route::is('users.show') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
@@ -117,15 +120,18 @@
         <a
             class="nav-tab--nontouch {{ Route::is('users.general_settings.edit', 'users.email.edit', 'users.password.edit', 'users.passkeys.index', 'users.rsskeys.index', 'users.apikeys.index', 'users.two_factor_auth.edit', 'users.privacy_settings.edit', 'users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
             href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+            interestfor="nav-tab-menu--user__settings"
         >
             {{ __('user.settings') }}
         </a>
         <button
             class="nav-tab--touch {{ Route::is('users.general_settings.edit', 'users.email.edit', 'users.password.edit', 'users.passkeys.index', 'users.rsskeys.index', 'users.apikeys.index', 'users.two_factor_auth.edit', 'users.privacy_settings.edit', 'users.notification_settings.edit') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            popovertarget="nav-tab-menu--user__settings"
+            popovertargetaction="toggle"
         >
             {{ __('user.settings') }}
         </button>
-        <ul class="nav-tab-menu__items">
+        <ul id="nav-tab-menu--user__settings" class="nav-tab-menu__items" popover>
             @if ($isProfileOwner)
                 <li
                     class="{{ Route::is('users.general_settings.edit') ? 'nav-tab--active' : 'nav-tavV2' }}"
@@ -221,20 +227,27 @@
             <a
                 class="nav-tab--nontouch {{ Route::is('users.history.index', 'users.torrents.index', 'users.peers.index', 'users.resurrections.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                 href="{{ route('users.history.index', ['user' => $user]) }}"
+                interestfor="nav-tab-menu--user__torrents"
             >
                 {{ __('torrent.torrents') }}
             </a>
             <button
                 class="nav-tab--touch {{ Route::is('users.history.index', 'users.torrents.index', 'users.peers.index', 'users.resurrections.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                popovertarget="nav-tab-menu--user__torrents"
+                popovertargetaction="toggle"
             >
                 {{ __('torrent.torrents') }}
             </button>
         @else
-            <button class="nav-tab__link">
+            <button
+                class="nav-tab__link"
+                popovertarget="nav-tab-menu--user__torrents"
+                popovertargetaction="toggle"
+            >
                 {{ __('torrent.torrents') }}
             </button>
         @endif
-        <ul class="nav-tab-menu__items">
+        <ul id="nav-tab-menu--user__torrents" class="nav-tab-menu__items" popover>
             @if ($isProfileOwner || $isModo)
                 <li
                     class="{{ Route::is('users.history.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
@@ -378,11 +391,19 @@
 
 <li class="nav-tab-menu">
     <button
-        class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        class="nav-tab--nontouch {{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }} nav-tab--nontouch"
+        interestfor="nav-tab-menu--user__activity"
     >
         {{ __('forum.activity') }}
     </button>
-    <ul class="nav-tab-menu__items">
+    <button
+        class="nav-tab--touch {{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+        popovertarget="nav-tab-menu--user__activity"
+        popovertargetaction="toggle"
+    >
+        {{ __('forum.activity') }}
+    </button>
+    <ul id="nav-tab-menu--user__activity" class="nav-tab-menu__items" popover>
         @if (auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
             <li
                 class="{{ Route::is('users.achievements.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
@@ -456,15 +477,18 @@
         <a
             class="nav-tab--nontouch {{ Route::is('users.earnings.index', 'users.transactions.create', 'users.gifts.index', 'users.gifts.create', 'users.post_tips.index', 'users.torrent_tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
             href="{{ route('users.earnings.index', ['user' => $user]) }}"
+            interestfor="nav-tab-menu--user__bon"
         >
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </a>
         <button
             class="nav-tab--touch {{ Route::is('users.earnings.index', 'users.transactions.create', 'users.gifts.index', 'users.gifts.create', 'users.post_tips.index', 'users.torrent_tips.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            popovertarget="nav-tab-menu--user__bon"
+            popovertargetaction="toggle"
         >
             {{ __('bon.bonus') }} {{ __('bon.points') }}
         </button>
-        <ul class="nav-tab-menu__items">
+        <ul id="nav-tab-menu--user__bon" class="nav-tab-menu__items" popover>
             <li class="{{ Route::is('users.earnings.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                 <a
                     class="{{ Route::is('users.earnings.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
@@ -519,11 +543,19 @@
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">
         <button
-            class="{{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            class="nav-tab--nontouch {{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            interestfor="nav-tab-menu--user__other"
         >
             {{ __('common.other') }}
         </button>
-        <ul class="nav-tab-menu__items">
+        <button
+            class="nav-tab--touch {{ Route::is('users.wishes.*', 'users.seedboxes.*', 'users.invites.*') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+            popovertarget="nav-tab-menu--user__other"
+            popovertargetaction="toggle"
+        >
+            {{ __('common.other') }}
+        </button>
+        <ul id="nav-tab-menu--user__other" class="nav-tab-menu__items" popover>
             @if ($isProfileOwner || $isModo)
                 <li
                     class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
