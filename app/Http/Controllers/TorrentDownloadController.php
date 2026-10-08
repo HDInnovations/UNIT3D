@@ -23,6 +23,7 @@ use App\Models\Torrent;
 use App\Models\TorrentDownload;
 use App\Models\User;
 use App\Models\FreeleechToken;
+use App\Models\UserSetting;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -90,25 +91,20 @@ class TorrentDownloadController extends Controller
         // Auto-apply a freeleech token if the user has enabled the setting
         $settings = $user->settings;
 
-        if (
-            $settings?->auto_freeleech_apply &&
-            $user->fl_tokens >= max(1, $settings->auto_freeleech_min_tokens) &&
-            FreeleechToken::query()
-                ->where('user_id', '=', $user->id)
-                ->where('torrent_id', '=', $torrent->id)
-                ->doesntExist()
-        ) {
-            FreeleechToken::query()->create([
+        if ($this->shouldApplyFreeleech($user, $torrent, $settings)) {
+            $token = FreeleechToken::query()->firstOrCreate([
                 'user_id'    => $user->id,
                 'torrent_id' => $torrent->id,
             ]);
 
-            Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
+            if ($token->wasRecentlyCreated) {
+                Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
 
-            $user->decrement('fl_tokens');
-            cache()->forget("freeleech_token:{$user->id}:{$torrent->id}");
+                $user->decrement('fl_tokens');
+                cache()->forget("freeleech_token:{$user->id}:{$torrent->id}");
 
-            $torrent->searchable();
+                $torrent->searchable();
+            }
         }
 
         return response()->streamDownload(
@@ -130,5 +126,29 @@ class TorrentDownloadController extends Controller
             sanitize_filename('['.config('torrent.source').']'.$torrent->name.'.torrent'),
             ['Content-Type' => 'application/x-bittorrent']
         );
+    }
+
+    private function shouldApplyFreeleech(User $user, Torrent $torrent, UserSetting $settings): bool
+    {
+        $personalFreeleech = cache()->get('personal_freeleech:'.$user->id) ?? false;
+        $minTokens = $settings->auto_freeleech_min_tokens ?? 1;
+
+        return
+            // User has enabled the setting
+            $settings?->auto_freeleech_apply &&
+            // User will keep min tokens set
+            $user->fl_tokens >= max(1, $minTokens) &&
+            // No cached token already applied for this torrent
+            !cache()->get("freeleech_token:{$user->id}:{$torrent->id}") &&
+            // Global freeleech mode is OFF
+            config('other.freeleech') == false &&
+            // The torrent is not 100% free
+            $torrent->free !== 100 &&
+            // Personal, group or donor not already freeleech
+            ! $personalFreeleech &&
+            $user->group->is_freeleech == 0 &&
+            ! $user->is_donor &&
+            // User is not the uploader
+            $torrent->user_id !== $user->id;
     }
 }
