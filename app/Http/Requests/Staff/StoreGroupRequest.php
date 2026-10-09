@@ -27,7 +27,10 @@ class StoreGroupRequest extends FormRequest
      */
     public function authorize(Request $request): bool
     {
-        return $request->user()->group->is_owner || $request->group['is_owner'] != 1;
+        return $request->user()->group->is_owner || (
+            $request->group['level'] < $request->user()->group->level
+            && !$request->group['is_owner']
+        );
     }
 
     /**
@@ -140,6 +143,13 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
             'group.min_uploaded' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
+            ],
+            'group.min_actual_uploaded' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',

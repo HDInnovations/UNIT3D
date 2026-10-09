@@ -84,7 +84,7 @@ class ReportSearch extends Component
             ->when($this->status === 'closed', fn ($query) => $query->whereNotNull('solved_by'))
             ->when($this->status === 'all_open', fn ($query) => $query->whereNull('solved_by'))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

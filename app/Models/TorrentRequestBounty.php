@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\TorrentRequestBounty.
@@ -28,7 +29,7 @@ use AllowDynamicProperties;
  * @property int                             $id
  * @property int                             $user_id
  * @property string                          $seedbonus
- * @property int                             $requests_id
+ * @property int                             $request_id
  * @property bool                            $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -60,6 +61,7 @@ final class TorrentRequestBounty extends Model
      *
      * @return array{seedbonus: 'decimal:2'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -88,6 +90,6 @@ final class TorrentRequestBounty extends Model
      */
     public function request(): BelongsTo
     {
-        return $this->belongsTo(TorrentRequest::class, 'requests_id');
+        return $this->belongsTo(TorrentRequest::class);
     }
 }

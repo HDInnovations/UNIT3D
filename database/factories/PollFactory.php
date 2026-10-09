@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Poll;
+use Override;
 
 /** @extends Factory<Poll> */
 class PollFactory extends Factory
@@ -31,6 +32,7 @@ class PollFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

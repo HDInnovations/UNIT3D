@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\UserPrivacy.
@@ -100,6 +101,7 @@ final class UserPrivacy extends Model
      *
      * @return array{hidden: 'bool', json_profile_groups: 'array', json_torrent_groups: 'array', json_forum_groups: 'array', json_bon_groups: 'array', json_comment_groups: 'array', json_wishlist_groups: 'array', json_follower_groups: 'array', json_achievement_groups: 'array', json_rank_groups: 'array', json_request_groups: 'array', json_other_groups: 'array'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

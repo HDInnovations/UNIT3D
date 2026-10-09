@@ -1,4 +1,4 @@
-<section class="panelV2 blocks__top-torrents" x-data="{ tab: @entangle('tab').live }">
+<section class="panelV2 blocks__top-torrents" x-data="tabs($wire.entangle('tab').live)">
     <header class="panel__header">
         <h2 class="panel__heading">
             {{ __('blocks.top-torrents') }}
@@ -13,44 +13,19 @@
         </div>
     </header>
     <menu class="panel__tabs">
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'newest' && 'panel__tab--active'"
-            x-on:click="tab = 'newest'"
-        >
+        <li x-bind="tabButton" data-tab="newest">
             {{ __('blocks.new-torrents') }}
         </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'seeded' && 'panel__tab--active'"
-            x-on:click="tab = 'seeded'"
-        >
+        <li x-bind="tabButton" data-tab="seeded">
             {{ __('torrent.top-seeded') }}
         </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'leeched' && 'panel__tab--active'"
-            x-on:click="tab = 'leeched'"
-        >
+        <li x-bind="tabButton" data-tab="leeched">
             {{ __('torrent.top-leeched') }}
         </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'dying' && 'panel__tab--active'"
-            x-on:click="tab = 'dying'"
-        >
+        <li x-bind="tabButton" data-tab="dying">
             {{ __('torrent.dying-torrents') }}
         </li>
-        <li
-            class="panel__tab"
-            role="tab"
-            x-bind:class="tab === 'dead' && 'panel__tab--active'"
-            x-on:click="tab = 'dead'"
-        >
+        <li x-bind="tabButton" data-tab="dead">
             {{ __('torrent.dead-torrents') }}
         </li>
     </menu>

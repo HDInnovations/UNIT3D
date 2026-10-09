@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\GitUpdate;
+use Override;
 
 /** @extends Factory<GitUpdate> */
 class GitUpdateFactory extends Factory
@@ -30,6 +31,7 @@ class GitUpdateFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -21,6 +21,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Subtitle;
+use Override;
 
 /** @extends Factory<Subtitle> */
 class SubtitleFactory extends Factory
@@ -33,6 +34,7 @@ class SubtitleFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

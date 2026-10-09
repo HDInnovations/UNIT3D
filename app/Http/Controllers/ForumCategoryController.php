@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\ForumCategory;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Feature\Http\Controllers\ForumCategoryControllerTest
@@ -27,7 +26,7 @@ class ForumCategoryController extends Controller
     /**
      * Show The Forum Category.
      */
-    public function show(Request $request, int $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+    public function show(int $id): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
     {
         return view('forum.category-topic.index', [
             'category' => ForumCategory::query()

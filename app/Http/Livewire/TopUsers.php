@@ -120,7 +120,7 @@ class TopUsers extends Component
             'top-users:seedtimes',
             [3600, 3600 * 2],
             fn () => User::query()
-                ->withSum('history as seedtime', 'seedtime')
+                ->withSum(['history as seedtime' => fn ($query) => $query->withTrashed()], 'seedtime')
                 ->with('group')
                 ->where('id', '!=', User::SYSTEM_USER_ID)
                 ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))

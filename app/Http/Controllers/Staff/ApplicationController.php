@@ -48,7 +48,7 @@ class ApplicationController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.application.show', [
-            'application' => Application::withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
+            'application' => Application::query()->withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
         ]);
     }
 
@@ -59,14 +59,14 @@ class ApplicationController extends Controller
      */
     public function approve(ApproveApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $application = Application::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         $application->status = ModerationStatus::APPROVED;
         $application->moderated_at = now();
         $application->moderated_by = $request->user()->id;
         $application->save();
 
-        $invite = Invite::create([
+        $invite = Invite::query()->create([
             'user_id'    => $request->user()->id,
             'email'      => $application->email,
             'code'       => Uuid::uuid4()->toString(),
@@ -85,7 +85,7 @@ class ApplicationController extends Controller
      */
     public function reject(RejectApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $application = Application::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $application->update([
             'status'       => ModerationStatus::REJECTED,
             'moderated_at' => now(),

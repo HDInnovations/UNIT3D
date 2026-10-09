@@ -17,7 +17,7 @@
         href="{{ $tmdb ? route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdb]) : '#' }}"
     >
         <img
-            src="{{ $meta?->poster ? tmdb_image('poster_big', $meta->poster) : 'https://via.placeholder.com/400x600' }}"
+            src="{{ $meta?->poster ? tmdb_image('poster_big', $meta->poster) : url('img/poster-placeholder.svg') }}"
             class="meta__poster"
         />
     </a>
@@ -228,35 +228,10 @@
     </ul>
     <p class="meta__description">{{ $meta?->overview }}</p>
     <div class="meta__chips">
-        <section class="meta__chip-container">
-            <h2 class="meta__heading">Cast</h2>
-            @foreach ($meta?->credits?->where('occupation_id', '=', App\Enums\Occupation::ACTOR->value)?->sortBy('order') ?? [] as $credit)
-                <article class="meta-chip-wrapper">
-                    <a
-                        href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}"
-                        class="meta-chip"
-                    >
-                        @if ($credit->person->still)
-                            <img
-                                class="meta-chip__image"
-                                src="{{ tmdb_image('cast_face', $credit->person->still) }}"
-                                alt=""
-                                loading="lazy"
-                            />
-                        @else
-                            <i
-                                class="{{ config('other.font-awesome') }} fa-user meta-chip__icon"
-                            ></i>
-                        @endif
-                        <h2 class="meta-chip__name">{{ $credit->person->name }}</h2>
-                        <h3 class="meta-chip__value">{{ $credit->character }}</h3>
-                    </a>
-                </article>
-            @endforeach
-        </section>
+        <livewire:work-tmdb-actor-credits :work="$meta?->withoutRelations()" />
         <section class="meta__chip-container" title="Crew">
             <h2 class="meta__heading">Crew</h2>
-            @foreach ($meta?->credits?->where('occupation_id', '!=', App\Enums\Occupation::ACTOR->value)?->sortBy('occupation.position') ?? [] as $credit)
+            @foreach ($meta?->credits?->sortBy('occupation.position') ?? [] as $credit)
                 <article class="meta-chip-wrapper">
                     <a
                         href="{{ route('mediahub.persons.show', ['id' => $credit->person->id, 'occupationId' => $credit->occupation_id]) }}"

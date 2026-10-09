@@ -26,31 +26,29 @@ return new class () extends Migration {
     {
         $directory = public_path().'/files/torrents/';
 
-        DB::table('torrents')->select('file_name')->orderBy('id')->chunk(100, function ($torrents) use ($directory): void {
-            foreach ($torrents as $torrent) {
-                if (file_exists($directory.$torrent->file_name)) {
-                    $dict = Bencode::bdecode_file($directory.$torrent->file_name);
+        DB::table('torrents')->select('file_name')->orderBy('id')->each(function ($torrent) use ($directory): void {
+            if (file_exists($directory.$torrent->file_name)) {
+                $dict = Bencode::bdecode_file($directory.$torrent->file_name);
 
-                    // Whitelisted keys
-                    $dict = array_intersect_key($dict, [
-                        'announce'   => '',
-                        'comment'    => '',
-                        'created by' => '',
-                        'encoding'   => '',
-                        'info'       => '',
-                    ]);
+                // Whitelisted keys
+                $dict = array_intersect_key($dict, [
+                    'announce'   => '',
+                    'comment'    => '',
+                    'created by' => '',
+                    'encoding'   => '',
+                    'info'       => '',
+                ]);
 
-                    $dict['announce'] = config('app.url').'/announce/PID';
+                $dict['announce'] = config('app.url').'/announce/PID';
 
-                    $comment = config('torrent.comment', null);
+                $comment = config('torrent.comment', null);
 
-                    if ($comment !== null) {
-                        $result['comment'] = $comment;
-                    }
-
-                    file_put_contents($directory.$torrent->file_name, Bencode::bencode($dict));
+                if ($comment !== null) {
+                    $result['comment'] = $comment;
                 }
+
+                file_put_contents($directory.$torrent->file_name, Bencode::bencode($dict));
             }
-        });
+        }, 100);
     }
 };

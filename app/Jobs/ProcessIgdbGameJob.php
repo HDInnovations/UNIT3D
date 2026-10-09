@@ -21,6 +21,7 @@ use App\Models\IgdbCompany;
 use App\Models\IgdbGame;
 use App\Models\IgdbGenre;
 use App\Models\IgdbPlatform;
+use App\Services\Igdb\Client;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,7 +31,7 @@ use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\Middleware\Skip;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
-use MarcReichel\IGDBLaravel\Models\Game;
+use Illuminate\Support\Carbon;
 
 class ProcessIgdbGameJob implements ShouldQueue
 {
@@ -70,33 +71,14 @@ class ProcessIgdbGameJob implements ShouldQueue
 
     public function handle(): void
     {
-        $fetchedGame = Game::select([
-            'id',
-            'name',
-            'summary',
-            'first_release_date',
-            'url',
-            'rating',
-            'rating_count',
-        ])
-            ->with([
-                'cover'                           => ['image_id'],
-                'artworks'                        => ['image_id'],
-                'genres'                          => ['id', 'name'],
-                'videos'                          => ['video_id', 'name'],
-                'involved_companies.company'      => ['id', 'name', 'url'],
-                'involved_companies.company.logo' => ['image_id'],
-                'platforms'                       => ['id', 'name'],
-                'platforms.platform_logo'         => ['image_id']
-            ])
-            ->findOrFail($this->id);
+        $fetchedGame = new Client\Game($this->id)->data[0];
 
         IgdbGame::query()->upsert([[
             'id'                     => $this->id,
             'name'                   => $fetchedGame['name'] ?? null,
             'summary'                => $fetchedGame['summary'] ?? '',
             'first_artwork_image_id' => $fetchedGame['artworks'][0]['image_id'] ?? null,
-            'first_release_date'     => $fetchedGame['first_release_date'] ?? null,
+            'first_release_date'     => ($fetchedGame['first_release_date'] ?? null) ? Carbon::createFromTimestampUTC($fetchedGame['first_release_date']) : null,
             'cover_image_id'         => $fetchedGame['cover']['image_id'] ?? null,
             'url'                    => $fetchedGame['url'] ?? null,
             'rating'                 => $fetchedGame['rating'] ?? null,
@@ -108,8 +90,8 @@ class ProcessIgdbGameJob implements ShouldQueue
 
         $genres = [];
 
-        foreach ($fetchedGame->genres ?? [] as $genre) {
-            if ($genre['id'] === null || $genre['name'] === null) {
+        foreach ($fetchedGame['genres'] ?? [] as $genre) {
+            if (!\array_key_exists('name', $genre)) {
                 continue;
             }
 
@@ -124,8 +106,8 @@ class ProcessIgdbGameJob implements ShouldQueue
 
         $platforms = [];
 
-        foreach ($fetchedGame->platforms ?? [] as $platform) {
-            if ($platform['id'] === null || $platform['name'] === null) {
+        foreach ($fetchedGame['platforms'] ?? [] as $platform) {
+            if (!\array_key_exists('name', $platform)) {
                 continue;
             }
 
@@ -141,8 +123,8 @@ class ProcessIgdbGameJob implements ShouldQueue
 
         $companies = [];
 
-        foreach ($fetchedGame->involved_companies ?? [] as $company) {
-            if ($company['company']['id'] === null || $company['company']['name'] === null) {
+        foreach ($fetchedGame['involved_companies'] ?? [] as $company) {
+            if (!\array_key_exists('name', $company['company'])) {
                 continue;
             }
 

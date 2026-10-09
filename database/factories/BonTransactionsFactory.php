@@ -20,6 +20,7 @@ use App\Models\BonExchange;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BonTransactions;
+use Override;
 
 /** @extends Factory<BonTransactions> */
 class BonTransactionsFactory extends Factory
@@ -32,6 +33,7 @@ class BonTransactionsFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

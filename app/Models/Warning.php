@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Warning.
@@ -30,7 +31,7 @@ use AllowDynamicProperties;
  * @property int                             $id
  * @property int                             $user_id
  * @property int                             $warned_by
- * @property int|null                        $torrent
+ * @property int|null                        $torrent_id
  * @property string                          $reason
  * @property \Illuminate\Support\Carbon|null $expires_on
  * @property bool                            $active
@@ -55,6 +56,7 @@ final class Warning extends Model
      *
      * @return array{expires_on: 'datetime', active: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

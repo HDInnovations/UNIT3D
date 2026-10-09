@@ -60,29 +60,27 @@ class TorrentZipController extends Controller
                             ->whereRelation('peers', 'visible', '=', true),
                         fn ($query) => $query->whereRelation('history', 'user_id', '=', $user->id),
                     )
-                    ->chunk(100, function ($torrents) use ($announceUrl, $zip): void {
-                        foreach ($torrents as $torrent) {
-                            if (Storage::disk('torrent-files')->exists($torrent->file_name)) {
-                                $dict = Bencode::bdecode(Storage::disk('torrent-files')->get($torrent->file_name));
+                    ->each(function ($torrent) use ($announceUrl, $zip): void {
+                        if (Storage::disk('torrent-files')->exists($torrent->file_name)) {
+                            $dict = Bencode::bdecode(Storage::disk('torrent-files')->get($torrent->file_name));
 
-                                // Set the announce key and add the user passkey
-                                $dict['announce'] = $announceUrl;
+                            // Set the announce key and add the user passkey
+                            $dict['announce'] = $announceUrl;
 
-                                // Set link to torrent as the comment
-                                if (config('torrent.comment')) {
-                                    $dict['comment'] = config('torrent.comment').'. '.route('torrents.show', ['id' => $torrent->id]);
-                                } else {
-                                    $dict['comment'] = route('torrents.show', ['id' => $torrent->id]);
-                                }
-
-                                $fileToDownload = Bencode::bencode($dict);
-
-                                $filename = sanitize_filename('['.config('torrent.source').']'.$torrent->name.'.torrent');
-
-                                $zip->addFile($filename, $fileToDownload);
+                            // Set link to torrent as the comment
+                            if (config('torrent.comment')) {
+                                $dict['comment'] = config('torrent.comment').'. '.route('torrents.show', ['id' => $torrent->id]);
+                            } else {
+                                $dict['comment'] = route('torrents.show', ['id' => $torrent->id]);
                             }
+
+                            $fileToDownload = Bencode::bencode($dict);
+
+                            $filename = sanitize_filename('['.config('torrent.source').']'.$torrent->name.'.torrent');
+
+                            $zip->addFile($filename, $fileToDownload);
                         }
-                    });
+                    }, 100);
 
                 $zip->finish();
             },

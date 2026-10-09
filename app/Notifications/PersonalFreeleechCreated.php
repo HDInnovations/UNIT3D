@@ -22,6 +22,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class PersonalFreeleechCreated extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -32,7 +33,7 @@ class PersonalFreeleechCreated extends Notification implements ShouldQueue, Syst
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -42,11 +43,12 @@ class PersonalFreeleechCreated extends Notification implements ShouldQueue, Syst
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [
             'subject' => __('bon.pm-subject'),
-            'message' => \sprintf(__('bon.pm-message'), now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]!',
+            'message' => \sprintf(__('bon.pm-message'), now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b].',
         ];
     }
 }

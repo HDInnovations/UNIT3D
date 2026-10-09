@@ -1,6 +1,7 @@
 {
   "preset": "psr12",
   "exclude": "lang",
+  "cache-file": ".pint.cache/pint-results",
   "rules": {
     "align_multiline_comment": true,
     "array_indentation": true,

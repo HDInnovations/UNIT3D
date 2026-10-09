@@ -24,7 +24,6 @@ use App\Notifications\WarningsDeactivated;
 use App\Notifications\WarningsDeleted;
 use App\Notifications\WarningTorrentDeleted;
 use App\Traits\LivewireSort;
-use Illuminate\Support\Carbon;
 use Livewire\Attributes\Url;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -75,7 +74,7 @@ class UserWarnings extends Component
                 fn ($query) => $query->orderByDesc('active')->orderByDesc('created_at'),
                 fn ($query) => $query->orderBy($this->sortField, $this->sortDirection),
             )
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final protected int $automatedWarningsCount {
@@ -99,12 +98,12 @@ class UserWarnings extends Component
 
         $this->validate();
 
-        Warning::create([
+        Warning::query()->create([
             'user_id'    => $this->user->id,
             'warned_by'  => auth()->user()->id,
             'torrent_id' => null,
             'reason'     => $this->message,
-            'expires_on' => Carbon::now()->addDays(config('hitrun.expire')),
+            'expires_on' => now()->addDays(config('hitrun.expire')),
             'active'     => true,
         ]);
 
@@ -129,7 +128,9 @@ class UserWarnings extends Component
             'active'     => false,
         ]);
 
-        $this->user->notify(new WarningDeactivated($staff, $warning));
+        if ($warning->torrent()->exists()) {
+            $this->user->notify(new WarningDeactivated($staff, $warning));
+        }
 
         $this->dispatch('success', type: 'success', message: 'Warning was successfully deactivated');
     }
@@ -188,7 +189,9 @@ class UserWarnings extends Component
 
         $warning->delete();
 
-        $this->user->notify(new WarningTorrentDeleted($staff, $warning));
+        if ($warning->torrent()->exists()) {
+            $this->user->notify(new WarningTorrentDeleted($staff, $warning));
+        }
 
         $this->dispatch('success', type: 'success', message: 'Warning was successfully deleted');
     }
@@ -222,7 +225,7 @@ class UserWarnings extends Component
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        Warning::withTrashed()->findOrFail($id)->restore();
+        Warning::query()->withTrashed()->findOrFail($id)->restore();
 
         $this->dispatch('success', type: 'success', message: 'Warning was successfully restored');
     }

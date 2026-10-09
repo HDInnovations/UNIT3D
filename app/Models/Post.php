@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Post.
@@ -29,6 +30,7 @@ use AllowDynamicProperties;
  * @property int                             $id
  * @property string                          $content
  * @property bool                            $anon
+ * @property bool                            $pinned
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int                             $user_id
@@ -50,6 +52,7 @@ final class Post extends Model
     protected $fillable = [
         'content',
         'anon',
+        'pinned',
         'topic_id',
         'user_id',
     ];
@@ -59,10 +62,12 @@ final class Post extends Model
      *
      * @return array{anon: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
-            'anon' => 'bool',
+            'anon'   => 'bool',
+            'pinned' => 'bool',
         ];
     }
 

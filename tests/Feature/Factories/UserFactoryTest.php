@@ -25,7 +25,6 @@ test('user factory returns correct values when created', function (): void {
         'passkey',
         'rsskey',
         'remember_token',
-        'api_token',
     ]);
 
     expect($user)
@@ -57,7 +56,6 @@ test('user factory returns correct values when created', function (): void {
             'can_invite',
             'can_upload',
             'remember_token',
-            'api_token',
             'last_login',
             'last_action',
             //    'disabled_at',

@@ -63,17 +63,15 @@ class AutoRecycleClaimedTorrentRequests extends Command
                     ->whereNull('filled_when')
                     ->whereNull('torrent_id')
             )
-            ->chunkById(100, function ($claims): void {
-                foreach ($claims as $claim) {
-                    $trUrl = href_request($claim->request);
+            ->eachById(function ($claim): void {
+                $trUrl = href_request($claim->request);
 
-                    $this->chatRepository->systemMessage(
-                        \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $claim->request->name)
-                    );
+                $this->chatRepository->systemMessage(
+                    \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $claim->request->name)
+                );
 
-                    $claim->delete();
-                }
-            });
+                $claim->delete();
+            }, 100);
 
         $this->comment('Automated request claim reset command complete');
     }

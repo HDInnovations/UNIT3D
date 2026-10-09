@@ -37,7 +37,7 @@ class NewReseedRequest extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -47,14 +47,12 @@ class NewReseedRequest extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
-        $appurl = config('app.url');
-
         return [
-            'title' => 'New Reseed Request',
-            'body'  => \sprintf('Some time ago, you downloaded: %s. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!', $this->torrent->name),
-            'url'   => \sprintf('%s/torrents/%s', $appurl, $this->torrent->id),
+            'title' => 'Reseed request',
+            'body'  => \sprintf('You downloaded this earlier: %s. It is now dead and someone requested a reseed. If you still have it, please reseed.', $this->torrent->name),
+            'url'   => href_torrent($this->torrent),
         ];
     }
 }

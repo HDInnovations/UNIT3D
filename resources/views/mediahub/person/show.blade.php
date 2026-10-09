@@ -26,7 +26,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ $person->name }}</h2>
         <img
-            src="{{ isset($person->still) ? tmdb_image('cast_big', $person->still) : 'https://via.placeholder.com/300x450' }}"
+            src="{{ isset($person->still) ? tmdb_image('cast_big', $person->still) : url('img/poster-placeholder.svg') }}"
             alt=""
             style="max-width: 100%"
         />

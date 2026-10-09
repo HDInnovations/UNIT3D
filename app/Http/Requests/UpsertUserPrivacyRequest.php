@@ -8,6 +8,7 @@ use App\Enums\UserGroup;
 use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Override;
 
 class UpsertUserPrivacyRequest extends FormRequest
 {
@@ -81,20 +82,21 @@ class UpsertUserPrivacyRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'json_profile_groups'     => array_map('intval', $this->json_profile_groups ?? []),
-            'json_torrent_groups'     => array_map('intval', $this->json_torrent_groups ?? []),
-            'json_forum_groups'       => array_map('intval', $this->json_forum_groups ?? []),
-            'json_bon_groups'         => array_map('intval', $this->json_bon_groups ?? []),
-            'json_comment_groups'     => array_map('intval', $this->json_comment_groups ?? []),
-            'json_wishlist_groups'    => array_map('intval', $this->json_wishlist_groups ?? []),
-            'json_follower_groups'    => array_map('intval', $this->json_follower_groups ?? []),
-            'json_achievement_groups' => array_map('intval', $this->json_achievement_groups ?? []),
-            'json_rank_groups'        => array_map('intval', $this->json_rank_groups ?? []),
-            'json_request_groups'     => array_map('intval', $this->json_request_groups ?? []),
-            'json_other_groups'       => array_map('intval', $this->json_other_groups ?? []),
+            'json_profile_groups'     => array_map(intval(...), $this->json_profile_groups ?? []),
+            'json_torrent_groups'     => array_map(intval(...), $this->json_torrent_groups ?? []),
+            'json_forum_groups'       => array_map(intval(...), $this->json_forum_groups ?? []),
+            'json_bon_groups'         => array_map(intval(...), $this->json_bon_groups ?? []),
+            'json_comment_groups'     => array_map(intval(...), $this->json_comment_groups ?? []),
+            'json_wishlist_groups'    => array_map(intval(...), $this->json_wishlist_groups ?? []),
+            'json_follower_groups'    => array_map(intval(...), $this->json_follower_groups ?? []),
+            'json_achievement_groups' => array_map(intval(...), $this->json_achievement_groups ?? []),
+            'json_rank_groups'        => array_map(intval(...), $this->json_rank_groups ?? []),
+            'json_request_groups'     => array_map(intval(...), $this->json_request_groups ?? []),
+            'json_other_groups'       => array_map(intval(...), $this->json_other_groups ?? []),
         ]);
     }
 }

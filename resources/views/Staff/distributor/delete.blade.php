@@ -49,9 +49,10 @@
                         x-bind:class="distributor === '' ? 'form__select--default' : ''"
                     >
                         <option hidden disabled selected value=""></option>
-                        @foreach ($distributors as $distributor)
-                            <option value="{{ $distributor->id }}">
-                                {{ $distributor->name }}
+                        {{-- Don't overwrite the $distributor variable --}}
+                        @foreach ($distributors as $currentDistributor)
+                            <option value="{{ $currentDistributor->id }}">
+                                {{ $currentDistributor->name }}
                             </option>
                         @endforeach
                     </select>

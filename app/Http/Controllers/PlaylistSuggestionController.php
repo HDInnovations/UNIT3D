@@ -46,7 +46,7 @@ class PlaylistSuggestionController extends Controller
             'torrent_id.unique' => 'This torrent ID/URL ":input" entered is already suggested and awaiting moderation.',
         ])->validate();
 
-        $playlistSuggestion = PlaylistSuggestion::create([
+        $playlistSuggestion = PlaylistSuggestion::query()->create([
             'playlist_id' => $playlist->id,
             'torrent_id'  => basename($request->torrent_url),
             'user_id'     => $request->user()->id,
@@ -68,7 +68,7 @@ class PlaylistSuggestionController extends Controller
 
         switch (ModerationStatus::from($request->integer('status'))) {
             case ModerationStatus::APPROVED:
-                $playlistTorrent = PlaylistTorrent::create([
+                $playlistTorrent = PlaylistTorrent::query()->create([
                     'playlist_id' => $playlistSuggestion->playlist_id,
                     'torrent_id'  => $playlistSuggestion->torrent_id,
                 ]);

@@ -21,6 +21,7 @@ use App\Models\TicketPriority;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Ticket;
+use Override;
 
 /** @extends Factory<Ticket> */
 class TicketFactory extends Factory
@@ -33,6 +34,7 @@ class TicketFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -45,8 +47,6 @@ class TicketFactory extends Factory
             'subject'     => $this->faker->word(),
             'body'        => $this->faker->text(),
             'closed_at'   => $this->faker->dateTime(),
-            'reminded_at' => $this->faker->dateTime(),
-            'deleted_at'  => $this->faker->dateTime(),
         ];
     }
 }

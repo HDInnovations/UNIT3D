@@ -24,7 +24,7 @@ class ChatStatusSeeder extends Seeder
 {
     public function run(): void
     {
-        ChatStatus::upsert([
+        ChatStatus::query()->upsert([
             [
                 'name'  => 'Online',
                 'color' => '#2ECC40',

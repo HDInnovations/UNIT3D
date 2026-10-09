@@ -24,7 +24,7 @@ class BonExchangeSeeder extends Seeder
 {
     public function run(ByteUnits $byteUnits): void
     {
-        BonExchange::upsert([
+        BonExchange::query()->upsert([
             [
                 'id'                 => 1,
                 'description'        => '2 GiB Upload',

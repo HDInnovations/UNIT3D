@@ -14,8 +14,12 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
+use App\Models\Article;
+use App\Models\Group;
 use App\Models\Invite;
 use App\Models\Peer;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\User;
 
 test('accept rules returns an ok response', function (): void {
@@ -132,6 +136,87 @@ test('update aborts with a 403', function (): void {
     ]);
 
     $response->assertForbidden();
+});
+
+test('show excludes anonymous comments from another user\'s comment counts', function (): void {
+    $user = User::factory()->create();
+    $viewer = User::factory()->create();
+    $commentables = [
+        Article::factory()->create(),
+        Torrent::factory()->create(),
+        TorrentRequest::factory()->create(),
+    ];
+
+    foreach ($commentables as $commentable) {
+        $commentable->comments()->createMany([
+            [
+                'content' => 'Public comment',
+                'user_id' => $user->id,
+                'anon'    => false,
+            ],
+            [
+                'content' => 'Anonymous comment',
+                'user_id' => $user->id,
+                'anon'    => true,
+            ],
+        ]);
+    }
+
+    $response = $this->actingAs($viewer)->get(route('users.show', [$user]));
+
+    $response->assertOk();
+
+    $profileUser = $response->viewData('user');
+
+    expect([
+        $profileUser->article_comments_count,
+        $profileUser->torrent_comments_count,
+        $profileUser->request_comments_count,
+    ])->toBe([1, 1, 1]);
+});
+
+test('show includes anonymous comments in the author\'s own comment counts', function (): void {
+    $user = User::factory()->create();
+    $torrent = Torrent::factory()->create();
+
+    $torrent->comments()->createMany([
+        [
+            'content' => 'Public comment',
+            'user_id' => $user->id,
+            'anon'    => false,
+        ],
+        [
+            'content' => 'Anonymous comment',
+            'user_id' => $user->id,
+            'anon'    => true,
+        ],
+    ]);
+
+    $response = $this->actingAs($user)->get(route('users.show', [$user]));
+
+    $response->assertOk();
+
+    expect($response->viewData('user')->torrent_comments_count)->toBe(2);
+});
+
+test('show includes anonymous comments in comment counts for moderators', function (): void {
+    $user = User::factory()->create();
+    $torrent = Torrent::factory()->create();
+    $moderator = User::factory()->create([
+        'group_id' => Group::factory()->create(['is_modo' => true])->id,
+    ]);
+
+    $torrent->comments()->create([
+        'content' => 'Anonymous comment',
+        'user_id' => $user->id,
+        'anon'    => true,
+    ]);
+
+    $response = $this->actingAs($moderator)->get(route('users.show', [$user]));
+
+    $response->assertOk();
+
+    expect($response->viewData('user')->torrent_comments_count)->toBe(1);
 });
 
 // test cases...

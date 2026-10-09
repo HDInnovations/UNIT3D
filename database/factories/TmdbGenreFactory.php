@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TmdbGenre;
+use Override;
 
 /** @extends Factory<TmdbGenre> */
 class TmdbGenreFactory extends Factory
@@ -30,6 +31,7 @@ class TmdbGenreFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

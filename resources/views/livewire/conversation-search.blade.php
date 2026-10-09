@@ -1,4 +1,4 @@
-<section class="panelV2" x-data="{ tab: @entangle('tab').live }">
+<section class="panelV2" x-data="tabs($wire.entangle('tab').live)">
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('pm.inbox') }}</h2>
         <div class="panel__actions">
@@ -51,36 +51,16 @@
         </div>
     </header>
     <menu class="panel__tabs panel__tabs--centered">
-        <li
-            class="panel__tab panel__tab--full-width"
-            role="tab"
-            x-bind:class="tab === 'all' && 'panel__tab--active'"
-            x-on:click="tab = 'all'"
-        >
+        <li class="panel__tab--full-width" x-bind="tabButton" data-tab="all">
             {{ __('stat.all') }}
         </li>
-        <li
-            class="panel__tab panel__tab--full-width"
-            role="tab"
-            x-bind:class="tab === 'unread' && 'panel__tab--active'"
-            x-on:click="tab = 'unread'"
-        >
+        <li class="panel__tab--full-width" x-bind="tabButton" data-tab="unread">
             {{ __('pm.unread') }}
         </li>
-        <li
-            class="panel__tab panel__tab--full-width"
-            role="tab"
-            x-bind:class="tab === 'inbox' && 'panel__tab--active'"
-            x-on:click="tab = 'inbox'"
-        >
+        <li class="panel__tab--full-width" x-bind="tabButton" data-tab="inbox">
             {{ __('pm.inbox') }}
         </li>
-        <li
-            class="panel__tab panel__tab--full-width"
-            role="tab"
-            x-bind:class="tab === 'outbox' && 'panel__tab--active'"
-            x-on:click="tab = 'outbox'"
-        >
+        <li class="panel__tab--full-width" x-bind="tabButton" data-tab="outbox">
             {{ __('pm.outbox') }}
         </li>
     </menu>

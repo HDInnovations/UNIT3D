@@ -22,7 +22,7 @@ class UserController extends BaseController
 {
     final public function show(): UserResource
     {
-        $user = auth()->user();
+        $user = auth()->user()->loadCount('seedingTorrents', 'leechingTorrents');
 
         UserResource::withoutWrapping();
 

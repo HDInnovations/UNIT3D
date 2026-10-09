@@ -186,7 +186,7 @@ class Bbcode
                 'openBbcode'  => '/^\[code\]/i',
                 'closeBbcode' => '[/code]',
                 'openHtml'    => '<div class="bbcode-rendered__clipboard" x-data="clipboardButton"><pre><code>',
-                'closeHtml'   => '</code></pre><div class="bbcode-rendered__clipboard-container"><button class="bbcode-rendered__clipboard-button" x-bind="button"><i class="fa fa-clone"></i></button></div></div>',
+                'closeHtml'   => '</code></pre><div class="bbcode-rendered__clipboard-container"><button type="button" class="bbcode-rendered__clipboard-button" x-bind="button"><i class="fa fa-clone"></i></button></div></div>',
                 'block'       => true,
             ],
             'pre' => [

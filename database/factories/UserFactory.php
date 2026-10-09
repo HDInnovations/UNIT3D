@@ -22,6 +22,7 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
+use Override;
 use Str;
 
 /** @extends Factory<User> */
@@ -35,6 +36,7 @@ class UserFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -64,7 +66,6 @@ class UserFactory extends Factory
             'can_invite'        => $this->faker->boolean(),
             'can_upload'        => $this->faker->boolean(),
             'remember_token'    => Str::random(10),
-            'api_token'         => $this->faker->uuid(),
             'last_login'        => $this->faker->dateTime(),
             'last_action'       => $this->faker->dateTime(),
             //'disabled_at'         => $this->faker->dateTime(),
@@ -76,7 +77,7 @@ class UserFactory extends Factory
 
     public function system(): self
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $_attributes) => [
             'id'       => User::SYSTEM_USER_ID,
             'email'    => config('unit3d.default-owner-email'),
             'group_id' => 9,

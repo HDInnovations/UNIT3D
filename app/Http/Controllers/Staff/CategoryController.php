@@ -35,7 +35,7 @@ class CategoryController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.category.index', [
-            'categories' => Category::orderBy('position')->get(),
+            'categories' => Category::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -62,14 +62,15 @@ class CategoryController extends Controller
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
-        Category::create([
+        Category::query()->create([
+            ...$request->validated(),
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',
             'game_meta'  => $request->meta === 'game',
             'tv_meta'    => $request->meta === 'tv',
             'movie_meta' => $request->meta === 'movie',
-        ] + $request->validated());
+        ]);
 
         return to_route('staff.categories.index')
             ->with('success', 'Category successfully added');
@@ -105,13 +106,14 @@ class CategoryController extends Controller
         }
 
         $category->update([
+            ...$request->validated(),
             'image'      => $filename ?? null,
             'no_meta'    => $request->meta === 'no',
             'music_meta' => $request->meta === 'music',
             'game_meta'  => $request->meta === 'game',
             'tv_meta'    => $request->meta === 'tv',
             'movie_meta' => $request->meta === 'movie',
-        ] + $request->validated());
+        ]);
 
         return to_route('staff.categories.index')
             ->with('success', 'Category successfully modified');

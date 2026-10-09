@@ -68,19 +68,26 @@
                         </div>
                     @endif
                     @if (auth()->id() !== $user->id)
-                        <div class="panel__action" x-data="dialog">
-                            <button class="form__button form__button--text" x-bind="showDialog">
+                        <div class="panel__action">
+                            <button
+                                class="form__button form__button--text"
+                                popovertarget="user-profile-report"
+                            >
                                 Report
                             </button>
-                            <dialog class="dialog" x-bind="dialogElement">
+                            <dialog id="user-profile-report" class="dialog" popover>
                                 <h3 class="dialog__heading">Report user: {{ $user->username }}</h3>
                                 <form
                                     class="dialog__form"
                                     method="POST"
-                                    action="{{ route('report_user', ['username' => $user->username]) }}"
-                                    x-bind="dialogForm"
+                                    action="{{ route('reports.store') }}"
                                 >
                                     @csrf
+                                    <input
+                                        type="hidden"
+                                        name="reported_user_username"
+                                        value="{{ $user->username }}"
+                                    />
                                     <p class="form__group">
                                         <textarea
                                             id="report_reason"
@@ -100,9 +107,9 @@
                                             {{ __('common.save') }}
                                         </button>
                                         <button
-                                            formmethod="dialog"
-                                            formnovalidate
                                             class="form__button form__button--outlined"
+                                            type="button"
+                                            popovertarget="user-profile-report"
                                         >
                                             {{ __('common.cancel') }}
                                         </button>
@@ -465,14 +472,14 @@
                     <h2 class="panel__heading">Watchlist</h2>
                     <div class="panel__actions">
                         @if ($watch === null)
-                            <div class="panel__action" x-data="dialog">
+                            <div class="panel__action">
                                 <button
                                     class="form__button form__button--text"
-                                    x-bind="showDialog"
+                                    popovertarget="watched-users-add"
                                 >
                                     Watch
                                 </button>
-                                <dialog class="dialog" x-bind="dialogElement">
+                                <dialog id="watched-users-add" class="dialog" popover>
                                     <h3 class="dialog__heading">
                                         Watch user: {{ $user->username }}
                                     </h3>
@@ -480,7 +487,6 @@
                                         class="dialog__form"
                                         method="POST"
                                         action="{{ route('staff.watchlist.store') }}"
-                                        x-bind="dialogForm"
                                     >
                                         @csrf
                                         <input
@@ -507,9 +513,9 @@
                                                 {{ __('common.save') }}
                                             </button>
                                             <button
-                                                formaction="dialog"
-                                                formnovalidate
                                                 class="form__button form__button--outlined"
+                                                type="button"
+                                                popovertarget="watched-users-add"
                                             >
                                                 {{ __('common.cancel') }}
                                             </button>
@@ -905,7 +911,7 @@
                         <div class="key-value__group">
                             <dt>{{ __('common.group') }}</dt>
                             <dd>
-                                @if (null !== ($group = \App\Models\Group::find($externalUser['group_id'])))
+                                @if (null !== ($group = \App\Models\Group::query()->find($externalUser['group_id'])))
                                     <span class="user-tag">
                                         <span
                                             class="user-tag__link {{ $group->icon }}"
@@ -1010,7 +1016,11 @@
                 </h2>
                 <dl class="key-value">
                     <div class="key-value__group">
-                        <dt>{{ __('user.invited-by') }}</dt>
+                        <dt>
+                            <a href="{{ route('users.invite_tree.index', ['user' => $user]) }}">
+                                {{ __('user.invited-by') }}
+                            </a>
+                        </dt>
                         <dd>
                             @if ($invitedBy)
                                 <x-user-tag :user="$invitedBy->sender" :anon="false" />
@@ -1020,7 +1030,11 @@
                         </dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('user.passkey') }}</dt>
+                        <dt>
+                            <a href="{{ route('users.passkeys.index', ['user' => $user]) }}">
+                                {{ __('user.passkey') }}
+                            </a>
+                        </dt>
                         <dd>
                             <details>
                                 <summary style="cursor: pointer">
@@ -1036,11 +1050,19 @@
                         <dd>{{ $user->id }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>{{ __('common.email') }}</dt>
+                        <dt>
+                            <a href="{{ route('users.email.edit', ['user' => $user]) }}">
+                                {{ __('common.email') }}
+                            </a>
+                        </dt>
                         <dd>{{ $user->email }}</dd>
                     </div>
                     <div class="key-value__group">
-                        <dt>2FA enabled</dt>
+                        <dt>
+                            <a href="{{ route('users.two_factor_auth.edit', ['user' => $user]) }}">
+                                2FA enabled
+                            </a>
+                        </dt>
                         <dd>
                             @if ($user->two_factor_confirmed_at !== null)
                                 <i
@@ -1187,14 +1209,14 @@
                     <h2 class="panel__heading">{{ __('user.bon') }}</h2>
                     @if (auth()->user()->isNot($user))
                         <div class="panel__actions">
-                            <div class="panel__action" x-data="dialog">
+                            <div class="panel__action">
                                 <button
                                     class="form__button form__button--text"
-                                    x-bind="showDialog"
+                                    popovertarget="gift-add"
                                 >
                                     Gift BON
                                 </button>
-                                <dialog class="dialog" x-bind="dialogElement">
+                                <dialog id="gift-add" class="dialog" popover>
                                     <h3 class="dialog__heading">
                                         Gift BON to: {{ $user->username }}
                                     </h3>
@@ -1202,7 +1224,6 @@
                                         class="dialog__form"
                                         method="POST"
                                         action="{{ route('users.gifts.store', ['user' => auth()->user()]) }}"
-                                        x-bind="dialogForm"
                                     >
                                         @csrf
                                         <input
@@ -1247,9 +1268,9 @@
                                                 {{ __('bon.gift') }}
                                             </button>
                                             <button
-                                                formmethod="dialog"
-                                                formnovalidate
                                                 class="form__button form__button--outlined"
+                                                type="button"
+                                                popovertarget="gift-add"
                                             >
                                                 {{ __('common.cancel') }}
                                             </button>
@@ -1342,21 +1363,15 @@
                 <dl class="key-value">
                     <div class="key-value__group">
                         <dt>{{ __('user.article-comments') }}</dt>
-                        <dd>
-                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\Article::class])->count() }}
-                        </dd>
+                        <dd>{{ $user->article_comments_count }}</dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.torrent-comments') }}</dt>
-                        <dd>
-                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\Torrent::class])->count() }}
-                        </dd>
+                        <dd>{{ $user->torrent_comments_count }}</dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('user.request-comments') }}</dt>
-                        <dd>
-                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\TorrentRequest::class])->count() }}
-                        </dd>
+                        <dd>{{ $user->request_comments_count }}</dd>
                     </div>
                 </dl>
             </section>

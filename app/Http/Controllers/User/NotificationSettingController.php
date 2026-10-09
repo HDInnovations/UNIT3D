@@ -35,7 +35,7 @@ class NotificationSettingController extends Controller
 
         // Can't use upsert here because upsert doesn't serialize the custom
         // array cast to a string before upserting
-        UserNotification::updateOrCreate(['user_id' => $user->id], $request->validated());
+        UserNotification::query()->updateOrCreate(['user_id' => $user->id], $request->validated());
 
         cache()->forget('user-notification:by-user-id:'.$user->id);
 

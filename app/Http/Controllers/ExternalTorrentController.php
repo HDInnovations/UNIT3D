@@ -28,7 +28,7 @@ class ExternalTorrentController extends Controller
     {
         return view('torrent.external-tracker', [
             'id'              => $id,
-            'torrent'         => Torrent::find($id),
+            'torrent'         => Torrent::query()->find($id),
             'externalTorrent' => Unit3dAnnounce::getTorrent($id),
         ]);
     }

@@ -43,11 +43,11 @@ class ProcessMassPM implements ShouldQueue
      */
     public function handle(): void
     {
-        $conversation = Conversation::create(['subject' => $this->subject]);
+        $conversation = Conversation::query()->create(['subject' => $this->subject]);
 
         $conversation->users()->sync([$this->senderId => ['read' => true], $this->receiverId]);
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'conversation_id' => $conversation->id,
             'sender_id'       => $this->senderId,
             'message'         => $this->message

@@ -17,7 +17,10 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use App\Models\Article;
+use App\Models\IgdbGame;
 use App\Models\TmdbCollection;
+use App\Models\TmdbMovie;
+use App\Models\TmdbTv;
 use App\Models\Comment;
 use App\Models\Playlist;
 use App\Models\Ticket;
@@ -35,7 +38,7 @@ class NewCommentTag extends Notification implements ShouldQueue
     /**
      * NewCommentTag Constructor.
      */
-    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|TmdbCollection|Article $model, public Comment $comment)
+    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|TmdbCollection|TmdbMovie|TmdbTv|IgdbGame|Article $model, public Comment $comment)
     {
     }
 
@@ -44,7 +47,7 @@ class NewCommentTag extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -70,38 +73,21 @@ class NewCommentTag extends Notification implements ShouldQueue
             return false;
         }
 
-        // Evaluate model based settings
-        switch ($this->model::class) {
-            case Torrent::class:
-                if ($notifiable->notification?->show_mention_torrent_comment === 0) {
-                    return false;
-                }
+        // Evaluate model-specific notification settings
+        $modelSpecificDisabled = match ($this->model::class) {
+            Torrent::class                  => $notifiable->notification?->show_mention_torrent_comment === 0,
+            TorrentRequest::class           => $notifiable->notification?->show_mention_request_comment === 0,
+            Ticket::class                   => $this->model->staff_id === $this->comment->id,
+            Playlist::class, Article::class => $notifiable->notification?->show_mention_article_comment === 0,
+            default                         => false,
+        };
 
-                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
-                // the expression will return false.
-                return ! \in_array($this->comment->user->group_id, $notifiable->notification?->json_mention_groups ?? [], true);
-            case TorrentRequest::class:
-                if ($notifiable->notification?->show_mention_request_comment === 0) {
-                    return false;
-                }
-
-                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
-                // the expression will return false.
-                return ! \in_array($this->comment->user->group_id, $notifiable->notification?->json_mention_groups ?? [], true);
-            case Ticket::class:
-                return ! ($this->model->staff_id === $this->comment->id);
-            case Playlist::class:
-            case Article::class:
-                if ($notifiable->notification?->show_mention_article_comment === 0) {
-                    return false;
-                }
-
-                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
-                // the expression will return false.
-                return ! \in_array($this->comment->user->group_id, $notifiable->notification?->json_mention_groups ?? [], true);
+        if ($modelSpecificDisabled) {
+            return false;
         }
 
-        return true;
+        // If the sender's group ID is in the user's blocked groups list, don't send
+        return !\in_array($this->comment->user->group_id, $notifiable->notification?->json_mention_groups ?? [], true);
     }
 
     /**
@@ -109,40 +95,55 @@ class NewCommentTag extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         $username = $this->comment->anon ? 'Anonymous' : $this->comment->user->username;
-        $title = $this->comment->anon ? 'You Have Been Tagged' : $username.' Has Tagged You';
+        $title = $this->comment->anon ? 'You were tagged' : $username.' tagged you';
 
         return match ($this->model::class) {
             Torrent::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent '.$this->model->name,
+                'body'  => $username.' tagged you on torrent '.$this->model->name,
                 'url'   => '/torrents/'.$this->model->id,
             ],
             TorrentRequest::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent Request '.$this->model->name,
+                'body'  => $username.' tagged you on request '.$this->model->name,
                 'url'   => '/requests/'.$this->model->id,
             ],
             Ticket::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Ticket '.$this->model->subject,
+                'body'  => $username.' tagged you on ticket '.$this->model->subject,
                 'url'   => '/tickets/'.$this->model->id,
             ],
             Playlist::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Playlist '.$this->model->name,
+                'body'  => $username.' tagged you on playlist '.$this->model->name,
                 'url'   => '/playlists/'.$this->model->id,
             ],
             TmdbCollection::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Collection '.$this->model->name,
+                'body'  => $username.' tagged you on collection '.$this->model->name,
                 'url'   => '/mediahub/collections/'.$this->model->id,
+            ],
+            TmdbMovie::class => [
+                'title' => $title,
+                'body'  => $username.' tagged you on movie '.$this->model->title,
+                'url'   => '/torrents/similar/'.($this->model->torrents()->value('category_id') ?? 1).'.'.$this->model->id,
+            ],
+            TmdbTv::class => [
+                'title' => $title,
+                'body'  => $username.' tagged you on TV show '.$this->model->name,
+                'url'   => '/torrents/similar/'.($this->model->torrents()->value('category_id') ?? 2).'.'.$this->model->id,
+            ],
+            IgdbGame::class => [
+                'title' => $title,
+                'body'  => $username.' tagged you on game '.$this->model->name,
+                'url'   => '/torrents/similar/'.Torrent::query()->where('igdb', '=', $this->model->id)->value('category_id').'.'.$this->model->id,
             ],
             Article::class => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Article '.$this->model->title,
+                'body'  => $username.' tagged you on article '.$this->model->title,
                 'url'   => '/articles/'.$this->model->id,
             ],
         };

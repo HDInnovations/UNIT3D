@@ -23,6 +23,7 @@ use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentRequest;
+use Override;
 
 /** @extends Factory<TorrentRequest> */
 class TorrentRequestFactory extends Factory
@@ -35,6 +36,7 @@ class TorrentRequestFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -45,7 +47,7 @@ class TorrentRequestFactory extends Factory
             'tmdb_movie_id' => $this->faker->randomNumber(),
             'tmdb_tv_id'    => $this->faker->randomNumber(),
             'mal'           => $this->faker->randomNumber(),
-            'igdb'          => $this->faker->word(),
+            'igdb'          => $this->faker->randomNumber(),
             'description'   => $this->faker->text(),
             'user_id'       => User::factory(),
             'bounty'        => $this->faker->randomFloat(),
@@ -58,6 +60,7 @@ class TorrentRequestFactory extends Factory
             'approved_when' => $this->faker->dateTime(),
             'type_id'       => Type::factory(),
             'resolution_id' => Resolution::factory(),
+            'bumped_at'     => $this->faker->dateTime(),
         ];
     }
 }

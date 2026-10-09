@@ -23,28 +23,31 @@
         </div>
         <form class="form" x-cloak x-show="isToggledOn">
             <div class="form__group--short-horizontal">
-                <p class="form__group">
-                    <input
-                        id="description"
-                        wire:model.live="description"
-                        class="form__text"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="description">
-                        {{ __('torrent.description') }}
-                    </label>
-                </p>
-                <p class="form__group">
-                    <input
-                        id="mediainfo"
-                        wire:model.live="mediainfo"
-                        class="form__text"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="mediainfo">
-                        {{ __('torrent.media-info') }}
-                    </label>
-                </p>
+                @if (($group = auth()->user()->group) && ($group->is_modo || $group->is_torrent_modo || $group->is_editor))
+                    <p class="form__group">
+                        <input
+                            id="description"
+                            wire:model.live="description"
+                            class="form__text"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="description">
+                            {{ __('torrent.description') }}
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <input
+                            id="mediainfo"
+                            wire:model.live="mediainfo"
+                            class="form__text"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="mediainfo">
+                            {{ __('torrent.media-info') }}
+                        </label>
+                    </p>
+                @endif
+
                 <p class="form__group">
                     <input
                         id="keywords"
@@ -70,7 +73,7 @@
             </div>
             <div class="form__group--short-horizontal">
                 <div class="form__group--short-horizontal">
-                    <p class="form__group" x-data="{ startYear: @entangle('startYear') }">
+                    <p class="form__group" x-data="{ startYear: $wire.entangle('startYear') }">
                         <input
                             id="startYear"
                             x-on:input.debounce.150ms="
@@ -89,7 +92,7 @@
                             {{ __('torrent.start-year') }}
                         </label>
                     </p>
-                    <p class="form__group" x-data="{ endYear: @entangle('endYear') }">
+                    <p class="form__group" x-data="{ endYear: $wire.entangle('endYear') }">
                         <input
                             id="endYear"
                             x-on:input.debounce.150ms="

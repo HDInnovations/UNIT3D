@@ -18,7 +18,6 @@ namespace App\Traits;
 
 use App\Models\Audit;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use ArgumentCountError;
 use InvalidArgumentException;
@@ -158,7 +157,7 @@ trait Auditable
 
         if (null !== $userId && !empty($data)) {
             // Store record
-            $now = Carbon::now()->format('Y-m-d H:i:s');
+            $now = now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
                 'auditable_type' => $model::class,
@@ -186,7 +185,7 @@ trait Auditable
 
         if (null !== $userId && false !== $data && !empty(json_decode($data, true, 512, JSON_THROW_ON_ERROR))) {
             // Store record
-            $now = Carbon::now()->format('Y-m-d H:i:s');
+            $now = now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
                 'auditable_type' => $model::class,
@@ -214,7 +213,7 @@ trait Auditable
 
         if (null !== $userId && !empty($data)) {
             // Store record
-            $now = Carbon::now()->format('Y-m-d H:i:s');
+            $now = now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
                 'user_id'        => $userId,
                 'auditable_type' => $model::class,

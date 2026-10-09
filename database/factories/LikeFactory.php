@@ -20,6 +20,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Like;
+use Override;
 
 /** @extends Factory<Like> */
 class LikeFactory extends Factory
@@ -32,6 +33,7 @@ class LikeFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

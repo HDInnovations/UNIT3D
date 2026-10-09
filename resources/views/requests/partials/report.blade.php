@@ -1,20 +1,15 @@
-<div class="form__group form__group--short-horizontal" x-data="dialog">
+<div class="form__group form__group--short-horizontal">
     <button
         class="form__button form__button--outlined form__button--centered"
-        x-bind="showDialog"
+        popovertarget="request-report"
     >
         {{ __('common.report') }}
     </button>
-    <dialog class="dialog" x-bind="dialogElement">
+    <dialog id="request-report" class="dialog" popover>
         <h3 class="dialog__heading">{{ __('request.report') }}: {{ $torrentRequest->name }}</h3>
-        <form
-            class="dialog__form"
-            method="POST"
-            action="{{ route('report_request', ['id' => $torrentRequest->id]) }}"
-            x-bind="dialogForm"
-        >
+        <form class="dialog__form" method="POST" action="{{ route('reports.store') }}">
             @csrf
-            <input id="type" type="hidden" name="title" value="{{ $torrentRequest->name }}" />
+            <input type="hidden" name="reported_request_id" value="{{ $torrentRequest->id }}" />
             <p class="form__group">
                 <textarea
                     id="message"
@@ -32,9 +27,9 @@
                     {{ __('request.report') }}
                 </button>
                 <button
-                    formmethod="dialog"
-                    formnovalidate
                     class="form__button form__button--outlined"
+                    type="button"
+                    popovertarget="request-report"
                 >
                     {{ __('common.cancel') }}
                 </button>

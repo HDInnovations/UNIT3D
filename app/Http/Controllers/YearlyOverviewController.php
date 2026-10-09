@@ -53,7 +53,8 @@ class YearlyOverviewController extends Controller
         return view('stats.yearly-overviews.show', [
             'topMovies' => cache()->rememberForever(
                 'yearly-overview:'.$year.':top-movies',
-                fn () => Torrent::with('movie')
+                fn () => Torrent::query()
+                    ->with('movie')
                     ->select([
                         'tmdb_movie_id',
                         DB::raw('COUNT(h.user_id) as download_count'),
@@ -73,35 +74,12 @@ class YearlyOverviewController extends Controller
                     ->groupBy('tmdb_movie_id')
                     ->orderByDesc('download_count')
                     ->take(10)
-                    ->get()
-            ),
-            'bottomMovies' => cache()->rememberForever(
-                'yearly-overview:'.$year.':bottom-movies',
-                fn () => Torrent::with('movie')
-                    ->select([
-                        'tmdb_movie_id',
-                        DB::raw('COUNT(h.user_id) as download_count'),
-                        DB::raw('MIN(category_id) as category_id'),
-                    ])
-                    ->leftJoinSub(
-                        History::query()
-                            ->whereNotNull('completed_at')
-                            ->where('history.created_at', '>=', $year.'-01-01 00:00:00')
-                            ->where('history.created_at', '<=', $year.'-12-31 23:59:59'),
-                        'h',
-                        fn ($join) => $join->on('torrents.id', '=', 'h.torrent_id')
-                    )
-                    ->where('tmdb_movie_id', '!=', 0)
-                    ->whereNotNull('tmdb_movie_id')
-                    ->whereRelation('category', 'movie_meta', '=', true)
-                    ->groupBy('tmdb_movie_id')
-                    ->orderBy('download_count')
-                    ->take(5)
                     ->get()
             ),
             'topTv' => cache()->rememberForever(
                 'yearly-overview:'.$year.':top-tv',
-                fn () => Torrent::with('tv')
+                fn () => Torrent::query()
+                    ->with('tv')
                     ->select([
                         'tmdb_tv_id',
                         DB::raw('COUNT(h.user_id) as download_count'),
@@ -121,36 +99,13 @@ class YearlyOverviewController extends Controller
                     ->groupBy('tmdb_tv_id')
                     ->orderByDesc('download_count')
                     ->take(10)
-                    ->get()
-            ),
-            'bottomTv' => cache()->rememberForever(
-                'yearly-overview:'.$year.':bottom-tv',
-                fn () => Torrent::with('tv')
-                    ->select([
-                        'tmdb_tv_id',
-                        DB::raw('COUNT(h.user_id) as download_count'),
-                        DB::raw('MIN(category_id) as category_id'),
-                    ])
-                    ->leftJoinSub(
-                        History::query()
-                            ->whereNotNull('completed_at')
-                            ->where('history.created_at', '>=', $year.'-01-01 00:00:00')
-                            ->where('history.created_at', '<=', $year.'-12-31 23:59:59'),
-                        'h',
-                        fn ($join) => $join->on('torrents.id', '=', 'h.torrent_id')
-                    )
-                    ->where('tmdb_tv_id', '!=', 0)
-                    ->whereNotNull('tmdb_tv_id')
-                    ->whereRelation('category', 'tv_meta', '=', true)
-                    ->groupBy('tmdb_tv_id')
-                    ->orderBy('download_count')
-                    ->take(5)
                     ->get()
             ),
             'uploaders' => cache()->remember(
                 'yearly-overview:'.$year.':uploaders',
                 3600,
-                fn () => Torrent::with('user.group')
+                fn () => Torrent::query()
+                    ->with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
                     ->where('anon', '=', false)
@@ -163,7 +118,8 @@ class YearlyOverviewController extends Controller
             'posters' => $posters = cache()->remember(
                 'yearly-overview:'.$year.':posts',
                 3600,
-                fn () => Post::with('user.group')
+                fn () => Post::query()
+                    ->with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
                     ->select(DB::raw('user_id, COUNT(*) as value'))
@@ -175,7 +131,8 @@ class YearlyOverviewController extends Controller
             'requesters' => cache()->remember(
                 'yearly-overview:'.$year.':requesters',
                 3600,
-                fn () => TorrentRequest::with(['user.group'])
+                fn () => TorrentRequest::query()
+                    ->with(['user.group'])
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
                     ->where('user_id', '!=', 1)
@@ -189,7 +146,8 @@ class YearlyOverviewController extends Controller
             'fillers' => cache()->remember(
                 'yearly-overview:'.$year.':fillers',
                 3600,
-                fn () => TorrentRequest::with('filler.group')
+                fn () => TorrentRequest::query()
+                    ->with('filler.group')
                     ->where('filled_when', '>=', $year.'-01-01 00:00:00')
                     ->where('filled_when', '<=', $year.'-12-31 23:59:59')
                     ->where('filled_by', '!=', 1)
@@ -203,7 +161,8 @@ class YearlyOverviewController extends Controller
             'commenters' => cache()->remember(
                 'yearly-overview:'.$year.':commenters',
                 3600,
-                fn () => Comment::with('user.group')
+                fn () => Comment::query()
+                    ->with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
                     ->where('user_id', '!=', 1)
@@ -217,7 +176,8 @@ class YearlyOverviewController extends Controller
             'thankers' => cache()->remember(
                 'yearly-overview:'.$year.':thankers',
                 3600,
-                fn () => Thank::with('user.group')
+                fn () => Thank::query()
+                    ->with('user.group')
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
                     ->where('user_id', '!=', 1)

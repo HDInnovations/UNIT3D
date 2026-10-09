@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Resolution;
+use Override;
 
 /** @extends Factory<Resolution> */
 class ResolutionFactory extends Factory
@@ -30,6 +31,7 @@ class ResolutionFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

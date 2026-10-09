@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\FailedLoginAttempt;
 use App\Traits\LivewireSort;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -57,7 +56,7 @@ class FailedLoginSearch extends Component
             ->select(['ip_address', DB::raw('COUNT(*) as login_attempts'), DB::raw('MAX(created_at) as latest_created_at')])
             ->groupBy('ip_address')
             ->having('login_attempts', '>', 3)
-            ->having('latest_created_at', '>=', Carbon::now()->subWeek())
+            ->having('latest_created_at', '>=', now()->subWeek())
             ->orderByDesc('login_attempts')
             ->limit(10)
             ->get();
@@ -73,7 +72,7 @@ class FailedLoginSearch extends Component
             ->when($this->userId, fn ($query) => $query->where('user_id', '=', $this->userId))
             ->when($this->ipAddress, fn ($query) => $query->where('ip_address', 'LIKE', $this->ipAddress.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

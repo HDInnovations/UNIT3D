@@ -27,11 +27,11 @@ class CheckIfBanned
      *
      * @throws Exception
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next, ?string $guard = null): mixed
+    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         $user = $request->user();
         // Redis returns ints as numeric strings!
-        $bannedGroupId = (int) cache()->rememberForever('group:banned:id', fn () => Group::where('slug', '=', 'banned')->soleValue('id'));
+        $bannedGroupId = (int) cache()->rememberForever('group:banned:id', fn () => Group::query()->where('slug', '=', 'banned')->soleValue('id'));
 
         if ($user && $user->group_id === $bannedGroupId) {
             if ($request->is('api/*')) {

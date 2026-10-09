@@ -63,10 +63,10 @@ class AutoUpsertPeers extends Command
                 break;
             }
 
-            $peers = array_map('unserialize', $peers);
+            $peers = array_map(unserialize(...), $peers);
 
             DB::transaction(function () use ($peers): void {
-                Peer::upsert(
+                Peer::query()->upsert(
                     $peers,
                     ['user_id', 'torrent_id', 'peer_id'],
                     [
@@ -87,7 +87,7 @@ class AutoUpsertPeers extends Command
                 );
             }, 5);
 
-            Redis::connection('announce')->command('LTRIM', [$key, $peerPerCycle, -1]);
+            Redis::connection('announce')->command('LTRIM', [$key, \count($peers), -1]);
         }
 
         $this->comment('Automated insert peers command complete');

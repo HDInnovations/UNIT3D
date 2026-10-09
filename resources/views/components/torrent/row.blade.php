@@ -40,7 +40,7 @@
             >
                 @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
                     <img
-                        src="{{ isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135' }}"
+                        src="{{ isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : url('img/poster-placeholder.svg') }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"
@@ -51,7 +51,7 @@
                 @if ($torrent->category->game_meta)
                     <img
                         style="height: 80px"
-                        src="{{ isset($meta->cover_image_id) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $meta->cover_image_id . '.png' : 'https://via.placeholder.com/90x135' }}"
+                        src="{{ isset($meta->cover_image_id) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $meta->cover_image_id . '.png' : url('img/poster-placeholder.svg') }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"
@@ -60,7 +60,7 @@
 
                 @if ($torrent->category->music_meta)
                     <img
-                        src="https://via.placeholder.com/90x135"
+                        src="{{ url('img/poster-placeholder.svg') }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"
@@ -77,7 +77,7 @@
                         />
                     @else
                         <img
-                            src="https://via.placeholder.com/400x600"
+                            src="{{ url('img/poster-placeholder.svg') }}"
                             class="torrent-search--list__poster-img"
                             loading="lazy"
                             alt="{{ __('torrent.similar') }}"

@@ -29,11 +29,11 @@ use Throwable;
 class FetchMeta extends Command
 {
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'fetch:meta';
+    protected $signature = 'fetch:meta {--only= : Comma-separated list of types to fetch (movie,tv,game)}';
 
     /**
      * The console command description.
@@ -55,69 +55,89 @@ class FetchMeta extends Command
         $tmdbScraper = new TMDBScraper();
         $igdbScraper = new IgdbScraper();
 
-        $this->info('Querying all tmdb movie ids');
+        $onlyTypes = $this->option('only');
 
-        $tmdbMovieIds = Torrent::query()
-            ->whereRelation('category', 'movie_meta', '=', true)
-            ->select('tmdb_movie_id')
-            ->distinct()
-            ->whereNotNull('tmdb_movie_id')
-            ->pluck('tmdb_movie_id');
+        if ($onlyTypes !== null) {
+            $types = array_map(trim(...), explode(',', $onlyTypes));
+            $fetchMovies = \in_array('movie', $types);
+            $fetchTv = \in_array('tv', $types);
+            $fetchGames = \in_array('game', $types);
+        } else {
+            // If no specific types are provided, fetch all types
+            $fetchMovies = true;
+            $fetchTv = true;
+            $fetchGames = true;
+        }
 
-        $this->info('Fetching '.$tmdbMovieIds->count().' movies');
+        if ($fetchMovies) {
+            $this->info('Querying all tmdb movie ids');
 
-        foreach ($tmdbMovieIds as $id) {
-            usleep(250_000);
+            $tmdbMovieIds = Torrent::query()
+                ->whereRelation('category', 'movie_meta', '=', true)
+                ->select('tmdb_movie_id')
+                ->distinct()
+                ->whereNotNull('tmdb_movie_id')
+                ->pluck('tmdb_movie_id');
 
-            try {
-                ProcessMovieJob::dispatchSync($id);
-                $this->info("Movie metadata fetched for tmdb {$id}");
-            } catch (Exception $e) {
-                $this->warn("Movie metadata fetch failed for tmdb {$id}: ".$e->getMessage());
+            $this->info('Fetching '.$tmdbMovieIds->count().' movies');
+
+            foreach ($tmdbMovieIds as $id) {
+                usleep(250_000);
+
+                try {
+                    ProcessMovieJob::dispatchSync($id);
+                    $this->info("Movie metadata fetched for tmdb {$id}");
+                } catch (Exception $e) {
+                    $this->warn("Movie metadata fetch failed for tmdb {$id}: ".$e->getMessage());
+                }
             }
         }
 
-        $this->info('Querying all tmdb tv ids');
+        if ($fetchTv) {
+            $this->info('Querying all tmdb tv ids');
 
-        $tmdbTvIds = Torrent::query()
-            ->whereRelation('category', 'tv_meta', '=', true)
-            ->select('tmdb_tv_id')
-            ->distinct()
-            ->whereNotNull('tmdb_tv_id')
-            ->pluck('tmdb_tv_id');
+            $tmdbTvIds = Torrent::query()
+                ->whereRelation('category', 'tv_meta', '=', true)
+                ->select('tmdb_tv_id')
+                ->distinct()
+                ->whereNotNull('tmdb_tv_id')
+                ->pluck('tmdb_tv_id');
 
-        $this->info('Fetching '.$tmdbTvIds->count().' tv series');
+            $this->info('Fetching '.$tmdbTvIds->count().' tv series');
 
-        foreach ($tmdbTvIds as $id) {
-            usleep(250_000);
+            foreach ($tmdbTvIds as $id) {
+                usleep(250_000);
 
-            try {
-                ProcessTvJob::dispatchSync($id);
-                $this->info("TV metadata fetched for tmdb {$id}");
-            } catch (Exception $e) {
-                $this->warn("TV metadata fetch failed for tmdb {$id}: ".$e->getMessage());
+                try {
+                    ProcessTvJob::dispatchSync($id);
+                    $this->info("TV metadata fetched for tmdb {$id}");
+                } catch (Exception $e) {
+                    $this->warn("TV metadata fetch failed for tmdb {$id}: ".$e->getMessage());
+                }
             }
         }
 
-        $this->info('Querying all igdb game ids');
+        if ($fetchGames) {
+            $this->info('Querying all igdb game ids');
 
-        $igdbGameIds = Torrent::query()
-            ->whereRelation('category', 'game_meta', '=', true)
-            ->select('igdb')
-            ->distinct()
-            ->whereNotNull('igdb')
-            ->pluck('igdb');
+            $igdbGameIds = Torrent::query()
+                ->whereRelation('category', 'game_meta', '=', true)
+                ->select('igdb')
+                ->distinct()
+                ->whereNotNull('igdb')
+                ->pluck('igdb');
 
-        $this->info('Fetching '.$igdbGameIds->count().' games');
+            $this->info('Fetching '.$igdbGameIds->count().' games');
 
-        foreach ($igdbGameIds as $id) {
-            usleep(250_000);
+            foreach ($igdbGameIds as $id) {
+                usleep(250_000);
 
-            try {
-                ProcessIgdbGameJob::dispatchSync($id);
-                $this->info("Game metadata fetched for igdb {$id}");
-            } catch (Exception $e) {
-                $this->warn("Game metadata fetch failed for igdb {$id}: ".$e->getMessage());
+                try {
+                    ProcessIgdbGameJob::dispatchSync($id);
+                    $this->info("Game metadata fetched for igdb {$id}");
+                } catch (Exception $e) {
+                    $this->warn("Game metadata fetch failed for igdb {$id}: ".$e->getMessage());
+                }
             }
         }
 

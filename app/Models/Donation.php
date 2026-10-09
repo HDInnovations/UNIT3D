@@ -21,6 +21,7 @@ use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Donation.
@@ -51,6 +52,7 @@ final class Donation extends Model
      *
      * @return array{user_id: 'int', gifted_user_id: 'int', status: class-string<ModerationStatus>, package_id: 'int', transaction: 'string', is_gifted: 'bool', starts_at: 'datetime', ends_at: 'datetime', created_at: 'datetime', updated_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
