@@ -16,7 +16,7 @@ return [
     'banned-footer' => '这是你没有遵守规则所得到的惩罚',
     'banned-header' => '你的账户已被封禁',
     'bug-description' => 'Bug',
-    'bug-footer' => '解决这个Bug',
+    'bug-footer' => '解决这个Bug！',
     'bug-header' => 'Bug报告来自',
     'bug-priority' => '优先等级',
     'bug-title' => 'Bug标题',

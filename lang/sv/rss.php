@@ -14,7 +14,7 @@ return [
     'create' => 'Skapa',
     'create-private-feed' => 'Skapa eget RSS-flöde',
     'create-public-feed' => 'Skapa offentligt RSS-flöde',
-    'delete' => 'Radera',
+    'delete' => 'Ta bort',
     'edit' => 'Redigera',
     'edit-private-feed' => 'Redigera Privat RSS-flöde',
     'edit-public-feed' => 'Redigera Offentligt RSS-flöde',

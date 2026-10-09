@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,8 +11,6 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
     /*
     |--------------------------------------------------------------------------
     | Authentication Language Lines
@@ -24,7 +21,8 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
-    'failed'   => 'Need andmed ei klapi meie kirjetega.',
+    'failed' => 'Need andmed ei klapi meie kirjetega.',
     'throttle' => 'Liiga palju sisselogimise katseid. Palun proovi uuesti :seconds sekundi pärast.',
+    'activation-success' => 'Konto on kinnitatud! Sa võid nüüd sisse logida!',
+    'application' => 'Taotlus',
 ];

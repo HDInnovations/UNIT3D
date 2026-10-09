@@ -22,4 +22,5 @@ return [
     'pending' => 'Ootel',
     'resurrect' => 'Taastage',
     'reward' => 'Freeleechi märgid',
+    'current-seedtime' => 'Praegune jagamisaeg',
 ];

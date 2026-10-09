@@ -23,7 +23,7 @@ return [
    */
     'password' => 'Las contraseñas deben tener al menos seis caracteres y coincidir con la confirmación.',
     'reset' => '¡Tu contraseña ha sido restablecida!',
-    'sent' => '¡Gracias! Si la dirección de correo electrónico coincide con una cuenta, se enviará un enlace para restablecer la contraseña.',
+    'sent' => 'Éxito: si la dirección de correo electrónico coincide con una cuenta, se enviará un enlace para restablecer la contraseña.',
     'token' => 'El token de recuperación de contraseña es inválido.',
     'user' => 'No podemos encontrar ningún usuario con ese correo electrónico.',
 ];
