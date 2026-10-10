@@ -73,6 +73,9 @@
                         {{ __('common.ends-at') }}
                     </label>
                 </p>
+                <p class="form__group">
+                    <input type="hidden" name="active" value="0" />
+                </p>
             </div>
             <p class="form__group">
                 <button class="form__button form__button--filled">

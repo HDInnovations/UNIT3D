@@ -51,6 +51,10 @@ class StoreGiveawayRequest extends FormRequest
                 'required',
                 'date',
             ],
+            'active' => [
+                'required',
+                'boolean',
+            ],
         ];
     }
 }

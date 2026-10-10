@@ -27,10 +27,11 @@ use Override;
  *
  * @property int                             $id
  * @property string                          $name
- * @property string                          $icon
  * @property string                          $description
- * @property \Illuminate\Support\Carbon|null $starts_at
- * @property \Illuminate\Support\Carbon|null $ends_at
+ * @property string                          $icon
+ * @property bool                            $active
+ * @property \Illuminate\Support\Carbon      $starts_at
+ * @property \Illuminate\Support\Carbon      $ends_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
