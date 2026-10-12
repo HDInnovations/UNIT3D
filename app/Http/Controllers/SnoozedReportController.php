@@ -14,11 +14,11 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Controllers\Staff;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreSnoozedReportRequest;
 use App\Models\Report;
+use Illuminate\Http\Request;
 
 class SnoozedReportController extends Controller
 {
@@ -27,20 +27,24 @@ class SnoozedReportController extends Controller
      */
     public function store(StoreSnoozedReportRequest $request, Report $report): \Illuminate\Http\RedirectResponse
     {
+        abort_unless($request->user()->group->is_modo, 403);
+
         $report->update($request->validated());
 
-        return to_route('staff.reports.show', ['report' => $report])
+        return to_route('reports.show', ['report' => $report])
             ->with('success', 'Report has been snoozed');
     }
 
     /**
      * Un-snooze A Report.
      */
-    public function destroy(Report $report): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Report $report): \Illuminate\Http\RedirectResponse
     {
+        abort_unless($request->user()->group->is_modo, 403);
+
         $report->update(['snoozed_until' => null]);
 
-        return to_route('staff.reports.show', ['report' => $report])
+        return to_route('reports.show', ['report' => $report])
             ->with('success', 'Report has been un-snoozed');
     }
 }

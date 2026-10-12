@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Override;
 
 /**
@@ -34,11 +35,10 @@ use Override;
  * @property int                             $reported_request_id
  * @property string                          $title
  * @property string                          $message
- * @property int|null                        $solved_by
- * @property int|null                        $assigned_to
- * @property string|null                     $verdict
+ * @property int|null                        $staff_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $solved_at
  * @property int|null                        $reported_user
  * @property int|null                        $torrent_id
  * @property int|null                        $request_id
@@ -118,18 +118,18 @@ final class Report extends Model
      *
      * @return BelongsTo<User, $this>
      */
-    public function assignee(): BelongsTo
+    public function staff(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'assigned_to')->withTrashed();
+        return $this->belongsTo(User::class, 'staff_id')->withTrashed();
     }
 
     /**
-     * Get the staff user that solved the report.
+     * Get the replies to the report.
      *
-     * @return BelongsTo<User, $this>
+     * @return HasMany<ReportReply, $this>
      */
-    public function judge(): BelongsTo
+    public function replies(): HasMany
     {
-        return $this->belongsTo(User::class, 'solved_by')->withTrashed();
+        return $this->hasMany(ReportReply::class);
     }
 }

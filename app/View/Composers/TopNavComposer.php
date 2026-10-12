@@ -40,6 +40,23 @@ class TopNavComposer
                         ->where('user_read', '=', false),
                 )
                 ->exists(),
+            'hasUnreadReport' => Report::query()
+                ->when(
+                    $user->group->is_modo,
+                    fn ($query) => $query
+                        ->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now()))
+                        ->whereNull('solved_at')
+                        ->whereNull('staff_id')
+                        ->orWhere(
+                            fn ($query) => $query
+                                ->where('staff_id', '=', $user->id)
+                                ->where('staff_read', '=', false)
+                        ),
+                    fn ($query) => $query
+                        ->where('reporter_id', '=', $user->id)
+                        ->where('user_read', '=', false)
+                )
+                ->exists(),
             'giveaways' => Giveaway::query()
                 ->where('active', '=', true)
                 ->withExists([
@@ -71,12 +88,7 @@ class TopNavComposer
                 [60, 60 * 2],
                 fn () => $user->peers()->where('active', '=', 1)->where('seeder', '=', false)->count(),
             ),
-            'hasActiveWarning'    => $user->warnings()->where('active', '=', true)->exists(),
-            'hasUnresolvedReport' => $user->group->is_modo && Report::query()
-                ->whereNull('snoozed_until')
-                ->whereNull('solved_by')
-                ->where(fn ($query) => $query->whereNull('assigned_to')->orWhere('assigned_to', '=', $user->id))
-                ->exists(),
+            'hasActiveWarning'      => $user->warnings()->where('active', '=', true)->exists(),
             'hasUnmoderatedTorrent' => $user->group->is_torrent_modo && Torrent::query()
                 ->withoutGlobalScope(ApprovedScope::class)
                 ->where('status', '=', ModerationStatus::PENDING)
