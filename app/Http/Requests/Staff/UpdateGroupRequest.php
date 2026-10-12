@@ -154,49 +154,49 @@ class UpdateGroupRequest extends FormRequest
                 'boolean',
             ],
             'group.min_uploaded' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_actual_uploaded' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_ratio' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'min:0',
                     'max:99.99',
                 ], 'nullable'),
             ],
             'group.min_age' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_avg_seedtime' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_seedsize' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_uploads' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
