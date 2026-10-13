@@ -62,10 +62,7 @@
                 </div>
             </div>
         </header>
-
-        <div class="panel__body bbcode-rendered">
-            @bbcode($report->message)
-        </div>
+        {{-- format-ignore-start --}}<div class="panel__body" style="white-space: pre-wrap">@linkify($report->message)</div>{{-- format-ignore-end --}}
     </section>
 
     @foreach ($report->replies as $reply)
@@ -85,10 +82,7 @@
                     </div>
                 </div>
             </header>
-
-            <div class="panel__body bbcode-rendered">
-                @bbcode($reply->content)
-            </div>
+            {{-- format-ignore-start --}}<div class="panel__body" style="white-space: pre-wrap">@linkify($reply->content)</div>{{-- format-ignore-end --}}
         </section>
     @endforeach
 
@@ -101,7 +95,16 @@
                 action="{{ route('reports.replies.store', ['report' => $report]) }}"
             >
                 @csrf
-                @livewire('bbcode-input', ['name' => 'content', 'label' => 'Reply', 'required' => true])
+                <p class="form__group">
+                    <textarea
+                        id="content"
+                        class="form__textarea"
+                        name="content"
+                        placeholder=" "
+                        required
+                    ></textarea>
+                    <label class="form__label form__label--floating" for="content">Reply</label>
+                </p>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}
