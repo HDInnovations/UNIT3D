@@ -51,7 +51,7 @@ class ReportSearch extends Component
     public ?string $type = null;
 
     #[Url(history: true)]
-    public ?string $status = 'open';
+    public ?string $tab = 'open';
 
     #[Url(history: true)]
     public string $sortField = 'created_at';
@@ -81,10 +81,14 @@ class ReportSearch extends Component
                 ->when($this->title !== null, fn ($query) => $query->where('title', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->title.'%')))
                 ->when($this->message !== null, fn ($query) => $query->where('message', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->message.'%')))
                 ->when($this->reply !== null, fn ($query) => $query->whereRelation('replies', 'content', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->reply.'%')))
-                ->when($this->status === 'open', fn ($query) => $query->whereNull('solved_at')->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now())))
-                ->when($this->status === 'snoozed', fn ($query) => $query->whereNull('solved_at')->where('snoozed_until', '>', now()))
-                ->when($this->status === 'closed', fn ($query) => $query->whereNotNull('solved_at'))
-                ->when($this->status === 'all_open', fn ($query) => $query->whereNull('solved_at'))
+                ->when($this->tab === 'open', fn ($query) => $query->whereNull('solved_at')->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now())))
+                ->when($this->tab === 'snoozed', fn ($query) => $query->whereNull('solved_at')->where('snoozed_until', '>', now()))
+                ->when($this->tab === 'closed', fn ($query) => $query->whereNotNull('solved_at'))
+                ->when($this->tab === 'unread', fn ($query) => $query->when(
+                    $this->isModo,
+                    fn ($query) => $query->where('staff_id', '=', auth()->id())->where('staff_read', '=', false),
+                    fn ($query) => $query->where('reporter_id', '=', auth()->id())->where('user_read', '=', false)
+                ))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate(min($this->perPage, 100));
         }

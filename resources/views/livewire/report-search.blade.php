@@ -1,4 +1,7 @@
-<div style="display: flex; flex-direction: column; row-gap: 1rem">
+<div
+    style="display: flex; flex-direction: column; row-gap: 1rem"
+    x-data="tabs($wire.entangle('tab').live)"
+>
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.search') }}</h2>
@@ -103,23 +106,6 @@
                     </p>
                     <p class="form__group">
                         <select
-                            id="status"
-                            wire:model.live="status"
-                            class="form__select"
-                            placeholder=" "
-                        >
-                            <option value="open">Open</option>
-                            <option value="snoozed">Snoozed</option>
-                            <option value="closed">Closed</option>
-                            <option value="all">All</option>
-                            <option value="all_open">All open</option>
-                        </select>
-                        <label class="form__label form__label--floating" for="status">
-                            {{ __('common.status') }}
-                        </label>
-                    </p>
-                    <p class="form__group">
-                        <select
                             id="quantity"
                             class="form__select"
                             wire:model.live="perPage"
@@ -139,6 +125,13 @@
     </section>
     <div class="panelV2">
         <h2 class="panel__heading">{{ __('common.reports') }}</h2>
+        <menu class="panel__tabs panel__tabs--centered">
+            <li class="panel__tab--full-width" x-bind="tabButton" data-tab="open">Open</li>
+            <li class="panel__tab--full-width" x-bind="tabButton" data-tab="snoozed">Snoozed</li>
+            <li class="panel__tab--full-width" x-bind="tabButton" data-tab="closed">Closed</li>
+            <li class="panel__tab--full-width" x-bind="tabButton" data-tab="unread">Unread</li>
+            <li class="panel__tab--full-width" x-bind="tabButton" data-tab="all">All</li>
+        </menu>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
