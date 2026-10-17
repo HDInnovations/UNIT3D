@@ -27,7 +27,7 @@ return [
     'active' => 'アクティブ',
     'active-table' => '私のアクティブテーブル',
     'active-torrents' => 'アクティブトレント',
-    'active-warning' => 'アクティブな警告',
+    'active-warning' => 'アクティブ警告',
     'active-warnings' => 'アクティブな警告',
     'add-seedbox' => 'シードボックスを追加',
     'all-torrents' => 'すべての急流',
@@ -329,4 +329,5 @@ return [
     'warning' => '警告',
     'warning-log' => '警告ログ',
     'wishlist' => 'ほしい物リスト',
+    'top-bountied' => 'トップバウンティド',
 ];

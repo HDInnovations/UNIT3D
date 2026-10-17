@@ -16,10 +16,10 @@ return [
     'bots' => 'Motori di ricerca',
     'color' => 'Colore',
     'command' => 'Comando',
-    'edit-bot' => 'Modifica Bot',
-    'emoji-code' => 'Codice Emoji',
+    'edit-bot' => 'Modifica bot',
+    'emoji-code' => 'Codice emoji',
     'help' => 'Aiuto',
-    'icon' => 'icona',
+    'icon' => 'Icona',
     'info' => 'Informazioni',
     'name' => 'Nome',
 ];

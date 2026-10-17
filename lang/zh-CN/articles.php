@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'articles' => '公告',
-    'meta-articles' => '服务器及用户组相关的公告',
-    'published-at' => '发布于',
-    'read-more' => '更多',
+    'meta-articles' => '服务器及社区的公告和新闻',
+    'published-at' => '发布于 ',
+    'read-more' => '阅读更多',
 ];

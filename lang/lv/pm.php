@@ -21,7 +21,7 @@ return [
     'messages' => 'Ziņas',
     'new' => 'Jauns ziņojums',
     'outbox' => 'Izsþtne',
-    'private' => 'Privāts',
+    'private' => 'Privāta',
     'read' => 'Lasīt',
     'received-at' => 'Saņemts',
     'refresh' => 'atjaunot',

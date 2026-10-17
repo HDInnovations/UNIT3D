@@ -24,13 +24,13 @@ return [
     'accepted' => ':attribute muss akzeptiert werden.',
     'active_url' => ':attribute ist keine gültige URL.',
     'after' => ':attribute muss ein Datum nach dem :date sein.',
-    'after_or_equal' => ':attribute muss ein Datum nach dem :date oder gleich dem :date sein.',
+    'after_or_equal' => ':attribute muss ein Datum vor oder nach dem :date sein.',
     'alpha' => ':attribute darf nur aus Buchstaben bestehen.',
     'alpha_dash' => ':attribute darf nur aus Buchstaben, Zahlen, Binde- und Unterstrichen bestehen.',
     'alpha_num' => ':attribute darf nur aus Buchstaben und Zahlen bestehen.',
     'array' => ':attribute muss ein Array sein.',
     'before' => ':attribute muss ein Datum vor dem :date sein.',
-    'before_or_equal' => ':attribute muss ein Datum vor dem :date oder gleich dem :date sein.',
+    'before_or_equal' => ':attribute muss ein Datum vor oder nach dem :date sein.',
     'between' => [
         'numeric' => ':attribute muss zwischen :min & :max liegen.',
         'file' => ':attribute muss zwischen :min & :max Kilobytes groß sein.',
@@ -40,7 +40,7 @@ return [
     'boolean' => ":attribute muss entweder 'true' oder 'false' sein.",
     'confirmed' => ':attribute stimmt nicht mit der Bestätigung überein.',
     'date' => ':attribute muss ein gültiges Datum sein.',
-    'date_equals' => 'The :attribute must be a date equal to :date.',
+    'date_equals' => 'Das :attribute muss gleiche dem Datum :date sein.',
     'date_format' => ':attribute entspricht nicht dem gültigen Format für :format.',
     'different' => ':attribute und :other müssen sich unterscheiden.',
     'digits' => ':attribute muss :digits Stellen haben.',
@@ -116,7 +116,7 @@ return [
         'string' => ':attribute muss :size Zeichen lang sein.',
         'array' => ':attribute muss genau :size Elemente haben.',
     ],
-    'starts_with' => 'The :attribute must start with one of the following: :values',
+    'starts_with' => ':attribute muss mit einem der folgenden Werte beginnen: :values.',
     'string' => ':attribute muss ein String sein.',
     'timezone' => ':attribute muss eine gültige Zeitzone sein.',
     'unique' => ':attribute ist schon vergeben.',
@@ -134,10 +134,10 @@ return [
     |
     */
     'email_list' => 'Es tut uns leid, diese E-Mail-Provider darf auf dieser Website nicht verwendet werden. Bitte sehe dir die E-Mail-Whitelist der Webseite an.',
-    'recaptcha' => 'Bitte absolvieren den ReCaptcha.',
+    'recaptcha' => 'Bitte absolviere den ReCaptcha.',
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name' => 'individuelle Nachricht',
         ],
     ],
     'attributes' => [
@@ -183,4 +183,21 @@ return [
     ],
     'current_password' => 'Das Passwort ist nicht korrekt.',
     'declined' => ':attribute muss abgelehnt werden.',
+    'accepted_if' => ':attribute muss akzeptiert werden wenn :other :value ist.',
+    'declined_if' => ':attribute muss abgelehnt werden, wenn :other ist :value.',
+    'ends_with' => ':attribute muss mit einem der folgenden Werte enden: :values.',
+    'enum' => 'Ausgewähltes :attribute ist ungültig.',
+    'mac_address' => ':attribute muss eine gültige MAC Adresse sein.',
+    'multiple_of' => ':attribute muss ein vielfaches von :value sein.',
+    'password' => [
+        'letters' => ':attribute muss mindestens einen Buchstaben enthalten.',
+        'mixed' => ':attribute muss mindestens einen Groß- und Kleinbuchstaben enthalten.',
+        'numbers' => ':attribute muss mindestens eine Zahl enthalten.',
+        'symbols' => ':attribute muss mindestens ein Zeichen enthalten.',
+        'uncompromised' => 'Das verwendete :attribute ist in einem Datenleck aufgetaucht. Bitte verwende ein anderes :attribute.',
+    ],
+    'prohibited' => 'Das Feld :attribute ist gesperrt.',
+    'prohibited_if' => 'Das Feld :attribute ist gesperrt, wenn :other den Wert :value hat.',
+    'prohibited_unless' => 'Das Feld :attribute ist gesperrt, außer :other ist in den Werten :values.',
+    'prohibits' => 'Das Feld :attribute sperrt das Vorhandensein von :other.',
 ];

@@ -19,7 +19,7 @@ return [
     'howto-desc1' => 'Anda harus menabur <span class=\"text-green\"><em>:</em></span> beri <span class=\"text-green\"><em>nama</em></span> selama <span class="text-red text-bold">30 hari</span> untuk kesuksesan ressurection. Dalam hal ini saat seedtime Anda saat ini',
     'howto-desc2' => 'Anda akan diberi hadiah',
     'howto-hits' => 'Hits',
-    'pending' => 'Tertunda',
+    'pending' => 'Menunggu',
     'resurrect' => 'Menghidupkan kembali',
     'reward' => 'Token freeleech',
 ];
