@@ -9,6 +9,7 @@ formaction
 formmethod
 formnovalidate
 inputmode
+interestfor
 lightcoral
 maxlength
 minmax
