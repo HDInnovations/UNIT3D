@@ -16,17 +16,16 @@
         <header class="panel__header">
             <h2 class="panel__heading">Whitelisted image URLs</h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data="dialog">
-                    <button class="form__button form__button--text" x-bind="showDialog">
+                <div class="panel__action">
+                    <button class="form__button form__button--text" popovertarget="url-add">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="url-add" class="dialog" popover>
                         <h3 class="dialog__heading">{{ __('common.add') }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.whitelisted_image_urls.store') }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             <p class="form__group">
@@ -47,9 +46,9 @@
                                     {{ __('common.add') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="url-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>
@@ -95,14 +94,18 @@
                             </td>
                             <td>
                                 <menu class="data-table__actions">
-                                    <li class="data-table__action" x-data="dialog">
+                                    <li class="data-table__action">
                                         <button
                                             class="form__button form__button--text"
-                                            x-bind="showDialog"
+                                            popovertarget="url-edit-{{ $whitelistedImageUrl->id }}"
                                         >
                                             {{ __('common.edit') }}
                                         </button>
-                                        <dialog class="dialog" x-bind="dialogElement">
+                                        <dialog
+                                            id="url-edit-{{ $whitelistedImageUrl->id }}"
+                                            class="dialog"
+                                            popover
+                                        >
                                             <h3 class="dialog__heading">
                                                 {{ __('common.edit') }}
                                             </h3>
@@ -110,7 +113,6 @@
                                                 class="dialog__form"
                                                 method="POST"
                                                 action="{{ route('staff.whitelisted_image_urls.update', ['whitelistedImageUrl' => $whitelistedImageUrl]) }}"
-                                                x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('PATCH')
@@ -138,9 +140,9 @@
                                                         {{ __('common.edit') }}
                                                     </button>
                                                     <button
-                                                        formmethod="dialog"
-                                                        formnovalidate
                                                         class="form__button form__button--outlined"
+                                                        type="button"
+                                                        popovertarget="url-edit-{{ $whitelistedImageUrl->id }}"
                                                     >
                                                         {{ __('common.cancel') }}
                                                     </button>

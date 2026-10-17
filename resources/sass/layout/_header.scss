@@ -6,3 +6,9 @@ body > header {
     z-index: 10;
     margin-bottom: 16px;
 }
+
+/* Prevent sticky nav covering content when anchor link is activated */
+
+:target {
+    scroll-margin-block-start: 100px;
+}

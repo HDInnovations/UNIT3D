@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\BlacklistClient;
+use Override;
 
 /** @extends Factory<BlacklistClient> */
 class BlacklistClientFactory extends Factory
@@ -30,6 +31,7 @@ class BlacklistClientFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

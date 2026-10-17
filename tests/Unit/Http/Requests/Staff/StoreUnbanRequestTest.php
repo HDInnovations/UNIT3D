@@ -37,10 +37,5 @@ test('rules', function (): void {
             'string',
             'max:65536',
         ],
-        'group_id' => [
-            'required',
-            'integer',
-            'exists:groups,id',
-        ],
     ], $actual);
 });

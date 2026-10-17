@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 use App\Http\Livewire\Comments;
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Ticket;
@@ -37,9 +36,6 @@ test('user tags user on ticket creates a notification for tagged user', function
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -75,7 +71,7 @@ test('user tags user on ticket creates a notification for tagged user', function
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$staff],
@@ -93,9 +89,6 @@ test('user tags user on ticket does not create a notification for tagged user wh
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -131,7 +124,7 @@ test('user tags user on ticket does not create a notification for tagged user wh
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertNotSentTo(
         [$staff],

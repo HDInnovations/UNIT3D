@@ -40,7 +40,7 @@ class StatsController extends Controller
      */
     public function __construct()
     {
-        $this->carbon = Carbon::now()->addMinutes(10);
+        $this->carbon = now()->addMinutes(10);
     }
 
     /**
@@ -91,7 +91,8 @@ class StatsController extends Controller
     public function seeders(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.users.seeders', [
-            'seeders' => Peer::with('user.group')
+            'seeders' => Peer::query()
+                ->with('user.group')
                 ->select(DB::raw('user_id, count(distinct torrent_id) as value'))
                 ->where('seeder', '=', 1)
                 ->where('active', '=', 1)
@@ -162,7 +163,7 @@ class StatsController extends Controller
         return view('stats.users.seedtime', [
             'users' => User::query()
                 ->with('group')
-                ->withSum('history as seedtime', 'seedtime')
+                ->withSum(['history as seedtime' => fn ($query) => $query->withTrashed()], 'seedtime')
                 ->orderByDesc('seedtime')
                 ->take(100)
                 ->get(),
@@ -205,7 +206,7 @@ class StatsController extends Controller
     public function seeded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.torrents.seeded', [
-            'seeded' => Torrent::orderByDesc('seeders')->take(100)->get(),
+            'seeded' => Torrent::query()->orderByDesc('seeders')->take(100)->get(),
         ]);
     }
 
@@ -215,7 +216,7 @@ class StatsController extends Controller
     public function leeched(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.torrents.leeched', [
-            'leeched' => Torrent::orderByDesc('leechers')->take(100)->get(),
+            'leeched' => Torrent::query()->orderByDesc('leechers')->take(100)->get(),
         ]);
     }
 
@@ -225,7 +226,7 @@ class StatsController extends Controller
     public function completed(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.torrents.completed', [
-            'completed' => Torrent::orderByDesc('times_completed')->take(100)->get(),
+            'completed' => Torrent::query()->orderByDesc('times_completed')->take(100)->get(),
         ]);
     }
 
@@ -235,7 +236,8 @@ class StatsController extends Controller
     public function dying(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.torrents.dying', [
-            'dying' => Torrent::where('seeders', '=', 1)
+            'dying' => Torrent::query()
+                ->where('seeders', '=', 1)
                 ->where('times_completed', '>=', 1)
                 ->orderByDesc('leechers')
                 ->take(100)
@@ -249,7 +251,8 @@ class StatsController extends Controller
     public function dead(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.torrents.dead', [
-            'dead' => Torrent::where('seeders', '=', 0)
+            'dead' => Torrent::query()
+                ->where('seeders', '=', 0)
                 ->orderByDesc('leechers')
                 ->take(100)
                 ->get(),
@@ -262,7 +265,7 @@ class StatsController extends Controller
     public function bountied(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.requests.bountied', [
-            'bountied' => TorrentRequest::orderByDesc('bounty')->take(100)->get(),
+            'bountied' => TorrentRequest::query()->orderByDesc('bounty')->take(100)->get(),
         ]);
     }
 
@@ -272,25 +275,7 @@ class StatsController extends Controller
     public function groups(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.groups.groups', [
-            'groups' => Group::orderBy('position')->withCount(['users' => fn ($query) => $query->withTrashed()])->get(),
-        ]);
-    }
-
-    /**
-     * Show Group Requirements.
-     */
-    public function groupsRequirements(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-    {
-        $user = auth()->user();
-
-        return view('stats.groups.groups-requirements', [
-            'current'           => Carbon::now(),
-            'user'              => $user,
-            'user_avg_seedtime' => DB::table('history')->where('user_id', '=', $user->id)->avg('seedtime'),
-            'user_account_age'  => (int) Carbon::now()->diffInSeconds($user->created_at, true),
-            'user_seed_size'    => $user->seedingTorrents()->sum('size'),
-            'user_uploads'      => $user->torrents()->count(),
-            'groups'            => Group::orderBy('position')->where('is_modo', '=', 0)->get(),
+            'groups' => Group::query()->orderBy('position')->withCount(['users' => fn ($query) => $query->withTrashed()])->get(),
         ]);
     }
 
@@ -357,7 +342,6 @@ class StatsController extends Controller
                 [3600, 2 * 24 * 3600],
                 fn () => Peer::query()
                     ->select([
-                        'agent',
                         DB::raw("SUBSTRING_INDEX(SUBSTRING_INDEX(agent, '/', 1), ' ', 1) AS prefix"),
                         DB::raw('COUNT(DISTINCT torrent_id) AS single_seed_count'),
                     ])
@@ -436,12 +420,14 @@ class StatsController extends Controller
                 ->groupBy('total_style')
                 ->orderByDesc('value')
                 ->get(),
-            'customThemes' => UserSetting::where('custom_css', '!=', '')
+            'customThemes' => UserSetting::query()
+                ->where('custom_css', '!=', '')
                 ->select(DB::raw('custom_css, count(*) as value'))
                 ->groupBy('custom_css')
                 ->orderByDesc('value')
                 ->get(),
-            'standaloneThemes' => UserSetting::whereNotNull('standalone_css')
+            'standaloneThemes' => UserSetting::query()
+                ->whereNotNull('standalone_css')
                 ->select(DB::raw('standalone_css, count(*) as value'))
                 ->groupBy('standalone_css')
                 ->orderByDesc('value')
@@ -457,10 +443,10 @@ class StatsController extends Controller
         $users = User::query()
             ->with('group')
             ->withCount([
-                'messages' => fn ($query) => $query->where('chatroom_id', '!=', 0), // Exclude private chatbox messages;
+                'messages' => fn ($query) => $query->whereNotNull('chatroom_id'), // Exclude private chatbox messages;
             ])
             ->withSum(
-                ['messages as characters_typed' => fn ($query) => $query->where('chatroom_id', '!=', 0)],  // Exclude private chatbox messages
+                ['messages as characters_typed' => fn ($query) => $query->whereNotNull('chatroom_id')],  // Exclude private chatbox messages
                 DB::raw('CHAR_LENGTH(message)')
             )
             ->orderByDesc('messages_count')

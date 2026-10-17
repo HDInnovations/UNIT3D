@@ -26,7 +26,7 @@ class StorePlaylistSuggestionRequest extends FormRequest
      *
      * @return array<string, array<string>>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'torrent_url' => [

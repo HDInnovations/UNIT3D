@@ -18,15 +18,18 @@ namespace App\Http\Controllers\User;
 
 use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use App\Models\BonTransactions;
 use App\Models\Donation;
+use App\Models\History;
 use App\Models\Invite;
 use App\Models\Peer;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +45,8 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $canViewAnonymousComments = $request->user()->is($user) || $request->user()->group->is_modo;
+
         $user->load([
             'application',
             'privacy',
@@ -53,6 +58,15 @@ class UserController extends Controller
                 'torrents as non_anon_uploads_count' => fn ($query) => $query->where('anon', '=', false),
                 'topics',
                 'posts',
+                'comments as article_comments_count' => fn ($query) => $query
+                    ->whereHasMorph('commentable', [Article::class])
+                    ->when(!$canViewAnonymousComments, fn ($query) => $query->where('anon', '=', false)),
+                'comments as torrent_comments_count' => fn ($query) => $query
+                    ->whereHasMorph('commentable', [Torrent::class])
+                    ->when(!$canViewAnonymousComments, fn ($query) => $query->where('anon', '=', false)),
+                'comments as request_comments_count' => fn ($query) => $query
+                    ->whereHasMorph('commentable', [TorrentRequest::class])
+                    ->when(!$canViewAnonymousComments, fn ($query) => $query->where('anon', '=', false)),
                 'filledRequests' => fn ($query) => $query->whereNotNull('approved_by'),
                 'requests',
                 'warnings as active_warnings_count'       => fn ($query) => $query->where('active', '=', 1),
@@ -64,7 +78,8 @@ class UserController extends Controller
         return view('user.profile.show', [
             'user'      => $user,
             'followers' => $user->followers()->latest()->limit(25)->get(),
-            'history'   => DB::table('history')
+            'history'   => History::query()
+                ->withTrashed()
                 ->where('user_id', '=', $user->id)
                 ->where('created_at', '>', $user->created_at)
                 ->selectRaw('SUM(actual_uploaded) as upload_sum')
@@ -92,9 +107,9 @@ class UserController extends Controller
                 ->with(['torrent', 'user'])
                 ->latest('created_at')
                 ->paginate(10, ['*'], 'deletedWarningsPage'),
-            'boughtUpload' => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
-            // 'boughtDownload'        => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
-            'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
+            'boughtUpload' => BonTransactions::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
+            // 'boughtDownload'        => BonTransactions::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
+            'invitedBy' => Invite::query()->where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
                 ->select('agent', 'port')
@@ -107,7 +122,8 @@ class UserController extends Controller
                 ->groupBy(['ip', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),
-            'achievements' => AchievementProgress::with('details')
+            'achievements' => AchievementProgress::query()
+                ->with('details')
                 ->where('achiever_id', '=', $user->id)
                 ->whereNotNull('unlocked_at')
                 ->get(),
@@ -119,7 +135,7 @@ class UserController extends Controller
                 ->first(),
             'watch'        => $user->watchlist,
             'externalUser' => ! $user->trashed() && $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : false,
-            'donation'     => Donation::where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
+            'donation'     => Donation::query()->where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
         ]);
     }
 

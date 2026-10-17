@@ -20,6 +20,7 @@ use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Override;
 
 class UpdateGroupRequest extends FormRequest
 {
@@ -28,7 +29,14 @@ class UpdateGroupRequest extends FormRequest
      */
     public function authorize(Request $request): bool
     {
-        return $request->user()->group->is_owner || $request->group['is_owner'] != 1;
+        return $request->user()->group->is_owner || (
+            /** @phpstan-ignore property.notFound (phpstan doesn't understand route parameters) */
+            $request->route('group')->level < $request->user()->group->level
+            && $request->group['level'] < $request->user()->group->level
+            && !$request->group['is_owner']
+            /** @phpstan-ignore property.notFound (phpstan doesn't understand route parameters) */
+            && !$request->route('group')->is_owner
+        );
     }
 
     /**
@@ -146,42 +154,49 @@ class UpdateGroupRequest extends FormRequest
                 'boolean',
             ],
             'group.min_uploaded' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
+            'group.min_actual_uploaded' => [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_ratio' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'min:0',
                     'max:99.99',
                 ], 'nullable'),
             ],
             'group.min_age' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_avg_seedtime' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_seedsize' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
             'group.min_uploads' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
@@ -219,6 +234,7 @@ class UpdateGroupRequest extends FormRequest
      *
      * @return array<string, string>
      */
+    #[Override]
     public function messages(): array
     {
         return [

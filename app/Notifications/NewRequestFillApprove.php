@@ -38,7 +38,7 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -71,22 +71,22 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         if (!$this->torrentRequest->anon) {
             $this->torrentRequest->load('approver');
 
             return [
-                'title' => $this->torrentRequest->approver->username.' Has Approved Your Fill Of A Requested Torrent',
-                'body'  => $this->torrentRequest->approver->username.' has approved your fill of Requested Torrent '.$this->torrentRequest->name,
-                'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
+                'title' => $this->torrentRequest->approver->username.' approved your fill for a requested torrent',
+                'body'  => $this->torrentRequest->approver->username.' approved your fill for requested torrent: '.$this->torrentRequest->name,
+                'url'   => route('requests.show', ['torrentRequest' => $this->torrentRequest], false),
             ];
         }
 
         return [
-            'title' => 'An anonymous user has Approved Your Fill Of A Requested Torrent',
-            'body'  => 'An anonymous user has approved your fill of Requested Torrent '.$this->torrentRequest->name,
-            'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
+            'title' => 'An anonymous user approved your fill for a requested torrent',
+            'body'  => 'An anonymous user approved your fill for requested torrent: '.$this->torrentRequest->name,
+            'url'   => route('requests.show', ['torrentRequest' => $this->torrentRequest], false),
         ];
     }
 }

@@ -344,6 +344,18 @@
                 </p>
                 <p class="form__group" x-show="autogroup" x-cloak>
                     <input
+                        id="min_actual_uploaded"
+                        class="form__text"
+                        type="text"
+                        name="group[min_actual_uploaded]"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_actual_uploaded">
+                        Minimum actual upload required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
                         id="min_ratio"
                         class="form__text"
                         type="text"

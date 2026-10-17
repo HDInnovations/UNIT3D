@@ -79,13 +79,6 @@
                 <li>
                     <a href="{{ route('about') }}">{{ __('common.about') }}</a>
                 </li>
-                <li>
-                    <a
-                        href="https://github.com/HDInnovations/UNIT3D/wiki/Torrent-API-(UNIT3D-v8.x.x)"
-                    >
-                        API documentation
-                    </a>
-                </li>
             </ul>
         </section>
     </div>
@@ -247,7 +240,7 @@
             <span>{{ number_format(memory_get_peak_usage(true) / 1024 / 1024, 2) }} MiB</span>
             <strong>Load:</strong>
             <span>
-                {{ implode(' ', array_map(fn ($n) => number_format($n, 2), sys_getloadavg())) }}
+                {{ implode(' ', array_map(fn ($n) => number_format($n, 2), sys_getloadavg() ?: [])) ?: __('common.unknown') }}
             </span>
             <strong>Date:</strong>
             <span>{{ now() }}</span>

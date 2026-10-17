@@ -20,6 +20,7 @@ use App\Models\Conversation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\PrivateMessage;
+use Override;
 
 /** @extends Factory<PrivateMessage> */
 class PrivateMessageFactory extends Factory
@@ -32,6 +33,7 @@ class PrivateMessageFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

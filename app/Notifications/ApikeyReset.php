@@ -22,6 +22,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class ApikeyReset extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -32,7 +33,7 @@ class ApikeyReset extends Notification implements ShouldQueue, SystemNotificatio
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -42,11 +43,12 @@ class ApikeyReset extends Notification implements ShouldQueue, SystemNotificatio
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'Your API key has been reset by staff',
-            'message' => "You will need to update your API key in all your scripts to continue using the API.\n\nFor more information, please create a helpdesk ticket.",
+            'subject' => 'Your API key was reset',
+            'message' => "Update your API key in your scripts to keep using the API.\n\nNeed help? Open a helpdesk ticket.",
         ];
     }
 }

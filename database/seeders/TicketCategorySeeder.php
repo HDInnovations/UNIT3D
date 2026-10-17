@@ -24,7 +24,7 @@ class TicketCategorySeeder extends Seeder
 {
     final public function run(): void
     {
-        TicketCategory::upsert([
+        TicketCategory::query()->upsert([
             [
                 'name'     => 'Accounts',
                 'position' => 0,

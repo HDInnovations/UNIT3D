@@ -51,7 +51,7 @@ class UserEarnings extends Component
 
     final public function mount(int $userId): void
     {
-        $this->user = User::find($userId);
+        $this->user = User::query()->find($userId);
     }
 
     final public function updatingSearch(): void
@@ -76,7 +76,7 @@ class UserEarnings extends Component
                 ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
                 ->groupBy('peers.torrent_id');
 
-            foreach (BonEarning::with('conditions')->orderBy('position')->get() as $bonEarning) {
+            foreach (BonEarning::query()->with('conditions')->orderBy('position')->get() as $bonEarning) {
                 // Raw bindings are fine since all database values are either enums or numeric
                 $conditionQuery = '1=1';
 
@@ -118,7 +118,7 @@ class UserEarnings extends Component
      */
     final protected \Illuminate\Database\Query\Builder $query {
         get {
-            $bonEarnings = BonEarning::with('conditions')->orderBy('position')->get();
+            $bonEarnings = BonEarning::query()->with('conditions')->orderBy('position')->get();
 
             $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
 
@@ -185,7 +185,20 @@ class UserEarnings extends Component
                 ->where('peers.active', '=', true)
                 ->where('peers.user_id', '=', $this->user->id)
                 ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
-                ->groupBy(['peers.torrent_id', 'peers.user_id']);
+                ->groupBy([
+                    'peers.torrent_id',
+                    'peers.user_id',
+                    'torrents.name',
+                    'torrents.type_id',
+                    'torrents.created_at',
+                    'torrents.size',
+                    'torrents.seeders',
+                    'torrents.leechers',
+                    'torrents.times_completed',
+                    'torrents.internal',
+                    'torrents.personal_release',
+                    'history.seedtime',
+                ]);
 
             return $query;
         }

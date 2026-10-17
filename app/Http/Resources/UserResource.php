@@ -18,6 +18,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Override;
 
 /**
  * @mixin \App\Models\User
@@ -30,27 +31,28 @@ class UserResource extends JsonResource
      * @return array{
      *     username: string,
      *     group: string,
-     *     uploaded: string,
-     *     downloaded: string,
-     *     ratio: string,
-     *     buffer: string,
-     *     seeding: int,
-     *     leeching: int,
+     *     uploaded: int,
+     *     downloaded: int,
+     *     ratio: float,
+     *     buffer: float,
+     *     seeding?: int,
+     *     leeching?: int,
      *     seedbonus: string,
      *     hit_and_runs: int,
      * }
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [
             'username'     => $this->username,
             'group'        => $this->group->name,
-            'uploaded'     => str_replace("\u{00A0}", ' ', $this->formatted_uploaded),
-            'downloaded'   => str_replace("\u{00A0}", ' ', $this->formatted_downloaded),
-            'ratio'        => $this->formatted_ratio,
-            'buffer'       => str_replace("\u{00A0}", ' ', $this->formatted_buffer),
-            'seeding'      => \count($this->seedingTorrents),
-            'leeching'     => \count($this->leechingTorrents),
+            'uploaded'     => $this->uploaded,
+            'downloaded'   => $this->downloaded,
+            'ratio'        => $this->ratio,
+            'buffer'       => $this->buffer,
+            'seeding'      => $this->whenCounted('seedingTorrents'),
+            'leeching'     => $this->whenCounted('leechingTorrents'),
             'seedbonus'    => $this->seedbonus,
             'hit_and_runs' => $this->hitandruns,
         ];

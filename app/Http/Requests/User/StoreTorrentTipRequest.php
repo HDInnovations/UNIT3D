@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Override;
 
 class StoreTorrentTipRequest extends FormRequest
 {
@@ -60,6 +61,7 @@ class StoreTorrentTipRequest extends FormRequest
      *
      * @return array<string, string>
      */
+    #[Override]
     public function messages(): array
     {
         return [
@@ -72,11 +74,12 @@ class StoreTorrentTipRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
             'sender_id'    => auth()->id(),
-            'recipient_id' => Torrent::whereKey($this->torrent_id)->value('user_id'),
+            'recipient_id' => Torrent::query()->whereKey($this->torrent_id)->value('user_id'),
         ]);
     }
 }

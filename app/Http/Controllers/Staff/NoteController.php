@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Staff\UpdateNoteRequest;
+use App\Models\Note;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\NoteControllerTest
@@ -29,5 +31,15 @@ class NoteController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.note.index');
+    }
+
+    /**
+     * Update a user note.
+     */
+    public function update(Note $note, UpdateNoteRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        $note->update($request->validated());
+
+        return back()->with('success', 'Success');
     }
 }

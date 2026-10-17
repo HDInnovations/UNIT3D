@@ -1,18 +1,10 @@
-@php
-    if (! isset($scrollTo)) {
-        $scrollTo = '.panelV2';
-    }
-
-    $scrollIntoViewJsSnippet =
-        $scrollTo !== false
-            ? <<<JS
-       window.scroll({ top: ((\$el.closest('{$scrollTo}') || document.querySelector('{$scrollTo}')).offsetTop - 80)})
-    JS
-            : '';
-@endphp
-
 @if ($paginator->hasPages())
-    <nav class="pagination" role="navigation" aria-label="Pagination navigation">
+    <nav
+        class="pagination"
+        role="navigation"
+        aria-label="Pagination navigation"
+        x-data="pagination"
+    >
         <ul class="pagination__items">
             @if ($paginator->onFirstPage())
                 <li class="pagination__previous pagination__previous--disabled">
@@ -24,7 +16,7 @@
                         class="pagination__previous"
                         href="{{ $paginator->previousPageUrl() }}"
                         wire:click.prevent="previousPage"
-                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                        x-bind="newPage"
                         rel="prev"
                     >
                         &lsaquo; {{ __('common.previous') }}
@@ -41,7 +33,7 @@
                                 class="pagination__link"
                                 href="{{ $paginator->url(1) }}"
                                 wire:click.prevent="gotoPage(1, '{{ $paginator->getPageName() }}')"
-                                x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                x-bind="newPage"
                                 rel="prev"
                             >
                                 1
@@ -55,7 +47,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url(2) }}"
                                     wire:click.prevent="gotoPage(2, '{{ $paginator->getPageName() }}')"
-                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    x-bind="newPage"
                                 >
                                     2
                                 </a>
@@ -75,7 +67,7 @@
                                         class="pagination__link"
                                         href="{{ $paginator->url($page) }}"
                                         wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
-                                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                        x-bind="newPage"
                                     >
                                         {{ $page }}
                                     </a>
@@ -90,7 +82,7 @@
                                         class="pagination__link"
                                         href="{{ $paginator->url($paginator->currentPage() + 4) }}"
                                         wire:click.prevent="gotoPage({{ $paginator->currentPage() + 4 }}, '{{ $paginator->getPageName() }}')"
-                                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                        x-bind="newPage"
                                     >
                                         {{ $paginator->currentPage() + 4 }}
                                     </a>
@@ -106,7 +98,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url($paginator->lastPage()) }}"
                                     wire:click.prevent="gotoPage({{ $paginator->lastPage() }}, '{{ $paginator->getPageName() }}')"
-                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    x-bind="newPage"
                                     rel="next"
                                 >
                                     {{ $paginator->lastPage() }}
@@ -125,7 +117,7 @@
                                         class="pagination__link"
                                         href="{{ $paginator->url($page) }}"
                                         wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
-                                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                        x-bind="newPage"
                                     >
                                         {{ $page }}
                                     </a>
@@ -139,7 +131,7 @@
                                     class="pagination__link"
                                     href="{{ $paginator->url($paginator->currentPage() + 1) }}"
                                     wire:click.prevent="gotoPage({{ $paginator->currentPage() + 1 }}, '{{ $paginator->getPageName() }}')"
-                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    x-bind="newPage"
                                     rel="next"
                                 >
                                     {{ $paginator->currentPage() + 1 }}
@@ -156,7 +148,7 @@
                         class="pagination__next"
                         href="{{ $paginator->nextPageUrl() }}"
                         wire:click.prevent="nextPage"
-                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                        x-bind="newPage"
                         rel="next"
                     >
                         {{ __('common.next') }} &rsaquo;
@@ -168,5 +160,23 @@
                 </li>
             @endif
         </ul>
+
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('pagination', (wire) => ({
+                    newPage: {
+                        ['x-on:click']() {
+                            window.scroll({
+                                top:
+                                    (
+                                        this.$el.closest('.panelV2') ||
+                                        document.querySelector('.panelV2')
+                                    ).offsetTop - 80,
+                            });
+                        },
+                    },
+                }));
+            });
+        </script>
     </nav>
 @endif

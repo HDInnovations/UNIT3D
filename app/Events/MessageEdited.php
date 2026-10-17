@@ -23,6 +23,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Override;
 
 class MessageEdited implements ShouldBroadcastNow
 {
@@ -40,13 +41,14 @@ class MessageEdited implements ShouldBroadcastNow
      */
     public function __construct(Message $message)
     {
-        $message = Message::with(['bot', 'user.group', 'user.chatStatus'])->find($message->id);
+        $message = Message::query()->with(['bot', 'user.group', 'user.chatStatus'])->find($message->id);
         $this->message = new ChatMessageResource($message);
     }
 
     /**
      * Get the channels the event should broadcast on.
      */
+    #[Override]
     public function broadcastOn(): PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();

@@ -3,6 +3,13 @@ import laravel from 'laravel-vite-plugin';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
+      },
+    },
+  },
   plugins: [
     laravel({
       input: [

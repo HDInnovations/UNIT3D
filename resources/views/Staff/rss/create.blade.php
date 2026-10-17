@@ -62,18 +62,6 @@
                 </p>
                 <p class="form__group">
                     <input
-                        id="description"
-                        type="text"
-                        class="form__text"
-                        name="description"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating" for="description">
-                        {{ __('torrent.torrent') }} {{ __('torrent.description') }}
-                    </label>
-                </p>
-                <p class="form__group">
-                    <input
                         id="uploader"
                         type="text"
                         class="form__text"

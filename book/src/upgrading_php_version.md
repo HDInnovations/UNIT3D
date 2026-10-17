@@ -206,3 +206,53 @@ You should now be running PHP8.3 and can confirm by checking your staff dashboar
 NOTE: If you had tuning done on PHP 8.2 you will need to reapply them to new PHP 8.3 configs.
 `sudo nano /etc/php/8.3/fpm/pool.d/www.conf`
 `sudo nano /etc/php/8.3/fpm/php.ini`
+
+## Upgrade to PHP 8.4
+
+Save existing php package list to packages.txt file in case you have some additional ones not noted in this guide.
+
+`sudo dpkg -l | grep php | tee packages.txt`
+
+Add Ondrej's PPA
+
+`sudo add-apt-repository ppa:ondrej/php` # Press enter when prompted.
+`sudo apt update`
+
+Install new PHP 8.4 packages
+
+`sudo apt install php8.4-common php8.4-cli php8.4-fpm php8.4-{redis,bcmath,curl,dev,gd,igbinary,intl,mbstring,mysql,opcache,readline,xml,zip}`
+
+Next lets edit NGINX to use new PHP 8.4
+
+`sudo nano /etc/nginx/sites-available/default`
+
+Find `fastcgi_pass unix:/var/run/php/***.sock;`
+
+`***` will be your site name, unit3d or php8.3 for the most part
+
+Replace `fastcgi_pass unix:/var/run/php/***.sock;` with `fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;`.
+
+Save and exit.
+
+Test config `sudo nginx -t`
+
+*If you didn't mess up you will see
+```
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+```
+
+`sudo systemctl restart nginx`
+`sudo systemctl restart php8.4-fpm`
+`sudo systemctl stop php8.3-fpm`
+
+Remove old packages
+
+`sudo apt purge '^php8.3.*'`
+
+
+You should now be running PHP8.4 and can confirm by checking your staff dashboard.
+
+NOTE: If you had tuning done on PHP 8.3 you will need to reapply them to new PHP 8.4 configs.
+`sudo nano /etc/php/8.4/fpm/pool.d/www.conf`
+`sudo nano /etc/php/8.4/fpm/php.ini`

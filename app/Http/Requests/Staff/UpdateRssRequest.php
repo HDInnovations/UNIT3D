@@ -44,9 +44,6 @@ class UpdateRssRequest extends FormRequest
             'search' => [
                 'max:255',
             ],
-            'description' => [
-                'max:255',
-            ],
             'uploader' => [
                 'max:255',
             ],

@@ -19,6 +19,7 @@ namespace App\Http\Livewire;
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
 use App\Models\User;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -29,6 +30,7 @@ class AttachmentUpload extends Component
 
     public ?User $user = null;
 
+    #[Locked]
     public ?int $ticket = null;
 
     #[Validate('image|max:1024')]
@@ -46,7 +48,7 @@ class AttachmentUpload extends Component
     {
         $this->validate();
 
-        $ticket = Ticket::find($this->ticket);
+        $ticket = Ticket::query()->find($this->ticket);
 
         abort_unless($ticket->user_id === $this->user->id || $this->user->group->is_modo, 403);
 
@@ -70,7 +72,7 @@ class AttachmentUpload extends Component
      */
     protected \Illuminate\Database\Eloquent\Collection $attachments {
         get {
-            $ticket = Ticket::find($this->ticket);
+            $ticket = Ticket::query()->find($this->ticket);
 
             abort_unless($ticket->user_id === $this->user->id || $this->user->group->is_modo, 403);
 

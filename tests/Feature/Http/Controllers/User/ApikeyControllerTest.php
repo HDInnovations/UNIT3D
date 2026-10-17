@@ -17,9 +17,8 @@ declare(strict_types=1);
 use App\Enums\UserGroup;
 use App\Models\User;
 use Database\Seeders\GroupSeeder;
-use Illuminate\Support\Str;
 
-test('edit returns an ok response', function (): void {
+test('index returns an ok response', function (): void {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->get(route('users.apikeys.index', [$user]));
@@ -29,7 +28,7 @@ test('edit returns an ok response', function (): void {
     $response->assertViewHas('user', $user);
 });
 
-test('edit aborts with a 403', function (): void {
+test('index aborts with a 403', function (): void {
     $this->seed(GroupSeeder::class);
 
     $staffUser = User::factory()->create([
@@ -45,18 +44,23 @@ test('edit aborts with a 403', function (): void {
     $response->assertForbidden();
 });
 
-test('update returns an ok response', function (): void {
+test('store returns an ok response', function (): void {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->patch(route('users.apikeys.update', [$user]), [
-        'api_token' => Str::random(100),
+    $response = $this->actingAs($user)->post(route('users.apikeys.store', [$user]), [
+        'name'          => 'test',
+        'can_search'    => true,
+        'can_download'  => false,
+        'can_upload'    => false,
+        'can_view_user' => false,
+        'expires_at'    => now()->addYear()->subDay(),
     ]);
 
     $response->assertRedirect(route('users.apikeys.index', ['user' => $user]))
-        ->assertSessionHas('success', 'Your API key was changed successfully.');
+        ->assertSessionHas('success', 'Your API key was created successfully.');
 });
 
-test('update aborts with a 403', function (): void {
+test('store aborts with a 403', function (): void {
     $this->seed(GroupSeeder::class);
 
     $staffUser = User::factory()->create([
@@ -67,7 +71,14 @@ test('update aborts with a 403', function (): void {
         'group_id' => UserGroup::USER->value,
     ]);
 
-    $response = $this->actingAs($user)->patch(route('users.apikeys.update', [$staffUser]));
+    $response = $this->actingAs($user)->post(route('users.apikeys.store', [$staffUser]), [
+        'name'          => 'test',
+        'can_search'    => true,
+        'can_download'  => false,
+        'can_upload'    => false,
+        'can_view_user' => false,
+        'expires_at'    => now()->addYear()->subDay(),
+    ]);
 
     $response->assertForbidden();
 });

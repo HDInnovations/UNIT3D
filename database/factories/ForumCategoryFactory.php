@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use App\Models\ForumCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<ForumCategory> */
 class ForumCategoryFactory extends Factory
@@ -30,6 +31,7 @@ class ForumCategoryFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

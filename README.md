@@ -8,8 +8,11 @@
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/lint.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/lint.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/phpunit-test.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/phpunit-test.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg?branch=master" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/spellcheck.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/spellcheck.yml/badge.svg?branch=master" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/schema-dump.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/schema-dump.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg?branch=master" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/type-coverage.yml"><img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HDVinnie/97033a0b0568173ced0e25f2617a1807/raw/unit3d-type-coverage.json" /></a>
     <a href="https://hosted.weblate.org/engage/unit3d/">
     <img src="https://hosted.weblate.org/widget/unit3d/svg-badge.svg" alt="Translation status" />
     </a>
@@ -20,20 +23,33 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Updating](#updating)
-4. [Documentation](#docs)
-5. [Products, Services and Support](#hdinnovations)
-6. [Contributing](#contributing)
-7. [Translations](#translations)
-8. [License](#license)
+4. [Demo](#demo)
+5. [Documentation](#docs)
+6. [Products, Services and Support](#hdinnovations)
+7. [Contributing](#contributing)
+8. [Translations](#translations)
+9. [License](#license)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-UNIT3D (pronounced "united") is a modern Private Torrent Tracker software built with Laravel, Livewire and AlpineJS. It offers a feature-rich platform with excellent performance, security and scalability to create and manage a private tracker. It is MySQL Strict Mode Compliant and PHP 8.4 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
+UNIT3D (pronounced "united") is a modern FOSS Private Torrent Tracker software built with Laravel, Livewire and AlpineJS. It offers a feature-rich platform with excellent performance, security and scalability to create and manage a private tracker. It is MySQL Strict Mode Compliant and PHP 8.4 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
 
 ## <a name="installation"></a> 🖥️ Installation
 
-The official script is no longer available at this time. A new one will be provided soon.
+### Production
+
+For production deployments, we offer a streamlined Rust-based automated installer for Ubuntu 22.04/24.04 LTS. This tool handles the complete setup process, start to finish, providing a production-ready UNIT3D instance. Upon purchase you will receive a zip file containing a guide and binary installer file. Polar will provide you with a license key for the installer. 
+
+Available for purchase here: https://buy.polar.sh/polar_cl_8sOwJuTWkAue5HA80Ns5B4INEuZ2Ia9GvgRxu1m9gXZ
+
+Alternatively, manual installation instructions for a local development environment are available below. There is no official FOSS production installer. You are free to use ones out there but we will not provide support.
+
+### Development
+
+Guides for MacOS and Arch Linux can be found here. Windows guide is being worked on.
+
+https://hdinnovations.github.io/UNIT3D
 
 ## <a name="updating"></a> 🖥️ Updating
 
@@ -41,13 +57,21 @@ To update your installation to the latest version, run the following command. Th
 
 `sudo php artisan git:update`
 
+## <a name="demo"></a> 🖥️ Demo
+
+Domain: https://unit3d.dev
+
+Username: `UNIT3D`
+
+Password: `5KNC9THFbFyyG0XEdN2v0y4U`
+
 ## <a name="docs"></a> 📚 Documentation
 
 https://hdinnovations.github.io/UNIT3D
 
 ## <a name="hdinnovations"></a> 🛠️ Products, Services and Support
 
-HDInnovations offers a variety of services to help you with your UNIT3D instance. We offer services such as installation, updating, server tuning, dependency tuning, themes, porting from different codebase and more. We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D.
+HDInnovations offers a variety of services to help you with your UNIT3D instance. We offer services such as installation, updating, server tuning, dependency tuning, themes, porting from a different codebase and more. We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. UNIT3D itself is FOSS!
 
 https://hdinnovations.github.io/HDInnovations
 
@@ -65,6 +89,6 @@ We use Weblate for translations. You can easily contribute to translations at ht
 
 ## <a name="license"></a> 📜 License
 
-This project is licensed under the AGPL v3.0 License. See the [LICENSE](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE.md) file for details.
+This project is licensed under the AGPL v3.0 License. See the [LICENSE](https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE) file for details.
 
 

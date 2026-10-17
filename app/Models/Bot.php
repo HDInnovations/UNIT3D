@@ -20,6 +20,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Bot.
@@ -59,6 +60,7 @@ final class Bot extends Model
      *     is_systembot: 'bool',
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [

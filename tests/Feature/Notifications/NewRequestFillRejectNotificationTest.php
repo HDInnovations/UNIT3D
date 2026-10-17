@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Category;
 use App\Models\Group;
 use App\Models\Resolution;
@@ -38,9 +37,6 @@ test('decline a request fill creates a notification for the filler', function ()
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $requester = User::factory()->create();
@@ -95,9 +91,6 @@ test('decline a request fill creates a notification for the filler when request 
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $randomGroup = Group::factory()->create();
@@ -156,9 +149,6 @@ test('decline a request fill does not create a notification for the filler when 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $requester = User::factory()->create();
     $filler = User::factory()->create();
@@ -209,9 +199,6 @@ test('decline a request fill does not create a notification for the filler when 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $requester = User::factory()->create();
     $filler = User::factory()->create();
@@ -261,9 +248,6 @@ test('decline a request fill does not create a notification for the filler when 
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create();

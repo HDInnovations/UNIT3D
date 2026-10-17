@@ -21,6 +21,13 @@
     font-size: 22px;
 }
 
+.topic-posts__pinned-separator {
+    width: 100%;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-color: var(--post-pinned-separator-fg);
+}
+
 .post {
     display: grid;
     grid-template-areas:
@@ -38,14 +45,24 @@
 .post__header {
     grid-area: header;
     display: grid;
-    grid-template-areas: 'datetime topic . tip-stats toolbar';
-    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-areas: 'pin datetime topic . tip-stats toolbar';
+    grid-template-columns: auto auto auto 1fr auto auto;
     align-items: center;
-    gap: 9px;
     font-size: 13px;
     color: var(--post-head-fg);
     background-color: var(--post-head-bg);
     padding-left: 9px;
+}
+
+.post__pin,
+.post__datetime,
+.post__topic,
+.post__tip-stats {
+    margin-right: 9px;
+}
+
+.post__pin {
+    grid-area: pin;
 }
 
 .post__datetime {
@@ -289,9 +306,15 @@
     }
 
     .post__header {
-        grid-template-areas: 'datetime topic . tip-stats overflow' '. . . . toolbar';
-        grid-template-columns: auto auto 1fr auto auto;
-        gap: 0 6px;
+        grid-template-areas: 'pin datetime topic . tip-stats overflow' '. . . . . toolbar';
+        grid-template-columns: auto auto auto 1fr auto auto;
+    }
+
+    .post__pin,
+    .post__datetime,
+    .post__topic,
+    .post__tip-stats {
+        margin-right: 6px;
     }
 
     .post__aside {

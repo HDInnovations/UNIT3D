@@ -20,6 +20,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Override;
 
 class StoreWishRequest extends FormRequest
 {
@@ -36,7 +37,7 @@ class StoreWishRequest extends FormRequest
      *
      * @return array<string, array<\Illuminate\Validation\Rules\Unique|string>>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         $user = auth()->user();
 
@@ -67,6 +68,7 @@ class StoreWishRequest extends FormRequest
      *
      * @return array<string, string>
      */
+    #[Override]
     public function messages(): array
     {
         return [
