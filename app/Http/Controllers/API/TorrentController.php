@@ -86,7 +86,6 @@ class TorrentController extends BaseController
                     'name',
                     'tmdb_movie_id',
                     'tmdb_tv_id',
-                    'igdb_game_id',
                     'category_id',
                     'type_id',
                     'resolution_id',
