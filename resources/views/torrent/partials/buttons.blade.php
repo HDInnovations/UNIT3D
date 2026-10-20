@@ -420,11 +420,7 @@
                             name="message"
                             required
                         ></textarea>
-                        <label
-                            for="report_reason"
-                            class="form__label form__label--floating"
-                            for="message"
-                        >
+                        <label class="form__label form__label--floating" for="message">
                             {{ __('common.reason') }}
                         </label>
                     </p>
@@ -474,11 +470,7 @@
                                 name="reason"
                                 required
                             ></textarea>
-                            <label
-                                for="trump_reason"
-                                class="form__label form__label--floating"
-                                for="reason"
-                            >
+                            <label class="form__label form__label--floating" for="reason">
                                 {{ __('common.reason') }}
                             </label>
                         </p>
