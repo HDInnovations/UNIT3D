@@ -780,7 +780,6 @@ class TorrentSearch extends Component
                 ->selectRaw('MIN('.self::META_TYPE_CASE_MOVIE_TV.') AS meta')
                 ->havingNotNull('meta')
                 ->where(fn ($query) => $query->whereNotNull('tmdb_movie_id')->orWhereNotNull('tmdb_tv_id'))
-                ->where($this->filters()->toSqlQueryBuilder())
                 ->groupBy('tmdb_movie_id', 'tmdb_tv_id')
                 ->latest('sticky')
                 ->orderBy($this->sortField, $this->sortDirection)
