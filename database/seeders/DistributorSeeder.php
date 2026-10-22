@@ -3884,6 +3884,10 @@ class DistributorSeeder extends Seeder
                 'id'   => 965,
                 'name' => 'Zyx Music',
             ],
+            [
+                'id'   => 966,
+                'name' => 'VideoSonic',
+            ],
         ], ['id'], []);
     }
 }
