@@ -50,6 +50,7 @@ Route::middleware([Authenticate::using(AuthGuard::API->value), CheckIfBanned::cl
         Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter'])->middleware(CheckApiScope::with(ApiScope::CAN_SEARCH, ApiScope::CAN_DOWNLOAD));
         Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+')->middleware(CheckApiScope::with(ApiScope::CAN_DOWNLOAD));
         Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store'])->middleware(CheckApiScope::with(ApiScope::CAN_UPLOAD));
+        Route::post('/{id}/thank', [App\Http\Controllers\API\TorrentController::class, 'thank'])->where('id', '[0-9]+')->name('api.torrents.thank');
     });
 
     // Requests System

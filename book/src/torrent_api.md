@@ -135,6 +135,24 @@ Example:
 https://unit3d.site/api/torrents/filter?tmdbId=475557&categories[]=1
 ```
 
+### Thank a torrent
+
+Endpoint: POST `/api/torrents/:id/thank`
+
+Example:
+
+```bash
+curl -X POST "https://unit3d.site/api/torrents/123/thank" \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Accept: application/json"
+```
+
+Response:
+
+```json
+{"success":true,"data":[],"message":"Your thank was successfully applied!"}
+```
+
 ### Personal account info
 
 Endpoint: GET `/api/user`
