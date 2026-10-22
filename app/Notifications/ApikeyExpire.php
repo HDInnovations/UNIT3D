@@ -52,7 +52,7 @@ class ApikeyExpire extends Notification implements ShouldQueue, SystemNotificati
     {
         return [
             'subject' => 'Your API key "'.$this->apikeyName.'" has expired',
-            'message' => "Create a new API key in your scripts to keep using the API.\n\nNeed help? Open a helpdesk ticket.",
+            'message' => "Create a new API key for your scripts to keep using the API.\n\n[url]".route('users.apikeys.index', ['user' => $notifiable]).'[/url]',
         ];
     }
 }
