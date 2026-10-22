@@ -53,22 +53,23 @@ class AutoHighspeedTag extends Command
             ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP) !== false)
             ->map(fn ($ip) => inet_pton($ip));
 
-        Torrent::query()
-            ->withoutGlobalScope(ApprovedScope::class)
-            ->leftJoinSub(
-                Peer::query()
-                    ->where('seeder', '=', 1)
-                    ->where('active', '=', 1)
-                    ->distinct()
-                    ->select('torrent_id')
-                    ->whereIn('ip', $seedboxIps),
-                'highspeed_torrents',
-                fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
-            )
-            ->update([
-                'highspeed'  => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN TRUE ELSE FALSE END'),
-                'updated_at' => DB::raw('updated_at'),
-            ]);
+        Torrent::withoutTimestamps(
+            fn () => Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
+                ->leftJoinSub(
+                    Peer::query()
+                        ->where('seeder', '=', 1)
+                        ->where('active', '=', 1)
+                        ->distinct()
+                        ->select('torrent_id')
+                        ->whereIn('ip', $seedboxIps),
+                    'highspeed_torrents',
+                    fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
+                )
+                ->update([
+                    'highspeed' => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN TRUE ELSE FALSE END'),
+                ])
+        );
 
         $this->comment('Automated high speed torrents command complete');
     }
