@@ -55,4 +55,5 @@ return [
     'chat-tools' => 'Инструменти за чат',
     'flush-chat' => 'Флаш чат',
     'seedboxes' => 'Регистрирани Seedboxes',
+    'application' => 'Приложение',
 ];

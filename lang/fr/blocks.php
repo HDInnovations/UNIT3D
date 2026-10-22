@@ -11,19 +11,20 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'chatbox' => 'Shoutbox',
+    'chatbox' => 'Chat',
     'click' => 'Cliquez sur',
     'to-enable-editor' => 'activer l éditeur',
     'featured-by' => 'Présenté par',
     'featured-torrents' => 'Torrents recommandés',
-    'featured-torrents-intro' => 'Obtenez-les pendant que vous le pouvez!',
-    'featured-until' => 'Ceci est un torrent recommandé jusqu au',
+    'featured-torrents-intro' => 'Obtenez-les pendant que vous le pouvez !',
+    'featured-until' => 'Ceci est un torrent recommandé jusqu\'au',
     'top-torrents' => 'Top Torrents',
     'latest-posts' => 'Derniers articles',
     'latest-topics' => 'Derniers sujets',
     'active-in-last' => 'Actif en dernier',
-    'users-online' => 'Utilisateurs en ligne',
-    'check-news' => 'Nouvelles (vérifier quotidiennement)',
+    'users-online' => 'Utilisateur·ices en ligne',
+    'check-news' => 'Dernières nouvelles',
     'new-news' => 'Nouvelles informations',
     'new-torrents' => 'Nouveaux torrents',
+    'latest-comments' => 'Derniers commentaires',
 ];
