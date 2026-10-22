@@ -19,7 +19,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StorePlaylistCategoryRequest;
 use App\Http\Requests\Staff\UpdatePlaylistCategoryRequest;
-use App\Models\Category;
 use App\Models\PlaylistCategory;
 use Exception;
 

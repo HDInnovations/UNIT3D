@@ -20,8 +20,6 @@ use App\Models\Torrent;
 use App\Jobs\ProcessIgdbGameJob;
 use App\Jobs\ProcessMovieJob;
 use App\Jobs\ProcessTvJob;
-use App\Services\Igdb\IgdbScraper;
-use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Illuminate\Console\Command;
 use Throwable;
