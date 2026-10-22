@@ -2,7 +2,7 @@
     <div class="meta__poster-popup-card">
         <div class="meta__poster-popup-backdrop">
             <img
-                src="{{ isset($meta->backdrop) ? tmdb_image('back_mid', $meta->backdrop) : (isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/500x280') }}"
+                src="{{ isset($meta->backdrop) ? tmdb_image('back_mid', $meta->backdrop) : (isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : url('img/backdrop-placeholder.svg')) }}"
                 alt="{{ $meta->title ?? ($meta->name ?? 'No title') }}"
             />
             <div class="meta__poster-popup-backdrop-overlay"></div>

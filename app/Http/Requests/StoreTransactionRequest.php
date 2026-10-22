@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\StorePollTest
@@ -37,7 +36,7 @@ class StoreTransactionRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'exchange' => [

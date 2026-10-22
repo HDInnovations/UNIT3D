@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
 class StorePlaylistSuggestionRequest extends FormRequest
 {
@@ -26,7 +25,7 @@ class StorePlaylistSuggestionRequest extends FormRequest
      *
      * @return array<string, array<string>>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'torrent_url' => [

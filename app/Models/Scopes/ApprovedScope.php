@@ -20,6 +20,7 @@ use App\Enums\ModerationStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use Override;
 
 class ApprovedScope implements Scope
 {
@@ -28,6 +29,7 @@ class ApprovedScope implements Scope
      *
      * @param Builder<Model> $builder
      */
+    #[Override]
     public function apply(Builder $builder, Model $model): void
     {
         $builder->where('status', '=', ModerationStatus::APPROVED);

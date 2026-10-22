@@ -19,6 +19,7 @@ namespace App\Http\Requests\Staff;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Override;
 
 class UpdateForumRequest extends FormRequest
 {
@@ -89,6 +90,7 @@ class UpdateForumRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $data = $this->toArray();

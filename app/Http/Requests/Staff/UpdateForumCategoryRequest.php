@@ -18,6 +18,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Override;
 
 class UpdateForumCategoryRequest extends FormRequest
 {
@@ -47,6 +48,7 @@ class UpdateForumCategoryRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([

@@ -20,24 +20,26 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $ticket->subject }}</h2>
-        {{-- format-ignore-start --}}<div class="panel__body" style="white-space: pre-wrap">{{ $ticket->body }}</div>{{-- format-ignore-end --}}
+        <div class="panel__body bbcode-rendered">@bbcode($ticket->body)</div>
     </section>
     @if ($user->group->is_modo)
         <section class="panelV2">
             <header class="panel__header">
                 <h2 class="panel__heading">{{ __('ticket.staff-notes') }}</h2>
                 <div class="panel__actions">
-                    <div class="panel__action" x-data="dialog">
-                        <button class="form__button form__button--text" x-bind="showDialog">
+                    <div class="panel__action">
+                        <button
+                            class="form__button form__button--text"
+                            popovertarget="ticket-note-add"
+                        >
                             {{ __('common.add') }}
                         </button>
-                        <dialog class="dialog" x-bind="dialogElement">
+                        <dialog id="ticket-note-add" class="dialog" popover>
                             <h4 class="dialog__heading">Add staff note</h4>
                             <form
                                 class="dialog__form"
                                 method="POST"
                                 action="{{ route('tickets.note.store', ['ticket' => $ticket]) }}"
-                                x-bind="dialogForm"
                             >
                                 @csrf
                                 <p class="form__group">
@@ -57,9 +59,9 @@
                                         {{ __('common.add') }}
                                     </button>
                                     <button
-                                        formmethod="dialog"
-                                        formnovalidate
                                         class="form__button form__button--outlined"
+                                        type="button"
+                                        popovertarget="ticket-note-add"
                                     >
                                         {{ __('common.cancel') }}
                                     </button>
@@ -198,7 +200,7 @@
                             x-on:change="$root.submit()"
                         >
                             <option hidden disabled selected value=""></option>
-                            @foreach (App\Models\User::select(['id', 'username'])->whereIn('group_id', App\Models\Group::where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
+                            @foreach (App\Models\User::query()->select(['id', 'username'])->whereIn('group_id', App\Models\Group::query()->where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
                                 <option
                                     value="{{ $user->id }}"
                                     @selected($user->id === $ticket->staff_id)

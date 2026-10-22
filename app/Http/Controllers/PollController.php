@@ -31,7 +31,7 @@ class PollController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('poll.latest', [
-            'polls' => Poll::latest()->paginate(15),
+            'polls' => Poll::query()->latest()->paginate(15),
         ]);
     }
 
@@ -40,7 +40,7 @@ class PollController extends Controller
      */
     public function show(Request $request, Poll $poll): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
-        if (Voter::whereBelongsTo($poll)->whereBelongsTo($request->user())->exists()) {
+        if (Voter::query()->whereBelongsTo($poll)->whereBelongsTo($request->user())->exists()) {
             return to_route('polls.votes.index', ['poll' => $poll])
                 ->withInfo(trans('poll.already-voted-result'));
         }

@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\Forum;
 use App\Models\ForumPermission;
@@ -37,9 +36,6 @@ test('user tags user in forum topic creates a notification for tagged user', fun
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -108,9 +104,6 @@ test('user tags user in forum topic creates a notification for tagged user when 
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -182,9 +175,6 @@ test('user tags user in forum topic does not create a notification for tagged us
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $group = Group::factory()->create([
         'can_comment' => true,
@@ -251,9 +241,6 @@ test('staff tags user in forum topic creates a notification for tagged user even
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -324,9 +311,6 @@ test('user tags user in forum topic does not create a notification for tagged us
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     $group = Group::factory()->create([
         'can_comment' => true,
@@ -393,9 +377,6 @@ test('user tags user in forum topic does not create a notification for tagged us
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([

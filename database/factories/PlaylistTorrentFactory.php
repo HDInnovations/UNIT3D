@@ -20,6 +20,7 @@ use App\Models\Playlist;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\PlaylistTorrent;
+use Override;
 
 /** @extends Factory<PlaylistTorrent> */
 class PlaylistTorrentFactory extends Factory
@@ -32,6 +33,7 @@ class PlaylistTorrentFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

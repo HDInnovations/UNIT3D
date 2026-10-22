@@ -19,6 +19,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Override;
 
 class TorrentsResource extends ResourceCollection
 {
@@ -29,6 +30,7 @@ class TorrentsResource extends ResourceCollection
      *     data: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
      * }
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [
@@ -45,6 +47,7 @@ class TorrentsResource extends ResourceCollection
      *     }
      * }
      */
+    #[Override]
     public function with(Request $request): array
     {
         return [
@@ -57,6 +60,7 @@ class TorrentsResource extends ResourceCollection
     /**
      * Customize the outgoing response for the resource.
      */
+    #[Override]
     public function withResponse(Request $request, JsonResponse $response): void
     {
         $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

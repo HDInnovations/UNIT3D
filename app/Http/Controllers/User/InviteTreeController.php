@@ -98,12 +98,25 @@ class InviteTreeController extends Controller
             ->addBinding(User::SYSTEM_USER_ID, 'join')
             ->addBinding(User::SYSTEM_USER_ID, 'join')
             ->addBinding(User::SYSTEM_USER_ID, 'join')
+            ->whereDoesntHave('application')
             ->with([
                 'receiver' => fn ($query) => $query
+                    ->select([
+                        'id',
+                        'group_id',
+                        'username',
+                        'uploaded',
+                        'downloaded',
+                        'created_at',
+                        'last_action',
+                        'is_donor',
+                        'icon',
+                        'is_lifetime',
+                    ])
                     ->withTrashed()
                     ->with('group')
-                    ->withAvg('history', 'seedtime')
-                    ->withSum('history', 'seedtime')
+                    ->withAvg(['history' => fn ($query) => $query->withTrashed()], 'seedtime')
+                    ->withSum(['history' => fn ($query) => $query->withTrashed()], 'seedtime')
                     ->withSum('seedingTorrents', 'size')
                     ->withCount([
                         'warnings' => function ($query): void {

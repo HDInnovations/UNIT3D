@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class StoreReportAssigneeRequest extends FormRequest
@@ -35,10 +34,10 @@ class StoreReportAssigneeRequest extends FormRequest
      *
      * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
-            'assigned_to' => [
+            'staff_id' => [
                 'required',
                 'integer',
                 Rule::exists('users', 'id'),

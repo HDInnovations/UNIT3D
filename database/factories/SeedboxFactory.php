@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Seedbox;
+use Override;
 
 /** @extends Factory<Seedbox> */
 class SeedboxFactory extends Factory
@@ -31,6 +32,7 @@ class SeedboxFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

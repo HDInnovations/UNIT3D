@@ -30,7 +30,11 @@ use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
 use App\Enums\ModerationStatus;
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\IgdbGame;
 use App\Models\TmdbCollection;
+use App\Models\TmdbMovie;
+use App\Models\TmdbTv;
 use App\Models\Playlist;
 use App\Models\Ticket;
 use App\Models\Torrent;
@@ -49,9 +53,11 @@ class Comment extends Component
 
     protected ChatRepository $chatRepository;
 
-    public null|Article|TmdbCollection|Playlist|Ticket|Torrent|TorrentRequest $model;
+    public null|Article|IgdbGame|Playlist|Ticket|TmdbCollection|TmdbMovie|TmdbTv|Torrent|TorrentRequest $model;
 
     public \App\Models\Comment $comment;
+
+    public ?Category $category = null;
 
     public bool $anon = false;
 
@@ -157,17 +163,17 @@ class Comment extends Component
                 $ticket = $this->model;
 
                 if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
-                    User::find($ticket->staff_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($ticket->staff_id)?->notify(new NewComment($this->model, $reply));
                     $this->model->update(['staff_read' => false]);
                 }
 
                 if ($this->user->id !== $ticket->user_id) {
-                    User::find($ticket->user_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($ticket->user_id)?->notify(new NewComment($this->model, $reply));
                     $this->model->update(['user_read' => false]);
                 }
 
                 if (!\in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
-                    User::find($this->comment->user_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 break;
@@ -176,18 +182,18 @@ class Comment extends Component
             case TorrentRequest::class:
             case Torrent::class:
                 if ($this->user->id !== $this->model->user_id) {
-                    User::find($this->model->user_id)?->notify(new NewComment($this->model, $reply));
+                    User::query()->find($this->model->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 if ($this->user->id !== $this->comment->user_id && $this->comment->user_id !== $this->model->user_id) {
-                    User::find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
+                    User::query()->find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 break;
         }
 
         // User Tagged Notification
-        $users = User::whereIn('username', $this->taggedUsers())->get();
+        $users = User::query()->whereIn('username', $this->taggedUsers())->get();
         Notification::sendNow($users, new NewCommentTag($this->model, $reply));
 
         if (!$this->model instanceof Ticket) {
@@ -213,6 +219,18 @@ class Comment extends Component
                     break;
                 case Torrent::class:
                     $this->chatRepository->systemMessage($username.' has left a comment on Torrent [url='.href_torrent($this->model).']'.$this->model->name.'[/url]');
+
+                    break;
+                case TmdbMovie::class:
+                    $this->chatRepository->systemMessage($username.' has left a comment on Movie [url='.href_movie($this->model, $this->category).']'.$this->model->title.' ('.($this->model->release_date?->format('Y') ?? '').')'.'[/url]');
+
+                    break;
+                case TmdbTv::class:
+                    $this->chatRepository->systemMessage($username.' has left a comment on TV Show [url='.href_tv($this->model, $this->category).']'.$this->model->name.' ('.($this->model->first_air_date?->format('Y') ?? '').')'.'[/url]');
+
+                    break;
+                case IgdbGame::class:
+                    $this->chatRepository->systemMessage($username.' has left a comment on Game [url='.href_game($this->model, $this->category).']'.$this->model->name.' ('.($this->model->first_release_date?->format('Y') ?? '').')'.'[/url]');
 
                     break;
             }

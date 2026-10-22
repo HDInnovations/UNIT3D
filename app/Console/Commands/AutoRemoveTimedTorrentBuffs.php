@@ -20,7 +20,6 @@ use App\Models\Torrent;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -47,7 +46,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
      */
     final public function handle(): void
     {
-        $flTorrents = Torrent::whereNotNull('fl_until')->where('fl_until', '<', Carbon::now())->get();
+        $flTorrents = Torrent::query()->whereNotNull('fl_until')->where('fl_until', '<', now())->get();
 
         foreach ($flTorrents as $torrent) {
             $torrent->update([
@@ -59,7 +58,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
             Unit3dAnnounce::addTorrent($torrent);
         }
 
-        $duTorrents = Torrent::whereNotNull('du_until')->where('du_until', '<', Carbon::now())->get();
+        $duTorrents = Torrent::query()->whereNotNull('du_until')->where('du_until', '<', now())->get();
 
         foreach ($duTorrents as $torrent) {
             $torrent->update([

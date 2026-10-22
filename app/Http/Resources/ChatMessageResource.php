@@ -20,6 +20,7 @@ use App\Helpers\Bbcode;
 use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Override;
 
 /**
  * @mixin \App\Models\Message
@@ -42,6 +43,7 @@ class ChatMessageResource extends JsonResource
      *     updated_at: string,
      * }
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         $emojiOne = new LaravelJoyPixels();

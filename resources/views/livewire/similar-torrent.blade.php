@@ -555,11 +555,13 @@
                         </div>
                     @endif
 
-                    <div class="panel__action">
-                        <button class="form__button form__button--text" x-bind="all">
-                            Expand all
-                        </button>
-                    </div>
+                    @if ($category->tv_meta)
+                        <div class="panel__action">
+                            <button class="form__button form__button--text" x-bind="all">
+                                Expand all
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </header>
             <div class="data-table-wrapper">
@@ -1098,11 +1100,7 @@
                         </div>
                     </div>
                 </header>
-                <div
-                    class="panel__body collection-posters"
-                    x-ref="posters"
-                    style="max-height: 330px !important"
-                >
+                <div class="panel__body collection__posters" x-ref="posters">
                     @foreach ($collectionMovies as $collectionMovie)
                         <x-movie.poster :movie="$collectionMovie" :categoryId="$category->id" />
                     @endforeach
@@ -1110,10 +1108,7 @@
             </section>
         @endif
 
-        <livewire:also-downloaded-works
-            :work="$work->withoutRelations()"
-            :categoryId="$category->id"
-        />
+        <livewire:also-downloaded-works :work="$work->withoutRelations()" />
 
         @if ($playlistCategories->isNotEmpty())
             <section class="panelV2">

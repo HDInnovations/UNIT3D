@@ -66,9 +66,9 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::with('user', 'forum.category')->authorized(canReadTopic: true)->findOrFail($id);
+        $topic = Topic::query()->with('user', 'forum.category')->authorized(canReadTopic: true)->findOrFail($id);
 
-        $subscription = Subscription::where('user_id', '=', $user->id)->where('topic_id', '=', $id)->first();
+        $subscription = Subscription::query()->where('user_id', '=', $user->id)->where('topic_id', '=', $id)->first();
 
         $topic->views++;
         $topic->save();
@@ -88,9 +88,7 @@ class TopicController extends Controller
      */
     public function create(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
-        $forum = Forum::with('category')->authorized(canStartTopic: true)->findOrFail($id);
+        $forum = Forum::query()->with('category')->authorized(canStartTopic: true)->findOrFail($id);
 
         return view('forum.forum-topic.create', [
             'forum' => $forum,
@@ -111,7 +109,7 @@ class TopicController extends Controller
         $user = $request->user();
         $forum = Forum::authorized(canStartTopic: true)->findOrFail($id);
 
-        $topic = Topic::create([
+        $topic = Topic::query()->create([
             'name'               => $request->title,
             'state'              => 'open',
             'first_post_user_id' => $user->id,
@@ -122,7 +120,7 @@ class TopicController extends Controller
             'num_post'           => 1,
         ]);
 
-        $post = Post::create([
+        $post = Post::query()->create([
             'content'  => $request->input('content'),
             'anon'     => $request->boolean('anon'),
             'user_id'  => $user->id,
@@ -144,9 +142,8 @@ class TopicController extends Controller
         ]);
 
         // Post To ShoutBox
-        $appUrl = config('app.url');
-        $topicUrl = \sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
-        $profileUrl = \sprintf('%s/users/%s', $appUrl, $user->username);
+        $topicUrl = route('topics.show', ['id' => $topic->id]);
+        $profileUrl = href_profile($user);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
@@ -215,11 +212,11 @@ class TopicController extends Controller
     {
         $user = $request->user();
 
-        $topic = Topic::with('forum.category')->authorized(canReadTopic: true, canReplyTopic: true)->findOrFail($id);
+        $topic = Topic::query()->with('forum.category')->authorized(canReadTopic: true, canReplyTopic: true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
 
-        $categories = Forum::with('category:id,name')
+        $categories = Forum::query()->with('category:id,name')
             ->authorized(canReadTopic: true, canStartTopic: true)
             ->get()
             ->groupBy('category.name');
@@ -303,7 +300,7 @@ class TopicController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        $topic = Topic::findOrFail($id);
+        $topic = Topic::query()->findOrFail($id);
 
         $topic->posts()->delete();
         $topic->delete();
@@ -331,7 +328,7 @@ class TopicController extends Controller
      */
     public function close(int $id): \Illuminate\Http\RedirectResponse
     {
-        $topic = Topic::findOrFail($id);
+        $topic = Topic::query()->findOrFail($id);
         $topic->state = 'close';
         $topic->save();
 
@@ -344,7 +341,7 @@ class TopicController extends Controller
      */
     public function open(int $id): \Illuminate\Http\RedirectResponse
     {
-        $topic = Topic::findOrFail($id);
+        $topic = Topic::query()->findOrFail($id);
         $topic->state = 'open';
         $topic->save();
 
@@ -357,7 +354,7 @@ class TopicController extends Controller
      */
     public function pin(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $topic = Topic::findOrFail($id);
+        $topic = Topic::query()->findOrFail($id);
         $topic->priority = $request->integer('priority');
         $topic->save();
 
@@ -370,7 +367,7 @@ class TopicController extends Controller
      */
     public function unpin(int $id): \Illuminate\Http\RedirectResponse
     {
-        $topic = Topic::findOrFail($id);
+        $topic = Topic::query()->findOrFail($id);
         $topic->priority = 0;
         $topic->save();
 
@@ -383,7 +380,7 @@ class TopicController extends Controller
      */
     public function permalink(int $topicId, int $postId): \Illuminate\Http\RedirectResponse
     {
-        $index = Post::where('topic_id', '=', $topicId)->where('id', '<', $postId)->count();
+        $index = Post::query()->where('topic_id', '=', $topicId)->where('id', '<', $postId)->count();
 
         return to_route('topics.show', [
             'id'   => $topicId,

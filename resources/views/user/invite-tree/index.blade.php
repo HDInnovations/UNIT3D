@@ -25,7 +25,7 @@
 
 @section('main')
     <section class="panelV2">
-        <h2 class="panel__heading">Invite tree</h2>
+        <h2 class="panel__heading">{{ __('user.invite-tree') }}</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>

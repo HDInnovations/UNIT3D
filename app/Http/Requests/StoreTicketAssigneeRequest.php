@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class StoreTicketAssigneeRequest extends FormRequest
@@ -35,7 +34,7 @@ class StoreTicketAssigneeRequest extends FormRequest
      *
      * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         return [
             'staff_id' => [

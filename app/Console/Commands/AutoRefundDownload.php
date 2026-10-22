@@ -19,7 +19,6 @@ namespace App\Console\Commands;
 use App\Models\History;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -46,13 +45,12 @@ class AutoRefundDownload extends Command
      */
     final public function handle(): void
     {
-        $now = Carbon::now();
         $MIN_SEEDTIME = config('hitrun.seedtime');
         $FULL_REFUND_SEEDTIME = 12 * 30 * 24 * 60 * 60 + $MIN_SEEDTIME;
         $COMMAND_RUN_PERIOD = 24 * 60 * 60; // This command is run every 24 hours
 
         History::query()
-            ->selectRaw('LEAST(1, history.seedtime / ?) * torrents.size - history.refunded_download as refunded_download_delta', [$FULL_REFUND_SEEDTIME])
+            ->selectRaw('LEAST(history.downloaded, LEAST(1, history.seedtime / ?) * torrents.size) - history.refunded_download as refunded_download_delta', [$FULL_REFUND_SEEDTIME])
             ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
             ->join('users', 'users.id', '=', 'history.user_id')
             ->join('groups', 'groups.id', '=', 'users.group_id')
@@ -60,7 +58,7 @@ class AutoRefundDownload extends Command
             ->where('history.seeder', '=', 1)
             ->where('history.seedtime', '>=', $MIN_SEEDTIME)
             ->where('history.seedtime', '<=', $FULL_REFUND_SEEDTIME + $MIN_SEEDTIME + $COMMAND_RUN_PERIOD)
-            ->where('history.created_at', '<=', $now->copy()->subSeconds($MIN_SEEDTIME))
+            ->where('history.created_at', '<=', now()->subSeconds($MIN_SEEDTIME))
             ->whereColumn('torrents.user_id', '!=', 'history.user_id')
             ->when(!config('other.refundable'), fn ($query) => $query->where(
                 fn ($query) => $query
@@ -68,7 +66,7 @@ class AutoRefundDownload extends Command
                     ->orWhere('torrents.refundable', '=', true)
             ))
             ->update([
-                'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size - history.refunded_download)'),
+                'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(history.downloaded, LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size) - history.refunded_download)'),
                 'users.downloaded'          => DB::raw('GREATEST(0, users.downloaded - @delta)'),
                 'history.updated_at'        => DB::raw('history.updated_at'),
             ]);
