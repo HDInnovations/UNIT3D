@@ -27,11 +27,13 @@ use App\Http\Resources\TorrentsResource;
 use App\Models\FeaturedTorrent;
 use App\Models\IgdbGame;
 use App\Models\Keyword;
+use App\Models\Thank;
 use App\Models\TmdbMovie;
 use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\TmdbTv;
 use App\Models\User;
+use App\Notifications\NewThank;
 use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
@@ -503,5 +505,33 @@ class TorrentController extends BaseController
                 'to'           => ($page - 1) * $perPage + \count($torrents->items()),
             ]
         ]);
+    }
+    public function thank(Request $request, int $id): \Illuminate\Http\JsonResponse
+    {
+        /** @var Torrent $torrent */
+        $torrent = Torrent::query()->with('user')->findOrFail($id);
+        /** @var User $user */
+        $user = $request->user();
+
+        if ($user->id === $torrent->user_id) {
+            return $this->sendError('You cannot thank your own content!', [], 422);
+        }
+
+        if (Thank::query()->whereBelongsTo($user)->whereBelongsTo($torrent)->exists()) {
+            return $this->sendError('You have already thanked!', [], 422);
+        }
+
+        $thank = Thank::query()->create([
+            'user_id'    => $user->id,
+            'torrent_id' => $torrent->id,
+        ]);
+
+        $uploader = $torrent->user;
+
+        if ($uploader->acceptsNotification($user, $uploader, 'torrent', 'show_torrent_thank')) {
+            $uploader->notify(new NewThank('torrent', $thank));
+        }
+
+        return $this->sendResponse([], 'Your thank was successfully applied!');
     }
 }
