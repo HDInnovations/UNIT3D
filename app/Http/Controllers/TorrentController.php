@@ -568,8 +568,6 @@ class TorrentController extends Controller
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
 
-        $category = Category::query()->findOrFail($request->integer('category_id'));
-
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 

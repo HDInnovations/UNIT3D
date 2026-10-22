@@ -48,7 +48,6 @@ class RequestFillController extends Controller
         ]);
 
         // Send Private Message
-        $sender = $request->boolean('filled_anon') ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
         $requester->notify(new NewRequestFill($torrentRequest));

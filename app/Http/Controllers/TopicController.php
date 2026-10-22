@@ -88,8 +88,6 @@ class TopicController extends Controller
      */
     public function create(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         $forum = Forum::query()->with('category')->authorized(canStartTopic: true)->findOrFail($id);
 
         return view('forum.forum-topic.create', [

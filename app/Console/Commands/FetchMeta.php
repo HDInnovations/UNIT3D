@@ -52,9 +52,6 @@ class FetchMeta extends Command
         $start = now();
         $this->alert('Meta fetch queueing started. Fetching is done synchronously within this command. This can take awhile (~1 work per second).');
 
-        $tmdbScraper = new TMDBScraper();
-        $igdbScraper = new IgdbScraper();
-
         $onlyTypes = $this->option('only');
 
         if ($onlyTypes !== null) {
