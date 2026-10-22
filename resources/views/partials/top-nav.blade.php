@@ -329,7 +329,7 @@
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-percent"></i>
                     {{ $user->formatted_ratio }}
                 </a>
             </li>
