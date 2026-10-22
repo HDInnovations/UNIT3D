@@ -38,6 +38,8 @@ class PlaylistZipController extends Controller
         // Authorized User
         $user = auth()->user();
 
+        abort_if($playlist->is_private && $playlist->user_id !== $user->id && !$user->group->is_modo, 403);
+
         // Zip File Name
         $zipFileName = '['.$user->username.']'.$playlist->name.'.zip';
 
