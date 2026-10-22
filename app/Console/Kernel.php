@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Console;
 
 use App\Console\Commands\AutoBonAllocation;
+use App\Console\Commands\AutoCloseInactiveTickets;
 use App\Console\Commands\AutoCacheRandomMediaIds;
 use App\Console\Commands\AutoCacheUserLeechCounts;
 use App\Console\Commands\AutoCorrectHistory;
@@ -117,6 +118,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoRemoveReseeds::class)->daily();
         $schedule->command(AutoRewardUploadContestPrize::class)->daily();
         $schedule->command(AutoExpireApikeys::class)->daily();
+        $schedule->command(AutoCloseInactiveTickets::class)->daily();
         // $schedule->command(AutoBanDisposableUsers::class)->weekends();
         $schedule->command(CleanupCommand::class)->daily();
         $schedule->command(BackupCommand::class, ['--only-db'])->daily();
