@@ -18,7 +18,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Bencode;
 use App\Models\Playlist;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use ZipStream\ZipStream;
 
@@ -37,6 +36,8 @@ class PlaylistZipController extends Controller
 
         // Authorized User
         $user = auth()->user();
+
+        abort_if($playlist->is_private && $playlist->user_id !== $user->id && !$user->group->is_modo, 403);
 
         // Zip File Name
         $zipFileName = '['.$user->username.']'.$playlist->name.'.zip';

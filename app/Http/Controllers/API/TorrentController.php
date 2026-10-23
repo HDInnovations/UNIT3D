@@ -99,7 +99,6 @@ class TorrentController extends BaseController
                     'doubleup',
                     'refundable',
                     'internal',
-                    'featured',
                     'personal_release',
                     'anon',
                     'seeders',
