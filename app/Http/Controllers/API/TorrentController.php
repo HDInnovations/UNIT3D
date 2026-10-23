@@ -40,6 +40,7 @@ use App\Traits\TorrentMeta;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Meilisearch\Endpoints\Indexes;
 
 /**
@@ -174,6 +175,28 @@ class TorrentController extends BaseController
         // Divide by 3 since we're inserting 3 fields: name, size and torrent_id
         foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
             TorrentFile::query()->insert($files->toArray());
+        }
+
+        // Cover Image for No-Meta Torrents
+        if ($request->hasFile('torrent-cover')) {
+            $image_cover = $request->file('torrent-cover');
+
+            abort_if(\is_array($image_cover), 400);
+
+            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
+            $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
+            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+        }
+
+        // Banner Image for No-Meta Torrents
+        if ($request->hasFile('torrent-banner')) {
+            $image_cover = $request->file('torrent-banner');
+
+            abort_if(\is_array($image_cover), 400);
+
+            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
+            $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
+            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
         // Set torrent to featured
