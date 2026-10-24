@@ -36,8 +36,6 @@ class UploadContestWinnerFactory extends Factory
     #[Override]
     public function definition(): array
     {
-        $types = ['fl_tokens', 'bon'];
-
         return [
             'upload_contest_id' => UploadContest::factory(),
             'user_id'           => User::factory(),

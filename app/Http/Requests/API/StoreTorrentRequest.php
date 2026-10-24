@@ -87,7 +87,7 @@ class StoreTorrentRequest extends FormRequest
                     }
 
                     try {
-                        $meta = Bencode::get_meta($decodedTorrent);
+                        $_meta = Bencode::get_meta($decodedTorrent);
                     } catch (Exception) {
                         $fail('You Must Provide A Valid Torrent File For Upload!');
                     }

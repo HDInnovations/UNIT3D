@@ -262,7 +262,7 @@ class MarkdownExtra extends Markdown
             $Block['depth']++;
         }
 
-        if (preg_match('/(.*?)<\/'.$Block['name'].'>[ ]*$/i', (string) $Line['text'], $matches)) { // close
+        if (preg_match('/(.*?)<\/'.$Block['name'].'>[ ]*$/i', (string) $Line['text'])) { // close
             if ($Block['depth'] > 0) {
                 $Block['depth']--;
             } else {
