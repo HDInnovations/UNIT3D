@@ -18,7 +18,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Bencode;
 use App\Models\Playlist;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use ZipStream\ZipStream;
 

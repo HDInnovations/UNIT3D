@@ -115,7 +115,7 @@ class YearlyOverviewController extends Controller
                     ->take(10)
                     ->get()
             ),
-            'posters' => $posters = cache()->remember(
+            'posters' => cache()->remember(
                 'yearly-overview:'.$year.':posts',
                 3600,
                 fn () => Post::query()
