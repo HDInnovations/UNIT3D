@@ -213,7 +213,7 @@ class ChatController extends Controller
         }
 
         $botId = null;
-        $message = $this->chatRepository->message($userId, $roomId, $message, $botId);
+        $this->chatRepository->message($userId, $roomId, $message, $botId);
 
         return response('success');
     }
