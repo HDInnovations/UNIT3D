@@ -72,7 +72,8 @@ class UserController extends Controller
                 'warnings as auto_warnings_count'         => fn ($query) => $query->whereNotNull('torrent_id'),
                 'warnings as manual_warnings_count'       => fn ($query) => $query->whereNull('torrent_id'),
                 'warnings as soft_deleted_warnings_count' => fn ($query) => $query->onlyTrashed(),
-            ]);
+            ])
+            ->loadAvg(['seedSizeHistory' => fn ($query) => $query->where('created_at', '>', now()->subDays(15))], 'seed_size');
 
         return view('user.profile.show', [
             'user'      => $user,
