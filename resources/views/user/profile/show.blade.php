@@ -712,6 +712,18 @@
                             {{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size'), 2) }}
                         </dd>
                     </div>
+                    <div class="key-value__group">
+                        <dt>
+                            <abbr
+                                title="{{ __('user.seeding-size') }} ({{ __('user.all-torrents') }}) (15-day average)"
+                            >
+                                {{ __('user.seeding-size') }} (15D)
+                            </abbr>
+                        </dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::formatBytes((int) $user->seed_size_history_avg_seed_size ?? 0, 2) }}
+                        </dd>
+                    </div>
                 </dl>
             </section>
         @endif

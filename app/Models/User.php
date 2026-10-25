@@ -1002,6 +1002,16 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the user's seed size histories.
+     *
+     * @return HasMany<UserSeedSizeHistory, $this>
+     */
+    public function seedSizeHistory(): HasMany
+    {
+        return $this->hasMany(UserSeedSizeHistory::class);
+    }
+
+    /**
      * Get the user's notification acceptance as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool
