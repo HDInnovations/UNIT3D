@@ -59,6 +59,7 @@ use Override;
  * @property int|null    $min_uploaded
  * @property int|null    $min_actual_uploaded
  * @property int|null    $min_seedsize
+ * @property int|null    $min_avg_seedsize
  * @property int|null    $min_avg_seedtime
  * @property string|null $min_ratio
  * @property int|null    $min_age
