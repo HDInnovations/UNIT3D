@@ -804,6 +804,7 @@ CREATE TABLE `groups` (
   `min_uploaded` bigint unsigned DEFAULT NULL,
   `min_actual_uploaded` bigint unsigned DEFAULT NULL,
   `min_seedsize` bigint unsigned DEFAULT NULL,
+  `min_avg_seedsize` bigint unsigned DEFAULT NULL,
   `min_avg_seedtime` bigint unsigned DEFAULT NULL,
   `min_ratio` decimal(4,2) DEFAULT NULL,
   `min_age` bigint unsigned DEFAULT NULL,
@@ -2541,6 +2542,20 @@ CREATE TABLE `user_privacy` (
   CONSTRAINT `user_privacy_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_seed_size_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_seed_size_history` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `seed_size` bigint unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_seed_size_history_user_id_created_at_index` (`user_id`,`created_at`),
+  KEY `user_seed_size_history_created_at_index` (`created_at`),
+  CONSTRAINT `user_seed_size_history_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -3161,3 +3176,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (384,'2026_07_15_07
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (385,'2026_08_15_075513_add_min_actual_uploaded_to_groups_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (386,'2026_10_02_215905_remove_chat_censor_setting',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (387,'2026_10_12_075837_create_report_replies_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (388,'2026_10_25_061228_create_user_seed_size_history',1);
