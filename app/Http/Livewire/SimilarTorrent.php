@@ -37,6 +37,7 @@ use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -50,8 +51,10 @@ class SimilarTorrent extends Component
 
     public TmdbMovie|TmdbTv|IgdbGame $work;
 
+    #[Locked]
     public ?int $tmdbId;
 
+    #[Locked]
     public ?int $igdbId;
 
     public string $reason;
@@ -295,7 +298,7 @@ class SimilarTorrent extends Component
                     name: $this->name,
                     description: $this->description,
                     mediainfo: $this->mediainfo,
-                    keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
+                    keywords: $this->keywords ? array_map(trim(...), explode(',', $this->keywords)) : [],
                     uploader: $this->uploader,
                     episodeNumber: $this->episodeNumber,
                     seasonNumber: $this->seasonNumber,
@@ -414,7 +417,7 @@ class SimilarTorrent extends Component
             type: 'warning',
             message: 'Are you sure?',
             body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
-                        .nl2br(implode("\n", $names)),
+                        .nl2br(implode("\n", array_map(e(...), $names))),
         );
     }
 

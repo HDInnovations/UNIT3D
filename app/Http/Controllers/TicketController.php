@@ -48,7 +48,7 @@ class TicketController extends Controller
      */
     final public function store(StoreTicketRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $ticket = Ticket::query()->create(['user_id' => $request->user()->id] + $request->validated());
+        $ticket = Ticket::query()->create([...$request->validated(), 'user_id' => $request->user()->id]);
 
         if ($request->hasFile('attachments')) {
             TicketAttachmentController::storeTicketAttachments($request, $ticket, $request->user());

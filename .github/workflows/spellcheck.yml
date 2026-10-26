@@ -49,7 +49,7 @@ jobs:
                         unit3d-${{ matrix.operating-system }}-cspell-
 
             -   name: Run CSpell
-                run: bunx cspell --no-progress --cache --cache-location .cspell.cache/spell-results "**"
+                run: bunx --bun cspell --no-progress --cache --cache-location .cspell.cache/spell-results "**"
 
             -   name: Save CSpell cache
                 uses: actions/cache/save@v4

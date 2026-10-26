@@ -45,8 +45,6 @@ class TorrentHelper
 {
     public static function approveHelper(int $id): void
     {
-        $appurl = config('app.url');
-
         $torrent = Torrent::query()->with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->created_at = now();
         $torrent->bumped_at = now();
@@ -144,7 +142,7 @@ class TorrentHelper
                     .'[TMDB vote average: '.($meta->vote_average ?? 0).'] '
                     .'[TMDB vote count: '.($meta->vote_count ?? 0).']'
                 )
-                ->say(\sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                ->say(\sprintf('[Link: %s]', href_torrent($torrent)));
         }
 
         // Announce to external IRC service

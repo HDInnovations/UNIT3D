@@ -98,4 +98,5 @@
             No media
         @endforelse
     </div>
+    {{ $medias->links('partials.pagination') }}
 </section>

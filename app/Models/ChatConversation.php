@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Override;
 
 /**
  * App\Models\ChatConversation.
@@ -56,6 +57,7 @@ final class ChatConversation extends Model
      *     status: 'bool',
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [

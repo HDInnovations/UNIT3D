@@ -197,22 +197,6 @@
                         </label>
                     </p>
                 </fieldset>
-                <fieldset class="form__fieldset">
-                    <legend class="form__legend">Chat</legend>
-                    <p class="form__group">
-                        <label class="form__label">
-                            <input type="hidden" name="censor" value="0" />
-                            <input
-                                class="form__checkbox"
-                                type="checkbox"
-                                name="censor"
-                                value="1"
-                                @checked($user->settings->censor)
-                            />
-                            Language censor chat
-                        </label>
-                    </p>
-                </fieldset>
                 <fieldset class="form form__fieldset">
                     <legend class="form__legend">{{ __('user.homepage-blocks') }}</legend>
                     <fieldset class="form__fieldset">

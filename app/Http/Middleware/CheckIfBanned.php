@@ -27,7 +27,7 @@ class CheckIfBanned
      *
      * @throws Exception
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next, ?string $guard = null): mixed
+    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         $user = $request->user();
         // Redis returns ints as numeric strings!

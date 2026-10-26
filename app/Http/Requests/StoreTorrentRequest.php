@@ -27,20 +27,14 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
 use Exception;
+use Override;
 
 class StoreTorrentRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
@@ -73,7 +67,7 @@ class StoreTorrentRequest extends FormRequest
             'torrent' => [
                 'required',
                 'file',
-                function (string $attribute, mixed $value, Closure $fail): void {
+                function (string $_attribute, mixed $value, Closure $fail): void {
                     if ($value->getClientOriginalExtension() !== 'torrent') {
                         $fail('The torrent file uploaded does not have a ".torrent" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }
@@ -87,7 +81,7 @@ class StoreTorrentRequest extends FormRequest
                     }
 
                     try {
-                        $meta = Bencode::get_meta($decodedTorrent);
+                        $_meta = Bencode::get_meta($decodedTorrent);
                     } catch (Exception) {
                         $fail('You Must Provide A Valid Torrent File For Upload!');
                     }
@@ -114,7 +108,7 @@ class StoreTorrentRequest extends FormRequest
                 'nullable',
                 'sometimes',
                 'file',
-                function (string $attribute, mixed $value, Closure $fail): void {
+                function (string $_attribute, mixed $value, Closure $fail): void {
                     if ($value->getClientOriginalExtension() !== 'nfo') {
                         $fail('The NFO uploaded does not have a ".nfo" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }

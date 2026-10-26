@@ -322,7 +322,7 @@ class TorrentRequestSearch extends Component
                     $query->where('filled_by', '=', $user->id);
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage);
+                ->paginate(min($this->perPage, 100));
         }
     }
 

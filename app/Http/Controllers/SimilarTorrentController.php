@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\Occupation;
 use App\Models\Category;
 use App\Models\IgdbGame;
 use App\Models\PersonalFreeleech;
@@ -25,7 +26,6 @@ use App\Models\TorrentRequest;
 use App\Models\TmdbTv;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
-use Illuminate\Http\Request;
 
 class SimilarTorrentController extends Controller
 {
@@ -45,7 +45,9 @@ class SimilarTorrentController extends Controller
                 $meta = TmdbMovie::query()
                     ->with([
                         'genres',
-                        'credits' => ['person', 'occupation'],
+                        'credits' => fn ($query) => $query
+                            ->where('occupation_id', '!=', Occupation::ACTOR)
+                            ->with(['person:id,still,name', 'occupation']),
                         'companies',
                         'collections.movies',
                     ])
@@ -61,7 +63,9 @@ class SimilarTorrentController extends Controller
                 $meta = TmdbTv::query()
                     ->with([
                         'genres',
-                        'credits' => ['person', 'occupation'],
+                        'credits' => fn ($query) => $query
+                            ->where('occupation_id', '!=', Occupation::ACTOR)
+                            ->with(['person:id,still,name', 'occupation']),
                         'companies',
                         'networks'
                     ])
@@ -100,7 +104,7 @@ class SimilarTorrentController extends Controller
         ]);
     }
 
-    public function update(Request $request, Category $category, int $metaId): \Illuminate\Http\RedirectResponse
+    public function update(Category $category, int $metaId): \Illuminate\Http\RedirectResponse
     {
         if (!($category->movie_meta || $category->tv_meta || $category->game_meta)) {
             return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $metaId])

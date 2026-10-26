@@ -41,15 +41,15 @@
                         @endif
 
                         @if (auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && Illuminate\Support\Carbon::now()->lt($torrent->created_at->addDay())))
-                            <li x-data="dialog">
+                            <li>
                                 <button
                                     class="form__button form__button--outlined"
-                                    x-bind="showDialog"
+                                    popovertarget="torrent-delete"
                                 >
                                     <i class="{{ config('other.font-awesome') }} fa-times"></i>
                                     {{ __('common.delete') }}
                                 </button>
-                                <dialog class="dialog" x-bind="dialogElement">
+                                <dialog id="torrent-delete" class="dialog" popover>
                                     <h4 class="dialog__heading">
                                         {{ __('common.delete') }}: {{ $torrent->name }}
                                     </h4>
@@ -57,7 +57,6 @@
                                         class="dialog__form"
                                         method="POST"
                                         action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
-                                        x-bind="dialogForm"
                                     >
                                         @csrf
                                         @method('DELETE')
@@ -98,9 +97,9 @@
                                                 {{ __('common.delete') }}
                                             </button>
                                             <button
-                                                formmethod="dialog"
-                                                formnovalidate
                                                 class="form__button form__button--outlined"
+                                                type="button"
+                                                popovertarget="torrent-delete"
                                             >
                                                 {{ __('common.cancel') }}
                                             </button>
@@ -123,14 +122,17 @@
                         flex-wrap: wrap;
                     "
                 >
-                    <li x-data="dialog">
-                        <button class="form__button form__button--outlined" x-bind="showDialog">
+                    <li>
+                        <button
+                            class="form__button form__button--outlined"
+                            popovertarget="torrent-freeleech"
+                        >
                             <i class="{{ config('other.font-awesome') }} fa-star"></i>
                             Freeleech
                         </button>
-                        <dialog class="dialog" x-bind="dialogElement">
+                        <dialog id="torrent-freeleech" class="dialog" popover>
                             <h4 class="dialog__heading">Edit freeleech</h4>
-                            <div x-bind="dialogForm">
+                            <div>
                                 <form
                                     class="dialog__form"
                                     action="{{ route('torrent_fl', ['id' => $torrent->id]) }}"
@@ -190,9 +192,9 @@
                                             {{ __('common.save') }}
                                         </button>
                                         <button
-                                            formmethod="dialog"
-                                            formnovalidate
                                             class="form__button form__button--outlined"
+                                            type="button"
+                                            popovertarget="torrent-freeleech"
                                         >
                                             {{ __('common.cancel') }}
                                         </button>
@@ -201,14 +203,17 @@
                             </div>
                         </dialog>
                     </li>
-                    <li x-data="dialog">
-                        <button class="form__button form__button--outlined" x-bind="showDialog">
+                    <li>
+                        <button
+                            class="form__button form__button--outlined"
+                            popovertarget="torrent-double-upload"
+                        >
                             <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i>
                             Double upload
                         </button>
-                        <dialog class="dialog" x-bind="dialogElement">
+                        <dialog id="torrent-double-upload" class="dialog" popover>
                             <h4 class="dialog__heading">Edit double upload</h4>
-                            <div x-bind="dialogForm">
+                            <div>
                                 <form
                                     class="dialog__form"
                                     action="{{ route('torrent_doubleup', ['id' => $torrent->id]) }}"
@@ -238,9 +243,9 @@
                                             {{ __('common.save') }}
                                         </button>
                                         <button
-                                            formmethod="dialog"
-                                            formnovalidate
                                             class="form__button form__button--outlined"
+                                            type="button"
+                                            popovertarget="torrent-double-upload"
                                         >
                                             {{ __('common.cancel') }}
                                         </button>
@@ -389,15 +394,15 @@
                     @endif
 
                     @if ($torrent->status !== \App\Enums\ModerationStatus::POSTPONED)
-                        <li x-data="dialog">
+                        <li>
                             <button
                                 class="form__button form__button--outlined"
-                                x-bind="showDialog"
+                                popovertarget="torrent-postpone"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-pause"></i>
                                 {{ __('common.moderation-postpone') }}
                             </button>
-                            <dialog class="dialog" x-bind="dialogElement">
+                            <dialog id="torrent-postpone" class="dialog" popover>
                                 <h4 class="dialog__heading">
                                     {{ __('common.moderation-postpone') }}: {{ $torrent->name }}
                                 </h4>
@@ -405,7 +410,6 @@
                                     class="dialog__form"
                                     method="POST"
                                     action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
-                                    x-bind="dialogForm"
                                 >
                                     @csrf
                                     <input
@@ -449,9 +453,9 @@
                                             {{ __('common.moderation-postpone') }}
                                         </button>
                                         <button
-                                            formmethod="dialog"
-                                            formnovalidate
                                             class="form__button form__button--outlined"
+                                            type="button"
+                                            popovertarget="torrent-postpone"
                                         >
                                             {{ __('common.cancel') }}
                                         </button>
@@ -462,17 +466,17 @@
                     @endif
 
                     @if ($torrent->status !== \App\Enums\ModerationStatus::REJECTED)
-                        <li x-data="dialog">
+                        <li>
                             <button
                                 class="form__button form__button--outlined"
-                                x-bind="showDialog"
+                                popovertarget="torrent-reject"
                             >
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-fw fa-thumbs-down"
                                 ></i>
                                 {{ __('common.moderation-reject') }}
                             </button>
-                            <dialog class="dialog" x-bind="dialogElement">
+                            <dialog id="torrent-reject" class="dialog" popover>
                                 <h4 class="dialog__heading">
                                     {{ __('common.moderation-reject') }}: {{ $torrent->name }}
                                 </h4>
@@ -480,7 +484,6 @@
                                     class="dialog__form"
                                     method="POST"
                                     action="{{ route('staff.moderation.update', ['id' => $torrent->id]) }}"
-                                    x-bind="dialogForm"
                                 >
                                     @csrf
                                     <input
@@ -524,9 +527,9 @@
                                             {{ __('common.moderation-reject') }}
                                         </button>
                                         <button
-                                            formmethod="dialog"
-                                            formnovalidate
                                             class="form__button form__button--outlined"
+                                            type="button"
+                                            popovertarget="torrent-reject"
                                         >
                                             {{ __('common.cancel') }}
                                         </button>

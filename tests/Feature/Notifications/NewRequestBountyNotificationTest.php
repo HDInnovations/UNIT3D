@@ -68,8 +68,8 @@ test('add bounty to request creates a notification for the requester', function 
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertSentTo(
@@ -124,8 +124,8 @@ test('add bounty to request creates a notification for the requester when bounty
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertSentTo(
@@ -178,8 +178,8 @@ test('add bounty to request does not create a notification for the requester whe
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertCount(0);
@@ -228,8 +228,8 @@ test('add bounty to request does not create a notification for the requester whe
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertCount(0);
@@ -279,8 +279,8 @@ test('add bounty to request does not create a notification for the requester whe
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertCount(0);

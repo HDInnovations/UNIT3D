@@ -61,15 +61,19 @@
                                 </li>
                                 @if (auth()->user()->group->is_modo || auth()->id() == $subtitle->user_id)
                                     <li class="data-table__action">
-                                        <span x-data="dialog">
+                                        <span>
                                             <button
                                                 class="form__button form__button--text"
                                                 title="{{ __('common.edit') }}"
-                                                x-bind="showDialog"
+                                                popovertarget="subtitle-edit-{{ $subtitle->id }}"
                                             >
                                                 {{ __('common.edit') }}
                                             </button>
-                                            <dialog class="dialog" x-bind="dialogElement">
+                                            <dialog
+                                                id="subtitle-edit-{{ $subtitle->id }}"
+                                                class="dialog"
+                                                popover
+                                            >
                                                 <h4 class="dialog__heading">
                                                     {{ __('common.edit') }}
                                                     {{ __('common.subtitle') }}
@@ -78,7 +82,6 @@
                                                     class="dialog__form"
                                                     method="POST"
                                                     action="{{ route('subtitles.update', ['subtitle' => $subtitle]) }}"
-                                                    x-bind="dialogForm"
                                                 >
                                                     @csrf
                                                     @method('PATCH')
@@ -159,9 +162,9 @@
                                                             {{ __('common.save') }}
                                                         </button>
                                                         <button
-                                                            formmethod="dialog"
-                                                            formnovalidate
                                                             class="form__button form__button--outlined"
+                                                            type="button"
+                                                            popovertarget="subtitle-edit-{{ $subtitle->id }}"
                                                         >
                                                             {{ __('common.cancel') }}
                                                         </button>

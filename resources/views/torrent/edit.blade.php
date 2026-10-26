@@ -288,7 +288,7 @@
                                 value="{{ old('tmdb_movie_id', $torrent->tmdb_movie_id) }}"
                                 x-bind:value="
                                     cats[cat].type === 'movie' && tmdb_movie_exists
-                                        ? '{{ old('tmdb_movie_id', $torrent->tmdb_movie_id) }}'
+                                        ? {{ Js::from(old('tmdb_movie_id', $torrent->tmdb_movie_id)) }}
                                         : ''
                                 "
                                 x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
@@ -325,7 +325,11 @@
                                 placeholder=" "
                                 type="text"
                                 value="{{ old('tmdb_tv_id', $torrent->tmdb_tv_id) }}"
-                                x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? '{{ old('tmdb_tv_id', $torrent->tmdb_tv_id) }}' : ''"
+                                x-bind:value="
+                                    cats[cat].type === 'tv' && tmdb_tv_exists
+                                        ? {{ Js::from(old('tmdb_tv_id', $torrent->tmdb_tv_id)) }}
+                                        : ''
+                                "
                                 x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="tmdb_tv_id">
@@ -365,7 +369,7 @@
                                 value="{{ old('imdb', $torrent->imdb) }}"
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists
-                                        ? '{{ old('imdb', $torrent->imdb) }}'
+                                        ? {{ Js::from(old('imdb', $torrent->imdb)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
@@ -410,7 +414,7 @@
                                 placeholder=" "
                                 type="text"
                                 value="{{ old('tvdb', $torrent->tvdb) }}"
-                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? '{{ old('tvdb', $torrent->tvdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? {{ Js::from(old('tvdb', $torrent->tvdb)) }} : ''"
                                 x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="tvdb">
@@ -450,7 +454,7 @@
                                 value="{{ old('mal', $torrent->mal) }}"
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists
-                                        ? '{{ old('mal', $torrent->mal) }}'
+                                        ? {{ Js::from(old('mal', $torrent->mal)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
@@ -487,7 +491,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? '{{ old('igdb', $torrent->igdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? {{ Js::from(old('igdb', $torrent->igdb)) }} : ''"
                                 x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                             />
                             <label class="form__label form__label--floating" for="igdb">

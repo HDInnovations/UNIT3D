@@ -58,22 +58,20 @@ class AutoDisableInactiveUsers extends Command
             ->where('created_at', '<', now()->subDays(config('pruning.account_age')))
             ->where('last_login', '<', now()->subDays(config('pruning.last_login')))
             ->whereDoesntHave('seedingTorrents')
-            ->chunk(100, function ($users) use ($disabledGroupId): void {
-                foreach ($users as $user) {
-                    $user->update([
-                        'group_id'     => $disabledGroupId,
-                        'can_download' => false,
-                        'disabled_at'  => now(),
-                    ]);
+            ->each(function ($user) use ($disabledGroupId): void {
+                $user->update([
+                    'group_id'     => $disabledGroupId,
+                    'can_download' => false,
+                    'disabled_at'  => now(),
+                ]);
 
-                    cache()->forget('user:'.$user->passkey);
+                cache()->forget('user:'.$user->passkey);
 
-                    Unit3dAnnounce::addUser($user);
+                Unit3dAnnounce::addUser($user);
 
-                    // Send Email
-                    dispatch(new SendDisableUserMail($user));
-                }
-            });
+                // Send Email
+                dispatch(new SendDisableUserMail($user));
+            }, 100);
 
         $this->comment('Automated user disable command complete');
     }

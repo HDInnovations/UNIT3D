@@ -38,7 +38,7 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -71,7 +71,7 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         if (!$this->torrentRequest->anon) {
             $this->torrentRequest->load('approver');
@@ -79,14 +79,14 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
             return [
                 'title' => $this->torrentRequest->approver->username.' approved your fill for a requested torrent',
                 'body'  => $this->torrentRequest->approver->username.' approved your fill for requested torrent: '.$this->torrentRequest->name,
-                'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
+                'url'   => route('requests.show', ['torrentRequest' => $this->torrentRequest], false),
             ];
         }
 
         return [
             'title' => 'An anonymous user approved your fill for a requested torrent',
             'body'  => 'An anonymous user approved your fill for requested torrent: '.$this->torrentRequest->name,
-            'url'   => \sprintf('/requests/%s', $this->torrentRequest->id),
+            'url'   => route('requests.show', ['torrentRequest' => $this->torrentRequest], false),
         ];
     }
 }

@@ -32,7 +32,6 @@ class IRCAnnounceBotExternal
             return false;
         }
 
-        $appurl = config('app.url');
         $announceTypeEnum = 0; // 0 NEW
 
         $originEnum = match (true) {
@@ -62,7 +61,7 @@ class IRCAnnounceBotExternal
         $meta = null;
         $category = $torrent->category;
 
-        if ($torrent->tmdb_movie_id > 0 || $torrent->tmdb_tv_id > 0) {
+        if ($torrent->tmdb_movie_id > 0 || $torrent->tmdb_tv_id > 0 || $torrent->igdb > 0) {
             $meta = match (true) {
                 $category->tv_meta    => TmdbTv::query()->find($torrent->tmdb_tv_id),
                 $category->movie_meta => TmdbMovie::query()->find($torrent->tmdb_movie_id),
@@ -73,7 +72,7 @@ class IRCAnnounceBotExternal
 
         return self::post([
             'id'                     => $torrent->id,
-            'url'                    => \sprintf('%s/torrents/%d', $appurl, $torrent->id),
+            'url'                    => href_torrent($torrent),
             'name'                   => $torrent->name,
             'uploader'               => $torrent->anon ? 'Anonymous' : $torrent->user->username,
             'size'                   => $torrent->getSize(),
@@ -89,17 +88,15 @@ class IRCAnnounceBotExternal
             'double_up'              => $torrent->doubleup,
             'resolution'             => $torrent->resolution?->name ?? '',
             'type'                   => $torrent->type->name,
-            'release_year'           => match ($meta::class) {
+            'release_year'           => $meta === null ? null : match ($meta::class) {
                 TmdbTv::class    => $meta->first_air_date?->format('Y'),
                 TmdbMovie::class => $meta->release_date?->format('Y'),
                 IgdbGame::class  => $meta->first_release_date?->format('Y'),
-                default          => null,
             },
-            'title' => match ($meta::class) {
+            'title' => $meta === null ? null : match ($meta::class) {
                 TmdbTv::class    => $meta->name,
                 TmdbMovie::class => $meta->title,
                 IgdbGame::class  => $meta->name,
-                default          => $torrent->name,
             },
             'metadata' => [
                 'tmdb_id' => $torrent->tmdb_movie_id ?? $torrent->tmdb_tv_id,

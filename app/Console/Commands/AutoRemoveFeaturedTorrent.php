@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\FeaturedTorrent;
-use App\Models\Torrent;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Exception;
@@ -64,10 +63,8 @@ class AutoRemoveFeaturedTorrent extends Command
                 $featuredTorrent->delete();
 
                 // Auto Announce Featured Expired
-                $appurl = config('app.url');
-
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $featuredTorrent->torrent_id, $featuredTorrent->torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer featured.', route('torrents.show', ['id' => $featuredTorrent->torrent_id]), $featuredTorrent->torrent->name)
                 );
 
                 Unit3dAnnounce::removeFeaturedTorrent($featuredTorrent->torrent_id);

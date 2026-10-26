@@ -23,11 +23,13 @@ use App\Console\Commands\AutoCorrectHistory;
 use App\Console\Commands\AutoDeactivateWarning;
 use App\Console\Commands\AutoDeleteStoppedPeers;
 use App\Console\Commands\AutoDisableInactiveUsers;
+use App\Console\Commands\AutoExpireApikeys;
 use App\Console\Commands\AutoFlushPeers;
 use App\Console\Commands\AutoGroup;
 use App\Console\Commands\AutoHighspeedTag;
 use App\Console\Commands\AutoNerdStat;
 use App\Console\Commands\AutoPreWarning;
+use App\Console\Commands\AutoRecordUserSeedSizeHistory;
 use App\Console\Commands\AutoRecycleAudits;
 use App\Console\Commands\AutoRecycleClaimedTorrentRequests;
 use App\Console\Commands\AutoRecycleFailedLogins;
@@ -52,12 +54,14 @@ use App\Console\Commands\AutoUpsertAnnounces;
 use App\Console\Commands\AutoUpsertHistories;
 use App\Console\Commands\AutoUpsertPeers;
 use App\Console\Commands\AutoWarning;
+use App\Console\Commands\DeleteOrphanedPeople;
 use App\Console\Commands\DeleteUnparticipatedConversations;
 use App\Console\Commands\EmailBlacklistUpdate;
 use App\Console\Commands\SyncPeers;
 use Illuminate\Auth\Console\ClearResetsCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Override;
 use Spatie\Backup\Commands\BackupCommand;
 use Spatie\Backup\Commands\CleanupCommand;
 
@@ -66,6 +70,7 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
+    #[Override]
     protected function schedule(Schedule $schedule): void
     {
         if (! config('announce.external_tracker.is_enabled')) {
@@ -80,6 +85,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoUpdateUserLastActions::class)->everyFiveSeconds();
         $schedule->command(AutoDeleteStoppedPeers::class)->everyTwoMinutes();
         $schedule->command(AutoUnbookmarkCompletedTorrents::class)->everyFifteenMinutes();
+        $schedule->command(AutoRecordUserSeedSizeHistory::class)->hourly();
         $schedule->command(AutoGroup::class)->daily();
         $schedule->command(AutoNerdStat::class)->hourly();
         $schedule->command(AutoCacheRandomMediaIds::class)->hourly();
@@ -99,6 +105,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoDisableInactiveUsers::class)->daily();
         $schedule->command(AutoSoftDeleteDisabledUsers::class)->daily();
         $schedule->command(AutoRecycleClaimedTorrentRequests::class)->daily();
+        $schedule->command(DeleteOrphanedPeople::class)->daily();
         $schedule->command(DeleteUnparticipatedConversations::class)->daily();
         $schedule->command(AutoCorrectHistory::class)->daily();
         $schedule->command(EmailBlacklistUpdate::class)->weekends();
@@ -111,6 +118,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoRemoveExpiredDonors::class)->hourly();
         $schedule->command(AutoRemoveReseeds::class)->daily();
         $schedule->command(AutoRewardUploadContestPrize::class)->daily();
+        $schedule->command(AutoExpireApikeys::class)->daily();
         // $schedule->command(AutoBanDisposableUsers::class)->weekends();
         $schedule->command(CleanupCommand::class)->daily();
         $schedule->command(BackupCommand::class, ['--only-db'])->daily();
@@ -120,6 +128,7 @@ class Kernel extends ConsoleKernel
     /**
      * Register the Closure based commands for the application.
      */
+    #[Override]
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');

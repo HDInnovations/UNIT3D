@@ -56,7 +56,7 @@ class ApikeySearch extends Component
             ->when($this->username, fn ($query) => $query->whereIn('user_id', User::query()->withTrashed()->select('id')->where('username', 'LIKE', '%'.$this->username.'%')))
             ->when($this->apikey, fn ($query) => $query->where('content', 'LIKE', '%'.$this->apikey.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

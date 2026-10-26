@@ -19,7 +19,6 @@ namespace App\Http\Controllers;
 use App\Models\Torrent;
 use App\Models\UploadContest;
 use App\Models\UploadContestWinner;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class UploadContestController extends Controller
@@ -37,7 +36,7 @@ class UploadContestController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, UploadContest $uploadContest): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(UploadContest $uploadContest): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         if (! $uploadContest->awarded) {
             // Fetch the live data

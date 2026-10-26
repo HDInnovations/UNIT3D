@@ -19,6 +19,7 @@ namespace App\Http\Livewire;
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
 use App\Models\User;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -29,6 +30,7 @@ class AttachmentUpload extends Component
 
     public ?User $user = null;
 
+    #[Locked]
     public ?int $ticket = null;
 
     #[Validate('image|max:1024')]

@@ -23,6 +23,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class WarningDeactivated extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -37,7 +38,7 @@ class WarningDeactivated extends Notification implements ShouldQueue, SystemNoti
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -47,6 +48,7 @@ class WarningDeactivated extends Notification implements ShouldQueue, SystemNoti
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [

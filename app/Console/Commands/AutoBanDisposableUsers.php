@@ -58,46 +58,44 @@ class AutoBanDisposableUsers extends Command
 
         $bannedGroupId = Group::query()->where('slug', '=', 'banned')->soleValue('id');
 
-        User::query()->where('group_id', '!=', $bannedGroupId)->chunkById(100, function ($users) use ($bannedGroupId): void {
-            foreach ($users as $user) {
-                $v = validator([
-                    'email' => $user->email,
-                ], [
-                    'email' => [
-                        'required',
-                        'string',
-                        'email',
-                        'max:70',
-                        new EmailBlacklist(),
-                    ],
+        User::query()->where('group_id', '!=', $bannedGroupId)->eachById(function ($user) use ($bannedGroupId): void {
+            $v = validator([
+                'email' => $user->email,
+            ], [
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:70',
+                    new EmailBlacklist(),
+                ],
+            ]);
+
+            if ($v->fails()) {
+                // If User Is Using A Disposable Email Set The Users Group To Banned
+                $user->update([
+                    'group_id'     => $bannedGroupId,
+                    'can_download' => 0,
                 ]);
 
-                if ($v->fails()) {
-                    // If User Is Using A Disposable Email Set The Users Group To Banned
-                    $user->update([
-                        'group_id'     => $bannedGroupId,
-                        'can_download' => 0,
-                    ]);
+                // Log The Ban To Ban Log
+                $domain = substr((string) strrchr((string) $user->email, '@'), 1);
 
-                    // Log The Ban To Ban Log
-                    $domain = substr((string) strrchr((string) $user->email, '@'), 1);
+                $ban = Ban::query()->create([
+                    'owned_by'     => $user->id,
+                    'created_by'   => User::SYSTEM_USER_ID,
+                    'ban_reason'   => 'Detected disposable email, '.$domain.' not allowed.',
+                    'unban_reason' => '',
+                ]);
 
-                    $ban = Ban::query()->create([
-                        'owned_by'     => $user->id,
-                        'created_by'   => User::SYSTEM_USER_ID,
-                        'ban_reason'   => 'Detected disposable email, '.$domain.' not allowed.',
-                        'unban_reason' => '',
-                    ]);
-
-                    // Send Email
-                    $user->notify(new UserBan($ban));
-                }
-
-                cache()->forget('user:'.$user->passkey);
-
-                Unit3dAnnounce::addUser($user);
+                // Send Email
+                $user->notify(new UserBan($ban));
             }
-        });
+
+            cache()->forget('user:'.$user->passkey);
+
+            Unit3dAnnounce::addUser($user);
+        }, 100);
 
         $this->comment('Automated user banning command complete');
     }

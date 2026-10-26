@@ -16,12 +16,10 @@ runs:
             uses: shivammathur/setup-php@v2
             with:
                 php-version: ${{ inputs.php-version }}
-                extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis-phpredis/phpredis@6.0.1
+                extensions: curl, dom, gd, libxml, mbstring, zip, mysql, xml, intl, bcmath, redis
                 ini-values: error_reporting=E_ALL
                 coverage: pcov
                 tools: composer:v2
-            env:
-                REDIS_CONFIGURE_OPTS: --enable-redis
 
         # 2. Composer Dependencies
         -   name: Get Composer cache directory
@@ -38,8 +36,6 @@ runs:
                     unit3d-${{ inputs.operating-system }}-php${{ inputs.php-version }}-composer-
 
         -   name: Install Composer dependencies
-            env:
-                COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
             run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
             shell: bash
 

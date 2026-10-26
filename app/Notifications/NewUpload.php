@@ -38,7 +38,7 @@ class NewUpload extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -70,12 +70,12 @@ class NewUpload extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
             'title' => $this->torrent->user->username.' uploaded a new torrent',
             'body'  => \sprintf('%s uploaded torrent %s', $this->torrent->user->username, $this->torrent->name),
-            'url'   => \sprintf('/torrents/%s', $this->torrent->id),
+            'url'   => route('torrents.show', ['id' => $this->torrent->id], false),
         ];
     }
 }

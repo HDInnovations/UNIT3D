@@ -69,7 +69,7 @@ class PollController extends Controller
      */
     public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::query()->create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'expires_at', 'multiple_choice']));
+        $poll = Poll::query()->create([...$request->safe()->only(['title', 'expires_at', 'multiple_choice']), 'user_id' => $request->user()->id]);
 
         $poll->options()->upsert($request->validated('options'), ['id'], []);
 

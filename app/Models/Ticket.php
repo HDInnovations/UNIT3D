@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Ticket.
@@ -37,10 +38,8 @@ use AllowDynamicProperties;
  * @property string                          $subject
  * @property string                          $body
  * @property \Illuminate\Support\Carbon|null $closed_at
- * @property \Illuminate\Support\Carbon|null $reminded_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null                     $deleted_at
  */
 #[AllowDynamicProperties]
 final class Ticket extends Model
@@ -55,15 +54,15 @@ final class Ticket extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{user_read: 'bool', staff_read: 'bool', closed_at: 'datetime', reminded_at: 'datetime'}
+     * @return array{user_read: 'bool', staff_read: 'bool', closed_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
-            'user_read'   => 'bool',
-            'staff_read'  => 'bool',
-            'closed_at'   => 'datetime',
-            'reminded_at' => 'datetime',
+            'user_read'  => 'bool',
+            'staff_read' => 'bool',
+            'closed_at'  => 'datetime',
         ];
     }
 

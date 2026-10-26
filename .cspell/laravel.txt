@@ -16,6 +16,7 @@ mysql
 ordoesnthave
 pgsql
 queueable
+renderable
 sasl
 sslmode
 sqlite

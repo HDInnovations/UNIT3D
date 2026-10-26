@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\TmdbTv.
@@ -76,6 +77,7 @@ final class TmdbTv extends Model
      *
      * @return array{first_air_date: 'datetime', last_air_date: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

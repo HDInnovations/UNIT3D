@@ -18,25 +18,17 @@ namespace App\Http\Requests;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Override;
 
 class StoreWishRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, array<\Illuminate\Validation\Rules\Unique|string>>
      */
-    public function rules(Request $request): array
+    public function rules(): array
     {
         $user = auth()->user();
 
@@ -67,6 +59,7 @@ class StoreWishRequest extends FormRequest
      *
      * @return array<string, string>
      */
+    #[Override]
     public function messages(): array
     {
         return [

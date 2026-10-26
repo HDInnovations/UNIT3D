@@ -5,9 +5,19 @@
 <article
     class="post"
     id="post-{{ $post->id }}"
-    x-data="post({{ Js::from($post->user->username) }}, {{ Js::from($post->content) }})"
+    x-data="post(
+                {{ Js::from($post->anon ? 'Anonymous' : '@' . $post->user->username) }},
+                {{ Js::from($post->content) }}
+            )"
 >
     <header class="post__header">
+        @if ($post->pinned)
+            <i
+                class="{{ config('other.font-awesome') }} fa-thumbtack post__pin"
+                title="Pinned"
+            ></i>
+        @endif
+
         <time
             class="post__datetime"
             datetime="{{ $post->created_at }}"

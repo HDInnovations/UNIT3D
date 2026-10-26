@@ -47,7 +47,7 @@ class NewCommentTag extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -75,11 +75,11 @@ class NewCommentTag extends Notification implements ShouldQueue
 
         // Evaluate model-specific notification settings
         $modelSpecificDisabled = match ($this->model::class) {
-            Torrent::class        => $notifiable->notification?->show_mention_torrent_comment === 0,
-            TorrentRequest::class => $notifiable->notification?->show_mention_request_comment === 0,
-            Ticket::class         => $this->model->staff_id === $this->comment->id,
+            Torrent::class                  => $notifiable->notification?->show_mention_torrent_comment === 0,
+            TorrentRequest::class           => $notifiable->notification?->show_mention_request_comment === 0,
+            Ticket::class                   => $this->model->staff_id === $this->comment->id,
             Playlist::class, Article::class => $notifiable->notification?->show_mention_article_comment === 0,
-            default => false,
+            default                         => false,
         };
 
         if ($modelSpecificDisabled) {
@@ -95,7 +95,7 @@ class NewCommentTag extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         $username = $this->comment->anon ? 'Anonymous' : $this->comment->user->username;
         $title = $this->comment->anon ? 'You were tagged' : $username.' tagged you';

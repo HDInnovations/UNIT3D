@@ -76,7 +76,6 @@
                     <tr>
                         <th>{{ __('torrent.title') }}</th>
                         <th>{{ __('torrent.torrents') }}</th>
-                        <th>{{ __('common.status') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
                 </thead>
@@ -85,7 +84,21 @@
                         <tr>
                             <td>
                                 @if ($wish->source === null)
-                                    {{ $wish->title }}
+                                    @if ($wish->tmdb_movie_id !== null && $wish->movie_torrents_min_category_id !== null)
+                                        <a
+                                            href="{{ route('torrents.similar', ['category_id' => $wish->movie_torrents_min_category_id, 'tmdb' => $wish->tmdb_movie_id]) }}"
+                                        >
+                                            {{ $wish->title }}
+                                        </a>
+                                    @elseif ($wish->tmdb_tv_id !== null && $wish->tv_torrents_min_category_id !== null)
+                                        <a
+                                            href="{{ route('torrents.similar', ['category_id' => $wish->tv_torrents_min_category_id, 'tmdb' => $wish->tmdb_tv_id]) }}"
+                                        >
+                                            {{ $wish->title }}
+                                        </a>
+                                    @else
+                                        {{ $wish->title }}
+                                    @endif
                                 @else
                                     <a href="{{ $wish->source }}">{{ $wish->title }}</a>
                                 @endif
@@ -93,43 +106,22 @@
                             <td>
                                 @if ($wish->tmdb_movie_id !== null)
                                     <a
-                                        href="{{ route('torrents.index', ['categoryIds' => $movieCategoryIds, 'tmdbId' => $wish->tmdb_movie_id, 'view' => 'group']) }}"
+                                        @class([
+                                            'text-green' => $wish->movie_torrents_count !== 0,
+                                            'text-red' => $wish->movie_torrents_count === 0,
+                                        ])
                                     >
-                                        Torrents ({{ $wish->movie_torrents_count }})
+                                        {{ $wish->movie_torrents_count }}
                                     </a>
                                 @elseif ($wish->tmdb_tv_id !== null)
                                     <a
-                                        href="{{ route('torrents.index', ['categoryIds' => $tvCategoryIds, 'tmdbId' => $wish->tmdb_tv_id, 'view' => 'group']) }}"
+                                        @class([
+                                            'text-green' => $wish->tv_torrents_count !== 0,
+                                            'text-red' => $wish->tv_torrents_count === 0,
+                                        ])
                                     >
-                                        Torrents ({{ $wish->tv_torrents_count }})
+                                        {{ $wish->tv_torrents_count }}
                                     </a>
-                                @endif
-                            </td>
-                            <td>
-                                @if ($wish->tmdb_movie_id !== null)
-                                    @if ($wish->movie_torrents_count === 0)
-                                        <i
-                                            class="{{ config('other.font-awesome') }} fa-times text-red"
-                                            title="Not yet uploaded"
-                                        ></i>
-                                    @else
-                                        <i
-                                            class="{{ config('other.font-awesome') }} fa-check text-green"
-                                            title="Already uploaded"
-                                        ></i>
-                                    @endif
-                                @elseif ($wish->tmdb_tv_id !== null)
-                                    @if ($wish->tv_torrents_count === 0)
-                                        <i
-                                            class="{{ config('other.font-awesome') }} fa-times text-red"
-                                            title="Not yet uploaded"
-                                        ></i>
-                                    @else
-                                        <i
-                                            class="{{ config('other.font-awesome') }} fa-check text-green"
-                                            title="Already uploaded"
-                                        ></i>
-                                    @endif
                                 @endif
                             </td>
                             <td>
@@ -174,7 +166,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4">No wishes</td>
+                            <td colspan="3">No wishes</td>
                         </tr>
                     @endforelse
                 </tbody>

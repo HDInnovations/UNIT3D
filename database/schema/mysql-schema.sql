@@ -67,11 +67,21 @@ DROP TABLE IF EXISTS `apikeys`;
 CREATE TABLE `apikeys` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `can_search` tinyint(1) NOT NULL,
+  `can_download` tinyint(1) NOT NULL,
+  `can_upload` tinyint(1) NOT NULL,
+  `can_view_user` tinyint(1) NOT NULL,
+  `expires_at` timestamp NOT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `reminded_expiry_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `apikeys_user_id_foreign` (`user_id`),
+  KEY `apikeys_content_index` (`content`),
+  KEY `apikeys_deleted_at_expires_at_index` (`deleted_at`,`expires_at`),
   CONSTRAINT `apikeys_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -792,7 +802,9 @@ CREATE TABLE `groups` (
   `is_incognito` tinyint(1) NOT NULL DEFAULT '0',
   `autogroup` tinyint(1) NOT NULL DEFAULT '0',
   `min_uploaded` bigint unsigned DEFAULT NULL,
+  `min_actual_uploaded` bigint unsigned DEFAULT NULL,
   `min_seedsize` bigint unsigned DEFAULT NULL,
+  `min_avg_seedsize` bigint unsigned DEFAULT NULL,
   `min_avg_seedtime` bigint unsigned DEFAULT NULL,
   `min_ratio` decimal(4,2) DEFAULT NULL,
   `min_age` bigint unsigned DEFAULT NULL,
@@ -830,12 +842,13 @@ CREATE TABLE `history` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `completed_at` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`,`torrent_id`),
-  KEY `history_user_id_foreign` (`user_id`),
-  KEY `history_immune_index` (`immune`),
-  KEY `history_hitrun_index` (`hitrun`),
-  KEY `history_user_id_torrent_id_index` (`user_id`,`torrent_id`),
   KEY `history_idx_prewa_hitru_immun_activ_actua` (`prewarned_at`,`hitrun`,`immune`,`active`,`actual_downloaded`),
   KEY `history_torrent_id_completed_at_created_at_index` (`torrent_id`,`completed_at`,`created_at`),
+  KEY `history_completed_at_index` (`completed_at`),
+  KEY `history_created_at_index` (`created_at`),
+  KEY `history_deleted_at_user_id_created_at_index` (`deleted_at`,`user_id`,`created_at`),
+  KEY `history_torrent_id_index` (`torrent_id`),
+  KEY `history_active_deleted_at_updated_at_index` (`active`,`deleted_at`,`updated_at`),
   CONSTRAINT `history_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `history_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1357,6 +1370,7 @@ CREATE TABLE `posts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `anon` tinyint(1) NOT NULL DEFAULT '0',
+  `pinned` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` int unsigned NOT NULL,
@@ -1365,6 +1379,7 @@ CREATE TABLE `posts` (
   KEY `fk_posts_topics1_idx` (`topic_id`),
   KEY `posts_created_at_index` (`created_at`),
   KEY `posts_user_id_foreign` (`user_id`),
+  KEY `posts_pinned_topic_id_index` (`pinned`,`topic_id`),
   CONSTRAINT `posts_topic_id_foreign` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1396,6 +1411,23 @@ CREATE TABLE `regions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `report_replies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `report_replies` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `report_id` int unsigned NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `report_replies_user_id_foreign` (`user_id`),
+  KEY `report_replies_report_id_foreign` (`report_id`),
+  CONSTRAINT `report_replies_report_id_foreign` FOREIGN KEY (`report_id`) REFERENCES `reports` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `report_replies_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `reports`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1408,25 +1440,24 @@ CREATE TABLE `reports` (
   `reported_torrent_id` int unsigned DEFAULT NULL,
   `reported_request_id` int unsigned DEFAULT NULL,
   `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `assigned_to` int unsigned DEFAULT NULL,
-  `verdict` text COLLATE utf8mb4_unicode_ci,
+  `staff_id` int unsigned DEFAULT NULL,
   `snoozed_until` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `solved_by` int unsigned DEFAULT NULL,
   `solved_at` timestamp NULL DEFAULT NULL,
+  `user_read` tinyint(1) NOT NULL DEFAULT '0',
+  `staff_read` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `reports_reporter_id_foreign` (`reporter_id`),
   KEY `reports_reported_user_id_index` (`reported_user_id`),
   KEY `reports_reported_torrent_id_index` (`reported_torrent_id`),
-  KEY `reports_solved_by_assigned_to_snoozed_until_index` (`solved_by`,`assigned_to`,`snoozed_until`),
   KEY `reports_reported_request_id_foreign` (`reported_request_id`),
-  KEY `reports_assigned_to_foreign` (`assigned_to`),
-  CONSTRAINT `reports_assigned_to_foreign` FOREIGN KEY (`assigned_to`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  KEY `reports_assigned_to_foreign` (`staff_id`),
+  KEY `reports_solved_at_assigned_to_snoozed_until_index` (`solved_at`,`staff_id`,`snoozed_until`),
+  CONSTRAINT `reports_assigned_to_foreign` FOREIGN KEY (`staff_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `reports_reported_request_id_foreign` FOREIGN KEY (`reported_request_id`) REFERENCES `requests` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `reports_reported_user_id_foreign` FOREIGN KEY (`reported_user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `reports_reporter_id_foreign` FOREIGN KEY (`reporter_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `reports_solved_by_foreign` FOREIGN KEY (`solved_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `reports_torrent_id_foreign` FOREIGN KEY (`reported_torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1437,14 +1468,14 @@ CREATE TABLE `request_bounty` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `seedbonus` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `requests_id` int unsigned NOT NULL,
+  `request_id` int unsigned NOT NULL,
   `anon` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `request_bounty_user_id_foreign` (`user_id`),
-  KEY `request_bounty_requests_id_foreign` (`requests_id`),
-  CONSTRAINT `request_bounty_requests_id_foreign` FOREIGN KEY (`requests_id`) REFERENCES `requests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  KEY `request_bounty_requests_id_foreign` (`request_id`),
+  CONSTRAINT `request_bounty_requests_id_foreign` FOREIGN KEY (`request_id`) REFERENCES `requests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `request_bounty_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `check_request_bounty_seedbonus` CHECK ((`seedbonus` >= 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1762,10 +1793,8 @@ CREATE TABLE `tickets` (
   `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `closed_at` timestamp NULL DEFAULT NULL,
-  `reminded_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tickets_user_id_foreign` (`user_id`),
   KEY `tickets_staff_id_foreign` (`staff_id`),
@@ -2513,13 +2542,26 @@ CREATE TABLE `user_privacy` (
   CONSTRAINT `user_privacy_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `user_seed_size_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_seed_size_history` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `seed_size` bigint unsigned NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_seed_size_history_user_id_created_at_index` (`user_id`,`created_at`),
+  KEY `user_seed_size_history_created_at_index` (`created_at`),
+  CONSTRAINT `user_seed_size_history_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_settings` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `censor` tinyint(1) NOT NULL DEFAULT '0',
   `news_block_visible` tinyint(1) NOT NULL DEFAULT '1',
   `news_block_position` tinyint unsigned NOT NULL DEFAULT '0',
   `chat_block_visible` tinyint(1) NOT NULL DEFAULT '1',
@@ -2598,7 +2640,6 @@ CREATE TABLE `users` (
   `is_donor` tinyint(1) NOT NULL DEFAULT '0',
   `is_lifetime` tinyint(1) NOT NULL DEFAULT '0',
   `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `api_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `last_action` datetime DEFAULT NULL,
   `disabled_at` datetime DEFAULT NULL,
@@ -2613,7 +2654,6 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_username_unique` (`username`),
   UNIQUE KEY `users_passkey_unique` (`passkey`),
   UNIQUE KEY `users_rsskey_unique` (`rsskey`),
-  UNIQUE KEY `users_api_token_unique` (`api_token`),
   KEY `users_read_rules_index` (`read_rules`),
   KEY `users_deleted_at_index` (`deleted_at`),
   KEY `users_deleted_by_foreign` (`deleted_by`),
@@ -3128,3 +3168,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (376,'2026_02_03_01
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (377,'2026_02_04_184040_combine_user_audibles_echoes',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (378,'2026_02_18_023757_change_donation_dates_to_timestamps',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (379,'2026_03_10_033755_migrate_request_bounty_created_at_to_updated_at',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (380,'2026_04_22_061705_add_pinned_column_to_posts',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (381,'2026_06_26_132559_update_history_indexes',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (382,'2026_06_27_065215_rename_bounty_requests_id',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (383,'2026_06_27_193400_add_apikey_permissions',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (384,'2026_07_15_070539_remove_unused_ticket_columns',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (385,'2026_08_15_075513_add_min_actual_uploaded_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (386,'2026_10_02_215905_remove_chat_censor_setting',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (387,'2026_10_12_075837_create_report_replies_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (388,'2026_10_25_061228_create_user_seed_size_history',1);

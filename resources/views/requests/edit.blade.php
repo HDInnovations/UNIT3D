@@ -174,7 +174,7 @@
                                     type="text"
                                     x-bind:value="
                                         cats[cat].type === 'movie' && tmdb_movie_exists
-                                            ? '{{ old('tmdb_movie_id', $torrentRequest->tmdb_movie_id) }}'
+                                            ? {{ Js::from(old('tmdb_movie_id', $torrentRequest->tmdb_movie_id)) }}
                                             : ''
                                     "
                                     x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
@@ -215,7 +215,7 @@
                                     value="{{ old('tmdb_tv_id', $torrentRequest->tmdb_tv_id) }}"
                                     x-bind:value="
                                         cats[cat].type === 'tv' && tmdb_tv_exists
-                                            ? '{{ old('tmdb_tv_id', $torrentRequest->tmdb_tv_id) }}'
+                                            ? {{ Js::from(old('tmdb_tv_id', $torrentRequest->tmdb_tv_id)) }}
                                             : ''
                                     "
                                     x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
@@ -256,7 +256,7 @@
                                     value="{{ old('imdb', $torrentRequest->imdb) }}"
                                     x-bind:value="
                                         (cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists
-                                            ? '{{ old('imdb', $torrentRequest->imdb) }}'
+                                            ? {{ Js::from(old('imdb', $torrentRequest->imdb)) }}
                                             : ''
                                     "
                                     x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
@@ -292,7 +292,11 @@
                                     placeholder=" "
                                     type="text"
                                     value="{{ old('tvdb', $torrentRequest->tvdb) }}"
-                                    x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? '{{ old('tvdb', $torrentRequest->tvdb) }}' : ''"
+                                    x-bind:value="
+                                        cats[cat].type === 'tv' && tvdb_tv_exists
+                                            ? {{ Js::from(old('tvdb', $torrentRequest->tvdb)) }}
+                                            : ''
+                                    "
                                     x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                                 />
                                 <label class="form__label form__label--floating" for="autotvdb">
@@ -331,7 +335,7 @@
                                     value="{{ old('mal', $torrentRequest->mal) }}"
                                     x-bind:value="
                                         (cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists
-                                            ? '{{ old('mal', $torrentRequest->mal) }}'
+                                            ? {{ Js::from(old('mal', $torrentRequest->mal)) }}
                                             : ''
                                     "
                                     x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
@@ -365,7 +369,11 @@
                                     placeholder=" "
                                     type="text"
                                     value="{{ old('igdb', $torrentRequest->igdb) }}"
-                                    x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? '{{ old('igdb', $torrentRequest->igdb) }}' : ''"
+                                    x-bind:value="
+                                        cats[cat].type === 'game' && igdb_game_exists
+                                            ? {{ Js::from(old('igdb', $torrentRequest->igdb)) }}
+                                            : ''
+                                    "
                                     x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                                 />
                                 <label class="form__label form__label--floating" for="igdb">

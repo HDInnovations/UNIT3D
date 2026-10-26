@@ -50,9 +50,14 @@ class AutoRemovePersonalFreeleech extends Command
     {
         $personalFreeleech = PersonalFreeleech::query()->where('created_at', '<', now()->subDays(1))->get();
 
-        foreach ($personalFreeleech as $pfl) {
-            Notification::send(new User(['id' => $pfl->user_id]), new PersonalFreeleechDeleted());
+        $notifiableUsers = User::query()
+            ->whereIntegerInRaw('id', $personalFreeleech->pluck('user_id'))
+            ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+            ->get();
 
+        Notification::send($notifiableUsers, new PersonalFreeleechDeleted());
+
+        foreach ($personalFreeleech as $pfl) {
             // Delete The Record From DB
             $pfl->delete();
 

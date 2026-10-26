@@ -18,10 +18,6 @@ class UpdateGeneralSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'censor' => [
-                'required',
-                'boolean',
-            ],
             'news_block_visible' => [
                 'required',
                 'boolean',

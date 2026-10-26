@@ -14,20 +14,12 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Requests\Staff;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateReportRequest extends FormRequest
+class StoreReportReplyRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -36,9 +28,8 @@ class UpdateReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'verdict' => [
+            'content' => [
                 'required',
-                'min:3',
             ],
         ];
     }

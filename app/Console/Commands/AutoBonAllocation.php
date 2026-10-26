@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Helpers\ByteUnits;
 use App\Models\BonEarning;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -44,7 +43,7 @@ class AutoBonAllocation extends Command
     /**
      * Execute the console command.
      */
-    public function handle(ByteUnits $byteUnits): void
+    public function handle(): void
     {
         $now = now();
 

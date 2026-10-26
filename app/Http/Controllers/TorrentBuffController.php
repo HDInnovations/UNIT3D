@@ -179,10 +179,8 @@ class TorrentBuffController extends Controller
 
         Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
-        $appurl = config('app.url');
-
         $this->chatRepository->systemMessage(
-            \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
+            \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer featured.', href_torrent($torrent), $torrent->name)
         );
 
         $featured_torrent->delete();

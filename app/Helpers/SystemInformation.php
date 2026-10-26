@@ -71,28 +71,33 @@ class SystemInformation
      */
     public function memory(): ?array
     {
+        $unknown = [
+            'total'     => __('common.unknown'),
+            'available' => __('common.unknown'),
+            'used'      => __('common.unknown'),
+        ];
+
         if (!is_readable('/proc/meminfo')) {
-            return [
-                'total'     => __('common.unknown'),
-                'available' => __('common.unknown'),
-                'used'      => __('common.unknown'),
-            ];
+            return $unknown;
         }
 
         $content = file_get_contents('/proc/meminfo');
 
         if ($content === false) {
-            return [
-                'total'     => __('common.unknown'),
-                'available' => __('common.unknown'),
-                'used'      => __('common.unknown'),
-            ];
+            return $unknown;
         }
 
-        preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches);
-        $total = ((int) $matches[1]) * 1_024;
-        preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches);
-        $available = ((int) $matches[1]) * 1_024;
+        if (preg_match('#^MemTotal: \s*(\d*)#m', $content, $matches)) {
+            $total = ((int) $matches[1]) * 1_024;
+        } else {
+            return $unknown;
+        }
+
+        if (preg_match('/^MemAvailable: \s*(\d*)/m', $content, $matches)) {
+            $available = ((int) $matches[1]) * 1_024;
+        } else {
+            return $unknown;
+        }
 
         return [
             'total'     => $this->formatBytes($total),

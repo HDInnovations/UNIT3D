@@ -26,7 +26,7 @@ use App\Models\User;
 
 class ChatRepository
 {
-    public function message(int $userId, int $roomId, string $message, ?int $bot = null): Message
+    public function message(int $userId, ?int $roomId, string $message, ?int $bot = null): Message
     {
         $message = Message::query()->create([
             'user_id'     => $userId,

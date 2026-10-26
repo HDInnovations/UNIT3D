@@ -48,23 +48,21 @@ class CleanTorrentFiles extends Command
     {
         $this->alert('Torrent file cleaning started');
 
-        Torrent::query()->withoutGlobalScopes()->select('file_name')->orderBy('id')->chunk(100, function ($torrents): void {
-            foreach ($torrents as $torrent) {
-                if (Storage::disk('torrent-files')->exists($torrent->file_name)) {
-                    $filePath = Storage::disk('torrent-files')->path($torrent->file_name);
-                    $dict = Bencode::bdecode_file($filePath);
+        Torrent::query()->withoutGlobalScopes()->select('file_name')->orderBy('id')->each(function ($torrent): void {
+            if (Storage::disk('torrent-files')->exists($torrent->file_name)) {
+                $filePath = Storage::disk('torrent-files')->path($torrent->file_name);
+                $dict = Bencode::bdecode_file($filePath);
 
-                    // Whitelisted keys
-                    $dict = array_intersect_key($dict, [
-                        'created by' => '',
-                        'encoding'   => '',
-                        'info'       => '',
-                    ]);
+                // Whitelisted keys
+                $dict = array_intersect_key($dict, [
+                    'created by' => '',
+                    'encoding'   => '',
+                    'info'       => '',
+                ]);
 
-                    Storage::disk('torrent-files')->put($torrent->file_name, Bencode::bencode($dict));
-                }
+                Storage::disk('torrent-files')->put($torrent->file_name, Bencode::bencode($dict));
             }
-        });
+        }, 100);
 
         $this->alert('Torrent file cleaning complete');
     }

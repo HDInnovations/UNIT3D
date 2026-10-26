@@ -77,11 +77,28 @@ class TopicPostSearch extends Component
         }
     }
 
+        /**
+         * @var \Illuminate\Database\Eloquent\Collection<int, Post>
+         */
+        final protected \Illuminate\Database\Eloquent\Collection $pinnedPosts {
+            get => Post::query()
+                ->with('user.group')
+                ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
+                ->withSum('tips', 'bon')
+                ->where('topic_id', '=', $this->topic->id)
+                ->where('pinned', '=', true)
+                ->authorized(canReadTopic: true)
+                ->when($this->search !== '', fn ($query) => $query->where('content', 'LIKE', '%'.$this->search.'%'))
+                ->orderBy('created_at')
+                ->get();
+        }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.topic-post-search', [
-            'topic' => $this->topic,
-            'posts' => $this->posts,
+            'topic'       => $this->topic,
+            'posts'       => $this->posts,
+            'pinnedPosts' => $this->pinnedPosts,
         ]);
     }
 }

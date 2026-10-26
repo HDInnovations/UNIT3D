@@ -73,7 +73,7 @@ Endpoint: GET `/api/torrents/:id`
 Example:
 
 ```
-https://unit3d.site/api/torrents/39765?api_token=YOURTOKENHERE
+https://unit3d.site/api/torrents/39765
 ```
 
 ### Fetch torrents index (latest 25 torrents)
@@ -83,7 +83,7 @@ Endpoint: GET `/api/torrents`
 Example:
 
 ```
-https://unit3d.site/api/torrents?api_token=YOURTOKENHERE
+https://unit3d.site/api/torrents
 ```
 
 ### Filter torrents
@@ -132,7 +132,7 @@ Optional Parameters:
 Example:
 
 ```
-https://unit3d.site/api/torrents/filter?tmdbId=475557&categories[]=1&api_token=YOURTOKENHERE
+https://unit3d.site/api/torrents/filter?tmdbId=475557&categories[]=1
 ```
 
 ### Personal account info
@@ -146,5 +146,5 @@ Response:
 
 Example:
 ```
-https://unit3d.site/api/user?api_token=YOURTOKENHERE
+https://unit3d.site/api/user
 ```

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\History;
 use App\Models\User;
 use App\Models\Warning;
@@ -95,8 +96,17 @@ class AutoWarning extends Command
             $usersWithWarnings[$hr->user->id] = $hr->user;
         }
 
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
         // Send a single notification for each user with warnings
         foreach ($usersWithWarnings as $user) {
+            if (\in_array($user->group_id, $inactiveGroupIds, true)) {
+                continue;
+            }
+
             $user->notify(new UserWarning($user));
         }
 
@@ -108,15 +118,13 @@ class AutoWarning extends Command
             ->groupBy('user_id')
             ->having('value', '>=', config('hitrun.max_warnings'))
             ->whereRelation('user', 'can_download', '=', true)
-            ->chunkById(100, function ($warnings): void {
-                foreach ($warnings as $warning) {
-                    $warning->user->update(['can_download' => 0]);
+            ->eachById(function ($warning): void {
+                $warning->user->update(['can_download' => 0]);
 
-                    cache()->forget('user:'.$warning->user->passkey);
+                cache()->forget('user:'.$warning->user->passkey);
 
-                    Unit3dAnnounce::addUser($warning->user);
-                }
-            }, 'user_id');
+                Unit3dAnnounce::addUser($warning->user);
+            }, 100, 'user_id');
 
         $this->comment('Automated user warning command complete');
     }

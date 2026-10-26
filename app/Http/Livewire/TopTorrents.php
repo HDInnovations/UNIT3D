@@ -56,15 +56,7 @@ class TopTorrents extends Component
                         ->where('active', '=', 0)
                         ->where('seeder', '=', 1),
                 ])
-                ->selectRaw(<<<SQL
-                    CASE
-                        WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
-                        WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
-                        WHEN category_id IN (SELECT id FROM categories WHERE game_meta = 1) THEN 'game'
-                        WHEN category_id IN (SELECT id FROM categories WHERE music_meta = 1) THEN 'music'
-                        WHEN category_id IN (SELECT id FROM categories WHERE no_meta = 1) THEN 'no'
-                    END AS meta
-                SQL)
+                ->selectRaw(self::META_TYPE_CASE.' AS meta')
                 ->withCount(['comments'])
                 ->when($this->tab === 'newest', fn ($query) => $query->orderByDesc('id'))
                 ->when($this->tab === 'seeded', fn ($query) => $query->orderByDesc('seeders'))

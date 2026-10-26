@@ -19,6 +19,7 @@ namespace Tests;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use JMac\Testing\Traits\AdditionalAssertions;
+use Override;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -27,6 +28,7 @@ abstract class TestCase extends BaseTestCase
     use CreatesUsers;
     use LazilyRefreshDatabase;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

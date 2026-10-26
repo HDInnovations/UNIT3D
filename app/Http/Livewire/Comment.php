@@ -163,17 +163,17 @@ class Comment extends Component
                 $ticket = $this->model;
 
                 if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
-                    User::query()->find($ticket->staff_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($ticket->staff_id)?->notify(new NewComment($this->model, $reply));
                     $this->model->update(['staff_read' => false]);
                 }
 
                 if ($this->user->id !== $ticket->user_id) {
-                    User::query()->find($ticket->user_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($ticket->user_id)?->notify(new NewComment($this->model, $reply));
                     $this->model->update(['user_read' => false]);
                 }
 
                 if (!\in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
-                    User::query()->find($this->comment->user_id)->notify(new NewComment($this->model, $reply));
+                    User::query()->find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 break;

@@ -24,6 +24,7 @@ use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Lazy;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 #[Lazy]
@@ -31,6 +32,7 @@ class AlsoDownloadedWorks extends Component
 {
     public TmdbMovie|TmdbTv|IgdbGame $work;
 
+    #[Locked]
     public int $categoryId;
 
     /**

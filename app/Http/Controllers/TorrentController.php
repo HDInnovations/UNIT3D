@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Enums\ModerationStatus;
+use App\Enums\Occupation;
 use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
@@ -76,9 +77,7 @@ class TorrentController extends Controller
      * Display The Torrent resource.
      *
      * @throws JsonException
-     * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws ReflectionException
-     * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      */
     public function show(Request $request, int|string $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
@@ -91,7 +90,6 @@ class TorrentController extends Controller
                 'comments',
                 'category',
                 'featured',
-                'files',
                 'game' => [
                     'genres',
                     'companies',
@@ -101,7 +99,9 @@ class TorrentController extends Controller
                 'keywords',
                 'movie' => [
                     'genres',
-                    'credits' => ['person', 'occupation'],
+                    'credits' => fn ($query) => $query
+                        ->where('occupation_id', '!=', Occupation::ACTOR)
+                        ->with(['person:id,still,name', 'occupation']),
                     'companies',
                     'collections.movies' => fn ($query) => $query->withMin('torrents', 'category_id')->has('torrents'),
                     'recommendedMovies'  => fn ($query) => $query->withMin('torrents', 'category_id')->has('torrents'),
@@ -112,7 +112,9 @@ class TorrentController extends Controller
                 'type',
                 'tv' => [
                     'genres',
-                    'credits' => ['person', 'occupation'],
+                    'credits' => fn ($query) => $query
+                        ->where('occupation_id', '!=', Occupation::ACTOR)
+                        ->with(['person:id,still,name', 'occupation']),
                     'companies',
                     'networks',
                     'recommendedTv' => fn ($query) => $query->withMin('torrents', 'category_id')->has('torrents'),
@@ -124,7 +126,7 @@ class TorrentController extends Controller
                 'thanks',
                 'seeds'                      => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                 'leeches'                    => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
-                'reports as unsolvedReports' => fn ($query) => $query->whereNull('solved_by'),
+                'reports as unsolvedReports' => fn ($query) => $query->whereNull('solved_at'),
             ])
             ->withExists([
                 'featured as featured',
@@ -165,6 +167,8 @@ class TorrentController extends Controller
             )
             ->findOrFail($id);
 
+        $torrent->setRelation('files', $torrent->files()->limit(5000)->get());
+
         $fileTree = [];
 
         foreach ($torrent->files as $file) {
@@ -175,7 +179,6 @@ class TorrentController extends Controller
             for ($i = 0; $i < \count($parts) - 1; $i++) {
                 $part = $parts[$i];
 
-                /** @phpstan-ignore function.impossibleType (PHPStan doesn't recognize that $current might not be empty in subsequent loops)*/
                 if (!\array_key_exists($part, $current)) {
                     $current[$part] = [
                         'type'     => 'directory',
@@ -549,6 +552,7 @@ class TorrentController extends Controller
         Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::query()->create([
+            ...$request->safe()->except(['torrent']),
             'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
@@ -559,12 +563,10 @@ class TorrentController extends Controller
             'user_id'      => $user->id,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except(['torrent']));
+        ]);
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
-
-        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
@@ -628,7 +630,6 @@ class TorrentController extends Controller
 
         // check for trusted user and update torrent
         if ($user->group->is_trusted && !$request->boolean('mod_queue_opt_in')) {
-            $appurl = config('app.url');
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
@@ -636,17 +637,17 @@ class TorrentController extends Controller
             // Announce To Shoutbox
             if (!$anon) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    'User [url='.href_profile($user).']'.$username.'[/url] has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    'An anonymous user has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
                 );
             }
 
             if ($torrent->free >= 1) {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can!'
+                    'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can!'
                 );
             }
 

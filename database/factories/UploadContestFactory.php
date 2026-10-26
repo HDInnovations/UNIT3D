@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use App\Models\UploadContest;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<UploadContest> */
 class UploadContestFactory extends Factory
@@ -30,6 +31,7 @@ class UploadContestFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

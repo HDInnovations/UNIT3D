@@ -22,16 +22,15 @@ use App\Models\Group;
 use App\Models\User;
 use App\Notifications\FailedLogin;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
+use Override;
 
 use function Illuminate\Support\defer;
 
@@ -40,10 +39,14 @@ class FortifyServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+    #[Override]
     public function register(): void
     {
+        Fortify::ignoreRoutes();
+
         // Handle redirects after successful login
         $this->app->instance(LoginResponse::class, new class () implements LoginResponse {
+            #[Override]
             public function toResponse($request): \Illuminate\Http\RedirectResponse
             {
                 $user = $request->user()->load('group:id,slug');
@@ -73,12 +76,14 @@ class FortifyServiceProvider extends ServiceProvider
                 if ($rootUrlOverride = config('unit3d.root_url_override')) {
                     $url = redirect()->getIntendedUrl();
 
-                    return $url === null ? $rootUrlOverride : redirect(
-                        rtrim(
-                            rtrim($rootUrlOverride, '/')
-                            .parse_url($url, PHP_URL_PATH)
-                            .'?'.parse_url($url, PHP_URL_QUERY),
-                        )
+                    return redirect(
+                        $url === null
+                            ? $rootUrlOverride
+                            : rtrim(
+                                rtrim($rootUrlOverride, '/')
+                                .parse_url($url, PHP_URL_PATH)
+                                .'?'.parse_url($url, PHP_URL_QUERY),
+                            )
                     );
                 }
 
@@ -93,10 +98,6 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by('fortify-login'.$request->ip()));
-        RateLimiter::for('fortify-login-get', fn (Request $request) => Limit::perMinute(5)->by('fortify-login'.$request->ip()));
-        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by('fortify-two-factor'.$request->session()->get('login.id')));
-
         Fortify::loginView(fn () => view('auth.login'));
         Fortify::twoFactorChallengeView(fn () => view('auth.two-factor-challenge'));
 

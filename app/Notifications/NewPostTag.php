@@ -38,7 +38,7 @@ class NewPostTag extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -76,7 +76,7 @@ class NewPostTag extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         $username = $this->post->anon ? 'Anonymous' : $this->post->user->username;
         $title = $this->post->anon ? 'You were tagged in a post' : $username.' tagged you in a post';
@@ -84,7 +84,7 @@ class NewPostTag extends Notification implements ShouldQueue
         return [
             'title' => $title,
             'body'  => $username.' tagged you in a post in topic '.$this->post->topic->name,
-            'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->post->topic->id, $this->post->id),
+            'url'   => route('topics.permalink', ['topicId' => $this->post->topic->id, 'postId' => $this->post->id], false),
         ];
     }
 }

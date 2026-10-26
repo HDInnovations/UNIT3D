@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\IgdbGame.
@@ -52,6 +53,7 @@ final class IgdbGame extends Model
      *
      * @return array{first_release_date: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

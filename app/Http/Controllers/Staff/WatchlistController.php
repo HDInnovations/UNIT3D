@@ -39,7 +39,7 @@ class WatchlistController extends Controller
      */
     final public function store(StoreWatchedUserRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Watchlist::query()->create(['staff_id' => $request->user()->id] + $request->validated());
+        Watchlist::query()->create([...$request->validated(), 'staff_id' => $request->user()->id]);
 
         return back()->with('success', 'User successfully being watched');
     }

@@ -43,6 +43,8 @@ class WishController extends Controller
             'user'   => $user,
             'wishes' => $user->wishes()
                 ->withCount(['movieTorrents', 'tvTorrents'])
+                ->withMin('movieTorrents', 'category_id')
+                ->withMin('tvTorrents', 'category_id')
                 ->latest()
                 ->paginate(25),
             'movieCategoryIds' => Category::query()->where('movie_meta', '=', 1)->pluck('id')->toArray(),

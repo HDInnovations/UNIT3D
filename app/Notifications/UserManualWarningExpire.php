@@ -46,7 +46,7 @@ class UserManualWarningExpire extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database', 'mail'];
     }
@@ -56,7 +56,7 @@ class UserManualWarningExpire extends Notification implements ShouldQueue
      *
      * @return array<int, object>
      */
-    public function middleware(object $notifiable, string $channel): array
+    public function middleware(object $_notifiable, string $channel): array
     {
         return match ($channel) {
             'mail'  => [new RateLimitOutboundMail()],
@@ -65,9 +65,17 @@ class UserManualWarningExpire extends Notification implements ShouldQueue
     }
 
     /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         $profileUrl = href_profile($this->user);
 
@@ -82,12 +90,12 @@ class UserManualWarningExpire extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
             'title' => 'Manual warning expired',
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
-            'url'   => \sprintf('/users/%s', $this->user->username),
+            'url'   => route('users.show', ['user' => $this->user], false),
         ];
     }
 

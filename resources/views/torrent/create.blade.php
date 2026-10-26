@@ -301,7 +301,11 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'movie' && tmdb_movie_exists ? '{{ old('tmdb_movie_id', $movieId) }}' : ''"
+                                x-bind:value="
+                                    cats[cat].type === 'movie' && tmdb_movie_exists
+                                        ? {{ Js::from(old('tmdb_movie_id', $movieId)) }}
+                                        : ''
+                                "
                                 x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
                             />
                             <label class="form__label form__label--floating" for="auto_tmdb_movie">
@@ -336,7 +340,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? '{{ old('tmdb_tv_id', $tvId) }}' : ''"
+                                x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? {{ Js::from(old('tmdb_tv_id', $tvId)) }} : ''"
                                 x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="auto_tmdb_tv">
@@ -375,7 +379,7 @@
                                 placeholder=" "
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists
-                                        ? '{{ old('imdb', $imdb) }}'
+                                        ? {{ Js::from(old('imdb', $imdb)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
@@ -411,7 +415,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? '{{ old('tvdb', $tvdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? {{ Js::from(old('tvdb', $tvdb)) }} : ''"
                                 class="form__text"
                                 x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                             />
@@ -449,7 +453,7 @@
                                 pattern="[0-9]*"
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists
-                                        ? '{{ old('mal', $mal) }}'
+                                        ? {{ Js::from(old('mal', $mal)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
@@ -484,7 +488,7 @@
                                 id="autoigdb"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? '{{ old('igdb', $igdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? {{ Js::from(old('igdb', $igdb)) }} : ''"
                                 class="form__text"
                                 x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                             />

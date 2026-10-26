@@ -416,16 +416,13 @@ class TV
     }
 
     /**
-     * @return array<
-     *     int<0, max>,
-     *     array{
-     *         tmdb_tv_id: ?int,
-     *         tmdb_person_id: ?int,
-     *         occupation_id: value-of<Occupation>,
-     *         character: ?string,
-     *         order: ?int,
-     *     },
-     * >
+     * @return list<array{
+     *     tmdb_tv_id: ?int,
+     *     tmdb_person_id: ?int,
+     *     occupation_id: value-of<Occupation>,
+     *     character: ?string,
+     *     order: ?int,
+     * }>
      */
     public function getCredits(): array
     {

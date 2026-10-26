@@ -9,6 +9,7 @@
             x-ref="quickSearch"
             x-on:keydown.down.prevent="focusFirstResult"
             x-on:keydown.up.prevent="focusLastResult"
+            x-on:keydown.enter="navigateToFirstResult"
             x-on:focus="searchPerformed = true"
         />
         <template x-if="searchResults === null">
@@ -33,7 +34,11 @@
                         x-on:keydown.down.prevent="focusNextResult"
                         x-on:keydown.up.prevent="focusPreviousResult"
                     >
-                        <a class="quick-search__result-link" :href="result.url">
+                        <a
+                            class="quick-search__result-link"
+                            :href="result.url"
+                            x-on:mousedown.prevent
+                        >
                             <img class="quick-search__image" :src="getSrc(result.image)" alt="" />
                             <h2 class="quick-search__result-text">
                                 <span
@@ -90,14 +95,21 @@
                     this.searchResults = [];
                     this.searchPerformed = false;
                 },
+                navigateToFirstResult() {
+                    if (Array.isArray(this.searchResults) && this.searchResults.length > 0) {
+                        window.location.href = this.searchResults[0].url;
+                    } else if (this.searchText.length > 0) {
+                        window.location.href = `/torrents?name=${encodeURIComponent(this.searchText)}`;
+                    }
+                },
                 focusFirstResult() {
-                    document.querySelector('[x-ref="searchResults"]').querySelector('a').focus();
+                    document.querySelector('[x-ref="searchResults"]')?.querySelector('a')?.focus();
                 },
                 focusLastResult() {
                     document
                         .querySelector('[x-ref="searchResults"]')
-                        .querySelector('article:last-child > a')
-                        .focus();
+                        ?.querySelector('article:last-child > a')
+                        ?.focus();
                 },
                 focusNextResult() {
                     const el = this.$el;

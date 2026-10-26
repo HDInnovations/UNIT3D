@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\TorrentRequest.
@@ -90,6 +91,7 @@ final class TorrentRequest extends Model
      *     anon: 'bool'
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -230,7 +232,7 @@ final class TorrentRequest extends Model
      */
     public function bounties(): HasMany
     {
-        return $this->hasMany(TorrentRequestBounty::class, 'requests_id', 'id');
+        return $this->hasMany(TorrentRequestBounty::class, 'request_id');
     }
 
     /**

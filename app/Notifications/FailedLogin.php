@@ -45,7 +45,7 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['mail'];
     }
@@ -55,7 +55,7 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return array<int, object>
      */
-    public function middleware(object $notifiable, string $channel): array
+    public function middleware(object $_notifiable, string $channel): array
     {
         return match ($channel) {
             'mail'  => [new RateLimitOutboundMail()],
@@ -66,8 +66,12 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * Determine if the notification should be sent.
      */
-    public function shouldSend(User $notifiable): bool
+    public function shouldSend(User $notifiable, string $channel): bool
     {
+        if ($channel === 'mail' && !$notifiable->hasVerifiedEmail()) {
+            return false;
+        }
+
         return !\in_array($notifiable->group->slug, ['banned', 'validating', 'pruned']);
     }
 
@@ -76,7 +80,7 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return ['ip' => $this->ip, 'time' => now()];
     }
@@ -84,7 +88,7 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         return (new MailMessage())->error()->subject(trans('email.fail-login-subject'))->greeting(trans('email.fail-login-greeting'))->line(trans('email.fail-login-line1'))->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => now()->__toString()]));
     }

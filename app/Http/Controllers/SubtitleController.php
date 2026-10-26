@@ -85,6 +85,7 @@ class SubtitleController extends Controller
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'));
 
         $subtitle = Subtitle::query()->create([
+            ...$request->safe()->except('subtitle_file'),
             'title'        => $torrent->name,
             'file_name'    => $filename,
             'file_size'    => $subtitleFile->getSize(),
@@ -95,7 +96,7 @@ class SubtitleController extends Controller
             'status'       => ModerationStatus::APPROVED,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
-        ] + $request->safe()->except('subtitle_file'));
+        ]);
 
         // Save Subtitle
         Storage::disk('subtitle-files')->putFileAs('', $subtitleFile, $filename);

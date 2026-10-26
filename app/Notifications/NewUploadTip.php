@@ -37,7 +37,7 @@ class NewUploadTip extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -47,14 +47,14 @@ class NewUploadTip extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         $this->tip->load('sender');
 
         return [
             'title' => $this->tip->sender->username.' tipped you '.$this->tip->bon.' BON for an uploaded torrent',
             'body'  => $this->tip->sender->username.' tipped your uploaded torrent: '.$this->tip->torrent->name,
-            'url'   => \sprintf('/torrents/%s', $this->tip->torrent_id),
+            'url'   => route('torrents.show', ['id' => $this->tip->torrent_id], false),
         ];
     }
 }

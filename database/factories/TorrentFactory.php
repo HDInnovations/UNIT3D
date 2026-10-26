@@ -23,6 +23,7 @@ use App\Models\Torrent;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<Torrent> */
 class TorrentFactory extends Factory
@@ -35,6 +36,7 @@ class TorrentFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         $freeleech = ['0', '25', '50', '75', '100'];

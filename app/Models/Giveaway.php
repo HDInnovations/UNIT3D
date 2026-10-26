@@ -20,16 +20,18 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Event.
  *
  * @property int                             $id
  * @property string                          $name
- * @property string                          $icon
  * @property string                          $description
- * @property \Illuminate\Support\Carbon|null $starts_at
- * @property \Illuminate\Support\Carbon|null $ends_at
+ * @property string                          $icon
+ * @property bool                            $active
+ * @property \Illuminate\Support\Carbon      $starts_at
+ * @property \Illuminate\Support\Carbon      $ends_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -50,6 +52,7 @@ final class Giveaway extends Model
      *
      * @return array{starts_at: 'datetime', ends_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

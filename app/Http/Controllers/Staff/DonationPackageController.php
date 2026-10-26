@@ -18,7 +18,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Requests\Staff\StoreDonationPackageRequest;
 use App\Http\Requests\Staff\UpdateDonationPackageRequest;
-use Illuminate\Http\Request;
 use App\Models\DonationPackage;
 use App\Http\Controllers\Controller;
 
@@ -73,7 +72,7 @@ class DonationPackageController extends Controller
     /**
      * Delete A Donation Package.
      */
-    public function destroy(Request $request, DonationPackage $package): \Illuminate\Http\RedirectResponse
+    public function destroy(DonationPackage $package): \Illuminate\Http\RedirectResponse
     {
         $package->delete();
 

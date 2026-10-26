@@ -3,13 +3,13 @@
         <h2 class="panel__heading">{{ __('user.warnings') }}</h2>
         @if (auth()->user()->group->is_modo)
             <div class="panel__actions" x-data="userWarnings">
-                <div class="panel__action" x-data="dialogLivewire">
-                    <button class="form__button form__button--text" x-bind="showDialog">
+                <div class="panel__action">
+                    <button class="form__button form__button--text" popovertarget="warning-add">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="warning-add" class="dialog" popover>
                         <h3 class="dialog__heading">Warn user: {{ $user->username }}</h3>
-                        <form class="dialog__form" x-bind="dialogForm">
+                        <form class="dialog__form">
                             <p class="form__group">
                                 <textarea
                                     id="warn_reason"
@@ -27,14 +27,15 @@
                                 <button
                                     class="form__button form__button--filled"
                                     wire:click="store"
-                                    x-bind="submitDialogForm"
+                                    type="button"
+                                    popovertarget="warning-add"
                                 >
                                     {{ __('common.save') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="warning-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>

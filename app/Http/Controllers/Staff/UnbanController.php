@@ -19,6 +19,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreUnbanRequest;
 use App\Models\Ban;
+use App\Models\Group;
 use App\Models\User;
 use App\Notifications\UserBanExpire;
 use App\Services\Unit3dAnnounce;
@@ -39,7 +40,7 @@ class UnbanController extends Controller
         abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
-            'group_id'     => $request->group_id,
+            'group_id'     => Group::query()->where('slug', '=', 'user')->soleValue('id'),
             'can_download' => 1,
         ]);
 

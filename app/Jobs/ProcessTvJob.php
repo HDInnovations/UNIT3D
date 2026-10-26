@@ -21,7 +21,6 @@ use App\Models\TmdbCompany;
 use App\Models\TmdbCredit;
 use App\Models\TmdbGenre;
 use App\Models\TmdbNetwork;
-use App\Models\TmdbPerson;
 use App\Models\Torrent;
 use App\Models\TmdbTv;
 use App\Services\Tmdb\Client;
@@ -48,15 +47,6 @@ class ProcessTvJob implements ShouldQueue
     public function __construct(public int $id)
     {
     }
-
-    /**
-     * The number of seconds the job can run before timing out.
-     *
-     * Some shows have 2000+ credits requiring more than the default of 60 seconds.
-     *
-     * @var int
-     */
-    public $timeout = 300;
 
     /**
      * Indicate if the job should be marked as failed on timeout.
@@ -129,33 +119,12 @@ class ProcessTvJob implements ShouldQueue
         // People
 
         $credits = $tvScraper->getCredits();
-        $people = [];
-        $cache = [];
-
-        foreach (array_unique(array_column($credits, 'tmdb_person_id')) as $personId) {
-            // TMDB caches their api responses for 8 hours, so don't abuse them
-
-            $cacheKey = "tmdb-person-scraper:{$personId}";
-
-            if (cache()->has($cacheKey)) {
-                continue;
-            }
-
-            $people[] = (new Client\Person($personId))->getPerson();
-
-            $cache[$cacheKey] = now();
-        }
-
-        foreach (collect($people)->chunk(intdiv(65_000, 13)) as $people) {
-            TmdbPerson::query()->upsert($people->toArray(), 'id');
-        }
-
-        if ($cache !== []) {
-            cache()->put($cache, 8 * 3600);
-        }
 
         TmdbCredit::query()->where('tmdb_tv_id', '=', $this->id)->delete();
-        TmdbCredit::query()->upsert($credits, ['tmdb_person_id', 'tmdb_movie_id', 'tmdb_tv_id', 'occupation_id', 'character']);
+
+        foreach (array_chunk($credits, 50) as $creditBatch) {
+            ProcessCreditJob::dispatch($creditBatch);
+        }
 
         // Recommendations
 

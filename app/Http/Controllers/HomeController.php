@@ -27,6 +27,7 @@ use App\Models\TmdbMovie;
 use App\Models\TmdbTv;
 use App\Models\Topic;
 use App\Models\User;
+use App\Traits\TorrentMeta;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Exception;
@@ -36,6 +37,8 @@ use Exception;
  */
 class HomeController extends Controller
 {
+    use TorrentMeta;
+
     /**
      * Display Home Page.
      *
@@ -143,15 +146,7 @@ class HomeController extends Controller
                             'torrent' => fn ($query) => $query
                                 ->with(['resolution', 'type', 'category', 'user.group'])
                                 ->select('*')
-                                ->selectRaw(<<<'SQL'
-                                    CASE
-                                        WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
-                                        WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
-                                        WHEN category_id IN (SELECT id FROM categories WHERE game_meta = 1) THEN 'game'
-                                        WHEN category_id IN (SELECT id FROM categories WHERE music_meta = 1) THEN 'music'
-                                        WHEN category_id IN (SELECT id FROM categories WHERE no_meta = 1) THEN 'no'
-                                    END AS meta
-                                SQL),
+                                ->selectRaw(self::META_TYPE_CASE.' AS meta'),
                             'user',
                         ])
                         ->has('torrent')

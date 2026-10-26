@@ -19,6 +19,7 @@ use App\Http\Middleware\CheckForAdmin;
 use App\Http\Middleware\CheckForModo;
 use App\Http\Middleware\CheckForOwner;
 use App\Http\Middleware\CheckIfBanned;
+use App\Http\Middleware\ConfirmTwoFactor;
 use App\Http\Middleware\SetLanguage;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
@@ -27,8 +28,6 @@ use Illuminate\Routing\Middleware\ThrottleRequestsWithRedis;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\RoutePath;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,19 +49,6 @@ if (config('unit3d.root_url_override')) {
 Route::middleware(SetLanguage::class)->group(function (): void {
     /*
     |---------------------------------------------------------------------------------
-    | Laravel Fortify Route Overrides
-    | Don't update Fortify without first making sure this override works.
-    |---------------------------------------------------------------------------------
-    */
-
-    Route::middleware(RedirectIfAuthenticated::class.':'.config('fortify.guard'))->group(function (): void {
-        Route::get(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'create'])
-            ->middleware(ThrottleRequestsWithRedis::using(config('fortify.limiters.fortify-login-get')))
-            ->name('login');
-    });
-
-    /*
-    |---------------------------------------------------------------------------------
     | Website (Not Authorized) (Alpha Ordered)
     |---------------------------------------------------------------------------------
     */
@@ -72,13 +58,21 @@ Route::middleware(SetLanguage::class)->group(function (): void {
         Route::post('/application', [App\Http\Controllers\Auth\ApplicationController::class, 'store'])->name('application.store');
 
         // Password resets
-        Route::get('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'create'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::FORGOT_PASSWORD))->name('password.request');
+        Route::get('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'create'])->name('password.request');
         Route::post('/forgot-password', [App\Http\Controllers\Auth\PasswordResetLinkController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::FORGOT_PASSWORD))->name('password.email');
-        Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::RESET_PASSWORD))->name('password.reset');
+        Route::get('/reset-password/{token}', [App\Http\Controllers\Auth\NewPasswordController::class, 'create'])->name('password.reset');
         Route::post('/reset-password', [App\Http\Controllers\Auth\NewPasswordController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::RESET_PASSWORD))->name('password.update');
 
+        // Login
+        Route::get('/login', [Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('/login', [Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'store'])->name('login.store')->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::LOGIN));
+
+        // Two factor
+        Route::get('/two-factor-challenge', [Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController::class, 'create'])->name('two-factor.login');
+        Route::post('/two-factor-challenge', [Laravel\Fortify\Http\Controllers\TwoFactorAuthenticatedSessionController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::TWO_FACTOR))->name('two-factor.login.store');
+
         // Registration
-        Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::REGISTER))->name('registration.create');
+        Route::get('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])->name('registration.create');
         Route::post('/register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::REGISTER))->name('registration.store');
         // This redirect must be kept until all invite emails that use the old syntax have expired
         // Hack so that Fortify can be used (allows query parameters but not route parameters)
@@ -90,6 +84,17 @@ Route::middleware(SetLanguage::class)->group(function (): void {
         Route::get('/email/verify', [App\Http\Controllers\Auth\EmailVerificationController::class, 'create'])->name('verification.notice');
         Route::get('/email/verify/{id}/{hash}', [App\Http\Controllers\Auth\EmailVerificationController::class, 'show'])->middleware(ValidateSignature::class)->name('verification.verify');
         Route::post('/email/verification-notification', [App\Http\Controllers\Auth\EmailVerificationController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::EMAIL_VERIFICATION))->name('verification.send');
+
+        // Password confirmation
+        Route::get('/confirm-password', [App\Http\Controllers\Auth\ConfirmablePasswordController::class, 'show'])->name('password.confirm');
+        Route::post('/confirm-password', [App\Http\Controllers\Auth\ConfirmablePasswordController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::CONFIRM_PASSWORD))->name('password.confirm.store');
+
+        // Two factor confirmation
+        Route::get('/confirm-two-factor', [App\Http\Controllers\Auth\ConfirmableTwoFactorController::class, 'show'])->name('two-factor.confirm');
+        Route::post('/confirm-two-factor', [App\Http\Controllers\Auth\ConfirmableTwoFactorController::class, 'store'])->middleware(ThrottleRequestsWithRedis::using(GlobalRateLimit::CONFIRM_TWO_FACTOR))->name('two-factor.confirm.store');
+
+        // Logout
+        Route::post('/logout', [Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'destroy'])->name('logout');
     });
 
     /*
@@ -151,23 +156,30 @@ Route::middleware(SetLanguage::class)->group(function (): void {
         Route::prefix('rss')->name('rss.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\RssController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\RssController::class, 'create'])->name('create');
-            Route::post('/store', [App\Http\Controllers\RssController::class, 'store'])->name('store');
+            Route::post('/', [App\Http\Controllers\RssController::class, 'store'])->name('store');
             Route::get('/{id}/edit', [App\Http\Controllers\RssController::class, 'edit'])->name('edit')->whereNumber('id');
-            Route::patch('/{id}/update', [App\Http\Controllers\RssController::class, 'update'])->name('update')->whereNumber('id');
-            Route::delete('/{id}/destroy', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy')->whereNumber('id');
+            Route::patch('/{id}', [App\Http\Controllers\RssController::class, 'update'])->name('update')->whereNumber('id');
+            Route::delete('/{id}', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy')->whereNumber('id');
         });
 
         // Reports System
-        Route::prefix('reports')->group(function (): void {
-            Route::post('/torrent/{id}', [App\Http\Controllers\ReportController::class, 'torrent'])->name('report_torrent')->whereNumber('id');
-            Route::post('/request/{id}', [App\Http\Controllers\ReportController::class, 'request'])->name('report_request')->whereNumber('id');
-            Route::post('/user/{username}', [App\Http\Controllers\ReportController::class, 'user'])->name('report_user');
+        Route::prefix('reports')->name('reports.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\ReportController::class, 'index'])->name('index');
+            Route::post('/', [App\Http\Controllers\ReportController::class, 'store'])->name('store');
+            Route::get('/{report}', [App\Http\Controllers\ReportController::class, 'show'])->name('show');
+            Route::post('/{report}/close', [App\Http\Controllers\ReportController::class, 'close'])->name('close');
+            Route::post('/{report}/reopen', [App\Http\Controllers\ReportController::class, 'reopen'])->name('reopen');
+            Route::post('/{report}/replies', [App\Http\Controllers\ReportController::class, 'reply'])->name('replies.store');
+            Route::post('/{report}/assignee', [App\Http\Controllers\ReportAssigneeController::class, 'store'])->name('assignee.store');
+            Route::delete('/{report}/assignee', [App\Http\Controllers\ReportAssigneeController::class, 'destroy'])->name('assignee.destroy');
+            Route::post('/{report}/snooze', [App\Http\Controllers\SnoozedReportController::class, 'store'])->name('snooze.store');
+            Route::delete('/{report}/snooze', [App\Http\Controllers\SnoozedReportController::class, 'destroy'])->name('snooze.destroy');
         });
 
         // Contact Us System
         Route::prefix('contact')->name('contact.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ContactController::class, 'index'])->name('index');
-            Route::post('/store', [App\Http\Controllers\ContactController::class, 'store'])->name('store');
+            Route::post('/', [App\Http\Controllers\ContactController::class, 'store'])->name('store');
         });
 
         // Pages System
@@ -504,7 +516,7 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             // Invites
             Route::prefix('invites')->name('invites.')->group(function (): void {
                 Route::get('/create', [App\Http\Controllers\User\InviteController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\User\InviteController::class, 'store'])->name('store');
                 Route::post('/{sentInvite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
                 Route::delete('/{sentInvite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy')->withTrashed();
                 Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index')->withTrashed();
@@ -564,13 +576,13 @@ Route::middleware(SetLanguage::class)->group(function (): void {
 
             // Two-Factor Authentication
             Route::prefix('two-factor-auth')->name('two_factor_auth.')->group(function (): void {
-                Route::get('/edit', [App\Http\Controllers\User\TwoFactorAuthController::class, 'edit'])->name('edit');
+                Route::get('/edit', [App\Http\Controllers\User\TwoFactorAuthController::class, 'edit'])->name('edit')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class]);
             });
 
             // Email
             Route::prefix('email')->name('email.')->group(function (): void {
-                Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit');
-                Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update');
+                Route::get('/edit', [App\Http\Controllers\User\EmailController::class, 'edit'])->name('edit')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class])->withoutMiddleware(EnsureEmailIsVerified::class);
+                Route::patch('/', [App\Http\Controllers\User\EmailController::class, 'update'])->name('update')->middleware([Illuminate\Auth\Middleware\RequirePassword::using(null, 300), ConfirmTwoFactor::class])->withoutMiddleware(EnsureEmailIsVerified::class);
             });
 
             // Password
@@ -594,7 +606,8 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             // Apikey
             Route::prefix('apikeys')->name('apikeys.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\User\ApikeyController::class, 'index'])->name('index');
-                Route::patch('/', [App\Http\Controllers\User\ApikeyController::class, 'update'])->name('update');
+                Route::post('/', [App\Http\Controllers\User\ApikeyController::class, 'store'])->name('store');
+                Route::delete('/{apikey}', [App\Http\Controllers\User\ApikeyController::class, 'destroy'])->name('destroy');
             });
 
             // Post tips
@@ -676,7 +689,7 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             Route::prefix('articles')->name('articles.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ArticleController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\ArticleController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\Staff\ArticleController::class, 'store'])->name('store');
                 Route::get('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'edit'])->name('edit');
                 Route::post('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'update'])->name('update');
                 Route::delete('/{article}', [App\Http\Controllers\Staff\ArticleController::class, 'destroy'])->name('destroy');
@@ -923,7 +936,7 @@ Route::middleware(SetLanguage::class)->group(function (): void {
 
             // Mass Actions
             Route::prefix('mass-actions')->group(function (): void {
-                Route::get('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('mass-actions.validate');
+                Route::post('/validate-users', [App\Http\Controllers\Staff\MassActionController::class, 'update'])->name('mass-actions.validate');
             });
 
             // Mass Email
@@ -1008,21 +1021,6 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             Route::prefix('seedboxes')->name('seedboxes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\SeedboxController::class, 'index'])->name('index');
                 Route::delete('/{seedbox}', [App\Http\Controllers\Staff\SeedboxController::class, 'destroy'])->name('destroy');
-            });
-
-            // Reports
-            Route::prefix('reports')->name('reports.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('index');
-                Route::get('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'show'])->name('show');
-                Route::patch('/{report}', [App\Http\Controllers\Staff\ReportController::class, 'update'])->name('update');
-                Route::post('/{report}/assignee', [App\Http\Controllers\Staff\ReportAssigneeController::class, 'store'])->name('assignee.store');
-                Route::delete('/{report}/assignee', [App\Http\Controllers\Staff\ReportAssigneeController::class, 'destroy'])->name('assignee.destroy');
-            });
-
-            // Snoozed Reports
-            Route::prefix('snoozed-reports')->name('snoozed_reports.')->group(function (): void {
-                Route::post('/{report}', [App\Http\Controllers\Staff\SnoozedReportController::class, 'store'])->name('store');
-                Route::delete('/{report}', [App\Http\Controllers\Staff\SnoozedReportController::class, 'destroy'])->name('destroy');
             });
 
             // Resolutions
@@ -1113,6 +1111,7 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             // User Staff Notes
             Route::prefix('notes')->name('notes.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\NoteController::class, 'index'])->name('index');
+                Route::patch('/{note}', [App\Http\Controllers\Staff\NoteController::class, 'update'])->name('update');
             });
 
             // User Tools TODO: Leaving since we will be refactoring users and roles
@@ -1161,28 +1160,28 @@ Route::middleware(SetLanguage::class)->group(function (): void {
             // Whitelisted Image URL Patterns
             Route::prefix('whitelisted-image-urls')->name('whitelisted_image_urls.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'index'])->name('index');
-                Route::post('/store', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'store'])->name('store');
-                Route::patch('/{whitelistedImageUrl}/update', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'update'])->name('update');
-                Route::delete('/{whitelistedImageUrl}/destroy', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'destroy'])->name('destroy');
+                Route::post('/', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'store'])->name('store');
+                Route::patch('/{whitelistedImageUrl}', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'update'])->name('update');
+                Route::delete('/{whitelistedImageUrl}', [App\Http\Controllers\Staff\WhitelistedImageUrlController::class, 'destroy'])->name('destroy');
             });
 
             // Wiki Categories System
             Route::prefix('wiki_categories')->name('wiki_categories.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\WikiCategoryController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\WikiCategoryController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\WikiCategoryController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\Staff\WikiCategoryController::class, 'store'])->name('store');
                 Route::get('/{wikiCategory}/edit', [App\Http\Controllers\Staff\WikiCategoryController::class, 'edit'])->name('edit');
-                Route::patch('/{wikiCategory}/update', [App\Http\Controllers\Staff\WikiCategoryController::class, 'update'])->name('update');
-                Route::delete('/{wikiCategory}/destroy', [App\Http\Controllers\Staff\WikiCategoryController::class, 'destroy'])->name('destroy');
+                Route::patch('/{wikiCategory}', [App\Http\Controllers\Staff\WikiCategoryController::class, 'update'])->name('update');
+                Route::delete('/{wikiCategory}', [App\Http\Controllers\Staff\WikiCategoryController::class, 'destroy'])->name('destroy');
             });
 
             // Wiki System
             Route::prefix('wikis')->name('wikis.')->group(function (): void {
                 Route::get('/create', [App\Http\Controllers\Staff\WikiController::class, 'create'])->name('create');
-                Route::post('/store', [App\Http\Controllers\Staff\WikiController::class, 'store'])->name('store');
+                Route::post('/', [App\Http\Controllers\Staff\WikiController::class, 'store'])->name('store');
                 Route::get('/{wiki}/edit', [App\Http\Controllers\Staff\WikiController::class, 'edit'])->name('edit');
-                Route::patch('/{wiki}/update', [App\Http\Controllers\Staff\WikiController::class, 'update'])->name('update');
-                Route::delete('/{wiki}/destroy', [App\Http\Controllers\Staff\WikiController::class, 'destroy'])->name('destroy');
+                Route::patch('/{wiki}', [App\Http\Controllers\Staff\WikiController::class, 'update'])->name('update');
+                Route::delete('/{wiki}', [App\Http\Controllers\Staff\WikiController::class, 'destroy'])->name('destroy');
             });
 
             // Donation System

@@ -7,6 +7,12 @@ parameters:
 			path: app/Console/Commands/AutoDeactivateWarning.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$actual_uploaded\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\User\:\:\$avg_seedtime\.$#'
 			identifier: property.notFound
 			count: 1
@@ -43,10 +49,22 @@ parameters:
 			path: app/Console/Commands/AutoPreWarning.php
 
 		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRecordUserSeedSizeHistory.php
+
+		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequest\>\.$#'
 			identifier: return.type
 			count: 1
 			path: app/Console/Commands/AutoRecycleClaimedTorrentRequests.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRemovePersonalFreeleech.php
 
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
@@ -241,16 +259,16 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
-			path: app/Http/Controllers/Auth/RegisteredUserController.php
-
-		-
 			message: '#^Method App\\Http\\Controllers\\AnnounceController\:\:index\(\) never returns null so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Http/Controllers/Auth/RegisteredUserController.php
 
 		-
 			message: '#^Method App\\Http\\Controllers\\DonationController\:\:store\(\) has no return type specified\.$#'
@@ -412,6 +430,18 @@ parameters:
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbCredit\>\.$#'
 			identifier: return.type
 			count: 2
+			path: app/Http/Livewire/TmdbPersonCredit.php
+
+		-
+			message: '#^Get hook for property App\\Http\\Livewire\\TmdbPersonCredit\:\:\$medias should return Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\|null\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\|null\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TmdbPersonCredit.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbCredit\>\.$#'
+			identifier: return.type
+			count: 2
 			path: app/Http/Livewire/TmdbPersonSearch.php
 
 		-
@@ -487,6 +517,12 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Apikey\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/UserSearch.php
+
+		-
 			message: '#^Method App\\Http\\Middleware\\SetLanguage\:\:setSystemLocale\(\) has parameter \$request with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -559,13 +595,13 @@ parameters:
 			path: app/Providers/AppServiceProvider.php
 
 		-
-			message: '#^Method Laravel\\Fortify\\Contracts\\LoginResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:46\:\:toResponse\(\) should return Illuminate\\Http\\RedirectResponse but returns Illuminate\\Http\\RedirectResponse\|true\.$#'
-			identifier: return.type
+			message: '#^Parameter \#1 \$string of function rtrim expects string, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
 
 		-
-			message: '#^Parameter \#1 \$string of function rtrim expects string, true given\.$#'
+			message: '#^Parameter \#1 \$to of function redirect expects string\|null, string\|true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
