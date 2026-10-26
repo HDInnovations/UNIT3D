@@ -58,11 +58,12 @@ class AutoRecordUserSeedSizeHistory extends Command
                     DB::raw('SUM(torrents.size)')
                 ])
                 ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
+                ->whereDoesntHave('user.group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->where('history.active', '=', true)
                 ->where('history.seeder', '=', true)
                 ->groupBy('user_id'),
         );
 
-        $this->comment('Automated record user seed size history command complete in '.now()->diffInSeconds($start).'s.');
+        $this->comment('Automated record user seed size history command complete in '.$start->diffInSeconds(now()).'s.');
     }
 }

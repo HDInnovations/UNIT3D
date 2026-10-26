@@ -85,7 +85,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoUpdateUserLastActions::class)->everyFiveSeconds();
         $schedule->command(AutoDeleteStoppedPeers::class)->everyTwoMinutes();
         $schedule->command(AutoUnbookmarkCompletedTorrents::class)->everyFifteenMinutes();
-        $schedule->command(AutoRecordUserSeedSizeHistory::class)->daily();
+        $schedule->command(AutoRecordUserSeedSizeHistory::class)->hourly();
         $schedule->command(AutoGroup::class)->daily();
         $schedule->command(AutoNerdStat::class)->hourly();
         $schedule->command(AutoCacheRandomMediaIds::class)->hourly();
