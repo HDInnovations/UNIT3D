@@ -50,8 +50,7 @@
         "pestphp/pest-plugin-type-coverage": "^4.0.3",
         "phpstan/phpstan": "^2.3.3",
         "ryoluo/sail-ssl": "^1.4.0",
-        "spatie/laravel-ignition": "^2.10.0",
-        "tomasvotruba/bladestan": "^0.11.4"
+        "spatie/laravel-ignition": "^2.10.0"
     },
     "config": {
         "preferred-install": "dist",

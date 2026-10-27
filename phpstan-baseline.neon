@@ -409,9 +409,39 @@ parameters:
 			path: app/Http/Resources/TorrentResource.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Listeners/AchievementUnlocked.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$privacy\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Listeners/AchievementUnlocked.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Listeners/AchievementUnlocked.php
+
+		-
+			message: '#^Access to an undefined property Assada\\Achievements\\Model\\AchievementProgress\:\:\$achiever_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Listeners/AchievementUnlocked.php
+
+		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
 			identifier: property.notFound
 			count: 2
+			path: app/Listeners/AchievementUnlocked.php
+
+		-
+			message: '#^Parameter \#1 \$user of function href_profile expects App\\Models\\User, App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\> given\.$#'
+			identifier: argument.type
+			count: 1
 			path: app/Listeners/AchievementUnlocked.php
 
 		-
