@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoDeactivateWarning.php
-
-		-
 			message: '#^Access to an undefined property App\\Models\\User\:\:\$actual_uploaded\.$#'
 			identifier: property.notFound
 			count: 1
@@ -41,54 +35,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 2
 			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoPreWarning.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRecordUserSeedSizeHistory.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequest\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRecycleClaimedTorrentRequests.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRemovePersonalFreeleech.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRemoveReseeds.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRemoveReseeds.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoRewardResurrection.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Console/Commands/AutoWarning.php
 
 		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, ''strlen'' given\.$#'
@@ -277,16 +223,22 @@ parameters:
 			path: app/Http/Controllers/DonationController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequestBounty\>\.$#'
-			identifier: return.type
-			count: 3
-			path: app/Http/Controllers/RequestController.php
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:authorized\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/ForumController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: app/Http/Controllers/Staff/ArticleController.php
+			path: app/Http/Controllers/ForumController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:orderByPivot\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/PageController.php
 
 		-
 			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
@@ -295,14 +247,14 @@ parameters:
 			path: app/Http/Controllers/Staff/ChatRoomController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Controllers/Staff/CheatedTorrentController.php
-
-		-
 			message: '#^Binary operation "\+\=" between string and int results in an error\.$#'
 			identifier: assignOp.invalid
+			count: 1
+			path: app/Http/Controllers/Staff/DonationController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
 
@@ -313,22 +265,22 @@ parameters:
 			path: app/Http/Controllers/Staff/UserController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
-			count: 4
-			path: app/Http/Controllers/StatsController.php
-
-		-
 			message: '#^Access to an undefined property App\\Models\\Post\:\:\$post_count\.$#'
 			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
-			identifier: return.type
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
-			path: app/Http/Controllers/TorrentController.php
+			path: app/Http/Controllers/TorrentDownloadController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/User/InviteTreeController.php
 
 		-
 			message: '#^Binary operation "\+" between string\|null and int results in an error\.$#'
@@ -341,6 +293,12 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 2
 			path: app/Http/Controllers/User/UserController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Livewire/ApikeySearch.php
 
 		-
 			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$attachment has no type specified\.$#'
@@ -361,40 +319,16 @@ parameters:
 			path: app/Http/Livewire/BbcodeInput.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Participant\>\.$#'
-			identifier: return.type
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: app/Http/Livewire/ConversationSearch.php
+			path: app/Http/Livewire/EmailUpdateSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\PrivateMessage\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/ConversationSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
-			identifier: return.type
-			count: 3
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
-			identifier: return.type
-			count: 3
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
 			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
@@ -415,76 +349,46 @@ parameters:
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/Stats/UserStats.php
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Livewire/NoteSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
-			identifier: return.type
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
+			path: app/Http/Livewire/PasskeySearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbCredit\>\.$#'
-			identifier: return.type
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Livewire/PasswordResetHistorySearch.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Livewire/RsskeySearch.php
+
+		-
+			message: '#^Offset ''category_id'' does not exist on Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Torrent\>\.$#'
+			identifier: offsetAccess.notFound
 			count: 2
 			path: app/Http/Livewire/TmdbPersonCredit.php
 
 		-
-			message: '#^Get hook for property App\\Http\\Livewire\\TmdbPersonCredit\:\:\$medias should return Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\|null\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\|null\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/TmdbPersonCredit.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbCredit\>\.$#'
-			identifier: return.type
-			count: 2
-			path: app/Http/Livewire/TmdbPersonSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
-			identifier: return.type
-			count: 4
-			path: app/Http/Livewire/TopUsers.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
-			identifier: return.type
-			count: 3
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
-			identifier: return.type
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:authorized\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: app/Http/Livewire/TopicSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbMovie\>\.$#'
-			identifier: return.type
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TmdbTv\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, string\|null\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) expects callable\(\)\: Illuminate\\Support\\Collection\<int, string\|null\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, string\|null\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
+			path: app/Http/Livewire/TorrentDownloadSearch.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Torrent\:\:\$meta\.$#'
@@ -493,34 +397,10 @@ parameters:
 			path: app/Http/Livewire/TorrentSearch.php
 
 		-
-			message: '#^Anonymous function should return Illuminate\\Support\\Collection\<int, string\|null\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
-			identifier: return.type
-			count: 1
+			message: '#^Offset ''category_id'' does not exist on Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Torrent\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
 			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: '#^Get hook for property App\\Http\\Livewire\\TorrentSearch\:\:\$groupedTorrents should return Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\|null\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\TmdbMovie\|App\\Models\\TmdbTv\|null\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: '#^Get hook for property App\\Http\\Livewire\\TorrentSearch\:\:\$primaryLanguages should return Illuminate\\Support\\Collection\<int, string\|null\> but returns Illuminate\\Support\\Collection\<int, string\|null\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) expects callable\(\)\: Illuminate\\Support\\Collection\<int, string\|null\>, Closure\(\)\: Illuminate\\Support\\Collection\<int, string\|null\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Apikey\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
 
 		-
 			message: '#^Method App\\Http\\Middleware\\SetLanguage\:\:setSystemLocale\(\) has parameter \$request with no type specified\.$#'
