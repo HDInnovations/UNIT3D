@@ -619,14 +619,38 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
+			message: '#^Parameter \$when of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:retry\(\) expects \(callable\(Throwable, Illuminate\\Http\\Client\\PendingRequest, string\|null\)\: bool\)\|null, Closure\(Exception\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/Igdb/Client/Game.php
+
+		-
 			message: '#^Call to function array_key_exists\(\) with ''job'' and array\{adult\: bool\|null, gender\: int\|null, id\: int\|null, known_for_department\: string\|null, name\: string\|null, original_name\: string\|null, popularity\: float\|null, profile_path\: string\|null, \.\.\.\} will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: app/Services/Tmdb/Client/Movie.php
 
 		-
+			message: '#^Parameter \$when of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:retry\(\) expects \(callable\(Throwable, Illuminate\\Http\\Client\\PendingRequest, string\|null\)\: bool\)\|null, Closure\(Exception\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/Tmdb/Client/Movie.php
+
+		-
+			message: '#^Parameter \$when of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:retry\(\) expects \(callable\(Throwable, Illuminate\\Http\\Client\\PendingRequest, string\|null\)\: bool\)\|null, Closure\(Exception\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/Tmdb/Client/Person.php
+
+		-
 			message: '#^Call to function array_key_exists\(\) with ''job'' and array\{credit_id\: string\|null, job\: string\|null, episode_count\: int\|null\} will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Services/Tmdb/Client/TV.php
+
+		-
+			message: '#^Parameter \$when of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:retry\(\) expects \(callable\(Throwable, Illuminate\\Http\\Client\\PendingRequest, string\|null\)\: bool\)\|null, Closure\(Exception\)\: bool given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Services/Tmdb/Client/TV.php
 

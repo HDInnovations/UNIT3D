@@ -24,8 +24,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('history', function (Blueprint $table): void {
-            $table->foreign('info_hash')->references('info_hash')->on('torrents')->onUpdate('RESTRICT')->onDelete('CASCADE');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('info_hash')->references('info_hash')->on('torrents')->restrictOnUpdate()->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };

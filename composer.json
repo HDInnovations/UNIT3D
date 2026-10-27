@@ -23,7 +23,7 @@
         "intervention/image": "^2.7.2",
         "joypixels/assets": "^v7.0.1",
         "laravel/fortify": "^1.33.0",
-        "laravel/framework": "^12.44.0",
+        "laravel/framework": "^12.70.2",
         "laravel/octane": "^2.13.3",
         "laravel/scout": "^10.23.0",
         "laravel/tinker": "^2.10.2",

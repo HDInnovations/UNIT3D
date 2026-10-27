@@ -32,7 +32,7 @@ return new class () extends Migration {
             $table->boolean('bot_id')->nullable()->index();
             $table->boolean('status')->default(0)->index();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };
