@@ -1174,7 +1174,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFormattedSeedbonusAttribute(): string
     {
-        return number_format((float) $this->seedbonus, 0, null, "\u{202F}");
+        return number_format((float) $this->seedbonus, 0, null, ',');
     }
 
     /**
