@@ -36,8 +36,8 @@
         "vstelmakh/url-highlight": "^3.1.3"
     },
     "require-dev": {
-        "calebdw/larastan": "^3.12.1",
         "calebdw/larastan-livewire": "^2.5.0",
+        "calebdw/phpstan-laravel": "^1.11",
         "fakerphp/faker": "^1.24.1",
         "fruitcake/laravel-debugbar": "^4.0",
         "jasonmccreary/laravel-test-assertions": "^2.8.0",

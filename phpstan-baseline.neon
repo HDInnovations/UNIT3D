@@ -199,6 +199,18 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
+			message: '#^Relation ''audibles'' is not found in App\\Models\\User model\.$#'
+			identifier: laravel.relationExistence
+			count: 3
+			path: app/Http/Controllers/API/ChatController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:explode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/API/QuickSearchController.php
+
+		-
 			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:flexible\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
@@ -223,22 +235,16 @@ parameters:
 			path: app/Http/Controllers/DonationController.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:authorized\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Controllers/ForumController.php
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 3
+			path: app/Http/Controllers/ReportController.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:decrement\(\) expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Controllers/ForumController.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:orderByPivot\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Controllers/PageController.php
+			path: app/Http/Controllers/RequestController.php
 
 		-
 			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
@@ -253,16 +259,10 @@ parameters:
 			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Property App\\Models\\Rss\:\:\$position \(int\) does not accept int\<min, 9999\>\|string\.$#'
+			identifier: assign.propertyType
 			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Group\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Group\>\:\:\$level\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Controllers/Staff/UserController.php
+			path: app/Http/Controllers/Staff/RssController.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Post\:\:\$post_count\.$#'
@@ -271,16 +271,28 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
+			message: '#^Property App\\Models\\Torrent\:\:\$free \(int\) does not accept float\|int\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Controllers/TorrentBuffController.php
+
+		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: app/Http/Controllers/TorrentDownloadController.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:decrement\(\) expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
 			count: 1
-			path: app/Http/Controllers/User/InviteTreeController.php
+			path: app/Http/Controllers/User/GiftController.php
+
+		-
+			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:increment\(\) expects float\|int, float\|int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/User/GiftController.php
 
 		-
 			message: '#^Binary operation "\+" between string\|null and int results in an error\.$#'
@@ -295,10 +307,10 @@ parameters:
 			path: app/Http/Controllers/User/UserController.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Relation ''torrents'' is not found in App\\Models\\IgdbGame model\.$#'
+			identifier: laravel.relationExistence
 			count: 1
-			path: app/Http/Livewire/ApikeySearch.php
+			path: app/Http/Livewire/AlsoDownloadedWorks.php
 
 		-
 			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$attachment has no type specified\.$#'
@@ -319,18 +331,6 @@ parameters:
 			path: app/Http/Livewire/BbcodeInput.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/EmailUpdateSearch.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
 			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -349,46 +349,16 @@ parameters:
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Property App\\Http\\Livewire\\SimilarTorrent\:\:\$checked \(array\<int, bool\>\) does not accept array\<int, int\>\.$#'
+			identifier: assign.propertyType
 			count: 1
-			path: app/Http/Livewire/PasskeySearch.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/PasswordResetHistorySearch.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/RsskeySearch.php
+			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
 			message: '#^Offset ''category_id'' does not exist on Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Torrent\>\.$#'
 			identifier: offsetAccess.notFound
 			count: 2
 			path: app/Http/Livewire/TmdbPersonCredit.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:authorized\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\Relation\<\*, \*, \*\>\:\:withTrashed\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/Http/Livewire/TorrentDownloadSearch.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Torrent\:\:\$meta\.$#'

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "211a2f0ac4b2fd628b86b385cd3ffdde",
+    "content-hash": "ed18ab846bfa8880bb34a65c0f2ed1e6",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -8445,107 +8445,6 @@
             "time": "2026-02-05T09:14:44+00:00"
         },
         {
-            "name": "calebdw/larastan",
-            "version": "v3.12.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/calebdw/larastan.git",
-                "reference": "acb4c77d73fefd9cd8498aa9dda0d4b7b55b288e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/calebdw/larastan/zipball/acb4c77d73fefd9cd8498aa9dda0d4b7b55b288e",
-                "reference": "acb4c77d73fefd9cd8498aa9dda0d4b7b55b288e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "illuminate/console": "^11.44.2 || ^12.4.1 || ^13",
-                "illuminate/container": "^11.44.2 || ^12.4.1 || ^13",
-                "illuminate/contracts": "^11.44.2 || ^12.4.1 || ^13",
-                "illuminate/database": "^11.44.2 || ^12.4.1 || ^13",
-                "illuminate/http": "^11.44.2 || ^12.4.1 || ^13",
-                "illuminate/pipeline": "^11.44.2 || ^12.4.1 || ^13",
-                "illuminate/support": "^11.44.2 || ^12.4.1 || ^13",
-                "php": "^8.2",
-                "phpmyadmin/sql-parser": "^5.9.0",
-                "phpstan/phpstan": "^2.2.2"
-            },
-            "replace": {
-                "larastan/larastan": "self.version"
-            },
-            "require-dev": {
-                "doctrine/coding-standard": "^14.0",
-                "laravel/framework": "^11.44.2 || ^12.4.1 || ^13",
-                "mockery/mockery": "^1.6",
-                "nikic/php-parser": "^5.6",
-                "orchestra/canvas": "^v9.1.3 || ^10.0 || ^11",
-                "orchestra/testbench-core": "^9.5.2 || ^10.0 || ^11",
-                "phpstan/phpstan-deprecation-rules": "^2.0.1",
-                "phpunit/phpunit": "^10.5.35 || ^11.5.15 || ^12.5.8 || ^13.1.8"
-            },
-            "suggest": {
-                "orchestra/testbench": "Using Larastan for analysing a package needs Testbench"
-            },
-            "type": "phpstan-extension",
-            "extra": {
-                "phpstan": {
-                    "includes": [
-                        "extension.neon"
-                    ]
-                },
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Larastan\\Larastan\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Can Vural",
-                    "email": "can9119@gmail.com"
-                },
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                },
-                {
-                    "name": "Caleb White",
-                    "email": "cdwhite3@pm.me"
-                }
-            ],
-            "description": "Larastan - Discover bugs in your code without running it. A phpstan/phpstan extension for Laravel",
-            "homepage": "https://github.com/calebdw/larastan",
-            "keywords": [
-                "PHPStan",
-                "code analyse",
-                "code analysis",
-                "larastan",
-                "laravel",
-                "package",
-                "php",
-                "static analysis"
-            ],
-            "support": {
-                "issues": "https://github.com/calebdw/larastan/issues",
-                "source": "https://github.com/calebdw/larastan/tree/v3.12.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/calebdw",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-07-10T18:19:51+00:00"
-        },
-        {
             "name": "calebdw/larastan-livewire",
             "version": "v2.5.0",
             "source": {
@@ -8610,6 +8509,101 @@
                 }
             ],
             "time": "2026-03-04T14:03:08+00:00"
+        },
+        {
+            "name": "calebdw/phpstan-laravel",
+            "version": "v1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/calebdw/phpstan-laravel.git",
+                "reference": "359ee08148adb0db9e0875fe3c4a1b07da68fee4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/calebdw/phpstan-laravel/zipball/359ee08148adb0db9e0875fe3c4a1b07da68fee4",
+                "reference": "359ee08148adb0db9e0875fe3c4a1b07da68fee4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^12.67.0 || ^13.38.0",
+                "illuminate/container": "^12.67.0 || ^13.38.0",
+                "illuminate/contracts": "^12.67.0 || ^13.38.0",
+                "illuminate/database": "^12.67.0 || ^13.38.0",
+                "illuminate/http": "^12.67.0 || ^13.38.0",
+                "illuminate/pipeline": "^12.67.0 || ^13.38.0",
+                "illuminate/support": "^12.67.0 || ^13.38.0",
+                "php": "^8.3",
+                "phpstan/phpstan": "^2.3.0",
+                "symfony/finder": "^7.2 || ^8.0",
+                "webmozart/assert": "^2.4"
+            },
+            "require-dev": {
+                "boundwize/structarmed": "^0.19.3",
+                "calebdw/pg-schema-parser": "^1.0",
+                "doctrine/coding-standard": "^14.0",
+                "iamcal/sql-parser": "^0.7.0",
+                "laravel/framework": "^12.67.0 || ^13.38.0",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.6",
+                "orchestra/canvas": "^10.0 || ^11",
+                "orchestra/testbench-core": "^10.0 || ^11",
+                "phpmyadmin/sql-parser": "^5.9.0",
+                "phpstan/phpstan-deprecation-rules": "^2.0.1",
+                "phpstan/phpstan-webmozart-assert": "^2.0",
+                "phpunit/phpunit": "^12.5.8 || ^13.1.8"
+            },
+            "suggest": {
+                "calebdw/pg-schema-parser": "Required to parse PostgreSQL schema dumps with the `postgres` parser driver (MIT)",
+                "iamcal/sql-parser": "Required to parse squashed schema dumps with the `iamcal` parser driver (MIT)",
+                "orchestra/testbench": "Using phpstan-laravel for analysing a package needs Testbench",
+                "phpmyadmin/sql-parser": "Required to parse squashed schema dumps with the `phpmyadmin` parser driver (GPL-2.0-or-later)"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CalebDW\\PhpstanLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb White",
+                    "email": "cdwhite3@pm.me"
+                }
+            ],
+            "description": "A PHPStan extension for analysis of Laravel applications and packages.",
+            "homepage": "https://phpstan-laravel.dev",
+            "keywords": [
+                "PHPStan",
+                "code analysis",
+                "laravel",
+                "package",
+                "php",
+                "phpstan-extension",
+                "static analysis"
+            ],
+            "support": {
+                "docs": "https://phpstan-laravel.dev",
+                "issues": "https://github.com/calebdw/phpstan-laravel/issues",
+                "source": "https://github.com/calebdw/phpstan-laravel"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/calebdw",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-23T05:11:19+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -9008,6 +9002,47 @@
             "time": "2025-04-30T06:54:44+00:00"
         },
         {
+            "name": "iamcal/sql-parser",
+            "version": "v0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iamcal/SQLParser.git",
+                "reference": "610392f38de49a44dab08dc1659960a29874c4b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iamcal/SQLParser/zipball/610392f38de49a44dab08dc1659960a29874c4b8",
+                "reference": "610392f38de49a44dab08dc1659960a29874c4b8",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^1.0",
+                "phpunit/phpunit": "^5|^6|^7|^8|^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "iamcal\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cal Henderson",
+                    "email": "cal@iamcal.com"
+                }
+            ],
+            "description": "MySQL schema parser",
+            "support": {
+                "issues": "https://github.com/iamcal/SQLParser/issues",
+                "source": "https://github.com/iamcal/SQLParser/tree/v0.7"
+            },
+            "time": "2026-01-28T22:20:33+00:00"
+        },
+        {
             "name": "jasonmccreary/laravel-test-assertions",
             "version": "v2.8.0",
             "source": {
@@ -9116,6 +9151,95 @@
                 "source": "https://github.com/Jean85/pretty-package-versions/tree/2.1.1"
             },
             "time": "2025-03-19T14:43:43+00:00"
+        },
+        {
+            "name": "larastan/larastan",
+            "version": "v3.13.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/larastan/larastan.git",
+                "reference": "0de9aec250ab498f97171b43cd1192ce11a8c8fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/larastan/larastan/zipball/0de9aec250ab498f97171b43cd1192ce11a8c8fc",
+                "reference": "0de9aec250ab498f97171b43cd1192ce11a8c8fc",
+                "shasum": ""
+            },
+            "require": {
+                "iamcal/sql-parser": "^0.7.0",
+                "illuminate/console": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/container": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/contracts": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/database": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/http": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/pipeline": "^11.44.2 || ^12.4.1 || ^13",
+                "illuminate/support": "^11.44.2 || ^12.4.1 || ^13",
+                "php": "^8.2",
+                "phpstan/phpstan": "^2.3.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^14",
+                "laravel/framework": "^11.44.2 || ^12.7.2 || ^13",
+                "mockery/mockery": "^1.6.12",
+                "nikic/php-parser": "^5.4",
+                "orchestra/canvas": "^v9.2.2 || ^10.0.1 || ^11",
+                "orchestra/testbench-core": "^9.12.0 || ^10.1 || ^11",
+                "phpstan/phpstan-deprecation-rules": "^2.0.1",
+                "phpunit/phpunit": "^10.5.35 || ^11.5.15 || ^12.5.8 || ^13.3.0"
+            },
+            "suggest": {
+                "orchestra/testbench": "Using Larastan for analysing a package needs Testbench",
+                "phpmyadmin/sql-parser": "Install to enable Larastan's optional phpMyAdmin-based SQL parser automatically"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Larastan\\Larastan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Can Vural",
+                    "email": "can9119@gmail.com"
+                }
+            ],
+            "description": "Larastan - Discover bugs in your code without running it. A phpstan/phpstan extension for Laravel",
+            "keywords": [
+                "PHPStan",
+                "code analyse",
+                "code analysis",
+                "larastan",
+                "laravel",
+                "package",
+                "php",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/larastan/larastan/issues",
+                "source": "https://github.com/larastan/larastan/tree/v3.13.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/canvural",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-10-23T21:03:09+00:00"
         },
         {
             "name": "laravel/pint",
@@ -10622,95 +10746,6 @@
                 "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.12.0"
             },
             "time": "2025-11-21T15:09:14+00:00"
-        },
-        {
-            "name": "phpmyadmin/sql-parser",
-            "version": "5.11.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpmyadmin/sql-parser.git",
-                "reference": "1b70d03526df92bd1e170e2670b7d3510e1b722b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpmyadmin/sql-parser/zipball/1b70d03526df92bd1e170e2670b7d3510e1b722b",
-                "reference": "1b70d03526df92bd1e170e2670b7d3510e1b722b",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0",
-                "symfony/polyfill-mbstring": "^1.3",
-                "symfony/polyfill-php80": "^1.16"
-            },
-            "conflict": {
-                "phpmyadmin/motranslator": "<3.0"
-            },
-            "require-dev": {
-                "phpbench/phpbench": "^1.1",
-                "phpmyadmin/coding-standard": "^3.0",
-                "phpmyadmin/motranslator": "^4.0 || ^5.0",
-                "phpstan/extension-installer": "^1.4",
-                "phpstan/phpstan": "^1.12",
-                "phpstan/phpstan-deprecation-rules": "^1.2",
-                "phpstan/phpstan-phpunit": "^1.4",
-                "phpstan/phpstan-strict-rules": "^1.6",
-                "phpunit/phpunit": "^8.5 || ^9.6",
-                "psalm/plugin-phpunit": "^0.16.1",
-                "vimeo/psalm": "^4.11",
-                "zumba/json-serializer": "~3.0.2"
-            },
-            "suggest": {
-                "ext-mbstring": "For best performance",
-                "phpmyadmin/motranslator": "Translate messages to your favorite locale"
-            },
-            "bin": [
-                "bin/highlight-query",
-                "bin/lint-query",
-                "bin/sql-parser",
-                "bin/tokenize-query"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PhpMyAdmin\\SqlParser\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "The phpMyAdmin Team",
-                    "email": "developers@phpmyadmin.net",
-                    "homepage": "https://www.phpmyadmin.net/team/"
-                }
-            ],
-            "description": "A validating SQL lexer and parser with a focus on MySQL dialect.",
-            "homepage": "https://github.com/phpmyadmin/sql-parser",
-            "keywords": [
-                "analysis",
-                "lexer",
-                "parser",
-                "query linter",
-                "sql",
-                "sql lexer",
-                "sql linter",
-                "sql parser",
-                "sql syntax highlighter",
-                "sql tokenizer"
-            ],
-            "support": {
-                "issues": "https://github.com/phpmyadmin/sql-parser/issues",
-                "source": "https://github.com/phpmyadmin/sql-parser"
-            },
-            "funding": [
-                {
-                    "url": "https://www.phpmyadmin.net/donate/",
-                    "type": "other"
-                }
-            ],
-            "time": "2025-07-20T15:49:56+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
