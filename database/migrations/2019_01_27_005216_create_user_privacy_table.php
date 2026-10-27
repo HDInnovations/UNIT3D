@@ -60,7 +60,7 @@ return new class () extends Migration {
             $table->json('json_follower_groups');
             $table->json('json_achievement_groups');
             $table->json('json_rank_groups');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };
