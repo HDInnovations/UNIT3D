@@ -31,6 +31,7 @@
         "maennchen/zipstream-php": "^3.2.1",
         "meilisearch/meilisearch-php": "^1.16.1",
         "spatie/laravel-backup": "^9.3.7",
+        "spatie/laravel-data": "^4.23.1",
         "spatie/ssl-certificate": "^2.6.10",
         "theodorejb/polycast": "dev-master",
         "vstelmakh/url-highlight": "^3.1.3"
