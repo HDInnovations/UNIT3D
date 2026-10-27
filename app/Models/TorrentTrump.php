@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Models\Scopes\ApprovedScope;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
@@ -34,6 +35,8 @@ use AllowDynamicProperties;
 #[AllowDynamicProperties]
 final class TorrentTrump extends Model
 {
+    use Auditable;
+
     /**
      * The attributes that aren't mass assignable.
      *

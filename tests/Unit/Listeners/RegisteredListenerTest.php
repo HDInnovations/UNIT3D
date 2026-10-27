@@ -17,21 +17,26 @@ declare(strict_types=1);
 use App\Models\Bot;
 use App\Models\Chatroom;
 use App\Models\User;
+use Database\Seeders\ChatroomSeeder;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 
 use function Pest\Laravel\assertDatabaseHas;
 
 test('newly registered user is greeted in chat room', function (): void {
-    User::factory()->system()->create();
+    $this->seed(UserSeeder::class);
+    $this->seed(ChatroomSeeder::class);
+    $user = User::factory()->create();
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chatroom = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
-
-    $user = User::factory()->create();
+    $chatroom = Chatroom::query()
+        ->when(
+            \is_int(config('chat.system_chatroom')),
+            fn ($query) => $query->where('id', '=', config('chat.system_chatroom')),
+            fn ($query) => $query->where('name', '=', config('chat.system_chatroom')),
+        )
+        ->sole();
 
     Event::dispatch(new Registered($user));
 

@@ -37,7 +37,7 @@ class NewPostTip extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -47,14 +47,14 @@ class NewPostTip extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         $this->tip->load('sender');
 
         return [
-            'title' => $this->tip->sender->username.' Has Tipped You '.$this->tip->bon.' BON For A Forum Post',
-            'body'  => $this->tip->sender->username.' has tipped one of your Forum posts in '.$this->tip->post->topic->name,
-            'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->tip->post->topic_id, $this->tip->post_id),
+            'title' => $this->tip->sender->username.' tipped you '.$this->tip->bon.' BON for a forum post',
+            'body'  => $this->tip->sender->username.' tipped your forum post in '.$this->tip->post->topic->name,
+            'url'   => route('topics.permalink', ['topicId' => $this->tip->post->topic_id, 'postId' => $this->tip->post_id], false),
         ];
     }
 }

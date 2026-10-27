@@ -22,26 +22,48 @@ use App\Models\TmdbTv;
 use App\Models\Torrent;
 use JsonException;
 use ReflectionException;
+use Illuminate\Pagination\CursorPaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 trait TorrentMeta
 {
     /**
-     * @param \Illuminate\Database\Eloquent\Collection<int, Torrent>|\Illuminate\Pagination\CursorPaginator<int, Torrent>|\Illuminate\Pagination\LengthAwarePaginator<int, Torrent>|\Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent> $torrents
+     * Resolves a torrent's meta type (movie/tv/game/music/no) from its category_id.
+     */
+    public const string META_TYPE_CASE = <<<'SQL'
+        CASE
+            WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
+            WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
+            WHEN category_id IN (SELECT id FROM categories WHERE game_meta = 1) THEN 'game'
+            WHEN category_id IN (SELECT id FROM categories WHERE music_meta = 1) THEN 'music'
+            WHEN category_id IN (SELECT id FROM categories WHERE no_meta = 1) THEN 'no'
+        END
+        SQL;
+
+    /**
+     * Same as META_TYPE_CASE but restricted to movie/tv, for grouping torrents by TMDB id.
+     */
+    public const string META_TYPE_CASE_MOVIE_TV = <<<'SQL'
+        CASE
+            WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
+            WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
+        END
+        SQL;
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Collection<int, Torrent>|CursorPaginator<int, Torrent>|LengthAwarePaginator<int, Torrent>|LengthAwarePaginator<int, Torrent&object{pivot: \App\Models\PlaylistTorrent}> $torrents
      *
-     * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
-     * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      * @throws ReflectionException
      * @throws JsonException
      * @return (
      *        $torrents is \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> ? \Illuminate\Support\Collection<int, \App\Models\Torrent>
-     *     : ($torrents is \Illuminate\Pagination\CursorPaginator<int, \App\Models\Torrent> ? \Illuminate\Pagination\CursorPaginator<int, \App\Models\Torrent>
-     *     : ($torrents is \Illuminate\Pagination\LengthAwarePaginator<int, \App\Models\Torrent> ? \Illuminate\Pagination\LengthAwarePaginator<int, \App\Models\Torrent>
-     *     : \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Torrent>
-     * )))
+     *     : ($torrents is CursorPaginator<int, \App\Models\Torrent> ? CursorPaginator<int, \App\Models\Torrent>
+     *     : LengthAwarePaginator<int, \App\Models\Torrent>
+     * ))
      */
-    public function scopeMeta(\Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents, bool $withCredits = false): \Illuminate\Support\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+    public function scopeMeta(\Illuminate\Database\Eloquent\Collection|CursorPaginator|LengthAwarePaginator $torrents, bool $withCredits = false): \Illuminate\Support\Collection|CursorPaginator|LengthAwarePaginator
     {
-        if ($torrents instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator || $torrents instanceof \Illuminate\Contracts\Pagination\CursorPaginator) {
+        if ($torrents instanceof LengthAwarePaginator || $torrents instanceof CursorPaginator) {
             $movieIds = collect($torrents->items())->where('meta', '=', 'movie')->pluck('tmdb_movie_id');
             $tvIds = collect($torrents->items())->where('meta', '=', 'tv')->pluck('tmdb_tv_id');
             $gameIds = collect($torrents->items())->where('meta', '=', 'game')->pluck('igdb');
@@ -93,14 +115,6 @@ trait TorrentMeta
             return $torrents->map($setRelation);
         }
 
-        /**
-         * Laravel's \Illuminate\Contracts\Pagination\LengthAwarePaginator does not have a through method
-         * but we are passed a \Illuminate\Pagination\LengthAwarePaginator which does have such a method.
-         * Seems to be caused by some Laravel type error that's returning an interface instead of the type
-         * itself, or that the interface is missing the method.
-         *
-         * @phpstan-ignore method.notFound
-         */
         return $torrents->through($setRelation);
     }
 
@@ -206,7 +220,9 @@ trait TorrentMeta
                                     /** @phpstan-ignore argument.type (Phpstan is incorrectly treating the array shape as a general array) */
                                     krsort($packOrSpecialOrSeasons, SORT_NATURAL);
 
+                                    /** @phpstan-ignore foreach.nonIterable (Phpstan is incorrectly treating the array shape as a general array) */
                                     foreach ($packOrSpecialOrSeasons as &$specialTorrents) {
+                                        /** @phpstan-ignore argument.type (Phpstan is incorrectly treating the array shape as a general array) */
                                         self::sortTorrentTypes($specialTorrents);
                                     }
 
@@ -215,17 +231,22 @@ trait TorrentMeta
                                     /** @phpstan-ignore argument.type (Phpstan is incorrectly treating the array shape as a general array) */
                                     krsort($packOrSpecialOrSeasons, SORT_NATURAL);
 
+                                    /** @phpstan-ignore foreach.nonIterable (Phpstan is incorrectly treating the array shape as a general array) */
                                     foreach ($packOrSpecialOrSeasons as &$season) {
                                         foreach ($season as $packOrEpisodesType => &$packOrEpisodes) {
                                             switch ($packOrEpisodesType) {
                                                 case 'Season Pack':
+                                                    /** @phpstan-ignore argument.type (Phpstan is incorrectly treating the array shape as a general array) */
                                                     self::sortTorrentTypes($packOrEpisodes);
 
                                                     break;
                                                 case 'Episodes':
+                                                    /** @phpstan-ignore argument.type (Phpstan is incorrectly treating the array shape as a general array) */
                                                     krsort($packOrEpisodes, SORT_NATURAL);
 
+                                                    /** @phpstan-ignore foreach.nonIterable (Phpstan is incorrectly treating the array shape as a general array) */
                                                     foreach ($packOrEpisodes as &$episodeTorrents) {
+                                                        /** @phpstan-ignore argument.type (Phpstan is incorrectly treating the array shape as a general array) */
                                                         self::sortTorrentTypes($episodeTorrents);
                                                     }
 

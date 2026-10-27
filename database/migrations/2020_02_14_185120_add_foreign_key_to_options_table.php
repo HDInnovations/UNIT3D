@@ -25,7 +25,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('options', function (Blueprint $table): void {
-            $table->foreign('poll_id', 'fk_options_poll')->references('id')->on('polls')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('poll_id', 'fk_options_poll')->references('id')->on('polls')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };

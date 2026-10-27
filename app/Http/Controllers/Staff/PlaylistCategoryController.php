@@ -19,7 +19,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StorePlaylistCategoryRequest;
 use App\Http\Requests\Staff\UpdatePlaylistCategoryRequest;
-use App\Models\Category;
 use App\Models\PlaylistCategory;
 use Exception;
 
@@ -48,7 +47,7 @@ class PlaylistCategoryController extends Controller
      */
     public function store(StorePlaylistCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
-        PlaylistCategory::create($request->validated());
+        PlaylistCategory::query()->create($request->validated());
 
         return to_route('staff.playlist_categories.index');
     }

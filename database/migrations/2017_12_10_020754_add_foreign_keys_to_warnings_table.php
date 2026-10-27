@@ -24,9 +24,9 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('warnings', function (Blueprint $table): void {
-            $table->foreign('torrent')->references('id')->on('torrents')->onUpdate('RESTRICT')->onDelete('CASCADE');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
-            $table->foreign('warned_by')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('torrent')->references('id')->on('torrents')->restrictOnUpdate()->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
+            $table->foreign('warned_by')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };

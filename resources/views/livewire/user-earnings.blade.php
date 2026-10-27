@@ -187,7 +187,7 @@
                         @foreach ($torrents as $torrent)
                             <tr>
                                 <td class="user-earnings__type">
-                                    {{ $types[$torrent->type_id] ??= \App\Models\Type::find($torrent->type_id)?->name ?? __('common.unknown') }}
+                                    {{ $types[$torrent->type_id] ??= \App\Models\Type::query()->find($torrent->type_id)?->name ?? __('common.unknown') }}
                                 </td>
                                 <td>
                                     <a

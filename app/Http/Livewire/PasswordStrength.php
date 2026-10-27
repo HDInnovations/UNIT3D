@@ -39,6 +39,8 @@ class PasswordStrength extends Component
 
     final public function updatedPassword(string $password): void
     {
+        abort_if(\strlen($password) > 255, 422, 'Password too long');
+
         $this->strengthScore = (new Zxcvbn())->passwordStrength($password)['score'];
     }
 

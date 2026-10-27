@@ -37,7 +37,7 @@ class NewWishListNotice extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -47,11 +47,11 @@ class NewWishListNotice extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'Wish List Notice!',
-            'body'  => $this->torrent->name.' from your wishlist has been uploaded',
+            'title' => 'Wishlist notice',
+            'body'  => $this->torrent->name.' from your wishlist was uploaded.',
             'url'   => '/torrents/'.$this->torrent->id,
         ];
     }

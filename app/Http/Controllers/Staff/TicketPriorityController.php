@@ -33,7 +33,7 @@ class TicketPriorityController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.ticket-priority.index', [
-            'ticketPriorities' => TicketPriority::orderBy('position')->get(),
+            'ticketPriorities' => TicketPriority::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -50,7 +50,7 @@ class TicketPriorityController extends Controller
      */
     public function store(StoreTicketPriorityRequest $request): \Illuminate\Http\RedirectResponse
     {
-        TicketPriority::create($request->validated());
+        TicketPriority::query()->create($request->validated());
 
         return to_route('staff.ticket_priorities.index')
             ->with('success', 'Ticket priority successfully added');

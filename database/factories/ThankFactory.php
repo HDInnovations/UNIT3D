@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Thank;
+use Override;
 
 /** @extends Factory<Thank> */
 class ThankFactory extends Factory
@@ -32,6 +33,7 @@ class ThankFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

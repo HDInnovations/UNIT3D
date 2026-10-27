@@ -29,6 +29,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.code') }}</th>
                         <th>{{ __('common.name') }}</th>
                         <th>{{ __('common.action') }}</th>
                     </tr>
@@ -43,6 +44,9 @@
                                 </a>
                             </td>
                             <td>
+                                {{ __('regions.' . $region->name) }}
+                            </td>
+                            <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <a
@@ -52,22 +56,26 @@
                                             {{ __('common.edit') }}
                                         </a>
                                     </li>
-                                    <li class="data-table__action" x-data="dialog">
+                                    <li class="data-table__action">
                                         <button
                                             class="form__button form__button--text"
-                                            x-bind="showDialog"
+                                            popovertarget="region-delete-{{ $region->id }}"
                                         >
                                             {{ __('common.delete') }}
                                         </button>
-                                        <dialog class="dialog" x-bind="dialogElement">
+                                        <dialog
+                                            id="region-delete-{{ $region->id }}"
+                                            class="dialog"
+                                            popover
+                                        >
                                             <h4 class="dialog__heading">
-                                                Delete torrent region: {{ $region->name }}
+                                                Delete torrent region:
+                                                {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
                                             </h4>
                                             <form
                                                 class="dialog__form"
                                                 method="POST"
                                                 action="{{ route('staff.regions.destroy', ['region' => $region]) }}"
-                                                x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('DELETE')
@@ -92,7 +100,7 @@
                                                         ></option>
                                                         @foreach ($regions as $region)
                                                             <option value="{{ $region->id }}">
-                                                                {{ $region->name }}
+                                                                {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -110,9 +118,9 @@
                                                         {{ __('common.delete') }}
                                                     </button>
                                                     <button
-                                                        formmethod="dialog"
-                                                        formnovalidate
                                                         class="form__button form__button--outlined"
+                                                        type="button"
+                                                        popovertarget="region-delete-{{ $region->id }}"
                                                     >
                                                         {{ __('common.cancel') }}
                                                     </button>

@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Topic.
@@ -64,6 +65,7 @@ final class Topic extends Model
      *
      * @return array{last_post_created_at: 'datetime', priority: 'integer', approved: 'bool', denied: 'bool', solved: 'bool', invalid: 'bool', bug: 'bool', suggestion: 'bool', implemented: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -46,11 +46,12 @@ class TorrentReseedController extends Controller
      */
     public function store(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $torrent = Torrent::findOrFail($id);
+        $torrent = Torrent::query()->findOrFail($id);
         $userId = $request->user()->id;
 
         // Check if this user has already made a reseed request for this torrent
-        $existingUserReseed = TorrentReseed::where('torrent_id', '=', $torrent->id)
+        $existingUserReseed = TorrentReseed::query()
+            ->where('torrent_id', '=', $torrent->id)
             ->where('user_id', '=', $userId)
             ->first();
 
@@ -60,7 +61,7 @@ class TorrentReseedController extends Controller
         }
 
         // Check seeders condition and if a request already exists for this torrent
-        $existingReseed = TorrentReseed::where('torrent_id', '=', $torrent->id)->first();
+        $existingReseed = TorrentReseed::query()->where('torrent_id', '=', $torrent->id)->first();
 
         if ($torrent->seeders <= 2) {
             if ($existingReseed) {
@@ -70,17 +71,17 @@ class TorrentReseedController extends Controller
                 return to_route('torrents.show', ['id' => $torrent->id])
                     ->with('success', 'A reseed request already exists. Your request has been counted.');
             }
-            TorrentReseed::create([
+            TorrentReseed::query()->create([
                 'torrent_id'     => $torrent->id,
                 'user_id'        => $userId,
                 'requests_count' => 1,
             ]);
 
             // Send notifications
-            $potentialReseeds = History::where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
+            $potentialReseeds = History::query()->where('torrent_id', '=', $torrent->id)->where('active', '=', 0)->get();
 
             foreach ($potentialReseeds as $potentialReseed) {
-                User::find($potentialReseed->user_id)->notify(new NewReseedRequest($torrent));
+                User::query()->find($potentialReseed->user_id)->notify(new NewReseedRequest($torrent));
             }
 
             $torrentUrl = href_torrent($torrent);

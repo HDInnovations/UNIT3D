@@ -58,8 +58,9 @@ class MissingMediaSearch extends Component
             ->when($this->year, fn ($query) => $query->where('release_date', 'LIKE', '%'.$this->year.'%'))
             ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereDoesntHave('claim')])
             ->withMin('torrents', 'category_id')
+            ->where(fn ($query) => $query->whereHas('torrents')->orWhereHas('requests'))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     /**

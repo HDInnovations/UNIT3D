@@ -25,13 +25,10 @@ use App\Models\User;
 use Database\Seeders\UserSeeder;
 
 test('create a poll returns an ok response', function (): void {
-    $this->seed(UserSeeder::class);
     // Poll chat announcements needs a system user, a bot and a chatroom
+    $this->seed(UserSeeder::class);
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -69,13 +66,10 @@ test('create a poll returns an ok response', function (): void {
 });
 
 test('create a poll with expiration date returns an ok response', function (): void {
-    $this->seed(UserSeeder::class);
     // Poll chat announcements needs a system user, a bot and a chatroom
+    $this->seed(UserSeeder::class);
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([

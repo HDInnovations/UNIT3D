@@ -35,11 +35,11 @@ class PlaylistTorrentController extends Controller
      */
     public function store(StorePlaylistTorrentRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $playlist = Playlist::findOrFail($request->integer('playlist_id'));
+        $playlist = Playlist::query()->findOrFail($request->integer('playlist_id'));
 
         abort_unless($request->user()->id === $playlist->user_id, 403);
 
-        $playlistTorrent = PlaylistTorrent::create($request->validated());
+        $playlistTorrent = PlaylistTorrent::query()->create($request->validated());
 
         $playlistTorrent->torrent()->searchable();
 
@@ -52,7 +52,7 @@ class PlaylistTorrentController extends Controller
      */
     public function massUpsert(MassUpsertPlaylistTorrentRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $playlist = Playlist::findOrFail($request->integer('playlist_id'));
+        $playlist = Playlist::query()->findOrFail($request->integer('playlist_id'));
 
         abort_unless($request->user()->id === $playlist->user_id, 403);
 
@@ -69,7 +69,7 @@ class PlaylistTorrentController extends Controller
             '*.torrent_id.exists' => 'The torrent ID/URL ":input" entered was not found on site.'
         ])->validate();
 
-        PlaylistTorrent::upsert($playlistTorrents, ['playlist_id', 'torrent_id', 'tmdb_id']);
+        PlaylistTorrent::query()->upsert($playlistTorrents, ['playlist_id', 'torrent_id', 'tmdb_id']);
 
         $playlist->torrents()->searchable();
 

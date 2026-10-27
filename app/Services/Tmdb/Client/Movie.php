@@ -241,6 +241,7 @@ class Movie
 
     /**
      * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws MetaFetchNotFoundException
      */
     public function __construct(int $id)
     {
@@ -364,16 +365,13 @@ class Movie
     }
 
     /**
-     * @return array<
-     *     int<0, max>,
-     *     array{
-     *         tmdb_movie_id: ?int,
-     *         tmdb_person_id: ?int,
-     *         occupation_id: value-of<Occupation>,
-     *         character: ?string,
-     *         order: ?int,
-     *     },
-     * >
+     * @return list<array{
+     *     tmdb_movie_id: ?int,
+     *     tmdb_person_id: ?int,
+     *     occupation_id: value-of<Occupation>,
+     *     character: ?string,
+     *     order: ?int,
+     * }>
      */
     public function getCredits(): array
     {

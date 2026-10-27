@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TmdbNetwork;
+use Override;
 
 /** @extends Factory<TmdbNetwork> */
 class TmdbNetworkFactory extends Factory
@@ -30,6 +31,7 @@ class TmdbNetworkFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
