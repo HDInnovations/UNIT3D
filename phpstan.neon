@@ -1,7 +1,6 @@
 includes:
     - ./vendor/calebdw/phpstan-laravel/extension.neon
     - ./vendor/calebdw/larastan-livewire/extension.neon
-    #- ./vendor/tomasvotruba/bladestan/config/extension.neon
     - ./phpstan-baseline.neon
 parameters:
     tmpDir: .phpstan.cache
@@ -20,6 +19,7 @@ parameters:
         - bootstrap/cache
     level: 7
     laravel:
+        scanSchema: false
         rules:
             octaneCompatibility: true
             unnecessaryEnumerableToArrayCall: false
