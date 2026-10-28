@@ -642,6 +642,16 @@ final class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the reports received by the user.
+     *
+     * @return HasMany<Report, $this>
+     */
+    public function reportsReceived(): HasMany
+    {
+        return $this->hasMany(Report::class, 'reported_user_id');
+    }
+
+    /**
      * Get the torrent history associated with the user.
      *
      * @return HasMany<History, $this>
