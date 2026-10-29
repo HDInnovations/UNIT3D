@@ -141,7 +141,7 @@ Endpoint: GET `/api/user`
 
 Response:
 ```json
-{"username":"UNIT3D","group":"Owner","uploaded":"50 GiB","downloaded":"1 GiB","ratio":"50","buffer":"124 GiB","seeding":0,"leeching":0,"seedbonus":"0.00","hit_and_runs":0}
+{"username":"UNIT3D","group":"Owner","uploaded":"50 GiB","downloaded":"1 GiB","ratio":"50","buffer":"124 GiB","seeding":0,"leeching":0,"seedbonus":"0.00","hit_and_runs":0,"bonus_per_hour":"0.00"}
 ```
 
 Example:

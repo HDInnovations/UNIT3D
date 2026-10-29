@@ -56,6 +56,7 @@ use Override;
  * @property string|null                     $signature
  * @property int                             $fl_tokens
  * @property string                          $seedbonus
+ * @property string                          $bonus_per_hour
  * @property int                             $invites
  * @property int                             $hitandruns
  * @property string                          $rsskey
@@ -1175,6 +1176,14 @@ final class User extends Authenticatable implements MustVerifyEmail
     public function getFormattedSeedbonusAttribute(): string
     {
         return number_format((float) $this->seedbonus, 0, null, "\u{202F}");
+    }
+
+    /**
+     * Get the hourly bonus points earned by the user.
+     */
+    public function getBonusPerHourAttribute(): string
+    {
+        return number_format(BonEarning::calculateHourlyEarningsForUser($this->id), 2, '.', '');
     }
 
     /**
