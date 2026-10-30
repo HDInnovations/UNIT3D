@@ -20,7 +20,6 @@ use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -33,7 +32,7 @@ class UserSeeder extends Seeder
             GroupSeeder::class,
         ]);
 
-        User::query()->upsert([
+        User::query()->fillAndInsert([
             [
                 'id'                => User::SYSTEM_USER_ID,
                 'username'          => 'System',
@@ -88,6 +87,6 @@ class UserSeeder extends Seeder
                     ->soleValue('id'),
                 'chat_status_id' => ChatStatus::query()->value('id'),
             ],
-        ], ['username'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

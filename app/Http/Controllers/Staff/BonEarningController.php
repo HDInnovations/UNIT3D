@@ -50,7 +50,7 @@ class BonEarningController extends Controller
     {
         $bonEarning = BonEarning::query()->create($request->validated('bon_earning'));
 
-        $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
+        $bonEarning->conditions()->fillAndInsert($request->validated('conditions', []));
 
         return to_route('staff.bon_earnings.index')
             ->with('success', 'Bon exchange successfully added');
