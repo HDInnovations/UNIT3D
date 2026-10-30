@@ -183,15 +183,15 @@ class UserController extends Controller
             $filename = $user->username.'.'.$image->getClientOriginalExtension();
             $path = Storage::disk('user-avatars')->path($filename);
 
+            Validator::make($request->all(), [
+                'image' => 'required|dimensions:ratio=1/1',
+            ], [
+                'image.dimensions' => 'Only square avatars are accepted.',
+            ])->validate();
+
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
             } else {
-                Validator::make($request->all(), [
-                    'image' => 'required|dimensions:ratio=1/1',
-                ], [
-                    'image.dimensions' => 'Only square avatars are accepted.',
-                ])->validate();
-
                 $image->storeAs('', $filename, 'user-avatars');
             }
 
@@ -228,13 +228,13 @@ class UserController extends Controller
             $filename = uniqid('', true).'_icon.'.$image->getClientOriginalExtension();
             $path = Storage::disk('user-icons')->path($filename);
 
+            $request->validate([
+                'icon' => 'dimensions:ratio=1/1',
+            ]);
+
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(30, 30)->encode('png', 100)->save($path);
             } else {
-                $request->validate([
-                    'image' => 'dimensions:ratio=1/1',
-                ]);
-
                 $image->storeAs('', $filename, 'user-icons');
             }
 
