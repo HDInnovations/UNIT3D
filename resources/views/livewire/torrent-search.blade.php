@@ -26,7 +26,7 @@
                 <p class="form__group">
                     <input
                         id="description"
-                        wire:model.live="description"
+                        wire:model.live.debounce.300ms="description"
                         class="form__text"
                         placeholder=" "
                     />
@@ -37,7 +37,7 @@
                 <p class="form__group">
                     <input
                         id="mediainfo"
-                        wire:model.live="mediainfo"
+                        wire:model.live.debounce.300ms="mediainfo"
                         class="form__text"
                         placeholder=" "
                     />
@@ -48,7 +48,7 @@
                 <p class="form__group">
                     <input
                         id="keywords"
-                        wire:model.live="keywords"
+                        wire:model.live.debounce.300ms="keywords"
                         class="form__text"
                         placeholder=" "
                     />
@@ -59,7 +59,7 @@
                 <p class="form__group">
                     <input
                         id="uploader"
-                        wire:model.live="uploader"
+                        wire:model.live.debounce.300ms="uploader"
                         class="form__text"
                         placeholder=" "
                     />
@@ -73,7 +73,7 @@
                     <p class="form__group" x-data="{ startYear: @entangle('startYear') }">
                         <input
                             id="startYear"
-                            x-on:input.debounce.150ms="
+                            x-on:input.debounce.300ms="
                                 if ($el.checkValidity()) {
                                     $wire.set('startYear', $event.target.value);
                                 }
@@ -92,7 +92,7 @@
                     <p class="form__group" x-data="{ endYear: @entangle('endYear') }">
                         <input
                             id="endYear"
-                            x-on:input.debounce.150ms="
+                            x-on:input.debounce.300ms="
                                 if ($el.checkValidity()) {
                                     $wire.set('endYear', $event.target.value);
                                 }
@@ -113,7 +113,7 @@
                     <p class="form__group">
                         <input
                             id="episodeNumber"
-                            wire:model.live="episodeNumber"
+                            wire:model.live.debounce.300ms="episodeNumber"
                             class="form__text"
                             inputmode="numeric"
                             pattern="[0-9]*"
@@ -126,7 +126,7 @@
                     <p class="form__group">
                         <input
                             id="seasonNumber"
-                            wire:model.live="seasonNumber"
+                            wire:model.live.debounce.300ms="seasonNumber"
                             class="form__text"
                             inputmode="numeric"
                             pattern="[0-9]*"
@@ -141,7 +141,7 @@
                     <p class="form__group">
                         <input
                             id="minSize"
-                            wire:model.live="minSize"
+                            wire:model.live.debounce.300ms="minSize"
                             class="form__text"
                             inputmode="numeric"
                             pattern="[0-9]*"
