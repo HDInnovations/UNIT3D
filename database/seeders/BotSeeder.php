@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use App\Models\Bot;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class BotSeeder extends Seeder
 {
     public function run(): void
     {
-        Bot::query()->upsert([
+        Bot::query()->fillAndInsert([
             [
                 'name'     => 'SystemBot',
                 'emoji'    => '1f916',
@@ -89,6 +88,6 @@ None.
                 'is_systembot' => false,
                 'is_nerdbot'   => true,
             ],
-        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

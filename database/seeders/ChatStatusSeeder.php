@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use App\Models\ChatStatus;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class ChatStatusSeeder extends Seeder
 {
     public function run(): void
     {
-        ChatStatus::query()->upsert([
+        ChatStatus::query()->fillAndInsert([
             [
                 'name'  => 'Online',
                 'color' => '#2ECC40',
@@ -45,6 +44,6 @@ class ChatStatusSeeder extends Seeder
                 'color' => '#AAAAAA',
                 'icon'  => config('other.font-awesome').' fa-comment-slash',
             ],
-        ], ['name'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

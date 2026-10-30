@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use Assada\Achievements\Model\AchievementDetails as AchievementDetail;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class AchievementDetailSeeder extends Seeder
 {
     public function run(): void
     {
-        AchievementDetail::query()->upsert([
+        AchievementDetail::query()->fillAndInsert([
             [
                 'id'          => 2,
                 'name'        => 'FirstComment',
@@ -425,6 +424,6 @@ class AchievementDetailSeeder extends Seeder
                 'created_at'  => '2017-08-28 23:55:56',
                 'updated_at'  => '2017-08-28 23:55:56',
             ],
-        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

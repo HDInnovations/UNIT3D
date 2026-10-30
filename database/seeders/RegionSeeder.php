@@ -23,7 +23,7 @@ class RegionSeeder extends Seeder
 {
     public function run(): void
     {
-        Region::query()->upsert([
+        Region::query()->fillAndInsert([
             [
                 'id'       => 1,
                 'name'     => 'AFG',
@@ -1244,6 +1244,6 @@ class RegionSeeder extends Seeder
                 'name'     => 'ZIM',
                 'position' => 243,
             ],
-        ], ['id'], []);
+        ]);
     }
 }
