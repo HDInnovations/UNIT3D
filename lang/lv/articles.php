@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'articles' => 'Raksti',
-    'meta-articles' => 'Raksti un ziņas par trakeri un kopienu',
-    'published-at' => 'Publicēts',
-    'read-more' => 'Lasīt vairāk',
+    'meta-articles' => 'Raksti un ziņas par izsekotāju un kopienu',
+    'published-at' => 'Publicēts ',
+    'read-more' => 'Lasīt visu',
 ];

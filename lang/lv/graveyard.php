@@ -22,5 +22,8 @@ return [
     'pending' => 'Gaida',
     'resurrect' => 'Atdzīvināt',
     'reward' => 'Freeleech žetoni',
-    'current-seedtime' => 'dališanās laiks',
+    'current-seedtime' => 'Pašreizējais došanas laiks',
+    'howto-desc' => 'Lai atdzīvinātu šo torrentu, jums jādod tas vismaz 30 dienas. Kad jūsu pašreizējais :currentSeedtime došanas laiks sasniegs :requiredSeedtime, jūs saņemsiet :tokens brīvo(s), bez uzskaites, lejupielādes talonu(s) kā atlīdzību.',
+    'resurrect-complete' => 'Torrents atdzīvināts! Jūs automātiski saņemsiet atlīdzību, tiklīdz būs izpildītas došanas laika prasības.',
+    'seedtime-goal' => 'Došanas laika mērķis',
 ];

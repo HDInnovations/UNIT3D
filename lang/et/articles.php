@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'articles' => 'Artiklid',
-    'meta-articles' => 'Artiklid ja uudised jälgija ja kogukonna kohta',
+    'meta-articles' => 'Artiklid ja uudised trackeri ja kogukonna kohta',
     'published-at' => 'Avaldatud',
     'read-more' => 'Loe rohkem',
 ];
