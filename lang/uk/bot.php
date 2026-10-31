@@ -11,13 +11,13 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'about' => 'Розділ "Про нас"',
+    'about' => 'Про нас',
     'bot' => 'Бот',
     'bots' => 'Боти',
     'color' => 'Колір',
     'command' => 'Команда',
-    'edit-bot' => 'Редагувати Bot',
-    'emoji-code' => 'Код Emoji',
+    'edit-bot' => 'Редагувати бота',
+    'emoji-code' => 'Код емоджі',
     'help' => 'Довідник',
     'icon' => 'Піктограма',
     'info' => 'Інформація',

@@ -30,9 +30,9 @@ return [
     'blacklist-desc' => 'Os seguintes navegadores e clientes bittorrent estão na lista negra / proibidos de anunciar para:',
     'blacklist-webbrowser' => 'Navegador da Web',
     'blacklist-emaildomain' => 'Domínio bloqueado',
-    'email-blacklist-desc' => 'Os seguintes domínios de email estão bloqueados de serem usados. Você não pode registrar ou enviar um convite para o seguinte.',
-    'email-whitelist-desc' => 'Os seguintes domínios de email são os únicos domínios de email permitidos para serem usados. Você só pode se registrar ou enviar um convite usando o seguinte.',
+    'email-blacklist-desc' => 'Os seguintes domínios de email estão bloqueados de serem usados. Não pode registar ou enviar um convite para o seguinte.',
+    'email-whitelist-desc' => 'Os seguintes domínios de email são os únicos domínios de email permitidos para serem usados. Só pode se registar ou enviar um convite usando o seguinte.',
     'staff-group' => 'Grupo',
     'staff-title' => 'Título',
-    'whitelist-emaildomain' => 'Domínio Confiável',
+    'whitelist-emaildomain' => 'Domínio confiável',
 ];

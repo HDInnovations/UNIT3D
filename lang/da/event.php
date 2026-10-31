@@ -24,4 +24,5 @@ return [
     'prizes' => 'Præmier',
     'starts-at' => 'Starter',
     'weight' => 'Vægt',
+    'giveaway' => 'Gave',
 ];
