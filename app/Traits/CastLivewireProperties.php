@@ -50,6 +50,7 @@ trait CastLivewireProperties
         if (($type = $class->getProperty($field)->getType()) instanceof ReflectionNamedType) {
             if ($type->allowsNull() && $value === '') {
                 $value = null;
+                $this->{$field} = null;
 
                 return;
             }
@@ -100,6 +101,13 @@ trait CastLivewireProperties
 
                     break;
             }
+
+            $this->{$field} = $value;
         }
+    }
+
+    public function updatedCastLivewireProperties(string $field, mixed $value = null): void
+    {
+        $this->castLivewireProperties($field, $value);
     }
 }
