@@ -13,4 +13,6 @@ return [
     'prize' => 'Ödül',
     'add-prize' => 'Ödül ekle',
     'starts-at' => 'Başlangıç tarihi',
+    'giveaway' => 'ÜcretsizÖdül',
+    'giveaways' => 'Ücretsiz Ödüller',
 ];

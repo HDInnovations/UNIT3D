@@ -39,4 +39,5 @@ return [
     'manager' => 'Xestor',
     'no_disks_configured' => 'Non se configuraron discos de copia de seguridade en config / backup.php',
     'only_local_downloads_supported' => 'Só se admiten descargas do sistema de ficheiros local.',
+    'backup_process_started' => 'Iniciouse un novo proceso de copia de seguridade',
 ];

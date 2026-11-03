@@ -23,7 +23,7 @@ return [
     'aboutus-rules2' => 'Da pročitate pravila u potpunosti i da ih poštujete!',
     'aboutus-rules3' => 'Napravite sugestije! Težimo da svaki dan učinimo: naslov bolje. Mi ne kažemo da će svaki prijedlog biti korišten, ali nikada ne boli vidjeti nove ideje.',
     'aboutus-welcome' => 'Pričajmo o tome',
-    'aboutus-welcome-desc' => ': title je baza filmova / TV / FANRES izgrađena u zajednici . Svaki komad podataka je dodan od strane naše neverovatne zajednice od 2017. godine: naslovi snažan <em>fokus</em> su na HD sadržaju, proaktivnoj korisničkoj bazi, odličnoj / sigurnoj bazi koda i uslužnom timu.',
+    'aboutus-welcome-desc' => ':title je baza filmova / TV / FANRES izgrađena u zajednici . Svaki komad podataka je dodan od strane naše neverovatne zajednice od 2017. godine: naslovi snažan <em>fokus</em> su na HD sadržaju, proaktivnoj korisničkoj bazi, odličnoj / sigurnoj bazi koda i uslužnom timu.',
     'blacklist-browsers' => 'Browsers',
     'blacklist-btclient' => 'BitTorrent Client',
     'blacklist-clients' => 'Klijenti',

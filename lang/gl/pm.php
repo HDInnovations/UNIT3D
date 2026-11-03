@@ -35,4 +35,9 @@ return [
     'subject' => 'Asunto',
     'to' => 'Para',
     'unread' => 'Sen ler',
+    'all-marked-read' => 'Todas as túas mensaxes marcáronse como lidas!',
+    'delete-success' => 'A mensaxe privada eliminouse correctamente!',
+    'error' => 'Que estás a intentar facer aquí!',
+    'sent-success' => 'A túa mensaxe privada enviouse correctamente!',
+    'empty-inbox' => 'Caixa de entrada baleira',
 ];

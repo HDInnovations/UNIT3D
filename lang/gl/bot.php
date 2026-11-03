@@ -19,7 +19,7 @@ return [
     'edit-bot' => 'Editar bot',
     'emoji-code' => 'Código Emoji',
     'help' => 'Axuda',
-    'icon' => 'Ícona',
+    'icon' => 'Icona',
     'info' => 'Información',
     'name' => 'Nome',
 ];

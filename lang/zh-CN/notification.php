@@ -24,7 +24,7 @@ return [
     'mark-all-read' => '标记所有为已读',
     'mark-read' => '标记为已读',
     'marked-read' => '通知标记为已读！',
-    'message' => '信息',
+    'message' => '消息',
     'no-notifications' => '没有找到通知',
     'not-existent' => '通知不存在！',
     'notifications' => '通知',
@@ -38,6 +38,6 @@ return [
     'request-rejections' => '悬赏拒绝',
     'request-unclaims' => '悬赏取消',
     'reseed-requests' => '要求续种',
-    'title' => '标题',
+    'title' => '称谓',
     'unfollows' => '取消关注',
 ];
