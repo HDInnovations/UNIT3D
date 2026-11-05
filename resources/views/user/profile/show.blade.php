@@ -355,22 +355,22 @@
                     @php
                         $formatWindow = static function (float $seconds): string {
                             if ($seconds >= 604800) {
-                                return round($seconds / 604800).'w';
+                                return round($seconds / 604800) . 'w';
                             }
 
                             if ($seconds >= 86400) {
-                                return round($seconds / 86400).'d';
+                                return round($seconds / 86400) . 'd';
                             }
 
                             if ($seconds >= 3600) {
-                                return round($seconds / 3600).'h';
+                                return round($seconds / 3600) . 'h';
                             }
 
                             if ($seconds >= 60) {
-                                return round($seconds / 60).'m';
+                                return round($seconds / 60) . 'm';
                             }
 
-                            return round($seconds).'s';
+                            return round($seconds) . 's';
                         };
                         $formatRetry = static function (float $seconds): string {
                             $seconds = (int) ceil(max(0, $seconds));
@@ -380,22 +380,22 @@
                             }
 
                             if ($seconds < 60) {
-                                return $seconds.'s';
+                                return $seconds . 's';
                             }
 
                             if ($seconds < 3600) {
-                                return ((int) ceil($seconds / 60)).'m';
+                                return ((int) ceil($seconds / 60)) . 'm';
                             }
 
                             if ($seconds < 86400) {
-                                return ((int) ceil($seconds / 3600)).'h';
+                                return ((int) ceil($seconds / 3600)) . 'h';
                             }
 
                             if ($seconds < 604800) {
-                                return ((int) ceil($seconds / 86400)).'d';
+                                return ((int) ceil($seconds / 86400)) . 'd';
                             }
 
-                            return ((int) ceil($seconds / 604800)).'w';
+                            return ((int) ceil($seconds / 604800)) . 'w';
                         };
                         $rateLimitGroups = [
                             [
@@ -408,6 +408,7 @@
                             ],
                         ];
                     @endphp
+
                     <h3 class="panel__heading">{{ __('user.peer-list-rate-limits') }}</h3>
                     <div class="panel__body">
                         <p>{{ __('user.peer-list-rate-help') }}</p>
@@ -428,8 +429,9 @@
                                 @foreach ($rateLimitGroups as $group)
                                     @forelse ($group['rates'] as $rate)
                                         @php
-                                            $isLimited = $rate['is_limited'] ?? ($rate['count'] > $rate['max_count']);
+                                            $isLimited = $rate['is_limited'] ?? $rate['count'] > $rate['max_count'];
                                         @endphp
+
                                         <tr @class(['text-red' => $isLimited])>
                                             <td>{{ $group['label'] }}</td>
                                             <td>{{ $formatWindow((float) $rate['window']) }}</td>
@@ -439,7 +441,9 @@
                                             <td>
                                                 {{ \number_format((float) $rate['max_count'], 0, null, "\u{202F}") }}
                                             </td>
-                                            <td>{{ $isLimited ? __('user.limited') : __('user.ok') }}</td>
+                                            <td>
+                                                {{ $isLimited ? __('user.limited') : __('user.ok') }}
+                                            </td>
                                             <td>
                                                 {{ $isLimited ? (isset($rate['retry_after']) ? $formatRetry((float) $rate['retry_after']) : '—') : '—' }}
                                             </td>
