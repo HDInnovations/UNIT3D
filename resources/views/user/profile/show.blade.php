@@ -351,6 +351,110 @@
                         </tfoot>
                     </table>
                 </div>
+                @if (\is_array($externalUser) && isset($externalUser['receive_seed_list_rates']['rates'], $externalUser['receive_leech_list_rates']['rates']))
+                    @php
+                        $formatWindow = static function (float $seconds): string {
+                            if ($seconds >= 604800) {
+                                return round($seconds / 604800).'w';
+                            }
+
+                            if ($seconds >= 86400) {
+                                return round($seconds / 86400).'d';
+                            }
+
+                            if ($seconds >= 3600) {
+                                return round($seconds / 3600).'h';
+                            }
+
+                            if ($seconds >= 60) {
+                                return round($seconds / 60).'m';
+                            }
+
+                            return round($seconds).'s';
+                        };
+                        $formatRetry = static function (float $seconds): string {
+                            $seconds = (int) ceil(max(0, $seconds));
+
+                            if ($seconds <= 0) {
+                                return __('user.now');
+                            }
+
+                            if ($seconds < 60) {
+                                return $seconds.'s';
+                            }
+
+                            if ($seconds < 3600) {
+                                return ((int) ceil($seconds / 60)).'m';
+                            }
+
+                            if ($seconds < 86400) {
+                                return ((int) ceil($seconds / 3600)).'h';
+                            }
+
+                            if ($seconds < 604800) {
+                                return ((int) ceil($seconds / 86400)).'d';
+                            }
+
+                            return ((int) ceil($seconds / 604800)).'w';
+                        };
+                        $rateLimitGroups = [
+                            [
+                                'label' => __('user.seed-lists'),
+                                'rates' => $externalUser['receive_seed_list_rates']['rates'],
+                            ],
+                            [
+                                'label' => __('user.leech-lists'),
+                                'rates' => $externalUser['receive_leech_list_rates']['rates'],
+                            ],
+                        ];
+                    @endphp
+                    <h3 class="panel__heading">{{ __('user.peer-list-rate-limits') }}</h3>
+                    <div class="panel__body">
+                        <p>{{ __('user.peer-list-rate-help') }}</p>
+                    </div>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>{{ __('user.peer-list-type') }}</th>
+                                    <th>{{ __('user.time-window') }}</th>
+                                    <th>{{ __('user.used') }}</th>
+                                    <th>{{ __('user.limit') }}</th>
+                                    <th>{{ __('common.status') }}</th>
+                                    <th>{{ __('user.retry-after') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($rateLimitGroups as $group)
+                                    @forelse ($group['rates'] as $rate)
+                                        @php
+                                            $isLimited = $rate['is_limited'] ?? ($rate['count'] > $rate['max_count']);
+                                        @endphp
+                                        <tr @class(['text-red' => $isLimited])>
+                                            <td>{{ $group['label'] }}</td>
+                                            <td>{{ $formatWindow((float) $rate['window']) }}</td>
+                                            <td>
+                                                {{ \number_format((float) $rate['count'], 2, null, "\u{202F}") }}
+                                            </td>
+                                            <td>
+                                                {{ \number_format((float) $rate['max_count'], 0, null, "\u{202F}") }}
+                                            </td>
+                                            <td>{{ $isLimited ? __('user.limited') : __('user.ok') }}</td>
+                                            <td>
+                                                {{ $isLimited ? (isset($rate['retry_after']) ? $formatRetry((float) $rate['retry_after']) : '—') : '—' }}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td>{{ $group['label'] }}</td>
+                                            <td colspan="5">{{ __('user.unlimited') }}</td>
+                                        </tr>
+                                    @endforelse
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </section>
         @endif
 
@@ -964,58 +1068,6 @@
                             <dt>{{ __('user.total-leeching') }}</dt>
                             <dd>{{ $externalUser['num_leeching'] }}</dd>
                         </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Seed lists</th>
-                                    <th>Window</th>
-                                    <th>Max</th>
-                                    <th>Lists/h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($externalUser['receive_seed_list_rates']['rates'] as $rate)
-                                    <tr>
-                                        <td
-                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
-                                        >
-                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
-                                        </td>
-                                        <td>{{ $rate['window'] }}</td>
-                                        <td>{{ $rate['max_count'] }}</td>
-                                        <td>
-                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Leech lists</th>
-                                    <th>Window</th>
-                                    <th>Max</th>
-                                    <th>Lists/h</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($externalUser['receive_leech_list_rates']['rates'] as $rate)
-                                    <tr>
-                                        <td
-                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
-                                        >
-                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
-                                        </td>
-                                        <td>{{ $rate['window'] }}</td>
-                                        <td>{{ $rate['max_count'] }}</td>
-                                        <td>
-                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
                     </dl>
                 </section>
             @endif
