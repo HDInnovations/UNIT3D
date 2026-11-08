@@ -32,7 +32,7 @@ return [
     'delete_confirmation_title' => 'Selesai',
     'delete_error_message' => 'Fail sandaran TIDAK dihapuskan.',
     'delete_error_title' => 'Ralat',
-    'download' => 'Muat Turun',
+    'download' => 'Muat turun',
     'existing_backups' => 'Sandaran sedia ada',
     'file_size' => 'Saiz fail',
     'location' => 'Lokasi',

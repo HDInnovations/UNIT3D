@@ -36,7 +36,7 @@ return [
     'to' => 'Til',
     'unread' => 'Ulæst',
     'empty-inbox' => 'Tøm indbakke',
-    'all-marked-read' => 'Dine beskeder er alle markeret som læst!',
+    'all-marked-read' => 'Alle beskeder er markeret som læst!',
     'delete-success' => 'PM blev slettet!',
     'error' => 'Hvad prøver du at gøre her!',
     'sent-success' => 'Din PM blev sendt!',

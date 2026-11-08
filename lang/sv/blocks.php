@@ -17,7 +17,7 @@ return [
     'featured-by' => 'Utvalda av',
     'featured-torrents' => 'Utvalda torrenter',
     'featured-torrents-intro' => 'Plocka dem medan du kan!',
-    'featured-until' => 'Detta presenteras torrent till',
+    'featured-until' => 'Den här torrenten är utvald till och med',
     'top-torrents' => 'Top Torrents',
     'latest-posts' => 'Senaste inläggen',
     'latest-topics' => 'Senaste ämnena',

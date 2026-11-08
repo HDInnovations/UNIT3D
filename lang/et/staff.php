@@ -11,7 +11,7 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'audit-log' => 'Aktiivsus Logi',
+    'audit-log' => 'Audit Logi',
     'articles' => 'Artiklid',
     'applications' => 'Rakendused',
     'bans-log' => 'Keelud',
@@ -55,4 +55,5 @@ return [
     'chat-tools' => 'Vestlusvahendid',
     'flush-chat' => 'Flush Chatbox',
     'seedboxes' => 'Registreeritud seemnekastid',
+    'application' => 'Taotlus',
 ];

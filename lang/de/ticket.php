@@ -43,9 +43,9 @@ return [
     'unassign' => 'Zuweisung zurückziehen',
     'unassigned-success' => 'Zuweisung vom Helpdesk Ticket erfolgreich zurückgezogen!',
     'updated-success' => 'Dein Helpdesk Ticket wurde erfolgreich aktualisiert!',
-    'note-destroy-success' => 'Staff Note wurde entfernt!',
-    'note-create-success' => 'Staff Note wurde gespeichert!',
+    'note-destroy-success' => 'Teamnotiz wurde entfernt!',
+    'note-create-success' => 'Teamnotiz wurde gespeichert!',
     'reopen' => 'wiedereröffnen',
     'reopen-success' => 'Dein Helpdesk Ticket wurde erfolgreich wiedereröffnet',
-    'staff-notes' => 'Staff Notes',
+    'staff-notes' => 'Teamnotizen',
 ];

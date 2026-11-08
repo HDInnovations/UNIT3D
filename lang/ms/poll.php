@@ -29,4 +29,6 @@ return [
     'already-voted-result' => 'Anda telah mengundi untuk undian ini. Ini adalah keputusannya.',
     'expired-voted-result' => 'Undian ini sudah luput. Ini adalah keputusannya.',
     'edit-poll' => 'Ubah soalan undian',
+    'vote-counted' => 'Undi anda dah dikira.',
+    'close-date' => 'Tarikh tutup',
 ];

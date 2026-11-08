@@ -24,7 +24,7 @@ return [
     'no-data' => 'Немає даних!',
     'movie' => 'Фільм',
     'movies' => 'Фільми',
-    'movie-credits' => 'В титрах фільму:',
+    'movie-credits' => 'Автори та актори:',
     'persons' => 'Персони',
     'plot' => 'Сюжет:',
     'release-date' => 'Дата виходу:',

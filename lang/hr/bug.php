@@ -11,15 +11,15 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'bug-report' => 'Izvješće o pogrešci',
-    'bug-report-description' => 'Prijavite grešku web-lokacije',
+    'bug-report' => 'Prijava greške',
+    'bug-report-description' => 'Prijavite grešku na stranici',
     'enter-description' => 'Opišite problem što je bolje moguće',
-    'enter-email' => 'Unesite svoju e-poštu',
+    'enter-email' => 'Unesite svoj email',
     'enter-title' => 'Odaberite odgovarajući naslov',
     'enter-username' => 'Unesite svoje korisničko ime',
-    'high' => 'visok',
-    'low' => 'nizak',
+    'high' => 'Visok',
+    'low' => 'Nizak',
     'priority' => 'Prioritet',
-    'priority-description' => 'Odaberite samo vrlo visok ako je bug stvarno problem za korištenje web-mjesta.',
-    'very-high' => 'Vrlo visoko',
+    'priority-description' => 'Odaberite vrlo visok samo ako je bug stvarno problem za korištenje stranice.',
+    'very-high' => 'Vrlo visok',
 ];

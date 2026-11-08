@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'bug-report' => 'Повідомлення про помилку',
-    'bug-report-description' => 'Повідомити про помилку',
+    'bug-report-description' => 'Повідомити про помилку на сайті',
     'enter-description' => 'Опишіть проблему якомога детальніше',
     'enter-email' => 'Введіть свій e-mail',
     'enter-title' => 'Виберіть належну назву',
@@ -21,5 +21,5 @@ return [
     'low' => 'Низький',
     'priority' => 'Пріоритет',
     'priority-description' => 'Встановлюйте «дуже високий» пріоритет, коли баг істотно ускладнює роботу з сайтом.',
-    'very-high' => 'Дуже високо',
+    'very-high' => 'Дуже високий',
 ];
