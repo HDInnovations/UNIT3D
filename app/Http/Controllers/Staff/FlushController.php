@@ -22,7 +22,6 @@ use App\Models\History;
 use App\Models\Message;
 use App\Models\Peer;
 use App\Repositories\ChatRepository;
-use Illuminate\Support\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -49,8 +48,7 @@ class FlushController extends Controller
             return redirect()->back()->withErrors("The external tracker doesn't support flushing peers.");
         }
 
-        $carbon = new Carbon();
-        $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2))->get();
+        $peers = Peer::query()->select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', now()->subHours(2))->get();
 
         foreach ($peers as $peer) {
             History::query()

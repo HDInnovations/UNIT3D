@@ -22,19 +22,18 @@
                         {{ __('common.reporter') }}
                     </th>
                     <th>
-                        {{ __('common.created_at') }}
+                        {{ __('ticket.assigned-staff') }}
                     </th>
                     <th>
-                        {{ __('common.staff') }}
+                        {{ __('common.created_at') }}
                     </th>
-                    <th>{{ __('forum.solved') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($torrent->reports as $report)
                     <tr>
                         <td>
-                            <a href="{{ route('staff.reports.show', ['report' => $report]) }}">
+                            <a href="{{ route('reports.show', ['report' => $report]) }}">
                                 {{ $report->title }}
                             </a>
                         </td>
@@ -45,32 +44,19 @@
                             <x-user-tag :anon="false" :user="$report->reporter" />
                         </td>
                         <td>
-                            <time
-                                datetime="{{ $report->created_at }}"
-                                title="{{ $report->created_at }}"
-                            >
-                                {{ $report->created_at->toDayDateTimeString() }}
-                            </time>
-                        </td>
-                        <td>
-                            @if ($report->staff_id !== null)
+                            @if ($report->staff)
                                 <x-user-tag :anon="false" :user="$report->staff" />
                             @else
                                 Unassigned
                             @endif
                         </td>
                         <td>
-                            @if ($report->solved)
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-check text-green"
-                                ></i>
-                                {{ __('common.yes') }}
-                            @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
-                                {{ __('common.no') }}
-                            @endif
+                            <time
+                                datetime="{{ $report->created_at }}"
+                                title="{{ $report->created_at }}"
+                            >
+                                {{ $report->created_at->toDayDateTimeString() }}
+                            </time>
                         </td>
                     </tr>
                 @empty

@@ -16,15 +16,23 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Http\Middleware\RateLimitOutboundMail;
 use App\Models\User;
 use App\Models\Warning;
+use DateTime;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserManualWarningExpire extends Notification
+class UserManualWarningExpire extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 1;
 
     /**
      * Create a new notification instance.
@@ -38,23 +46,43 @@ class UserManualWarningExpire extends Notification
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database', 'mail'];
     }
 
     /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(object $_notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail'  => [new RateLimitOutboundMail()],
+            default => [],
+        };
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Manual Warning Expired!')
-            ->line('Your Warning has expired!')
-            ->action('View Profile!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->greeting('Manual warning expired')
+            ->line('Your warning has expired.')
+            ->action('View profile', $profileUrl);
     }
 
     /**
@@ -62,12 +90,20 @@ class UserManualWarningExpire extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'Manual Warning Expired',
+            'title' => 'Manual warning expired',
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
-            'url'   => \sprintf('/users/%s', $this->user->username),
+            'url'   => route('users.show', ['user' => $this->user], false),
         ];
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(2);
     }
 }

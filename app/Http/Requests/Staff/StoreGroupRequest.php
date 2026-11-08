@@ -27,7 +27,10 @@ class StoreGroupRequest extends FormRequest
      */
     public function authorize(Request $request): bool
     {
-        return $request->user()->group->is_owner || $request->group['is_owner'] != 1;
+        return $request->user()->group->is_owner || (
+            $request->group['level'] < $request->user()->group->level
+            && !$request->group['is_owner']
+        );
     }
 
     /**
@@ -140,42 +143,56 @@ class StoreGroupRequest extends FormRequest
                 'boolean',
             ],
             'group.min_uploaded' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
+            ],
+            'group.min_actual_uploaded' => [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
             ],
             'group.min_ratio' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'min:0',
                     'max:99.99',
                 ], 'prohibited'),
             ],
             'group.min_age' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
             ],
             'group.min_avg_seedtime' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
             ],
             'group.min_seedsize' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
+            ],
+            'group.min_avg_seedsize' => [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'prohibited'),
             ],
             'group.min_uploads' => [
-                Rule::when($request->boolean('autogroup'), [
+                Rule::when($request->boolean('group.autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',

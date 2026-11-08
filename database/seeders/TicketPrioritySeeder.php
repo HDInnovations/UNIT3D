@@ -24,7 +24,7 @@ class TicketPrioritySeeder extends Seeder
 {
     final public function run(): void
     {
-        TicketPriority::upsert([
+        TicketPriority::query()->upsert([
             [
                 'name'     => 'Low',
                 'position' => 0,

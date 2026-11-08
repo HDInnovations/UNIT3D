@@ -29,8 +29,8 @@ class DonationController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $packages = DonationPackage::where('is_active', '=', true)->orderBy('position')->get();
-        $gateways = DonationGateway::where('is_active', '=', true)->orderBy('position')->get();
+        $packages = DonationPackage::query()->where('is_active', '=', true)->orderBy('position')->get();
+        $gateways = DonationGateway::query()->where('is_active', '=', true)->orderBy('position')->get();
 
         return view('donation.index', ['packages' => $packages, 'gateways' => $gateways]);
     }
@@ -40,7 +40,7 @@ class DonationController extends Controller
      */
     public function store(StoreDonationRequest $request)
     {
-        Donation::create([
+        Donation::query()->create([
             'status'      => ModerationStatus::PENDING,
             'package_id'  => $request->package_id,
             'user_id'     => auth()->user()->id,

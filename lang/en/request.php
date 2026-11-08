@@ -46,7 +46,7 @@ return [
     'dont-have-bps'       => 'You don\'t have enough bonus',
     'edit-request'        => 'Edit request',
     'edited-request'      => 'Request edited successfully.',
-    'enter-bp'            => 'Enter bonus points (minimum 100)',
+    'enter-bp'            => 'Enter bonus points (minimum :min)',
     'enter-hash'          => 'Enter the ID of the uploaded torrent',
     'fill'                => 'Fill',
     'fill-request'        => 'Fill this request',

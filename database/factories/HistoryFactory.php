@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\History;
+use Override;
 
 /** @extends Factory<History> */
 class HistoryFactory extends Factory
@@ -32,6 +33,7 @@ class HistoryFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -21,7 +21,9 @@ use App\Enums\Occupation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\TmdbMovie.
@@ -64,6 +66,7 @@ final class TmdbMovie extends Model
      *
      * @return array{release_date: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -182,5 +185,15 @@ final class TmdbMovie extends Model
     public function wishes(): HasMany
     {
         return $this->hasMany(Wish::class);
+    }
+
+    /**
+     * Get the comments for the movie.
+     *
+     * @return MorphMany<Comment, $this>
+     */
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

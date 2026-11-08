@@ -92,7 +92,8 @@ return [
     |
     */
 
-    'middleware' => [MiddlewareGroup::WEB->value],
+    'middleware'      => [MiddlewareGroup::WEB->value],
+    'auth_middleware' => Illuminate\Auth\Middleware\Authenticate::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -106,11 +107,7 @@ return [
     */
 
     'limiters' => [
-        'login'                 => 'login',
-        'two-factor'            => 'two-factor',
-        'fortify-login-get'     => 'fortify-login-get',
-        'fortify-register-get'  => 'fortify-register-get',
-        'fortify-register-post' => 'fortify-register-post',
+        'login' => null,
     ],
 
     /*
@@ -138,10 +135,6 @@ return [
     */
 
     'features' => [
-        Features::registration(),
-        Features::emailVerification(),
-        Features::updateProfileInformation(),
-        Features::updatePasswords(),
         Features::twoFactorAuthentication([
             'confirm' => true,
         ]),

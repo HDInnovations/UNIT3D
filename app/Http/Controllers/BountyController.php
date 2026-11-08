@@ -46,11 +46,11 @@ class BountyController extends Controller
 
         $user->decrement('seedbonus', $request->integer('seedbonus'));
 
-        $bounty = $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
+        $bounty = $torrentRequest->bounties()->create([...$request->validated(), 'user_id' => $user->id]);
 
         $torrentRequest->increment('bounty', $request->integer('seedbonus'));
 
-        $torrentRequest->created_at = now();
+        $torrentRequest->bumped_at = now();
         $torrentRequest->save();
 
         if ($request->boolean('anon') == 0) {
@@ -83,7 +83,7 @@ class BountyController extends Controller
             ->with('success', trans('request.added-bonus'));
     }
 
-    public function update(UpdateTorrentRequestBountyRequest $request, TorrentRequest $torrentRequest, TorrentRequestBounty $torrentRequestBounty): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTorrentRequestBountyRequest $request, TorrentRequest $_torrentRequest, TorrentRequestBounty $torrentRequestBounty): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->group->is_modo || $request->user()->id === $torrentRequestBounty->user_id, 403);
 

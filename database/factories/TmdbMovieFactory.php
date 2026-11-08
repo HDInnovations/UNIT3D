@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TmdbMovie;
+use Override;
 
 /** @extends Factory<TmdbMovie> */
 class TmdbMovieFactory extends Factory
@@ -30,6 +31,7 @@ class TmdbMovieFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -31,7 +31,7 @@ class BonEarningController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.bon-earning.index', [
-            'bonEarnings' => BonEarning::with('conditions')->orderBy('position')->get(),
+            'bonEarnings' => BonEarning::query()->with('conditions')->orderBy('position')->get(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class BonEarningController extends Controller
      */
     public function store(StoreBonEarningRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $bonEarning = BonEarning::create($request->validated('bon_earning'));
+        $bonEarning = BonEarning::query()->create($request->validated('bon_earning'));
 
         $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
 

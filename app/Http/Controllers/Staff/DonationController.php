@@ -34,18 +34,20 @@ class DonationController extends Controller
     {
         abort_unless($request->user()->group->is_owner, 403);
 
-        $donations = Donation::with(['package' => function ($query): void {
+        $donations = Donation::query()->with(['package' => function ($query): void {
             $query->withTrashed();
         }])->latest()->paginate(25);
 
-        $dailyDonations = Donation::selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
+        $dailyDonations = Donation::query()
+            ->selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
             ->where('donations.status', '=', ModerationStatus::APPROVED)
             ->groupBy('date')
             ->orderBy('date')
             ->get();
 
-        $monthlyDonations = Donation::selectRaw('EXTRACT(YEAR FROM donations.created_at) as year, EXTRACT(MONTH FROM donations.created_at) as month, SUM(donation_packages.cost) as total')
+        $monthlyDonations = Donation::query()
+            ->selectRaw('EXTRACT(YEAR FROM donations.created_at) as year, EXTRACT(MONTH FROM donations.created_at) as month, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
             ->where('donations.status', '=', ModerationStatus::APPROVED)
             ->groupBy('year', 'month')
@@ -69,7 +71,7 @@ class DonationController extends Controller
 
         $now = now();
 
-        $donation = Donation::with(['user', 'package'])->findOrFail($id);
+        $donation = Donation::query()->with(['user', 'package'])->findOrFail($id);
         $donation->status = ModerationStatus::APPROVED;
         $donation->starts_at = $now;
 
@@ -86,10 +88,10 @@ class DonationController extends Controller
         $donation->user->seedbonus += $donation->package->bonus_value ?? 0;
         $donation->user->save();
 
-        $conversation = Conversation::create(['subject' => 'Your donation from '.$donation->created_at.', has been approved by '.$request->user()->username]);
+        $conversation = Conversation::query()->create(['subject' => 'Your donation from '.$donation->created_at.', has been approved by '.$request->user()->username]);
         $conversation->users()->sync([$request->user()->id => ['read' => true], $donation->user_id]);
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'conversation_id' => $conversation->id,
             'sender_id'       => $request->user()->id,
             'message'         => '[b]Thank you for supporting '.config('app.name').'[/b]'."\n"
@@ -113,13 +115,13 @@ class DonationController extends Controller
     {
         abort_unless($request->user()->group->is_owner, 403);
 
-        $donation = Donation::findOrFail($id);
+        $donation = Donation::query()->findOrFail($id);
         $donation->status = ModerationStatus::REJECTED;
 
-        $conversation = Conversation::create(['subject' => 'Your donation from '.$donation->created_at.', has been rejected by '.$request->user()->username]);
+        $conversation = Conversation::query()->create(['subject' => 'Your donation from '.$donation->created_at.', has been rejected by '.$request->user()->username]);
         $conversation->users()->sync([$request->user()->id => ['read' => true], $donation->user_id]);
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'conversation_id' => $conversation->id,
             'sender_id'       => $request->user()->id,
             'message'         => 'Your donation could not be approved at this time. Please contact us for more information by replying to this private message.',

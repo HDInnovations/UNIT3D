@@ -26,7 +26,7 @@ class PageSeeder extends Seeder
 {
     public function run(): void
     {
-        Page::upsert([
+        Page::query()->upsert([
             [
                 'id'      => 1,
                 'name'    => 'Rules',

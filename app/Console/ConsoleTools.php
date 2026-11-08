@@ -75,9 +75,9 @@ trait ConsoleTools
      * Display an error message.
      *
      * @param string|array<string> $string
-     * @param int|string|null      $verbosity
+     * @param int|string|null      $_verbosity
      */
-    public function error($string, $verbosity = null): void
+    public function error($string, $_verbosity = null): void
     {
         if (\is_array($string)) {
             foreach ($string as $message) {
@@ -92,9 +92,9 @@ trait ConsoleTools
      * Display an info message.
      *
      * @param string|array<string> $string
-     * @param int|string|null      $verbosity
+     * @param int|string|null      $_verbosity
      */
-    public function info($string, $verbosity = null): void
+    public function info($string, $_verbosity = null): void
     {
         if (\is_array($string)) {
             foreach ($string as $message) {

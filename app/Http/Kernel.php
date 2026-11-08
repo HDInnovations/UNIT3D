@@ -18,7 +18,25 @@ namespace App\Http;
 
 use App\Enums\GlobalRateLimit;
 use App\Enums\MiddlewareGroup;
+use App\Http\Middleware\BlockIpAddress;
+use App\Http\Middleware\UpdateLastAction;
+use HDVinnie\SecureHeaders\SecureHeadersMiddleware;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Routing\Middleware\ThrottleRequestsWithRedis;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks;
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
+use Illuminate\Foundation\Http\Middleware\TrimStrings;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Http\Middleware\HandleCors;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
@@ -31,14 +49,14 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // Default Laravel
-        \Illuminate\Foundation\Http\Middleware\InvokeDeferredCallbacks::class,
-        \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        InvokeDeferredCallbacks::class,
+        PreventRequestsDuringMaintenance::class,
+        ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
         //\App\Http\Middleware\TrustProxies::class,
-        \Illuminate\Http\Middleware\HandleCors::class,
-        Middleware\BlockIpAddress::class,
+        HandleCors::class,
+        BlockIpAddress::class,
     ];
 
     /**
@@ -48,37 +66,37 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         MiddlewareGroup::WEB->value => [
-            \Illuminate\Cookie\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-            Middleware\UpdateLastAction::class,
-            \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
-            'throttle:'.GlobalRateLimit::WEB->value,
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            AuthenticateSession::class,
+            ShareErrorsFromSession::class,
+            SubstituteBindings::class,
+            VerifyCsrfToken::class,
+            UpdateLastAction::class,
+            SecureHeadersMiddleware::class,
+            ThrottleRequestsWithRedis::class.':'.GlobalRateLimit::WEB->value,
         ],
         MiddlewareGroup::CHAT->value => [
-            \Illuminate\Cookie\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-            Middleware\UpdateLastAction::class,
-            \HDVinnie\SecureHeaders\SecureHeadersMiddleware::class,
-            'throttle:'.GlobalRateLimit::CHAT->value,
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
+            AuthenticateSession::class,
+            ShareErrorsFromSession::class,
+            SubstituteBindings::class,
+            VerifyCsrfToken::class,
+            UpdateLastAction::class,
+            SecureHeadersMiddleware::class,
+            ThrottleRequestsWithRedis::class.':'.GlobalRateLimit::CHAT->value,
         ],
         MiddlewareGroup::API->value => [
-            'throttle:'.GlobalRateLimit::API->value,
+            ThrottleRequestsWithRedis::class.':'.GlobalRateLimit::API->value,
         ],
         MiddlewareGroup::ANNOUNCE->value => [
-            'throttle:'.GlobalRateLimit::ANNOUNCE->value,
+            ThrottleRequestsWithRedis::class.':'.GlobalRateLimit::ANNOUNCE->value,
         ],
         MiddlewareGroup::RSS->value => [
-            'throttle:'.GlobalRateLimit::RSS->value,
+            ThrottleRequestsWithRedis::class.':'.GlobalRateLimit::RSS->value,
         ],
     ];
 
@@ -87,24 +105,10 @@ class Kernel extends HttpKernel
      *
      * These middleware may be assigned to groups or used individually.
      *
-     * @var array<string, class-string|string>
+     * @var array<string, class-string>
      */
     protected $middlewareAliases = [
-        'admin'            => Middleware\CheckForAdmin::class,
-        'auth'             => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'banned'           => Middleware\CheckIfBanned::class,
-        'bindings'         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
-        'csrf'             => \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-        'guest'            => \Illuminate\Auth\Middleware\RedirectIfAuthenticated::class,
-        'language'         => Middleware\SetLanguage::class,
-        'modo'             => Middleware\CheckForModo::class,
-        'owner'            => Middleware\CheckForOwner::class,
-        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
-        'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class
+        'guest'    => RedirectIfAuthenticated::class,
+        'throttle' => ThrottleRequestsWithRedis::class,
     ];
 }

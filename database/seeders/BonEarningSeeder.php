@@ -23,7 +23,7 @@ class BonEarningSeeder extends Seeder
 {
     public function run(): void
     {
-        BonEarning::upsert([
+        BonEarning::query()->upsert([
             [
                 'id'          => 1,
                 'position'    => 1,

@@ -27,7 +27,7 @@
                         <td>{{ $name }}</td>
                         <td>
                             Used by
-                            {{ App\Models\UserSetting::where('locale', '=', $code)->count() }}
+                            {{ App\Models\UserSetting::query()->where('locale', '=', $code)->count() }}
                             Users
                         </td>
                     </tr>

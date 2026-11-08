@@ -2,13 +2,13 @@
     <header class="panel__header">
         <h2 class="panel__heading">{{ __('staff.user-notes') }}</h2>
         <div class="panel__actions">
-            <div class="panel__action" x-data="dialogLivewire">
-                <button class="form__button form__button--text" x-bind="showDialog">
+            <div class="panel__action">
+                <button class="form__button form__button--text" popovertarget="note-add">
                     {{ __('common.add') }}
                 </button>
-                <dialog class="dialog" x-bind="dialogElement">
+                <dialog id="note-add" class="dialog" popover>
                     <h3 class="dialog__heading">Note user: {{ $user->username }}</h3>
-                    <form class="dialog__form" x-bind="dialogForm">
+                    <form class="dialog__form">
                         <p class="form__group">
                             <textarea
                                 id="message"
@@ -25,14 +25,15 @@
                             <button
                                 class="form__button form__button--filled"
                                 wire:click="store"
-                                x-bind="submitDialogForm"
+                                type="button"
+                                popovertarget="note-add"
                             >
                                 {{ __('common.save') }}
                             </button>
                             <button
-                                formmethod="dialog"
-                                formnovalidate
                                 class="form__button form__button--outlined"
+                                type="button"
+                                popovertarget="note-add"
                             >
                                 {{ __('common.cancel') }}
                             </button>
@@ -78,32 +79,34 @@
                         </td>
                         <td>
                             <menu class="data-table__actions">
-                                <li
-                                    class="data-table__action"
-                                    x-data="dialogLivewire"
-                                    data-note-id="{{ $note->id }}"
-                                    vv
-                                >
+                                <li class="data-table__action" data-note-id="{{ $note->id }}">
                                     <button
                                         class="form__button form__button--text"
-                                        x-bind="showDialog"
+                                        popovertarget="note-edit-{{ $note->id }}"
                                     >
                                         {{ __('common.edit') }}
                                     </button>
-                                    <dialog class="dialog" x-bind="dialogElement">
+                                    <dialog id="note-edit-{{ $note->id }}" class="dialog" popover>
                                         <h3 class="dialog__heading">
                                             Note user: {{ $user->username }}
                                         </h3>
-                                        <form class="dialog__form" x-bind="dialogForm">
+                                        <form
+                                            class="dialog__form"
+                                            method="POST"
+                                            action="{{ route('staff.notes.update', ['note' => $note]) }}"
+                                            x-data="formSubmit"
+                                        >
+                                            @csrf
+                                            @method('PATCH')
                                             <p class="form__group">
                                                 <textarea
                                                     id="message"
                                                     class="form__textarea"
                                                     name="message"
                                                     placeholder=" "
-                                                    wire:model="messages.{{ $note->id }}"
-                                                    value="{{ $note->message }}"
-                                                ></textarea>
+                                                >
+{{ $note->message }}</textarea
+                                                >
                                                 <label
                                                     class="form__label form__label--floating"
                                                     for="message"
@@ -114,15 +117,14 @@
                                             <p class="form__group">
                                                 <button
                                                     class="form__button form__button--filled"
-                                                    x-on:click="update"
-                                                    x-bind="submitDialogForm"
+                                                    popovertarget="note-edit-{{ $note->id }}"
                                                 >
                                                     {{ __('common.save') }}
                                                 </button>
                                                 <button
-                                                    formmethod="dialog"
-                                                    formnovalidate
                                                     class="form__button form__button--outlined"
+                                                    type="button"
+                                                    popovertarget="note-edit-{{ $note->id }}"
                                                 >
                                                     {{ __('common.cancel') }}
                                                 </button>
@@ -155,9 +157,6 @@
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {
             Alpine.data('userNote', () => ({
-                update() {
-                    this.$wire.update(this.$root.dataset.noteId);
-                },
                 destroy() {
                     Swal.fire({
                         title: 'Are you sure?',

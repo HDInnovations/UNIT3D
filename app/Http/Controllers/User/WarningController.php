@@ -24,7 +24,6 @@ use App\Notifications\WarningTorrentDeleted;
 use App\Notifications\WarningsDeleted;
 use Illuminate\Http\Request;
 use Exception;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\WarningControllerTest
@@ -38,12 +37,12 @@ class WarningController extends Controller
     {
         abort_unless($request->user()->group->is_modo, 403);
 
-        Warning::create([
+        Warning::query()->create([
             'user_id'    => $user->id,
             'warned_by'  => $request->user()->id,
             'torrent'    => null,
             'reason'     => $request->string('message'),
-            'expires_on' => Carbon::now()->addDays(config('hitrun.expire')),
+            'expires_on' => now()->addDays(config('hitrun.expire')),
             'active'     => true,
         ]);
 

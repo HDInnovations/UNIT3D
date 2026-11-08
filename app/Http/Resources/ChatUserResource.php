@@ -18,6 +18,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Override;
 
 /**
  * @mixin \App\Models\User
@@ -34,7 +35,6 @@ class ChatUserResource extends JsonResource
      *     chat_status_id: int,
      *     chatroom_id: int,
      *     group: mixed,
-     *     echoes: mixed,
      *     group_id: int,
      *     title: string,
      *     image: string,
@@ -43,6 +43,7 @@ class ChatUserResource extends JsonResource
      *     icon: string,
      * }
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [
@@ -52,7 +53,6 @@ class ChatUserResource extends JsonResource
             'chat_status_id' => $this->chat_status_id,
             'chatroom_id'    => $this->chatroom_id,
             'group'          => $this->whenLoaded('group'),
-            'echoes'         => $this->whenLoaded('echoes'),
             'group_id'       => $this->group_id,
             'title'          => $this->title,
             'image'          => $this->image,

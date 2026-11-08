@@ -49,7 +49,7 @@ class NoteSearch extends Component
             ])
             ->when($this->search, fn ($query) => $query->where('message', 'LIKE', '%'.$this->search.'%'))
             ->latest()
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

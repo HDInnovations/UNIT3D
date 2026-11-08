@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\DonationGateway;
+use Override;
 
 /** @extends Factory<DonationGateway> */
 class DonationGatewayFactory extends Factory
@@ -30,6 +31,7 @@ class DonationGatewayFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

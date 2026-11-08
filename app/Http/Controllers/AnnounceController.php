@@ -183,7 +183,7 @@ final class AnnounceController extends Controller
         }
 
         // Block Blacklisted Clients
-        $blacklistedPeerIdPrefixes = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::pluck('peer_id_prefix')->toArray());
+        $blacklistedPeerIdPrefixes = cache()->rememberForever('client_blacklist', fn () => BlacklistClient::query()->pluck('peer_id_prefix')->toArray());
 
         $peerId = $request->query->getString('peer_id');
 
@@ -391,7 +391,8 @@ final class AnnounceController extends Controller
         $torrent = cache()->remember(
             'announce-torrents:by-infohash:'.$infoHash,
             8 * 3600,
-            fn () => Torrent::withoutGlobalScope(ApprovedScope::class)
+            fn () => Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
                 ->select(['id', 'free', 'doubleup', 'seeders', 'leechers', 'times_completed', 'status'])
                 ->where('info_hash', '=', $infoHash)
                 ->firstOr(fn (): string => '-1')
@@ -399,7 +400,7 @@ final class AnnounceController extends Controller
 
         // If Torrent Doesn't Exist Return Error to Client
         if ($torrent === '-1') {
-            UnregisteredInfoHash::upsert([
+            UnregisteredInfoHash::query()->upsert([
                 'user_id'   => $user->id,
                 'info_hash' => $infoHash,
             ], ['info_hash', 'user_id']);
@@ -426,7 +427,8 @@ final class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'visible', 'ip', 'port', 'updated_at'])
+            Peer::query()
+                ->select(['torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'visible', 'ip', 'port', 'updated_at'])
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
         );

@@ -67,7 +67,7 @@ class LeakerSearch extends Component
                 ],
             ])
             ->join('torrents', 'history.torrent_id', '=', 'torrents.id')
-            ->whereIn('history.torrent_id', array_filter(array_map('trim', explode(',', $this->torrentIds))))
+            ->whereIn('history.torrent_id', array_filter(array_map(trim(...), explode(',', $this->torrentIds))))
             ->when(
                 $this->minutesLeakedWithin !== null,
                 fn ($query) => $query->whereRaw('history.created_at < TIMESTAMPADD(MINUTE, ? , torrents.created_at)', [$this->minutesLeakedWithin])
@@ -76,11 +76,11 @@ class LeakerSearch extends Component
             ->groupBy('history.user_id')
             ->when($this->agent !== '', fn ($query) => $query->where('agent', 'LIKE', $this->agent))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final protected int $torrentIdCount {
-        get => \count(array_filter(array_map('trim', explode(',', $this->torrentIds))));
+        get => \count(array_filter(array_map(trim(...), explode(',', $this->torrentIds))));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

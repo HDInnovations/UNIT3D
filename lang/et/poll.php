@@ -25,4 +25,6 @@ return [
     'vote' => 'Hääleta',
     'vote-now' => 'Hangi oma hääl nüüd!',
     'votes' => 'Hääled',
+    'already-voted-error' => 'Oled juba sellelele küsitlusele vastanud. Sinu vastust ei arvestata.',
+    'already-voted-result' => 'Oled juba küsitlusele vastanud. Siin on tulemused.',
 ];

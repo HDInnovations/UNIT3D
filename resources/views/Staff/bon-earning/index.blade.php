@@ -125,7 +125,7 @@
                                                     'age' => \App\Helpers\StringHelper::timeElapsed($condition->operand2),
                                                     'size' => \App\Helpers\StringHelper::formatBytes($condition->operand2),
                                                     'seedtime' => \App\Helpers\StringHelper::timeElapsed($condition->operand2),
-                                                    'type_id' => \App\Models\Type::find($condition->operand2)?->name ?? __('common.unknown'),
+                                                    'type_id' => \App\Models\Type::query()->find($condition->operand2)?->name ?? __('common.unknown'),
                                                     default => preg_replace('/(\.\d+?)0+$/', '$1', $condition->operand2),
                                                 }
                                             }}

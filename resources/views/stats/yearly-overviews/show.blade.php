@@ -69,49 +69,9 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">5 worst movies (based on downloads count)</h2>
-        <div class="panel__body overview__poster-grid">
-            @foreach ($bottomMovies as $work)
-                <figure class="trending-poster overview__poster">
-                    <x-movie.poster
-                        :movie="$work->movie"
-                        :categoryId="$work->category_id"
-                        :tmdb="$work->tmdb_movie_id"
-                    />
-                    <figcaption
-                        class="trending-poster__download-count"
-                        title="{{ __('torrent.completed-times') }}"
-                    >
-                        {{ $work->download_count }}
-                    </figcaption>
-                </figure>
-            @endforeach
-        </div>
-    </section>
-    <section class="panelV2">
         <h2 class="panel__heading">Top 10 TV shows (based on downloads count)</h2>
         <div class="panel__body overview__poster-grid">
             @foreach ($topTv as $work)
-                <figure class="trending-poster overview__poster">
-                    <x-tv.poster
-                        :tv="$work->tv"
-                        :categoryId="$work->category_id"
-                        :tmdb="$work->tmdb_tv_id"
-                    />
-                    <figcaption
-                        class="trending-poster__download-count"
-                        title="{{ __('torrent.completed-times') }}"
-                    >
-                        {{ $work->download_count }}
-                    </figcaption>
-                </figure>
-            @endforeach
-        </div>
-    </section>
-    <section class="panelV2">
-        <h2 class="panel__heading">5 worst TV shows (based on downloads count)</h2>
-        <div class="panel__body overview__poster-grid">
-            @foreach ($bottomTv as $work)
                 <figure class="trending-poster overview__poster">
                     <x-tv.poster
                         :tv="$work->tv"

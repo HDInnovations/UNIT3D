@@ -27,7 +27,11 @@ class QuickSearchController extends Controller
 {
     public function index(Request $request): \Illuminate\Http\JsonResponse
     {
-        $query = $request->input('query', '');
+        $query = $request->input('query');
+
+        if ($query === null || $query === '') {
+            return response()->json(['results' => []]);
+        }
 
         $filters = [
             'deleted_at IS NULL',

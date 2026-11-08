@@ -24,8 +24,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('comments', function (Blueprint $table): void {
-            $table->foreign('article_id', 'fk_comments_articles_1')->references('id')->on('articles')->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('user_id', 'fk_comments_users_1')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('article_id', 'fk_comments_articles_1')->references('id')->on('articles')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreign('user_id', 'fk_comments_users_1')->references('id')->on('users')->cascadeOnUpdate()->restrictOnDelete();
         });
     }
 };

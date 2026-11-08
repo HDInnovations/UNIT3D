@@ -21,6 +21,7 @@ use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Subscription;
+use Override;
 
 /** @extends Factory<Subscription> */
 class SubscriptionFactory extends Factory
@@ -33,6 +34,7 @@ class SubscriptionFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

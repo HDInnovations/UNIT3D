@@ -19,6 +19,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Gift.
@@ -42,6 +43,7 @@ final class PostTip extends Model
      *
      * @return array{created_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

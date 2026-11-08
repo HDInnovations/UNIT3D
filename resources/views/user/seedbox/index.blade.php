@@ -28,11 +28,11 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.seedboxes') }}</h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data="dialog">
-                    <button class="form__button form__button--text" x-bind="showDialog">
+                <div class="panel__action">
+                    <button class="form__button form__button--text" popovertarget="seedbox-add">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="seedbox-add" class="dialog" popover>
                         <h3 class="dialog__heading">
                             {{ __('user.add-seedbox') }}
                         </h3>
@@ -40,7 +40,6 @@
                             class="dialog__form"
                             method="POST"
                             action="{{ route('users.seedboxes.store', ['user' => $user]) }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             <p class="form__group">
@@ -68,9 +67,9 @@
                                     {{ __('common.submit') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="seedbox-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>

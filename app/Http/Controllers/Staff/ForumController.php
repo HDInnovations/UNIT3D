@@ -37,8 +37,8 @@ class ForumController extends Controller
     {
         return view('Staff.forum.create', [
             'forumCategoryId' => $request->integer('forumCategoryId'),
-            'categories'      => ForumCategory::orderBy('position')->get(),
-            'groups'          => Group::orderBy('position')->get(),
+            'categories'      => ForumCategory::query()->orderBy('position')->get(),
+            'groups'          => Group::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -47,7 +47,7 @@ class ForumController extends Controller
      */
     public function store(StoreForumRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $forum = Forum::create($request->validated('forum'));
+        $forum = Forum::query()->create($request->validated('forum'));
 
         $forum->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 
@@ -61,8 +61,8 @@ class ForumController extends Controller
     public function edit(Forum $forum): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.forum.edit', [
-            'categories' => ForumCategory::orderBy('position')->get(),
-            'groups'     => Group::orderBy('position')->get(),
+            'categories' => ForumCategory::query()->orderBy('position')->get(),
+            'groups'     => Group::query()->orderBy('position')->get(),
             'forum'      => $forum->load(['permissions', 'category']),
         ]);
     }

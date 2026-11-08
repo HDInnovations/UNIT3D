@@ -25,7 +25,7 @@ class ForumSeeder extends Seeder
 {
     public function run(): void
     {
-        ForumCategory::upsert([
+        ForumCategory::query()->upsert([
             [
                 'id'          => 1,
                 'position'    => 1,
@@ -37,7 +37,7 @@ class ForumSeeder extends Seeder
             ],
         ], ['id'], []);
 
-        Forum::upsert([
+        Forum::query()->upsert([
             [
                 'id'                   => 1,
                 'position'             => 2,

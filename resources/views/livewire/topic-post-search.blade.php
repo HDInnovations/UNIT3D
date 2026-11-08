@@ -58,7 +58,27 @@
     <div class="panel__body">
         @if ($posts->count() > 0)
             <ol class="topic-posts">
+                @foreach ($pinnedPosts as $post)
+                    <li class="topic-posts__item">
+                        <x-forum.post :post="$post" />
+                    </li>
+                @endforeach
+
+                @if ($pinnedPosts->isNotEmpty())
+                    <hr class="topic-posts__pinned-separator" />
+                @endif
+
                 @foreach ($posts as $post)
+                    <li class="topic-posts__item">
+                        <x-forum.post :post="$post" />
+                    </li>
+                @endforeach
+
+                @if ($pinnedPosts->isNotEmpty())
+                    <hr class="topic-posts__pinned-separator" />
+                @endif
+
+                @foreach ($pinnedPosts as $post)
                     <li class="topic-posts__item">
                         <x-forum.post :post="$post" />
                     </li>

@@ -20,6 +20,7 @@ use App\Helpers\CacheUser;
 use App\Models\User;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
+use Override;
 
 class CacheUserProvider extends EloquentUserProvider
 {
@@ -31,6 +32,7 @@ class CacheUserProvider extends EloquentUserProvider
     /**
      * @return User|\Illuminate\Contracts\Auth\Authenticatable|void|null
      */
+    #[Override]
     public function retrieveById($identifier)
     {
         if (!$identifier || $identifier <= 0 || !is_numeric($identifier)) {
@@ -43,6 +45,7 @@ class CacheUserProvider extends EloquentUserProvider
     /**
      * @return User|\Illuminate\Contracts\Auth\Authenticatable|void|null
      */
+    #[Override]
     public function retrieveByToken($identifier, $token)
     {
         if (!$identifier || $identifier <= 0 || !is_numeric($identifier)) {

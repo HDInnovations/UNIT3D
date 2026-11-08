@@ -22,14 +22,6 @@ use Illuminate\Validation\Rule;
 class StoreUnbanRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
@@ -44,11 +36,6 @@ class StoreUnbanRequest extends FormRequest
                 'required',
                 'string',
                 'max:65536',
-            ],
-            'group_id' => [
-                'required',
-                'integer',
-                'exists:groups,id',
             ],
         ];
     }

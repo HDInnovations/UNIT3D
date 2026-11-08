@@ -11,7 +11,7 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'articles' => 'artiklar',
+    'articles' => 'Artiklar',
     'meta-articles' => 'Artiklar och nyheter om spåraren och samhället',
     'published-at' => 'Publicerad på',
     'read-more' => 'Läs mer',

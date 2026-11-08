@@ -64,7 +64,7 @@
                         id="forum_category_id"
                         name="forum[forum_category_id]"
                         class="form__select"
-                        x-data="{ selected: {{ $forumCategoryId }} || '' }"
+                        x-data="{ selected: {{ Js::from($forumCategoryId) }} || '' }"
                         x-model="selected"
                         x-bind:class="selected === '' ? 'form__selected--default' : ''"
                         required

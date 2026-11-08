@@ -19,7 +19,6 @@ namespace App\Console\Commands;
 use App\Models\Torrent;
 use Exception;
 use Illuminate\Console\Command;
-use Meilisearch\Client;
 
 class AutoSyncTorrentsToMeilisearch extends Command
 {
@@ -45,14 +44,6 @@ class AutoSyncTorrentsToMeilisearch extends Command
     public function handle(): void
     {
         $start = now();
-
-        $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-
-        $index = $client->getIndex(config('scout.prefix').'torrents');
-
-        $index->updatePagination([
-            'maxTotalHits' => max(1, Torrent::query()->count()) + 1000,
-        ]);
 
         if ($this->option('wipe')) {
             Torrent::removeAllFromSearch();

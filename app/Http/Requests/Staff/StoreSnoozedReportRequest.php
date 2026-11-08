@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Override;
 
 class StoreSnoozedReportRequest extends FormRequest
 {
@@ -39,6 +40,7 @@ class StoreSnoozedReportRequest extends FormRequest
     /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         if (ctype_digit($this->snoozed_days)) {

@@ -23,11 +23,11 @@ return [
     'error' => '无法处理请求',
     'feed' => '订阅',
     'feeds' => '订阅',
-    'name' => '名称',
+    'name' => '名字',
     'public' => '公开',
     'private' => '私有',
     'rss' => 'RSS',
     'rss-feed' => 'RSS流',
-    'type' => '规格',
+    'type' => '类型',
     'updated' => '私有RSS流已更新',
 ];

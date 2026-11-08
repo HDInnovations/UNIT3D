@@ -31,7 +31,7 @@ class StoreAutomaticTorrentFreeleechRequest extends FormRequest
         return [
             'name_regex' => [
                 'nullable',
-                function (string $attribute, mixed $value, Closure $fail): void {
+                function (string $_attribute, mixed $value, Closure $fail): void {
                     if (@preg_match($value, 'Validate regex') === false) {
                         $fail('Regex syntax error.');
                     }

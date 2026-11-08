@@ -21,5 +21,5 @@ return [
     'low' => '低い',
     'priority' => '優先度',
     'priority-description' => 'このバグが本当にこのサイトを使用する上で問題となる場合のみ、非常に高い値を選択してください。',
-    'very-high' => 'すごく高い',
+    'very-high' => '非常に高い',
 ];

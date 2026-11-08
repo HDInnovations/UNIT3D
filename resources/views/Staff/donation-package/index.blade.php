@@ -30,7 +30,7 @@
                     <tr>
                         <th>Position</th>
                         <th>Name</th>
-                        <th>Cost</th>
+                        <th>Cost ({{ config('donation.currency') }})</th>
                         <th>Upload (GiB)</th>
                         <th>Invite (#)</th>
                         <th>Bonus (#)</th>
@@ -50,7 +50,7 @@
                                     {{ $package->name }}
                                 </a>
                             </td>
-                            <td>$ {{ $package->cost }}</td>
+                            <td>{{ $package->cost }}</td>
                             <td>
                                 {{ App\Helpers\StringHelper::formatBytes($package->upload_value ?? 0) }}
                             </td>

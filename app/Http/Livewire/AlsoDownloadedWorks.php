@@ -24,6 +24,7 @@ use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Lazy;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 #[Lazy]
@@ -31,6 +32,7 @@ class AlsoDownloadedWorks extends Component
 {
     public TmdbMovie|TmdbTv|IgdbGame $work;
 
+    #[Locked]
     public int $categoryId;
 
     /**
@@ -42,6 +44,8 @@ class AlsoDownloadedWorks extends Component
                 'also-downloaded:by-tmdb-movie-id:'.$this->work->id,
                 [3600 * 12, 3600 * 24 * 14],
                 fn () => TmdbMovie::query()
+                    ->withMin('torrents', 'category_id')
+                    ->addSelect('total')
                     ->joinSub(
                         Torrent::query()
                             ->select('tmdb_movie_id', DB::raw('COUNT(DISTINCT history.user_id) AS total'))
@@ -73,6 +77,8 @@ class AlsoDownloadedWorks extends Component
                 'also-downloaded:by-tmdb-tv-id:'.$this->work->id,
                 [3600 * 12, 3600 * 24 * 14],
                 fn () => TmdbTv::query()
+                    ->withMin('torrents', 'category_id')
+                    ->addSelect('total')
                     ->joinSub(
                         Torrent::query()
                             ->select('tmdb_tv_id', DB::raw('COUNT(DISTINCT history.user_id) AS total'))
@@ -104,6 +110,8 @@ class AlsoDownloadedWorks extends Component
                 'also-downloaded:by-igdb-game-id:'.$this->work->id,
                 [3600 * 12, 3600 * 24 * 14],
                 fn () => IgdbGame::query()
+                    ->withMin('torrents', 'category_id')
+                    ->addSelect('total')
                     ->joinSub(
                         Torrent::query()
                             ->select('igdb', DB::raw('COUNT(DISTINCT history.user_id) AS total'))

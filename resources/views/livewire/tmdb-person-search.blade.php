@@ -78,7 +78,7 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.category') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @foreach (App\Models\Occupation::select(['id', 'name'])->orderBy('position')->get() as $occupation)
+                                @foreach (App\Models\Occupation::query()->select(['id', 'name'])->orderBy('position')->get() as $occupation)
                                     <p class="form__group">
                                         <label class="form__label">
                                             <input

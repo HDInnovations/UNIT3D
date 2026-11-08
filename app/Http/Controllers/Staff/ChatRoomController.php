@@ -51,7 +51,7 @@ class ChatRoomController extends Controller
      */
     public function store(StoreChatRoomRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Chatroom::create($request->validated());
+        Chatroom::query()->create($request->validated());
 
         return to_route('staff.chatrooms.index')
             ->with('success', 'Chatroom successfully added');
@@ -93,7 +93,7 @@ class ChatRoomController extends Controller
             )
             ->soleValue('id');
 
-        User::whereBelongsTo($chatroom)->update(['chatroom_id' => $default]);
+        User::query()->whereBelongsTo($chatroom)->update(['chatroom_id' => $default]);
 
         $chatroom->delete();
 

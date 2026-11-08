@@ -22,6 +22,6 @@ class CacheUser
 {
     public static function user(mixed $id): ?User
     {
-        return cache()->remember('cachedUser.'.$id, 30, fn () => User::find($id));
+        return cache()->remember('cachedUser.'.$id, 30, fn () => User::query()->find($id));
     }
 }

@@ -6,6 +6,13 @@ We accept contributions via Pull Requests on [Github](https://github.com/HDInnov
 
 **Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
+## AI Usage Policy
+
+> [!IMPORTANT]
+> This project does **not** accept pull requests that are fully or predominantly AI-generated. AI tools may be utilized solely in an assistive capacity.
+>
+> Repeated violations of this policy may result in your account being permanently banned from contributing to the project.
+
 ## Commits
 
 **Commit Title Standard**

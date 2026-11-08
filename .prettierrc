@@ -2,6 +2,12 @@
   "plugins": [
     "prettier-plugin-blade"
   ],
+
+  "printWidth": 80,
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 4,
+
   "overrides": [
     {
       "files": [
@@ -9,9 +15,7 @@
       ],
       "options": {
         "parser": "blade",
-        "printWidth": 100,
-        "semi": true,
-        "singleQuote": true
+        "printWidth": 100
       }
     },
     {
@@ -19,18 +23,7 @@
         "*.js"
       ],
       "options": {
-        "printWidth": 100,
-        "semi": true,
-        "singleQuote": true
-      }
-    },
-    {
-      "files": [
-        "*.scss"
-      ],
-      "options": {
-        "semi": true,
-        "singleQuote": true
+        "printWidth": 100
       }
     }
   ]

@@ -29,7 +29,7 @@ return new class () extends Migration {
             $table->string('description');
             $table->string('type');
             $table->integer('downloads')->nullable();
-            $table->foreign('album_id')->references('id')->on('albums')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('album_id')->references('id')->on('albums')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

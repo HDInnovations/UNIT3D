@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Internal;
+use Override;
 
 /** @extends Factory<Internal> */
 class InternalFactory extends Factory
@@ -30,6 +31,7 @@ class InternalFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

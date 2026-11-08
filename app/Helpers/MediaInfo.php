@@ -154,16 +154,6 @@ class MediaInfo
             }
         }
 
-        /**
-         * @phpstan-ignore-next-line
-         * PHPstan tries to combine the numeric keys of the lists with the
-         * string keys of the General type as an "OR" and makes a big mess of
-         * the type. E.g. given the type it suggests it should be, it thinks
-         * that the 'video' key should have the possibility of having an array
-         * with a `file_name` key, even though the `file_name` key is only
-         * possible if the parent key is `general` and that the 'video' key
-         * should only have a list.
-         */
         return $output;
     }
 

@@ -32,7 +32,7 @@ return new class () extends Migration {
             $table->timestamp('email_verified_at')->nullable();
         });
 
-        $users = User::where('group_id', '!=', UserGroup::VALIDATING->value)->get();
+        $users = User::query()->where('group_id', '!=', UserGroup::VALIDATING->value)->get();
 
         foreach ($users as $user) {
             $user->markEmailAsVerified();

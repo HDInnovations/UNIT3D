@@ -20,12 +20,6 @@ beforeEach(function (): void {
     $this->subject = new StoreUnbanRequest();
 });
 
-test('authorize', function (): void {
-    $actual = $this->subject->authorize();
-
-    expect($actual)->toBeTrue();
-});
-
 test('rules', function (): void {
     $actual = $this->subject->rules();
 
@@ -36,11 +30,6 @@ test('rules', function (): void {
             'required',
             'string',
             'max:65536',
-        ],
-        'group_id' => [
-            'required',
-            'integer',
-            'exists:groups,id',
         ],
     ], $actual);
 });

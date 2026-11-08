@@ -30,11 +30,11 @@ class SystemNotificationChannel
     {
         $data = $notification->toSystemNotification($notifiable);
 
-        $conversation = Conversation::create(['subject' => $data['subject']]);
+        $conversation = Conversation::query()->create(['subject' => $data['subject']]);
 
         $conversation->users()->sync([User::SYSTEM_USER_ID => ['read' => true], $notifiable->id]);
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'conversation_id' => $conversation->id,
             'sender_id'       => User::SYSTEM_USER_ID,
             'message'         => $data['message'],

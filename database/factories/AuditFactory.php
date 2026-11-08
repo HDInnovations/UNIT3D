@@ -20,6 +20,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Audit;
 use JsonException;
+use Override;
 
 /** @extends Factory<Audit> */
 class AuditFactory extends Factory
@@ -34,6 +35,7 @@ class AuditFactory extends Factory
      *
      * @throws JsonException
      */
+    #[Override]
     public function definition(): array
     {
         return [

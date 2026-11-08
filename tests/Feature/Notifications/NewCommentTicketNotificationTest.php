@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 use App\Http\Livewire\Comments;
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Ticket;
@@ -37,9 +36,6 @@ test('user comments own ticket does not create a notification for self but assig
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -79,7 +75,7 @@ test('user comments own ticket does not create a notification for self but assig
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$staff],
@@ -96,9 +92,6 @@ test('user comments own ticket does not create a notification for staff when non
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -134,7 +127,7 @@ test('user comments own ticket does not create a notification for staff when non
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -147,9 +140,6 @@ test('staff comments a ticket creates a notification for the user but not staff'
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -185,7 +175,7 @@ test('staff comments a ticket creates a notification for the user but not staff'
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$user],
@@ -202,9 +192,6 @@ test('staff comments a ticket create a notification for the user even when all n
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -242,7 +229,7 @@ test('staff comments a ticket create a notification for the user even when all n
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$user],

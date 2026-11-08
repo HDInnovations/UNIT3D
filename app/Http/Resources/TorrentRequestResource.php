@@ -18,6 +18,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
+use Override;
 
 /**
  * @mixin \App\Models\TorrentRequest
@@ -30,6 +31,7 @@ class TorrentRequestResource extends JsonResource
      * @param  Request              $request
      * @return array<string, mixed>
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [

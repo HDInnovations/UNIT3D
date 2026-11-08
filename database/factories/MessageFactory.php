@@ -21,6 +21,7 @@ use App\Models\Chatroom;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Message;
+use Override;
 
 /** @extends Factory<Message> */
 class MessageFactory extends Factory
@@ -33,6 +34,7 @@ class MessageFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

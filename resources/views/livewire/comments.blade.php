@@ -43,7 +43,12 @@
         </form>
         <ol class="comment-list">
             @forelse ($comments as $comment)
-                <livewire:comment :model="$model" :comment="$comment" :key="$comment->id" />
+                <livewire:comment
+                    :model="$model"
+                    :comment="$comment"
+                    :category="$category"
+                    :key="$comment->id"
+                />
             @empty
                 <li>
                     <i class="{{ config('other.font-awesome') }} fa-frown"></i>

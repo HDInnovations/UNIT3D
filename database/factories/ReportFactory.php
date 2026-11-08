@@ -21,6 +21,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Report;
+use Override;
 
 /** @extends Factory<Report> */
 class ReportFactory extends Factory
@@ -33,6 +34,7 @@ class ReportFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -43,8 +45,7 @@ class ReportFactory extends Factory
             'reported_torrent_id' => Torrent::factory(),
             'reported_request_id' => TorrentRequest::factory(),
             'message'             => $this->faker->text(),
-            'assigned_to'         => User::factory(),
-            'verdict'             => $this->faker->text(),
+            'staff_id'            => User::factory(),
             'created_at'          => $this->faker->dateTime(),
             'updated_at'          => $this->faker->optional()->dateTime(),
         ];

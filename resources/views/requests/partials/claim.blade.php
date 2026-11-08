@@ -1,11 +1,11 @@
-<li class="form__group form__group--short-horizontal" x-data="dialog">
+<li class="form__group form__group--short-horizontal">
     <button
         class="form__button form__button--outlined form__button--centered"
-        x-bind="showDialog"
+        popovertarget="request-claim"
     >
         {{ __('request.claim') }}
     </button>
-    <dialog class="dialog" x-bind="dialogElement">
+    <dialog id="request-claim" class="dialog" popover>
         <h3 class="dialog__heading">
             {{ __('request.claim') }}
         </h3>
@@ -13,7 +13,6 @@
             class="dialog__form"
             method="POST"
             action="{{ route('requests.claims.store', ['torrentRequest' => $torrentRequest]) }}"
-            x-bind="dialogForm"
         >
             @csrf
             <p class="form__group">
@@ -32,9 +31,9 @@
                     {{ __('request.claim-now') }}
                 </button>
                 <button
-                    formmethod="dialog"
-                    formnovalidate
                     class="form__button form__button--outlined"
+                    type="button"
+                    popovertarget="request-claim"
                 >
                     {{ __('common.cancel') }}
                 </button>

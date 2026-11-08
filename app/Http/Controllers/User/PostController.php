@@ -26,6 +26,8 @@ class PostController extends Controller
      */
     public function index(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $authenticatedUser = auth()->user();
+
         return view('user.post.index', [
             'user'  => $user,
             'posts' => $user->posts()
@@ -33,6 +35,10 @@ class PostController extends Controller
                 ->withCount('likes', 'dislikes', 'authorPosts', 'authorTopics')
                 ->withSum('tips', 'bon')
                 ->authorized(canReadTopic: true)
+                ->when(
+                    $authenticatedUser->isNot($user) && !$authenticatedUser->group->is_modo,
+                    fn ($query) => $query->where('anon', '=', false)
+                )
                 ->latest()
                 ->paginate(25),
         ]);

@@ -19,18 +19,9 @@
                     <label
                         style="user-select: none"
                         class="form__label"
-                        x-data="{ state: @entangle('seeding').live, ...ternaryCheckbox() }"
+                        x-data="ternaryCheckMark($wire.entangle('seeding').live)"
                     >
-                        <input
-                            type="checkbox"
-                            class="user-peers__checkbox"
-                            x-init="updateTernaryCheckboxProperties($el, state)"
-                            x-on:click="
-                                state = getNextTernaryCheckboxState(state);
-                                updateTernaryCheckboxProperties($el, state)
-                            "
-                            x-bind:checked="state === 'include'"
-                        />
+                        <input type="checkbox" class="user-peers__checkbox" x-bind="input" />
                         {{ __('torrent.seeding') }}
                     </label>
                 </p>
@@ -38,18 +29,9 @@
                     <label
                         style="user-select: none"
                         class="form__label"
-                        x-data="{ state: @entangle('active').live, ...ternaryCheckbox() }"
+                        x-data="ternaryCheckMark($wire.entangle('active').live)"
                     >
-                        <input
-                            type="checkbox"
-                            class="user-peers__checkbox"
-                            x-init="updateTernaryCheckboxProperties($el, state)"
-                            x-on:click="
-                                state = getNextTernaryCheckboxState(state);
-                                updateTernaryCheckboxProperties($el, state)
-                            "
-                            x-bind:checked="state === 'include'"
-                        />
+                        <input type="checkbox" class="user-peers__checkbox" x-bind="input" />
                         {{ __('common.active') }}
                     </label>
                 </p>
@@ -57,18 +39,9 @@
                     <label
                         style="user-select: none"
                         class="form__label"
-                        x-data="{ state: @entangle('visible'), ...ternaryCheckbox() }"
+                        x-data="ternaryCheckMark($wire.entangle('visible').live)"
                     >
-                        <input
-                            type="checkbox"
-                            class="user-peers__checkbox"
-                            x-init="updateTernaryCheckboxProperties($el, state)"
-                            x-on:click="
-                                state = getNextTernaryCheckboxState(state);
-                                updateTernaryCheckboxProperties($el, state)
-                            "
-                            x-bind:checked="state === 'include'"
-                        />
+                        <input type="checkbox" class="user-peers__checkbox" x-bind="input" />
                         Visible
                     </label>
                 </p>
@@ -407,21 +380,4 @@
         </div>
         {{ $actives->links('partials.pagination') }}
     </section>
-    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        function ternaryCheckbox() {
-            return {
-                updateTernaryCheckboxProperties(el, state) {
-                    el.indeterminate = state === 'exclude';
-                    el.checked = state === 'include';
-                },
-                getNextTernaryCheckboxState(state) {
-                    return state === 'include'
-                        ? 'exclude'
-                        : state === 'exclude'
-                          ? 'any'
-                          : 'include';
-                },
-            };
-        }
-    </script>
 </div>

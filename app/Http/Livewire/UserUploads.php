@@ -59,7 +59,7 @@ class UserUploads extends Component
 
     final public function mount(int $userId): void
     {
-        $this->user = User::find($userId);
+        $this->user = User::query()->find($userId);
     }
 
     final public function updatingSearch(): void
@@ -89,7 +89,6 @@ class UserUploads extends Component
                     ->where('seeder', '=', 1),
             ])
             ->withoutGlobalScope(ApprovedScope::class)
-            ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)
             ->when(
                 $this->name,
@@ -100,7 +99,7 @@ class UserUploads extends Component
             ->when($this->personalRelease === 'include', fn ($query) => $query->where('personal_release', '=', true))
             ->when($this->personalRelease === 'exclude', fn ($query) => $query->where('personal_release', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

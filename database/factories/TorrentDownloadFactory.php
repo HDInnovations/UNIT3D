@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentDownload;
+use Override;
 
 /** @extends Factory<TorrentDownload> */
 class TorrentDownloadFactory extends Factory
@@ -32,6 +33,7 @@ class TorrentDownloadFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

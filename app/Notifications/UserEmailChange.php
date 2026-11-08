@@ -16,14 +16,22 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Http\Middleware\RateLimitOutboundMail;
 use App\Models\User;
+use DateTime;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserEmailChange extends Notification
+class UserEmailChange extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 1;
 
     /**
      * Create a new notification instance.
@@ -37,20 +45,48 @@ class UserEmailChange extends Notification
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['mail'];
     }
 
     /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(object $_notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail'  => [new RateLimitOutboundMail()],
+            default => [],
+        };
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Your Email Address Has Been Changed!')
-            ->line('Your email address regarding account '.$this->user->username.' has been changed from '.$this->oldEmail.' to '.$this->newEmail.'. If you feel this was done in error, please create a helpdesk ticket.')
-            ->action('Helpdesk', route('tickets.index'))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->greeting('Your email address was changed')
+            ->line('The email on account '.$this->user->username.' was changed from '.$this->oldEmail.' to '.$this->newEmail.'. If this was not you, please create a helpdesk ticket.')
+            ->action('Helpdesk', route('tickets.index'));
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(2);
     }
 }

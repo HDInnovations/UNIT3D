@@ -120,7 +120,7 @@
                 <div class="top-nav--left__container">
                     {{ __('common.support') }}
 
-                    @if ($hasUnreadTicket)
+                    @if ($hasUnreadTicket || $hasUnreadReport)
                         <x-animation.notification />
                     @endif
                 </div>
@@ -154,6 +154,15 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('reports.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-flag"></i>
+                        {{ __('common.reports') }}
+                        @if ($hasUnreadReport)
+                            <x-animation.notification />
+                        @endif
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('staff') }}">
                         <i class="{{ config('other.font-awesome') }} fa-user-secret"></i>
                         {{ __('common.staff') }}
@@ -165,20 +174,33 @@
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
-                    @if ($events->contains(fn ($event) => ! $event->claimed_prizes_exists && $event->ends_at->endOfDay()->isFuture()))
+                    @if ($giveaways->contains(fn ($giveaway) => ! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture()))
                         <x-animation.notification />
                     @endif
                 </div>
             </a>
             <ul>
-                @foreach ($events as $event)
+                @foreach ($giveaways as $giveaway)
                     <li>
-                        <a href="{{ route('events.show', ['event' => $event]) }}">
+                        <a href="{{ route('giveaways.show', ['giveaway' => $giveaway]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-calendar-star"></i>
-                            {{ $event->name }}
-                            @if (! $event->claimed_prizes_exists && $event->ends_at->endOfDay()->isFuture())
+                            {{ $giveaway->name }}
+                            @if (! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture())
                                 <x-animation.notification />
                             @endif
+                        </a>
+                    </li>
+                @endforeach
+
+                @foreach ($uploadContests as $uploadContest)
+                    <li>
+                        <a
+                            href="{{ route('upload_contests.show', ['uploadContest' => $uploadContest]) }}"
+                        >
+                            <i
+                                class="{{ config('other.font-awesome') }} {{ $uploadContest->icon }}"
+                            ></i>
+                            {{ $uploadContest->name }}
                         </a>
                     </li>
                 @endforeach
@@ -199,6 +221,12 @@
                     <a href="{{ route('missing.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-ballot-check"></i>
                         {{ __('common.missing') }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('groups.index') }}">
+                        <i class="{{ config('other.font-awesome') }} fa-users"></i>
+                        {{ __('common.groups') }}
                     </a>
                 </li>
                 <li>
@@ -244,7 +272,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://square.link/u/VjB1CNfm" target="_blank">
+                        <a
+                            href="https://hdinnovations.github.io/HDInnovations/donate.html"
+                            target="_blank"
+                        >
                             <i class="fas fa-handshake"></i>
                             Support UNIT3D
                         </a>
@@ -339,9 +370,6 @@
                         title="{{ __('staff.staff-dashboard') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
-                        @if ($hasUnresolvedReport)
-                            <x-animation.notification />
-                        @endif
                     </a>
                 </li>
             @endif

@@ -20,12 +20,6 @@ beforeEach(function (): void {
     $this->subject = new StoreRssRequest();
 });
 
-test('authorize', function (): void {
-    $actual = $this->subject->authorize();
-
-    expect($actual)->toBeTrue();
-});
-
 test('rules', function (): void {
     $actual = $this->subject->rules();
 
@@ -36,9 +30,6 @@ test('rules', function (): void {
             'max:255',
         ],
         'search' => [
-            'max:255',
-        ],
-        'description' => [
             'max:255',
         ],
         'uploader' => [

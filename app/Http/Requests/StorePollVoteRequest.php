@@ -20,20 +20,13 @@ use App\Models\Poll;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Override;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
  */
 class StorePollVoteRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -63,6 +56,7 @@ class StorePollVoteRequest extends FormRequest
      *
      * @return array<string, string>
      */
+    #[Override]
     public function messages(): array
     {
         return [

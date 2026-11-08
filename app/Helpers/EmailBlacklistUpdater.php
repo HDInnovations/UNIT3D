@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Exception;
 
@@ -32,16 +31,20 @@ class EmailBlacklistUpdater
 
         // Define parameters for the cache
         $key = config('email-blacklist.cache-key');
-        $duration = Carbon::now()->addMonth();
+        $duration = now()->addMonth();
 
         if (cache()->get($key) === null) {
             try {
-                $domains = Http::get($url)->json();
+                /** @var \Illuminate\Http\Client\Response $response */
+                $response = Http::get($url);
+                $domains = $response->json();
             } catch (Exception) {
                 $domains = [];
             }
         } else {
-            $domains = Http::get($url)->json();
+            /** @var \Illuminate\Http\Client\Response $response */
+            $response = Http::get($url);
+            $domains = $response->json();
         }
 
         $count = is_countable($domains) ? \count($domains) : 0;

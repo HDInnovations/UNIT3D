@@ -26,8 +26,8 @@ class InternalUserController extends Controller
 {
     public function store(StoreInternalUserRequest $request): \Illuminate\Http\RedirectResponse
     {
-        InternalUser::create([
-            'user_id'     => User::where('username', '=', $request->string('username'))->value('id'),
+        InternalUser::query()->create([
+            'user_id'     => User::query()->where('username', '=', $request->string('username'))->value('id'),
             'internal_id' => $request->integer('internal_id'),
             'position'    => $request->integer('position'),
         ]);

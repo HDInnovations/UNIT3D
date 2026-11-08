@@ -27,7 +27,7 @@ class MassPrivateMessageController extends Controller
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.mass-private-message.create', [
-            'groups' => Group::orderBy('position')->get()
+            'groups' => Group::query()->orderBy('position')->get()
         ]);
     }
 
@@ -35,7 +35,7 @@ class MassPrivateMessageController extends Controller
     {
         $request->validated();
 
-        $userIds = User::whereIntegerInRaw('group_id', $request->group_ids)->pluck('id');
+        $userIds = User::query()->whereIntegerInRaw('group_id', $request->group_ids)->pluck('id');
 
         foreach ($userIds as $userId) {
             dispatch(new ProcessMassPM(User::SYSTEM_USER_ID, $userId, $request->subject, $request->message));

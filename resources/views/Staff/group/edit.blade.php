@@ -381,6 +381,22 @@
                         </p>
                         <p class="form__group">
                             <input
+                                id="min_actual_uploaded"
+                                class="form__text"
+                                type="text"
+                                name="group[min_actual_uploaded]"
+                                placeholder=" "
+                                value="{{ $group->min_actual_uploaded }}"
+                            />
+                            <label
+                                class="form__label form__label--floating"
+                                for="min_actual_uploaded"
+                            >
+                                Minimum actual upload
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
                                 id="min_ratio"
                                 class="form__text"
                                 type="text"
@@ -429,6 +445,19 @@
                             />
                             <label class="form__label form__label--floating" for="min_seedsize">
                                 Minimum seedsize
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                id="min_avg_seedsize"
+                                class="form__text"
+                                type="text"
+                                name="group[min_avg_seedsize]"
+                                placeholder=" "
+                                value="{{ $group->min_avg_seedsize }}"
+                            />
+                            <label class="form__label form__label--floating" for="min_avg_seedsize">
+                                Minimum 15-day average seedsize
                             </label>
                         </p>
                         <p class="form__group">

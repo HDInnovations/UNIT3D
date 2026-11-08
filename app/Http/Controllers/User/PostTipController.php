@@ -38,11 +38,12 @@ class PostTipController extends Controller
 
         return view('user.post-tip.index', [
             'user' => $user,
-            'tips' => PostTip::with([
-                'sender.group',
-                'recipient.group',
-                'post.topic'
-            ])
+            'tips' => PostTip::query()
+                ->with([
+                    'sender.group',
+                    'recipient.group',
+                    'post.topic'
+                ])
                 ->where('sender_id', '=', $user->id)
                 ->orWhere('recipient_id', '=', $user->id)
                 ->latest()
@@ -63,10 +64,10 @@ class PostTipController extends Controller
         abort_unless($request->user()->is($user), 403);
 
         DB::transaction(static function () use ($request): void {
-            $tip = PostTip::create($request->validated());
+            $tip = PostTip::query()->create($request->validated());
 
-            User::whereKey($tip->sender_id)->decrement('seedbonus', (float) $tip->bon);
-            User::whereKey($tip->recipient_id)->increment('seedbonus', (float) $tip->bon);
+            User::query()->whereKey($tip->sender_id)->decrement('seedbonus', (float) $tip->bon);
+            User::query()->whereKey($tip->recipient_id)->increment('seedbonus', (float) $tip->bon);
 
             $tip->recipient->notify((new NewPostTip($tip))->afterCommit());
         });

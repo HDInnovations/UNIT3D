@@ -102,16 +102,20 @@
                                             {{ __('common.download') }}
                                         </a>
                                     </li>
-                                    <li class="data-table__action" x-data="dialog">
+                                    <li class="data-table__action">
                                         <button
                                             class="form__button form__button--text"
-                                            x-bind="showDialog"
+                                            popovertarget="backup-{{ $loop->index }}"
                                         >
                                             {{ __('common.delete') }}
                                         </button>
-                                        <dialog class="dialog" x-bind="dialogElement">
+                                        <dialog
+                                            id="backup-{{ $loop->index }}"
+                                            class="dialog"
+                                            popover
+                                        >
                                             <h3 class="dialog__heading">Delete backup</h3>
-                                            <form class="dialog__form" x-bind="dialogForm">
+                                            <form class="dialog__form">
                                                 @csrf
                                                 <p class="form__group">
                                                     Are you sure you want to delete the backup
@@ -120,16 +124,16 @@
                                                 <p class="form__group">
                                                     <button
                                                         wire:click="deleteBackup({{ $loop->index }}); $refresh;"
-                                                        formmethod="dialog"
-                                                        formnovalidate
+                                                        type="button"
+                                                        popovertarget="backup-{{ $loop->index }}"
                                                         class="form__button form__button--filled"
                                                     >
                                                         {{ __('common.delete') }}
                                                     </button>
                                                     <button
-                                                        formmethod="dialog"
-                                                        formnovalidate
                                                         class="form__button form__button--outlined"
+                                                        type="button"
+                                                        popovertarget="backup-{{ $loop->index }}"
                                                     >
                                                         {{ __('common.cancel') }}
                                                     </button>

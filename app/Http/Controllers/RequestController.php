@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\Occupation;
 use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Requests\UpdateTorrentRequestRequest;
 use App\Models\Category;
@@ -66,7 +67,9 @@ class RequestController extends Controller
                 ],
                 'movie' => [
                     'genres',
-                    'credits' => ['person', 'occupation'],
+                    'credits' => fn ($query) => $query
+                        ->where('occupation_id', '!=', Occupation::ACTOR)
+                        ->with(['person:id,still,name', 'occupation']),
                     'companies',
                     'collections.movies'
                 ],
@@ -74,7 +77,9 @@ class RequestController extends Controller
                 'torrent',
                 'tv' => [
                     'genres',
-                    'credits' => ['person', 'occupation'],
+                    'credits' => fn ($query) => $query
+                        ->where('occupation_id', '!=', Occupation::ACTOR)
+                        ->with(['person:id,still,name', 'occupation']),
                     'companies',
                     'networks',
                 ],
@@ -97,7 +102,7 @@ class RequestController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('requests.create', [
-            'categories' => Category::orderBy('position')
+            'categories' => Category::query()->orderBy('position')
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
@@ -111,10 +116,10 @@ class RequestController extends Controller
                     },
                 ]])
                 ->toArray(),
-            'types'       => Type::orderBy('position')->get(),
-            'resolutions' => Resolution::orderBy('position')->get(),
+            'types'       => Type::query()->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->orderBy('position')->get(),
             'user'        => $request->user(),
-            'category_id' => $request->category_id ?? Category::first('id')->id,
+            'category_id' => $request->category_id ?? Category::query()->first('id')->id,
             'title'       => urldecode((string) $request->title),
             'imdb'        => $request->imdb,
             'movieId'     => $request->tmdb_movie_id,
@@ -134,13 +139,17 @@ class RequestController extends Controller
 
         $user->decrement('seedbonus', $request->bounty);
 
-        $torrentRequest = TorrentRequest::create(['user_id' => $request->user()->id] + $request->validated());
+        $torrentRequest = TorrentRequest::query()->create([
+            ...$request->validated(),
+            'user_id'   => $request->user()->id,
+            'bumped_at' => now(),
+        ]);
 
-        TorrentRequestBounty::create([
-            'user_id'     => $user->id,
-            'seedbonus'   => $request->bounty,
-            'requests_id' => $torrentRequest->id,
-            'anon'        => $request->anon,
+        TorrentRequestBounty::query()->create([
+            'user_id'    => $user->id,
+            'seedbonus'  => $request->bounty,
+            'request_id' => $torrentRequest->id,
+            'anon'       => $request->anon,
         ]);
 
         // Auto Shout
@@ -187,8 +196,8 @@ class RequestController extends Controller
                         },
                     ]
                 ]),
-            'types'          => Type::orderBy('position')->get(),
-            'resolutions'    => Resolution::orderBy('position')->get(),
+            'types'          => Type::query()->orderBy('position')->get(),
+            'resolutions'    => Resolution::query()->orderBy('position')->get(),
             'user'           => $request->user(),
             'torrentRequest' => $torrentRequest,
         ]);

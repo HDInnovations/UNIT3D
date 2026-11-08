@@ -19,6 +19,7 @@ namespace App\Console\Commands;
 use App\Bots\IRCAnnounceBot;
 use Exception;
 use Illuminate\Console\Command;
+use Override;
 use Symfony\Component\Console\Input\InputArgument;
 use Throwable;
 
@@ -57,6 +58,7 @@ class IrcMessage extends Command
      *
      * @return array<int, array<int, int|string>>
      */
+    #[Override]
     protected function getArguments(): array
     {
         return [

@@ -18,11 +18,22 @@ namespace App\Providers;
 
 use App\Helpers\ByteUnits;
 use App\Helpers\HiddenCaptcha;
+use App\Http\Middleware\BlockIpAddress;
+use App\Http\Middleware\CheckApiScope;
+use App\Http\Middleware\CheckForAdmin;
+use App\Http\Middleware\CheckForModo;
+use App\Http\Middleware\CheckForOwner;
+use App\Http\Middleware\CheckIfBanned;
+use App\Http\Middleware\ConfirmTwoFactor;
+use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\UpdateLastAction;
 use App\Interfaces\ByteUnitsInterface;
+use App\Models\Apikey;
 use App\Models\User;
 use App\Observers\UserObserver;
 use App\View\Composers\FooterComposer;
 use App\View\Composers\TopNavComposer;
+use HDVinnie\SecureHeaders\SecureHeaders;
 use Illuminate\Foundation\Http\Middleware\TrimStrings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +42,8 @@ use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
+use Override;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +54,7 @@ class AppServiceProvider extends ServiceProvider
      * bindings with the application. As you can see, we are registering our
      * "Registrar" implementation here. You can add your own bindings too!
      */
+    #[Override]
     public function register(): void
     {
         // Hidden Captcha
@@ -69,7 +83,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
-            function ($attribute, $value, $parameters, $validator) {
+            function ($_attribute, $_value, $parameters, $validator) {
                 $minLimit = (isset($parameters[0]) && is_numeric($parameters[0])) ? $parameters[0] : 0;
                 $maxLimit = (isset($parameters[1]) && is_numeric($parameters[1])) ? $parameters[1] : 1_200;
 
@@ -104,6 +118,40 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Auth::viaRequest('rsskey', fn (Request $request) => User::query()->where('rsskey', '=', $request->route('rsskey'))->first());
+
+        Auth::viaRequest('apikey', function (Request $request): ?User {
+            if (!$request->bearerToken()) {
+                return null;
+            }
+
+            $apikey = Apikey::query()
+                ->where('content', '=', $request->bearerToken())
+                ->first();
+
+            if ($apikey === null) {
+                return null;
+            }
+
+            $apikey->update([
+                'last_used_at' => now(),
+            ]);
+
+            return $apikey->user;
+        });
+
+        Livewire::addPersistentMiddleware([
+            BlockIpAddress::class,
+            CheckApiScope::class,
+            CheckForAdmin::class,
+            CheckForModo::class,
+            CheckForOwner::class,
+            CheckIfBanned::class,
+            ConfirmTwoFactor::class,
+            SetLanguage::class,
+            UpdateLastAction::class,
+        ]);
+
+        Vite::useCspNonce(SecureHeaders::nonce());
 
         Context::add('url', $request->url());
     }

@@ -37,7 +37,7 @@
                         <th>Date</th>
                         <th>User</th>
                         <th>Transaction</th>
-                        <th>Cost</th>
+                        <th>Cost ({{ config('donation.currency') }})</th>
                         <th>Upload #</th>
                         <th>Invite #</th>
                         <th>Bonus #</th>
@@ -60,7 +60,7 @@
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
                                 title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
                             >
-                                $ {{ $donation->package->cost }}
+                                {{ $donation->package->cost }}
                             </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"

@@ -35,7 +35,7 @@ class PrivacySettingController extends Controller
 
         // Can't use upsert here because upsert doesn't serialize the custom
         // array cast to a string before upserting
-        UserPrivacy::updateOrCreate(['user_id' => $user->id], $request->validated());
+        UserPrivacy::query()->updateOrCreate(['user_id' => $user->id], $request->validated());
 
         cache()->forget('user-privacy:by-user-id:'.$user->id);
 

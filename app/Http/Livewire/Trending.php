@@ -46,6 +46,12 @@ class Trending extends Component
     #[Validate('sometimes|date_format:Y-m-d')]
     public string $from = '' {
         set(string $value) {
+            if ($value === '') {
+                $this->from = '';
+
+                return;
+            }
+
             try {
                 $this->from = Carbon::parse($value)->format('Y-m-d');
             } catch (Throwable) {
@@ -58,6 +64,12 @@ class Trending extends Component
     #[Validate('sometimes|date_format:Y-m-d')]
     public string $until = '' {
         set(string $value) {
+            if ($value === '') {
+                $this->until = '';
+
+                return;
+            }
+
             try {
                 $this->until = Carbon::parse($value)->format('Y-m-d');
             } catch (Throwable) {
@@ -79,7 +91,7 @@ class Trending extends Component
             };
 
             return cache()->flexible(
-                'trending-'.$this->interval.'-'.($this->from ?? '').'-'.($this->until ?? '').'-'.$this->metaType,
+                'trending-'.$this->interval.'-'.$this->from.'-'.$this->until.'-'.$this->metaType,
                 [1800, 7200],
                 fn () => Torrent::query()
                     ->with('movie', 'tv')
@@ -265,11 +277,11 @@ class Trending extends Component
         get {
             $metaTypes = [];
 
-            if (Category::where('movie_meta', '=', true)->exists()) {
+            if (Category::query()->where('movie_meta', '=', true)->exists()) {
                 $metaTypes[(string) __('mediahub.movie')] = 'movie_meta';
             }
 
-            if (Category::where('tv_meta', '=', true)->exists()) {
+            if (Category::query()->where('tv_meta', '=', true)->exists()) {
                 $metaTypes[(string) __('mediahub.show')] = 'tv_meta';
             }
 

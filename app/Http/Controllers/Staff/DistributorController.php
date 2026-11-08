@@ -31,7 +31,7 @@ class DistributorController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.distributor.index', [
-            'distributors' => Distributor::orderBy('name')->get(),
+            'distributors' => Distributor::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class DistributorController extends Controller
      */
     public function store(StoreDistributorRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Distributor::create($request->validated());
+        Distributor::query()->create($request->validated());
 
         return to_route('staff.distributors.index')
             ->with('success', 'Distributor successfully added');
@@ -81,7 +81,7 @@ class DistributorController extends Controller
     public function delete(Distributor $distributor): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.distributor.delete', [
-            'distributors' => Distributor::orderBy('name')->get(),
+            'distributors' => Distributor::query()->orderBy('name')->get(),
             'distributor'  => $distributor,
         ]);
     }

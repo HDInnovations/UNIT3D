@@ -14,7 +14,7 @@ return [
     'create' => 'Membuat',
     'create-private-feed' => 'Buat Umpan RSS Pribadi',
     'create-public-feed' => 'Buat Umpan RSS Publik',
-    'delete' => 'Menghapus',
+    'delete' => 'Hapus',
     'edit' => 'Edit',
     'edit-private-feed' => 'Edit Umpan RSS Pribadi',
     'edit-public-feed' => 'Edit Umpan RSS Publik',
@@ -25,5 +25,5 @@ return [
     'private' => 'Pribadi',
     'rss' => 'RSS',
     'rss-feed' => 'Umpan RSS',
-    'type' => 'Mengetik',
+    'type' => 'Tipe',
 ];

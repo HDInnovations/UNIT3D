@@ -23,7 +23,7 @@ class ForumPermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        ForumPermission::upsert([
+        ForumPermission::query()->upsert([
             [
                 'id'          => 1,
                 'forum_id'    => 1,

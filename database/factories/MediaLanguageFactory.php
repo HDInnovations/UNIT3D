@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\MediaLanguage;
+use Override;
 
 /** @extends Factory<MediaLanguage> */
 class MediaLanguageFactory extends Factory
@@ -30,6 +31,7 @@ class MediaLanguageFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

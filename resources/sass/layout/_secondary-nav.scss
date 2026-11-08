@@ -60,6 +60,18 @@
     text-underline-offset: 3px;
 }
 
+@media (hover: none) {
+    .nav-tab--nontouch {
+        display: none !important;
+    }
+}
+
+@media (hover: hover) {
+    .nav-tab--touch {
+        display: none !important;
+    }
+}
+
 /* Secondary nav menus (used on profile page) */
 
 .nav-tab-menu:hover > ul,

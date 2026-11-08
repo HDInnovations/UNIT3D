@@ -20,20 +20,14 @@ use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Override;
 
 class UpdateTorrentRequestRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
      * Prepare the data for validation.
      */
+    #[Override]
     protected function prepareForValidation(): void
     {
         $this->merge([
@@ -53,7 +47,7 @@ class UpdateTorrentRequestRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
-        $category = Category::findOrFail($request->integer('category_id'));
+        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {
             if ($value !== null) {

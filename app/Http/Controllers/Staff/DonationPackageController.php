@@ -18,7 +18,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Requests\Staff\StoreDonationPackageRequest;
 use App\Http\Requests\Staff\UpdateDonationPackageRequest;
-use Illuminate\Http\Request;
 use App\Models\DonationPackage;
 use App\Http\Controllers\Controller;
 
@@ -29,7 +28,7 @@ class DonationPackageController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('Staff.donation-package.index', ['packages' => DonationPackage::orderBy('position')->paginate(25)]);
+        return view('Staff.donation-package.index', ['packages' => DonationPackage::query()->orderBy('position')->paginate(25)]);
     }
 
     /**
@@ -45,7 +44,7 @@ class DonationPackageController extends Controller
      */
     public function store(StoreDonationPackageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        DonationPackage::create($request->validated());
+        DonationPackage::query()->create($request->validated());
 
         return redirect()->route('staff.packages.index')
             ->with('success', 'Donation package added successfully!');
@@ -73,7 +72,7 @@ class DonationPackageController extends Controller
     /**
      * Delete A Donation Package.
      */
-    public function destroy(Request $request, DonationPackage $package): \Illuminate\Http\RedirectResponse
+    public function destroy(DonationPackage $package): \Illuminate\Http\RedirectResponse
     {
         $package->delete();
 

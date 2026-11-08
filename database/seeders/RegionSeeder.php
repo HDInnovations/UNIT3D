@@ -23,7 +23,7 @@ class RegionSeeder extends Seeder
 {
     public function run(): void
     {
-        Region::upsert([
+        Region::query()->upsert([
             [
                 'id'       => 1,
                 'name'     => 'AFG',

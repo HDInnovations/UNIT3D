@@ -56,7 +56,7 @@ class TorrentTrumpSearch extends Component
             ->when($this->torrentName !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.$this->torrentName.'%'))
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))
             ->when($this->sortField !== '', fn ($query) => $query->orderBy($this->sortField, $this->sortDirection))
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

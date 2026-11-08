@@ -32,11 +32,6 @@ class UserNotes extends Component
 
     public string $message = '';
 
-    /**
-     * @var array<int, string>
-     */
-    public array $messages = [];
-
     #[Url(history: true)]
     public int $perPage = 25;
 
@@ -54,19 +49,7 @@ class UserNotes extends Component
             'required',
             'filled',
         ],
-        'messages' => [
-            'array',
-        ],
-        'messages.*' => [
-            'required',
-            'filled',
-        ]
     ];
-
-    final public function mount(): void
-    {
-        $this->messages = Note::where('user_id', '=', $this->user->id)->pluck('message', 'id')->toArray();
-    }
 
     /**
      * @var \Illuminate\Pagination\LengthAwarePaginator<int, Note>
@@ -75,7 +58,7 @@ class UserNotes extends Component
         get => Note::query()
             ->with('staff', 'staff.group')
             ->where('user_id', '=', $this->user->id)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -94,7 +77,7 @@ class UserNotes extends Component
 
         $this->validateOnly('message');
 
-        Note::create([
+        Note::query()->create([
             'user_id'  => $this->user->id,
             'staff_id' => auth()->id(),
             'message'  => $this->message,
@@ -105,30 +88,11 @@ class UserNotes extends Component
         $this->dispatch('success', type: 'success', message: 'Note has successfully been posted!');
     }
 
-    /**
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    final public function update(int $id): void
-    {
-        abort_unless(auth()->user()->group->is_modo, 403);
-
-        $this->validateOnly('messages');
-        $this->validateOnly('messages.*');
-
-        Note::whereKey($id)->update([
-            'staff_id'   => auth()->id(),
-            'message'    => $this->messages[$id],
-            'updated_at' => now(),
-        ]);
-
-        $this->dispatch('success', type: 'success', message: 'Note has successfully been updated!');
-    }
-
     final public function destroy(int $id): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        Note::findOrFail($id)->delete();
+        Note::query()->findOrFail($id)->delete();
 
         $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
     }

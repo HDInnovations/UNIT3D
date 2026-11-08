@@ -24,7 +24,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('clients', function (Blueprint $table): void {
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };
