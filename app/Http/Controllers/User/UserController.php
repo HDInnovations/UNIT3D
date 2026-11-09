@@ -134,7 +134,7 @@ class UserController extends Controller
                 ->where('user_id', '=', $user->id)
                 ->first(),
             'watch'        => $user->watchlist,
-            'externalUser' => ! $user->trashed() && $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : false,
+            'externalUser' => ! $user->trashed() && ($request->user()->is($user) || $request->user()->group->is_modo) ? Unit3dAnnounce::getUser($user->id) : false,
             'donation'     => Donation::query()->where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
         ]);
     }
