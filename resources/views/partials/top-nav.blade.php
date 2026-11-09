@@ -13,7 +13,7 @@
                     {{ __('torrent.torrents') }}
                 </div>
             </a>
-            <a class="top-nav__dropdown--touch" tabindex="0">
+            <a class="top-nav__dropdown--touch" role="button" aria-haspopup="true" aria-label="{{ __('torrent.torrents') }}" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
                 </div>
@@ -69,7 +69,7 @@
                     {{ __('common.community') }}
                 </div>
             </a>
-            <a class="top-nav__dropdown--touch" tabindex="0">
+            <a class="top-nav__dropdown--touch" role="button" aria-haspopup="true" aria-label="{{ __('common.community') }}" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.community') }}
                 </div>
@@ -116,7 +116,7 @@
             </ul>
         </li>
         <li class="top-nav__dropdown">
-            <a tabindex="0">
+            <a role="button" aria-haspopup="true" aria-label="{{ __('common.support') }}" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.support') }}
 
@@ -171,7 +171,7 @@
             </ul>
         </li>
         <li class="top-nav__dropdown">
-            <a tabindex="0">
+            <a role="button" aria-haspopup="true" aria-label="{{ __('common.other') }}" tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
                     @if ($giveaways->contains(fn ($giveaway) => ! $giveaway->claimed_prizes_exists && $giveaway->ends_at->endOfDay()->isFuture()))
@@ -287,55 +287,75 @@
     <div class="top-nav__right" x-bind:class="expanded && 'mobile'">
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
-                <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                <a
+                    href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}"
+                    aria-label="{{ __('common.upload') }}: {{ $user->formatted_uploaded }}"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-up" aria-hidden="true"></i>
                     {{ $user->formatted_uploaded }}
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
                 <a
                     href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}"
+                    aria-label="{{ __('common.download') }}: {{ $user->formatted_downloaded }}"
                 >
-                    <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-down" aria-hidden="true"></i>
                     {{ $user->formatted_downloaded }}
                 </a>
             </li>
 
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
-                <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-upload"></i>
+                <a
+                    href="{{ route('users.peers.index', ['user' => auth()->user()]) }}"
+                    aria-label="{{ __('torrent.seeding') }}: {{ $peerCount - $leechCount }}"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-upload" aria-hidden="true"></i>
                     {{ $peerCount - $leechCount }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
                 <a
                     href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}"
+                    aria-label="{{ __('torrent.leeching') }}: {{ $leechCount }}"
                 >
-                    <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-download" aria-hidden="true"></i>
                     {{ $leechCount }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
-                <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
+                <a
+                    href="{{ route('users.history.index', ['user' => auth()->user()]) }}"
+                    aria-label="{{ __('common.buffer') }}: {{ $user->formatted_buffer }}"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-exchange" aria-hidden="true"></i>
                     {{ $user->formatted_buffer }}
                 </a>
             </li>
             <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
-                <a href="{{ route('users.earnings.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-coins"></i>
+                <a
+                    href="{{ route('users.earnings.index', ['user' => auth()->user()]) }}"
+                    aria-label="{{ __('user.my-bonus-points') }}: {{ $user->formatted_seedbonus }}"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-coins" aria-hidden="true"></i>
                     {{ $user->formatted_seedbonus }}
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
-                <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
+                <a
+                    href="{{ route('users.history.index', ['user' => auth()->user()]) }}"
+                    aria-label="{{ __('common.ratio') }}: {{ $user->formatted_ratio }}"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-sync-alt" aria-hidden="true"></i>
                     {{ $user->formatted_ratio }}
                 </a>
             </li>
             <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
-                <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
-                    <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                <a
+                    href="{{ route('users.show', ['user' => auth()->user()]) }}"
+                    aria-label="{{ __('user.my-fl-tokens') }}: {{ $user->fl_tokens }}"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-star" aria-hidden="true"></i>
                     {{ $user->fl_tokens }}
                 </a>
             </li>
@@ -431,7 +451,7 @@
                         ></i>
                     @endif
                 </a>
-                <a class="top-nav__dropdown--touch" tabindex="0">
+                <a class="top-nav__dropdown--touch" role="button" aria-haspopup="true" aria-label="{{ __('user.my-profile') }}" tabindex="0">
                     <img
                         src="{{ $user->image ? route('authenticated_images.user_avatar', ['user' => $user]) : url('img/profile.png') }}"
                         alt="{{ __('user.my-profile') }}"
