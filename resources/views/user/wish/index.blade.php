@@ -96,6 +96,22 @@
                                         >
                                             {{ $wish->title }}
                                         </a>
+                                    @elseif ($wish->tmdb_movie_id !== null)
+                                        <a
+                                            href="https://www.themoviedb.org/movie/{{ $wish->tmdb_movie_id }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {{ $wish->title }}
+                                        </a>
+                                    @elseif ($wish->tmdb_tv_id !== null)
+                                        <a
+                                            href="https://www.themoviedb.org/tv/{{ $wish->tmdb_tv_id }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {{ $wish->title }}
+                                        </a>
                                     @else
                                         {{ $wish->title }}
                                     @endif
@@ -126,6 +142,29 @@
                             </td>
                             <td>
                                 <menu class="data-table__actions">
+                                    @if ($wish->tmdb_movie_id !== null)
+                                        <li class="data-table__action">
+                                            <a
+                                                href="https://www.themoviedb.org/movie/{{ $wish->tmdb_movie_id }}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="form__button form__button--text"
+                                            >
+                                                TMDB
+                                            </a>
+                                        </li>
+                                    @elseif ($wish->tmdb_tv_id !== null)
+                                        <li class="data-table__action">
+                                            <a
+                                                href="https://www.themoviedb.org/tv/{{ $wish->tmdb_tv_id }}"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="form__button form__button--text"
+                                            >
+                                                TMDB
+                                            </a>
+                                        </li>
+                                    @endif
                                     <li class="data-table__action">
                                         <a
                                             href="{{
