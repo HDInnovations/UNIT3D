@@ -28,7 +28,7 @@
                 <i>
                     <img
                         @style([
-                            'max-height: 22px;' =>
+                            'max-height: var(--user-tag-custom-icon-size, 22px);' =>
                                 request()
                                     ->route()
                                     ->getName() === 'users.show',
@@ -81,7 +81,7 @@
             <i>
                 <img
                     @style([
-                        'max-height: 22px;' =>
+                        'max-height: var(--user-tag-custom-icon-size, 22px);' =>
                             request()
                                 ->route()
                                 ->getName() === 'users.show',
