@@ -4,6 +4,7 @@ endfor
 endforeach
 endforelse
 endisland
+endfragment
 endisset
 endphp
 endscript
