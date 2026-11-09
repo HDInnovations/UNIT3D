@@ -38,6 +38,7 @@ use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use App\Services\SubtitleDownloadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Exception;
@@ -47,8 +48,10 @@ class SubtitleController extends Controller
     /**
      * SubtitleController Constructor.
      */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
+    public function __construct(
+        private readonly ChatRepository $chatRepository,
+        private readonly SubtitleDownloadService $subtitleDownloadService,
+    ) {
     }
 
     /**
@@ -180,24 +183,14 @@ class SubtitleController extends Controller
     /**
      * Download the specified resource from storage.
      */
-    public function download(Request $request, Subtitle $subtitle): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse|\Symfony\Component\HttpFoundation\StreamedResponse
+    public function download(Request $request, Subtitle $subtitle): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\StreamedResponse
     {
-        $user = $request->user();
-
         // User's download rights are revoked
-        if ($user->can_download == 0 && $subtitle->user_id != $user->id) {
+        if (!$this->subtitleDownloadService->userCanDownload($request->user(), $subtitle)) {
             return to_route('torrents.show', ['id' => $subtitle->torrent->id])
                 ->withErrors('Your download rights have been revoked!');
         }
 
-        // Define the filename for the download
-        $tempFilename = sanitize_filename('['.$subtitle->language->name.' Subtitle]'.$subtitle->torrent->name.$subtitle->extension);
-
-        // Increment downloads count
-        $subtitle->increment('downloads');
-
-        $headers = ['Content-Type: '.Storage::disk('subtitle-files')->mimeType($subtitle->file_name)];
-
-        return Storage::disk('subtitle-files')->download($subtitle->file_name, $tempFilename, $headers);
+        return $this->subtitleDownloadService->download($subtitle);
     }
 }
