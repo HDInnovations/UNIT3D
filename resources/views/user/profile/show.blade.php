@@ -460,6 +460,7 @@
 
         @if (auth()->user()->group->is_modo)
             @include('user.profile.partials.bans', ['bans' => $user->bans])
+            @include('user.profile.partials.reports', ['reports' => $user->reportsReceived])
         @endif
 
         @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
