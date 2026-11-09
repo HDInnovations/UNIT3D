@@ -23,7 +23,7 @@ class TypeSeeder extends Seeder
 {
     public function run(): void
     {
-        Type::query()->upsert([
+        Type::query()->fillAndInsert([
             [
                 'id'       => 1,
                 'name'     => 'Full Disc',
@@ -54,6 +54,6 @@ class TypeSeeder extends Seeder
                 'name'     => 'HDTV',
                 'position' => 6,
             ],
-        ], ['id'], []);
+        ]);
     }
 }

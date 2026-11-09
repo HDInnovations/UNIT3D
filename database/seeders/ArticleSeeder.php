@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use App\Models\Article;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class ArticleSeeder extends Seeder
 {
     public function run(): void
     {
-        Article::query()->upsert([
+        Article::query()->fillAndInsert([
             [
                 'id'         => 1,
                 'title'      => 'Welcome To '.config('other.title').' .',
@@ -33,6 +32,6 @@ class ArticleSeeder extends Seeder
                 'created_at' => '2017-02-28 17:22:37',
                 'updated_at' => '2017-04-21 12:21:06',
             ],
-        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

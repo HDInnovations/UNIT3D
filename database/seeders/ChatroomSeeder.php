@@ -18,16 +18,15 @@ namespace Database\Seeders;
 
 use App\Models\Chatroom;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class ChatroomSeeder extends Seeder
 {
     public function run(): void
     {
-        Chatroom::query()->upsert([
+        Chatroom::query()->fillAndInsert([
             [
                 'name' => 'General',
             ],
-        ], ['name'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

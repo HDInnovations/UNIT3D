@@ -71,7 +71,7 @@ class PollController extends Controller
     {
         $poll = Poll::query()->create([...$request->safe()->only(['title', 'expires_at', 'multiple_choice']), 'user_id' => $request->user()->id]);
 
-        $poll->options()->upsert($request->validated('options'), ['id'], []);
+        $poll->options()->fillAndInsert($request->validated('options'));
 
         $this->chatRepository->systemMessage(
             \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)

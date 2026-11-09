@@ -23,7 +23,7 @@ class BonEarningSeeder extends Seeder
 {
     public function run(): void
     {
-        BonEarning::query()->upsert([
+        BonEarning::query()->fillAndInsert([
             [
                 'id'          => 1,
                 'position'    => 1,
@@ -123,6 +123,6 @@ class BonEarningSeeder extends Seeder
                 'name'        => 'Participant Seeder',
                 'description' => 'Seed Time ≥ 1 month but < 2 months',
             ],
-        ], ['id']);
+        ]);
     }
 }

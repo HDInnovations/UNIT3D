@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use App\Models\TicketPriority;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class TicketPrioritySeeder extends Seeder
 {
     final public function run(): void
     {
-        TicketPriority::query()->upsert([
+        TicketPriority::query()->fillAndInsert([
             [
                 'name'     => 'Low',
                 'position' => 0,
@@ -43,6 +42,6 @@ class TicketPrioritySeeder extends Seeder
                 'color'    => '#FF4136',
                 'icon'     => config('other.font-awesome').' fa-circle',
             ],
-        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }
