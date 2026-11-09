@@ -39,22 +39,24 @@ class UserResource extends JsonResource
      *     leeching?: int,
      *     seedbonus: string,
      *     hit_and_runs: int,
+     *     bonus_per_hour: string,
      * }
      */
     #[Override]
     public function toArray(Request $request): array
     {
         return [
-            'username'     => $this->username,
-            'group'        => $this->group->name,
-            'uploaded'     => $this->uploaded,
-            'downloaded'   => $this->downloaded,
-            'ratio'        => $this->ratio,
-            'buffer'       => $this->buffer,
-            'seeding'      => $this->whenCounted('seedingTorrents'),
-            'leeching'     => $this->whenCounted('leechingTorrents'),
-            'seedbonus'    => $this->seedbonus,
-            'hit_and_runs' => $this->hitandruns,
+            'username'       => $this->username,
+            'group'          => $this->group->name,
+            'uploaded'       => $this->uploaded,
+            'downloaded'     => $this->downloaded,
+            'ratio'          => $this->ratio,
+            'buffer'         => $this->buffer,
+            'seeding'        => $this->whenCounted('seedingTorrents'),
+            'leeching'       => $this->whenCounted('leechingTorrents'),
+            'seedbonus'      => $this->seedbonus,
+            'hit_and_runs'   => $this->hitandruns,
+            'bonus_per_hour' => $this->bonus_per_hour,
         ];
     }
 }

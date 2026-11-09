@@ -16,9 +16,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use AllowDynamicProperties;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use AllowDynamicProperties;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\BonEarning.
@@ -56,5 +57,81 @@ final class BonEarning extends Model
     public function conditions(): HasMany
     {
         return $this->hasMany(BonEarningCondition::class);
+    }
+
+    /**
+     * Calculate total hourly bonus earnings for a given user.
+     */
+    public static function calculateHourlyEarningsForUser(int $userId): float
+    {
+        $bonEarnings = self::query()->with('conditions')->orderBy('position')->get();
+
+        $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
+
+        foreach ($bonEarnings as $bonEarning) {
+            // Raw bindings are fine since all database values are either enums or numeric
+            $conditionQuery = '1=1';
+
+            foreach ($bonEarning->conditions as $condition) {
+                $conditionQuery .= ' AND '.match ($condition->operand1) {
+                    '1'                => '1',
+                    'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
+                    'size'             => 'torrents.size',
+                    'seeders'          => 'torrents.seeders',
+                    'leechers'         => 'torrents.leechers',
+                    'times_completed'  => 'torrents.times_completed',
+                    'internal'         => 'torrents.internal',
+                    'personal_release' => 'torrents.personal_release',
+                    'type_id'          => 'torrents.type_id',
+                    'seedtime'         => 'history.seedtime',
+                    'connectable'      => 'MAX(peers.connectable)',
+                }.' '.$condition->operator.' '.$condition->operand2;
+            }
+
+            $variable = match ($bonEarning->variable) {
+                '1'                => '1',
+                'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
+                'size'             => 'torrents.size',
+                'seeders'          => 'torrents.seeders',
+                'leechers'         => 'torrents.leechers',
+                'times_completed'  => 'torrents.times_completed',
+                'internal'         => 'torrents.internal',
+                'personal_release' => 'torrents.personal_release',
+                'seedtime'         => 'history.seedtime',
+                'connectable'      => 'MAX(peers.connectable)',
+            };
+
+            $earningsQuery .= match ($bonEarning->operation) {
+                'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END)",
+                'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END)",
+            };
+        }
+
+        $query = DB::table('peers')
+            ->select([
+                'peers.torrent_id',
+                DB::raw("({$earningsQuery}) AS hourly_earnings"),
+            ])
+            ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
+            ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+            ->where('peers.seeder', '=', true)
+            ->where('peers.active', '=', true)
+            ->where('peers.user_id', '=', $userId)
+            ->groupBy([
+                'peers.torrent_id',
+                'peers.user_id',
+                'torrents.name',
+                'torrents.type_id',
+                'torrents.created_at',
+                'torrents.size',
+                'torrents.seeders',
+                'torrents.leechers',
+                'torrents.times_completed',
+                'torrents.internal',
+                'torrents.personal_release',
+                'history.seedtime',
+            ]);
+
+        return (float) (DB::query()->fromSub($query, 'earnings_per_torrent')->sum('hourly_earnings') ?? 0);
     }
 }
