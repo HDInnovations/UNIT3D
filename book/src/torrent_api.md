@@ -63,6 +63,8 @@ Parameters:
 | `du_until`*        | int    | Number of days the torrent should offer double upload
 | `sticky`*          | bool   | Should the torrent be stickied on the torrent index?
 | `mod_queue_opt_in`*| bool   | Should the torrent be sent to moderation queue?
+| `torrent-cover`    | file   | Cover image file (No-meta categories only)
+| `torrent-banner`   | file   | Banner image file (No-meta categories only)
 
 *Only available to staff and internal users.
 
