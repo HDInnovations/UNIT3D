@@ -41,6 +41,7 @@
     border: none;
     text-align: left;
     cursor: pointer;
+    interest-delay: 0s;
 
     &:hover {
         color: var(--secondary-nav-tab-hover-fg);
@@ -74,16 +75,15 @@
 
 /* Secondary nav menus (used on profile page) */
 
-.nav-tab-menu:hover > ul,
-.nav-tab-menu:focus-within > ul {
+.nav-tab-menu > ul:interest-target {
     display: flex;
 }
 
 .nav-tab-menu__items {
     margin-left: 12px;
-    display: none;
     position: absolute;
-    top: calc(80px - 5px);
+    position-area: bottom span-right;
+    top: 5px;
     flex-direction: column;
     align-items: stretch;
     padding: 8px 0 8px 0;
@@ -93,10 +93,7 @@
     box-shadow: var(--secondary-nav-tab-menu-box-shadow);
     list-style-type: none;
     z-index: 1000;
-
-    @media only screen and (max-width: 1024px) {
-        top: calc(80px + (12px - 5px) - 5px);
-    }
+    overflow: visible;
 }
 
 .nav-tab-menu__items::before {
