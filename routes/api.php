@@ -41,7 +41,7 @@ if (config('unit3d.proxy_scheme')) {
 }
 
 if (config('unit3d.root_url_override')) {
-    URL::forceRootUrl(config('unit3d.root_url_override'));
+    URL::useOrigin(config('unit3d.root_url_override'));
 }
 Route::middleware([Authenticate::using(AuthGuard::API->value), CheckIfBanned::class])->group(function (): void {
     // Torrents System
