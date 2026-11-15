@@ -307,12 +307,6 @@ parameters:
 			path: app/Http/Controllers/User/UserController.php
 
 		-
-			message: '#^Relation ''torrents'' is not found in App\\Models\\IgdbGame model\.$#'
-			identifier: laravel.relationExistence
-			count: 1
-			path: app/Http/Livewire/AlsoDownloadedWorks.php
-
-		-
 			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$attachment has no type specified\.$#'
 			identifier: missingType.property
 			count: 1

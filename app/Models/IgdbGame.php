@@ -18,6 +18,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
 use Override;
@@ -89,6 +90,16 @@ final class IgdbGame extends Model
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(IgdbGenre::class);
+    }
+
+    /**
+     * Get the torrents for the game.
+     *
+     * @return HasMany<Torrent, $this>
+     */
+    public function torrents(): HasMany
+    {
+        return $this->hasMany(Torrent::class, 'igdb')->whereRelation('category', 'game_meta', '=', true);
     }
 
     /**
