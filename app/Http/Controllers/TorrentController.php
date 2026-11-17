@@ -50,6 +50,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Container\Attributes\CurrentUser;
 use ReflectionException;
 use JsonException;
 
@@ -364,9 +365,8 @@ class TorrentController extends Controller
     /**
      * Update the specified Torrent resource in storage.
      */
-    public function update(UpdateTorrentRequest $request, int $id): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTorrentRequest $request, int $id, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         abort_unless(
@@ -382,28 +382,20 @@ class TorrentController extends Controller
             403
         );
 
-        $torrent->update($request->validated());
+        $torrent->update($request->toArray());
 
         // Cover Image for No-Meta Torrents
-        if ($request->hasFile('torrent-cover')) {
-            $image_cover = $request->file('torrent-cover');
-
-            abort_if(\is_array($image_cover), 400);
-
+        if ($request->poster !== null) {
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+            Image::make($request->poster->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
         // Banner Image for No-Meta Torrents
-        if ($request->hasFile('torrent-banner')) {
-            $image_cover = $request->file('torrent-banner');
-
-            abort_if(\is_array($image_cover), 400);
-
+        if ($request->backdrop !== null) {
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+            Image::make($request->backdrop->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
         // Torrent Keywords System
@@ -411,7 +403,7 @@ class TorrentController extends Controller
 
         $keywords = [];
 
-        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
+        foreach (TorrentTools::parseKeywords($request->keywords ?? '') as $keyword) {
             $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
@@ -535,16 +527,11 @@ class TorrentController extends Controller
     /**
      * Upload A Torrent.
      */
-    public function store(StoreTorrentRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentRequest $request, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
         abort_unless($user->can_upload ?? $user->group->can_upload, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
-        abort_if(\is_array($request->file('torrent')), 400);
-
-        abort_if(\is_array($request->file('nfo')), 400);
-
-        $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
+        $decodedTorrent = TorrentTools::normalizeTorrent($request->torrent);
 
         $meta = Bencode::get_meta($decodedTorrent);
 
@@ -552,15 +539,14 @@ class TorrentController extends Controller
         Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::query()->create([
-            ...$request->safe()->except(['torrent']),
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
+            ...$request->toArray(),
+            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->mediainfo),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],
             'folder'       => Bencode::get_name($decodedTorrent),
             'size'         => $meta['size'],
-            'nfo'          => $request->hasFile('nfo') ? TorrentTools::getNfo($request->file('nfo')) : '',
-            'user_id'      => $user->id,
+            'nfo'          => $request->nfo !== null ? TorrentTools::getNfo($request->nfo) : '',
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
         ]);
@@ -582,25 +568,17 @@ class TorrentController extends Controller
         }
 
         // Cover Image for No-Meta Torrents
-        if ($request->hasFile('torrent-cover')) {
-            $image_cover = $request->file('torrent-cover');
-
-            abort_if(\is_array($image_cover), 400);
-
+        if ($request->poster !== null) {
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
             $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+            Image::make($request->poster->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
         // Banner Image for No-Meta Torrents
-        if ($request->hasFile('torrent-banner')) {
-            $image_cover = $request->file('torrent-banner');
-
-            abort_if(\is_array($image_cover), 400);
-
+        if ($request->backdrop !== null) {
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
             $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+            Image::make($request->backdrop->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
         // Tracker updates come after initial database updates in case tracker's offline
@@ -620,7 +598,7 @@ class TorrentController extends Controller
         // Torrent Keywords System
         $keywords = [];
 
-        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
+        foreach (TorrentTools::parseKeywords($request->keywords ?? '') as $keyword) {
             $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
@@ -629,7 +607,7 @@ class TorrentController extends Controller
         }
 
         // check for trusted user and update torrent
-        if ($user->group->is_trusted && !$request->boolean('mod_queue_opt_in')) {
+        if ($user->group->is_trusted && !$request->modQueueOptIn) {
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
