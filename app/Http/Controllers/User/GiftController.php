@@ -24,6 +24,7 @@ use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class GiftController extends Controller
 {
@@ -74,10 +75,9 @@ class GiftController extends Controller
     /**
      * Gift points to a user.
      */
-    public function store(StoreGiftRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreGiftRequest $request, #[CurrentUser] User $sender): \Illuminate\Http\RedirectResponse
     {
-        $sender = $request->user();
-        $receiver = User::query()->where('username', '=', $request->recipient_username)->sole();
+        $receiver = User::query()->where('username', '=', $request->recipientUsername)->sole();
 
         DB::transaction(function () use ($sender, $receiver, $request): void {
             $sender->decrement('seedbonus', $request->bon);
