@@ -29,7 +29,7 @@ class GiveawayPrizeController extends Controller
      */
     public function store(StoreGiveawayPrizeRequest $request, Giveaway $giveaway): \Illuminate\Http\RedirectResponse
     {
-        $giveaway->prizes()->create($request->validated());
+        $giveaway->prizes()->create($request->toArray());
 
         return to_route('staff.giveaways.edit', [
             'giveaway' => $giveaway
@@ -42,7 +42,7 @@ class GiveawayPrizeController extends Controller
      */
     public function update(UpdateGiveawayPrizeRequest $request, Giveaway $giveaway, GiveawayPrize $prize): \Illuminate\Http\RedirectResponse
     {
-        $prize->update($request->validated());
+        $prize->update($request->toArray());
 
         return to_route('staff.giveaways.edit', [
             'giveaway' => $giveaway
