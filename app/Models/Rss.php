@@ -105,16 +105,12 @@ final class Rss extends Model
     /**
      * Get the RSS feeds JSON Torrent as object.
      */
-    public function getObjectTorrentAttribute(): stdClass|bool
+    public function getObjectTorrentAttribute(): stdClass
     {
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
-        if ($this->json_torrent) {
-            $expected = $this->expected_fields;
+        $expected = $this->expected_fields;
 
-            return (object) array_merge($expected, $this->json_torrent);
-        }
-
-        return false;
+        return (object) array_merge($expected, $this->json_torrent);
     }
 
     /**
@@ -129,6 +125,8 @@ final class Rss extends Model
             'search'          => null,
             'uploader'        => null,
             'imdb'            => null,
+            'tmdb'            => null,
+            'tvdb'            => null,
             'mal'             => null,
             'categories'      => null,
             'types'           => null,

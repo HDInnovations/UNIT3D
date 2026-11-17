@@ -16,129 +16,85 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Category;
+use App\Models\Resolution;
+use App\Models\TmdbGenre;
+use App\Models\Type;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\ValidationAttribute;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
 
-class StoreRssRequest extends FormRequest
+#[MergeValidationRules]
+class StoreRssRequest extends Data
 {
+    public function __construct(
+        #[Min(3), Max(255)]
+        public string $name,
+        #[Max(999)]
+        public int $position,
+        #[Max(255)]
+        public ?string $search = null,
+        #[Max(255)]
+        public ?string $uploader = null,
+        /** @var ?list<int> */
+        #[Max(999)]
+        public ?array $categories = null,
+        /** @var ?list<int> */
+        #[Max(999)]
+        public ?array $types = null,
+        /** @var ?list<int> */
+        #[Max(999)]
+        public ?array $resolutions = null,
+        /** @var ?list<int> */
+        public ?array $genres = null,
+        public ?int $imdb = null,
+        public Optional|int $tvdb = new Optional(),
+        public Optional|int $tmdb = new Optional(),
+        public ?int $mal = null,
+        public ?bool $freeleech = null,
+        public ?bool $doubleupload = null,
+        public ?bool $featured = null,
+        public ?bool $highspeed = null,
+        public ?bool $internal = null,
+        public ?bool $personalrelease = null,
+        public ?bool $bookmark = null,
+        public ?bool $alive = null,
+        public ?bool $dying = null,
+        public ?bool $dead = null,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<ValidationAttribute|string>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                'min:3',
-                'max:255',
-            ],
-            'search' => [
-                'max:255',
-            ],
-            'uploader' => [
-                'max:255',
-            ],
-            'categories' => [
-                'sometimes',
-                'array',
-                'max:999',
-            ],
             'categories.*' => [
                 'sometimes',
-                'exists:categories,id',
-            ],
-            'types' => [
-                'sometimes',
-                'array',
-                'max:999',
+                'integer',
+                new Exists(Category::class, 'id'),
             ],
             'types.*' => [
                 'sometimes',
-                'exists:types,id',
-            ],
-            'resolutions' => [
-                'sometimes',
-                'array',
-                'max:999',
+                'integer',
+                new Exists(Type::class, 'id'),
             ],
             'resolutions.*' => [
                 'sometimes',
-                'exists:resolutions,id',
-            ],
-            'genres' => [
-                'sometimes',
-                'array',
-                'max:999',
+                'integer',
+                new Exists(Resolution::class, 'id'),
             ],
             'genres.*' => [
                 'sometimes',
-                'exists:genres,id',
-            ],
-            'position' => [
-                'sometimes',
                 'integer',
-                'max:9999',
-            ],
-            'imdb' => [
-                'sometimes',
-                'nullable',
-                'integer',
-            ],
-            'tvdb' => [
-                'sometimes',
-                'nullable',
-                'integer',
-            ],
-            'tmdb' => [
-                'sometimes',
-                'nullable',
-                'integer',
-            ],
-            'mal' => [
-                'sometimes',
-                'nullable',
-                'integer',
-            ],
-            'freeleech' => [
-                'sometimes',
-                'boolean',
-            ],
-            'doubleupload' => [
-                'sometimes',
-                'boolean',
-            ],
-            'featured' => [
-                'sometimes',
-                'boolean',
-            ],
-            'highspeed' => [
-                'sometimes',
-                'boolean',
-            ],
-            'internal' => [
-                'sometimes',
-                'boolean',
-            ],
-            'personalrelease' => [
-                'sometimes',
-                'boolean',
-            ],
-            'bookmark' => [
-                'sometimes',
-                'boolean',
-            ],
-            'alive' => [
-                'sometimes',
-                'boolean',
-            ],
-            'dying' => [
-                'sometimes',
-                'boolean',
-            ],
-            'dead' => [
-                'sometimes',
-                'boolean',
+                new Exists(TmdbGenre::class, 'id'),
             ],
         ];
     }
