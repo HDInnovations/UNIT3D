@@ -20,10 +20,12 @@ use App\Http\Requests\MassUpsertPlaylistTorrentRequest;
 use App\Http\Requests\StorePlaylistTorrentRequest;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistTorrentControllerTest
@@ -33,13 +35,13 @@ class PlaylistTorrentController extends Controller
     /**
      * Attach A Torrent To A Playlist.
      */
-    public function store(StorePlaylistTorrentRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePlaylistTorrentRequest $request, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        $playlist = Playlist::query()->findOrFail($request->integer('playlist_id'));
+        $playlist = Playlist::query()->findOrFail($request->playlistId);
 
-        abort_unless($request->user()->id === $playlist->user_id, 403);
+        abort_unless($currentUser->id === $playlist->user_id, 403);
 
-        $playlistTorrent = PlaylistTorrent::query()->create($request->validated());
+        $playlistTorrent = PlaylistTorrent::query()->create($request->toArray());
 
         $playlistTorrent->torrent()->searchable();
 
@@ -50,13 +52,13 @@ class PlaylistTorrentController extends Controller
     /**
      * Attach Torrents To A Playlist.
      */
-    public function massUpsert(MassUpsertPlaylistTorrentRequest $request): \Illuminate\Http\RedirectResponse
+    public function massUpsert(MassUpsertPlaylistTorrentRequest $request, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        $playlist = Playlist::query()->findOrFail($request->integer('playlist_id'));
+        $playlist = Playlist::query()->findOrFail($request->playlistId);
 
-        abort_unless($request->user()->id === $playlist->user_id, 403);
+        abort_unless($currentUser->id === $playlist->user_id, 403);
 
-        $playlistTorrents = $request->string('torrent_urls')
+        $playlistTorrents = str($request->torrentUrls)
             ->explode("\n")
             ->map(fn ($url) => basename($url))
             ->unique()

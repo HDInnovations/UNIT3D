@@ -16,32 +16,21 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use App\Models\Playlist;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
  */
-class MassUpsertPlaylistTorrentRequest extends FormRequest
+class MassUpsertPlaylistTorrentRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<int, \Illuminate\Validation\Rules\Exists|string>>
-     */
-    public function rules(): array
-    {
-        return [
-            'playlist_id' => [
-                'required',
-                'numeric',
-                'integer',
-                Rule::exists('playlists', 'id'),
-            ],
-            'torrent_urls' => [
-                'required',
-                'max:65535',
-            ],
-        ];
+    public function __construct(
+        #[Exists(Playlist::class, 'id')]
+        public int $playlistId,
+        #[Max(65535)]
+        public string $torrentUrls,
+    ) {
     }
 }
