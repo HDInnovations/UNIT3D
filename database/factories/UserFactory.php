@@ -83,4 +83,9 @@ class UserFactory extends Factory
             'group_id' => 9,
         ]);
     }
+
+    public function moderator(): static
+    {
+        return $this->for(Group::factory()->moderator());
+    }
 }
