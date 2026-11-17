@@ -24,15 +24,16 @@ use App\Notifications\ApikeyReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class ApikeyController extends Controller
 {
     /**
      * Update user apikey.
      */
-    protected function store(StoreApikeyRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    protected function store(StoreApikeyRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
         $apikey = Str::random(100);
 
@@ -42,7 +43,7 @@ class ApikeyController extends Controller
             }
 
             $user->apikeys()->create([
-                ...$request->validated(),
+                ...$request->toArray(),
                 'content' => $apikey,
             ]);
 
