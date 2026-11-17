@@ -16,25 +16,18 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\BonExchange;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Data;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\StorePollTest
  */
-class StoreTransactionRequest extends FormRequest
+class StoreTransactionRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'exchange' => [
-                'required',
-                'exists:bon_exchanges,id',
-            ],
-        ];
+    public function __construct(
+        #[Exists(BonExchange::class, 'id')]
+        public int $exchange,
+    ) {
     }
 }
