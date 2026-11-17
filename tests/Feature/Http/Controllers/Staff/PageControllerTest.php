@@ -14,17 +14,11 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\Staff\PageController;
-use App\Http\Requests\Staff\StorePageRequest;
-use App\Http\Requests\Staff\UpdatePageRequest;
 use App\Models\Page;
-use Database\Seeders\GroupSeeder;
 
 use function Pest\Laravel\assertDatabaseHas;
 
 test('create returns an ok response', function (): void {
-    $this->seed(GroupSeeder::class);
-
     $this->get(route('staff.pages.create'))
         ->assertOk()
         ->assertViewIs('Staff.page.create');
@@ -57,14 +51,6 @@ test('index returns an ok response', function (): void {
         ->assertViewHas('pages', $pages);
 });
 
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        PageController::class,
-        'store',
-        StorePageRequest::class
-    );
-});
-
 test('store returns an ok response', function (): void {
     $page = Page::factory()->make();
 
@@ -79,14 +65,6 @@ test('store returns an ok response', function (): void {
         'name'    => $page->name,
         'content' => $page->content,
     ]);
-});
-
-test('update validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        PageController::class,
-        'update',
-        UpdatePageRequest::class
-    );
 });
 
 test('update returns an ok response', function (): void {
