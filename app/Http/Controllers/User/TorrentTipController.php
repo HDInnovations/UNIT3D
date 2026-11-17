@@ -23,6 +23,7 @@ use App\Models\User;
 use App\Notifications\NewUploadTip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Feature\Http\Controllers\BonusControllerTest
@@ -32,9 +33,9 @@ class TorrentTipController extends Controller
     /**
      * Show previous tip history.
      */
-    public function index(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(Request $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
+        abort_unless($currentUser->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.torrent-tip.index', [
             'user' => $user,
@@ -59,12 +60,12 @@ class TorrentTipController extends Controller
      *
      * @param User $user The tipping user.
      */
-    public function store(StoreTorrentTipRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentTipRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
         DB::transaction(static function () use ($request, $user): void {
-            $tip = TorrentTip::query()->create($request->validated());
+            $tip = TorrentTip::query()->create($request->toArray());
 
             User::query()->whereKey($tip->sender_id)->decrement('seedbonus', (float) $tip->bon);
             User::query()->whereKey($tip->recipient_id)->increment('seedbonus', (float) $tip->bon);
