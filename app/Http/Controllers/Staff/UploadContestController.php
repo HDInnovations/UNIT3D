@@ -47,7 +47,7 @@ class UploadContestController extends Controller
     public function store(StoreUploadContestRequest $request): \Illuminate\Http\RedirectResponse
     {
         UploadContest::query()->create([
-            ...$request->validated(),
+            ...$request->toArray(),
             'active'  => 0,
             'awarded' => 0,
         ]);
@@ -71,7 +71,7 @@ class UploadContestController extends Controller
      */
     public function update(UpdateUploadContestRequest $request, UploadContest $uploadContest): \Illuminate\Http\RedirectResponse
     {
-        $uploadContest->update($request->validated());
+        $uploadContest->update($request->toArray());
 
         return to_route('staff.upload_contests.index');
     }

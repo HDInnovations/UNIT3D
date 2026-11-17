@@ -40,8 +40,8 @@ class UploadContestFactory extends Factory
             'icon'        => $this->faker->imageUrl(),
             'active'      => $this->faker->boolean(),
             'awarded'     => $this->faker->boolean(),
-            'starts_at'   => $this->faker->dateTimeBetween('-1 month', '+1 month'),
-            'ends_at'     => $this->faker->dateTimeBetween('+1 month', '+2 months'),
+            'starts_at'   => $this->faker->dateTimeBetween('-1 month', '+1 month')->format('Y-m-d'),
+            'ends_at'     => $this->faker->dateTimeBetween('+1 month', '+2 months')->format('Y-m-d'),
         ];
     }
 }
