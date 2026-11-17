@@ -22,12 +22,14 @@ use App\Models\TmdbMovie;
 use App\Models\Playlist;
 use App\Models\PlaylistCategory;
 use App\Models\TmdbTv;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Traits\TorrentMeta;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Exception;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest
@@ -64,29 +66,23 @@ class PlaylistController extends Controller
     /**
      * Store A New Playlist.
      */
-    public function store(StorePlaylistRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePlaylistRequest $request, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('cover_image')) {
-            abort_if(\is_array($request->file('cover_image')), 400);
-
-            abort_unless($request->file('cover_image')->getError() === UPLOAD_ERR_OK, 500);
-
-            $image = $request->file('cover_image');
-            $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($request->coverImage !== null) {
+            $filename = 'playlist-cover_'.uniqid('', true).'.'.$request->coverImage->getClientOriginalExtension();
             $path = Storage::disk('playlist-images')->path($filename);
-            Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
+            Image::make($request->coverImage->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         }
 
         $playlist = Playlist::query()->create([
-            ...$request->validated(),
-            'user_id'     => $request->user()->id,
+            ...$request->toArray(),
             'cover_image' => $filename ?? null
         ]);
 
         // Announce To Shoutbox
         if (!$playlist->is_private) {
             $this->chatRepository->systemMessage(
-                'User [url='.href_profile($request->user()).']'.$request->user()->username.'[/url] has created a new playlist [url='.href_playlist($playlist).']'.$playlist->name.'[/url] check it out now!'
+                'User [url='.href_profile($currentUser).']'.$currentUser->username.'[/url] has created a new playlist [url='.href_playlist($playlist).']'.$playlist->name.'[/url] check it out now!'
             );
         }
 
@@ -143,28 +139,22 @@ class PlaylistController extends Controller
     /**
      * Update A Playlist.
      */
-    public function update(UpdatePlaylistRequest $request, Playlist $playlist): \Illuminate\Http\RedirectResponse
+    public function update(UpdatePlaylistRequest $request, Playlist $playlist, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $playlist->user_id || $request->user()->group->is_modo, 403);
+        abort_unless($currentUser->id == $playlist->user_id || $currentUser->group->is_modo, 403);
 
-        if ($request->hasFile('cover_image')) {
-            $image = $request->file('cover_image');
-
-            abort_if(\is_array($image), 400);
-
-            abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
-
-            $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($request->coverImage) {
+            $filename = 'playlist-cover_'.uniqid('', true).'.'.$request->coverImage->getClientOriginalExtension();
             $path = Storage::disk('playlist-images')->path($filename);
-            Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
+            Image::make($request->coverImage->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
 
             if ($playlist->cover_image !== null) {
                 Storage::disk('playlist-images')->delete($playlist->cover_image);
             }
 
-            $playlist->update([...$request->validated(), 'cover_image' => $filename]);
+            $playlist->update([...$request->toArray(), 'cover_image' => $filename]);
         } else {
-            $playlist->update($request->validated());
+            $playlist->update($request->toArray());
         }
 
         return to_route('playlists.show', ['playlist' => $playlist])
