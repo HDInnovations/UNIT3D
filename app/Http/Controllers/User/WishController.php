@@ -25,6 +25,7 @@ use App\Models\Wish;
 use App\Services\Tmdb\Client\Movie;
 use App\Services\Tmdb\Client\TV;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 use JsonException;
 
 /**
@@ -58,14 +59,14 @@ class WishController extends Controller
      *
      * @throws JsonException
      */
-    public function store(StoreWishRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function store(StoreWishRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
         switch ($request->meta) {
             case 'movie':
                 try {
-                    $meta = (new Movie((int) $request->tmdb_movie_id))->data;
+                    $meta = (new Movie((int) $request->tmdbMovieId))->data;
                 } catch (MetaFetchNotFoundException) {
                     return to_route('users.wishes.index', ['user' => $user])
                         ->withErrors('TMDB movie ID not found');
@@ -76,13 +77,13 @@ class WishController extends Controller
                 Wish::query()->create([
                     'user_id'       => $user->id,
                     'title'         => $title,
-                    'tmdb_movie_id' => $request->tmdb_movie_id,
+                    'tmdb_movie_id' => $request->tmdbMovieId,
                 ]);
 
                 break;
             case 'tv':
                 try {
-                    $meta = (new TV((int) $request->tmdb_tv_id))->data;
+                    $meta = (new TV((int) $request->tmdbTvId))->data;
                 } catch (MetaFetchNotFoundException) {
                     return to_route('users.wishes.index', ['user' => $user])
                         ->withErrors('TMDB TV ID not found');
@@ -93,7 +94,7 @@ class WishController extends Controller
                 Wish::query()->create([
                     'user_id'    => $user->id,
                     'title'      => $title,
-                    'tmdb_tv_id' => $request->tmdb_tv_id,
+                    'tmdb_tv_id' => $request->tmdbTvId,
                 ]);
 
                 break;

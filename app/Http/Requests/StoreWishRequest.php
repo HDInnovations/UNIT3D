@@ -16,40 +16,47 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Database\Query\Builder;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Override;
+use App\Models\Wish;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\In;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\RequiredIf;
+use Spatie\LaravelData\Attributes\Validation\RequiredWithout;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\Constraints\WhereConstraint;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class StoreWishRequest extends FormRequest
+#[MergeValidationRules]
+class StoreWishRequest extends Data
 {
+    public function __construct(
+        #[Min(1)]
+        public ?int $tmdbMovieId,
+        #[Min(1)]
+        public ?int $tmdbTvId,
+        #[In('movie', 'tv')]
+        public string $meta,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\Rules\Unique|string>>
+     * @return array<string, list<ValidationRule>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
-        $user = auth()->user();
-
         return [
             'tmdb_movie_id' => [
-                'required_if:meta,movie',
-                'required_without:tmdb_tv_id',
-                'decimal:0',
-                'min:1',
-                Rule::unique('wishes')->where(fn (Builder $query) => $query->where('user_id', '=', $user->id)),
+                new Unique(Wish::class, where: new WhereConstraint('user_id', auth()->id())),
+                new RequiredIf('meta', 'movie'),
+                new RequiredWithout('tmdb_tv_id'),
             ],
             'tmdb_tv_id' => [
-                'required_if:meta,tv',
-                'required_without:tmdb_movie_id',
-                'decimal:0',
-                'min:1',
-                Rule::unique('wishes')->where(fn (Builder $query) => $query->where('user_id', '=', $user->id)),
-            ],
-            'meta' => [
-                'required',
-                'in:movie,tv',
+                new Unique(Wish::class, where: new WhereConstraint('user_id', auth()->id())),
+                new RequiredIf('meta', 'tv'),
+                new RequiredWithout('tmdb_movie_id'),
             ],
         ];
     }
@@ -59,8 +66,7 @@ class StoreWishRequest extends FormRequest
      *
      * @return array<string, string>
      */
-    #[Override]
-    public function messages(): array
+    public static function messages(): array
     {
         return [
             'tmdb_movie_id.unique' => 'You are already receiving notifications for this movie.',
