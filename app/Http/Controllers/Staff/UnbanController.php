@@ -23,6 +23,7 @@ use App\Models\Group;
 use App\Models\User;
 use App\Notifications\UserBanExpire;
 use App\Services\Unit3dAnnounce;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
@@ -32,12 +33,11 @@ class UnbanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      */
-    public function store(StoreUnbanRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreUnbanRequest $request, #[CurrentUser] User $staff): \Illuminate\Http\RedirectResponse
     {
-        $user = User::query()->findOrFail($request->integer('owned_by'));
-        $staff = $request->user();
+        $user = User::query()->findOrFail($request->ownedBy);
 
-        abort_if($user->group->is_modo || $request->user()->is($user), 403);
+        abort_if($user->group->is_modo || $staff->is($user), 403);
 
         $user->update([
             'group_id'     => Group::query()->where('slug', '=', 'user')->soleValue('id'),
@@ -45,10 +45,8 @@ class UnbanController extends Controller
         ]);
 
         Ban::query()->create([
-            'owned_by'     => $user->id,
-            'created_by'   => $staff->id,
-            'unban_reason' => $request->unban_reason,
-            'removed_at'   => now(),
+            ...$request->toArray(),
+            'removed_at' => now(),
         ]);
 
         cache()->forget('user:'.$user->passkey);
