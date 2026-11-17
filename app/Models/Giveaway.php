@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
@@ -40,6 +41,9 @@ final class Giveaway extends Model
 {
     use Auditable;
 
+    /** @use HasFactory<\Database\Factories\GiveawayFactory> */
+    use HasFactory;
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -50,14 +54,15 @@ final class Giveaway extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{starts_at: 'datetime', ends_at: 'datetime'}
+     * @return array{active: 'boolean', starts_at: 'date', ends_at: 'date'}
      */
     #[Override]
     protected function casts(): array
     {
         return [
-            'starts_at' => 'datetime',
-            'ends_at'   => 'datetime',
+            'active'    => 'boolean',
+            'starts_at' => 'date',
+            'ends_at'   => 'date',
         ];
     }
 

@@ -34,7 +34,7 @@ class GiveawayController extends Controller
      */
     public function store(StoreGiveawayRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Giveaway::create($request->validated());
+        Giveaway::create($request->toArray());
 
         return to_route('staff.giveaways.index');
     }
@@ -54,7 +54,7 @@ class GiveawayController extends Controller
      */
     public function update(UpdateGiveawayRequest $request, Giveaway $giveaway): \Illuminate\Http\RedirectResponse
     {
-        $giveaway->update($request->validated());
+        $giveaway->update($request->toArray());
 
         return to_route('staff.giveaways.index');
     }
