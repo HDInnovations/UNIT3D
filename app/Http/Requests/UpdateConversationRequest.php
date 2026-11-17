@@ -16,22 +16,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
-class UpdateConversationRequest extends FormRequest
+class UpdateConversationRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'message' => [
-                'required',
-                'max:65536',
-            ],
-        ];
+    public function __construct(
+        #[Max(65535)]
+        public string $message,
+    ) {
     }
 }
