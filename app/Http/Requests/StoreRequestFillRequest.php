@@ -16,25 +16,30 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Attributes\FromCurrentUserId;
+use Override;
+use Spatie\LaravelData\Data;
 
-class StoreRequestFillRequest extends FormRequest
+class StoreRequestFillRequest extends Data
 {
+    public function __construct(
+        public int $torrentId,
+        public bool $filledAnon,
+        #[FromCurrentUserId]
+        public int $filledBy,
+    ) {
+    }
+
     /**
-     * Get the validation rules that apply to the request.
+     * @param array<mixed> $properties
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>s
+     * @return array<mixed>
      */
-    public function rules(): array
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        return [
-            'torrent_id' => [
-                'required',
-            ],
-            'filled_anon' => [
-                'required',
-                'boolean',
-            ],
-        ];
+        $properties['torrent_id'] = basename((string) $properties['torrent_id']);
+
+        return $properties;
     }
 }
