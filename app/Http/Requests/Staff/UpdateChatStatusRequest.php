@@ -16,27 +16,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Data;
 
-class UpdateChatStatusRequest extends FormRequest
+class UpdateChatStatusRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-            ],
-            'color' => [
-                'required',
-            ],
-            'icon' => [
-                'required',
-            ],
-        ];
+    public function __construct(
+        public string $name,
+        public string $color,
+        public string $icon,
+    ) {
     }
 }
