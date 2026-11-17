@@ -16,19 +16,15 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Attributes\FromCurrentUserId;
+use Spatie\LaravelData\Data;
 
-class StoreTorrentTrumpRequest extends FormRequest
+class StoreTorrentTrumpRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'reason' => 'required|string',
-        ];
+    public function __construct(
+        public string $reason,
+        #[FromCurrentUserId]
+        public int $userId,
+    ) {
     }
 }
