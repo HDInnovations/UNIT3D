@@ -16,21 +16,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Data;
 
-class StoreReportReplyRequest extends FormRequest
+class StoreReportReplyRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'content' => [
-                'required',
-            ],
-        ];
+    public function __construct(
+        public string $content,
+    ) {
     }
 }
