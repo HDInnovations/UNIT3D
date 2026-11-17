@@ -20,7 +20,9 @@ use App\Http\Requests\StoreSubscriptionRequest;
 use App\Models\Forum;
 use App\Models\Subscription;
 use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\SubscriptionControllerTest
@@ -38,32 +40,32 @@ class SubscriptionController extends Controller
     /**
      * Store a subscription.
      */
-    public function store(StoreSubscriptionRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreSubscriptionRequest $request, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
         switch (true) {
-            case $request->has('forum_id') === true:
+            case $request->forumId !== null:
                 abort_unless(
                     Forum::query()
-                        ->where('id', '=', $request->forum_id)
+                        ->where('id', '=', $request->forumId)
                         ->authorized(canReadTopic: true)
                         ->exists(),
                     403
                 );
-                $request->user()->subscribedForums()->attach($request->forum_id);
+                $currentUser->subscribedForums()->attach($request->forumId);
 
                 return back()
                     ->with('success', 'You are now subscribed to this forum. You will now receive site notifications when a topic is started.');
 
-            case $request->has('topic_id') === true:
+            case $request->topicId !== null:
                 abort_unless(
                     Topic::query()
-                        ->where('id', '=', $request->topic_id)
+                        ->where('id', '=', $request->topicId)
                         ->authorized(canReadTopic: true)
                         ->exists(),
                     403
                 );
 
-                $request->user()->subscribedTopics()->attach($request->topic_id);
+                $currentUser->subscribedTopics()->attach($request->topicId);
 
                 return back()
                     ->with('success', 'You are now subscribed to this topic. You will now receive site notifications when a reply is left.');
