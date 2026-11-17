@@ -23,19 +23,20 @@ use App\Models\Group;
 use App\Models\User;
 use App\Models\UserNotification;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class NotificationSettingController extends Controller
 {
     /**
      * Update user notification settings.
      */
-    public function update(UpsertUserNotificationRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpsertUserNotificationRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
         // Can't use upsert here because upsert doesn't serialize the custom
         // array cast to a string before upserting
-        UserNotification::query()->updateOrCreate(['user_id' => $user->id], $request->validated());
+        UserNotification::query()->updateOrCreate(['user_id' => $user->id], $request->toArray());
 
         cache()->forget('user-notification:by-user-id:'.$user->id);
 
