@@ -16,22 +16,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Data;
 
-class UpdateTorrentRequestBountyRequest extends FormRequest
+class UpdateTorrentRequestBountyRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'anon' => [
-                'required',
-                'boolean',
-            ]
-        ];
+    public function __construct(
+        public bool $anon,
+    ) {
     }
 }
