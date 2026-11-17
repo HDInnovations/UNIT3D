@@ -48,7 +48,7 @@ class DistributorController extends Controller
      */
     public function store(StoreDistributorRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Distributor::query()->create($request->validated());
+        Distributor::query()->create($request->toArray());
 
         return to_route('staff.distributors.index')
             ->with('success', 'Distributor successfully added');
@@ -69,7 +69,7 @@ class DistributorController extends Controller
      */
     public function update(UpdateDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        $distributor->update($request->validated());
+        $distributor->update($request->toArray());
 
         return to_route('staff.distributors.index')
             ->with('success', 'Distributor successfully modified');
@@ -93,7 +93,7 @@ class DistributorController extends Controller
      */
     public function destroy(DestroyDistributorRequest $request, Distributor $distributor): \Illuminate\Http\RedirectResponse
     {
-        $distributor->torrents()->update($request->validated());
+        $distributor->torrents()->update($request->toArray());
         $distributor->delete();
 
         return to_route('staff.distributors.index')
