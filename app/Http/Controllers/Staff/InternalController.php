@@ -81,7 +81,7 @@ class InternalController extends Controller
      */
     public function update(UpdateInternalRequest $request, Internal $internal): \Illuminate\Http\RedirectResponse
     {
-        $internal->update($request->validated());
+        $internal->update($request->toArray());
 
         return to_route('staff.internals.index')
             ->with('success', 'Internal group was updated successfully!');
@@ -100,7 +100,7 @@ class InternalController extends Controller
      */
     public function store(StoreInternalRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Internal::query()->create($request->validated());
+        Internal::query()->create($request->toArray());
 
         return to_route('staff.internals.index')
             ->with('success', 'New internal group added!');
