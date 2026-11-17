@@ -45,10 +45,8 @@ class RegisteredUserController extends Controller
     /**
      * Receive registration form.
      */
-    public function store(StoreRegisteredUserRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreRegisteredUserRequest $request, Request $laravelRequest): \Illuminate\Http\RedirectResponse
     {
-        $request->validated();
-
         $user = User::query()->create([
             'username'    => $request->username,
             'email'       => $request->email,
@@ -93,8 +91,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if ($request->hasSession()) {
-            $request->session()->regenerate();
+        if ($laravelRequest->hasSession()) {
+            $laravelRequest->session()->regenerate();
         }
 
         return to_route('verification.notice');
