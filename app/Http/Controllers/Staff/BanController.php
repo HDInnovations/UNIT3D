@@ -24,6 +24,7 @@ use App\Models\User;
 use App\Notifications\UserBan;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
@@ -45,10 +46,9 @@ class BanController extends Controller
      *
      * @throws Exception
      */
-    public function store(StoreBanRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreBanRequest $request, #[CurrentUser] User $staff): \Illuminate\Http\RedirectResponse
     {
-        $user = User::query()->findOrFail($request->string('owned_by'));
-        $staff = $request->user();
+        $user = User::query()->findOrFail($request->ownedBy);
 
         abort_if($user->group->is_modo || $staff->is($user), 403);
 
@@ -57,7 +57,7 @@ class BanController extends Controller
             'can_download' => 0,
         ]);
 
-        $ban = Ban::query()->create([...$request->validated(), 'created_by' => $staff->id]);
+        $ban = Ban::query()->create($request->toArray());
 
         cache()->forget('user:'.$user->passkey);
 
