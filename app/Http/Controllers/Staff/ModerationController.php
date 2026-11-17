@@ -72,13 +72,13 @@ class ModerationController extends Controller
 
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->with('user')->findOrFail($id);
 
-        if (ModerationStatus::from($request->integer('old_status')) !== $torrent->status) {
+        if ($request->oldStatus !== $torrent->status) {
             return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors('Torrent has already been moderated since this page was loaded.');
         }
 
-        if (ModerationStatus::from($request->integer('status')) === $torrent->status) {
+        if ($request->status === $torrent->status) {
             return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors(
@@ -93,7 +93,7 @@ class ModerationController extends Controller
 
         $staff = auth()->user();
 
-        switch (ModerationStatus::from($request->integer('status'))) {
+        switch ($request->status) {
             case ModerationStatus::APPROVED:
                 // Announce To Shoutbox
                 if (!$torrent->anon) {
