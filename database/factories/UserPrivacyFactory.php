@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserPrivacy;
@@ -67,17 +68,17 @@ class UserPrivacyFactory extends Factory
             'show_topic'                 => $this->faker->boolean(),
             'show_upload'                => $this->faker->boolean(),
             'show_wishlist'              => $this->faker->boolean(),
-            'json_profile_groups'        => $this->faker->word(),
-            'json_torrent_groups'        => $this->faker->word(),
-            'json_forum_groups'          => $this->faker->word(),
-            'json_bon_groups'            => $this->faker->word(),
-            'json_comment_groups'        => $this->faker->word(),
-            'json_wishlist_groups'       => $this->faker->word(),
-            'json_follower_groups'       => $this->faker->word(),
-            'json_achievement_groups'    => $this->faker->word(),
-            'json_rank_groups'           => $this->faker->word(),
-            'json_request_groups'        => $this->faker->word(),
-            'json_other_groups'          => $this->faker->word(),
+            'json_profile_groups'        => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_torrent_groups'        => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_forum_groups'          => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_bon_groups'            => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_comment_groups'        => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_wishlist_groups'       => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_follower_groups'       => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_achievement_groups'    => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_rank_groups'           => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_request_groups'        => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_other_groups'          => Group::factory()->count(3)->create()->pluck('id')->toArray(),
         ];
     }
 }

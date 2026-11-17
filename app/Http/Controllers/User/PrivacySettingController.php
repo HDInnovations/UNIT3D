@@ -23,19 +23,20 @@ use App\Models\Group;
 use App\Models\User;
 use App\Models\UserPrivacy;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class PrivacySettingController extends Controller
 {
     /**
      * Update user privacy settings.
      */
-    public function update(UpsertUserPrivacyRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpsertUserPrivacyRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
         // Can't use upsert here because upsert doesn't serialize the custom
         // array cast to a string before upserting
-        UserPrivacy::query()->updateOrCreate(['user_id' => $user->id], $request->validated());
+        UserPrivacy::query()->updateOrCreate(['user_id' => $user->id], $request->toArray());
 
         cache()->forget('user-privacy:by-user-id:'.$user->id);
 
