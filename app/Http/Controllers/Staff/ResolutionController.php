@@ -47,7 +47,7 @@ class ResolutionController extends Controller
      */
     public function store(StoreResolutionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Resolution::query()->create($request->validated());
+        Resolution::query()->create($request->toArray());
 
         return to_route('staff.resolutions.index')
             ->with('success', 'Resolution successfully added');
@@ -68,7 +68,7 @@ class ResolutionController extends Controller
      */
     public function update(UpdateResolutionRequest $request, Resolution $resolution): \Illuminate\Http\RedirectResponse
     {
-        $resolution->update($request->validated());
+        $resolution->update($request->toArray());
 
         return to_route('staff.resolutions.index')
             ->with('success', 'Resolution successfully modified');
