@@ -167,6 +167,7 @@
 		"torrent.revokefeatured",
 		"unorderedlist",
 		"watchlist",
+		"watchlists",
 		"welcomepm",
     ],
 	"ignoreRegExpList": [
