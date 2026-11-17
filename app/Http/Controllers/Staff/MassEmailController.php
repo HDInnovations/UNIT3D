@@ -31,8 +31,6 @@ class MassEmailController extends Controller
 
     public function store(MassEmailRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validated();
-
         $users = User::query()->whereIntegerInRaw('group_id', $request->groups)->get();
 
         foreach ($users as $user) {
