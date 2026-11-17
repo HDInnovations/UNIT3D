@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use App\Models\ForumCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use Override;
 
 /** @extends Factory<ForumCategory> */
@@ -34,10 +35,12 @@ class ForumCategoryFactory extends Factory
     #[Override]
     public function definition(): array
     {
+        $name = $this->faker->name();
+
         return [
             'position'    => $this->faker->numberBetween(0, 65535),
-            'name'        => $this->faker->name(),
-            'slug'        => $this->faker->slug(),
+            'name'        => $name,
+            'slug'        => Str::slug($name),
             'description' => $this->faker->text(),
         ];
     }
