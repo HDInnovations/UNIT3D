@@ -38,6 +38,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -69,15 +70,14 @@ class UserController extends Controller
     /**
      * Edit A User.
      */
-    public function update(UpdateUserRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpdateUserRequest $request, User $user, #[CurrentUser] User $staff): \Illuminate\Http\RedirectResponse
     {
         $user->load('group');
-        $staff = $request->user();
-        $group = Group::query()->findOrFail($request->group_id);
+        $group = Group::query()->findOrFail($request->groupId);
 
         abort_if(! $staff->group->is_owner && ($staff->group->level <= $user->group->level || $staff->group->level <= $group->level), 403);
 
-        $user->update($request->validated());
+        $user->update($request->toArray());
 
         cache()->forget('user:'.$user->passkey);
 

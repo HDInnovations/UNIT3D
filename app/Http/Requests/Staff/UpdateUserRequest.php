@@ -16,58 +16,47 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Group;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Data;
 
-class UpdateUserRequest extends FormRequest
+#[MergeValidationRules]
+class UpdateUserRequest extends Data
 {
+    public function __construct(
+        public string $username,
+        #[Min(0)]
+        public int $uploaded,
+        #[Min(0)]
+        public int $downloaded,
+        #[Max(255)]
+        public ?string $title,
+        #[Max(16 * 1024 * 1024)]
+        public string $about,
+        #[Exists(Group::class, 'id')]
+        public int $groupId,
+        public string $seedbonus,
+        #[Min(0)]
+        public int $invites,
+        #[Min(0)]
+        public int $flTokens,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'username' => [
-                'required',
-            ],
-            'uploaded' => [
-                'required',
-                'integer',
-            ],
-            'downloaded' => [
-                'required',
-                'integer',
-            ],
-            'title' => [
-                'nullable',
-                'present',
-                'string',
-                'max:255',
-            ],
-            'about' => [
-                'nullable',
-                'present',
-                'string',
-                'max:16777216',
-            ],
-            'group_id' => [
-                'required',
-                'exists:groups,id',
-            ],
             'seedbonus' => [
                 'required',
                 'decimal:0,2',
-                'min:0',
-            ],
-            'invites' => [
-                'required',
-                'integer',
-                'min:0',
-            ],
-            'fl_tokens' => [
-                'required',
-                'integer',
                 'min:0',
             ],
         ];
