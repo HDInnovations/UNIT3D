@@ -16,22 +16,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Data;
 
-class UpdateNoteRequest extends FormRequest
+class UpdateNoteRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'message' => [
-                'required',
-                'string',
-            ],
-        ];
+    public function __construct(
+        public string $message,
+    ) {
     }
 }
