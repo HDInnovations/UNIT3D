@@ -52,24 +52,15 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-
-            abort_if(\is_array($image), 400);
-
-            $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($request->image !== null) {
+            $filename = 'category-'.uniqid('', true).'.'.$request->image->getClientOriginalExtension();
             $path = Storage::disk('category-images')->path($filename);
-            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
+            Image::make($request->image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
         Category::query()->create([
-            ...$request->validated(),
-            'image'      => $filename ?? null,
-            'no_meta'    => $request->meta === 'no',
-            'music_meta' => $request->meta === 'music',
-            'game_meta'  => $request->meta === 'game',
-            'tv_meta'    => $request->meta === 'tv',
-            'movie_meta' => $request->meta === 'movie',
+            ...$request->toArray(),
+            'image' => $filename ?? null
         ]);
 
         return to_route('staff.categories.index')
@@ -91,14 +82,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-
-            abort_if(\is_array($image), 400);
-
-            $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($request->image !== null) {
+            $filename = 'category-'.uniqid('', true).'.'.$request->image->getClientOriginalExtension();
             $path = Storage::disk('category-images')->path($filename);
-            Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
+            Image::make($request->image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
 
             if ($category->image !== null) {
                 Storage::disk('category-images')->delete($category->image);
@@ -106,13 +93,8 @@ class CategoryController extends Controller
         }
 
         $category->update([
-            ...$request->validated(),
-            'image'      => $filename ?? null,
-            'no_meta'    => $request->meta === 'no',
-            'music_meta' => $request->meta === 'music',
-            'game_meta'  => $request->meta === 'game',
-            'tv_meta'    => $request->meta === 'tv',
-            'movie_meta' => $request->meta === 'movie',
+            ...$request->toArray(),
+            'image' => $filename ?? null
         ]);
 
         return to_route('staff.categories.index')
