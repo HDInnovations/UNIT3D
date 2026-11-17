@@ -5,155 +5,69 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Helpers\Language;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\In;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\Url;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class UpdateGeneralSettingRequest extends FormRequest
+#[MergeValidationRules]
+class UpdateGeneralSettingRequest extends Data
 {
+    public function __construct(
+        public bool $newsBlockVisible,
+        public int $newsBlockPosition,
+        public bool $chatBlockVisible,
+        public int $chatBlockPosition,
+        public bool $featuredBlockVisible,
+        public int $featuredBlockPosition,
+        public bool $randomMediaBlockVisible,
+        public int $randomMediaBlockPosition,
+        public bool $pollBlockVisible,
+        public int $pollBlockPosition,
+        public bool $topTorrentsBlockVisible,
+        public int $topTorrentsBlockPosition,
+        public bool $topUsersBlockVisible,
+        public int $topUsersBlockPosition,
+        public bool $latestTopicsBlockVisible,
+        public int $latestTopicsBlockPosition,
+        public bool $latestPostsBlockVisible,
+        public int $latestPostsBlockPosition,
+        public bool $latestCommentsBlockVisible,
+        public int $latestCommentsBlockPosition,
+        public bool $onlineBlockVisible,
+        public int $onlineBlockPosition,
+        public string $locale,
+        public int $style,
+        #[Url('https')]
+        public ?string $customCss,
+        #[Url('https')]
+        public ?string $standaloneCss,
+        #[In([0, 1, 2, 3])]
+        public int $torrentLayout,
+        #[In(['created_at', 'bumped_at'])]
+        public string $torrentSortField,
+        public bool $torrentSearchAutofocus,
+        public bool $showPoster,
+        public bool $unbookmarkTorrentsOnCompletion,
+        public bool $autoFreeleechApply,
+        #[Min(0)]
+        public int $autoFreeleechMinTokens,
+        public bool $showAdultContent,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, list<ValidationRule>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'news_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'news_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'chat_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'chat_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'featured_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'featured_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'random_media_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'random_media_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'poll_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'poll_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'top_torrents_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'top_torrents_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'top_users_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'top_users_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'latest_topics_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'latest_topics_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'latest_posts_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'latest_posts_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'latest_comments_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'latest_comments_block_position' => [
-                'required',
-                'numeric',
-            ],
-            'online_block_visible' => [
-                'required',
-                'boolean',
-            ],
-            'online_block_position' => [
-                'required',
-                'numeric',
-            ],
             'locale' => [
-                'required',
-                Rule::in(array_keys(Language::allowed())),
-            ],
-            'style' => [
-                'required',
-                'numeric',
-            ],
-            'custom_css' => [
-                'nullable',
-                'url',
-            ],
-            'standalone_css' => [
-                'nullable',
-                'url',
-            ],
-            'torrent_layout' => [
-                'required',
-                Rule::in([0, 1, 2, 3]),
-            ],
-            'torrent_sort_field' => [
-                'required',
-                Rule::in(['created_at', 'bumped_at']),
-            ],
-            'torrent_search_autofocus' => [
-                'required',
-                'boolean',
-            ],
-            'show_poster' => [
-                'required',
-                'boolean',
-            ],
-            'unbookmark_torrents_on_completion' => [
-                'required',
-                'boolean',
-            ],
-            'auto_freeleech_apply' => [
-                'required',
-                'boolean',
-            ],
-            'auto_freeleech_min_tokens' => [
-                'required',
-                'integer',
-                'min:0',
-            ],
-            'show_adult_content' => [
-                'required',
-                'boolean',
+                new In(array_keys(Language::allowed())),
             ],
         ];
     }
