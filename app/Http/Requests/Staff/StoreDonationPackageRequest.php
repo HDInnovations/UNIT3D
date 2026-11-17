@@ -4,60 +4,28 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\DonationPackage;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class StoreDonationPackageRequest extends FormRequest
+class StoreDonationPackageRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'position' => [
-                'required',
-                'min:0',
-                'max:9999999',
-            ],
-            'name' => [
-                'required',
-                'string',
-                'unique:donation_packages',
-            ],
-            'description' => [
-                'required',
-                'string',
-            ],
-            'cost' => [
-                'required',
-                'numeric',
-            ],
-            'bonus_value' => [
-                'nullable',
-                'min:0',
-                'max:999999999',
-            ],
-            'upload_value' => [
-                'nullable',
-                'min:0',
-                'max:9999',
-            ],
-            'invite_value' => [
-                'nullable',
-                'min:0',
-                'max:9999',
-            ],
-            'donor_value' => [
-                'nullable',
-                'min:0',
-                'max:9999',
-            ],
-            'is_active' => [
-                'required',
-                'boolean',
-            ],
-        ];
+    public function __construct(
+        public int $position,
+        #[Unique(DonationPackage::class)]
+        public string $name,
+        public string $description,
+        public int $cost,
+        #[Min(0)]
+        public int $bonusValue,
+        #[Min(0)]
+        public int $uploadValue,
+        #[Min(0)]
+        public int $inviteValue,
+        #[Min(0)]
+        public int $donorValue,
+        public bool $isActive,
+    ) {
     }
 }
