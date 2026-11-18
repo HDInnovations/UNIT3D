@@ -42,7 +42,7 @@
         "fruitcake/laravel-debugbar": "^4.0",
         "jasonmccreary/laravel-test-assertions": "^2.8.0",
         "laravel/pint": "^1.29.1",
-        "laravel/sail": "^1.51.0",
+        "laravel/sail": "1.71.0",
         "nunomaduro/collision": "^8.8.3",
         "pestphp/pest": "^4.3.2",
         "pestphp/pest-plugin-laravel": "^4.0.0",
