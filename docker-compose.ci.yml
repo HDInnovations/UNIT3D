@@ -1,0 +1,23 @@
+services:
+    mysql:
+        image: mysql:8.0
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: yes
+            MYSQL_DATABASE: unit3d
+        ports:
+            - 3306:3306
+        healthcheck:
+              test: ["CMD", "mysqladmin", "ping", "--silent"]
+              interval: 2s
+              timeout: 3s
+              retries: 15
+              start_period: 0s
+    redis:
+        image: redis:7.2.1
+        ports:
+            - 6379:6379
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 2s
+            timeout: 3s
+            retries: 15

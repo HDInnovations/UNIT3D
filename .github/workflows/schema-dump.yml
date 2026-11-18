@@ -10,29 +10,6 @@ jobs:
                     - '8.5'
         name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
         runs-on: ${{ matrix.operating-system }}
-        services:
-            mysql:
-                image: mysql:8.0
-                env:
-                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
-                    MYSQL_DATABASE: unit3d
-                ports:
-                    - 3306:3306
-                options: >-
-                    --health-cmd="mysqladmin ping"
-                    --health-interval=2s
-                    --health-timeout=3s
-                    --health-retries=15
-                    --health-start-period=0s
-            redis:
-                image: redis:7.2.1
-                ports:
-                    - 6379:6379
-                options: >-
-                    --health-cmd "redis-cli ping"
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
         steps:
             # 1. Checkout
             -   name: Checkout
@@ -41,6 +18,9 @@ jobs:
                     fetch-depth: 0
 
             # 2. Setup
+            -   name: Start services
+                run: docker compose -f docker-compose.ci.yml up -d --wait
+
             -   uses: ./.github/actions/setup
                 with:
                     php-version: ${{ matrix.php-version }}
@@ -88,3 +68,6 @@ jobs:
                     commit_user_name: unit3d-bot
                     commit_user_email: unit3d_gh_bot@protonmail.com
                     commit_author: unit3d-bot <unit3d_gh_bot@protonmail.com>
+            -   name: Stop services
+                if: always()
+                run: docker compose -f docker-compose.ci.yml down -v
