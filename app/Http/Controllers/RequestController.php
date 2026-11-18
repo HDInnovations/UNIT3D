@@ -119,7 +119,7 @@ class RequestController extends Controller
             'types'       => Type::query()->orderBy('position')->get(),
             'resolutions' => Resolution::query()->orderBy('position')->get(),
             'user'        => $request->user(),
-            'category_id' => $request->category_id ?? Category::query()->first('id')->id,
+            'category_id' => $request->category_id ?? Category::query()->first('id')?->id,
             'title'       => urldecode((string) $request->title),
             'imdb'        => $request->imdb,
             'movieId'     => $request->tmdb_movie_id,
