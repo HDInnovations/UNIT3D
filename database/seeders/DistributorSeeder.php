@@ -23,7 +23,7 @@ class DistributorSeeder extends Seeder
 {
     public function run(): void
     {
-        Distributor::query()->upsert([
+        Distributor::query()->fillAndInsert([
             [
                 'id'   => 1,
                 'name' => '01 Distribution',
@@ -3884,6 +3884,6 @@ class DistributorSeeder extends Seeder
                 'id'   => 965,
                 'name' => 'Zyx Music',
             ],
-        ], ['id'], []);
+        ]);
     }
 }

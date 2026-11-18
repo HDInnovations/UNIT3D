@@ -23,7 +23,7 @@ class ResolutionSeeder extends Seeder
 {
     public function run(): void
     {
-        Resolution::query()->upsert([
+        Resolution::query()->fillAndInsert([
             [
                 'id'       => 1,
                 'name'     => '4320p',
@@ -74,6 +74,6 @@ class ResolutionSeeder extends Seeder
                 'name'     => 'Other',
                 'position' => 10,
             ],
-        ], ['id'], []);
+        ]);
     }
 }

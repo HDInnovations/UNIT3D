@@ -23,7 +23,7 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        Category::query()->upsert([
+        Category::query()->fillAndInsert([
             [
                 'id'         => 1,
                 'name'       => 'Movies',
@@ -48,6 +48,6 @@ class CategorySeeder extends Seeder
                 'music_meta' => 0,
                 'no_meta'    => 0,
             ],
-        ], ['id'], []);
+        ]);
     }
 }

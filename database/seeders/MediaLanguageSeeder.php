@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use App\Models\MediaLanguage;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class MediaLanguageSeeder extends Seeder
 {
     public function run(): void
     {
-        MediaLanguage::query()->upsert([
+        MediaLanguage::query()->fillAndInsert([
             [
                 'code' => 'aa',
                 'name' => 'Afar',
@@ -773,6 +772,6 @@ class MediaLanguageSeeder extends Seeder
                 'code' => 'zu',
                 'name' => 'Zulu',
             ],
-        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

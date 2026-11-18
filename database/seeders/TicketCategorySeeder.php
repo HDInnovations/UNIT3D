@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use App\Models\TicketCategory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class TicketCategorySeeder extends Seeder
 {
     final public function run(): void
     {
-        TicketCategory::query()->upsert([
+        TicketCategory::query()->fillAndInsert([
             [
                 'name'     => 'Accounts',
                 'position' => 0,
@@ -69,6 +68,6 @@ class TicketCategorySeeder extends Seeder
                 'name'     => 'Other',
                 'position' => 10,
             ],
-        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
+        ]);
     }
 }

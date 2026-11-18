@@ -18,13 +18,12 @@ namespace Database\Seeders;
 
 use App\Models\Group;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class GroupSeeder extends Seeder
 {
     public function run(): void
     {
-        Group::query()->upsert([
+        Group::query()->fillAndInsert([
             [
                 'id'                  => 1,
                 'name'                => 'Validating',
@@ -807,6 +806,6 @@ class GroupSeeder extends Seeder
                 'min_ratio'           => null,
                 'min_age'             => null,
             ]
-        ], ['id'], ['id' => DB::raw('id')]);
+        ]);
     }
 }

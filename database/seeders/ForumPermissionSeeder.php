@@ -23,7 +23,7 @@ class ForumPermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        ForumPermission::query()->upsert([
+        ForumPermission::query()->fillAndInsert([
             [
                 'id'          => 1,
                 'forum_id'    => 1,
@@ -200,6 +200,6 @@ class ForumPermissionSeeder extends Seeder
                 'reply_topic' => true,
                 'start_topic' => true,
             ],
-        ], ['id'], []);
+        ]);
     }
 }

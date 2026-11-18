@@ -24,7 +24,7 @@ class BonExchangeSeeder extends Seeder
 {
     public function run(ByteUnits $byteUnits): void
     {
-        BonExchange::query()->upsert([
+        BonExchange::query()->fillAndInsert([
             [
                 'id'                 => 1,
                 'description'        => '2 GiB Upload',
@@ -85,6 +85,6 @@ class BonExchangeSeeder extends Seeder
                 'personal_freeleech' => 1,
                 'invite'             => 0,
             ],
-        ], ['id'], []);
+        ]);
     }
 }
