@@ -13,14 +13,14 @@ jobs:
         runs-on: ${{ matrix.operating-system }}
         services:
             mysql:
-                image: mysql:8.0
+                image: mariadb:11.8
                 env:
-                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
-                    MYSQL_DATABASE: unit3d
+                    MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
+                    MARIADB_DATABASE: unit3d
                 ports:
                     - 3306:3306
                 options: >-
-                    --health-cmd="mysqladmin ping"
+                    --health-cmd="healthcheck.sh --connect --innodb_initialized"
                     --health-interval=2s
                     --health-timeout=3s
                     --health-retries=15
