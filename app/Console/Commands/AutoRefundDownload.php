@@ -49,27 +49,28 @@ class AutoRefundDownload extends Command
         $FULL_REFUND_SEEDTIME = 12 * 30 * 24 * 60 * 60 + $MIN_SEEDTIME;
         $COMMAND_RUN_PERIOD = 24 * 60 * 60; // This command is run every 24 hours
 
-        History::query()
-            ->selectRaw('LEAST(history.downloaded, LEAST(1, history.seedtime / ?) * torrents.size) - history.refunded_download as refunded_download_delta', [$FULL_REFUND_SEEDTIME])
-            ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
-            ->join('users', 'users.id', '=', 'history.user_id')
-            ->join('groups', 'groups.id', '=', 'users.group_id')
-            ->where('history.active', '=', 1)
-            ->where('history.seeder', '=', 1)
-            ->where('history.seedtime', '>=', $MIN_SEEDTIME)
-            ->where('history.seedtime', '<=', $FULL_REFUND_SEEDTIME + $MIN_SEEDTIME + $COMMAND_RUN_PERIOD)
-            ->where('history.created_at', '<=', now()->subSeconds($MIN_SEEDTIME))
-            ->whereColumn('torrents.user_id', '!=', 'history.user_id')
-            ->when(!config('other.refundable'), fn ($query) => $query->where(
-                fn ($query) => $query
-                    ->where('groups.is_refundable', '=', true)
-                    ->orWhere('torrents.refundable', '=', true)
-            ))
-            ->update([
-                'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(history.downloaded, LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size) - history.refunded_download)'),
-                'users.downloaded'          => DB::raw('GREATEST(0, users.downloaded - @delta)'),
-                'history.updated_at'        => DB::raw('history.updated_at'),
-            ]);
+        History::withoutTimestamps(
+            fn () => History::query()
+                ->selectRaw('LEAST(history.downloaded, LEAST(1, history.seedtime / ?) * torrents.size) - history.refunded_download as refunded_download_delta', [$FULL_REFUND_SEEDTIME])
+                ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
+                ->join('users', 'users.id', '=', 'history.user_id')
+                ->join('groups', 'groups.id', '=', 'users.group_id')
+                ->where('history.active', '=', 1)
+                ->where('history.seeder', '=', 1)
+                ->where('history.seedtime', '>=', $MIN_SEEDTIME)
+                ->where('history.seedtime', '<=', $FULL_REFUND_SEEDTIME + $MIN_SEEDTIME + $COMMAND_RUN_PERIOD)
+                ->where('history.created_at', '<=', now()->subSeconds($MIN_SEEDTIME))
+                ->whereColumn('torrents.user_id', '!=', 'history.user_id')
+                ->when(!config('other.refundable'), fn ($query) => $query->where(
+                    fn ($query) => $query
+                        ->where('groups.is_refundable', '=', true)
+                        ->orWhere('torrents.refundable', '=', true)
+                ))
+                ->update([
+                    'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(history.downloaded, LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size) - history.refunded_download)'),
+                    'users.downloaded'          => DB::raw('GREATEST(0, users.downloaded - @delta)'),
+                ])
+        );
 
         $this->comment('Automated download refund command complete');
     }

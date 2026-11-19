@@ -10,24 +10,6 @@ jobs:
                     - '8.5'
         name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
         runs-on: ${{ matrix.operating-system }}
-        services:
-            mysql:
-                image: mysql:8.0
-                env:
-                    MYSQL_ALLOW_EMPTY_PASSWORD: yes
-                    MYSQL_DATABASE: unit3d
-                ports:
-                    - 3306:3306
-                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-            redis:
-                image: redis:5.0
-                ports:
-                    - 6379:6379
-                options: >-
-                    --health-cmd "redis-cli ping"
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
         steps:
             # 1. Checkout
             -   name: Checkout
