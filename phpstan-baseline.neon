@@ -307,12 +307,6 @@ parameters:
 			path: app/Http/Controllers/User/UserController.php
 
 		-
-			message: '#^Relation ''torrents'' is not found in App\\Models\\IgdbGame model\.$#'
-			identifier: laravel.relationExistence
-			count: 1
-			path: app/Http/Livewire/AlsoDownloadedWorks.php
-
-		-
 			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$attachment has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -589,7 +583,7 @@ parameters:
 			path: resources/views/vendor/notifications/email.blade.php
 
 		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Support\\Facades\\URL\:\:useOrigin\(\) expects string\|null, true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: routes/announce.php
@@ -601,7 +595,7 @@ parameters:
 			path: routes/announce.php
 
 		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Support\\Facades\\URL\:\:useOrigin\(\) expects string\|null, true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: routes/api.php
@@ -613,7 +607,7 @@ parameters:
 			path: routes/api.php
 
 		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Support\\Facades\\URL\:\:useOrigin\(\) expects string\|null, true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: routes/rss.php
@@ -625,7 +619,7 @@ parameters:
 			path: routes/rss.php
 
 		-
-			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Support\\Facades\\URL\:\:useOrigin\(\) expects string\|null, true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: routes/web.php
