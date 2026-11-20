@@ -120,6 +120,9 @@ class StoreTorrentRequest extends Data
         $properties['tvdb'] = \array_key_exists('tv_exists_on_tvdb', $properties) ? ($properties['tvdb'] ?: null) : null;
         $properties['mal'] = \array_key_exists('anime_exists_on_mal', $properties) ? ($properties['mal'] ?: null) : null;
         $properties['igdb'] = \array_key_exists('game_exists_on_igdb', $properties) ? ($properties['igdb'] ?: null) : null;
+        $properties['internal'] = $properties['internal'] ?? false;
+        $properties['free'] = $properties['free'] ?? 0;
+        $properties['refundable'] = $properties['refundable'] ?? false;
 
         return $properties;
     }
