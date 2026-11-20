@@ -256,19 +256,13 @@ class StoreTorrentRequest extends Data
             ],
             'internal' => [
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                LaravelRule::requiredIf($user->group->is_modo || $user->internals_exists),
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
                 LaravelRule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'free' => [
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                LaravelRule::requiredIf($user->group->is_modo || $user->internals_exists),
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
                 LaravelRule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'refundable' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                LaravelRule::requiredIf($user->group->is_modo || $user->internals_exists),
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
                 LaravelRule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
