@@ -16,42 +16,36 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\User;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\BeforeOrEqual;
+use Spatie\LaravelData\Attributes\Validation\Date;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class StoreApikeyRequest extends FormRequest
+#[MergeValidationRules]
+class StoreApikeyRequest extends Data
 {
+    public function __construct(
+        public string $name,
+        public bool $canSearch,
+        public bool $canUpload,
+        public bool $canDownload,
+        public bool $canViewUser,
+        #[Date]
+        public Carbon $expiresAt,
+    ) {
+    }
+
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<string|\Illuminate\Validation\Rules\Date>>
+     * @return array<string, list<ValidationRule>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'name' => [
-                'required',
-            ],
-            'can_search' => [
-                'required',
-                'boolean',
-            ],
-            'can_upload' => [
-                'required',
-                'boolean',
-            ],
-            'can_download' => [
-                'required',
-                'boolean',
-            ],
-            'can_view_user' => [
-                'required',
-                'boolean',
-            ],
             'expires_at' => [
-                'required',
-                Rule::date()->beforeOrEqual(today()->addYear()),
-            ],
+                new BeforeOrEqual(today()->addYear()),
+            ]
         ];
     }
 }

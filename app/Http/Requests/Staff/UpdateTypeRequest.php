@@ -16,24 +16,13 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Data;
 
-class UpdateTypeRequest extends FormRequest
+class UpdateTypeRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-            ],
-            'position' => [
-                'required',
-            ],
-        ];
+    public function __construct(
+        public string $name,
+        public int $position,
+    ) {
     }
 }

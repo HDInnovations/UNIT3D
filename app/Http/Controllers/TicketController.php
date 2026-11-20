@@ -18,6 +18,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTicketRequest;
 use App\Models\Ticket;
+use App\Models\TicketAttachment;
 use App\Models\TicketCategory;
 use App\Models\TicketPriority;
 use Illuminate\Http\Request;
@@ -48,10 +49,19 @@ class TicketController extends Controller
      */
     final public function store(StoreTicketRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $ticket = Ticket::query()->create([...$request->validated(), 'user_id' => $request->user()->id]);
+        $ticket = Ticket::query()->create($request->except('attachments')->toArray());
 
-        if ($request->hasFile('attachments')) {
-            TicketAttachmentController::storeTicketAttachments($request, $ticket, $request->user());
+        foreach ($request->attachments as $file) {
+            $fileName = uniqid('', true).'.'.$file->extension();
+            $file->storeAs('', $fileName, 'attachment-files');
+
+            TicketAttachment::create([
+                'user_id'        => $request->userId,
+                'ticket_id'      => $ticket->id,
+                'file_name'      => $fileName,
+                'file_size'      => $file->getSize(),
+                'file_extension' => $file->getMimeType(),
+            ]);
         }
 
         return to_route('tickets.show', ['ticket' => $ticket])
@@ -122,6 +132,6 @@ class TicketController extends Controller
         ]);
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->with('success', trans('ticket.reopened-success'));
+            ->with('success', trans('ticket.reopen-success'));
     }
 }

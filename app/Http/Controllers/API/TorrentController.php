@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Meilisearch\Endpoints\Indexes;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\TorrentControllerTest
@@ -128,17 +129,13 @@ class TorrentController extends BaseController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTorrentRequest $request): \Illuminate\Http\JsonResponse
+    public function store(StoreTorrentRequest $request, #[CurrentUser] User $user): \Illuminate\Http\JsonResponse
     {
-        $user = $request->user()->loadExists('internals');
+        $user->loadExists('internals');
         abort_unless($user->can_upload ?? $user->group->can_upload, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
-        abort_if(\is_array($request->file('torrent')), 400);
-
-        abort_if(\is_array($request->file('nfo')), 400);
-
         // Move and decode the torrent temporarily
-        $decodedTorrent = TorrentTools::normalizeTorrent($request->file('torrent'));
+        $decodedTorrent = TorrentTools::normalizeTorrent($request->torrent);
 
         $meta = Bencode::get_meta($decodedTorrent);
 
@@ -147,15 +144,14 @@ class TorrentController extends BaseController
 
         // Create the torrent (DB)
         $torrent = Torrent::query()->create([
-            ...$request->safe()->except(['torrent', 'featured']),
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
+            ...$request->toArray(),
+            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->mediainfo ?: null),
             'info_hash'    => Bencode::get_infohash($decodedTorrent),
             'file_name'    => $fileName,
             'num_file'     => $meta['count'],
             'folder'       => Bencode::get_name($decodedTorrent),
             'size'         => $meta['size'],
-            'nfo'          => $request->hasFile('nfo') ? TorrentTools::getNfo($request->file('nfo')) : '',
-            'user_id'      => $user->id,
+            'nfo'          => $request->nfo !== null ? TorrentTools::getNfo($request->nfo) : '',
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
         ]);
@@ -177,7 +173,7 @@ class TorrentController extends BaseController
         }
 
         // Set torrent to featured
-        if ($request->validated('featured')) {
+        if ($request->featured) {
             FeaturedTorrent::query()->create([
                 'user_id'    => $user->id,
                 'torrent_id' => $torrent->id,
@@ -188,7 +184,7 @@ class TorrentController extends BaseController
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        if ($request->validated('featured')) {
+        if ($request->featured) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
@@ -204,7 +200,7 @@ class TorrentController extends BaseController
         // Torrent Keywords System
         $keywords = [];
 
-        foreach (TorrentTools::parseKeywords($request->string('keywords')) as $keyword) {
+        foreach (TorrentTools::parseKeywords($request->keywords ?? '') as $keyword) {
             $keywords[] = ['torrent_id' => $torrent->id, 'name' => $keyword];
         }
 
@@ -213,11 +209,11 @@ class TorrentController extends BaseController
         }
 
         // check for trusted user & mod queue isn't opted in and update torrent
-        if ($user->group->is_trusted && !$request->boolean('mod_queue_opt_in')) {
+        if ($user->group->is_trusted && !$request->modQueueOptIn) {
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
-            $featured = $request->validated('featured');
+            $featured = $request->featured;
             $free = $torrent->free;
             $doubleup = $torrent->doubleup;
 
@@ -249,7 +245,7 @@ class TorrentController extends BaseController
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.$request->input('fl_until').' days.'
+                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.round($request->flUntil->diffInDays()).' days.'
                     );
                 }
             }
@@ -261,7 +257,7 @@ class TorrentController extends BaseController
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted Double Upload for '.$request->input('du_until').' days.'
+                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted Double Upload for '.round($request->duUntil->diffInDays()).' days.'
                     );
                 }
             }

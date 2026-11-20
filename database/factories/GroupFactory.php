@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use Override;
 
 /** @extends Factory<Group> */
@@ -34,9 +35,11 @@ class GroupFactory extends Factory
     #[Override]
     public function definition(): array
     {
+        $name = $this->faker->name();
+
         return [
-            'name'             => $this->faker->name(),
-            'slug'             => $this->faker->unique()->slug(),
+            'name'             => $name,
+            'slug'             => Str::slug($name),
             'position'         => $this->faker->randomNumber(),
             'level'            => $this->faker->randomNumber(),
             'download_slots'   => $this->faker->randomNumber(),
@@ -72,6 +75,13 @@ class GroupFactory extends Factory
             'is_owner' => true,
             'is_admin' => true,
             'is_modo'  => true,
+        ]);
+    }
+
+    public function moderator(): GroupFactory
+    {
+        return $this->state([
+            'is_modo' => true,
         ]);
     }
 }

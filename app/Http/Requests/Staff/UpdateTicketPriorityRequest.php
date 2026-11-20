@@ -16,34 +16,17 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Data;
 
-class UpdateTicketPriorityRequest extends FormRequest
+class UpdateTicketPriorityRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-            ],
-            'position' => [
-                'required',
-                'decimal:0',
-                'min:0',
-            ],
-            'color' => [
-                'required',
-                'string',
-            ],
-            'icon' => [
-                'required',
-                'string',
-            ],
-        ];
+    public function __construct(
+        public string $name,
+        #[Min(0)]
+        public int $position,
+        public string $color,
+        public string $icon,
+    ) {
     }
 }

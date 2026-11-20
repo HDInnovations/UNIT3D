@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
@@ -34,6 +35,9 @@ use Override;
 #[AllowDynamicProperties]
 final class Gift extends Model
 {
+    /** @use HasFactory<\Database\Factories\GiftFactory> */
+    use HasFactory;
+
     protected $guarded = [];
 
     public $timestamps = false;

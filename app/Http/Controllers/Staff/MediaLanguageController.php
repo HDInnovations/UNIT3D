@@ -47,7 +47,7 @@ class MediaLanguageController extends Controller
      */
     public function store(StoreMediaLanguageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        MediaLanguage::query()->create($request->validated());
+        MediaLanguage::query()->create($request->toArray());
 
         return to_route('staff.media_languages.index')
             ->with('success', 'Media language successfully added');
@@ -68,7 +68,7 @@ class MediaLanguageController extends Controller
      */
     public function update(UpdateMediaLanguageRequest $request, MediaLanguage $mediaLanguage): \Illuminate\Http\RedirectResponse
     {
-        $mediaLanguage->update($request->validated());
+        $mediaLanguage->update($request->toArray());
 
         return to_route('staff.media_languages.index')
             ->with('success', 'Media language successfully updated');

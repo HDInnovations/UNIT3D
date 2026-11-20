@@ -40,9 +40,9 @@ class ApplicationController extends Controller
     {
         abort_unless(config('other.application_signups'), 403);
 
-        $application = Application::query()->create($request->validated('application'));
-        $application->imageProofs()->createMany($request->validated('images'));
-        $application->urlProofs()->createMany($request->validated('links'));
+        $application = Application::query()->create($request->application->toArray());
+        $application->imageProofs()->createMany($request->images->toArray());
+        $application->urlProofs()->createMany($request->links->toArray());
 
         return to_route('login')
             ->with('success', trans('auth.application-submitted'));

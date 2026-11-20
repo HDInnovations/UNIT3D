@@ -50,7 +50,7 @@ class TicketCategoryController extends Controller
      */
     public function store(StoreTicketCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
-        TicketCategory::query()->create($request->validated());
+        TicketCategory::query()->create($request->toArray());
 
         return to_route('staff.ticket_categories.index')
             ->with('success', 'Ticket category successfully added');
@@ -71,7 +71,7 @@ class TicketCategoryController extends Controller
      */
     public function update(UpdateTicketCategoryRequest $request, TicketCategory $ticketCategory): \Illuminate\Http\RedirectResponse
     {
-        $ticketCategory->update($request->validated());
+        $ticketCategory->update($request->toArray());
 
         return to_route('staff.ticket_categories.index')
             ->with('success', 'Ticket category successfully modified');

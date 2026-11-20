@@ -17,30 +17,33 @@ declare(strict_types=1);
 namespace App\Http\Requests\Staff;
 
 use App\Enums\ModerationStatus;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Enum;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-class UpdateModerationRequest extends FormRequest
+#[MergeValidationRules]
+class UpdateModerationRequest extends Data
 {
+    public function __construct(
+        public ModerationStatus $oldStatus,
+        #[Enum(ModerationStatus::class, only: [ModerationStatus::APPROVED, ModerationStatus::REJECTED, ModerationStatus::POSTPONED])]
+        public ModerationStatus $status,
+        public ?string $message,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, array<int, \Illuminate\Validation\Rules\Enum|\Illuminate\Validation\Rules\RequiredIf|string>>
      */
-    public function rules(Request $request): array
+    public static function rules(ValidationContext $context): array
     {
         return [
-            'old_status' => [
-                'required',
-                Rule::enum(ModerationStatus::class),
-            ],
-            'status' => [
-                'required',
-                Rule::enum(ModerationStatus::class)->only([ModerationStatus::APPROVED, ModerationStatus::REJECTED, ModerationStatus::POSTPONED]),
-            ],
             'message' => [
-                Rule::requiredIf(\in_array($request->integer('status'), [ModerationStatus::REJECTED->value, ModerationStatus::POSTPONED], true)),
+                Rule::requiredIf(\in_array($context->payload['status'], [ModerationStatus::REJECTED->value, ModerationStatus::POSTPONED], true)),
             ]
         ];
     }

@@ -21,16 +21,17 @@ use App\Models\Report;
 use App\Models\User;
 use App\Notifications\NewReportAssigned;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class ReportAssigneeController extends Controller
 {
-    final public function store(StoreReportAssigneeRequest $request, Report $report): \Illuminate\Http\RedirectResponse
+    final public function store(StoreReportAssigneeRequest $request, Report $report, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        abort_unless($currentUser->group->is_modo, 403);
 
-        $report->update($request->validated());
+        $report->update($request->toArray());
 
-        $assignedStaff = User::query()->findOrFail($request->integer('staff_id'));
+        $assignedStaff = User::query()->findOrFail($request->staffId);
 
         $assignedStaff->notify(new NewReportAssigned($report));
 

@@ -16,24 +16,15 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use App\Models\User;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Data;
 
-class StoreReportAssigneeRequest extends FormRequest
+class StoreReportAssigneeRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
-     */
-    public function rules(): array
-    {
-        return [
-            'staff_id' => [
-                'required',
-                'integer',
-                Rule::exists('users', 'id'),
-            ],
-        ];
+    public function __construct(
+        #[Exists(User::class, 'id')]
+        public int $staffId,
+    ) {
     }
 }

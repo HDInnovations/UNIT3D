@@ -40,7 +40,7 @@ class BanFactory extends Factory
             'created_by'   => User::factory(),
             'ban_reason'   => $this->faker->text(),
             'unban_reason' => $this->faker->text(),
-            'removed_at'   => $this->faker->dateTime(),
+            'removed_at'   => $this->faker->iso8601(),
         ];
     }
 }

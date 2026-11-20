@@ -16,39 +16,48 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Models\User;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\Rule;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\Constraints\WhereNotConstraint;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\StorePollTest
  */
-class StoreGiftRequest extends FormRequest
+#[MergeValidationRules]
+class StoreGiftRequest extends Data
 {
+    public function __construct(
+        public string $recipientUsername,
+        #[Min(1)]
+        public int $bon,
+        #[Max(255)]
+        public string $message,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
+     * @return array<string, array<ValidationRule>>
      */
-    public function rules(Request $request): array
+    public static function rules(): array
     {
-        $user = $request->user();
-
         return [
             'recipient_username' => [
-                'required',
-                Rule::exists('users', 'username')->whereNot('username', $user->username),
+                new Rule([
+                    new Exists(User::class, 'username', where: new WhereNotConstraint('username', auth()->user()->username)),
+                ]),
             ],
             'bon' => [
-                'required',
-                'numeric',
-                'min:1',
-                'max:'.$user->seedbonus,
-            ],
-            'message' => [
-                'required',
-                'string',
-                'max:255',
+                new Rule([
+                    new Max((float) auth()->user()->seedbonus),
+                ]),
             ],
         ];
     }

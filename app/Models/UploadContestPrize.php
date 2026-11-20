@@ -52,6 +52,6 @@ final class UploadContestPrize extends Model
      */
     public function contest(): BelongsTo
     {
-        return $this->belongsTo(UploadContest::class);
+        return $this->belongsTo(UploadContest::class, 'upload_contest_id');
     }
 }

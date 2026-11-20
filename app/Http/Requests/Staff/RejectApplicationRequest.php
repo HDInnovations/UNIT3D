@@ -16,26 +16,19 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
+use App\Attributes\FromCurrentUserId;
 use App\Enums\ModerationStatus;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Attributes\Validation\Enum;
+use Spatie\LaravelData\Data;
 
-class RejectApplicationRequest extends FormRequest
+class RejectApplicationRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<string|\Illuminate\Validation\Rules\Enum>>
-     */
-    public function rules(): array
-    {
-        return [
-            'status' => [
-                Rule::enum(ModerationStatus::class)->only([ModerationStatus::REJECTED]),
-            ],
-            'deny' => [
-                'required',
-            ],
-        ];
+    public function __construct(
+        #[Enum(ModerationStatus::class, only: [ModerationStatus::REJECTED])]
+        public ModerationStatus $status,
+        public string $deny,
+        #[FromCurrentUserId]
+        public int $moderatedBy,
+    ) {
     }
 }

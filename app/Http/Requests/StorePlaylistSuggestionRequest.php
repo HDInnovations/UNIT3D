@@ -16,26 +16,50 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Attributes\FromCurrentUserId;
+use App\Models\PlaylistSuggestion;
+use App\Models\Torrent;
+use Override;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\Constraints\WhereConstraint;
+use Spatie\LaravelData\Support\Validation\References\RouteParameterReference;
 
-class StorePlaylistSuggestionRequest extends FormRequest
+class StorePlaylistSuggestionRequest extends Data
 {
+    public function __construct(
+        #[Exists(Torrent::class, 'id'), Unique(PlaylistSuggestion::class, where: new WhereConstraint('playlist_id', new RouteParameterReference('playlist', 'id')))]
+        public int $torrentId,
+        #[Max(65535)]
+        public ?string $message,
+        #[FromCurrentUserId]
+        public int $userId,
+    ) {
+    }
+
     /**
-     * Get the validation rules that apply to the request.
+     * @param array<mixed> $properties
      *
-     * @return array<string, array<string>>
+     * @return array<mixed>
      */
-    public function rules(): array
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
+    {
+        $properties['torrent_id'] = basename($properties['torrent_url'] ?? '');
+
+        return $properties;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function messages(): array
     {
         return [
-            'torrent_url' => [
-                'required',
-                'max:65535',
-            ],
-            'message' => [
-                'sometimes',
-                'max:65535',
-            ],
+            'torrent_id.exists' => 'The torrent ID/URL ":input" entered was not found on site.',
+            'torrent_id.unique' => 'This torrent ID/URL ":input" entered is already suggested and awaiting moderation.',
         ];
     }
 }

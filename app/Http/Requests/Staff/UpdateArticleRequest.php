@@ -16,31 +16,23 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Attributes\FromCurrentUserId;
+use Illuminate\Http\UploadedFile;
+use Spatie\LaravelData\Attributes\Validation\File;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
-class UpdateArticleRequest extends FormRequest
+class UpdateArticleRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'title' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'content' => [
-                'required',
-                'string',
-                'max:65536',
-            ],
-            'image' => [
-                'max:10240',
-            ],
-        ];
+    public function __construct(
+        #[Max(255)]
+        public string $title,
+        #[Max(65535)]
+        public string $content,
+        #[File, Max(10240)]
+        public ?UploadedFile $image,
+        #[FromCurrentUserId]
+        public int $userId,
+    ) {
     }
 }

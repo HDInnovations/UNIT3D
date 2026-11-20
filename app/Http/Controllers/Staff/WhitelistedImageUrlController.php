@@ -32,7 +32,7 @@ class WhitelistedImageUrlController extends Controller
 
     public function update(UpdateWhitelistedImageUrlRequest $request, WhitelistedImageUrl $whitelistedImageUrl): \Illuminate\Http\RedirectResponse
     {
-        $whitelistedImageUrl->update($request->validated());
+        $whitelistedImageUrl->update($request->toArray());
 
         cache()->forget('whitelisted-image-urls');
 
@@ -42,7 +42,7 @@ class WhitelistedImageUrlController extends Controller
 
     public function store(StoreWhitelistedImageUrlRequest $request): \Illuminate\Http\RedirectResponse
     {
-        WhitelistedImageUrl::query()->create($request->validated());
+        WhitelistedImageUrl::query()->create($request->toArray());
 
         cache()->forget('whitelisted-image-urls');
 

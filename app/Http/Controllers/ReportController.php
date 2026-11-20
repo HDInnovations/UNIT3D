@@ -24,6 +24,7 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\ReportControllerTest
@@ -41,44 +42,44 @@ class ReportController extends Controller
     /**
      * Create A Report.
      */
-    public function store(StoreReportRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreReportRequest $request, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
         switch (true) {
-            case $request->reported_request_id !== null:
-                $torrentRequest = TorrentRequest::query()->whereKey($request->reported_request_id)->sole();
+            case $request->reportedRequestId !== null:
+                $torrentRequest = TorrentRequest::query()->whereKey($request->reportedRequestId)->sole();
 
                 Report::query()->create([
                     'type'                => 'Request',
                     'reported_request_id' => $torrentRequest->id,
-                    'reporter_id'         => $request->user()->id,
+                    'reporter_id'         => $currentUser->id,
                     'reported_user_id'    => $torrentRequest->user_id,
                     'title'               => $torrentRequest->name,
-                    'message'             => $request->string('message'),
+                    'message'             => $request->message,
                 ]);
 
                 break;
-            case $request->reported_torrent_id !== null:
-                $torrent = Torrent::query()->whereKey($request->reported_torrent_id)->sole();
+            case $request->reportedTorrentId !== null:
+                $torrent = Torrent::query()->whereKey($request->reportedTorrentId)->sole();
 
                 Report::query()->create([
                     'type'                => 'Torrent',
                     'reported_torrent_id' => $torrent->id,
-                    'reporter_id'         => $request->user()->id,
+                    'reporter_id'         => $currentUser->id,
                     'reported_user_id'    => $torrent->user_id,
                     'title'               => $torrent->name,
-                    'message'             => $request->string('message'),
+                    'message'             => $request->message,
                 ]);
 
                 break;
-            case $request->reported_user_username !== null:
-                $user = User::query()->where('username', '=', $request->reported_user_username)->sole();
+            case $request->reportedUserUsername !== null:
+                $user = User::query()->where('username', '=', $request->reportedUserUsername)->sole();
 
                 Report::query()->create([
                     'type'             => 'User',
-                    'reporter_id'      => $request->user()->id,
+                    'reporter_id'      => $currentUser->id,
                     'reported_user_id' => $user->id,
                     'title'            => $user->username,
-                    'message'          => $request->string('message'),
+                    'message'          => $request->message,
                 ]);
 
                 break;
@@ -152,9 +153,9 @@ class ReportController extends Controller
     /**
      * Update A Report.
      */
-    public function reply(StoreReportReplyRequest $request, Report $report): \Illuminate\Http\RedirectResponse
+    public function reply(StoreReportReplyRequest $request, Report $report, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo || $request->user()->id === $report->reporter_id, 403);
+        abort_unless($currentUser->group->is_modo || $currentUser->id === $report->reporter_id, 403);
 
         $report->update([
             'staff_read' => false,
@@ -162,9 +163,9 @@ class ReportController extends Controller
         ]);
 
         ReportReply::query()->create([
-            ...$request->validated(),
+            ...$request->toArray(),
             'report_id' => $report->id,
-            'user_id'   => $request->user()->id,
+            'user_id'   => $currentUser->id,
         ]);
 
         return to_route('reports.show', ['report' => $report]);

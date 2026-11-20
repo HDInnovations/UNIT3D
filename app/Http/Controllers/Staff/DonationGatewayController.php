@@ -18,18 +18,19 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Requests\Staff\StoreDonationGatewayRequest;
 use App\Http\Requests\Staff\UpdateDonationGatewayRequest;
-use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\DonationGateway;
 use App\Http\Controllers\Controller;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class DonationGatewayController extends Controller
 {
     /**
      * Get All Donation Gateways.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(#[CurrentUser] User $user): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        abort_unless($request->user()->group->is_owner, 403);
+        abort_unless($user->group->is_owner, 403);
 
         return view('Staff.donation-gateway.index', ['gateways' => DonationGateway::query()->orderBy('position')->paginate(25)]);
     }
@@ -37,9 +38,9 @@ class DonationGatewayController extends Controller
     /**
      * Create A Donation Gateway.
      */
-    public function create(Request $request): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function create(#[CurrentUser] User $user): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        abort_unless($request->user()->group->is_owner, 403);
+        abort_unless($user->group->is_owner, 403);
 
         return view('Staff.donation-gateway.create');
     }
@@ -47,11 +48,11 @@ class DonationGatewayController extends Controller
     /**
      * Store A Donation Gateway.
      */
-    public function store(StoreDonationGatewayRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreDonationGatewayRequest $request, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_owner, 403);
+        abort_unless($user->group->is_owner, 403);
 
-        DonationGateway::query()->create($request->validated());
+        DonationGateway::query()->create($request->toArray());
 
         return redirect()->route('staff.gateways.index')
             ->with('success', 'Donation gateway added successfully!');
@@ -60,9 +61,9 @@ class DonationGatewayController extends Controller
     /**
      * Edit A Donation Gateway.
      */
-    public function edit(Request $request, DonationGateway $gateway): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function edit(DonationGateway $gateway, #[CurrentUser] User $user): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        abort_unless($request->user()->group->is_owner, 403);
+        abort_unless($user->group->is_owner, 403);
 
         return view('Staff.donation-gateway.edit', ['gateway' => $gateway]);
     }
@@ -70,11 +71,11 @@ class DonationGatewayController extends Controller
     /**
      * Update A Donation Gateway.
      */
-    public function update(UpdateDonationGatewayRequest $request, DonationGateway $gateway): \Illuminate\Http\RedirectResponse
+    public function update(UpdateDonationGatewayRequest $request, DonationGateway $gateway, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_owner, 403);
+        abort_unless($user->group->is_owner, 403);
 
-        $gateway->update($request->validated());
+        $gateway->update($request->toArray());
 
         return redirect()->route('staff.gateways.index')
             ->with('success', 'Donation gateway edited successfully!');
@@ -83,9 +84,9 @@ class DonationGatewayController extends Controller
     /**
      * Destroy A Donation Gateway.
      */
-    public function destroy(Request $request, DonationGateway $gateway): \Illuminate\Http\RedirectResponse
+    public function destroy(DonationGateway $gateway, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_owner, 403);
+        abort_unless($user->group->is_owner, 403);
 
         $gateway->delete();
 

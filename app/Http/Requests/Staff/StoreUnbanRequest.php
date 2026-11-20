@@ -16,27 +16,21 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use App\Attributes\FromCurrentUserId;
+use App\Models\User;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
-class StoreUnbanRequest extends FormRequest
+class StoreUnbanRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
-     */
-    public function rules(): array
-    {
-        return [
-            'owned_by' => [
-                Rule::exists('users', 'id'),
-            ],
-            'unban_reason' => [
-                'required',
-                'string',
-                'max:65536',
-            ],
-        ];
+    public function __construct(
+        #[Exists(User::class, 'id')]
+        public int $ownedBy,
+        #[Max(value: (65535))]
+        public string $unbanReason,
+        #[FromCurrentUserId]
+        public int $createdBy,
+    ) {
     }
 }

@@ -16,68 +16,43 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Rules\EmailBlacklist;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule as LaravelRule;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\ListType;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\Rule;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class StoreApplicationRequest extends FormRequest
+#[MergeValidationRules]
+class StoreApplicationRequest extends Data
 {
+    public function __construct(
+        public StoreApplicationApplicationRequest $application,
+        /** @var Collection<int, StoreApplicationImageRequest> */
+        #[ListType, Min(2), Max(30)]
+        public Collection $images,
+        /** @var Collection<int, StoreApplicationLinkRequest> */
+        public Collection $links,
+        public ?string $captcha,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<int, \Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\In|string>|\Illuminate\Validation\ConditionalRules|string>
+     * @return array<string, array<ValidationRule>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
-        return  [
-            'application.type' => [
-                'required',
-                Rule::in(['New to the game', 'Experienced with private trackers']),
-            ],
-            'application.email' => [
-                'required',
-                'string',
-                'email',
-                'max:70',
-                'unique:invites,email',
-                'unique:users,email',
-                'unique:applications,email',
-                Rule::when(config('email-blacklist.enabled'), new EmailBlacklist()),
-            ],
-            'application.referrer' => [
-                'required',
-            ],
-            'images' => [
-                'required',
-                'min:2',
-                'max:100',
-                'list',
-            ],
-            'images.*' => [
-                'required',
-                'array:image',
-            ],
-            'images.*.image' => [
-                'filled',
-                'url:https,http',
-                'distinct',
-            ],
-            'links' => [
-                'required',
-                'min:2',
-                'max:100',
-                'list',
-            ],
-            'links.*' => [
-                'required',
-                'array:url',
-            ],
-            'links.*.url' => [
-                'filled',
-                'url:https,http',
-                'distinct',
-            ],
-            'captcha' => Rule::when(config('captcha.enabled'), 'hiddencaptcha'),
+        return [
+            'captcha' => [
+                new Rule([
+                    LaravelRule::when(config('captcha.enabled'), 'hiddencaptcha'),
+                ])
+            ]
         ];
     }
 }

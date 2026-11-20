@@ -36,12 +36,11 @@ class RssFactory extends Factory
     public function definition(): array
     {
         return [
-            'position'     => $this->faker->randomNumber(),
+            'position'     => $this->faker->numberBetween(1, 999),
             'name'         => $this->faker->name(),
             'user_id'      => User::factory(),
             'is_private'   => $this->faker->boolean(),
-            'is_torrent'   => $this->faker->boolean(),
-            'json_torrent' => $this->faker->word(),
+            'json_torrent' => [],
         ];
     }
 }

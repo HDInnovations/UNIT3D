@@ -18,18 +18,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Staff\StoreSnoozedReportRequest;
 use App\Models\Report;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class SnoozedReportController extends Controller
 {
     /**
      * Snooze A Report.
      */
-    public function store(StoreSnoozedReportRequest $request, Report $report): \Illuminate\Http\RedirectResponse
+    public function store(StoreSnoozedReportRequest $request, Report $report, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        abort_unless($currentUser->group->is_modo, 403);
 
-        $report->update($request->validated());
+        $report->update($request->toArray());
 
         return to_route('reports.show', ['report' => $report])
             ->with('success', 'Report has been snoozed');
@@ -38,9 +40,9 @@ class SnoozedReportController extends Controller
     /**
      * Un-snooze A Report.
      */
-    public function destroy(Request $request, Report $report): \Illuminate\Http\RedirectResponse
+    public function destroy(Request $request, Report $report, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        abort_unless($currentUser->group->is_modo, 403);
 
         $report->update(['snoozed_until' => null]);
 

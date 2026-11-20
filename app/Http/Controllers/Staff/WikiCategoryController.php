@@ -49,7 +49,7 @@ class WikiCategoryController extends Controller
      */
     public function store(StoreWikiCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
-        WikiCategory::query()->create($request->validated());
+        WikiCategory::query()->create($request->toArray());
 
         return to_route('staff.wiki_categories.index')
             ->with('success', 'Wiki category successfully added');
@@ -70,7 +70,7 @@ class WikiCategoryController extends Controller
      */
     public function update(UpdateWikiCategoryRequest $request, WikiCategory $wikiCategory): \Illuminate\Http\RedirectResponse
     {
-        $wikiCategory->update($request->validated());
+        $wikiCategory->update($request->toArray());
 
         return to_route('staff.wiki_categories.index')
             ->with('success', 'Wiki category successfully modified');

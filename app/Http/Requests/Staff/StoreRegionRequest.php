@@ -16,25 +16,16 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Region;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class StoreRegionRequest extends FormRequest
+class StoreRegionRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-                'unique:regions,name',
-            ],
-            'position' => [
-                'required',
-            ],
-        ];
+    public function __construct(
+        #[Unique(Region::class)]
+        public string $name,
+        public int $position,
+    ) {
     }
 }

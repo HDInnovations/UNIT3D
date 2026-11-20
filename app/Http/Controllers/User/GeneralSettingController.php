@@ -20,17 +20,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateGeneralSettingRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class GeneralSettingController extends Controller
 {
     /**
      * Update user general settings.
      */
-    public function update(UpdateGeneralSettingRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpdateGeneralSettingRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
-        $user->settings()->upsert($request->validated(), ['user_id']);
+        $user->settings()->upsert($request->toArray(), ['user_id']);
 
         cache()->forget('user-settings:by-user-id:'.$user->id);
 

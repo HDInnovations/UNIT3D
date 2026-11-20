@@ -26,27 +26,35 @@ test('assign a staff member to a report returns an ok response', function (): vo
     $group = Group::factory()->create([
         'is_modo' => 1,
     ]);
-    $staff1 = User::factory()->create([
-        'group_id' => $group->id,
-    ]);
-    $staff2 = User::factory()->create([
+    $staff = User::factory()->create([
         'group_id' => $group->id,
     ]);
 
-    $response = $this->actingAs($staff1)->post(route('reports.assignee.store', [$report]), [
-        'staff_id' => $staff2->id,
+    $response = $this->post(route('reports.assignee.store', [$report]), [
+        'staff_id' => $staff->id,
     ]);
 
     $response->assertRedirect(route('reports.show', $report));
 
     $this->assertDatabaseHas('reports', [
         'id'       => $report->id,
-        'staff_id' => $staff2->id,
+        'staff_id' => $staff->id,
     ]);
 
     Notification::assertSentTo(
-        [$staff2],
+        [$staff],
         NewReportAssigned::class
     );
     Notification::assertCount(1);
+});
+
+test('destroy returns an ok response', function (): void {
+    $report = Report::factory()->create();
+
+    $this->delete(route('reports.assignee.destroy', [$report]))
+        ->assertRedirectToRoute('reports.show', $report);
+    $this->assertDatabaseHas('reports', [
+        'id'       => $report->id,
+        'staff_id' => null,
+    ]);
 });

@@ -24,10 +24,12 @@ use App\Models\Resolution;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\Type;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 use Exception;
 
 /**
@@ -133,15 +135,12 @@ class RequestController extends Controller
     /**
      * Store A New Torrent Request.
      */
-    public function store(StoreTorrentRequestRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentRequestRequest $request, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         $user->decrement('seedbonus', $request->bounty);
 
         $torrentRequest = TorrentRequest::query()->create([
-            ...$request->validated(),
-            'user_id'   => $request->user()->id,
+            ...$request->toArray(),
             'bumped_at' => now(),
         ]);
 
@@ -206,17 +205,15 @@ class RequestController extends Controller
     /**
      * Edit A Torrent Request.
      */
-    public function update(UpdateTorrentRequestRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTorrentRequestRequest $request, TorrentRequest $torrentRequest, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         abort_unless(
             (
-                $user->group->is_modo
+                $currentUser->group->is_modo
                 || (
-                    $user->id === $torrentRequest->user_id
+                    $currentUser->id === $torrentRequest->user_id
                     && TorrentRequest::query()
-                        ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                        ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $currentUser->id))
                         ->whereDoesntHave('claim')
                         ->whereNull('filled_by')
                         ->whereKey($torrentRequest)
@@ -226,7 +223,7 @@ class RequestController extends Controller
             403
         );
 
-        $torrentRequest->update($request->validated());
+        $torrentRequest->update($request->toArray());
 
         match (true) {
             $torrentRequest->tmdb_tv_id !== null    => new TMDBScraper()->tv($torrentRequest->tmdb_tv_id),

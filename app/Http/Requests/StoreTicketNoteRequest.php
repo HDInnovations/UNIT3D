@@ -16,22 +16,15 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Attributes\FromCurrentUserId;
+use Spatie\LaravelData\Data;
 
-class StoreTicketNoteRequest extends FormRequest
+class StoreTicketNoteRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'message' => [
-                'required',
-                'string',
-            ],
-        ];
+    public function __construct(
+        public string $message,
+        #[FromCurrentUserId]
+        public int $userId,
+    ) {
     }
 }

@@ -235,18 +235,6 @@ parameters:
 			path: app/Http/Controllers/DonationController.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 3
-			path: app/Http/Controllers/ReportController.php
-
-		-
-			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:decrement\(\) expects float\|int, float\|int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/RequestController.php
-
-		-
 			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -257,12 +245,6 @@ parameters:
 			identifier: assignOp.invalid
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: '#^Property App\\Models\\Rss\:\:\$position \(int\) does not accept int\<min, 9999\>\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/Staff/RssController.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Post\:\:\$post_count\.$#'
@@ -281,18 +263,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:decrement\(\) expects float\|int, float\|int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/User/GiftController.php
-
-		-
-			message: '#^Parameter \#2 \$amount of method App\\Models\\User\:\:increment\(\) expects float\|int, float\|int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Http/Controllers/User/GiftController.php
 
 		-
 			message: '#^Binary operation "\+" between string\|null and int results in an error\.$#'
@@ -383,24 +353,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Requests/Staff/UpdateAutomaticTorrentFreeleechRequest.php
-
-		-
-			message: '#^PHPDoc tag @return has invalid value \(array\<string, array\<int, \(Closure\)\|string\>\>\.\)\: Unexpected token "\.", expected TOKEN_HORIZONTAL_WS at offset 128 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/Http/Requests/Staff/UpdateAutomaticTorrentFreeleechRequest.php
-
-		-
-			message: '#^Method App\\Http\\Requests\\StoreRequestFillRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: app/Http/Requests/StoreRequestFillRequest.php
-
-		-
-			message: '#^PHPDoc tag @return has invalid value \(array\<string, \\Illuminate\\Contracts\\Validation\\Rule\|array\<\\Illuminate\\Contracts\\Validation\\Rule\|string\>\|string\>s\)\: Unexpected token "s", expected TOKEN_HORIZONTAL_WS at offset 196 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: app/Http/Requests/StoreRequestFillRequest.php
 
 		-
 			message: '#^Strict comparison using \=\=\= between int\|null and true will always evaluate to false\.$#'

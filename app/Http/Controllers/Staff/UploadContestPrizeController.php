@@ -29,7 +29,7 @@ class UploadContestPrizeController extends Controller
      */
     public function store(StoreUploadContestPrizeRequest $request, UploadContest $uploadContest): \Illuminate\Http\RedirectResponse
     {
-        $uploadContest->prizes()->create($request->validated());
+        $uploadContest->prizes()->create($request->toArray());
 
         return to_route('staff.upload_contests.edit', [
             'uploadContest' => $uploadContest
@@ -42,7 +42,7 @@ class UploadContestPrizeController extends Controller
      */
     public function update(UpdateUploadContestPrizeRequest $request, UploadContest $uploadContest, UploadContestPrize $prize): \Illuminate\Http\RedirectResponse
     {
-        $prize->update($request->validated());
+        $prize->update($request->toArray());
 
         return to_route('staff.upload_contests.edit', [
             'uploadContest' => $uploadContest

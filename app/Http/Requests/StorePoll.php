@@ -16,57 +16,32 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Override;
+use App\Attributes\FromCurrentUserId;
+use App\Http\Requests\Staff\StorePollOptionRequest;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\Validation\Date;
+use Spatie\LaravelData\Attributes\Validation\ListType;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Data;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\StorePollTest
  */
-class StorePoll extends FormRequest
+class StorePoll extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'title' => [
-                'required',
-                'min:10'
-            ],
-            'expires_at' => [
-                'sometimes',
-                'nullable',
-                'date',
-            ],
-            'multiple_choice' => [
-                'required',
-                'boolean'
-            ],
-            'options.*.name' => [
-                'required',
-                'max:255'
-            ],
-            'options' => [
-                'array',
-                'min:2',
-                'max:20'
-            ],
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    #[Override]
-    public function messages(): array
-    {
-        return [
-            'options.*.required' => 'You must fill in all options fields',
-        ];
+    public function __construct(
+        #[Min(10)]
+        public string $title,
+        #[Date]
+        public ?Carbon $expiresAt,
+        public bool $multipleChoice,
+        #[FromCurrentUserId]
+        public int $userId,
+        /** @var Collection<int, StorePollOptionRequest> */
+        #[Min(2), Max(20), ListType]
+        public Collection $options,
+    ) {
     }
 }

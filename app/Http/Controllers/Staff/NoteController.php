@@ -38,7 +38,7 @@ class NoteController extends Controller
      */
     public function update(Note $note, UpdateNoteRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $note->update($request->validated());
+        $note->update($request->toArray());
 
         return back()->with('success', 'Success');
     }

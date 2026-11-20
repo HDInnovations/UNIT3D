@@ -16,31 +16,34 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\BlacklistClient;
+use Override;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Present;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class StoreBlacklistClientRequest extends FormRequest
+class StoreBlacklistClientRequest extends Data
 {
+    public function __construct(
+        #[Max(255), Unique(BlacklistClient::class)]
+        public string $name,
+        #[Unique(BlacklistClient::class), Present]
+        public string $peerIdPrefix = '',
+        public string $reason = '',
+    ) {
+    }
+
     /**
-     * Get the validation rules that apply to the request.
+     * @param array<mixed> $properties
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<mixed>
      */
-    public function rules(): array
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        return [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:blacklist_clients',
-            ],
-            'peer_id_prefix' => [
-                'unique:blacklist_clients',
-            ],
-            'reason' => [
-                'sometimes',
-                'string',
-            ],
-        ];
+        $properties['peer_id_prefix'] = $properties['peer_id_prefix'] ?? '';
+
+        return $properties;
     }
 }

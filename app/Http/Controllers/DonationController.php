@@ -41,10 +41,8 @@ class DonationController extends Controller
     public function store(StoreDonationRequest $request)
     {
         Donation::query()->create([
-            'status'      => ModerationStatus::PENDING,
-            'package_id'  => $request->package_id,
-            'user_id'     => auth()->user()->id,
-            'transaction' => $request->transaction,
+            ...$request->toArray(),
+            'status' => ModerationStatus::PENDING,
         ]);
 
         return redirect()->route('donations.index')

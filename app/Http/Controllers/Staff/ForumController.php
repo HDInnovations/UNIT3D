@@ -47,9 +47,9 @@ class ForumController extends Controller
      */
     public function store(StoreForumRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $forum = Forum::query()->create($request->validated('forum'));
+        $forum = Forum::query()->create($request->forum->toArray());
 
-        $forum->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
+        $forum->permissions()->upsert($request->permissions->toArray(), ['forum_id', 'group_id']);
 
         return to_route('staff.forum_categories.index')
             ->with('success', 'Forum has been created successfully');
@@ -72,9 +72,9 @@ class ForumController extends Controller
      */
     public function update(UpdateForumRequest $request, Forum $forum): \Illuminate\Http\RedirectResponse
     {
-        $forum->update($request->validated('forum'));
+        $forum->update($request->forum->toArray());
 
-        $forum->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
+        $forum->permissions()->upsert($request->permissions->toArray(), ['forum_id', 'group_id']);
 
         return to_route('staff.forum_categories.index')
             ->with('success', 'Forum has been edited successfully');

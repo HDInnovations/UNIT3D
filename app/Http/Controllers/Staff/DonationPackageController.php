@@ -44,7 +44,7 @@ class DonationPackageController extends Controller
      */
     public function store(StoreDonationPackageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        DonationPackage::query()->create($request->validated());
+        DonationPackage::query()->create($request->toArray());
 
         return redirect()->route('staff.packages.index')
             ->with('success', 'Donation package added successfully!');
@@ -63,7 +63,7 @@ class DonationPackageController extends Controller
      */
     public function update(UpdateDonationPackageRequest $request, DonationPackage $package): \Illuminate\Http\RedirectResponse
     {
-        $package->update($request->validated());
+        $package->update($request->toArray());
 
         return redirect()->route('staff.packages.index')
             ->with('success', 'Donation package edited successfully!');

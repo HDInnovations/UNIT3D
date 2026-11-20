@@ -38,6 +38,7 @@ use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Exception;
@@ -73,23 +74,18 @@ class SubtitleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubtitleRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreSubtitleRequest $request, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        $subtitleFile = $request->file('subtitle_file');
+        $filename = uniqid('', true).'.'.$request->subtitleFile->getClientOriginalExtension();
 
-        abort_if(\is_array($subtitleFile), 400);
-
-        $filename = uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
-
-        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'));
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($request->torrentId);
 
         $subtitle = Subtitle::query()->create([
-            ...$request->safe()->except('subtitle_file'),
+            ...$request->toArray(),
             'title'        => $torrent->name,
             'file_name'    => $filename,
-            'file_size'    => $subtitleFile->getSize(),
-            'extension'    => '.'.$subtitleFile->getClientOriginalExtension(),
+            'file_size'    => $request->subtitleFile->getSize(),
+            'extension'    => '.'.$request->subtitleFile->getClientOriginalExtension(),
             'downloads'    => 0,
             'verified'     => 0,
             'user_id'      => $user->id,
@@ -99,7 +95,7 @@ class SubtitleController extends Controller
         ]);
 
         // Save Subtitle
-        Storage::disk('subtitle-files')->putFileAs('', $subtitleFile, $filename);
+        Storage::disk('subtitle-files')->putFileAs('', $request->subtitleFile, $filename);
 
         // Announce To Shoutbox
         if (!$subtitle->anon) {
@@ -139,20 +135,20 @@ class SubtitleController extends Controller
             );
         }
 
-        return to_route('torrents.show', ['id' => $request->input('torrent_id')])
+        return to_route('torrents.show', ['id' => $request->torrentId])
             ->with('success', 'Subtitle successfully added');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubtitleRequest $request, Subtitle $subtitle): \Illuminate\Http\RedirectResponse
+    public function update(UpdateSubtitleRequest $request, Subtitle $subtitle, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo || $request->user()->id == $subtitle->user_id, 403);
+        abort_unless($currentUser->group->is_modo || $currentUser->id == $subtitle->user_id, 403);
 
-        $subtitle->update($request->validated());
+        $subtitle->update($request->toArray());
 
-        return to_route('torrents.show', ['id' => $request->input('torrent_id')])
+        return to_route('torrents.show', ['id' => $subtitle->torrent_id])
             ->with('success', 'Subtitle successfully updated');
     }
 
@@ -173,7 +169,7 @@ class SubtitleController extends Controller
 
         $subtitle->delete();
 
-        return to_route('torrents.show', ['id' => $request->integer('torrent_id')])
+        return to_route('torrents.show', ['id' => $subtitle->torrent_id])
             ->with('success', 'Subtitle successfully deleted');
     }
 
