@@ -253,12 +253,6 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: '#^Property App\\Models\\Torrent\:\:\$free \(int\) does not accept float\|int\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1

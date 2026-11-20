@@ -49,7 +49,7 @@ class EmailController extends Controller
         ]);
 
         $oldEmail = $user->email;
-        $newEmail = $request->email;
+        $newEmail = $request->string('email')->toString();
 
         $user->notify(new UserEmailChange($user, $oldEmail, $newEmail));
 

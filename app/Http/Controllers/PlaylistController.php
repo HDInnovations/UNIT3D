@@ -102,7 +102,7 @@ class PlaylistController extends Controller
         $torrents = $playlist->torrents()
             ->select('*')
             ->selectRaw(self::META_TYPE_CASE.' as meta')
-            ->when($request->has('search'), fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $request->search).'%'))
+            ->when($request->has('search'), fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $request->string('search')->toString()).'%'))
             ->with(['category', 'resolution', 'type', 'user.group'])
             ->orderBy('name')
             ->paginate(26);
@@ -119,7 +119,7 @@ class PlaylistController extends Controller
             },
             'latestPlaylistTorrent' => $playlist->torrents()->orderByPivot('created_at', 'desc')->first(),
             'torrents'              => $torrents,
-            'search'                => $request->search,
+            'search'                => $request->string('search')->toString(),
         ]);
     }
 

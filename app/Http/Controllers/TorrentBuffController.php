@@ -102,15 +102,15 @@ class TorrentBuffController extends Controller
             'fl_until'  => 'nullable|numeric'
         ]);
 
-        if ($request->freeleech != 0) {
-            if ($request->fl_until !== null) {
+        if ($request->integer('freeleech') != 0) {
+            if ($request->filled('fl_until')) {
                 $torrent->fl_until = now()->addDays($request->integer('fl_until'));
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->integer('fl_until').' days.', $torrentUrl, $torrent->name, $request->integer('freeleech'))
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->integer('freeleech'))
                 );
             }
         } elseif ($torrent->free != 0) {
@@ -119,7 +119,7 @@ class TorrentBuffController extends Controller
             );
         }
 
-        $torrent->free = $request->freeleech;
+        $torrent->free = $request->integer('freeleech');
         $torrent->save();
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);

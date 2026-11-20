@@ -108,7 +108,7 @@ class FortifyServiceProvider extends ServiceProvider
                 'captcha'  => Rule::when(config('captcha.enabled'), 'hiddencaptcha')
             ]);
 
-            $user = User::query()->where('username', $request->username)->first();
+            $user = User::query()->where('username', $request->string('username')->toString())->first();
 
             if ($user === null) {
                 throw ValidationException::withMessages([
@@ -116,7 +116,7 @@ class FortifyServiceProvider extends ServiceProvider
                 ]);
             }
 
-            $password = Hash::check($request->password, $user->password);
+            $password = Hash::check($request->string('password')->toString(), $user->password);
 
             if ($password === false) {
                 defer(function () use ($user, $request): void {
@@ -124,7 +124,7 @@ class FortifyServiceProvider extends ServiceProvider
 
                     FailedLoginAttempt::query()->create([
                         'user_id'    => $user->id,
-                        'username'   => $request->username,
+                        'username'   => $request->string('username')->toString(),
                         'ip_address' => $ip,
                     ]);
 

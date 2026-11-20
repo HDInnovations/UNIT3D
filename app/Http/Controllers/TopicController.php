@@ -110,7 +110,7 @@ class TopicController extends Controller
         $forum = Forum::authorized(canStartTopic: true)->findOrFail($id);
 
         $topic = Topic::query()->create([
-            'name'               => $request->title,
+            'name'               => $request->string('title')->toString(),
             'state'              => 'open',
             'first_post_user_id' => $user->id,
             'last_post_user_id'  => $user->id,
@@ -243,12 +243,12 @@ class TopicController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
 
-        $newForum = Forum::authorized(canStartTopic: true)->whereKey($request->forum_id)->sole();
+        $newForum = Forum::authorized(canStartTopic: true)->whereKey($request->integer('forum_id'))->sole();
 
         $oldForum = $topic->forum;
 
         $topic->update([
-            'name'     => $request->name,
+            'name'     => $request->string('name')->toString(),
             'forum_id' => $newForum->id,
         ]);
 

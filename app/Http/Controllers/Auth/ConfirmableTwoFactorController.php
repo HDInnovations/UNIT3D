@@ -40,14 +40,14 @@ class ConfirmableTwoFactorController extends Controller
     {
         /** @see https://github.com/laravel/fortify/blob/f7c3fd787a64ada544353c0423e4589b1626ec75/src/Http/Controllers/TwoFactorAuthenticatedSessionController.php#L56 */
         if (
-            $request->recovery_code
-            && $code = collect($request->user()->recoveryCodes())->first(fn ($code) => hash_equals($code, $request->recovery_code))
+            $request->filled('recovery_code')
+            && $code = collect($request->user()->recoveryCodes())->first(fn ($code) => hash_equals($code, $request->string('recovery_code')->toString()))
         ) {
             $request->user()->replaceRecoveryCode($code);
         } elseif (
             ! $provider->verify(
                 Fortify::currentEncrypter()->decrypt($request->user()->two_factor_secret),
-                $request->code
+                $request->string('code')->toString()
             )
         ) {
             throw ValidationException::withMessages([
