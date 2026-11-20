@@ -124,10 +124,10 @@ class StoreTorrentRequest extends Data
         $properties['tvdb'] = $properties['tvdb'] ?: null;
         $properties['mal'] = $properties['mal'] ?: null;
         $properties['igdb'] = $properties['igdb'] ?: null;
-        $properties['anon'] = $properties['anonymous'];
+        $properties['anon'] = $properties['anonymous'] ?? false;
         $properties['personal_release'] = $properties['personal_release'] ?? false;
-        $properties['du_until'] = \intval($properties['du_until']) ? now()->addDays(\intval($properties['du_until'])) : null;
-        $properties['fl_until'] = \intval($properties['fl_until']) ? now()->addDays(\intval($properties['fl_until'])) : null;
+        $properties['du_until'] = \array_key_exists('du_until', $properties) && \intval($properties['du_until']) ? now()->addDays(\intval($properties['du_until'])) : null;
+        $properties['fl_until'] = \array_key_exists('fl_until', $properties) && \intval($properties['fl_until']) ? now()->addDays(\intval($properties['fl_until'])) : null;
 
         return $properties;
     }
@@ -137,7 +137,7 @@ class StoreTorrentRequest extends Data
      *
      * @return array<string, array<Closure(string, mixed, Closure(string): never): void|\Illuminate\Validation\Rules\ProhibitedIf|\Illuminate\Validation\Rules\RequiredIf|\Illuminate\Validation\Rules\ExcludeIf|\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Unique|string>>
      */
-    public function rules(Request $request): array
+    public static function rules(Request $request): array
     {
         $user = $request->user()->loadExists('internals');
         $category = Category::query()->findOrFail($request->integer('category_id'));

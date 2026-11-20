@@ -113,7 +113,7 @@ return [
      */
     'structure_caching' => [
         'enabled'     => true,
-        'directories' => [app_path('Http\Requests')],
+        'directories' => [app_path('Http/Requests')],
         'cache'       => [
             'store'    => env('CACHE_STORE', env('CACHE_DRIVER', 'file')),
             'prefix'   => 'laravel-data',
