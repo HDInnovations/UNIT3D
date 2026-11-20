@@ -111,6 +111,9 @@ class UpdateTorrentRequest extends Data
         $properties['mal'] = \array_key_exists('anime_exists_on_mal', $properties) ? ($properties['mal'] ?: null) : null;
         $properties['igdb'] = \array_key_exists('game_exists_on_igdb', $properties) ? ($properties['igdb'] ?: null) : null;
         $properties['mediainfo'] = TorrentTools::anonymizeMediainfo($properties['mediainfo'] ? (string) $properties['mediainfo'] : null);
+        $properties['internal'] = $properties['internal'] ?? false;
+        $properties['free'] = $properties['free'] ?? 0;
+        $properties['refundable'] = $properties['refundable'] ?? false;
 
         return $properties;
     }
@@ -204,19 +207,13 @@ class UpdateTorrentRequest extends Data
             ],
             'internal' => [
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
                 Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'free' => [
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
                 Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'refundable' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
                 Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],

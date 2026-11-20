@@ -128,6 +128,9 @@ class StoreTorrentRequest extends Data
         $properties['personal_release'] = $properties['personal_release'] ?? false;
         $properties['du_until'] = \array_key_exists('du_until', $properties) && \intval($properties['du_until']) ? now()->addDays(\intval($properties['du_until'])) : null;
         $properties['fl_until'] = \array_key_exists('fl_until', $properties) && \intval($properties['fl_until']) ? now()->addDays(\intval($properties['fl_until'])) : null;
+        $properties['internal'] = $properties['internal'] ?? false;
+        $properties['free'] = $properties['free'] ?? 0;
+        $properties['refundable'] = $properties['refundable'] ?? false;
 
         return $properties;
     }
