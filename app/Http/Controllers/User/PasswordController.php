@@ -52,7 +52,7 @@ class PasswordController extends Controller
 
         DB::transaction(function () use ($user, $request, $changedByStaff): void {
             $user->update([
-                'password' => Hash::make($request->new_password),
+                'password' => Hash::make($request->string('new_password')->toString()),
             ]);
 
             $user->passwordResetHistories()->create();

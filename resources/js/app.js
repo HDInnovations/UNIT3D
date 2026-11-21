@@ -36,20 +36,34 @@ window.Swal = Swal;
 import.meta.glob(['/public/img/pipes/**', '/resources/sass/vendor/webfonts/font-awesome/**']);
 
 // Livewire + AlpineJS
-import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.csp.esm.js';
 
 // Custom AlpineJS Components
 import './components/alpine/chatbox';
-import './components/alpine/checkboxGrid';
-import './components/alpine/clipboardButton';
-import './components/alpine/dialog';
-import './components/alpine/dislikeButton';
-import './components/alpine/likeButton';
-import './components/alpine/livewireDialog';
-import './components/alpine/posterRow';
-import './components/alpine/smallBookmarkButton';
-import './components/alpine/tabs';
-import './components/alpine/toggle';
-import './components/alpine/torrentGrouping';
+import checkboxGrid from './components/alpine/checkboxGrid';
+import clipboardButton from './components/alpine/clipboardButton';
+import comparison from './components/alpine/comparison';
+import dislikeButton from './components/alpine/dislikeButton';
+import formSubmit from './components/alpine/formSubmit';
+import likeButton from './components/alpine/likeButton';
+import posterRow from './components/alpine/posterRow';
+import smallBookmarkButton from './components/alpine/smallBookmarkButton';
+import tabs from './components/alpine/tabs';
+import ternaryCheckMark from './components/alpine/ternaryCheckMark';
+import toggle from './components/alpine/toggle';
+import torrentGrouping from './components/alpine/torrentGrouping';
+
+Alpine.data('checkboxGrid', checkboxGrid);
+Alpine.data('clipboardButton', clipboardButton);
+Alpine.data('comparison', comparison);
+Alpine.data('dislikeButton', dislikeButton);
+Alpine.data('formSubmit', formSubmit);
+Alpine.data('likeButton', likeButton);
+Alpine.data('posterRow', posterRow);
+Alpine.data('bookmark', smallBookmarkButton);
+Alpine.data('tabs', tabs);
+Alpine.data('ternaryCheckMark', ternaryCheckMark);
+Alpine.data('toggle', toggle);
+Alpine.data('torrentGroup', torrentGrouping);
 
 Livewire.start();

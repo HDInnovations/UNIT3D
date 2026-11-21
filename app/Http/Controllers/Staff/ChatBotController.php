@@ -33,7 +33,7 @@ class ChatBotController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.chat.bot.index', [
-            'bots' => Bot::oldest('position')->get(),
+            'bots' => Bot::query()->oldest('position')->get(),
         ]);
     }
 
@@ -53,7 +53,7 @@ class ChatBotController extends Controller
      */
     public function update(UpdateChatBotRequest $request, Bot $bot): \Illuminate\Http\RedirectResponse
     {
-        $bot->update($request->validated());
+        $bot->update($request->toArray());
 
         return to_route('staff.bots.index')
             ->with('success', "The bot has been updated");

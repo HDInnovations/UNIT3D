@@ -30,7 +30,7 @@ class ResolutionController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.resolution.index', [
-            'resolutions' => Resolution::orderBy('position')->get(),
+            'resolutions' => Resolution::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -47,7 +47,7 @@ class ResolutionController extends Controller
      */
     public function store(StoreResolutionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Resolution::create($request->validated());
+        Resolution::query()->create($request->toArray());
 
         return to_route('staff.resolutions.index')
             ->with('success', 'Resolution successfully added');
@@ -68,7 +68,7 @@ class ResolutionController extends Controller
      */
     public function update(UpdateResolutionRequest $request, Resolution $resolution): \Illuminate\Http\RedirectResponse
     {
-        $resolution->update($request->validated());
+        $resolution->update($request->toArray());
 
         return to_route('staff.resolutions.index')
             ->with('success', 'Resolution successfully modified');

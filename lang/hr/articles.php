@@ -12,7 +12,7 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'articles' => 'Članci',
-    'meta-articles' => 'Članci i vijesti na tragaču i zajednici',
-    'published-at' => 'Objavljeno dana',
-    'read-more' => 'Čitaj više',
+    'meta-articles' => 'Članci i novosti o trackeru i zajednici',
+    'published-at' => 'Objavljeno ',
+    'read-more' => 'Pročitaj više',
 ];

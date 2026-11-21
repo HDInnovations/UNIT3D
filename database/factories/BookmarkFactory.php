@@ -20,6 +20,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Bookmark;
+use Override;
 
 /** @extends Factory<Bookmark> */
 class BookmarkFactory extends Factory
@@ -32,6 +33,7 @@ class BookmarkFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -68,7 +68,7 @@ class UserActive extends Component
 
     final public function mount(int $userId): void
     {
-        $this->user = User::find($userId);
+        $this->user = User::query()->find($userId);
     }
 
     final public function updatingSearch(): void
@@ -122,7 +122,7 @@ class UserActive extends Component
             ->when($this->visible === 'include', fn ($query) => $query->where('visible', '=', 1))
             ->when($this->visible === 'exclude', fn ($query) => $query->where('visible', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

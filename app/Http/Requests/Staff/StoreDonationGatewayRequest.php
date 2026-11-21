@@ -16,32 +16,29 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\DonationGateway;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class StoreDonationGatewayRequest extends FormRequest
+class StoreDonationGatewayRequest extends Data
 {
+    public function __construct(
+        #[Unique(DonationGateway::class)]
+        public string $address,
+        #[Unique(DonationGateway::class)]
+        public string $name,
+        public int $position,
+        public bool $isActive,
+    ) {
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public static function authorize()
     {
-        return $this->user()->group->is_owner;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'address'   => 'required|unique:donation_gateways',
-            'name'      => 'required|unique:donation_gateways',
-            'position'  => 'min:0|max:9999999',
-            'is_active' => 'required|boolean',
-        ];
+        return auth()->user()->group->is_owner;
     }
 }

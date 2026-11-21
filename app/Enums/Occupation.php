@@ -32,15 +32,15 @@ enum Occupation: int
     public static function from_tmdb_job(string $job_name): ?Occupation
     {
         return match ($job_name) {
-            "Director"   => self::DIRECTOR,
-            "Screenplay" => self::WRITER,
+            "Director"                                      => self::DIRECTOR,
+            "Screenplay"                                    => self::WRITER,
             "Producer", "Co-Producer", "Associate Producer" => self::PRODUCER,
-            "Original Music Composer" => self::COMPOSER,
-            "Director of Photography" => self::CINEMATOGRAPHER,
-            "Editor"                  => self::EDITOR,
-            "Production Design"       => self::PRODUCTION_DESIGNER,
-            "Art Direction"           => self::ART_DIRECTOR,
-            default                   => null,
+            "Original Music Composer"                       => self::COMPOSER,
+            "Director of Photography"                       => self::CINEMATOGRAPHER,
+            "Editor"                                        => self::EDITOR,
+            "Production Design"                             => self::PRODUCTION_DESIGNER,
+            "Art Direction"                                 => self::ART_DIRECTOR,
+            default                                         => null,
         };
     }
 }

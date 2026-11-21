@@ -16,47 +16,44 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
+use Spatie\LaravelData\Attributes\Hidden;
+use Spatie\LaravelData\Attributes\Validation\Exclude;
+use Spatie\LaravelData\Attributes\Validation\File;
+use Spatie\LaravelData\Attributes\Validation\In;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
-class UpdateCategoryRequest extends FormRequest
+class UpdateCategoryRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public bool $movieMeta {
+        get => $this->meta === 'movie';
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-                'string',
-            ],
-            'position' => [
-                'required',
-                'numeric',
-            ],
-            'icon' => [
-                'required',
-                'string',
-            ],
-            'meta' => [
-                'required',
-                'string',
-                'in:movie,tv,game,music,no',
-                'exclude',
-            ],
-            'image' => [
-                'max:10240',
-            ],
-        ];
+    public bool $tvMeta {
+        get => $this->meta === 'tv';
+    }
+
+    public bool $gameMeta {
+        get => $this->meta === 'game';
+    }
+
+    public bool $musicMeta {
+        get => $this->meta === 'music';
+    }
+
+    public bool $noMeta {
+        get => $this->meta === 'no';
+    }
+
+    public function __construct(
+        public string $name,
+        public int $position,
+        public string $icon,
+        #[In('movie', 'tv', 'game', 'music', 'no'), Exclude, Hidden]
+        public string $meta,
+        #[File, Max(10240)]
+        public ?UploadedFile $image,
+    ) {
     }
 }

@@ -1,13 +1,13 @@
 @extends('layout.with-main')
 
 @section('title')
-    <title>{{ __('auth.password-confirm.title') }} - {{ config('other.title') }}</title>
+    <title>{{ __('auth.password-confirmation') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
     <meta
         name="description"
-        content="{{ __('auth.password-confirm.title') }} - {{ config('other.title') }}"
+        content="{{ __('auth.password-confirmation') }} - {{ config('other.title') }}"
     />
 @endsection
 
@@ -21,7 +21,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('auth.password-confirmation') }}</h2>
         <div class="panel__body">
-            <form class="form" action="{{ route('password.confirm') }}" method="POST">
+            <form class="form" action="{{ route('password.confirm.store') }}" method="POST">
                 @csrf
                 <p>{{ __('auth.password-confirm-desc') }}</p>
                 <p class="form__group">

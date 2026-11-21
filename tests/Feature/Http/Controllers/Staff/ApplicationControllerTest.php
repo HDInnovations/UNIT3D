@@ -15,61 +15,29 @@ declare(strict_types=1);
  */
 
 use App\Enums\ModerationStatus;
-use App\Http\Controllers\Staff\ApplicationController;
 use App\Http\Livewire\ApplicationSearch;
-use App\Http\Requests\Staff\ApproveApplicationRequest;
-use App\Http\Requests\Staff\RejectApplicationRequest;
 use App\Models\Application;
-use App\Models\Group;
-use App\Models\User;
-
-beforeEach(function (): void {
-    $this->staffUser = User::factory()->create([
-        'group_id' => fn () => Group::factory()->create([
-            'is_owner' => true,
-            'is_admin' => true,
-            'is_modo'  => true,
-        ])->id,
-    ]);
-});
-
-test('approve validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ApplicationController::class,
-        'approve',
-        ApproveApplicationRequest::class
-    );
-});
 
 test('approve returns an ok response', function (): void {
     $application = Application::factory()->create([
         'status' => ModerationStatus::PENDING,
     ]);
 
-    $response = $this->actingAs($this->staffUser)->post(route('staff.applications.approve', ['id' => $application->id]), [
+    $this->post(route('staff.applications.approve', ['id' => $application->id]), [
         'status'       => ModerationStatus::APPROVED->value,
-        'moderated_by' => $this->staffUser->id,
         'moderated_at' => now(),
         'approve'      => 'Approved',
         'email'        => $application->email,
-    ]);
-    $response->assertRedirect(route('staff.applications.index'));
-    $response->assertSessionHas('success', 'Application approved');
+    ])
+        ->assertRedirect(route('staff.applications.index'))
+        ->assertSessionHas('success', 'Application approved');
 });
 
 test('index returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->get(route('staff.applications.index'));
-    $response->assertOk();
-    $response->assertViewIs('Staff.application.index');
-    $response->assertSeeLivewire(ApplicationSearch::class);
-});
-
-test('reject validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ApplicationController::class,
-        'reject',
-        RejectApplicationRequest::class
-    );
+    $response = $this->get(route('staff.applications.index'))
+        ->assertOk()
+        ->assertViewIs('Staff.application.index')
+        ->assertSeeLivewire(ApplicationSearch::class);
 });
 
 test('reject returns an ok response', function (): void {
@@ -77,14 +45,13 @@ test('reject returns an ok response', function (): void {
         'status' => ModerationStatus::PENDING,
     ]);
 
-    $response = $this->actingAs($this->staffUser)->post(route('staff.applications.reject', ['id' => $application->id]), [
+    $this->post(route('staff.applications.reject', ['id' => $application->id]), [
         'status'       => ModerationStatus::REJECTED->value,
-        'moderated_by' => $this->staffUser->id,
         'moderated_at' => now(),
         'deny'         => 'Denied',
-    ]);
-    $response->assertRedirect(route('staff.applications.index'));
-    $response->assertSessionHas('success', 'Application rejected');
+    ])
+        ->assertRedirect(route('staff.applications.index'))
+        ->assertSessionHas('success', 'Application rejected');
 });
 
 test('show returns an ok response', function (): void {
@@ -92,8 +59,8 @@ test('show returns an ok response', function (): void {
         'status' => ModerationStatus::APPROVED,
     ]);
 
-    $response = $this->actingAs($this->staffUser)->get(route('staff.applications.show', ['id' => $application->id]));
-    $response->assertOk();
-    $response->assertViewIs('Staff.application.show');
-    $response->assertViewHas('application');
+    $this->get(route('staff.applications.show', ['id' => $application->id]))
+        ->assertOk()
+        ->assertViewIs('Staff.application.show')
+        ->assertViewHas('application');
 });

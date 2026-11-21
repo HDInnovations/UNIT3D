@@ -26,7 +26,7 @@ return [
     'forums' => 'Forum',
     'frontend' => 'Paling depan',
     'general-tools' => 'Alat Umum',
-    'groups' => 'Grup',
+    'groups' => 'Grup-grup',
     'invites-log' => 'Log Undangan',
     'laravel-log' => 'Log Laravel',
     'links' => 'Tautan',
@@ -55,4 +55,5 @@ return [
     'chat-tools' => 'Alat Obrolan',
     'flush-chat' => 'Flush Chatbox',
     'seedboxes' => 'Kotak Benih Terdaftar',
+    'application' => 'Aplikasi',
 ];

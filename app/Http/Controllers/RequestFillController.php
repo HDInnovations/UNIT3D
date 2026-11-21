@@ -22,7 +22,6 @@ use App\Models\TorrentRequest;
 use App\Notifications\NewRequestFill;
 use App\Notifications\NewRequestFillReject;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -34,22 +33,17 @@ class RequestFillController extends Controller
      */
     public function store(StoreRequestFillRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
     {
-        $torrent = Torrent::find(basename((string) $request->torrent_id));
-
-        if ($torrent === null) {
+        if (Torrent::query()->whereKey($request->torrentId)->doesntExist()) {
             return to_route('requests.show', ['torrentRequest' => $torrentRequest])
                 ->withErrors("Submitted torrent link not found or not yet approved.");
         }
 
         $torrentRequest->update([
-            'filled_by'   => $request->user()->id,
-            'torrent_id'  => $torrent->id,
-            'filled_when' => Carbon::now(),
-            'filled_anon' => $request->filled_anon,
+            ...$request->toArray(),
+            'filled_when' => now(),
         ]);
 
         // Send Private Message
-        $sender = $request->boolean('filled_anon') ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
         $requester->notify(new NewRequestFill($torrentRequest));

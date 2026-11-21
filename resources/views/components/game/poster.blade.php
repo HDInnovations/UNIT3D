@@ -11,7 +11,7 @@
             class="torrent-search--poster__poster"
         >
             <img
-                src="{{ isset($game->cover_image_id) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $game->cover_image_id . '.png' : 'https://via.placeholder.com/90x135' }}"
+                src="{{ isset($game->cover_image_id) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $game->cover_image_id . '.png' : url('img/poster-placeholder.svg') }}"
                 alt="{{ __('torrent.similar') }}"
                 loading="lazy"
             />

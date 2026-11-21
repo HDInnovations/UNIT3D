@@ -37,7 +37,7 @@ class PlaylistSuggestionRejected extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -47,11 +47,11 @@ class PlaylistSuggestionRejected extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'Playlist Suggestion Rejected',
-            'body'  => 'Your playlist suggestion has been rejected. Message from playlist creator: '.$this->message,
+            'title' => 'Playlist suggestion rejected',
+            'body'  => 'Playlist suggestion rejected. Note from playlist creator: '.$this->message,
             'url'   => '/playlists/'.$this->playlistSuggestion->playlist_id.'#playlist_suggestions',
         ];
     }

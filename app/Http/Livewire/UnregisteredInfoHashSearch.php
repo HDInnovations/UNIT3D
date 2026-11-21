@@ -78,7 +78,7 @@ class UnregisteredInfoHashSearch extends Component
                 fn ($query) => $query->whereDoesntHave('torrent', fn ($query) => $query->onlyTrashed()->withoutGlobalScope(ApprovedScope::class))
             )
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

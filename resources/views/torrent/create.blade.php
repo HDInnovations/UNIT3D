@@ -41,19 +41,7 @@
 @section('page', 'page__torrent--create')
 
 @section('main')
-    <section
-        class="upload panelV2"
-        x-data="{
-            cat: {{ old('category_id', (int) $category_id) }},
-            cats: JSON.parse(atob('{{ base64_encode(json_encode($categories)) }}')),
-            tmdb_movie_exists: true,
-            tmdb_tv_exists: true,
-            imdb_title_exists: true,
-            tvdb_tv_exists: true,
-            mal_anime_exists: true,
-            igdb_game_exists: true,
-        }"
-    >
+    <section class="upload panelV2" x-data="torrentCreate">
         <h2 class="upload-title panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-file"></i>
             {{ __('torrent.torrent') }}
@@ -79,7 +67,7 @@
                         name="torrent"
                         id="torrent"
                         required
-                        @change="uploadExtension.hook(); cat = $refs.catId.value"
+                        x-bind="torrentFile"
                     />
                 </p>
                 <p class="form__group">
@@ -139,7 +127,7 @@
                         class="form__select"
                         required
                         x-model="cat"
-                        @change="cats[cat].type = cats[$event.target.value].type;"
+                        x-bind="categorySelect"
                     >
                         <option hidden selected disabled value=""></option>
                         @foreach ($categories as $id => $category)
@@ -236,7 +224,7 @@
                                     value="{{ $region->id }}"
                                     @selected(old('region_id') == $region->id)
                                 >
-                                    {{ $region->name }}
+                                    {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
                                 </option>
                             @endforeach
                         </select>
@@ -313,7 +301,11 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'movie' && tmdb_movie_exists ? '{{ old('tmdb_movie_id', $movieId) }}' : ''"
+                                x-bind:value="
+                                    cats[cat].type === 'movie' && tmdb_movie_exists
+                                        ? {{ Js::from(old('tmdb_movie_id', $movieId)) }}
+                                        : ''
+                                "
                                 x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
                             />
                             <label class="form__label form__label--floating" for="auto_tmdb_movie">
@@ -348,7 +340,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? '{{ old('tmdb_tv_id', $tvId) }}' : ''"
+                                x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? {{ Js::from(old('tmdb_tv_id', $tvId)) }} : ''"
                                 x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                             />
                             <label class="form__label form__label--floating" for="auto_tmdb_tv">
@@ -387,18 +379,11 @@
                                 placeholder=" "
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists
-                                        ? '{{ old('imdb', $imdb) }}'
+                                        ? {{ Js::from(old('imdb', $imdb)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
-                                x-on:paste="
-                                    matches = $event.clipboardData.getData('text').match(/tt0*(\d{7,})/);
-
-                                    if (matches !== null) {
-                                        $el.value = Number(matches[1]);
-                                        $event.preventDefault();
-                                    }
-                                "
+                                x-bind="imdbInput"
                             />
                             <label class="form__label form__label--floating" for="autoimdb">
                                 IMDB ID
@@ -430,7 +415,7 @@
                                 inputmode="numeric"
                                 pattern="[0-9]*"
                                 placeholder=" "
-                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? '{{ old('tvdb', $tvdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? {{ Js::from(old('tvdb', $tvdb)) }} : ''"
                                 class="form__text"
                                 x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                             />
@@ -468,7 +453,7 @@
                                 pattern="[0-9]*"
                                 x-bind:value="
                                     (cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists
-                                        ? '{{ old('mal', $mal) }}'
+                                        ? {{ Js::from(old('mal', $mal)) }}
                                         : ''
                                 "
                                 x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
@@ -503,7 +488,7 @@
                                 id="autoigdb"
                                 inputmode="numeric"
                                 pattern="[0-9]*"
-                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? '{{ old('igdb', $igdb) }}' : ''"
+                                x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? {{ Js::from(old('igdb', $igdb)) }} : ''"
                                 class="form__text"
                                 x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                             />
@@ -670,6 +655,43 @@
                 </p>
             </form>
         </div>
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('torrentCreate', () => ({
+                    cat: {{ old('category_id', (int) $category_id) }},
+                    cats: {{ Js::from($categories) }},
+                    tmdb_movie_exists: true,
+                    tmdb_tv_exists: true,
+                    imdb_title_exists: true,
+                    tvdb_tv_exists: true,
+                    mal_anime_exists: true,
+                    igdb_game_exists: true,
+                    torrentFile: {
+                        ['x-on:change']() {
+                            uploadExtension.hook();
+                            this.cat = this.$refs.catId.value;
+                        },
+                    },
+                    imdbInput: {
+                        ['x-on:paste']() {
+                            matches = this.$event.clipboardData
+                                .getData('text')
+                                .match(/tt0*(\d{7,})/);
+
+                            if (matches !== null) {
+                                this.$el.value = Number(matches[1]);
+                                this.$event.preventDefault();
+                            }
+                        },
+                    },
+                    categorySelect: {
+                        ['x-on:change']() {
+                            this.cats[this.cat].type = this.cats[this.$event.target.value].type;
+                        },
+                    },
+                }));
+            });
+        </script>
     </section>
 @endsection
 
@@ -681,20 +703,6 @@
                 {{ __('common.info') }}
             </h2>
             <div class="panel__body">
-                <p>
-                    {{ __('torrent.announce-url') }}:
-                    <a
-                        x-data="upload"
-                        data-announce-url="{{ route('announce', ['passkey' => $user->passkey]) }}"
-                        x-on:click.prevent="copy"
-                        href="{{ route('announce', ['passkey' => $user->passkey]) }}"
-                    >
-                        {{ route('announce', ['passkey' => $user->passkey]) }}
-                    </a>
-                </p>
-                <p>
-                    {{ __('torrent.announce-url-desc', ['source' => config('torrent.source')]) }}
-                </p>
                 <a href="{{ config('other.upload-guide_url') }}">
                     {{ __('torrent.announce-url-desc-url') }}
                 </a>

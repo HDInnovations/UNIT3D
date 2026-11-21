@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,8 +11,6 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
     /*
     |--------------------------------------------------------------------------
     | Password Reminder Language Lines
@@ -24,10 +21,9 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
-    'password' => 'As senhas devem ter pelo menos seis caracteres e coincidir com a confirmação.',
-    'reset'    => 'A sua senha foi redefinida!',
-    'sent'     => 'Enviamos por e-mail o link para redefinir a sua senha!',
-    'token'    => 'Este código de redefinição de senha é inválido.',
-    'user'     => 'Não existe nenhum usuário com o endereço de e-mail indicado.',
+    'password' => 'As palavras-passe devem ter pelo menos seis caracteres e coincidir com a confirmação.',
+    'reset' => 'A sua palavra-passe foi redefinida!',
+    'sent' => 'Sucesso! Se este e-mail estiver cadastrado, enviaremos uma ligação para redefinir a palavra-passe.',
+    'token' => 'Este código de redefinição de palavra-passe é inválido.',
+    'user' => 'Não existe nenhum utilizador com o endereço de e-mail indicado.',
 ];

@@ -24,7 +24,7 @@ return [
     'create_warning_message' => 'Cadangan Anda TIDAK mungkin telah dibuat. Silakan periksa file log untuk detailnya.',
     'create_warning_title' => 'Kesalahan yang tidak diketahui',
     'date' => 'Tanggal',
-    'delete' => 'Menghapus',
+    'delete' => 'Hapus',
     'delete_cancel_message' => 'File cadangan TIDAK dihapus.',
     'delete_cancel_title' => 'Tidak apa-apa',
     'delete_confirm' => 'Yakin ingin menghapus file cadangan ini?',

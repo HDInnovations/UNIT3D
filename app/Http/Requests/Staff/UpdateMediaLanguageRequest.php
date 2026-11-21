@@ -16,38 +16,18 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Models\MediaLanguage;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\References\RouteParameterReference;
 
-class UpdateMediaLanguageRequest extends FormRequest
+class UpdateMediaLanguageRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<\Illuminate\Validation\Rules\Unique|string>>
-     */
-    public function rules(Request $request): array
-    {
-        return [
-            'name' => [
-                'required',
-                'string',
-                Rule::unique('media_languages')->ignore($request->route('mediaLanguage')),
-            ],
-            'code' => [
-                'required',
-                'string',
-                Rule::unique('media_languages')->ignore($request->route('mediaLanguage')),
-            ],
-        ];
+    public function __construct(
+        #[Unique(MediaLanguage::class, ignore: new RouteParameterReference('mediaLanguage'))]
+        public string $name,
+        #[Unique(MediaLanguage::class, ignore: new RouteParameterReference('mediaLanguage'))]
+        public string $code,
+    ) {
     }
 }

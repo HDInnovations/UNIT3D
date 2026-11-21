@@ -41,7 +41,7 @@ class UserBookmarks extends Component
 
     final public function mount(int $userId): void
     {
-        $this->user = User::find($userId);
+        $this->user = User::query()->find($userId);
     }
 
     /**

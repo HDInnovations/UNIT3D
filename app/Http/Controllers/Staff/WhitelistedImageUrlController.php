@@ -26,13 +26,13 @@ class WhitelistedImageUrlController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.whitelisted-image-url.index', [
-            'whitelistedImageUrls' => WhitelistedImageUrl::orderBy('pattern')->get(),
+            'whitelistedImageUrls' => WhitelistedImageUrl::query()->orderBy('pattern')->get(),
         ]);
     }
 
     public function update(UpdateWhitelistedImageUrlRequest $request, WhitelistedImageUrl $whitelistedImageUrl): \Illuminate\Http\RedirectResponse
     {
-        $whitelistedImageUrl->update($request->validated());
+        $whitelistedImageUrl->update($request->toArray());
 
         cache()->forget('whitelisted-image-urls');
 
@@ -42,7 +42,7 @@ class WhitelistedImageUrlController extends Controller
 
     public function store(StoreWhitelistedImageUrlRequest $request): \Illuminate\Http\RedirectResponse
     {
-        WhitelistedImageUrl::create($request->validated());
+        WhitelistedImageUrl::query()->create($request->toArray());
 
         cache()->forget('whitelisted-image-urls');
 

@@ -24,7 +24,6 @@ use App\Models\TorrentRequest;
 use App\Notifications\NewRequestFillApprove;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -50,7 +49,7 @@ class ApprovedRequestFillController extends Controller
 
         $torrentRequest->update([
             'approved_by'   => $approver->id,
-            'approved_when' => Carbon::now(),
+            'approved_when' => now(),
         ]);
 
         $filler->increment('seedbonus', (float) $torrentRequest->bounty);

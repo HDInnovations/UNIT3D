@@ -37,7 +37,7 @@ class NewUnfollow extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -65,11 +65,11 @@ class NewUnfollow extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => $this->unfollower->username.' Has Unfollowed You!',
-            'body'  => $this->unfollower->username.' has stopped following you so they will no longer get notifications about your activities.',
+            'title' => $this->unfollower->username.' unfollowed you',
+            'body'  => $this->unfollower->username.' stopped following you.',
             'url'   => '/users/'.$this->unfollower->username,
         ];
     }

@@ -23,7 +23,7 @@ class BonEarningConditionSeeder extends Seeder
 {
     public function run(): void
     {
-        BonEarningCondition::upsert([
+        BonEarningCondition::query()->upsert([
             [
                 'id'             => 1,
                 'bon_earning_id' => 1,

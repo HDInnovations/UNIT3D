@@ -20,6 +20,7 @@ use App\Models\Forum;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ForumPermission;
+use Override;
 
 /** @extends Factory<ForumPermission> */
 class ForumPermissionFactory extends Factory
@@ -32,6 +33,7 @@ class ForumPermissionFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

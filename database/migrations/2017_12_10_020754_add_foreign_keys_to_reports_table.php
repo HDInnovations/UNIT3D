@@ -24,8 +24,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('reports', function (Blueprint $table): void {
-            $table->foreign('reporter_id', 'foreign_reporting_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
-            $table->foreign('staff_id', 'foreign_staff_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('reporter_id', 'foreign_reporting_user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
+            $table->foreign('staff_id', 'foreign_staff_user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };

@@ -16,32 +16,34 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Group;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\IntegerType;
+use Spatie\LaravelData\Data;
 
-class MassEmailRequest extends FormRequest
+#[MergeValidationRules]
+class MassEmailRequest extends Data
 {
+    public function __construct(
+        /** @var list<int> */
+        public array $groups,
+        public string $subject,
+        public string $message,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'groups' => [
-                'required',
-                'array'
-            ],
             'groups.*' => [
-                'exists:groups,id'
-            ],
-            'subject' => [
-                'required',
-                'string'
-            ],
-            'message' => [
-                'required',
-                'string'
+                new IntegerType(),
+                new Exists(Group::class, 'id'),
             ],
         ];
     }

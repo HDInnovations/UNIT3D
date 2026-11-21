@@ -22,6 +22,7 @@ use App\Models\TmdbPerson;
 use App\Models\TmdbTv;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TmdbCredit;
+use Override;
 
 /** @extends Factory<TmdbCredit> */
 class TmdbCreditFactory extends Factory
@@ -34,6 +35,7 @@ class TmdbCreditFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -50,7 +50,7 @@ class UserResurrections extends Component
 
     final public function mount(int $userId): void
     {
-        $this->user = User::find($userId);
+        $this->user = User::query()->find($userId);
     }
 
     final public function updatingSearch(): void
@@ -90,7 +90,7 @@ class UserResurrections extends Component
                 fn ($query) => $query->orderBy('resurrections.'.$this->sortField, $this->sortDirection),
                 fn ($query) => $query->orderBy('torrents.'.$this->sortField, $this->sortDirection)
             )
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

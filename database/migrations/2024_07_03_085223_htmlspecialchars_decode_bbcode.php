@@ -11,7 +11,6 @@ return new class () extends Migration {
         DB::table('articles')
             ->lazyById()
             ->each(function (object $article): void {
-                /** @var object{id: int, content: string} $article */
                 DB::table('articles')
                     ->where('id', '=', $article->id)
                     ->update([
@@ -22,7 +21,6 @@ return new class () extends Migration {
         DB::table('comments')
             ->lazyById()
             ->each(function (object $comment): void {
-                /** @var object{id: int, content: string} $comment */
                 DB::table('comments')
                     ->where('id', '=', $comment->id)
                     ->update([
@@ -33,7 +31,6 @@ return new class () extends Migration {
         DB::table('messages')
             ->lazyById()
             ->each(function (object $message): void {
-                /** @var object{id: int, message: string} $message */
                 DB::table('messages')
                     ->where('id', '=', $message->id)
                     ->update([
@@ -44,7 +41,6 @@ return new class () extends Migration {
         DB::table('user_notes')
             ->lazyById()
             ->each(function (object $userNote): void {
-                /** @var object{id: int, message: string} $userNote */
                 DB::table('user_notes')
                     ->where('id', '=', $userNote->id)
                     ->update([
@@ -55,7 +51,6 @@ return new class () extends Migration {
         DB::table('playlists')
             ->lazyById()
             ->each(function (object $playlist): void {
-                /** @var object{id: int, description: string} $playlist */
                 DB::table('playlists')
                     ->where('id', '=', $playlist->id)
                     ->update([
@@ -66,7 +61,6 @@ return new class () extends Migration {
         DB::table('posts')
             ->lazyById()
             ->each(function (object $post): void {
-                /** @var object{id: int, content: string} $post */
                 DB::table('posts')
                     ->where('id', '=', $post->id)
                     ->update([
@@ -77,7 +71,6 @@ return new class () extends Migration {
         DB::table('private_messages')
             ->lazyById()
             ->each(function (object $privateMessage): void {
-                /** @var object{id: int, message: string} $privateMessage */
                 DB::table('private_messages')
                     ->where('id', '=', $privateMessage->id)
                     ->update([
@@ -88,7 +81,6 @@ return new class () extends Migration {
         DB::table('ticket_notes')
             ->lazyById()
             ->each(function (object $ticketNote): void {
-                /** @var object{id: int, message: string} $ticketNote */
                 DB::table('ticket_notes')
                     ->where('id', '=', $ticketNote->id)
                     ->update([
@@ -99,7 +91,6 @@ return new class () extends Migration {
         DB::table('torrents')
             ->lazyById()
             ->each(function (object $torrent): void {
-                /** @var object{id: int, description: string} $torrent */
                 DB::table('torrents')
                     ->where('id', '=', $torrent->id)
                     ->update([
@@ -110,7 +101,6 @@ return new class () extends Migration {
         DB::table('requests')
             ->lazyById()
             ->each(function (object $request): void {
-                /** @var object{id: int, description: string} $request */
                 DB::table('requests')
                     ->where('id', '=', $request->id)
                     ->update([
@@ -121,7 +111,6 @@ return new class () extends Migration {
         DB::table('users')
             ->lazyById()
             ->each(function (object $user): void {
-                /** @var object{id: int, about: ?string, signature: ?string} $user */
                 DB::table('users')
                     ->where('id', '=', $user->id)
                     ->update([

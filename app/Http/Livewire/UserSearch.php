@@ -94,19 +94,19 @@ class UserSearch extends Component
                 )
             )
             ->when($this->rsskey !== '', fn ($query) => $query->where('rsskey', 'LIKE', '%'.$this->rsskey.'%'))
-            ->when($this->apikey !== '', fn ($query) => $query->where('api_token', 'LIKE', '%'.$this->apikey.'%'))
+            ->when($this->apikey !== '', fn ($query) => $query->whereHas('apikeys', fn ($query) => $query->where('content', 'LIKE', '%'.$this->apikey.'%')))
             ->when($this->passkey !== '', fn ($query) => $query->where('passkey', 'LIKE', '%'.$this->passkey.'%'))
             ->when($this->groupId !== null, fn ($query) => $query->where('group_id', '=', $this->groupId))
             ->when($this->show === true, fn ($query) => $query->withTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     /**
      * @var \Illuminate\Support\Collection<int, Group>
      */
     final protected $groups {
-        get => Group::orderBy('position')->get();
+        get => Group::query()->orderBy('position')->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

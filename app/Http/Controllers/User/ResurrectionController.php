@@ -42,7 +42,7 @@ class ResurrectionController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        $torrent = Torrent::findOrFail($request->integer('torrent_id'));
+        $torrent = Torrent::query()->findOrFail($request->integer('torrent_id'));
 
         if ($user->id === $torrent->user_id) {
             return to_route('torrents.show', ['id' => $torrent->id])
@@ -59,16 +59,16 @@ class ResurrectionController extends Controller
                 ->withErrors('This torrent is not older than 30 days.');
         }
 
-        $isPending = Resurrection::whereBelongsTo($torrent)->where('rewarded', '=', 0)->exists();
+        $isPending = Resurrection::query()->whereBelongsTo($torrent)->where('rewarded', '=', 0)->exists();
 
         if ($isPending) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors(trans('graveyard.resurrect-failed-pending'));
         }
 
-        $history = History::whereBelongsTo($torrent)->whereBelongsTo($user)->first();
+        $history = History::query()->whereBelongsTo($torrent)->whereBelongsTo($user)->first();
 
-        Resurrection::create([
+        Resurrection::query()->create([
             'user_id'    => $user->id,
             'torrent_id' => $torrent->id,
             'seedtime'   => config('graveyard.time') + ($history?->seedtime ?? 0),

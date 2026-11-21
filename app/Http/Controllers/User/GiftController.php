@@ -24,6 +24,7 @@ use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class GiftController extends Controller
 {
@@ -43,10 +44,11 @@ class GiftController extends Controller
 
         return view('user.gift.index', [
             'user'  => $user,
-            'gifts' => Gift::with([
-                'sender.group',
-                'recipient.group',
-            ])
+            'gifts' => Gift::query()
+                ->with([
+                    'sender.group',
+                    'recipient.group',
+                ])
                 ->where('sender_id', '=', $user->id)
                 ->orWhere('recipient_id', '=', $user->id)
                 ->latest()
@@ -73,16 +75,15 @@ class GiftController extends Controller
     /**
      * Gift points to a user.
      */
-    public function store(StoreGiftRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreGiftRequest $request, #[CurrentUser] User $sender): \Illuminate\Http\RedirectResponse
     {
-        $sender = $request->user();
-        $receiver = User::where('username', '=', $request->recipient_username)->sole();
+        $receiver = User::query()->where('username', '=', $request->recipientUsername)->sole();
 
         DB::transaction(function () use ($sender, $receiver, $request): void {
             $sender->decrement('seedbonus', $request->bon);
             $receiver->increment('seedbonus', $request->bon);
 
-            $gift = Gift::create([
+            $gift = Gift::query()->create([
                 'bon'          => $request->bon,
                 'sender_id'    => $sender->id,
                 'recipient_id' => $receiver->id,

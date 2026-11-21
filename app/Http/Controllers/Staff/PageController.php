@@ -50,7 +50,7 @@ class PageController extends Controller
      */
     public function store(StorePageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Page::create($request->validated());
+        Page::query()->create($request->toArray());
 
         return to_route('staff.pages.index')
             ->with('success', 'Page has been created successfully');
@@ -71,7 +71,7 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, Page $page): \Illuminate\Http\RedirectResponse
     {
-        $page->update($request->validated());
+        $page->update($request->toArray());
 
         return to_route('staff.pages.index')
             ->with('success', 'Page has been edited successfully');

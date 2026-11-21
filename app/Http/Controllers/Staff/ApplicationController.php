@@ -48,7 +48,7 @@ class ApplicationController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.application.show', [
-            'application' => Application::withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
+            'application' => Application::query()->withoutGlobalScope(ApprovedScope::class)->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id)
         ]);
     }
 
@@ -59,19 +59,19 @@ class ApplicationController extends Controller
      */
     public function approve(ApproveApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $application = Application::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         $application->status = ModerationStatus::APPROVED;
         $application->moderated_at = now();
-        $application->moderated_by = $request->user()->id;
+        $application->moderated_by = $request->moderatedBy;
         $application->save();
 
-        $invite = Invite::create([
-            'user_id'    => $request->user()->id,
+        $invite = Invite::query()->create([
+            'user_id'    => $request->moderatedBy,
             'email'      => $application->email,
             'code'       => Uuid::uuid4()->toString(),
             'expires_on' => now()->addDays(config('other.invite_expire')),
-            'custom'     => $request->string('approve'),
+            'custom'     => $request->approve,
         ]);
 
         Mail::to($application->email)->send(new InviteUser($invite));
@@ -85,11 +85,11 @@ class ApplicationController extends Controller
      */
     public function reject(RejectApplicationRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $application = Application::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $application->update([
             'status'       => ModerationStatus::REJECTED,
             'moderated_at' => now(),
-            'moderated_by' => $request->user()->id,
+            'moderated_by' => $request->moderatedBy,
         ]);
 
         Mail::to($application->email)->send(new DenyApplication($request->deny));

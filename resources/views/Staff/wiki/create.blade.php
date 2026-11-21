@@ -38,7 +38,7 @@
                         id="category_id"
                         name="category_id"
                         class="form__select"
-                        x-data="{ selected: {{ $wikiCategoryId }} || '' }"
+                        x-data="{ selected: {{ Js::from($wikiCategoryId) }} || '' }"
                         x-model="selected"
                         x-bind:class="selected === '' ? 'form__selected--default' : ''"
                         required

@@ -65,7 +65,7 @@ class AuthenticatedImageController extends Controller
 
     public function torrentBanner(int $id): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         $path = Storage::disk('torrent-banners')->path("torrent-banner_{$torrent->id}.jpg");
 
@@ -76,7 +76,7 @@ class AuthenticatedImageController extends Controller
 
     public function torrentCover(int $id): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         $path = Storage::disk('torrent-covers')->path("torrent-cover_{$torrent->id}.jpg");
 

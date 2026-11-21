@@ -315,14 +315,18 @@
                                 <td>
                                     <menu class="data-table__actions">
                                         @if ($bounty->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                            <li class="data-table__action" x-data="dialog">
+                                            <li class="data-table__action">
                                                 <button
                                                     class="form__button form__button--text"
-                                                    x-bind="showDialog"
+                                                    popovertarget="request-bounty-edit-{{ $bounty->id }}"
                                                 >
                                                     {{ __('common.edit') }}
                                                 </button>
-                                                <dialog class="dialog" x-bind="dialogElement">
+                                                <dialog
+                                                    id="request-bounty-edit-{{ $bounty->id }}"
+                                                    class="dialog"
+                                                    popover
+                                                >
                                                     <h4 class="dialog__heading">
                                                         {{ __('common.edit') }}
                                                         {{ __('request.vote') }}
@@ -331,7 +335,6 @@
                                                         class="dialog__form"
                                                         method="POST"
                                                         action="{{ route('requests.bounties.update', ['torrentRequest' => $torrentRequest, 'torrentRequestBounty' => $bounty]) }}"
-                                                        x-bind="dialogForm"
                                                     >
                                                         @csrf
                                                         @method('PATCH')
@@ -363,9 +366,9 @@
                                                                 {{ __('common.edit') }}
                                                             </button>
                                                             <button
-                                                                formmethod="dialog"
-                                                                formnovalidate
                                                                 class="form__button form__button--outlined"
+                                                                type="button"
+                                                                popovertarget="request-bounty-edit-{{ $bounty->id }}"
                                                             >
                                                                 {{ __('common.cancel') }}
                                                             </button>

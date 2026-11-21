@@ -22,6 +22,7 @@ use App\Notifications\Channels\SystemNotificationChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
+use Override;
 
 class RsskeyReset extends Notification implements ShouldQueue, SystemNotificationInterface
 {
@@ -32,7 +33,7 @@ class RsskeyReset extends Notification implements ShouldQueue, SystemNotificatio
      *
      * @return class-string
      */
-    public function via(object $notifiable): string
+    public function via(object $_notifiable): string
     {
         return SystemNotificationChannel::class;
     }
@@ -42,11 +43,12 @@ class RsskeyReset extends Notification implements ShouldQueue, SystemNotificatio
      *
      * @return array<string, mixed>
      */
+    #[Override]
     public function toSystemNotification(User $notifiable): array
     {
         return [
-            'subject' => 'ATTENTION - Your RSS key has been reset',
-            'message' => "Your RSS key has been reset by staff. You will need to update your RSS key in your torrent client to continue receiving new torrents.\n\nFor more information, please create a helpdesk ticket.",
+            'subject' => 'Your RSS key was reset',
+            'message' => "Your RSS key was reset. Update it in your torrent client to keep receiving new torrents.\n\nNeed help? Open a helpdesk ticket.",
         ];
     }
 }

@@ -19,19 +19,7 @@
 
 @section('main')
     @if ($user->can_request ?? $user->group->can_request)
-        <section
-            class="panelV2"
-            x-data="{
-                cat: {{ (int) $category_id }},
-                cats: JSON.parse(atob('{{ base64_encode(json_encode($categories)) }}')),
-                tmdb_movie_exists: true,
-                tmdb_tv_exists: true,
-                imdb_title_exists: true,
-                tvdb_tv_exists: true,
-                mal_anime_exists: true,
-                igdb_game_exists: true,
-            }"
-        >
+        <section class="panelV2" x-data="requestCreate">
             <h2 class="panel__heading">{{ __('request.add-request') }}</h2>
             <div class="panel__body">
                 <form class="form" method="POST" action="{{ route('requests.store') }}">
@@ -172,7 +160,11 @@
                                     pattern="[0-9]*"
                                     placeholder=" "
                                     type="text"
-                                    x-bind:value="cats[cat].type === 'movie' && tmdb_movie_exists ? '{{ old('tmdb_movie_id', $movieId) }}' : ''"
+                                    x-bind:value="
+                                        cats[cat].type === 'movie' && tmdb_movie_exists
+                                            ? {{ Js::from(old('tmdb_movie_id', $movieId)) }}
+                                            : ''
+                                    "
                                     x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
                                 />
                                 <label
@@ -209,7 +201,7 @@
                                     pattern="[0-9]*"
                                     placeholder=" "
                                     type="text"
-                                    x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? '{{ old('tmdb_tv_id', $tvId) }}' : ''"
+                                    x-bind:value="cats[cat].type === 'tv' && tmdb_tv_exists ? {{ Js::from(old('tmdb_tv_id', $tvId)) }} : ''"
                                     x-bind:required="cats[cat].type === 'tv' && tmdb_tv_exists"
                                 />
                                 <label class="form__label form__label--floating" for="tmdb_tv_id">
@@ -248,7 +240,7 @@
                                     type="text"
                                     x-bind:value="
                                         (cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists
-                                            ? '{{ old('imdb', $imdb) }}'
+                                            ? {{ Js::from(old('imdb', $imdb)) }}
                                             : ''
                                     "
                                     x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
@@ -284,7 +276,7 @@
                                     pattern="[0-9]*"
                                     placeholder=" "
                                     type="text"
-                                    x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? '{{ old('tvdb', $tvdb) }}' : ''"
+                                    x-bind:value="cats[cat].type === 'tv' && tvdb_tv_exists ? {{ Js::from(old('tvdb', $tvdb)) }} : ''"
                                     x-bind:required="cats[cat].type === 'tv' && tvdb_tv_exists"
                                 />
                                 <label class="form__label form__label--floating" for="autotvdb">
@@ -323,7 +315,7 @@
                                     type="text"
                                     x-bind:value="
                                         (cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists
-                                            ? '{{ old('mal', $mal) }}'
+                                            ? {{ Js::from(old('mal', $mal)) }}
                                             : ''
                                     "
                                     x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
@@ -358,7 +350,7 @@
                                     pattern="[0-9]*"
                                     placeholder=" "
                                     type="text"
-                                    x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? '{{ old('igdb', $igdb) }}' : ''"
+                                    x-bind:value="cats[cat].type === 'game' && igdb_game_exists ? {{ Js::from(old('igdb', $igdb)) }} : ''"
                                     x-bind:required="cats[cat].type === 'game' && igdb_game_exists"
                                 />
                                 <label class="form__label form__label--floating" for="igdb">
@@ -405,6 +397,20 @@
                     </p>
                 </form>
             </div>
+            <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+                document.addEventListener('alpine:init', () => {
+                    Alpine.data('requestCreate', () => ({
+                        cat: {{ (int) $category_id }},
+                        cats: {{ Js::from($categories) }},
+                        tmdb_movie_exists: true,
+                        tmdb_tv_exists: true,
+                        imdb_title_exists: true,
+                        tvdb_tv_exists: true,
+                        mal_anime_exists: true,
+                        igdb_game_exists: true,
+                    }));
+                });
+            </script>
         </section>
     @else
         <section class="panelV2">

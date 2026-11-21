@@ -29,7 +29,7 @@ class TorrentHistoryController extends Controller
     public function index(int $id, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('torrent.history', [
-            'torrent'   => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
+            'torrent'   => Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
             'histories' => History::query()
                 ->with(['user.group'])
                 ->where('torrent_id', '=', $id)

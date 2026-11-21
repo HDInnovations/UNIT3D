@@ -18,6 +18,8 @@ namespace Database\Factories;
 
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use Override;
 
 /** @extends Factory<Group> */
 class GroupFactory extends Factory
@@ -30,11 +32,14 @@ class GroupFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
+        $name = $this->faker->name();
+
         return [
-            'name'             => $this->faker->name(),
-            'slug'             => $this->faker->unique()->slug(),
+            'name'             => $name,
+            'slug'             => Str::slug($name),
             'position'         => $this->faker->randomNumber(),
             'level'            => $this->faker->randomNumber(),
             'download_slots'   => $this->faker->randomNumber(),
@@ -66,10 +71,17 @@ class GroupFactory extends Factory
 
     public function owner(): GroupFactory
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $_attributes) => [
             'is_owner' => true,
             'is_admin' => true,
             'is_modo'  => true,
+        ]);
+    }
+
+    public function moderator(): GroupFactory
+    {
+        return $this->state([
+            'is_modo' => true,
         ]);
     }
 }

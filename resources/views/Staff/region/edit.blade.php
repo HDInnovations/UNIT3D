@@ -22,7 +22,8 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} torrent region: {{ $region->name }}
+            {{ __('common.edit') }} torrent region:
+            {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
         </h2>
         <div class="panel__body">
             <form

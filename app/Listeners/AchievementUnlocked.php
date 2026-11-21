@@ -36,7 +36,7 @@ class AchievementUnlocked
     public function handle(Unlocked $unlocked): void
     {
         // There's an AchievementProgress instance located on $event->progress
-        $user = User::findOrFail($unlocked->progress->achiever_id);
+        $user = User::query()->findOrFail($unlocked->progress->achiever_id);
 
         if (auth()->id() === $user->id) {
             Session::flash('achievement', $unlocked->progress->details->name);

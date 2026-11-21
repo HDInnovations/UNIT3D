@@ -16,55 +16,25 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Staff\UpdatePollOptionRequest;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\Validation\Date;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Data;
 
-class UpdatePollRequest extends FormRequest
+class UpdatePollRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'title' => [
-                'required',
-                'min:10',
-            ],
-            'expires_at' => [
-                'sometimes',
-                'nullable',
-                'date',
-            ],
-            'multiple_choice' => [
-                'required',
-                'boolean',
-            ],
-            'options.*.name' => [
-                'required',
-                'max:255',
-            ],
-            'options.*.id' => [
-                'required',
-                'integer',
-            ],
-            'options' => [
-                'array',
-                'min:2',
-            ],
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            'options.*.required' => 'You must fill in all options fields',
-        ];
+    public function __construct(
+        #[Min(10)]
+        public string $title,
+        #[Date]
+        public ?Carbon $expiresAt,
+        public bool $multipleChoice,
+        /** @var Collection<int, UpdatePollOptionRequest> */
+        #[Min(2), Max(20)]
+        public Collection $options,
+    ) {
     }
 }

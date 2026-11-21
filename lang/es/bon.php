@@ -26,7 +26,7 @@ return [
     'failed' => '¡Intercambio de bono fallido!',
     'failed-amount-message' => '¡Debes ingresar una cantidad y un mensaje!',
     'failed-funds-poster' => '¡No tienes suficiente dinero para dar una propina al cartel!',
-    'failed-funds-uploader' => '¡No tienes suficiente dinero para dar una propina al subidor!',
+    'failed-funds-uploader' => '¡No tienes suficiente dinero para dar una propina al uploader!',
     'failed-negative' => '¡No puedes dar una propina de una cantidad negativa!',
     'failed-user-not-found' => 'No se pudo encontrar al usuario especificado',
     'failed-yourself' => '¡No puedes darte una propina a ti mismo!',

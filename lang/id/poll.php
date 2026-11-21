@@ -22,7 +22,7 @@ return [
     'results' => 'Hasil Polling',
     'title' => 'Judul',
     'total' => 'Total Suara Pernah',
-    'vote' => 'Memilih',
+    'vote' => 'Beri suara',
     'vote-now' => 'Dapatkan Suara Anda Sekarang!',
-    'votes' => 'Voting',
+    'votes' => 'Suara',
 ];

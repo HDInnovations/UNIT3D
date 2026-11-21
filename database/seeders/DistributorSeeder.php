@@ -23,7 +23,7 @@ class DistributorSeeder extends Seeder
 {
     public function run(): void
     {
-        Distributor::upsert([
+        Distributor::query()->upsert([
             [
                 'id'   => 1,
                 'name' => '01 Distribution',

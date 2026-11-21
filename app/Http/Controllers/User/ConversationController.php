@@ -23,6 +23,7 @@ use App\Models\Conversation;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 use Exception;
 
 /**
@@ -75,19 +76,19 @@ class ConversationController extends Controller
     /**
      * Create A Conversation.
      */
-    public function store(StoreConversationRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function store(StoreConversationRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
-        $recipient = User::where('username', '=', $request->validated('receiver_username'))->sole();
+        $recipient = User::query()->where('username', '=', $request->receiverUsername)->sole();
 
         abort_if($recipient->id === User::SYSTEM_USER_ID, 403);
 
-        $conversation = Conversation::create($request->validated('conversation'));
+        $conversation = Conversation::query()->create($request->conversation->toArray());
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'conversation_id' => $conversation->id,
-            'message'         => $request->validated('message'),
+            'message'         => $request->message,
             'sender_id'       => $user->id,
         ]);
 
@@ -100,16 +101,20 @@ class ConversationController extends Controller
     /**
      * Reply To A Message.
      */
-    public function update(UpdateConversationRequest $request, User $user, Conversation $conversation): \Illuminate\Http\RedirectResponse
-    {
-        abort_unless($request->user()->is($user), 403);
+    public function update(
+        UpdateConversationRequest $request,
+        User $user,
+        Conversation $conversation,
+        #[CurrentUser] User $currentUser,
+    ): \Illuminate\Http\RedirectResponse {
+        abort_unless($currentUser->is($user), 403);
 
         abort_if($conversation->participants()->withTrashed()->where('user_id', '=', User::SYSTEM_USER_ID)->exists(), 403, 'You cannot reply to the system');
 
-        PrivateMessage::create([
+        PrivateMessage::query()->create([
             'sender_id'       => $user->id,
             'conversation_id' => $conversation->id,
-            'message'         => $request->validated('message'),
+            'message'         => $request->message,
         ]);
 
         $conversation->participants()->update([

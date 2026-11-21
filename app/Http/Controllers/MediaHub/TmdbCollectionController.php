@@ -35,7 +35,7 @@ class TmdbCollectionController extends Controller
     public function show(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('mediahub.collection.show', [
-            'collection' => TmdbCollection::with(['movies' => fn ($query) => $query->has('torrents'), 'comments'])->findOrFail($id),
+            'collection' => TmdbCollection::query()->with(['movies' => fn ($query) => $query->has('torrents'), 'comments'])->findOrFail($id),
         ]);
     }
 }

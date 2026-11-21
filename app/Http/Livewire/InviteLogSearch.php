@@ -89,7 +89,8 @@ class InviteLogSearch extends Component
      * @var \Illuminate\Pagination\LengthAwarePaginator<int, Invite>
      */
     final protected \Illuminate\Pagination\LengthAwarePaginator $invites {
-        get => Invite::withTrashed()
+        get => Invite::query()
+            ->withTrashed()
             ->with([
                 'sender'   => fn ($query) => $query->withTrashed()->with('group'),
                 'receiver' => fn ($query) => $query->withTrashed()->with('group'),
@@ -165,7 +166,7 @@ class InviteLogSearch extends Component
                     ])
             )
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application

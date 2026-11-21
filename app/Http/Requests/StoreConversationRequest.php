@@ -16,30 +16,39 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use App\Models\User;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Rule;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\Constraints\WhereNotConstraint;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class StoreConversationRequest extends FormRequest
+#[MergeValidationRules]
+class StoreConversationRequest extends Data
 {
+    public function __construct(
+        public StoreConversationConversationRequest $conversation,
+        #[Max(65535)]
+        public string $message,
+        public string $receiverUsername,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, array<ValidationRule>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'conversation.subject' => [
-                'required',
-                'max:255',
-            ],
-            'message' => [
-                'required',
-                'max:65536',
-            ],
             'receiver_username' => [
-                Rule::exists('users', 'username')->whereNot('username', auth()->user()->username),
-            ]
+                new Rule([
+                    new Exists(User::class, 'username', where: new WhereNotConstraint('username', auth()->user()->username)),
+                ]),
+            ],
         ];
     }
 }

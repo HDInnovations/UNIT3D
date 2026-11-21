@@ -31,7 +31,7 @@ class RegionController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.region.index', [
-            'regions' => Region::orderBy('position')->get(),
+            'regions' => Region::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -48,7 +48,7 @@ class RegionController extends Controller
      */
     public function store(StoreRegionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Region::create($request->validated());
+        Region::query()->create($request->toArray());
 
         return to_route('staff.regions.index')
             ->with('success', 'Region successfully added');
@@ -69,7 +69,7 @@ class RegionController extends Controller
      */
     public function update(UpdateRegionRequest $request, Region $region): \Illuminate\Http\RedirectResponse
     {
-        $region->update($request->validated());
+        $region->update($request->toArray());
 
         return to_route('staff.regions.index')
             ->with('success', 'Region successfully modified');
@@ -82,7 +82,7 @@ class RegionController extends Controller
      */
     public function destroy(DestroyRegionRequest $request, Region $region): \Illuminate\Http\RedirectResponse
     {
-        $region->torrents()->update($request->validated());
+        $region->torrents()->update($request->toArray());
         $region->delete();
 
         return to_route('staff.regions.index')

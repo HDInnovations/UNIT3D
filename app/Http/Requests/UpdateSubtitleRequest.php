@@ -16,39 +16,19 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use App\Models\MediaLanguage;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
-class UpdateSubtitleRequest extends FormRequest
+class UpdateSubtitleRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
-     */
-    public function rules(): array
-    {
-        return [
-            'language_id' => [
-                'required',
-                Rule::exists('media_languages', 'id'),
-            ],
-            'note' => [
-                'required',
-                'max:65535',
-            ],
-            'anon' => [
-                'required',
-                'boolean',
-            ],
-        ];
+    public function __construct(
+        #[Exists(MediaLanguage::class, 'id')]
+        public int $languageId,
+        #[Max(65535)]
+        public string $note,
+        public bool $anon,
+    ) {
     }
 }

@@ -39,8 +39,12 @@ class TmdbCollectionSearch extends Component
      * @var \Illuminate\Pagination\LengthAwarePaginator<int, TmdbCollection>
      */
     final protected \Illuminate\Pagination\LengthAwarePaginator $collections {
-        get => TmdbCollection::withCount('movies')
-            ->with('movies')
+        get => TmdbCollection::query()
+            ->withCount('movies')
+            ->with([
+                'movies' => fn ($query) => $query->withMin('torrents', 'category_id'),
+            ])
+            ->has('movies.torrents')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->oldest('name')
             ->paginate(25);

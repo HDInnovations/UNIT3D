@@ -18,9 +18,7 @@ namespace App\Console\Commands;
 
 use App\Models\History;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AutoCorrectHistory extends Command
@@ -46,13 +44,15 @@ class AutoCorrectHistory extends Command
      */
     final public function handle(): void
     {
-        History::query()
-            ->where('active', '=', 1)
-            ->where('updated_at', '<', Carbon::now()->subHours(2))
-            ->update([
-                'active'     => 0,
-                'updated_at' => DB::raw('updated_at'),
-            ]);
+        History::withoutTimestamps(
+            fn () => History::query()
+                ->withTrashed()
+                ->where('active', '=', 1)
+                ->where('updated_at', '<', now()->subHours(2))
+                ->update([
+                    'active' => 0,
+                ])
+        );
 
         $this->comment('Automated history record correction command complete');
     }

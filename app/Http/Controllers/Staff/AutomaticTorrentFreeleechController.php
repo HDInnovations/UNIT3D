@@ -29,43 +29,43 @@ class AutomaticTorrentFreeleechController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.automatic-torrent-freeleech.index', [
-            'automaticTorrentFreeleeches' => AutomaticTorrentFreeleech::orderby('position')->get(),
+            'automaticTorrentFreeleeches' => AutomaticTorrentFreeleech::query()->orderby('position')->get(),
         ]);
     }
 
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.automatic-torrent-freeleech.create', [
-            'categories'  => Category::orderBy('position')->get(),
-            'resolutions' => Resolution::orderBy('position')->get(),
-            'types'       => Type::orderBy('position')->get(),
+            'categories'  => Category::query()->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->orderBy('position')->get(),
+            'types'       => Type::query()->orderBy('position')->get(),
         ]);
     }
 
     public function store(StoreAutomaticTorrentFreeleechRequest $request): \Illuminate\Http\RedirectResponse
     {
-        AutomaticTorrentFreeleech::create($request->validated());
+        AutomaticTorrentFreeleech::query()->create($request->toArray());
 
         return to_route('staff.automatic_torrent_freeleeches.index')
-            ->with('success', 'Resolution successfully added');
+            ->with('success', 'Automatic torrent freeleech successfully added');
     }
 
     public function edit(AutomaticTorrentFreeleech $automaticTorrentFreeleech): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.automatic-torrent-freeleech.edit', [
             'automaticTorrentFreeleech' => $automaticTorrentFreeleech,
-            'categories'                => Category::orderBy('position')->get(),
-            'resolutions'               => Resolution::orderBy('position')->get(),
-            'types'                     => Type::orderBy('position')->get(),
+            'categories'                => Category::query()->orderBy('position')->get(),
+            'resolutions'               => Resolution::query()->orderBy('position')->get(),
+            'types'                     => Type::query()->orderBy('position')->get(),
         ]);
     }
 
     public function update(UpdateAutomaticTorrentFreeleechRequest $request, AutomaticTorrentFreeleech $automaticTorrentFreeleech): \Illuminate\Http\RedirectResponse
     {
-        $automaticTorrentFreeleech->update($request->validated());
+        $automaticTorrentFreeleech->update($request->toArray());
 
         return to_route('staff.automatic_torrent_freeleeches.index')
-            ->with('success', 'Resolution successfully modified');
+            ->with('success', 'Automatic torrent freeleech successfully modified');
     }
 
     public function destroy(AutomaticTorrentFreeleech $automaticTorrentFreeleech): \Illuminate\Http\RedirectResponse
@@ -73,6 +73,6 @@ class AutomaticTorrentFreeleechController extends Controller
         $automaticTorrentFreeleech->delete();
 
         return to_route('staff.automatic_torrent_freeleeches.index')
-            ->with('success', 'Resolution successfully deleted');
+            ->with('success', 'Automatic torrent freeleech successfully deleted');
     }
 }

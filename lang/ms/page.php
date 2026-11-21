@@ -29,10 +29,10 @@ return [
     'blacklist-clients' => 'Pelanggan',
     'blacklist-desc' => 'Penjejakan dan Pelanggan Bittorrent Berikut adalah Senarai Hitam / Terlarang Dari Pemberitahuan Kepada: tajuk',
     'blacklist-webbrowser' => 'Pelayar web',
-    'blacklist-emaildomain' => 'Domain yang Disekat',
-    'email-blacklist-desc' => 'Domain E-mel berikut disekat daripada digunakan. Anda Tidak Boleh Mendaftar Atau Kirim Jemput Untuk Berikut Ini.',
+    'blacklist-emaildomain' => 'Domain yang telah disekat',
+    'email-blacklist-desc' => 'Domain emel berikut disekat daripada digunakan. Anda tidak boleh mendaftar atau kirim jemputan untuk berikutnya.',
     'email-whitelist-desc' => 'Domain E-mel Berikut adalah Domain E-mel Hanya Dibenarkan Digunakan. Anda Hanya Boleh Mendaftar Atau Kirim Jemputan Menggunakan Berikut Ini.',
     'staff-group' => 'Kumpulan',
     'staff-title' => 'Tajuk',
-    'whitelist-emaildomain' => 'Domain Dipercayai',
+    'whitelist-emaildomain' => 'Domain yang dipercayai',
 ];

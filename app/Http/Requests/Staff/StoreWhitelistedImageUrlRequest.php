@@ -16,24 +16,16 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\WhitelistedImageUrl;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class StoreWhitelistedImageUrlRequest extends FormRequest
+class StoreWhitelistedImageUrlRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'pattern' => [
-                'required',
-                'string',
-                'max:255',
-                'unique:whitelisted_image_urls',
-            ],
-        ];
+    public function __construct(
+        #[Max(255), Unique(WhitelistedImageUrl::class)]
+        public string $pattern,
+    ) {
     }
 }

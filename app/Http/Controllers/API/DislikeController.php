@@ -25,17 +25,17 @@ class DislikeController extends Controller
     public function store(int $postId): \Illuminate\Http\JsonResponse
     {
         $user = auth()->user();
-        $post = Post::findOrFail($postId);
+        $post = Post::query()->findOrFail($postId);
 
         if ($user->id === $post->user_id) {
             abort(400, 'You cannot dislike your own post!');
         }
 
-        if (Like::where('user_id', '=', $user->id)->where('post_id', '=', $post->id)->exists()) {
+        if (Like::query()->where('user_id', '=', $user->id)->where('post_id', '=', $post->id)->exists()) {
             abort(400, 'You have already liked or disliked this post!');
         }
 
-        Like::create([
+        Like::query()->create([
             'user_id' => $user->id,
             'post_id' => $post->id,
             'dislike' => true,

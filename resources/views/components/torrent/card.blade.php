@@ -58,7 +58,7 @@
                     class="torrent-card__image"
                                 @switch(true)
                         @case($torrent->category->movie_meta || $torrent->category->tv_meta)
-                            src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
+                            src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : url('img/poster-placeholder.svg') }}"
                     
                             @break
                         @case($torrent->category->game_meta && isset($torrent->meta) && $meta->cover_image_id && $meta->name)
@@ -66,7 +66,7 @@
                     
                             @break
                         @case($torrent->category->music_meta)
-                            src="https://via.placeholder.com/160x240"
+                            src="{{ url('img/poster-placeholder.svg') }}"
                     
                             @break
                         @case($torrent->category->no_meta && Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))

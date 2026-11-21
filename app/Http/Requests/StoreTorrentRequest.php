@@ -16,41 +16,115 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Attributes\FromCurrentUserId;
 use App\Enums\ModerationStatus;
 use App\Helpers\Bencode;
 use App\Helpers\TorrentTools;
 use App\Models\Category;
+use App\Models\Distributor;
+use App\Models\Region;
+use App\Models\Resolution;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Type;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Validation\Rule as LaravelRule;
 use Closure;
 use Exception;
+use Override;
+use Spatie\LaravelData\Attributes\Hidden;
+use Spatie\LaravelData\Attributes\MapInputName;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Between;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\File;
+use Spatie\LaravelData\Attributes\Validation\Image;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class StoreTorrentRequest extends FormRequest
+#[MergeValidationRules]
+class StoreTorrentRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public function __construct(
+        #[File, Hidden, Max(2 * 1024 * 1024)]
+        public UploadedFile $torrent,
+        #[Unique(Torrent::class, withoutTrashed: true), Max(255)]
+        public string $name,
+        #[Max(65535)]
+        public string $description,
+        #[FromCurrentUserId]
+        public int $userId,
+        #[Exists(Category::class, 'id')]
+        public int $categoryId,
+        #[Exists(Type::class, 'id')]
+        public int $typeId,
+        #[File, Max(2 * 1024 * 1024)]
+        public ?UploadedFile $nfo = null,
+        #[MapInputName('torrent-cover'), File, Image, Max(2 * 1024 * 1024), Hidden]
+        public ?UploadedFile $poster = null,
+        #[MapInputName('torrent-banner'), File, Image, Max(2 * 1024 * 1024), Hidden]
+        public ?UploadedFile $backdrop = null,
+        #[Max(2 * 1024 * 1024)]
+        public ?string $mediainfo = null,
+        #[Max(2 * 1024 * 1024)]
+        public ?string $bdinfo = null,
+        #[Exists(Resolution::class, 'id')]
+        public ?int $resolutionId = null,
+        #[Exists(Region::class, 'id')]
+        public ?int $regionId = null,
+        #[Exists(Distributor::class, 'id')]
+        public ?int $distributorId = null,
+        #[Min(0)]
+        public ?int $imdb = null,
+        #[Min(0)]
+        public ?int $tvdb = null,
+        #[Min(0)]
+        public ?int $tmdbMovieId = null,
+        #[Min(0)]
+        public ?int $tmdbTvId = null,
+        #[Min(0)]
+        public ?int $mal = null,
+        #[Min(0)]
+        public ?int $igdb = null,
+        #[Min(0)]
+        public ?int $seasonNumber = null,
+        #[Min(0)]
+        public ?int $episodeNumber = null,
+        public bool $anon = false,
+        public bool $personalRelease = false,
+        public bool $internal = false,
+        #[Between(0, 100)]
+        public int $free = 0,
+        public bool $refundable = false,
+        #[Hidden]
+        public ?string $keywords = null,
+        #[Hidden]
+        public bool $modQueueOptIn = false,
+    ) {
     }
 
     /**
-     * Prepare the data for validation.
+     * @param array<mixed> $properties
+     *
+     * @return array<mixed>
      */
-    protected function prepareForValidation(): void
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        $this->merge([
-            'tmdb_movie_id' => $this->has('movie_exists_on_tmdb') ? ($this->input('tmdb_movie_id') ?: null) : null,
-            'tmdb_tv_id'    => $this->has('tv_exists_on_tmdb') ? ($this->input('tmdb_tv_id') ?: null) : null,
-            'imdb'          => $this->has('title_exists_on_imdb') ? ($this->input('imdb') ?: null) : null,
-            'tvdb'          => $this->has('tv_exists_on_tvdb') ? ($this->input('tvdb') ?: null) : null,
-            'mal'           => $this->has('anime_exists_on_mal') ? ($this->input('mal') ?: null) : null,
-            'igdb'          => $this->has('game_exists_on_igdb') ? ($this->input('igdb') ?: null) : null,
-        ]);
+        $properties['tmdb_movie_id'] = \array_key_exists('movie_exists_on_tmdb', $properties) ? (($properties['tmdb_movie_id'] ?? 0) ?: null) : null;
+        $properties['tmdb_tv_id'] = \array_key_exists('tv_exists_on_tmdb', $properties) ? (($properties['tmdb_tv_id'] ?? 0) ?: null) : null;
+        $properties['imdb'] = \array_key_exists('title_exists_on_imdb', $properties) ? (($properties['imdb'] ?? 0) ?: null) : null;
+        $properties['tvdb'] = \array_key_exists('tv_exists_on_tvdb', $properties) ? (($properties['tvdb'] ?? 0) ?: null) : null;
+        $properties['mal'] = \array_key_exists('anime_exists_on_mal', $properties) ? (($properties['mal'] ?? 0) ?: null) : null;
+        $properties['igdb'] = \array_key_exists('game_exists_on_igdb', $properties) ? (($properties['igdb'] ?? 0) ?: null) : null;
+        $properties['internal'] = $properties['internal'] ?? false;
+        $properties['free'] = $properties['free'] ?? 0;
+        $properties['refundable'] = $properties['refundable'] ?? false;
+
+        return $properties;
     }
 
     /**
@@ -58,10 +132,10 @@ class StoreTorrentRequest extends FormRequest
      *
      * @return array<string, array<Closure(string, mixed, Closure(string): never): void|\Illuminate\Validation\Rules\ProhibitedIf|\Illuminate\Validation\Rules\RequiredIf|\Illuminate\Validation\Rules\ExcludeIf|\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Unique|string>>
      */
-    public function rules(Request $request): array
+    public static function rules(Request $request): array
     {
         $user = $request->user()->loadExists('internals');
-        $category = Category::findOrFail($request->integer('category_id'));
+        $category = Category::query()->findOrFail($request->integer('category_id'));
 
         $mustBeNull = function (string $attribute, mixed $value, callable $fail): void {
             if ($value !== null) {
@@ -71,9 +145,7 @@ class StoreTorrentRequest extends FormRequest
 
         return [
             'torrent' => [
-                'required',
-                'file',
-                function (string $attribute, mixed $value, Closure $fail): void {
+                function (string $_attribute, mixed $value, Closure $fail): void {
                     if ($value->getClientOriginalExtension() !== 'torrent') {
                         $fail('The torrent file uploaded does not have a ".torrent" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }
@@ -87,7 +159,7 @@ class StoreTorrentRequest extends FormRequest
                     }
 
                     try {
-                        $meta = Bencode::get_meta($decodedTorrent);
+                        $_meta = Bencode::get_meta($decodedTorrent);
                     } catch (Exception) {
                         $fail('You Must Provide A Valid Torrent File For Upload!');
                     }
@@ -98,7 +170,7 @@ class StoreTorrentRequest extends FormRequest
                         }
                     }
 
-                    $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
+                    $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
 
                     if ($torrent !== null) {
                         match ($torrent->status) {
@@ -111,170 +183,91 @@ class StoreTorrentRequest extends FormRequest
                 }
             ],
             'nfo' => [
-                'nullable',
-                'sometimes',
-                'file',
-                function (string $attribute, mixed $value, Closure $fail): void {
+                function (string $_attribute, mixed $value, Closure $fail): void {
                     if ($value->getClientOriginalExtension() !== 'nfo') {
                         $fail('The NFO uploaded does not have a ".nfo" file extension (it has "'.$value->getClientOriginalExtension().'"). Did you upload the correct file?');
                     }
                 },
             ],
-            'name' => [
-                'required',
-                Rule::unique('torrents')->whereNull('deleted_at'),
-                'max:255',
-            ],
-            'description' => [
-                'required',
-                'max:65535'
-            ],
-            'mediainfo' => [
-                'nullable',
-                'sometimes',
-                'max:65535',
-            ],
-            'bdinfo' => [
-                'nullable',
-                'sometimes',
-                'max:2097152',
-            ],
-            'category_id' => [
-                'required',
-                'exists:categories,id',
-            ],
-            'type_id' => [
-                'required',
-                'exists:types,id',
-            ],
             'resolution_id' => [
-                Rule::when($category->movie_meta || $category->tv_meta, 'required'),
-                Rule::when(!$category->movie_meta && !$category->tv_meta, 'nullable'),
-                'exists:resolutions,id',
-            ],
-            'region_id' => [
-                'nullable',
-                'exists:regions,id',
-            ],
-            'distributor_id' => [
-                'nullable',
-                'exists:distributors,id',
+                LaravelRule::when($category->movie_meta || $category->tv_meta, [
+                    'required'
+                ]),
+                LaravelRule::when(!$category->movie_meta && !$category->tv_meta, [
+                    'nullable',
+                ]),
             ],
             'imdb' => [
-                Rule::when($category->movie_meta || $category->tv_meta, [
+                LaravelRule::when($category->movie_meta || $category->tv_meta, [
                     'required_with:title_exists_on_imdb',
-                    'nullable',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::when(!($category->movie_meta || $category->tv_meta), [
+                LaravelRule::when(!($category->movie_meta || $category->tv_meta), [
                     $mustBeNull,
                 ]),
             ],
             'tvdb' => [
-                Rule::when($category->tv_meta, [
+                LaravelRule::when($category->tv_meta, [
                     'required_with:tv_exists_on_tvdb',
-                    'nullable',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::when(!$category->tv_meta, [
+                LaravelRule::when(!$category->tv_meta, [
                     $mustBeNull,
                 ]),
             ],
             'tmdb_movie_id' => [
-                Rule::when($category->movie_meta, [
+                LaravelRule::when($category->movie_meta, [
                     'required_with:movie_exists_on_tmdb',
-                    'nullable',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::when(!$category->movie_meta, [
+                LaravelRule::when(!$category->movie_meta, [
                     $mustBeNull,
                 ]),
             ],
             'tmdb_tv_id' => [
-                Rule::when($category->tv_meta, [
+                LaravelRule::when($category->tv_meta, [
                     'required_with:tv_exists_on_tmdb',
-                    'nullable',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::when(!$category->tv_meta, [
+                LaravelRule::when(!$category->tv_meta, [
                     $mustBeNull,
                 ]),
             ],
             'mal' => [
-                Rule::when($category->movie_meta || $category->tv_meta, [
+                LaravelRule::when($category->movie_meta || $category->tv_meta, [
                     'required_with:anime_exists_on_mal',
-                    'nullable',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::when(!($category->movie_meta || $category->tv_meta), [
+                LaravelRule::when(!($category->movie_meta || $category->tv_meta), [
                     $mustBeNull,
                 ]),
             ],
             'igdb' => [
-                Rule::when($category->game_meta, [
+                LaravelRule::when($category->game_meta, [
                     'required_with:game_exists_on_igdb',
-                    'nullable',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::when(!$category->game_meta, [
+                LaravelRule::when(!$category->game_meta, [
                     $mustBeNull,
                 ]),
             ],
             'season_number' => [
-                Rule::when($category->tv_meta, [
+                LaravelRule::when($category->tv_meta, [
                     'required',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::prohibitedIf(!$category->tv_meta),
+                LaravelRule::prohibitedIf(!$category->tv_meta),
             ],
             'episode_number' => [
-                Rule::when($category->tv_meta, [
+                LaravelRule::when($category->tv_meta, [
                     'required',
-                    'decimal:0',
-                    'min:0',
                 ]),
-                Rule::prohibitedIf(!$category->tv_meta),
-            ],
-            'anon' => [
-                'required',
-                'boolean',
-            ],
-            'personal_release' => [
-                'required',
-                'boolean',
+                LaravelRule::prohibitedIf(!$category->tv_meta),
             ],
             'internal' => [
-                'sometimes',
-                'boolean',
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
+                LaravelRule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'free' => [
-                'sometimes',
-                'integer',
-                'numeric',
-                'between:0,100',
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
+                LaravelRule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'refundable' => [
-                'sometimes',
-                'boolean',
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
+                LaravelRule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
         ];
     }

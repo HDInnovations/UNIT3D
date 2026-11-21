@@ -61,7 +61,7 @@ trait CastLivewireProperties
                     break;
                 case 'string':
                     validator([$field => $value], [$field => [
-                        function (string $attribute, mixed $value, Closure $fail): void {
+                        function (string $_attribute, mixed $value, Closure $fail): void {
                             if (!safe_string($value)) {
                                 $fail(':attribute must be a string');
                             }
@@ -73,7 +73,7 @@ trait CastLivewireProperties
                     break;
                 case 'int':
                     validator([$field => $value], [$field => [
-                        function (string $attribute, mixed $value, Closure $fail): void {
+                        function (string $_attribute, mixed $value, Closure $fail): void {
                             if (!safe_int($value)) {
                                 $fail(':attribute must be a number');
                             }
@@ -85,7 +85,7 @@ trait CastLivewireProperties
                     break;
                 case 'float':
                     validator([$field => $value], [$field => [
-                        function (string $attribute, mixed $value, Closure $fail): void {
+                        function (string $_attribute, mixed $value, Closure $fail): void {
                             if (!safe_float($value)) {
                                 $fail(':attribute must be a float');
                             }

@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Permission.
@@ -59,6 +60,7 @@ final class ForumPermission extends Model
      *
      * @return array{read_topic: 'bool', reply_topic: 'bool', start_topic: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

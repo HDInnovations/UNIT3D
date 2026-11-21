@@ -14,24 +14,29 @@
             </div>
         </div>
     </header>
-    <div
-        class="panel__body collection-posters"
-        x-ref="posters"
-        style="max-height: 330px !important"
-    >
+    <div class="panel__body collection__posters" x-ref="posters">
         @foreach ($alsoDownloadedWorks as $alsoDownloadedWork)
             <figure class="trending-poster">
                 @switch($alsoDownloadedWork::class)
                     @case(\App\Models\TmdbMovie::class)
-                        <x-movie.poster :movie="$alsoDownloadedWork" :$categoryId />
+                        <x-movie.poster
+                            :movie="$alsoDownloadedWork"
+                            :categoryId="$alsoDownloadedWork->torrents_min_category_id"
+                        />
 
                         @break
                     @case(\App\Models\TmdbTv::class)
-                        <x-tv.poster :tv="$alsoDownloadedWork" :$categoryId />
+                        <x-tv.poster
+                            :tv="$alsoDownloadedWork"
+                            :categoryId="$alsoDownloadedWork->torrents_min_category_id"
+                        />
 
                         @break
                     @case(\App\Models\IgdbGame::class)
-                        <x-game.poster :game="$alsoDownloadedWork" :$categoryId />
+                        <x-game.poster
+                            :game="$alsoDownloadedWork"
+                            :categoryId="$alsoDownloadedWork->torrents_min_category_id"
+                        />
 
                         @break
                 @endswitch

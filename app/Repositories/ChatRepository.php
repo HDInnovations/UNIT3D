@@ -23,79 +23,60 @@ use App\Models\Bot;
 use App\Models\Chatroom;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Support\Str;
 
 class ChatRepository
 {
-    public function message(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null): Message
+    public function message(int $userId, ?int $roomId, string $message, ?int $bot = null): Message
     {
-        if (User::find($userId)->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
-        $message = Message::create([
+        $message = Message::query()->create([
             'user_id'     => $userId,
             'chatroom_id' => $roomId,
             'message'     => $message,
-            'receiver_id' => $receiver,
+            'receiver_id' => null,
             'bot_id'      => $bot,
         ]);
-
-        $this->checkMessageLimits($roomId);
 
         broadcast(new MessageSent($message));
 
         return $message;
     }
 
-    public function botMessage(int $botId, int $roomId, string $message, ?int $receiver = null): void
+    public function botMessage(int $botId, string $message, int $receiver): void
     {
-        $user = User::find($receiver);
-
-        if ($user->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
-        $save = Message::create([
+        $message = Message::query()->create([
             'bot_id'      => $botId,
-            'user_id'     => 1,
-            'chatroom_id' => 0,
+            'user_id'     => User::SYSTEM_USER_ID,
+            'chatroom_id' => null,
             'message'     => $message,
             'receiver_id' => $receiver,
-        ]);
-
-        $message = Message::with([
-            'bot',
-            'user'     => ['group', 'chatStatus'],
-            'receiver' => ['group', 'chatStatus'],
-        ])->find($save->id);
+        ])
+            ->refresh()
+            ->load([
+                'bot',
+                'user'     => ['group', 'chatStatus'],
+                'receiver' => ['group', 'chatStatus'],
+            ]);
 
         event(new Chatter('new.bot', $receiver, new ChatMessageResource($message)));
         event(new Chatter('new.ping', $receiver, ['type' => 'bot', 'id' => $botId]));
         $message->delete();
     }
 
-    public function privateMessage(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null, ?bool $ignore = null): Message
+    public function privateMessage(int $userId, string $message, int $receiver, ?int $bot = null, ?bool $ignore = null): Message
     {
-        if (User::find($userId)->settings->censor) {
-            $message = $this->censorMessage($message);
-        }
-
-        $save = Message::create([
+        $message = Message::query()->create([
             'user_id'     => $userId,
-            'chatroom_id' => 0,
+            'chatroom_id' => null,
             'message'     => $message,
             'receiver_id' => $receiver,
             'bot_id'      => $bot,
-        ]);
-
-        $message = Message::query()
-            ->with([
+        ])
+            ->refresh()
+            ->load([
                 'bot',
                 'user'     => ['group', 'chatStatus'],
                 'receiver' => ['group', 'chatStatus'],
-            ])
-            ->find($save->id);
+            ]);
 
         if ($ignore != null) {
             event(new Chatter('new.message', $userId, new ChatMessageResource($message)));
@@ -123,7 +104,6 @@ class ChatRepository
                 'receiver' => ['group', 'chatStatus'],
             ])
             ->where('chatroom_id', '=', $roomId)
-            ->where('chatroom_id', '!=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
@@ -155,7 +135,7 @@ class ChatRepository
                     )
             )
             ->where('bot_id', '=', $botId)
-            ->where('chatroom_id', '=', 0)
+            ->whereNull('chatroom_id')
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
@@ -186,81 +166,26 @@ class ChatRepository
                             ->where('receiver_id', '=', $senderId)
                     )
             )
-            ->where('chatroom_id', '=', 0)
+            ->whereNull('chatroom_id')
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
     }
 
-    public function checkMessageLimits(int $roomId): void
+    public function systemMessage(string $message): void
     {
-        $messages = $this->messages($roomId);
-        $limit = config('chat.message_limit');
-        $count = $messages->count();
+        $systemBotId = Bot::query()->where('command', 'systembot')->value('id');
 
-        // Lets purge all old messages and keep the database to the limit settings
-        if ($count > $limit) {
-            for ($x = 1; $x <= $count - $limit; $x++) {
-                $message = $messages->last();
-                echo $message['id']."\n";
-
-                $message = Message::find($message->id);
-
-                if ($message->receiver_id === null) {
-                    $message->delete();
-                }
-            }
-        }
-    }
-
-    public function systemMessage(string $message, ?int $bot = null): static
-    {
-        if ($bot) {
-            $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $bot);
-        } else {
-            $systemBotId = Bot::where('command', 'systembot')->first()->id;
-
-            $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $systemBotId);
-        }
-
-        return $this;
-    }
-
-    public function systemChatroom(int|Chatroom|string|null $room = null): int
-    {
         $config = config('chat.system_chatroom');
 
-        if ($room !== null) {
-            if ($room instanceof Chatroom) {
-                $room = $room->id;
-            } elseif (\is_int($room)) {
-                $room = Chatroom::findOrFail($room)->id;
-            } else {
-                $room = Chatroom::query()->where('name', '=', $room)->first()->id;
-            }
-        } elseif (\is_int($config)) {
-            $room = Chatroom::findOrFail($config)->id;
-        } else {
-            $room = Chatroom::query()->where('name', '=', $config)->first()->id;
-        }
+        $systemChatroomId = Chatroom::query()
+            ->when(
+                \is_int($config),
+                fn ($query) => $query->where('id', '=', $config),
+                fn ($query) => $query->where('name', '=', $config),
+            )
+            ->value('id');
 
-        return $room;
-    }
-
-    protected function censorMessage(string $message): string
-    {
-        foreach (config('censor.redact') as $word) {
-            if (preg_match(\sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $message)) {
-                $message = str_replace($word, \sprintf("<span class='censor'>%s</span>", $word), (string) $message);
-            }
-        }
-
-        foreach (config('censor.replace') as $word => $replacementWord) {
-            if (Str::contains($message, $word)) {
-                $message = str_replace($word, $replacementWord, (string) $message);
-            }
-        }
-
-        return $message;
+        $this->message(User::SYSTEM_USER_ID, $systemChatroomId, $message, $systemBotId);
     }
 }

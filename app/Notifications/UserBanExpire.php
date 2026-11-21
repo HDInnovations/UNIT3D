@@ -16,13 +16,22 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Http\Middleware\RateLimitOutboundMail;
+use App\Models\User;
+use DateTime;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserBanExpire extends Notification
+class UserBanExpire extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 1;
 
     /**
      * Create a new notification instance.
@@ -36,19 +45,55 @@ class UserBanExpire extends Notification
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['mail'];
     }
 
     /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(object $_notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail'  => [new RateLimitOutboundMail()],
+            default => [],
+        };
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('You have been unbanned 🤩')
-            ->line('You have been unbanned from '.config('other.title'))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->greeting('Account reinstated')
+            ->line(
+                'Your account on '.config('other.title').' has been reinstated.'
+            )
+            ->line(
+                'Please review the community rules before continuing on '.config(
+                    'other.title'
+                ).'.'
+            )
+            ->line('Welcome back to '.config('other.title').'.');
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(2);
     }
 }

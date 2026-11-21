@@ -16,44 +16,46 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Models\Playlist;
+use App\Models\Torrent;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Rule;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\ValidationContext;
+use Illuminate\Validation\Rule as LaravelRule;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
  */
-class StorePlaylistTorrentRequest extends FormRequest
+#[MergeValidationRules]
+class StorePlaylistTorrentRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public function __construct(
+        #[Exists(Playlist::class, 'id')]
+        public int $playlistId,
+        #[Exists(Torrent::class, 'id')]
+        public int $torrentId,
+    ) {
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\Rules\Exists|\Illuminate\Validation\Rules\Unique|string>>
+     * @return array<string, array<Rule>|string>
      */
-    public function rules(Request $request): array
+    public static function rules(ValidationContext $context): array
     {
         return [
             'playlist_id' => [
-                'required',
-                'numeric',
-                'integer',
-                Rule::exists('playlists', 'id'),
-                Rule::unique('playlist_torrents')->where('torrent_id', $request->integer('torrent_id')),
+                new Rule([
+                    LaravelRule::unique('playlist_torrents')->where('torrent_id', $context->payload['torrent_id']),
+                ]),
             ],
             'torrent_id' => [
-                'required',
-                'numeric',
-                'integer',
-                Rule::exists('torrents', 'id'),
-                Rule::unique('playlist_torrents')->where('playlist_id', $request->integer('playlist_id')),
+                new Rule([
+                    LaravelRule::unique('playlist_torrents')->where('playlist_id', $context->payload['playlist_id']),
+                ])
             ]
         ];
     }

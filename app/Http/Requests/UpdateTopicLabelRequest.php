@@ -16,39 +16,18 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Data;
 
-class UpdateTopicLabelRequest extends FormRequest
+class UpdateTopicLabelRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<string>>
-     */
-    public function rules(): array
-    {
-        return [
-            'approved' => [
-                'boolean',
-            ],
-            'denied' => [
-                'boolean',
-            ],
-            'solved' => [
-                'boolean',
-            ],
-            'invalid' => [
-                'boolean',
-            ],
-            'bug' => [
-                'boolean',
-            ],
-            'suggestion' => [
-                'boolean',
-            ],
-            'implemented' => [
-                'boolean',
-            ],
-        ];
+    public function __construct(
+        public ?bool $approved = false,
+        public ?bool $denied = false,
+        public ?bool $solved = false,
+        public ?bool $invalid = false,
+        public ?bool $bug = false,
+        public ?bool $suggestion = false,
+        public ?bool $implemented = false,
+    ) {
     }
 }

@@ -29,7 +29,7 @@ class TopicLabelController extends Controller
      */
     public function update(UpdateTopicLabelRequest $request, Topic $topic): \Illuminate\Http\RedirectResponse
     {
-        $topic->update($request->validated());
+        $topic->update($request->toArray());
 
         return to_route('topics.show', ['id' => $topic->id])
             ->with('info', 'Label change has been applied');
