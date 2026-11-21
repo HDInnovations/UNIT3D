@@ -1,7 +1,12 @@
-@if ($sortField === $field)
+@if ($sortField ?? request('sortField') === $field)
     <i
-        class="{{ config('other.font-awesome') }} fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"
+        data-sort-by="{{ $field }}"
+        class="{{ config('other.font-awesome') }} fa-sort-{{ $sortDirection ?? request('sortDirection', 'desc') === 'asc' ? 'up' : 'down' }}"
     ></i>
 @else
-    <i class="{{ config('other.font-awesome') }} fa-sort" style="opacity: 0.35"></i>
+    <i
+        data-sort-by="{{ $field }}"
+        class="{{ config('other.font-awesome') }} fa-sort"
+        style="opacity: 0.35"
+    ></i>
 @endif
