@@ -97,7 +97,7 @@ class StoreTorrentRequest extends Data
         public bool $featured = false,
         #[Between(0, 100)]
         public int $free = 0,
-        public bool $doubleUp = false,
+        public bool $doubleup = false,
         public bool $refundable = false,
         #[Date]
         public ?Carbon $duUntil = null,
@@ -118,12 +118,12 @@ class StoreTorrentRequest extends Data
     #[Override]
     public static function prepareForPipeline(array $properties): array
     {
-        $properties['tmdb_movie_id'] = $properties['tmdb'] ?: null;
-        $properties['tmdb_tv_id'] = $properties['tmdb'] ?: null;
-        $properties['imdb'] = $properties['imdb'] ?: null;
-        $properties['tvdb'] = $properties['tvdb'] ?: null;
-        $properties['mal'] = $properties['mal'] ?: null;
-        $properties['igdb'] = $properties['igdb'] ?: null;
+        $properties['tmdb_movie_id'] = ($properties['tmdb'] ?? 0) ?: null;
+        $properties['tmdb_tv_id'] = ($properties['tmdb'] ?? 0) ?: null;
+        $properties['imdb'] = ($properties['imdb'] ?? 0) ?: null;
+        $properties['tvdb'] = ($properties['tvdb'] ?? 0) ?: null;
+        $properties['mal'] = ($properties['mal'] ?? 0) ?: null;
+        $properties['igdb'] = ($properties['igdb'] ?? 0) ?: null;
         $properties['anon'] = $properties['anonymous'] ?? false;
         $properties['personal_release'] = $properties['personal_release'] ?? false;
         $properties['du_until'] = \array_key_exists('du_until', $properties) && \intval($properties['du_until']) ? now()->addDays(\intval($properties['du_until'])) : null;

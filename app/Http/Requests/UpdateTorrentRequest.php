@@ -104,13 +104,13 @@ class UpdateTorrentRequest extends Data
     #[Override]
     public static function prepareForPipeline(array $properties): array
     {
-        $properties['tmdb_movie_id'] = \array_key_exists('movie_exists_on_tmdb', $properties) ? ($properties['tmdb_movie_id'] ?: null) : null;
-        $properties['tmdb_tv_id'] = \array_key_exists('tv_exists_on_tmdb', $properties) ? ($properties['tmdb_tv_id'] ?: null) : null;
-        $properties['imdb'] = \array_key_exists('title_exists_on_imdb', $properties) ? ($properties['imdb'] ?: null) : null;
-        $properties['tvdb'] = \array_key_exists('tv_exists_on_tvdb', $properties) ? ($properties['tvdb'] ?: null) : null;
-        $properties['mal'] = \array_key_exists('anime_exists_on_mal', $properties) ? ($properties['mal'] ?: null) : null;
-        $properties['igdb'] = \array_key_exists('game_exists_on_igdb', $properties) ? ($properties['igdb'] ?: null) : null;
-        $properties['mediainfo'] = TorrentTools::anonymizeMediainfo($properties['mediainfo'] ? (string) $properties['mediainfo'] : null);
+        $properties['tmdb_movie_id'] = \array_key_exists('movie_exists_on_tmdb', $properties) ? (($properties['tmdb_movie_id'] ?? 0) ?: null) : null;
+        $properties['tmdb_tv_id'] = \array_key_exists('tv_exists_on_tmdb', $properties) ? (($properties['tmdb_tv_id'] ?? 0) ?: null) : null;
+        $properties['imdb'] = \array_key_exists('title_exists_on_imdb', $properties) ? (($properties['imdb'] ?? 0) ?: null) : null;
+        $properties['tvdb'] = \array_key_exists('tv_exists_on_tvdb', $properties) ? (($properties['tvdb'] ?? 0) ?: null) : null;
+        $properties['mal'] = \array_key_exists('anime_exists_on_mal', $properties) ? (($properties['mal'] ?? 0) ?: null) : null;
+        $properties['igdb'] = \array_key_exists('game_exists_on_igdb', $properties) ? (($properties['igdb'] ?? 0) ?: null) : null;
+        $properties['mediainfo'] = TorrentTools::anonymizeMediainfo(($properties['mediainfo'] ?? '') ? (string) $properties['mediainfo'] : null);
         $properties['internal'] = $properties['internal'] ?? false;
         $properties['free'] = $properties['free'] ?? 0;
         $properties['refundable'] = $properties['refundable'] ?? false;
