@@ -16,9 +16,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Chatroom;
 use App\Models\Resurrection;
+use App\Notifications\Chatbox\ResurrectionComplete;
 use App\Notifications\ResurrectionCompleted;
-use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
@@ -26,14 +27,6 @@ use Throwable;
 
 class AutoRewardResurrection extends Command
 {
-    /**
-     * AutoRewardResurrection Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -70,23 +63,15 @@ class AutoRewardResurrection extends Command
 
                 $resurrection->user->increment('fl_tokens', (int) config('graveyard.reward'));
 
-                // Auto Shout
-                $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has successfully resurrected [url=%s]%s[/url].', href_profile($resurrection->user), $resurrection->user->username, href_torrent($resurrection->torrent), $resurrection->torrent->name)
-                );
-
                 // Bump Torrent With FL
-                $torrentUrl = href_torrent($resurrection->torrent);
-
                 $resurrection->torrent->update([
                     'bumped_at' => now(),
                     'free'      => 100,
                     'fl_until'  => now()->addDays(3),
                 ]);
 
-                $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top.', $torrentUrl, $resurrection->torrent->name)
-                );
+                // Auto Shout
+                Chatroom::systemChatroom()->notify(new ResurrectionComplete($resurrection));
 
                 cache()->forget('announce-torrents:by-infohash:'.$resurrection->torrent->info_hash);
 

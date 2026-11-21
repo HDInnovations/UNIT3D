@@ -16,8 +16,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Chatroom;
 use App\Models\TorrentRequestClaim;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\ClaimDelete;
 use Illuminate\Console\Command;
 use Exception;
 use Throwable;
@@ -39,14 +40,6 @@ class AutoRecycleClaimedTorrentRequests extends Command
     protected $description = 'Recycle torrent requests that were claimed but not filled within 7 days.';
 
     /**
-     * AutoRecycleClaimedTorrentRequests Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @throws Exception|Throwable If there is an error during the execution of the command.
@@ -64,11 +57,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
                     ->whereNull('torrent_id')
             )
             ->eachById(function ($claim): void {
-                $trUrl = href_request($claim->request);
-
-                $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $claim->request->name)
-                );
+                Chatroom::systemChatroom()->notify(new ClaimDelete($claim));
 
                 $claim->delete();
             }, 100);

@@ -60,11 +60,11 @@ test('gift a user creates a notification for the gifted user', function (): void
         'recipient_id' => $receiver->id,
     ]);
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$receiver],
-        NewBon::class
+        NewBon::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('gift a user creates a notification for the gifted user when gift notifications are not disabled for specific group', function (): void {
@@ -109,11 +109,11 @@ test('gift a user creates a notification for the gifted user when gift notificat
         'recipient_id' => $receiver->id,
     ]);
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$receiver],
-        NewBon::class
+        NewBon::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('staff gifts a user creates a notification for the gifted user even when gift notifications are disabled', function (): void {
@@ -158,11 +158,11 @@ test('staff gifts a user creates a notification for the gifted user even when gi
         'recipient_id' => $receiver->id,
     ]);
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$receiver],
-        NewBon::class
+        NewBon::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('gift a user does not create a notification for the gifted user when all notifications disabled', function (): void {
@@ -200,7 +200,7 @@ test('gift a user does not create a notification for the gifted user when all no
         'recipient_id' => $receiver->id,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($receiver);
 });
 
 test('gift a user does not create a notification for the gifted user when gift notifications are disabled', function (): void {
@@ -238,7 +238,7 @@ test('gift a user does not create a notification for the gifted user when gift n
         'recipient_id' => $receiver->id,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($receiver);
 });
 
 test('gift a user does not create a notification for the gifted user when gift notifications are disabled for specific group', function (): void {
@@ -282,5 +282,5 @@ test('gift a user does not create a notification for the gifted user when gift n
         'recipient_id' => $receiver->id,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($receiver);
 });

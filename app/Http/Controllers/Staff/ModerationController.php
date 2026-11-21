@@ -20,11 +20,12 @@ use App\Enums\ModerationStatus;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateModerationRequest;
+use App\Models\Chatroom;
 use App\Models\Conversation;
 use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\TorrentCreate;
 use App\Services\Unit3dAnnounce;
 
 /**
@@ -32,13 +33,6 @@ use App\Services\Unit3dAnnounce;
  */
 class ModerationController extends Controller
 {
-    /**
-     * ModerationController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Torrent Moderation Panel.
      */
@@ -96,15 +90,7 @@ class ModerationController extends Controller
         switch ($request->status) {
             case ModerationStatus::APPROVED:
                 // Announce To Shoutbox
-                if (!$torrent->anon) {
-                    $this->chatRepository->systemMessage(
-                        'User [url='.href_profile($torrent->user).']'.$torrent->user->username.'[/url] has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
-                    );
-                } else {
-                    $this->chatRepository->systemMessage(
-                        'An anonymous user has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
-                    );
-                }
+                Chatroom::systemChatroom()->notify(new TorrentCreate($torrent));
 
                 TorrentHelper::approveHelper($id);
 

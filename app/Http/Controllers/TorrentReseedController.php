@@ -16,23 +16,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Chatroom;
 use App\Models\History;
 use App\Models\Torrent;
 use App\Models\TorrentReseed;
 use App\Models\User;
+use App\Notifications\Chatbox\TorrentReseedCreate;
 use App\Notifications\NewReseedRequest;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 class TorrentReseedController extends Controller
 {
-    /**
-     * TorrentReseedController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display a listing of torrent reseed requests.
      */
@@ -84,11 +78,7 @@ class TorrentReseedController extends Controller
                 User::query()->find($potentialReseed->user_id)->notify(new NewReseedRequest($torrent));
             }
 
-            $torrentUrl = href_torrent($torrent);
-
-            $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, a reseed request was just placed on [url=%s]%s[/url] can you help out?', $torrentUrl, $torrent->name)
-            );
+            Chatroom::systemChatroom()->notify(new TorrentReseedCreate($torrent));
 
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->with('success', 'A notification has been sent to all users that downloaded this torrent along with original uploader!');

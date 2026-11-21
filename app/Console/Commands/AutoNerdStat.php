@@ -16,7 +16,8 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Repositories\ChatRepository;
+use App\Models\Chatroom;
+use App\Notifications\Chatbox\NerdStatCreate;
 use Illuminate\Console\Command;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -24,14 +25,6 @@ use Throwable;
 
 class AutoNerdStat extends Command
 {
-    /**
-     * AutoNerdStat Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -96,7 +89,7 @@ class AutoNerdStat extends Command
         };
 
         // Post the message to the chatbox.
-        $this->chatRepository->systemMessage($message);
+        Chatroom::systemChatroom()->notify(new NerdStatCreate($message));
 
         // Output a success message to the console.
         $this->comment('Automated nerd stat command complete');

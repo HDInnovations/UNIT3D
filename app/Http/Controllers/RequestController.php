@@ -20,12 +20,13 @@ use App\Enums\Occupation;
 use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Requests\UpdateTorrentRequestRequest;
 use App\Models\Category;
+use App\Models\Chatroom;
 use App\Models\Resolution;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\Type;
 use App\Models\User;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\RequestCreate;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
@@ -37,13 +38,6 @@ use Exception;
  */
 class RequestController extends Controller
 {
-    /**
-     * RequestController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -152,15 +146,7 @@ class RequestController extends Controller
         ]);
 
         // Auto Shout
-        if (!$torrentRequest->anon) {
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
-            );
-        }
+        Chatroom::systemChatroom()->notify(new RequestCreate($torrentRequest));
 
         match (true) {
             $torrentRequest->tmdb_tv_id !== null    => new TMDBScraper()->tv($torrentRequest->tmdb_tv_id),

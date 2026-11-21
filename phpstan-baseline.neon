@@ -355,24 +355,6 @@ parameters:
 			path: app/Http/Resources/TorrentResource.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$privacy\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\:\:\$username\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
 			message: '#^Access to an undefined property Assada\\Achievements\\Model\\AchievementProgress\:\:\$achiever_id\.$#'
 			identifier: property.notFound
 			count: 1
@@ -381,12 +363,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
 			identifier: property.notFound
-			count: 2
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
-			message: '#^Parameter \#1 \$user of function href_profile expects App\\Models\\User, App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\> given\.$#'
-			identifier: argument.type
 			count: 1
 			path: app/Listeners/AchievementUnlocked.php
 
@@ -401,6 +377,12 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: app/Models/User.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/Chatbox/AchievementUnlock.php
 
 		-
 			message: '#^Cannot access offset ''validator'' on Illuminate\\Contracts\\Foundation\\Application\.$#'
@@ -437,12 +419,6 @@ parameters:
 			identifier: identical.alwaysTrue
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
-
-		-
-			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
-			path: app/Repositories/ChatRepository.php
 
 		-
 			message: '#^Parameter \$when of method Illuminate\\Http\\Client\\PendingRequest\<false\>\:\:retry\(\) expects \(callable\(Throwable, Illuminate\\Http\\Client\\PendingRequest, string\|null\)\: bool\)\|null, Closure\(Exception\)\: bool given\.$#'

@@ -28,14 +28,15 @@ use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
+use App\Models\Chatroom;
 use App\Models\Forum;
 use App\Models\ForumPermission;
 use App\Models\Post;
 use App\Models\Subscription;
 use App\Models\Topic;
 use App\Models\User;
+use App\Notifications\Chatbox\TopicCreate;
 use App\Notifications\NewTopic;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -44,13 +45,6 @@ use Exception;
  */
 class TopicController extends Controller
 {
-    /**
-     * TopicController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Topics index.
      */
@@ -142,8 +136,6 @@ class TopicController extends Controller
         ]);
 
         // Post To ShoutBox
-        $topicUrl = route('topics.show', ['id' => $topic->id]);
-        $profileUrl = href_profile($user);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
@@ -155,18 +147,7 @@ class TopicController extends Controller
                 $staffer->notify(new NewTopic('staff', $user, $topic, $post));
             }
         } else {
-            $isChatboxPrivy = $forum->permissions()
-                ->where('read_topic', '=', true)
-                ->whereRelation('group', 'slug', '=', 'user')
-                ->exists();
-
-            if ($isChatboxPrivy) {
-                if ($post->anon) {
-                    $this->chatRepository->systemMessage(\sprintf('An anonymous user has created a new topic [url=%s]%s[/url]', $topicUrl, $topic->name));
-                } else {
-                    $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
-                }
-            }
+            Chatroom::systemChatroom()->notify(new TopicCreate($topic, $post->anon));
 
             $subscribers = User::query()
                 ->where('id', '!=', $topic->first_post_user_id)

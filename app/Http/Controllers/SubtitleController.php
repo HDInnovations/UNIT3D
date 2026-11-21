@@ -32,12 +32,13 @@ use App\Achievements\UserUploadedFirstSubtitle;
 use App\Enums\ModerationStatus;
 use App\Http\Requests\StoreSubtitleRequest;
 use App\Http\Requests\UpdateSubtitleRequest;
+use App\Models\Chatroom;
 use App\Models\MediaLanguage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Subtitle;
 use App\Models\Torrent;
 use App\Models\User;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\SubtitleCreate;
 use Illuminate\Container\Attributes\CurrentUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -45,13 +46,6 @@ use Exception;
 
 class SubtitleController extends Controller
 {
-    /**
-     * SubtitleController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -98,18 +92,9 @@ class SubtitleController extends Controller
         Storage::disk('subtitle-files')->putFileAs('', $request->subtitleFile, $filename);
 
         // Announce To Shoutbox
-        if (!$subtitle->anon) {
-            $this->chatRepository->systemMessage(
-                \sprintf(
-                    '[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]',
-                    href_profile($user),
-                    $user->username,
-                    $subtitle->language->name,
-                    href_torrent($torrent),
-                    $subtitle->torrent->name
-                )
-            );
+        Chatroom::systemChatroom()->notify(new SubtitleCreate($subtitle));
 
+        if (!$subtitle->anon) {
             // Achievements
             $user->unlock(new UserUploadedFirstSubtitle());
             $user->addProgress(new UserUploaded25Subtitles(), 1);
@@ -124,15 +109,6 @@ class SubtitleController extends Controller
             $user->addProgress(new UserUploaded800Subtitles(), 1);
             $user->addProgress(new UserUploaded900Subtitles(), 1);
             $user->addProgress(new UserUploaded1000Subtitles(), 1);
-        } else {
-            $this->chatRepository->systemMessage(
-                \sprintf(
-                    'An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]',
-                    $subtitle->language->name,
-                    href_torrent($torrent),
-                    $subtitle->torrent->name
-                )
-            );
         }
 
         return to_route('torrents.show', ['id' => $request->torrentId])

@@ -24,6 +24,7 @@ use App\Helpers\TorrentTools;
 use App\Http\Requests\API\StoreTorrentRequest;
 use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
+use App\Models\Chatroom;
 use App\Models\FeaturedTorrent;
 use App\Models\IgdbGame;
 use App\Models\Keyword;
@@ -32,7 +33,13 @@ use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\TmdbTv;
 use App\Models\User;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\TorrentCreate;
+use App\Notifications\Chatbox\TorrentDoubleUploadGrant;
+use App\Notifications\Chatbox\TorrentDoubleUploadTemporaryGrant;
+use App\Notifications\Chatbox\TorrentFeatureAnonGrant;
+use App\Notifications\Chatbox\TorrentFeatureGrant;
+use App\Notifications\Chatbox\TorrentFreeleechGrant;
+use App\Notifications\Chatbox\TorrentFreeleechTemporaryGrant;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
@@ -55,13 +62,6 @@ class TorrentController extends BaseController
     public string $sortField = 'bumped_at';
 
     public string $sortDirection = 'desc';
-
-    /**
-     * TorrentController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
 
     /**
      * Display a listing of the resource.
@@ -174,7 +174,7 @@ class TorrentController extends BaseController
 
         // Set torrent to featured
         if ($request->featured) {
-            FeaturedTorrent::query()->create([
+            $featuredTorrent = FeaturedTorrent::query()->create([
                 'user_id'    => $user->id,
                 'torrent_id' => $torrent->id,
             ]);
@@ -210,55 +210,32 @@ class TorrentController extends BaseController
 
         // check for trusted user & mod queue isn't opted in and update torrent
         if ($user->group->is_trusted && !$request->modQueueOptIn) {
-            $user = $torrent->user;
-            $username = $user->username;
-            $anon = $torrent->anon;
-            $featured = $request->featured;
-            $free = $torrent->free;
-            $doubleup = $torrent->doubleup;
+            $systemChatroom = Chatroom::systemChatroom();
 
             // Announce To Shoutbox
-            if (!$anon) {
-                $this->chatRepository->systemMessage(
-                    'User [url='.href_profile($user).']'.$username.'[/url] has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
-                );
-            } else {
-                $this->chatRepository->systemMessage(
-                    'An anonymous user has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
-                );
-            }
+            $systemChatroom->notify(new TorrentCreate($torrent));
 
-            if ($anon && $featured == 1) {
-                $this->chatRepository->systemMessage(
-                    'Ladies and Gents, [url='.href_torrent($torrent).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can!'
-                );
-            } elseif (!$anon && $featured == 1) {
-                $this->chatRepository->systemMessage(
-                    'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by [url='.href_profile($user).']'.$username.'[/url]! Grab It While You Can!'
-                );
-            }
-
-            if ($free >= 1 && $featured == 0) {
-                if ($torrent->fl_until === null) {
-                    $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech! Grab It While You Can!'
-                    );
+            if ($request->featured) {
+                if ($torrent->anon) {
+                    $systemChatroom->notify(new TorrentFeatureAnonGrant($torrent));
                 } else {
-                    $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.round($request->flUntil->diffInDays()).' days.'
-                    );
+                    $systemChatroom->notify(new TorrentFeatureGrant($featuredTorrent));
                 }
-            }
+            } else {
+                if ($torrent->free >= 1) {
+                    if ($torrent->fl_until === null) {
+                        $systemChatroom->notify(new TorrentFreeleechGrant($torrent, $torrent->free));
+                    } else {
+                        $systemChatroom->notify(new TorrentFreeleechTemporaryGrant($torrent, $torrent->free, (int) round($request->flUntil->diffInDays())));
+                    }
+                }
 
-            if ($doubleup == 1 && $featured == 0) {
-                if ($torrent->du_until === null) {
-                    $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted Double Upload! Grab It While You Can!'
-                    );
-                } else {
-                    $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted Double Upload for '.round($request->duUntil->diffInDays()).' days.'
-                    );
+                if ($torrent->doubleup) {
+                    if ($torrent->du_until === null) {
+                        $systemChatroom->notify(new TorrentDoubleUploadGrant($torrent));
+                    } else {
+                        $systemChatroom->notify(new TorrentDoubleUploadTemporaryGrant($torrent, (int) round($request->duUntil->diffInDays())));
+                    }
                 }
             }
 

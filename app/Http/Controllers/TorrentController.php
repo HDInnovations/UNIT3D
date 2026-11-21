@@ -25,6 +25,7 @@ use App\Helpers\TorrentTools;
 use App\Http\Requests\StoreTorrentRequest;
 use App\Http\Requests\UpdateTorrentRequest;
 use App\Models\Category;
+use App\Models\Chatroom;
 use App\Models\Distributor;
 use App\Models\History;
 use App\Models\IgdbGame;
@@ -39,8 +40,9 @@ use App\Models\Torrent;
 use App\Models\TorrentFile;
 use App\Models\Type;
 use App\Models\User;
+use App\Notifications\Chatbox\TorrentCreate;
+use App\Notifications\Chatbox\TorrentFreeleechGrant;
 use App\Notifications\TorrentDeleted;
-use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
@@ -59,13 +61,6 @@ use JsonException;
  */
 class TorrentController extends Controller
 {
-    /**
-     * TorrentController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display a listing of the Torrent resource.
      */
@@ -609,24 +604,12 @@ class TorrentController extends Controller
         // check for trusted user and update torrent
         if ($user->group->is_trusted && !$request->modQueueOptIn) {
             $user = $torrent->user;
-            $username = $user->username;
-            $anon = $torrent->anon;
 
             // Announce To Shoutbox
-            if (!$anon) {
-                $this->chatRepository->systemMessage(
-                    'User [url='.href_profile($user).']'.$username.'[/url] has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
-                );
-            } else {
-                $this->chatRepository->systemMessage(
-                    'An anonymous user has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
-                );
-            }
+            Chatroom::systemChatroom()->notify(new TorrentCreate($torrent));
 
             if ($torrent->free >= 1) {
-                $this->chatRepository->systemMessage(
-                    'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can!'
-                );
+                Chatroom::systemChatroom()->notify(new TorrentFreeleechGrant($torrent, $torrent->free));
             }
 
             TorrentHelper::approveHelper($torrent->id);

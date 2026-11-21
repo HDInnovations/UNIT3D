@@ -28,12 +28,13 @@ use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
+use App\Models\Chatroom;
 use App\Models\Post;
 use App\Models\Topic;
 use App\Models\User;
+use App\Notifications\Chatbox\PostCreate;
 use App\Notifications\NewPost;
 use App\Notifications\NewPostTag;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Exception;
@@ -44,13 +45,6 @@ use Illuminate\Validation\Rule;
  */
 class PostController extends Controller
 {
-    /**
-     * PostController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Posts Index.
      */
@@ -100,9 +94,7 @@ class PostController extends Controller
         ]);
 
         // Post To Chatbox and Notify Subscribers
-        $postUrl = route('topics.permalink', ['topicId' => $topic->id, 'postId' => $post->id]);
         $realUrl = route('topics.permalink', ['topicId' => $topic->id, 'postId' => $post->id], false);
-        $profileUrl = href_profile($user);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
@@ -117,18 +109,7 @@ class PostController extends Controller
                 $staffer->notify(new NewPost('staff', $user, $post));
             }
         } else {
-            $isChatboxPrivy = $forum->permissions()
-                ->where('read_topic', '=', true)
-                ->whereRelation('group', 'slug', '=', 'user')
-                ->exists();
-
-            if ($isChatboxPrivy) {
-                if ($post->anon) {
-                    $this->chatRepository->systemMessage(\sprintf('An anonymous user has left a reply on topic [url=%s]%s[/url]', $postUrl, $topic->name));
-                } else {
-                    $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
-                }
-            }
+            Chatroom::systemChatroom()->notify(new PostCreate($post));
 
             $topicStarter = $topic->user;
 

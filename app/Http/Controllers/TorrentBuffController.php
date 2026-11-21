@@ -17,11 +17,22 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Bots\IRCAnnounceBot;
+use App\Models\Chatroom;
 use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\TorrentBump;
+use App\Notifications\Chatbox\TorrentDoubleUploadGrant;
+use App\Notifications\Chatbox\TorrentDoubleUploadRevoke;
+use App\Notifications\Chatbox\TorrentDoubleUploadTemporaryGrant;
+use App\Notifications\Chatbox\TorrentFeatureGrant;
+use App\Notifications\Chatbox\TorrentFeatureRevoke;
+use App\Notifications\Chatbox\TorrentFreeleechGrant;
+use App\Notifications\Chatbox\TorrentFreeleechRevoke;
+use App\Notifications\Chatbox\TorrentFreeleechTemporaryGrant;
+use App\Notifications\Chatbox\TorrentRefundableGrant;
+use App\Notifications\Chatbox\TorrentRefundableRevoke;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 
@@ -30,13 +41,6 @@ use Illuminate\Http\Request;
  */
 class TorrentBuffController extends Controller
 {
-    /**
-     * TorrentController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Bump A Torrent.
      */
@@ -50,12 +54,7 @@ class TorrentBuffController extends Controller
         $torrent->save();
 
         // Announce To Chat
-        $torrentUrl = href_torrent($torrent);
-        $profileUrl = href_profile($user);
-
-        $this->chatRepository->systemMessage(
-            \sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
-        );
+        Chatroom::systemChatroom()->notify(new TorrentBump($torrent, $user));
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {
@@ -63,7 +62,7 @@ class TorrentBuffController extends Controller
                 ->to(config('irc-bot.channel'))
                 ->say('['.config('app.name').'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!')
                 ->say('[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']')
-                ->say(\sprintf('[Link: %s]', $torrentUrl));
+                ->say(\sprintf('[Link: %s]', href_torrent($torrent)));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -95,7 +94,6 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrentUrl = href_torrent($torrent);
 
         $request->validate([
             'freeleech' => 'numeric|min:0|max:100',
@@ -105,18 +103,12 @@ class TorrentBuffController extends Controller
         if ($request->integer('freeleech') != 0) {
             if ($request->filled('fl_until')) {
                 $torrent->fl_until = now()->addDays($request->integer('fl_until'));
-                $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->integer('fl_until').' days.', $torrentUrl, $torrent->name, $request->integer('freeleech'))
-                );
+                Chatroom::systemChatroom()->notify(new TorrentFreeleechTemporaryGrant($torrent, $request->integer('freeleech'), $request->integer('fl_until')));
             } else {
-                $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->integer('freeleech'))
-                );
+                Chatroom::systemChatroom()->notify(new TorrentFreeleechGrant($torrent, $request->integer('freeleech')));
             }
         } elseif ($torrent->free != 0) {
-            $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech!', $torrentUrl, $torrent->name, $torrent->free)
-            );
+            Chatroom::systemChatroom()->notify(new TorrentFreeleechRevoke($torrent, $torrent->free));
         }
 
         $torrent->free = $request->integer('freeleech');
@@ -150,11 +142,7 @@ class TorrentBuffController extends Controller
 
             cache()->forget('featured-torrent-ids');
 
-            $torrentUrl = href_torrent($torrent);
-            $profileUrl = href_profile($user);
-            $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
-            );
+            Chatroom::systemChatroom()->notify(new TorrentFeatureGrant($featured));
 
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->with('success', 'Torrent is now featured!');
@@ -179,9 +167,7 @@ class TorrentBuffController extends Controller
 
         Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
-        $this->chatRepository->systemMessage(
-            \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer featured.', href_torrent($torrent), $torrent->name)
-        );
+        Chatroom::systemChatroom()->notify(new TorrentFeatureRevoke($torrent));
 
         $featured_torrent->delete();
 
@@ -200,7 +186,6 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrentUrl = href_torrent($torrent);
 
         if (!$torrent->doubleup) {
             $torrent->doubleup = true;
@@ -208,19 +193,13 @@ class TorrentBuffController extends Controller
 
             if ($du_until !== null) {
                 $torrent->du_until = now()->addDays($request->integer('du_until'));
-                $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days.', $torrentUrl, $torrent->name)
-                );
+                Chatroom::systemChatroom()->notify(new TorrentDoubleUploadTemporaryGrant($torrent, $request->integer('du_until')));
             } else {
-                $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can!', $torrentUrl, $torrent->name)
-                );
+                Chatroom::systemChatroom()->notify(new TorrentDoubleUploadGrant($torrent));
             }
         } else {
             $torrent->doubleup = false;
-            $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload!', $torrentUrl, $torrent->name)
-            );
+            Chatroom::systemChatroom()->notify(new TorrentDoubleUploadRevoke($torrent));
         }
 
         $torrent->save();
@@ -278,20 +257,15 @@ class TorrentBuffController extends Controller
         abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
 
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent_url = href_torrent($torrent);
 
         if (!$torrent->refundable) {
             $torrent->refundable = true;
 
-            $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can!', $torrent_url, $torrent->name)
-            );
+            Chatroom::systemChatroom()->notify(new TorrentRefundableGrant($torrent));
         } else {
             $torrent->refundable = false;
 
-            $this->chatRepository->systemMessage(
-                \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable!', $torrent_url, $torrent->name)
-            );
+            Chatroom::systemChatroom()->notify(new TorrentRefundableRevoke($torrent));
         }
 
         $torrent->save();

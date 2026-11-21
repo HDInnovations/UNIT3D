@@ -12,6 +12,7 @@ dontreport
 ehlo
 encryptable
 encrypter
+findsole
 mimetypes
 mysql
 ordoesnthave

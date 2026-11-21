@@ -20,9 +20,10 @@ use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
+use App\Models\Chatroom;
 use App\Models\TorrentRequest;
+use App\Notifications\Chatbox\RequestFill;
 use App\Notifications\NewRequestFillApprove;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
 /**
@@ -30,13 +31,6 @@ use Illuminate\Http\Request;
  */
 class ApprovedRequestFillController extends Controller
 {
-    /**
-     * RequestController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Approve A Torrent Request.
      */
@@ -63,15 +57,7 @@ class ApprovedRequestFillController extends Controller
         }
 
         // Auto Shout
-        if ($torrentRequest->filled_anon) {
-            $this->chatRepository->systemMessage(
-                \sprintf('An anonymous user has filled request, [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has filled request, [url=%s]%s[/url]', href_profile($filler), $filler->username, href_request($torrentRequest), $torrentRequest->name)
-            );
-        }
+        Chatroom::systemChatroom()->notify(new RequestFill($torrentRequest));
 
         $filler->notify(new NewRequestFillApprove($torrentRequest));
 

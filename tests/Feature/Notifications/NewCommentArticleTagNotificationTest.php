@@ -21,7 +21,9 @@ use App\Models\Comment;
 use App\Models\Group;
 use App\Models\User;
 use App\Models\UserNotification;
+use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
@@ -70,12 +72,17 @@ test('user tags user on article creates a notification for tagged user', functio
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$user],
-        NewCommentTag::class
+        NewCommentTag::class,
+        1,
     );
-    // Tag notification for user and notification for staff article poster gets sent
-    Notification::assertCount(2);
+
+    Notification::assertSentToTimes(
+        [$article->user],
+        NewComment::class,
+        1,
+    );
 });
 
 test('staff tags user on article creates a notification for tagged user even when mentions are disabled for other specific group', function (): void {
@@ -123,12 +130,17 @@ test('staff tags user on article creates a notification for tagged user even whe
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$user],
-        NewCommentTag::class
+        NewCommentTag::class,
+        1,
     );
-    // Tag notification for user and notification for staff article poster gets sent
-    Notification::assertCount(2);
+
+    Notification::assertSentToTimes(
+        [$article->user],
+        NewComment::class,
+        1,
+    );
 });
 
 test('user tags user on article creates a notification for tagged user when mentions are disabled for other specific group', function (): void {
@@ -177,10 +189,15 @@ test('user tags user on article creates a notification for tagged user when ment
 
     Notification::assertSentTo(
         [$user],
-        NewCommentTag::class
+        NewCommentTag::class,
+        1,
     );
-    // Tag notification for user and notification for staff article poster gets sent
-    Notification::assertCount(2);
+
+    Notification::assertSentTo(
+        [$article->user],
+        NewComment::class,
+        1,
+    );
 });
 
 test('user tags user on article does not create a notification for tagged user when all notifications disabled', function (): void {

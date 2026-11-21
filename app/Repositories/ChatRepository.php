@@ -19,8 +19,6 @@ namespace App\Repositories;
 use App\Events\Chatter;
 use App\Events\MessageSent;
 use App\Http\Resources\ChatMessageResource;
-use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Message;
 use App\Models\User;
 
@@ -170,22 +168,5 @@ class ChatRepository
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
-    }
-
-    public function systemMessage(string $message): void
-    {
-        $systemBotId = Bot::query()->where('command', 'systembot')->value('id');
-
-        $config = config('chat.system_chatroom');
-
-        $systemChatroomId = Chatroom::query()
-            ->when(
-                \is_int($config),
-                fn ($query) => $query->where('id', '=', $config),
-                fn ($query) => $query->where('name', '=', $config),
-            )
-            ->value('id');
-
-        $this->message(User::SYSTEM_USER_ID, $systemChatroomId, $message, $systemBotId);
     }
 }
