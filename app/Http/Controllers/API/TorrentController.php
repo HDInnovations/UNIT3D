@@ -305,7 +305,7 @@ class TorrentController extends BaseController
     {
         $user = auth()->user()->load('group');
         $isRegexAllowed = $user->group->is_modo;
-        $isSqlAllowed = ($user->group->is_modo || $user->group->is_editor) && $request->driver === 'sql';
+        $isSqlAllowed = ($user->group->is_modo || $user->group->is_editor) && $request->string('driver')->toString() === 'sql';
 
         $request->validate([
             'sortField' => [
@@ -351,19 +351,19 @@ class TorrentController extends BaseController
                 keywords: $request->filled('keywords') ? array_map(trim(...), explode(',', $request->string('keywords')->toString())) : [],
                 startYear: $request->filled('startYear') ? $request->integer('startYear') : null,
                 endYear: $request->filled('endYear') ? $request->integer('endYear') : null,
-                categoryIds: $request->filled('categories') ? array_map(intval(...), $request->categories) : [],
-                typeIds: $request->filled('types') ? array_map(intval(...), $request->types) : [],
-                resolutionIds: $request->filled('resolutions') ? array_map(intval(...), $request->resolutions) : [],
-                genreIds: $request->filled('genres') ? array_map(intval(...), $request->genres) : [],
+                categoryIds: $request->filled('categories') ? array_map(intval(...), $request->array('categories')) : [],
+                typeIds: $request->filled('types') ? array_map(intval(...), $request->array('types')) : [],
+                resolutionIds: $request->filled('resolutions') ? array_map(intval(...), $request->array('resolutions')) : [],
+                genreIds: $request->filled('genres') ? array_map(intval(...), $request->array('genres')) : [],
                 tmdbId: $request->filled('tmdbId') ? $request->integer('tmdbId') : null,
                 imdbId: $request->filled('imdbId') ? $request->integer('imdbId') : null,
                 tvdbId: $request->filled('tvdbId') ? $request->integer('tvdbId') : null,
                 malId: $request->filled('malId') ? $request->integer('malId') : null,
                 playlistId: $request->filled('playlistId') ? $request->integer('playlistId') : null,
                 collectionId: $request->filled('collectionId') ? $request->integer('collectionId') : null,
-                primaryLanguageNames: $request->filled('primaryLanguages') ? array_map(str(...), $request->primaryLanguages) : [],
+                primaryLanguageNames: $request->filled('primaryLanguages') ? array_map(str(...), $request->array('primaryLanguages')) : [],
                 adult: $request->filled('adult') ? $request->boolean('adult') : null,
-                free: $request->filled('free') ? array_map(intval(...), (array) $request->free) : [],
+                free: $request->filled('free') ? array_map(intval(...), $request->array('free')) : [],
                 doubleup: $request->filled('doubleup'),
                 refundable: $request->filled('refundable'),
                 featured: $request->filled('featured'),

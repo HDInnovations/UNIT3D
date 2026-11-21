@@ -35,7 +35,7 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        if (! Hash::check($request->password, $request->user()->password)) {
+        if (! Hash::check($request->string('password')->toString(), $request->user()->password)) {
             return back()->withErrors([
                 'password' => ['The provided password does not match our records.']
             ]);

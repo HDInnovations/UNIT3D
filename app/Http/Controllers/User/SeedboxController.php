@@ -75,8 +75,8 @@ class SeedboxController extends Controller
 
         Seedbox::query()->create([
             'user_id' => $user->id,
-            'name'    => $request->name,
-            'ip'      => $request->ip,
+            'name'    => $request->string('name')->toString(),
+            'ip'      => $request->string('ip')->toString(),
         ]);
 
         return to_route('users.seedboxes.index', ['user' => $user])
