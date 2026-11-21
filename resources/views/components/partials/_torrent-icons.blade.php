@@ -1,15 +1,20 @@
 <span class="torrent-icons">
     @isset($torrent->comments_count)
-        <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
+        <a
+            href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments"
+            aria-label="{{ $torrent->comments_count === 0 ? __('torrent.first-to-comment') : $torrent->comments_count . ' ' . __('torrent.comments-left') }}"
+        >
             @if ($torrent->comments_count === 0)
                 <i
                     class="{{ config('other.font-awesome') }} fa-comment-alt-plus torrent-icons__comments"
                     title="{{ __('torrent.first-to-comment') }}"
+                    aria-hidden="true"
                 ></i>
             @else
                 <i
                     class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments"
                     title="{{ __('torrent.comments-left') }}"
+                    aria-hidden="true"
                 >
                     {{ $torrent->comments_count }}
                 </i>
@@ -21,6 +26,8 @@
         <i
             class="{{ config('other.font-awesome') }} fa-magic torrent-icons__internal"
             title="{{ __('torrent.internal-release') }}"
+            role="img"
+            aria-label="{{ __('torrent.internal-release') }}"
         ></i>
     @endif
 
@@ -28,6 +35,8 @@
         <i
             class="{{ config('other.font-awesome') }} fa-user-plus torrent-icons__personal-release"
             title="Personal release"
+            role="img"
+            aria-label="Personal release"
         ></i>
     @endif
 
@@ -38,6 +47,8 @@
     @if ($torrent->featured)
         <i
             class="{{ config('other.font-awesome') }} fa-award-simple torrent-icons__featured"
+            role="img"
+            aria-label="{{ __('torrent.featured') }} - 100% {{ __('torrent.freeleech') }} + {{ __('torrent.double-upload') }}"
             title="{{
                 implode(
                     "\n",
@@ -69,6 +80,8 @@
                     'fa-star-half' => ! $alwaysFreeleech && $torrent->free < 90 && $torrent->fl_until === null,
                     'fa-calendar-star' => ! $alwaysFreeleech && $torrent->fl_until !== null,
                 ])
+                role="img"
+                aria-label="{{ __('torrent.freeleech') }}"
                 title="{{
                     implode(
                         "\n",
@@ -91,6 +104,8 @@
         @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
             <i
                 class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"
+                role="img"
+                aria-label="{{ __('torrent.double-upload') }}"
                 title="{{
                     implode(
                         "\n",
@@ -113,6 +128,8 @@
         <i
             class="{{ config('other.font-awesome') }} fa-percentage"
             title="{{ __('torrent.refundable') }}"
+            role="img"
+            aria-label="{{ __('torrent.refundable') }}"
         ></i>
     @endif
 
@@ -120,6 +137,8 @@
         <i
             class="{{ config('other.font-awesome') }} fa-thumbtack torrent-icons__sticky"
             title="{{ __('torrent.sticky') }}"
+            role="img"
+            aria-label="{{ __('torrent.sticky') }}"
         ></i>
     @endif
 
@@ -127,6 +146,8 @@
         <i
             class="{{ config('other.font-awesome') }} fa-bolt-lightning torrent-icons__highspeed"
             title="{{ __('common.high-speeds') }}"
+            role="img"
+            aria-label="{{ __('common.high-speeds') }}"
         ></i>
     @endif
 
@@ -134,6 +155,8 @@
         <i
             class="{{ config('other.font-awesome') }} fa-level-up-alt torrent-icons__bumped"
             title="{{ __('torrent.recent-bumped') }}: {{ $torrent->bumped_at }}"
+            role="img"
+            aria-label="{{ __('torrent.recent-bumped') }}: {{ $torrent->bumped_at }}"
         ></i>
     @endif
 
