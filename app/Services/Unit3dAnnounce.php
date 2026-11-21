@@ -222,18 +222,22 @@ class Unit3dAnnounce
      *     num_leeching: int,
      *     receive_seed_list_rates: array{
      *         rates: array{
-     *             count: int,
-     *             max_count: int,
-     *             window: int,
+     *             count: float,
+     *             max_count: float,
+     *             window: float,
      *             updated_at: float,
+     *             retry_after: float,
+     *             is_limited: bool,
      *         }
      *     },
      *     receive_leech_list_rates: array{
      *         rates: array{
-     *             count: int,
-     *             max_count: int,
-     *             window: int,
+     *             count: float,
+     *             max_count: float,
+     *             window: float,
      *             updated_at: float,
+     *             retry_after: float,
+     *             is_limited: bool,
      *         }
      *     },
      * }
@@ -268,6 +272,13 @@ class Unit3dAnnounce
             ) {
                 return [];
             }
+
+            if (
+                (\array_key_exists('retry_after', $rate) && !\is_float($rate['retry_after']))
+                || (\array_key_exists('is_limited', $rate) && !\is_bool($rate['is_limited']))
+            ) {
+                return [];
+            }
         }
 
         foreach ($user['receive_leech_list_rates']['rates'] as $rate) {
@@ -276,6 +287,13 @@ class Unit3dAnnounce
                 || !\array_key_exists('max_count', $rate) || !\is_float($rate['max_count'])
                 || !\array_key_exists('window', $rate) || !\is_float($rate['window'])
                 || !\array_key_exists('updated_at', $rate) || !\is_float($rate['updated_at'])
+            ) {
+                return [];
+            }
+
+            if (
+                (\array_key_exists('retry_after', $rate) && !\is_float($rate['retry_after']))
+                || (\array_key_exists('is_limited', $rate) && !\is_bool($rate['is_limited']))
             ) {
                 return [];
             }
