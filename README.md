@@ -5,13 +5,13 @@
 <p align="center">
     <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-12-f4645f.svg" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-AGPL%20v3.0-yellow.svg" /></a>
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/lint.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/lint.yml/badge.svg?branch=master" /></a>
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/phpunit-test.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/phpunit-test.yml/badge.svg?branch=master" /></a>
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg?branch=master" /></a>
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/spellcheck.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/spellcheck.yml/badge.svg?branch=master" /></a>
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/schema-dump.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/schema-dump.yml/badge.svg?branch=master" /></a>
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg?branch=master" /></a>
-    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg?branch=master" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/lint.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/lint.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/phpunit-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/phpunit-test.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/compile-assets-test.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/spellcheck.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/spellcheck.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/schema-dump.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/schema-dump.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/larastan.yml/badge.svg" /></a>
+    <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg"><img src="https://github.com/HDInnovations/UNIT3D/actions/workflows/prettier-blade.yml/badge.svg" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D/actions/workflows/type-coverage.yml"><img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HDVinnie/97033a0b0568173ced0e25f2617a1807/raw/unit3d-type-coverage.json" /></a>
     <a href="https://hosted.weblate.org/engage/unit3d/">
     <img src="https://hosted.weblate.org/widget/unit3d/svg-badge.svg" alt="Translation status" />
