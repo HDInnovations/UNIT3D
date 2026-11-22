@@ -54,7 +54,7 @@ class Kernel extends HttpKernel
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
+        Middleware\TrustProxies::class,
         HandleCors::class,
         BlockIpAddress::class,
     ];
