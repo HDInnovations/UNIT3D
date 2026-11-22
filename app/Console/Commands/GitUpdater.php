@@ -59,7 +59,6 @@ class GitUpdater extends Command
      */
     private const array ADDITIONAL_FILES = [
         '.env',
-        'laravel-echo-server.json',
     ];
 
     /**
