@@ -1,6 +1,6 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -14,12 +14,13 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__staff-bon-earning--edit')
+@section('page', 'page__staff-bon-earning--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ trans_choice('common.a-an-art', false) }} {{ __('bon.bon') }} {{ __('bon.earning') }}
+            {{ __('common.edit') }} {{ trans_choice('common.a-an-art', false) }}
+            {{ __('bon.bon') }} {{ __('bon.earning') }}
         </h2>
         <div class="panel__body">
             <form
@@ -29,7 +30,7 @@
                 x-data="conditions"
             >
                 @csrf
-                @method ('patch')
+                @method('patch')
                 <p class="form__group">
                     <input
                         id="name"
@@ -83,63 +84,63 @@
                         <option
                             class="form__option"
                             value="1"
-                            @selected ($bonEarning->variable === '1')
+                            @selected($bonEarning->variable === '1')
                         >
                             1 (Constant)
                         </option>
                         <option
                             class="form__option"
                             value="age"
-                            @selected ($bonEarning->variable === 'age')
+                            @selected($bonEarning->variable === 'age')
                         >
                             {{ __('torrent.age') }} (seconds)
                         </option>
                         <option
                             class="form__option"
                             value="size"
-                            @selected ($bonEarning->variable === 'size')
+                            @selected($bonEarning->variable === 'size')
                         >
                             {{ __('torrent.size') }} (bytes)
                         </option>
                         <option
                             class="form__option"
                             value="seeders"
-                            @selected ($bonEarning->variable === 'seeders')
+                            @selected($bonEarning->variable === 'seeders')
                         >
                             {{ __('torrent.seeders') }}
                         </option>
                         <option
                             class="form__option"
                             value="leechers"
-                            @selected ($bonEarning->variable === 'leechers')
+                            @selected($bonEarning->variable === 'leechers')
                         >
                             {{ __('torrent.leechers') }}
                         </option>
                         <option
                             class="form__option"
                             value="times_completed"
-                            @selected ($bonEarning->variable === 'times_completed')
+                            @selected($bonEarning->variable === 'times_completed')
                         >
                             {{ __('torrent.completed-times') }}
                         </option>
                         <option
                             class="form__option"
                             value="seedtime"
-                            @selected ($bonEarning->variable === 'seedtime')
+                            @selected($bonEarning->variable === 'seedtime')
                         >
                             {{ __('torrent.seedtime') }} (seconds)
                         </option>
                         <option
                             class="form__option"
                             value="personal_release"
-                            @selected ($bonEarning->variable === 'personal_release')
+                            @selected($bonEarning->variable === 'personal_release')
                         >
                             {{ __('torrent.personal-release') }} (1 (true) or 0 (false))
                         </option>
                         <option
                             class="form__option"
                             value="internal"
-                            @selected ($bonEarning->variable === 'internal')
+                            @selected($bonEarning->variable === 'internal')
                         >
                             {{ __('common.internal') }} (1 (true) or 0 (false))
                         </option>
@@ -173,14 +174,14 @@
                         <option
                             class="form__option"
                             value="append"
-                            @selected ($bonEarning->operation === 'append')
+                            @selected($bonEarning->operation === 'append')
                         >
                             Append
                         </option>
                         <option
                             class="form__option"
                             value="multiply"
-                            @selected ($bonEarning->operation === 'multiply')
+                            @selected($bonEarning->operation === 'multiply')
                         >
                             Multiply
                         </option>
@@ -368,9 +369,7 @@
                 </template>
                 <p class="form__group">
                     <button
-                        x-on:click.prevent="
-                            conditions.push({ id: 0, operand1: '', operator: '', operand2: '' })
-                        "
+                        x-on:click.prevent="conditions.push({ id: 0, operand1: '', operator: '', operand2: '' })"
                         class="form__button form__button--outlined"
                     >
                         Add condition
@@ -402,7 +401,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.information') }}</h2>
         <div class="panel__body">

@@ -1,14 +1,14 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('forum.create-new-topic') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('forum.edit-topic') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('forums.index') }}" class="breadcrumb__link">
             {{ __('forum.forums') }}
@@ -30,13 +30,13 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('forum.partials.buttons')
+@section('nav-tabs')
+    @include('forum.partials.buttons')
 @endsection
 
-@section ('page', 'page__topic--edit')
+@section('page', 'page__topic--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('forum.edit-topic') }}</h2>
         <div class="panel__body">
@@ -46,7 +46,7 @@
                 action="{{ route('topics.update', ['id' => $topic->id]) }}"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="forum_name"
@@ -69,7 +69,7 @@
                                 @foreach ($forums as $forum)
                                     <option
                                         value="{{ $forum->id }}"
-                                        @selected ($topic->forum_id === $forum->id)
+                                        @selected($topic->forum_id === $forum->id)
                                     >
                                         {{ $forum->name }}
                                     </option>

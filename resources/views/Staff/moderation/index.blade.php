@@ -1,10 +1,10 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Moderation - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -13,9 +13,9 @@
     <li class="breadcrumb--active">{{ __('staff.torrent-moderation') }}</li>
 @endsection
 
-@section ('page', 'page__staff-moderation--index')
+@section('page', 'page__staff-moderation--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.pending-torrents') }}</h2>
         <div class="data-table-wrapper">
@@ -86,8 +86,8 @@
                                             </button>
                                         </form>
                                     </li>
-                                    @include ('Staff.moderation.partials._postpone-dialog', ['torrent' => $torrent])
-                                    @include ('Staff.moderation.partials._reject-dialog', ['torrent' => $torrent])
+                                    @include('Staff.moderation.partials._postpone-dialog', ['torrent' => $torrent])
+                                    @include('Staff.moderation.partials._reject-dialog', ['torrent' => $torrent])
                                 </menu>
                             </td>
                         </tr>
@@ -194,7 +194,7 @@
                                             {{ __('common.edit') }}
                                         </a>
                                     </li>
-                                    @include ('Staff.moderation.partials._delete-dialog', ['torrent' => $torrent])
+                                    @include('Staff.moderation.partials._delete-dialog', ['torrent' => $torrent])
                                 </menu>
                             </td>
                         </tr>
@@ -290,7 +290,7 @@
                                             </button>
                                         </form>
                                     </li>
-                                    @include ('Staff.moderation.partials._postpone-dialog', ['torrent' => $torrent])
+                                    @include('Staff.moderation.partials._postpone-dialog', ['torrent' => $torrent])
                                     <li class="data-table__action">
                                         <a
                                             href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
@@ -302,7 +302,7 @@
                                             {{ __('common.edit') }}
                                         </a>
                                     </li>
-                                    @include ('Staff.moderation.partials._delete-dialog', ['torrent' => $torrent])
+                                    @include('Staff.moderation.partials._delete-dialog', ['torrent' => $torrent])
                                 </menu>
                             </td>
                         </tr>

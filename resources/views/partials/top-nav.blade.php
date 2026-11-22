@@ -4,7 +4,7 @@
             <img src="{{ url('/favicon.ico') }}" style="height: 35px" />
             <span class="top-nav__site-logo">{{ \config('other.title') }}</span>
         </a>
-        @include ('partials.quick-search-dropdown')
+        @include('partials.quick-search-dropdown')
     </div>
     <ul class="top-nav__main-menus" x-bind:class="expanded && 'mobile'">
         <li class="top-nav--left__list-item top-nav__dropdown">

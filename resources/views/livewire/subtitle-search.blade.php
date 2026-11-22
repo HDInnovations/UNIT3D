@@ -9,31 +9,31 @@
                             <th class="category__icon"></th>
                             <th wire:click="sortBy('title')" role="columnheader button">
                                 {{ __('torrent.torrent') }}
-                                @include ('livewire.includes._sort-icon', ['field' => 'title'])
+                                @include('livewire.includes._sort-icon', ['field' => 'title'])
                             </th>
                             <th wire:click="sortBy('language_id')" role="columnheader button">
                                 {{ __('common.language') }}
-                                @include ('livewire.includes._sort-icon', ['field' => 'language_id'])
+                                @include('livewire.includes._sort-icon', ['field' => 'language_id'])
                             </th>
                             <th wire:click="sortBy('extension')" role="columnheader button">
                                 {{ __('subtitle.extension') }}
-                                @include ('livewire.includes._sort-icon', ['field' => 'extension'])
+                                @include('livewire.includes._sort-icon', ['field' => 'extension'])
                             </th>
                             <th wire:click="sortBy('file_size')" role="columnheader button">
                                 {{ __('subtitle.size') }}
-                                @include ('livewire.includes._sort-icon', ['field' => 'file_size'])
+                                @include('livewire.includes._sort-icon', ['field' => 'file_size'])
                             </th>
                             <th wire:click="sortBy('downloads')" role="columnheader button">
                                 {{ __('subtitle.downloads') }}
-                                @include ('livewire.includes._sort-icon', ['field' => 'downloads'])
+                                @include('livewire.includes._sort-icon', ['field' => 'downloads'])
                             </th>
                             <th wire:click="sortBy('created_at')" role="columnheader button">
                                 {{ __('subtitle.uploaded') }}
-                                @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
                             <th wire:click="sortBy('user_id')" role="columnheader button">
                                 {{ __('subtitle.uploader') }}
-                                @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
+                                @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                             </th>
                             <th>{{ __('common.actions') }}</th>
                         </tr>

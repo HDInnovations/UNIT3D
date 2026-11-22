@@ -1,6 +1,6 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
             {{ __('mediahub.title') }}
@@ -14,13 +14,13 @@
     <li class="breadcrumb--active">{{ $person->name }}</li>
 @endsection
 
-@section ('page', 'page__person--show')
+@section('page', 'page__person--show')
 
-@section ('main')
-    @livewire ('tmdb-person-credit', ['person' => $person])
+@section('main')
+    @livewire('tmdb-person-credit', ['person' => $person])
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $person->name }}</h2>
         <img

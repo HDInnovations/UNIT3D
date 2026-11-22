@@ -1,19 +1,20 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>
-        {{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('common.user') }} {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta
         name="description"
         content="User {{ __('common.edit') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -32,9 +33,9 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__staff-user--edit')
+@section('page', 'page__staff-user--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.account') }}</h2>
         <div class="panel__body">
@@ -44,7 +45,7 @@
                 action="{{ route('staff.users.update', ['user' => $user]) }}"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="username"
@@ -104,7 +105,7 @@
                         {{ __('user.title') }}
                     </label>
                 </p>
-                @livewire ('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about])
+                @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => $user->about])
                 <p class="form__group">
                     <select id="group_id" class="form__select" name="group_id">
                         <option class="form__option" value="{{ $user->group->id }}">
@@ -178,7 +179,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.id-permissions') }}</h2>
         <div class="panel__body">
@@ -189,7 +190,7 @@
                 x-data="overrides"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <p class="form__group">
                     <input type="hidden" name="can_chat" value="0" />
                     <input
@@ -215,7 +216,7 @@
                             name="can_chat"
                             value="1"
                             x-bind:checked="override_can_chat && $el.checked"
-                            @checked ($user->can_chat)
+                            @checked($user->can_chat)
                         />
                         <label for="can_chat">{{ __('user.can-comment') }}?</label>
                     </fieldset>
@@ -245,7 +246,7 @@
                             name="can_comment"
                             value="1"
                             x-bind:checked="override_can_comment && $el.checked"
-                            @checked ($user->can_comment)
+                            @checked($user->can_comment)
                         />
                         <label for="can_comment">{{ __('user.can-comment') }}?</label>
                     </fieldset>
@@ -274,7 +275,7 @@
                             name="can_invite"
                             value="1"
                             x-bind:checked="override_can_invite && $el.checked"
-                            @checked ($user->can_invite)
+                            @checked($user->can_invite)
                         />
                         <label for="can_invite">{{ __('user.can-invite') }}?</label>
                     </fieldset>
@@ -303,7 +304,7 @@
                             name="can_request"
                             value="1"
                             x-bind:checked="override_can_request && $el.checked"
-                            @checked ($user->can_request)
+                            @checked($user->can_request)
                         />
                         <label for="can_request">{{ __('user.can-request') }}?</label>
                     </fieldset>
@@ -332,7 +333,7 @@
                             name="can_upload"
                             value="1"
                             x-bind:checked="override_can_upload && $el.checked"
-                            @checked ($user->can_upload)
+                            @checked($user->can_upload)
                         />
                         <label for="can_upload">{{ __('user.can-upload') }}?</label>
                     </fieldset>
@@ -345,7 +346,7 @@
                         id="is_donor"
                         name="is_donor"
                         value="1"
-                        @checked ($user->is_donor)
+                        @checked($user->is_donor)
                     />
                     <label for="is_donor">Active donor?</label>
                 </p>
@@ -357,7 +358,7 @@
                         id="is_lifetime"
                         name="is_lifetime"
                         value="1"
-                        @checked ($user->is_lifetime)
+                        @checked($user->is_lifetime)
                     />
                     <label for="is_donor">Lifetime donor?</label>
                 </p>

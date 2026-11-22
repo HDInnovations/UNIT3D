@@ -1,10 +1,12 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
-    <title>{{ $user->username }} - {{ __('user.seedboxes') }} - {{ config('other.title') }}</title>
+@section('title')
+    <title>
+        {{ $user->username }} - {{ __('user.seedboxes') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -13,13 +15,13 @@
     <li class="breadcrumb--active">{{ __('user.seedboxes') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('user.buttons.user')
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
-@section ('page', 'page__user-seedbox--index')
+@section('page', 'page__user-seedbox--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.seedboxes') }}</h2>
@@ -102,7 +104,7 @@
                                         x-data="confirmation"
                                     >
                                         @csrf
-                                        @method ('DELETE')
+                                        @method('DELETE')
                                         <button
                                             x-on:click.prevent="confirmAction"
                                             data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this seedbox: ' . $seedbox->name . '?') }}"
@@ -122,7 +124,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>

@@ -1,10 +1,10 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>{{ __('torrent.download-check') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
@@ -18,9 +18,9 @@
     <li class="breadcrumb--active">{{ __('torrent.download-check') }}</li>
 @endsection
 
-@section ('page', 'page__torrent-download-check--show')
+@section('page', 'page__torrent-download-check--show')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
@@ -67,7 +67,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.download-check') }}</h2>
         <div class="panel__body">
@@ -80,7 +80,8 @@
         <dl class="key-value">
             <div class="key-value__group">
                 <dt>
-                    {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }} {{ config('other.ratio') }} :
+                    {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }}
+                    {{ config('other.ratio') }} :
                 </dt>
                 <dd>
                     @if ($user->ratio < config('other.ratio'))

@@ -1,19 +1,20 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>
-        {{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta
         name="description"
         content="{{ __('common.edit') }} forums - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -34,9 +35,9 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__staff-forum--edit')
+@section('page', 'page__staff-forum--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.edit') }} {{ __('forum.forum') }}</h2>
         <div class="panel__body">
@@ -46,7 +47,7 @@
                 action="{{ route('staff.forums.update', ['forum' => $forum]) }}"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
@@ -80,8 +81,8 @@
                         name="forum[description]"
                         class="form__textarea"
                         required
-                        >{{ $forum->description }}</textarea
                     >
+{{ $forum->description }}</textarea>
                     <label class="form__label form__label--floating" for="description">
                         Description
                     </label>
@@ -95,7 +96,7 @@
                         @foreach ($categories as $category)
                             <option
                                 value="{{ $category->id }}"
-                                @selected ($category->id === $forum->category->id)
+                                @selected($category->id === $forum->category->id)
                             >
                                 {{ $category->name }}
                             </option>
@@ -114,13 +115,13 @@
                         <option default selected value="">None</option>
                         <option
                             value="open"
-                            @selected ($forum->default_topic_state_filter === 'open')
+                            @selected($forum->default_topic_state_filter === 'open')
                         >
                             {{ __('forum.open') }}
                         </option>
                         <option
                             value="close"
-                            @selected ($forum->default_topic_state_filter === 'close')
+                            @selected($forum->default_topic_state_filter === 'close')
                         >
                             {{ __('forum.closed') }}
                         </option>
@@ -135,7 +136,10 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
+                        <table
+                            class="data-table data-table--checkbox-grid"
+                            x-data="checkboxGrid"
+                        >
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Groups</th>
@@ -165,7 +169,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $loop->index }}][read_topic]"
                                                 value="1"
-                                                @checked ($forum->permissions->where('group_id', '=', $group->id)->first()?->read_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->read_topic)
                                             />
                                         </td>
                                         <td>
@@ -178,7 +182,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $loop->index }}][start_topic]"
                                                 value="1"
-                                                @checked ($forum->permissions->where('group_id', '=', $group->id)->first()?->start_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->start_topic)
                                             />
                                         </td>
                                         <td>
@@ -191,7 +195,7 @@
                                                 type="checkbox"
                                                 name="permissions[{{ $loop->index }}][reply_topic]"
                                                 value="1"
-                                                @checked ($forum->permissions->where('group_id', '=', $group->id)->first()?->reply_topic)
+                                                @checked($forum->permissions->where('group_id', '=', $group->id)->first()?->reply_topic)
                                             />
                                         </td>
                                     </tr>

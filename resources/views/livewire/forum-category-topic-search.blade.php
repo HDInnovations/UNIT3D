@@ -23,7 +23,7 @@
             <div class="panel__body">
                 <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
                     @csrf
-                    @method ('PUT')
+                    @method('PUT')
                     <input type="hidden" name="catchup_type" value="all" />
                     <p class="form__group form__group--horizontal">
                         <button

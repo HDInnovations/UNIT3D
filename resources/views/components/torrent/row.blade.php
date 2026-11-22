@@ -1,11 +1,11 @@
-@props ([
+@props([
     'torrent',
     'meta',
     'personalFreeleech',
 ])
 
 <tr
-    @class ([
+    @class([
         'torrent-search--list__row' => auth()->user()->settings->show_poster,
         'torrent-search--list__no-poster-row' => ! auth()->user()->settings->show_poster,
         'torrent-search--list__sticky-row' => $torrent->sticky,
@@ -45,7 +45,7 @@
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"
                     />
-                    @include ('torrent.partials.meta-popup', ['meta' => $meta])
+                    @include('torrent.partials.meta-popup', ['meta' => $meta])
                 @endif
 
                 @if ($torrent->category->game_meta)
@@ -97,7 +97,7 @@
                         title="{{ $torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                         alt="{{ $torrent->category->name }}"
                         loading="lazy"
-                        @style ([
+                        @style([
                             'height: 32px',
                             'padding-top: 1px' => $torrent->category->movie_meta || $torrent->category->tv_meta,
                             'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta),
@@ -106,7 +106,7 @@
                 @else
                     <i
                         class="{{ $torrent->category->icon }} category__icon"
-                        @style ([
+                        @style([
                             'font-size: 24px',
                             'padding-top: 1px' => $torrent->category->movie_meta || $torrent->category->tv_meta,
                             'padding-top: 12px' => ! ($torrent->category->movie_meta || $torrent->category->tv_meta),
@@ -121,7 +121,7 @@
                     </span>
                 @endif
 
-                <span class="torrent-search--list__type"> {{ $torrent->type->name }} </span>
+                <span class="torrent-search--list__type">{{ $torrent->type->name }}</span>
             </div>
         </div>
     </td>
@@ -138,7 +138,7 @@
                 :user="$torrent->user"
                 :anon="$torrent->anon"
             />
-            @include ('components.partials._torrent-icons')
+            @include('components.partials._torrent-icons')
         </div>
     </td>
     <td class="torrent-search--list__buttons">
@@ -210,7 +210,7 @@
         <span>{{ $torrent->getSize() }}</span>
     </td>
     <td
-        @class ([
+        @class([
             'torrent-search--list__seeders',
             'torrent-activity-indicator--seeding' => $torrent->seeding,
         ])
@@ -223,7 +223,7 @@
         </a>
     </td>
     <td
-        @class ([
+        @class([
             'torrent-search--list__leechers',
             'torrent-activity-indicator--leeching' => $torrent->leeching,
         ])
@@ -236,7 +236,7 @@
         </a>
     </td>
     <td
-        @class ([
+        @class([
             'torrent-search--list__completed',
             'torrent-activity-indicator--completed' => $torrent->completed,
         ])

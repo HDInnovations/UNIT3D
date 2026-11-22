@@ -8,7 +8,8 @@
     </button>
     <dialog id="torrent-postpone-{{ $torrent->id }}" class="dialog" popover>
         <h4 class="dialog__heading">
-            {{ __('common.moderation-postpone') }} {{ __('torrent.torrent') }}: {{ $torrent->name }}
+            {{ __('common.moderation-postpone') }} {{ __('torrent.torrent') }}:
+            {{ $torrent->name }}
         </h4>
         <form
             class="dialog__form"
@@ -25,12 +26,8 @@
                 value="{{ \App\Enums\ModerationStatus::POSTPONED }}"
             />
             <p class="form__group">
-                <textarea
-                    class="form__textarea"
-                    name="message"
-                    id="message"
-                    >{{ old('message') }}</textarea
-                >
+                <textarea class="form__textarea" name="message" id="message">
+{{ old('message') }}</textarea>
                 <label class="form__label form__label--floating" for="message">
                     Postpone message
                 </label>

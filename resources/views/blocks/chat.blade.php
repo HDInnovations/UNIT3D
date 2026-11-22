@@ -35,7 +35,9 @@
                         @click.prevent="changeBot(state.chat.bot.id)"
                     >
                         <i class="fa fa-robot"></i>
-                        <span x-text="state.chat && state.chat.bot && state.chat.bot.name"></span>
+                        <span
+                            x-text="state.chat && state.chat.bot && state.chat.bot.name"
+                        ></span>
                     </button>
                 </div>
                 <div
@@ -144,9 +146,9 @@
                     <span
                         x-text="
                             (conversation.room && conversation.room.name) ||
-                            (conversation.target && conversation.target.username) ||
-                            (conversation.bot && conversation.bot.name) ||
-                            ''
+                                (conversation.target && conversation.target.username) ||
+                                (conversation.bot && conversation.bot.name) ||
+                                ''
                         "
                     ></span>
                     <button
@@ -192,22 +194,13 @@
                                                 :title="message[1].user.group.name"
                                             >
                                                 <span
-                                                    x-show="
-                                                        message[1].user && message[1].user.id > 1
-                                                    "
+                                                    x-show="message[1].user && message[1].user.id > 1"
                                                     style="padding-right: 5px"
                                                     x-text="message[1].user.username || 'Unknown'"
                                                 ></span>
                                                 <span
-                                                    x-show="
-                                                        message[1].bot &&
-                                                        message[1].bot.id >= 1 &&
-                                                        (!message[1].user || message[1].user.id < 2)
-                                                    "
-                                                    x-text="
-                                                        (message[1].bot && message[1].bot.name) ||
-                                                        'Unknown'
-                                                    "
+                                                    x-show="message[1].bot && message[1].bot.id >= 1 && (! message[1].user || message[1].user.id < 2)"
+                                                    x-text="(message[1].bot && message[1].bot.name) || 'Unknown'"
                                                 ></span>
                                                 <template x-if="message[1].user.icon">
                                                     <i>
@@ -237,11 +230,7 @@
                                             </a>
                                         </address>
                                         <div
-                                            x-show="
-                                                message[1].bot &&
-                                                message[1].bot.id >= 1 &&
-                                                (!message[1].user || message[1].user.id < 2)
-                                            "
+                                            x-show="message[1].bot && message[1].bot.id >= 1 && (! message[1].user || message[1].user.id < 2)"
                                             class="bbcode-rendered bot-message"
                                             style="
                                                 font-style: italic;
@@ -251,11 +240,7 @@
                                             x-effect="renderMessage(message[1].message)"
                                         ></div>
                                         <time
-                                            x-show="
-                                                message[1].bot &&
-                                                message[1].bot.id >= 1 &&
-                                                (!message[1].user || message[1].user.id < 2)
-                                            "
+                                            x-show="message[1].bot && message[1].bot.id >= 1 && (! message[1].user || message[1].user.id < 2)"
                                             style="
                                                 margin-left: 10px;
                                                 white-space: nowrap;
@@ -267,13 +252,7 @@
                                             x-text="formatTime(message[1].created_at)"
                                         ></time>
                                         <time
-                                            x-show="
-                                                !(
-                                                    message[1].bot &&
-                                                    message[1].bot.id >= 1 &&
-                                                    (!message[1].user || message[1].user.id < 2)
-                                                )
-                                            "
+                                            x-show="! (message[1].bot && message[1].bot.id >= 1 && (! message[1].user || message[1].user.id < 2))"
                                             class="chatbox-message__time"
                                             :datetime="message[1].created_at"
                                             :title="message[1].created_at"
@@ -285,11 +264,7 @@
                                             <i
                                                 class="fa fa-bell"
                                                 title="System notification"
-                                                x-show="
-                                                    message[1].bot &&
-                                                    message[1].bot.id >= 1 &&
-                                                    (!message[1].user || message[1].user.id < 2)
-                                                "
+                                                x-show="message[1].bot && message[1].bot.id >= 1 && (! message[1].user || message[1].user.id < 2)"
                                             ></i>
                                             <a
                                                 x-show="message[1].user && message[1].user.id != 1"
@@ -314,17 +289,11 @@
                                         </figure>
                                     </aside>
                                     <section
-                                        @class ([
+                                        @class([
                                             'bbcode-rendered',
                                             'chatbox-message__content',
                                         ])
-                                        x-show="
-                                            !(
-                                                message[1].bot &&
-                                                message[1].bot.id >= 1 &&
-                                                (!message[1].user || message[1].user.id < 2)
-                                            )
-                                        "
+                                        x-show="! (message[1].bot && message[1].bot.id >= 1 && (! message[1].user || message[1].user.id < 2))"
                                         x-effect="renderMessage(message[1].message)"
                                     ></section>
                                     <!-- Move menu back to original position after timestamp -->
@@ -400,12 +369,7 @@
             </section>
             <section class="chatroom__whispers" x-show="state.chat.showWhispers">
                 <span
-                    x-show="
-                        state.chat.target < 1 &&
-                        state.chat.bot < 1 &&
-                        activePeer &&
-                        activePeer.size > 0
-                    "
+                    x-show="state.chat.target < 1 && state.chat.bot < 1 && activePeer && activePeer.size > 0"
                     x-text="whispers"
                 ></span>
             </section>

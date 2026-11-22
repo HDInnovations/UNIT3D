@@ -1,20 +1,20 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Wikis - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ config('other.title') }} - Wikis" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">Wikis</li>
 @endsection
 
-@section ('page', 'page__wiki--index')
+@section('page', 'page__wiki--index')
 
-@section ('main')
+@section('main')
     @foreach ($wiki_categories as $category)
         <section class="panelV2">
             <h2 class="panel__heading">{{ $category->name }}</h2>

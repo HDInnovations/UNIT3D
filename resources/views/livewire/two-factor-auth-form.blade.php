@@ -59,7 +59,7 @@
                             wire:keydown.enter="confirmTwoFactorAuthentication"
                         />
 
-                        @error ('code')
+                        @error('code')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

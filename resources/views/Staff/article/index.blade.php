@@ -1,10 +1,10 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Articles - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -13,9 +13,9 @@
     <li class="breadcrumb--active">{{ __('staff.articles') }}</li>
 @endsection
 
-@section ('page', 'page__staff-article--index')
+@section('page', 'page__staff-article--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('staff.articles') }}</h2>
@@ -85,7 +85,7 @@
                                         x-data="confirmation"
                                     >
                                         @csrf
-                                        @method ('DELETE')
+                                        @method('DELETE')
                                         <button
                                             x-on:click.prevent="confirmAction"
                                             class="form__button form__button--text"

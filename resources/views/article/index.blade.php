@@ -1,20 +1,20 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('articles.articles') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('articles.meta-articles') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('articles.articles') }}</li>
 @endsection
 
-@section ('page', 'page__article--index')
+@section('page', 'page__article--index')
 
-@section ('main')
+@section('main')
     @foreach ($articles as $article)
         <article class="article-preview">
             <header class="article-preview__header">
@@ -40,7 +40,7 @@
                 />
             </header>
             <p class="article-preview__content">
-                @joypixels (preg_replace('#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150))
+                @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150))
             </p>
             <a
                 href="{{ route('articles.show', ['article' => $article]) }}"

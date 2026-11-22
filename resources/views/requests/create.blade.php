@@ -1,10 +1,10 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>{{ __('request.add-request') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('requests.index') }}" class="breadcrumb__link">
             {{ __('request.requests') }}
@@ -13,9 +13,9 @@
     <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section ('page', 'page__request--create')
+@section('page', 'page__request--create')
 
-@section ('main')
+@section('main')
     @if ($user->can_request ?? $user->group->can_request)
         <section class="panelV2" x-data="requestCreate">
             <h2 class="panel__heading">{{ __('request.add-request') }}</h2>
@@ -49,7 +49,7 @@
                                 <option
                                     class="form__option"
                                     value="{{ $id }}"
-                                    @selected ((old('category_id') ?: $category_id) == $id)
+                                    @selected((old('category_id') ?: $category_id) == $id)
                                 >
                                     {{ $category['name'] }}
                                 </option>
@@ -65,7 +65,7 @@
                             @foreach ($types as $type)
                                 <option
                                     value="{{ $type->id }}"
-                                    @selected (old('type_id') == $type->id)
+                                    @selected(old('type_id') == $type->id)
                                 >
                                     {{ $type->name }}
                                 </option>
@@ -81,7 +81,7 @@
                             @foreach ($resolutions as $resolution)
                                 <option
                                     value="{{ $resolution->id }}"
-                                    @selected (old('resolution_id') == $resolution->id)
+                                    @selected(old('resolution_id') == $resolution->id)
                                 >
                                     {{ $resolution->name }}
                                 </option>
@@ -145,7 +145,7 @@
                                     id="movie_exists_on_tmdb"
                                     name="movie_exists_on_tmdb"
                                     value="1"
-                                    @checked (old('movie_exists_on_tmdb', true))
+                                    @checked(old('movie_exists_on_tmdb', true))
                                     x-model="tmdb_movie_exists"
                                 />
                                 <label class="form__label" for="movie_exists_on_tmdb">
@@ -188,7 +188,7 @@
                                     id="tv_exists_on_tmdb"
                                     name="tv_exists_on_tmdb"
                                     value="1"
-                                    @checked (old('tv_exists_on_tmdb', true))
+                                    @checked(old('tv_exists_on_tmdb', true))
                                     x-model="tmdb_tv_exists"
                                 />
                                 <label class="form__label" for="tv_exists_on_tmdb">
@@ -225,7 +225,7 @@
                                     id="title_exists_on_imdb"
                                     name="title_exists_on_imdb"
                                     value="1"
-                                    @checked (old('title_exists_on_imdb', true))
+                                    @checked(old('title_exists_on_imdb', true))
                                     x-model="imdb_title_exists"
                                 />
                                 <label class="form__label" for="title_exists_on_imdb">
@@ -247,10 +247,7 @@
                                             ? {{ Js::from(old('imdb', $imdb)) }}
                                             : ''
                                     "
-                                    x-bind:required="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
-                                        imdb_title_exists
-                                    "
+                                    x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
                                 />
                                 <label class="form__label form__label--floating" for="autoimdb">
                                     IMDB ID
@@ -266,7 +263,7 @@
                                     id="tv_exists_on_tvdb"
                                     name="tv_exists_on_tvdb"
                                     value="1"
-                                    @checked (old('tv_exists_on_tvdb', true))
+                                    @checked(old('tv_exists_on_tvdb', true))
                                     x-model="tvdb_tv_exists"
                                 />
                                 <label class="form__label" for="tv_exists_on_tvdb">
@@ -303,7 +300,7 @@
                                     id="anime_exists_on_mal"
                                     name="anime_exists_on_mal"
                                     value="1"
-                                    @checked (old('anime_exists_on_mal', true))
+                                    @checked(old('anime_exists_on_mal', true))
                                     x-model="mal_anime_exists"
                                 />
                                 <label class="form__label" for="anime_exists_on_mal">
@@ -325,10 +322,7 @@
                                             ? {{ Js::from(old('mal', $mal)) }}
                                             : ''
                                     "
-                                    x-bind:required="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
-                                        mal_anime_exists
-                                    "
+                                    x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
                                 />
                                 <label class="form__label form__label--floating" for="automal">
                                     MAL ID ({{ __('torrent.required-anime') }})
@@ -344,7 +338,7 @@
                                     id="game_exists_on_igdb"
                                     name="game_exists_on_igdb"
                                     value="1"
-                                    @checked (old('game_exists_on_igdb', true))
+                                    @checked(old('game_exists_on_igdb', true))
                                     x-model="igdb_game_exists"
                                 />
                                 <label class="form__label" for="game_exists_on_igdb">
@@ -369,7 +363,7 @@
                             </p>
                         </div>
                     </div>
-                    @livewire ('bbcode-input', [
+                    @livewire('bbcode-input', [
                         'name' => 'description',
                         'label' => __('request.description'),
                         'required' => true
@@ -396,7 +390,7 @@
                             id="anon"
                             name="anon"
                             value="1"
-                            @checked (old('anon'))
+                            @checked(old('anon'))
                         />
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
@@ -434,7 +428,7 @@
 @endsection
 
 @if ($user->can_request ?? $user->group->can_request)
-    @section ('sidebar')
+    @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.info') }}</h2>
             <div class="panel__body">{{ __('request.no-imdb-id') }}</div>

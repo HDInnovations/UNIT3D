@@ -70,19 +70,19 @@
                     <th>{{ __('common.no') }}</th>
                     <th wire:click="sortBy('username')" role="columnheader button">
                         {{ __('common.username') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'username'])
+                        @include('livewire.includes._sort-icon', ['field' => 'username'])
                     </th>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
                         {{ __('user.user-id') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                     </th>
                     <th wire:click="sortBy('ip_address')" role="columnheader button">
                         {{ __('common.ip') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'ip_address'])
+                        @include('livewire.includes._sort-icon', ['field' => 'ip_address'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('common.created_at') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                 </tr>
                 @forelse ($failedLogins as $failedLogin)
@@ -117,7 +117,7 @@
     {{ $failedLogins->links('partials.pagination') }}
 </section>
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">Top 10 failed logins by IP</h2>
         <div class="data-table-wrapper">

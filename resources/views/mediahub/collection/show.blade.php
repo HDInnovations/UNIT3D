@@ -1,14 +1,14 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ $collection->name }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ $collection->name }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
             {{ __('mediahub.title') }}
@@ -22,9 +22,9 @@
     <li class="breadcrumb--active">{{ $collection->name }}</li>
 @endsection
 
-@section ('page', 'page__collection--show')
+@section('page', 'page__collection--show')
 
-@section ('main')
+@section('main')
     <section class="meta">
         @if ($collection?->backdrop)
             <img

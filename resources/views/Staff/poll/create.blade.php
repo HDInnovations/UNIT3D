@@ -1,10 +1,10 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Polls - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -18,9 +18,9 @@
     <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section ('page', 'page__staff-poll--create')
+@section('page', 'page__staff-poll--create')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('poll.create-poll') }}</h2>
         <div class="panel__body">

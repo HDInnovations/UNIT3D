@@ -21,7 +21,7 @@
                     role="columnheader button"
                 >
                     {{ __('torrent.name') }}
-                    @include ('livewire.includes._sort-icon', ['field' => 'torrents.name'])
+                    @include('livewire.includes._sort-icon', ['field' => 'torrents.name'])
                 </th>
                 <th
                     class="user-bookmarks__size-header"
@@ -29,7 +29,7 @@
                     role="columnheader button"
                 >
                     {{ __('torrent.size') }}
-                    @include ('livewire.includes._sort-icon', ['field' => 'torrents.size'])
+                    @include('livewire.includes._sort-icon', ['field' => 'torrents.size'])
                 </th>
                 <th
                     class="user-bookmarks__seeders-header"
@@ -38,7 +38,7 @@
                     title="{{ __('torrent.seeders') }}"
                 >
                     <i class="fas fa-arrow-alt-circle-up"></i>
-                    @include ('livewire.includes._sort-icon', ['field' => 'torrents.seeders'])
+                    @include('livewire.includes._sort-icon', ['field' => 'torrents.seeders'])
                 </th>
                 <th
                     class="user-bookmarks__leechers-header"
@@ -47,7 +47,7 @@
                     title="{{ __('torrent.leechers') }}"
                 >
                     <i class="fas fa-arrow-alt-circle-down"></i>
-                    @include ('livewire.includes._sort-icon', ['field' => 'torrents.leechers'])
+                    @include('livewire.includes._sort-icon', ['field' => 'torrents.leechers'])
                 </th>
                 <th
                     class="user-bookmarks__times-completed-header"
@@ -56,7 +56,7 @@
                     title="{{ __('torrent.completed') }}"
                 >
                     <i class="fas fa-check-circle"></i>
-                    @include ('livewire.includes._sort-icon', ['field' => 'torrents.times_completed'])
+                    @include('livewire.includes._sort-icon', ['field' => 'torrents.times_completed'])
                 </th>
                 <th
                     class="user-bookmarks__created-at-header"
@@ -64,7 +64,7 @@
                     role="columnheader button"
                 >
                     Uploaded at
-                    @include ('livewire.includes._sort-icon', ['field' => 'torrents.created_at'])
+                    @include('livewire.includes._sort-icon', ['field' => 'torrents.created_at'])
                 </th>
                 <th
                     class="user-bookmarks__created-at-header"
@@ -72,7 +72,7 @@
                     role="columnheader button"
                 >
                     Bookmarked at
-                    @include ('livewire.includes._sort-icon', ['field' => 'bookmarks.created_at'])
+                    @include('livewire.includes._sort-icon', ['field' => 'bookmarks.created_at'])
                 </th>
                 <th class="user-bookmarks__actions-header">{{ __('common.actions') }}</th>
             </thead>
@@ -80,7 +80,9 @@
                 @foreach ($bookmarks as $bookmark)
                     <tr>
                         <td class="user-bookmarks__name">
-                            <a href="{{ route('torrents.show', ['id' => $bookmark->torrent_id]) }}">
+                            <a
+                                href="{{ route('torrents.show', ['id' => $bookmark->torrent_id]) }}"
+                            >
                                 {{ $bookmark->name }}
                             </a>
                         </td>
@@ -88,7 +90,7 @@
                             {{ App\Helpers\StringHelper::formatBytes($bookmark->size) }}
                         </td>
                         <td
-                            @class ([
+                            @class([
                                 'user-bookmarks__seeders',
                                 'torrent-activity-indicator--seeding' => $bookmark->seeding,
                             ])
@@ -104,7 +106,7 @@
                             </a>
                         </td>
                         <td
-                            @class ([
+                            @class([
                                 'user-bookmarks__leechers',
                                 'torrent-activity-indicator--leeching' => $bookmark->leeching,
                             ])
@@ -120,7 +122,7 @@
                             </a>
                         </td>
                         <td
-                            @class ([
+                            @class([
                                 'user-bookmarks__times_completed',
                                 'torrent-activity-indicator--completed' => $bookmark->completed,
                             ])

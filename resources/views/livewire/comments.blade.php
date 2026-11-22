@@ -16,13 +16,13 @@
                     x-on:focus="toggleOn"
                 ></textarea>
                 <label for="new-comment__textarea" class="form__label form__label--floating">
-                    @error ('newCommentState')
+                    @error('newCommentState')
                         <strong>{{ __('common.error') }}:</strong>
                     @enderror
 
                     Add a comment...
                 </label>
-                @error ('newCommentState')
+                @error('newCommentState')
                     <span class="form__hint" id="new-comment__textarea-hint">{{ $message }}</span>
                 @enderror
             </p>
@@ -32,7 +32,11 @@
             </p>
             <p class="form__group" x-show="isToggledOn" x-cloak>
                 <button type="submit" class="form__button form__button--filled">Comment</button>
-                <button type="reset" class="form__button form__button--text" x-on:click="toggleOff">
+                <button
+                    type="reset"
+                    class="form__button form__button--text"
+                    x-on:click="toggleOff"
+                >
                     {{ __('common.cancel') }}
                 </button>
             </p>

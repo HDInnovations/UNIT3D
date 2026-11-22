@@ -590,9 +590,7 @@
                                                     @if ($user->group->is_modo)
                                                         <td
                                                             class="similar-torrents__checkbox"
-                                                            x-on:click.self="
-                                                                $el.firstElementChild.click()
-                                                            "
+                                                            x-on:click.self="$el.firstElementChild.click()"
                                                         >
                                                             <input
                                                                 type="checkbox"
@@ -602,7 +600,7 @@
                                                         </td>
                                                     @endif
 
-                                                    @include ('components.partials._torrent-group-row')
+                                                    @include('components.partials._torrent-group-row')
                                                 </tr>
                                             @endforeach
                                         @endforeach
@@ -647,9 +645,7 @@
                                                             @if ($user->group->is_modo)
                                                                 <td
                                                                     class="similar-torrents__checkbox"
-                                                                    x-on:click.self="
-                                                                        $el.firstElementChild.click()
-                                                                    "
+                                                                    x-on:click.self="$el.firstElementChild.click()"
                                                                 >
                                                                     <input
                                                                         type="checkbox"
@@ -659,7 +655,7 @@
                                                                 </td>
                                                             @endif
 
-                                                            @include ('components.partials._torrent-group-row')
+                                                            @include('components.partials._torrent-group-row')
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -698,9 +694,7 @@
                                                         @if ($user->group->is_modo)
                                                             <td
                                                                 class="similar-torrents__checkbox"
-                                                                x-on:click.self="
-                                                                    $el.firstElementChild.click()
-                                                                "
+                                                                x-on:click.self="$el.firstElementChild.click()"
                                                             >
                                                                 <input
                                                                     type="checkbox"
@@ -710,7 +704,7 @@
                                                             </td>
                                                         @endif
 
-                                                        @include ('components.partials._torrent-group-row')
+                                                        @include('components.partials._torrent-group-row')
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -741,9 +735,7 @@
                                                             @if ($user->group->is_modo)
                                                                 <td
                                                                     class="similar-torrents__checkbox"
-                                                                    x-on:click.self="
-                                                                        $el.firstElementChild.click()
-                                                                    "
+                                                                    x-on:click.self="$el.firstElementChild.click()"
                                                                 >
                                                                     <input
                                                                         type="checkbox"
@@ -753,7 +745,7 @@
                                                                 </td>
                                                             @endif
 
-                                                            @include ('components.partials._torrent-group-row')
+                                                            @include('components.partials._torrent-group-row')
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -789,9 +781,7 @@
                                                             @if ($user->group->is_modo)
                                                                 <td
                                                                     class="similar-torrents__checkbox"
-                                                                    x-on:click.self="
-                                                                        $el.firstElementChild.click()
-                                                                    "
+                                                                    x-on:click.self="$el.firstElementChild.click()"
                                                                 >
                                                                     <input
                                                                         type="checkbox"
@@ -801,7 +791,7 @@
                                                                 </td>
                                                             @endif
 
-                                                            @include ('components.partials._torrent-group-row')
+                                                            @include('components.partials._torrent-group-row')
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -891,7 +881,7 @@
                                             </td>
                                         @endif
 
-                                        @include ('components.partials._torrent-group-row')
+                                        @include('components.partials._torrent-group-row')
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -976,7 +966,7 @@
                                             </td>
                                         @endif
 
-                                        @include ('components.partials._torrent-group-row')
+                                        @include('components.partials._torrent-group-row')
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -1056,24 +1046,27 @@
                                     </time>
                                 </td>
                                 <td>
-                                    @switch (true)
-                                        @case ($torrentRequest->claim_exists && $torrentRequest->torrent_id === null)
+                                    @switch(true)
+                                        @case($torrentRequest->claim_exists && $torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-blue"></i>
                                             {{ __('request.claimed') }}
+
                                             @break
-                                        @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
+                                        @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
                                             <i class="fas fa-circle text-purple"></i>
                                             {{ __('request.pending') }}
+
                                             @break
-                                        @case ($torrentRequest->torrent_id === null)
+                                        @case($torrentRequest->torrent_id === null)
                                             <i class="fas fa-circle text-red"></i>
                                             {{ __('request.unfilled') }}
+
                                             @break
                                         @default
                                             <i class="fas fa-circle text-green"></i>
                                             {{ __('request.filled') }}
-                                            @break
 
+                                            @break
                                     @endswitch
                                 </td>
                             </tr>
@@ -1156,7 +1149,7 @@
     </div>
 </div>
 
-@section ('javascripts')
+@section('javascripts')
     @if ($user->group->is_modo)
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
             window.addEventListener('swal:modal', (event) => {

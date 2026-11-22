@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,9 +9,9 @@
     <li class="breadcrumb--active">Torrent distributors</li>
 @endsection
 
-@section ('page', 'page__staff-distributor--index')
+@section('page', 'page__staff-distributor--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Torrent distributors</h2>

@@ -1,15 +1,15 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('ticket.helpdesk') }}</li>
 @endsection
 
-@section ('page', 'page__ticket--index')
+@section('page', 'page__ticket--index')
 
-@section ('main')
-    @livewire ('ticket-search')
+@section('main')
+    @livewire('ticket-search')
 @endsection

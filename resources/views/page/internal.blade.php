@@ -1,12 +1,12 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('common.internal') }}</li>
 @endsection
 
-@section ('page', 'page__internal--index')
+@section('page', 'page__internal--index')
 
-@section ('main')
+@section('main')
     <!-- Internals in Groups -->
     @foreach ($internals as $internal)
         <section class="panelV2">

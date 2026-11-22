@@ -45,7 +45,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.name') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'name'])
+                        @include('livewire.includes._sort-icon', ['field' => 'name'])
                     </th>
                     <th
                         class="user-resurrections__size-header"
@@ -53,7 +53,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.size') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'size'])
+                        @include('livewire.includes._sort-icon', ['field' => 'size'])
                     </th>
                     <th
                         class="user-resurrections__seeders-header"
@@ -62,7 +62,7 @@
                         title="{{ __('torrent.seeders') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-up"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'seeders'])
+                        @include('livewire.includes._sort-icon', ['field' => 'seeders'])
                     </th>
                     <th
                         class="user-resurrections__leechers-header"
@@ -71,7 +71,7 @@
                         title="{{ __('torrent.leechers') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-down"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'leechers'])
+                        @include('livewire.includes._sort-icon', ['field' => 'leechers'])
                     </th>
                     <th
                         class="user-resurrections__times-completed-header"
@@ -80,7 +80,7 @@
                         title="{{ __('torrent.completed') }}"
                     >
                         <i class="fas fa-check-circle"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                        @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
                     </th>
                     <th
                         class="user-resurrections__created-at-header"
@@ -88,7 +88,7 @@
                         role="columnheader button"
                     >
                         {{ __('graveyard.resurrect-date') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th class="user-resurrections__current-seedtime-header">
                         {{ __('graveyard.current-seedtime') }}
@@ -99,7 +99,7 @@
                         role="columnheader button"
                     >
                         {{ __('graveyard.seedtime-goal') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'seedtime'])
+                        @include('livewire.includes._sort-icon', ['field' => 'seedtime'])
                     </th>
                     <th
                         class="user-resurrections__rewarded-header"
@@ -107,7 +107,7 @@
                         role="columnheader button"
                     >
                         {{ __('graveyard.rewarded') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'rewarded'])
+                        @include('livewire.includes._sort-icon', ['field' => 'rewarded'])
                     </th>
                     <th class="user-resurrections__actions-header">{{ __('common.actions') }}</th>
                 </thead>
@@ -125,7 +125,7 @@
                                 {{ App\Helpers\StringHelper::formatBytes($resurrection->torrent->size) }}
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-resurrections__seeders',
                                     'torrent-activity-indicator--seeding' => $resurrection->seeding,
                                 ])
@@ -141,7 +141,7 @@
                                 </a>
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-resurrections__leechers',
                                     'torrent-activity-indicator--leeching' => $resurrection->leeching,
                                 ])
@@ -157,7 +157,7 @@
                                 </a>
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-resurrections__times_completed',
                                     'torrent-activity-indicator--completed' => $resurrection->completed,
                                 ])
@@ -209,7 +209,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method ('DELETE')
+                                            @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to cancel this resurrection: ' . $resurrection->torrent->name . '?') }}"

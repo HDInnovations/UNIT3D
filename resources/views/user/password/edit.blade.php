@@ -1,12 +1,13 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -23,13 +24,13 @@
     <li class="breadcrumb--active">{{ __('common.password') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('user.buttons.user')
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
-@section ('page', 'page__user-password--edit')
+@section('page', 'page__user-password--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.change-password') }}</h2>
         <div class="panel__body">
@@ -39,9 +40,12 @@
                 method="POST"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <p>{{ __('user.change-password-help') }}.</p>
-                <p>We strongly recommend you use a password manager (such as the free version of Bitwarden) to generate a secure random password</p>
+                <p>
+                    We strongly recommend you use a password manager (such as the free version of
+                    Bitwarden) to generate a secure random password
+                </p>
                 @if (auth()->id() == $user->id)
                     <p class="form__group">
                         <input
@@ -70,7 +74,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.password-resets') }}</h2>
         <div class="data-table-wrapper">

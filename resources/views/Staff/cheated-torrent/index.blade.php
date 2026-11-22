@@ -1,16 +1,16 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>
         Cheated torrents - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Cheated torrents - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -19,9 +19,9 @@
     <li class="breadcrumb--active">Cheated torrents</li>
 @endsection
 
-@section ('page', 'page__staff-cheated-torrent--index')
+@section('page', 'page__staff-cheated-torrent--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Cheated torrents</h2>
@@ -33,7 +33,7 @@
                     x-data="confirmation"
                 >
                     @csrf
-                    @method ('DELETE')
+                    @method('DELETE')
                     <button
                         x-on:click.prevent="confirmAction"
                         data-b64-deletion-message="{{ base64_encode('Are you sure you want to reset all torrent balances? This will allow you to start tracking cheated torrents from scratch, but you will no longer have data for previous cheated torrents.') }}"
@@ -120,7 +120,7 @@
                                             method="POST"
                                         >
                                             @csrf
-                                            @method ('DELETE')
+                                            @method('DELETE')
                                             <button class="form__button form__button--text">
                                                 Reset balance
                                             </button>

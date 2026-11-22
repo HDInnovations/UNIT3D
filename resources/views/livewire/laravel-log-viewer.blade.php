@@ -1,14 +1,14 @@
-@section ('title')
+@section('title')
     <title>
         Laravel log viewer - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Laravel log viewer - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -17,7 +17,7 @@
     <li class="breadcrumb--active">Laravel log viewer</li>
 @endsection
 
-@section ('page', 'page__staff-laravel-log--index')
+@section('page', 'page__staff-laravel-log--index')
 
 <div
     style="
@@ -64,26 +64,30 @@
                         <tr x-on:click="toggle" style="cursor: pointer">
                             <td>{{ $groupedEntry[0]['date'] }}</td>
                             <td>
-                                @switch ($groupedEntry[0]['level'])
-                                    @case ('CRITICAL')
+                                @switch($groupedEntry[0]['level'])
+                                    @case('CRITICAL')
                                         <span class="text-danger">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
+
                                         @break
-                                    @case ('ERROR')
+                                    @case('ERROR')
                                         <span class="text-warning">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
+
                                         @break
-                                    @case ('INFO')
+                                    @case('INFO')
                                         <span class="text-info">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
+
                                         @break
-                                    @case ('WARNING')
+                                    @case('WARNING')
                                         <span class="text-info">
                                             {{ $groupedEntry[0]['level'] }}
                                         </span>
+
                                         @break
                                     @default
                                         {{ $groupedEntry[0]['level'] }}
@@ -113,11 +117,7 @@
                                                 <td>
                                                     <button
                                                         class="form__button form__button--text"
-                                                        x-on:click.stop="
-                                                            navigator.clipboard.writeText(
-                                                                $refs.stacktrace.textContent,
-                                                            )
-                                                        "
+                                                        x-on:click.stop="navigator.clipboard.writeText($refs.stacktrace.textContent)"
                                                     >
                                                         Copy
                                                     </button>

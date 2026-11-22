@@ -37,19 +37,19 @@
                 <tr>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
                         Watching
-                        @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                     </th>
                     <th wire:click="sortBy('staff_id')" role="columnheader button">
                         Watched by
-                        @include ('livewire.includes._sort-icon', ['field' => 'staff_id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
                     </th>
                     <th wire:click="sortBy('message')" role="columnheader button">
                         Message
-                        @include ('livewire.includes._sort-icon', ['field' => 'message'])
+                        @include('livewire.includes._sort-icon', ['field' => 'message'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         Created at
-                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th>{{ __('common.action') }}</th>
                 </tr>
@@ -79,7 +79,7 @@
                                         x-data="confirmation"
                                     >
                                         @csrf
-                                        @method ('DELETE')
+                                        @method('DELETE')
                                         <button
                                             x-on:click.prevent="confirmAction"
                                             data-b64-deletion-message="{{ base64_encode('Are you sure you want to unwatch this user: ' . $watching->user->username . '?') }}"

@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -15,9 +15,9 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__staff-distributor--edit')
+@section('page', 'page__staff-distributor--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.edit') }} torrent distributor: {{ $distributor->name }}
@@ -28,7 +28,7 @@
                 method="POST"
                 action="{{ route('staff.distributors.update', ['distributor' => $distributor]) }}"
             >
-                @method ('PATCH')
+                @method('PATCH')
                 @csrf
                 <p class="form__group">
                     <input

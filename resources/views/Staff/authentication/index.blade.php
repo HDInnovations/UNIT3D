@@ -1,16 +1,16 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>
         Failed login log - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Invites log - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -19,8 +19,8 @@
     <li class="breadcrumb--active">{{ __('staff.failed-login-log') }}</li>
 @endsection
 
-@section ('page', 'page__staff-failed-logins--index')
+@section('page', 'page__staff-failed-logins--index')
 
-@section ('main')
-    @livewire ('failed-login-search')
+@section('main')
+    @livewire('failed-login-search')
 @endsection

@@ -1,16 +1,16 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>
         {{ $article->title }} - {{ __('articles.articles') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}..." />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('articles.index') }}" class="breadcrumb__link">
             {{ __('articles.articles') }}
@@ -19,9 +19,9 @@
     <li class="breadcrumb--active">{{ $article->title }}</li>
 @endsection
 
-@section ('page', 'page__article--show')
+@section('page', 'page__article--show')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h1 class="panel__heading">{{ $article->title }}</h1>
@@ -36,7 +36,7 @@
             </div>
         </header>
         <div class="panel__body bbcode-rendered">
-            @bbcode ($article->content)
+            @bbcode($article->content)
         </div>
     </section>
     <livewire:comments :model="$article" />

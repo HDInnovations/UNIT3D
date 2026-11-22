@@ -1,10 +1,10 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ $user->username }} - {{ __('user.invites') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -13,13 +13,13 @@
     <li class="breadcrumb--active">{{ __('user.invites') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('user.buttons.user')
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
-@section ('page', 'page__user-invite--index')
+@section('page', 'page__user-invite--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.invites') }}</h2>
@@ -117,7 +117,7 @@
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to resend the email to: ' . $invite->email . '?') }}"
                                                 class="form__button form__button--text"
-                                                @disabled ($invite->accepted_at !== null || $invite->expires_on < now())
+                                                @disabled($invite->accepted_at !== null || $invite->expires_on < now())
                                             >
                                                 {{ __('common.resend') }}
                                             </button>
@@ -130,12 +130,12 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method ('DELETE')
+                                            @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to retract the invite to: ' . $invite->email . '?') }}"
                                                 class="form__button form__button--text"
-                                                @disabled ($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
+                                                @disabled($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
                                             >
                                                 {{ __('common.delete') }}
                                             </button>

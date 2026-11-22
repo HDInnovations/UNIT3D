@@ -1,14 +1,16 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
-    <title>{{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}</title>
+@section('title')
+    <title>
+        {{ __('torrent.history') }} - {{ $torrent->name }} - {{ config('other.title') }}
+    </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('torrent.history') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
@@ -22,7 +24,7 @@
     <li class="breadcrumb--active">{{ __('torrent.history') }}</li>
 @endsection
 
-@section ('nav-tabs')
+@section('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('peers', ['id' => $torrent]) }}">
             {{ __('torrent.peers') }}
@@ -45,18 +47,22 @@
     @endif
 @endsection
 
-@section ('page', 'page__torrent-history--index')
+@section('page', 'page__torrent-history--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
-            <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.history') }}</h2>
+            <h2 class="panel__heading">
+                {{ __('torrent.torrent') }} {{ __('torrent.history') }}
+            </h2>
             <div class="panel__actions">
                 <div class="panel__action">
-                    Total up: {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_uploaded'), 2) }}
+                    Total up:
+                    {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_uploaded'), 2) }}
                 </div>
                 <div class="panel__action">
-                    Total down: {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_downloaded'), 2) }}
+                    Total down:
+                    {{ App\Helpers\StringHelper::formatBytes($histories->sum('actual_downloaded'), 2) }}
                 </div>
             </div>
         </header>

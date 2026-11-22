@@ -1,12 +1,13 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -23,13 +24,13 @@
     <li class="breadcrumb--active">{{ __('user.apikeys') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('user.buttons.user')
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
-@section ('page', 'page__user-apikey--index')
+@section('page', 'page__user-apikey--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Active {{ __('user.apikeys') }}</h2>
@@ -75,7 +76,9 @@
                             </p>
                             <fieldset class="form form__fieldset">
                                 <legend>Scopes</legend>
-                                <p class="form__group">Do not grant more permissions than necessary.</p>
+                                <p class="form__group">
+                                    Do not grant more permissions than necessary.
+                                </p>
                                 <p class="form__group">
                                     <input type="hidden" name="can_search" value="0" />
                                     <input
@@ -144,10 +147,18 @@
                         </form>
                     </dialog>
                     @if (Session::has('apikey'))
-                        <dialog class="dialog" popover x-data="newApikey" x-init="$el.showModal()">
+                        <dialog
+                            class="dialog"
+                            popover
+                            x-data="newApikey"
+                            x-init="$el.showModal()"
+                        >
                             <h3 class="dialog__heading">New key</h3>
                             <div class="dialog__form">
-                                <p>Your new API key has been generated. This is the only time the full key will be visible.</p>
+                                <p>
+                                    Your new API key has been generated. This is the only time the
+                                    full key will be visible.
+                                </p>
                                 <pre><code style="overflow-wrap: break-word" x-ref="apikey">{{ Session::get('apikey') }}</code></pre>
                                 <p class="form__group">
                                     <button
@@ -246,7 +257,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method ('DELETE')
+                                            @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this apikey: ' . $apikey->name) }}"
@@ -335,7 +346,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">

@@ -1,14 +1,14 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>Application - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Application - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -22,9 +22,9 @@
     <li class="breadcrumb--active">{{ $application->id }}</li>
 @endsection
 
-@section ('page', 'page__staff-application--show')
+@section('page', 'page__staff-application--show')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.image') }}</h2>
         <div class="panel__body">
@@ -45,7 +45,7 @@
             <ul>
                 @foreach ($application->urlProofs as $url_proof)
                     <li>
-                        <a href="{{ $url_proof->url }}" target="_blank"> {{ $url_proof->url }} </a>
+                        <a href="{{ $url_proof->url }}" target="_blank">{{ $url_proof->url }}</a>
                     </li>
                 @endforeach
             </ul>
@@ -57,7 +57,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
@@ -83,15 +83,18 @@
             <div class="key-value__group">
                 <dt>{{ __('common.status') }}</dt>
                 <dd>
-                    @switch ($application->status)
-                        @case (\App\Enums\ModerationStatus::PENDING)
+                    @switch($application->status)
+                        @case(\App\Enums\ModerationStatus::PENDING)
                             <span class="application--pending">Pending</span>
+
                             @break
-                        @case (\App\Enums\ModerationStatus::APPROVED)
+                        @case(\App\Enums\ModerationStatus::APPROVED)
                             <span class="application--approved">Approved</span>
+
                             @break
-                        @case (\App\Enums\ModerationStatus::REJECTED)
+                        @case(\App\Enums\ModerationStatus::REJECTED)
                             <span class="application--rejected">Rejected</span>
+
                             @break
                         @default
                             <span class="application--unknown">Unknown</span>
@@ -121,7 +124,8 @@
                     </p>
                     <dialog id="application-show" class="dialog" popover>
                         <h3 class="dialog__heading">
-                            {{ __('request.approve') }} {{ __('common.this') }} {{ __('staff.application') }}
+                            {{ __('request.approve') }} {{ __('common.this') }}
+                            {{ __('staff.application') }}
                         </h3>
                         <form
                             class="dialog__form"
@@ -142,8 +146,7 @@
                                     name="approve"
                                     placeholder=" "
                                 >
-Application approved!</textarea
-                                >
+Application approved!</textarea>
                                 <label class="form__label form__label--floating" for="approve">
                                     Invitation message
                                 </label>
@@ -175,7 +178,8 @@ Application approved!</textarea
                     </p>
                     <dialog id="application-reject" class="dialog" popover>
                         <h3 class="dialog__heading">
-                            {{ __('request.reject') }} {{ __('common.this') }} {{ __('staff.application') }}
+                            {{ __('request.reject') }} {{ __('common.this') }}
+                            {{ __('staff.application') }}
                         </h3>
                         <form
                             class="dialog__form"
@@ -191,8 +195,7 @@ Application approved!</textarea
                             />
                             <p class="form__group">
                                 <textarea id="message" class="form__textarea" name="deny" required>
-Insufficient proofs.</textarea
-                                >
+Insufficient proofs.</textarea>
                                 <label class="form__label form__label--floating" for="message">
                                     Rejection message
                                 </label>

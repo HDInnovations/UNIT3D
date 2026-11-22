@@ -1,20 +1,20 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('common.pending-torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('common.pending-torrents') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('common.pending-torrents') }}</li>
 @endsection
 
-@section ('page', 'page__torrent-pending--index')
+@section('page', 'page__torrent-pending--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.pending-torrents') }}</h2>
         <div class="data-table-wrapper">
@@ -40,16 +40,18 @@
                             <td>{{ $torrent->getSize() }}</td>
                             <td>{{ $torrent->created_at->diffForHumans() }}</td>
                             <td>
-                                @switch ($torrent->status)
-                                    @case (\App\Enums\ModerationStatus::PENDING)
+                                @switch($torrent->status)
+                                    @case(\App\Enums\ModerationStatus::PENDING)
                                         <span class="torrent--pending">
                                             {{ __('torrent.pending') }}
                                         </span>
+
                                         @break
-                                    @case (\App\Enums\ModerationStatus::POSTPONED)
+                                    @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span class="torrent--postponed">
                                             {{ __('torrent.postponed') }}
                                         </span>
+
                                         @break
                                     @default
                                         <span class="torrent--rejected">

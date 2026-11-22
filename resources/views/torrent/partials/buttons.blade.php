@@ -84,7 +84,7 @@
 
     @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED && config('other.thanks-system.is-enabled'))
         <li class="form__group form__group--short-horizontal">
-            @livewire ('thank-button', ['torrent' => $torrent])
+            @livewire('thank-button', ['torrent' => $torrent])
         </li>
     @endif
 
@@ -227,7 +227,7 @@
                         </span>
                     @endif
 
-                    @each ('torrent.partials.file-tree-node', $fileTree, 'node')
+                    @each('torrent.partials.file-tree-node', $fileTree, 'node')
                 </div>
                 <div class="data-table-wrapper" x-bind="tabPanel" data-tab="list">
                     <table class="data-table">
@@ -265,7 +265,7 @@
     </li>
     @if ($torrent->status === \App\Enums\ModerationStatus::APPROVED)
         <li class="form__group form__group--short-horizontal">
-            @livewire ('bookmark-button', [
+            @livewire('bookmark-button', [
             'torrent' => $torrent,
             'isBookmarked' => $torrent->bookmarks_exists,
             'user' => auth()->user(),
@@ -402,7 +402,8 @@
             </button>
             <dialog id="torrent-report" class="dialog" popover>
                 <h4 class="dialog__heading">
-                    {{ __('common.report') }} {{ strtolower(__('torrent.torrent')) }}: {{ $torrent->name }}
+                    {{ __('common.report') }} {{ strtolower(__('torrent.torrent')) }}:
+                    {{ $torrent->name }}
                 </h4>
                 <form class="dialog__form" method="POST" action="{{ route('reports.store') }}">
                     @csrf
@@ -490,7 +491,7 @@
                     style="display: inline"
                 >
                     @csrf
-                    @method ('DELETE')
+                    @method('DELETE')
                     <button class="form__button form__button--outlined form__button--centered">
                         <i class="{{ config('other.font-awesome') }} fa-skull-crossbones"></i>
                         Unmark trumpable

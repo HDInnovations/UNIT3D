@@ -1,6 +1,6 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('upload_contests.index') }}" class="breadcrumb__link">
             {{ __('common.upload') }} {{ __('common.contests') }}
@@ -9,9 +9,9 @@
     <li class="breadcrumb--active">{{ $uploadContest->name }}</li>
 @endsection
 
-@section ('page', 'page__upload-contest--show')
+@section('page', 'page__upload-contest--show')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $uploadContest->name }}</h2>
         <div class="data-table-wrapper">
@@ -21,7 +21,9 @@
                         <tr>
                             <th>#</th>
                             <th>{{ __('common.user') }}</th>
-                            <th>{{ __('torrent.uploaded') }} (Non-{{ __('common.anonymous') }})</th>
+                            <th>
+                                {{ __('torrent.uploaded') }} (Non-{{ __('common.anonymous') }})
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +46,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">

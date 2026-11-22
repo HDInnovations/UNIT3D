@@ -1,12 +1,12 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('common.blacklist') }}</li>
 @endsection
 
-@section ('page', 'page__blacklist--index')
+@section('page', 'page__blacklist--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('page.blacklist-clients') }}</h2>
         <div class="data-table-wrapper">
@@ -28,7 +28,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">

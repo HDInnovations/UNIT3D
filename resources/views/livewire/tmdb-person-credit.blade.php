@@ -84,14 +84,15 @@
     </menu>
     <div class="panel__body">
         @forelse ($medias as $media)
-            @switch ($media->meta)
-                @case ('movie')
+            @switch($media->meta)
+                @case('movie')
                     <x-movie.card :media="$media" :personalFreeleech="$personalFreeleech" />
-                    @break
-                @case ('tv')
-                    <x-tv.card :media="$media" :personalFreeleech="$personalFreeleech" />
-                    @break
 
+                    @break
+                @case('tv')
+                    <x-tv.card :media="$media" :personalFreeleech="$personalFreeleech" />
+
+                    @break
             @endswitch
         @empty
             No media

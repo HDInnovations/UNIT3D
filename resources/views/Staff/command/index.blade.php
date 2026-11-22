@@ -1,14 +1,14 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Commands - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Commands - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -17,9 +17,9 @@
     <li class="breadcrumb--active">Commands</li>
 @endsection
 
-@section ('page', 'page__staff-command--index')
+@section('page', 'page__staff-command--index')
 
-@section ('main')
+@section('main')
     <div
         style="
             display: grid;
@@ -88,7 +88,10 @@
                     </form>
                 </div>
                 <div class="form__group form__group--horizontal">
-                    <form method="POST" action="{{ url('/dashboard/commands/clear-route-cache') }}">
+                    <form
+                        method="POST"
+                        action="{{ url('/dashboard/commands/clear-route-cache') }}"
+                    >
                         @csrf
                         <button
                             class="form__button form__button--text"

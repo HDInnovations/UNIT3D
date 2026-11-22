@@ -8,7 +8,8 @@
         href="{{ $tmdb ? route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdb]) : '#' }}"
     >
         <h1 class="meta__title">
-            {{ $meta->title ?? 'No meta found' }} ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})
+            {{ $meta->title ?? 'No meta found' }}
+            ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})
         </h1>
     </a>
     <a
@@ -85,7 +86,7 @@
                         method="post"
                     >
                         @csrf
-                        @method ('PATCH')
+                        @method('PATCH')
 
                         <button
                             @if (cache()->has('tmdb-movie-scraper:' . ($meta?->id ?? $torrent->tmdb_movie_id)))
@@ -133,7 +134,7 @@
         </li>
         @if ($meta?->trailer)
             <li class="work__trailer show-trailer">
-                <a class="work__trailer-link" href="#"> {{ __('torrent.view-trailer') }} </a>
+                <a class="work__trailer-link" href="#">{{ __('torrent.view-trailer') }}</a>
             </li>
         @endif
     </ul>
@@ -334,15 +335,18 @@
                                                 class="{{ config('other.font-awesome') }} fa-film meta-chip__icon"
                                             ></i>
                                         @endif
+
                                         @if ($movie->is($meta))
                                             <h3 class="meta-chip__value">
                                                 <strong>
-                                                    {{ $movie->title }} ({{ $movie->release_date?->format('Y') }})
+                                                    {{ $movie->title }}
+                                                    ({{ $movie->release_date?->format('Y') }})
                                                 </strong>
                                             </h3>
                                         @else
                                             <h3 class="meta-chip__value">
-                                                {{ $movie->title }} ({{ $movie->release_date?->format('Y') }})
+                                                {{ $movie->title }}
+                                                ({{ $movie->release_date?->format('Y') }})
                                             </h3>
                                         @endif
                                     </a>

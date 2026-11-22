@@ -1,18 +1,18 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('torrent.torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('torrent.torrents') }} {{ config('other.title') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('torrent.torrents') }}</li>
 @endsection
 
-@section ('nav-tabs')
+@section('nav-tabs')
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('torrents.index') }}">
             {{ __('torrent.search') }}
@@ -24,7 +24,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}"> {{ __('rss.rss') }} </a>
+        <a class="nav-tab__link" href="{{ route('rss.index') }}">{{ __('rss.rss') }}</a>
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.create') }}">
@@ -33,8 +33,8 @@
     </li>
 @endsection
 
-@section ('page', 'page__torrent--index')
+@section('page', 'page__torrent--index')
 
-@section ('main')
-    @livewire ('torrent-search')
+@section('main')
+    @livewire('torrent-search')
 @endsection

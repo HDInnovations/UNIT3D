@@ -1,23 +1,23 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>{{ __('common.contact') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('common.contact') }} {{ config('other.title') }}." />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('about') }}" class="breadcrumb__link"> {{ __('common.about') }} </a>
+        <a href="{{ route('about') }}" class="breadcrumb__link">{{ __('common.about') }}</a>
     </li>
     <li class="breadcrumb--active">{{ __('common.contact') }}</li>
 @endsection
 
-@section ('page', 'page__contact')
+@section('page', 'page__contact')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.contact') }}</h2>
         <div class="panel__body">
@@ -73,7 +73,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.contact-header') }}</h2>
         <div class="panel__body">{{ __('common.contact-desc') }}</div>

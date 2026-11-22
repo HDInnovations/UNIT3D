@@ -1,10 +1,10 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Polls - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -18,9 +18,9 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__staff-poll--edit')
+@section('page', 'page__staff-poll--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('poll.edit-poll') }}: {{ $poll->title }}</h2>
         <div class="panel__body">
@@ -31,7 +31,7 @@
                 x-data="extraOptions"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="title"
@@ -73,7 +73,10 @@
                             x-bind:value="option['name']"
                             required
                         />
-                        <label class="form__label form__label--floating" x-bind:for="'option' + i">
+                        <label
+                            class="form__label form__label--floating"
+                            x-bind:for="'option' + i"
+                        >
                             {{ __('poll.option') }}
                         </label>
                     </p>
@@ -101,7 +104,7 @@
                         type="checkbox"
                         name="multiple_choice"
                         value="1"
-                        @checked ($poll->multiple_choice)
+                        @checked($poll->multiple_choice)
                     />
                     <label class="form__label" for="multiple_choice">
                         {{ __('poll.multiple-choice') }}

@@ -60,35 +60,35 @@
                 <tr>
                     <th wire:click="sortBy('id')" role="columnheader button">
                         #
-                        @include ('livewire.includes._sort-icon', ['field' => 'id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'id'])
                     </th>
                     <th wire:click="sortBy('subject')" role="columnheader button">
                         {{ __('ticket.subject') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'subject'])
+                        @include('livewire.includes._sort-icon', ['field' => 'subject'])
                     </th>
                     <th wire:click="sortBy('priority_id')" role="columnheader button">
                         {{ __('ticket.priority') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'priority_id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'priority_id'])
                     </th>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
                         {{ __('common.username') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
                     </th>
                     <th wire:click="sortBy('staff_id')" role="columnheader button">
                         {{ __('ticket.assigned-staff') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'staff_id'])
+                        @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('ticket.created') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th wire:click="sortBy('updated_at')" role="columnheader button">
                         {{ __('torrent.updated') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
                     </th>
                     <th wire:click="sortBy('closed_at')" role="columnheader button">
                         {{ __('ticket.closed') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'closed_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'closed_at'])
                     </th>
                     <th>{{ __('common.action') }}</th>
                 </tr>

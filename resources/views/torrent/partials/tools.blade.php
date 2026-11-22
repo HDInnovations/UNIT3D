@@ -32,7 +32,9 @@
                                     href="{{ route('torrents.edit', ['id' => $torrent->id]) }}"
                                     role="button"
                                 >
-                                    <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-pencil-alt"
+                                    ></i>
                                     {{ __('common.edit') }}
                                 </a>
                             </li>
@@ -57,7 +59,7 @@
                                         action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
                                     >
                                         @csrf
-                                        @method ('DELETE')
+                                        @method('DELETE')
                                         <input
                                             id="type"
                                             name="type"
@@ -143,19 +145,19 @@
                                             name="freeleech"
                                             class="form__select"
                                         >
-                                            <option value="0" @selected ($torrent->free === 0)>
+                                            <option value="0" @selected($torrent->free === 0)>
                                                 No
                                             </option>
-                                            <option value="25" @selected ($torrent->free === 25)>
+                                            <option value="25" @selected($torrent->free === 25)>
                                                 25%
                                             </option>
-                                            <option value="50" @selected ($torrent->free === 50)>
+                                            <option value="50" @selected($torrent->free === 50)>
                                                 50%
                                             </option>
-                                            <option value="75" @selected ($torrent->free === 75)>
+                                            <option value="75" @selected($torrent->free === 75)>
                                                 75%
                                             </option>
-                                            <option value="100" @selected ($torrent->free === 100)>
+                                            <option value="100" @selected($torrent->free === 100)>
                                                 100%
                                             </option>
                                         </select>
@@ -538,18 +540,21 @@
                     @endif
 
                     <li>
-                        @switch ($torrent->status)
-                            @case (\App\Enums\ModerationStatus::APPROVED)
+                        @switch($torrent->status)
+                            @case(\App\Enums\ModerationStatus::APPROVED)
                                 Approved by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
+
                                 @break
-                            @case (\App\Enums\ModerationStatus::POSTPONED)
+                            @case(\App\Enums\ModerationStatus::POSTPONED)
                                 Postponed by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
+
                                 @break
-                            @case (\App\Enums\ModerationStatus::REJECTED)
+                            @case(\App\Enums\ModerationStatus::REJECTED)
                                 Rejected by:
                                 <x-user-tag :user="$torrent->moderated" :anon="false" />
+
                                 @break
                             @default
                                 Unmoderated

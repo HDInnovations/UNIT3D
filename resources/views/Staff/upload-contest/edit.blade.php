@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -15,9 +15,9 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__staff-upload-contest--edit')
+@section('page', 'page__staff-upload-contest--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.edit') }} {{ __('common.contest') }}</h2>
         <form
@@ -26,7 +26,7 @@
             action="{{ route('staff.upload_contests.update', ['uploadContest' => $uploadContest]) }}"
         >
             @csrf
-            @method ('PATCH')
+            @method('PATCH')
             <p class="form__group">
                 <input
                     id="name"
@@ -42,13 +42,8 @@
                 </label>
             </p>
             <p class="form__group">
-                <textarea
-                    id="description"
-                    class="form__textarea"
-                    name="description"
-                    required
-                    >{{ $uploadContest->description }}</textarea
-                >
+                <textarea id="description" class="form__textarea" name="description" required>
+{{ $uploadContest->description }}</textarea>
                 <label class="form__label form__label--floating" for="description">
                     {{ __('common.description') }}
                 </label>
@@ -103,7 +98,7 @@
                     id="active"
                     name="active"
                     value="1"
-                    @checked ($uploadContest->active)
+                    @checked($uploadContest->active)
                 />
                 <label class="form__label" for="active">{{ __('common.active') }}?</label>
             </p>
@@ -206,14 +201,15 @@
                         <tr>
                             <td>{{ $prize->position }}</td>
                             <td>
-                                @switch ($prize->type)
-                                    @case ('bon')
+                                @switch($prize->type)
+                                    @case('bon')
                                         {{ __('bon.bon') }}
-                                        @break
-                                    @case ('fl_tokens')
-                                        {{ __('common.fl_tokens') }}
-                                        @break
 
+                                        @break
+                                    @case('fl_tokens')
+                                        {{ __('common.fl_tokens') }}
+
+                                        @break
                                 @endswitch
                             </td>
                             <td>{{ $prize->amount }}</td>
@@ -240,7 +236,7 @@
                                                 action="{{ route('staff.upload_contests.prizes.update', ['uploadContest' => $uploadContest, 'prize' => $prize]) }}"
                                             >
                                                 @csrf
-                                                @method ('PATCH')
+                                                @method('PATCH')
                                                 <input
                                                     type="hidden"
                                                     name="contest_id"
@@ -255,13 +251,13 @@
                                                     >
                                                         <option
                                                             value="bon"
-                                                            @selected ($uploadContest->type === 'bon')
+                                                            @selected($uploadContest->type === 'bon')
                                                         >
                                                             {{ __('bon.bon') }}
                                                         </option>
                                                         <option
                                                             value="fl_tokens"
-                                                            @selected ($uploadContest->type === 'fl_tokens')
+                                                            @selected($uploadContest->type === 'fl_tokens')
                                                         >
                                                             {{ __('common.fl_tokens') }}
                                                         </option>
@@ -335,7 +331,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method ('DELETE')
+                                            @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 class="form__button form__button--text"

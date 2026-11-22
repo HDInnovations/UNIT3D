@@ -1,14 +1,14 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>Forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Forums - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -17,9 +17,9 @@
     <li class="breadcrumb--active">{{ __('staff.forums') }}</li>
 @endsection
 
-@section ('page', 'page__staff-forum-category--index')
+@section('page', 'page__staff-forum-category--index')
 
-@section ('main')
+@section('main')
     @foreach ($categories as $category)
         <section class="panelV2">
             <header class="panel__header">
@@ -48,7 +48,7 @@
                         x-data="confirmation"
                     >
                         @csrf
-                        @method ('DELETE')
+                        @method('DELETE')
                         <button
                             class="form__button form__button--text"
                             x-on:click.prevent="confirmAction"
@@ -73,7 +73,9 @@
                             <tr>
                                 <td>{{ $forum->position }}</td>
                                 <td>
-                                    <a href="{{ route('staff.forums.edit', ['forum' => $forum]) }}">
+                                    <a
+                                        href="{{ route('staff.forums.edit', ['forum' => $forum]) }}"
+                                    >
                                         {{ $forum->name }}
                                     </a>
                                 </td>
@@ -94,7 +96,7 @@
                                                 x-data="confirmation"
                                             >
                                                 @csrf
-                                                @method ('DELETE')
+                                                @method('DELETE')
                                                 <button
                                                     x-on:click.prevent="confirmAction"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this forum (' . $forum->name . ') including all topics and posts within?') }}"
@@ -115,7 +117,7 @@
     @endforeach
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">

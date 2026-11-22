@@ -1,14 +1,14 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('torrent.peers') }} - {{ $torrent->name }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('torrent.peers') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
@@ -22,7 +22,7 @@
     <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
 @endsection
 
-@section ('nav-tabs')
+@section('nav-tabs')
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('peers', ['id' => $torrent]) }}">
             {{ __('torrent.peers') }}
@@ -45,9 +45,9 @@
     @endif
 @endsection
 
-@section ('page', 'page__torrent-peer--index')
+@section('page', 'page__torrent-peer--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.torrent') }} {{ __('torrent.peers') }}</h2>
         <div class="data-table-wrapper">
@@ -113,7 +113,7 @@
                                 @endphp
 
                                 <td class="{{ $connectable ? 'text-green' : 'text-red' }}">
-                                    @choice ('user.client-connectable-state', $connectable)
+                                    @choice('user.client-connectable-state', $connectable)
                                 </td>
                             @endif
 
@@ -143,7 +143,7 @@
                                         {{ __('torrent.leecher') }}
                                     @endif
                                 @else
-                                    Inactive
+                                        Inactive
                                 @endif
                             </td>
                             <td class="{{ $peer->visible ? 'text-green' : 'text-red' }}">

@@ -23,7 +23,7 @@
             <div class="panel__body">
                 <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
                     @csrf
-                    @method ('PUT')
+                    @method('PUT')
                     <input type="hidden" name="catchup_type" value="all" />
                     <p class="form__group form__group--horizontal">
                         <button
@@ -65,7 +65,9 @@
                             @foreach ($forumCategories as $category)
                                 <optgroup label="{{ $category->name }}">
                                     @foreach ($category->forums as $forum)
-                                        <option value="{{ $forum->id }}">{{ $forum->name }}</option>
+                                        <option value="{{ $forum->id }}">
+                                            {{ $forum->name }}
+                                        </option>
                                     @endforeach
                                 </optgroup>
                             @endforeach

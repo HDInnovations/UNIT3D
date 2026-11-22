@@ -1,9 +1,9 @@
-@props ([
+@props([
     'topic',
 ])
 
 <article
-    @class ([
+    @class([
         'topic-listing',
         'topic-listing--read' => $topic->reads->first()?->last_read_post_id === $topic->last_post_id,
         'topic-listing--unread' => $topic->reads->first()?->last_read_post_id !== $topic->last_post_id,

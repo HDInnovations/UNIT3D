@@ -37,7 +37,8 @@
                                 datetime="{{ $audit->created_at }}"
                                 title="{{ $audit->created_at }}"
                             >
-                                {{ $audit->created_at }} ({{ $audit->created_at->diffForHumans() }})
+                                {{ $audit->created_at }}
+                                ({{ $audit->created_at->diffForHumans() }})
                             </time>
                         </td>
                         <td>

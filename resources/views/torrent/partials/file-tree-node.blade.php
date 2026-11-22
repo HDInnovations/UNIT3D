@@ -1,6 +1,6 @@
 <details style="margin-left: 20px">
     <summary
-        @style ([
+        @style([
             'padding: 8px;',
             'list-style-position: outside',
             'cursor: pointer' => $node['type'] === 'directory',
@@ -25,6 +25,6 @@
         </span>
     </summary>
     @if ($node['type'] === 'directory')
-        @each ('torrent.partials.file-tree-node', $node['children'], 'node')
+        @each('torrent.partials.file-tree-node', $node['children'], 'node')
     @endif
 </details>

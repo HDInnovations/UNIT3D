@@ -1,12 +1,12 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link"> {{ __('stat.stats') }} </a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link">{{ __('stat.stats') }}</a>
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('yearly_overviews.index') }}" class="breadcrumb__link">
@@ -15,9 +15,9 @@
     </li>
 @endsection
 
-@section ('page', 'page__yearly-overview--index')
+@section('page', 'page__yearly-overview--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">Yearly overviews</h2>
         <div class="panel__body">

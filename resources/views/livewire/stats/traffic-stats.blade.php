@@ -30,7 +30,9 @@
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('stat.total-download') }}</dt>
-                        <dd>{{ \App\Helpers\StringHelper::formatBytes($credited_download, 2) }}</dd>
+                        <dd>
+                            {{ \App\Helpers\StringHelper::formatBytes($credited_download, 2) }}
+                        </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>{{ __('stat.total-traffic') }}</dt>

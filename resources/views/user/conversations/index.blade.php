@@ -1,6 +1,6 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a
             href="{{ route('users.conversations.index', ['user' => $user]) }}"
@@ -12,13 +12,13 @@
     <li class="breadcrumb--active">{{ __('pm.inbox') }}</li>
 @endsection
 
-@section ('page', 'page__user-conversation--index')
+@section('page', 'page__user-conversation--index')
 
-@section ('main')
-    @livewire ('conversation-search')
+@section('main')
+    @livewire('conversation-search')
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
@@ -36,7 +36,7 @@
             >
                 <p class="form__group form__group--horizontal">
                     @csrf
-                    @method ('PATCH')
+                    @method('PATCH')
                     <button class="form__button form__button--filled form__button--centered">
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
                         {{ __('pm.mark-all-read') }}
@@ -49,7 +49,7 @@
                 x-data="confirmation"
             >
                 @csrf
-                @method ('DELETE')
+                @method('DELETE')
                 <p class="form__group form__group--horizontal">
                     <button
                         x-on:click.prevent="confirmAction"

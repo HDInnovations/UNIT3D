@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -12,9 +12,9 @@
     <li class="breadcrumb--active">Edit package</li>
 @endsection
 
-@section ('page', 'page__staff-donation-package--edit')
+@section('page', 'page__staff-donation-package--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Edit: {{ $package->name }}</h2>
@@ -26,7 +26,7 @@
                 action="{{ route('staff.packages.update', ['package' => $package]) }}"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
@@ -66,12 +66,8 @@
                                     />
                                 </td>
                                 <td>
-                                    <textarea
-                                        name="description"
-                                        required
-                                        class="form__textarea"
-                                        >{{ $package->description }}</textarea
-                                    >
+                                    <textarea name="description" required class="form__textarea">
+{{ $package->description }}</textarea>
                                 </td>
 
                                 <td>
@@ -133,7 +129,7 @@
                                         name="is_active"
                                         type="checkbox"
                                         value="1"
-                                        @checked ($package->is_active)
+                                        @checked($package->is_active)
                                     />
                                 </td>
                             </tr>

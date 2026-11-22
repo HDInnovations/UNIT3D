@@ -64,7 +64,7 @@
                 @endif
                 <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
                     @csrf
-                    @method ('PUT')
+                    @method('PUT')
                     <input type="hidden" name="catchup_type" value="forum" />
                     <input type="hidden" name="forum_id" value="{{ $forum->id }}" />
                     <p class="form__group form__group--horizontal">

@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -15,9 +15,9 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__staff-page--edit')
+@section('page', 'page__staff-page--edit')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.edit') }} {{ __('staff.page') }}: {{ $page->name }}
@@ -29,7 +29,7 @@
                 action="{{ route('staff.pages.update', ['page' => $page]) }}"
             >
                 @csrf
-                @method ('PATCH')
+                @method('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
@@ -43,7 +43,7 @@
                         {{ __('common.name') }}
                     </label>
                 </p>
-                @livewire ('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $page->content])
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true, 'content' => $page->content])
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}

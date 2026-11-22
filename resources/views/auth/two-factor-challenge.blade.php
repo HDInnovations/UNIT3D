@@ -1,10 +1,10 @@
-@extends ('layout.guest')
+@extends('layout.guest')
 
-@section ('title')
+@section('title')
     <title>{{ __('Two Factor Authentication') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('content')
+@section('content')
     <section class="auth-form" x-data="twoFactor">
         <header class="auth-form__header">
             <button class="auth-form__header-item" x-bind="totpTab">
@@ -44,7 +44,7 @@
                 @endif
             </ul>
             <p class="auth-form__text-input-group" x-show="tab === 'totp'">
-                <label class="auth-form__label" for="code"> {{ __('auth.code') }} </label>
+                <label class="auth-form__label" for="code">{{ __('auth.code') }}</label>
                 <input
                     id="code"
                     class="auth-form__text-input"

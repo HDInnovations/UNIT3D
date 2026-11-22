@@ -1,14 +1,14 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>Reports - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Reports - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -22,9 +22,9 @@
     <li class="breadcrumb--active">{{ __('common.report') }} details</li>
 @endsection
 
-@section ('page', 'page__staff-report--show')
+@section('page', 'page__staff-report--show')
 
-@section ('main')
+@section('main')
     @if ($report->torrent)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
@@ -71,7 +71,10 @@
                 </h2>
                 <div class="panel__actions">
                     <div class="panel__action">
-                        <time datetime="{{ $reply->created_at }}" title="{{ $reply->created_at }}">
+                        <time
+                            datetime="{{ $reply->created_at }}"
+                            title="{{ $reply->created_at }}"
+                        >
                             {{ $reply->created_at?->diffForHumans() }}
                         </time>
                     </div>
@@ -110,7 +113,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
@@ -145,7 +148,10 @@
                 <div class="key-value__group">
                     <dt>{{ __('ticket.closed') }}</dt>
                     <dd>
-                        <time datetime="{{ $report->solved_at }}" title="{{ $report->solved_at }}">
+                        <time
+                            datetime="{{ $report->solved_at }}"
+                            title="{{ $report->solved_at }}"
+                        >
                             {{ $report->solved_at?->format('Y-m-d') }}
                         </time>
                     </dd>
@@ -175,7 +181,7 @@
                             @foreach ($staff as $staffUser)
                                 <option
                                     value="{{ $staffUser->id }}"
-                                    @selected ($staffUser->id === $report->staff_id)
+                                    @selected($staffUser->id === $report->staff_id)
                                 >
                                     {{ $staffUser->username }}
                                 </option>
@@ -193,7 +199,7 @@
                         method="POST"
                     >
                         @csrf
-                        @method ('DELETE')
+                        @method('DELETE')
                         <p class="form__group form__group--horizontal">
                             <button
                                 class="form__button form__button--filled form__button--centered"
@@ -326,7 +332,7 @@
                         method="POST"
                     >
                         @csrf
-                        @method ('DELETE')
+                        @method('DELETE')
                         <input type="hidden" name="snoozed_until" value="" />
                         <p class="form__group form__group--horizontal">
                             <button

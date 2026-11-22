@@ -1,19 +1,19 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Reports - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Reports" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('common.reports') }}</li>
 @endsection
 
-@section ('page', 'page__report--index')
+@section('page', 'page__report--index')
 
-@section ('main')
-    @livewire ('report-search')
+@section('main')
+    @livewire('report-search')
 @endsection

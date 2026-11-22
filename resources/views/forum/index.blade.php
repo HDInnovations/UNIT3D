@@ -1,24 +1,24 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>{{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ config('other.title') }} - {{ __('forum.forums') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('forum.forums') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('forum.partials.buttons')
+@section('nav-tabs')
+    @include('forum.partials.buttons')
 @endsection
 
-@section ('page', 'page__forum--index')
+@section('page', 'page__forum--index')
 
-@section ('main')
+@section('main')
     @foreach ($categories as $category)
         <section class="panelV2">
             <h2 class="panel__heading">
@@ -44,7 +44,7 @@
     @endforeach
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('forum.stats') }}</h2>
         <dl class="key-value">
@@ -67,7 +67,7 @@
         <div class="panel__body">
             <form class="form" action="{{ route('topic_reads.update') }}" method="POST">
                 @csrf
-                @method ('PUT')
+                @method('PUT')
                 <input type="hidden" name="catchup_type" value="all" />
                 <p class="form__group form__group--horizontal">
                     <button

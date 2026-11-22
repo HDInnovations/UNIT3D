@@ -1,6 +1,6 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,9 +9,9 @@
     <li class="breadcrumb--active">Wiki categories</li>
 @endsection
 
-@section ('page', 'page__staff-wiki-category--index')
+@section('page', 'page__staff-wiki-category--index')
 
-@section ('main')
+@section('main')
     @foreach ($wikiCategories as $category)
         <section class="panelV2">
             <header class="panel__header">
@@ -40,7 +40,7 @@
                         x-data="confirmation"
                     >
                         @csrf
-                        @method ('DELETE')
+                        @method('DELETE')
                         <button
                             class="form__button form__button--text"
                             x-on:click.prevent="confirmAction"
@@ -88,7 +88,7 @@
                                                 x-data="confirmation"
                                             >
                                                 @csrf
-                                                @method ('DELETE')
+                                                @method('DELETE')
                                                 <button
                                                     x-on:click.prevent="confirmAction"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this wiki: ' . $wiki->name . '?') }}"
@@ -113,7 +113,7 @@
     @endforeach
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">

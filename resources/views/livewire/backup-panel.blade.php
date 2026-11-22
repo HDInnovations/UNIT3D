@@ -115,7 +115,10 @@
                                             <h3 class="dialog__heading">Delete backup</h3>
                                             <form class="dialog__form">
                                                 @csrf
-                                                <p class="form__group">Are you sure you want to delete the backup created at {{ $backup['date'] }} ?</p>
+                                                <p class="form__group">
+                                                    Are you sure you want to delete the backup
+                                                    created at {{ $backup['date'] }} ?
+                                                </p>
                                                 <p class="form__group">
                                                     <button
                                                         wire:click="deleteBackup({{ $loop->index }}); $refresh;"

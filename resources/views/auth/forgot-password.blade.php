@@ -1,10 +1,10 @@
-@extends ('layout.guest')
+@extends('layout.guest')
 
-@section ('title')
+@section('title')
     <title>{{ __('auth.lost-password') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('content')
+@section('content')
     <section class="auth-form">
         <form class="auth-form__form" method="POST" action="{{ route('password.email') }}">
             @csrf
@@ -13,7 +13,7 @@
                 <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
             </a>
             <p class="auth-form__text-input-group">
-                <label class="auth-form__label" for="email"> {{ __('auth.email') }} </label>
+                <label class="auth-form__label" for="email">{{ __('auth.email') }}</label>
                 <input
                     id="email"
                     class="auth-form__text-input"

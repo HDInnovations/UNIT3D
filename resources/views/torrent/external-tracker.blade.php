@@ -1,16 +1,16 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>
         External tracker - {{ $torrent?->name ?? 'Not found' }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ __('torrent.peers') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
@@ -24,7 +24,7 @@
     <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
 @endsection
 
-@section ('nav-tabs')
+@section('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('peers', ['id' => $id]) }}">
             {{ __('torrent.peers') }}
@@ -45,9 +45,9 @@
     </li>
 @endsection
 
-@section ('page', 'page__torrent-external-tracker--show')
+@section('page', 'page__torrent-external-tracker--show')
 
-@section ('main')
+@section('main')
     @if ($externalTorrent === true)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
@@ -101,7 +101,7 @@
                                             />
                                         @endif
                                     @else
-                                        User not found
+                                            User not found
                                     @endif
                                 </td>
                                 <td>
@@ -160,7 +160,7 @@
                                             {{ __('torrent.leecher') }}
                                         @endif
                                     @else
-                                        Inactive
+                                            Inactive
                                     @endif
                                 </td>
                                 <td class="{{ $peer['is_visible'] ? 'text-green' : 'text-red' }}">
@@ -176,7 +176,7 @@
                 </table>
             </div>
         </section>
-        @section ('sidebar')
+        @section('sidebar')
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
                 <dl class="key-value">

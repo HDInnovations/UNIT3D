@@ -6,26 +6,26 @@
                 <tr>
                     <th wire:click="sortBy('torrents.name')" role="columnheader button">
                         {{ __('common.name') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'torrents.name'])
+                        @include('livewire.includes._sort-icon', ['field' => 'torrents.name'])
                     </th>
                     <th wire:click="sortBy('torrents.size')" role="columnheader button">
                         {{ __('torrent.size') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'torrents.size'])
+                        @include('livewire.includes._sort-icon', ['field' => 'torrents.size'])
                     </th>
                     <th wire:click="sortBy('torrents.info_hash')" role="columnheader button">
                         {{ __('torrent.info-hash') }} (Hex-encoded)
-                        @include ('livewire.includes._sort-icon', ['field' => 'torrents.info_hash'])
+                        @include('livewire.includes._sort-icon', ['field' => 'torrents.info_hash'])
                     </th>
                     <th wire:click="sortBy('torrents.deleted_at')" role="columnheader button">
                         {{ __('common.deleted_at') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'torrents.deleted_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'torrents.deleted_at'])
                     </th>
                     <th
                         wire:click="sortBy('unregistered_info_hashes.updated_at')"
                         role="columnheader button"
                     >
                         {{ __('torrent.updated_at') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'unregistered_info_hashes.updated_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'unregistered_info_hashes.updated_at'])
                     </th>
                 </tr>
             </thead>

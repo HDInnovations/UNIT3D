@@ -1,6 +1,6 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a
             href="{{ route('users.conversations.index', ['user' => $user]) }}"
@@ -12,9 +12,9 @@
     <li class="breadcrumb--active">{{ $conversation->subject }}</li>
 @endsection
 
-@section ('page', 'page__user-conversation--show')
+@section('page', 'page__user-conversation--show')
 
-@section ('main')
+@section('main')
     @foreach ($conversation->messages as $message)
         <section class="panelV2">
             <header class="panel__header">
@@ -34,7 +34,7 @@
             </header>
 
             <div class="panel__body bbcode-rendered">
-                @bbcode ($message->message)
+                @bbcode($message->message)
             </div>
         </section>
     @endforeach
@@ -50,8 +50,8 @@
                     action="{{ route('users.conversations.update', ['user' => $user, 'conversation' => $conversation]) }}"
                 >
                     @csrf
-                    @method ('PATCH')
-                    @livewire ('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
+                    @method('PATCH')
+                    @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
                     <p class="form__group">
                         <button class="form__button form__button--filled">
                             {{ __('pm.reply') }}
@@ -63,7 +63,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.users') }}</h2>
         <div class="panel__body">
@@ -84,7 +84,7 @@
                 method="POST"
             >
                 @csrf
-                @method ('DELETE')
+                @method('DELETE')
                 <p class="form__group form__group--horizontal">
                     <button class="form__button form__button--filled form__button--centered">
                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>

@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -14,9 +14,9 @@
     <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section ('page', 'page__staff-group--create')
+@section('page', 'page__staff-group--create')
 
-@section ('main')
+@section('main')
     <section class="panelV2" x-data="{ autogroup: false }">
         <h2 class="panel__heading">Add new group</h2>
         <div class="panel__body">
@@ -427,7 +427,10 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
+                        <table
+                            class="data-table data-table--checkbox-grid"
+                            x-data="checkboxGrid"
+                        >
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Forum category</th>

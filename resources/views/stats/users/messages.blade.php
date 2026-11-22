@@ -1,23 +1,23 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link"> {{ __('stat.stats') }} </a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link">{{ __('stat.stats') }}</a>
     </li>
     <li class="breadcrumb--active">{{ __('common.users') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('partials.statsusermenu')
+@section('nav-tabs')
+    @include('partials.statsusermenu')
 @endsection
 
-@section ('page', 'page__stats--messages')
+@section('page', 'page__stats--messages')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">Top users by message count</h2>
         <div class="data-table-wrapper">

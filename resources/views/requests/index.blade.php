@@ -1,15 +1,15 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('request.requests') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('request.requests') }}</li>
 @endsection
 
-@section ('page', 'page__request--index')
+@section('page', 'page__request--index')
 
-@section ('main')
-    @livewire ('torrent-request-search')
+@section('main')
+    @livewire('torrent-request-search')
 @endsection

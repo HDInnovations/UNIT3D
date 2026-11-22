@@ -1,12 +1,12 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('event.giveaways') }}</li>
 @endsection
 
-@section ('page', 'page__giveaway--index')
+@section('page', 'page__giveaway--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('event.giveaways') }}</h2>
         <div class="data-table-wrapper">

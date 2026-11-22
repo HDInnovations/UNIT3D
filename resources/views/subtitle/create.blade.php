@@ -1,12 +1,12 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>
         {{ __('common.upload') }} {{ __('common.subtitle') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('subtitles.index') }}" class="breadcrumb__link">
             {{ __('common.subtitles') }}
@@ -15,9 +15,9 @@
     <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section ('page', 'page__subtitle--create')
+@section('page', 'page__subtitle--create')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.upload') }} {{ __('common.subtitle') }}</h2>
         <div class="panel__body">
@@ -32,7 +32,8 @@
                 <input name="torrent_id" type="hidden" value="{{ $torrent->id }}" />
                 <p class="form__group">
                     <label for="subtitle_file" class="form__label">
-                        {{ __('subtitle.subtitle-file') }} ({{ __('subtitle.subtitle-file-types') }})
+                        {{ __('subtitle.subtitle-file') }}
+                        ({{ __('subtitle.subtitle-file-types') }})
                     </label>
                     <input
                         id="subtitle_file"
@@ -49,7 +50,7 @@
                         @foreach ($media_languages as $media_language)
                             <option
                                 value="{{ $media_language->id }}"
-                                @selected (old('media_language') == $media_language->id)
+                                @selected(old('media_language') == $media_language->id)
                             >
                                 {{ $media_language->name }}
                             </option>
@@ -80,7 +81,7 @@
                         name="anon"
                         type="checkbox"
                         value="1"
-                        @checked (old('anon'))
+                        @checked(old('anon'))
                     />
                     <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                 </p>
@@ -94,7 +95,7 @@
     </section>
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
         <div class="panel__body">

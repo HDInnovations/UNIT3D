@@ -1,10 +1,12 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
-    <title>{{ $user->username }} {{ __('user.achievements') }} - {{ config('other.title') }}</title>
+@section('title')
+    <title>
+        {{ $user->username }} {{ __('user.achievements') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -13,14 +15,14 @@
     <li class="breadcrumb--active">{{ __('user.achievements') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('user.buttons.user')
+@section('nav-tabs')
+    @include('user.buttons.user')
 @endsection
 
-@section ('page', 'page__user-achievement--index')
+@section('page', 'page__user-achievement--index')
 
 @if (auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
-    @section ('main')
+    @section('main')
         <section class="panelV2 achievements__unlocked">
             <h2 class="panel__heading">{{ __('user.unlocked-achievements') }}</h2>
             @foreach ($achievements->load('details') as $achievement)
@@ -73,7 +75,7 @@
         </section>
     @endsection
 
-    @section ('sidebar')
+    @section('sidebar')
         <section class="panelV2 achievement__statistics">
             <h2 class="panel__heading">{{ __('user.statistics') }}</h2>
             <dl class="key-value">
@@ -91,7 +93,7 @@
         </section>
     @endsection
 @else
-    @section ('main')
+    @section('main')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.private-profile') }}</h2>
             <div class="panel__body">{{ __('user.not-authorized') }}</div>

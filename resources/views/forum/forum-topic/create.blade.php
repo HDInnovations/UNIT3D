@@ -1,14 +1,14 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('forum.create-new-topic') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="{{ $forum->name . ' - ' . __('forum.create-new-topic') }}" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('forums.index') }}" class="breadcrumb__link">
             {{ __('forum.forums') }}
@@ -30,13 +30,13 @@
     <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('forum.partials.buttons')
+@section('nav-tabs')
+    @include('forum.partials.buttons')
 @endsection
 
-@section ('page', 'page__forum-topic--create')
+@section('page', 'page__forum-topic--create')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('forum.create-new-topic') }}</h2>
         <div class="panel__body">
@@ -60,7 +60,7 @@
                         {{ __('forum.topic-title') }}
                     </label>
                 </p>
-                @livewire ('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'required' => true ])
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'required' => true ])
                 <p class="form__group">
                     <input type="hidden" name="anon" value="0" />
                     <input
@@ -69,7 +69,7 @@
                         id="anon"
                         name="anon"
                         value="1"
-                        @checked (old('anon'))
+                        @checked(old('anon'))
                     />
                     <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                 </p>

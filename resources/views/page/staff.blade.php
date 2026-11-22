@@ -1,12 +1,12 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ config('other.title') }} {{ __('common.staff') }}</li>
 @endsection
 
-@section ('page', 'page__staff--index')
+@section('page', 'page__staff--index')
 
-@section ('main')
+@section('main')
     @foreach ($staff as $group)
         <section class="panelV2">
             <h2 class="panel__heading">{{ $group->name }}</h2>
@@ -34,7 +34,7 @@
     @endforeach
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <div class="panel__body">Please contact staff via the helpdesk for account support.</div>

@@ -1,10 +1,10 @@
-@extends ('layout.with-main-and-sidebar')
+@extends('layout.with-main-and-sidebar')
 
-@section ('title')
+@section('title')
     <title>{{ $topic->name }} - Forums - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('forums.index') }}" class="breadcrumb__link">
             {{ __('forum.forums') }}
@@ -26,23 +26,26 @@
     <li class="breadcrumb--active">{{ $topic->name }}</li>
 @endsection
 
-@section ('nav-tabs')
-    @include ('forum.partials.buttons')
+@section('nav-tabs')
+    @include('forum.partials.buttons')
 @endsection
 
-@section ('page', 'page__topic--show')
+@section('page', 'page__topic--show')
 
-@section ('main')
-    @livewire ('topic-post-search', ['topic' => $topic])
+@section('main')
+    @livewire('topic-post-search', ['topic' => $topic])
     @if ($topic->state === 'close' && auth()->user()->group->is_modo)
-        <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
+        <p>
+            This topic is closed, but you can still reply due to you being
+            {{ auth()->user()->group->name }}.
+        </p>
     @endif
 
     @if (($topic->state === 'open' && $permission?->reply_topic) || auth()->user()->group->is_modo)
         <form id="forum_reply_form" method="POST" action="{{ route('posts.store') }}">
             @csrf
             <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
-            @livewire ('bbcode-input', ['name' => 'content', 'label' => __('forum.post') ])
+            @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post') ])
             <p class="form__group">
                 <input type="hidden" name="anon" value="0" />
                 <input
@@ -51,7 +54,7 @@
                     id="anon"
                     name="anon"
                     value="1"
-                    @checked (old('anon'))
+                    @checked(old('anon'))
                 />
                 <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
             </p>
@@ -66,7 +69,7 @@
     @endif
 @endsection
 
-@section ('sidebar')
+@section('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.stats') }}</h2>
         <dl class="key-value">
@@ -181,7 +184,7 @@
                         x-data="confirmation"
                     >
                         @csrf
-                        @method ('DELETE')
+                        @method('DELETE')
                         <p class="form__group form__group--horizontal">
                             <button
                                 class="form__button form__button--filled form__button--centered"
@@ -207,7 +210,7 @@
                     method="POST"
                 >
                     @csrf
-                    @method ('PATCH')
+                    @method('PATCH')
                     <p class="form__group">
                         <input type="hidden" name="approved" value="0" />
                         <input
@@ -216,7 +219,7 @@
                             name="approved"
                             type="checkbox"
                             value="1"
-                            @checked ($topic->approved)
+                            @checked($topic->approved)
                         />
                         <label for="approved-label">{{ __('forum.approved') }}</label>
                     </p>
@@ -228,7 +231,7 @@
                             name="denied"
                             type="checkbox"
                             value="1"
-                            @checked ($topic->denied)
+                            @checked($topic->denied)
                         />
                         <label for="denied-label">{{ __('forum.denied') }}</label>
                     </p>
@@ -240,7 +243,7 @@
                             name="solved"
                             type="checkbox"
                             value="1"
-                            @checked ($topic->solved)
+                            @checked($topic->solved)
                         />
                         <label for="solved-label">{{ __('forum.solved') }}</label>
                     </p>
@@ -252,7 +255,7 @@
                             name="invalid"
                             type="checkbox"
                             value="1"
-                            @checked ($topic->invalid)
+                            @checked($topic->invalid)
                         />
                         <label for="invalid-label">{{ __('forum.invalid') }}</label>
                     </p>
@@ -264,7 +267,7 @@
                             name="bug"
                             type="checkbox"
                             value="1"
-                            @checked ($topic->bug)
+                            @checked($topic->bug)
                         />
                         <label for="bug-label">{{ __('forum.bug') }}</label>
                     </p>
@@ -276,7 +279,7 @@
                             name="suggestion"
                             type="checkbox"
                             value="1"
-                            @checked ($topic->suggestion)
+                            @checked($topic->suggestion)
                         />
                         <label for="suggestion-label">{{ __('forum.suggestion') }}</label>
                     </p>
@@ -288,7 +291,7 @@
                             name="implemented"
                             type="checkbox"
                             value="1"
-                            @checked ($topic->implemented)
+                            @checked($topic->implemented)
                         />
                         <label for="implemented-label">{{ __('forum.implemented') }}</label>
                     </p>

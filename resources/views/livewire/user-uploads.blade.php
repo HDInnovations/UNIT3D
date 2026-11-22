@@ -25,9 +25,7 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="
-                                        ternaryCheckMark($wire.entangle('personalRelease').live)
-                                    "
+                                    x-data="ternaryCheckMark($wire.entangle('personalRelease').live)"
                                 >
                                     <input
                                         type="checkbox"
@@ -122,7 +120,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.name') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'name'])
+                        @include('livewire.includes._sort-icon', ['field' => 'name'])
                     </th>
                     <th
                         class="user-uploads__size-header"
@@ -130,7 +128,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.size') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'size'])
+                        @include('livewire.includes._sort-icon', ['field' => 'size'])
                     </th>
                     <th
                         class="user-uploads__seeders-header"
@@ -139,7 +137,7 @@
                         title="{{ __('torrent.seeders') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-up"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'seeders'])
+                        @include('livewire.includes._sort-icon', ['field' => 'seeders'])
                     </th>
                     <th
                         class="user-uploads__leechers-header"
@@ -148,7 +146,7 @@
                         title="{{ __('torrent.leechers') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-down"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'leechers'])
+                        @include('livewire.includes._sort-icon', ['field' => 'leechers'])
                     </th>
                     <th
                         class="user-uploads__times-header"
@@ -157,7 +155,7 @@
                         title="{{ __('torrent.completed') }}"
                     >
                         <i class="fas fa-check-circle"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                        @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
                     </th>
                     <th
                         class="user-uploads__tips-header"
@@ -166,7 +164,7 @@
                         title="{{ __('bon.tips') }}"
                     >
                         <i class="fas fa-coins"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'tips_sum_bon'])
+                        @include('livewire.includes._sort-icon', ['field' => 'tips_sum_bon'])
                     </th>
                     @if (config('other.thanks-system.is-enabled'))
                         <th
@@ -176,7 +174,7 @@
                             title="{{ __('torrent.thanks') }}"
                         >
                             <i class="fas fa-heart"></i>
-                            @include ('livewire.includes._sort-icon', ['field' => 'thanks_count'])
+                            @include('livewire.includes._sort-icon', ['field' => 'thanks_count'])
                         </th>
                     @endif
 
@@ -187,7 +185,7 @@
                         title="{{ __('common.comments') }}"
                     >
                         <i class="fas fa-comment-alt-lines"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'comments_count'])
+                        @include('livewire.includes._sort-icon', ['field' => 'comments_count'])
                     </th>
                     <th
                         class="user-uploads__created-at-header"
@@ -195,7 +193,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.uploaded') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th
                         class="user-uploads__personal-release-header"
@@ -204,7 +202,7 @@
                         title="{{ __('torrent.personal-release') }}"
                     >
                         <i class="fas fa-user-plus"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'status'])
+                        @include('livewire.includes._sort-icon', ['field' => 'status'])
                     </th>
                     <th
                         class="user-uploads__status-header"
@@ -213,7 +211,7 @@
                         title="{{ __('torrent.approved') }}"
                     >
                         <i class="fas fa-tasks"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'status'])
+                        @include('livewire.includes._sort-icon', ['field' => 'status'])
                     </th>
                 </thead>
                 <tbody>
@@ -238,7 +236,7 @@
                                 {{ App\Helpers\StringHelper::formatBytes($torrent->size) }}
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-uploads__seeders',
                                     'torrent-activity-indicator--seeding' => $torrent->seeding,
                                 ])
@@ -254,7 +252,7 @@
                                 </a>
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-uploads__leechers',
                                     'torrent-activity-indicator--leeching' => $torrent->leeching,
                                 ])
@@ -270,7 +268,7 @@
                                 </a>
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-uploads__times',
                                     'torrent-activity-indicator--completed' => $torrent->completed,
                                 ])
@@ -321,32 +319,35 @@
                                 @endif
                             </td>
                             <td class="user-uploads__status">
-                                @switch ($torrent->status)
-                                    @case (\App\Enums\ModerationStatus::PENDING)
+                                @switch($torrent->status)
+                                    @case(\App\Enums\ModerationStatus::PENDING)
                                         <span
                                             title="{{ __('torrent.pending') }}"
                                             class="{{ config('other.font-awesome') }} fa-tasks text-orange"
                                         ></span>
+
                                         @break
-                                    @case (\App\Enums\ModerationStatus::APPROVED)
+                                    @case(\App\Enums\ModerationStatus::APPROVED)
                                         <span
                                             title="{{ __('torrent.approved') }}"
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                         ></span>
+
                                         @break
-                                    @case (\App\Enums\ModerationStatus::REJECTED)
+                                    @case(\App\Enums\ModerationStatus::REJECTED)
                                         <span
                                             title="{{ __('torrent.rejected') }}"
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
                                         ></span>
+
                                         @break
-                                    @case (\App\Enums\ModerationStatus::POSTPONED)
+                                    @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
                                             title="Postponed"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
-                                        @break
 
+                                        @break
                                 @endswitch
                             </td>
                         </tr>

@@ -1,8 +1,8 @@
-@extends ('errors.layout')
+@extends('errors.layout')
 
-@section ('title', 'Error 307: Temporary redirect!')
+@section('title', 'Error 307: Temporary redirect!')
 
-@section ('description')
+@section('description')
     <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

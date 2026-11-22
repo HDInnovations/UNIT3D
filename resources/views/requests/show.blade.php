@@ -1,10 +1,10 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Request - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('requests.index') }}" class="breadcrumb__link">
             {{ __('request.requests') }}
@@ -13,64 +13,70 @@
     <li class="breadcrumb--active">{{ $torrentRequest->name }}</li>
 @endsection
 
-@section ('page', 'page__request--show')
+@section('page', 'page__request--show')
 
-@section ('main')
+@section('main')
     @if ($user->can_request ?? $user->group->can_request)
-        @switch (true)
-            @case ($torrentRequest->category->movie_meta)
-                @include ('torrent.partials.movie-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->movie, 'tmdb' => $torrentRequest->tmdb_movie_id])
+        @switch(true)
+            @case($torrentRequest->category->movie_meta)
+                @include('torrent.partials.movie-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->movie, 'tmdb' => $torrentRequest->tmdb_movie_id])
+
                 @break
-            @case ($torrentRequest->category->tv_meta)
-                @include ('torrent.partials.tv-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->tv, 'tmdb' => $torrentRequest->tmdb_tv_id])
+            @case($torrentRequest->category->tv_meta)
+                @include('torrent.partials.tv-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->tv, 'tmdb' => $torrentRequest->tmdb_tv_id])
+
                 @break
-            @case ($torrentRequest->category->game_meta)
-                @include ('torrent.partials.game-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->game, 'igdb' => $torrentRequest->igdb])
+            @case($torrentRequest->category->game_meta)
+                @include('torrent.partials.game-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => $torrentRequest->game, 'igdb' => $torrentRequest->igdb])
+
                 @break
             @default
-                @include ('torrent.partials.no-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => null])
-                @break
+                @include('torrent.partials.no-meta', ['torrent' => $torrentRequest, 'category' => $torrentRequest->category, 'meta' => null])
 
+                @break
         @endswitch
         <menu class="torrent__buttons form__group--short-horizontal">
-            @includeWhen ($torrentRequest->torrent === null, 'requests.partials.vote')
+            @includeWhen($torrentRequest->torrent === null, 'requests.partials.vote')
 
-            @switch (true)
+            @switch(true)
                 {{-- Claimed --}}
-                @case ($torrentRequest->claim !== null && $torrentRequest->torrent === null)
-                    @includeWhen ($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.unclaim')
-                    @includeWhen ($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.fulfill')
-                    @include ('requests.partials.report')
-                    @includeWhen ($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
-                    @includeWhen ($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
+                @case($torrentRequest->claim !== null && $torrentRequest->torrent === null)
+                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.unclaim')
+                    @includeWhen($user->group->is_modo || $torrentRequest->claim->user->is($user), 'requests.partials.fulfill')
+                    @include('requests.partials.report')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
+
                     @break
                     {{-- Pending --}}
-                @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
-                    @include ('requests.partials.report')
-                    @includeWhen ($user->group->is_modo, 'requests.partials.edit')
-                    @includeWhen ($user->group->is_modo, 'requests.partials.delete')
+                @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
+                    @include('requests.partials.report')
+                    @includeWhen($user->group->is_modo, 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo, 'requests.partials.delete')
+
                     @break
                     {{-- Unfilled --}}
-                @case ($torrentRequest->torrent === null)
-                    @include ('requests.partials.claim')
-                    @include ('requests.partials.fulfill')
-                    @include ('requests.partials.report')
-                    @includeWhen ($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
-                    @includeWhen ($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
+                @case($torrentRequest->torrent === null)
+                    @include('requests.partials.claim')
+                    @include('requests.partials.fulfill')
+                    @include('requests.partials.report')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo || $torrentRequest->user->is($user), 'requests.partials.delete')
+
                     @break
                     {{-- Filled --}}
                 @default
-                    @include ('requests.partials.report')
-                    @includeWhen ($user->group->is_modo, 'requests.partials.reset')
-                    @includeWhen ($user->group->is_modo, 'requests.partials.edit')
-                    @includeWhen ($user->group->is_modo, 'requests.partials.delete')
-                    @break
+                    @include('requests.partials.report')
+                    @includeWhen($user->group->is_modo, 'requests.partials.reset')
+                    @includeWhen($user->group->is_modo, 'requests.partials.edit')
+                    @includeWhen($user->group->is_modo, 'requests.partials.delete')
 
+                    @break
             @endswitch
         </menu>
         <ul class="request__tags">
             <li class="request__category">
-                <span> {{ $torrentRequest->category->name }} </span>
+                <span>{{ $torrentRequest->category->name }}</span>
             </li>
             @if ($torrentRequest->category->tv_meta)
                 @if ($torrentRequest->season_number !== null && $torrentRequest->episode_number !== null)
@@ -101,10 +107,10 @@
             @endif
 
             <li class="request__resolution">
-                <span> {{ $torrentRequest->resolution->name ?? 'Any' }} </span>
+                <span>{{ $torrentRequest->resolution->name ?? 'Any' }}</span>
             </li>
             <li class="request__type">
-                <span> {{ $torrentRequest->type->name ?? 'Any' }} </span>
+                <span>{{ $torrentRequest->type->name ?? 'Any' }}</span>
             </li>
             <li class="request__requester">
                 <x-user-tag :user="$torrentRequest->user" :anon="$torrentRequest->anon" />
@@ -119,24 +125,27 @@
             </li>
             <li>
                 <span>
-                    @switch (true)
-                        @case ($torrentRequest->claim !== null && $torrentRequest->torrent === null)
+                    @switch(true)
+                        @case($torrentRequest->claim !== null && $torrentRequest->torrent === null)
                             <i class="fas fa-circle text-blue"></i>
                             {{ __('request.claimed') }}
+
                             @break
-                        @case ($torrentRequest->torrent !== null && $torrentRequest->approved_when === null)
+                        @case($torrentRequest->torrent !== null && $torrentRequest->approved_when === null)
                             <i class="fas fa-circle text-purple"></i>
                             {{ __('request.pending') }}
+
                             @break
-                        @case ($torrentRequest->torrent === null)
+                        @case($torrentRequest->torrent === null)
                             <i class="fas fa-circle text-red"></i>
                             {{ __('request.unfilled') }}
+
                             @break
                         @default
                             <i class="fas fa-circle text-green"></i>
                             {{ __('request.filled') }}
-                            @break
 
+                            @break
                     @endswitch
                 </span>
             </li>
@@ -148,7 +157,7 @@
                 {{ $torrentRequest->bounty }} {{ __('bon.bon') }}
             </h2>
             <div class="panel__body bbcode-rendered">
-                @bbcode ($torrentRequest->description)
+                @bbcode($torrentRequest->description)
             </div>
         </section>
         @if ($torrentRequest->claim !== null && $torrentRequest->torrent === null)
@@ -239,7 +248,7 @@
                                 style="display: contents"
                             >
                                 @csrf
-                                @method ('DELETE')
+                                @method('DELETE')
                                 <button
                                     class="form__button form__button--filled form__button--centered"
                                 >
@@ -311,7 +320,8 @@
                                                     popover
                                                 >
                                                     <h4 class="dialog__heading">
-                                                        {{ __('common.edit') }} {{ __('request.vote') }}
+                                                        {{ __('common.edit') }}
+                                                        {{ __('request.vote') }}
                                                     </h4>
                                                     <form
                                                         class="dialog__form"
@@ -319,7 +329,7 @@
                                                         action="{{ route('requests.bounties.update', ['torrentRequest' => $torrentRequest, 'torrentRequestBounty' => $bounty]) }}"
                                                     >
                                                         @csrf
-                                                        @method ('PATCH')
+                                                        @method('PATCH')
                                                         <p class="form__group">
                                                             <input
                                                                 type="hidden"
@@ -332,7 +342,7 @@
                                                                 name="anon"
                                                                 type="checkbox"
                                                                 value="1"
-                                                                @checked ($bounty->anon)
+                                                                @checked($bounty->anon)
                                                             />
                                                             <label
                                                                 class="form__label"

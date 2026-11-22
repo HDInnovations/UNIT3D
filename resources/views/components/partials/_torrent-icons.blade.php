@@ -1,5 +1,5 @@
 <span class="torrent-icons">
-    @isset ($torrent->comments_count)
+    @isset($torrent->comments_count)
         <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
             @if ($torrent->comments_count === 0)
                 <i
@@ -63,7 +63,7 @@
     @else
         @if ($alwaysFreeleech || $torrent->free)
             <i
-                @class ([
+                @class([
                     'torrent-icons__freeleech ' . config('other.font-awesome'),
                     'fa-star' => $alwaysFreeleech || (90 <= $torrent->free && $torrent->fl_until === null),
                     'fa-star-half' => ! $alwaysFreeleech && $torrent->free < 90 && $torrent->fl_until === null,

@@ -1,20 +1,20 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>Donate - {{ config('other.title') }}</title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta name="description" content="Donate" />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">Donate</li>
 @endsection
 
-@section ('page', 'page__donation--index')
+@section('page', 'page__donation--index')
 
-@section ('main')
+@section('main')
     <section x-data class="panelV2">
         <h2 class="panel__heading">Support {{ config('other.title') }}</h2>
         <div class="panel__body">
@@ -75,12 +75,13 @@
                                         @endif
                                     </li>
                                     <li>
-                                        Warm fuzzy feeling by supporting {{ config('other.title') }}
+                                        Warm fuzzy feeling by supporting
+                                        {{ config('other.title') }}
                                     </li>
                                     @if ($package->upload_value !== null)
                                         <li>
-                                            {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }} Upload
-                                            credit
+                                            {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }}
+                                            Upload credit
                                         </li>
                                     @endif
 
@@ -146,9 +147,14 @@
                             </p>
                         @endforeach
 
-                        <p class="text-info">Send
-                        <strong> {{ $package->cost }} {{ config('donation.currency') }} </strong>
-                        to the gateway of your choice. Take note of the Tx hash, receipt number, etc. and input it below.</p>
+                        <p class="text-info">
+                            Send
+                            <strong>
+                                {{ $package->cost }} {{ config('donation.currency') }}
+                            </strong>
+                            to the gateway of your choice. Take note of the Tx hash, receipt number,
+                            etc. and input it below.
+                        </p>
                     </div>
                     <div class="form__group--horizontal">
                         <p class="form__group">

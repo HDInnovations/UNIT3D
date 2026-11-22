@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -12,12 +12,13 @@
     <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section ('page', 'page__staff-wiki--create')
+@section('page', 'page__staff-wiki--create')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }} {{ __('common.new-adj') }} Wiki
+            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }}
+            {{ __('common.new-adj') }} Wiki
         </h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.wikis.store') }}">
@@ -42,7 +43,7 @@
                         @foreach ($wikiCategories as $wikiCategory)
                             <option
                                 value="{{ $wikiCategory->id }}"
-                                @selected ($wikiCategory->id === $wikiCategoryId)
+                                @selected($wikiCategory->id === $wikiCategoryId)
                             >
                                 {{ $wikiCategory->name }}
                             </option>
@@ -52,7 +53,7 @@
                         {{ __('common.category') }}
                     </label>
                 </p>
-                @livewire ('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true])
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('common.content'), 'required' => true])
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}

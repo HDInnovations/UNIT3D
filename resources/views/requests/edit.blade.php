@@ -1,10 +1,10 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('request.edit-request') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('requests.index') }}" class="breadcrumb__link">
             {{ __('request.requests') }}
@@ -21,9 +21,9 @@
     <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section ('page', 'page__request--edit')
+@section('page', 'page__request--edit')
 
-@section ('main')
+@section('main')
     @if ($user->can_request ?? $user->group->can_request)
         <section class="panelV2" x-data="requestEdit">
             <h2 class="panel__heading">{{ __('request.edit-request') }}</h2>
@@ -34,7 +34,7 @@
                     action="{{ route('requests.update', ['torrentRequest' => $torrentRequest]) }}"
                 >
                     @csrf
-                    @method ('PATCH')
+                    @method('PATCH')
                     <p class="form__group">
                         <input
                             id="title"
@@ -61,7 +61,7 @@
                                 <option
                                     class="form__option"
                                     value="{{ $id }}"
-                                    @selected ($id === old('category_id', $torrentRequest->category_id))
+                                    @selected($id === old('category_id', $torrentRequest->category_id))
                                 >
                                     {{ $category['name'] }}
                                 </option>
@@ -77,8 +77,8 @@
                             @foreach ($types as $type)
                                 <option
                                     value="{{ $type->id }}"
-                                    @selected (old('type_id') == $type->id)
-                                    @selected ($torrentRequest->type_id == $type->id)
+                                    @selected(old('type_id') == $type->id)
+                                    @selected($torrentRequest->type_id == $type->id)
                                 >
                                     {{ $type->name }}
                                 </option>
@@ -94,7 +94,7 @@
                             @foreach ($resolutions as $resolution)
                                 <option
                                     value="{{ $resolution->id }}"
-                                    @selected ($torrentRequest->resolution_id == $resolution->id)
+                                    @selected($torrentRequest->resolution_id == $resolution->id)
                                 >
                                     {{ $resolution->name }}
                                 </option>
@@ -263,10 +263,7 @@
                                             ? {{ Js::from(old('imdb', $torrentRequest->imdb)) }}
                                             : ''
                                     "
-                                    x-bind:required="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
-                                        imdb_title_exists
-                                    "
+                                    x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
                                 />
                                 <label class="form__label form__label--floating" for="autoimdb">
                                     IMDB ID
@@ -345,10 +342,7 @@
                                             ? {{ Js::from(old('mal', $torrentRequest->mal)) }}
                                             : ''
                                     "
-                                    x-bind:required="
-                                        (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
-                                        mal_anime_exists
-                                    "
+                                    x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
                                 />
                                 <label class="form__label form__label--floating" for="automal">
                                     MAL ID
@@ -392,7 +386,7 @@
                             </p>
                         </div>
                     </div>
-                    @livewire ('bbcode-input', [
+                    @livewire('bbcode-input', [
                         'name' => 'description',
                         'label' => __('request.description'),
                         'required' => true,
@@ -406,7 +400,7 @@
                             id="anon"
                             name="anon"
                             value="1"
-                            @checked ($torrentRequest->anon)
+                            @checked($torrentRequest->anon)
                         />
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
@@ -422,12 +416,18 @@
                     Alpine.data('requestEdit', () => ({
                         cat: {{ (int) $torrentRequest->category_id }},
                         cats: {{ Js::from($categories) }},
-                        tmdb_movie_exists: {{ Js::from(old('movie_exists_on_tmdb', $torrentRequest->tmdb_movie_id) !== null) }},
-                        tmdb_tv_exists: {{ Js::from(old('tv_exists_on_tmdb', $torrentRequest->tmdb_tv_id) !== null) }},
-                        imdb_title_exists: {{ Js::from(old('title_exists_on_imdb', $torrentRequest->imdb) !== null) }},
-                        tvdb_tv_exists: {{ Js::from(old('tv_exists_on_tvdb', $torrentRequest->tvdb) !== null) }},
-                        mal_anime_exists: {{ Js::from(old('anime_exists_on_mal', $torrentRequest->mal) !== null) }},
-                        igdb_game_exists: {{ Js::from(old('game_exists_on_igdb', $torrentRequest->igdb) !== null) }},
+                        tmdb_movie_exists:
+                            {{ Js::from(old('movie_exists_on_tmdb', $torrentRequest->tmdb_movie_id) !== null) }},
+                        tmdb_tv_exists:
+                            {{ Js::from(old('tv_exists_on_tmdb', $torrentRequest->tmdb_tv_id) !== null) }},
+                        imdb_title_exists:
+                            {{ Js::from(old('title_exists_on_imdb', $torrentRequest->imdb) !== null) }},
+                        tvdb_tv_exists:
+                            {{ Js::from(old('tv_exists_on_tvdb', $torrentRequest->tvdb) !== null) }},
+                        mal_anime_exists:
+                            {{ Js::from(old('anime_exists_on_mal', $torrentRequest->mal) !== null) }},
+                        igdb_game_exists:
+                            {{ Js::from(old('game_exists_on_igdb', $torrentRequest->igdb) !== null) }},
                     }));
                 });
             </script>

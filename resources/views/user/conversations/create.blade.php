@@ -1,6 +1,6 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a
             href="{{ route('users.conversations.index', ['user' => $user]) }}"
@@ -12,9 +12,9 @@
     <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section ('page', 'page__user-conversation--create')
+@section('page', 'page__user-conversation--create')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('pm.new') }}</h2>
         <div class="panel__body">
@@ -45,7 +45,7 @@
                         {{ __('pm.enter-subject') }}
                     </label>
                 </p>
-                @livewire ('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
+                @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
                 <p class="form__group">
                     <button class="form__button form__button--filled">{{ __('pm.send') }}</button>
                 </p>

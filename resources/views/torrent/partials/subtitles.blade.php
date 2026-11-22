@@ -75,7 +75,8 @@
                                                 popover
                                             >
                                                 <h4 class="dialog__heading">
-                                                    {{ __('common.edit') }} {{ __('common.subtitle') }}
+                                                    {{ __('common.edit') }}
+                                                    {{ __('common.subtitle') }}
                                                 </h4>
                                                 <form
                                                     class="dialog__form"
@@ -83,7 +84,7 @@
                                                     action="{{ route('subtitles.update', ['subtitle' => $subtitle]) }}"
                                                 >
                                                     @csrf
-                                                    @method ('PATCH')
+                                                    @method('PATCH')
                                                     <input
                                                         id="torrent_id"
                                                         name="torrent_id"
@@ -101,13 +102,15 @@
                                                                 value="{{ $subtitle->language_id }}"
                                                                 selected
                                                             >
-                                                                {{ $subtitle->language->name }} ({{ __('torrent.current') }})
+                                                                {{ $subtitle->language->name }}
+                                                                ({{ __('torrent.current') }})
                                                             </option>
                                                             @foreach (App\Models\MediaLanguage::query()->orderBy('name')->get() as $media_language)
                                                                 <option
                                                                     value="{{ $media_language->id }}"
                                                                 >
-                                                                    {{ $media_language->name }} ({{ $media_language->code }})
+                                                                    {{ $media_language->name }}
+                                                                    ({{ $media_language->code }})
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -146,7 +149,7 @@
                                                             name="anon"
                                                             type="checkbox"
                                                             value="1"
-                                                            @checked ($subtitle->anon)
+                                                            @checked($subtitle->anon)
                                                         />
                                                         <label class="form__label" for="anon">
                                                             {{ __('common.anonymous') }}?
@@ -178,7 +181,7 @@
                                             style="display: inline"
                                         >
                                             @csrf
-                                            @method ('DELETE')
+                                            @method('DELETE')
                                             <input
                                                 id="torrent_id"
                                                 name="torrent_id"

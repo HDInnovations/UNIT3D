@@ -1,19 +1,19 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>
         Possible leech cheaters - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta
         name="description"
         content="Possible leech cheaters - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -22,9 +22,9 @@
     <li class="breadcrumb--active">{{ __('staff.possible-leech-cheaters') }}</li>
 @endsection
 
-@section ('page', 'page__staff-cheater--index')
+@section('page', 'page__staff-cheater--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('staff.possible-leech-cheaters') }} (Ghost leechers)</h2>
         <div class="data-table-wrapper">

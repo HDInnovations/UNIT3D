@@ -218,7 +218,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.name') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'name'])
+                        @include('livewire.includes._sort-icon', ['field' => 'name'])
                     </th>
                     <th
                         class="user-torrents__seeders-header"
@@ -227,7 +227,7 @@
                         title="{{ __('torrent.seeders') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-up"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'seeders'])
+                        @include('livewire.includes._sort-icon', ['field' => 'seeders'])
                     </th>
                     <th
                         class="user-torrents__leechers-header"
@@ -236,7 +236,7 @@
                         title="{{ __('torrent.leechers') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-down"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'leechers'])
+                        @include('livewire.includes._sort-icon', ['field' => 'leechers'])
                     </th>
                     <th
                         class="user-torrents__times-header"
@@ -245,7 +245,7 @@
                         title="{{ __('torrent.completed') }}"
                     >
                         <i class="fas fa-check-circle"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                        @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
                     </th>
                     <th
                         class="user-torrents__agent-header"
@@ -253,7 +253,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.client') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'agent'])
+                        @include('livewire.includes._sort-icon', ['field' => 'agent'])
                     </th>
                     <th
                         class="user-torrents__size-header"
@@ -261,7 +261,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.size') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'size'])
+                        @include('livewire.includes._sort-icon', ['field' => 'size'])
                     </th>
                     <th
                         class="user-torrents__upload-header"
@@ -269,7 +269,7 @@
                         role="columnheader button"
                     >
                         {{ __('common.upload') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'actual_uploaded'])
+                        @include('livewire.includes._sort-icon', ['field' => 'actual_uploaded'])
                     </th>
                     <th
                         class="user-torrents__download-header"
@@ -277,7 +277,7 @@
                         role="columnheader button"
                     >
                         {{ __('common.download') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'actual_downloaded'])
+                        @include('livewire.includes._sort-icon', ['field' => 'actual_downloaded'])
                     </th>
                     <th
                         class="user-torrents__ratio-header"
@@ -285,7 +285,7 @@
                         role="columnheader button"
                     >
                         {{ __('common.ratio') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'actual_ratio'])
+                        @include('livewire.includes._sort-icon', ['field' => 'actual_ratio'])
                     </th>
                     <th
                         class="user-torrents__leechtime-header"
@@ -293,7 +293,7 @@
                         role="columnheader button"
                     >
                         Leeched
-                        @include ('livewire.includes._sort-icon', ['field' => 'leechtime'])
+                        @include('livewire.includes._sort-icon', ['field' => 'leechtime'])
                     </th>
                     <th
                         class="user-torrents__seedtime-header"
@@ -301,7 +301,7 @@
                         role="columnheader button"
                     >
                         Seeded
-                        @include ('livewire.includes._sort-icon', ['field' => 'seedtime'])
+                        @include('livewire.includes._sort-icon', ['field' => 'seedtime'])
                     </th>
                     <th
                         class="user-torrents__created-at-header"
@@ -309,7 +309,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.started') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th
                         class="user-torrents__updated-at-header"
@@ -317,7 +317,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.updated') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
                     </th>
                     <th
                         class="user-torrents__completed-at-header"
@@ -325,7 +325,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.completed') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'completed_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'completed_at'])
                     </th>
                     <th
                         class="user-torrents__prewarned-header"
@@ -333,7 +333,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.prewarn') }}
-                        @include ('livewire.includes._sort-icon', ['field' => 'prewarned_at'])
+                        @include('livewire.includes._sort-icon', ['field' => 'prewarned_at'])
                     </th>
                     <th
                         class="user-torrents__warned-header"
@@ -366,7 +366,7 @@
                         title="{{ __('torrent.approved') }}"
                     >
                         <i class="fas fa-tasks"></i>
-                        @include ('livewire.includes._sort-icon', ['field' => 'status'])
+                        @include('livewire.includes._sort-icon', ['field' => 'status'])
                     </th>
                 </thead>
                 <tbody>
@@ -381,7 +381,7 @@
                                 </a>
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-torrents__seeders',
                                     'torrent-activity-indicator--seeding' => $history->seeding,
                                 ])
@@ -397,7 +397,7 @@
                                 </a>
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-torrents__leechers',
                                     'torrent-activity-indicator--leeching' => $history->leeching,
                                 ])
@@ -413,7 +413,7 @@
                                 </a>
                             </td>
                             <td
-                                @class ([
+                                @class([
                                     'user-torrents__times',
                                     'torrent-activity-indicator--completed' => $history->completed,
                                 ])
@@ -464,7 +464,7 @@
                                 @endphp
 
                                 <span
-                                    @class ([
+                                    @class([
                                         'ratio-0' . floor($ratio * 10) => $ratio < 1,
                                         'ratio-10' => 1 <= $ratio && $ratio < 2,
                                         'ratio-20' => 2 <= $ratio && $ratio < 5,
@@ -480,7 +480,7 @@
                                 @endphp
 
                                 <span
-                                    @class ([
+                                    @class([
                                         'ratio-0' . floor($ratio * 10) => $ratio < 1,
                                         'ratio-10' => 1 <= $ratio && $ratio < 2,
                                         'ratio-20' => 2 <= $ratio && $ratio < 5,
@@ -645,32 +645,35 @@
                                 @endif
                             </td>
                             <td class="user-torrents__status">
-                                @switch ($history->status)
-                                    @case (\App\Enums\ModerationStatus::PENDING)
+                                @switch($history->status)
+                                    @case(\App\Enums\ModerationStatus::PENDING)
                                         <span
                                             title="{{ __('torrent.pending') }}"
                                             class="{{ config('other.font-awesome') }} fa-tasks text-orange"
                                         ></span>
+
                                         @break
-                                    @case (\App\Enums\ModerationStatus::APPROVED)
+                                    @case(\App\Enums\ModerationStatus::APPROVED)
                                         <span
                                             title="{{ __('torrent.approved') }}"
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                         ></span>
+
                                         @break
-                                    @case (\App\Enums\ModerationStatus::REJECTED)
+                                    @case(\App\Enums\ModerationStatus::REJECTED)
                                         <span
                                             title="{{ __('torrent.rejected') }}"
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
                                         ></span>
+
                                         @break
-                                    @case (\App\Enums\ModerationStatus::POSTPONED)
+                                    @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
                                             title="Postponed"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"
                                         ></span>
-                                        @break
 
+                                        @break
                                 @endswitch
                             </td>
                         </tr>

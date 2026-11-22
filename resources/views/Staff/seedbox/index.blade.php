@@ -1,19 +1,20 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>
-        {{ __('staff.seedboxes') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
+        {{ __('staff.seedboxes') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
-@section ('meta')
+@section('meta')
     <meta
         name="description"
         content="{{ __('staff.seedboxes') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -22,9 +23,9 @@
     <li class="breadcrumb--active">{{ __('staff.seedboxes') }}</li>
 @endsection
 
-@section ('page', 'page__staff-seedbox--index')
+@section('page', 'page__staff-seedbox--index')
 
-@section ('main')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('staff.seedboxes') }}</h2>
         <div class="data-table-wrapper">
@@ -63,7 +64,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method ('DELETE')
+                                            @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this seedbox: ' . $seedbox->ip . '? (owned by ' . $seedbox->user->username . ')') }}"

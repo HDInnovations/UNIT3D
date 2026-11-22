@@ -1,5 +1,5 @@
-@extends ('errors.layout')
+@extends('errors.layout')
 
-@section ('title', 'Error 403: Forbidden!')
+@section('title', 'Error 403: Forbidden!')
 
-@section ('description', $exception->getMessage() ?: 'You do not have permission to perform this action!')
+@section('description', $exception->getMessage() ?: 'You do not have permission to perform this action!')

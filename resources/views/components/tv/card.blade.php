@@ -1,4 +1,4 @@
-@props ([
+@props([
     'media',
     'personalFreeleech',
 ])
@@ -76,7 +76,7 @@
                                         </th>
                                     @endif
 
-                                    @include ('components.partials._torrent-group-row')
+                                    @include('components.partials._torrent-group-row')
                                 </tr>
                             @endforeach
                         @endforeach
@@ -116,7 +116,7 @@
                                                 </th>
                                             @endif
 
-                                            @include ('components.partials._torrent-group-row')
+                                            @include('components.partials._torrent-group-row')
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -151,7 +151,7 @@
                                             </th>
                                         @endif
 
-                                        @include ('components.partials._torrent-group-row')
+                                        @include('components.partials._torrent-group-row')
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -175,7 +175,7 @@
                                                 </th>
                                             @endif
 
-                                            @include ('components.partials._torrent-group-row')
+                                            @include('components.partials._torrent-group-row')
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -207,7 +207,7 @@
                                                 </th>
                                             @endif
 
-                                            @include ('components.partials._torrent-group-row')
+                                            @include('components.partials._torrent-group-row')
                                         </tr>
                                     @endforeach
                                 </tbody>

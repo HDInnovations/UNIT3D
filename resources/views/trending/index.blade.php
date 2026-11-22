@@ -1,14 +1,14 @@
-@extends ('layout.with-main')
+@extends('layout.with-main')
 
-@section ('title')
+@section('title')
     <title>{{ __('common.trending') }}</title>
 @endsection
 
-@section ('breadcrumbs')
+@section('breadcrumbs')
     <li class="breadcrumb--active">{{ __('torrent.torrents') }}</li>
 @endsection
 
-@section ('nav-tabs')
+@section('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.index') }}">
             {{ __('common.search') }}
@@ -20,7 +20,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}"> {{ __('rss.rss') }} </a>
+        <a class="nav-tab__link" href="{{ route('rss.index') }}">{{ __('rss.rss') }}</a>
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.create') }}">
@@ -29,8 +29,8 @@
     </li>
 @endsection
 
-@section ('page', 'page__trending--index')
+@section('page', 'page__trending--index')
 
-@section ('main')
+@section('main')
     <livewire:trending lazy />
 @endsection
