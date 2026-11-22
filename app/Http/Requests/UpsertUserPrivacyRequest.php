@@ -37,30 +37,30 @@ class UpsertUserPrivacyRequest extends Data
         public bool $showRequested,
         public bool $showTopic,
         public bool $showUpload,
-        /** @var list<int> */
-        public array $jsonProfileGroups,
-        /** @var list<int> */
-        public array $jsonTorrentGroups,
-        /** @var list<int> */
-        public array $jsonForumGroups,
-        /** @var list<int> */
-        public array $jsonBonGroups,
-        /** @var list<int> */
-        public array $jsonCommentGroups,
-        /** @var list<int> */
-        public array $jsonWishlistGroups,
-        /** @var list<int> */
-        public array $jsonFollowerGroups,
-        /** @var list<int> */
-        public array $jsonAchievementGroups,
-        /** @var list<int> */
-        public array $jsonRankGroups,
-        /** @var list<int> */
-        public array $jsonRequestGroups,
-        /** @var list<int> */
-        public array $jsonOtherGroups,
         public bool $privateProfile,
         public bool $hidden,
+        /** @var list<int> */
+        public array $jsonProfileGroups = [],
+        /** @var list<int> */
+        public array $jsonTorrentGroups = [],
+        /** @var list<int> */
+        public array $jsonForumGroups = [],
+        /** @var list<int> */
+        public array $jsonBonGroups = [],
+        /** @var list<int> */
+        public array $jsonCommentGroups = [],
+        /** @var list<int> */
+        public array $jsonWishlistGroups = [],
+        /** @var list<int> */
+        public array $jsonFollowerGroups = [],
+        /** @var list<int> */
+        public array $jsonAchievementGroups = [],
+        /** @var list<int> */
+        public array $jsonRankGroups = [],
+        /** @var list<int> */
+        public array $jsonRequestGroups = [],
+        /** @var list<int> */
+        public array $jsonOtherGroups = [],
     ) {
     }
 
