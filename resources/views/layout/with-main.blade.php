@@ -1,7 +1,7 @@
-@extends('layout.default')
+@extends ('layout.default')
 
-@section('content')
+@section ('content')
     <article>
-        @yield('main')
+        @yield ('main')
     </article>
 @endsection

@@ -1,10 +1,10 @@
-@extends('layout.guest')
+@extends ('layout.guest')
 
-@section('title')
+@section ('title')
     <title>{{ __('auth.lost-password') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('content')
+@section ('content')
     <section class="auth-form">
         <form class="auth-form__form" method="POST" action="{{ route('password.update') }}">
             @csrf
@@ -62,9 +62,7 @@
                 @hiddencaptcha
             @endif
 
-            <button class="auth-form__primary-button">
-                {{ __('auth.password-reset') }}
-            </button>
+            <button class="auth-form__primary-button">{{ __('auth.password-reset') }}</button>
         </form>
     </section>
 @endsection

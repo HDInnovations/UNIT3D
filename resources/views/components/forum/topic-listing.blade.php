@@ -1,9 +1,9 @@
-@props([
+@props ([
     'topic',
 ])
 
 <article
-    @class([
+    @class ([
         'topic-listing',
         'topic-listing--read' => $topic->reads->first()?->last_read_post_id === $topic->last_post_id,
         'topic-listing--unread' => $topic->reads->first()?->last_read_post_id !== $topic->last_post_id,
@@ -99,9 +99,7 @@
         @else
             <i class="fad fa-comments topic-listing__icon"></i>
         @endif
-        <figcaption class="topic-listing__forum">
-            {{ $topic->forum->name }}
-        </figcaption>
+        <figcaption class="topic-listing__forum">{{ $topic->forum->name }}</figcaption>
     </figure>
     <dl class="topic-listing__post-stats">
         <dt>{{ __('forum.replies') }}</dt>

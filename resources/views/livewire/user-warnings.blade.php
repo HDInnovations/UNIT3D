@@ -81,30 +81,30 @@
                 <tr>
                     <th wire:click="sortBy('warned_by')" role="columnheader button">
                         {{ __('user.warned-by') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'warned_by'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'warned_by'])
                     </th>
                     @if ($warningTab !== 'manual')
                         <th wire:click="sortBy('torrent')" role="columnheader button">
                             {{ __('torrent.torrent') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'torrent'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'torrent'])
                         </th>
                     @endif
 
                     <th wire:click="sortBy('reason')" role="columnheader button">
                         {{ __('common.reason') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'reason'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'reason'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('user.created-on') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th wire:click="sortBy('expires_on')" role="columnheader button">
                         {{ __('user.expires-on') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'expires_on'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'expires_on'])
                     </th>
                     <th wire:click="sortBy('active')" role="columnheader button">
                         {{ __('user.active') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'active'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'active'])
                     </th>
                     <th>{{ __('common.actions') }}</th>
                 </tr>
@@ -117,7 +117,7 @@
                         </td>
                         @if ($warningTab !== 'manual')
                             <td>
-                                @isset($warning->torrent)
+                                @isset ($warning->torrent)
                                     <a
                                         href="{{ route('torrents.show', ['id' => $warning->torrent->id]) }}"
                                     >
@@ -152,9 +152,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </td>
                         @if (auth()->user()->group->is_modo)
@@ -164,7 +162,7 @@
                                         <li class="data-table__action">
                                             <form>
                                                 @csrf
-                                                @method('PATCH')
+                                                @method ('PATCH')
                                                 <button
                                                     x-on:click.prevent="restoreWarning"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to restore this warning: ' . $warning->reason . '?') }}"

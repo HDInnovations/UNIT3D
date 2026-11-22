@@ -6,9 +6,7 @@
         {{ __('request.claim') }}
     </button>
     <dialog id="request-claim" class="dialog" popover>
-        <h3 class="dialog__heading">
-            {{ __('request.claim') }}
-        </h3>
+        <h3 class="dialog__heading">{{ __('request.claim') }}</h3>
         <form
             class="dialog__form"
             method="POST"

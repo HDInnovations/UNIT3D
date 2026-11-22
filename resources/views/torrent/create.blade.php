@@ -1,21 +1,19 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>Upload - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('torrents.index') }}" class="breadcrumb__link">
             {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.upload') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.upload') }}</li>
 @endsection
 
-@section('nav-tabs')
+@section ('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.index') }}">
             {{ __('torrent.search') }}
@@ -27,9 +25,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}">
-            {{ __('rss.rss') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('rss.index') }}"> {{ __('rss.rss') }} </a>
     </li>
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('torrents.create') }}">
@@ -38,9 +34,9 @@
     </li>
 @endsection
 
-@section('page', 'page__torrent--create')
+@section ('page', 'page__torrent--create')
 
-@section('main')
+@section ('main')
     <section class="upload panelV2" x-data="torrentCreate">
         <h2 class="upload-title panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-file"></i>
@@ -144,10 +140,7 @@
                     <select name="type_id" id="autotype" class="form__select" required>
                         <option hidden disabled selected value=""></option>
                         @foreach ($types as $type)
-                            <option
-                                value="{{ $type->id }}"
-                                @selected(old('type_id') == $type->id)
-                            >
+                            <option value="{{ $type->id }}" @selected (old('type_id') == $type->id)>
                                 {{ $type->name }}
                             </option>
                         @endforeach
@@ -170,7 +163,7 @@
                         @foreach ($resolutions as $resolution)
                             <option
                                 value="{{ $resolution->id }}"
-                                @selected(old('resolution_id') == $resolution->id)
+                                @selected (old('resolution_id') == $resolution->id)
                             >
                                 {{ $resolution->name }}
                             </option>
@@ -198,7 +191,7 @@
                             @foreach ($distributors as $distributor)
                                 <option
                                     value="{{ $distributor->id }}"
-                                    @selected(old('distributor_id') == $distributor->id)
+                                    @selected (old('distributor_id') == $distributor->id)
                                 >
                                     {{ $distributor->name }}
                                 </option>
@@ -222,7 +215,7 @@
                             @foreach ($regions as $region)
                                 <option
                                     value="{{ $region->id }}"
-                                    @selected(old('region_id') == $region->id)
+                                    @selected (old('region_id') == $region->id)
                                 >
                                     {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
                                 </option>
@@ -273,7 +266,11 @@
                 </div>
                 <div
                     class="form__group--horizontal"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
+                    x-show="
+                        cats[cat].type === 'movie' ||
+                        cats[cat].type === 'tv' ||
+                        cats[cat].type === 'game'
+                    "
                 >
                     <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                         <p class="form__group">
@@ -283,7 +280,7 @@
                                 id="movie_exists_on_tmdb"
                                 name="movie_exists_on_tmdb"
                                 value="1"
-                                @checked(old('movie_exists_on_tmdb', true))
+                                @checked (old('movie_exists_on_tmdb', true))
                                 x-model="tmdb_movie_exists"
                             />
                             <label class="form__label" for="movie_exists_on_tmdb">
@@ -322,7 +319,7 @@
                                 id="tv_exists_on_tmdb"
                                 name="tv_exists_on_tmdb"
                                 value="1"
-                                @checked(old('tv_exists_on_tmdb', true))
+                                @checked (old('tv_exists_on_tmdb', true))
                                 x-model="tmdb_tv_exists"
                             />
                             <label class="form__label" for="tv_exists_on_tmdb">
@@ -360,7 +357,7 @@
                                 id="title_exists_on_imdb"
                                 name="title_exists_on_imdb"
                                 value="1"
-                                @checked(old('title_exists_on_imdb', true))
+                                @checked (old('title_exists_on_imdb', true))
                                 x-model="imdb_title_exists"
                             />
                             <label class="form__label" for="title_exists_on_imdb">
@@ -382,7 +379,10 @@
                                         ? {{ Js::from(old('imdb', $imdb)) }}
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && imdb_title_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    imdb_title_exists
+                                "
                                 x-bind="imdbInput"
                             />
                             <label class="form__label form__label--floating" for="autoimdb">
@@ -399,7 +399,7 @@
                                 id="tv_exists_on_tvdb"
                                 name="tv_exists_on_tvdb"
                                 value="1"
-                                @checked(old('tv_exists_on_tvdb', true))
+                                @checked (old('tv_exists_on_tvdb', true))
                                 x-model="tvdb_tv_exists"
                             />
                             <label class="form__label" for="tv_exists_on_tvdb">
@@ -436,7 +436,7 @@
                                 id="anime_exists_on_mal"
                                 name="anime_exists_on_mal"
                                 value="1"
-                                @checked(old('anime_exists_on_mal', true))
+                                @checked (old('anime_exists_on_mal', true))
                                 x-model="mal_anime_exists"
                             />
                             <label class="form__label" for="anime_exists_on_mal">
@@ -456,7 +456,10 @@
                                         ? {{ Js::from(old('mal', $mal)) }}
                                         : ''
                                 "
-                                x-bind:required="(cats[cat].type === 'movie' || cats[cat].type === 'tv') && mal_anime_exists"
+                                x-bind:required="
+                                    (cats[cat].type === 'movie' || cats[cat].type === 'tv') &&
+                                    mal_anime_exists
+                                "
                                 class="form__text"
                                 placeholder=" "
                             />
@@ -474,7 +477,7 @@
                                 id="game_exists_on_igdb"
                                 name="game_exists_on_igdb"
                                 value="1"
-                                @checked(old('game_exists_on_igdb', true))
+                                @checked (old('game_exists_on_igdb', true))
                                 x-model="igdb_game_exists"
                             />
                             <label class="form__label" for="game_exists_on_igdb">
@@ -514,7 +517,7 @@
                         )
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
+                @livewire ('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                 <p
                     class="form__group"
                     x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
@@ -524,8 +527,7 @@
                         name="mediainfo"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ old('mediainfo') }}</textarea
+                        >{{ old('mediainfo') }}</textarea
                     >
                     <label class="form__label form__label--floating" for="upload-form-mediainfo">
                         {{ __('torrent.media-info-parser') }}
@@ -540,8 +542,7 @@
                         name="bdinfo"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ old('bdinfo') }}</textarea
+                        >{{ old('bdinfo') }}</textarea
                     >
                     <label class="form__label form__label--floating" for="upload-form-bdinfo">
                         BDInfo (quick summary)
@@ -555,7 +556,7 @@
                         id="anon"
                         name="anon"
                         value="1"
-                        @checked(old('anon'))
+                        @checked (old('anon'))
                     />
                     <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                 </p>
@@ -568,7 +569,7 @@
                             id="internal"
                             name="internal"
                             value="1"
-                            @checked(old('internal'))
+                            @checked (old('internal'))
                         />
                         <label class="form__label" for="internal">
                             {{ __('torrent.internal') }}?
@@ -584,7 +585,7 @@
                         id="personal_release"
                         name="personal_release"
                         value="1"
-                        @checked(old('personal_release'))
+                        @checked (old('personal_release'))
                     />
                     <label class="form__label" for="personal_release">Personal release?</label>
                 </p>
@@ -597,7 +598,7 @@
                             id="mod_queue_opt_in"
                             name="mod_queue_opt_in"
                             value="1"
-                            @checked(old('mod_queue_opt_in'))
+                            @checked (old('mod_queue_opt_in'))
                         />
                         <label class="form__label" for="mod_queue_opt_in">
                             Opt in to moderation queue?
@@ -614,7 +615,7 @@
                             id="refundable"
                             name="refundable"
                             value="1"
-                            @checked(old('refundable'))
+                            @checked (old('refundable'))
                         />
                         <label class="form__label" for="refundable">
                             {{ __('torrent.refundable') }}?
@@ -627,14 +628,14 @@
                         <select name="free" id="free" class="form__select">
                             <option
                                 value="0"
-                                @selected(old('free') === '0' || old('free') === null)
+                                @selected (old('free') === '0' || old('free') === null)
                             >
                                 {{ __('common.no') }}
                             </option>
-                            <option value="25" @selected(old('free') === '25')>25%</option>
-                            <option value="50" @selected(old('free') === '50')>50%</option>
-                            <option value="75" @selected(old('free') === '75')>75%</option>
-                            <option value="100" @selected(old('free') === '100')>100%</option>
+                            <option value="25" @selected (old('free') === '25')>25%</option>
+                            <option value="50" @selected (old('free') === '50')>50%</option>
+                            <option value="75" @selected (old('free') === '75')>75%</option>
+                            <option value="100" @selected (old('free') === '100')>100%</option>
                         </select>
                         <label class="form__label form__label--floating" for="free">
                             {{ __('torrent.freeleech') }}
@@ -674,9 +675,7 @@
                     },
                     imdbInput: {
                         ['x-on:paste']() {
-                            matches = this.$event.clipboardData
-                                .getData('text')
-                                .match(/tt0*(\d{7,})/);
+                            matches = this.$event.clipboardData.getData('text').match(/tt0*(\d{7,})/);
 
                             if (matches !== null) {
                                 this.$el.value = Number(matches[1]);
@@ -696,7 +695,7 @@
 @endsection
 
 @if ($user->can_upload ?? $user->group->can_upload)
-    @section('sidebar')
+    @section ('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">
                 <i class="{{ config('other.font-awesome') }} fa-info"></i>
@@ -711,7 +710,7 @@
     @endsection
 @endif
 
-@section('javascripts')
+@section ('javascripts')
     <script src="{{ asset('build/unit3d/tmdb.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('build/unit3d/parser.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('build/unit3d/helper.js') }}" crossorigin="anonymous"></script>

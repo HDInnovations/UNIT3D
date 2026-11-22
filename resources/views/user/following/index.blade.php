@@ -1,27 +1,25 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ $user->username }} {{ __('user.following') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.following') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.following') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-following--index')
+@section ('page', 'page__user-following--index')
 
-@section('main')
+@section ('main')
     @if (auth()->id() === $user->id || auth()->user()->group->is_modo)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.following') }}</h2>
@@ -60,7 +58,7 @@
                                                     action="{{ route('users.followers.destroy', ['user' => $following]) }}"
                                                 >
                                                     @csrf
-                                                    @method('DELETE')
+                                                    @method ('DELETE')
                                                     <button class="form__button form__button--text">
                                                         {{ __('user.unfollow') }}
                                                     </button>

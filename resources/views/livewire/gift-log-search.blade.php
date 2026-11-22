@@ -67,23 +67,23 @@
                 <tr>
                     <th wire:click="sortBy('sender_id')" role="columnheader button">
                         {{ __('user.sender') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'sender_id'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'sender_id'])
                     </th>
                     <th wire:click="sortBy('recipient_id')" role="columnheader button">
                         {{ __('bon.receiver') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'recipient_id'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'recipient_id'])
                     </th>
                     <th wire:click="sortBy('bon')" role="columnheader button">
                         {{ __('bon.points') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'bon'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'bon'])
                     </th>
                     <th wire:click="sortBy('message')" role="columnheader button">
                         {{ __('common.message') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'message'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'message'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('user.created-on') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                 </tr>
             </thead>

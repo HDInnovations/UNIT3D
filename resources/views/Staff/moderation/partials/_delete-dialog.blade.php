@@ -16,7 +16,7 @@
             action="{{ route('torrents.destroy', ['id' => $torrent->id]) }}"
         >
             @csrf
-            @method('DELETE')
+            @method ('DELETE')
             <p class="form__group">
                 <input id="type" type="hidden" name="type" value="{{ __('torrent.torrent') }}" />
                 <input id="id" type="hidden" name="id" value="{{ $torrent->id }}" />
@@ -28,9 +28,7 @@
                 </label>
             </p>
             <p class="form__group">
-                <button class="form__button form__button--filled">
-                    {{ __('common.delete') }}
-                </button>
+                <button class="form__button form__button--filled">{{ __('common.delete') }}</button>
                 <button
                     class="form__button form__button--outlined"
                     type="button"

@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,9 +9,9 @@
     <li class="breadcrumb--active">Internals</li>
 @endsection
 
-@section('page', 'page__staff-internal--index')
+@section ('page', 'page__staff-internal--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Internal groups</h2>
@@ -65,7 +65,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method('DELETE')
+                                            @method ('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this internal group: ' . $internalGroup->name . '?') }}"

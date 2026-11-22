@@ -1,27 +1,25 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('common.genres') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="Genres" />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('mediahub.index') }}" class="breadcrumb__link">
             {{ __('mediahub.title') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('mediahub.genres') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('mediahub.genres') }}</li>
 @endsection
 
-@section('page', 'page__genre--index')
+@section ('page', 'page__genre--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.genres') }}</h2>
         <div class="panel__body">

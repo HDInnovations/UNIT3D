@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,17 +11,13 @@
             Torrent distributors
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $distributor->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.delete') }}
-    </li>
+    <li class="breadcrumbV2">{{ $distributor->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.delete') }}</li>
 @endsection
 
-@section('page', 'page__staff-distributor--delete')
+@section ('page', 'page__staff-distributor--delete')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.delete') }} torrent distributor: {{ $distributor->name }}
@@ -34,11 +30,8 @@
                 x-data="confirmation"
             >
                 @csrf
-                @method('DELETE')
-                <p class="form__group">
-                    An existing torrent on site may already use this distributor. Would you like to
-                    change it?
-                </p>
+                @method ('DELETE')
+                <p class="form__group">An existing torrent on site may already use this distributor. Would you like to change it?</p>
                 <p class="form__group">
                     <select
                         name="distributor_id"

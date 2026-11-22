@@ -1,17 +1,15 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.chat-rooms') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.chat-rooms') }}</li>
 @endsection
 
-@section('nav-tabs')
+@section ('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
             {{ __('staff.statuses') }}
@@ -23,15 +21,13 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.bots.index') }}">
-            {{ __('staff.bots') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('staff.bots.index') }}"> {{ __('staff.bots') }} </a>
     </li>
 @endsection
 
-@section('page', 'page__staff-chat-room--index')
+@section ('page', 'page__staff-chat-room--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('common.chat-rooms') }}</h2>
@@ -83,7 +79,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method('DELETE')
+                                            @method ('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this chatroom: ' . $chatroom->name . '?') }}"

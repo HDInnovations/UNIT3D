@@ -41,11 +41,11 @@
             <tr>
                 <th wire:click="sortBy('title')" role="columnheader button">
                     {{ __('torrent.title') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'title'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'title'])
                 </th>
                 <th wire:click="sortBy('requests_count')" role="columnheader button">
                     {{ __('request.requests') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'requests_count'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'requests_count'])
                 </th>
                 @foreach ($types as $type)
                     <th>{{ $type->name }}</th>

@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,7 +9,7 @@
     <li class="breadcrumb--active">{{ __('staff.chat') }} {{ __('staff.statuses') }}</li>
 @endsection
 
-@section('nav-tabs')
+@section ('nav-tabs')
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('staff.statuses.index') }}">
             {{ __('staff.statuses') }}
@@ -21,15 +21,13 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('staff.bots.index') }}">
-            {{ __('staff.bots') }}
-        </a>
+        <a class="nav-tab__link" href="{{ route('staff.bots.index') }}"> {{ __('staff.bots') }} </a>
     </li>
 @endsection
 
-@section('page', 'page__staff-chat-status--index')
+@section ('page', 'page__staff-chat-status--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">
@@ -96,7 +94,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method('DELETE')
+                                            @method ('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this chat status: ' . $chatstatus->name . '?') }}"

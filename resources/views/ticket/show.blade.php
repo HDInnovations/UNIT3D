@@ -1,26 +1,24 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('tickets.index') }}" class="breadcrumb__link">
             {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $ticket->subject }}
-    </li>
+    <li class="breadcrumb--active">{{ $ticket->subject }}</li>
 @endsection
 
-@section('page', 'page__ticket--show')
+@section ('page', 'page__ticket--show')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $ticket->subject }}</h2>
-        <div class="panel__body bbcode-rendered">@bbcode($ticket->body)</div>
+        <div class="panel__body bbcode-rendered">@bbcode ($ticket->body)</div>
     </section>
     @if ($user->group->is_modo)
         <section class="panelV2">
@@ -105,7 +103,7 @@
                                                 x-data="confirmation"
                                             >
                                                 @csrf
-                                                @method('DELETE')
+                                                @method ('DELETE')
                                                 <p class="form__group form__group--horizontal">
                                                     <button
                                                         x-on:click.prevent="confirmAction"
@@ -134,7 +132,7 @@
     <livewire:comments :model="$ticket" />
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
@@ -170,10 +168,7 @@
                 <div class="key-value__group">
                     <dt>{{ __('ticket.closed') }}</dt>
                     <dd>
-                        <time
-                            datetime="{{ $ticket->closed_at }}"
-                            title="{{ $ticket->closed_at }}"
-                        >
+                        <time datetime="{{ $ticket->closed_at }}" title="{{ $ticket->closed_at }}">
                             {{ $ticket->closed_at->format('Y-m-d') }}
                         </time>
                     </dd>
@@ -203,7 +198,7 @@
                             @foreach (App\Models\User::query()->select(['id', 'username'])->whereIn('group_id', App\Models\Group::query()->where('is_modo', 1)->whereNotIn('id', [9])->pluck('id')->toArray())->get() as $user)
                                 <option
                                     value="{{ $user->id }}"
-                                    @selected($user->id === $ticket->staff_id)
+                                    @selected ($user->id === $ticket->staff_id)
                                 >
                                     {{ $user->username }}
                                 </option>
@@ -221,7 +216,7 @@
                         method="POST"
                     >
                         @csrf
-                        @method('DELETE')
+                        @method ('DELETE')
                         <p class="form__group form__group--horizontal">
                             <button
                                 class="form__button form__button--filled form__button--centered"
@@ -234,7 +229,7 @@
 
                 <form action="{{ route('tickets.destroy', ['ticket' => $ticket]) }}" method="POST">
                     @csrf
-                    @method('DELETE')
+                    @method ('DELETE')
                     <p class="form__group form__group--horizontal">
                         <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.delete') }}
@@ -264,7 +259,7 @@
             @endif
         </div>
     </section>
-    @livewire('attachment-upload', ['id' => $ticket->id])
+    @livewire ('attachment-upload', ['id' => $ticket->id])
     @if ($pastUserTickets->count() > 0)
         <section class="panelV2">
             <h2 class="panel__heading">Other tickets</h2>

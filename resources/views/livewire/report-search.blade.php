@@ -138,35 +138,35 @@
                     <tr>
                         <th wire:click="sortBy('id')" role="columnheader button">
                             ID
-                            @include('livewire.includes._sort-icon', ['field' => 'id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
                         <th wire:click="sortBy('type')" role="columnheader button">
                             Type
-                            @include('livewire.includes._sort-icon', ['field' => 'type'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'type'])
                         </th>
                         <th wire:click="sortBy('title')" role="columnheader button">
                             {{ __('common.title') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'title'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'title'])
                         </th>
                         @if ($isModo)
                             <th wire:click="sortBy('reported_user_id')" role="columnheader button">
                                 Reported
-                                @include('livewire.includes._sort-icon', ['field' => 'reported_user_id'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'reported_user_id'])
                             </th>
                         @else
                             <th>Reported</th>
                         @endif
                         <th wire:click="sortBy('reporter_id')" role="columnheader button">
                             {{ __('common.reporter') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'reporter_id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'reporter_id'])
                         </th>
                         <th wire:click="sortBy('staff_id')" role="columnheader button">
                             {{ __('ticket.assigned-staff') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'staff_id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'staff_id'])
                         </th>
                         <th wire:click="sortBy('created_at')" role="columnheader button">
                             {{ __('user.created-on') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                         </th>
                     </tr>
                 </thead>
@@ -193,7 +193,7 @@
                                 @if ($report->staff)
                                     <x-user-tag :anon="false" :user="$report->staff" />
                                 @else
-                                        Unassigned
+                                    Unassigned
                                 @endif
                             </td>
                             <td>

@@ -85,7 +85,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.name') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'name'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'name'])
                     </th>
                     <th
                         class="user-active__seeders-header"
@@ -94,7 +94,7 @@
                         title="{{ __('torrent.seeders') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-up"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'seeders'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'seeders'])
                     </th>
                     <th
                         class="user-active__leechers-header"
@@ -103,7 +103,7 @@
                         title="{{ __('torrent.leechers') }}"
                     >
                         <i class="fas fa-arrow-alt-circle-down"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'leechers'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'leechers'])
                     </th>
                     <th
                         class="user-active__times-header"
@@ -112,7 +112,7 @@
                         title="{{ __('torrent.completed') }}"
                     >
                         <i class="fas fa-check-circle"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
                     </th>
                     <th
                         class="user-active__agent-header"
@@ -120,7 +120,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.client') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'agent'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'agent'])
                     </th>
                     <th
                         class="user-active__ip-header"
@@ -128,7 +128,7 @@
                         role="columnheader button"
                     >
                         {{ __('common.ip') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'ip'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'ip'])
                     </th>
                     <th
                         class="user-active__port-header"
@@ -136,7 +136,7 @@
                         role="columnheader button"
                     >
                         {{ __('common.port') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'port'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'port'])
                     </th>
                     @if (\config('announce.connectable_check'))
                         <th class="user-active__connectable-header">
@@ -154,7 +154,7 @@
                         title="Visible"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>
-                        @include('livewire.includes._sort-icon', ['field' => 'visible'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'visible'])
                     </th>
                     <th
                         class="user-active__size-header"
@@ -162,7 +162,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.size') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'size'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'size'])
                     </th>
                     <th
                         class="user-active__uploaded-header"
@@ -170,7 +170,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.uploaded') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'uploaded'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'uploaded'])
                     </th>
                     <th
                         class="user-active__downloaded-header"
@@ -178,7 +178,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.downloaded') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'downloaded'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'downloaded'])
                     </th>
                     <th
                         class="user-active__left-header"
@@ -186,7 +186,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.left') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'left'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'left'])
                     </th>
                     <th
                         class="user-active__progress-header"
@@ -194,7 +194,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.progress') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'progress'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'progress'])
                     </th>
                     <th
                         class="user-active__created-at-header"
@@ -202,7 +202,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.started') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th
                         class="user-active__updated-at-header"
@@ -210,7 +210,7 @@
                         role="columnheader button"
                     >
                         {{ __('torrent.updated') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'updated_at'])
                     </th>
                 </thead>
                 <tbody>
@@ -225,7 +225,7 @@
                                 </a>
                             </td>
                             <td
-                                @class([
+                                @class ([
                                     'user-active__seeders',
                                     'torrent-activity-indicator--seeding' => $active->seeding,
                                 ])
@@ -241,7 +241,7 @@
                                 </a>
                             </td>
                             <td
-                                @class([
+                                @class ([
                                     'user-active__leechers',
                                     'torrent-activity-indicator--leeching' => $active->leeching,
                                 ])

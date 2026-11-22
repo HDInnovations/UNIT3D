@@ -1,28 +1,24 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('rss.create-public-feed') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.rss.index') }}" class="breadcrumb__link">
-            {{ __('rss.rss') }}
-        </a>
+        <a href="{{ route('staff.rss.index') }}" class="breadcrumb__link"> {{ __('rss.rss') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section('page', 'page__staff-rss--create')
+@section ('page', 'page__staff-rss--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('rss.create-public-feed') }}</h2>
         <div class="panel__body">

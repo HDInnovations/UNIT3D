@@ -66,11 +66,11 @@
                         </th>
                         <th wire:click="sortBy('requests_count')" role="columnheader button">
                             {{ __('request.requests') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'requests_count'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'requests_count'])
                         </th>
                         <th wire:click="sortBy('created_at')" role="columnheader button">
                             {{ __('common.created_at') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                         </th>
                         <th>{{ __('common.action') }}</th>
                     </tr>
@@ -110,9 +110,7 @@
                                     {{ $torrentReseed->torrent->times_completed }}
                                 </a>
                             </td>
-                            <td>
-                                {{ $torrentReseed->requests_count }}
-                            </td>
+                            <td>{{ $torrentReseed->requests_count }}</td>
                             <td>
                                 <time
                                     datetime="{{ $torrentReseed->created_at }}"

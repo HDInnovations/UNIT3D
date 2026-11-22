@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,14 +9,12 @@
     <li class="breadcrumbV2">
         <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">Internals</a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section('page', 'page__staff-internal--create')
+@section ('page', 'page__staff-internal--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.add') }} internal group</h2>
         <div class="panel__body">

@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,23 +11,16 @@
             {{ __('staff.torrent-types') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $type->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $type->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-type--edit')
+@section ('page', 'page__staff-type--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }}
-            {{ __('torrent.torrent') }}
-            {{ __('common.type') }}:
-            {{ $type->name }}
+            {{ __('common.edit') }} {{ __('torrent.torrent') }} {{ __('common.type') }}: {{ $type->name }}
         </h2>
         <div class="panel__body">
             <form
@@ -35,7 +28,7 @@
                 method="POST"
                 action="{{ route('staff.types.update', ['type' => $type]) }}"
             >
-                @method('PATCH')
+                @method ('PATCH')
                 @csrf
                 <p class="form__group">
                     <input

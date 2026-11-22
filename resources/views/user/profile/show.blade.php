@@ -1,32 +1,28 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
-    <title>
-        {{ $user->username }} - {{ __('common.members') }} - {{ config('other.title') }}
-    </title>
+@section ('title')
+    <title>{{ $user->username }} - {{ __('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta
         name="description"
         content="{{ __('user.profile-desc', ['user' => $user->username, 'title' => config('other.title')]) }}"
     />
 @endsection
 
-@section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ $user->username }}
-    </li>
+@section ('breadcrumbs')
+    <li class="breadcrumb--active">{{ $user->username }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-profile--show')
+@section ('page', 'page__user-profile--show')
 
 @if (auth()->user()->isAllowed($user))
-    @section('main')
+    @section ('main')
         <section class="panelV2">
             <header class="panel__header">
                 <h2 class="panel__heading">{{ __('user.user') }} {{ __('user.information') }}</h2>
@@ -56,7 +52,7 @@
                                 x-data="confirmation"
                             >
                                 @csrf
-                                @method('DELETE')
+                                @method ('DELETE')
                                 <button
                                     x-on:click.prevent="confirmAction"
                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this user and all their associated records: ' . $user->username . '?') }}"
@@ -149,15 +145,14 @@
                                     title="{{ __('user.active-warning') }}"
                                 ></i>
                             @endif
-                        </x-slot>
+                        </x-slot:appendedIcons>
                     </x-user-tag>
                     <time
                         datetime="{{ $user->created_at }}"
                         title="{{ $user->created_at }}"
                         class="profile__registration"
                     >
-                        {{ __('user.registration-date') }}:
-                        {{ $user->created_at?->format('Y-m-d') ?? 'N/A' }}
+                        {{ __('user.registration-date') }}: {{ $user->created_at?->format('Y-m-d') ?? 'N/A' }}
                     </time>
                     <img
                         src="{{ $user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $user]) }}"
@@ -173,7 +168,7 @@
                     @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_about') && $user->about)
                         <div class="profile__about">
                             {{ __('user.about') }}:
-                            <div class="bbcode-rendered">@bbcode($user->about ?? 'N/A')</div>
+                            <div class="bbcode-rendered">@bbcode ($user->about ?? 'N/A')</div>
                         </div>
                     @endif
                 </article>
@@ -209,7 +204,7 @@
                                     method="POST"
                                 >
                                     @csrf
-                                    @method('DELETE')
+                                    @method ('DELETE')
                                     <button
                                         class="form__button form__button--text"
                                         id="delete-follow-{{ $user->target_id }}"
@@ -324,7 +319,7 @@
                                         @endphp
 
                                         <td>
-                                            @choice('user.client-connectable-state', $connectable)
+                                            @choice ('user.client-connectable-state', $connectable)
                                         </td>
                                     @endif
                                 </tr>
@@ -355,7 +350,7 @@
         @endif
 
         @if (auth()->user()->group->is_modo)
-            @livewire('user-notes', ['user' => $user])
+            @livewire ('user-notes', ['user' => $user])
             @if ($user->application !== null)
                 <section class="panelV2">
                     <h2 class="panel__heading">{{ __('staff.application') }}</h2>
@@ -382,18 +377,15 @@
                                     </time>
                                 </td>
                                 <td>
-                                    @switch($user->application->status)
-                                        @case(\App\Enums\ModerationStatus::PENDING)
+                                    @switch ($user->application->status)
+                                        @case (\App\Enums\ModerationStatus::PENDING)
                                             <span class="application--pending">Pending</span>
-
                                             @break
-                                        @case(\App\Enums\ModerationStatus::APPROVED)
+                                        @case (\App\Enums\ModerationStatus::APPROVED)
                                             <span class="application--approved">Approved</span>
-
                                             @break
-                                        @case(\App\Enums\ModerationStatus::REJECTED)
+                                        @case (\App\Enums\ModerationStatus::REJECTED)
                                             <span class="application--rejected">Rejected</span>
-
                                             @break
                                         @default
                                             <span class="application--unknown">Unknown</span>
@@ -459,7 +451,7 @@
         @endif
 
         @if (auth()->user()->group->is_modo)
-            @include('user.profile.partials.bans', ['bans' => $user->bans])
+            @include ('user.profile.partials.bans', ['bans' => $user->bans])
         @endif
 
         @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
@@ -530,7 +522,7 @@
                                 method="POST"
                             >
                                 @csrf
-                                @method('DELETE')
+                                @method ('DELETE')
                                 <button class="form__button form__button--text">Unwatch</button>
                             </form>
                         @endif
@@ -574,7 +566,7 @@
                                                     x-data="confirmation"
                                                 >
                                                     @csrf
-                                                    @method('DELETE')
+                                                    @method ('DELETE')
                                                     <button
                                                         x-on:click.prevent="confirmAction"
                                                         data-b64-deletion-message="{{ base64_encode('Are you sure you want to unwatch this user: ' . $watch->user->username . '?') }}"
@@ -595,7 +587,7 @@
         @endif
     @endsection
 
-    @section('sidebar')
+    @section ('sidebar')
         @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
             <section class="panelV2">
                 <h2 class="panel__heading">Donations</h2>
@@ -608,9 +600,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -622,23 +612,17 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Latest donation amount</dt>
-                        <dd>
-                            {{ $donation->package->cost ?? 'N/A' }}
-                        </dd>
+                        <dd>{{ $donation->package->cost ?? 'N/A' }}</dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Latest donation date</dt>
-                        <dd>
-                            {{ $donation->starts_at ?? 'N/A' }}
-                        </dd>
+                        <dd>{{ $donation->starts_at ?? 'N/A' }}</dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Donation expire date</dt>
@@ -736,8 +720,7 @@
                         <div class="key-value__group">
                             <dt>
                                 <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
-                                    {{ __('user.total-uploads') }}
-                                    (Non-{{ __('common.anonymous') }})
+                                    {{ __('user.total-uploads') }} (Non-{{ __('common.anonymous') }})
                                 </a>
                             </dt>
                             <dd>{{ $user->non_anon_uploads_count ?? 0 }}</dd>
@@ -861,8 +844,7 @@
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.upload') }}
-                            ({{ __('torrent.credited') }})
+                            {{ __('torrent.torrent') }} {{ __('common.upload') }} ({{ __('torrent.credited') }})
                         </dt>
                         <dd>
                             {{ App\Helpers\StringHelper::formatBytes($history->credited_upload_sum ?? 0, 2) }}
@@ -876,8 +858,7 @@
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.download') }}
-                            ({{ __('torrent.credited') }})
+                            {{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.credited') }})
                         </dt>
                         <dd>
                             {{ App\Helpers\StringHelper::formatBytes($history->credited_download_sum ?? 0, 2) }}
@@ -885,8 +866,7 @@
                     </div>
                     <div class="key-value__group">
                         <dt>
-                            {{ __('torrent.torrent') }} {{ __('common.download') }}
-                            ({{ __('torrent.refunded') }})
+                            {{ __('torrent.torrent') }} {{ __('common.download') }} ({{ __('torrent.refunded') }})
                         </dt>
                         <dd>
                             {{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum ?? 0, 2) }}
@@ -1023,9 +1003,7 @@
 
         @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
-                <h2 class="panel__heading">
-                    {{ __('user.id-permissions') }}
-                </h2>
+                <h2 class="panel__heading">{{ __('user.id-permissions') }}</h2>
                 <dl class="key-value">
                     <div class="key-value__group">
                         <dt>
@@ -1127,9 +1105,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1141,9 +1117,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1155,9 +1129,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1169,9 +1141,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1183,9 +1153,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1197,9 +1165,7 @@
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
                             @else
-                                <i
-                                    class="{{ config('other.font-awesome') }} fa-times text-red"
-                                ></i>
+                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
                             @endif
                         </dd>
                     </div>
@@ -1436,7 +1402,7 @@
         @endif
     @endsection
 @else
-    @section('main')
+    @section ('main')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.private-profile') }}</h2>
             <div class="panel__body">{{ __('user.not-authorized') }}</div>

@@ -17,16 +17,14 @@
         </div>
     </header>
     <div class="panel__body bbcode-rendered">
-        @bbcode($torrent->description)
+        @bbcode ($torrent->description)
     </div>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {
             Alpine.data('description', () => ({
                 copy() {
                     text = document.createElement('textarea');
-                    text.innerHTML = decodeURIComponent(
-                        escape(atob('{{ base64_encode($torrent->description) }}')),
-                    );
+                    text.innerHTML = decodeURIComponent(escape(atob('{{ base64_encode($torrent->description) }}')));
                     navigator.clipboard.writeText(text.value);
                     Swal.fire({
                         toast: true,

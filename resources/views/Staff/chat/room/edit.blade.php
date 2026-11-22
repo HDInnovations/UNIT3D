@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,17 +11,13 @@
             {{ __('common.chat-rooms') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $chatroom->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $chatroom->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-chat-room--edit')
+@section ('page', 'page__staff-chat-room--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.edit') }} {{ __('common.chat-room') }}: {{ $chatroom->name }}

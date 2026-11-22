@@ -18,7 +18,7 @@
         </li>
     @endif
 
-    @isset($torrent->region)
+    @isset ($torrent->region)
         <li class="torrent__region">
             <a
                 class="torrent__region-link"
@@ -29,7 +29,7 @@
         </li>
     @endisset
 
-    @isset($torrent->type)
+    @isset ($torrent->type)
         <li class="torrent__type">
             <a
                 class="torrent__type-link"
@@ -40,7 +40,7 @@
         </li>
     @endisset
 
-    @isset($torrent->distributor)
+    @isset ($torrent->distributor)
         <li class="torrent__distributor">
             <a
                 class="torrent__distributor-link"
@@ -57,7 +57,7 @@
         </span>
     </li>
     <li
-        @class([
+        @class ([
             'torrent__seeders',
             'torrent-activity-indicator--seeding' => $torrent->seeding,
         ])
@@ -72,7 +72,7 @@
         </a>
     </li>
     <li
-        @class([
+        @class ([
             'torrent__leechers',
             'torrent-activity-indicator--leeching' => $torrent->leeching,
         ])
@@ -87,7 +87,7 @@
         </a>
     </li>
     <li
-        @class([
+        @class ([
             'torrent__completed',
             'torrent-activity-indicator--completed' => $torrent->completed,
         ])
@@ -112,13 +112,12 @@
     @if ($torrent->seeders === 0)
         <li class="torrent__activity">
             <span class="torrent__activity-link">
-                {{ __('torrent.last-seed-activity') }}:
-                {{ $torrent->history_max_updated_at ?? __('common.unknown') }}
+                {{ __('torrent.last-seed-activity') }}: {{ $torrent->history_max_updated_at ?? __('common.unknown') }}
             </span>
         </li>
     @endif
 
     <li>
-        @include('components.partials._torrent-icons', ['personalFreeleech' => $personal_freeleech])
+        @include ('components.partials._torrent-icons', ['personalFreeleech' => $personal_freeleech])
     </li>
 </ul>

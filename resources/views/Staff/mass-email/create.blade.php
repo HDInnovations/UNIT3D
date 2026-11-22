@@ -1,33 +1,30 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>
-        {{ __('staff.mass-email') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('staff.mass-email') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta
         name="description"
         content="{{ __('staff.mass-email') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.mass-email') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.mass-email') }}</li>
 @endsection
 
-@section('page', 'page__staff-mass-email--create')
+@section ('page', 'page__staff-mass-email--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('staff.mass-email') }}</h2>
         <div class="panel__body">
@@ -72,7 +69,7 @@
                         {{ __('common.subject') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'message', 'label' => __('common.message'), 'required' => true])
+                @livewire ('bbcode-input', ['name' => 'message', 'label' => __('common.message'), 'required' => true])
                 <p class="form__group">
                     <button
                         x-on:click.prevent="confirmAction"

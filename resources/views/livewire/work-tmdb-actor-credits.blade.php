@@ -1,6 +1,6 @@
 <section class="meta__chip-container">
     <h2 class="meta__heading">Cast</h2>
-    @island('actors')
+    @island ('actors')
         @foreach ($this->credits ?? [] as $credit)
             <article class="meta-chip-wrapper">
                 <a

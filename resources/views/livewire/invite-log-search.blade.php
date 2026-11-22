@@ -166,60 +166,60 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('staff.invites-log') }}</h2>
         <div class="data-table-wrapper">
-            @switch($groupBy)
-                @case('user_id')
+            @switch ($groupBy)
+                @case ('user_id')
                     <table class="data-table">
                         <thead>
                             <tr>
                                 <th wire:click="sortBy('user_id')" role="columnheader button">
                                     {{ __('user.sender') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_min')"
                                     role="columnheader button"
                                 >
                                     First sent at
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at_min'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at_min'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_avg')"
                                     role="columnheader button"
                                 >
                                     Average sent at
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at_avg'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at_avg'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_max')"
                                     role="columnheader button"
                                 >
                                     Last sent at
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at_max'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at_max'])
                                 </th>
                                 <th wire:click="sortBy('sent_count')" role="columnheader button">
                                     Invites sent
-                                    @include('livewire.includes._sort-icon', ['field' => 'sent_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'sent_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('accepted_by_count')"
                                     role="columnheader button"
                                 >
                                     Invites accepted
-                                    @include('livewire.includes._sort-icon', ['field' => 'accepted_by_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'accepted_by_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('inactive_count')"
                                     role="columnheader button"
                                 >
                                     Inactive count
-                                    @include('livewire.includes._sort-icon', ['field' => 'banned_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'banned_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('inactive_ratio')"
                                     role="columnheader button"
                                 >
                                     Percent inactive
-                                    @include('livewire.includes._sort-icon', ['field' => 'inactive_ratio'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'inactive_ratio'])
                                 </th>
                             </tr>
                         </thead>
@@ -275,7 +275,6 @@
                             @endforelse
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">
@@ -283,43 +282,43 @@
                             <tr>
                                 <th wire:click="sortBy('id')" role="columnheader button">
                                     ID
-                                    @include('livewire.includes._sort-icon', ['field' => 'id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'id'])
                                 </th>
                                 <th wire:click="sortBy('user_id')" role="columnheader button">
                                     {{ __('user.sender') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                                 </th>
                                 <th wire:click="sortBy('email')" role="columnheader button">
                                     {{ __('common.email') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'email'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'email'])
                                 </th>
                                 <th wire:click="sortBy('code')" role="columnheader button">
                                     Code
-                                    @include('livewire.includes._sort-icon', ['field' => 'code'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'code'])
                                 </th>
                                 <th wire:click="sortBy('custom')" role="columnheader button">
                                     {{ __('common.message') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'custom'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'custom'])
                                 </th>
                                 <th wire:click="sortBy('created_at')" role="columnheader button">
                                     {{ __('user.created-on') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                                 </th>
                                 <th wire:click="sortBy('expires_on')" role="columnheader button">
                                     {{ __('user.expires-on') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'expires_on'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'expires_on'])
                                 </th>
                                 <th wire:click="sortBy('accepted_by')" role="columnheader button">
                                     {{ __('user.accepted-by') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'accepted_by'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'accepted_by'])
                                 </th>
                                 <th wire:click="sortBy('accepted_at')" role="columnheader button">
                                     {{ __('user.accepted-at') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'accepted_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'accepted_at'])
                                 </th>
                                 <th wire:click="sortBy('deleted_at')" role="columnheader button">
                                     {{ __('user.deleted-on') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'deleted_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'deleted_at'])
                                 </th>
                             </tr>
                         </thead>

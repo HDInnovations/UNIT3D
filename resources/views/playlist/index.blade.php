@@ -1,13 +1,11 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('playlist.playlists') }}
-    </li>
+@section ('breadcrumbs')
+    <li class="breadcrumb--active">{{ __('playlist.playlists') }}</li>
 @endsection
 
-@section('page', 'page__playlist--index')
+@section ('page', 'page__playlist--index')
 
-@section('main')
-    @livewire('playlist-search')
+@section ('main')
+    @livewire ('playlist-search')
 @endsection

@@ -307,38 +307,38 @@
                     <tr>
                         <th wire:click="sortBy('name')" role="columnheader button">
                             {{ __('common.name') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'name'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'name'])
                         </th>
                         <th wire:click="sortBy('category_id')" role="columnheader button">
                             {{ __('common.category') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'category_id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'category_id'])
                         </th>
                         <th wire:click="sortBy('type_id')" role="columnheader button">
                             {{ __('common.type') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'type_id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'type_id'])
                         </th>
                         <th wire:click="sortBy('resolution_id')" role="columnheader button">
                             {{ __('common.resolution') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'resolution_id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'resolution_id'])
                         </th>
                         <th wire:click="sortBy('user_id')" role="columnheader button">
                             {{ __('common.author') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                         </th>
                         <th wire:click="sortBy('bounties_count')" role="columnheader button">
                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
-                            @include('livewire.includes._sort-icon', ['field' => 'bounties_count'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'bounties_count'])
                         </th>
                         <th>
                             <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i>
                         </th>
                         <th wire:click="sortBy('bounty')" role="columnheader button">
                             <i class="{{ config('other.font-awesome') }} fa-coins"></i>
-                            @include('livewire.includes._sort-icon', ['field' => 'bounty'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'bounty'])
                         </th>
                         <th wire:click="sortBy('bumped_at')" role="columnheader button">
                             {{ __('common.created_at') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'bumped_at'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'bumped_at'])
                         </th>
                         <th>{{ __('common.status') }}</th>
                     </tr>
@@ -374,27 +374,24 @@
                                 </time>
                             </td>
                             <td>
-                                @switch(true)
-                                    @case($torrentRequest->claim_exists && $torrentRequest->torrent_id === null)
+                                @switch (true)
+                                    @case ($torrentRequest->claim_exists && $torrentRequest->torrent_id === null)
                                         <i class="fas fa-circle text-blue"></i>
                                         {{ __('request.claimed') }}
-
                                         @break
-                                    @case($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
+                                    @case ($torrentRequest->torrent_id !== null && $torrentRequest->approved_when === null)
                                         <i class="fas fa-circle text-purple"></i>
                                         {{ __('request.pending') }}
-
                                         @break
-                                    @case($torrentRequest->torrent_id === null)
+                                    @case ($torrentRequest->torrent_id === null)
                                         <i class="fas fa-circle text-red"></i>
                                         {{ __('request.unfilled') }}
-
                                         @break
                                     @default
                                         <i class="fas fa-circle text-green"></i>
                                         {{ __('request.filled') }}
-
                                         @break
+
                                 @endswitch
                             </td>
                         </tr>
@@ -429,16 +426,12 @@
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-claimed') }}:</dt>
-                <dd>
-                    {{ number_format($torrentRequestBountyStat->claimed) }}
-                    {{ __('bon.bon') }}
-                </dd>
+                <dd>{{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }}</dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-unclaimed') }}:</dt>
                 <dd>
-                    {{ number_format($torrentRequestBountyStat->unclaimed) }}
-                    {{ __('bon.bon') }}
+                    {{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}
                 </dd>
             </div>
         </dl>

@@ -1,27 +1,25 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>{{ __('playlist.title') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="Create playlist" />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('playlists.index') }}" class="breadcrumb__link">
             {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section('page', 'page__playlist--create')
+@section ('page', 'page__playlist--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('playlist.create') }}</h2>
         <div class="panel__body">
@@ -65,7 +63,7 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    @livewire('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
+                    @livewire ('bbcode-input', ['name' => 'description', 'label' => __('common.description'), 'required' => true])
                 </p>
                 <p class="form__group">
                     <label for="cover_image" class="form__label">
@@ -96,7 +94,7 @@
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.categories') }}</h2>
         <table class="data-table">

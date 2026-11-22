@@ -1,22 +1,20 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>{{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="{{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('staff.staff-dashboard') }}
-    </li>
+@section ('breadcrumbs')
+    <li class="breadcrumb--active">{{ __('staff.staff-dashboard') }}</li>
 @endsection
 
-@section('page', 'page__staff-dashboard--index')
+@section ('page', 'page__staff-dashboard--index')
 
-@section('main')
+@section ('main')
     <div class="dashboard__menus">
         <section class="panelV2 panel--grid-item">
             <h2 class="panel__heading">
@@ -46,8 +44,7 @@
                             href="{{ route('staff.backups.index') }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-hdd"></i>
-                            {{ __('backup.backup') }}
-                            {{ __('backup.manager') }}
+                            {{ __('backup.backup') }} {{ __('backup.manager') }}
                         </a>
                     </p>
                     <p class="form__group form__group--horizontal">
@@ -727,7 +724,7 @@
     </div>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">SSL certificate</h2>
         <dl class="key-value">

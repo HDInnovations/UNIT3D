@@ -1,27 +1,25 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ $user->username }} {{ __('user.followers') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.followers') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.followers') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-follower--index')
+@section ('page', 'page__user-follower--index')
 
-@section('main')
+@section ('main')
     @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.followers') }}</h2>

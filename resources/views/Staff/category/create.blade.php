@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,19 +11,15 @@
             {{ __('staff.torrent-categories') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section('page', 'page__staff-category--create')
+@section ('page', 'page__staff-category--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('torrent.category') }}
+            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }} {{ __('torrent.category') }}
         </h2>
         <div class="panel__body">
             <form
@@ -59,10 +55,8 @@
                 </p>
                 <p class="form__group">
                     <label for="image">
-                        {{ __('common.select') }}
-                        {{ trans_choice('common.a-an-art', false) }}
-                        {{ __('common.image') }}
-                        (If not using a FontAwesome icon)
+                        {{ __('common.select') }} {{ trans_choice('common.a-an-art', false) }} {{ __('common.image') }} (If
+                        not using a FontAwesome icon)
                     </label>
                     <input id="file" class="form__file" type="file" name="image" />
                 </p>

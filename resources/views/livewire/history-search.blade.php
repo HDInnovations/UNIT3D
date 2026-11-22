@@ -91,8 +91,8 @@
         <h2 class="panel__heading">Histories</h2>
         <div class="panel__body" wire:loading.block>Loading...</div>
         <div class="data-table-wrapper">
-            @switch($groupBy)
-                @case('user_id')
+            @switch ($groupBy)
+                @case ('user_id')
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -101,86 +101,86 @@
                                     role="columnheader button"
                                 >
                                     {{ __('user.user') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.user_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.user_id'])
                                 </th>
                                 <th wire:click="sortBy('torrent_count')" role="columnheader button">
                                     {{ __('torrent.torrents') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'torrent_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'torrent_count'])
                                 </th>
                                 <th wire:click="sortBy('uploaded_sum')" role="columnheader button">
                                     {{ __('user.credited-upload') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.uploaded_sum'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.uploaded_sum'])
                                 </th>
                                 <th
                                     wire:click="sortBy('actual_uploaded_sum')"
                                     role="columnheader button"
                                 >
                                     {{ __('user.upload-true') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.actual_uploaded_sum'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.actual_uploaded_sum'])
                                 </th>
                                 <th
                                     wire:click="sortBy('client_uploaded_sum')"
                                     role="columnheader button"
                                 >
                                     Client upload
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.client_uploaded_sum'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.client_uploaded_sum'])
                                 </th>
                                 <th
                                     wire:click="sortBy('downloaded_sum')"
                                     role="columnheader button"
                                 >
                                     {{ __('user.credited-download') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.downloaded_sum'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.downloaded_sum'])
                                 </th>
                                 <th
                                     wire:click="sortBy('actual_downloaded_sum')"
                                     role="columnheader button"
                                 >
                                     {{ __('user.download-true') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.actual_downloaded_sum'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.actual_downloaded_sum'])
                                 </th>
                                 <th
                                     wire:click="sortBy('client_downloaded_sum')"
                                     role="columnheader button"
                                 >
                                     Client download
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.client_downloaded_sum'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.client_downloaded_sum'])
                                 </th>
                                 <th
                                     wire:click="sortBy('refunded_download_sum')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.refunded') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.refunded_download_sum'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.refunded_download_sum'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_min')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.started') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.created_at_min'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.created_at_min'])
                                 </th>
                                 <th
                                     wire:click="sortBy('updated_at_max')"
                                     role="columnheader button"
                                 >
                                     Announced
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.updated_at_max'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.updated_at_max'])
                                 </th>
                                 <th wire:click="sortBy('seedtime_avg')" role="columnheader button">
                                     {{ __('user.avg-seedtime') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.seedtime_avg'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.seedtime_avg'])
                                 </th>
                                 <th wire:click="sortBy('seeding_count')" role="columnheader button">
                                     {{ __('torrent.seeding') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'seeding_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'seeding_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('leeching_count')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.leeching') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'leeching_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'leeching_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('prewarn_count')"
@@ -211,9 +211,7 @@
                                     <td>
                                         <x-user-tag :user="$history->user" :anon="false" />
                                     </td>
-                                    <td>
-                                        {{ $history->torrent_count }}
-                                    </td>
+                                    <td>{{ $history->torrent_count }}</td>
                                     <td title="{{ $history->uploaded_sum }}">
                                         {{ App\Helpers\StringHelper::formatBytes($history->uploaded_sum, 2) }}
                                     </td>
@@ -257,16 +255,14 @@
                                             class="text-red"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_avg) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @else
                                         <td
                                             class="text-green"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime_avg) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime_avg ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime_avg ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @endif
                                     <td>{{ $history->seeding_count }}</td>
@@ -278,7 +274,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">
@@ -289,110 +284,110 @@
                                     role="columnheader button"
                                 >
                                     {{ __('user.user') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.user_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.user_id'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.torrent_id')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.torrent') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.torrent_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.torrent_id'])
                                 </th>
                                 <th wire:click="sortBy('history.agent')" role="columnheader button">
                                     {{ __('torrent.agent') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.agent'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.agent'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.uploaded')"
                                     role="columnheader button"
                                 >
                                     {{ __('user.credited-upload') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.uploaded'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.uploaded'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.actual_uploaded')"
                                     role="columnheader button"
                                 >
                                     {{ __('user.upload-true') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.actual_uploaded'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.actual_uploaded'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.client_uploaded')"
                                     role="columnheader button"
                                 >
                                     Client upload
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.client_uploaded'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.client_uploaded'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.downloaded')"
                                     role="columnheader button"
                                 >
                                     {{ __('user.credited-download') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.downloaded'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.downloaded'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.actual_downloaded')"
                                     role="columnheader button"
                                 >
                                     {{ __('user.download-true') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.actual_downloaded'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.actual_downloaded'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.client_downloaded')"
                                     role="columnheader button"
                                 >
                                     Client download
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.client_downloaded'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.client_downloaded'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.refunded_download')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.refunded') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.refunded_download'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.refunded_download'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.created_at')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.started') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.created_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.created_at'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.updated_at')"
                                     role="columnheader button"
                                 >
                                     Announced
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.updated_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.updated_at'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.completed_at')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.completed_at') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.completed_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.completed_at'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.prewarned_at')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.prewarn') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.prewarned_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.prewarned_at'])
                                 </th>
                                 <th
                                     wire:click="sortBy('history.seedtime')"
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.seedtime') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'history.seedtime'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'history.seedtime'])
                                 </th>
                                 <th wire:click="sortBy('seeding')" role="columnheader button">
                                     {{ __('torrent.seeding') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'seeding'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'seeding'])
                                 </th>
                                 <th wire:click="sortBy('leeching')" role="columnheader button">
                                     {{ __('torrent.leeching') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'leeching'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'leeching'])
                                 </th>
                                 <th
                                     wire:click="sortBy('hitrun')"
@@ -483,16 +478,14 @@
                                             class="text-red"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @else
                                         <td
                                             class="text-green"
                                             title="{{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}"
                                         >
-                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w
-                                            {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
+                                            {{ $weeks = intdiv($history->seedtime ?? 0, 3600 * 24 * 7) }}w {{ intdiv(($history->seedtime ?? 0) - $weeks * 3600 * 24 * 7, 3600) }}h
                                         </td>
                                     @endif
                                     <td>
@@ -551,6 +544,7 @@
                             @endforeach
                         </tbody>
                     </table>
+
             @endswitch
             {{ $histories->links('partials.pagination') }}
         </div>

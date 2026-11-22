@@ -1,21 +1,19 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link">
-            {{ __('stat.stats') }}
-        </a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link"> {{ __('stat.stats') }} </a>
     </li>
     <li class="breadcrumb--active">Themes</li>
 @endsection
 
-@section('page', 'page__stats--themes')
+@section ('page', 'page__stats--themes')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">Site stylesheets</h2>
         <div class="data-table-wrapper">
@@ -24,71 +22,56 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>
-                            @switch($siteTheme->total_style)
-                                @case('0')
+                            @switch ($siteTheme->total_style)
+                                @case ('0')
                                     Light theme
-
                                     @break
-                                @case('1')
+                                @case ('1')
                                     Galactic theme
-
                                     @break
-                                @case('2')
+                                @case ('2')
                                     Dark blue theme
-
                                     @break
-                                @case('3')
+                                @case ('3')
                                     Dark green theme
-
                                     @break
-                                @case('4')
+                                @case ('4')
                                     Dark pink theme
-
                                     @break
-                                @case('5')
+                                @case ('5')
                                     Dark purple theme
-
                                     @break
-                                @case('6')
+                                @case ('6')
                                     Dark red theme
-
                                     @break
-                                @case('7')
+                                @case ('7')
                                     Dark teal theme
-
                                     @break
-                                @case('8')
+                                @case ('8')
                                     Dark yellow theme
-
                                     @break
-                                @case('9')
+                                @case ('9')
                                     Cosmic void theme
-
                                     @break
-                                @case('10')
+                                @case ('10')
                                     Nord theme
-
                                     @break
-                                @case('11')
+                                @case ('11')
                                     Revel theme
-
                                     @break
-                                @case('12')
+                                @case ('12')
                                     Material design 3 light theme
-
                                     @break
-                                @case('13')
+                                @case ('13')
                                     Material design 3 dark theme
-
                                     @break
-                                @case('14')
+                                @case ('14')
                                     Material design 3 amoled theme
-
                                     @break
-                                @case('15')
+                                @case ('15')
                                     Material design 3 navy theme
-
                                     @break
+
                             @endswitch
                         </td>
                         <td>Used by {{ $siteTheme->value }} users</td>

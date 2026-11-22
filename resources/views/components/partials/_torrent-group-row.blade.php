@@ -2,17 +2,16 @@
     <div>
         <h3 class="torrent-search--grouped__name">
             <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
-                @switch($media->meta)
-                    @case('movie')
+                @switch ($media->meta)
+                    @case ('movie')
                         {{-- Removes the year and everything before it --}}
                         @php
                             $releaseYear = $media->release_date instanceof \Illuminate\Support\Carbon ? $media->release_date->year : (int) $media->release_date;
                         @endphp
 
                         {{ str_contains($torrent->name, ' / ') ? $torrent->name : \preg_replace('/^.*( ' . implode(' | ', range($releaseYear - 1, $releaseYear + 1)) . ' )/i', '', $torrent->name) }}
-
                         @break
-                    @case('tv')
+                    @case ('tv')
                         {{-- Removes the year and everything before it. Also removes everything before the following patterns: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000- --}}
                         @php
                             if ($media->first_air_date?->year !== null && $media->last_air_date?->year !== null) {
@@ -25,16 +24,15 @@
                         @endphp
 
                         {{ str_contains($torrent->name, ' / ') ? $torrent->name : \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})?(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
-
                         @break
-                    @case('game')
+                    @case ('game')
                         {{ Str::of($torrent->name)->after($media->name) }}
-
                         @break
+
                 @endswitch
             </a>
         </h3>
-        @include('components.partials._torrent-icons')
+        @include ('components.partials._torrent-icons')
     </div>
 </td>
 
@@ -83,12 +81,10 @@
     @endif
 </td>
 <td class="torrent-search--grouped__size">
-    <span title="{{ $torrent->size }} B">
-        {{ $torrent->getSize() }}
-    </span>
+    <span title="{{ $torrent->size }} B"> {{ $torrent->getSize() }} </span>
 </td>
 <td
-    @class([
+    @class ([
         'torrent-search--grouped__seeders',
         'torrent-activity-indicator--seeding' => $torrent->seeding,
     ])
@@ -101,7 +97,7 @@
     </a>
 </td>
 <td
-    @class([
+    @class ([
         'torrent-search--grouped__leechers',
         'torrent-activity-indicator--leeching' => $torrent->leeching,
     ])
@@ -114,7 +110,7 @@
     </a>
 </td>
 <td
-    @class([
+    @class ([
         'torrent-search--grouped__completed',
         'torrent-activity-indicator--completed' => $torrent->completed,
     ])
@@ -122,10 +118,7 @@
         title="{{ __('torrent.completed') }}"
     @endif
 >
-    <a
-        class="torrent__times-completed-count"
-        href="{{ route('history', ['id' => $torrent->id]) }}"
-    >
+    <a class="torrent__times-completed-count" href="{{ route('history', ['id' => $torrent->id]) }}">
         {{ $torrent->times_completed }}
     </a>
 </td>

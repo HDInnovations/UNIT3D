@@ -1,17 +1,15 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a class="breadcrumb__link" href="{{ route('torrents.index') }}">
             {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('rss.rss') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('rss.rss') }}</li>
 @endsection
 
-@section('nav-tabs')
+@section ('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.index') }}">
             {{ __('torrent.search') }}
@@ -23,9 +21,7 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a class="nav-tab--active__link" href="{{ route('rss.index') }}">
-            {{ __('rss.rss') }}
-        </a>
+        <a class="nav-tab--active__link" href="{{ route('rss.index') }}"> {{ __('rss.rss') }} </a>
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.create') }}">
@@ -34,9 +30,9 @@
     </li>
 @endsection
 
-@section('page', 'page__rss--index')
+@section ('page', 'page__rss--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2" id="public">
         <h2 class="panel__heading">{{ __('rss.public') }}</h2>
         <div class="data-table-wrapper">
@@ -281,7 +277,7 @@
                                                 x-data="confirmation"
                                             >
                                                 @csrf
-                                                @method('DELETE')
+                                                @method ('DELETE')
                                                 <button
                                                     x-on:click.prevent="confirmAction"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this private RSS feed: ' . $rss->name . '?') }}"

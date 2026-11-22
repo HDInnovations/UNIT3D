@@ -1,13 +1,12 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -21,18 +20,16 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.email') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.email') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-email--edit')
+@section ('page', 'page__user-email--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.change-email') }}</h2>
         <div class="panel__body">
@@ -42,7 +39,7 @@
                 method="POST"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p>{{ __('user.change-email-help') }}.</p>
                 <p class="form__group">
                     <input
@@ -71,7 +68,7 @@
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.email-updates') }}</h2>
         <div class="data-table-wrapper">

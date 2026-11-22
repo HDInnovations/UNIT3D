@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,17 +11,13 @@
             {{ __('event.giveaways') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $giveaway->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $giveaway->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-giveaway--edit')
+@section ('page', 'page__staff-giveaway--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.edit') }} {{ __('event.giveaway') }}</h2>
         <form
@@ -30,7 +26,7 @@
             action="{{ route('staff.giveaways.update', ['giveaway' => $giveaway]) }}"
         >
             @csrf
-            @method('PATCH')
+            @method ('PATCH')
             <p class="form__group">
                 <input
                     id="name"
@@ -46,8 +42,12 @@
                 </label>
             </p>
             <p class="form__group">
-                <textarea id="description" class="form__textarea" name="description" required>
-{{ $giveaway->description }}</textarea
+                <textarea
+                    id="description"
+                    class="form__textarea"
+                    name="description"
+                    required
+                    >{{ $giveaway->description }}</textarea
                 >
                 <label class="form__label form__label--floating" for="description">
                     {{ __('common.description') }}
@@ -103,14 +103,12 @@
                     id="active"
                     name="active"
                     value="1"
-                    @checked($giveaway->active)
+                    @checked ($giveaway->active)
                 />
                 <label class="form__label" for="active">{{ __('common.active') }}?</label>
             </p>
             <p class="form__group">
-                <button class="form__button form__button--filled">
-                    {{ __('common.save') }}
-                </button>
+                <button class="form__button form__button--filled">{{ __('common.save') }}</button>
                 <button class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>
@@ -219,15 +217,14 @@
                     @forelse ($giveaway->prizes as $prize)
                         <tr>
                             <td>
-                                @switch($prize->type)
-                                    @case('bon')
+                                @switch ($prize->type)
+                                    @case ('bon')
                                         {{ __('bon.bon') }}
-
                                         @break
-                                    @case('fl_tokens')
+                                    @case ('fl_tokens')
                                         {{ __('common.fl_tokens') }}
-
                                         @break
+
                                 @endswitch
                             </td>
                             <td>{{ $prize->min }}</td>
@@ -256,7 +253,7 @@
                                                 action="{{ route('staff.giveaways.prizes.update', ['giveaway' => $giveaway, 'prize' => $prize]) }}"
                                             >
                                                 @csrf
-                                                @method('PATCH')
+                                                @method ('PATCH')
                                                 <input
                                                     type="hidden"
                                                     name="giveaway_id"
@@ -271,13 +268,13 @@
                                                     >
                                                         <option
                                                             value="bon"
-                                                            @selected($prize->type === 'bon')
+                                                            @selected ($prize->type === 'bon')
                                                         >
                                                             {{ __('bon.bon') }}
                                                         </option>
                                                         <option
                                                             value="fl_tokens"
-                                                            @selected($prize->type === 'fl_tokens')
+                                                            @selected ($prize->type === 'fl_tokens')
                                                         >
                                                             {{ __('common.fl_tokens') }}
                                                         </option>
@@ -370,7 +367,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method('DELETE')
+                                            @method ('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 class="form__button form__button--text"

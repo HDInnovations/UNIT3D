@@ -1,10 +1,10 @@
-@extends('layout.guest')
+@extends ('layout.guest')
 
-@section('title')
+@section ('title')
     <title>Application - {{ config('other.title') }}</title>
 @endsection
 
-@section('content')
+@section ('content')
     <section class="auth-form" x-data="{ proofs: 2 }">
         <form class="auth-form__form" method="POST" action="{{ route('application.store') }}">
             @csrf
@@ -19,9 +19,7 @@
                     </li>
                 </ul>
                 <p class="auth-form__select-group">
-                    <label for="type" class="auth-form__label">
-                        {{ __('auth.are-you') }}
-                    </label>
+                    <label for="type" class="auth-form__label"> {{ __('auth.are-you') }} </label>
                     <select id="type" class="auth-form__select" name="application[type]" required>
                         <option class="auth-form__option" value="New to the game" selected>
                             {{ __('auth.newbie') }}
@@ -32,9 +30,7 @@
                     </select>
                 </p>
                 <p class="auth-form__text-input-group">
-                    <label for="email" class="auth-form__label">
-                        {{ __('auth.email') }}
-                    </label>
+                    <label for="email" class="auth-form__label"> {{ __('auth.email') }} </label>
                     <input
                         id="email"
                         type="email"

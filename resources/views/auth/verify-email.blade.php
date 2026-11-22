@@ -1,10 +1,10 @@
-@extends('layout.guest')
+@extends ('layout.guest')
 
-@section('title')
+@section ('title')
     <title>{{ __('auth.verify-email') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('content')
+@section ('content')
     <section class="auth-form">
         <div class="auth-form__form">
             <a class="auth-form__branding" href="{{ route('home.index') }}">
@@ -45,10 +45,7 @@
                         method="GET"
                         action="{{ route('users.email.edit', ['user' => auth()->user()]) }}"
                     >
-                        <p>
-                            If you no longer have access to this address or made a typo, you can
-                            update it below.
-                        </p>
+                        <p>If you no longer have access to this address or made a typo, you can update it below.</p>
                         <button class="auth-form__primary-button" style="margin-top: 16px">
                             Change email
                         </button>
@@ -58,9 +55,7 @@
             @if (Session::has('status'))
                 <ul class="auth-form__errors">
                     @if (session('status') == 'verification-link-sent')
-                        <li class="auth-form__error">
-                            {{ __('auth.email-verification-link') }}
-                        </li>
+                        <li class="auth-form__error">{{ __('auth.email-verification-link') }}</li>
                     @endif
                 </ul>
             @endif

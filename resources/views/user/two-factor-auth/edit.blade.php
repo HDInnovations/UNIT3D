@@ -1,13 +1,12 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -21,17 +20,15 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('Two Factor Authentication') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('Two Factor Authentication') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-two-factor-auth--edit')
+@section ('page', 'page__user-two-factor-auth--edit')
 
-@section('main')
-    @livewire('two-factor-auth-form')
+@section ('main')
+    @livewire ('two-factor-auth-form')
 @endsection

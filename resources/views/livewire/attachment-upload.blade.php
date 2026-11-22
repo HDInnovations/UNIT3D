@@ -54,7 +54,7 @@
             </tbody>
         </table>
     </div>
-    @error('attachment')
+    @error ('attachment')
         {{ $message }}
     @enderror
 </section>

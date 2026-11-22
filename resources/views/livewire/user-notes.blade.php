@@ -97,15 +97,14 @@
                                             x-data="formSubmit"
                                         >
                                             @csrf
-                                            @method('PATCH')
+                                            @method ('PATCH')
                                             <p class="form__group">
                                                 <textarea
                                                     id="message"
                                                     class="form__textarea"
                                                     name="message"
                                                     placeholder=" "
-                                                >
-{{ $note->message }}</textarea
+                                                    >{{ $note->message }}</textarea
                                                 >
                                                 <label
                                                     class="form__label form__label--floating"

@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -12,9 +12,9 @@
     <li class="breadcrumb--active">Create gateway</li>
 @endsection
 
-@section('page', 'page__staff-donation-gateway--create')
+@section ('page', 'page__staff-donation-gateway--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Add new gateway</h2>

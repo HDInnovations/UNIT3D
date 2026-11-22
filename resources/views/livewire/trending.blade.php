@@ -1,5 +1,5 @@
 <section
-    @class([
+    @class ([
         'panelV2',
         'trending',
         'trending--weekly' => in_array($this->interval, ['weekly', 'monthly']),
@@ -88,29 +88,26 @@
                 <tbody>
                     @foreach ($works as $weeklyRankings)
                         <tr>
-                            <th>
-                                {{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}
-                            </th>
+                            <th>{{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}</th>
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($weeklyRankings as $ranking)
                                     <figure class="trending-poster">
-                                        @switch($this->metaType)
-                                            @case('movie_meta')
+                                        @switch ($this->metaType)
+                                            @case ('movie_meta')
                                                 <x-movie.poster
                                                     :movie="$ranking->movie"
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
-                                            @case('tv_meta')
+                                            @case ('tv_meta')
                                                 <x-tv.poster
                                                     :tv="$ranking->tv"
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -146,23 +143,22 @@
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($monthlyRankings as $ranking)
                                     <figure class="trending-poster">
-                                        @switch($this->metaType)
-                                            @case('movie_meta')
+                                        @switch ($this->metaType)
+                                            @case ('movie_meta')
                                                 <x-movie.poster
                                                     :movie="$ranking->movie"
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
-                                            @case('tv_meta')
+                                            @case ('tv_meta')
                                                 <x-tv.poster
                                                     :tv="$ranking->tv"
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -196,23 +192,22 @@
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($releaseYearRankings as $ranking)
                                     <figure class="trending-poster">
-                                        @switch($this->metaType)
-                                            @case('movie_meta')
+                                        @switch ($this->metaType)
+                                            @case ('movie_meta')
                                                 <x-movie.poster
                                                     :movie="$ranking->movie"
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_movie_id"
                                                 />
-
                                                 @break
-                                            @case('tv_meta')
+                                            @case ('tv_meta')
                                                 <x-tv.poster
                                                     :tv="$ranking->tv"
                                                     :categoryId="$ranking->category_id"
                                                     :tmdb="$ranking->tmdb_tv_id"
                                                 />
-
                                                 @break
+
                                         @endswitch
                                         <figcaption
                                             class="trending-poster__download-count"
@@ -232,8 +227,8 @@
         <div class="panel__body torrent-search--poster__results">
             <div wire:loading.delay>Computing...</div>
 
-            @switch($this->metaType)
-                @case('movie_meta')
+            @switch ($this->metaType)
+                @case ('movie_meta')
                     @foreach ($works as $work)
                         <figure class="trending-poster">
                             <x-movie.poster
@@ -249,9 +244,8 @@
                             </figcaption>
                         </figure>
                     @endforeach
-
                     @break
-                @case('tv_meta')
+                @case ('tv_meta')
                     @foreach ($works as $work)
                         <figure class="trending-poster">
                             <x-tv.poster
@@ -267,8 +261,8 @@
                             </figcaption>
                         </figure>
                     @endforeach
-
                     @break
+
             @endswitch
         </div>
     @endif

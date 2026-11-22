@@ -1,17 +1,16 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>
-        {{ __('common.edit') }} {{ __('forum.post') }} - {{ $topic->name }} -
-        {{ config('other.title') }}
+        {{ __('common.edit') }} {{ __('forum.post') }} - {{ $topic->name }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="{{ $forum->name . ' - ' . __('forum.edit-post') }}" />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('forums.index') }}" class="breadcrumb__link">
             {{ __('forum.forums') }}
@@ -35,22 +34,19 @@
             {{ $topic->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('forum.partials.buttons')
+@section ('nav-tabs')
+    @include ('forum.partials.buttons')
 @endsection
 
-@section('page', 'page__post--edit')
+@section ('page', 'page__post--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}:
-            {{ $forum->name }}
+            {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}: {{ $forum->name }}
         </h2>
         <div class="panel__body">
             <form
@@ -59,8 +55,8 @@
                 action="{{ route('posts.update', ['id' => $post->id]) }}"
             >
                 @csrf
-                @method('PATCH')
-                @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'content' => $post->content])
+                @method ('PATCH')
+                @livewire ('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'content' => $post->content])
 
                 @if (auth()->user()->group->is_modo)
                     <p class="form__group">
@@ -71,17 +67,13 @@
                             id="pinned"
                             name="pinned"
                             value="1"
-                            @checked(old('pinned') ?? $post->pinned)
+                            @checked (old('pinned') ?? $post->pinned)
                         />
-                        <label class="form__label" for="pinned">
-                            {{ __('forum.pin') }}
-                        </label>
+                        <label class="form__label" for="pinned"> {{ __('forum.pin') }} </label>
                     </p>
                 @endif
 
-                <button class="form__button form__button--filled">
-                    {{ __('common.submit') }}
-                </button>
+                <button class="form__button form__button--filled">{{ __('common.submit') }}</button>
             </form>
         </div>
     </section>

@@ -1,10 +1,10 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('bot.edit-bot') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -15,15 +15,11 @@
             {{ __('bot.bots') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $bot->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $bot->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('nav-tabs')
+@section ('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
             {{ __('staff.statuses') }}
@@ -41,9 +37,9 @@
     </li>
 @endsection
 
-@section('page', 'page__staff-bot--edit')
+@section ('page', 'page__staff-bot--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('bot.edit-bot') }}: {{ $bot->name }}</h2>
         <div class="panel__body">
@@ -53,7 +49,7 @@
                 action="{{ route('staff.bots.update', ['bot' => $bot]) }}"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
@@ -135,8 +131,12 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <textarea id="help" class="form__textarea" name="help" placeholder=" ">
-{{ $bot->help }}</textarea
+                    <textarea
+                        id="help"
+                        class="form__textarea"
+                        name="help"
+                        placeholder=" "
+                        >{{ $bot->help }}</textarea
                     >
                     <label class="form__label form__label--floating" for="help">
                         {{ __('bot.help') }}

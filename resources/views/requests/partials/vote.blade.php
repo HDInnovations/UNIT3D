@@ -6,9 +6,7 @@
         {{ __('request.vote') }}
     </button>
     <dialog id="request-vote" class="dialog" popover>
-        <h3 class="dialog__heading">
-            {{ __('request.vote-that') }}
-        </h3>
+        <h3 class="dialog__heading">{{ __('request.vote-that') }}</h3>
         <form
             class="dialog__form"
             method="POST"

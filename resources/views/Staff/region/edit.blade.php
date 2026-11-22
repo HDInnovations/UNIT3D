@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,21 +9,16 @@
     <li class="breadcrumbV2">
         <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">Torrent regions</a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $region->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $region->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-region--edit')
+@section ('page', 'page__staff-region--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} torrent region:
-            {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
+            {{ __('common.edit') }} torrent region: {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
         </h2>
         <div class="panel__body">
             <form
@@ -31,7 +26,7 @@
                 method="POST"
                 action="{{ route('staff.regions.update', ['region' => $region]) }}"
             >
-                @method('PATCH')
+                @method ('PATCH')
                 @csrf
                 <p class="form__group">
                     <input

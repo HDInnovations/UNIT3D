@@ -6,9 +6,7 @@
         {{ __('request.fulfill') }}
     </button>
     <dialog id="request-fulfill" class="dialog" popover>
-        <h3 class="dialog__heading">
-            {{ __('request.fill-request') }}
-        </h3>
+        <h3 class="dialog__heading">{{ __('request.fill-request') }}</h3>
         <form
             class="dialog__form"
             method="POST"

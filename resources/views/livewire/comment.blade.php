@@ -83,9 +83,7 @@
                 :user="$comment->user"
             ></x-user-tag>
             @if (! $comment->anon && ! empty($comment->user->title))
-                <p class="comment__author-title">
-                    {{ $comment->user->title }}
-                </p>
+                <p class="comment__author-title">{{ $comment->user->title }}</p>
             @endif
         </aside>
         @if ($isEditing)
@@ -100,13 +98,13 @@
                         required
                     ></textarea>
                     <label for="edit-comment" class="form__label form__label--floating">
-                        @error('editState')
+                        @error ('editState')
                             <strong>{{ __('common.error') }}:</strong>
                         @enderror
 
                         Edit your comment...
                     </label>
-                    @error('editState')
+                    @error ('editState')
                         <span class="form__hint" id="edit-comment__textarea-hint">
                             {{ $message }}
                         </span>
@@ -127,7 +125,7 @@
             </form>
         @else
             <div class="comment__content bbcode-rendered">
-                @bbcode($comment->content)
+                @bbcode ($comment->content)
             </div>
         @endif
     </article>
@@ -156,13 +154,13 @@
                             x-on:focus="toggleOn"
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
-                            @error('editState')
+                            @error ('editState')
                                 <strong>{{ __('common.error') }}:</strong>
                             @enderror
 
                             Reply to parent comment...
                         </label>
-                        @error('replyState')
+                        @error ('replyState')
                             <span class="form__hint" id="reply-comment__textarea-hint">
                                 {{ $message }}
                             </span>

@@ -1,20 +1,19 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>
-        {{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }}
-        - {{ config('other.title') }}
+        {{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta
         name="description"
         content="{{ __('backup.backup') }} {{ __('backup.manager') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -23,8 +22,8 @@
     <li class="breadcrumb--active">{{ __('backup.backup') }} {{ __('backup.manager') }}</li>
 @endsection
 
-@section('page', 'page__staff-backup-manager--index')
+@section ('page', 'page__staff-backup-manager--index')
 
-@section('main')
-    @livewire('backup-panel')
+@section ('main')
+    @livewire ('backup-panel')
 @endsection

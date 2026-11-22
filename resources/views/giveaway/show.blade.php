@@ -1,19 +1,17 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('giveaways.index') }}" class="breadcrumb__link">
             {{ __('event.giveaways') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $giveaway->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $giveaway->name }}</li>
 @endsection
 
-@section('page', 'page__giveaway--show')
+@section ('page', 'page__giveaway--show')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $giveaway->name }}</h2>
         <div class="panel__body">
@@ -21,9 +19,7 @@
                 @foreach (\Carbon\CarbonPeriod::create($giveaway->starts_at, $giveaway->ends_at) as $i => $date)
                     <li class="events__list-item">
                         <article class="events__prize">
-                            <h3 class="events__prize-heading">
-                                {{ $date->format('M j') }}
-                            </h3>
+                            <h3 class="events__prize-heading">{{ $date->format('M j') }}</h3>
 
                             @if ($prize = $userPrizes->get($i)?->first())
                                 <i
@@ -96,11 +92,9 @@
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
-        <div class="panel__body">
-            {{ $giveaway->description }}
-        </div>
+        <div class="panel__body">{{ $giveaway->description }}</div>
     </section>
 @endsection

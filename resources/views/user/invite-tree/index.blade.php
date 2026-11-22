@@ -1,29 +1,27 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>
         {{ $user->username }} - {{ __('user.invite-tree') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.invite-tree') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.invite-tree') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-invite-tree--index')
+@section ('page', 'page__user-invite-tree--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.invite-tree') }}</h2>
         <div class="data-table-wrapper">
@@ -60,7 +58,7 @@
                                                 class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                 title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                             ></i>
-                                        </x-slot>
+                                        </x-slot:appended-icons>
                                     @endif
                                 </x-user-tag>
                             </td>
@@ -148,7 +146,7 @@
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
@@ -185,7 +183,7 @@
                                                 class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                 title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                             ></i>
-                                        </x-slot>
+                                        </x-slot:appended-icons>
                                     @endif
                                 </x-user-tag>
                             </td>
@@ -203,7 +201,7 @@
                                                     class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                                     title="{{ __('common.active-warning') }} ({{ $user->warnings_count }})"
                                                 ></i>
-                                            </x-slot>
+                                            </x-slot:appended-icons>
                                         @endif
                                     </x-user-tag>
                                 </td>

@@ -1,17 +1,15 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.bots') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.bots') }}</li>
 @endsection
 
-@section('nav-tabs')
+@section ('nav-tabs')
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('staff.statuses.index') }}">
             {{ __('staff.statuses') }}
@@ -29,9 +27,9 @@
     </li>
 @endsection
 
-@section('page', 'page__staff-bot--index')
+@section ('page', 'page__staff-bot--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('staff.bots') }}</h2>
         <div class="data-table-wrapper">
@@ -119,7 +117,7 @@
                                             method="POST"
                                         >
                                             @csrf
-                                            @method('DELETE')
+                                            @method ('DELETE')
                                             @if (! $bot->is_protected)
                                                 <button class="form__button form__button--text">
                                                     {{ __('common.delete') }}

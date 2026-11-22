@@ -1,29 +1,25 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
-    <title>
-        {{ $user->username }} - {{ __('user.seedboxes') }} - {{ config('other.title') }}
-    </title>
+@section ('title')
+    <title>{{ $user->username }} - {{ __('user.seedboxes') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.seedboxes') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.seedboxes') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-seedbox--index')
+@section ('page', 'page__user-seedbox--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.seedboxes') }}</h2>
@@ -33,9 +29,7 @@
                         {{ __('common.add') }}
                     </button>
                     <dialog id="seedbox-add" class="dialog" popover>
-                        <h3 class="dialog__heading">
-                            {{ __('user.add-seedbox') }}
-                        </h3>
+                        <h3 class="dialog__heading">{{ __('user.add-seedbox') }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -108,7 +102,7 @@
                                         x-data="confirmation"
                                     >
                                         @csrf
-                                        @method('DELETE')
+                                        @method ('DELETE')
                                         <button
                                             x-on:click.prevent="confirmAction"
                                             data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this seedbox: ' . $seedbox->name . '?') }}"
@@ -128,19 +122,15 @@
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
             {{ strtoupper(__('user.disclaimer')) }}
         </h2>
         <div class="panel__body">
-            <p>
-                {{ __('user.disclaimer-info') }}
-            </p>
-            <p>
-                {{ __('user.disclaimer-info-bordered') }}
-            </p>
+            <p>{{ __('user.disclaimer-info') }}</p>
+            <p>{{ __('user.disclaimer-info-bordered') }}</p>
         </div>
     </section>
 @endsection

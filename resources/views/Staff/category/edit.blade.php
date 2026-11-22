@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,17 +11,13 @@
             {{ __('staff.torrent-categories') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $category->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $category->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-category--edit')
+@section ('page', 'page__staff-category--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.edit') }} {{ __('torrent.category') }}: {{ $category->name }}
@@ -33,7 +29,7 @@
                 action="{{ route('staff.categories.update', ['category' => $category]) }}"
                 enctype="multipart/form-data"
             >
-                @method('PATCH')
+                @method ('PATCH')
                 @csrf
                 <p class="form__group">
                     <input
@@ -73,10 +69,8 @@
                 </p>
                 <p class="form__group">
                     <label for="image">
-                        {{ __('common.select') }}
-                        {{ trans_choice('common.a-an-art', false) }}
-                        {{ __('common.image') }}
-                        (If not using a FontAwesome icon)
+                        {{ __('common.select') }} {{ trans_choice('common.a-an-art', false) }} {{ __('common.image') }} (If
+                        not using a FontAwesome icon)
                     </label>
                     <input id="file" class="form__file" type="file" name="image" />
                 </p>
@@ -85,24 +79,24 @@
                         <option
                             class="form__option"
                             value="movie"
-                            @selected($category->movie_meta)
+                            @selected ($category->movie_meta)
                         >
                             Movie metadata
                         </option>
-                        <option class="form__option" value="tv" @selected($category->tv_meta)>
+                        <option class="form__option" value="tv" @selected ($category->tv_meta)>
                             TV metadata
                         </option>
-                        <option class="form__option" value="game" @selected($category->game_meta)>
+                        <option class="form__option" value="game" @selected ($category->game_meta)>
                             Game metadata
                         </option>
                         <option
                             class="form__option"
                             value="music"
-                            @selected($category->music_meta)
+                            @selected ($category->music_meta)
                         >
                             Music metadata
                         </option>
-                        <option class="form__option" value="no" @selected($category->no_meta)>
+                        <option class="form__option" value="no" @selected ($category->no_meta)>
                             No metadata
                         </option>
                     </select>

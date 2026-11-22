@@ -148,27 +148,27 @@
                             <th>Avatar</th>
                             <th wire:click="sortBy('username')" role="columnheader button">
                                 {{ __('common.username') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'username'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'username'])
                             </th>
                             <th wire:click="sortBy('group_id')" role="columnheader button">
                                 {{ __('common.group') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'group_id'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'group_id'])
                             </th>
                             <th wire:click="sortBy('email')" role="columnheader button">
                                 {{ __('common.email') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'email'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'email'])
                             </th>
                             <th wire:click="sortBy('created_at')" role="columnheader button">
                                 {{ __('user.registration-date') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
                             <th wire:click="sortBy('last_login')" role="columnheader button">
                                 {{ __('user.last-login') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'last_login'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'last_login'])
                             </th>
                             <th wire:click="sortBy('last_action')" role="columnheader button">
                                 {{ __('user.last-action') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'last_action'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'last_action'])
                             </th>
                             <th>{{ __('common.action') }}</th>
                         </tr>

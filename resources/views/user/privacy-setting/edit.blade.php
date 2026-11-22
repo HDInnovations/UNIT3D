@@ -1,13 +1,12 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>
-        {{ $user->username }} - Privacy - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Privacy - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -21,18 +20,16 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.privacy') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.privacy') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-privacy-setting--edit')
+@section ('page', 'page__user-privacy-setting--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.privacy') }}</h2>
         <div class="panel__body">
@@ -43,7 +40,7 @@
                 enctype="multipart/form-data"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <fieldset class="form__fieldset">
                     <legend class="form__legend">Profile</legend>
                     <p class="form__group">
@@ -54,7 +51,7 @@
                                 type="checkbox"
                                 name="show_profile_torrent_count"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_torrent_count)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_torrent_count)
                             />
                             {{ __('user.profile-privacy-torrent-count') }}
                         </label>
@@ -67,7 +64,7 @@
                                 type="checkbox"
                                 name="show_profile_title"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_title)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_title)
                             />
                             {{ __('user.profile-privacy-title') }}
                         </label>
@@ -80,7 +77,7 @@
                                 type="checkbox"
                                 name="show_profile_about"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_about)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_about)
                             />
                             {{ __('user.profile-privacy-about') }}
                         </label>
@@ -93,7 +90,7 @@
                                 type="checkbox"
                                 name="show_profile_torrent_ratio"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_torrent_ratio)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_torrent_ratio)
                             />
                             {{ __('user.profile-privacy-torrent-ratio') }}
                         </label>
@@ -106,7 +103,7 @@
                                 type="checkbox"
                                 name="show_profile_torrent_seed"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_torrent_seed)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_torrent_seed)
                             />
                             {{ __('user.profile-privacy-torrent-seed') }}
                         </label>
@@ -119,7 +116,7 @@
                                 type="checkbox"
                                 name="show_profile_bon_extra"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_bon_extra)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_bon_extra)
                             />
                             {{ __('user.profile-privacy-bon-extra') }}
                         </label>
@@ -132,7 +129,7 @@
                                 type="checkbox"
                                 name="show_profile_torrent_extra"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_torrent_extra)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_torrent_extra)
                             />
                             {{ __('user.profile-privacy-torrent-extra') }}
                         </label>
@@ -145,7 +142,7 @@
                                 type="checkbox"
                                 name="show_profile_comment_extra"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_comment_extra)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_comment_extra)
                             />
                             {{ __('user.profile-privacy-comment-extra') }}
                         </label>
@@ -158,7 +155,7 @@
                                 type="checkbox"
                                 name="show_profile_request_extra"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_request_extra)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_request_extra)
                             />
                             {{ __('user.profile-privacy-request-extra') }}
                         </label>
@@ -171,7 +168,7 @@
                                 type="checkbox"
                                 name="show_profile_forum_extra"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_forum_extra)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_forum_extra)
                             />
                             {{ __('user.profile-privacy-forum-extra') }}
                         </label>
@@ -184,7 +181,7 @@
                                 type="checkbox"
                                 name="show_profile_warning"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_warning)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_warning)
                             />
                             {{ __('user.profile-privacy-warning') }}
                         </label>
@@ -197,7 +194,7 @@
                                 type="checkbox"
                                 name="show_profile_badge"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_badge)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_badge)
                             />
                             {{ __('user.profile-privacy-badge') }}
                         </label>
@@ -210,7 +207,7 @@
                                 type="checkbox"
                                 name="show_profile_achievement"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_achievement)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_achievement)
                             />
                             {{ __('user.profile-privacy-achievement') }}
                         </label>
@@ -223,7 +220,7 @@
                                 type="checkbox"
                                 name="show_profile_follower"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_profile_follower)
+                                @checked ($user->privacy === null || $user->privacy->show_profile_follower)
                             />
                             {{ __('user.profile-privacy-follower') }}
                         </label>
@@ -239,7 +236,7 @@
                                 type="checkbox"
                                 name="show_achievement"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_achievement)
+                                @checked ($user->privacy === null || $user->privacy->show_achievement)
                             />
                             {{ __('user.achievement-privacy-list') }}
                         </label>
@@ -255,7 +252,7 @@
                                 type="checkbox"
                                 name="show_follower"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_follower)
+                                @checked ($user->privacy === null || $user->privacy->show_follower)
                             />
                             {{ __('user.follower-privacy-list') }}
                         </label>
@@ -271,7 +268,7 @@
                                 type="checkbox"
                                 name="show_topic"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_topic)
+                                @checked ($user->privacy === null || $user->privacy->show_topic)
                             />
                             {{ __('user.forum-privacy-topic') }}
                         </label>
@@ -284,7 +281,7 @@
                                 type="checkbox"
                                 name="show_post"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_post)
+                                @checked ($user->privacy === null || $user->privacy->show_post)
                             />
                             {{ __('user.forum-privacy-post') }}
                         </label>
@@ -300,7 +297,7 @@
                                 type="checkbox"
                                 name="show_requested"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_requested)
+                                @checked ($user->privacy === null || $user->privacy->show_requested)
                             />
                             {{ __('user.request-privacy-requested') }}
                         </label>
@@ -316,7 +313,7 @@
                                 type="checkbox"
                                 name="show_upload"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_upload)
+                                @checked ($user->privacy === null || $user->privacy->show_upload)
                             />
                             {{ __('user.torrent-privacy-upload') }}
                         </label>
@@ -329,7 +326,7 @@
                                 type="checkbox"
                                 name="show_download"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_download)
+                                @checked ($user->privacy === null || $user->privacy->show_download)
                             />
                             {{ __('user.torrent-privacy-download') }}
                         </label>
@@ -342,7 +339,7 @@
                                 type="checkbox"
                                 name="show_peer"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_peer)
+                                @checked ($user->privacy === null || $user->privacy->show_peer)
                             />
                             {{ __('user.torrent-privacy-peer') }}
                         </label>
@@ -358,7 +355,7 @@
                                 type="checkbox"
                                 name="show_online"
                                 value="1"
-                                @checked($user->privacy === null || $user->privacy->show_online)
+                                @checked ($user->privacy === null || $user->privacy->show_online)
                             />
                             {{ __('user.other-privacy-online') }}
                         </label>
@@ -367,10 +364,7 @@
                 <h3>Hide your profile options from the selected groups.</h3>
                 <div class="form__group">
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">{{ __('common.group') }}</th>
@@ -386,9 +380,7 @@
                             <tbody x-ref="tbody">
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <th x-bind="rowHeader">
-                                            {{ $group->name }}
-                                        </th>
+                                        <th x-bind="rowHeader">{{ $group->name }}</th>
                                         @foreach ([
                                             'json_profile_groups',
                                             'json_achievement_groups',
@@ -404,7 +396,7 @@
                                                     type="checkbox"
                                                     name="{{ $setting }}[]"
                                                     value="{{ $group->id }}"
-                                                    @checked($user->privacy !== null && \in_array($group->id, $user->privacy->$setting, true))
+                                                    @checked ($user->privacy !== null && \in_array($group->id, $user->privacy->$setting, true))
                                                 />
                                             </td>
                                         @endforeach
@@ -422,7 +414,7 @@
                             type="checkbox"
                             value="1"
                             name="hidden"
-                            @checked($user->privacy?->hidden)
+                            @checked ($user->privacy?->hidden)
                         />
                         {{ __('user.become-hidden') }}
                     </label>
@@ -435,7 +427,7 @@
                             type="checkbox"
                             value="1"
                             name="private_profile"
-                            @checked($user->privacy?->private_profile)
+                            @checked ($user->privacy?->private_profile)
                         />
                         {{ __('user.go-private') }}
                     </label>

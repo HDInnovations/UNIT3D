@@ -1,22 +1,20 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>{{ __('mediahub.title') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="MediaHub" />
 @endsection
 
-@section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('mediahub.title') }}
-    </li>
+@section ('breadcrumbs')
+    <li class="breadcrumb--active">{{ __('mediahub.title') }}</li>
 @endsection
 
-@section('page', 'page__mediahub')
+@section ('page', 'page__mediahub')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('mediahub.title') }}</h2>
         <div class="panel__body">
@@ -45,9 +43,7 @@
                 </li>
                 <li class="mediahub-card__list-item">
                     <a href="{{ route('mediahub.collections.index') }}" class="mediahub-card">
-                        <h2 class="mediahub-card__heading">
-                            {{ __('mediahub.collections') }} hub
-                        </h2>
+                        <h2 class="mediahub-card__heading">{{ __('mediahub.collections') }} hub</h2>
                         <h3 class="mediahub-card__subheading">
                             {{ $collections }} {{ __('mediahub.collections') }}
                         </h3>
@@ -90,7 +86,7 @@
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">Disclaimer</h2>
         <div class="panel__body" style="text-align: center">

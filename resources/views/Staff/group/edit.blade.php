@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,17 +11,13 @@
             {{ __('staff.groups') }}
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $group->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $group->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-group--edit')
+@section ('page', 'page__staff-group--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2" x-data="{ autogroup: {{ Js::from($group->autogroup) }} }">
         <h2 class="panel__heading">Edit group: {{ $group->name }}</h2>
         <div class="panel__body">
@@ -31,7 +27,7 @@
                 action="{{ route('staff.groups.update', ['group' => $group]) }}"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
@@ -142,7 +138,7 @@
                         name="group[is_uploader]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_uploader)
+                        @checked ($group->is_uploader)
                     />
                     <label class="form__label" for="is_uploader">Uploader</label>
                 </p>
@@ -154,7 +150,7 @@
                         name="group[is_internal]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_internal)
+                        @checked ($group->is_internal)
                     />
                     <label class="form__label" for="is_internal">Internal</label>
                 </p>
@@ -166,7 +162,7 @@
                         name="group[is_editor]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_editor)
+                        @checked ($group->is_editor)
                     />
                     <label class="form__label" for="is_editor">Editor</label>
                 </p>
@@ -178,7 +174,7 @@
                         name="group[is_torrent_modo]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_torrent_modo)
+                        @checked ($group->is_torrent_modo)
                     />
                     <label class="form__label" for="is_torrent_modo">Torrent modo</label>
                 </p>
@@ -190,7 +186,7 @@
                         name="group[is_modo]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_modo)
+                        @checked ($group->is_modo)
                     />
                     <label class="form__label" for="is_modo">Modo</label>
                 </p>
@@ -202,7 +198,7 @@
                         name="group[is_admin]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_admin)
+                        @checked ($group->is_admin)
                     />
                     <label class="form__label" for="is_admin">Admin</label>
                 </p>
@@ -214,7 +210,7 @@
                         name="group[is_owner]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_owner)
+                        @checked ($group->is_owner)
                     />
                     <label class="form__label" for="is_owner">Owner</label>
                 </p>
@@ -226,7 +222,7 @@
                         name="group[is_trusted]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_trusted)
+                        @checked ($group->is_trusted)
                     />
                     <label class="form__label" for="is_trusted">Trusted</label>
                 </p>
@@ -238,7 +234,7 @@
                         name="group[is_immune]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_immune)
+                        @checked ($group->is_immune)
                     />
                     <label class="form__label" for="is_immune">Immune</label>
                 </p>
@@ -250,7 +246,7 @@
                         name="group[is_freeleech]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_freeleech)
+                        @checked ($group->is_freeleech)
                     />
                     <label class="form__label" for="is_freeleech">Freeleech</label>
                 </p>
@@ -262,7 +258,7 @@
                         name="group[is_double_upload]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_double_upload)
+                        @checked ($group->is_double_upload)
                     />
                     <label class="form__label" for="is_double_upload">Double upload</label>
                 </p>
@@ -274,7 +270,7 @@
                         name="group[is_refundable]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_refundable)
+                        @checked ($group->is_refundable)
                     />
                     <label class="form__label" for="is_refundable">Refundable download</label>
                 </p>
@@ -286,7 +282,7 @@
                         name="group[is_incognito]"
                         type="checkbox"
                         value="1"
-                        @checked($group->is_incognito)
+                        @checked ($group->is_incognito)
                     />
                     <label class="form__label" for="is_incognito">Incognito</label>
                 </p>
@@ -298,7 +294,7 @@
                         name="group[can_chat]"
                         type="checkbox"
                         value="1"
-                        @checked($group->can_chat)
+                        @checked ($group->can_chat)
                     />
                     <label class="form__label" for="can_chat">Chat</label>
                 </p>
@@ -310,7 +306,7 @@
                         name="group[can_comment]"
                         type="checkbox"
                         value="1"
-                        @checked($group->can_comment)
+                        @checked ($group->can_comment)
                     />
                     <label class="form__label" for="can_comment">Comment</label>
                 </p>
@@ -322,7 +318,7 @@
                         name="group[can_invite]"
                         type="checkbox"
                         value="1"
-                        @checked($group->can_invite)
+                        @checked ($group->can_invite)
                     />
                     <label class="form__label" for="can_invite">Invite</label>
                 </p>
@@ -334,7 +330,7 @@
                         name="group[can_request]"
                         type="checkbox"
                         value="1"
-                        @checked($group->can_request)
+                        @checked ($group->can_request)
                     />
                     <label class="form__label" for="can_request">Request</label>
                 </p>
@@ -346,7 +342,7 @@
                         name="group[can_upload]"
                         type="checkbox"
                         value="1"
-                        @checked($group->can_upload)
+                        @checked ($group->can_upload)
                     />
                     <label class="form__label" for="can_upload">Upload</label>
                 </p>
@@ -359,7 +355,7 @@
                         type="checkbox"
                         value="1"
                         x-model="autogroup"
-                        @checked($group->autogroup)
+                        @checked ($group->autogroup)
                     />
                     <label class="form__label" for="autogroup">Autogroup</label>
                 </p>
@@ -478,10 +474,7 @@
                 <div class="form__group">
                     <label class="form__label">Permissions</label>
                     <div class="data-table-wrapper">
-                        <table
-                            class="data-table data-table--checkbox-grid"
-                            x-data="checkboxGrid"
-                        >
+                        <table class="data-table data-table--checkbox-grid" x-data="checkboxGrid">
                             <thead>
                                 <tr>
                                     <th x-bind="columnHeader">Forum category</th>
@@ -524,7 +517,7 @@
                                                     type="checkbox"
                                                     name="permissions[{{ $forum->id }}][read_topic]"
                                                     value="1"
-                                                    @checked($group->permissions->where('forum_id', '=', $forum->id)->first()?->read_topic)
+                                                    @checked ($group->permissions->where('forum_id', '=', $forum->id)->first()?->read_topic)
                                                 />
                                             </td>
                                             <td x-bind="cell">
@@ -537,7 +530,7 @@
                                                     type="checkbox"
                                                     name="permissions[{{ $forum->id }}][start_topic]"
                                                     value="1"
-                                                    @checked($group->permissions->where('forum_id', '=', $forum->id)->first()?->start_topic)
+                                                    @checked ($group->permissions->where('forum_id', '=', $forum->id)->first()?->start_topic)
                                                 />
                                             </td>
                                             <td x-bind="cell">
@@ -550,7 +543,7 @@
                                                     type="checkbox"
                                                     name="permissions[{{ $forum->id }}][reply_topic]"
                                                     value="1"
-                                                    @checked($group->permissions->where('forum_id', '=', $forum->id)->first()?->reply_topic)
+                                                    @checked ($group->permissions->where('forum_id', '=', $forum->id)->first()?->reply_topic)
                                                 />
                                             </td>
                                         </tr>

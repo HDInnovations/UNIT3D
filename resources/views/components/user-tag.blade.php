@@ -1,4 +1,4 @@
-@props([
+@props ([
     'style',
     'anon',
     'appendedIcons',
@@ -27,7 +27,7 @@
             @if ($user->icon !== null)
                 <i>
                     <img
-                        @style([
+                        @style ([
                             'max-height: 22px;' =>
                                 request()
                                     ->route()
@@ -52,8 +52,7 @@
                 <i class="fal fa-star text-gold" title="Donor"></i>
             @endif
 
-            {{ $appendedIcons ?? '' }}
-            )
+            {{ $appendedIcons ?? '' }} )
         </span>
     @else
         <span {{ $attributes->class('user-tag fas fa-eye-slash') }}>
@@ -80,7 +79,7 @@
         @if ($user->icon !== null)
             <i>
                 <img
-                    @style([
+                    @style ([
                         'max-height: 22px;' =>
                             request()
                                 ->route()

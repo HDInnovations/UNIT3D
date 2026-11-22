@@ -1,10 +1,10 @@
-@extends('layout.guest')
+@extends ('layout.guest')
 
-@section('title')
+@section ('title')
     <title>{{ __('auth.login') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('content')
+@section ('content')
     <!-- Do NOT change! For Jackett support -->
     <div class="Jackett" style="display: none">{{ config('unit3d.powered-by') }}</div>
     <!-- Do NOT change! For Jackett support -->
@@ -16,9 +16,7 @@
                 <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
             </a>
             <p class="auth-form__text-input-group">
-                <label class="auth-form__label" for="username">
-                    {{ __('auth.username') }}
-                </label>
+                <label class="auth-form__label" for="username"> {{ __('auth.username') }} </label>
                 <input
                     id="username"
                     class="auth-form__text-input"
@@ -32,9 +30,7 @@
                 />
             </p>
             <p class="auth-form__text-input-group">
-                <label class="auth-form__label" for="password">
-                    {{ __('auth.password') }}
-                </label>
+                <label class="auth-form__label" for="password"> {{ __('auth.password') }} </label>
                 <input
                     id="password"
                     class="auth-form__text-input"

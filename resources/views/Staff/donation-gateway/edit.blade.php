@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -12,9 +12,9 @@
     <li class="breadcrumb--active">Edit gateway</li>
 @endsection
 
-@section('page', 'page__staff-donation-gateway--edit')
+@section ('page', 'page__staff-donation-gateway--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Edit: {{ $gateway->name }}</h2>
@@ -26,7 +26,7 @@
                 action="{{ route('staff.gateways.update', ['gateway' => $gateway]) }}"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -76,7 +76,7 @@
                                     name="is_active"
                                     type="checkbox"
                                     value="1"
-                                    @checked($gateway->is_active)
+                                    @checked ($gateway->is_active)
                                 />
                             </td>
                         </tr>

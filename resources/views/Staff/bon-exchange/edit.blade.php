@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,19 +11,15 @@
             {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-bon-exchange--edit')
+@section ('page', 'page__staff-bon-exchange--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('bon.bon') }} {{ __('bon.exchange') }}
+            {{ __('common.edit') }} {{ trans_choice('common.a-an-art', false) }} {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </h2>
         <div class="panel__body">
             <form
@@ -34,7 +30,7 @@
                 action="{{ route('staff.bon_exchanges.update', ['bonExchange' => $bonExchange->id]) }}"
             >
                 @csrf
-                @method('patch')
+                @method ('patch')
                 <p class="form__group">
                     <input
                         type="text"
@@ -84,28 +80,28 @@
                         <option
                             class="form__option"
                             value="upload"
-                            @selected($bonExchange->upload)
+                            @selected ($bonExchange->upload)
                         >
                             {{ __('common.add') }} {{ __('common.upload') }}
                         </option>
                         <option
                             class="form__option"
                             value="download"
-                            @selected($bonExchange->download)
+                            @selected ($bonExchange->download)
                         >
                             {{ __('common.remove') }} {{ __('common.download') }}
                         </option>
                         <option
                             class="form__option"
                             value="personal_freeleech"
-                            @selected($bonExchange->personal_freeleech)
+                            @selected ($bonExchange->personal_freeleech)
                         >
                             {{ __('torrent.personal-freeleech') }}
                         </option>
                         <option
                             class="form__option"
                             value="invite"
-                            @selected($bonExchange->invite)
+                            @selected ($bonExchange->invite)
                         >
                             {{ __('user.invites') }}
                         </option>

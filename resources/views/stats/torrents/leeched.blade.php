@@ -1,27 +1,23 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link">
-            {{ __('stat.stats') }}
-        </a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link"> {{ __('stat.stats') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('torrent.torrents') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('torrent.torrents') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('partials.statstorrentmenu')
+@section ('nav-tabs')
+    @include ('partials.statstorrentmenu')
 @endsection
 
-@section('page', 'page__stats--leeched')
+@section ('page', 'page__stats--leeched')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.top-leeched') }}</h2>
         <div class="data-table-wrapper">

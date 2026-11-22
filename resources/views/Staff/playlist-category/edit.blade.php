@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,17 +11,13 @@
             Playlist categories
         </a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $playlistCategory->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $playlistCategory->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-playlist-category--edit')
+@section ('page', 'page__staff-playlist-category--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">Edit playlist category</h2>
         <div class="panel__body">
@@ -31,7 +27,7 @@
                 action="{{ route('staff.playlist_categories.update', ['playlistCategory' => $playlistCategory]) }}"
                 enctype="multipart/form-data"
             >
-                @method('PATCH')
+                @method ('PATCH')
                 @csrf
                 <p class="form__group">
                     <input
@@ -63,8 +59,7 @@
                         name="description"
                         class="form__textarea"
                         placeholder=" "
-                    >
-{{ $playlistCategory->description }}</textarea
+                        >{{ $playlistCategory->description }}</textarea
                     >
                     <label class="form__label form__label--floating" for="description">
                         {{ __('common.description') }}

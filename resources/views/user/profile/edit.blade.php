@@ -1,27 +1,25 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ $user->username }} {{ __('user.profile') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.edit-profile') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.edit-profile') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-profile--edit')
+@section ('page', 'page__user-profile--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.edit-profile') }}</h2>
         <div class="panel__body">
@@ -32,7 +30,7 @@
                 class="form"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p class="form__group">
                     <label for="image" class="form__label">{{ __('user.avatar') }}</label>
                     <input
@@ -69,8 +67,8 @@
                         {{ __('user.custom-title') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => old('about', $user->about)], key('about'))
-                @livewire('bbcode-input', ['name' => 'signature', 'label' => __('user.forum-signature'), 'required' => false, 'content' => old('signature', $user->signature)], key('signature'))
+                @livewire ('bbcode-input', ['name' => 'about', 'label' => __('user.about-me'), 'required' => false, 'content' => old('about', $user->about)], key('about'))
+                @livewire ('bbcode-input', ['name' => 'signature', 'label' => __('user.forum-signature'), 'required' => false, 'content' => old('signature', $user->signature)], key('signature'))
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}

@@ -1,12 +1,12 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumb--active">{{ __('common.upload') }} {{ __('common.contests') }}</li>
 @endsection
 
-@section('page', 'page__upload-contest--index')
+@section ('page', 'page__upload-contest--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.upload') }} {{ __('common.contests') }}</h2>
         <div class="data-table-wrapper">

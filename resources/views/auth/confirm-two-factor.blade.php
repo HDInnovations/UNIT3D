@@ -1,23 +1,21 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('auth.two-factor-confirmation') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta
         name="description"
         content="{{ __('auth.two-factor-confirmation') }} - {{ config('other.title') }}"
     />
 @endsection
 
-@section('breadcrumbs')
-    <li class="breadcrumb--active">
-        {{ __('auth.two-factor-confirmation') }}
-    </li>
+@section ('breadcrumbs')
+    <li class="breadcrumb--active">{{ __('auth.two-factor-confirmation') }}</li>
 @endsection
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('auth.two-factor-confirmation') }}</h2>
         <div class="panel__body">
@@ -45,7 +43,7 @@
                     <label class="form__label form__label--floating" for="code">
                         {{ __('auth.code') }}
                     </label>
-                    @error('error')
+                    @error ('error')
                         <span class="form__hint">{{ $error }}</span>
                     @enderror
                 </p>
@@ -63,7 +61,7 @@
                     <label class="form__label form__label--floating" for="recovery_code">
                         {{ __('auth.recovery-code') }}
                     </label>
-                    @error('error')
+                    @error ('error')
                         <span class="form__hint">{{ $error }}</span>
                     @enderror
                 </p>

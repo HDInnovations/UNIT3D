@@ -71,11 +71,11 @@
                     <th>{{ __('user.user') }}</th>
                     <th wire:click="sortBy('subject')" role="columnheader button">
                         {{ __('pm.subject') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'subject'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'subject'])
                     </th>
                     <th wire:click="sortBy('updated_at')" role="columnheader button">
                         {{ __('common.date') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'updated_at'])
                     </th>
                     <th
                         wire:click="sortBy('messages_count')"
@@ -83,7 +83,7 @@
                         style="white-space: nowrap"
                     >
                         {{ __('forum.replies') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'messages_count'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'messages_count'])
                     </th>
                     <th>{{ __('pm.read') }}</th>
                     <th>{{ __('common.actions') }}</th>
@@ -113,9 +113,7 @@
                                 {{ $conversation->updated_at->diffForHumans() }}
                             </time>
                         </td>
-                        <td>
-                            {{ $conversation->messages_count }}
-                        </td>
+                        <td>{{ $conversation->messages_count }}</td>
                         <td>
                             @if ($conversation->participants->first()->read)
                                 <i

@@ -720,9 +720,7 @@
             <div class="panel__actions">
                 <div class="panel__action">
                     <span class="panel__action-text">
-                        {{ __('common.total') }}: {{ $torrentHealth->total }} |
-                        {{ __('common.alive') }}: {{ $torrentHealth->alive }} |
-                        {{ __('common.dead') }}: {{ $torrentHealth->dead }}
+                        {{ __('common.total') }}: {{ $torrentHealth->total }} | {{ __('common.alive') }}: {{ $torrentHealth->alive }} | {{ __('common.dead') }}: {{ $torrentHealth->dead }}
                     </span>
                 </div>
                 <div class="panel__action">
@@ -765,13 +763,13 @@
         </header>
         {{ $torrents->links('partials.pagination') }}
 
-        @switch(true)
-            @case($view === 'list')
+        @switch (true)
+            @case ($view === 'list')
                 <div class="data-table-wrapper torrent-search--list__results">
                     <table class="data-table">
                         <thead>
                             <tr
-                                @class([
+                                @class ([
                                     'torrent-search--list__headers' => auth()->user()->settings->show_poster,
                                     'torrent-search--list__no-poster-headers' => ! auth()->user()->settings->show_poster,
                                 ])
@@ -787,7 +785,7 @@
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.name') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'name'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'name'])
                                 </th>
                                 <th class="torrent-search--list__actions-header">
                                     {{ __('common.actions') }}
@@ -798,7 +796,7 @@
                                     role="columnheader button"
                                 >
                                     Rating
-                                    @include('livewire.includes._sort-icon', ['field' => 'rating'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'rating'])
                                 </th>
                                 <th
                                     class="torrent-search--list__size-header"
@@ -806,7 +804,7 @@
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.size') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'size'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'size'])
                                 </th>
                                 <th
                                     class="torrent-search--list__seeders-header"
@@ -815,7 +813,7 @@
                                     title="{{ __('torrent.seeders') }}"
                                 >
                                     <i class="fas fa-arrow-alt-circle-up"></i>
-                                    @include('livewire.includes._sort-icon', ['field' => 'seeders'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'seeders'])
                                 </th>
                                 <th
                                     class="torrent-search--list__leechers-header"
@@ -824,7 +822,7 @@
                                     title="{{ __('torrent.leechers') }}"
                                 >
                                     <i class="fas fa-arrow-alt-circle-down"></i>
-                                    @include('livewire.includes._sort-icon', ['field' => 'leechers'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'leechers'])
                                 </th>
                                 <th
                                     class="torrent-search--list__completed-header"
@@ -833,7 +831,7 @@
                                     title="{{ __('torrent.completed') }}"
                                 >
                                     <i class="fas fa-check-circle"></i>
-                                    @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
                                 </th>
                                 <th
                                     class="torrent-search--list__age-header"
@@ -841,7 +839,7 @@
                                     role="columnheader button"
                                 >
                                     {{ __('torrent.age') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                                 </th>
                             </tr>
                         </thead>
@@ -860,9 +858,8 @@
                         </tbody>
                     </table>
                 </div>
-
                 @break
-            @case($view === 'card')
+            @case ($view === 'card')
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -872,7 +869,7 @@
                                 role="columnheader button"
                             >
                                 {{ __('torrent.name') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'name'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'name'])
                             </th>
                             <th
                                 class="torrent-search--list__size-header"
@@ -880,7 +877,7 @@
                                 role="columnheader button"
                             >
                                 {{ __('torrent.size') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'size'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'size'])
                             </th>
                             <th
                                 class="torrent-search--list__seeders-header"
@@ -889,7 +886,7 @@
                                 title="{{ __('torrent.seeders') }}"
                             >
                                 <i class="fas fa-arrow-alt-circle-up"></i>
-                                @include('livewire.includes._sort-icon', ['field' => 'seeders'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'seeders'])
                             </th>
                             <th
                                 class="torrent-search--list__leechers-header"
@@ -898,7 +895,7 @@
                                 title="{{ __('torrent.leechers') }}"
                             >
                                 <i class="fas fa-arrow-alt-circle-down"></i>
-                                @include('livewire.includes._sort-icon', ['field' => 'leechers'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'leechers'])
                             </th>
                             <th
                                 class="torrent-search--list__completed-header"
@@ -907,7 +904,7 @@
                                 title="{{ __('torrent.completed') }}"
                             >
                                 <i class="fas fa-check-circle"></i>
-                                @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
                             </th>
                             <th
                                 class="torrent-search--list__age-header"
@@ -915,7 +912,7 @@
                                 role="columnheader button"
                             >
                                 {{ __('common.created_at') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
                         </tr>
                     </thead>
@@ -927,9 +924,8 @@
                         {{ __('common.no-result') }}
                     @endforelse
                 </div>
-
                 @break
-            @case($view === 'group')
+            @case ($view === 'group')
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -940,7 +936,7 @@
                                 title="{{ __('torrent.completed') }}"
                             >
                                 <i class="fas fa-check-circle"></i>
-                                @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
                             </th>
                             <th
                                 class="torrent-search--list__age-header"
@@ -948,38 +944,36 @@
                                 role="columnheader button"
                             >
                                 {{ __('common.created_at') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
                         </tr>
                     </thead>
                 </table>
                 <div class="panel__body torrent-search--grouped__results">
                     @forelse ($torrents as $group)
-                        @isset($group, $group->id)
-                            @switch($group->meta)
-                                @case('movie')
+                        @isset ($group, $group->id)
+                            @switch ($group->meta)
+                                @case ('movie')
                                     <x-movie.card
                                         :media="$group"
                                         :personalFreeleech="$personalFreeleech"
                                     />
-
                                     @break
-                                @case('tv')
+                                @case ('tv')
                                     <x-tv.card
                                         :media="$group"
                                         :personalFreeleech="$personalFreeleech"
                                     />
-
                                     @break
+
                             @endswitch
                         @endisset
                     @empty
                         {{ __('common.no-result') }}
                     @endforelse
                 </div>
-
                 @break
-            @case($view === 'poster')
+            @case ($view === 'poster')
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -990,7 +984,7 @@
                                 title="{{ __('torrent.completed') }}"
                             >
                                 <i class="fas fa-check-circle"></i>
-                                @include('livewire.includes._sort-icon', ['field' => 'times_completed'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'times_completed'])
                             </th>
                             <th
                                 class="torrent-search--list__age-header"
@@ -998,104 +992,105 @@
                                 role="columnheader button"
                             >
                                 {{ __('common.created_at') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
                         </tr>
                     </thead>
                 </table>
                 <div class="panel__body torrent-search--poster__results">
                     @forelse ($torrents as $group)
-                        @switch($group->meta)
-                            @case('movie')
+                        @switch ($group->meta)
+                            @case ('movie')
                                 <x-movie.poster
                                     :categoryId="$group->category_id"
                                     :movie="$group->movie"
                                     :tmdb="$group->tmdb_movie_id"
                                 />
-
                                 @break
-                            @case('tv')
+                            @case ('tv')
                                 <x-tv.poster
                                     :categoryId="$group->category_id"
                                     :tv="$group->tv"
                                     :tmdb="$group->tmdb_tv_id"
                                 />
-
                                 @break
+
                         @endswitch
                     @empty
                         {{ __('common.no-result') }}
                     @endforelse
                 </div>
-
                 @break
+
         @endswitch
         {{ $torrents->links('partials.pagination') }}
     </section>
     <script src="{{ asset('build/unit3d/virtual-select.js') }}" crossorigin="anonymous"></script>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('livewire:init', function () {
-          let myRegions = [
-              {
-                  label: "No region", value: "0"
-              },
-              ... {{
-                  Js::from(
-                      $regions
-                          ->each(function ($region) {
-                              $region->label = $region->name . ' (' . __('regions.' . $region->name) . ')';
-                              $region->value = $region->id;
-                          })
-                          ->select(['label', 'value'])
-                  )
-              }}
-          ];
+            let myRegions = [
+                {
+                    label: 'No region',
+                    value: '0',
+                },
+                ...{{
+                    Js::from(
+                        $regions
+                            ->each(function ($region) {
+                                $region->label = $region->name . ' (' . __('regions.' . $region->name) . ')';
+                                $region->value = $region->id;
+                            })
+                            ->select(['label', 'value'])
+                    )
+                }},
+            ];
 
-          VirtualSelect.init({
-            ele: '#regions',
-            options: myRegions,
-            multiple: true,
-            search: true,
-            placeholder: "{{ __('Select Regions') }}",
-            noOptionsText: "{{ __('No results found') }}",
-          })
+            VirtualSelect.init({
+                ele: '#regions',
+                options: myRegions,
+                multiple: true,
+                search: true,
+                placeholder: '{{ __('Select Regions') }}',
+                noOptionsText: '{{ __('No results found') }}',
+            });
 
-          let regions = document.querySelector('#regions')
-          regions.addEventListener('change', () => {
-            let data = regions.value
-            @this.set('regionIds', data)
-          })
+            let regions = document.querySelector('#regions');
+            regions.addEventListener('change', () => {
+                let data = regions.value;
+                @this.set('regionIds', data);
+            });
 
-          let myDistributors = [
-              {
-                  label: "No distributor", value: "0"
-              },
-              ... {{
-                  Js::from(
-                      $distributors
-                          ->each(function ($distributor) {
-                              $distributor->label = $distributor->name;
-                              $distributor->value = $distributor->id;
-                          })
-                          ->select(['label', 'value'])
-                  )
-              }}
-          ];
+            let myDistributors = [
+                {
+                    label: 'No distributor',
+                    value: '0',
+                },
+                ...{{
+                    Js::from(
+                        $distributors
+                            ->each(function ($distributor) {
+                                $distributor->label = $distributor->name;
+                                $distributor->value = $distributor->id;
+                            })
+                            ->select(['label', 'value'])
+                    )
+                }},
+            ];
 
-          VirtualSelect.init({
-            ele: '#distributors',
-            options: myDistributors,
-            multiple: true,
-            search: true,
-            placeholder: "{{ __('Select Distributor') }}",
-            noOptionsText: "{{ __('No results found') }}",
-          })
+            VirtualSelect.init({
+                ele: '#distributors',
+                options: myDistributors,
+                multiple: true,
+                search: true,
+                placeholder: '{{ __('Select Distributor') }}',
+                noOptionsText: '{{ __('No results found') }}',
+            });
 
-          let distributors = document.querySelector('#distributors')
-          distributors.addEventListener('change', () => {
-            let data = distributors.value
-            @this.set('distributorIds', data)
-          })
-        })
+            let distributors = document.querySelector('#distributors');
+            distributors.addEventListener('change', () => {
+                let data = distributors.value;
+                @this.set('distributorIds', data);
+            });
+        });
     </script>
 </div>

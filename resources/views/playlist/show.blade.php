@@ -1,19 +1,17 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('playlists.index') }}" class="breadcrumb__link">
             {{ __('playlist.playlists') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $playlist->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $playlist->name }}</li>
 @endsection
 
-@section('page', 'page__playlist--show')
+@section ('page', 'page__playlist--show')
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
@@ -27,16 +25,14 @@
                         {{ __('playlist.add-torrent') }}
                     </button>
                     <dialog id="playlist-item-add" class="dialog" popover>
-                        <h4 class="dialog__heading">
-                            {{ __('playlist.add-to-playlist') }}
-                        </h4>
+                        <h4 class="dialog__heading">{{ __('playlist.add-to-playlist') }}</h4>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('playlist_torrents.massUpsert') }}"
                         >
                             @csrf
-                            @method('PUT')
+                            @method ('PUT')
                             <p class="form__group">
                                 <input
                                     id="playlist_id"
@@ -52,8 +48,7 @@
                                     name="torrent_urls"
                                     type="text"
                                     required
-                                >
-{{ old('torrent_urls') }}</textarea
+                                    >{{ old('torrent_urls') }}</textarea
                                 >
                                 <label class="form__label form__label--floating" for="torrent_urls">
                                     Torrent IDs/URLs (one per line)
@@ -89,7 +84,7 @@
                     x-data="confirmation"
                 >
                     @csrf
-                    @method('DELETE')
+                    @method ('DELETE')
                     <p class="form__group form__group--horizontal">
                         <button
                             x-on:click.prevent="confirmAction"
@@ -113,9 +108,7 @@
                         {{ __('playlist.suggest-torrent') }}
                     </button>
                     <dialog id="playlist-suggestion-add" class="dialog" popover>
-                        <h4 class="dialog__heading">
-                            {{ __('playlist.suggest-torrent') }}
-                        </h4>
+                        <h4 class="dialog__heading">{{ __('playlist.suggest-torrent') }}</h4>
                         <form
                             class="dialog__form"
                             method="POST"
@@ -145,8 +138,7 @@
                                     name="message"
                                     type="text"
                                     required
-                                >
-{{ old('message') }}</textarea
+                                    >{{ old('message') }}</textarea
                                 >
                                 <label
                                     class="form__label form__label--floating"
@@ -239,7 +231,7 @@
     </section>
 @endsection
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $playlist->name }}</h2>
         @php
@@ -264,7 +256,7 @@
                     <x-user-tag :user="$playlist->user" :anon="false" />
                 </p>
                 <p class="playlist__description bbcode-rendered">
-                    @bbcode($playlist->description)
+                    @bbcode ($playlist->description)
                 </p>
             </div>
         </div>
@@ -302,7 +294,7 @@
                             method="POST"
                         >
                             @csrf
-                            @method('DELETE')
+                            @method ('DELETE')
                             <button class="form__standard-icon-button">
                                 <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             </button>
@@ -358,7 +350,7 @@
                                             action="{{ route('playlists.suggestions.update', ['playlist' => $playlist, 'playlistSuggestion' => $playlistSuggestion]) }}"
                                         >
                                             @csrf
-                                            @method('PATCH')
+                                            @method ('PATCH')
                                             <input
                                                 type="hidden"
                                                 name="status"
@@ -382,9 +374,7 @@
                                             popover
                                         >
                                             <h3 class="dialog__heading">
-                                                {{ __('common.moderation-reject') }}
-                                                {{ __('torrent.torrent') }}:
-                                                {{ $torrent->name }}
+                                                {{ __('common.moderation-reject') }} {{ __('torrent.torrent') }}: {{ $torrent->name }}
                                             </h3>
                                             <form
                                                 class="dialog__form"
@@ -392,7 +382,7 @@
                                                 action="{{ route('playlists.suggestions.update', ['playlist' => $playlist, 'playlistSuggestion' => $playlistSuggestion]) }}"
                                             >
                                                 @csrf
-                                                @method('PATCH')
+                                                @method ('PATCH')
                                                 <input
                                                     type="hidden"
                                                     name="status"
@@ -404,8 +394,7 @@
                                                         class="form__textarea"
                                                         name="rejection_message"
                                                         required
-                                                    >
-{{ old('rejection_message') }}</textarea
+                                                        >{{ old('rejection_message') }}</textarea
                                                     >
                                                     <label
                                                         for="rejection_message{{ $playlistSuggestion->id }}"

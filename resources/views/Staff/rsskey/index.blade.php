@@ -1,32 +1,29 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>
-        {{ __('common.user') }} {{ __('user.rsskeys') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.user') }} {{ __('user.rsskeys') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta
         name="description"
         content="{{ __('user.rsskeys') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.rsskeys') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.rsskeys') }}</li>
 @endsection
 
-@section('page', 'page__staff-rsskey--index')
+@section ('page', 'page__staff-rsskey--index')
 
-@section('main')
-    @livewire('rsskey-search')
+@section ('main')
+    @livewire ('rsskey-search')
 @endsection

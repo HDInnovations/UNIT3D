@@ -1,28 +1,26 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ $user->username }} {{ __('user.uploads') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.uploads') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.uploads') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-upload--index')
+@section ('page', 'page__user-upload--index')
 
-@section('main')
-    @livewire('user-uploads', ['userId' => $user->id])
+@section ('main')
+    @livewire ('user-uploads', ['userId' => $user->id])
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.statistics') }}</h2>
         <dl class="key-value">

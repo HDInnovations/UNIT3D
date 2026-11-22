@@ -1,10 +1,10 @@
-@extends('layout.guest')
+@extends ('layout.guest')
 
-@section('title')
+@section ('title')
     <title>{{ __('auth.signup') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('content')
+@section ('content')
     <section class="auth-form">
         <form
             class="auth-form__form"
@@ -18,9 +18,7 @@
             </a>
             @if (config('other.invite-only') && ! request()->has('code'))
                 <ul class="auth-form__important-infos">
-                    <li class="auth-form__important-info">
-                        {{ __('auth.need-invite') }}
-                    </li>
+                    <li class="auth-form__important-info">{{ __('auth.need-invite') }}</li>
                 </ul>
             @else
                 <p class="auth-form__text-input-group">
@@ -38,9 +36,7 @@
                     />
                 </p>
                 <p class="auth-form__text-input-group">
-                    <label class="auth-form__label" for="email">
-                        {{ __('auth.email') }}
-                    </label>
+                    <label class="auth-form__label" for="email"> {{ __('auth.email') }} </label>
                     <input
                         id="email"
                         class="auth-form__text-input"

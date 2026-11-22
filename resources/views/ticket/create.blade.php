@@ -1,23 +1,21 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('tickets.index') }}" class="breadcrumb__link">
             {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('ticket.create-ticket') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('ticket.create-ticket') }}</li>
 @endsection
 
-@section('page', 'page__ticket--create')
+@section ('page', 'page__ticket--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             <i class="fas fa-plus"></i>
@@ -68,9 +66,7 @@
                 <p class="form__group">
                     <label for="attachments" class="form__label">
                         {{ __('ticket.attachments') }}
-                        <span class="text-danger small">
-                            {{ __('ticket.attachment-limit') }}
-                        </span>
+                        <span class="text-danger small"> {{ __('ticket.attachment-limit') }} </span>
                     </label>
                     <input
                         id="attachments"

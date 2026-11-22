@@ -1,14 +1,14 @@
-@section('title')
+@section ('title')
     <title>
         Torrent downloads - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="Torrent downloads - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -17,7 +17,7 @@
     <li class="breadcrumb--active">Torrent downloads</li>
 @endsection
 
-@section('page', 'page__staff-torrent-download--index')
+@section ('page', 'page__staff-torrent-download--index')
 
 <div style="display: flex; flex-direction: column; row-gap: 1rem">
     <section class="panelV2">
@@ -125,42 +125,42 @@
         </header>
         <div class="panel__body" wire:loading.block>Loading...</div>
         <div class="data-table-wrapper">
-            @switch($this->groupBy)
-                @case('user_id')
+            @switch ($this->groupBy)
+                @case ('user_id')
                     <table class="data-table">
                         <thead>
                             <tr>
                                 <th wire:click="sortBy('user_id')" role="columnheader button">
                                     User
-                                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                                 </th>
                                 <th
                                     wire:click="sortBy('download_count')"
                                     role="columnheader button"
                                 >
                                     Download count
-                                    @include('livewire.includes._sort-icon', ['field' => 'download_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'download_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('distinct_torrent_count')"
                                     role="columnheader button"
                                 >
                                     Distinct torrent count
-                                    @include('livewire.includes._sort-icon', ['field' => 'distinct_torrent_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'distinct_torrent_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_min')"
                                     role="columnheader button"
                                 >
                                     First downloaded At
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at_min'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at_min'])
                                 </th>
                                 <th
                                     wire:click="sortBy('created_at_max')"
                                     role="columnheader button"
                                 >
                                     Last downloaded At
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at_max'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at_max'])
                                 </th>
                             </tr>
                         </thead>
@@ -168,10 +168,7 @@
                             @foreach ($torrentDownloads as $torrentDownload)
                                 <tr>
                                     <td>
-                                        <x-user-tag
-                                            :user="$torrentDownload->user"
-                                            :anon="false"
-                                        />
+                                        <x-user-tag :user="$torrentDownload->user" :anon="false" />
                                     </td>
                                     <td>{{ $torrentDownload->download_count }}</td>
                                     <td>{{ $torrentDownload->distinct_torrent_count }}</td>
@@ -195,7 +192,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
                     @break
                 @default
                     <table class="data-table">
@@ -203,27 +199,27 @@
                             <tr>
                                 <th wire:click="sortBy('id')" role="columnheader button">
                                     ID
-                                    @include('livewire.includes._sort-icon', ['field' => 'id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'id'])
                                 </th>
                                 <th wire:click="sortBy('user_id')" role="columnheader button">
                                     User
-                                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                                 </th>
                                 <th wire:click="sortBy('torrent_id')" role="columnheader button">
                                     Torrent ID
-                                    @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                                 </th>
                                 <th wire:click="sortBy('torrent_id')" role="columnheader button">
                                     Torrent
-                                    @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                                 </th>
                                 <th wire:click="sortBy('type')" role="columnheader button">
                                     Type
-                                    @include('livewire.includes._sort-icon', ['field' => 'type'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'type'])
                                 </th>
                                 <th wire:click="sortBy('created_at')" role="columnheader button">
                                     {{ __('common.created_at') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                                 </th>
                             </tr>
                         </thead>
@@ -232,10 +228,7 @@
                                 <tr>
                                     <td>{{ $torrentDownload->id }}</td>
                                     <td>
-                                        <x-user-tag
-                                            :user="$torrentDownload->user"
-                                            :anon="false"
-                                        />
+                                        <x-user-tag :user="$torrentDownload->user" :anon="false" />
                                     </td>
                                     <td>{{ $torrentDownload->torrent?->id ?? 'Not found' }}</td>
                                     <td>
@@ -246,7 +239,7 @@
                                                 {{ $torrentDownload->torrent->name ?? 'Not found' }}
                                             </a>
                                         @else
-                                                Not found
+                                            Not found
                                         @endif
                                     </td>
                                     <td>{{ $torrentDownload->type }}</td>

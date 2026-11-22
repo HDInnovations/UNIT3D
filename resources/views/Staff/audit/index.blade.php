@@ -1,27 +1,25 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>Audits log - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="Audits log - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.audit-log') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.audit-log') }}</li>
 @endsection
 
-@section('page', 'page__staff-audit--index')
+@section ('page', 'page__staff-audit--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.staff') }} {{ __('common.stats') }}</h2>
         <div class="data-table-wrapper">
@@ -50,5 +48,5 @@
         </div>
     </section>
 
-    @livewire('audit-log-search')
+    @livewire ('audit-log-search')
 @endsection

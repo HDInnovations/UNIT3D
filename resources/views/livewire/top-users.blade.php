@@ -20,8 +20,8 @@
     <div class="panel__body" wire:loading.block>Loading...</div>
     <div class="panel__body" wire:loading.remove>
         <div class="user-stat-card-container">
-            @switch($this->tab)
-                @case('uploaders')
+            @switch ($this->tab)
+                @case ('uploaders')
                     @foreach ($this->uploaders as $uploader)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -51,9 +51,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('downloaders')
+                @case ('downloaders')
                     @foreach ($this->downloaders as $downloader)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -65,9 +64,7 @@
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
-                            <h4 class="user-stat-card__stat">
-                                {{ $downloader->value }} downloads
-                            </h4>
+                            <h4 class="user-stat-card__stat">{{ $downloader->value }} downloads</h4>
 
                             @if ($downloader->user->privacy?->private_profile)
                                 <img
@@ -84,9 +81,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('uploaded')
+                @case ('uploaded')
                     @foreach ($this->uploaded as $upload)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -99,8 +95,7 @@
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ App\Helpers\StringHelper::formatBytes($upload->uploaded, 2) }}
-                                Uploaded
+                                {{ App\Helpers\StringHelper::formatBytes($upload->uploaded, 2) }} Uploaded
                             </h4>
 
                             @if ($upload->privacy?->private_profile)
@@ -118,9 +113,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('downloaded')
+                @case ('downloaded')
                     @foreach ($this->downloaded as $download)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -133,8 +127,7 @@
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ App\Helpers\StringHelper::formatBytes($download->downloaded, 2) }}
-                                Downloaded
+                                {{ App\Helpers\StringHelper::formatBytes($download->downloaded, 2) }} Downloaded
                             </h4>
 
                             @if ($download->privacy?->private_profile)
@@ -152,9 +145,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('seeders')
+                @case ('seeders')
                     @foreach ($this->seeders as $seeder)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -183,9 +175,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('seedtime')
+                @case ('seedtime')
                     @foreach ($this->seedtimes as $seedtime)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -198,8 +189,7 @@
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
-                                {{ App\Helpers\StringHelper::timeElapsed($seedtime->seedtime ?? 0) }}
-                                {{ __('user.total-seedtime') }}
+                                {{ App\Helpers\StringHelper::timeElapsed($seedtime->seedtime ?? 0) }} {{ __('user.total-seedtime') }}
                             </h4>
 
                             @if ($seedtime->privacy?->private_profile)
@@ -217,9 +207,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('served')
+                @case ('served')
                     @foreach ($this->served as $serve)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -250,9 +239,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('commenters')
+                @case ('commenters')
                     @foreach ($this->commenters as $commenter)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -283,9 +271,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('posters')
+                @case ('posters')
                     @foreach ($this->posters as $poster)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -314,9 +301,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('thanked')
+                @case ('thanked')
                     @foreach ($this->thanked as $thanked)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -347,9 +333,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('thankers')
+                @case ('thankers')
                     @foreach ($this->thankers as $thanker)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -361,9 +346,7 @@
                                     {{ Number::ordinal($loop->iteration) }}
                                 </div>
                             </h3>
-                            <h4 class="user-stat-card__stat">
-                                {{ $thanker->value }} thanks given
-                            </h4>
+                            <h4 class="user-stat-card__stat">{{ $thanker->value }} thanks given</h4>
 
                             @if ($thanker->user->privacy?->private_profile)
                                 <img
@@ -380,9 +363,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
-                @case('personals')
+                @case ('personals')
                     @foreach ($this->personals as $personal)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
@@ -413,8 +395,8 @@
                             @endif
                         </article>
                     @endforeach
-
                     @break
+
             @endswitch
         </div>
     </div>

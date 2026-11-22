@@ -29,7 +29,7 @@
                         class="mediahub-card"
                     >
                         <h2 class="mediahub-card__heading">
-                            @isset($company->logo)
+                            @isset ($company->logo)
                                 <img
                                     class="mediahub-card__image"
                                     src="{{ tmdb_image('logo_mid', $company->logo) }}"

@@ -1,4 +1,4 @@
-@props([
+@props ([
     'post',
 ])
 
@@ -12,10 +12,7 @@
 >
     <header class="post__header">
         @if ($post->pinned)
-            <i
-                class="{{ config('other.font-awesome') }} fa-thumbtack post__pin"
-                title="Pinned"
-            ></i>
+            <i class="{{ config('other.font-awesome') }} fa-thumbtack post__pin" title="Pinned"></i>
         @endif
 
         <time
@@ -150,7 +147,7 @@
                         x-data="confirmation"
                     >
                         @csrf
-                        @method('DELETE')
+                        @method ('DELETE')
                         <button
                             class="post__delete-button"
                             type="submit"
@@ -194,13 +191,11 @@
                         <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                     </a>
                 @endif
-            </x-slot>
+            </x-slot:appended-icons>
         </x-user-tag>
         @if (! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo)
             @if (! empty($post->user->title))
-                <p class="post__author-title">
-                    {{ $post->user->title }}
-                </p>
+                <p class="post__author-title">{{ $post->user->title }}</p>
             @endif
 
             <dl class="post__author-join">
@@ -234,12 +229,12 @@
         @endif
     </aside>
     <div class="post__content bbcode-rendered">
-        @bbcode($post->content)
+        @bbcode ($post->content)
     </div>
     @if (! empty($post->user->signature) &&(! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo))
         <footer class="post__footer" x-init>
             <p class="post__signature">
-                @bbcode($post->user->signature)
+                @bbcode ($post->user->signature)
             </p>
         </footer>
     @endif

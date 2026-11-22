@@ -1,35 +1,30 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('playlist.edit-playlist') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="{{ __('playlist.edit-playlist') }}" />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('playlists.index') }}" class="breadcrumb__link">
             {{ __('playlist.playlists') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a
-            href="{{ route('playlists.edit', ['playlist' => $playlist]) }}"
-            class="breadcrumb__link"
-        >
+        <a href="{{ route('playlists.edit', ['playlist' => $playlist]) }}" class="breadcrumb__link">
             {{ $playlist->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__playlist--edit')
+@section ('page', 'page__playlist--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('playlist.edit-playlist') }}</h2>
         <div class="panel__body">
@@ -40,7 +35,7 @@
                 enctype="multipart/form-data"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
@@ -82,7 +77,7 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    @livewire('bbcode-input', [
+                    @livewire ('bbcode-input', [
                         'name'     => 'description',
                         'label'    => __('common.description'),
                         'required' => true,
@@ -103,7 +98,7 @@
                         name="is_private"
                         type="checkbox"
                         value="1"
-                        @checked($playlist->is_private)
+                        @checked ($playlist->is_private)
                     />
                     <label class="form__label" for="is_private">
                         {{ __('playlist.is-private') }}

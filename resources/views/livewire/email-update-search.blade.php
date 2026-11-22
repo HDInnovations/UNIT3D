@@ -37,15 +37,15 @@
                 <tr>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
                         {{ __('common.username') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('common.created_at') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                     <th wire:click="sortBy('deleted_at')" role="columnheader button">
                         {{ __('user.deleted-on') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'deleted_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'deleted_at'])
                     </th>
                 </tr>
                 @forelse ($emailUpdates as $emailUpdate)

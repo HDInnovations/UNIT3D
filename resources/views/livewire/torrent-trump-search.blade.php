@@ -1,14 +1,12 @@
-@section('title')
-    <title>
-        Torrent trumps - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
-    </title>
+@section ('title')
+    <title>Torrent trumps - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta name="description" content="Torrent trumps - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -17,7 +15,7 @@
     <li class="breadcrumb--active">Torrent trumps</li>
 @endsection
 
-@section('page', 'page__staff-torrent-trump--index')
+@section ('page', 'page__staff-torrent-trump--index')
 
 <section class="panelV2">
     <header class="panel__header">
@@ -66,23 +64,23 @@
                 <tr>
                     <th wire:click="sortBy('id')" role="columnheader button">
                         ID
-                        @include('livewire.includes._sort-icon', ['field' => 'id'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'id'])
                     </th>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
                         User
-                        @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                     </th>
                     <th wire:click="sortBy('torrent_id')" role="columnheader button">
                         Torrent
-                        @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                     </th>
                     <th wire:click="sortBy('reason')" role="columnheader button">
                         Reason
-                        @include('livewire.includes._sort-icon', ['field' => 'reason'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'reason'])
                     </th>
                     <th wire:click="sortBy('created_at')" role="columnheader button">
                         {{ __('common.created_at') }}
-                        @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                        @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                     </th>
                 </tr>
             </thead>

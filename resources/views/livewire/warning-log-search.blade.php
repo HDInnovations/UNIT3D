@@ -89,28 +89,28 @@
             <tr>
                 <th wire:click="sortBy('user_id')" role="columnheader button">
                     {{ __('common.user') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                 </th>
                 <th wire:click="sortBy('warned_by')" role="columnheader button">
                     {{ __('user.warned-by') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'warned_by'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'warned_by'])
                 </th>
                 <th wire:click="sortBy('torrent')" role="columnheader button">
                     {{ __('torrent.torrent') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'torrent'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'torrent'])
                 </th>
                 <th>{{ __('common.reason') }}</th>
                 <th wire:click="sortBy('created_at')" role="columnheader button">
                     {{ __('common.created_at') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                 </th>
                 <th wire:click="sortBy('expires_on')" role="columnheader button">
                     {{ __('user.expires-on') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'expires_on'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'expires_on'])
                 </th>
                 <th wire:click="sortBy('active')" role="columnheader button">
                     {{ __('common.active') }}
-                    @include('livewire.includes._sort-icon', ['field' => 'active'])
+                    @include ('livewire.includes._sort-icon', ['field' => 'active'])
                 </th>
             </tr>
         </thead>
@@ -124,10 +124,8 @@
                         <x-user-tag :anon="false" :user="$warning->staff" />
                     </td>
                     <td>
-                        @isset($warning->torrent)
-                            <a
-                                href="{{ route('torrents.show', ['id' => $warning->torrent->id]) }}"
-                            >
+                        @isset ($warning->torrent)
+                            <a href="{{ route('torrents.show', ['id' => $warning->torrent->id]) }}">
                                 {{ $warning->torrent->name }}
                             </a>
                         @else

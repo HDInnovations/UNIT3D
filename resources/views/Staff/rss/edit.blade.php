@@ -1,28 +1,24 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ __('rss.edit-public-feed') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.rss.index') }}" class="breadcrumb__link">
-            {{ __('rss.rss') }}
-        </a>
+        <a href="{{ route('staff.rss.index') }}" class="breadcrumb__link"> {{ __('rss.rss') }} </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-rss--edit')
+@section ('page', 'page__staff-rss--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('rss.edit-public-feed') }}</h2>
         <div class="panel__body">
@@ -32,7 +28,7 @@
                 action="{{ route('staff.rss.update', ['rss' => $rss]) }}"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
@@ -164,7 +160,7 @@
                                                 name="categories[]"
                                                 type="checkbox"
                                                 value="{{ $category->id }}"
-                                                @checked(is_array($rss->object_torrent->categories) && in_array((string)$category->id, $rss->object_torrent->categories, true))
+                                                @checked (is_array($rss->object_torrent->categories) && in_array((string)$category->id, $rss->object_torrent->categories, true))
                                             />
                                             {{ $category->name }}
                                         </label>
@@ -186,7 +182,7 @@
                                                 name="types[]"
                                                 type="checkbox"
                                                 value="{{ $type->id }}"
-                                                @checked(is_array($rss->object_torrent->types) && in_array((string)$type->id, $rss->object_torrent->types, true))
+                                                @checked (is_array($rss->object_torrent->types) && in_array((string)$type->id, $rss->object_torrent->types, true))
                                             />
                                             {{ $type->name }}
                                         </label>
@@ -208,7 +204,7 @@
                                                 name="resolutions[]"
                                                 type="checkbox"
                                                 value="{{ $resolution->id }}"
-                                                @checked(is_array($rss->object_torrent->resolutions) && in_array((string)$resolution->id, $rss->object_torrent->resolutions, true))
+                                                @checked (is_array($rss->object_torrent->resolutions) && in_array((string)$resolution->id, $rss->object_torrent->resolutions, true))
                                             />
                                             {{ $resolution->name }}
                                         </label>
@@ -230,7 +226,7 @@
                                                 name="genres[]"
                                                 type="checkbox"
                                                 value="{{ $genre->id }}"
-                                                @checked(is_array($rss->object_torrent->genres) && in_array((string)$genre->id, $rss->object_torrent->genres, true))
+                                                @checked (is_array($rss->object_torrent->genres) && in_array((string)$genre->id, $rss->object_torrent->genres, true))
                                             />
                                             {{ $genre->name }}
                                         </label>
@@ -251,7 +247,7 @@
                                             name="freeleech"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->freeleech)
+                                            @checked ($rss->object_torrent->freeleech)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-star text-gold"
@@ -267,7 +263,7 @@
                                             name="doubleupload"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->doubleupload)
+                                            @checked ($rss->object_torrent->doubleupload)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-gem text-green"
@@ -283,7 +279,7 @@
                                             name="featured"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->featured)
+                                            @checked ($rss->object_torrent->featured)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-certificate text-pink"
@@ -306,7 +302,7 @@
                                             name="highspeed"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->highspeed)
+                                            @checked ($rss->object_torrent->highspeed)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-tachometer text-red"
@@ -322,7 +318,7 @@
                                             name="internal"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->internal)
+                                            @checked ($rss->object_torrent->internal)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-magic"
@@ -339,7 +335,7 @@
                                             name="personalrelease"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->personalrelease)
+                                            @checked ($rss->object_torrent->personalrelease)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-user-plus"
@@ -356,7 +352,7 @@
                                             name="bookmark"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->bookmark)
+                                            @checked ($rss->object_torrent->bookmark)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-bookmark text-blue"
@@ -379,7 +375,7 @@
                                             name="alive"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->alive)
+                                            @checked ($rss->object_torrent->alive)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-smile text-green"
@@ -395,7 +391,7 @@
                                             name="dying"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->dying)
+                                            @checked ($rss->object_torrent->dying)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-meh text-orange"
@@ -411,7 +407,7 @@
                                             name="dead"
                                             type="checkbox"
                                             value="1"
-                                            @checked($rss->object_torrent->dead)
+                                            @checked ($rss->object_torrent->dead)
                                         />
                                         <span
                                             class="{{ config('other.font-awesome') }} fa-frown text-red"

@@ -46,25 +46,25 @@
     <div class="panel__body" wire:loading.block>Loading...</div>
     <div class="data-table-wrapper">
         <table class="data-table">
-            @switch($groupBy)
-                @case('none')
+            @switch ($groupBy)
+                @case ('none')
                     <thead>
                         <tr>
                             <th wire:click="sortBy('user_id')" role="columnheader button">
                                 {{ __('user.user') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'user_id'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'user_id'])
                             </th>
                             <th wire:click="sortBy('info_hash')" role="columnheader button">
                                 {{ __('torrent.info-hash') }} (Hex-encoded)
-                                @include('livewire.includes._sort-icon', ['field' => 'info_hash'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'info_hash'])
                             </th>
                             <th wire:click="sortBy('created_at')" role="columnheader button">
                                 {{ __('forum.created-at') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
                             <th wire:click="sortBy('updated_at')" role="columnheader button">
                                 {{ __('torrent.updated_at') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'updated_at'])
                             </th>
                         </tr>
                     </thead>
@@ -72,10 +72,7 @@
                         @foreach ($unregisteredInfoHashes as $unregisteredInfoHash)
                             <tr>
                                 <td>
-                                    <x-user-tag
-                                        :user="$unregisteredInfoHash->user"
-                                        :anon="false"
-                                    />
+                                    <x-user-tag :user="$unregisteredInfoHash->user" :anon="false" />
                                 </td>
                                 <td>{{ bin2hex($unregisteredInfoHash->info_hash) }}</td>
                                 <td>
@@ -97,26 +94,25 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                     @break
-                @case('info_hash')
+                @case ('info_hash')
                     <thead>
                         <tr>
                             <th wire:click="sortBy('info_hash')" role="columnheader button">
                                 {{ __('torrent.info-hash') }} (Hex-encoded)
-                                @include('livewire.includes._sort-icon', ['field' => 'info_hash'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'info_hash'])
                             </th>
                             <th wire:click="sortBy('created_at')" role="columnheader button">
                                 {{ __('forum.created-at') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                             </th>
                             <th wire:click="sortBy('updated_at')" role="columnheader button">
                                 {{ __('torrent.updated_at') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'updated_at'])
                             </th>
                             <th wire:click="sortBy('amount')" role="columnheader button">
                                 User count
-                                @include('livewire.includes._sort-icon', ['field' => 'amount'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'amount'])
                             </th>
                         </tr>
                     </thead>
@@ -144,8 +140,8 @@
                             </tr>
                         @endforeach
                     </tbody>
-
                     @break
+
             @endswitch
         </table>
         {{ $unregisteredInfoHashes->links('partials.pagination') }}

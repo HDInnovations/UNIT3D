@@ -1,27 +1,25 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ $user->username }} {{ __('user.wishlist') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.wishlist') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.wishlist') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-wish--index')
+@section ('page', 'page__user-wish--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.wishlist') }}</h2>
@@ -64,9 +62,7 @@
                     method="POST"
                 >
                     @csrf
-                    <button class="form__button form__button--text">
-                        {{ __('common.add') }}
-                    </button>
+                    <button class="form__button form__button--text">{{ __('common.add') }}</button>
                 </form>
             </div>
         </header>
@@ -106,7 +102,7 @@
                             <td>
                                 @if ($wish->tmdb_movie_id !== null)
                                     <a
-                                        @class([
+                                        @class ([
                                             'text-green' => $wish->movie_torrents_count !== 0,
                                             'text-red' => $wish->movie_torrents_count === 0,
                                         ])
@@ -115,7 +111,7 @@
                                     </a>
                                 @elseif ($wish->tmdb_tv_id !== null)
                                     <a
-                                        @class([
+                                        @class ([
                                             'text-green' => $wish->tv_torrents_count !== 0,
                                             'text-red' => $wish->tv_torrents_count === 0,
                                         ])
@@ -151,7 +147,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method('DELETE')
+                                            @method ('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this wish: ' . $wish->title . '?') }}"

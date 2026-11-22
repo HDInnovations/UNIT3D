@@ -61,11 +61,11 @@
                     <tr>
                         <th wire:click="sortBy('user_id')" role="columnheader button">
                             {{ __('user.user') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'id'])
                         </th>
                         <th wire:click="sortBy('leak_count')" role="columnheader button">
                             Torrents matched
-                            @include('livewire.includes._sort-icon', ['field' => 'leak_count'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'leak_count'])
                         </th>
                         <th>User agents</th>
                         <th>IPs</th>
@@ -78,8 +78,7 @@
                                 <x-user-tag :user="$leaker->user" :anon="false" />
                             </td>
                             <td>
-                                {{ round((100 * $leaker->leak_count) / $torrentIdCount) }}%
-                                ({{ $leaker->leak_count }})
+                                {{ round((100 * $leaker->leak_count) / $torrentIdCount) }}% ({{ $leaker->leak_count }})
                             </td>
                             <td>
                                 <ul>

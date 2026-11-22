@@ -5,7 +5,7 @@
         style="display: contents"
     >
         @csrf
-        @method('DELETE')
+        @method ('DELETE')
         <button class="form__button form__button--outlined form__button--centered">
             {{ __('request.unclaim') }}
         </button>

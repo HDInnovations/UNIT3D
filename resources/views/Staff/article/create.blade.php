@@ -1,10 +1,10 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>Articles - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -15,14 +15,12 @@
             {{ __('staff.articles') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section('page', 'page__staff-article--create')
+@section ('page', 'page__staff-article--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.add') }} {{ __('common.article') }}</h2>
         <div class="panel__body">
@@ -43,7 +41,7 @@
                     <label for="image" class="form__label">{{ __('common.image') }}</label>
                     <input class="form__file" type="file" name="image" id="image" />
                 </p>
-                @livewire('bbcode-input', ['name' => 'content', 'label' => __('content'), 'required' => true ])
+                @livewire ('bbcode-input', ['name' => 'content', 'label' => __('content'), 'required' => true ])
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}

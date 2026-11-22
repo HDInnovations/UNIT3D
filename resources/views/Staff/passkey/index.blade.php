@@ -1,32 +1,29 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>
-        {{ __('common.user') }} {{ __('staff.passkeys') }} - {{ __('staff.staff-dashboard') }} -
-        {{ config('other.title') }}
+        {{ __('common.user') }} {{ __('staff.passkeys') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('meta')
+@section ('meta')
     <meta
         name="description"
         content="{{ __('staff.passkeys') }} - {{ __('staff.staff-dashboard') }}"
     />
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('staff.passkeys') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('staff.passkeys') }}</li>
 @endsection
 
-@section('page', 'page__staff-passkey--index')
+@section ('page', 'page__staff-passkey--index')
 
-@section('main')
-    @livewire('passkey-search')
+@section ('main')
+    @livewire ('passkey-search')
 @endsection

@@ -1,27 +1,25 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('title')
+@section ('title')
     <title>{{ $user->username }} {{ __('user.posts') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.posts') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.posts') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-post--index')
+@section ('page', 'page__user-post--index')
 
-@section('main')
+@section ('main')
     @if (auth()->user()->isAllowed($user, 'forum', 'show_post'))
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('forum.posts') }}</h2>

@@ -44,7 +44,7 @@
                         style="display: contents"
                     >
                         @csrf
-                        @method('DELETE')
+                        @method ('DELETE')
                         <button
                             class="nav-tab__link"
                             type="submit"
@@ -230,9 +230,7 @@
                 {{ __('torrent.torrents') }}
             </button>
         @else
-            <button class="nav-tab__link">
-                {{ __('torrent.torrents') }}
-            </button>
+            <button class="nav-tab__link">{{ __('torrent.torrents') }}</button>
         @endif
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
@@ -314,7 +312,7 @@
                         style="display: contents"
                     >
                         @csrf
-                        @method('DELETE')
+                        @method ('DELETE')
                         <button class="nav-tab__link" type="submit">
                             {{ __('staff.flush-ghost-peers') }}
                         </button>
@@ -525,9 +523,7 @@
         </button>
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)
-                <li
-                    class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
-                >
+                <li class="{{ Route::is('users.wishes.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
                     <a
                         class="{{ Route::is('users.wishes.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
                         href="{{ route('users.wishes.index', ['user' => $user]) }}"

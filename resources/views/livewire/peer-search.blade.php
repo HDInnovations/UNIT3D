@@ -132,7 +132,7 @@
                     <tr>
                         <th wire:click="sortBy('peers.user_id')" role="columnheader button">
                             {{ __('user.user') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'peers.user_id'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'peers.user_id'])
                         </th>
                         @if ($groupBy !== 'none')
                             <th
@@ -141,7 +141,7 @@
                                 style="text-align: right"
                             >
                                 {{ __('torrent.peers') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'peer_count'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'peer_count'])
                             </th>
                         @endif
 
@@ -150,7 +150,7 @@
                                 {{ __('torrent.torrent') }}
                             @else
                                 {{ __('torrent.torrents') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'torrent_id'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'torrent_id'])
                             @endif
                         </th>
                         <th wire:click="sortBy('agent')" role="columnheader button">
@@ -159,7 +159,7 @@
                             @else
                                 {{ __('torrent.agent') }}
                             @endif
-                            @include('livewire.includes._sort-icon', ['field' => 'agent'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'agent'])
                         </th>
                         <th
                             wire:click="sortBy('ip')"
@@ -171,7 +171,7 @@
                             @else
                                 IPs
                             @endif
-                            @include('livewire.includes._sort-icon', ['field' => 'ip'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'ip'])
                         </th>
                         <th
                             wire:click="sortBy('port')"
@@ -183,7 +183,7 @@
                             @else
                                 Port
                             @endif
-                            @include('livewire.includes._sort-icon', ['field' => 'port'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'port'])
                         </th>
                         <th
                             wire:click="sortBy('uploaded')"
@@ -191,7 +191,7 @@
                             style="text-align: right"
                         >
                             {{ __('torrent.uploaded') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'uploaded'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'uploaded'])
                         </th>
                         <th
                             wire:click="sortBy('downloaded')"
@@ -199,7 +199,7 @@
                             style="text-align: right"
                         >
                             {{ __('torrent.downloaded') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'downloaded'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'downloaded'])
                         </th>
                         <th
                             wire:click="sortBy('left')"
@@ -207,7 +207,7 @@
                             style="text-align: right"
                         >
                             {{ __('torrent.left') }}
-                            @include('livewire.includes._sort-icon', ['field' => 'left'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'left'])
                         </th>
                         @if ($groupBy === 'none')
                             @if ($includeSeedsize)
@@ -218,7 +218,7 @@
                                     style="text-align: right"
                                 >
                                     {{ __('torrent.size') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'size'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'size'])
                                 </th>
                             @else
                                 <th style="text-align: right">{{ __('torrent.size') }}</th>
@@ -231,7 +231,7 @@
                                     style="text-align: right"
                                 >
                                     {{ __('torrent.size') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'size'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'size'])
                                 </th>
                                 @if (\config('announce.connectable_check'))
                                     <th
@@ -240,7 +240,7 @@
                                         style="text-align: right"
                                     >
                                         Connectable {{ __('torrent.size') }}
-                                        @include('livewire.includes._sort-icon', ['field' => 'connectable_size'])
+                                        @include ('livewire.includes._sort-icon', ['field' => 'connectable_size'])
                                     </th>
                                     <th
                                         wire:click="sortBy('unconnectable_size')"
@@ -248,7 +248,7 @@
                                         style="text-align: right"
                                     >
                                         Unconnectable {{ __('torrent.size') }}
-                                        @include('livewire.includes._sort-icon', ['field' => 'unconnectable_size'])
+                                        @include ('livewire.includes._sort-icon', ['field' => 'unconnectable_size'])
                                     </th>
                                 @endif
                             @endif
@@ -261,7 +261,7 @@
                                     style="text-align: right"
                                 >
                                     Connectable
-                                    @include('livewire.includes._sort-icon', ['field' => 'connectable'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'connectable'])
                                 </th>
                             @else
                                 <th
@@ -270,7 +270,7 @@
                                     style="text-align: right"
                                 >
                                     Connectable {{ __('torrent.peers') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'connectable_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'connectable_count'])
                                 </th>
                                 <th
                                     wire:click="sortBy('unconnectable_count')"
@@ -278,7 +278,7 @@
                                     style="text-align: right"
                                 >
                                     Unconnectable {{ __('torrent.peers') }}
-                                    @include('livewire.includes._sort-icon', ['field' => 'unconnectable_count'])
+                                    @include ('livewire.includes._sort-icon', ['field' => 'unconnectable_count'])
                                 </th>
                             @endif
                         @endif
@@ -290,7 +290,7 @@
                                 style="text-align: right"
                             >
                                 {{ __('common.active') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'active'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'active'])
                             </th>
                         @else
                             <th
@@ -299,7 +299,7 @@
                                 style="text-align: right"
                             >
                                 {{ __('common.active') }} {{ __('torrent.peers') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'active_count'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'active_count'])
                             </th>
                             <th
                                 wire:click="sortBy('inactive_count')"
@@ -307,7 +307,7 @@
                                 style="text-align: right"
                             >
                                 Inactive {{ __('torrent.peers') }}
-                                @include('livewire.includes._sort-icon', ['field' => 'inactive_count'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'inactive_count'])
                             </th>
                             <th
                                 wire:click="sortBy('inactive_ratio')"
@@ -315,7 +315,7 @@
                                 style="text-align: right"
                             >
                                 Inactive/active ratio
-                                @include('livewire.includes._sort-icon', ['field' => 'inactive_ratio'])
+                                @include ('livewire.includes._sort-icon', ['field' => 'inactive_ratio'])
                             </th>
                         @endif
                         <th
@@ -324,7 +324,7 @@
                             style="text-align: right"
                         >
                             Started
-                            @include('livewire.includes._sort-icon', ['field' => 'created_at'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'created_at'])
                         </th>
                         <th
                             wire:click="sortBy('updated_at')"
@@ -332,7 +332,7 @@
                             style="text-align: right"
                         >
                             Announced
-                            @include('livewire.includes._sort-icon', ['field' => 'updated_at'])
+                            @include ('livewire.includes._sort-icon', ['field' => 'updated_at'])
                         </th>
                     </tr>
                 </thead>
@@ -343,9 +343,7 @@
                                 <x-user-tag :user="$peer->user" :anon="false" />
                             </td>
                             @if ($groupBy !== 'none')
-                                <td style="text-align: right">
-                                    {{ $peer->peer_count }}
-                                </td>
+                                <td style="text-align: right">{{ $peer->peer_count }}</td>
                             @endif
 
                             @if ($groupBy === 'none')
@@ -357,24 +355,16 @@
                                     </a>
                                 </td>
                             @else
-                                <td style="text-align: right">
-                                    {{ $peer->torrent_id }}
-                                </td>
+                                <td style="text-align: right">{{ $peer->torrent_id }}</td>
                             @endif
 
                             @if ($groupBy === 'none' || $groupBy === 'user_session')
                                 <td>{{ $peer->agent }}</td>
                             @else
-                                <td style="text-align: right">
-                                    {{ $peer->agent }}
-                                </td>
+                                <td style="text-align: right">{{ $peer->agent }}</td>
                             @endif
-                            <td style="text-align: right">
-                                {{ $peer->ip }}
-                            </td>
-                            <td style="text-align: right">
-                                {{ $peer->port }}
-                            </td>
+                            <td style="text-align: right">{{ $peer->ip }}</td>
+                            <td style="text-align: right">{{ $peer->port }}</td>
                             <td style="text-align: right">
                                 {{ App\Helpers\StringHelper::formatBytes($peer->uploaded, 2) }}
                             </td>

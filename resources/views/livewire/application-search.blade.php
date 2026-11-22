@@ -82,18 +82,15 @@
                             </time>
                         </td>
                         <td>
-                            @switch($application->status)
-                                @case(\App\Enums\ModerationStatus::PENDING)
+                            @switch ($application->status)
+                                @case (\App\Enums\ModerationStatus::PENDING)
                                     <span class="application--pending">Pending</span>
-
                                     @break
-                                @case(\App\Enums\ModerationStatus::APPROVED)
+                                @case (\App\Enums\ModerationStatus::APPROVED)
                                     <span class="application--approved">Approved</span>
-
                                     @break
-                                @case(\App\Enums\ModerationStatus::REJECTED)
+                                @case (\App\Enums\ModerationStatus::REJECTED)
                                     <span class="application--rejected">Rejected</span>
-
                                     @break
                                 @default
                                     <span class="application--unknown">Unknown</span>

@@ -37,9 +37,7 @@
                     </p>
                 </div>
 
-                <div class="twoStep__qrCode">
-                    {!! $this->user->twoFactorQrCodeSvg() !!}
-                </div>
+                <div class="twoStep__qrCode">{!! $this->user->twoFactorQrCodeSvg() !!}</div>
 
                 <div>
                     <p>{{ __('Setup Key') }}: {{ decrypt($this->user->two_factor_secret) }}</p>
@@ -61,7 +59,7 @@
                             wire:keydown.enter="confirmTwoFactorAuthentication"
                         />
 
-                        @error('code')
+                        @error ('code')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

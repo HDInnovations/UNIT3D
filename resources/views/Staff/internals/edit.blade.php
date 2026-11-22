@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,17 +9,13 @@
     <li class="breadcrumbV2">
         <a href="{{ route('staff.internals.index') }}" class="breadcrumb__link">Internals</a>
     </li>
-    <li class="breadcrumbV2">
-        {{ $internal->name }}
-    </li>
-    <li class="breadcrumb--active">
-        {{ __('common.edit') }}
-    </li>
+    <li class="breadcrumbV2">{{ $internal->name }}</li>
+    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
 @endsection
 
-@section('page', 'page__staff-internal--edit')
+@section ('page', 'page__staff-internal--edit')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.edit') }} internal group: {{ $internal->name }}
@@ -31,7 +27,7 @@
                 action="{{ route('staff.internals.update', ['internal' => $internal]) }}"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p class="form__group">
                     <input
                         id="name"
@@ -181,7 +177,7 @@
                                                 action="{{ route('staff.internal_users.update', ['internalUser' => $user->pivot->id]) }}"
                                             >
                                                 @csrf
-                                                @method('PATCH')
+                                                @method ('PATCH')
                                                 <input
                                                     type="hidden"
                                                     name="internal_id"
@@ -230,7 +226,7 @@
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @method('DELETE')
+                                            @method ('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
                                                 class="form__button form__button--text"

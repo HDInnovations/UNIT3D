@@ -1,12 +1,12 @@
-@extends('layout.default')
+@extends ('layout.default')
 
-@section('content')
+@section ('content')
     <article class="sidebar2">
         <div>
-            @yield('main')
+            @yield ('main')
         </div>
         <aside>
-            @yield('sidebar')
+            @yield ('sidebar')
         </aside>
     </article>
 @endsection

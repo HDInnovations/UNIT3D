@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -11,19 +11,15 @@
             {{ __('staff.ticket-priorities') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.new-adj') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
 @endsection
 
-@section('page', 'page__staff-ticket-priority--create')
+@section ('page', 'page__staff-ticket-priority--create')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art', false) }}
-            {{ __('staff.ticket-priority') }}
+            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }} {{ __('staff.ticket-priority') }}
         </h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.ticket_priorities.store') }}">

@@ -1,6 +1,6 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('staff.dashboard.index') }}" class="breadcrumb__link">
             {{ __('staff.staff-dashboard') }}
@@ -9,9 +9,9 @@
     <li class="breadcrumb--active">Torrent regions</li>
 @endsection
 
-@section('page', 'page__staff-region--index')
+@section ('page', 'page__staff-region--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Torrent regions</h2>
@@ -43,9 +43,7 @@
                                     {{ $region->name }}
                                 </a>
                             </td>
-                            <td>
-                                {{ __('regions.' . $region->name) }}
-                            </td>
+                            <td>{{ __('regions.' . $region->name) }}</td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
@@ -69,8 +67,7 @@
                                             popover
                                         >
                                             <h4 class="dialog__heading">
-                                                Delete torrent region:
-                                                {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
+                                                Delete torrent region: {{ $region->name . ' (' . __('regions.' . $region->name) . ')' }}
                                             </h4>
                                             <form
                                                 class="dialog__form"
@@ -78,11 +75,8 @@
                                                 action="{{ route('staff.regions.destroy', ['region' => $region]) }}"
                                             >
                                                 @csrf
-                                                @method('DELETE')
-                                                <p class="form__group">
-                                                    An existing torrent on site may already use this
-                                                    region. Would you like to change it?
-                                                </p>
+                                                @method ('DELETE')
+                                                <p class="form__group">An existing torrent on site may already use this region. Would you like to change it?</p>
                                                 <p class="form__group" x-data>
                                                     <select
                                                         name="region_id"
@@ -90,7 +84,11 @@
                                                         class="form__select"
                                                         x-data="{ region: '' }"
                                                         x-model="region"
-                                                        x-bind:class="region === '' ? 'form__select--default' : ''"
+                                                        x-bind:class="
+                                                            region === ''
+                                                                ? 'form__select--default'
+                                                                : ''
+                                                        "
                                                     >
                                                         <option
                                                             hidden

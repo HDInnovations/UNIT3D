@@ -1,12 +1,12 @@
-@extends('layout.with-main')
+@extends ('layout.with-main')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumb--active">Pages</li>
 @endsection
 
-@section('page', 'page__page--index')
+@section ('page', 'page__page--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">Pages</h2>
         <div class="data-table-wrapper">

@@ -1,26 +1,24 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('wikis.index') }}" class="breadcrumb__link">Wikis</a>
     </li>
-    <li class="breadcrumb--active">
-        {{ $wiki->name }}
-    </li>
+    <li class="breadcrumb--active">{{ $wiki->name }}</li>
 @endsection
 
-@section('page', 'page__wiki--show')
+@section ('page', 'page__wiki--show')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $wiki->name }}</h2>
         <div class="panel__body bbcode-rendered">
-            @joypixels($wiki->getContentHtml())
+            @joypixels ($wiki->getContentHtml())
         </div>
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">

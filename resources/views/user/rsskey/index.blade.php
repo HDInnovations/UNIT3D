@@ -1,13 +1,12 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>
-        {{ $user->username }} - Security - {{ __('common.members') }} -
-        {{ config('other.title') }}
+        {{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
@@ -21,18 +20,16 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.rsskeys') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.rsskeys') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-rsskey--index')
+@section ('page', 'page__user-rsskey--index')
 
-@section('main')
+@section ('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.rsskeys') }}</h2>
         <div class="data-table-wrapper">
@@ -90,7 +87,7 @@
     </section>
 @endsection
 
-@section('sidebar')
+@section ('sidebar')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.reset-rss') }}</h2>
         <div class="panel__body">
@@ -100,7 +97,7 @@
                 method="POST"
             >
                 @csrf
-                @method('PATCH')
+                @method ('PATCH')
                 <p>{{ __('user.reset-rss-help') }}.</p>
                 <p class="form__group--horizontal">
                     <button class="form__button form__button--filled form__button--centered">

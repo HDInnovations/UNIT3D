@@ -3,7 +3,8 @@ import Pusher from 'pusher-js';
 
 window.Pusher = Pusher;
 
-const forceTLS = (import.meta.env.VITE_PUSHER_SCHEME ?? window.location.protocol.replace(':', '')) === 'https';
+const forceTLS =
+    (import.meta.env.VITE_PUSHER_SCHEME ?? window.location.protocol.replace(':', '')) === 'https';
 const defaultPort = window.location.port || (forceTLS ? 443 : 80);
 
 window.Echo = new Echo({

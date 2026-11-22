@@ -1,44 +1,42 @@
-@extends('layout.with-main-and-sidebar')
+@extends ('layout.with-main-and-sidebar')
 
-@section('title')
+@section ('title')
     <title>
         {{ $user->username }} - {{ __('user.send-invite') }} - {{ config('other.title') }}
     </title>
 @endsection
 
-@section('breadcrumbs')
+@section ('breadcrumbs')
     <li class="breadcrumbV2">
         <a href="{{ route('users.show', ['user' => $user]) }}" class="breadcrumb__link">
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('user.invites') }}
-    </li>
+    <li class="breadcrumb--active">{{ __('user.invites') }}</li>
 @endsection
 
-@section('nav-tabs')
-    @include('user.buttons.user')
+@section ('nav-tabs')
+    @include ('user.buttons.user')
 @endsection
 
-@section('page', 'page__user-invite--create')
+@section ('page', 'page__user-invite--create')
 
 @if (config('other.invite-only') === false)
-    @section('main')
+    @section ('main')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.invites-disabled') }}</h2>
             <div class="panel__body">{{ __('user.invites-disabled-desc') }}</div>
         </section>
     @endsection
 @elseif (! ($user->can_invite ?? $user->group->can_invite))
-    @section('main')
+    @section ('main')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.invites-banned') }}</h2>
             <div class="panel__body">{{ __('user.invites-banned-desc') }}</div>
         </section>
     @endsection
 @else
-    @section('main')
+    @section ('main')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.invite-friend') }}</h2>
             <div class="panel__body">
@@ -95,7 +93,7 @@
         </section>
     @endsection
 
-    @section('sidebar')
+    @section ('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">
                 {{ __('user.invites-count', ['count' => $user->invites]) }}

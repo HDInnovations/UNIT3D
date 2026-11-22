@@ -32,8 +32,7 @@
                                 datetime="{{ $download->created_at }}"
                                 title="{{ $download->created_at }}"
                             >
-                                {{ $download->created_at }}
-                                ({{ $download->created_at->diffForHumans() }})
+                                {{ $download->created_at }} ({{ $download->created_at->diffForHumans() }})
                             </time>
                         </td>
                         <td>{{ $download->type }}</td>
