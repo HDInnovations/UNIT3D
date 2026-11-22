@@ -40,6 +40,7 @@ use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Min;
 use Spatie\LaravelData\Attributes\Validation\Unique;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
 use Spatie\LaravelData\Support\Validation\Constraints\WhereNotConstraint;
 use Spatie\LaravelData\Support\Validation\References\RouteParameterReference;
 
@@ -55,6 +56,12 @@ class UpdateTorrentRequest extends Data
         public int $categoryId,
         #[Exists(Type::class, 'id')]
         public int $typeId,
+        public Optional|bool $anon,
+        public Optional|bool $personalRelease,
+        public Optional|bool $internal,
+        #[Between(0, 100)]
+        public Optional|int $free,
+        public Optional|bool $refundable,
         #[Max(2 * 1024 * 1024)]
         public ?string $mediainfo = null,
         #[Max(2 * 1024 * 1024)]
@@ -85,12 +92,6 @@ class UpdateTorrentRequest extends Data
         public ?int $seasonNumber = null,
         #[Min(0)]
         public ?int $episodeNumber = null,
-        public bool $anon = false,
-        public bool $personalRelease = false,
-        public bool $internal = false,
-        #[Between(0, 100)]
-        public int $free = 0,
-        public bool $refundable = false,
         #[Hidden]
         public ?string $keywords = null,
     ) {
@@ -104,6 +105,16 @@ class UpdateTorrentRequest extends Data
     #[Override]
     public static function prepareForPipeline(array $properties): array
     {
+        if (!(auth()->user()->group->is_modo || auth()->user()->internals()->exists())) {
+            unset($properties['internal'], $properties['free'], $properties['refundable']);
+        }
+
+        $torrent = Torrent::query()->findOrFail((int) request('id'));
+
+        if (!(auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)) {
+            unset($properties['anon'], $properties['personal_release']);
+        }
+
         $properties['tmdb_movie_id'] = \array_key_exists('movie_exists_on_tmdb', $properties) ? (($properties['tmdb_movie_id'] ?? 0) ?: null) : null;
         $properties['tmdb_tv_id'] = \array_key_exists('tv_exists_on_tmdb', $properties) ? (($properties['tmdb_tv_id'] ?? 0) ?: null) : null;
         $properties['imdb'] = \array_key_exists('title_exists_on_imdb', $properties) ? (($properties['imdb'] ?? 0) ?: null) : null;
@@ -111,9 +122,6 @@ class UpdateTorrentRequest extends Data
         $properties['mal'] = \array_key_exists('anime_exists_on_mal', $properties) ? (($properties['mal'] ?? 0) ?: null) : null;
         $properties['igdb'] = \array_key_exists('game_exists_on_igdb', $properties) ? (($properties['igdb'] ?? 0) ?: null) : null;
         $properties['mediainfo'] = TorrentTools::anonymizeMediainfo(($properties['mediainfo'] ?? '') ? (string) $properties['mediainfo'] : null);
-        $properties['internal'] = $properties['internal'] ?? false;
-        $properties['free'] = $properties['free'] ?? 0;
-        $properties['refundable'] = $properties['refundable'] ?? false;
 
         return $properties;
     }
@@ -204,18 +212,6 @@ class UpdateTorrentRequest extends Data
             'personal_release' => [
                 Rule::requiredIf($torrent->user_id === $user->id || $user->group->is_modo),
                 Rule::excludeIf(!($torrent->user_id === $user->id || $user->group->is_modo)),
-            ],
-            'internal' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'free' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'refundable' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
         ];
     }
