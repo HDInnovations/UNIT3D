@@ -1,4 +1,5 @@
 arrayable
+assertable
 assertdontseetext
 dispatchable
 doesntcontain

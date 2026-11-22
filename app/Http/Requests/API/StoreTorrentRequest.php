@@ -35,6 +35,7 @@ use Exception;
 use Illuminate\Validation\Rule;
 use Override;
 use Spatie\LaravelData\Attributes\Hidden;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MergeValidationRules;
 use Spatie\LaravelData\Attributes\Validation\Between;
 use Spatie\LaravelData\Attributes\Validation\Date;
@@ -89,6 +90,7 @@ class StoreTorrentRequest extends Data
         public ?int $seasonNumber = null,
         #[Min(0)]
         public ?int $episodeNumber = null,
+        #[MapInputName('anonymous')]
         public bool $anon = false,
         public bool $personalRelease = false,
         public bool $internal = false,
@@ -118,19 +120,20 @@ class StoreTorrentRequest extends Data
     #[Override]
     public static function prepareForPipeline(array $properties): array
     {
-        $properties['tmdb_movie_id'] = ($properties['tmdb'] ?? 0) ?: null;
-        $properties['tmdb_tv_id'] = ($properties['tmdb'] ?? 0) ?: null;
-        $properties['imdb'] = ($properties['imdb'] ?? 0) ?: null;
-        $properties['tvdb'] = ($properties['tvdb'] ?? 0) ?: null;
-        $properties['mal'] = ($properties['mal'] ?? 0) ?: null;
-        $properties['igdb'] = ($properties['igdb'] ?? 0) ?: null;
-        $properties['anon'] = $properties['anonymous'] ?? false;
-        $properties['personal_release'] = $properties['personal_release'] ?? false;
+        if (!(auth()->user()->group->is_modo || auth()->user()->internals()->exists())) {
+            unset($properties['internal'], $properties['sticky'], $properties['featured'], $properties['free'], $properties['doubleup'], $properties['refundable'], $properties['du_until'], $properties['fl_until']);
+        }
+
+        $category = Category::query()->findOrFail((int) ($properties['category_id'] ?? 0));
+
+        $properties['tmdb_movie_id'] = $category->movie_meta ? (($properties['tmdb'] ?? 0) ?: null) : null;
+        $properties['tmdb_tv_id'] = $category->tv_meta ? (($properties['tmdb'] ?? 0) ?: null) : null;
+        $properties['tvdb'] = $category->tv_meta ? (($properties['tvdb'] ?? 0) ?: null) : null;
+        $properties['imdb'] = ($category->movie_meta || $category->tv_meta) ? (($properties['imdb'] ?? 0) ?: null) : null;
+        $properties['mal'] = ($category->movie_meta || $category->tv_meta) ? (($properties['mal'] ?? 0) ?: null) : null;
+        $properties['igdb'] = $category->game_meta ? (($properties['igdb'] ?? 0) ?: null) : null;
         $properties['du_until'] = \array_key_exists('du_until', $properties) && \intval($properties['du_until']) ? now()->addDays(\intval($properties['du_until'])) : null;
         $properties['fl_until'] = \array_key_exists('fl_until', $properties) && \intval($properties['fl_until']) ? now()->addDays(\intval($properties['fl_until'])) : null;
-        $properties['internal'] = $properties['internal'] ?? false;
-        $properties['free'] = $properties['free'] ?? 0;
-        $properties['refundable'] = $properties['refundable'] ?? false;
 
         return $properties;
     }
@@ -142,7 +145,6 @@ class StoreTorrentRequest extends Data
      */
     public static function rules(Request $request): array
     {
-        $user = $request->user()->loadExists('internals');
         $category = Category::query()->findOrFail($request->integer('category_id'));
 
         return [
@@ -195,42 +197,6 @@ class StoreTorrentRequest extends Data
                 Rule::when($category->movie_meta || $category->tv_meta, 'required'),
                 Rule::when(!$category->movie_meta && !$category->tv_meta, 'nullable'),
             ],
-            'imdb' => [
-                Rule::when($category->movie_meta || $category->tv_meta, [
-                    'nullable',
-                ]),
-                Rule::excludeIf(!($category->movie_meta || $category->tv_meta)),
-            ],
-            'tvdb' => [
-                Rule::when($category->tv_meta, [
-                    'nullable',
-                ]),
-                Rule::excludeIf(!$category->tv_meta),
-            ],
-            'tmdb_movie_id' => [
-                Rule::when($category->movie_meta, [
-                    'nullable',
-                ]),
-                Rule::excludeIf(!$category->movie_meta),
-            ],
-            'tmdb_tv_id' => [
-                Rule::when($category->tv_meta, [
-                    'nullable',
-                ]),
-                Rule::excludeIf(!$category->tv_meta),
-            ],
-            'mal' => [
-                Rule::when($category->movie_meta || $category->tv_meta, [
-                    'nullable',
-                ]),
-                Rule::excludeIf(!($category->movie_meta || $category->tv_meta)),
-            ],
-            'igdb' => [
-                Rule::when($category->game_meta, [
-                    'nullable',
-                ]),
-                Rule::excludeIf(!$category->game_meta),
-            ],
             'season_number' => [
                 Rule::when($category->tv_meta, [
                     'required',
@@ -242,38 +208,6 @@ class StoreTorrentRequest extends Data
                     'required',
                 ]),
                 Rule::prohibitedIf(!$category->tv_meta),
-            ],
-            'internal' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'sticky' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'featured' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'free' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'doubleup' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'refundable' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'du_until' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
-            ],
-            'fl_until' => [
-                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
         ];
     }

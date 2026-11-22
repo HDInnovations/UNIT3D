@@ -57,7 +57,7 @@ class UpdateTorrentRequestRequest extends Data
         #[Exists(Resolution::class, 'id')]
         public ?int $resolutionId,
         public string $description,
-        public bool $anon = false,
+        public bool $anon,
     ) {
     }
 
