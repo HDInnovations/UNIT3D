@@ -52,7 +52,7 @@ bun run build
 
 1. **Update the environment variables:**
 
-   Modify the domain in the `APP_URL` and `MIX_ECHO_ADDRESS` variables within the `.env` file:
+   Modify the domain in the `APP_URL` variable within the `.env` file. If you set `VITE_PUSHER_HOST`, update it too:
 
     ```sh
     sudo nano ./.env
@@ -66,20 +66,18 @@ bun run build
     certbot --redirect --nginx -n --agree-tos --email=sysop@your_domain.tld -d your_domain.tld -d www.your_domain.tld --rsa-key-size 2048
     ```
 
-3. **Update the WebSocket configuration:**
+3. **Update the web server configuration:**
 
-   Update all domains listed in the WebSocket configuration to reflect the new domain:
+   Make sure the nginx `server_name` (and the TLS certificate from the previous step) use the new domain. The chatbox WebSocket connects through the same domain on `/app/`, so the proxy block does not change. See [Migrating the Chat Server](unit3d_chat_server_migration.md) for it.
 
-    ```sh
-    sudo nano ./laravel-echo-server.json
-    ```
+4. **Update and restart the chatbox server:**
 
-4. **Restart the chatbox server:**
-
-   Reload the Supervisor configuration to apply changes:
+   Put the new domain in `allowed_origins` of `/etc/zatat/zatat.toml`, restart the chat server, and refresh the cached configuration (this also updates the Content Security Policy):
 
     ```sh
-    sudo supervisorctl reload
+    sudo nano /etc/zatat/zatat.toml
+    sudo systemctl restart unit3d-chat
+    sudo php artisan set:all_cache
     ```
 
 5. **Compile static assets:**

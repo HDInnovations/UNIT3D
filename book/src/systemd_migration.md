@@ -74,7 +74,7 @@ SyslogIdentifier=unit3d-announce
 WantedBy=multi-user.target
 ```
 
-### Laravel Queue Workers
+### UNIT3D Queue Workers
 
 Using a template unit allows you to run multiple queue workers:
 
@@ -130,33 +130,34 @@ SyslogIdentifier=unit3d-queue-%i
 WantedBy=multi-user.target
 ```
 
-### Laravel Reverb (WebSocket Server)
+### UNIT3D Chat Server
+
+The chatbox WebSocket server runs as its own service. Its binary and `/etc/zatat/zatat.toml` config are set up as described in [Migrating the Chat Server](unit3d_chat_server_migration.md), which also explains the nginx proxy.
 
 ```sh
-sudo nano /etc/systemd/system/unit3d-reverb.service
+sudo nano /etc/systemd/system/unit3d-chat.service
 ```
 
 Add the following:
 
 ```ini
-# /etc/systemd/system/unit3d-reverb.service
+# /etc/systemd/system/unit3d-chat.service
 #
-# Systemd service unit for Laravel Reverb (WebSocket server for UNIT3D Chat)
+# Systemd service unit for the UNIT3D Chat Server (WebSocket server for UNIT3D Chat)
 
 [Unit]
-Description=UNIT3D Chat Server (Laravel Reverb)
-Documentation=https://laravel.com/docs/reverb
-After=network.target mysql.service redis.service
-Wants=mysql.service redis.service
+Description=UNIT3D Chat Server
+Documentation=https://github.com/Dokan-E-Commerce/zatat
+After=network.target
 
 [Service]
 Type=simple
-User=www-data
-Group=www-data
-WorkingDirectory=/var/www/html
+User=zatat
+Group=zatat
 
 # Main process
-ExecStart=/usr/bin/php /var/www/html/artisan reverb:start --no-interaction
+ExecStart=/usr/local/bin/zatat start --config /etc/zatat/zatat.toml
+Environment=RUST_LOG=info
 
 # Graceful shutdown
 TimeoutStopSec=30
@@ -165,21 +166,25 @@ TimeoutStopSec=30
 Restart=on-failure
 RestartSec=5
 
+# Each connected chatbox user keeps one open file
+LimitNOFILE=65535
+
 # Security hardening
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
 PrivateTmp=true
-ReadWritePaths=/var/www/html/storage /var/www/html/bootstrap/cache
 
 # Logging
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=unit3d-reverb
+SyslogIdentifier=unit3d-chat
 
 [Install]
 WantedBy=multi-user.target
 ```
+
+The `zatat` user and `/etc/zatat/zatat.toml` must exist before you start the service. See [Migrating the Chat Server](unit3d_chat_server_migration.md#2-build-and-install-zatat).
 
 ## 2. Stop and Disable Supervisor
 
@@ -198,11 +203,11 @@ sudo systemctl daemon-reload
 # UNIT3D-Announce
 sudo systemctl enable --now unit3d-announce
 
-# Queue Workers (4 instances, equivalent to numprocs=4)
+# UNIT3D Queue Workers (4 instances, equivalent to numprocs=4)
 sudo systemctl enable --now unit3d-queue@{1..4}
 
-# Laravel Reverb
-sudo systemctl enable --now unit3d-reverb
+# UNIT3D Chat Server
+sudo systemctl enable --now unit3d-chat
 ```
 
 ## 4. Verify Services
@@ -212,7 +217,7 @@ Check all services are running:
 ```sh
 systemctl status unit3d-announce
 systemctl status unit3d-queue@1 unit3d-queue@2 unit3d-queue@3 unit3d-queue@4
-systemctl status unit3d-reverb
+systemctl status unit3d-chat
 ```
 
 View logs:
@@ -220,7 +225,7 @@ View logs:
 ```sh
 journalctl -u unit3d-announce -f
 journalctl -u unit3d-queue@* -f
-journalctl -u unit3d-reverb -f
+journalctl -u unit3d-chat -f
 ```
 
 ## 5. Remove Supervisor Configuration (Optional)
@@ -273,7 +278,7 @@ journalctl -u unit3d-announce -f
 journalctl -u unit3d-queue@1 -n 100
 
 # Show logs since boot
-journalctl -u unit3d-reverb -b
+journalctl -u unit3d-chat -b
 
 # Show logs for a time range
 journalctl -u unit3d-announce --since "1 hour ago"

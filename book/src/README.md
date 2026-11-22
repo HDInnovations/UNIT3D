@@ -20,7 +20,7 @@ UNIT3D is built on a modern technology stack:
 - **AlpineJS 3** - Lightweight JavaScript framework for reactive interfaces
 - **Vite** - Next-generation frontend build tool
 - **Livewire 3** - Reactive components without writing JavaScript
-- **Socket.io** - Real-time bidirectional event-based communication
+- **zatat** - Rust WebSocket server (Pusher protocol) for real-time bidirectional event-based communication
 
 #### Development & Quality
 - **Pest** - Elegant testing framework
