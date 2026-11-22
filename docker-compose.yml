@@ -1,4 +1,4 @@
-# cspell:ignore initdb,meili,mysqladmin,mysqld,wwwgroup,wwwuser
+# cspell:ignore initdb,meili,mysqladmin,mysqld,nofile,ulimits,wwwgroup,wwwuser
 services:
     nginx:
         image: 'nginx:latest'
