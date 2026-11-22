@@ -109,7 +109,7 @@ class UpdateTorrentRequest extends Data
             unset($properties['internal'], $properties['free'], $properties['refundable']);
         }
 
-        $torrent = Torrent::query()->findOrFail((int) request('id'));
+        $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail((int) request('id'));
 
         if (!(auth()->user()->group->is_modo || auth()->id() === $torrent->user_id)) {
             unset($properties['anon'], $properties['personal_release']);

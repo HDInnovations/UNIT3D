@@ -44,6 +44,13 @@ final class TicketAttachment extends Model
     use HasFactory;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
+
+    /**
      * Get the user who uploaded the ticket attachment.
      *
      * @return BelongsTo<User, $this>

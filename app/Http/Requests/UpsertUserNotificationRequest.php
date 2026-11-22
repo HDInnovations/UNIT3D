@@ -35,23 +35,23 @@ class UpsertUserNotificationRequest extends Data
         public bool $showMentionArticle_comment,
         public bool $showMentionForum_post,
         public bool $showForumTopic,
-        /** @var list<int> */
-        public array $jsonAccountGroups,
-        /** @var list<int> */
-        public array $jsonBonGroups,
-        /** @var list<int> */
-        public array $jsonFollowingGroups,
-        /** @var list<int> */
-        public array $jsonForumGroups,
-        /** @var list<int> */
-        public array $jsonRequestGroups,
-        /** @var list<int> */
-        public array $jsonSubscriptionGroups,
-        /** @var list<int> */
-        public array $jsonTorrentGroups,
-        /** @var list<int> */
-        public array $jsonMentionGroups,
         public bool $blockNotifications,
+        /** @var list<int> */
+        public array $jsonAccountGroups = [],
+        /** @var list<int> */
+        public array $jsonBonGroups = [],
+        /** @var list<int> */
+        public array $jsonFollowingGroups = [],
+        /** @var list<int> */
+        public array $jsonForumGroups = [],
+        /** @var list<int> */
+        public array $jsonRequestGroups = [],
+        /** @var list<int> */
+        public array $jsonSubscriptionGroups = [],
+        /** @var list<int> */
+        public array $jsonTorrentGroups = [],
+        /** @var list<int> */
+        public array $jsonMentionGroups = [],
     ) {
     }
 
