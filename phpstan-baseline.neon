@@ -487,12 +487,6 @@ parameters:
 			path: config/cache.php
 
 		-
-			message: '#^Parameter \#1 \$url of function parse_url expects string, bool\|string\|null given\.$#'
-			identifier: argument.type
-			count: 6
-			path: config/secure-headers.php
-
-		-
 			message: '#^Parameter \#1 \$title of static method Illuminate\\Support\\Str\:\:slug\(\) expects string, bool\|string given\.$#'
 			identifier: argument.type
 			count: 1

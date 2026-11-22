@@ -396,7 +396,7 @@ class SimilarTorrent extends Component
     }
 
     /**
-     * @var ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie>
+     * @var ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie&object{pivot: \Illuminate\Database\Eloquent\Relations\Pivot}>
      */
     final protected ?\Illuminate\Database\Eloquent\Collection $collectionMovies {
         get => $this->work instanceof TmdbMovie ? $this->work->collections()->first()?->movies()->get() : null;

@@ -42,6 +42,7 @@
         "calebdw/phpstan-laravel": "^1.12.1",
         "fakerphp/faker": "^1.24.1",
         "fruitcake/laravel-debugbar": "^4.4.5",
+        "iamcal/sql-parser": "^0.7.0",
         "jasonmccreary/laravel-test-assertions": "^2.9.0",
         "laravel/pint": "^1.32.3",
         "laravel/sail": "1.71.0",
