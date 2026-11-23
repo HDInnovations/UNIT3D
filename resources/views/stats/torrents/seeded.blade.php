@@ -6,9 +6,13 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link">{{ __('stat.stats') }}</a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link">
+            {{ __('stat.stats') }}
+        </a>
     </li>
-    <li class="breadcrumb--active">{{ __('torrent.torrents') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.torrents') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

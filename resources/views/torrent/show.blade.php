@@ -19,7 +19,9 @@
             {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $torrent->name }}</li>
+    <li class="breadcrumb--active">
+        {{ $torrent->name }}
+    </li>
 @endsection
 
 @section('page', 'page__torrent--show')
@@ -43,7 +45,9 @@
 
             @break
     @endswitch
-    <h1 class="torrent__name">{{ $torrent->name }}</h1>
+    <h1 class="torrent__name">
+        {{ $torrent->name }}
+    </h1>
     @include('torrent.partials.general')
     @include('torrent.partials.buttons')
 

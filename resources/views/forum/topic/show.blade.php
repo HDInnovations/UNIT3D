@@ -23,7 +23,9 @@
             {{ $topic->forum->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $topic->name }}</li>
+    <li class="breadcrumb--active">
+        {{ $topic->name }}
+    </li>
 @endsection
 
 @section('nav-tabs')

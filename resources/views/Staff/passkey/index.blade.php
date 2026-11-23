@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.passkeys') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.passkeys') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-passkey--index')

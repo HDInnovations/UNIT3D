@@ -44,7 +44,9 @@
                 @endif
             </ul>
             <p class="auth-form__text-input-group" x-show="tab === 'totp'">
-                <label class="auth-form__label" for="code">{{ __('auth.code') }}</label>
+                <label class="auth-form__label" for="code">
+                    {{ __('auth.code') }}
+                </label>
                 <input
                     id="code"
                     class="auth-form__text-input"

@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.apikeys') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.apikeys') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-apikey--index')

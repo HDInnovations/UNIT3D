@@ -10,7 +10,9 @@
             {{ __('torrent.torrents') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.upload') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.upload') }}
+    </li>
 @endsection
 
 @section('nav-tabs')
@@ -25,7 +27,9 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}">{{ __('rss.rss') }}</a>
+        <a class="nav-tab__link" href="{{ route('rss.index') }}">
+            {{ __('rss.rss') }}
+        </a>
     </li>
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('torrents.create') }}">
@@ -269,11 +273,7 @@
                 </div>
                 <div
                     class="form__group--horizontal"
-                    x-show="
-                        cats[cat].type === 'movie' ||
-                        cats[cat].type === 'tv' ||
-                        cats[cat].type === 'game'
-                    "
+                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
                 >
                     <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                         <p class="form__group">
@@ -525,7 +525,8 @@
                         class="form__textarea"
                         placeholder=" "
                     >
-{{ old('mediainfo') }}</textarea>
+{{ old('mediainfo') }}</textarea
+                    >
                     <label class="form__label form__label--floating" for="upload-form-mediainfo">
                         {{ __('torrent.media-info-parser') }}
                     </label>
@@ -540,7 +541,8 @@
                         class="form__textarea"
                         placeholder=" "
                     >
-{{ old('bdinfo') }}</textarea>
+{{ old('bdinfo') }}</textarea
+                    >
                     <label class="form__label form__label--floating" for="upload-form-bdinfo">
                         BDInfo (quick summary)
                     </label>

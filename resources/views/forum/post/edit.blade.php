@@ -35,7 +35,9 @@
             {{ $topic->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('nav-tabs')
@@ -71,7 +73,9 @@
                             value="1"
                             @checked(old('pinned') ?? $post->pinned)
                         />
-                        <label class="form__label" for="pinned">{{ __('forum.pin') }}</label>
+                        <label class="form__label" for="pinned">
+                            {{ __('forum.pin') }}
+                        </label>
                     </p>
                 @endif
 

@@ -21,7 +21,9 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.rsskeys') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.rsskeys') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

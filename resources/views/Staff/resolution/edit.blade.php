@@ -11,8 +11,12 @@
             {{ __('staff.torrent-resolutions') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $resolution->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $resolution->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-resolution--edit')

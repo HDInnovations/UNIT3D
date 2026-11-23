@@ -6,14 +6,18 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('rss.index') }}" class="breadcrumb__link">{{ __('rss.rss') }}</a>
+        <a href="{{ route('rss.index') }}" class="breadcrumb__link">
+            {{ __('rss.rss') }}
+        </a>
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('rss.edit', ['id' => $rss->id]) }}" class="breadcrumb__link">
             {{ $rss->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__rss--edit')

@@ -11,7 +11,9 @@
             {{ __('bon.bon') }} {{ __('bon.earning') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-bon-earning--edit')
@@ -19,7 +21,8 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ trans_choice('common.a-an-art', false) }}
+            {{ __('common.edit') }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('bon.bon') }} {{ __('bon.earning') }}
         </h2>
         <div class="panel__body">
@@ -369,7 +372,7 @@
                 </template>
                 <p class="form__group">
                     <button
-                        x-on:click.prevent="conditions.push({ id: 0, operand1: '', operator: '', operand2: '' })"
+                        x-on:click.prevent="conditions.push({ 'id': 0, 'operand1': '', 'operator': '', 'operand2': '' })"
                         class="form__button form__button--outlined"
                     >
                         Add condition

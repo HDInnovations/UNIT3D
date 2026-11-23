@@ -14,7 +14,9 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ $user->username }}</li>
+    <li class="breadcrumb--active">
+        {{ $user->username }}
+    </li>
 @endsection
 
 @section('nav-tabs')
@@ -628,11 +630,15 @@
                     </div>
                     <div class="key-value__group">
                         <dt>Latest donation amount</dt>
-                        <dd>{{ $donation->package->cost ?? 'N/A' }}</dd>
+                        <dd>
+                            {{ $donation->package->cost ?? 'N/A' }}
+                        </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Latest donation date</dt>
-                        <dd>{{ $donation->starts_at ?? 'N/A' }}</dd>
+                        <dd>
+                            {{ $donation->starts_at ?? 'N/A' }}
+                        </dd>
                     </div>
                     <div class="key-value__group">
                         <dt>Donation expire date</dt>
@@ -1017,7 +1023,9 @@
 
         @if (auth()->user()->is($user) || auth()->user()->group->is_modo)
             <section class="panelV2">
-                <h2 class="panel__heading">{{ __('user.id-permissions') }}</h2>
+                <h2 class="panel__heading">
+                    {{ __('user.id-permissions') }}
+                </h2>
                 <dl class="key-value">
                     <div class="key-value__group">
                         <dt>

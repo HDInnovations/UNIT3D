@@ -21,7 +21,9 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('torrent.history') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.history') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

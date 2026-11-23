@@ -105,7 +105,8 @@
                                                     name="message"
                                                     placeholder=" "
                                                 >
-{{ $note->message }}</textarea>
+{{ $note->message }}</textarea
+                                                >
                                                 <label
                                                     class="form__label form__label--floating"
                                                     for="message"

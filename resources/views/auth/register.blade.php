@@ -16,10 +16,11 @@
                 <i class="fal fa-tv-retro"></i>
                 <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
             </a>
-
             @if (config('other.invite-only') && ! request()->has('code'))
                 <ul class="auth-form__important-infos">
-                    <li class="auth-form__important-info">{{ __('auth.need-invite') }}</li>
+                    <li class="auth-form__important-info">
+                        {{ __('auth.need-invite') }}
+                    </li>
                 </ul>
             @else
                 <p class="auth-form__text-input-group">
@@ -37,7 +38,9 @@
                     />
                 </p>
                 <p class="auth-form__text-input-group">
-                    <label class="auth-form__label" for="email">{{ __('auth.email') }}</label>
+                    <label class="auth-form__label" for="email">
+                        {{ __('auth.email') }}
+                    </label>
                     <input
                         id="email"
                         class="auth-form__text-input"

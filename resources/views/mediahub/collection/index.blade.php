@@ -14,7 +14,9 @@
             {{ __('mediahub.title') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('mediahub.collections') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('mediahub.collections') }}
+    </li>
 @endsection
 
 @section('page', 'page__collection--index')

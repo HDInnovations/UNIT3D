@@ -21,7 +21,9 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('Two Factor Authentication') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('Two Factor Authentication') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

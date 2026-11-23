@@ -10,7 +10,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.torrent-moderation') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.torrent-moderation') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-moderation--index')

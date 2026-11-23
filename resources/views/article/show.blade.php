@@ -16,7 +16,9 @@
             {{ __('articles.articles') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $article->title }}</li>
+    <li class="breadcrumb--active">
+        {{ $article->title }}
+    </li>
 @endsection
 
 @section('page', 'page__article--show')

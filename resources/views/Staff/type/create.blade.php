@@ -11,7 +11,9 @@
             {{ __('staff.torrent-types') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-type--create')
@@ -19,8 +21,10 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }}
-            {{ __('torrent.torrent') }} {{ __('common.type') }}
+            {{ __('common.add') }}
+            {{ trans_choice('common.a-an-art', false) }}
+            {{ __('torrent.torrent') }}
+            {{ __('common.type') }}
         </h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.types.store') }}">

@@ -11,8 +11,12 @@
             {{ __('staff.ticket-categories') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $ticketCategory->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $ticketCategory->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-ticket-category--edit')
@@ -20,7 +24,8 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ __('staff.ticket-category') }}:
+            {{ __('common.edit') }}
+            {{ __('staff.ticket-category') }}:
             {{ $ticketCategory->name }}
         </h2>
         <div class="panel__body">

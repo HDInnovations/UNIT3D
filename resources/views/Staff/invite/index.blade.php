@@ -14,7 +14,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.invites-log') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.invites-log') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

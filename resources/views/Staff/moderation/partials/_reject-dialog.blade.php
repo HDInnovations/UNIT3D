@@ -27,7 +27,8 @@
             />
             <p class="form__group">
                 <textarea id="message" class="form__textarea" name="message">
-{{ old('message') }}</textarea>
+{{ old('message') }}</textarea
+                >
                 <label for="message" class="form__label form__label__floating">
                     Rejection message
                 </label>

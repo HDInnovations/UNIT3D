@@ -11,8 +11,12 @@
             {{ __('event.giveaways') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $giveaway->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $giveaway->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-giveaway--edit')
@@ -43,7 +47,8 @@
             </p>
             <p class="form__group">
                 <textarea id="description" class="form__textarea" name="description" required>
-{{ $giveaway->description }}</textarea>
+{{ $giveaway->description }}</textarea
+                >
                 <label class="form__label form__label--floating" for="description">
                     {{ __('common.description') }}
                 </label>
@@ -103,7 +108,9 @@
                 <label class="form__label" for="active">{{ __('common.active') }}?</label>
             </p>
             <p class="form__group">
-                <button class="form__button form__button--filled">{{ __('common.save') }}</button>
+                <button class="form__button form__button--filled">
+                    {{ __('common.save') }}
+                </button>
                 <button class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>

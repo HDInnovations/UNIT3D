@@ -16,7 +16,9 @@
             {{ __('forum.forums') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.posts') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.posts') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

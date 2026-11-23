@@ -58,7 +58,9 @@
             @if (Session::has('status'))
                 <ul class="auth-form__errors">
                     @if (session('status') == 'verification-link-sent')
-                        <li class="auth-form__error">{{ __('auth.email-verification-link') }}</li>
+                        <li class="auth-form__error">
+                            {{ __('auth.email-verification-link') }}
+                        </li>
                     @endif
                 </ul>
             @endif

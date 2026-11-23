@@ -13,7 +13,9 @@
                 <span class="auth-form__site-logo">{{ \config('other.title') }}</span>
             </a>
             <p class="auth-form__text-input-group">
-                <label class="auth-form__label" for="email">{{ __('auth.email') }}</label>
+                <label class="auth-form__label" for="email">
+                    {{ __('auth.email') }}
+                </label>
                 <input
                     id="email"
                     class="auth-form__text-input"
@@ -28,7 +30,9 @@
                 @hiddencaptcha
             @endif
 
-            <button class="auth-form__primary-button">{{ __('auth.password-reset') }}</button>
+            <button class="auth-form__primary-button">
+                {{ __('auth.password-reset') }}
+            </button>
             @if (Session::has('status'))
                 <ul class="auth-form__errors">
                     @if (Session::has('status'))

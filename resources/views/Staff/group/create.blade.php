@@ -11,7 +11,9 @@
             {{ __('staff.groups') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-group--create')

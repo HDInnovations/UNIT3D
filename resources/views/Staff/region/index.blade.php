@@ -43,7 +43,9 @@
                                     {{ $region->name }}
                                 </a>
                             </td>
-                            <td>{{ __('regions.' . $region->name) }}</td>
+                            <td>
+                                {{ __('regions.' . $region->name) }}
+                            </td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">

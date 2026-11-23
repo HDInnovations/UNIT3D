@@ -83,7 +83,9 @@
     @endif
 </td>
 <td class="torrent-search--grouped__size">
-    <span title="{{ $torrent->size }} B">{{ $torrent->getSize() }}</span>
+    <span title="{{ $torrent->size }} B">
+        {{ $torrent->getSize() }}
+    </span>
 </td>
 <td
     @class([

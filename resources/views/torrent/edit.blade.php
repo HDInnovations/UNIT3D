@@ -11,7 +11,9 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__torrent--edit')
@@ -256,11 +258,7 @@
                 </div>
                 <div
                     class="form__group--horizontal"
-                    x-show="
-                        cats[cat].type === 'movie' ||
-                        cats[cat].type === 'tv' ||
-                        cats[cat].type === 'game'
-                    "
+                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
                 >
                     <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                         <p class="form__group">
@@ -530,7 +528,8 @@
                         name="mediainfo"
                         placeholder=" "
                     >
-{{ old('mediainfo') ?? $torrent->mediainfo }}</textarea>
+{{ old('mediainfo') ?? $torrent->mediainfo }}</textarea
+                    >
                     <label class="form__label form__label--floating" for="description">
                         {{ __('torrent.media-info') }}
                     </label>
@@ -538,7 +537,8 @@
 
                 <p class="form__group">
                     <textarea id="bdinfo" class="form__textarea" name="bdinfo" placeholder=" ">
-{{ old('bdinfo') ?? $torrent->bdinfo }}</textarea>
+{{ old('bdinfo') ?? $torrent->bdinfo }}</textarea
+                    >
                     <label class="form__label form__label--floating" for="bdinfo">
                         BDInfo (quick summary)
                     </label>

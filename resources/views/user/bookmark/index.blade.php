@@ -12,7 +12,9 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('torrent.bookmarks') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.bookmarks') }}
+    </li>
 @endsection
 
 @section('page', 'page__user-bookmark--index')

@@ -230,7 +230,9 @@
                 {{ __('torrent.torrents') }}
             </button>
         @else
-            <button class="nav-tab__link">{{ __('torrent.torrents') }}</button>
+            <button class="nav-tab__link">
+                {{ __('torrent.torrents') }}
+            </button>
         @endif
         <ul class="nav-tab-menu__items">
             @if ($isProfileOwner || $isModo)

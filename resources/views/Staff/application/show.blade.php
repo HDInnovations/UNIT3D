@@ -19,7 +19,9 @@
             {{ __('staff.applications') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $application->id }}</li>
+    <li class="breadcrumb--active">
+        {{ $application->id }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-application--show')
@@ -45,14 +47,18 @@
             <ul>
                 @foreach ($application->urlProofs as $url_proof)
                     <li>
-                        <a href="{{ $url_proof->url }}" target="_blank">{{ $url_proof->url }}</a>
+                        <a href="{{ $url_proof->url }}" target="_blank">
+                            {{ $url_proof->url }}
+                        </a>
                     </li>
                 @endforeach
             </ul>
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('staff.application-referrer') }}</h2>
+        <h2 class="panel__heading">
+            {{ __('staff.application-referrer') }}
+        </h2>
         <div class="panel__body">{{ $application->referrer }}</div>
     </section>
 @endsection
@@ -124,7 +130,8 @@
                     </p>
                     <dialog id="application-show" class="dialog" popover>
                         <h3 class="dialog__heading">
-                            {{ __('request.approve') }} {{ __('common.this') }}
+                            {{ __('request.approve') }}
+                            {{ __('common.this') }}
                             {{ __('staff.application') }}
                         </h3>
                         <form
@@ -146,7 +153,8 @@
                                     name="approve"
                                     placeholder=" "
                                 >
-Application approved!</textarea>
+Application approved!</textarea
+                                >
                                 <label class="form__label form__label--floating" for="approve">
                                     Invitation message
                                 </label>
@@ -178,7 +186,8 @@ Application approved!</textarea>
                     </p>
                     <dialog id="application-reject" class="dialog" popover>
                         <h3 class="dialog__heading">
-                            {{ __('request.reject') }} {{ __('common.this') }}
+                            {{ __('request.reject') }}
+                            {{ __('common.this') }}
                             {{ __('staff.application') }}
                         </h3>
                         <form
@@ -195,7 +204,8 @@ Application approved!</textarea>
                             />
                             <p class="form__group">
                                 <textarea id="message" class="form__textarea" name="deny" required>
-Insufficient proofs.</textarea>
+Insufficient proofs.</textarea
+                                >
                                 <label class="form__label form__label--floating" for="message">
                                     Rejection message
                                 </label>

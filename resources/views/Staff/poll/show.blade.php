@@ -15,8 +15,12 @@
             {{ __('poll.polls') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $poll->name }}</li>
-    <li class="breadcrumb--active">{{ __('poll.results') }}</li>
+    <li class="breadcrumbV2">
+        {{ $poll->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('poll.results') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-poll--show')

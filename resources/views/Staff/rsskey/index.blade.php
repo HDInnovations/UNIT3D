@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.rsskeys') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.rsskeys') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-rsskey--index')

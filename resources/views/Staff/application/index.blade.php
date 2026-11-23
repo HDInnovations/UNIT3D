@@ -14,7 +14,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.applications') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.applications') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-application--index')

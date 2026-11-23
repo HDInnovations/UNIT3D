@@ -5,7 +5,9 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ __('request.requests') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('request.requests') }}
+    </li>
 @endsection
 
 @section('page', 'page__request--index')

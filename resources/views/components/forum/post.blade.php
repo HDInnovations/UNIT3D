@@ -198,7 +198,9 @@
         </x-user-tag>
         @if (! $post->anon ||auth()->user()->is($post->user) ||auth()->user()->group->is_modo)
             @if (! empty($post->user->title))
-                <p class="post__author-title">{{ $post->user->title }}</p>
+                <p class="post__author-title">
+                    {{ $post->user->title }}
+                </p>
             @endif
 
             <dl class="post__author-join">

@@ -11,8 +11,12 @@
             {{ __('common.chat-rooms') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $chatroom->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $chatroom->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-chat-room--edit')

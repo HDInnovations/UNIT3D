@@ -11,7 +11,9 @@
             {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-bon-exchange--edit')
@@ -19,7 +21,8 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ trans_choice('common.a-an-art', false) }}
+            {{ __('common.edit') }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </h2>
         <div class="panel__body">

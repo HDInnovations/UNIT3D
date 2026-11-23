@@ -10,7 +10,9 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.uploads') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.uploads') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

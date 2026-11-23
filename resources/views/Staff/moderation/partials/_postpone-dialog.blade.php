@@ -27,7 +27,8 @@
             />
             <p class="form__group">
                 <textarea class="form__textarea" name="message" id="message">
-{{ old('message') }}</textarea>
+{{ old('message') }}</textarea
+                >
                 <label class="form__label form__label--floating" for="message">
                     Postpone message
                 </label>

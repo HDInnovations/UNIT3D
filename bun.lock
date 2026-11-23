@@ -15,7 +15,7 @@
       },
       "devDependencies": {
         "laravel-vite-plugin": "^3.2.1",
-        "prettier": "3.10.1",
+        "prettier": "3.8.1",
         "prettier-plugin-blade": "2.0.0",
         "sass": "^1.108.2",
         "vite": "^8.3.8",
@@ -230,7 +230,7 @@
 
     "postcss": ["postcss@8.5.33", "", { "dependencies": { "nanoid": "^3.3.20", "picocolors": "^1.1.1", "source-map-js": "^1.2.2" } }, "sha512-RVHEU9/Pp1Fnjr/MpAJsZoADukCKhfIi15OunEYiGktIkYLkPVvC1sioWolGDS7XByMTx9m/IGbro0Js13zhnQ=="],
 
-    "prettier": ["prettier@3.10.1", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-70vp3ZUYoPlFbF9uiTdXHUUCGEIp7d4+6p+8DYbkm2jP7x/3i/paXVF6dopSI3zd/CEitrZN1rc4i85xWmmXlg=="],
+    "prettier": ["prettier@3.8.1", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg=="],
 
     "prettier-plugin-blade": ["prettier-plugin-blade@2.0.0", "", { "peerDependencies": { "prettier": ">=3" } }, "sha512-9x7hBfGHSKsJG2UNTzFdAadLCMnsgGbLI/cUsb0+leV37yw1ojUedSAhkE1K0TleKXBXgaYpVY+71T3ClYW8WA=="],
 

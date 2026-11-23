@@ -14,8 +14,12 @@
             Automatic torrent freeleeches
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $automaticTorrentFreeleech->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $automaticTorrentFreeleech->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-automatic-torrent-freeleech--edit')

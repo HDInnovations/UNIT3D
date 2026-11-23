@@ -14,7 +14,9 @@
             {{ __('forum.forums') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $category->name }}</li>
+    <li class="breadcrumb--active">
+        {{ $category->name }}
+    </li>
 @endsection
 
 @section('nav-tabs')

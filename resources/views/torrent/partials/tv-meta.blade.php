@@ -133,7 +133,9 @@
         </li>
         @if ($meta?->trailer)
             <li class="work__trailer show-trailer">
-                <a class="work__trailer-link" href="#">{{ __('torrent.view-trailer') }}</a>
+                <a class="work__trailer-link" href="#">
+                    {{ __('torrent.view-trailer') }}
+                </a>
             </li>
         @endif
     </ul>

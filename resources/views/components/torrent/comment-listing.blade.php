@@ -59,7 +59,9 @@
             </x-slot>
         </x-user-tag>
         @if (! empty($comment->user->title) && ! $comment->anon)
-            <p class="comment__author-title">{{ $comment->user->title }}</p>
+            <p class="comment__author-title">
+                {{ $comment->user->title }}
+            </p>
         @endif
     </aside>
     <div class="comment__content bbcode-rendered">

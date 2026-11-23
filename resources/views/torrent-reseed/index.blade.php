@@ -10,7 +10,9 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('home.index') }}" class="breadcrumb__text">{{ __('common.home') }}</a>
+        <a href="{{ route('home.index') }}" class="breadcrumb__text">
+            {{ __('common.home') }}
+        </a>
     </li>
     <li class="breadcrumbV2">
         <a href="{{ route('torrent-reseed.index') }}" class="breadcrumb__text">

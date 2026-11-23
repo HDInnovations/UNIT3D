@@ -11,7 +11,9 @@
             {{ __('staff.ticket-categories') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-ticket-category--create')
@@ -19,7 +21,8 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.add') }} {{ trans_choice('common.a-an-art', false) }}
+            {{ __('common.add') }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('staff.ticket-category') }}
         </h2>
         <div class="panel__body">

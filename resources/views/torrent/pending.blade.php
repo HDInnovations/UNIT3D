@@ -9,7 +9,9 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ __('common.pending-torrents') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.pending-torrents') }}
+    </li>
 @endsection
 
 @section('page', 'page__torrent-pending--index')

@@ -121,7 +121,9 @@
                     </span>
                 @endif
 
-                <span class="torrent-search--list__type">{{ $torrent->type->name }}</span>
+                <span class="torrent-search--list__type">
+                    {{ $torrent->type->name }}
+                </span>
             </div>
         </div>
     </td>

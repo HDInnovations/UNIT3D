@@ -9,7 +9,9 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ __('mediahub.title') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('mediahub.title') }}
+    </li>
 @endsection
 
 @section('page', 'page__mediahub')

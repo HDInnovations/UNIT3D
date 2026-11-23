@@ -37,7 +37,9 @@
         @endforeach
     @endif
     <p class="form__group">
-        <button class="form__button form__button--filled">{{ __('poll.vote') }}</button>
+        <button class="form__button form__button--filled">
+            {{ __('poll.vote') }}
+        </button>
         <a
             class="form__button form__button--outlined"
             href="{{ route('polls.votes.index', ['poll' => $poll]) }}"

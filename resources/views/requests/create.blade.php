@@ -10,7 +10,9 @@
             {{ __('request.requests') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.new-adj') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.new-adj') }}
+    </li>
 @endsection
 
 @section('page', 'page__request--create')
@@ -42,7 +44,7 @@
                             class="form__select"
                             required
                             x-model="cat"
-                            x-on:change="cats[cat].type = cats[$event.target.value].type"
+                            x-on:change="cats[cat].type = cats[$event.target.value].type;"
                         >
                             <option hidden selected disabled value=""></option>
                             @foreach ($categories as $id => $category)
@@ -131,11 +133,7 @@
                     </div>
                     <div
                         class="form__group--horizontal"
-                        x-show="
-                            cats[cat].type === 'movie' ||
-                            cats[cat].type === 'tv' ||
-                            cats[cat].type === 'game'
-                        "
+                        x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
                     >
                         <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                             <p class="form__group">
@@ -167,9 +165,7 @@
                                             ? {{ Js::from(old('tmdb_movie_id', $movieId)) }}
                                             : ''
                                     "
-                                    x-bind:required="
-                                        cats[cat].type === 'movie' && tmdb_movie_exists
-                                    "
+                                    x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
                                 />
                                 <label
                                     class="form__label form__label--floating"
@@ -431,7 +427,9 @@
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.info') }}</h2>
-            <div class="panel__body">{{ __('request.no-imdb-id') }}</div>
+            <div class="panel__body">
+                {{ __('request.no-imdb-id') }}
+            </div>
         </section>
     @endsection
 @endif

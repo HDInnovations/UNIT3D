@@ -11,8 +11,12 @@
             {{ __('staff.chat') }} {{ __('staff.statuses') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $chatstatus->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $chatstatus->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-chat-status--edit')

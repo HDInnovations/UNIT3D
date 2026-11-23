@@ -18,9 +18,15 @@
                 <tr>
                     <th>{{ __('common.title') }}</th>
                     <th>Reported</th>
-                    <th>{{ __('common.reporter') }}</th>
-                    <th>{{ __('ticket.assigned-staff') }}</th>
-                    <th>{{ __('common.created_at') }}</th>
+                    <th>
+                        {{ __('common.reporter') }}
+                    </th>
+                    <th>
+                        {{ __('ticket.assigned-staff') }}
+                    </th>
+                    <th>
+                        {{ __('common.created_at') }}
+                    </th>
                 </tr>
             </thead>
             <tbody>

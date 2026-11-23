@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.blocked-ips') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.blocked-ips') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-blocked-ip--index')

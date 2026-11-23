@@ -17,7 +17,8 @@
             <h2 class="panel__heading">{{ __('bon.bon') }} {{ __('bon.exchange') }}</h2>
             <div class="panel__actions">
                 <a href="{{ route('staff.bon_exchanges.create') }}" class="panel__action">
-                    {{ __('common.add') }} {{ trans_choice('common.a-an-art', true) }}
+                    {{ __('common.add') }}
+                    {{ trans_choice('common.a-an-art', true) }}
                     {{ __('bon.exchange') }}
                 </a>
             </div>

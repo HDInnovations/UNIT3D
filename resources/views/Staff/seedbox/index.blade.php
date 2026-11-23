@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.seedboxes') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.seedboxes') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-seedbox--index')

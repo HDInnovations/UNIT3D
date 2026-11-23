@@ -6,9 +6,13 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('stats') }}" class="breadcrumb__link">{{ __('stat.stats') }}</a>
+        <a href="{{ route('stats') }}" class="breadcrumb__link">
+            {{ __('stat.stats') }}
+        </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.users') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.users') }}
+    </li>
 @endsection
 
 @section('nav-tabs')
@@ -39,7 +43,9 @@
                                     :anon="$user->user->privacy?->private_profile"
                                 />
                             </td>
-                            <td>{{ $user->value }}</td>
+                            <td>
+                                {{ $user->value }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

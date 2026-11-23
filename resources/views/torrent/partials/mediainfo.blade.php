@@ -125,8 +125,8 @@
                                         height="13"
                                         title="{{ $audioElement['language'] ?? __('common.unknown') }}"
                                     />
-                                    {{ $audioElement['language'] ?? __('common.unknown') }} /
-                                    {{ $audioElement['format'] ?? __('common.unknown') }} /
+                                    {{ $audioElement['language'] ?? __('common.unknown') }}
+                                    / {{ $audioElement['format'] ?? __('common.unknown') }} /
                                     {{ $audioElement['channels'] ?? __('common.unknown') }} /
                                     {{ $audioElement['bit_rate'] ?? __('common.unknown') }} /
                                     {{ $audioElement['title'] ?? __('common.unknown') }}

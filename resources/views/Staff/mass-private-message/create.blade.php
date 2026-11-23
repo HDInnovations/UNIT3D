@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.mass-pm') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.mass-pm') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-mass-private-message--create')

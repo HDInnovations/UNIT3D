@@ -19,7 +19,9 @@
             {{ __('mediahub.collections') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $collection->name }}</li>
+    <li class="breadcrumb--active">
+        {{ $collection->name }}
+    </li>
 @endsection
 
 @section('page', 'page__collection--show')

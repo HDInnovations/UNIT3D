@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.email-updates') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.email-updates') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-email-update--index')

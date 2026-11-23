@@ -17,7 +17,9 @@
 @section('main')
     @foreach ($wiki_categories as $category)
         <section class="panelV2">
-            <h2 class="panel__heading">{{ $category->name }}</h2>
+            <h2 class="panel__heading">
+                {{ $category->name }}
+            </h2>
             <div class="data-table-wrapper">
                 <table class="data-table">
                     <tbody>

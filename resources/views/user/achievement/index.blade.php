@@ -12,7 +12,9 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.achievements') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.achievements') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

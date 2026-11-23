@@ -21,7 +21,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.user-notes') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.user-notes') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-note--index')

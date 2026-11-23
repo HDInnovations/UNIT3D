@@ -14,7 +14,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.forums') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.forums') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-forum-category--index')

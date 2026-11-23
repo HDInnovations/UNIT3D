@@ -283,7 +283,9 @@
                                     {{ $torrent->times_completed }}
                                 </a>
                             </td>
-                            <td class="user-uploads__tips">{{ $torrent->tips_sum_bon ?? 0 }}</td>
+                            <td class="user-uploads__tips">
+                                {{ $torrent->tips_sum_bon ?? 0 }}
+                            </td>
                             @if (config('other.thanks-system.is-enabled'))
                                 <td class="user-uploads__thanks">
                                     {{ $torrent->thanks_count ?? 0 }}

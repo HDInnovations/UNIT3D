@@ -1,7 +1,9 @@
 @extends('layout.with-main-and-sidebar')
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ __('common.blacklist') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.blacklist') }}
+    </li>
 @endsection
 
 @section('page', 'page__blacklist--index')

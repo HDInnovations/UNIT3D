@@ -12,7 +12,9 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.invite-tree') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.invite-tree') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

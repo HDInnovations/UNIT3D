@@ -25,8 +25,12 @@
             {{ __('staff.forums') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $forumCategory->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $forumCategory->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-forum-category--edit')
@@ -71,7 +75,8 @@
                 </p>
                 <p class="form__group">
                     <textarea id="description" name="description" class="form__textarea" required>
-{{ $forumCategory->description }}</textarea>
+{{ $forumCategory->description }}</textarea
+                    >
                     <label class="form__label form__label--floating" for="description">
                         Description
                     </label>

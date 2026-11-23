@@ -6,7 +6,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('staff.torrent-categories') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('staff.torrent-categories') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-category--index')
@@ -17,7 +19,9 @@
             <h2 class="panel__heading">{{ __('torrent.categories') }}</h2>
             <div class="panel__actions">
                 <form class="panel__action" action="{{ route('staff.categories.create') }}">
-                    <button class="form__button form__button--text">{{ __('common.add') }}</button>
+                    <button class="form__button form__button--text">
+                        {{ __('common.add') }}
+                    </button>
                 </form>
             </div>
         </header>

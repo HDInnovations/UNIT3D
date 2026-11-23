@@ -430,13 +430,15 @@
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-claimed') }}:</dt>
                 <dd>
-                    {{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }}
+                    {{ number_format($torrentRequestBountyStat->claimed) }}
+                    {{ __('bon.bon') }}
                 </dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('request.bounty-unclaimed') }}:</dt>
                 <dd>
-                    {{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}
+                    {{ number_format($torrentRequestBountyStat->unclaimed) }}
+                    {{ __('bon.bon') }}
                 </dd>
             </div>
         </dl>

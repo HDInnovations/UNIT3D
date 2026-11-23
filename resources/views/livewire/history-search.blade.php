@@ -211,7 +211,9 @@
                                     <td>
                                         <x-user-tag :user="$history->user" :anon="false" />
                                     </td>
-                                    <td>{{ $history->torrent_count }}</td>
+                                    <td>
+                                        {{ $history->torrent_count }}
+                                    </td>
                                     <td title="{{ $history->uploaded_sum }}">
                                         {{ App\Helpers\StringHelper::formatBytes($history->uploaded_sum, 2) }}
                                     </td>

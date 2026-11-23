@@ -21,7 +21,9 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.notification') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.notification') }}
+    </li>
 @endsection
 
 @section('nav-tabs')
@@ -364,7 +366,9 @@
                             <tbody x-ref="tbody">
                                 @foreach ($groups as $group)
                                     <tr>
-                                        <th x-bind="rowHeader">{{ $group->name }}</th>
+                                        <th x-bind="rowHeader">
+                                            {{ $group->name }}
+                                        </th>
                                         @foreach ([
                                             'json_account_groups',
                                             'json_bon_groups',

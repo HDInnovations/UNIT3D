@@ -88,7 +88,9 @@
                 <tbody>
                     @foreach ($works as $weeklyRankings)
                         <tr>
-                            <th>{{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}</th>
+                            <th>
+                                {{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}
+                            </th>
                             <td class="panel__body trending-weekly__row">
                                 @foreach ($weeklyRankings as $ranking)
                                     <figure class="trending-poster">

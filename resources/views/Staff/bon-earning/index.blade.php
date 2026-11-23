@@ -21,7 +21,8 @@
                         href="{{ route('staff.bon_earnings.create') }}"
                         class="form__button form__button--text"
                     >
-                        {{ __('common.add') }} {{ trans_choice('common.a-an-art', true) }}
+                        {{ __('common.add') }}
+                        {{ trans_choice('common.a-an-art', true) }}
                         {{ __('bon.earning') }}
                     </a>
                 </div>

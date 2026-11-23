@@ -10,7 +10,9 @@
             {{ __('request.requests') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $torrentRequest->name }}</li>
+    <li class="breadcrumb--active">
+        {{ $torrentRequest->name }}
+    </li>
 @endsection
 
 @section('page', 'page__request--show')
@@ -76,7 +78,9 @@
         </menu>
         <ul class="request__tags">
             <li class="request__category">
-                <span>{{ $torrentRequest->category->name }}</span>
+                <span>
+                    {{ $torrentRequest->category->name }}
+                </span>
             </li>
             @if ($torrentRequest->category->tv_meta)
                 @if ($torrentRequest->season_number !== null && $torrentRequest->episode_number !== null)
@@ -107,10 +111,14 @@
             @endif
 
             <li class="request__resolution">
-                <span>{{ $torrentRequest->resolution->name ?? 'Any' }}</span>
+                <span>
+                    {{ $torrentRequest->resolution->name ?? 'Any' }}
+                </span>
             </li>
             <li class="request__type">
-                <span>{{ $torrentRequest->type->name ?? 'Any' }}</span>
+                <span>
+                    {{ $torrentRequest->type->name ?? 'Any' }}
+                </span>
             </li>
             <li class="request__requester">
                 <x-user-tag :user="$torrentRequest->user" :anon="$torrentRequest->anon" />
@@ -291,7 +299,7 @@
                     </thead>
                     <tbody>
                         @foreach ($torrentRequest->bounties as $bounty)
-                            <tr @if ($loop->iteration > 10) x-show="isToggledOn" x-cloak @endif>
+                            <tr @if($loop->iteration > 10) x-show="isToggledOn" x-cloak @endif>
                                 <td>
                                     <x-user-tag :user="$bounty->user" :anon="$bounty->anon" />
                                 </td>

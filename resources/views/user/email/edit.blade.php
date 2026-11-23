@@ -21,7 +21,9 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.email') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.email') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

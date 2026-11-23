@@ -21,7 +21,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.users') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.users') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-user--index')

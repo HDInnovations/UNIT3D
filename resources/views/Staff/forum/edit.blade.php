@@ -25,14 +25,20 @@
             Forum categories
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $forum->category->name }}</li>
+    <li class="breadcrumbV2">
+        {{ $forum->category->name }}
+    </li>
     <li class="breadcrumbV2">
         <a href="{{ route('staff.forum_categories.index') }}" class="breadcrumb__link">
             {{ __('staff.forums') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $forum->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $forum->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-forum--edit')
@@ -82,7 +88,8 @@
                         class="form__textarea"
                         required
                     >
-{{ $forum->description }}</textarea>
+{{ $forum->description }}</textarea
+                    >
                     <label class="form__label form__label--floating" for="description">
                         Description
                     </label>

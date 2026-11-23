@@ -343,7 +343,9 @@
                                 <x-user-tag :user="$peer->user" :anon="false" />
                             </td>
                             @if ($groupBy !== 'none')
-                                <td style="text-align: right">{{ $peer->peer_count }}</td>
+                                <td style="text-align: right">
+                                    {{ $peer->peer_count }}
+                                </td>
                             @endif
 
                             @if ($groupBy === 'none')
@@ -355,16 +357,24 @@
                                     </a>
                                 </td>
                             @else
-                                <td style="text-align: right">{{ $peer->torrent_id }}</td>
+                                <td style="text-align: right">
+                                    {{ $peer->torrent_id }}
+                                </td>
                             @endif
 
                             @if ($groupBy === 'none' || $groupBy === 'user_session')
                                 <td>{{ $peer->agent }}</td>
                             @else
-                                <td style="text-align: right">{{ $peer->agent }}</td>
+                                <td style="text-align: right">
+                                    {{ $peer->agent }}
+                                </td>
                             @endif
-                            <td style="text-align: right">{{ $peer->ip }}</td>
-                            <td style="text-align: right">{{ $peer->port }}</td>
+                            <td style="text-align: right">
+                                {{ $peer->ip }}
+                            </td>
+                            <td style="text-align: right">
+                                {{ $peer->port }}
+                            </td>
                             <td style="text-align: right">
                                 {{ App\Helpers\StringHelper::formatBytes($peer->uploaded, 2) }}
                             </td>

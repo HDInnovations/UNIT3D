@@ -9,7 +9,9 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ __('articles.articles') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('articles.articles') }}
+    </li>
 @endsection
 
 @section('page', 'page__article--index')

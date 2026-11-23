@@ -183,7 +183,9 @@
                                             </tr>
                                             <tr>
                                                 <td>Min. Uploads</td>
-                                                <td>{{ $group->min_uploads ?? 0 }}</td>
+                                                <td>
+                                                    {{ $group->min_uploads ?? 0 }}
+                                                </td>
                                                 <td>
                                                     @if ($group->min_uploads <= $user_uploads)
                                                         <i

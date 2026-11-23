@@ -11,8 +11,12 @@
             {{ __('staff.torrent-types') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $type->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $type->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-type--edit')
@@ -20,7 +24,9 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ __('torrent.torrent') }} {{ __('common.type') }}:
+            {{ __('common.edit') }}
+            {{ __('torrent.torrent') }}
+            {{ __('common.type') }}:
             {{ $type->name }}
         </h2>
         <div class="panel__body">

@@ -21,7 +21,9 @@
             {{ __('user.settings') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.apikeys') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.apikeys') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

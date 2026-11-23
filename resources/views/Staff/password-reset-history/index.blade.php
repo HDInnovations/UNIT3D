@@ -20,7 +20,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.password-resets') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.password-resets') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-password-reset-history--index')

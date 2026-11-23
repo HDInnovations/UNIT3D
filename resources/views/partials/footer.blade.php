@@ -26,7 +26,9 @@
                 <li>
                     <form action="{{ route('logout') }}" method="POST" style="display: contents">
                         @csrf
-                        <button style="display: contents">{{ __('common.logout') }}</button>
+                        <button style="display: contents">
+                            {{ __('common.logout') }}
+                        </button>
                     </form>
                 </li>
             </ul>

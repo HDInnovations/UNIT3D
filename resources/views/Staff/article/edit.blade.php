@@ -15,8 +15,12 @@
             {{ __('staff.articles') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $article->title }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $article->title }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-article--edit')

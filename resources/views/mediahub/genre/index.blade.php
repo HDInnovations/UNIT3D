@@ -14,7 +14,9 @@
             {{ __('mediahub.title') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('mediahub.genres') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('mediahub.genres') }}
+    </li>
 @endsection
 
 @section('page', 'page__genre--index')

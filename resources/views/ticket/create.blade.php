@@ -10,7 +10,9 @@
             {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('ticket.create-ticket') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('ticket.create-ticket') }}
+    </li>
 @endsection
 
 @section('page', 'page__ticket--create')
@@ -66,7 +68,9 @@
                 <p class="form__group">
                     <label for="attachments" class="form__label">
                         {{ __('ticket.attachments') }}
-                        <span class="text-danger small">{{ __('ticket.attachment-limit') }}</span>
+                        <span class="text-danger small">
+                            {{ __('ticket.attachment-limit') }}
+                        </span>
                     </label>
                     <input
                         id="attachments"

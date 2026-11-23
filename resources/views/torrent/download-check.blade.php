@@ -15,7 +15,9 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('torrent.download-check') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.download-check') }}
+    </li>
 @endsection
 
 @section('page', 'page__torrent-download-check--show')

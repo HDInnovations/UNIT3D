@@ -120,7 +120,9 @@
                 {{ __('torrent.leave-tip') }}
             </button>
             <dialog id="torrent-tip" class="dialog" popover>
-                <h4 class="dialog__heading">{{ __('torrent.tip-jar') }}</h4>
+                <h4 class="dialog__heading">
+                    {{ __('torrent.tip-jar') }}
+                </h4>
                 <form
                     class="dialog__form"
                     method="POST"
@@ -177,11 +179,14 @@
         </button>
         <dialog id="torrent-files" class="dialog dialog--auto-width" popover>
             <header class="dialog__header">
-                <h4 class="dialog__heading">{{ __('common.files') }}</h4>
+                <h4 class="dialog__heading">
+                    {{ __('common.files') }}
+                </h4>
                 @if ($user->group->is_modo)
                     <div class="dialog__actions">
                         <div class="dialog__action">
-                            {{ __('torrent.info-hash') }}: {{ bin2hex($torrent->info_hash) }}
+                            {{ __('torrent.info-hash') }}:
+                            {{ bin2hex($torrent->info_hash) }}
                         </div>
                     </div>
                 @endif
@@ -448,7 +453,8 @@
                 </button>
                 <dialog id="torrent-trump" class="dialog" popover>
                     <h4 class="dialog__heading">
-                        Trump {{ strtolower(__('torrent.torrent')) }}: {{ $torrent->name }}
+                        Trump {{ strtolower(__('torrent.torrent')) }}:
+                        {{ $torrent->name }}
                     </h4>
                     <form
                         class="dialog__form"

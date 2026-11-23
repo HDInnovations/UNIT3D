@@ -11,8 +11,12 @@
             Torrent distributors
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $distributor->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.delete') }}</li>
+    <li class="breadcrumbV2">
+        {{ $distributor->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.delete') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-distributor--delete')

@@ -13,7 +13,9 @@
             {{ $user->username }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('user.settings') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('user.settings') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

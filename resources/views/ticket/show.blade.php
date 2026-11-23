@@ -10,7 +10,9 @@
             {{ __('ticket.helpdesk') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $ticket->subject }}</li>
+    <li class="breadcrumb--active">
+        {{ $ticket->subject }}
+    </li>
 @endsection
 
 @section('page', 'page__ticket--show')

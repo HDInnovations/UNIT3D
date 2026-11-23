@@ -9,7 +9,9 @@
             {{ __('pm.messages') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ $conversation->subject }}</li>
+    <li class="breadcrumb--active">
+        {{ $conversation->subject }}
+    </li>
 @endsection
 
 @section('page', 'page__user-conversation--show')

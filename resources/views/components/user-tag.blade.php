@@ -52,7 +52,8 @@
                 <i class="fal fa-star text-gold" title="Donor"></i>
             @endif
 
-            {{ $appendedIcons ?? '' }} )
+            {{ $appendedIcons ?? '' }}
+            )
         </span>
     @else
         <span {{ $attributes->class('user-tag fas fa-eye-slash') }}>

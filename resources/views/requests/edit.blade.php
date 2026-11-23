@@ -18,7 +18,9 @@
             {{ $torrentRequest->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__request--edit')
@@ -144,11 +146,7 @@
                     </div>
                     <div
                         class="form__group--horizontal"
-                        x-show="
-                            cats[cat].type === 'movie' ||
-                            cats[cat].type === 'tv' ||
-                            cats[cat].type === 'game'
-                        "
+                        x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
                     >
                         <div class="form__group--vertical" x-show="cats[cat].type === 'movie'">
                             <p class="form__group">
@@ -179,9 +177,7 @@
                                             ? {{ Js::from(old('tmdb_movie_id', $torrentRequest->tmdb_movie_id)) }}
                                             : ''
                                     "
-                                    x-bind:required="
-                                        cats[cat].type === 'movie' && tmdb_movie_exists
-                                    "
+                                    x-bind:required="cats[cat].type === 'movie' && tmdb_movie_exists"
                                 />
                                 <label
                                     class="form__label form__label--floating"

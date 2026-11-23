@@ -62,7 +62,9 @@
                 @hiddencaptcha
             @endif
 
-            <button class="auth-form__primary-button">{{ __('auth.password-reset') }}</button>
+            <button class="auth-form__primary-button">
+                {{ __('auth.password-reset') }}
+            </button>
         </form>
     </section>
 @endsection

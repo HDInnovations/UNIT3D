@@ -19,7 +19,9 @@
             {{ $torrent->name }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('torrent.peers') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.peers') }}
+    </li>
 @endsection
 
 @section('nav-tabs')

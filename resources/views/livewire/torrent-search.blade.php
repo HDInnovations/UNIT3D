@@ -1035,69 +1035,67 @@
     <script src="{{ asset('build/unit3d/virtual-select.js') }}" crossorigin="anonymous"></script>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('livewire:init', function () {
-            let myRegions = [
-                {
-                    label: 'No region',
-                    value: '0',
-                },
-                ...{{
-                    Js::from(
-                        $regions
-                            ->each(function ($region) {
-                                $region->label = $region->name . ' (' . __('regions.' . $region->name) . ')';
-                                $region->value = $region->id;
-                            })
-                            ->select(['label', 'value'])
-                    )
-                }},
-            ];
+          let myRegions = [
+              {
+                  label: "No region", value: "0"
+              },
+              ... {{
+                  Js::from(
+                      $regions
+                          ->each(function ($region) {
+                              $region->label = $region->name . ' (' . __('regions.' . $region->name) . ')';
+                              $region->value = $region->id;
+                          })
+                          ->select(['label', 'value'])
+                  )
+              }}
+          ];
 
-            VirtualSelect.init({
-                ele: '#regions',
-                options: myRegions,
-                multiple: true,
-                search: true,
-                placeholder: '{{ __('Select Regions') }}',
-                noOptionsText: '{{ __('No results found') }}',
-            });
+          VirtualSelect.init({
+            ele: '#regions',
+            options: myRegions,
+            multiple: true,
+            search: true,
+            placeholder: "{{ __('Select Regions') }}",
+            noOptionsText: "{{ __('No results found') }}",
+          })
 
-            let regions = document.querySelector('#regions');
-            regions.addEventListener('change', () => {
-                let data = regions.value;
-                @this.set('regionIds', data);
-            });
+          let regions = document.querySelector('#regions')
+          regions.addEventListener('change', () => {
+            let data = regions.value
+            @this.set('regionIds', data)
+          })
 
-            let myDistributors = [
-                {
-                    label: 'No distributor',
-                    value: '0',
-                },
-                ...{{
-                    Js::from(
-                        $distributors
-                            ->each(function ($distributor) {
-                                $distributor->label = $distributor->name;
-                                $distributor->value = $distributor->id;
-                            })
-                            ->select(['label', 'value'])
-                    )
-                }},
-            ];
+          let myDistributors = [
+              {
+                  label: "No distributor", value: "0"
+              },
+              ... {{
+                  Js::from(
+                      $distributors
+                          ->each(function ($distributor) {
+                              $distributor->label = $distributor->name;
+                              $distributor->value = $distributor->id;
+                          })
+                          ->select(['label', 'value'])
+                  )
+              }}
+          ];
 
-            VirtualSelect.init({
-                ele: '#distributors',
-                options: myDistributors,
-                multiple: true,
-                search: true,
-                placeholder: '{{ __('Select Distributor') }}',
-                noOptionsText: '{{ __('No results found') }}',
-            });
+          VirtualSelect.init({
+            ele: '#distributors',
+            options: myDistributors,
+            multiple: true,
+            search: true,
+            placeholder: "{{ __('Select Distributor') }}",
+            noOptionsText: "{{ __('No results found') }}",
+          })
 
-            let distributors = document.querySelector('#distributors');
-            distributors.addEventListener('change', () => {
-                let data = distributors.value;
-                @this.set('distributorIds', data);
-            });
-        });
+          let distributors = document.querySelector('#distributors')
+          distributors.addEventListener('change', () => {
+            let data = distributors.value
+            @this.set('distributorIds', data)
+          })
+        })
     </script>
 </div>

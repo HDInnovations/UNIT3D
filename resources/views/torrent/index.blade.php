@@ -9,7 +9,9 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ __('torrent.torrents') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('torrent.torrents') }}
+    </li>
 @endsection
 
 @section('nav-tabs')
@@ -24,7 +26,9 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('rss.index') }}">{{ __('rss.rss') }}</a>
+        <a class="nav-tab__link" href="{{ route('rss.index') }}">
+            {{ __('rss.rss') }}
+        </a>
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('torrents.create') }}">

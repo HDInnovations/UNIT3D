@@ -134,7 +134,9 @@
         </li>
         @if ($meta?->trailer)
             <li class="work__trailer show-trailer">
-                <a class="work__trailer-link" href="#">{{ __('torrent.view-trailer') }}</a>
+                <a class="work__trailer-link" href="#">
+                    {{ __('torrent.view-trailer') }}
+                </a>
             </li>
         @endif
     </ul>
@@ -335,7 +337,6 @@
                                                 class="{{ config('other.font-awesome') }} fa-film meta-chip__icon"
                                             ></i>
                                         @endif
-
                                         @if ($movie->is($meta))
                                             <h3 class="meta-chip__value">
                                                 <strong>

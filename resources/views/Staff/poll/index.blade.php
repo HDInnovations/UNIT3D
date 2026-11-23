@@ -10,7 +10,9 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('poll.polls') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('poll.polls') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-poll--index')

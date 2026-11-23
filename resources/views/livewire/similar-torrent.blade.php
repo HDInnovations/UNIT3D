@@ -223,7 +223,9 @@
                     </div>
                     <div class="form__group">
                         <fieldset class="form__fieldset">
-                            <legend class="form__legend">{{ __('torrent.resolution') }}</legend>
+                            <legend class="form__legend">
+                                {{ __('torrent.resolution') }}
+                            </legend>
                             <div class="form__fieldset-checkbox-container">
                                 @foreach ($resolutions as $resolution)
                                     <p class="form__group">
@@ -977,7 +979,9 @@
         </section>
         <section class="panelV2">
             <header style="cursor: pointer" class="panel__header">
-                <h2 class="panel__heading">{{ __('request.requests') }}</h2>
+                <h2 class="panel__heading">
+                    {{ __('request.requests') }}
+                </h2>
                 <div class="panel__actions">
                     <div class="panel__action">
                         <label class="form__label">
@@ -1152,41 +1156,41 @@
 @section('javascripts')
     @if ($user->group->is_modo)
         <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-            window.addEventListener('swal:modal', (event) => {
-                Swal.fire({
-                    title: event.detail.message,
-                    text: event.detail.text,
-                    icon: event.detail.type,
-                });
-            });
+            window.addEventListener('swal:modal', event => {
+              Swal.fire({
+                title: event.detail.message,
+                text: event.detail.text,
+                icon: event.detail.type,
+              })
+            })
 
-            window.addEventListener('swal:confirm', (event) => {
-                const { value: text } = Swal.fire({
-                    input: 'textarea',
-                    inputLabel: 'Delete reason',
-                    inputPlaceholder: 'Type your reason here...',
-                    inputAttributes: {
-                        'aria-label': 'Type your reason here',
-                    },
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return 'You need to write something!';
-                        }
-                    },
-                    title: event.detail.message,
-                    html: event.detail.body,
-                    icon: event.detail.type,
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        @this.set('reason', result.value);
-                        Livewire.dispatch('destroy');
-                    }
-                });
-            });
+            window.addEventListener('swal:confirm', event => {
+              const { value: text } = Swal.fire({
+                input: 'textarea',
+                inputLabel: 'Delete reason',
+                inputPlaceholder: 'Type your reason here...',
+                inputAttributes: {
+                  'aria-label': 'Type your reason here'
+                },
+                inputValidator: (value) => {
+                  if (!value) {
+                    return 'You need to write something!'
+                  }
+                },
+                title: event.detail.message,
+                html: event.detail.body,
+                icon: event.detail.type,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                @this.set('reason', result.value);
+                  Livewire.dispatch('destroy')
+                }
+              })
+            })
         </script>
     @endif
 @endsection

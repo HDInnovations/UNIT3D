@@ -53,18 +53,11 @@
                 <div class="panel__action">
                     <button
                         class="form__button form__standard-icon-button form__standard-icon-button--skinny"
-                        @click.prevent="
-                            changeAudible(state.chat.conversation && state.chat.conversation.id)
-                        "
-                        :style="'color: ' +
-                        (state.chat.conversation && state.chat.conversation.audible
-                            ? 'rgb(0,102,0)'
-                            : 'rgb(204,0,0)')"
+                        @click.prevent="changeAudible(state.chat.conversation && state.chat.conversation.id)"
+                        :style="'color: ' + (state.chat.conversation && state.chat.conversation.audible ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
                     >
                         <i
-                            :class="state.chat.conversation && state.chat.conversation.audible
-                                ? 'fa fa-bell'
-                                : 'fa fa-bell-slash'"
+                            :class="state.chat.conversation && state.chat.conversation.audible ? 'fa fa-bell' : 'fa fa-bell-slash'"
                         ></i>
                     </button>
                 </div>
@@ -73,8 +66,7 @@
                         class="form__button form__standard-icon-button form__standard-icon-button--skinny"
                         title="Toggle typing notifications"
                         @click.prevent="changeWhispers()"
-                        :style="'color: ' +
-                        (state.chat.showWhispers ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
+                        :style="'color: ' + (state.chat.showWhispers ? 'rgb(0,102,0)' : 'rgb(204,0,0)')"
                     >
                         <i
                             :class="state.chat.showWhispers ? 'fas fa-keyboard' : 'fa fa-keyboard'"
@@ -133,9 +125,7 @@
             <template x-for="conversation in conversations" :key="conversation.id">
                 <li
                     class="panel__tab chatbox__tab"
-                    :class="state.chat.conversation &&
-                    state.chat.conversation.id === conversation.id &&
-                    'panel__tab--active'"
+                    :class="state.chat.conversation && state.chat.conversation.id === conversation.id && 'panel__tab--active'"
                     role="tab"
                     @click.prevent="changeConversation(conversation.id)"
                 >
@@ -152,10 +142,7 @@
                         "
                     ></span>
                     <button
-                        x-show="
-                            state.chat.conversation &&
-                            state.chat.conversation.id === conversation.id
-                        "
+                        x-show="state.chat.conversation && state.chat.conversation.id === conversation.id"
                         class="chatbox__tab-delete-button"
                         @click.prevent="leaveConversation(conversation.id)"
                     >
@@ -174,23 +161,13 @@
                                     <header class="chatbox-message__header">
                                         <address
                                             class="chatbox-message__address user-tag"
-                                            :style="message[1].user.is_donor
-                                                ? 'background-image: url(/img/sparkels.gif);'
-                                                : message[1].user.group.effect
-                                                  ? 'background-image:' +
-                                                    message[1].user.group.effect +
-                                                    ';'
-                                                  : ''"
+                                            :style="(message[1].user.is_donor ? 'background-image: url(/img/sparkels.gif);' : (message[1].user.group.effect ? 'background-image:' + message[1].user.group.effect + ';' : ''))"
                                         >
                                             <a
                                                 class="user-tag__link"
                                                 :class="message[1].user.group.icon"
-                                                :href="message[1].user.username
-                                                    ? '/users/' + message[1].user.username
-                                                    : ''"
-                                                :style="message[1].user.group.color
-                                                    ? 'color:' + message[1].user.group.color
-                                                    : ''"
+                                                :href="message[1].user.username ? '/users/' + message[1].user.username : ''"
+                                                :style="message[1].user.group.color ? 'color:' + message[1].user.group.color : ''"
                                                 :title="message[1].user.group.name"
                                             >
                                                 <span
@@ -200,15 +177,14 @@
                                                 ></span>
                                                 <span
                                                     x-show="message[1].bot && message[1].bot.id >= 1 && (! message[1].user || message[1].user.id < 2)"
-                                                    x-text="(message[1].bot && message[1].bot.name) || 'Unknown'"
+                                                    x-text="message[1].bot && message[1].bot.name || 'Unknown'"
                                                 ></span>
                                                 <template x-if="message[1].user.icon">
                                                     <i>
                                                         <img
                                                             :style="'max-height: 16px; vertical-align: text-bottom;'"
                                                             title="Custom user icon"
-                                                            :src="'/authenticated-images/user-icons/' +
-                                                            message[1].user.username"
+                                                            :src="'/authenticated-images/user-icons/' + message[1].user.username"
                                                             loading="lazy"
                                                         />
                                                     </i>
@@ -220,10 +196,7 @@
                                                     title="Lifetime donor"
                                                 ></i>
                                                 <i
-                                                    x-show="
-                                                        message[1].user.is_donor == 1 &&
-                                                        message[1].user.is_lifetime == 0
-                                                    "
+                                                    x-show="message[1].user.is_donor == 1 && message[1].user.is_lifetime == 0"
                                                     class="fal fa-star text-gold"
                                                     title="Donor"
                                                 ></i>
@@ -272,16 +245,10 @@
                                                 class="chatbox-message__avatar-link"
                                             >
                                                 <img
-                                                    x-show="
-                                                        message[1].user && message[1].user.id != 1
-                                                    "
+                                                    x-show="message[1].user && message[1].user.id != 1"
                                                     class="chatbox-message__avatar"
-                                                    :src="message[1].user.image
-                                                        ? '/authenticated-images/user-avatars/' +
-                                                          message[1].user.username
-                                                        : '/img/profile.png'"
-                                                    :style="'border: 2px solid ' +
-                                                    (message[1].user.chat_status.color || '#ccc')"
+                                                    :src="message[1].user.image ? '/authenticated-images/user-avatars/' + message[1].user.username : '/img/profile.png'"
+                                                    :style="'border: 2px solid ' + (message[1].user.chat_status.color || '#ccc')"
                                                     :title="message[1].user.chat_status.name"
                                                     loading="lazy"
                                                 />
@@ -299,9 +266,7 @@
                                     <!-- Move menu back to original position after timestamp -->
                                     <menu
                                         class="chatbox-message__menu"
-                                        x-show="
-                                            message[1].canMod === true || message[1].canMod === 1
-                                        "
+                                        x-show="message[1].canMod === true || message[1].canMod === 1"
                                     >
                                         <li class="chatbox-message__menu-item">
                                             <button

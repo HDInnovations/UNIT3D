@@ -11,8 +11,12 @@
             {{ __('staff.torrent-categories') }}
         </a>
     </li>
-    <li class="breadcrumbV2">{{ $category->name }}</li>
-    <li class="breadcrumb--active">{{ __('common.edit') }}</li>
+    <li class="breadcrumbV2">
+        {{ $category->name }}
+    </li>
+    <li class="breadcrumb--active">
+        {{ __('common.edit') }}
+    </li>
 @endsection
 
 @section('page', 'page__staff-category--edit')
@@ -69,8 +73,10 @@
                 </p>
                 <p class="form__group">
                     <label for="image">
-                        {{ __('common.select') }} {{ trans_choice('common.a-an-art', false) }}
-                        {{ __('common.image') }} (If not using a FontAwesome icon)
+                        {{ __('common.select') }}
+                        {{ trans_choice('common.a-an-art', false) }}
+                        {{ __('common.image') }}
+                        (If not using a FontAwesome icon)
                     </label>
                     <input id="file" class="form__file" type="file" name="image" />
                 </p>

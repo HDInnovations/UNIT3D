@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "laravel-vite-plugin": "^3.2.1",
-    "prettier": "3.10.1",
+    "prettier": "3.8.1",
     "prettier-plugin-blade": "2.0.0",
     "sass": "^1.108.2",
     "vite": "^8.3.8",

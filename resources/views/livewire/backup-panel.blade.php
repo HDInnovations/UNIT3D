@@ -72,7 +72,9 @@
         </div>
     </section>
     <section class="panelV2">
-        <h2 class="panel__heading">{{ __('backup.existing_backups') }}</h2>
+        <h2 class="panel__heading">
+            {{ __('backup.existing_backups') }}
+        </h2>
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
@@ -153,30 +155,30 @@
     </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('livewire:init', function () {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-            });
-            @this.on('showErrorToast', function (message) {
-                Toast.fire({
-                    text: message,
-                    duration: 10000,
-                    gravity: 'bottom',
-                    position: 'right',
-                    backgroundColor: 'red',
-                });
-            });
-        });
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          })
+          @this.on('showErrorToast', function (message) {
+            Toast.fire({
+              text: message,
+              duration: 10000,
+              gravity: 'bottom',
+              position: 'right',
+              backgroundColor: 'red',
+            })
+          })
+        })
         function backup(option = '') {
-            @this.createBackup(option);
-            Swal.fire({
-                title: '<strong style=" color: rgb(17,17,17);">Success</strong>',
-                icon: 'success',
-                html: 'Creating a new backup in the background...' + (option ? ' (' + option + ')' : ''),
-                showCloseButton: true,
-            });
+          @this.createBackup(option)
+          Swal.fire({
+            title: '<strong style=" color: rgb(17,17,17);">Success</strong>',
+            icon: 'success',
+            html: 'Creating a new backup in the background...' + (option ? ' (' + option + ')' : ''),
+            showCloseButton: true,
+          })
         }
     </script>
 </div>

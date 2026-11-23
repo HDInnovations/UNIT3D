@@ -9,7 +9,9 @@
 @endsection
 
 @section('breadcrumbs')
-    <li class="breadcrumb--active">{{ __('common.reports') }}</li>
+    <li class="breadcrumb--active">
+        {{ __('common.reports') }}
+    </li>
 @endsection
 
 @section('page', 'page__report--index')
