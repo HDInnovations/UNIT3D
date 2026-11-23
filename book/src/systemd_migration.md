@@ -148,7 +148,8 @@ Add the following:
 [Unit]
 Description=UNIT3D Chat Server
 Documentation=https://github.com/Dokan-E-Commerce/zatat
-After=network.target
+After=network.target mysql.service redis.service
+Wants=mysql.service redis.service
 
 [Service]
 Type=simple

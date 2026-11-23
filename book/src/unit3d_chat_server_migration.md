@@ -1,4 +1,4 @@
-# Migrating the to UNIT3D-Chat-Server
+# Migrating UNIT3D Chat Server
 
 **Note:** This guide assumes you are using a `sudo` user named `ubuntu`, UNIT3D is installed at `/var/www/html`, and nginx is your web server.
 
@@ -210,9 +210,10 @@ zatat does not publish binaries yet, so you compile it once. You can build on th
     # Systemd service unit for zatat (WebSocket server for UNIT3D Chat)
 
     [Unit]
-    Description=UNIT3D Chat Server (zatat)
+    Description=UNIT3D Chat Server
     Documentation=https://github.com/Dokan-E-Commerce/zatat
-    After=network.target
+    After=network.target mysql.service redis.service
+    Wants=mysql.service redis.service
 
     [Service]
     Type=simple
