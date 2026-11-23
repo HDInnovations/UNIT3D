@@ -1,281 +1,63 @@
-# UNIT3D v8.x.x on MacOS with Laravel Sail and PhpStorm
+# Local Development on macOS
 
 _A guide by HDVinnie_
 
-This guide is designed for setting up UNIT3D, a Laravel application, leveraging Laravel Sail on MacOS.
+This page covers the macOS-specific parts of the [local development setup](local_development.md): installing the prerequisites and trusting the HTTPS certificate. Follow the main guide for everything else, and come back here for steps 1 and 6.
 
-**Warning**: This setup guide is intended for local development environments only and is not suitable for production
-deployment.
-
-## Modifying .env and secure headers for non-HTTPS instances
-
-For local development, HTTP is commonly used instead of HTTPS. To prevent mixed content issues, adjust your `.env` file as follows:
-
-1. **Create the `.env` Config:**
-    - Create a `.env` file in the root directory of your UNIT3D project.
-    - Copy and paste the contents from `.env.example` into the `.env` file.
-    - Add or modify the following environment variables:
-
-        ```dotenv
-        DB_HOST=mysql               # Match the container name in the compose file
-        DB_USERNAME=unit3d          # The username can be anything except `root`
-        SESSION_SECURE_COOKIE=false # Disables secure cookies
-        REDIS_HOST=redis            # Match the container name in the compose file
-        CSP_ENABLED=false           # Disables Content Security Policy
-        HSTS_ENABLED=false          # Disables Strict Transport Security
-        ```
+> [!WARNING]
+> This setup is for local development only and is not suitable for production.
 
 ## Prerequisites
 
-### Installing Homebrew
+### Homebrew
 
-If you don't have Homebrew installed:
+If you do not have [Homebrew](https://brew.sh) yet:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### Installing PHP and Composer
+### Git, PHP and Composer
 
 ```bash
-brew install php composer
+brew install git php composer
 ```
 
-### Installing Docker Desktop
+PHP and Composer on your Mac are only used for the first `composer install`. After that, everything runs in Docker.
 
-[Install Docker Desktop](https://docs.docker.com/desktop/install/mac-install/)
+### Docker Desktop
 
-Once installed, launch Docker Desktop
+[Install Docker Desktop](https://docs.docker.com/desktop/install/mac-install/) and launch it. It includes the Compose plugin.
 
-### Installing GitHub Desktop
+The first start compiles the chat server and mounts your project into containers, which can be slow with the default file sharing. If it is, open `Docker Desktop > Settings > General` and choose **VirtioFS** as the file sharing implementation. If a build is killed for lack of memory, increase the memory limit under `Settings > Resources`.
 
-[Install GitHub Desktop](https://desktop.github.com)
+### Optional: GitHub Desktop and PhpStorm
 
-Once installed, launch GitHub Desktop
+- [GitHub Desktop](https://desktop.github.com) for cloning. Open <https://github.com/HDInnovations/UNIT3D>, choose `Code > Open with GitHub Desktop`, and pick a local path such as `~/Documents/Personal/UNIT3D`.
+- [PhpStorm](https://www.jetbrains.com/phpstorm/): open the project folder with `File > Open`. You can run every command of the main guide from PhpStorm with `Tools > Run Command`, or from its built-in terminal.
 
-### Installing PHPStorm
+Now continue with [step 2 of the main guide](local_development.md#2-clone-the-repository-and-install-php-dependencies).
 
-[Install PHPStorm](https://www.jetbrains.com/phpstorm/)
+## Trust the certificate
 
-Once installed, launch PHPStorm
+Do this after `./vendor/bin/sail up -d` has started nginx and you have [copied the certificate](local_development.md#6-trust-the-certificate) to `sail-nginx.pem`.
 
-## Step 1: clone the repository
+1. **Add it to the macOS keychain as a trusted certificate:**
 
-Firstly, clone the UNIT3D repository to your local environment by visiting [UNIT3D Repo](https://github.com/HDInnovations/UNIT3D). Then click the blue colored code button and select `Open with Github Desktop`. Once Github Desktop is open set you local path to clone to like `/Users/HDVinnie/Documents/Personal/UNIT3D`
+    ```bash
+    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain sail-nginx.pem
+    ```
 
-## Step 2: open the project in PHPStorm
+    Or double-click `sail-nginx.pem`, open it in Keychain Access, expand `Trust` and set `When using this certificate` to `Always Trust`.
 
-Within PHPStorm goto `File` and then click `Open`. Select the local path you just did like `/Users/HDVinnie/Documents/Personal/UNIT3D`.
+2. **Restart your browser** and open `https://localhost`. Safari and Chrome use the macOS keychain. Firefox has its own certificate store, so in Firefox open `Settings > Privacy & Security > Certificates > View Certificates > Authorities > Import` and import `sail-nginx.pem`.
 
-### The following commands are run in PHPStorm. Can do so by clicking `Tools->Run Command`.
+3. **Delete the copy:**
 
-## Step 2: Environment configuration
+    ```bash
+    rm sail-nginx.pem
+    ```
 
-1. **Create the `.env` file:**
-   ```bash
-   cp .env.example .env
-   ```
+To use a domain such as `unit3d.test`, add it to `/etc/hosts` as described in the [main guide](local_development.md#using-a-domain-other-than-localhost).
 
-2. **Configure Docker-specific settings:**
-   Edit your `.env` file and ensure these Docker container settings are configured:
-   ```dotenv
-   DB_HOST=mysql               # Match the container name in the compose file
-   DB_USERNAME=unit3d          # The username can be anything except `root`
-   REDIS_HOST=redis            # Match the container name in the compose file
-   ```
-
-## Step 3: Composer dependency installation
-
-Install PHP dependencies to bootstrap Laravel Sail:
-
-```bash
-composer install
-```
-
-**Note**: This step is required before using Laravel Sail because `./vendor/bin/sail` doesn't exist until Composer installs the Laravel Sail package and creates the vendor directory.
-
-## Step 4: start Sail
-Initialize the Docker environment using Laravel Sail:
-
-```bash
-./vendor/bin/sail up -d
-```
-
-## Step 5: app key generation
-
-Generate a new `APP_KEY` in the `.env` file for encryption:
-
-```bash
-./vendor/bin/sail artisan key:generate
-```
-
-**Note**: If you are importing a database backup, make sure to set the `APP_KEY` in the `.env` file to match the key used when the backup was created.
-
-## Step 6: Bun dependency install and compile assets
-
-```bash
-./vendor/bin/sail bun install
-```
-
-```bash
-./vendor/bin/sail bun run build
-```
-
-## Step 7: Database setup
-
-Choose one of the following options:
-
-### Step 7a: Database migrations and seeders (for sample data)
-
-For database initialization with sample data, apply migrations and seeders:
-
-```bash
-./vendor/bin/sail artisan migrate:fresh --seed
-```
-
-**Caution**: This operation will reset your database and seed it with default data. Exercise caution in production
-settings.
-
-### Step 7b: Database preparation (for production database backup)
-
-If you want to use a production database backup locally:
-
-### Initial database loading
-
-Prepare your database with the initial schema and data. Ensure you have a database dump file,
-e.g., `prod-site-backup.sql`.
-
-### MySQL data importation
-
-To import your database dump into MySQL within the local environment, use:
-
-```bash
-./vendor/bin/sail mysql -u root -p unit3d < prod-site-backup.sql
-```
-
-**Note**: For this to work properly you must set the APP_KEY value in your local `.env` file to match you prod APP_KEY value.
-
-## Step 8: application cache configuration
-
-Optimize the application's performance by setting up the cache:
-
-```bash
-./vendor/bin/sail artisan set:all_cache
-```
-
-## Step 9: visit local instance
-
-Open your browser and visit `localhost`. Enjoy!
-
-## Additional notes
-
-- **Permissions**: Exercise caution with `sudo` to avoid permission conflicts, particularly for Docker commands
-  requiring elevated access.
-
-### Appendix: Sail commands for UNIT3D
-
-This section outlines commands for managing and interacting with UNIT3D using Laravel Sail.
-
-#### Sail management
-
-- **Start environment**:
-  ```bash
-  ./vendor/bin/sail up -d
-  ```
-  Starts Docker containers in detached mode.
-
-- **Stop environment**:
-  ```bash
-  ./vendor/bin/sail down -v
-  ```
-  Stops and removes Docker containers.
-
-- **Restart environment**:
-  ```bash
-  ./vendor/bin/sail restart
-  ```
-  Applies changes by restarting Docker environment.
-
-#### Dependency management
-
-- **Install Composer dependencies**:
-  ```bash
-  ./vendor/bin/sail composer install
-  ```
-  Installs PHP dependencies defined in `composer.json`.
-
-- **Update Composer dependencies**:
-  ```bash
-  ./vendor/bin/sail composer update
-  ```
-  Updates PHP dependencies defined in `composer.json`.
-
-#### Laravel Artisan
-
-- **Run migrations**:
-  ```bash
-  ./vendor/bin/sail artisan migrate
-  ```
-  Executes database migrations.
-
-- **Seed database**:
-  ```bash
-  ./vendor/bin/sail artisan db:seed
-  ```
-  Seeds database with predefined data.
-
-- **Refresh database**:
-  ```bash
-  ./vendor/bin/sail artisan migrate:fresh --seed
-  ```
-  Resets and seeds database.
-
-- **Cache configurations**:
-  ```bash
-  ./vendor/bin/sail artisan set:all_cache
-  ```
-  Clears and caches configurations for performance.
-
-#### NPM and assets
-
-- **Install Bun dependencies**:
-  ```bash
-  ./vendor/bin/sail bun install
-  ```
-  Installs Node.js dependencies.
-
-- **Compile assets**:
-  ```bash
-  ./vendor/bin/sail bun run build
-  ```
-  Compiles CSS and JavaScript assets.
-
-#### Database operations
-
-- **MySQL interaction**:
-  ```bash
-  ./vendor/bin/sail mysql -u root -p
-  ```
-  Opens MySQL CLI for database interaction.
-
-#### Queue management
-
-- **Restart queue workers**:
-  ```bash
-  ./vendor/bin/sail artisan queue:restart
-  ```
-  Restarts queue workers after changes.
-
-#### Troubleshooting
-
-- **View logs**:
-  ```bash
-  ./vendor/bin/sail logs
-  ```
-  Displays Docker container logs.
-
-- **PHPUnit (PEST) tests**:
-  ```bash
-  ./vendor/bin/sail artisan test
-  ```
-  Runs PEST tests for application.
+Continue with [step 7 of the main guide](local_development.md#7-application-key-database-and-assets).

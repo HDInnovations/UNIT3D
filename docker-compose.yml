@@ -1,4 +1,4 @@
-# cspell:ignore initdb,meili,mysqladmin,mysqld,wwwgroup,wwwuser
+# cspell:ignore initdb,meili,mysqladmin,mysqld,nofile,ulimits,wwwgroup,wwwuser
 services:
     nginx:
         image: 'nginx:latest'
@@ -7,7 +7,7 @@ services:
             - '${SSL_PORT:-443}:443'
         environment:
             - SSL_PORT=${SSL_PORT:-443}
-            - APP_SERVICE=${APP_SERVICE:-laravel.test}
+            - APP_SERVICE=${APP_SERVICE:-unit3d-core}
             - SERVER_NAME=${SERVER_NAME:-localhost}
             - SSL_DOMAIN=${SSL_DOMAIN:-localhost}
             - SSL_ALT_NAME=${SSL_ALT_NAME:-DNS:localhost}
@@ -15,24 +15,55 @@ services:
             - 'sail-nginx:/etc/nginx/certs'
             - './vendor/ryoluo/sail-ssl/nginx/templates:/etc/nginx/templates'
             - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
+        entrypoint:
+            - /bin/sh
+            - -c
+            - |
+                cat << 'INNER' > /docker-entrypoint.d/999-chat-proxy.sh
+                #!/bin/sh
+                for f in /etc/nginx/conf.d/*.conf; do
+                    if [ -f "$$f" ] && ! grep -q "location /app/" "$$f"; then
+                        awk '/^[[:space:]]*location[[:space:]]+\/[[:space:]]*(\{|$)/ {
+                            print "    location /app/ {"
+                            print "        resolver 127.0.0.11 valid=10s;"
+                            print "        set $$chat_upstream http://unit3d-chat:8080;"
+                            print "        proxy_pass $$chat_upstream$$request_uri;"
+                            print "        proxy_http_version 1.1;"
+                            print "        proxy_buffering off;"
+                            print "        proxy_set_header Upgrade $$http_upgrade;"
+                            print "        proxy_set_header Connection \"Upgrade\";"
+                            print "        proxy_set_header Host $$host;"
+                            print "        proxy_set_header X-Real-IP $$remote_addr;"
+                            print "        proxy_set_header X-Forwarded-For $$proxy_add_x_forwarded_for;"
+                            print "        proxy_set_header X-Forwarded-Proto $$scheme;"
+                            print "        proxy_read_timeout 86400;"
+                            print "    }"
+                        } { print }' "$$f" > "$$f.tmp" && mv "$$f.tmp" "$$f"
+                    fi
+                done
+                INNER
+                chmod +x /docker-entrypoint.d/999-chat-proxy.sh
+                exec /docker-entrypoint.sh nginx -g "daemon off;"
         depends_on:
-            - ${APP_SERVICE:-laravel.test}
+            - ${APP_SERVICE:-unit3d-core}
+            - unit3d-chat
         networks:
             - sail
-    laravel.test:
+    unit3d-core:
         build:
             context: ./vendor/laravel/sail/runtimes/8.5
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
         image: sail-8.5/app
+        command: ['php', '-d', 'variables_order=EGPCS', 'artisan', 'serve', '--host=0.0.0.0', '--port=80']
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
             - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
-            WWWUSER: '${WWWUSER}'
+            WWWUSER: '${WWWUSER:-1000}'
             LARAVEL_SAIL: 1
             XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
@@ -45,6 +76,51 @@ services:
             - meilisearch
             - mysql
             - redis
+    unit3d-chat:
+        build:
+            # zatat, a Pusher-protocol WebSocket server written in Rust. Pinned to a release tag.
+            context: 'https://github.com/Dokan-E-Commerce/zatat.git#v0.2.5'
+            dockerfile: Dockerfile
+        image: 'unit3d/chat:zatat-v0.2.5'
+        ports:
+            - '${FORWARD_CHAT_PORT:-8080}:8080'
+        ulimits:
+            nofile:
+                soft: 65536
+                hard: 65536
+        environment:
+            # The image ships a base config. Everything UNIT3D needs is set here, see the
+            # "Migrating the Chat Server" book page for the equivalent zatat.toml.
+            ZATAT_SERVER__HOST: '0.0.0.0'
+            ZATAT_SERVER__MAX_REQUEST_SIZE: 1000000
+            ZATAT_APPS__0__ID: '${PUSHER_APP_ID}'
+            ZATAT_APPS__0__KEY: '${PUSHER_APP_KEY}'
+            ZATAT_APPS__0__SECRET: '${PUSHER_APP_SECRET}'
+            ZATAT_APPS__0__ALLOWED_ORIGINS: '["${SSL_DOMAIN:-localhost}", "localhost"]'
+            ZATAT_APPS__0__MAX_MESSAGE_SIZE: 100000
+            ZATAT_APPS__0__MAX_CONNECTIONS: 20000
+            # zatat defaults to 100 members per presence channel, too few for a chatroom.
+            ZATAT_APPS__0__MAX_PRESENCE_MEMBERS_PER_CHANNEL: 10000
+            ZATAT_APPS__0__MAX_PRESENCE_MEMBER_SIZE_BYTES: 4096
+            ZATAT_APPS__0__ACCEPT_CLIENT_EVENTS_FROM: 'members'
+        networks:
+            - sail
+        restart: unless-stopped
+    queue:
+        image: sail-8.5/app
+        command: ['php', '-d', 'variables_order=EGPCS', 'artisan', 'queue:work', '--tries=3', '--timeout=90']
+        environment:
+            WWWUSER: '${WWWUSER:-1000}'
+            LARAVEL_SAIL: 1
+        volumes:
+            - '.:/var/www/html'
+        networks:
+            - sail
+        depends_on:
+            - unit3d-core
+            - mysql
+            - redis
+        restart: unless-stopped
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:

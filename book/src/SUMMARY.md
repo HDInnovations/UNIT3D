@@ -6,8 +6,9 @@
 
 # Getting Started
 
-- [Local Development (Arch Linux)](local_development_arch_linux.md)
-- [Local Development (MacOS)](local_development_macos.md)
+- [Local Development (Sail)](local_development.md)
+    - [MacOS](local_development_macos.md)
+    - [Arch Linux](local_development_arch_linux.md)
 
 # Server Setup & Management
 
@@ -15,6 +16,7 @@
 - [Meilisearch Setup](meilisearch_setup.md)
 - [UNIT3D-Announce](unit3d_announce.md)
 - [SystemD Migration](systemd_migration.md)
+- [Migrating the Chat Server](unit3d_chat_server_migration.md)
 
 # Performance & Optimization
 
