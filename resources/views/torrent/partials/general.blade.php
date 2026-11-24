@@ -11,7 +11,7 @@
         <li class="torrent__resolution">
             <a
                 class="torrent__resolution-link"
-                href="{{ route('torrents.index', ['resolutionIds' => [$torrent->category->id]]) }}"
+                href="{{ route('torrents.index', ['resolutionIds' => [$torrent->resolution->id]]) }}"
             >
                 {{ $torrent->resolution->name }}
             </a>
