@@ -16,42 +16,43 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\User;
 
+use App\Attributes\FromCurrentUserId;
 use App\Models\Torrent;
-use Closure;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
+use App\Models\User;
+use Override;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Between;
+use Spatie\LaravelData\Attributes\Validation\Different;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\References\FieldReference;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class StoreTorrentTipRequest extends FormRequest
+#[MergeValidationRules]
+class StoreTorrentTipRequest extends Data
 {
+    public function __construct(
+        #[Exists(Torrent::class, 'id')]
+        public int $torrentId,
+        public int $bon,
+        #[FromCurrentUserId]
+        public int $senderId,
+        #[Exists(User::class, 'id'), Different(new FieldReference('sender_id'))]
+        public int $recipientId,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<Closure|string>|string>
+     * @return array<string, array<ValidationRule>>
      */
-    public function rules(Request $request): array
+    public static function rules(): array
     {
-        $user = $request->user();
-
         return [
-            'torrent_id' => [
-                'required',
-                'exists:torrents,id',
-            ],
             'bon' => [
-                'required',
-                'numeric',
-                'min:1',
-                'max:'.$user->seedbonus,
-            ],
-            'recipient_id' => [
-                'required',
-                'exists:users,id',
-                'different:sender_id',
-            ],
-            'sender_id' => [
-                'required',
-                'exists:users,id',
-            ],
+                new Between(1, (float) auth()->user()->seedbonus),
+            ]
         ];
     }
 
@@ -60,23 +61,25 @@ class StoreTorrentTipRequest extends FormRequest
      *
      * @return array<string, string>
      */
-    public function messages(): array
+    public static function messages(): array
     {
         return [
-            'bon.min'                => trans('bon.failed-negative'),
-            'bon.max'                => trans('bon.failed-funds-poster'),
             'recipient_id.different' => trans('bon.failed-yourself'),
         ];
     }
 
     /**
-     * Prepare the data for validation.
+     * @param array<array-key, mixed> $properties
+     *
+     * @return array<array-key, mixed>
      */
-    protected function prepareForValidation(): void
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        $this->merge([
-            'sender_id'    => auth()->id(),
-            'recipient_id' => Torrent::query()->whereKey($this->torrent_id)->value('user_id'),
-        ]);
+        $properties['recipient_id'] = Torrent::query()
+            ->whereKey((int) $properties['torrent_id'])
+            ->value('user_id');
+
+        return $properties;
     }
 }

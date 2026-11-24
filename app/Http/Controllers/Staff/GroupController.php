@@ -23,7 +23,6 @@ use App\Models\ForumCategory;
 use App\Models\Group;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 
 /**
  * @see \Tests\Feature\Http\Controllers\Staff\GroupControllerTest
@@ -60,9 +59,9 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $group = Group::query()->create(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
+        $group = Group::query()->create($request->group->toArray());
 
-        $group->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
+        $group->permissions()->upsert($request->permissions->toArray(), ['forum_id', 'group_id']);
 
         Unit3dAnnounce::addGroup($group);
 
@@ -91,9 +90,9 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, Group $group): \Illuminate\Http\RedirectResponse
     {
-        $group->update(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
+        $group->update($request->group->toArray());
 
-        $group->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
+        $group->permissions()->upsert($request->permissions->toArray(), ['forum_id', 'group_id']);
 
         cache()->forget('group:'.$group->id);
 

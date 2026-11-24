@@ -23,6 +23,7 @@ use Assada\Achievements\Event\Unlocked;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Override;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -50,6 +51,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Register any events for your application.
      */
+    #[Override]
     public function boot(): void
     {
     }
@@ -57,6 +59,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Determine if events and listeners should be automatically discovered.
      */
+    #[Override]
     public function shouldDiscoverEvents(): bool
     {
         return false;

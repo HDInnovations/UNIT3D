@@ -16,33 +16,19 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Attributes\Validation\In;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Data;
 
-class UpdateUploadContestPrizeRequest extends FormRequest
+class UpdateUploadContestPrizeRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'type' => [
-                'required',
-                'string',
-                'in:bon,fl_tokens',
-            ],
-            'amount' => [
-                'required',
-                'integer',
-                'min:0',
-            ],
-            'position' => [
-                'required',
-                'integer',
-                'min:0',
-            ],
-        ];
+    public function __construct(
+        #[In('bon', 'fl_tokens')]
+        public string $type,
+        #[Min(0)]
+        public int $amount,
+        #[Min(0)]
+        public int $position,
+    ) {
     }
 }

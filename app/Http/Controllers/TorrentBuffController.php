@@ -102,15 +102,15 @@ class TorrentBuffController extends Controller
             'fl_until'  => 'nullable|numeric'
         ]);
 
-        if ($request->freeleech != 0) {
-            if ($request->fl_until !== null) {
+        if ($request->integer('freeleech') != 0) {
+            if ($request->filled('fl_until')) {
                 $torrent->fl_until = now()->addDays($request->integer('fl_until'));
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->integer('fl_until').' days.', $torrentUrl, $torrent->name, $request->integer('freeleech'))
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->integer('freeleech'))
                 );
             }
         } elseif ($torrent->free != 0) {
@@ -119,7 +119,7 @@ class TorrentBuffController extends Controller
             );
         }
 
-        $torrent->free = $request->freeleech;
+        $torrent->free = $request->integer('freeleech');
         $torrent->save();
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
@@ -179,10 +179,8 @@ class TorrentBuffController extends Controller
 
         Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
-        $appurl = config('app.url');
-
         $this->chatRepository->systemMessage(
-            \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
+            \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer featured.', href_torrent($torrent), $torrent->name)
         );
 
         $featured_torrent->delete();
@@ -243,7 +241,10 @@ class TorrentBuffController extends Controller
         $user = $request->user();
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        $activeToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
+        $activeToken = FreeleechToken::query()
+            ->where('user_id', '=', $user->id)
+            ->where('torrent_id', '=', $torrent->id)
+            ->exists();
 
         if ($user->fl_tokens >= 1 && !$activeToken) {
             $freeleechToken = new FreeleechToken();
@@ -256,7 +257,7 @@ class TorrentBuffController extends Controller
             $user->fl_tokens -= 1;
             $user->save();
 
-            cache()->put('freeleech_token:'.$user->id.':'.$torrent->id, true);
+            cache()->forget('freeleech_token:'.$user->id.':'.$torrent->id);
 
             $torrent->searchable();
 

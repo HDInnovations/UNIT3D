@@ -45,7 +45,7 @@ class UserMaxWarningsReached extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['mail'];
     }
@@ -55,7 +55,7 @@ class UserMaxWarningsReached extends Notification implements ShouldQueue
      *
      * @return array<int, object>
      */
-    public function middleware(object $notifiable, string $channel): array
+    public function middleware(object $_notifiable, string $channel): array
     {
         return match ($channel) {
             'mail'  => [new RateLimitOutboundMail()],
@@ -64,17 +64,24 @@ class UserMaxWarningsReached extends Notification implements ShouldQueue
     }
 
     /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         $profileUrl = href_profile($this->user);
 
         return (new MailMessage())
-            ->greeting('Max Hit and Run Warnings Reached!')
-            ->line('You have hit the limit on active Hit and Run Warnings! Your download privileges have been revoked!')
-            ->action('View Unsatisfied Torrents to seed off your warnings or wait until they expire!', $profileUrl)
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->greeting('Hit and run warning limit reached')
+            ->line('You reached the active hit and run warning limit. Download privileges were revoked.')
+            ->action('View unsatisfied torrents and seed, or wait for warnings to expire.', $profileUrl);
     }
 
     /**
@@ -82,12 +89,12 @@ class UserMaxWarningsReached extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'Max Hit and Run Warnings Reached!',
-            'body'  => 'You have hit the limit on active Hit and Run Warnings! Your download privileges have been revoked!',
-            'url'   => \sprintf('/users/%s', $this->user->username),
+            'title' => 'Hit and run warning limit reached',
+            'body'  => 'You reached the active hit and run warning limit. Download privileges were revoked.',
+            'url'   => route('users.show', ['user' => $this->user], false),
         ];
     }
 

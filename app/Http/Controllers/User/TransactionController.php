@@ -26,6 +26,7 @@ use App\Notifications\PersonalFreeleechCreated;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Feature\Http\Controllers\BonusControllerTest
@@ -57,13 +58,13 @@ class TransactionController extends Controller
     /**
      * Exchange Points For A Item.
      */
-    public function store(StoreTransactionRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function store(StoreTransactionRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
         return DB::transaction(function () use ($request, $user) {
             $user->refresh();
-            $bonExchange = BonExchange::query()->findOrFail($request->integer('exchange'));
+            $bonExchange = BonExchange::query()->findOrFail($request->exchange);
 
             if ($bonExchange->cost > $user->seedbonus) {
                 return back()->withErrors('Not enough BON.');
@@ -87,13 +88,13 @@ class TransactionController extends Controller
 
                     break;
                 case $bonExchange->personal_freeleech:
-                    if (cache()->get('personal_freeleech:'.$user->id)) {
+                    if (PersonalFreeleech::query()->where('user_id', '=', $user->id)->exists()) {
                         return back()->withErrors('Your previous personal freeleech is still active.');
                     }
 
                     PersonalFreeleech::query()->create(['user_id' => $user->id]);
 
-                    cache()->put('personal_freeleech:'.$user->id, true);
+                    cache()->forget('personal_freeleech:'.$user->id);
 
                     Unit3dAnnounce::addPersonalFreeleech($user->id);
 

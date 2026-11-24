@@ -33,9 +33,7 @@ class MassPrivateMessageController extends Controller
 
     public function store(StoreMassPrivateMessageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validated();
-
-        $userIds = User::query()->whereIntegerInRaw('group_id', $request->group_ids)->pluck('id');
+        $userIds = User::query()->whereIntegerInRaw('group_id', $request->groupIds)->pluck('id');
 
         foreach ($userIds as $userId) {
             dispatch(new ProcessMassPM(User::SYSTEM_USER_ID, $userId, $request->subject, $request->message));

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Enums\ApiScope;
 use App\Enums\AuthGuard;
 use App\Enums\GlobalRateLimit;
 use App\Enums\MiddlewareGroup;
+use App\Http\Middleware\CheckApiScope;
 use App\Http\Middleware\CheckIfBanned;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
@@ -44,20 +46,20 @@ if (config('unit3d.root_url_override')) {
 Route::middleware([Authenticate::using(AuthGuard::API->value), CheckIfBanned::class])->group(function (): void {
     // Torrents System
     Route::prefix('torrents')->group(function (): void {
-        Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('api.torrents.index');
-        Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter']);
-        Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+');
-        Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
+        Route::get('/', [App\Http\Controllers\API\TorrentController::class, 'index'])->name('api.torrents.index')->middleware(CheckApiScope::with(ApiScope::CAN_SEARCH, ApiScope::CAN_DOWNLOAD));
+        Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter'])->middleware(CheckApiScope::with(ApiScope::CAN_SEARCH, ApiScope::CAN_DOWNLOAD));
+        Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+')->middleware(CheckApiScope::with(ApiScope::CAN_DOWNLOAD));
+        Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store'])->middleware(CheckApiScope::with(ApiScope::CAN_UPLOAD));
     });
 
     // Requests System
     Route::prefix('requests')->group(function (): void {
-        Route::get('/filter', [App\Http\Controllers\API\TorrentRequestController::class, 'filter']);
+        Route::get('/filter', [App\Http\Controllers\API\TorrentRequestController::class, 'filter'])->middleware(CheckApiScope::with(ApiScope::CAN_SEARCH));
         Route::get('/{id}', [App\Http\Controllers\API\TorrentRequestController::class, 'show'])->where('id', '[0-9]+');
     });
 
     // User
-    Route::get('/user', [App\Http\Controllers\API\UserController::class, 'show']);
+    Route::get('/user', [App\Http\Controllers\API\UserController::class, 'show'])->middleware(CheckApiScope::with(ApiScope::CAN_VIEW_USER));
 });
 
 // Internal front-end web API routes

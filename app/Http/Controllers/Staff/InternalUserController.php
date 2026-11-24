@@ -27,20 +27,19 @@ class InternalUserController extends Controller
     public function store(StoreInternalUserRequest $request): \Illuminate\Http\RedirectResponse
     {
         InternalUser::query()->create([
-            'user_id'     => User::query()->where('username', '=', $request->string('username'))->value('id'),
-            'internal_id' => $request->integer('internal_id'),
-            'position'    => $request->integer('position'),
+            ...$request->toArray(),
+            'user_id' => User::query()->where('username', '=', $request->username)->soleValue('id'),
         ]);
 
         return to_route('staff.internals.edit', [
-            'internal' => $request->integer('internal_id')
+            'internal' => $request->internalId,
         ])
             ->with('success', 'User added to group.');
     }
 
     public function update(UpdateInternalUserRequest $request, InternalUser $internalUser): \Illuminate\Http\RedirectResponse
     {
-        $internalUser->update($request->validated());
+        $internalUser->update($request->toArray());
 
         return to_route('staff.internals.edit', [
             'internal' => $internalUser->internal_id

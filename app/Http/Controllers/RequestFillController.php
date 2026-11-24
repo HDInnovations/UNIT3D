@@ -33,22 +33,17 @@ class RequestFillController extends Controller
      */
     public function store(StoreRequestFillRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
     {
-        $torrent = Torrent::query()->find(basename((string) $request->torrent_id));
-
-        if ($torrent === null) {
+        if (Torrent::query()->whereKey($request->torrentId)->doesntExist()) {
             return to_route('requests.show', ['torrentRequest' => $torrentRequest])
                 ->withErrors("Submitted torrent link not found or not yet approved.");
         }
 
         $torrentRequest->update([
-            'filled_by'   => $request->user()->id,
-            'torrent_id'  => $torrent->id,
+            ...$request->toArray(),
             'filled_when' => now(),
-            'filled_anon' => $request->filled_anon,
         ]);
 
         // Send Private Message
-        $sender = $request->boolean('filled_anon') ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
         $requester->notify(new NewRequestFill($torrentRequest));

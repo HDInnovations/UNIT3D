@@ -20,8 +20,10 @@ use App\Http\Requests\StoreTorrentRequestBountyRequest;
 use App\Http\Requests\UpdateTorrentRequestBountyRequest;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
+use App\Models\User;
 use App\Notifications\NewRequestBounty;
 use App\Repositories\ChatRepository;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -38,28 +40,26 @@ class BountyController extends Controller
     /**
      * Add Bounty To A Torrent Request.
      */
-    public function store(StoreTorrentRequestBountyRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentRequestBountyRequest $request, TorrentRequest $torrentRequest, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
         abort_unless($torrentRequest->approved_when === null, 403);
 
-        $user = $request->user();
+        $currentUser->decrement('seedbonus', $request->seedbonus);
 
-        $user->decrement('seedbonus', $request->integer('seedbonus'));
+        $bounty = $torrentRequest->bounties()->create($request->toArray());
 
-        $bounty = $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
+        $torrentRequest->increment('bounty', $request->seedbonus);
 
-        $torrentRequest->increment('bounty', $request->integer('seedbonus'));
-
-        $torrentRequest->created_at = now();
+        $torrentRequest->bumped_at = now();
         $torrentRequest->save();
 
-        if ($request->boolean('anon') == 0) {
+        if (!$request->anon) {
             $this->chatRepository->systemMessage(
                 \sprintf(
                     '[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]',
-                    href_profile($user),
-                    $user->username,
-                    $request->input('seedbonus'),
+                    href_profile($currentUser),
+                    $currentUser->username,
+                    $request->seedbonus,
                     href_request($torrentRequest),
                     $torrentRequest->name
                 )
@@ -68,7 +68,7 @@ class BountyController extends Controller
             $this->chatRepository->systemMessage(
                 \sprintf(
                     'An anonymous user added %s BON bounty to request [url=%s]%s[/url]',
-                    $request->input('seedbonus'),
+                    $request->seedbonus,
                     href_request($torrentRequest),
                     $torrentRequest->name
                 )
@@ -83,11 +83,15 @@ class BountyController extends Controller
             ->with('success', trans('request.added-bonus'));
     }
 
-    public function update(UpdateTorrentRequestBountyRequest $request, TorrentRequest $torrentRequest, TorrentRequestBounty $torrentRequestBounty): \Illuminate\Http\RedirectResponse
-    {
-        abort_unless($request->user()->group->is_modo || $request->user()->id === $torrentRequestBounty->user_id, 403);
+    public function update(
+        UpdateTorrentRequestBountyRequest $request,
+        TorrentRequest $torrentRequest,
+        TorrentRequestBounty $torrentRequestBounty,
+        #[CurrentUser] User $currentUser,
+    ): \Illuminate\Http\RedirectResponse {
+        abort_unless($currentUser->group->is_modo || $currentUser->id === $torrentRequestBounty->user_id, 403);
 
-        $torrentRequestBounty->update($request->validated());
+        $torrentRequestBounty->update($request->toArray());
 
         return back();
     }

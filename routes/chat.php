@@ -50,18 +50,19 @@ Route::middleware([Authenticate::class, CheckIfBanned::class])->group(function (
 
         /* Messages */
         Route::post('/messages', [App\Http\Controllers\API\ChatController::class, 'createMessage']);
-        Route::post('/message/{id}/delete', [App\Http\Controllers\API\ChatController::class, 'deleteMessage']);
+        Route::post('/message/{id}/delete', [App\Http\Controllers\API\ChatController::class, 'deleteMessage'])->whereNumber('id');
         Route::get('/messages/{room_id}', [App\Http\Controllers\API\ChatController::class, 'messages']);
 
         /* Private Stuff */
-        Route::get('/private/messages/{target_id}', [App\Http\Controllers\API\ChatController::class, 'privateMessages']);
+        Route::get('/private/messages/{target_id}', [App\Http\Controllers\API\ChatController::class, 'privateMessages'])->whereNumber('target_id');
 
         /* Bot Stuff */
-        Route::get('/bot/{bot_id}', [App\Http\Controllers\API\ChatController::class, 'botMessages']);
+        Route::get('/bot/{bot_id}', [App\Http\Controllers\API\ChatController::class, 'botMessages'])->whereNumber('bot_id');
 
         /* Users */
         Route::post('/user/target', [App\Http\Controllers\API\ChatController::class, 'updateUserTarget']);
         Route::post('/user/chatroom', [App\Http\Controllers\API\ChatController::class, 'updateUserRoom']);
+        Route::post('/user/bot', [App\Http\Controllers\API\ChatController::class, 'updateBotRoom']);
         Route::post('/user/status', [App\Http\Controllers\API\ChatController::class, 'updateUserChatStatus']);
     });
 });

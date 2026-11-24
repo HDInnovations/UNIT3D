@@ -21,7 +21,6 @@ use App\Http\Requests\Staff\StoreBonEarningRequest;
 use App\Http\Requests\Staff\UpdateBonEarningRequest;
 use App\Models\BonEarning;
 use Exception;
-use Illuminate\Support\Arr;
 
 class BonEarningController extends Controller
 {
@@ -48,12 +47,12 @@ class BonEarningController extends Controller
      */
     public function store(StoreBonEarningRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $bonEarning = BonEarning::query()->create($request->validated('bon_earning'));
+        $bonEarning = BonEarning::query()->create($request->bonEarning->toArray());
 
-        $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
+        $bonEarning->conditions()->upsert($request->conditions->toArray(), ['id']);
 
         return to_route('staff.bon_earnings.index')
-            ->with('success', 'Bon exchange successfully added');
+            ->with('success', 'Bon earning successfully added');
     }
 
     /**
@@ -71,16 +70,16 @@ class BonEarningController extends Controller
      */
     public function update(UpdateBonEarningRequest $request, BonEarning $bonEarning): \Illuminate\Http\RedirectResponse
     {
-        $bonEarning->update($request->validated('bon_earning'));
+        $bonEarning->update($request->bonEarning->toArray());
 
         $bonEarning->conditions()
-            ->whereNotIn('id', Arr::flatten($request->validated('conditions.*.id', [])))
+            ->whereNotIn('id', array_column($request->conditions->toArray(), 'id'))
             ->delete();
 
-        $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
+        $bonEarning->conditions()->upsert($request->conditions->toArray(), ['id']);
 
         return to_route('staff.bon_earnings.index')
-            ->with('success', 'Bon exchange successfully modified');
+            ->with('success', 'Bon earning successfully modified');
     }
 
     /**
@@ -93,6 +92,6 @@ class BonEarningController extends Controller
         $bonEarning->delete();
 
         return to_route('staff.bon_earnings.index')
-            ->with('success', 'Bon exchange successfully deleted');
+            ->with('success', 'Bon earning successfully deleted');
     }
 }

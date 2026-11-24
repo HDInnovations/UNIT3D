@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\UploadContest;
 use App\Models\UploadContestPrize;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<UploadContestPrize> */
 class UploadContestPrizeFactory extends Factory
@@ -31,6 +32,7 @@ class UploadContestPrizeFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         $types = ['fl_tokens', 'bon'];

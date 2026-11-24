@@ -16,44 +16,35 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Attributes\Hidden;
+use Spatie\LaravelData\Attributes\Validation\Exclude;
+use Spatie\LaravelData\Attributes\Validation\In;
+use Spatie\LaravelData\Data;
 
-class UpdateBonExchangeRequest extends FormRequest
+class UpdateBonExchangeRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public bool $upload {
+        get => $this->type === 'upload';
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'description' => [
-                'required',
-                'string',
-            ],
-            'value' => [
-                'required',
-                'numeric',
-            ],
-            'cost' => [
-                'required',
-                'numeric',
-            ],
-            'type' => [
-                'required',
-                'string',
-                'in:upload,download,personal_freeleech,invite',
-                'exclude',
-            ],
-        ];
+    public bool $download {
+        get => $this->type === 'download';
+    }
+
+    public bool $personalFreeleech {
+        get => $this->type === 'personal_freeleech';
+    }
+
+    public bool $invite {
+        get => $this->type === 'invite';
+    }
+
+    public function __construct(
+        public string $description,
+        public int $value,
+        public int $cost,
+        #[In('upload', 'download', 'personal_freeleech', 'invite'), Exclude, Hidden]
+        public string $type,
+    ) {
     }
 }

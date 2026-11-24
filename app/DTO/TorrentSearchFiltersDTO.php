@@ -507,21 +507,21 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->categoryIds !== []) {
-            $filters[] = 'category.id IN '.json_encode(array_map('intval', $this->categoryIds));
+            $filters[] = 'category.id IN '.json_encode(array_map(intval(...), $this->categoryIds));
         }
 
         if ($this->typeIds !== []) {
-            $filters[] = 'type.id IN '.json_encode(array_map('intval', $this->typeIds));
+            $filters[] = 'type.id IN '.json_encode(array_map(intval(...), $this->typeIds));
         }
 
         if ($this->resolutionIds !== []) {
-            $filters[] = 'resolution.id IN '.json_encode(array_map('intval', $this->resolutionIds));
+            $filters[] = 'resolution.id IN '.json_encode(array_map(intval(...), $this->resolutionIds));
         }
 
         if ($this->genreIds !== []) {
             $filters[] = [
-                'tmdb_movie.genres.id IN '.json_encode(array_map('intval', $this->genreIds)),
-                'tmdb_tv.genres.id IN '.json_encode(array_map('intval', $this->genreIds)),
+                'tmdb_movie.genres.id IN '.json_encode(array_map(intval(...), $this->genreIds)),
+                'tmdb_tv.genres.id IN '.json_encode(array_map(intval(...), $this->genreIds)),
             ];
         }
 
@@ -529,10 +529,10 @@ readonly class TorrentSearchFiltersDTO
             if (\in_array(0, $this->regionIds, false)) {
                 $filters[] = [
                     'region_id IS NULL',
-                    'region_id IN '.json_encode(array_map('intval', $this->regionIds)),
+                    'region_id IN '.json_encode(array_map(intval(...), $this->regionIds)),
                 ];
             } else {
-                $filters[] = 'region_id IN '.json_encode(array_map('intval', $this->regionIds));
+                $filters[] = 'region_id IN '.json_encode(array_map(intval(...), $this->regionIds));
             }
         }
 
@@ -540,10 +540,10 @@ readonly class TorrentSearchFiltersDTO
             if (\in_array(0, $this->distributorIds, false)) {
                 $filters[] = [
                     'distributor_id IS NULL',
-                    'distributor_id IN '.json_encode(array_map('intval', $this->distributorIds)),
+                    'distributor_id IN '.json_encode(array_map(intval(...), $this->distributorIds)),
                 ];
             } else {
-                $filters[] = 'distributor_id IN '.json_encode(array_map('intval', $this->distributorIds));
+                $filters[] = 'distributor_id IN '.json_encode(array_map(intval(...), $this->distributorIds));
             }
         }
 
@@ -627,8 +627,8 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->primaryLanguageNames !== []) {
             $filters[] = [
-                'tmdb_movie.original_language IN '.json_encode(array_map('strval', $this->primaryLanguageNames)),
-                'tmdb_tv.original_language IN '.json_encode(array_map('strval', $this->primaryLanguageNames)),
+                'tmdb_movie.original_language IN '.json_encode(array_map(strval(...), $this->primaryLanguageNames)),
+                'tmdb_tv.original_language IN '.json_encode(array_map(strval(...), $this->primaryLanguageNames)),
             ];
         }
 
@@ -636,11 +636,11 @@ readonly class TorrentSearchFiltersDTO
             if (!(config('other.freeleech') || $this->user->group->is_freeleech)) {
                 if (\in_array(100, $this->free, false)) {
                     $filters[] = [
-                        'free IN '.json_encode(array_map('intval', $this->free)),
+                        'free IN '.json_encode(array_map(intval(...), $this->free)),
                         'featured = true',
                     ];
                 } else {
-                    $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
+                    $filters[] = 'free IN '.json_encode(array_map(intval(...), $this->free));
                 }
             }
         }

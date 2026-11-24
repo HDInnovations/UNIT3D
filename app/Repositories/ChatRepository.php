@@ -26,61 +26,57 @@ use App\Models\User;
 
 class ChatRepository
 {
-    public function message(int $userId, int $roomId, string $message, ?int $receiver = null, ?int $bot = null): Message
+    public function message(int $userId, ?int $roomId, string $message, ?int $bot = null): Message
     {
         $message = Message::query()->create([
             'user_id'     => $userId,
             'chatroom_id' => $roomId,
             'message'     => $message,
-            'receiver_id' => $receiver,
+            'receiver_id' => null,
             'bot_id'      => $bot,
         ]);
-
-        $this->checkMessageLimits($roomId);
 
         broadcast(new MessageSent($message));
 
         return $message;
     }
 
-    public function botMessage(int $botId, string $message, ?int $receiver = null): void
+    public function botMessage(int $botId, string $message, int $receiver): void
     {
-        $save = Message::query()->create([
+        $message = Message::query()->create([
             'bot_id'      => $botId,
-            'user_id'     => 1,
+            'user_id'     => User::SYSTEM_USER_ID,
             'chatroom_id' => null,
             'message'     => $message,
             'receiver_id' => $receiver,
-        ]);
-
-        $message = Message::query()->with([
-            'bot',
-            'user'     => ['group', 'chatStatus'],
-            'receiver' => ['group', 'chatStatus'],
-        ])->find($save->id);
+        ])
+            ->refresh()
+            ->load([
+                'bot',
+                'user'     => ['group', 'chatStatus'],
+                'receiver' => ['group', 'chatStatus'],
+            ]);
 
         event(new Chatter('new.bot', $receiver, new ChatMessageResource($message)));
         event(new Chatter('new.ping', $receiver, ['type' => 'bot', 'id' => $botId]));
         $message->delete();
     }
 
-    public function privateMessage(int $userId, string $message, ?int $receiver = null, ?int $bot = null, ?bool $ignore = null): Message
+    public function privateMessage(int $userId, string $message, int $receiver, ?int $bot = null, ?bool $ignore = null): Message
     {
-        $save = Message::query()->create([
+        $message = Message::query()->create([
             'user_id'     => $userId,
             'chatroom_id' => null,
             'message'     => $message,
             'receiver_id' => $receiver,
             'bot_id'      => $bot,
-        ]);
-
-        $message = Message::query()
-            ->with([
+        ])
+            ->refresh()
+            ->load([
                 'bot',
                 'user'     => ['group', 'chatStatus'],
                 'receiver' => ['group', 'chatStatus'],
-            ])
-            ->find($save->id);
+            ]);
 
         if ($ignore != null) {
             event(new Chatter('new.message', $userId, new ChatMessageResource($message)));
@@ -176,60 +172,20 @@ class ChatRepository
             ->get();
     }
 
-    public function checkMessageLimits(int $roomId): void
+    public function systemMessage(string $message): void
     {
-        $messages = $this->messages($roomId);
-        $limit = config('chat.message_limit');
-        $count = $messages->count();
+        $systemBotId = Bot::query()->where('command', 'systembot')->value('id');
 
-        // Lets purge all old messages and keep the database to the limit settings
-        if ($count > $limit) {
-            $deleteCount = $count - $limit;
-
-            for ($x = 1; $x <= $deleteCount; $x++) {
-                $message = $messages->last();
-                echo $message['id']."\n";
-
-                $message = Message::query()->find($message->id);
-
-                if ($message->receiver_id === null) {
-                    $message->delete();
-                }
-            }
-        }
-    }
-
-    public function systemMessage(string $message, ?int $bot = null): static
-    {
-        if ($bot) {
-            $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $bot);
-        } else {
-            $systemBotId = Bot::query()->where('command', 'systembot')->first()->id;
-
-            $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $systemBotId);
-        }
-
-        return $this;
-    }
-
-    public function systemChatroom(int|Chatroom|string|null $room = null): int
-    {
         $config = config('chat.system_chatroom');
 
-        if ($room !== null) {
-            if ($room instanceof Chatroom) {
-                $room = $room->id;
-            } elseif (\is_int($room)) {
-                $room = Chatroom::query()->findOrFail($room)->id;
-            } else {
-                $room = Chatroom::query()->where('name', '=', $room)->first()->id;
-            }
-        } elseif (\is_int($config)) {
-            $room = Chatroom::query()->findOrFail($config)->id;
-        } else {
-            $room = Chatroom::query()->where('name', '=', $config)->first()->id;
-        }
+        $systemChatroomId = Chatroom::query()
+            ->when(
+                \is_int($config),
+                fn ($query) => $query->where('id', '=', $config),
+                fn ($query) => $query->where('name', '=', $config),
+            )
+            ->value('id');
 
-        return $room;
+        $this->message(User::SYSTEM_USER_ID, $systemChatroomId, $message, $systemBotId);
     }
 }

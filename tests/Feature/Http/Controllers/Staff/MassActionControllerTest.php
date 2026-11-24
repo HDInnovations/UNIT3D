@@ -25,7 +25,7 @@ test('update returns an ok response', function (): void {
         'group_id'          => Group::query()->firstWhere('slug', 'validating')
     ]);
 
-    $this->get(route('staff.mass-actions.validate'))
+    $this->post(route('staff.mass-actions.validate'))
         ->assertRedirect(route('staff.dashboard.index'));
 
     expect(User::query()->where('email_verified_at', '=', null)->count())

@@ -113,7 +113,7 @@ class TorrentRequestSearch extends Component
     public int $perPage = 25;
 
     #[Url(history: true)]
-    public string $sortField = 'created_at';
+    public string $sortField = 'bumped_at';
 
     #[Url(history: true)]
     public string $sortDirection = 'desc';
@@ -322,7 +322,7 @@ class TorrentRequestSearch extends Component
                     $query->where('filled_by', '=', $user->id);
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage);
+                ->paginate(min($this->perPage, 100));
         }
     }
 

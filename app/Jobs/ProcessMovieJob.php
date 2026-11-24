@@ -22,7 +22,6 @@ use App\Models\TmdbCompany;
 use App\Models\TmdbCredit;
 use App\Models\TmdbGenre;
 use App\Models\TmdbMovie;
-use App\Models\TmdbPerson;
 use App\Models\Torrent;
 use App\Services\Tmdb\Client;
 use DateTime;
@@ -111,31 +110,12 @@ class ProcessMovieJob implements ShouldQueue
         // People
 
         $credits = $movieScraper->getCredits();
-        $people = [];
-        $cache = [];
-
-        foreach (array_unique(array_column($credits, 'tmdb_person_id')) as $personId) {
-            // TMDB caches their api responses for 8 hours, so don't abuse them
-
-            $cacheKey = "tmdb-person-scraper:{$personId}";
-
-            if (cache()->has($cacheKey)) {
-                continue;
-            }
-
-            $people[] = (new Client\Person($personId))->getPerson();
-
-            $cache[$cacheKey] = now();
-        }
-
-        TmdbPerson::query()->upsert($people, 'id');
-
-        if ($cache !== []) {
-            cache()->put($cache, 8 * 3600);
-        }
 
         TmdbCredit::query()->where('tmdb_movie_id', '=', $this->id)->delete();
-        TmdbCredit::query()->upsert($credits, ['tmdb_person_id', 'tmdb_movie_id', 'tmdb_tv_id', 'occupation_id', 'character']);
+
+        foreach (array_chunk($credits, 50) as $creditBatch) {
+            ProcessCreditJob::dispatch($creditBatch);
+        }
 
         // Recommendations
 

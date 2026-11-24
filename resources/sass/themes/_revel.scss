@@ -247,6 +247,7 @@
     --post-shadow: none;
     --post-head-fg: var(--text-color);
     --post-head-bg: #232323;
+    --post-pinned-separator-fg: #404040;
     --post-toolbar-bg: #232323;
     --post-toolbar-fg: #ccc;
     --post-toolbar-hover-bg: #262626;
@@ -447,12 +448,6 @@ body {
 
 .special-event-alert {
     margin-top: 2px;
-}
-
-.cookie-consent {
-    height: 38px;
-    line-height: 38px;
-    padding: 0 12px;
 }
 
 body > header {

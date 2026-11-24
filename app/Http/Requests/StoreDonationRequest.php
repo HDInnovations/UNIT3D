@@ -16,20 +16,22 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Attributes\FromCurrentUserId;
+use App\Models\DonationPackage;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Data;
 
-class StoreDonationRequest extends FormRequest
+class StoreDonationRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'package_id'  => 'integer|required|exists:donation_packages,id',
-            'transaction' => 'required|min:1|max:255',
-        ];
+    public function __construct(
+        #[Exists(DonationPackage::class, 'id')]
+        public int $packageId,
+        #[Min(1), Max(255)]
+        public string $transaction,
+        #[FromCurrentUserId]
+        public int $userId,
+    ) {
     }
 }

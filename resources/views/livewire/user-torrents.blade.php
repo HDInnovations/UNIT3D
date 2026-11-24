@@ -25,17 +25,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('unsatisfied').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('unsatisfied').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.unsatisfieds') }}
                                 </label>
@@ -44,17 +39,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('active').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('active').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('common.active') }}
                                 </label>
@@ -63,17 +53,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('completed').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('completed').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.completed') }}
                                 </label>
@@ -82,17 +67,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('prewarn').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('prewarn').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.prewarn') }}
                                 </label>
@@ -101,17 +81,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('hitrun').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('hitrun').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.hitrun') }}
                                 </label>
@@ -120,17 +95,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('immune').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('immune').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.immune') }}
                                 </label>
@@ -139,17 +109,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('uploaded').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('uploaded').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.uploaded') }}
                                 </label>
@@ -158,17 +123,12 @@
                                 <label
                                     style="user-select: none"
                                     class="form__label"
-                                    x-data="{ state: @entangle('downloaded').live, ...ternaryCheckbox() }"
+                                    x-data="ternaryCheckMark($wire.entangle('downloaded').live)"
                                 >
                                     <input
                                         type="checkbox"
                                         class="user-torrents__checkbox"
-                                        x-init="updateTernaryCheckboxProperties($el, state)"
-                                        x-on:click="
-                                            state = getNextTernaryCheckboxState(state);
-                                            updateTernaryCheckboxProperties($el, state)
-                                        "
-                                        x-bind:checked="state === 'include'"
+                                        x-bind="input"
                                     />
                                     {{ __('torrent.downloaded') }}
                                 </label>
@@ -724,22 +684,6 @@
         {{ $histories->links('partials.pagination') }}
     </section>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
-        function ternaryCheckbox() {
-            return {
-                updateTernaryCheckboxProperties(el, state) {
-                    el.indeterminate = state === 'exclude';
-                    el.checked = state === 'include';
-                },
-                getNextTernaryCheckboxState(state) {
-                    return state === 'include'
-                        ? 'exclude'
-                        : state === 'exclude'
-                          ? 'any'
-                          : 'include';
-                },
-            };
-        }
-
         document.addEventListener('alpine:init', () => {
             Alpine.data('userHistory', () => ({
                 updateImmune(immune) {

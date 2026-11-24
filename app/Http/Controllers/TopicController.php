@@ -88,8 +88,6 @@ class TopicController extends Controller
      */
     public function create(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         $forum = Forum::query()->with('category')->authorized(canStartTopic: true)->findOrFail($id);
 
         return view('forum.forum-topic.create', [
@@ -112,7 +110,7 @@ class TopicController extends Controller
         $forum = Forum::authorized(canStartTopic: true)->findOrFail($id);
 
         $topic = Topic::query()->create([
-            'name'               => $request->title,
+            'name'               => $request->string('title')->toString(),
             'state'              => 'open',
             'first_post_user_id' => $user->id,
             'last_post_user_id'  => $user->id,
@@ -144,9 +142,8 @@ class TopicController extends Controller
         ]);
 
         // Post To ShoutBox
-        $appUrl = config('app.url');
-        $topicUrl = \sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
-        $profileUrl = \sprintf('%s/users/%s', $appUrl, $user->username);
+        $topicUrl = route('topics.show', ['id' => $topic->id]);
+        $profileUrl = href_profile($user);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
@@ -246,12 +243,12 @@ class TopicController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
 
-        $newForum = Forum::authorized(canStartTopic: true)->whereKey($request->forum_id)->sole();
+        $newForum = Forum::authorized(canStartTopic: true)->whereKey($request->integer('forum_id'))->sole();
 
         $oldForum = $topic->forum;
 
         $topic->update([
-            'name'     => $request->name,
+            'name'     => $request->string('name')->toString(),
             'forum_id' => $newForum->id,
         ]);
 

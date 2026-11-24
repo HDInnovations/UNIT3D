@@ -63,15 +63,15 @@ class ApplicationController extends Controller
 
         $application->status = ModerationStatus::APPROVED;
         $application->moderated_at = now();
-        $application->moderated_by = $request->user()->id;
+        $application->moderated_by = $request->moderatedBy;
         $application->save();
 
         $invite = Invite::query()->create([
-            'user_id'    => $request->user()->id,
+            'user_id'    => $request->moderatedBy,
             'email'      => $application->email,
             'code'       => Uuid::uuid4()->toString(),
             'expires_on' => now()->addDays(config('other.invite_expire')),
-            'custom'     => $request->string('approve'),
+            'custom'     => $request->approve,
         ]);
 
         Mail::to($application->email)->send(new InviteUser($invite));
@@ -89,7 +89,7 @@ class ApplicationController extends Controller
         $application->update([
             'status'       => ModerationStatus::REJECTED,
             'moderated_at' => now(),
-            'moderated_by' => $request->user()->id,
+            'moderated_by' => $request->moderatedBy,
         ]);
 
         Mail::to($application->email)->send(new DenyApplication($request->deny));

@@ -16,16 +16,24 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Data;
 
-class StoreSubscriptionRequest extends FormRequest
+#[MergeValidationRules]
+class StoreSubscriptionRequest extends Data
 {
+    public function __construct(
+        public ?int $forumId,
+        public ?int $topicId,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, array<\Illuminate\Contracts\Validation\Rule|string>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
             'forum_id' => [

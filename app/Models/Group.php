@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Group.
@@ -56,7 +57,9 @@ use AllowDynamicProperties;
  * @property bool        $autogroup
  * @property bool        $system_required
  * @property int|null    $min_uploaded
+ * @property int|null    $min_actual_uploaded
  * @property int|null    $min_seedsize
+ * @property int|null    $min_avg_seedsize
  * @property int|null    $min_avg_seedtime
  * @property string|null $min_ratio
  * @property int|null    $min_age
@@ -97,6 +100,7 @@ final class Group extends Model
      *     min_ratio: 'decimal:2',
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [

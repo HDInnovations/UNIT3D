@@ -39,7 +39,7 @@ class HomeController extends Controller
             'movieCategoryIds' => Category::query()->where('movie_meta', '=', 1)->pluck('id')->toArray(),
             'tvCategoryIds'    => Category::query()->where('tv_meta', '=', 1)->pluck('id')->toArray(),
             'collections'      => TmdbCollection::query()->count(),
-            'persons'          => TmdbPerson::query()->whereNotNull('still')->count(),
+            'persons'          => TmdbPerson::query()->count(),
             'genres'           => TmdbGenre::query()->count(),
             'networks'         => TmdbNetwork::query()->count(),
             'companies'        => TmdbCompany::query()->count(),

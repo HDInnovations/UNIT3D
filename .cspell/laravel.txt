@@ -1,4 +1,5 @@
 arrayable
+assertable
 assertdontseetext
 dispatchable
 doesntcontain
@@ -16,6 +17,7 @@ mysql
 ordoesnthave
 pgsql
 queueable
+renderable
 sasl
 sslmode
 sqlite

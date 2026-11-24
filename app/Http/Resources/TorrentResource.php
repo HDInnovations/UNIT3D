@@ -20,6 +20,7 @@ use App\Enums\AuthGuard;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Override;
 
 /**
  * @mixin \App\Models\Torrent
@@ -45,9 +46,9 @@ class TorrentResource extends JsonResource
      *         resolution: string,
      *         distributor: string,
      *         region: string,
-     *         media_info: string,
-     *         bd_info: string,
-     *         description: string,
+     *         media_info: \Illuminate\Http\Resources\MissingValue|mixed,
+     *         bd_info: \Illuminate\Http\Resources\MissingValue|mixed,
+     *         description: \Illuminate\Http\Resources\MissingValue|mixed,
      *         size: float,
      *         folder: string|null,
      *         num_file: int,
@@ -86,6 +87,7 @@ class TorrentResource extends JsonResource
      *     }
      * }
      */
+    #[Override]
     public function toArray(Request $request): array
     {
         return [
@@ -93,7 +95,7 @@ class TorrentResource extends JsonResource
             'id'         => (string) $this->id,
             'attributes' => [
                 'meta' => [
-                    'poster' => isset($this->meta->poster) ? tmdb_image('poster_small', $this->meta->poster) : 'https://via.placeholder.com/90x135',
+                    'poster' => isset($this->meta->poster) ? tmdb_image('poster_small', $this->meta->poster) : null,
                     'genres' => isset($this->meta->genres) ? collect($this->meta->genres)->pluck('name')->implode(', ') : '',
                 ],
                 'name'         => $this->name,
@@ -103,9 +105,9 @@ class TorrentResource extends JsonResource
                 'resolution'   => $this->when(isset($this->resolution_id), $this->resolution->name ?? ''),
                 'distributor'  => $this->when(isset($this->distributor_id), $this->distributor->name ?? ''),
                 'region'       => $this->when(isset($this->region_id), $this->region->name ?? ''),
-                'media_info'   => $this->mediainfo,
-                'bd_info'      => $this->bdinfo,
-                'description'  => $this->description,
+                'media_info'   => $this->whenHas('mediainfo'),
+                'bd_info'      => $this->whenHas('bdinfo'),
+                'description'  => $this->whenHas('description'),
                 'size'         => $this->size,
                 'folder'       => $this->folder,
                 'num_file'     => $this->num_file,
@@ -145,6 +147,7 @@ class TorrentResource extends JsonResource
     /**
      * Customize the outgoing response for the resource.
      */
+    #[Override]
     public function withResponse(Request $request, JsonResponse $response): void
     {
         $response->setEncodingOptions(JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

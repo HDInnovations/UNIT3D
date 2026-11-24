@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<Invite> */
 class InviteFactory extends Factory
@@ -31,6 +32,7 @@ class InviteFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -46,14 +48,14 @@ class InviteFactory extends Factory
 
     public function expired(): self
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $_attributes) => [
             'expires_on' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
         ]);
     }
 
     public function accepted(): self
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $_attributes) => [
             'accepted_by' => User::factory(),
             'accepted_at' => $this->faker->dateTimeBetween('-1 month'),
         ]);

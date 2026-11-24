@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
@@ -33,6 +34,9 @@ use AllowDynamicProperties;
 final class WikiCategory extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\WikiCategoryFactory> */
+    use HasFactory;
 
     /**
      * Indicates if the model should be timestamped.

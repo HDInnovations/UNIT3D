@@ -67,7 +67,10 @@
                                 href="{{ route('staff.donations.index') }}"
                             >
                                 <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
-                                Donations
+                                Donations ({{ $pendingDonationsCount }})
+                                @if ($pendingDonationsCount > 0)
+                                    <x-animation.notification />
+                                @endif
                             </a>
                         </p>
                         <p class="form__group form__group--horizontal">
@@ -565,7 +568,7 @@
                 </p>
                 <div class="form__group form__group--horizontal">
                     <form
-                        method="GET"
+                        method="POST"
                         action="{{ route('staff.mass-actions.validate') }}"
                         x-data="confirmation"
                     >
@@ -710,18 +713,6 @@
                     </p>
                 @endif
 
-                <p class="form__group form__group--horizontal">
-                    <a
-                        class="form__button form__button--text"
-                        href="{{ route('staff.reports.index') }}"
-                    >
-                        <i class="{{ config('other.font-awesome') }} fa-file"></i>
-                        {{ __('staff.reports-log') }} ({{ $unsolvedReportsCount }})
-                        @if ($unsolvedReportsCount > 0)
-                            <x-animation.notification />
-                        @endif
-                    </a>
-                </p>
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"

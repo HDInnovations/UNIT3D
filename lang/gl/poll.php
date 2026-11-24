@@ -25,4 +25,10 @@ return [
     'vote' => 'Vota',
     'vote-now' => 'Obtén o teu voto agora mesmo!',
     'votes' => 'Votos',
+    'already-voted-error' => 'Xa votaches nesta enquisa. O teu voto non foi contabilizado.',
+    'already-voted-result' => 'Xa votaches nesta enquisa. Aquí tes os resultados.',
+    'expired-voted-result' => 'Esta enquisa caducou. Aquí están os resultados.',
+    'edit-poll' => 'Edita encuesta',
+    'vote-counted' => 'O teu voto foi contabilizado.',
+    'close-date' => 'Pechar a enquisa despois de',
 ];

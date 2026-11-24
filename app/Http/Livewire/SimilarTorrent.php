@@ -21,6 +21,7 @@ use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\History;
 use App\Models\IgdbGame;
+use App\Models\PersonalFreeleech;
 use App\Models\PlaylistCategory;
 use App\Models\TmdbMovie;
 use App\Models\Region;
@@ -36,6 +37,7 @@ use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -49,8 +51,10 @@ class SimilarTorrent extends Component
 
     public TmdbMovie|TmdbTv|IgdbGame $work;
 
+    #[Locked]
     public ?int $tmdbId;
 
+    #[Locked]
     public ?int $igdbId;
 
     public string $reason;
@@ -294,7 +298,7 @@ class SimilarTorrent extends Component
                     name: $this->name,
                     description: $this->description,
                     mediainfo: $this->mediainfo,
-                    keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
+                    keywords: $this->keywords ? array_map(trim(...), explode(',', $this->keywords)) : [],
                     uploader: $this->uploader,
                     episodeNumber: $this->episodeNumber,
                     seasonNumber: $this->seasonNumber,
@@ -392,7 +396,7 @@ class SimilarTorrent extends Component
     }
 
     /**
-     * @var ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie>
+     * @var ?\Illuminate\Database\Eloquent\Collection<int, TmdbMovie&object{pivot: \Illuminate\Database\Eloquent\Relations\Pivot}>
      */
     final protected ?\Illuminate\Database\Eloquent\Collection $collectionMovies {
         get => $this->work instanceof TmdbMovie ? $this->work->collections()->first()?->movies()->get() : null;
@@ -413,7 +417,7 @@ class SimilarTorrent extends Component
             type: 'warning',
             message: 'Are you sure?',
             body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
-                        .nl2br(implode("\n", $names)),
+                        .nl2br(implode("\n", array_map(e(...), $names))),
         );
     }
 
@@ -492,7 +496,7 @@ class SimilarTorrent extends Component
     }
 
     final protected bool $personalFreeleech {
-        get => cache()->get('personal_freeleech:'.auth()->id()) ?? false;
+        get => PersonalFreeleech::query()->where('user_id', '=', auth()->id())->exists();
     }
 
     /**

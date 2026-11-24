@@ -16,11 +16,11 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Group;
 use App\Models\History;
 use App\Notifications\UserPreWarning;
 use Illuminate\Console\Command;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AutoPreWarning extends Command
@@ -69,20 +69,30 @@ class AutoPreWarning extends Command
         $usersWithPreWarnings = [];
 
         foreach ($prewarn as $pre) {
-            History::query()
-                ->where('torrent_id', '=', $pre->torrent_id)
-                ->where('user_id', '=', $pre->user_id)
-                ->update([
-                    'prewarned_at' => now(),
-                    'updated_at'   => DB::raw('updated_at'),
-                ]);
+            History::withoutTimestamps(
+                fn () => History::query()
+                    ->where('torrent_id', '=', $pre->torrent_id)
+                    ->where('user_id', '=', $pre->user_id)
+                    ->update([
+                        'prewarned_at' => now(),
+                    ])
+            );
 
             // Add user to usersWithWarnings array
             $usersWithPreWarnings[$pre->user_id] = $pre->user;
         }
 
+        $inactiveGroupIds = Group::query()
+            ->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+            ->pluck('id')
+            ->all();
+
         // Send a single notification for each user with warnings
         foreach ($usersWithPreWarnings as $user) {
+            if (\in_array($user->group_id, $inactiveGroupIds, true)) {
+                continue;
+            }
+
             $user->notify(new UserPreWarning($user));
         }
 

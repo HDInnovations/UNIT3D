@@ -107,9 +107,7 @@ return [
     */
 
     'limiters' => [
-        'login'             => 'login',
-        'two-factor'        => 'two-factor',
-        'fortify-login-get' => 'fortify-login-get',
+        'login' => null,
     ],
 
     /*

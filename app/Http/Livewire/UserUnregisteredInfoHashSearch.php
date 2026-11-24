@@ -74,7 +74,7 @@ class UserUnregisteredInfoHashSearch extends Component
             ->whereNotNull('torrents.deleted_at')
             ->where('unregistered_info_hashes.updated_at', '>', now()->subHours(2))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

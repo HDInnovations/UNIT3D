@@ -21,4 +21,7 @@ return [
     'notifications' => 'Teated',
     'read' => 'Loe',
     'title' => 'Pealkiri',
+    'already-marked-read' => 'Teavitus on juba loetuks märgitud!',
+    'all-deleted' => 'Kõik teavitused kustutatud!',
+    'all-marked-read' => 'Kõik teavitused märgitud loetuks!',
 ];

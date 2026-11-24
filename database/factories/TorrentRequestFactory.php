@@ -23,6 +23,7 @@ use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TorrentRequest;
+use Override;
 
 /** @extends Factory<TorrentRequest> */
 class TorrentRequestFactory extends Factory
@@ -35,29 +36,33 @@ class TorrentRequestFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
-            'name'          => $this->faker->name(),
-            'category_id'   => Category::factory(),
-            'imdb'          => $this->faker->randomNumber(),
-            'tvdb'          => $this->faker->randomNumber(),
-            'tmdb_movie_id' => $this->faker->randomNumber(),
-            'tmdb_tv_id'    => $this->faker->randomNumber(),
-            'mal'           => $this->faker->randomNumber(),
-            'igdb'          => $this->faker->randomNumber(),
-            'description'   => $this->faker->text(),
-            'user_id'       => User::factory(),
-            'bounty'        => $this->faker->randomFloat(),
-            'anon'          => $this->faker->boolean(),
-            'filled_by'     => User::factory(),
-            'torrent_id'    => Torrent::factory(),
-            'filled_when'   => $this->faker->dateTime(),
-            'filled_anon'   => $this->faker->boolean(),
-            'approved_by'   => User::factory(),
-            'approved_when' => $this->faker->dateTime(),
-            'type_id'       => Type::factory(),
-            'resolution_id' => Resolution::factory(),
+            'name'        => $this->faker->name(),
+            'category_id' => Category::factory(),
+            'imdb'        => $this->faker->randomNumber(7, true),
+            'tvdb'        => $this->faker->randomNumber(7, true),
+            // 'tmdb_movie_id' => $this->faker->randomNumber(),
+            'tmdb_tv_id'     => $this->faker->randomNumber(7, true),
+            'mal'            => $this->faker->randomNumber(7, true),
+            'igdb'           => $this->faker->randomNumber(7, true),
+            'description'    => $this->faker->text(),
+            'user_id'        => User::factory(),
+            'bounty'         => $this->faker->randomFloat(),
+            'anon'           => $this->faker->boolean(),
+            'filled_by'      => User::factory(),
+            'torrent_id'     => Torrent::factory(),
+            'filled_when'    => $this->faker->dateTime(),
+            'filled_anon'    => $this->faker->boolean(),
+            'approved_by'    => User::factory(),
+            'approved_when'  => $this->faker->dateTime(),
+            'type_id'        => Type::factory(),
+            'resolution_id'  => Resolution::factory(),
+            'bumped_at'      => $this->faker->dateTime(),
+            'season_number'  => $this->faker->randomNumber(),
+            'episode_number' => $this->faker->randomNumber(),
         ];
     }
 }

@@ -45,7 +45,7 @@ class UserPreWarning extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database', 'mail'];
     }
@@ -55,7 +55,7 @@ class UserPreWarning extends Notification implements ShouldQueue
      *
      * @return array<int, object>
      */
-    public function middleware(object $notifiable, string $channel): array
+    public function middleware(object $_notifiable, string $channel): array
     {
         return match ($channel) {
             'mail'  => [new RateLimitOutboundMail()],
@@ -64,15 +64,22 @@ class UserPreWarning extends Notification implements ShouldQueue
     }
 
     /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable, string $channel): bool
+    {
+        return $channel !== 'mail' || $notifiable->hasVerifiedEmail();
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
         return (new MailMessage())
-            ->greeting('Hit and Run Pre Warning Received!')
-            ->line('You have received an automated hit and run PRE WARNING on one or more torrents!')
-            ->action('View your unsatisfied torrents and start seeding before you are issued a permanent WARNING!', route('users.history.index', ['user' => $this->user]))
-            ->line('Thank you for using 🚀'.config('other.title'));
+            ->greeting('Hit and run pre-warning')
+            ->line('You received a hit and run pre-warning on one or more torrents.')
+            ->action('View unsatisfied torrents and start seeding.', route('users.history.index', ['user' => $this->user]));
     }
 
     /**
@@ -80,11 +87,11 @@ class UserPreWarning extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'Hit and Run Pre Warning Received!',
-            'body'  => 'You have received an automated hit and run PRE WARNING on one or more torrents! View your unsatisfied torrents and start seeding before you are issued a permanent WARNING!!',
+            'title' => 'Hit and run pre-warning',
+            'body'  => 'You received a hit and run pre-warning on one or more torrents. View unsatisfied torrents and start seeding.',
             'url'   => route('users.history.index', ['user' => $this->user]),
         ];
     }

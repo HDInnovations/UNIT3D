@@ -34,8 +34,8 @@ return new class () extends Migration {
             $table->boolean('to_bot')->default(0)->index();
             $table->text('comment');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
-            $table->foreign('bot_id')->references('id')->on('bots')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
+            $table->foreign('bot_id')->references('id')->on('bots')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };

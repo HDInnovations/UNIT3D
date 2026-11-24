@@ -72,13 +72,13 @@ class ModerationController extends Controller
 
         $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->with('user')->findOrFail($id);
 
-        if (ModerationStatus::from($request->integer('old_status')) !== $torrent->status) {
+        if ($request->oldStatus !== $torrent->status) {
             return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors('Torrent has already been moderated since this page was loaded.');
         }
 
-        if (ModerationStatus::from($request->integer('status')) === $torrent->status) {
+        if ($request->status === $torrent->status) {
             return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors(
@@ -93,16 +93,16 @@ class ModerationController extends Controller
 
         $staff = auth()->user();
 
-        switch (ModerationStatus::from($request->integer('status'))) {
+        switch ($request->status) {
             case ModerationStatus::APPROVED:
                 // Announce To Shoutbox
                 if (!$torrent->anon) {
                     $this->chatRepository->systemMessage(
-                        \sprintf('User [url=%s/users/', config('app.url')).$torrent->user->username.']'.$torrent->user->username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
+                        'User [url='.href_profile($torrent->user).']'.$torrent->user->username.'[/url] has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
+                        'An anonymous user has uploaded a new '.$torrent->category->name.'. [url='.href_torrent($torrent).']'.$torrent->name.'[/url], grab it now!'
                     );
                 }
 

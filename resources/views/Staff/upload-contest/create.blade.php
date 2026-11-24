@@ -79,14 +79,10 @@
                 </p>
             </div>
             <p class="form__group">
-                <button class="form__button form__button--filled" wire:click="store">
+                <button class="form__button form__button--filled">
                     {{ __('common.save') }}
                 </button>
-                <button
-                    formmethod="dialog"
-                    formnovalidate
-                    class="form__button form__button--outlined"
-                >
+                <button class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>
             </p>

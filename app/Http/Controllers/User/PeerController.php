@@ -17,9 +17,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PeerController extends Controller
 {
@@ -32,7 +32,8 @@ class PeerController extends Controller
 
         return view('user.peer.index', [
             'user'    => $user,
-            'history' => DB::table('history')
+            'history' => History::query()
+                ->withTrashed()
                 ->where('user_id', '=', $user->id)
                 ->where('created_at', '>', $user->created_at)
                 ->selectRaw('sum(actual_uploaded) as upload')
@@ -66,13 +67,14 @@ class PeerController extends Controller
             ->where('updated_at', '<', $cutoff)
             ->delete();
 
-        $user->history()
-            ->where('active', '=', 1)
-            ->where('updated_at', '<', $cutoff)
-            ->update([
-                'active'     => 0,
-                'updated_at' => DB::raw('updated_at'),
-            ]);
+        History::withoutTimestamps(
+            fn () => $user->history()
+                ->where('active', '=', 1)
+                ->where('updated_at', '<', $cutoff)
+                ->update([
+                    'active' => 0,
+                ])
+        );
 
         $user->decrement('own_flushes');
 

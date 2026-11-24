@@ -23,6 +23,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Queue\SerializesModels;
+use Override;
 
 class Chatter implements ShouldBroadcastNow
 {
@@ -73,6 +74,7 @@ class Chatter implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      */
+    #[Override]
     public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('chatter.'.$this->target);

@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,8 +11,6 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
     /*
     |--------------------------------------------------------------------------
     | Password Reset Language Lines
@@ -24,10 +21,9 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
     'password' => 'Şifrə ən az 6 simvoldan ibarət olmalı və təkrarı ilə uyğun olmalıdır',
-    'reset'    => 'Şifrə yeniləndi',
-    'sent'     => 'Şifrə yeniləmə adresi sizə email olaraq göndərildi',
-    'token'    => 'Bu şifrə yeniləmə kodu yanlışdır',
-    'user'     => "Bu email'ə uyğun istifadəçi tapılmadı",
+    'reset' => 'Şifrə yeniləndi',
+    'sent' => 'Şifrə yeniləmə adresi sizə email olaraq göndərildi',
+    'token' => 'Bu şifrə yeniləmə kodu yanlışdır',
+    'user' => "Bu email'ə uyğun istifadəçi tapılmadı",
 ];

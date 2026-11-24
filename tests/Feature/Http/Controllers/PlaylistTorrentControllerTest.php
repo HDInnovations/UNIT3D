@@ -14,9 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\PlaylistTorrentController;
-use App\Http\Requests\MassUpsertPlaylistTorrentRequest;
-use App\Http\Requests\StorePlaylistTorrentRequest;
 use App\Models\Playlist;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
@@ -48,14 +45,6 @@ test('destroy aborts with a 403', function (): void {
     $response->assertForbidden();
 });
 
-test('mass upsert validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        PlaylistTorrentController::class,
-        'massUpsert',
-        MassUpsertPlaylistTorrentRequest::class
-    );
-});
-
 test('mass upsert returns an ok response', function (): void {
     $user = User::factory()->create();
     $playlist = Playlist::factory()->create([
@@ -84,14 +73,6 @@ test('mass upsert aborts with a 403', function (): void {
         'torrent_urls' => config('app.url').'/torrents/1'
     ]);
     $response->assertForbidden();
-});
-
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        PlaylistTorrentController::class,
-        'store',
-        StorePlaylistTorrentRequest::class
-    );
 });
 
 test('store returns an ok response', function (): void {

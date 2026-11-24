@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\TmdbMovie.
@@ -65,6 +66,7 @@ final class TmdbMovie extends Model
      *
      * @return array{release_date: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

@@ -18,7 +18,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Requests\Staff\StoreDonationPackageRequest;
 use App\Http\Requests\Staff\UpdateDonationPackageRequest;
-use Illuminate\Http\Request;
 use App\Models\DonationPackage;
 use App\Http\Controllers\Controller;
 
@@ -45,7 +44,7 @@ class DonationPackageController extends Controller
      */
     public function store(StoreDonationPackageRequest $request): \Illuminate\Http\RedirectResponse
     {
-        DonationPackage::query()->create($request->validated());
+        DonationPackage::query()->create($request->toArray());
 
         return redirect()->route('staff.packages.index')
             ->with('success', 'Donation package added successfully!');
@@ -64,7 +63,7 @@ class DonationPackageController extends Controller
      */
     public function update(UpdateDonationPackageRequest $request, DonationPackage $package): \Illuminate\Http\RedirectResponse
     {
-        $package->update($request->validated());
+        $package->update($request->toArray());
 
         return redirect()->route('staff.packages.index')
             ->with('success', 'Donation package edited successfully!');
@@ -73,7 +72,7 @@ class DonationPackageController extends Controller
     /**
      * Delete A Donation Package.
      */
-    public function destroy(Request $request, DonationPackage $package): \Illuminate\Http\RedirectResponse
+    public function destroy(DonationPackage $package): \Illuminate\Http\RedirectResponse
     {
         $package->delete();
 

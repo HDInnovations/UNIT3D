@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use App\Models\UploadContest;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Override;
 
 /** @extends Factory<UploadContest> */
 class UploadContestFactory extends Factory
@@ -30,6 +31,7 @@ class UploadContestFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
@@ -38,8 +40,8 @@ class UploadContestFactory extends Factory
             'icon'        => $this->faker->imageUrl(),
             'active'      => $this->faker->boolean(),
             'awarded'     => $this->faker->boolean(),
-            'starts_at'   => $this->faker->dateTimeBetween('-1 month', '+1 month'),
-            'ends_at'     => $this->faker->dateTimeBetween('+1 month', '+2 months'),
+            'starts_at'   => $this->faker->dateTimeBetween('-1 month', '+1 month')->format('Y-m-d'),
+            'ends_at'     => $this->faker->dateTimeBetween('+1 month', '+2 months')->format('Y-m-d'),
         ];
     }
 }

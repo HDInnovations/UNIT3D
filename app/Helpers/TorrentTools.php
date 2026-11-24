@@ -81,10 +81,10 @@ class TorrentTools
     {
         $files = [];
 
-        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+        if (\array_key_exists('files', $decodedTorrent['info']) && \is_array($decodedTorrent['info']['files'])) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
-                $count = is_countable($file['path']) ? \count($file['path']) : 0;
+                $count = \is_array($file['path']) ? \count($file['path']) : 0;
 
                 for ($i = 0; $i < $count; $i++) {
                     if ($i + 1 === $count) {
@@ -116,9 +116,9 @@ class TorrentTools
     {
         $filenames = [];
 
-        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
+        if (\array_key_exists('files', $decodedTorrent['info']) && \is_array($decodedTorrent['info']['files'])) {
             foreach ($decodedTorrent['info']['files'] as $file) {
-                $count = is_countable($file['path']) ? \count($file['path']) : 0;
+                $count = \is_array($file['path']) ? \count($file['path']) : 0;
 
                 for ($i = 0; $i < $count; $i++) {
                     if (!\in_array($file['path'][$i], $filenames)) {
@@ -220,9 +220,9 @@ class TorrentTools
             $text = $text->toString();
         }
 
-        $keywords = array_filter(array_map('trim', explode(',', $text)));
+        $keywords = array_filter(array_map(trim(...), explode(',', $text)));
 
         // unique keywords only (case insensitive)
-        return array_values(array_intersect_key($keywords, array_unique(array_map('strtolower', $keywords))));
+        return array_values(array_intersect_key($keywords, array_unique(array_map(strtolower(...), $keywords))));
     }
 }

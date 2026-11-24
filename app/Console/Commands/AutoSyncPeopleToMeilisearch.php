@@ -49,16 +49,18 @@ class AutoSyncPeopleToMeilisearch extends Command
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
         $index = $client->index(config('scout.prefix').'people');
 
-        $people = TmdbPerson::all(['id', 'name', 'birthday', 'still']);
+        TmdbPerson::query()
+            ->select(['id', 'name', 'birthday', 'still'])
+            ->chunk(5000, function ($people) use ($index): void {
+                $documents = $people->map(fn ($person) => [
+                    'id'       => $person->id,
+                    'name'     => $person->name,
+                    'birthday' => $person->birthday,
+                    'still'    => $person->still,
+                ])->toArray();
 
-        $documents = $people->map(fn ($person) => [
-            'id'       => $person->id,
-            'name'     => $person->name,
-            'birthday' => $person->birthday,
-            'still'    => $person->still,
-        ])->toArray();
-
-        $index->addDocuments($documents);
+                $index->addDocuments($documents);
+            });
 
         $this->comment('Synced all people to Meilisearch in '.(int) (now()->diffInMilliseconds($start, true) / 1000).' seconds.');
     }

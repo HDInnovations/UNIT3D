@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\Exceptions\MetaFetchNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreWishRequest;
 use App\Models\Category;
@@ -24,6 +25,7 @@ use App\Models\Wish;
 use App\Services\Tmdb\Client\Movie;
 use App\Services\Tmdb\Client\TV;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 use JsonException;
 
 /**
@@ -42,6 +44,8 @@ class WishController extends Controller
             'user'   => $user,
             'wishes' => $user->wishes()
                 ->withCount(['movieTorrents', 'tvTorrents'])
+                ->withMin('movieTorrents', 'category_id')
+                ->withMin('tvTorrents', 'category_id')
                 ->latest()
                 ->paginate(25),
             'movieCategoryIds' => Category::query()->where('movie_meta', '=', 1)->pluck('id')->toArray(),
@@ -55,17 +59,17 @@ class WishController extends Controller
      *
      * @throws JsonException
      */
-    public function store(StoreWishRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function store(StoreWishRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user), 403);
+        abort_unless($currentUser->is($user), 403);
 
         switch ($request->meta) {
             case 'movie':
-                $meta = (new Movie((int) $request->tmdb_movie_id))->data;
-
-                if ($meta === null) {
+                try {
+                    $meta = (new Movie((int) $request->tmdbMovieId))->data;
+                } catch (MetaFetchNotFoundException) {
                     return to_route('users.wishes.index', ['user' => $user])
-                        ->withErrors('TMDB Bad Request!');
+                        ->withErrors('TMDB movie ID not found');
                 }
 
                 $title = $meta['title'].' ('.$meta['release_date'].')';
@@ -73,16 +77,16 @@ class WishController extends Controller
                 Wish::query()->create([
                     'user_id'       => $user->id,
                     'title'         => $title,
-                    'tmdb_movie_id' => $request->tmdb_movie_id,
+                    'tmdb_movie_id' => $request->tmdbMovieId,
                 ]);
 
                 break;
             case 'tv':
-                $meta = (new TV((int) $request->tmdb_tv_id))->data;
-
-                if ($meta === null) {
+                try {
+                    $meta = (new TV((int) $request->tmdbTvId))->data;
+                } catch (MetaFetchNotFoundException) {
                     return to_route('users.wishes.index', ['user' => $user])
-                        ->withErrors('TMDB Bad Request!');
+                        ->withErrors('TMDB TV ID not found');
                 }
 
                 $title = $meta['name'].' ('.$meta['first_air_date'].')';
@@ -90,7 +94,7 @@ class WishController extends Controller
                 Wish::query()->create([
                     'user_id'    => $user->id,
                     'title'      => $title,
-                    'tmdb_tv_id' => $request->tmdb_tv_id,
+                    'tmdb_tv_id' => $request->tmdbTvId,
                 ]);
 
                 break;

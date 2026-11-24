@@ -16,37 +16,32 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
+use App\Attributes\FromCurrentUserId;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Between;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\ValidationContext;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class StoreTorrentRequestBountyRequest extends FormRequest
+#[MergeValidationRules]
+class StoreTorrentRequestBountyRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public function __construct(
+        public int $seedbonus,
+        public bool $anon,
+        #[FromCurrentUserId]
+        public int $userId,
+    ) {
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, list<ValidationRule>>
      */
-    public function rules(Request $request): array
+    public static function rules(ValidationContext $context): array
     {
         return [
             'seedbonus' => [
-                'required',
-                'numeric',
-                'integer',
-                'min:100',
-                'max:'.$request->user()->seedbonus,
-            ],
-            'anon' => [
-                'required',
-                'boolean',
+                new Between(config('other.bon.min-bounty'), (float) auth()->user()->seedbonus),
             ]
         ];
     }

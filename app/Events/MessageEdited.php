@@ -23,6 +23,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Override;
 
 class MessageEdited implements ShouldBroadcastNow
 {
@@ -47,6 +48,7 @@ class MessageEdited implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      */
+    #[Override]
     public function broadcastOn(): PresenceChannel
     {
         // $this->dontBroadcastToCurrentUser();

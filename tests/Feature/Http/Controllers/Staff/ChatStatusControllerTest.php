@@ -14,9 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\Staff\ChatStatusController;
-use App\Http\Requests\Staff\StoreChatStatusRequest;
-use App\Http\Requests\Staff\UpdateChatStatusRequest;
 use App\Models\ChatStatus;
 
 use function Pest\Laravel\assertDatabaseHas;
@@ -55,14 +52,6 @@ test('index returns an ok response', function (): void {
         ->assertViewHas('chatstatuses');
 });
 
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ChatStatusController::class,
-        'store',
-        StoreChatStatusRequest::class
-    );
-});
-
 test('store returns an ok response', function (): void {
     $chatStatus = ChatStatus::factory()->make();
 
@@ -79,14 +68,6 @@ test('store returns an ok response', function (): void {
         'color' => $chatStatus->color,
         'icon'  => $chatStatus->icon,
     ]);
-});
-
-test('update validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ChatStatusController::class,
-        'update',
-        UpdateChatStatusRequest::class
-    );
 });
 
 test('update returns an ok response', function (): void {

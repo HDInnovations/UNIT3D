@@ -234,7 +234,7 @@ class PeerSearch extends Component
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', true))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

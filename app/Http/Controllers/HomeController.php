@@ -20,10 +20,14 @@ use App\Models\Article;
 use App\Models\Comment;
 use App\Models\FeaturedTorrent;
 use App\Models\Group;
+use App\Models\IgdbGame;
 use App\Models\Poll;
 use App\Models\Post;
+use App\Models\TmdbMovie;
+use App\Models\TmdbTv;
 use App\Models\Topic;
 use App\Models\User;
+use App\Traits\TorrentMeta;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Exception;
@@ -33,6 +37,8 @@ use Exception;
  */
 class HomeController extends Controller
 {
+    use TorrentMeta;
+
     /**
      * Display Home Page.
      *
@@ -134,10 +140,38 @@ class HomeController extends Controller
             'featured' => cache()->flexible(
                 'latest_featured',
                 $expiresAt,
-                fn () => FeaturedTorrent::query()->with([
-                    'torrent' => ['resolution', 'type', 'category'],
-                    'user.group',
-                ])->get(),
+                static function (): \Illuminate\Database\Eloquent\Collection {
+                    $featured = FeaturedTorrent::query()
+                        ->with([
+                            'torrent' => fn ($query) => $query
+                                ->with(['resolution', 'type', 'category', 'user.group'])
+                                ->select('*')
+                                ->selectRaw(self::META_TYPE_CASE.' AS meta'),
+                            'user',
+                        ])
+                        ->has('torrent')
+                        ->get();
+
+                    $movieIds = $featured->where('torrent.meta', '=', 'movie')->pluck('torrent.tmdb_movie_id');
+                    $tvIds = $featured->where('torrent.meta', '=', 'tv')->pluck('torrent.tmdb_tv_id');
+                    $gameIds = $featured->where('torrent.meta', '=', 'game')->pluck('torrent.igdb');
+
+                    $movies = TmdbMovie::query()->with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+                    $tv = TmdbTv::query()->with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
+                    $games = IgdbGame::query()->with('genres')->whereIntegerInRaw('id', $gameIds)->get()->keyBy('id');
+
+                    return $featured->map(static function ($feature) use ($movies, $tv, $games) {
+                        /** @phpstan-ignore property.notFound (We set this custom SQL property above) */
+                        $feature->torrent->setAttribute('meta', match ($feature->torrent->meta) {
+                            'movie' => $movies[$feature->torrent->tmdb_movie_id] ?? null,
+                            'tv'    => $tv[$feature->torrent->tmdb_tv_id] ?? null,
+                            'game'  => $games[$feature->torrent->tmdb_tv_id] ?? null,
+                            default => null,
+                        });
+
+                        return $feature;
+                    });
+                },
             ),
             'poll' => cache()->flexible('latest_poll', $expiresAt, function () {
                 return Poll::query()->where(function ($query): void {

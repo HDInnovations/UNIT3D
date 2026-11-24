@@ -86,7 +86,7 @@
                     </button>
                     <button
                         class="form__button form__button--outlined"
-                        x-on:click.prevent="options = Math.max(2, options - 1)"
+                        x-on:click.prevent="options = options > 2 ? options - 1 : 2"
                     >
                         {{ __('poll.delete-option') }}
                     </button>

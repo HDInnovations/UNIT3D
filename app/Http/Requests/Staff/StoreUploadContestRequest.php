@@ -16,41 +16,24 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
+use Spatie\LaravelData\Attributes\Validation\Date;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
-class StoreUploadContestRequest extends FormRequest
+class StoreUploadContestRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'description' => [
-                'required',
-                'string',
-                'max:65535',
-            ],
-            'icon' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'starts_at' => [
-                'required',
-                'date',
-            ],
-            'ends_at' => [
-                'required',
-                'date',
-            ],
-        ];
+    public function __construct(
+        #[Max(255)]
+        public string $name,
+        #[Max(65535)]
+        public string $description,
+        #[Max(255)]
+        public string $icon,
+        #[Date]
+        public Carbon $startsAt,
+        #[Date]
+        public Carbon $endsAt,
+    ) {
     }
 }

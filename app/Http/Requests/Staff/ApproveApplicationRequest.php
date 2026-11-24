@@ -16,35 +16,45 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
+use App\Attributes\FromCurrentUserId;
 use App\Enums\ModerationStatus;
+use App\Models\Invite;
+use App\Models\User;
 use App\Rules\EmailBlacklist;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rule as LaravelRule;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Email;
+use Spatie\LaravelData\Attributes\Validation\Enum;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Rule;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class ApproveApplicationRequest extends FormRequest
+#[MergeValidationRules]
+class ApproveApplicationRequest extends Data
 {
+    public function __construct(
+        #[Enum(ModerationStatus::class, only: [ModerationStatus::APPROVED])]
+        public ModerationStatus $status,
+        #[Email, Max(70), Rule([
+            new Unique(Invite::class),
+            new Unique(User::class),
+        ])]
+        public string $email,
+        public string $approve,
+        #[FromCurrentUserId]
+        public int $moderatedBy,
+    ) {
+    }
+
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Enum|string>|string>
+     * @return array<string, list<\Illuminate\Validation\ConditionalRules>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'status' => [
-                Rule::enum(ModerationStatus::class)->only([ModerationStatus::APPROVED]),
-            ],
             'email' => [
-                'required',
-                'string',
-                'email',
-                'max:70',
-                'unique:invites',
-                'unique:users',
-                Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist()),
-            ],
-            'approve' => [
-                'required',
+                LaravelRule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist())
             ],
         ];
     }

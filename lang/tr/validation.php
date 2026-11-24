@@ -108,7 +108,7 @@ return [
     'required_with' => ':attribute alanı, :values mevcut olduğunda gereklidir.',
     'required_with_all' => ':values mevcut olduğunda :attribute alanı zorunludur.',
     'required_without' => ':attribute alanı, :values mevcut olmadığında gereklidir.',
-    'required_without_all' => ':attribute alanı, :değerlerden hiçbiri mevcut olmadığında gereklidir.',
+    'required_without_all' => ':attribute alanı, :values değerlerinden hiçbiri olmadığında gereklidir.',
     'same' => ':attribute ve :other eşleşmelidir.',
     'size' => [
         'numeric' => ':attribute :size olmalıdır.',

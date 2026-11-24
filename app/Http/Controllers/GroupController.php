@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\History;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class GroupController extends Controller
 {
@@ -30,13 +30,15 @@ class GroupController extends Controller
         $user = $request->user();
 
         return view('group.index', [
-            'current'           => now(),
-            'user'              => $user,
-            'user_avg_seedtime' => DB::table('history')->where('user_id', '=', $user->id)->avg('seedtime'),
-            'user_account_age'  => (int) now()->diffInSeconds($user->created_at, true),
-            'user_seed_size'    => $user->seedingTorrents()->sum('size'),
-            'user_uploads'      => $user->torrents()->count(),
-            'groups'            => Group::query()->orderBy('position')->where('is_modo', '=', 0)->get(),
+            'current'              => now(),
+            'user'                 => $user,
+            'user_avg_seedtime'    => History::query()->withTrashed()->where('user_id', '=', $user->id)->avg('seedtime'),
+            'user_actual_uploaded' => History::query()->withTrashed()->where('user_id', '=', $user->id)->sum('actual_uploaded'),
+            'user_account_age'     => (int) now()->diffInSeconds($user->created_at, true),
+            'user_seed_size'       => $user->seedingTorrents()->sum('size'),
+            'user_avg_seed_size'   => $user->seedSizeHistory()->where('created_at', '>', now()->subDays(15))->avg('seed_size'),
+            'user_uploads'         => $user->torrents()->count(),
+            'groups'               => Group::query()->orderBy('position')->where('is_modo', '=', 0)->get(),
         ]);
     }
 }

@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\PlaylistCategory;
+use Override;
 
 /** @extends Factory<PlaylistCategory> */
 class PlaylistCategoryFactory extends Factory
@@ -30,6 +31,7 @@ class PlaylistCategoryFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [

@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\UserSetting.
@@ -73,7 +74,6 @@ final class UserSetting extends Model
      * Get the attributes that should be cast.
      *
      * @return array{
-     *     censor: 'bool',
      *     news_block_visible: 'bool',
      *     news_block_position: 'int',
      *     chat_block_visible: 'bool',
@@ -101,10 +101,10 @@ final class UserSetting extends Model
      *     unbookmark_torrents_on_completion: 'bool',
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [
-            'censor'                            => 'bool',
             'news_block_visible'                => 'bool',
             'news_block_position'               => 'int',
             'chat_block_visible'                => 'bool',

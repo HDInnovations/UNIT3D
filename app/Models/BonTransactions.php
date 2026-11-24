@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\BonTransactions.
@@ -67,6 +68,7 @@ final class BonTransactions extends Model
      *
      * @return array{cost: 'decimal:2'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

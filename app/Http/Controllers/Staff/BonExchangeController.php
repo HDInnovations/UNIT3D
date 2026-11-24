@@ -47,13 +47,7 @@ class BonExchangeController extends Controller
      */
     public function store(StoreBonExchangeRequest $request): \Illuminate\Http\RedirectResponse
     {
-        BonExchange::query()->create([
-            'upload'             => $request->type === 'upload',
-            'download'           => $request->type === 'download',
-            'personal_freeleech' => $request->type === 'personal_freeleech',
-            'invite'             => $request->type === 'invite',
-        ]
-        + $request->validated());
+        BonExchange::query()->create($request->toArray());
 
         return to_route('staff.bon_exchanges.index')
             ->with('success', 'Bon exchange successfully added');
@@ -74,13 +68,7 @@ class BonExchangeController extends Controller
      */
     public function update(UpdateBonExchangeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        BonExchange::query()->findOrFail($id)->update([
-            'upload'             => $request->type === 'upload',
-            'download'           => $request->type === 'download',
-            'personal_freeleech' => $request->type === 'personal_freeleech',
-            'invite'             => $request->type === 'invite',
-        ]
-        + $request->validated());
+        BonExchange::query()->findOrFail($id)->update($request->toArray());
 
         return to_route('staff.bon_exchanges.index')
             ->with('success', 'Bon exchange successfully modified');

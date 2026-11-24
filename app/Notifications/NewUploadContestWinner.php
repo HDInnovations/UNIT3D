@@ -38,7 +38,7 @@ class NewUploadContestWinner extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['database'];
     }
@@ -57,11 +57,11 @@ class NewUploadContestWinner extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
         return [
-            'title' => 'You have won an upload contest!',
-            'body'  => 'Your awards have been added to your account',
+            'title' => 'You won an upload contest',
+            'body'  => 'Your awards were added to your account.',
             'url'   => route('upload_contests.show', ['uploadContest' => $this->uploadContest]),
         ];
     }

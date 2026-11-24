@@ -1108,10 +1108,7 @@
             </section>
         @endif
 
-        <livewire:also-downloaded-works
-            :work="$work->withoutRelations()"
-            :categoryId="$category->id"
-        />
+        <livewire:also-downloaded-works :work="$work->withoutRelations()" />
 
         @if ($playlistCategories->isNotEmpty())
             <section class="panelV2">

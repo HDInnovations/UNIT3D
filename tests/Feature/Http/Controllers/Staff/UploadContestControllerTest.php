@@ -15,84 +15,55 @@ declare(strict_types=1);
  */
 
 use App\Models\UploadContest;
-use App\Models\Group;
-use App\Models\User;
 
 test('index upload contests returns an ok response', function (): void {
-    $group = Group::factory()->create([
-        'is_modo' => true,
-    ]);
-    $user = User::factory()->create([
-        'group_id' => $group->id,
-    ]);
-
     $uploadContests = UploadContest::factory()->times(3)->create();
 
-    $response = $this->actingAs($user)->get(route('staff.upload_contests.index'));
+    $this->get(route('staff.upload_contests.index'))
+        ->assertOk()
+        ->assertViewIs('Staff.upload-contest.index')
+        ->assertViewHas('uploadContests');
+});
 
-    $response->assertOk();
-    $response->assertViewIs('Staff.upload-contest.index');
-    $response->assertViewHas('uploadContests');
+test('edit upload contests returns an ok response', function (): void {
+    $uploadContest = UploadContest::factory()->create();
+
+    $this->get(route('staff.upload_contests.edit', [$uploadContest]))
+        ->assertOk()
+        ->assertViewIs('Staff.upload-contest.edit')
+        ->assertViewHas('uploadContest');
+});
+
+test('create upload contests returns an ok response', function (): void {
+    $this->get(route('staff.upload_contests.create'))
+        ->assertOk()
+        ->assertViewIs('Staff.upload-contest.create');
 });
 
 test('store a new upload contest returns an ok response', function (): void {
-    $group = Group::factory()->create([
-        'is_modo' => true,
-    ]);
-    $user = User::factory()->create([
-        'group_id' => $group->id,
-    ]);
+    $uploadContest = UploadContest::factory()->make()->makeHidden('awarded', 'active');
 
-    $data = [
-        'name'        => 'Test Upload Contest',
-        'description' => 'This is a test upload contest.',
-        'icon'        => 'fa-gamepad',
-        'starts_at'   => now()->subDays(7)->format('Y-m-d'),
-        'ends_at'     => now()->addDays(14)->format('Y-m-d'),
-    ];
-
-    $response = $this->actingAs($user)->post(route('staff.upload_contests.store'), $data);
-
-    $response->assertRedirect(route('staff.upload_contests.index'));
-    $this->assertDatabaseHas('upload_contests', $data);
+    $this->post(route('staff.upload_contests.store'), $uploadContest->toArray())
+        ->assertRedirect(route('staff.upload_contests.index'));
+    $this->assertDatabaseHas('upload_contests', $uploadContest->toArray());
 });
 
 test('update an upload contest returns an ok response', function (): void {
-    $group = Group::factory()->create([
-        'is_modo' => true,
-    ]);
-    $user = User::factory()->create([
-        'group_id' => $group->id,
-    ]);
-
     $uploadContest = UploadContest::factory()->create();
+    $newUploadContest = UploadContest::factory()->make()->makeHidden('awarded');
 
-    $data = [
-        'name'        => 'Updated Test Upload Contest',
-        'description' => 'This is an updated test upload contest.',
-        'icon'        => 'fa-gamepad',
-        'active'      => 1,
-        'starts_at'   => now()->subDays(7)->format('Y-m-d'),
-        'ends_at'     => now()->addDays(14)->format('Y-m-d'),
-    ];
-
-    $response = $this->actingAs($user)->patch(route('staff.upload_contests.update', ['uploadContest' => $uploadContest]), $data);
-
-    $response->assertRedirect(route('staff.upload_contests.index'));
-    $this->assertDatabaseHas('upload_contests', $data);
+    $this->patch(route('staff.upload_contests.update', [$uploadContest]), $newUploadContest->toArray())
+        ->assertRedirect(route('staff.upload_contests.index'));
+    $this->assertDatabaseHas('upload_contests', [
+        'id' => $uploadContest->id,
+        ...$newUploadContest->toArray(),
+    ]);
 });
 
 test('destroy an upload contest returns an ok response', function (): void {
-    $group = Group::factory()->create([
-        'is_modo' => true,
-    ]);
-    $user = User::factory()->create([
-        'group_id' => $group->id,
-    ]);
-
     $uploadContest = UploadContest::factory()->create();
 
-    $response = $this->actingAs($user)->delete(route('staff.upload_contests.destroy', $uploadContest));
-    $response->assertRedirect(route('staff.upload_contests.index'));
-    $this->assertDatabaseMissing('upload_contests', ['id' => $uploadContest->id]);
+    $this->delete(route('staff.upload_contests.destroy', $uploadContest))
+        ->assertRedirect(route('staff.upload_contests.index'));
+    $this->assertModelMissing($uploadContest);
 });

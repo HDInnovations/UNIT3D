@@ -16,41 +16,30 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Override;
+use Spatie\LaravelData\Data;
 
-class UpdateForumCategoryRequest extends FormRequest
+class UpdateForumCategoryRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-            ],
-            'slug' => [
-                'required',
-            ],
-            'position' => [
-                'required',
-            ],
-            'description' => [
-                'required',
-            ],
-        ];
+    public function __construct(
+        public string $name,
+        public string $slug,
+        public int $position,
+        public string $description,
+    ) {
     }
 
     /**
-     * Prepare the data for validation.
+     * @param array<mixed> $properties
+     *
+     * @return array<mixed>
      */
-    protected function prepareForValidation(): void
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        $this->merge([
-            'slug' => Str::slug($this->name),
-        ]);
+        $properties['slug'] = Str::slug($properties['name'] ?? '');
+
+        return $properties;
     }
 }

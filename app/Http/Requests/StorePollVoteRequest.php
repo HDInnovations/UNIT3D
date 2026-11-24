@@ -16,57 +16,48 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Option;
 use App\Models\Poll;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Container\Attributes\RouteParameter;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Attributes\Validation\ValidationAttribute;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\Constraints\WhereConstraint;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
  */
-class StorePollVoteRequest extends FormRequest
+#[MergeValidationRules]
+class StorePollVoteRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public function __construct(
+        /** @var list<int> */
+        public array $options,
+    ) {
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<int, \Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Exists|string>>
+     * @return array<string, array<int, \Illuminate\Validation\ConditionalRules|ValidationAttribute|string>>
      */
-    public function rules(Request $request): array
+    public static function rules(#[RouteParameter('poll')] Poll $poll): array
     {
-        /** @var Poll $poll */
-        $poll = $request->route('poll');
-
         return [
             'options' => [
-                'required',
-                'array',
-                Rule::when(!$poll->multiple_choice, 'max:1'),
-                'min:1',
+                new Min(1),
+                Rule::when(!$poll->multiple_choice, [
+                    new Max(1)
+                ]),
             ],
             'options.*' => [
                 'integer',
-                Rule::exists('options', 'id')->where('poll_id', $poll->id),
+                new Exists(Option::class, 'id', where: new WhereConstraint('poll_id', $poll->id)),
             ]
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            'options.required' => 'You must select an answer',
         ];
     }
 }

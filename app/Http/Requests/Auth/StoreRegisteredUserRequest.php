@@ -16,51 +16,56 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use App\Rules\EmailBlacklist;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\AlphaDash;
+use Spatie\LaravelData\Attributes\Validation\Between;
+use Spatie\LaravelData\Attributes\Validation\Confirmed;
+use Spatie\LaravelData\Attributes\Validation\Email;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Password;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
 
-class StoreRegisteredUserRequest extends FormRequest
+#[MergeValidationRules]
+class StoreRegisteredUserRequest extends Data
 {
-    /**
-     * Indicates if the validator should stop on the first rule failure.
-     *
-     * @var bool
-     */
-    protected $stopOnFirstFailure = true;
+    public function __construct(
+        public ?string $code,
+        #[Confirmed, Password(min: 12, letters: true, mixedCase: true, numbers: true, uncompromised: true)]
+        public string $password,
+        public ?string $captcha,
+        #[AlphaDash, Between(3, 25), Unique(User::class)]
+        public string $username,
+        #[Email(Email::RfcValidation, Email::DnsCheckValidation), Max(70), Unique(User::class)]
+        public string $email,
+    ) {
+    }
+
+    public static function stopOnFirstFailure(): bool
+    {
+        return true;
+    }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, array<int, \Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\ExcludeIf|Password|string>|\Illuminate\Validation\ConditionalRules|string>
+     * @return array<string, list<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\ExcludeIf>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
-        return  [
+        return [
             'code' => [
                 Rule::when(config('other.invite-only') === true, [
                     'required',
                     Rule::exists('invites', 'code')->withoutTrashed()->whereNull('accepted_by'),
-                ]),
-            ],
-            'password' => [
-                'required',
-                'string',
-                'confirmed',
-                Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
+                ])
             ],
             'captcha' => [
                 Rule::excludeIf(config('captcha.enabled') === false),
                 Rule::when(config('captcha.enabled') === true, 'hiddencaptcha'),
             ],
-            'username' => 'required|alpha_dash|string|between:3,25|unique:users',
-            'email'    => [
-                'required',
-                'string',
-                'email:rfc,dns',
-                'max:70',
-                'unique:users',
+            'email' => [
                 Rule::when(config('email-blacklist.enabled') === true, fn () => new EmailBlacklist()),
             ],
         ];

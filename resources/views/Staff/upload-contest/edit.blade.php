@@ -108,14 +108,10 @@
                 <label class="form__label" for="active">{{ __('common.active') }}?</label>
             </p>
             <p class="form__group">
-                <button class="form__button form__button--filled" wire:click="store">
+                <button class="form__button form__button--filled">
                     {{ __('common.save') }}
                 </button>
-                <button
-                    formmethod="dialog"
-                    formnovalidate
-                    class="form__button form__button--outlined"
-                >
+                <button class="form__button form__button--outlined">
                     {{ __('common.cancel') }}
                 </button>
             </p>
@@ -125,17 +121,16 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('contest.prizes') }}</h2>
             <div class="panel__actions">
-                <div class="panel__action" x-data="dialog">
-                    <button class="form__button form__button--text" x-bind="showDialog">
+                <div class="panel__action">
+                    <button class="form__button form__button--text" popovertarget="prize-add">
                         {{ __('common.add') }}
                     </button>
-                    <dialog class="dialog" x-bind="dialogElement">
+                    <dialog id="prize-add" class="dialog" popover>
                         <h3 class="dialog__heading">{{ __('event.add-prize') }}</h3>
                         <form
                             class="dialog__form"
                             method="POST"
                             action="{{ route('staff.upload_contests.prizes.store', ['uploadContest' => $uploadContest]) }}"
-                            x-bind="dialogForm"
                         >
                             @csrf
                             <input
@@ -188,9 +183,9 @@
                                     {{ __('common.add') }}
                                 </button>
                                 <button
-                                    formmethod="dialog"
-                                    formnovalidate
                                     class="form__button form__button--outlined"
+                                    type="button"
+                                    popovertarget="prize-add"
                                 >
                                     {{ __('common.cancel') }}
                                 </button>
@@ -227,14 +222,18 @@
                             <td>{{ $prize->amount }}</td>
                             <td>
                                 <menu class="data-table__actions">
-                                    <li class="data-table__action" x-data="dialog">
+                                    <li class="data-table__action">
                                         <button
                                             class="form__button form__button--text"
-                                            x-bind="showDialog"
+                                            popovertarget="prize-edit-{{ $prize->id }}"
                                         >
                                             {{ __('common.edit') }}
                                         </button>
-                                        <dialog class="dialog" x-bind="dialogElement">
+                                        <dialog
+                                            id="prize-edit-{{ $prize->id }}"
+                                            class="dialog"
+                                            popover
+                                        >
                                             <h3 class="dialog__heading">
                                                 {{ __('event.edit-prize') }}
                                             </h3>
@@ -242,7 +241,6 @@
                                                 class="dialog__form"
                                                 method="POST"
                                                 action="{{ route('staff.upload_contests.prizes.update', ['uploadContest' => $uploadContest, 'prize' => $prize]) }}"
-                                                x-bind="dialogForm"
                                             >
                                                 @csrf
                                                 @method('PATCH')
@@ -323,9 +321,9 @@
                                                         {{ __('common.edit') }}
                                                     </button>
                                                     <button
-                                                        formmethod="dialog"
-                                                        formnovalidate
                                                         class="form__button form__button--outlined"
+                                                        type="button"
+                                                        popovertarget="prize-edit-{{ $prize->id }}"
                                                     >
                                                         {{ __('common.cancel') }}
                                                     </button>

@@ -45,7 +45,7 @@ return [
         ],
 
         AuthGuard::API->value => [
-            'driver'   => 'token',
+            'driver'   => 'apikey',
             'provider' => 'users',
             'hash'     => false,
         ],

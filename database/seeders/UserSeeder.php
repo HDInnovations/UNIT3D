@@ -22,7 +22,6 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -44,7 +43,6 @@ class UserSeeder extends Seeder
                 'password'          => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
-                'api_token'         => Str::random(100),
                 'chatroom_id'       => Chatroom::query()
                     ->when(
                         \is_int(config('chat.system_chatroom')),
@@ -63,7 +61,6 @@ class UserSeeder extends Seeder
                 'password'          => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
-                'api_token'         => Str::random(100),
                 'chatroom_id'       => Chatroom::query()
                     ->when(
                         \is_int(config('chat.system_chatroom')),
@@ -82,7 +79,6 @@ class UserSeeder extends Seeder
                 'password'          => Hash::make(config('unit3d.default-owner-password')),
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
-                'api_token'         => Str::random(100),
                 'chatroom_id'       => Chatroom::query()
                     ->when(
                         \is_int(config('chat.system_chatroom')),

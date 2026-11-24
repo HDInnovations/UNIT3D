@@ -62,7 +62,7 @@ class ApplicationSearch extends Component
             ->when($this->status === '0', fn ($query) => $query->where('status', '=', ModerationStatus::PENDING))
             ->when($this->status === '2', fn ($query) => $query->where('status', '=', ModerationStatus::REJECTED))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     final public function destroy(int $id): void

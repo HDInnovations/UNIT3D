@@ -19,6 +19,7 @@ namespace App\Models;
 use App\Helpers\Bbcode;
 use App\Traits\Auditable;
 use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
@@ -37,6 +38,9 @@ use AllowDynamicProperties;
 final class Wiki extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\WikiFactory> */
+    use HasFactory;
 
     protected $guarded = [];
 

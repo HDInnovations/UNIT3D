@@ -20,8 +20,6 @@ use App\Models\Torrent;
 use App\Jobs\ProcessIgdbGameJob;
 use App\Jobs\ProcessMovieJob;
 use App\Jobs\ProcessTvJob;
-use App\Services\Igdb\IgdbScraper;
-use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Illuminate\Console\Command;
 use Throwable;
@@ -51,9 +49,6 @@ class FetchMeta extends Command
     {
         $start = now();
         $this->alert('Meta fetch queueing started. Fetching is done synchronously within this command. This can take awhile (~1 work per second).');
-
-        $tmdbScraper = new TMDBScraper();
-        $igdbScraper = new IgdbScraper();
 
         $onlyTypes = $this->option('only');
 
