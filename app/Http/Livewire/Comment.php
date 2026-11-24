@@ -175,7 +175,7 @@ class Comment extends Component
                 if (!\in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
                     $staff = User::query()->with('group')->find($this->comment->user_id);
 
-                    if ($staff?->group->is_modo) {
+                    if ($staff !== null && $staff->group->is_modo) {
                         $staff->notify(new NewComment($ticket, $reply));
                     }
                 }
