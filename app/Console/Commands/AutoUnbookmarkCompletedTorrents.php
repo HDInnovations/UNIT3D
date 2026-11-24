@@ -18,6 +18,7 @@ namespace App\Console\Commands;
 
 use App\Models\Bookmark;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class AutoUnbookmarkCompletedTorrents extends Command
 {
@@ -42,10 +43,10 @@ class AutoUnbookmarkCompletedTorrents extends Command
     {
         $start = now();
 
-        $affected = Bookmark::query()
+        $affected = DB::transaction(fn (): int => Bookmark::query()
             ->whereRelation('userSetting', 'unbookmark_torrents_on_completion', '=', true)
             ->whereRelation('history', 'completed_at', '>', now()->subDay())
-            ->delete();
+            ->delete(), 5);
 
         $this->comment($affected.' bookmarks unbookmarked on torrent completion in '.(int) now()->diffInSeconds($start, true).' seconds.');
     }
