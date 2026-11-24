@@ -105,7 +105,7 @@ test('user tags user on ticket does not create a notification for tagged user wh
         'group_id' => $staffGroup->id,
     ]);
     $commenter = User::factory()->create([
-        'group_id'    => $staffGroup->id,
+        'group_id'    => $group->id,
         'can_comment' => true,
     ]);
 
