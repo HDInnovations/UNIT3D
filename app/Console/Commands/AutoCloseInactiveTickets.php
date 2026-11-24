@@ -52,7 +52,9 @@ final class AutoCloseInactiveTickets extends Command
             ->whereNotNull('staff_id')
             ->with(['comments' => fn ($q) => $q->latest()])
             ->each(function (Ticket $ticket) use ($dryRun, $warnAfterDays, $closeAfterDays, $hoursUntilClosure): void {
-                $latestComment = $ticket->comments->first();
+                // Automated comments must not hide the last real reply. Otherwise a warned ticket would never be closed
+                $latestComment = $ticket->comments
+                    ->first(fn (Comment $comment) => $comment->user_id !== User::SYSTEM_USER_ID);
 
                 if ($latestComment === null) {
                     return;
@@ -72,8 +74,10 @@ final class AutoCloseInactiveTickets extends Command
                     return;
                 }
 
+                // Only a warning posted after the last staff reply counts. Not one from an earlier exchange
                 $hasWarning = $ticket->comments
-                    ->contains(fn (Comment $comment) => $comment->user_id === User::SYSTEM_USER_ID);
+                    ->contains(fn (Comment $comment) => $comment->user_id === User::SYSTEM_USER_ID
+                        && $comment->created_at->greaterThanOrEqualTo($staffRepliedAt));
 
                 if ($hasWarning && $staffRepliedAt->lessThanOrEqualTo($closureThreshold)) {
                     if (! $dryRun) {
