@@ -84,9 +84,8 @@
                                         <dt>HDR</dt>
                                         <dd>
                                             {{
-                                                implode(
-                                                    ', ',
-                                                    array_keys(
+                                                implode(', ', [
+                                                    ...array_keys(
                                                         [
                                                             'SDR' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'BT.709'),
                                                             'HLG' => str_contains($videoElement['transfer_characteristics'] ?? '', 'HLG'),
@@ -94,13 +93,11 @@
                                                             'PQ10' => ! array_key_exists('hdr_format', $videoElement) && array_key_exists('transfer_characteristics', $videoElement) && str_contains($videoElement['transfer_characteristics'], 'PQ') && str_contains($videoElement['color_primaries'], 'BT.2020'),
                                                             'HDR10' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'HDR10'),
                                                             'HDR10+' => array_key_exists('hdr_format', $videoElement) && (str_contains($videoElement['hdr_format'], 'HDR10+') || str_contains($videoElement['hdr_format'], 'SMPTE ST 2094 App 4')),
-                                                            'Dolby Vision Profile 5' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.05'),
-                                                            'Dolby Vision Profile 7' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.07'),
-                                                            'Dolby Vision Profile 8' => array_key_exists('hdr_format', $videoElement) && str_contains($videoElement['hdr_format'], 'dvhe.08'),
                                                         ],
                                                         true
-                                                    )
-                                                ) ?:
+                                                    ),
+                                                    ...array_key_exists('hdr_format', $videoElement) && preg_match('/(?:dvhe|dvh1)\.(\d{2})/', $videoElement['hdr_format'], $matches) ? ['Dolby Vision Profile ' . (int) $matches[1]] : [],
+                                                ]) ?:
                                                 __('common.unknown')
                                             }}
                                         </dd>
