@@ -246,6 +246,30 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Ticket auto close
+    |--------------------------------------------------------------------------
+    | Configures the `tickets:auto-close-inactive` command, which warns and then
+    | closes tickets where the user has not replied to the assigned staff member.
+    */
+    'ticket-auto-close' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Days after the last staff reply before the user is warned.
+        |--------------------------------------------------------------------------
+        | Example: 3
+        */
+        'warn-after-days' => 3,
+        /*
+        |--------------------------------------------------------------------------
+        | Days after the last staff reply before the ticket is closed.
+        |--------------------------------------------------------------------------
+        | Must be greater than `warn-after-days`. Example: 4
+        */
+        'close-after-days' => 4,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Mail
     |--------------------------------------------------------------------------
     | Configures outbound email rate limiting.

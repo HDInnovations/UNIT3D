@@ -35,7 +35,7 @@ final class AutoCloseInactiveTickets extends Command
      *
      * @var string
      */
-    protected $description = 'Pings inactive help desk tickets after 3 days and closes them after 4 days of user inactivity';
+    protected $description = 'Pings and then closes help desk tickets after a configurable period of user inactivity (see config/other.php)';
 
     /**
      * Execute the console command.
@@ -43,12 +43,15 @@ final class AutoCloseInactiveTickets extends Command
     final public function handle(): void
     {
         $dryRun = (bool) $this->option('dry-run');
+        $warnAfterDays = (int) config('other.ticket-auto-close.warn-after-days');
+        $closeAfterDays = (int) config('other.ticket-auto-close.close-after-days');
+        $hoursUntilClosure = max(0, $closeAfterDays - $warnAfterDays) * 24;
 
         Ticket::query()
             ->whereNull('closed_at')
             ->whereNotNull('staff_id')
             ->with(['comments' => fn ($q) => $q->latest()])
-            ->each(function (Ticket $ticket) use ($dryRun): void {
+            ->each(function (Ticket $ticket) use ($dryRun, $warnAfterDays, $closeAfterDays, $hoursUntilClosure): void {
                 $latestComment = $ticket->comments->first();
 
                 if ($latestComment === null) {
@@ -62,8 +65,8 @@ final class AutoCloseInactiveTickets extends Command
                 }
 
                 $staffRepliedAt = $latestComment->created_at;
-                $warningThreshold = now()->subDays(3);
-                $closureThreshold = now()->subDays(4);
+                $warningThreshold = now()->subDays($warnAfterDays);
+                $closureThreshold = now()->subDays($closeAfterDays);
 
                 if ($staffRepliedAt->greaterThan($warningThreshold)) {
                     return;
@@ -83,7 +86,7 @@ final class AutoCloseInactiveTickets extends Command
                         $ticket->update(['closed_at' => now()]);
                     }
 
-                    $this->line(sprintf('[closed] Ticket #%d', $ticket->id));
+                    $this->line(\sprintf('[closed] Ticket #%d', $ticket->id));
 
                     return;
                 }
@@ -92,12 +95,12 @@ final class AutoCloseInactiveTickets extends Command
                     if (! $dryRun) {
                         $ticket->comments()->create([
                             'user_id' => User::SYSTEM_USER_ID,
-                            'content' => 'This ticket will be automatically closed in 24 hours if there is no further response from you.',
+                            'content' => "This ticket will be automatically closed in {$hoursUntilClosure} hours if there is no further response from you.",
                             'anon'    => false,
                         ]);
                     }
 
-                    $this->line(sprintf('[pinged] Ticket #%d', $ticket->id));
+                    $this->line(\sprintf('[pinged] Ticket #%d', $ticket->id));
                 }
             }, 100);
 

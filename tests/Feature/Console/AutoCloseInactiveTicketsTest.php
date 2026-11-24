@@ -32,7 +32,7 @@ it('runs successfully with no tickets', function (): void {
 });
 
 it('pings a ticket when staff replied more than 3 days ago and no warning exists yet', function (): void {
-    $user  = User::factory()->create();
+    $user = User::factory()->create();
     $staff = User::factory()->create();
 
     $ticket = Ticket::factory()->create([
@@ -65,7 +65,7 @@ it('pings a ticket when staff replied more than 3 days ago and no warning exists
 });
 
 it('closes a ticket when a warning was already sent and staff replied more than 4 days ago', function (): void {
-    $user  = User::factory()->create();
+    $user = User::factory()->create();
     $staff = User::factory()->create();
 
     $ticket = Ticket::factory()->create([
@@ -111,7 +111,7 @@ it('closes a ticket when a warning was already sent and staff replied more than 
 });
 
 it('does not close or ping a ticket when the user has replied after the staff', function (): void {
-    $user  = User::factory()->create();
+    $user = User::factory()->create();
     $staff = User::factory()->create();
 
     $ticket = Ticket::factory()->create([
@@ -152,7 +152,7 @@ it('does not close or ping a ticket when the user has replied after the staff', 
 });
 
 it('does not modify any records when the dry-run flag is set', function (): void {
-    $user  = User::factory()->create();
+    $user = User::factory()->create();
     $staff = User::factory()->create();
 
     $ticket = Ticket::factory()->create([
@@ -184,7 +184,7 @@ it('does not modify any records when the dry-run flag is set', function (): void
 });
 
 it('skips tickets that are already closed', function (): void {
-    $user  = User::factory()->create();
+    $user = User::factory()->create();
     $staff = User::factory()->create();
 
     $ticket = Ticket::factory()->create([
@@ -209,4 +209,74 @@ it('skips tickets that are already closed', function (): void {
         ->run();
 
     expect($ticket->comments()->count())->toBe($commentCountBefore);
+});
+
+it('uses the configured thresholds for the warning and the closure', function (): void {
+    config([
+        'other.ticket-auto-close.warn-after-days'  => 1,
+        'other.ticket-auto-close.close-after-days' => 3,
+    ]);
+
+    $user = User::factory()->create();
+    $staff = User::factory()->create();
+
+    $ticket = Ticket::factory()->create([
+        'user_id'   => $user->id,
+        'staff_id'  => $staff->id,
+        'closed_at' => null,
+    ]);
+
+    $ticket->comments()->create([
+        'user_id'          => $staff->id,
+        'content'          => 'Waiting on you.',
+        'anon'             => false,
+        'commentable_type' => Ticket::class,
+        'commentable_id'   => $ticket->id,
+        'created_at'       => now()->subDay()->subHour(),
+    ]);
+
+    $this->artisan('tickets:auto-close-inactive')
+        ->assertExitCode(0)
+        ->run();
+
+    expect($ticket->fresh()->closed_at)->toBeNull();
+
+    $systemComment = $ticket->comments()
+        ->where('user_id', User::SYSTEM_USER_ID)
+        ->first();
+
+    expect($systemComment)->not->toBeNull();
+    expect($systemComment->content)->toContain('automatically closed in 48 hours');
+});
+
+it('does not ping a ticket that is inside the configured warning period', function (): void {
+    config([
+        'other.ticket-auto-close.warn-after-days'  => 7,
+        'other.ticket-auto-close.close-after-days' => 8,
+    ]);
+
+    $user = User::factory()->create();
+    $staff = User::factory()->create();
+
+    $ticket = Ticket::factory()->create([
+        'user_id'   => $user->id,
+        'staff_id'  => $staff->id,
+        'closed_at' => null,
+    ]);
+
+    $ticket->comments()->create([
+        'user_id'          => $staff->id,
+        'content'          => 'Waiting on you.',
+        'anon'             => false,
+        'commentable_type' => Ticket::class,
+        'commentable_id'   => $ticket->id,
+        'created_at'       => now()->subDays(5),
+    ]);
+
+    $this->artisan('tickets:auto-close-inactive')
+        ->assertExitCode(0)
+        ->run();
+
+    expect($ticket->fresh()->closed_at)->toBeNull();
+    expect($ticket->comments()->where('user_id', User::SYSTEM_USER_ID)->exists())->toBeFalse();
 });
