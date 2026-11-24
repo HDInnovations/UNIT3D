@@ -43,6 +43,7 @@ test('user tags user on ticket creates a notification for tagged user', function
     ]);
     $staffGroup = Group::factory()->create([
         'is_admin' => true,
+        'is_modo'  => true,
     ]);
 
     $staff = User::factory()->create([
@@ -96,6 +97,7 @@ test('user tags user on ticket does not create a notification for tagged user wh
     ]);
     $staffGroup = Group::factory()->create([
         'is_admin' => true,
+        'is_modo'  => true,
     ]);
 
     $staff = User::factory()->create([
