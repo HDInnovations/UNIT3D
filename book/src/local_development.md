@@ -62,7 +62,7 @@ MEILISEARCH_HOST=http://meilisearch:7700      # Not 127.0.0.1: that would be the
 PUSHER_HOST=unit3d-chat                       # The chat server container
 ```
 
-Keep `APP_SERVICE=unit3d-core`, `SESSION_SECURE_COOKIE=true` and `PUSHER_PORT=8080` from `.env.example`. You do not need to disable the Content Security Policy or HSTS, because the site is served over HTTPS.
+Keep `SESSION_SECURE_COOKIE=true` and `PUSHER_PORT=8080` from `.env.example`. You do not need to disable the Content Security Policy or HSTS, because the site is served over HTTPS.
 
 Optional, for detailed error pages and catching emails:
 
