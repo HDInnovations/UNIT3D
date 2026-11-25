@@ -56,7 +56,7 @@ class StoreTicketRequest extends Data
     public static function rules(): array
     {
         return [
-            'options.*' => [
+            'attachments.*' => [
                 new File(),
                 new Image(),
                 new Max(1024),
