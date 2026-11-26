@@ -17,14 +17,12 @@ declare(strict_types=1);
 namespace App\Http\Requests\API;
 
 use App\Attributes\FromCurrentUserId;
-use App\Enums\ModerationStatus;
 use App\Helpers\Bencode;
 use App\Helpers\TorrentTools;
 use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\Region;
 use App\Models\Resolution;
-use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -172,17 +170,6 @@ class StoreTorrentRequest extends Data
                         if (!TorrentTools::isValidFilename($name)) {
                             $fail('Invalid Filenames In Torrent Files!');
                         }
-                    }
-
-                    $torrent = Torrent::query()->withoutGlobalScope(ApprovedScope::class)->where('info_hash', '=', Bencode::get_infohash($decodedTorrent))->first();
-
-                    if ($torrent !== null) {
-                        match ($torrent->status) {
-                            ModerationStatus::PENDING   => $fail('A torrent with the same info_hash has already been uploaded and is pending moderation.'),
-                            ModerationStatus::APPROVED  => $fail('A torrent with the same info_hash has already been uploaded and has been approved.'),
-                            ModerationStatus::REJECTED  => $fail('A torrent with the same info_hash has already been uploaded and has been rejected.'),
-                            ModerationStatus::POSTPONED => $fail('A torrent with the same info_hash has already been uploaded and is currently postponed.'),
-                        };
                     }
                 },
             ],
