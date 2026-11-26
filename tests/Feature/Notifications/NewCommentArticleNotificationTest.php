@@ -71,11 +71,11 @@ test('user comments on article creates a notification for staff', function (): v
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$staff],
-        NewComment::class
+        NewComment::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('staff comments on own article does not create a notification for staff', function (): void {
@@ -114,10 +114,10 @@ test('staff comments on own article does not create a notification for staff', f
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($staff);
 });
 
-test('user comments on article does not a notification for staff user when all notifications are disabled', function (): void {
+test('user comments on article does not create a notification for staff user when all notifications are disabled', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()
@@ -160,5 +160,5 @@ test('user comments on article does not a notification for staff user when all n
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($staff);
 });

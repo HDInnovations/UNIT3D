@@ -16,38 +16,28 @@ declare(strict_types=1);
 
 namespace App\Listeners;
 
+use App\Models\Chatroom;
 use App\Models\User;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\AchievementUnlock;
 use Assada\Achievements\Event\Unlocked;
 use Illuminate\Support\Facades\Session;
 
 class AchievementUnlocked
 {
     /**
-     * AchievementUnlocked Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
-    /**
      * Handle the event.
      */
     public function handle(Unlocked $unlocked): void
     {
         // There's an AchievementProgress instance located on $event->progress
-        $user = User::query()->findOrFail($unlocked->progress->achiever_id);
+        $user = User::query()->findsole($unlocked->progress->achiever_id);
 
         if (auth()->id() === $user->id) {
             Session::flash('achievement', $unlocked->progress->details->name);
         }
 
         if ($user->privacy?->private_profile == 0) {
-            $profileUrl = href_profile($user);
-
-            $this->chatRepository->systemMessage(
-                \sprintf('User [url=%s]%s[/url] has unlocked the %s achievement!', $profileUrl, $user->username, $unlocked->progress->details->name)
-            );
+            Chatroom::systemChatroom()->notify(new AchievementUnlock($user, $unlocked));
         }
     }
 }

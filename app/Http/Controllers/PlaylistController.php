@@ -18,12 +18,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePlaylistRequest;
 use App\Http\Requests\UpdatePlaylistRequest;
+use App\Models\Chatroom;
 use App\Models\TmdbMovie;
 use App\Models\Playlist;
 use App\Models\PlaylistCategory;
 use App\Models\TmdbTv;
 use App\Models\User;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\PlaylistCreate;
 use App\Traits\TorrentMeta;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -37,13 +38,6 @@ use Illuminate\Container\Attributes\CurrentUser;
 class PlaylistController extends Controller
 {
     use TorrentMeta;
-
-    /**
-     * PlaylistController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
 
     /**
      * Display All Playlists.
@@ -81,9 +75,7 @@ class PlaylistController extends Controller
 
         // Announce To Shoutbox
         if (!$playlist->is_private) {
-            $this->chatRepository->systemMessage(
-                'User [url='.href_profile($currentUser).']'.$currentUser->username.'[/url] has created a new playlist [url='.href_playlist($playlist).']'.$playlist->name.'[/url] check it out now!'
-            );
+            Chatroom::systemChatroom()->notify(new PlaylistCreate($playlist));
         }
 
         return to_route('playlists.show', ['playlist' => $playlist])

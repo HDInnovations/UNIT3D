@@ -31,6 +31,7 @@ use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\Message;
 use App\Models\User;
+use App\Notifications\Chatbox\ChatStatusUpdate;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 
@@ -340,7 +341,7 @@ class ChatController extends Controller
         $user = $request->user();
         $status = ChatStatus::query()->findOrFail($request->integer('status_id'));
 
-        $this->chatRepository->systemMessage('[url=/users/'.$user->username.']'.$user->username.'[/url] has updated their status to [b]'.$status->name.'[/b]');
+        Chatroom::systemChatroom()->notify(new ChatStatusUpdate($user, $status));
 
         $user->chatStatus()->dissociate();
         $user->chatStatus()->associate($status);

@@ -67,11 +67,11 @@ test('comments on playlist creates a notification for playlist owner', function 
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$owner],
-        NewComment::class
+        NewComment::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('user comments on own playlist does not create a notification for self', function (): void {
@@ -109,7 +109,7 @@ test('user comments on own playlist does not create a notification for self', fu
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($owner);
 });
 
 test('comments on playlist does not create a notification for playlist owner when all notifications are disabled', function (): void {
@@ -151,5 +151,5 @@ test('comments on playlist does not create a notification for playlist owner whe
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSent($owner);
 });

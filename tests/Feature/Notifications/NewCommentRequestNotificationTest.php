@@ -66,7 +66,7 @@ test('comment own request does not create a notification for self', function ():
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($requester);
 });
 
 test('comment a request creates a notification for the requester', function (): void {
@@ -112,11 +112,11 @@ test('comment a request creates a notification for the requester', function (): 
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$requester],
-        NewComment::class
+        NewComment::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('comment a request creates a notification for the requester when request comment notifications are not disabled for specific group', function (): void {
@@ -164,14 +164,14 @@ test('comment a request creates a notification for the requester when request co
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$requester],
-        NewComment::class
+        NewComment::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
-test('comment a request creates a notification for the requester when all notifications are disabled', function (): void {
+test('comment a request does not create a notification for the requester when all notifications are disabled', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()
@@ -214,10 +214,10 @@ test('comment a request creates a notification for the requester when all notifi
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($requester);
 });
 
-test('comment a request creates a notification for the requester when request comment notifications are disabled', function (): void {
+test('comment a request does not create a notification for the requester when request comment notifications are disabled', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()
@@ -260,10 +260,10 @@ test('comment a request creates a notification for the requester when request co
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($requester);
 });
 
-test('comment a request creates a notification for the requester when request comment notifications are disabled for specific group', function (): void {
+test('comment a request does not create a notification for the requester when request comment notifications are disabled for specific group', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()
@@ -307,5 +307,5 @@ test('comment a request creates a notification for the requester when request co
 
     $this->assertEquals(1, Comment::query()->count());
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($requester);
 });

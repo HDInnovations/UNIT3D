@@ -17,11 +17,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePollVoteRequest;
+use App\Models\Chatroom;
 use App\Models\Option;
 use App\Models\Poll;
 use App\Models\User;
 use App\Models\Voter;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\PollVoteCreate;
 use Illuminate\Container\Attributes\CurrentUser;
 
 /**
@@ -29,13 +30,6 @@ use Illuminate\Container\Attributes\CurrentUser;
  */
 class PollVoteController extends Controller
 {
-    /**
-     * PollController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Vote On A Poll.
      */
@@ -50,9 +44,7 @@ class PollVoteController extends Controller
 
         $poll->users()->attach($currentUser);
 
-        $this->chatRepository->systemMessage(
-            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', href_profile($currentUser), $currentUser->username, href_poll($poll), $poll->title)
-        );
+        Chatroom::systemChatroom()->notify(new PollVoteCreate($poll, $currentUser));
 
         return to_route('polls.votes.index', ['poll' => $poll])
             ->with('success', trans('poll.vote-counted'));

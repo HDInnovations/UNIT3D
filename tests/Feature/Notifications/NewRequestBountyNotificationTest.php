@@ -20,6 +20,7 @@ use App\Models\TorrentRequest;
 use App\Models\User;
 use App\Models\UserNotification;
 use App\Notifications\NewRequestBounty;
+use Database\Seeders\UserSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 
@@ -72,11 +73,11 @@ test('add bounty to request creates a notification for the requester', function 
         'seedbonus'  => $bounty,
     ]);
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$requester],
-        NewRequestBounty::class
+        NewRequestBounty::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('add bounty to request creates a notification for the requester when bounty notifications not disabled for specific group', function (): void {
@@ -128,11 +129,11 @@ test('add bounty to request creates a notification for the requester when bounty
         'seedbonus'  => $bounty,
     ]);
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$requester],
-        NewRequestBounty::class
+        NewRequestBounty::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('add bounty to request does not create a notification for the requester when all notifications disabled', function (): void {
@@ -182,7 +183,7 @@ test('add bounty to request does not create a notification for the requester whe
         'seedbonus'  => $bounty,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($requester);
 });
 
 test('add bounty to request does not create a notification for the requester when request bounty notifications are disabled', function (): void {
@@ -232,7 +233,7 @@ test('add bounty to request does not create a notification for the requester whe
         'seedbonus'  => $bounty,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($requester);
 });
 
 test('add bounty to request does not create a notification for the requester when request bounty notifications are disabled for specific group', function (): void {
@@ -283,5 +284,5 @@ test('add bounty to request does not create a notification for the requester whe
         'seedbonus'  => $bounty,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($requester);
 });

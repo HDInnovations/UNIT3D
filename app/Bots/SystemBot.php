@@ -20,8 +20,10 @@ use App\Events\Chatter;
 use App\Http\Resources\ChatConversationResource;
 use App\Models\Bot;
 use App\Models\ChatConversation;
+use App\Models\Chatroom;
 use App\Models\Gift;
 use App\Models\User;
+use App\Notifications\Chatbox\GiftCreate;
 use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
 
@@ -104,12 +106,7 @@ class SystemBot
                 $recipient->notify(new NewBon($gift));
             }
 
-            $profileUrl = href_profile($this->target);
-            $recipientUrl = href_profile($recipient);
-
-            $this->chatRepository->systemMessage(
-                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $amount, $recipientUrl, $recipient->username)
-            );
+            Chatroom::systemChatroom()->notify(new GiftCreate($gift));
 
             return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';
         }

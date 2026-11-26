@@ -19,8 +19,10 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StorePollRequest;
 use App\Http\Requests\UpdatePollRequest;
+use App\Models\Chatroom;
 use App\Models\Poll;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\PollCreate;
+use App\Notifications\Chatbox\PollUpdate;
 use Exception;
 
 /**
@@ -28,13 +30,6 @@ use Exception;
  */
 class PollController extends Controller
 {
-    /**
-     * PollController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Display All Polls.
      */
@@ -72,9 +67,7 @@ class PollController extends Controller
 
         $poll->options()->upsert($request->options->toArray(), ['id'], []);
 
-        $this->chatRepository->systemMessage(
-            \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
-        );
+        Chatroom::systemChatroom()->notify(new PollCreate($poll));
 
         return to_route('staff.polls.index')
             ->with('success', 'Your poll has been created.');
@@ -105,9 +98,7 @@ class PollController extends Controller
 
         $poll->options()->upsert($request->options->toArray(), ['id'], ['name']);
 
-        $this->chatRepository->systemMessage(
-            \sprintf('A poll has been updated [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
-        );
+        Chatroom::systemChatroom()->notify(new PollUpdate($poll));
 
         return to_route('staff.polls.index')
             ->with('success', 'Your poll has been edited.');

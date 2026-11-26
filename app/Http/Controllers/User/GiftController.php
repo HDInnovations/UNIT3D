@@ -18,23 +18,17 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGiftRequest;
+use App\Models\Chatroom;
 use App\Models\Gift;
 use App\Models\User;
+use App\Notifications\Chatbox\GiftCreate;
 use App\Notifications\NewBon;
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Container\Attributes\CurrentUser;
 
 class GiftController extends Controller
 {
-    /**
-     * UserGiftController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Show previous gift history.
      */
@@ -79,7 +73,7 @@ class GiftController extends Controller
     {
         $receiver = User::query()->where('username', '=', $request->recipientUsername)->sole();
 
-        DB::transaction(function () use ($sender, $receiver, $request): void {
+        $gift = DB::transaction(function () use ($sender, $receiver, $request): Gift {
             $sender->decrement('seedbonus', $request->bon);
             $receiver->increment('seedbonus', $request->bon);
 
@@ -91,18 +85,11 @@ class GiftController extends Controller
             ]);
 
             $receiver->notify((new NewBon($gift))->afterCommit());
+
+            return $gift;
         });
 
-        $this->chatRepository->systemMessage(
-            \sprintf(
-                '[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]',
-                href_profile($sender),
-                $sender->username,
-                $request->bon,
-                href_profile($receiver),
-                $receiver->username
-            )
-        );
+        Chatroom::systemChatroom()->notify(new GiftCreate($gift));
 
         return redirect()->back()->with('success', trans('bon.gift-sent'));
     }

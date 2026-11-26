@@ -82,11 +82,11 @@ test('post in a topic creates a notification for the topic creator', function ()
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$topicOwner],
-        NewPost::class
+        NewPost::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('post in a topic creates a notification for the topic creator when post notifications are not disabled for specific group', function (): void {
@@ -144,11 +144,11 @@ test('post in a topic creates a notification for the topic creator when post not
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$topicOwner],
-        NewPost::class
+        NewPost::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('post in a topic does not create a notification for the topic creator when all notifications disabled', function (): void {
@@ -205,7 +205,7 @@ test('post in a topic does not create a notification for the topic creator when 
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($topicOwner);
 });
 
 test('post in a topic does not create a notification for the topic creator when post notifications are disabled', function (): void {
@@ -262,7 +262,7 @@ test('post in a topic does not create a notification for the topic creator when 
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($topicOwner);
 });
 
 test('post in a topic does not create a notification for the topic creator when post notifications are disabled for specific group', function (): void {
@@ -320,5 +320,5 @@ test('post in a topic does not create a notification for the topic creator when 
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($topicOwner);
 });

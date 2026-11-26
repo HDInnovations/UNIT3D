@@ -68,4 +68,16 @@ final class Chatroom extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public static function systemChatroom(): self
+    {
+        $config = config('chat.system_chatroom');
+
+        /** @phpstan-ignore function.impossibleType (phpstan-laravel is unable to tell that the config can be either int or string) */
+        if (\is_int($config)) {
+            return Chatroom::query()->findSole($config);
+        }
+
+        return Chatroom::query()->where('name', '=', $config)->firstOrFail();
+    }
 }

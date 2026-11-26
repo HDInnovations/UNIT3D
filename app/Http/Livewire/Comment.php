@@ -31,6 +31,7 @@ use App\Achievements\UserMadeTenComments;
 use App\Enums\ModerationStatus;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Chatroom;
 use App\Models\IgdbGame;
 use App\Models\TmdbCollection;
 use App\Models\TmdbMovie;
@@ -40,9 +41,9 @@ use App\Models\Ticket;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
+use App\Notifications\Chatbox\CommentCreate;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
-use App\Repositories\ChatRepository;
 use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
@@ -50,8 +51,6 @@ use Livewire\Component;
 class Comment extends Component
 {
     use CastLivewireProperties;
-
-    protected ChatRepository $chatRepository;
 
     public null|Article|IgdbGame|Playlist|Ticket|TmdbCollection|TmdbMovie|TmdbTv|Torrent|TorrentRequest $model;
 
@@ -77,11 +76,6 @@ class Comment extends Component
     public bool $isEditing = false;
 
     public string $editState = '';
-
-    final public function boot(ChatRepository $chatRepository): void
-    {
-        $this->chatRepository = $chatRepository;
-    }
 
     final public function mount(): void
     {
@@ -202,42 +196,7 @@ class Comment extends Component
 
         if (!$this->model instanceof Ticket) {
             // Auto Shout
-            $username = $reply->anon ? 'An anonymous user' : '[url='.href_profile($this->user).']'.$this->user->username.'[/url]';
-
-            switch ($this->model::class) {
-                case Article::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Article [url='.href_article($this->model).']'.$this->model->title.'[/url]');
-
-                    break;
-                case TmdbCollection::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Collection [url='.href_collection($this->model).']'.$this->model->name.'[/url]');
-
-                    break;
-                case Playlist::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Playlist [url='.href_playlist($this->model).']'.$this->model->name.'[/url]');
-
-                    break;
-                case TorrentRequest::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Torrent Request [url='.href_request($this->model).']'.$this->model->name.'[/url]');
-
-                    break;
-                case Torrent::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Torrent [url='.href_torrent($this->model).']'.$this->model->name.'[/url]');
-
-                    break;
-                case TmdbMovie::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Movie [url='.href_movie($this->model, $this->category).']'.$this->model->title.' ('.($this->model->release_date?->format('Y') ?? '').')'.'[/url]');
-
-                    break;
-                case TmdbTv::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on TV Show [url='.href_tv($this->model, $this->category).']'.$this->model->name.' ('.($this->model->first_air_date?->format('Y') ?? '').')'.'[/url]');
-
-                    break;
-                case IgdbGame::class:
-                    $this->chatRepository->systemMessage($username.' has left a comment on Game [url='.href_game($this->model, $this->category).']'.$this->model->name.' ('.($this->model->first_release_date?->format('Y') ?? '').')'.'[/url]');
-
-                    break;
-            }
+            Chatroom::systemChatroom()->notify(new CommentCreate($reply, $this->category));
 
             // Achievements
             if (!$reply->anon) {

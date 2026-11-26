@@ -75,11 +75,11 @@ test('accept a request fill creates a notification for the filler', function ():
 
     $response->assertRedirect(route('requests.show', $torrentRequest));
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$filler],
-        NewRequestFillApprove::class
+        NewRequestFillApprove::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('accept a request fill creates a notification for the filler when request accept notifications are not disabled for specific group', function (): void {
@@ -131,14 +131,14 @@ test('accept a request fill creates a notification for the filler when request a
 
     $response->assertRedirect(route('requests.show', $torrentRequest));
 
-    Notification::assertSentTo(
+    Notification::assertSentToTimes(
         [$filler],
-        NewRequestFillApprove::class
+        NewRequestFillApprove::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
-test('accept a request fill creates a notification for the filler when all notifications are disabled', function (): void {
+test('accept a request fill does not create a notification for the filler when all notifications are disabled', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()
@@ -186,10 +186,10 @@ test('accept a request fill creates a notification for the filler when all notif
 
     $response->assertRedirect(route('requests.show', $torrentRequest));
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($filler);
 });
 
-test('accept a request fill creates a notification for the filler when fill approve notifications are disabled', function (): void {
+test('accept a request fill does not create a notification for the filler when fill approve notifications are disabled', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()
@@ -235,10 +235,10 @@ test('accept a request fill creates a notification for the filler when fill appr
 
     $response->assertRedirect(route('requests.show', $torrentRequest));
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($filler);
 });
 
-test('accept a request fill creates a notification for the filler when request notifications are disabled for specific group', function (): void {
+test('accept a request fill does not create a notification for the filler when request notifications are disabled for specific group', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()
@@ -289,5 +289,5 @@ test('accept a request fill creates a notification for the filler when request n
 
     $response->assertRedirect(route('requests.show', $torrentRequest));
 
-    Notification::assertCount(0);
+    Notification::assertNothingSentTo($filler);
 });

@@ -16,8 +16,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\Chatroom;
 use App\Models\FeaturedTorrent;
-use App\Repositories\ChatRepository;
+use App\Notifications\Chatbox\TorrentFeatureRevoke;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
@@ -25,14 +26,6 @@ use Throwable;
 
 class AutoRemoveFeaturedTorrent extends Command
 {
-    /**
-     * AutoRemoveFeaturedTorrent Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -55,6 +48,7 @@ class AutoRemoveFeaturedTorrent extends Command
     final public function handle(): void
     {
         $featuredTorrents = FeaturedTorrent::query()->with('torrent')->where('created_at', '<', now()->subDays(7))->get();
+        $systemChatroom = Chatroom::systemChatroom();
 
         foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
@@ -63,9 +57,7 @@ class AutoRemoveFeaturedTorrent extends Command
                 $featuredTorrent->delete();
 
                 // Auto Announce Featured Expired
-                $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer featured.', route('torrents.show', ['id' => $featuredTorrent->torrent_id]), $featuredTorrent->torrent->name)
-                );
+                $systemChatroom->notify(new TorrentFeatureRevoke($featuredTorrent->torrent));
 
                 Unit3dAnnounce::removeFeaturedTorrent($featuredTorrent->torrent_id);
             }

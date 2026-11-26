@@ -18,11 +18,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTorrentRequestBountyRequest;
 use App\Http\Requests\UpdateTorrentRequestBountyRequest;
+use App\Models\Chatroom;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\User;
+use App\Notifications\Chatbox\BountyCreate;
 use App\Notifications\NewRequestBounty;
-use App\Repositories\ChatRepository;
 use Illuminate\Container\Attributes\CurrentUser;
 
 /**
@@ -30,13 +31,6 @@ use Illuminate\Container\Attributes\CurrentUser;
  */
 class BountyController extends Controller
 {
-    /**
-     * RequestController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
     /**
      * Add Bounty To A Torrent Request.
      */
@@ -53,27 +47,7 @@ class BountyController extends Controller
         $torrentRequest->bumped_at = now();
         $torrentRequest->save();
 
-        if (!$request->anon) {
-            $this->chatRepository->systemMessage(
-                \sprintf(
-                    '[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]',
-                    href_profile($currentUser),
-                    $currentUser->username,
-                    $request->seedbonus,
-                    href_request($torrentRequest),
-                    $torrentRequest->name
-                )
-            );
-        } else {
-            $this->chatRepository->systemMessage(
-                \sprintf(
-                    'An anonymous user added %s BON bounty to request [url=%s]%s[/url]',
-                    $request->seedbonus,
-                    href_request($torrentRequest),
-                    $torrentRequest->name
-                )
-            );
-        }
+        Chatroom::systemChatroom()->notify(new BountyCreate($bounty));
 
         $requester = $torrentRequest->user;
 
