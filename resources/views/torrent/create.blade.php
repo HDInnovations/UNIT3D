@@ -83,27 +83,27 @@
                     />
                 </p>
                 <p class="form__group" x-show="cats[cat].type === 'no'">
-                    <label for="torrent-cover" class="form__label">
+                    <label for="poster" class="form__label">
                         Cover {{ __('torrent.file') }} ({{ __('torrent.optional') }})
                     </label>
                     <input
-                        id="torrent-cover"
+                        id="poster"
                         class="upload-form-file form__file"
                         type="file"
                         accept=".jpg, .jpeg"
-                        name="torrent-cover"
+                        name="poster"
                     />
                 </p>
                 <p class="form__group" x-show="cats[cat].type === 'no'">
-                    <label for="torrent-banner" class="form__label">
+                    <label for="backdrop" class="form__label">
                         Banner {{ __('torrent.file') }} ({{ __('torrent.optional') }})
                     </label>
                     <input
-                        id="torrent-banner"
+                        id="backdrop"
                         class="upload-form-file form__file"
                         type="file"
                         accept=".jpg, .jpeg"
-                        name="torrent-banner"
+                        name="backdrop"
                     />
                 </p>
                 <p class="form__group">
