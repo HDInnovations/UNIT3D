@@ -17,10 +17,10 @@ jobs:
 
             # 2. Set Permissions
             -   name: Set file permissions
-                run: sudo find ${{ github.workspace }} -type f -exec chmod 664 {} \;
+                run: sudo find ${{ github.workspace }} -type f -exec chmod -v 664 {} \;
 
             -   name: Set folder permissions
-                run: sudo find ${{ github.workspace }} -type d -exec chmod 775 {} \;
+                run: sudo find ${{ github.workspace }} -type d -exec chmod -v 775 {} \;
 
             # 3. Commit Changes
             -   name: Commit changes
