@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePoll;
+use App\Http\Requests\Staff\StorePollRequest;
 use App\Http\Requests\UpdatePollRequest;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
@@ -66,7 +66,7 @@ class PollController extends Controller
     /**
      * Store A New Poll.
      */
-    public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePollRequest $request): \Illuminate\Http\RedirectResponse
     {
         $poll = Poll::query()->create($request->only('title', 'expiresAt', 'multipleChoice', 'userId')->toArray());
 

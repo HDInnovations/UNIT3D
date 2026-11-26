@@ -14,10 +14,9 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Staff;
 
 use App\Attributes\FromCurrentUserId;
-use App\Http\Requests\Staff\StorePollOptionRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Attributes\Validation\Date;
@@ -29,7 +28,7 @@ use Spatie\LaravelData\Data;
 /**
  * @see \Tests\Todo\Unit\Http\Requests\StorePollTest
  */
-class StorePoll extends Data
+class StorePollRequest extends Data
 {
     public function __construct(
         #[Min(10)]
