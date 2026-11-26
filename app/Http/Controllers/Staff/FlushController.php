@@ -77,10 +77,10 @@ class FlushController extends Controller
      */
     public function chat(): \Illuminate\Http\RedirectResponse
     {
-        foreach (Message::all() as $message) {
+        Message::query()->eachById(function ($message): void {
             broadcast(new MessageDeleted($message));
             $message->delete();
-        }
+        });
 
         $this->chatRepository->systemMessage(
             'Chatbox Has Been Flushed! :broom:'
