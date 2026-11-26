@@ -104,11 +104,12 @@
             position: static;
             box-shadow: none;
             margin-left: 24px;
-            background-color: inherit;
         }
 
-        .top-nav__dropdown > a {
+        .top-nav__dropdown > :is(a, button) {
             padding: 12px 10px;
+            width: 100%;
+            text-align: left;
         }
     }
 
@@ -125,7 +126,7 @@
 /* Dropdowns
 ******************************************************************************/
 
-.top-nav__dropdown > a {
+.top-nav__dropdown > :is(a, button) {
     padding: 6px 9px;
     margin: 0 5px;
     border-radius: 5px;
@@ -135,6 +136,10 @@
     font-size: 15px;
     white-space: nowrap;
     text-decoration: none;
+    interest-delay: 0s;
+    background: none;
+    border: none;
+    line-height: inherit;
 }
 
 @media (hover: none) {
@@ -149,13 +154,13 @@
     }
 }
 
-.top-nav__dropdown > a > .top-nav--left__container {
+.top-nav__dropdown > :is(a, button) > .top-nav--left__container {
     display: grid;
     align-items: center;
     position: relative;
 }
 
-.top-nav__dropdown > a > .top-nav--left__container > svg {
+.top-nav__dropdown > :is(a, button) > .top-nav--left__container > svg {
     position: absolute;
     top: -8px;
     right: -14px;
@@ -163,23 +168,21 @@
     height: 17px;
 }
 
-.top-nav__dropdown:hover > a,
-.top-nav__dropdown:focus-within > a {
+.top-nav__dropdown > :is(a, button):interest-source {
     color: var(--top-nav-dropdown-hover-fg);
     background-color: var(--top-nav-dropdown-hover-bg);
     text-decoration: var(--top-nav-dropdown-hover-text-decoration);
     text-underline-offset: 3px;
 }
 
-.top-nav__dropdown:hover > ul,
-.top-nav__dropdown:focus-within > ul {
+.top-nav__dropdown > ul:interest-target {
     display: flex;
 }
 
 .top-nav__dropdown > ul {
-    display: none;
     position: absolute;
-    top: calc(48px - 5px);
+    position-area: bottom span-right;
+    top: 5px;
     flex-direction: column;
     padding: 6px;
     row-gap: 6px;
@@ -189,12 +192,7 @@
     border: var(--top-nav-dropdown-menu-border);
     list-style-type: none;
     z-index: 1000;
-}
-
-@media screen and (min-width: 767px) and (max-width: 1400px) {
-    .top-nav__dropdown > ul {
-        top: calc(48px + 24px - 5px);
-    }
+    overflow: visible;
 }
 
 .top-nav__dropdown > ul::before {
