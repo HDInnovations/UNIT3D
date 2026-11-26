@@ -39,6 +39,9 @@ class UserSearch extends Component
     public int $perPage = 25;
 
     #[Url(history: true)]
+    public ?int $userId = null;
+
+    #[Url(history: true)]
     public string $username = '';
 
     #[Url(history: true)]
@@ -79,6 +82,7 @@ class UserSearch extends Component
     final protected \Illuminate\Pagination\LengthAwarePaginator $users {
         get => User::query()
             ->with('group')
+            ->when($this->userId !== null, fn ($query) => $query->where('id', '=', $this->userId))
             ->when($this->username !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->username.'%'))
             ->when(
                 $this->soundexUsername !== '',

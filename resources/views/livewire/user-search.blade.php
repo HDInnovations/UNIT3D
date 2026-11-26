@@ -8,6 +8,16 @@
                 <div class="form__group--short-horizontal">
                     <p class="form__group">
                         <input
+                            id="userId"
+                            class="form__text"
+                            type="text"
+                            wire:model.live="userId"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="userId">ID</label>
+                    </p>
+                    <p class="form__group">
+                        <input
                             id="username"
                             class="form__text"
                             type="text"
