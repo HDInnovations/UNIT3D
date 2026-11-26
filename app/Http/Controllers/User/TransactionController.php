@@ -19,7 +19,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Models\BonExchange;
-use App\Models\BonTransactions;
+use App\Models\BonTransaction;
 use App\Models\PersonalFreeleech;
 use App\Models\User;
 use App\Notifications\PersonalFreeleechCreated;
@@ -115,7 +115,7 @@ class TransactionController extends Controller
                     break;
             }
 
-            BonTransactions::query()->create([
+            BonTransaction::query()->create([
                 'bon_exchange_id' => $bonExchange->id,
                 'name'            => $bonExchange->description,
                 'cost'            => $bonExchange->value,
