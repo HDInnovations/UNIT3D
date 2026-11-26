@@ -19,16 +19,16 @@ namespace Database\Factories;
 use App\Models\BonExchange;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\BonTransactions;
+use App\Models\BonTransaction;
 use Override;
 
-/** @extends Factory<BonTransactions> */
-class BonTransactionsFactory extends Factory
+/** @extends Factory<BonTransaction> */
+class BonTransactionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      */
-    protected $model = BonTransactions::class;
+    protected $model = BonTransaction::class;
 
     /**
      * Define the model's default state.

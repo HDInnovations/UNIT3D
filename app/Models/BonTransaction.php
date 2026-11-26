@@ -23,7 +23,7 @@ use AllowDynamicProperties;
 use Override;
 
 /**
- * App\Models\BonTransactions.
+ * App\Models\BonTransaction.
  *
  * @property int      $id
  * @property int      $bon_exchange_id
@@ -37,9 +37,9 @@ use Override;
  * @property string   $created_at
  */
 #[AllowDynamicProperties]
-final class BonTransactions extends Model
+final class BonTransaction extends Model
 {
-    /** @use HasFactory<\Database\Factories\BonTransactionsFactory> */
+    /** @use HasFactory<\Database\Factories\BonTransactionFactory> */
     use HasFactory;
 
     /**

@@ -19,7 +19,7 @@ namespace App\Http\Controllers\User;
 use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
-use App\Models\BonTransactions;
+use App\Models\BonTransaction;
 use App\Models\Donation;
 use App\Models\History;
 use App\Models\Invite;
@@ -107,8 +107,8 @@ class UserController extends Controller
                 ->with(['torrent', 'user'])
                 ->latest('created_at')
                 ->paginate(10, ['*'], 'deletedWarningsPage'),
-            'boughtUpload' => BonTransactions::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
-            // 'boughtDownload'        => BonTransactions::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
+            'boughtUpload' => BonTransaction::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Upload%']])->sum('cost'),
+            // 'boughtDownload'        => BonTransaction::query()->where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
             'invitedBy' => Invite::query()->where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
