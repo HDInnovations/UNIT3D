@@ -120,10 +120,32 @@
                     @endif
                 </div>
             </header>
-            <div class="panel__body">
+            <div class="panel__body profile__container">
                 <article class="profileV2">
-                    <x-user-tag :user="$user" :anon="false" class="profile__username">
-                        <x-slot:appendedIcons>
+                    {{-- Reserve width for the username glyphs plus its group, custom, and donor icons. --}}
+                    @php
+                        $profileUsernameWidthUnits = max(mb_strwidth($user->username) * 1.1 + 4.5, 1);
+                        $profileUsernameFluidSize = round(100 / $profileUsernameWidthUnits, 4);
+                    @endphp
+
+                    <div class="profile__username">
+                        <div
+                            class="profile__username-viewport"
+                            style="
+                                --profile-username-fluid-size: clamp(
+                                    8px,
+                                    {{ $profileUsernameFluidSize }}cqi,
+                                    22px
+                                );
+                            "
+                        >
+                            <x-user-tag
+                                :user="$user"
+                                :anon="false"
+                                class="profile__username-identity"
+                            />
+                        </div>
+                        <span class="profile__username-actions">
                             @if ($user->isOnline())
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-circle text-green"
@@ -137,9 +159,12 @@
                             @endif
                             <a
                                 href="{{ route('users.conversations.create', ['user' => auth()->user(), 'username' => $user->username]) }}"
+                                aria-label="{{ __('common.message') }}"
+                                title="{{ __('common.message') }}"
                             >
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-envelope text-info"
+                                    aria-hidden="true"
                                 ></i>
                             </a>
                             @if ($user->warnings()->active()->exists())
@@ -149,8 +174,8 @@
                                     title="{{ __('user.active-warning') }}"
                                 ></i>
                             @endif
-                        </x-slot>
-                    </x-user-tag>
+                        </span>
+                    </div>
                     <time
                         datetime="{{ $user->created_at }}"
                         title="{{ $user->created_at }}"
