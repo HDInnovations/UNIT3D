@@ -39,7 +39,7 @@
                         id="title"
                         class="form__text"
                         minlength="10"
-                        name="title"
+                        name="poll[title]"
                         required
                         type="text"
                         value="{{ $poll->title }}"
@@ -52,7 +52,7 @@
                     <input
                         id="expires_at"
                         class="form__text"
-                        name="expires_at"
+                        name="poll[expires_at]"
                         type="dateTime-local"
                         value="{{ $poll->expires_at }}"
                     />
@@ -104,7 +104,7 @@
                         id="multiple_choice"
                         class="form__checkbox"
                         type="checkbox"
-                        name="multiple_choice"
+                        name="poll[multiple_choice]"
                         value="1"
                         @checked($poll->multiple_choice)
                     />

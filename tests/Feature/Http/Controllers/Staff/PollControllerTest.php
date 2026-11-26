@@ -33,12 +33,14 @@ test('store a poll returns an ok response', function (): void {
     $pollOption2 = 'Option 2';
 
     $response = $this->post(route('staff.polls.store'), [
-        'title'   => $pollTitle,
+        'poll' => [
+            'title'           => $pollTitle,
+            'multiple_choice' => 0,
+        ],
         'options' => [
             ['id' => 0, 'name' => $pollOption1],
             ['id' => 1, 'name' => $pollOption2],
         ],
-        'multiple_choice' => 0,
     ]);
 
     $response->assertRedirectToRoute('staff.polls.index');
@@ -68,13 +70,15 @@ test('store a poll with expiration date returns an ok response', function (): vo
     $pollOption2 = 'Option 2';
 
     $response = $this->post(route('staff.polls.store'), [
-        'title'      => $pollTitle,
-        'expires_at' => $pollUntil,
-        'options'    => [
+        'poll' => [
+            'title'           => $pollTitle,
+            'expires_at'      => $pollUntil,
+            'multiple_choice' => 0,
+        ],
+        'options' => [
             ['id' => 0, 'name' => $pollOption1],
             ['id' => 1, 'name' => $pollOption2],
         ],
-        'multiple_choice' => 0,
     ]);
 
     $this->assertDatabaseHas('polls', [
@@ -146,7 +150,7 @@ test('update returns an ok response', function (): void {
     $newOption = Option::factory()->make();
 
     $response = $this->patch(route('staff.polls.update', [$poll]), [
-        ...$poll->toArray(),
+        'poll'    => $poll->toArray(),
         'options' => [
             ...$poll->options->toArray(),
             [

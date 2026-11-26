@@ -17,9 +17,8 @@ declare(strict_types=1);
 namespace App\Http\Requests;
 
 use App\Http\Requests\Staff\UpdatePollOptionRequest;
-use Illuminate\Support\Carbon;
+use App\Http\Requests\Staff\UpdatePollPollRequest;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Attributes\Validation\Date;
 use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Min;
 use Spatie\LaravelData\Data;
@@ -27,11 +26,7 @@ use Spatie\LaravelData\Data;
 class UpdatePollRequest extends Data
 {
     public function __construct(
-        #[Min(10)]
-        public string $title,
-        #[Date]
-        public ?Carbon $expiresAt,
-        public bool $multipleChoice,
+        public UpdatePollPollRequest $poll,
         /** @var Collection<int, UpdatePollOptionRequest> */
         #[Min(2), Max(20)]
         public Collection $options,

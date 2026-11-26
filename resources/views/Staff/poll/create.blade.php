@@ -38,7 +38,7 @@
                         id="title"
                         class="form__text"
                         minlength="10"
-                        name="title"
+                        name="poll[title]"
                         required
                         type="text"
                         value="{{ old('title') }}"
@@ -51,7 +51,7 @@
                     <input
                         id="expires_at"
                         class="form__text"
-                        name="expires_at"
+                        name="poll[expires_at]"
                         type="date"
                         value="{{ old('expires_at') }}"
                     />
@@ -96,7 +96,7 @@
                     <input
                         id="multiple_choice"
                         class="form__checkbox"
-                        name="multiple_choice"
+                        name="poll[multiple_choice]"
                         type="checkbox"
                         value="1"
                     />

@@ -68,7 +68,7 @@ class PollController extends Controller
      */
     public function store(StorePollRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::query()->create($request->only('title', 'expiresAt', 'multipleChoice', 'userId')->toArray());
+        $poll = Poll::query()->create($request->poll->toArray());
 
         $poll->options()->upsert($request->options->toArray(), ['id'], []);
 
@@ -97,7 +97,7 @@ class PollController extends Controller
      */
     public function update(UpdatePollRequest $request, Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll->update($request->only('title', 'expiresAt', 'multipleChoice')->toArray());
+        $poll->update($request->poll->toArray());
 
         $poll->options()
             ->whereNotIn('id', array_column($request->options->toArray(), 'id'))

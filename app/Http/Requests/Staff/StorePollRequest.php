@@ -16,10 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use App\Attributes\FromCurrentUserId;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Attributes\Validation\Date;
 use Spatie\LaravelData\Attributes\Validation\ListType;
 use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Min;
@@ -31,13 +28,7 @@ use Spatie\LaravelData\Data;
 class StorePollRequest extends Data
 {
     public function __construct(
-        #[Min(10)]
-        public string $title,
-        #[Date]
-        public ?Carbon $expiresAt,
-        public bool $multipleChoice,
-        #[FromCurrentUserId]
-        public int $userId,
+        public StorePollPollRequest $poll,
         /** @var Collection<int, StorePollOptionRequest> */
         #[Min(2), Max(20), ListType]
         public Collection $options,
