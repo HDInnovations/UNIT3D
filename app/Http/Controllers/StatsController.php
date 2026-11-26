@@ -23,7 +23,6 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
 use App\Models\UserSetting;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Concurrency;
@@ -33,16 +32,6 @@ use Illuminate\Support\Facades\Concurrency;
  */
 class StatsController extends Controller
 {
-    public Carbon $carbon;
-
-    /**
-     * StatsController Constructor.
-     */
-    public function __construct()
-    {
-        $this->carbon = now()->addMinutes(10);
-    }
-
     /**
      * Show Extra-Stats Index.
      */
