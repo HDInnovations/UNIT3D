@@ -34,7 +34,6 @@ use Closure;
 use Exception;
 use Override;
 use Spatie\LaravelData\Attributes\Hidden;
-use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MergeValidationRules;
 use Spatie\LaravelData\Attributes\Validation\Between;
 use Spatie\LaravelData\Attributes\Validation\Exists;
@@ -63,9 +62,9 @@ class StoreTorrentRequest extends Data
         public int $typeId,
         #[File, Max(2 * 1024 * 1024)]
         public ?UploadedFile $nfo = null,
-        #[MapInputName('torrent-cover'), File, Image, Max(2 * 1024 * 1024), Hidden]
+        #[File, Image, Max(2 * 1024 * 1024), Hidden]
         public ?UploadedFile $poster = null,
-        #[MapInputName('torrent-banner'), File, Image, Max(2 * 1024 * 1024), Hidden]
+        #[File, Image, Max(2 * 1024 * 1024), Hidden]
         public ?UploadedFile $backdrop = null,
         #[Max(2 * 1024 * 1024)]
         public ?string $mediainfo = null,
