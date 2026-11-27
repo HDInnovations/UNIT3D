@@ -252,7 +252,7 @@ Estos ajustes se anulan si no permites que ningún grupo acceda a tus otras esta
     'password-resets' => 'Restablecimiento de contraseña',
     'pending-achievements' => 'Logros pendientes',
     'per-torrent' => 'Por Torrent',
-    'posts' => 'Publicaciones',
+    'posts' => 'Envíos',
     'posts-posted' => 'Publicaciones en el foro',
     'privacy' => 'Privacidad',
     'privacy-settings' => 'Configuración de privacidad',
