@@ -245,7 +245,7 @@ class TorrentController extends BaseController
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.round($request->flUntil->diffInDays()).' days.'
+                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted '.$free.'% FreeLeech for '.round(abs($request->flUntil->diffInDays())).' days.'
                     );
                 }
             }
@@ -257,7 +257,7 @@ class TorrentController extends BaseController
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted Double Upload for '.round($request->duUntil->diffInDays()).' days.'
+                        'Ladies and Gents, [url='.href_torrent($torrent).']'.$torrent->name.'[/url] has been granted Double Upload for '.round(abs($request->duUntil->diffInDays())).' days.'
                     );
                 }
             }
