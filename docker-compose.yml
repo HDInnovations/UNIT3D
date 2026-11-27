@@ -7,7 +7,7 @@ services:
             - '${SSL_PORT:-443}:443'
         environment:
             - SSL_PORT=${SSL_PORT:-443}
-            - APP_SERVICE=${APP_SERVICE:-unit3d-core}
+            - APP_SERVICE=unit3d-core
             - SERVER_NAME=${SERVER_NAME:-localhost}
             - SSL_DOMAIN=${SSL_DOMAIN:-localhost}
             - SSL_ALT_NAME=${SSL_ALT_NAME:-DNS:localhost}
@@ -45,7 +45,7 @@ services:
                 chmod +x /docker-entrypoint.d/999-chat-proxy.sh
                 exec /docker-entrypoint.sh nginx -g "daemon off;"
         depends_on:
-            - ${APP_SERVICE:-unit3d-core}
+            - unit3d-core
             - unit3d-chat
         networks:
             - sail
