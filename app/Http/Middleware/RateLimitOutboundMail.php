@@ -20,6 +20,7 @@ use App\Jobs\SendDeleteUserMail;
 use App\Jobs\SendDisableUserMail;
 use App\Jobs\SendMassEmail;
 use Closure;
+use Illuminate\Notifications\SendQueuedNotifications;
 use Illuminate\Support\Facades\Redis;
 
 class RateLimitOutboundMail
@@ -29,7 +30,7 @@ class RateLimitOutboundMail
      *
      * @param Closure(object): void $next
      */
-    public function handle(SendDeleteUserMail|SendDisableUserMail|SendMassEmail $job, Closure $next): void
+    public function handle(SendQueuedNotifications|SendDeleteUserMail|SendDisableUserMail|SendMassEmail $job, Closure $next): void
     {
         Redis::throttle(config('cache.prefix').':outbound-email-limiter')
             ->allow(config('other.mail.allow'))

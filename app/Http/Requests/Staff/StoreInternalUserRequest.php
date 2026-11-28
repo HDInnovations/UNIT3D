@@ -16,30 +16,21 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Internal;
+use App\Models\User;
+use Spatie\LaravelData\Attributes\Hidden;
+use Spatie\LaravelData\Attributes\Validation\Exclude;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Data;
 
-class StoreInternalUserRequest extends FormRequest
+class StoreInternalUserRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'position' => [
-                'required',
-                'integer',
-            ],
-            'username' => [
-                'required',
-                'exists:users,username',
-            ],
-            'internal_id' => [
-                'required',
-                'exists:internals,id',
-            ],
-        ];
+    public function __construct(
+        public int $position,
+        #[Exists(User::class), Exclude, Hidden]
+        public string $username,
+        #[Exists(Internal::class, 'id')]
+        public int $internalId,
+    ) {
     }
 }

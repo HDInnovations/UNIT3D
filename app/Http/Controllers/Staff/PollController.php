@@ -17,12 +17,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePoll;
+use App\Http\Requests\Staff\StorePollRequest;
 use App\Http\Requests\UpdatePollRequest;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
 use Exception;
-use Illuminate\Support\Arr;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
@@ -42,7 +41,7 @@ class PollController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.poll.index', [
-            'polls' => Poll::latest()->paginate(25),
+            'polls' => Poll::query()->latest()->paginate(25),
         ]);
     }
 
@@ -67,11 +66,11 @@ class PollController extends Controller
     /**
      * Store A New Poll.
      */
-    public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePollRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'expires_at', 'multiple_choice']));
+        $poll = Poll::query()->create($request->only('title', 'expiresAt', 'multipleChoice', 'userId')->toArray());
 
-        $poll->options()->upsert($request->validated('options'), ['id'], []);
+        $poll->options()->upsert($request->options->toArray(), ['id'], []);
 
         $this->chatRepository->systemMessage(
             \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
@@ -98,13 +97,13 @@ class PollController extends Controller
      */
     public function update(UpdatePollRequest $request, Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll->update($request->safe()->only(['title', 'expires_at', 'multiple_choice']));
+        $poll->update($request->only('title', 'expiresAt', 'multipleChoice')->toArray());
 
         $poll->options()
-            ->whereNotIn('id', Arr::flatten($request->validated('options.*.id')))
+            ->whereNotIn('id', array_column($request->options->toArray(), 'id'))
             ->delete();
 
-        $poll->options()->upsert($request->validated('options'), ['id'], ['name']);
+        $poll->options()->upsert($request->options->toArray(), ['id'], ['name']);
 
         $this->chatRepository->systemMessage(
             \sprintf('A poll has been updated [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)

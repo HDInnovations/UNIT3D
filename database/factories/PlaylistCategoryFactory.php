@@ -18,6 +18,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\PlaylistCategory;
+use Override;
 
 /** @extends Factory<PlaylistCategory> */
 class PlaylistCategoryFactory extends Factory
@@ -30,11 +31,13 @@ class PlaylistCategoryFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
-            'name'     => $this->faker->name(),
-            'position' => $this->faker->randomNumber(),
+            'name'        => $this->faker->name(),
+            'position'    => $this->faker->numberBetween(0, 2 ** 15 - 1),
+            'description' => $this->faker->text(),
         ];
     }
 }

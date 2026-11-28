@@ -76,6 +76,8 @@ return [
     'unlock'                  => 'Unlock',
     'user-icon'               => 'User icon',
     'username'                => 'Username',
+    'two-factor-confirm-desc' => 'Please confirm your two factor code before proceeding.',
+    'two-factor-confirmation' => 'Two factor confirmation',
     'verify'                  => 'Verify',
     'verify-email'            => 'Verify email',
     'verifying'               => 'Verifying...',

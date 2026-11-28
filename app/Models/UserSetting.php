@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\UserSetting.
@@ -56,6 +57,8 @@ use AllowDynamicProperties;
  * @property ?string                         $custom_css
  * @property ?string                         $standalone_css
  * @property bool                            $show_poster
+ * @property bool                            $auto_freeleech_apply
+ * @property int                             $auto_freeleech_min_tokens
  * @property bool                            $unbookmark_torrents_on_completion
  * @property bool                            $show_adult_content
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -71,7 +74,6 @@ final class UserSetting extends Model
      * Get the attributes that should be cast.
      *
      * @return array{
-     *     censor: 'bool',
      *     news_block_visible: 'bool',
      *     news_block_position: 'int',
      *     chat_block_visible: 'bool',
@@ -99,10 +101,10 @@ final class UserSetting extends Model
      *     unbookmark_torrents_on_completion: 'bool',
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [
-            'censor'                            => 'bool',
             'news_block_visible'                => 'bool',
             'news_block_position'               => 'int',
             'chat_block_visible'                => 'bool',
@@ -127,6 +129,8 @@ final class UserSetting extends Model
             'online_block_position'             => 'int',
             'torrent_filters'                   => 'bool',
             'show_poster'                       => 'bool',
+            'auto_freeleech_apply'              => 'bool',
+            'auto_freeleech_min_tokens'         => 'int',
             'unbookmark_torrents_on_completion' => 'bool',
             'show_adult_content'                => 'bool',
         ];

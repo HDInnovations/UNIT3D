@@ -17,16 +17,22 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Enums\Occupation;
+use App\Models\PersonalFreeleech;
+use App\Models\TmdbMovie;
 use App\Models\TmdbPerson;
+use App\Models\TmdbTv;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Traits\TorrentMeta;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TmdbPersonCredit extends Component
 {
     use TorrentMeta;
+    use WithPagination;
 
     public TmdbPerson $person;
 
@@ -53,13 +59,15 @@ class TmdbPersonCredit extends Component
     }
 
     final protected bool $personalFreeleech {
-        get => cache()->get('personal_freeleech:'.auth()->user()->id) ?? false;
+        get => PersonalFreeleech::query()->where('user_id', '=', auth()->id())->exists();
     }
 
-    /*
+    /**
      * Livewire doesn't support enum properties, so we have to convert it manually.
+     *
+     * @param-out Occupation $value
      */
-    public function updatingOccupation(&$value): void
+    public function updatingOccupation(int|string &$value): void
     {
         $value = Occupation::from($value);
     }
@@ -105,33 +113,49 @@ class TmdbPersonCredit extends Component
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int, Torrent>
+     * @var LengthAwarePaginator<int, TmdbMovie|TmdbTv|null>
      */
-    final protected \Illuminate\Support\Collection $medias {
+    final protected LengthAwarePaginator $medias {
         get {
             if ($this->occupationId === null) {
-                return collect();
+                return new LengthAwarePaginator([], 0, 25);
             }
 
-            $movies = $this->person
-                ->movie()
-                ->with('genres', 'directors')
-                ->wherePivot('occupation_id', '=', $this->occupationId)
-                ->orderBy('release_date')
-                ->get()
-                // Since the credits table unique index has nullable columns, we get duplicate credits, which means duplicate movies
-                ->unique();
-            $tv = $this->person
-                ->tv()
-                ->with('genres', 'creators')
-                ->wherePivot('occupation_id', '=', $this->occupationId)
-                ->orderBy('first_air_date')
-                ->get()
-                // Since the credits table unique index has nullable columns, we get duplicate credits, which means duplicate tv
-                ->unique();
+            $groups = Torrent::query()
+                ->where(
+                    fn ($query) => $query
+                        ->whereHas(
+                            'movie.credits',
+                            fn ($query) => $query
+                                ->where('tmdb_person_id', '=', $this->person->id)
+                                ->where('occupation_id', '=', $this->occupationId)
+                        )
+                        ->orWhereHas(
+                            'tv.credits',
+                            fn ($query) => $query
+                                ->where('tmdb_person_id', '=', $this->person->id)
+                                ->where('occupation_id', '=', $this->occupationId)
+                        )
+                )
+                ->select('tmdb_movie_id', 'tmdb_tv_id')
+                ->groupBy('tmdb_movie_id', 'tmdb_tv_id')
+                ->orderByDesc(
+                    TmdbMovie::query()
+                        ->select('release_date')
+                        ->whereColumn('torrents.tmdb_movie_id', '=', 'id')
+                        ->unionAll(
+                            TmdbTv::query()
+                                ->select('first_air_date')
+                                ->whereColumn('torrents.tmdb_tv_id', '=', 'id')
+                        )
+                )
+                ->paginate(25);
 
-            $movieIds = $movies->pluck('id');
-            $tvIds = $tv->pluck('id');
+            $movieIds = $groups->getCollection()->whereNotNull('tmdb_movie_id')->pluck('tmdb_movie_id');
+            $tvIds = $groups->getCollection()->whereNotNull('tmdb_tv_id')->pluck('tmdb_tv_id');
+
+            $movies = TmdbMovie::query()->with('genres', 'directors')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
+            $tv = TmdbTv::query()->with('genres', 'creators')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
 
             $torrents = Torrent::query()
                 ->with('type:id,name,position', 'resolution:id,name,position')
@@ -160,12 +184,7 @@ class TmdbPersonCredit extends Component
                     'resolution_id',
                     'personal_release',
                 ])
-                ->selectRaw(<<<'SQL'
-                CASE
-                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                END as meta
-            SQL)
+                ->selectRaw(self::META_TYPE_CASE_MOVIE_TV.' as meta')
                 ->withCount([
                     'comments',
                 ])
@@ -193,42 +212,43 @@ class TmdbPersonCredit extends Component
                 ])
                 ->where(
                     fn ($query) => $query
-                        ->where(
-                            fn ($query) => $query
-                                ->whereRelation('category', 'movie_meta', '=', true)
-                                ->whereIntegerInRaw('tmdb_movie_id', $movieIds)
-                        )
-                        ->orWhere(
-                            fn ($query) => $query
-                                ->whereRelation('category', 'tv_meta', '=', true)
-                                ->whereIntegerInRaw('tmdb_tv_id', $tvIds)
-                        )
+                        ->whereIn('tmdb_movie_id', $movieIds)
+                        ->orWhereIn('tmdb_tv_id', $tvIds)
                 )
                 ->get();
 
             $groupedTorrents = self::groupTorrents($torrents);
 
-            $medias = collect();
+            $medias = $groups->through(function ($group) use ($groupedTorrents, $movies, $tv) {
+                switch (true) {
+                    case $group->tmdb_movie_id !== null:
+                        if ($movies->has($group->tmdb_movie_id)) {
+                            $media = $movies[$group->tmdb_movie_id];
+                            $media->setAttribute('meta', 'movie');
+                            $media->setRelation('torrents', $groupedTorrents['movie'][$group->tmdb_movie_id] ?? []);
+                            $media->setAttribute('category_id', $media->torrents['category_id']);
+                        } else {
+                            $media = null;
+                        }
 
-            foreach ($movies as $movie) {
-                if (\array_key_exists('movie', $groupedTorrents) && \array_key_exists($movie->id, $groupedTorrents['movie'])) {
-                    $media = $movie;
-                    $media->setAttribute('meta', 'movie');
-                    $media->setRelation('torrents', $groupedTorrents['movie'][$movie->id]);
-                    $media->setAttribute('category_id', $media->torrents['category_id']);
-                    $medias->add($media);
-                }
-            }
+                        break;
+                    case $group->tmdb_tv_id !== null:
+                        if ($tv->has($group->tmdb_tv_id)) {
+                            $media = $tv[$group->tmdb_tv_id];
+                            $media->setAttribute('meta', 'tv');
+                            $media->setRelation('torrents', $groupedTorrents['tv'][$group->tmdb_tv_id] ?? []);
+                            $media->setAttribute('category_id', $media->torrents['category_id']);
+                        } else {
+                            $media = null;
+                        }
 
-            foreach ($tv as $show) {
-                if (\array_key_exists('tv', $groupedTorrents) && \array_key_exists($show->id, $groupedTorrents['tv'])) {
-                    $media = $show;
-                    $media->setAttribute('meta', 'tv');
-                    $media->setRelation('torrents', $groupedTorrents['tv'][$show->id]);
-                    $media->setAttribute('category_id', $media->torrents['category_id']);
-                    $medias->add($media);
+                        break;
+                    default:
+                        $media = null;
                 }
-            }
+
+                return $media;
+            });
 
             return $medias;
         }
@@ -237,7 +257,7 @@ class TmdbPersonCredit extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.tmdb-person-credit', [
-            'user'                    => User::with(['group'])->findOrFail(auth()->user()->id),
+            'user'                    => User::query()->with(['group'])->findOrFail(auth()->user()->id),
             'personalFreeleech'       => $this->personalFreeleech,
             'medias'                  => $this->medias,
             'directedCount'           => $this->directedCount,

@@ -31,7 +31,7 @@ return new class () extends Migration {
             $table->boolean('target_id')->nullable()->index();
             $table->boolean('bot_id')->nullable()->index();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use AllowDynamicProperties;
 
@@ -30,6 +31,9 @@ use AllowDynamicProperties;
 final class WhitelistedImageUrl extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\WhitelistedImageUrlFactory> */
+    use HasFactory;
 
     /**
      * The attributes that aren't mass assignable.

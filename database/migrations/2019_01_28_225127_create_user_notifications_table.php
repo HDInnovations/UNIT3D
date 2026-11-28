@@ -56,7 +56,7 @@ return new class () extends Migration {
             $table->json('json_forum_groups');
             $table->json('json_following_groups');
             $table->json('json_subscription_groups');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->restrictOnUpdate()->cascadeOnDelete();
         });
     }
 };

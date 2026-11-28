@@ -19,9 +19,7 @@ namespace App\Console\Commands;
 use App\Models\History;
 use App\Models\Peer;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AutoFlushPeers extends Command
@@ -47,29 +45,31 @@ class AutoFlushPeers extends Command
      */
     final public function handle(): void
     {
-        $carbon = new Carbon();
-        $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'seeder', 'updated_at'])
-            ->where('updated_at', '<', $carbon->copy()->subHours(2))
+        $peers = Peer::query()
+            ->select(['torrent_id', 'user_id', 'peer_id', 'seeder', 'updated_at'])
+            ->where('updated_at', '<', now()->subHours(2))
             ->where('active', '=', 1)
             ->get();
 
         foreach ($peers as $peer) {
-            History::query()
-                ->where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->update([
-                    'active'     => false,
-                    'updated_at' => DB::raw('updated_at')
-                ]);
+            History::withoutTimestamps(
+                fn () => History::query()
+                    ->where('torrent_id', '=', $peer->torrent_id)
+                    ->where('user_id', '=', $peer->user_id)
+                    ->update([
+                        'active' => false,
+                    ])
+            );
 
-            Peer::query()
-                ->where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->where('peer_id', '=', $peer->peer_id)
-                ->update([
-                    'active'     => false,
-                    'updated_at' => DB::raw('updated_at'),
-                ]);
+            Peer::withoutTimestamps(
+                fn () => Peer::query()
+                    ->where('torrent_id', '=', $peer->torrent_id)
+                    ->where('user_id', '=', $peer->user_id)
+                    ->where('peer_id', '=', $peer->peer_id)
+                    ->update([
+                        'active' => false,
+                    ])
+            );
         }
 
         // Keep peers that stopped being announced without a `stopped` event
@@ -77,12 +77,13 @@ class AutoFlushPeers extends Command
         // next 2 days
         if (config('announce.external_tracker.is_enabled')) {
             Peer::query()
-                ->where('updated_at', '<', $carbon->copy()->subDays(2))
+                ->where('updated_at', '<', now()->subDays(2))
                 ->where('active', '=', 0)
                 ->delete();
         } else {
-            $peers = Peer::select(['torrent_id', 'user_id', 'peer_id'])
-                ->where('updated_at', '<', $carbon->copy()->subDays(2))
+            $peers = Peer::query()
+                ->select(['torrent_id', 'user_id', 'peer_id'])
+                ->where('updated_at', '<', now()->subDays(2))
                 ->where('active', '=', 0)
                 ->get();
 

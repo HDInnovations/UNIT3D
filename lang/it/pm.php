@@ -12,8 +12,8 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'create' => 'Creare',
-    'delete' => 'Elimina',
-    'enter-subject' => 'Inserisci l oggetto',
+    'delete' => 'Cancella',
+    'enter-subject' => 'Inserisci l \'oggetto',
     'from' => 'Inviato da',
     'inbox' => 'Posta in arrivo',
     'mark-all-read' => 'Segna tutti i messaggi come letti',
@@ -32,12 +32,12 @@ return [
     'send-to' => 'Invia PM a',
     'sent' => 'Inviato',
     'sent-at' => 'Inviato',
-    'subject' => 'Soggetto',
+    'subject' => 'Oggetto',
     'to' => 'A',
     'unread' => 'Non letto',
     'all-marked-read' => 'Tutti i tuoi messaggi sono stati contrassegnati come letti!',
     'delete-success' => 'PM eliminato con successo!',
-    'error' => 'Cosa stai cercando di fare ?!',
+    'error' => 'Cosa stai cercando di fare?!',
     'sent-success' => 'Il tuo messaggio privato è stato inviato con successo!',
     'empty-inbox' => 'Svuota messaggi in arrivo',
 ];

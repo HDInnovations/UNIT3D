@@ -24,8 +24,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('peers', function (Blueprint $table): void {
-            $table->foreign('torrent_id', 'fk_peers_torrents1')->references('id')->on('torrents')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-            $table->foreign('user_id', 'fk_peers_users1')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('torrent_id', 'fk_peers_torrents1')->references('id')->on('torrents')->restrictOnUpdate()->restrictOnDelete();
+            $table->foreign('user_id', 'fk_peers_users1')->references('id')->on('users')->restrictOnUpdate()->restrictOnDelete();
         });
     }
 };

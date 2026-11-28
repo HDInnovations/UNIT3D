@@ -39,6 +39,9 @@ class UserSearch extends Component
     public int $perPage = 25;
 
     #[Url(history: true)]
+    public ?int $userId = null;
+
+    #[Url(history: true)]
     public string $username = '';
 
     #[Url(history: true)]
@@ -79,6 +82,7 @@ class UserSearch extends Component
     final protected \Illuminate\Pagination\LengthAwarePaginator $users {
         get => User::query()
             ->with('group')
+            ->when($this->userId !== null, fn ($query) => $query->where('id', '=', $this->userId))
             ->when($this->username !== '', fn ($query) => $query->where('username', 'LIKE', '%'.$this->username.'%'))
             ->when(
                 $this->soundexUsername !== '',
@@ -94,19 +98,19 @@ class UserSearch extends Component
                 )
             )
             ->when($this->rsskey !== '', fn ($query) => $query->where('rsskey', 'LIKE', '%'.$this->rsskey.'%'))
-            ->when($this->apikey !== '', fn ($query) => $query->where('api_token', 'LIKE', '%'.$this->apikey.'%'))
+            ->when($this->apikey !== '', fn ($query) => $query->whereHas('apikeys', fn ($query) => $query->where('content', 'LIKE', '%'.$this->apikey.'%')))
             ->when($this->passkey !== '', fn ($query) => $query->where('passkey', 'LIKE', '%'.$this->passkey.'%'))
             ->when($this->groupId !== null, fn ($query) => $query->where('group_id', '=', $this->groupId))
             ->when($this->show === true, fn ($query) => $query->withTrashed())
             ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+            ->paginate(min($this->perPage, 100));
     }
 
     /**
      * @var \Illuminate\Support\Collection<int, Group>
      */
     final protected $groups {
-        get => Group::orderBy('position')->get();
+        get => Group::query()->orderBy('position')->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

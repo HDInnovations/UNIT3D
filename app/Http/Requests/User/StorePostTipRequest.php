@@ -16,60 +16,50 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\User;
 
+use App\Attributes\FromCurrentUserId;
 use App\Models\Post;
-use App\Models\Topic;
+use App\Models\User;
 use Closure;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
+use Override;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Between;
+use Spatie\LaravelData\Attributes\Validation\Different;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\References\FieldReference;
+use Spatie\LaravelData\Support\Validation\ValidationRule;
 
-class StorePostTipRequest extends FormRequest
+#[MergeValidationRules]
+class StorePostTipRequest extends Data
 {
+    public function __construct(
+        public int $postId,
+        public int $bon,
+        #[FromCurrentUserId]
+        public int $senderId,
+        #[Exists(User::class, 'id'), Different(new FieldReference('sender_id'))]
+        public int $recipientId,
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<Closure|string>|string>
+     * @return array<string, list<Closure(string, mixed, Closure(string): never): void|ValidationRule>>
      */
-    public function rules(Request $request): array
+    public static function rules(): array
     {
-        $user = $request->user();
-
         return [
             'post_id' => [
-                'required',
-                function ($attribute, $value, $fail): void {
-                    if (
-                        Post::whereKey($value)->whereNotIn(
-                            'topic_id',
-                            Topic::query()
-                                ->whereRelation(
-                                    'forumPermissions',
-                                    fn ($query) => $query
-                                        ->where('group_id', '=', auth()->user()->group_id)
-                                        ->where('read_topic', '!=', 1)
-                                )
-                                ->select('id'),
-                        )
-                            ->doesntExist()
-                    ) {
+                function ($_attribute, $value, $fail): void {
+                    if (Post::query()->whereKey($value)->authorized(canReadTopic: true)->doesntExist()) {
                         $fail('Post was not found.');
                     }
                 },
             ],
             'bon' => [
-                'required',
-                'numeric',
-                'min:1',
-                'max:'.$user->seedbonus,
-            ],
-            'sender_id' => [
-                'required',
-                'exists:users,id',
-            ],
-            'recipient_id' => [
-                'required',
-                'exists:users,id',
-                'different:sender_id',
-            ],
+                new Between(1, (float) auth()->user()->seedbonus),
+            ]
         ];
     }
 
@@ -78,34 +68,28 @@ class StorePostTipRequest extends FormRequest
      *
      * @return array<string, string>
      */
-    public function messages(): array
+    public static function messages(): array
     {
         return [
-            'bon.min'                => trans('bon.failed-negative'),
-            'bon.max'                => trans('bon.failed-funds-poster'),
             'recipient_id.different' => trans('bon.failed-yourself'),
         ];
     }
 
     /**
      * Prepare the data for validation.
+     *
+     * @param array<mixed> $properties
+     *
+     * @return array<mixed>
      */
-    protected function prepareForValidation(): void
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        $this->merge([
-            'sender_id'    => auth()->id(),
-            'recipient_id' => Post::whereKey($this->post_id)
-                ->whereNotIn(
-                    'topic_id',
-                    Topic::query()
-                        ->whereRelation(
-                            'forumPermissions',
-                            fn ($query) => $query
-                                ->where('group_id', '=', auth()->user()->group_id)
-                                ->where('read_topic', '!=', 1)
-                        )
-                        ->select('id'),
-                )->value('user_id'),
-        ]);
+        $properties['recipient_id'] = Post::query()
+            ->whereKey((int) $properties['post_id'])
+            ->authorized(canReadTopic: true)
+            ->value('user_id');
+
+        return $properties;
     }
 }

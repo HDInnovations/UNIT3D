@@ -19,6 +19,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Wish;
+use Override;
 
 /** @extends Factory<Wish> */
 class WishFactory extends Factory
@@ -31,14 +32,13 @@ class WishFactory extends Factory
     /**
      * Define the model's default state.
      */
+    #[Override]
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'title'   => $this->faker->sentence(),
-            'tmdb'    => $this->faker->word(),
-            'type'    => $this->faker->word(),
-            'source'  => $this->faker->word(),
+            'user_id'       => User::factory(),
+            'title'         => $this->faker->sentence(),
+            'tmdb_movie_id' => $this->faker->randomNumber(),
         ];
     }
 }

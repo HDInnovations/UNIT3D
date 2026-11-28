@@ -12,9 +12,9 @@ return [
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
     'add-event' => 'Añadir evento',
-    'add-prize' => 'Añadir premio',
+    'add-prize' => 'Añadir recompensa',
     'edit-event' => 'Editar evento',
-    'edit-prize' => 'Editar premio',
+    'edit-prize' => 'Editar recompensa',
     'ends-at' => 'Termina en',
     'events' => 'Eventos',
     'minimum' => 'Mínimo',
@@ -24,4 +24,6 @@ return [
     'prizes' => 'Premios',
     'starts-at' => 'A partir de',
     'weight' => 'Peso',
+    'giveaway' => 'Obsequio',
+    'giveaways' => 'Obsequios',
 ];

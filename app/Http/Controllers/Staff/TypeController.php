@@ -33,7 +33,7 @@ class TypeController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.type.index', [
-            'types' => Type::orderBy('position')->get(),
+            'types' => Type::query()->orderBy('position')->get(),
         ]);
     }
 
@@ -50,7 +50,7 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Type::create($request->validated());
+        Type::query()->create($request->toArray());
 
         return to_route('staff.types.index')
             ->with('success', 'Type successfully added');
@@ -71,7 +71,7 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type): \Illuminate\Http\RedirectResponse
     {
-        $type->update($request->validated());
+        $type->update($request->toArray());
 
         return to_route('staff.types.index')
             ->with('success', 'Type successfully modified');

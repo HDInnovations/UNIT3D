@@ -74,4 +74,7 @@ return [
     'voters' => 'väljarna',
     'votes' => 'röster',
     'yes' => 'Ja',
+    'access-error' => 'Du har inte behörighet att godkänna denna förfrågan.',
+    'resolution' => 'Upplösning',
+    'resolutions' => 'Upplösningar',
 ];

@@ -19,8 +19,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePollVoteRequest;
 use App\Models\Option;
 use App\Models\Poll;
+use App\Models\User;
 use App\Models\Voter;
 use App\Repositories\ChatRepository;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\PollControllerTest
@@ -37,19 +39,19 @@ class PollVoteController extends Controller
     /**
      * Vote On A Poll.
      */
-    public function store(StorePollVoteRequest $request, Poll $poll): \Illuminate\Http\RedirectResponse
+    public function store(StorePollVoteRequest $request, Poll $poll, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        if (Voter::whereBelongsTo($poll)->whereBelongsTo($request->user())->exists()) {
+        if (Voter::query()->whereBelongsTo($poll)->whereBelongsTo($currentUser)->exists()) {
             return to_route('polls.votes.index', ['poll' => $poll])
                 ->withErrors(trans('poll.already-voted-error'));
         }
 
-        Option::whereIn('id', $request->validated('options'))->increment('votes');
+        Option::query()->whereIn('id', $request->options)->increment('votes');
 
-        $poll->users()->attach($request->user());
+        $poll->users()->attach($currentUser);
 
         $this->chatRepository->systemMessage(
-            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', href_profile($request->user()), $request->user()->username, href_poll($poll), $poll->title)
+            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', href_profile($currentUser), $currentUser->username, href_poll($poll), $poll->title)
         );
 
         return to_route('polls.votes.index', ['poll' => $poll])

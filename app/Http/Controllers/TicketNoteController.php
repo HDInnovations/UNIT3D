@@ -18,20 +18,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTicketNoteRequest;
 use App\Models\Ticket;
-use App\Models\TicketNote;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class TicketNoteController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      */
-    final public function store(StoreTicketNoteRequest $request, Ticket $ticket): \Illuminate\Http\RedirectResponse
+    final public function store(StoreTicketNoteRequest $request, Ticket $ticket, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-        abort_unless($user->group->is_modo, 403);
+        abort_unless($currentUser->group->is_modo, 403);
 
-        TicketNote::create(['ticket_id' => $ticket->id, 'user_id' => $user->id] + $request->validated());
+        $ticket->notes()->create($request->toArray());
 
         return to_route('tickets.show', ['ticket' => $ticket])
             ->with('success', trans('ticket.note-create-success'));

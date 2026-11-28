@@ -16,16 +16,22 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Http\Middleware\RateLimitOutboundMail;
 use App\Models\User;
+use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Carbon;
 
 class FailedLogin extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * The maximum number of unhandled exceptions to allow before failing.
+     */
+    public int $maxExceptions = 1;
 
     /**
      * FailedLogin Constructor.
@@ -39,16 +45,33 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(object $_notifiable): array
     {
         return ['mail'];
     }
 
     /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(object $_notifiable, string $channel): array
+    {
+        return match ($channel) {
+            'mail'  => [new RateLimitOutboundMail()],
+            default => [],
+        };
+    }
+
+    /**
      * Determine if the notification should be sent.
      */
-    public function shouldSend(User $notifiable): bool
+    public function shouldSend(User $notifiable, string $channel): bool
     {
+        if ($channel === 'mail' && !$notifiable->hasVerifiedEmail()) {
+            return false;
+        }
+
         return !\in_array($notifiable->group->slug, ['banned', 'validating', 'pruned']);
     }
 
@@ -57,16 +80,24 @@ class FailedLogin extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toArray(object $_notifiable): array
     {
-        return ['ip' => $this->ip, 'time' => Carbon::now()];
+        return ['ip' => $this->ip, 'time' => now()];
     }
 
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $_notifiable): MailMessage
     {
-        return (new MailMessage())->error()->subject(trans('email.fail-login-subject'))->greeting(trans('email.fail-login-greeting'))->line(trans('email.fail-login-line1'))->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => Carbon::now()->__toString()]));
+        return (new MailMessage())->error()->subject(trans('email.fail-login-subject'))->greeting(trans('email.fail-login-greeting'))->line(trans('email.fail-login-line1'))->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => now()->__toString()]));
+    }
+
+    /**
+     * Determine the time at which the job should timeout.
+     */
+    public function retryUntil(): DateTime
+    {
+        return now()->addHours(2);
     }
 }

@@ -18,9 +18,11 @@ namespace App\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Override;
 
 class BackupDisk implements ValidationRule
 {
+    #[Override]
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!\in_array($value, config('backup.backup.destination.disks'))) {

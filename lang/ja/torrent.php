@@ -202,4 +202,5 @@ return [
     'view-more' => 'もっと見る',
     'view-trailer' => '予告編を見る',
     'votes' => '投票',
+    'staff-tools' => 'スタッフツール',
 ];

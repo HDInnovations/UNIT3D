@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\Occupation;
 use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Requests\UpdateTorrentRequestRequest;
 use App\Models\Category;
@@ -23,10 +24,12 @@ use App\Models\Resolution;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\Type;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 use Exception;
 
 /**
@@ -66,7 +69,9 @@ class RequestController extends Controller
                 ],
                 'movie' => [
                     'genres',
-                    'credits' => ['person', 'occupation'],
+                    'credits' => fn ($query) => $query
+                        ->where('occupation_id', '!=', Occupation::ACTOR)
+                        ->with(['person:id,still,name', 'occupation']),
                     'companies',
                     'collections.movies'
                 ],
@@ -74,7 +79,9 @@ class RequestController extends Controller
                 'torrent',
                 'tv' => [
                     'genres',
-                    'credits' => ['person', 'occupation'],
+                    'credits' => fn ($query) => $query
+                        ->where('occupation_id', '!=', Occupation::ACTOR)
+                        ->with(['person:id,still,name', 'occupation']),
                     'companies',
                     'networks',
                 ],
@@ -97,7 +104,7 @@ class RequestController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('requests.create', [
-            'categories' => Category::orderBy('position')
+            'categories' => Category::query()->orderBy('position')
                 ->get()
                 ->mapWithKeys(fn ($category) => [$category->id => [
                     'name' => $category->name,
@@ -111,36 +118,37 @@ class RequestController extends Controller
                     },
                 ]])
                 ->toArray(),
-            'types'       => Type::orderBy('position')->get(),
-            'resolutions' => Resolution::orderBy('position')->get(),
+            'types'       => Type::query()->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->orderBy('position')->get(),
             'user'        => $request->user(),
-            'category_id' => $request->category_id ?? Category::first('id')->id,
-            'title'       => urldecode((string) $request->title),
-            'imdb'        => $request->imdb,
-            'movieId'     => $request->tmdb_movie_id,
-            'tvId'        => $request->tmdb_tv_id,
-            'mal'         => $request->mal,
-            'tvdb'        => $request->tvdb,
-            'igdb'        => $request->igdb,
+            'category_id' => $request->integer('category_id') ?: Category::query()->first('id')->id,
+            'title'       => urldecode($request->string('title')->toString()),
+            'imdb'        => $request->integer('imdb') ?: null,
+            'movieId'     => $request->integer('tmdb_movie_id') ?: null,
+            'tvId'        => $request->integer('tmdb_tv_id') ?: null,
+            'mal'         => $request->integer('mal') ?: null,
+            'tvdb'        => $request->integer('tvdb') ?: null,
+            'igdb'        => $request->integer('igdb') ?: null,
         ]);
     }
 
     /**
      * Store A New Torrent Request.
      */
-    public function store(StoreTorrentRequestRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentRequestRequest $request, #[CurrentUser] User $user): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         $user->decrement('seedbonus', $request->bounty);
 
-        $torrentRequest = TorrentRequest::create(['user_id' => $request->user()->id] + $request->validated());
+        $torrentRequest = TorrentRequest::query()->create([
+            ...$request->toArray(),
+            'bumped_at' => now(),
+        ]);
 
-        TorrentRequestBounty::create([
-            'user_id'     => $user->id,
-            'seedbonus'   => $request->bounty,
-            'requests_id' => $torrentRequest->id,
-            'anon'        => $request->anon,
+        TorrentRequestBounty::query()->create([
+            'user_id'    => $user->id,
+            'seedbonus'  => $request->bounty,
+            'request_id' => $torrentRequest->id,
+            'anon'       => $request->anon,
         ]);
 
         // Auto Shout
@@ -187,8 +195,8 @@ class RequestController extends Controller
                         },
                     ]
                 ]),
-            'types'          => Type::orderBy('position')->get(),
-            'resolutions'    => Resolution::orderBy('position')->get(),
+            'types'          => Type::query()->orderBy('position')->get(),
+            'resolutions'    => Resolution::query()->orderBy('position')->get(),
             'user'           => $request->user(),
             'torrentRequest' => $torrentRequest,
         ]);
@@ -197,17 +205,15 @@ class RequestController extends Controller
     /**
      * Edit A Torrent Request.
      */
-    public function update(UpdateTorrentRequestRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
+    public function update(UpdateTorrentRequestRequest $request, TorrentRequest $torrentRequest, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         abort_unless(
             (
-                $user->group->is_modo
+                $currentUser->group->is_modo
                 || (
-                    $user->id === $torrentRequest->user_id
+                    $currentUser->id === $torrentRequest->user_id
                     && TorrentRequest::query()
-                        ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                        ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $currentUser->id))
                         ->whereDoesntHave('claim')
                         ->whereNull('filled_by')
                         ->whereKey($torrentRequest)
@@ -217,7 +223,7 @@ class RequestController extends Controller
             403
         );
 
-        $torrentRequest->update($request->validated());
+        $torrentRequest->update($request->toArray());
 
         match (true) {
             $torrentRequest->tmdb_tv_id !== null    => new TMDBScraper()->tv($torrentRequest->tmdb_tv_id),

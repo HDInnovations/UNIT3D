@@ -14,8 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\Staff\BanController;
-use App\Http\Requests\Staff\StoreBanRequest;
 use App\Models\User;
 use Database\Seeders\GroupSeeder;
 use Illuminate\Support\Facades\Auth;
@@ -25,14 +23,6 @@ test('index returns an ok response', function (): void {
     $response->assertOk();
     $response->assertViewIs('Staff.ban.index');
     $response->assertViewHas('bans');
-});
-
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        BanController::class,
-        'store',
-        StoreBanRequest::class
-    );
 });
 
 test('store returns an ok response', function (): void {

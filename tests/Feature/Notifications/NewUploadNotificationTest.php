@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 use App\Models\Bot;
 use App\Models\Category;
-use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\Resolution;
 use App\Models\Torrent;
@@ -40,9 +39,6 @@ test('upload a torrent creates a notification for followers', function (): void 
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     Notification::fake();
@@ -125,9 +121,6 @@ test('upload a torrent does not create a notification for followers when all not
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     Notification::fake();
 
@@ -205,9 +198,6 @@ test('upload a torrent does not create a notification for followers when followi
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
 
     Notification::fake();
 
@@ -284,9 +274,6 @@ test('upload a torrent does not create a notification for followers when followi
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     Notification::fake();

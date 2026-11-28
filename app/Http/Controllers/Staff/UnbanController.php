@@ -19,10 +19,11 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreUnbanRequest;
 use App\Models\Ban;
+use App\Models\Group;
 use App\Models\User;
 use App\Notifications\UserBanExpire;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Carbon;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
@@ -32,23 +33,20 @@ class UnbanController extends Controller
     /**
      * Unban A User (banned -> new_group).
      */
-    public function store(StoreUnbanRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreUnbanRequest $request, #[CurrentUser] User $staff): \Illuminate\Http\RedirectResponse
     {
-        $user = User::findOrFail($request->integer('owned_by'));
-        $staff = $request->user();
+        $user = User::query()->findOrFail($request->ownedBy);
 
-        abort_if($user->group->is_modo || $request->user()->is($user), 403);
+        abort_if($user->group->is_modo || $staff->is($user), 403);
 
         $user->update([
-            'group_id'     => $request->group_id,
+            'group_id'     => Group::query()->where('slug', '=', 'user')->soleValue('id'),
             'can_download' => 1,
         ]);
 
-        Ban::create([
-            'owned_by'     => $user->id,
-            'created_by'   => $staff->id,
-            'unban_reason' => $request->unban_reason,
-            'removed_at'   => Carbon::now(),
+        Ban::query()->create([
+            ...$request->toArray(),
+            'removed_at' => now(),
         ]);
 
         cache()->forget('user:'.$user->passkey);

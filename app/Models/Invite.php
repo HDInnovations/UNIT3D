@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use AllowDynamicProperties;
+use App\Models\Scopes\ApprovedScope;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\Invite.
@@ -74,5 +76,20 @@ final class Invite extends Model
             'username' => 'System',
             'id'       => User::SYSTEM_USER_ID,
         ]);
+    }
+
+    /**
+     * The application that triggered the invite.
+     *
+     * @return BelongsTo<Application, $this>
+     */
+    public function application(): BelongsTo
+    {
+        return $this->belongsTo(Application::class, 'email', 'email')
+            ->whereBetween('applications.moderated_at', [
+                DB::raw('invites.created_at - INTERVAL 5 SECOND'),
+                DB::raw('invites.created_at + INTERVAL 5 SECOND'),
+            ])
+            ->withoutGlobalScope(ApprovedScope::class);
     }
 }

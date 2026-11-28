@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Category.
@@ -56,6 +57,7 @@ final class Category extends Model
      *
      * @return array{music_meta: 'bool', game_meta: 'bool', tv_meta: 'bool', movie_meta: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

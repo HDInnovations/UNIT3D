@@ -15,7 +15,7 @@ return [
     'age' => 'Vecums',
     'all-requests' => 'Visi pieprasījumi',
     'approve' => 'Apstiprināt',
-    'bounty' => 'Bounty',
+    'bounty' => 'Naudas atlīdzības balva',
     'bounty-claimed' => 'Bounty apgalvoja',
     'bounty-unclaimed' => 'Bounty nepieprasīja',
     'category' => 'Kategorija',

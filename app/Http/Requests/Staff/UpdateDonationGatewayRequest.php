@@ -16,32 +16,27 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\Attributes\Validation\Min;
+use Spatie\LaravelData\Data;
 
-class UpdateDonationGatewayRequest extends FormRequest
+class UpdateDonationGatewayRequest extends Data
 {
+    public function __construct(
+        public string $address,
+        public string $name,
+        #[Min(0)]
+        public int $position,
+        public bool $isActive,
+    ) {
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public static function authorize()
     {
-        return $this->user()->group->is_owner;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'address'   => 'required',
-            'name'      => 'required',
-            'position'  => 'min:0|max:9999999',
-            'is_active' => 'required|boolean',
-        ];
+        return auth()->user()->group->is_owner;
     }
 }

@@ -29,7 +29,7 @@
                         <h3 class="user-card__username">
                             {{ $user->username }}
                         </h3>
-                        <i class="fal {{ $user->group->icon }} user-card__icon"></i>
+                        <i class="{{ $user->group->icon }} user-card__icon"></i>
                         @if ($user->title !== null)
                             <p class="user-card__title">
                                 {{ __('page.staff-title') }}: {{ $user->title }}

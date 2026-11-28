@@ -30,11 +30,7 @@
                 class="form"
                 method="POST"
                 action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
-                x-data="{
-                    extraOptions: JSON.parse(
-                        atob('{{ base64_encode(json_encode($poll->options->select('id', 'name'))) }}')
-                    ),
-                }"
+                x-data="extraOptions"
             >
                 @csrf
                 @method('PATCH')
@@ -123,5 +119,12 @@
                 </p>
             </form>
         </div>
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('extraOptions', () => ({
+                    extraOptions: {{ Js::from($poll->options->select('id', 'name')) }},
+                }));
+            });
+        </script>
     </section>
 @endsection

@@ -61,6 +61,24 @@
                 @csrf
                 @method('PATCH')
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'content' => $post->content])
+
+                @if (auth()->user()->group->is_modo)
+                    <p class="form__group">
+                        <input type="hidden" name="pinned" value="0" />
+                        <input
+                            type="checkbox"
+                            class="form__checkbox"
+                            id="pinned"
+                            name="pinned"
+                            value="1"
+                            @checked(old('pinned') ?? $post->pinned)
+                        />
+                        <label class="form__label" for="pinned">
+                            {{ __('forum.pin') }}
+                        </label>
+                    </p>
+                @endif
+
                 <button class="form__button form__button--filled">
                     {{ __('common.submit') }}
                 </button>

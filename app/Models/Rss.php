@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use stdClass;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Rss.
@@ -59,6 +60,7 @@ final class Rss extends Model
      *
      * @return array{name: 'string', json_torrent: 'array', expected_fields: 'array', is_private: 'bool'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -103,16 +105,12 @@ final class Rss extends Model
     /**
      * Get the RSS feeds JSON Torrent as object.
      */
-    public function getObjectTorrentAttribute(): stdClass|bool
+    public function getObjectTorrentAttribute(): stdClass
     {
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
-        if ($this->json_torrent) {
-            $expected = $this->expected_fields;
+        $expected = $this->expected_fields;
 
-            return (object) array_merge($expected, $this->json_torrent);
-        }
-
-        return false;
+        return (object) array_merge($expected, $this->json_torrent);
     }
 
     /**
@@ -125,9 +123,10 @@ final class Rss extends Model
         // Just Torrents for now... extendable to check on feed type in future.
         return [
             'search'          => null,
-            'description'     => null,
             'uploader'        => null,
             'imdb'            => null,
+            'tmdb'            => null,
+            'tvdb'            => null,
             'mal'             => null,
             'categories'      => null,
             'types'           => null,

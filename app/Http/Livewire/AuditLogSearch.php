@@ -81,7 +81,7 @@ class AuditLogSearch extends Component
             ->when($this->action, fn ($query) => $query->where('action', '=', $this->action))
             ->when($this->record, fn ($query) => $query->where('record', 'LIKE', '%'.$this->record.'%'))
             ->latest()
-            ->paginate($this->perPage)
+            ->paginate(min($this->perPage, 100))
             ->through(function ($audit) {
                 $audit->values = json_decode((string) $audit->record, true, 512, JSON_THROW_ON_ERROR);
 

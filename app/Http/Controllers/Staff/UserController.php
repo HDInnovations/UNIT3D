@@ -38,6 +38,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\UserControllerTest
@@ -61,7 +62,7 @@ class UserController extends Controller
 
         return view('Staff.user.edit', [
             'user'      => $user,
-            'groups'    => Group::when(!$group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))->orderBy('position')->get(),
+            'groups'    => Group::query()->when(!$group->is_owner, fn ($query) => $query->where('level', '<=', $group->level))->orderBy('position')->get(),
             'internals' => Internal::all(),
         ]);
     }
@@ -69,15 +70,14 @@ class UserController extends Controller
     /**
      * Edit A User.
      */
-    public function update(UpdateUserRequest $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpdateUserRequest $request, User $user, #[CurrentUser] User $staff): \Illuminate\Http\RedirectResponse
     {
         $user->load('group');
-        $staff = $request->user();
-        $group = Group::findOrFail($request->group_id);
+        $group = Group::query()->findOrFail($request->groupId);
 
         abort_if(! $staff->group->is_owner && ($staff->group->level <= $user->group->level || $staff->group->level <= $group->level), 403);
 
-        $user->update($request->validated());
+        $user->update($request->toArray());
 
         cache()->forget('user:'.$user->passkey);
 
@@ -123,44 +123,44 @@ class UserController extends Controller
             'deleted_by'   => auth()->id(),
         ]);
 
-        Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([
+        Torrent::query()->withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([
             'user_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Comment::where('user_id', '=', $user->id)->update([
+        Comment::query()->where('user_id', '=', $user->id)->update([
             'user_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Post::where('user_id', '=', $user->id)->update([
+        Post::query()->where('user_id', '=', $user->id)->update([
             'user_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Topic::where('first_post_user_id', '=', $user->id)->update([
+        Topic::query()->where('first_post_user_id', '=', $user->id)->update([
             'first_post_user_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Topic::where('last_post_user_id', '=', $user->id)->update([
+        Topic::query()->where('last_post_user_id', '=', $user->id)->update([
             'last_post_user_id' => User::SYSTEM_USER_ID,
         ]);
 
-        PrivateMessage::where('sender_id', '=', $user->id)->update([
+        PrivateMessage::query()->where('sender_id', '=', $user->id)->update([
             'sender_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Participant::where('user_id', '=', $user->id)->delete();
-        Message::where('user_id', '=', $user->id)->delete();
-        Like::where('user_id', '=', $user->id)->delete();
-        Thank::where('user_id', '=', $user->id)->delete();
-        Peer::where('user_id', '=', $user->id)->delete();
-        History::where('user_id', '=', $user->id)->delete();
-        FailedLoginAttempt::where('user_id', '=', $user->id)->delete();
+        Participant::query()->where('user_id', '=', $user->id)->delete();
+        Message::query()->where('user_id', '=', $user->id)->delete();
+        Like::query()->where('user_id', '=', $user->id)->delete();
+        Thank::query()->where('user_id', '=', $user->id)->delete();
+        Peer::query()->where('user_id', '=', $user->id)->delete();
+        History::query()->where('user_id', '=', $user->id)->delete();
+        FailedLoginAttempt::query()->where('user_id', '=', $user->id)->delete();
 
         // Removes all follows for user
         $user->followers()->detach();
         $user->following()->detach();
 
         // Removes all FL Tokens for user
-        foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
+        foreach (FreeleechToken::query()->where('user_id', '=', $user->id)->get() as $token) {
             $token->delete();
             cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
         }

@@ -16,42 +16,35 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Models\BlacklistClient;
+use Override;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Support\Validation\References\RouteParameterReference;
 
-class UpdateBlacklistClientRequest extends FormRequest
+class UpdateBlacklistClientRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public function __construct(
+        #[Max(255), Unique(BlacklistClient::class, ignore: new RouteParameterReference('blacklistClient'))]
+        public string $name,
+        #[Unique(BlacklistClient::class, ignore: new RouteParameterReference('blacklistClient'))]
+        public string $peerIdPrefix,
+        #[Max(65535)]
+        public string $reason,
+    ) {
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * @param array<mixed> $properties
      *
-     * @return array<string, array<\Illuminate\Validation\Rules\Unique|string>>
+     * @return array<mixed>
      */
-    public function rules(Request $request): array
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        return [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('blacklist_clients')->ignore($request->route('blacklistClient')),
-            ],
-            'peer_id_prefix' => [
-                Rule::unique('blacklist_clients')->ignore($request->route('blacklistClient')),
-            ],
-            'reason' => [
-                'required',
-                'string',
-                'max:65536',
-            ],
-        ];
+        $properties['peer_id_prefix'] = $properties['peer_id_prefix'] ?? '';
+
+        return $properties;
     }
 }

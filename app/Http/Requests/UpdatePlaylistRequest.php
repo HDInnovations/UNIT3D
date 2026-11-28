@@ -16,45 +16,29 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\PlaylistCategory;
+use Illuminate\Http\UploadedFile;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\File;
+use Spatie\LaravelData\Attributes\Validation\Image;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Data;
 
 /**
  * @see \Tests\Todo\Unit\Http\Requests\VoteOnPollTest
  */
-class UpdatePlaylistRequest extends FormRequest
+class UpdatePlaylistRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => [
-                'required',
-                'max:255',
-            ],
-            'playlist_category_id' => [
-                'required',
-                'exists:playlist_categories,id',
-            ],
-            'description' => [
-                'required',
-                'max:65536',
-            ],
-            'is_private' => [
-                'required',
-                'boolean',
-            ],
-        ];
+    public function __construct(
+        #[Max(255)]
+        public string $name,
+        #[Exists(PlaylistCategory::class, 'id')]
+        public int $playlistCategoryId,
+        #[Max(65535)]
+        public string $description,
+        public bool $isPrivate,
+        #[File, Image]
+        public ?UploadedFile $coverImage,
+    ) {
     }
 }

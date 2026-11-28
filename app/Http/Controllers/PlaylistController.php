@@ -22,12 +22,14 @@ use App\Models\TmdbMovie;
 use App\Models\Playlist;
 use App\Models\PlaylistCategory;
 use App\Models\TmdbTv;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Traits\TorrentMeta;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Exception;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest
@@ -64,28 +66,23 @@ class PlaylistController extends Controller
     /**
      * Store A New Playlist.
      */
-    public function store(StorePlaylistRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StorePlaylistRequest $request, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        if ($request->hasFile('cover_image')) {
-            abort_if(\is_array($request->file('cover_image')), 400);
-
-            abort_unless($request->file('cover_image')->getError() === UPLOAD_ERR_OK, 500);
-
-            $image = $request->file('cover_image');
-            $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($request->coverImage !== null) {
+            $filename = 'playlist-cover_'.uniqid('', true).'.'.$request->coverImage->getClientOriginalExtension();
             $path = Storage::disk('playlist-images')->path($filename);
-            Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
+            Image::make($request->coverImage->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         }
 
-        $playlist = Playlist::create([
-            'user_id'     => $request->user()->id,
+        $playlist = Playlist::query()->create([
+            ...$request->toArray(),
             'cover_image' => $filename ?? null
-        ] + $request->validated());
+        ]);
 
         // Announce To Shoutbox
         if (!$playlist->is_private) {
             $this->chatRepository->systemMessage(
-                \sprintf('User [url=%s/', config('app.url')).$request->user()->username.'.'.$request->user()->id.']'.$request->user()->username.\sprintf('[/url] has created a new playlist [url=%s/playlists/', config('app.url')).$playlist->id.']'.$playlist->name.'[/url] check it out now!'
+                'User [url='.href_profile($currentUser).']'.$currentUser->username.'[/url] has created a new playlist [url='.href_playlist($playlist).']'.$playlist->name.'[/url] check it out now!'
             );
         }
 
@@ -104,16 +101,8 @@ class PlaylistController extends Controller
 
         $torrents = $playlist->torrents()
             ->select('*')
-            ->selectRaw(<<<'SQL'
-                CASE
-                    WHEN category_id IN (SELECT id from categories where movie_meta = TRUE) THEN 'movie'
-                    WHEN category_id IN (SELECT id from categories where tv_meta = TRUE) THEN 'tv'
-                    WHEN category_id IN (SELECT id from categories where game_meta = TRUE) THEN 'game'
-                    WHEN category_id IN (SELECT id from categories where music_meta = TRUE) THEN 'music'
-                    WHEN category_id IN (SELECT id from categories where no_meta = TRUE) THEN 'no'
-                END as meta
-            SQL)
-            ->when($request->has('search'), fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $request->search).'%'))
+            ->selectRaw(self::META_TYPE_CASE.' as meta')
+            ->when($request->has('search'), fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $request->string('search')->toString()).'%'))
             ->with(['category', 'resolution', 'type', 'user.group'])
             ->orderBy('name')
             ->paginate(26);
@@ -124,13 +113,13 @@ class PlaylistController extends Controller
         return view('playlist.show', [
             'playlist' => $playlist->load(['user.group', 'suggestions' => ['user.group', 'torrent']]),
             'meta'     => match (true) {
-                $randomTorrent?->category?->tv_meta    => TmdbTv::find($randomTorrent->tmdb_tv_id),
-                $randomTorrent?->category?->movie_meta => TmdbMovie::find($randomTorrent->tmdb_movie_id),
+                $randomTorrent?->category?->tv_meta    => TmdbTv::query()->find($randomTorrent->tmdb_tv_id),
+                $randomTorrent?->category?->movie_meta => TmdbMovie::query()->find($randomTorrent->tmdb_movie_id),
                 default                                => null,
             },
             'latestPlaylistTorrent' => $playlist->torrents()->orderByPivot('created_at', 'desc')->first(),
             'torrents'              => $torrents,
-            'search'                => $request->search,
+            'search'                => $request->string('search')->toString(),
         ]);
     }
 
@@ -150,28 +139,22 @@ class PlaylistController extends Controller
     /**
      * Update A Playlist.
      */
-    public function update(UpdatePlaylistRequest $request, Playlist $playlist): \Illuminate\Http\RedirectResponse
+    public function update(UpdatePlaylistRequest $request, Playlist $playlist, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->id == $playlist->user_id || $request->user()->group->is_modo, 403);
+        abort_unless($currentUser->id == $playlist->user_id || $currentUser->group->is_modo, 403);
 
-        if ($request->hasFile('cover_image')) {
-            $image = $request->file('cover_image');
-
-            abort_if(\is_array($image), 400);
-
-            abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
-
-            $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
+        if ($request->coverImage) {
+            $filename = 'playlist-cover_'.uniqid('', true).'.'.$request->coverImage->getClientOriginalExtension();
             $path = Storage::disk('playlist-images')->path($filename);
-            Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
+            Image::make($request->coverImage->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
 
             if ($playlist->cover_image !== null) {
                 Storage::disk('playlist-images')->delete($playlist->cover_image);
             }
 
-            $playlist->update(['cover_image' => $filename] + $request->validated());
+            $playlist->update([...$request->toArray(), 'cover_image' => $filename]);
         } else {
-            $playlist->update($request->validated());
+            $playlist->update($request->toArray());
         }
 
         return to_route('playlists.show', ['playlist' => $playlist])

@@ -16,35 +16,31 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
+use Override;
+use Spatie\LaravelData\Attributes\Validation\Date;
+use Spatie\LaravelData\Data;
 
-class StoreSnoozedReportRequest extends FormRequest
+class StoreSnoozedReportRequest extends Data
 {
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'snoozed_until' => [
-                'required',
-                'string',
-                'date_format:Y-m-d H:i:s',
-            ],
-        ];
+    public function __construct(
+        #[Date]
+        public Carbon $snoozedUntil,
+    ) {
     }
 
     /**
-     * Prepare the data for validation.
+     * @param array<mixed> $properties
+     *
+     * @return array<mixed>
      */
-    protected function prepareForValidation(): void
+    #[Override]
+    public static function prepareForPipeline(array $properties): array
     {
-        if (ctype_digit($this->snoozed_days)) {
-            $this->merge([
-                'snoozed_until' => now()->addDays((int) $this->snoozed_days)->toDateTimeString(),
-            ]);
+        if (ctype_digit($properties['snoozed_days'] ?? '')) {
+            $properties['snoozed_until'] = now()->addDays((int) $properties['snoozed_until'])->toDateTimeString();
         }
+
+        return $properties;
     }
 }

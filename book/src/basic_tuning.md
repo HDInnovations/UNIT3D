@@ -149,7 +149,7 @@ php artisan set:all_cache
 ```
 
 ```bash
-sudo systemctl restart mysql && sudo systemctl restart php8.3-fpm && sudo systemctl restart nginx
+sudo systemctl restart mysql && sudo systemctl restart php8.4-fpm && sudo systemctl restart nginx
 ```
 
 ### References
@@ -199,7 +199,7 @@ Opcache provides massive performance gains. One of the benchmarks suggest it can
 Every time you execute a PHP script, the script needs to be compiled to byte code. OPCache leverages a cache for this bytecode, so the next time the same script is requested, it doesn’t have to recompile it. This can save some precious execution time, and thus make UNIT3D faster.
 
 `Sounds awesome, so how can you use it?`
-Easy. SSH to your server and run the following command. `sudo nano /etc/php/8.3/fpm/php.ini` This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for `opcache`.
+Easy. SSH to your server and run the following command. `sudo nano /etc/php/8.4/fpm/php.ini` This is assuming your on PHP 8.4. If not then adjust the command. Once you have the config open search for `opcache`.
 
 Now you can change some values, I will walk you through the most important ones.
 
@@ -221,7 +221,7 @@ This will revalidate the script. If you set this to 0 (best performance), you ne
 `opcache.save_comments=1`
 This will preserve comments in your script, I recommend to keep this enabled, as some libraries depend on it, and I couldn’t find any benefits from disabling it (except from saving a few bytes RAM). Make sure it is uncommented. AKA remove the`;`
 
-And there you have it folks. Experiment with these values, depending on the resources of your server. Save the file and exit and restart PHP `sudo systemctl restart php8.3-fpm`.
+And there you have it folks. Experiment with these values, depending on the resources of your server. Save the file and exit and restart PHP `sudo systemctl restart php8.4-fpm`.
 
 Enjoy! 🖖
 
@@ -240,7 +240,7 @@ PHP preloading for PHP >=7.4. Preloading is a feature of php that will pre-compi
 
 ### Enabling preloading
 
-SSH to your server and run the following command. `sudo nano /etc/php/8.3/fpm/php.ini` This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for `preload`.
+SSH to your server and run the following command. `sudo nano /etc/php/8.4/fpm/php.ini` This is assuming your on PHP 8.4. If not then adjust the command. Once you have the config open search for `preload`.
 
 Now you can change some values.
 

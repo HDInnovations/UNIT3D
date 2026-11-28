@@ -6,17 +6,61 @@ namespace App\Http\Requests;
 
 use App\Enums\UserGroup;
 use App\Models\Group;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Data;
 
-class UpsertUserNotificationRequest extends FormRequest
+#[MergeValidationRules]
+class UpsertUserNotificationRequest extends Data
 {
+    public function __construct(
+        public bool $showAccountFollow,
+        public bool $showAccountUnfollow,
+        public bool $showFollowingUpload,
+        public bool $showBonGift,
+        public bool $showSubscriptionForum,
+        public bool $showSubscriptionTopic,
+        public bool $showRequestComment,
+        public bool $showRequestBounty,
+        public bool $showRequestFill,
+        public bool $showRequestFillApprove,
+        public bool $showRequestFillReject,
+        public bool $showRequestClaim,
+        public bool $showRequestUnclaim,
+        public bool $showTorrentComment,
+        public bool $showTorrentThank,
+        public bool $showTorrentTip,
+        public bool $showMentionTorrent_comment,
+        public bool $showMentionRequest_comment,
+        public bool $showMentionArticle_comment,
+        public bool $showMentionForum_post,
+        public bool $showForumTopic,
+        public bool $blockNotifications,
+        /** @var list<int> */
+        public array $jsonAccountGroups = [],
+        /** @var list<int> */
+        public array $jsonBonGroups = [],
+        /** @var list<int> */
+        public array $jsonFollowingGroups = [],
+        /** @var list<int> */
+        public array $jsonForumGroups = [],
+        /** @var list<int> */
+        public array $jsonRequestGroups = [],
+        /** @var list<int> */
+        public array $jsonSubscriptionGroups = [],
+        /** @var list<int> */
+        public array $jsonTorrentGroups = [],
+        /** @var list<int> */
+        public array $jsonMentionGroups = [],
+    ) {
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|\Illuminate\Validation\Rules\In|string>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         $validGroups = Group::query()
             ->where('is_modo', '=', false)
@@ -28,61 +72,14 @@ class UpsertUserNotificationRequest extends FormRequest
             ->pluck('id');
 
         return [
-            'show_account_follow'          => 'required|boolean',
-            'show_account_unfollow'        => 'required|boolean',
-            'show_following_upload'        => 'required|boolean',
-            'show_bon_gift'                => 'required|boolean',
-            'show_subscription_forum'      => 'required|boolean',
-            'show_subscription_topic'      => 'required|boolean',
-            'show_request_comment'         => 'required|boolean',
-            'show_request_bounty'          => 'required|boolean',
-            'show_request_fill'            => 'required|boolean',
-            'show_request_fill_approve'    => 'required|boolean',
-            'show_request_fill_reject'     => 'required|boolean',
-            'show_request_claim'           => 'required|boolean',
-            'show_request_unclaim'         => 'required|boolean',
-            'show_torrent_comment'         => 'required|boolean',
-            'show_torrent_thank'           => 'required|boolean',
-            'show_torrent_tip'             => 'required|boolean',
-            'show_mention_torrent_comment' => 'required|boolean',
-            'show_mention_request_comment' => 'required|boolean',
-            'show_mention_article_comment' => 'required|boolean',
-            'show_mention_forum_post'      => 'required|boolean',
-            'show_forum_topic'             => 'required|boolean',
-            'json_account_groups'          => 'array',
-            'json_account_groups.*'        => Rule::in($validGroups),
-            'json_bon_groups'              => 'array',
-            'json_bon_groups.*'            => Rule::in($validGroups),
-            'json_following_groups'        => 'array',
-            'json_following_groups.*'      => Rule::in($validGroups),
-            'json_forum_groups'            => 'array',
-            'json_forum_groups.*'          => Rule::in($validGroups),
-            'json_request_groups'          => 'array',
-            'json_request_groups.*'        => Rule::in($validGroups),
-            'json_subscription_groups'     => 'array',
-            'json_subscription_groups.*'   => Rule::in($validGroups),
-            'json_torrent_groups'          => 'array',
-            'json_torrent_groups.*'        => Rule::in($validGroups),
-            'json_mention_groups'          => 'array',
-            'json_mention_groups.*'        => Rule::in($validGroups),
-            'block_notifications'          => 'required|boolean',
+            'json_account_groups.*'      => Rule::in($validGroups),
+            'json_bon_groups.*'          => Rule::in($validGroups),
+            'json_following_groups.*'    => Rule::in($validGroups),
+            'json_forum_groups.*'        => Rule::in($validGroups),
+            'json_request_groups.*'      => Rule::in($validGroups),
+            'json_subscription_groups.*' => Rule::in($validGroups),
+            'json_torrent_groups.*'      => Rule::in($validGroups),
+            'json_mention_groups.*'      => Rule::in($validGroups),
         ];
-    }
-
-    /**
-     * Prepare the data for validation.
-     */
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'json_account_groups'      => array_map('intval', $this->json_account_groups ?? []),
-            'json_bon_groups'          => array_map('intval', $this->json_bon_groups ?? []),
-            'json_following_groups'    => array_map('intval', $this->json_following_groups ?? []),
-            'json_forum_groups'        => array_map('intval', $this->json_forum_groups ?? []),
-            'json_request_groups'      => array_map('intval', $this->json_request_groups ?? []),
-            'json_subscription_groups' => array_map('intval', $this->json_subscription_groups ?? []),
-            'json_torrent_groups'      => array_map('intval', $this->json_torrent_groups ?? []),
-            'json_mention_groups'      => array_map('intval', $this->json_mention_groups ?? []),
-        ]);
     }
 }

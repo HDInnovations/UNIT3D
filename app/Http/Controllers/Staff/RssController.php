@@ -24,8 +24,10 @@ use App\Models\TmdbGenre;
 use App\Models\Resolution;
 use App\Models\Rss;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -38,7 +40,7 @@ class RssController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.rss.index', [
-            'public_rss' => Rss::where('is_private', '=', false)->oldest('position')->get(),
+            'public_rss' => Rss::query()->where('is_private', '=', false)->oldest('position')->get(),
         ]);
     }
 
@@ -48,10 +50,10 @@ class RssController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.rss.create', [
-            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'genres'      => TmdbGenre::orderBy('name')->get(),
+            'categories'  => Category::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => TmdbGenre::query()->orderBy('name')->get(),
             'user'        => $request->user(),
         ]);
     }
@@ -59,15 +61,15 @@ class RssController extends Controller
     /**
      * Store a newly created RSS resource in storage.
      */
-    public function store(StoreRssRequest $request): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+    public function store(StoreRssRequest $request, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
-        $rss = new Rss();
-        $rss->name = $request->name;
-        $rss->user_id = $request->user()->id;
-        $rss->json_torrent = array_merge($rss->expected_fields, $request->validated());
-        $rss->is_private = false;
-        $rss->position = $request->position;
-        $rss->save();
+        Rss::query()->create([
+            'name'         => $request->name,
+            'user_id'      => $currentUser->id,
+            'json_torrent' => $request->toArray(),
+            'is_private'   => false,
+            'position'     => $request->position,
+        ]);
 
         return to_route('staff.rss.index')
             ->with('success', 'Public RSS feed created');
@@ -81,10 +83,10 @@ class RssController extends Controller
         abort_if($rss->is_private, 403);
 
         return view('Staff.rss.edit', [
-            'categories'  => Category::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'types'       => Type::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'resolutions' => Resolution::select(['id', 'name', 'position'])->orderBy('position')->get(),
-            'genres'      => TmdbGenre::orderBy('name')->get(),
+            'categories'  => Category::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'types'       => Type::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'resolutions' => Resolution::query()->select(['id', 'name', 'position'])->orderBy('position')->get(),
+            'genres'      => TmdbGenre::query()->orderBy('name')->get(),
             'user'        => $request->user(),
             'rss'         => $rss,
         ]);
@@ -98,7 +100,7 @@ class RssController extends Controller
         abort_if($rss->is_private, 403);
 
         $rss->update([
-            'json_torrent' => array_merge($rss->json_torrent, $rss->expected_fields, $request->validated()),
+            'json_torrent' => $request->toArray(),
             'name'         => $request->name,
             'position'     => $request->position,
         ]);

@@ -1,7 +1,6 @@
 <?php
-
-declare(strict_types=1);
-/**
+return [
+    /**
  * NOTICE OF LICENSE.
  *
  * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
@@ -12,8 +11,6 @@ declare(strict_types=1);
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-
-return [
     /*
     |--------------------------------------------------------------------------
     | Password Reset Language Lines
@@ -24,10 +21,9 @@ return [
     | has failed, such as for an invalid token or invalid new password.
     |
     */
-
     'password' => 'Parool peab olema vähemalt 6 tähemärki pikk ja vastama kinnitusele.',
-    'reset'    => 'Sinu parool on lähtestatud!',
-    'sent'     => 'Oleme saatnud sulle e-postiga parooli lähtestamise lingi!',
-    'token'    => 'See parooli lähtestamise tunnus on vigane.',
-    'user'     => 'Ei suutnud leida sellise e-posti aadressiga kasutajat.',
+    'reset' => 'Sinu parool on lähtestatud!',
+    'sent' => 'Päring õnnestus: Kui emaili aadress vastab kontole, saadetakse salasõna taastamiseks link.',
+    'token' => 'See parooli lähtestamise tunnus on vigane.',
+    'user' => 'Ei suutnud leida sellise e-posti aadressiga kasutajat.',
 ];

@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\DonationPackage.
@@ -56,6 +57,7 @@ final class DonationPackage extends Model
      *
      * @return array{position: 'int', name: 'string', description: 'string', cost: 'decimal:2', upload_value: 'int', invite_value: 'int', bonus_value: 'int', donor_value: 'int', is_active: 'bool', created_at: 'datetime', updated_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

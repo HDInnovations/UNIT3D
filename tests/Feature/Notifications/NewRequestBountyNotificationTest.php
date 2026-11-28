@@ -15,7 +15,6 @@ declare(strict_types=1);
  */
 
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\TorrentRequest;
 use App\Models\User;
@@ -34,9 +33,6 @@ test('add bounty to request creates a notification for the requester', function 
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -72,8 +68,8 @@ test('add bounty to request creates a notification for the requester', function 
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertSentTo(
@@ -91,9 +87,6 @@ test('add bounty to request creates a notification for the requester when bounty
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -131,8 +124,8 @@ test('add bounty to request creates a notification for the requester when bounty
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertSentTo(
@@ -150,9 +143,6 @@ test('add bounty to request does not create a notification for the requester whe
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -188,8 +178,8 @@ test('add bounty to request does not create a notification for the requester whe
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertCount(0);
@@ -203,9 +193,6 @@ test('add bounty to request does not create a notification for the requester whe
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -241,8 +228,8 @@ test('add bounty to request does not create a notification for the requester whe
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertCount(0);
@@ -256,9 +243,6 @@ test('add bounty to request does not create a notification for the requester whe
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -295,8 +279,8 @@ test('add bounty to request does not create a notification for the requester whe
     ]);
 
     $this->assertDatabaseHas('request_bounty', [
-        'requests_id' => $torrentRequest->id,
-        'seedbonus'   => $bounty,
+        'request_id' => $torrentRequest->id,
+        'seedbonus'  => $bounty,
     ]);
 
     Notification::assertCount(0);

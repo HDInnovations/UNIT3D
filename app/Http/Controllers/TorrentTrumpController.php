@@ -18,20 +18,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Staff\StoreTorrentTrumpRequest;
 use App\Models\Torrent;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class TorrentTrumpController extends Controller
 {
-    public function store(StoreTorrentTrumpRequest $request, Torrent $torrent): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentTrumpRequest $request, Torrent $torrent, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
+        abort_unless($currentUser->group->is_modo, 403);
 
-        abort_unless($user->group->is_modo, 403);
-
-        $torrent->trump()->create([
-            'user_id' => $user->id,
-            'reason'  => $request->input('reason'),
-        ]);
+        $torrent->trump()->create($request->toArray());
 
         return to_route('torrents.show', ['id' => $torrent->id])
             ->with('success', 'Torrent flagged as trumpable!');

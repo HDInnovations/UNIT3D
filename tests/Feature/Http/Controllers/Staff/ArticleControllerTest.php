@@ -14,25 +14,10 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\Staff\ArticleController;
-use App\Http\Requests\Staff\StoreArticleRequest;
-use App\Http\Requests\Staff\UpdateArticleRequest;
 use App\Models\Article;
-use App\Models\Group;
-use App\Models\User;
-
-beforeEach(function (): void {
-    $this->staffUser = User::factory()->create([
-        'group_id' => fn () => Group::factory()->create([
-            'is_owner' => true,
-            'is_admin' => true,
-            'is_modo'  => true,
-        ])->id,
-    ]);
-});
 
 test('create returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->get(route('staff.articles.create'));
+    $response = $this->get(route('staff.articles.create'));
     $response->assertOk();
     $response->assertViewIs('Staff.article.create');
 });
@@ -40,9 +25,9 @@ test('create returns an ok response', function (): void {
 test('destroy returns an ok response', function (): void {
     $article = Article::factory()->create();
 
-    $response = $this->actingAs($this->staffUser)->delete(route('staff.articles.destroy', [$article]));
-    $response->assertRedirect(route('staff.articles.index'));
-    $response->assertSessionHas('success', 'Article has successfully been deleted');
+    $this->delete(route('staff.articles.destroy', [$article]))
+        ->assertRedirect(route('staff.articles.index'))
+        ->assertSessionHas('success', 'Article has successfully been deleted');
 
     $this->assertModelMissing($article);
 });
@@ -50,51 +35,39 @@ test('destroy returns an ok response', function (): void {
 test('edit returns an ok response', function (): void {
     $article = Article::factory()->create();
 
-    $response = $this->actingAs($this->staffUser)->get(route('staff.articles.edit', [$article]));
-    $response->assertOk();
-    $response->assertViewIs('Staff.article.edit');
-    $response->assertViewHas('article', $article);
+    $this->get(route('staff.articles.edit', [$article]))
+        ->assertOk()
+        ->assertViewIs('Staff.article.edit')
+        ->assertViewHas('article', $article);
 });
 
 test('index returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->get(route('staff.articles.index'));
-    $response->assertOk();
-    $response->assertViewIs('Staff.article.index');
-    $response->assertViewHas('articles');
-});
-
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ArticleController::class,
-        'store',
-        StoreArticleRequest::class
-    );
+    $this->get(route('staff.articles.index'))
+        ->assertOk()
+        ->assertViewIs('Staff.article.index')
+        ->assertViewHas('articles');
 });
 
 test('store returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->post(route('staff.articles.store'), [
-        'title'   => 'Test Article',
-        'content' => 'Test Content',
-    ]);
-    $response->assertRedirect(route('staff.articles.index'));
-    $response->assertSessionHas('success', 'Your article has successfully published!');
-});
+    $article = Article::factory()->make()->makeHidden('user_id');
 
-test('update validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ArticleController::class,
-        'update',
-        UpdateArticleRequest::class
-    );
+    $this->post(route('staff.articles.store'), $article->toArray())
+        ->assertRedirect(route('staff.articles.index'))
+        ->assertSessionHas('success', 'Your article has successfully published!');
+
+    $this->assertDatabaseHas('articles', $article->toArray());
 });
 
 test('update returns an ok response', function (): void {
     $article = Article::factory()->create();
+    $newArticle = Article::factory()->make()->makeHidden('user_id');
 
-    $response = $this->actingAs($this->staffUser)->post(route('staff.articles.update', [$article]), [
-        'title'   => 'Test Article Updated',
-        'content' => 'Test Content Updated',
+    $this->post(route('staff.articles.update', [$article]), $newArticle->toArray())
+        ->assertRedirect(route('staff.articles.index'))
+        ->assertSessionHas('success', 'Your article changes have successfully published!');
+
+    $this->assertDatabaseHas('articles', [
+        'id' => $article->id,
+        ...$newArticle->toArray(),
     ]);
-    $response->assertRedirect(route('staff.articles.index'));
-    $response->assertSessionHas('success', 'Your article changes have successfully published!');
 });

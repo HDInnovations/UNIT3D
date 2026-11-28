@@ -24,6 +24,7 @@ use App\Models\User;
 use App\Notifications\UserBan;
 use App\Services\Unit3dAnnounce;
 use Exception;
+use Illuminate\Container\Attributes\CurrentUser;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\BanControllerTest
@@ -36,7 +37,7 @@ class BanController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.ban.index', [
-            'bans' => Ban::latest()->with('user.group', 'staff.group')->paginate(25),
+            'bans' => Ban::query()->latest()->with('user.group', 'staff.group')->paginate(25),
         ]);
     }
 
@@ -45,19 +46,18 @@ class BanController extends Controller
      *
      * @throws Exception
      */
-    public function store(StoreBanRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreBanRequest $request, #[CurrentUser] User $staff): \Illuminate\Http\RedirectResponse
     {
-        $user = User::findOrFail($request->string('owned_by'));
-        $staff = $request->user();
+        $user = User::query()->findOrFail($request->ownedBy);
 
         abort_if($user->group->is_modo || $staff->is($user), 403);
 
         $user->update([
-            'group_id'     => Group::where('slug', '=', 'banned')->soleValue('id'),
+            'group_id'     => Group::query()->where('slug', '=', 'banned')->soleValue('id'),
             'can_download' => 0,
         ]);
 
-        $ban = Ban::create(['created_by' => $staff->id] + $request->validated());
+        $ban = Ban::query()->create($request->toArray());
 
         cache()->forget('user:'.$user->passkey);
 

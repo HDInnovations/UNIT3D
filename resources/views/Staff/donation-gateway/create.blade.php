@@ -35,8 +35,11 @@
                         <tr>
                             <td>
                                 <input
-                                    type="number"
+                                    type="text"
+                                    inputmode="numeric"
+                                    pattern="[0-9]+"
                                     name="position"
+                                    required
                                     value=""
                                     placeholder="0"
                                     class="form__text"
@@ -46,6 +49,7 @@
                                 <input
                                     type="text"
                                     name="name"
+                                    required
                                     value=""
                                     placeholder="Name"
                                     class="form__text"
@@ -55,6 +59,7 @@
                                 <input
                                     type="text"
                                     name="address"
+                                    required
                                     value=""
                                     placeholder="Address"
                                     class="form__text"

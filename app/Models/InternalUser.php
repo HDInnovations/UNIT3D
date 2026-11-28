@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\Auditable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use AllowDynamicProperties;
@@ -27,11 +28,15 @@ use AllowDynamicProperties;
  * @property int $id
  * @property int $user_id
  * @property int $internal_id
+ * @property int $position
  */
 #[AllowDynamicProperties]
 final class InternalUser extends Pivot
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\InternalUserFactory> */
+    use HasFactory;
 
     /**
      * Indicates if the IDs are auto-incrementing.

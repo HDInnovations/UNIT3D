@@ -14,28 +14,13 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\Staff\ChatRoomController;
-use App\Http\Requests\Staff\StoreChatRoomRequest;
-use App\Http\Requests\Staff\UpdateChatRoomRequest;
 use App\Models\Chatroom;
-use App\Models\Group;
-use App\Models\User;
 use Database\Seeders\ChatroomSeeder;
 
-beforeEach(function (): void {
-    $this->staffUser = User::factory()->create([
-        'group_id' => fn () => Group::factory()->create([
-            'is_owner' => true,
-            'is_admin' => true,
-            'is_modo'  => true,
-        ])->id,
-    ]);
-});
-
 test('create returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->get(route('staff.chatrooms.create'));
-    $response->assertOk();
-    $response->assertViewIs('Staff.chat.room.create');
+    $this->get(route('staff.chatrooms.create'))
+        ->assertOk()
+        ->assertViewIs('Staff.chat.room.create');
 });
 
 test('destroy returns an ok response', function (): void {
@@ -43,9 +28,9 @@ test('destroy returns an ok response', function (): void {
 
     $chatroom = Chatroom::factory()->create();
 
-    $response = $this->actingAs($this->staffUser)->delete(route('staff.chatrooms.destroy', [$chatroom]));
-    $response->assertRedirect(route('staff.chatrooms.index'));
-    $response->assertSessionHas('success', 'Chatroom successfully deleted');
+    $this->delete(route('staff.chatrooms.destroy', [$chatroom]))
+        ->assertRedirect(route('staff.chatrooms.index'))
+        ->assertSessionHas('success', 'Chatroom successfully deleted');
 
     $this->assertModelMissing($chatroom);
 });
@@ -53,49 +38,33 @@ test('destroy returns an ok response', function (): void {
 test('edit returns an ok response', function (): void {
     $chatroom = Chatroom::factory()->create();
 
-    $response = $this->actingAs($this->staffUser)->get(route('staff.chatrooms.edit', [$chatroom]));
-    $response->assertOk();
-    $response->assertViewIs('Staff.chat.room.edit');
-    $response->assertViewHas('chatroom', $chatroom);
+    $this->get(route('staff.chatrooms.edit', [$chatroom]))
+        ->assertOk()
+        ->assertViewIs('Staff.chat.room.edit')
+        ->assertViewHas('chatroom', $chatroom);
 });
 
 test('index returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->get(route('staff.chatrooms.index'));
-    $response->assertOk();
-    $response->assertViewIs('Staff.chat.room.index');
-    $response->assertViewHas('chatrooms');
-});
-
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ChatRoomController::class,
-        'store',
-        StoreChatRoomRequest::class
-    );
+    $this->get(route('staff.chatrooms.index'))
+        ->assertOk()
+        ->assertViewIs('Staff.chat.room.index')
+        ->assertViewHas('chatrooms');
 });
 
 test('store returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->post(route('staff.chatrooms.store'), [
+    $this->post(route('staff.chatrooms.store'), [
         'name' => 'Test Chatroom',
-    ]);
-    $response->assertRedirect(route('staff.chatrooms.index'));
-    $response->assertSessionHas('success', 'Chatroom successfully added');
-});
-
-test('update validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        ChatRoomController::class,
-        'update',
-        UpdateChatRoomRequest::class
-    );
+    ])
+        ->assertRedirect(route('staff.chatrooms.index'))
+        ->assertSessionHas('success', 'Chatroom successfully added');
 });
 
 test('update returns an ok response', function (): void {
     $chatroom = Chatroom::factory()->create();
 
-    $response = $this->actingAs($this->staffUser)->post(route('staff.chatrooms.update', [$chatroom]), [
+    $this->post(route('staff.chatrooms.update', [$chatroom]), [
         'name' => 'Test Chatroom Updated',
-    ]);
-    $response->assertRedirect(route('staff.chatrooms.index'));
-    $response->assertSessionHas('success', 'Chatroom successfully modified');
+    ])
+        ->assertRedirect(route('staff.chatrooms.index'))
+        ->assertSessionHas('success', 'Chatroom successfully modified');
 });

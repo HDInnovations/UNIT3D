@@ -14,9 +14,6 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Http\Controllers\PlaylistController;
-use App\Http\Requests\StorePlaylistRequest;
-use App\Http\Requests\UpdatePlaylistRequest;
 use App\Models\Playlist;
 use App\Models\PlaylistCategory;
 use App\Models\User;
@@ -112,14 +109,6 @@ test('show aborts with a 403', function (): void {
     $response->assertForbidden();
 });
 
-test('store validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        PlaylistController::class,
-        'store',
-        StorePlaylistRequest::class
-    );
-});
-
 test('store returns an ok response', function (): void {
     $this->seed(UserSeeder::class);
     $this->seed(ChatroomSeeder::class);
@@ -146,14 +135,6 @@ test('store returns an ok response', function (): void {
     $this->assertDatabaseHas('playlists', [
         'name' => $playlist->name,
     ]);
-});
-
-test('update validates with a form request', function (): void {
-    $this->assertActionUsesFormRequest(
-        PlaylistController::class,
-        'update',
-        UpdatePlaylistRequest::class
-    );
 });
 
 test('update returns an ok response', function (): void {

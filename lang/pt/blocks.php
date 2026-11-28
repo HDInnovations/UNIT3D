@@ -17,7 +17,7 @@ return [
     'featured-by' => 'Caracterizado por',
     'featured-torrents' => 'Torrents em destaque',
     'featured-torrents-intro' => 'Pegue eles enquanto você pode!',
-    'featured-until' => 'Isso é caracterizado torrent até',
+    'featured-until' => 'Este é um torrent em destaque até',
     'top-torrents' => 'Top Torrents',
     'latest-posts' => 'Últimas postagens',
     'latest-topics' => 'Tópicos mais recentes',

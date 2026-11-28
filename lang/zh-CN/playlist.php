@@ -13,7 +13,7 @@ return [
  */
     'about' => '在这里，您可以查看用户自定义喜欢的播放列表！',
     'attached-success' => '种子已成功附加到您的播放列表中。',
-    'add-to-playlist' => '把种子加入播放列表',
+    'add-to-playlist' => '将种子加入播放列表',
     'add-torrent' => '添加种子',
     'added-by' => '来自:',
     'cover' => '选择一个封面图片',
@@ -30,7 +30,7 @@ return [
     'playlists' => '播放列表',
     'private-error' => '这是一个私人播放列表！您无权访问其他用户的私人播放列表！',
     'published-success' => '您的播放列表已成功创建！',
-    'title' => '标题',
+    'title' => '称谓',
     'titles' => '标题',
     'update-success' => '您的播放列表已成功更新！',
     'playlist-suggestions' => '播放列表建议',

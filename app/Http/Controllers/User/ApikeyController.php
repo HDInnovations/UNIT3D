@@ -17,41 +17,40 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\StoreApikeyRequest;
+use App\Models\Apikey;
 use App\Models\User;
 use App\Notifications\ApikeyReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Container\Attributes\CurrentUser;
 
 class ApikeyController extends Controller
 {
     /**
      * Update user apikey.
      */
-    protected function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    protected function store(StoreApikeyRequest $request, User $user, #[CurrentUser] User $currentUser): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
+        abort_unless($currentUser->is($user), 403);
 
-        $changedByStaff = $request->user()->isNot($user);
+        $apikey = Str::random(100);
 
-        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
+        return DB::transaction(function () use ($user, $request, $apikey) {
+            if ($user->apikeys()->count() >= 5) {
+                return back()->withErrors('Max of 5 apikeys allowed.');
+            }
 
-        DB::transaction(function () use ($user, $changedByStaff): void {
-            $user->apikeys()->latest()->first()?->update(['deleted_at' => now()]);
-
-            $user->update([
-                'api_token' => Str::random(100),
+            $user->apikeys()->create([
+                ...$request->toArray(),
+                'content' => $apikey,
             ]);
 
-            $user->apikeys()->create(['content' => $user->api_token]);
-
-            if ($changedByStaff) {
-                $user->notify(new ApikeyReset());
-            }
+            return to_route('users.apikeys.index', ['user' => $user])
+                ->with('apikey', $apikey)
+                ->with('success', 'Your API key was created successfully.');
         });
-
-        return to_route('users.apikeys.index', ['user' => $user])
-            ->with('success', 'Your API key was changed successfully.');
     }
 
     /**
@@ -62,8 +61,32 @@ class ApikeyController extends Controller
         abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
         return view('user.apikey.index', [
-            'user'    => $user,
-            'apikeys' => $user->apikeys()->latest()->get()
+            'user'           => $user,
+            'apikeys'        => $user->apikeys()->latest()->get(),
+            'deletedApikeys' => $user->apikeys()->onlyTrashed()->latest()->get(),
         ]);
+    }
+
+    /**
+     * Delete user apikey.
+     */
+    protected function destroy(Request $request, User $user, Apikey $apikey): \Illuminate\Http\RedirectResponse
+    {
+        abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
+
+        $changedByStaff = $request->user()->isNot($user);
+
+        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
+
+        DB::transaction(function () use ($apikey, $user, $changedByStaff): void {
+            $apikey->delete();
+
+            if ($changedByStaff) {
+                $user->notify(new ApikeyReset());
+            }
+        });
+
+        return to_route('users.apikeys.index', ['user' => $user])
+            ->with('success', 'Your API key was changed successfully.');
     }
 }

@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Gift.
@@ -33,6 +35,9 @@ use AllowDynamicProperties;
 #[AllowDynamicProperties]
 final class PostTip extends Model
 {
+    /** @use HasFactory<\Database\Factories\PostTipFactory> */
+    use HasFactory;
+
     protected $guarded = [];
 
     public $timestamps = false;
@@ -42,6 +47,7 @@ final class PostTip extends Model
      *
      * @return array{created_at: 'datetime'}
      */
+    #[Override]
     protected function casts(): array
     {
         return [

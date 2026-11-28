@@ -24,7 +24,7 @@ class ChatroomSeeder extends Seeder
 {
     public function run(): void
     {
-        Chatroom::upsert([
+        Chatroom::query()->upsert([
             [
                 'name' => 'General',
             ],

@@ -47,13 +47,7 @@ class BonExchangeController extends Controller
      */
     public function store(StoreBonExchangeRequest $request): \Illuminate\Http\RedirectResponse
     {
-        BonExchange::create([
-            'upload'             => $request->type === 'upload',
-            'download'           => $request->type === 'download',
-            'personal_freeleech' => $request->type === 'personal_freeleech',
-            'invite'             => $request->type === 'invite',
-        ]
-        + $request->validated());
+        BonExchange::query()->create($request->toArray());
 
         return to_route('staff.bon_exchanges.index')
             ->with('success', 'Bon exchange successfully added');
@@ -65,7 +59,7 @@ class BonExchangeController extends Controller
     public function edit(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.bon-exchange.edit', [
-            'bonExchange' => BonExchange::findOrFail($id),
+            'bonExchange' => BonExchange::query()->findOrFail($id),
         ]);
     }
 
@@ -74,13 +68,7 @@ class BonExchangeController extends Controller
      */
     public function update(UpdateBonExchangeRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        BonExchange::findOrFail($id)->update([
-            'upload'             => $request->type === 'upload',
-            'download'           => $request->type === 'download',
-            'personal_freeleech' => $request->type === 'personal_freeleech',
-            'invite'             => $request->type === 'invite',
-        ]
-        + $request->validated());
+        BonExchange::query()->findOrFail($id)->update($request->toArray());
 
         return to_route('staff.bon_exchanges.index')
             ->with('success', 'Bon exchange successfully modified');
@@ -93,7 +81,7 @@ class BonExchangeController extends Controller
      */
     public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-        BonExchange::findOrFail($id)->delete();
+        BonExchange::query()->findOrFail($id)->delete();
 
         return to_route('staff.bon_exchanges.index')
             ->with('success', 'Bon exchange successfully deleted');

@@ -16,44 +16,50 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use App\Attributes\FromCurrentUserId;
+use App\Models\TicketCategory;
+use App\Models\TicketPriority;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\MergeValidationRules;
+use Spatie\LaravelData\Attributes\Validation\Exists;
+use Spatie\LaravelData\Attributes\Validation\File;
+use Spatie\LaravelData\Attributes\Validation\Image;
+use Spatie\LaravelData\Attributes\Validation\Max;
+use Spatie\LaravelData\Attributes\Validation\ValidationAttribute;
+use Spatie\LaravelData\Data;
 
-class StoreTicketRequest extends FormRequest
+#[MergeValidationRules]
+class StoreTicketRequest extends Data
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
+    public function __construct(
+        #[Exists(TicketCategory::class, 'id')]
+        public int $categoryId,
+        #[Exists(TicketPriority::class, 'id')]
+        public int $priorityId,
+        #[Max(255)]
+        public string $subject,
+        #[Max(65535)]
+        public string $body,
+        #[FromCurrentUserId]
+        public int $userId,
+        /** @var Collection<int, UploadedFile> */
+        public Collection $attachments = new Collection(),
+    ) {
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
+     * @return array<string, list<ValidationAttribute>>
      */
-    public function rules(): array
+    public static function rules(): array
     {
         return [
-            'category_id' => [
-                'required',
-                'integer',
-                Rule::exists('ticket_categories', 'id'),
-            ],
-            'priority_id' => [
-                'required',
-                'integer',
-                Rule::exists('ticket_priorities', 'id'),
-            ],
-            'subject' => [
-                'required',
-                'max:255',
-            ],
-            'body' => [
-                'required',
-                'max:65535',
+            'attachments.*' => [
+                new File(),
+                new Image(),
+                new Max(1024),
             ],
         ];
     }

@@ -29,7 +29,7 @@ use AllowDynamicProperties;
  * @property int                             $user_id
  * @property int                             $ticket_id
  * @property string|null                     $file_name
- * @property string|null                     $file_size
+ * @property int|null                        $file_size
  * @property string|null                     $file_extension
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -42,6 +42,13 @@ final class TicketAttachment extends Model
 
     /** @use HasFactory<\Database\Factories\TicketAttachmentFactory> */
     use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
 
     /**
      * Get the user who uploaded the ticket attachment.

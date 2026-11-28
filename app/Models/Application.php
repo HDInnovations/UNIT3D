@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Application.
@@ -52,6 +53,7 @@ final class Application extends Model
      *
      * @return array{moderated_at: 'datetime', status: class-string<ModerationStatus>}
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -67,6 +69,7 @@ final class Application extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    #[Override]
     protected static function booted(): void
     {
         static::addGlobalScope(new ApprovedScope());

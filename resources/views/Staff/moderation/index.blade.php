@@ -108,6 +108,7 @@
             <table class="data-table">
                 <thead>
                     <tr>
+                        <th>{{ __('torrent.uploaded') }}</th>
                         <th>{{ __('staff.moderation-since') }}</th>
                         <th>{{ __('common.name') }}</th>
                         <th>{{ __('common.category') }}</th>
@@ -122,6 +123,14 @@
                 <tbody>
                     @forelse ($postponed as $torrent)
                         <tr>
+                            <td>
+                                <time
+                                    datetime="{{ $torrent->created_at }}"
+                                    title="{{ $torrent->created_at }}"
+                                >
+                                    {{ $torrent->created_at->diffForHumans() }}
+                                </time>
+                            </td>
                             <td>
                                 <time
                                     datetime="{{ $torrent->moderated_at }}"
@@ -206,6 +215,7 @@
             <table class="data-table">
                 <thead>
                     <tr>
+                        <th>{{ __('torrent.uploaded') }}</th>
                         <th>{{ __('staff.moderation-since') }}</th>
                         <th>{{ __('common.name') }}</th>
                         <th>{{ __('common.category') }}</th>
@@ -220,6 +230,14 @@
                 <tbody>
                     @forelse ($rejected as $torrent)
                         <tr>
+                            <td>
+                                <time
+                                    datetime="{{ $torrent->created_at }}"
+                                    title="{{ $torrent->created_at }}"
+                                >
+                                    {{ $torrent->created_at->diffForHumans() }}
+                                </time>
+                            </td>
                             <td>
                                 <time
                                     datetime="{{ $torrent->moderated_at }}"

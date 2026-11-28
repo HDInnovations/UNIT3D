@@ -33,9 +33,12 @@ class NewPasswordController extends Controller
     /**
      * Create new password.
      */
-    public function create(string $token): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function create(Request $request, string $token): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('auth.reset-password', ['token' => $token]);
+        return view('auth.reset-password', [
+            'token' => $token,
+            'email' => $request->query('email'),
+        ]);
     }
 
     /**

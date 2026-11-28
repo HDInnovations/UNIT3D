@@ -41,7 +41,7 @@ class WikiController extends Controller
      */
     public function store(StoreWikiRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Wiki::create($request->validated());
+        Wiki::query()->create($request->toArray());
 
         return to_route('staff.wiki_categories.index')
             ->with('success', 'Wiki has been created successfully');
@@ -63,7 +63,7 @@ class WikiController extends Controller
      */
     public function update(UpdateWikiRequest $request, Wiki $wiki): \Illuminate\Http\RedirectResponse
     {
-        $wiki->update($request->validated());
+        $wiki->update($request->toArray());
 
         return to_route('staff.wiki_categories.index')
             ->with('success', 'Wiki has been edited successfully');

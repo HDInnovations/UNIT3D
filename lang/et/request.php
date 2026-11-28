@@ -11,7 +11,7 @@ return [
  * @author     HDVinnie <hdinnovations@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
-    'add-request' => 'Lisa taotlus',
+    'add-request' => 'Lisa päring',
     'age' => 'Vanus',
     'all-requests' => 'Kõik taotlused',
     'approve' => 'Kinnita',
@@ -74,4 +74,6 @@ return [
     'voters' => 'Valijad',
     'votes' => 'Hääled',
     'yes' => 'Jah',
+    'access-error' => 'Sul ei ole luba selle päringu heaks kiitmiseks',
+    'access-delete-error' => 'Sul puudub luba seda päringut kustutada.',
 ];

@@ -47,7 +47,7 @@ class ThankButton extends Component
             return;
         }
 
-        $thank = Thank::create([
+        $thank = Thank::query()->create([
             'user_id'    => $this->user->id,
             'torrent_id' => $this->torrent->id,
         ]);

@@ -40,17 +40,14 @@ use App\Models\User;
 use App\Notifications\NewUpload;
 use App\Notifications\NewWishListNotice;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Carbon;
 
 class TorrentHelper
 {
     public static function approveHelper(int $id): void
     {
-        $appurl = config('app.url');
-
-        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->created_at = Carbon::now();
-        $torrent->bumped_at = Carbon::now();
+        $torrent = Torrent::query()->with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
+        $torrent->created_at = now();
+        $torrent->bumped_at = now();
         $torrent->status = ModerationStatus::APPROVED;
         $torrent->moderated_at = now();
         $torrent->moderated_by = (int) auth()->id();
@@ -129,8 +126,8 @@ class TorrentHelper
 
             if ($torrent->tmdb_movie_id > 0 || $torrent->tmdb_tv_id > 0) {
                 $meta = match (true) {
-                    $category->tv_meta    => TmdbTv::find($torrent->tmdb_tv_id),
-                    $category->movie_meta => TmdbMovie::find($torrent->tmdb_movie_id),
+                    $category->tv_meta    => TmdbTv::query()->find($torrent->tmdb_tv_id),
+                    $category->movie_meta => TmdbMovie::query()->find($torrent->tmdb_movie_id),
                     default               => null,
                 };
             }
@@ -145,7 +142,7 @@ class TorrentHelper
                     .'[TMDB vote average: '.($meta->vote_average ?? 0).'] '
                     .'[TMDB vote count: '.($meta->vote_count ?? 0).']'
                 )
-                ->say(\sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                ->say(\sprintf('[Link: %s]', href_torrent($torrent)));
         }
 
         // Announce to external IRC service

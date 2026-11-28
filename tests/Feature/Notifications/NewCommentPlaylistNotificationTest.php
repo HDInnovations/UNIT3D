@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 use App\Http\Livewire\Comments;
 use App\Models\Bot;
-use App\Models\Chatroom;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\Playlist;
@@ -37,9 +36,6 @@ test('comments on playlist creates a notification for playlist owner', function 
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -69,7 +65,7 @@ test('comments on playlist creates a notification for playlist owner', function 
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertSentTo(
         [$owner],
@@ -86,9 +82,6 @@ test('user comments on own playlist does not create a notification for self', fu
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -114,7 +107,7 @@ test('user comments on own playlist does not create a notification for self', fu
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });
@@ -127,9 +120,6 @@ test('comments on playlist does not create a notification for playlist owner whe
 
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
-    ]);
-    $chat = Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
     ]);
 
     $group = Group::factory()->create([
@@ -159,7 +149,7 @@ test('comments on playlist does not create a notification for playlist owner whe
         ->set('anon', false)
         ->call('postComment');
 
-    $this->assertEquals(1, Comment::count());
+    $this->assertEquals(1, Comment::query()->count());
 
     Notification::assertCount(0);
 });

@@ -51,7 +51,7 @@ class UserUploadedFirstSubtitle extends Achievement
     //    {
     //        $achiever = $progress->achiever;
     //
-    //        $user = User::findOrFail($achiever->id);
+    //        $user = User::query()->findOrFail($achiever->id);
     //        $user->seedbonus += 1000;
     //        $user->save();
     //    }

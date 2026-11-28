@@ -33,8 +33,8 @@ class InternalController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.internals.index', [
-            'internalGroups' => Internal::orderBy('name')->get(),
-            'internalUsers'  => User::with(['group', 'internals'])
+            'internalGroups' => Internal::query()->orderBy('name')->get(),
+            'internalUsers'  => User::query()->with(['group', 'internals'])
                 ->withCount('torrents as total_uploads')
                 ->whereRelation('group', 'is_internal', '=', true)
                 ->orWhereHas('internals')
@@ -81,7 +81,7 @@ class InternalController extends Controller
      */
     public function update(UpdateInternalRequest $request, Internal $internal): \Illuminate\Http\RedirectResponse
     {
-        $internal->update($request->validated());
+        $internal->update($request->toArray());
 
         return to_route('staff.internals.index')
             ->with('success', 'Internal group was updated successfully!');
@@ -100,7 +100,7 @@ class InternalController extends Controller
      */
     public function store(StoreInternalRequest $request): \Illuminate\Http\RedirectResponse
     {
-        Internal::create($request->validated());
+        Internal::query()->create($request->toArray());
 
         return to_route('staff.internals.index')
             ->with('success', 'New internal group added!');

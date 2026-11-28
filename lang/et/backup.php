@@ -39,4 +39,5 @@ return [
     'manager' => 'Manager',
     'no_disks_configured' => 'Konfiguratsioonis config / backup.php pole konfigureeritud varukoopiaid',
     'only_local_downloads_supported' => 'Toetatakse ainult kohaliku failisüsteemi allalaadimisi.',
+    'backup_process_started' => 'Uus varundamise protsess alustatud',
 ];

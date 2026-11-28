@@ -59,7 +59,6 @@ class GitUpdater extends Command
      */
     private const array ADDITIONAL_FILES = [
         '.env',
-        'laravel-echo-server.json',
     ];
 
     /**
@@ -595,18 +594,17 @@ Press CTRL + C ANYTIME to abort!
     private function getFileTypeIcon(string $extension): string
     {
         return match(strtolower($extension)) {
-            'php' => '🐘',
-            'js'  => '🟨',
-            'vue' => '🟩',
-            'css', 'scss', 'sass' => '🎨',
-            'json' => '📝',
-            'md'   => '📄',
+            'php'                              => '🐘',
+            'js'                               => '🟨',
+            'css', 'scss', 'sass'              => '🎨',
+            'json'                             => '📝',
+            'md'                               => '📄',
             'jpg', 'jpeg', 'png', 'gif', 'svg' => '🖼️',
-            'lock' => '🔒',
-            'env', 'yml', 'yaml' => '⚙️',
-            'sql'       => '🗄️',
-            'gitignore' => '👁️',
-            default     => '📁',
+            'lock'                             => '🔒',
+            'env', 'yml', 'yaml'               => '⚙️',
+            'sql'                              => '🗄️',
+            'gitignore'                        => '👁️',
+            default                            => '📁',
         };
     }
 

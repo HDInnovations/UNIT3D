@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use AllowDynamicProperties;
+use Override;
 
 /**
  * App\Models\Torrent.
@@ -115,6 +116,7 @@ final class Torrent extends Model
      *     personal_release: 'bool'
      * }
      */
+    #[Override]
     protected function casts(): array
     {
         return [
@@ -478,6 +480,7 @@ final class Torrent extends Model
             ) AS json_keywords
     SQL;
 
+    #[Override]
     protected static function booted(): void
     {
         static::addGlobalScope(new ApprovedScope());
@@ -787,6 +790,16 @@ final class Torrent extends Model
     public function trump(): HasOne
     {
         return $this->hasOne(TorrentTrump::class);
+    }
+
+    /**
+     * Get the reseeds for the torrent.
+     *
+     * @return HasMany<TorrentReseed, $this>
+     */
+    public function reseeds(): HasMany
+    {
+        return $this->hasMany(TorrentReseed::class);
     }
 
     /**
