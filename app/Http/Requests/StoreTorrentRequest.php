@@ -166,6 +166,12 @@ class StoreTorrentRequest extends Data
                             $fail('Invalid Filenames In Torrent Files!');
                         }
                     }
+
+                    foreach (array_column(TorrentTools::getTorrentFiles($decodedTorrent), 'name') as $path) {
+                        if (!TorrentTools::isValidPath($path)) {
+                            $fail('Invalid filepath in torrent files');
+                        }
+                    }
                 }
             ],
             'nfo' => [
