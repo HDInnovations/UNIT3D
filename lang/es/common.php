@@ -156,7 +156,7 @@ return [
     'plural-suffix' => 's',
     'port' => 'Puerto',
     'position' => 'Posición',
-    'posts' => 'Publicaciones',
+    'posts' => 'Envíos',
     'powered-by' => 'Desarrollado por UNIT3D',
     'preview' => 'Vista previa',
     'previous' => 'Anterior',
