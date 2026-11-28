@@ -162,9 +162,8 @@ class TorrentTools
     public static function isValidFilename(string $filename): bool
     {
         return !(
-            \strlen($filename) > 255
             // nodes containing: `\`, `/`, `?`, `<`, `>`, `:`, `8`, `|`, and ascii characters from 0 through 31
-            || preg_match('/[\\\\\\/?<>:*|"\x00-\x1f]/', $filename)
+            preg_match('/[\\\\\\/?<>:*|"\x00-\x1f]/', $filename)
             // nodes only containing one or many: `.`; or only containing one or many `.`, ` `.
             || preg_match('/(^\\.+|[. ]+)$/', $filename)
             // Special windows filenames.
@@ -176,6 +175,14 @@ class TorrentTools
             // Tilde home expansion on linux
             || str_starts_with($filename, '~')
         );
+    }
+
+    /**
+     * Check if the filepath is valid or not.
+     */
+    public static function isValidPath(string $filename): bool
+    {
+        return \strlen($filename) <= 255;
     }
 
     /**
